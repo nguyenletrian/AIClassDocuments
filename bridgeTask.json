@@ -803,12 +803,63 @@
         "limits": "Only allowlisted event names and counts, not original full log lines. Does not prove exact runtime HEAD or repair the Edge ChatGPT delivery problem.",
         "next_action": "No remaining task. Diagnose Edge Send confirmation and unreliable zero conversation metric separately if owner asks; keep paused Jetking goal paused."
       }
+    },
+    {
+      "task_id": "aiclassdocuments-edge-icon-only-send-live-smoke-20261011",
+      "status": "pending",
+      "bridge_completed": false,
+      "architect_ack": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "verification",
+        "target": "test_script"
+      },
+      "permissions": {
+        "read": true,
+        "run_tests": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "review_mode": "on_demand",
+        "ack_policy": "architect_review",
+        "purpose": "Owner-approved one-time live Edge ChatGPT Send acceptance smoke after conservative icon-only arrow Send detection PR #19. Existing packaged synthetic diagnostic tests only; result must reach current ChatGPT conversation through verified Send. No private data or lesson access."
+      },
+      "payload": {
+        "suite": "bridge_diagnostics",
+        "timeout": 90
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-event-only-log-recovery-pr18-restart-20261011",
-    "reason": "Load AIBridge main ab81af6c187e42073f761fecb5d76e64ecb8bcc8 (PR #18) once for event-code-only delivery_recovery_review on the already-running on-demand runtime:read_log task. Keep full log local, preserve original task result, Edge and ChatGPT tab; do not replay Send, do not run read_log twice, do not auto ACK, do not unpause Jetking. Publish only allowlisted event codes and counts if provider return remains ambiguous."
+    "request_id": "aiclassdocuments-edge-icon-only-send-pr19-restart-20261011",
+    "reason": "Load merged AIBridge PR #19 HEAD afbce001d50d629b5efd15206dc2b36dabefea49 once into managed AIClassDocuments worker, preserve Edge profile, ChatGPT conversation, historic TaskSource. After a positively fresh replacement generation, run the single on-demand packaged 6-case TestScript smoke and return its task_result through Edge CDP using the icon-only Send fallback. Do not retry ambiguous Click/Send or reopen paused Jetking goal. Architect reviews exact result or safe Git fallback before ACK."
   },
   "goal_review": {
     "enabled": false,
