@@ -87,3 +87,38 @@ owner-approved, limited to the currently visible first slide, processed
 privately rather than checked into the public Git repository, and comply
 with the Jetking course's applicable access/use restrictions. If readable
 visual or permitted transcript is unavailable, stop at `AWAITING_SOURCE`.
+
+
+## Third bounded probe — accessibility precondition failed (2026-10-11)
+
+Task: `aiclassdocuments-jetking4371618-ax-first-slide-20261011`.
+One `browser:read_web` request with extractor `slide_accessibility_probe`
+returned **`success=false`** and:
+
+```text
+Web read failed: First visible slide is not verified; refusing accessibility probe
+```
+
+- Managed Edge CDP connection worked; no browser relaunch was reported.
+- The temporary source target was closed (`read_web_temp_closed=true`).
+- The Architect ChatGPT URL before/after was unchanged.
+- The accessibility command was **not** executed. The probe's first-slide
+  precondition rejected the current observation before any AX nodes were read.
+- The current probe implementation requires a stable hydrated viewer, a
+  `pageIndicator` object with `current == 1`, and a positive integer total.
+  The returned error **does not identify which requirement failed**.
+  Do not infer that a specific slide was displayed or that AX is empty.
+- Previous independent DOM evidence for `Page 1 / 44` does not verify the
+  viewer state at the time of this later temporary-tab check.
+
+**Architect decision:** accept the failed task result as a terminal,
+acknowledged *diagnostic* outcome (not a successful lesson extraction).
+Do not queue another identical DOM/AX probe, do not advance `SOURCE_READY`,
+and do not fabricate either bilingual document.
+
+**Next source gate:** a privately supplied, owner-authorized screenshot of
+the *rendered first slide* (or permitted study notes/transcript) for
+independent inspection. Do not commit course screenshots, full slide media or
+private credentials to Git. Once this evidence has actually been reviewed,
+resume source-validation work using a new, explicit goal revision. Leave
+automatic goal wakeups paused while no dependency-ready task exists.
