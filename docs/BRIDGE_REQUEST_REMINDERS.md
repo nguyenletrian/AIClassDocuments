@@ -9,8 +9,8 @@ Current authoritative `bridgeTask.json` includes:
 ```json
 "request_reminders": {
   "enabled": true,
-  "revision": "owner-restored-status-20261011-v1",
-  "interval_seconds": 180,
+  "revision": "owner-sixty-second-status-20261011-v2",
+  "interval_seconds": 60,
   "stalled_after_seconds": 45,
   "max_per_episode": 4
 }
@@ -18,7 +18,7 @@ Current authoritative `bridgeTask.json` includes:
 
 This sends an informational `task_request` through current Edge ChatGPT
 composer when a task remains unchanged for 45 seconds, then no faster
-than every 180 seconds, at most four messages per unchanged episode.
+than every 60 seconds, at most four messages per unchanged episode.
 On an idle queue, it may report status promptly. Reservations persist
 across worker restarts; ambiguous sends are not replayed blindly.
 
@@ -37,3 +37,9 @@ AIBridge PR #21: https://github.com/nguyenletrian/AIBrigde/pull/21
 CI PASS alone does not prove the worker has restarted or delivered a
 reminder. Confirm the runtime HEAD and an actual `task_request` before
 claiming live notifications work.
+
+## One-minute cadence adjustment
+
+Owner explicitly changed the reminder spacing from three minutes to **60 seconds**. AIBridge PR #22 ([merged](https://github.com/nguyenletrian/AIBrigde/pull/22)) also adds a content-free `blocked_task_state` field in stalled reminder messages: the local queue state, saved result yes/no, result success (if known), bounded return-attempt count, and recovery flags. This enables Architect to distinguish a task not yet run from one held at provider delivery or ACK. No original results, errors, URLs, DOM, or log text are sent through these fields.
+
+The original DOM-shape task remains pending until real evidence is reviewed. The Jetking goal remains paused. Worker restart has been requested for PR #22; deployment and new-cadence live observations are not yet independently verified.
