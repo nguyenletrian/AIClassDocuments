@@ -44,6 +44,27 @@ tín hiệu tiến độ bài Jetking; không đánh thức lại goal đang t�
 không đặt lịch định kỳ hoặc tạo task lặp vì chưa thấy kết quả.
 Nếu chưa có `task_result`, nói rõ chưa nhận được log thực tế.
 
+## Test script dùng chung AIBridge
+
+Khi cần chạy unittest từ Bridge, ưu tiên route dùng chung
+`verification:test_script` trong AIBridge, thay vì sao chép một
+test runner riêng vào dự án. Hợp đồng tham khảo:
+`nguyenletrian/AIBridge/docs/TEST_SCRIPT_CAPABILITY.md`.
+
+- Test bộ chẩn đoán AIBridge đã đóng gói:
+  `payload.suite=bridge_diagnostics`, không cần `project.workdir`.
+- Test code AIClassDocuments hoặc dự án khác:
+  `payload.suite=project_unittest`,
+  `payload.pattern=test_<name>.py`; cần `project.workdir` cục bộ
+  rõ ràng và file có sẵn trong `tests/`.
+- Mọi task đều phải khai báo `permissions.run_tests=true`,
+  `ack_policy=architect_review`, route trả kết quả về Architect.
+  Việc chạy Python test là thực thi code đáng tin cậy, không phải sandbox.
+- PASS của GitHub CI không thay thế PASS từ Windows worker.
+  Sau khi nhận đúng `task_result`, Architect review và ACK.
+- Route kiểm thử **không dùng thay** `runtime:read_log` để
+  thu thập dữ liệu log runtime và không được tự truy cập tài khoản/nguồn học.
+
 ## Git
 - Đặt mỗi bài ở `lessons/<lessonId>-<slug>.md`.
 - Không commit credential, session hoặc thông tin cá nhân.
