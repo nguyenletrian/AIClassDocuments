@@ -1019,8 +1019,8 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-dom-shape-probe-pr20-restart-20261011",
-    "reason": "Load merged AIBridge PR #20 main commit f6088eaa41edd04647836e7c778c45575ccb8eae once for read-only browser:conversation_structure_probe. Preserve current Edge ChatGPT conversation, queue, all historical tasks, and paused Jetking goal. Execute exactly one approved content-free DOM structure probe, return its bounded task_result via verified Edge Send and await Architect ACK; no rollover or new chat in this probe."
+    "request_id": "aiclassdocuments-request-reminders-pr21-restart-20261011",
+    "reason": "Load merged AIBridge PR #21 commit 065fe8e33fc5813db0215c0d0090e779072ed55e with owner-enabled bounded task_request reminders. Restart managed AIClassDocuments worker exactly once, preserve Edge ChatGPT conversation/profile, original pending DOM-shape diagnostic and all task history. After restart, send informational task_request for unchanged stalled pending task or idle queue subject to TaskSource reminder interval and max cap. Do not resume paused goal_review, create new chats or ACK unsent task results."
   },
   "goal_review": {
     "enabled": false,
@@ -1034,5 +1034,12 @@
     "next_review": "Automatic goal reviews paused until owner-authorized evidence of the first rendered slide (private screenshot or permitted notes/transcript) becomes available. Do not rerun identical DOM/AX probe, restart AIBrigde to force a duplicate review, or examine slides 2-44 without validating slide 1. After independent source verification, explicitly update goal_review.revision and enabled=true.",
     "evidence_path": "docs/JETKING-4371618-SLIDE-DIAGNOSIS.md",
     "review_hold": "Awaiting independent owner-permitted source evidence; do not generate more ChatGPT notifications without new relevant input."
+  },
+  "request_reminders": {
+    "enabled": true,
+    "revision": "owner-restored-status-20261011-v1",
+    "interval_seconds": 180,
+    "stalled_after_seconds": 45,
+    "max_per_episode": 4
   }
 }
