@@ -498,8 +498,8 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-jetking-ax-first-slide-upgrade-restart-20261011",
-    "reason": "Apply merged AIBrigde commit b4e6f173f721b3dbc4a535e4f226175bcdab188d (PR #14) with bounded read-only AX first-slide probe; preserve the managed Jetking Edge profile, source login and Architect ChatGPT conversation. Restart ONCE before executing the single source accessibility task. No bulk slides, content copying or repeated failed probes."
+    "request_id": "aiclassdocuments-on-demand-worker-log-reviews-upgrade-restart-20261011",
+    "reason": "Apply merged AIBrigde main a559f16b7c1f19cf1aebdaa9478e4a448abb808e (PR #15) one time: on-demand runtime:read_log tasks always return diagnostic data to Architect, await explicit Architect ACK; manual log completion does not wake the Jetking lesson goal, and paused goal contracts suppress idle queue_exhausted. Preserve all task history, Edge sessions and bound ChatGPT conversation. Do not queue any log task until owner explicitly asks to check logs."
   },
   "goal_review": {
     "enabled": false,
