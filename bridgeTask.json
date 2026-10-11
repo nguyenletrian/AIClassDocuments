@@ -437,20 +437,19 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-runtime-log-diagnostics-upgrade-20261011",
-    "reason": "Apply merged AIBrigde main 2b0d0c3ec877461ad23e1aa47aabe0167ac9a12d (PR #12): bounded per-worker AIBrigde terminal diagnostics, runtime:read_log, safe goal-review log tail, measured provider send times, shorter 2s stable idle gate. Restart managed worker once preserving Edge profiles/session and ChatGPT conversation. After fresh runtime, execute the single read-only local runtime:read_log task with auto_success and let approved goal_review send the bounded log snapshot one time."
+    "request_id": "aiclassdocuments-cdp-no-insert-clear-loop-restart-20261011",
+    "reason": "Managed restart exactly once to load merged AIBridge main 4b2ec5c8473b4d5c7a4cedc5a060ffe5e1af0893 (PR #13). Fix non-retryable missing Send button, unique composer-form submit fallback and bounded anonymized DOM button diagnostics. Preserve Edge Jetking account/session, ChatGPT conversation, all existing 9 task histories; after restart allow only one revised approved goal review delivery, never repeated insert-clear on Send failure."
   },
   "goal_review": {
-    "enabled": false,
+    "enabled": true,
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-jetking4371618-bilingual",
-    "revision": "2026-10-11-hydrated-slide-text-unreadable-next-source-validation",
+    "revision": "2026-10-11-cdp-unique-form-submit-fallback-single-attempt",
     "title": "Create two source-grounded instructional documents in English and Vietnamese for Jetking lesson 4371618",
     "phase": "AWAITING_SOURCE",
     "blocker": "Jetking viewer displayed slide 1 of 44 after hydration, but DOM and coordinate-sorted text are corrupted/interleaved; remaining 43 slides not reviewed. No validated lesson transcription or permitted first-slide visual is available yet.",
-    "next_review": "Reassess the documented browser evidence and safe capabilities. Design a bounded owner-authorized visual check of only the first rendered slide, with no DRM bypass, token/network extraction, or public upload of copyrighted media. If visual inspection is not technically available, report precisely what input is needed and leave the goal at AWAITING_SOURCE. Do not repeat the same failed DOM probe or fabricate English/Vietnamese lesson contents.",
-    "evidence_path": "docs/JETKING-4371618-SLIDE-DIAGNOSIS.md",
-    "delivery_hold": "2026-10-11: suppress repeated goal_review CDP composer insert/clear; send_button_not_found with composer_form_found=true and candidate_count=0. Goal remains approved/active; re-enable only after selector-free DOM evidence and tested safe delivery."
+    "next_review": "AIBridge PR #13 applied: evaluate one goal_review_request delivery. If unique visible form-local Send or submit button works, continue approved Jetking source-validation planning. If send_button_not_found or ambiguous recurs, do NOT retry; use runtime.log form_button_shapes and sendish_buttons_outside_form diagnostics to design a future read-only browser diagnostic, without replaying the same goal or changing course content.",
+    "evidence_path": "docs/JETKING-4371618-SLIDE-DIAGNOSIS.md"
   }
 }
