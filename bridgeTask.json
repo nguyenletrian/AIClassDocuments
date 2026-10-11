@@ -41,6 +41,104 @@
         "target": "OpenAI",
         "via": "web"
       }
+    },
+    {
+      "task_id": "aiclassdocuments-edge-shared-upgrade-restart-20261011",
+      "status": "pending",
+      "architect_ack": false,
+      "bridge_completed": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "bridge",
+        "target": "restart"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": true,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "ack_policy": "auto_success",
+        "purpose": "One approved managed AIBridge Server restart to load merged Edge read_web updates, preserving managed workers and profiles."
+      },
+      "payload": {
+        "expected_bridge_main_commit": "ab0901174d3895117ab53f86a728174812a79b03",
+        "purpose": "Restart shared AIBridge Server once through its managed restart barrier; update code and restore workers. Do not reset CDP profiles, copy credentials, or clear local sessions."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
+    },
+    {
+      "task_id": "aiclassdocuments-jetking4371618-postrestart-readonly-probe-20261011",
+      "status": "pending",
+      "architect_ack": false,
+      "bridge_completed": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "browser",
+        "target": "read_web"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "payload": {
+        "url": "https://www.jetking.co/learn/home/VN-course?lessonId=4371618",
+        "extractor": "page_text",
+        "target_mode": "temporary",
+        "provider": "OpenAI",
+        "via": "web",
+        "purpose": "Run one read-only post-restart source smoke on the Edge profile configured for AIClassDocuments-architect. BrowserBootstrap may start its owned Edge profile and read_web opens/closes only its temporary tab. Identify actual CDP host/port, resulting title, extraction_state, dom diagnostic and whether any lesson-specific content (not merely login or navigation) is visible. Do not log in automatically, access cookies/tokens, download media, bypass access restrictions or claim video/slide extraction. Preserve AWAITING_SOURCE until content is verified."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
   ]
 }
