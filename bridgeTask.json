@@ -494,6 +494,56 @@
         "repeat_same_probe": false,
         "evidence_path": "docs/JETKING-4371618-SLIDE-DIAGNOSIS.md"
       }
+    },
+    {
+      "task_id": "aiclassdocuments-manual-log-check-pr15-20261011",
+      "status": "pending",
+      "bridge_completed": false,
+      "architect_ack": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "runtime",
+        "target": "read_log"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "review_mode": "on_demand",
+        "ack_policy": "architect_review",
+        "purpose": "Owner explicitly requested Bridge log inspection. Return log lines in type=task_result to bound Architect ChatGPT conversation for analysis and ACK. This is not auto-success and must not wake Jetking goal."
+      },
+      "payload": {
+        "tail_lines": 60,
+        "purpose": "Read latest 60 bounded redacted AIBrigde runtime log lines to verify whether merged PR #15 a559f16b loaded, how the managed restart behaved, and any current Bridge runtime or ChatGPT send errors. Do not read arbitrary VS Code terminal contents, cookies or tokens."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
   ],
   "force_restart": {
