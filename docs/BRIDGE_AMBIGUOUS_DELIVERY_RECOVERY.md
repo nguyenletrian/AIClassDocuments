@@ -44,3 +44,15 @@ One managed restart was requested to load AIBridge PR #17.
 This runbook does not authorize exporting raw worker logs, URLs,
 credentials or lesson content to Git; the fallback schema intentionally
 excludes them.
+
+## Event-only log result fallback (AIBridge PR #18)
+
+The original owner-requested `runtime:read_log` task may now receive a
+`delivery_recovery_review` of route `runtime:read_log` if ChatGPT Send remains
+ambiguous. Its `safe_result` contains only `available`, `line_count` and
+`event_counts` from a fixed allowlist. **No original log lines** are published.
+
+Architect may diagnose event categories and acknowledge this exact task once
+its event-only evidence has been reviewed, with clear caveat that detailed
+log text was not delivered. On any missing preview, never ACK prematurely.
+After ACK, keep the Jetking goal paused and report whether FIFO is clear.
