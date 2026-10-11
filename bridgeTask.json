@@ -965,12 +965,62 @@
         "data_quality": "UNVERIFIED: selected ChatGPT /c/ page returned no recognized turn or role selectors; not a reliable zero-message reading.",
         "follow_up": "Run read-only structural selector diagnostics before enabling any automatic conversation rollover or chat creation."
       }
+    },
+    {
+      "task_id": "aiclassdocuments-live-conversation-dom-shape-20261011",
+      "status": "pending",
+      "architect_ack": false,
+      "bridge_completed": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "browser",
+        "target": "conversation_structure_probe"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "review_mode": "on_demand",
+        "ack_policy": "architect_review",
+        "purpose": "One content-free, read-only selector-count probe to diagnose unreliable zero ChatGPT message metrics. No clicks, typing, transcript extraction, new chat or Jetking source access."
+      },
+      "payload": {
+        "provider": "OpenAI",
+        "via": "web"
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-edge-icon-only-send-pr19-restart-20261011",
-    "reason": "Load merged AIBridge PR #19 HEAD afbce001d50d629b5efd15206dc2b36dabefea49 once into managed AIClassDocuments worker, preserve Edge profile, ChatGPT conversation, historic TaskSource. After a positively fresh replacement generation, run the single on-demand packaged 6-case TestScript smoke and return its task_result through Edge CDP using the icon-only Send fallback. Do not retry ambiguous Click/Send or reopen paused Jetking goal. Architect reviews exact result or safe Git fallback before ACK."
+    "request_id": "aiclassdocuments-dom-shape-probe-pr20-restart-20261011",
+    "reason": "Load merged AIBridge PR #20 main commit f6088eaa41edd04647836e7c778c45575ccb8eae once for read-only browser:conversation_structure_probe. Preserve current Edge ChatGPT conversation, queue, all historical tasks, and paused Jetking goal. Execute exactly one approved content-free DOM structure probe, return its bounded task_result via verified Edge Send and await Architect ACK; no rollover or new chat in this probe."
   },
   "goal_review": {
     "enabled": false,
