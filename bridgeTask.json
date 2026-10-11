@@ -388,8 +388,8 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-approved-goal-review-wakeup-restart-20261011",
-    "reason": "Apply merged AIBrigde commit 75c6fe420a8f3c3aec39ce8be347dda3ee0ec296 (PR #10): durable approved goal_review wakeups on new revision or task completion, no duplicate queue-exhausted messages. Preserve Edge/Jetking sessions, ChatGPT Architect target, all 8 completed task records. After restart, evaluate the source's approved goal_review once and only queue safe dependency-ready work."
+    "request_id": "aiclassdocuments-prosemirror-send-control-restart-20261011",
+    "reason": "Apply merged AIBrigde main 3433223bbf01c7440dd072fd3cb941e205d77fd0 (PR #11) ProseMirror-native ChatGPT input and form-scoped Send button. Managed restart ONCE, preserve Edge Jetking session, Architect conversation, existing approved goal_review revision and all completed task history. Prior goal_review_request failed pre-submit send_button_not_found; retry only through existing durable goal event after fresh runtime, do not add tasks or spam."
   },
   "goal_review": {
     "enabled": true,
