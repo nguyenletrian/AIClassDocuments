@@ -287,5 +287,10 @@
         "via": "web"
       }
     }
-  ]
+  ],
+  "force_restart": {
+    "enabled": true,
+    "request_id": "aiclassdocuments-queue-exhausted-spam-managed-restart-20261011",
+    "reason": "Apply merged AIBrigde main commit 11ed7d868aa340bfa833e982b1262794e898aff1: durable queue_exhausted idle dedup. Preserve Edge profiles, sessions and worker identities. Do not create any new task."
+  }
 }
