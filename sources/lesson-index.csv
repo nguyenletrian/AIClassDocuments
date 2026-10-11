@@ -1,2 +1,2 @@
 lesson_id,course_url,status,source_type,source_accessed_at,document_path,notes
-4371618,https://www.jetking.co/learn/home/VN-course?lessonId=4371618,AWAITING_SOURCE,,,,Trang bài học chưa thể đọc trực tiếp; chờ transcript hoặc nội dung được cấp quyền.
+4371618,https://www.jetking.co/learn/home/VN-course?lessonId=4371618,AWAITING_SOURCE,,,,Probe CDP ngày 2026-10-11: URL mở được và title Jetking nhưng page_text rỗng; chưa xác minh nội dung bài học hoặc media; cần kiểm tra trang sau khi tải động và quyền truy cập.
