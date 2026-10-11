@@ -388,7 +388,19 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-quiet-snapshot-managed-restart-20261011",
-    "reason": "Apply merged AIBrigde main commit 1fb2b235639ebfbf2078ed3968f883210009176c (PR #9): log TaskSource snapshot only when source content changes or after 5-minute heartbeat. Preserve current worker identities, Edge profiles, authenticated sessions and ChatGPT conversation; do not create or replay tasks."
+    "request_id": "aiclassdocuments-approved-goal-review-wakeup-restart-20261011",
+    "reason": "Apply merged AIBrigde commit 75c6fe420a8f3c3aec39ce8be347dda3ee0ec296 (PR #10): durable approved goal_review wakeups on new revision or task completion, no duplicate queue-exhausted messages. Preserve Edge/Jetking sessions, ChatGPT Architect target, all 8 completed task records. After restart, evaluate the source's approved goal_review once and only queue safe dependency-ready work."
+  },
+  "goal_review": {
+    "enabled": true,
+    "approval": "approved",
+    "status": "active",
+    "goal_id": "aiclassdocuments-jetking4371618-bilingual",
+    "revision": "2026-10-11-hydrated-slide-text-unreadable-next-source-validation",
+    "title": "Create two source-grounded instructional documents in English and Vietnamese for Jetking lesson 4371618",
+    "phase": "AWAITING_SOURCE",
+    "blocker": "Jetking viewer displayed slide 1 of 44 after hydration, but DOM and coordinate-sorted text are corrupted/interleaved; remaining 43 slides not reviewed. No validated lesson transcription or permitted first-slide visual is available yet.",
+    "next_review": "Reassess the documented browser evidence and safe capabilities. Design a bounded owner-authorized visual check of only the first rendered slide, with no DRM bypass, token/network extraction, or public upload of copyrighted media. If visual inspection is not technically available, report precisely what input is needed and leave the goal at AWAITING_SOURCE. Do not repeat the same failed DOM probe or fabricate English/Vietnamese lesson contents.",
+    "evidence_path": "docs/JETKING-4371618-SLIDE-DIAGNOSIS.md"
   }
 }
