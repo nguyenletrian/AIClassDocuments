@@ -388,7 +388,7 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-provider-result-no-interrupt-restart-20261011",
-    "reason": "Apply merged AIBrigde main a895f2148adce71991c6769a1bbe4997f21d342c (PR #7) response-id dedup, extended provider idle gate, composer safety, fail-closed ambiguous delivery. Managed restart once, preserve Edge profiles, authenticated Jetking session, Architect ChatGPT tab; do not create new tasks or repeat prior results."
+    "request_id": "aiclassdocuments-false-source-error-provider-send-restart-20261011",
+    "reason": "Managed AIBrigde restart once for merged main 02f969d4aedd72d60a55cde393464240f8cb77fc (PR #8). Fix false invalid_task_source reporting when ChatGPT CDP lacks Send button; preserve all AIClassDocuments task history, Edge profiles/session, ChatGPT conversation. No task probes or rerun results."
   }
 }
