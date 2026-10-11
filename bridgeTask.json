@@ -384,12 +384,61 @@
         "target": "OpenAI",
         "via": "web"
       }
+    },
+    {
+      "task_id": "aiclassdocuments-runtime-log-first-read-20261011",
+      "status": "pending",
+      "bridge_completed": false,
+      "architect_ack": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "runtime",
+        "target": "read_log"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "ack_policy": "auto_success",
+        "purpose": "One bounded read-only local AIBrigde worker log route smoke; completion is durable without a separate ChatGPT result. Existing approved goal_review will include 12 lines and wake Architect once after task completion."
+      },
+      "payload": {
+        "tail_lines": 30,
+        "purpose": "Validate worker-owned AIBrigde terminal log archive. Read only the explicitly registered per-worker runtime.log; never read arbitrary VS Code terminals, cookies, Jetking materials or other workspace files."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-prosemirror-send-control-restart-20261011",
-    "reason": "Apply merged AIBrigde main 3433223bbf01c7440dd072fd3cb941e205d77fd0 (PR #11) ProseMirror-native ChatGPT input and form-scoped Send button. Managed restart ONCE, preserve Edge Jetking session, Architect conversation, existing approved goal_review revision and all completed task history. Prior goal_review_request failed pre-submit send_button_not_found; retry only through existing durable goal event after fresh runtime, do not add tasks or spam."
+    "request_id": "aiclassdocuments-runtime-log-diagnostics-upgrade-20261011",
+    "reason": "Apply merged AIBrigde main 2b0d0c3ec877461ad23e1aa47aabe0167ac9a12d (PR #12): bounded per-worker AIBrigde terminal diagnostics, runtime:read_log, safe goal-review log tail, measured provider send times, shorter 2s stable idle gate. Restart managed worker once preserving Edge profiles/session and ChatGPT conversation. After fresh runtime, execute the single read-only local runtime:read_log task with auto_success and let approved goal_review send the bounded log snapshot one time."
   },
   "goal_review": {
     "enabled": true,
