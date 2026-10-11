@@ -1076,8 +1076,8 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-global-bridge-reminders-pr23-20261011",
-    "reason": "Load merged shared AIBridge PR #23 main b07295dd90d550278abe0ab9da629e105b63aaf2 once. All managed workers now inherit 60-second task_request reminders from Bridge runtime (not TaskSource). Preserve current Edge profile, ChatGPT conversation, worker local queue state/result and all task history; do not re-execute or blind resend the existing browser:conversation_structure_probe. Retry only its allowlisted content-free Git recovery review publication for the original saved successful result, await exact Architect ACK. Keep paused Jetking goal disabled and do not trigger conversation rollover."
+    "request_id": "aiclassdocuments-bridge-global-continuous-heartbeat-pr24-20261011",
+    "reason": "Owner approved continuous one-minute task_request heartbeats across ALL AIBridge managed workers. Safely load merged AIBridge PR #24 main 658929300dab122febf8557d90a00a502efb7c07 once for idle AIClassDocuments worker. This migrates only the old global default cap=4 to continuous cap=0 with min 60-second cadence; preserves Edge ChatGPT session, local queue/history, no new chat, paused Jetking goal_review.enabled=false and all completed ACKs. Do not auto-create/approve goals or synthetic tasks. Emit only rate-limited, source-grounded informational status heartbeat."
   },
   "goal_review": {
     "enabled": false,
