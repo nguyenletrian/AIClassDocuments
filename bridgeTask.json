@@ -706,8 +706,8 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-test-script-shared-module-upgrade-20261011",
-    "reason": "Load merged AIBridge main febe4a62e36dc391bd3b7890b087204623e2e587 (PR #16) for generic verification:test_script. Restart managed worker exactly once, preserve Edge profile and ChatGPT conversation, existing incomplete rollover-count task and all historical tasks. Run only authorized packaged bridge_diagnostics suite on current worker, await Architect ACK."
+    "request_id": "aiclassdocuments-ambiguous-delivery-review-recovery-pr17-20261011",
+    "reason": "Load merged AIBridge PR #17 main commit 6dbf9a960903cf61b6149856a9c750cdf4b96959 with safe Git recovery review preview for the existing ambiguous delivery of aiclassdocuments-conversation-rollover-count-diagnostic-20261011. One managed restart only. Preserve all tasks, original local result, FIFO, project files, Edge and bound ChatGPT tab. After restart, publish only allowlisted sanitized delivery_recovery_review on the exact pending metrics task without replaying Send or execution; await Architect semantic ACK and terminal source completion. Do not restart repeatedly."
   },
   "goal_review": {
     "enabled": false,
