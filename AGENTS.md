@@ -29,6 +29,21 @@ Nếu review có lỗi, quay về `DRAFT` và ghi lý do.
 - Kiểm tra dấu tiếng Việt, liên kết, tiêu đề, khối code, ví dụ và bài tập.
 - Chỉ báo `READY_FOR_OWNER_TEST` khi đáp ứng tất cả điều kiện.
 
+## Kiểm tra log AIBridge theo yêu cầu
+
+Khi owner nói `kiểm tra log`, `xem log Bridge` hoặc `chẩn đoán lỗi Bridge`,
+thực hiện trực tiếp workflow trong `docs/ON_DEMAND_BRIDGE_LOG_REVIEW.md`:
+fetch TaskSource chính thức → append đúng một task `runtime:read_log`
+(`review_mode=on_demand`, `ack_policy=architect_review`,
+`return_route=provider:OpenAI/web`) → đợi Bridge gửi log thật →
+phân tích lỗi có chứng cứ → ACK chính task đó trong Git.
+
+Không yêu cầu owner copy log VS Code nếu worker đang hoạt động.
+Không tự đặt `auto_success` cho log; không biến đọc log thành
+tín hiệu tiến độ bài Jetking; không đánh thức lại goal đang tạm dừng;
+không đặt lịch định kỳ hoặc tạo task lặp vì chưa thấy kết quả.
+Nếu chưa có `task_result`, nói rõ chưa nhận được log thực tế.
+
 ## Git
 - Đặt mỗi bài ở `lessons/<lessonId>-<slug>.md`.
 - Không commit credential, session hoặc thông tin cá nhân.
