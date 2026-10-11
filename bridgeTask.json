@@ -286,11 +286,104 @@
         "target": "OpenAI",
         "via": "web"
       }
+    },
+    {
+      "task_id": "aiclassdocuments-jetking-hydrated-dom-restart-20261011",
+      "status": "pending",
+      "architect_ack": false,
+      "bridge_completed": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "bridge",
+        "target": "restart"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": true,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "ack_policy": "auto_success",
+        "purpose": "One safe managed restart to load merged Bridge PR #6 hydration-aware slide DOM diagnostic; preserve Edge profiles and sessions; no user-facing result delivery."
+      },
+      "payload": {
+        "expected_bridge_main_commit": "185b1b3480aa25d7e5a4f88d8df007dac3a96998",
+        "purpose": "Restart managed AIBridge server once to load hydration-aware read-only slide probe. Preserve AIClassDocuments worker ownership, cookies within Edge's own protected profile (do not read them), existing ChatGPT conversation, and authenticated browser session. Do not reset profile, log in, or recreate worker."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
+    },
+    {
+      "task_id": "aiclassdocuments-jetking4371618-hydrated-dom-probe-20261011",
+      "status": "pending",
+      "architect_ack": false,
+      "bridge_completed": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "browser",
+        "target": "read_web"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "payload": {
+        "url": "https://www.jetking.co/learn/home/VN-course?lessonId=4371618",
+        "extractor": "slide_layout_probe",
+        "target_mode": "temporary",
+        "provider": "OpenAI",
+        "via": "web",
+        "purpose": "Perform exactly ONE bounded read-only hydration-aware DOM probe of the currently visible Jetking lesson slide after Bridge commit 185b1b3480aa25d7e5a4f88d8df007dac3a96998. Report extraction_state, observation_count, pageIndicator, bodyTextLength, textLayerCount, visibleTextSpanCount, genericTextNodeCount, genericDomOrderPreview, genericVisualOrderPreview and visibleSlideContainers. Never click slides, change course progress, download media, read cookies/tokens, or claim full transcription or source-ready status. If viewer_not_hydrated, stop and return a blocker instead of repeating. Preserve Architect ChatGPT target and close only owned temporary lesson tab."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
-  ],
-  "force_restart": {
-    "enabled": true,
-    "request_id": "aiclassdocuments-queue-exhausted-spam-managed-restart-20261011",
-    "reason": "Apply merged AIBrigde main commit 11ed7d868aa340bfa833e982b1262794e898aff1: durable queue_exhausted idle dedup. Preserve Edge profiles, sessions and worker identities. Do not create any new task."
-  }
+  ]
 }
