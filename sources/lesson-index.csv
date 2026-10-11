@@ -1,2 +1,2 @@
 lesson_id,course_url,status,source_type,source_accessed_at,document_path,notes
-4371618,https://www.jetking.co/learn/home/VN-course?lessonId=4371618,AWAITING_SOURCE,,,,Probe CDP ngày 2026-10-11: URL mở được và title Jetking nhưng page_text rỗng; chưa xác minh nội dung bài học hoặc media; cần kiểm tra trang sau khi tải động và quyền truy cập.
+4371618,https://www.jetking.co/learn/home/VN-course?lessonId=4371618,AWAITING_SOURCE,Edge CDP DOM page_text,2026-10-11,,"Post-restart probe kết nối thành công qua CDP 9223; thấy lesson Foundations of Mathematics for ML và slide 1/44; nội dung slide bị đảo chữ không thể kiểm chứng; chưa đọc đủ bài; xem docs/JETKING-4371618-POSTRESTART-PROBE.md"
