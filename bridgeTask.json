@@ -1,0 +1,46 @@
+{
+  "tasks": [
+    {
+      "task_id": "aiclassdocuments-lesson4371618-readonly-probe-20261011",
+      "status": "pending",
+      "architect_ack": false,
+      "bridge_completed": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9223,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "browser",
+        "target": "read_web"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "payload": {
+        "url": "https://www.jetking.co/learn/home/VN-course?lessonId=4371618",
+        "extractor": "page_text",
+        "provider": "OpenAI",
+        "via": "web",
+        "purpose": "Read-only verification that the AIClassDocuments managed Edge session can access and extract the currently authorized Jetking lesson page. Inspect source title, section outline, access state, and extraction limits. Do not interact with login, downloads, video, paywall, cookies, credentials, or course progress. Do not claim that 44 slides or media content was extracted from page_text."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
+    }
+  ]
+}
