@@ -385,5 +385,10 @@
         "via": "web"
       }
     }
-  ]
+  ],
+  "force_restart": {
+    "enabled": true,
+    "request_id": "aiclassdocuments-provider-result-no-interrupt-restart-20261011",
+    "reason": "Apply merged AIBrigde main a895f2148adce71991c6769a1bbe4997f21d342c (PR #7) response-id dedup, extended provider idle gate, composer safety, fail-closed ambiguous delivery. Managed restart once, preserve Edge profiles, authenticated Jetking session, Architect ChatGPT tab; do not create new tasks or repeat prior results."
+  }
 }
