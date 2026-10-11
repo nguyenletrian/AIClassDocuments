@@ -1019,8 +1019,8 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-request-reminders-pr21-restart-20261011",
-    "reason": "Load merged AIBridge PR #21 commit 065fe8e33fc5813db0215c0d0090e779072ed55e with owner-enabled bounded task_request reminders. Restart managed AIClassDocuments worker exactly once, preserve Edge ChatGPT conversation/profile, original pending DOM-shape diagnostic and all task history. After restart, send informational task_request for unchanged stalled pending task or idle queue subject to TaskSource reminder interval and max cap. Do not resume paused goal_review, create new chats or ACK unsent task results."
+    "request_id": "aiclassdocuments-reminders-60s-pr22-restart-20261011",
+    "reason": "Load merged AIBridge main ee9b3222aa15adc7faa155c7bfbbcb2cced3fbef (PR #22) once, enabling owner-approved 60-second informational task_request reminders, with bounded privacy-safe local status for the existing pending DOM-shape task. Preserve Edge ChatGPT conversation, local queue evidence, all TaskSource history and paused Jetking goal; do not ACK task without an actual result, resend ambiguous provider payload or create new chat."
   },
   "goal_review": {
     "enabled": false,
@@ -1037,8 +1037,8 @@
   },
   "request_reminders": {
     "enabled": true,
-    "revision": "owner-restored-status-20261011-v1",
-    "interval_seconds": 180,
+    "revision": "owner-sixty-second-status-20261011-v2",
+    "interval_seconds": 60,
     "stalled_after_seconds": 45,
     "max_per_episode": 4
   }
