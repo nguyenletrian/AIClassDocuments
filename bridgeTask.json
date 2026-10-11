@@ -551,6 +551,58 @@
         "outcome": "Read 24 redacted worker log entries returned to Architect. Managed restart request observed at 13:03:46 and new worker PID 12016 started 13:03:47. Worker received manual log task 13:06:10. Earlier 10s AX return-recovery polling and a prior Send selector failure identified; no new automated goal work authorized.",
         "next_action": "No duplicate log task. If needed, investigate repetitive read-only RETURN_RECOVERY diagnostic polling separately; confirm SERVER_HEAD from actual current startup log for exact binary version. Keep Jetking AWAITING_SOURCE and goal auto-review paused."
       }
+    },
+    {
+      "task_id": "aiclassdocuments-conversation-rollover-count-diagnostic-20261011",
+      "status": "pending",
+      "bridge_completed": false,
+      "architect_ack": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "browser",
+        "target": "conversation_metrics"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "review_mode": "on_demand",
+        "ack_policy": "architect_review",
+        "purpose": "Owner asked why ChatGPT conversation has not rolled over after approximately 70 messages. Diagnose actual logical message count from current bound Edge ChatGPT page. Do not force lower test threshold, do not create duplicate tasks or restart Bridge.",
+        "goal_id": ""
+      },
+      "payload": {
+        "provider": "OpenAI",
+        "via": "web",
+        "purpose": "Read-only conversation message counts, visible/rendered and logical counts, to identify whether the current ChatGPT thread has met the configured production rollover threshold. Never navigate or mutate ChatGPT page, never reveal user message bodies, only count/message metadata."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
   ],
   "force_restart": {
