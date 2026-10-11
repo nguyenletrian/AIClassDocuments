@@ -45,3 +45,45 @@ Do not publish bilingual learning documents as lesson-grounded before then.
 If the result is `viewer_not_hydrated`, do **not** repeat the same
 temporary-tab probe automatically. The owner may need to open the lesson
 in the managed Edge profile and provide a visible slide or permitted notes.
+
+
+## Second bounded probe — hydrated viewer (2026-10-11)
+
+Task: `aiclassdocuments-jetking4371618-hydrated-dom-probe-20261011`.
+The Bridge delivered the **same** successful result three times with the
+same `delivery_id=55b29e22c93bae242856`. It is a duplicate delivery, **not**
+three independent slide observations. The Architect recorded one result
+and acknowledged the task once; no replacement task is queued.
+
+- Edge CDP `127.0.0.1:9223`, `browser_relaunched=false`.
+- `read_web_temp_closed=true` and Architect ChatGPT URL unchanged.
+- `domReadyState=complete`, `extraction_state=viewer_dom_stable`,
+  `observation_count=17`, `bodyTextLength=2761`.
+- `pageIndicator={current:1,total:44}`; only **slide 1** was observed.
+- `state=visible_text_layer`, `textLayerCount=2`,
+  `visibleTextSpanCount=7`, `visibleCanvasCount=2`;
+  `genericTextNodeCount=15`.
+- Both DOM order and coordinate-sorted visual previews remain
+  **unreadable/interleaved**. A minimal diagnostic example is
+  `del1uo M` (do not infer the original source text).
+- Ordinary HTML course navigation names the topic
+  `1. Foundations of Mathematics for ML`; this metadata does not
+  establish what the 44 slides say.
+
+**Diagnosis:** initial all-zero result was consistent with premature SPA
+inspection, now resolved by the hydration wait. However the readable-text
+problem persists despite PDF-style geometry and generic DOM fallback.
+Neither visual coordinate sorting nor the stabilizing wait reliably
+reconstructs the lesson. Transport success is not source-content success.
+
+**Decision:** keep `sources/lesson-index.csv` at `AWAITING_SOURCE`.
+No word reconstruction by guessing, no automated iteration over 44 slides,
+and no supposedly lesson-grounded English/Vietnamese documents yet.
+
+**Next validation gate:** independently inspect a single **rendered**
+first-slide visual or owner-provided authorized source notes/transcript,
+then compare the visual against extracted text. Any screenshot should be
+owner-approved, limited to the currently visible first slide, processed
+privately rather than checked into the public Git repository, and comply
+with the Jetking course's applicable access/use restrictions. If readable
+visual or permitted transcript is unavailable, stop at `AWAITING_SOURCE`.
