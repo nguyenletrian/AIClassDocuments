@@ -17,6 +17,32 @@ Use the owner's authorized Microsoft Edge session to study a Jetking lesson, the
 - `output`: `lessons/4371618-<slug>.en.md`, `lessons/4371618-<slug>.vi.md`
 - `status`: `AWAITING_SOURCE` until actual material reviewed.
 
+## Edge source probe (2026-10-11 update)
+
+The shared `AIBrigde` `browser:read_web` implementation supports
+`payload.target_mode: "existing_url"` after
+[Edge browser enhancement](https://github.com/nguyenletrian/AIBrigde/pull/2).
+
+Before queuing a new source probe, confirm:
+
+1. The AIBrigde worker has refreshed to a commit containing the enhancement
+   (merged into `main` at `ab0901174d3895117ab53f86a728174812a79b03`).
+2. The lesson is already open **once**, at the exact requested URL, in the
+   worker-owned CDP Edge profile. The owner logs in directly.
+3. The project's browser CDP host/port are confirmed from the worker's actual
+   `AIBRIDGE_DEBUG_PORT` / profile settings, not inferred from
+   `execution_target.port` or `delivery_target.port`.
+4. Only then schedule one read-only task with:
+   `{"url":"https://www.jetking.co/learn/home/VN-course?lessonId=4371618","extractor":"page_text","target_mode":"existing_url","provider":"OpenAI","via":"web"}`.
+5. `read_web_result.extraction_state == "text_ready"` only shows top-level
+   page text has stabilized; it does not prove actual lesson/audio/video was
+   reviewed. Verify content relevance and access before moving
+   `AWAITING_SOURCE -> SOURCE_READY`.
+
+If there is no matching tab, duplicate matching tabs, empty text, or an
+unreviewable media-only page, preserve `AWAITING_SOURCE`. Do not retry blindly
+or send repeated `queue_exhausted` requests.
+
 ## Execution steps
 1. Bridge opens the authorized URL in Edge and identifies the lesson title and available content.
 2. Capture permitted notes and transcript/visible text with section references/timestamps if available. If content is inaccessible, stop and report the blocker.
