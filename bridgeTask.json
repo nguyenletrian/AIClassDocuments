@@ -603,12 +603,63 @@
         "target": "OpenAI",
         "via": "web"
       }
+    },
+    {
+      "task_id": "aiclassdocuments-test-script-bridge-diagnostics-20261011",
+      "status": "pending",
+      "bridge_completed": false,
+      "architect_ack": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "verification",
+        "target": "test_script"
+      },
+      "permissions": {
+        "run_tests": true,
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "ack_policy": "architect_review",
+        "review_mode": "on_demand",
+        "purpose": "Owner-approved execution of the bundled reusable AIBridge script test suite after managed runtime update."
+      },
+      "payload": {
+        "suite": "bridge_diagnostics",
+        "timeout": 90
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-on-demand-worker-log-reviews-upgrade-restart-20261011",
-    "reason": "Apply merged AIBrigde main a559f16b7c1f19cf1aebdaa9478e4a448abb808e (PR #15) one time: on-demand runtime:read_log tasks always return diagnostic data to Architect, await explicit Architect ACK; manual log completion does not wake the Jetking lesson goal, and paused goal contracts suppress idle queue_exhausted. Preserve all task history, Edge sessions and bound ChatGPT conversation. Do not queue any log task until owner explicitly asks to check logs."
+    "request_id": "aiclassdocuments-test-script-shared-module-upgrade-20261011",
+    "reason": "Load merged AIBridge main febe4a62e36dc391bd3b7890b087204623e2e587 (PR #16) for generic verification:test_script. Restart managed worker exactly once, preserve Edge profile and ChatGPT conversation, existing incomplete rollover-count task and all historical tasks. Run only authorized packaged bridge_diagnostics suite on current worker, await Architect ACK."
   },
   "goal_review": {
     "enabled": false,
