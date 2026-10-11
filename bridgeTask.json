@@ -757,8 +757,8 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-ambiguous-delivery-review-recovery-pr17-20261011",
-    "reason": "Load merged AIBridge PR #17 main commit 6dbf9a960903cf61b6149856a9c750cdf4b96959 with safe Git recovery review preview for the existing ambiguous delivery of aiclassdocuments-conversation-rollover-count-diagnostic-20261011. One managed restart only. Preserve all tasks, original local result, FIFO, project files, Edge and bound ChatGPT tab. After restart, publish only allowlisted sanitized delivery_recovery_review on the exact pending metrics task without replaying Send or execution; await Architect semantic ACK and terminal source completion. Do not restart repeatedly."
+    "request_id": "aiclassdocuments-event-only-log-recovery-pr18-restart-20261011",
+    "reason": "Load AIBridge main ab81af6c187e42073f761fecb5d76e64ecb8bcc8 (PR #18) once for event-code-only delivery_recovery_review on the already-running on-demand runtime:read_log task. Keep full log local, preserve original task result, Edge and ChatGPT tab; do not replay Send, do not run read_log twice, do not auto ACK, do not unpause Jetking. Publish only allowlisted event codes and counts if provider return remains ambiguous."
   },
   "goal_review": {
     "enabled": false,
