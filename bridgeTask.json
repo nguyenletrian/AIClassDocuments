@@ -433,12 +433,64 @@
         "target": "OpenAI",
         "via": "web"
       }
+    },
+    {
+      "task_id": "aiclassdocuments-jetking4371618-ax-first-slide-20261011",
+      "status": "pending",
+      "bridge_completed": false,
+      "architect_ack": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "browser",
+        "target": "read_web"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "payload": {
+        "url": "https://www.jetking.co/learn/home/VN-course?lessonId=4371618",
+        "extractor": "slide_accessibility_probe",
+        "target_mode": "temporary",
+        "provider": "OpenAI",
+        "via": "web",
+        "purpose": "ONE read-only source accessibility-tree check after Bridge main b4e6f173f721b3dbc4a535e4f226175bcdab188d. Verify first hydrated slide page 1/44, read only capped accessibility semantics, and report short AX text candidates / counts. Do not navigate slides, capture screenshots, copy video, use cookies/tokens/network harvesting, or claim lesson transcription. If AX unavailable or unreadable, return blocker once and stop. Preserve Architect ChatGPT target; close only owned temporary source tab."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      },
+      "metadata": {
+        "purpose": "One bounded AX diagnostic; return structured result to Architect for source-validation decision. No auto_success because content must be reviewed."
+      }
     }
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-cdp-no-insert-clear-loop-restart-20261011",
-    "reason": "Managed restart exactly once to load merged AIBridge main 4b2ec5c8473b4d5c7a4cedc5a060ffe5e1af0893 (PR #13). Fix non-retryable missing Send button, unique composer-form submit fallback and bounded anonymized DOM button diagnostics. Preserve Edge Jetking account/session, ChatGPT conversation, all existing 9 task histories; after restart allow only one revised approved goal review delivery, never repeated insert-clear on Send failure."
+    "request_id": "aiclassdocuments-jetking-ax-first-slide-upgrade-restart-20261011",
+    "reason": "Apply merged AIBrigde commit b4e6f173f721b3dbc4a535e4f226175bcdab188d (PR #14) with bounded read-only AX first-slide probe; preserve the managed Jetking Edge profile, source login and Architect ChatGPT conversation. Restart ONCE before executing the single source accessibility task. No bulk slides, content copying or repeated failed probes."
   },
   "goal_review": {
     "enabled": true,
@@ -449,7 +501,7 @@
     "title": "Create two source-grounded instructional documents in English and Vietnamese for Jetking lesson 4371618",
     "phase": "AWAITING_SOURCE",
     "blocker": "Jetking viewer displayed slide 1 of 44 after hydration, but DOM and coordinate-sorted text are corrupted/interleaved; remaining 43 slides not reviewed. No validated lesson transcription or permitted first-slide visual is available yet.",
-    "next_review": "AIBridge PR #13 applied: evaluate one goal_review_request delivery. If unique visible form-local Send or submit button works, continue approved Jetking source-validation planning. If send_button_not_found or ambiguous recurs, do NOT retry; use runtime.log form_button_shapes and sendish_buttons_outside_form diagnostics to design a future read-only browser diagnostic, without replaying the same goal or changing course content.",
+    "next_review": "Await the single first-slide accessibility-tree diagnostic task. Evaluate AX candidates against existing garbled DOM evidence. Treat a transport success as diagnostic only; do not promote lesson from AWAITING_SOURCE without independent visual/source corroboration. If AX text is also garbled or unavailable, report an explicit source blocker and pause additional read_web probes. No new work on slides 2-44 until slide 1 is verified.",
     "evidence_path": "docs/JETKING-4371618-SLIDE-DIAGNOSIS.md"
   }
 }
