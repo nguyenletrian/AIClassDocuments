@@ -388,7 +388,7 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-false-source-error-provider-send-restart-20261011",
-    "reason": "Managed AIBrigde restart once for merged main 02f969d4aedd72d60a55cde393464240f8cb77fc (PR #8). Fix false invalid_task_source reporting when ChatGPT CDP lacks Send button; preserve all AIClassDocuments task history, Edge profiles/session, ChatGPT conversation. No task probes or rerun results."
+    "request_id": "aiclassdocuments-quiet-snapshot-managed-restart-20261011",
+    "reason": "Apply merged AIBrigde main commit 1fb2b235639ebfbf2078ed3968f883210009176c (PR #9): log TaskSource snapshot only when source content changes or after 5-minute heartbeat. Preserve current worker identities, Edge profiles, authenticated sessions and ChatGPT conversation; do not create or replay tasks."
   }
 }
