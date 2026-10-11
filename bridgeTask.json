@@ -888,6 +888,56 @@
         },
         "summary": "Windows Bridge TestScript 6/6 PASS; this exact task_result was received in ChatGPT via Edge CDP after PR #19. Live direct provider delivery verified for this one result, not a blanket guarantee for all future UI states."
       }
+    },
+    {
+      "task_id": "aiclassdocuments-live-metrics-readonly-probe-20261011",
+      "status": "pending",
+      "architect_ack": false,
+      "bridge_completed": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "browser",
+        "target": "conversation_metrics"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "review_mode": "on_demand",
+        "ack_policy": "architect_review",
+        "purpose": "Read-only probe of currently selected ChatGPT Edge conversation URL and existing DOM metrics to identify previous zero counts; never navigate, rollover, type or click."
+      },
+      "payload": {
+        "provider": "OpenAI",
+        "via": "web"
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
   ],
   "force_restart": {
