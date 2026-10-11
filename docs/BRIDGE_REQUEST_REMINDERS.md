@@ -1,45 +1,50 @@
-# AIClassDocuments — Owner-enabled Bridge status reminders
+# AIClassDocuments — uses shared AIBridge status reminders
 
-The owner explicitly restored proactive status `task_request` reminders
-on 2026-10-11. Shared AIBridge implementation:
+The owner confirmed on 2026-10-11 that status request reminders are
+**AIBridge infrastructure for all managed projects**, not settings to
+maintain separately in each project's task file.
+
+Canonical implementation and configuration:
 https://github.com/nguyenletrian/AIBrigde/blob/main/docs/REQUEST_REMINDERS.md
 
-Current authoritative `bridgeTask.json` includes:
+Shared Bridge default in `~/.aibridge/config.json`:
 
 ```json
-"request_reminders": {
-  "enabled": true,
-  "revision": "owner-sixty-second-status-20261011-v2",
-  "interval_seconds": 60,
-  "stalled_after_seconds": 45,
-  "max_per_episode": 4
+"runtime": {
+  "request_reminders": {
+    "enabled": true,
+    "revision": "bridge-global-managed-workers-v1",
+    "interval_seconds": 60,
+    "stalled_after_seconds": 45,
+    "max_per_episode": 4
+  }
 }
 ```
 
-This sends an informational `task_request` through current Edge ChatGPT
-composer when a task remains unchanged for 45 seconds, then no faster
-than every 60 seconds, at most four messages per unchanged episode.
-On an idle queue, it may report status promptly. Reservations persist
-across worker restarts; ambiguous sends are not replayed blindly.
+All managed workers inherit this when they load AIBridge PR #23 or later,
+including AIClassDocuments and AIMayaTool. The legacy
+`bridgeTask.json.request_reminders` field has been **removed**.
+One worker's reminders cannot reset another worker's persisted ledger.
 
-**Do not resume Jetking goal**: `goal_review.enabled=false` remains
-authoritative and the lesson source is still unverified. A reminder
-authorizes an Architect *status review*, not re-reading slides or
-inventing lesson content. Never auto ACK the remaining live
-`aiclassdocuments-live-conversation-dom-shape-20261011` task without
-a verified exact `task_result` or an approved safe review channel.
-The owner can disable reminders by setting
-`request_reminders.enabled=false`; the worker-local cancellation
-marker also overrides them.
+Reminders are informational `task_request` messages to review current
+TaskSource/worker state, not a command to execute a task or restart a
+paused goal. The Jetking instructional source goal remains
+`goal_review.enabled=false`. They must not trigger a new ChatGPT chat,
+auto-ACK an unseen task result, or replay an ambiguous Send.
 
-AIBridge PR #21: https://github.com/nguyenletrian/AIBrigde/pull/21
+## DOM-shape probe result recovery
 
-CI PASS alone does not prove the worker has restarted or delivered a
-reminder. Confirm the runtime HEAD and an actual `task_request` before
-claiming live notifications work.
+A live 60-second reminder already confirmed that
+`aiclassdocuments-live-conversation-dom-shape-20261011` executed
+successfully, but the result was retained locally at `RESULT_PENDING`
+with `recovery_publish_pending:true`. PR #23 adds a **content-free
+Git review preview** for the already-saved selector counts, enabling
+Architect to inspect/ACK the same task without re-execution or
+blind duplicate Send. If the preview is not yet present, no ACK is
+authorized.
 
-## One-minute cadence adjustment
+A managed runtime restart was requested in TaskSource
+`aiclassdocuments-global-bridge-reminders-pr23-20261011`;
+do not confuse that request with proof of a completed worker restart.
 
-Owner explicitly changed the reminder spacing from three minutes to **60 seconds**. AIBridge PR #22 ([merged](https://github.com/nguyenletrian/AIBrigde/pull/22)) also adds a content-free `blocked_task_state` field in stalled reminder messages: the local queue state, saved result yes/no, result success (if known), bounded return-attempt count, and recovery flags. This enables Architect to distinguish a task not yet run from one held at provider delivery or ACK. No original results, errors, URLs, DOM, or log text are sent through these fields.
-
-The original DOM-shape task remains pending until real evidence is reviewed. The Jetking goal remains paused. Worker restart has been requested for PR #22; deployment and new-cadence live observations are not yet independently verified.
+Shared PR: https://github.com/nguyenletrian/AIBrigde/pull/23
