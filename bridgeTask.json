@@ -139,6 +139,104 @@
         "target": "OpenAI",
         "via": "web"
       }
+    },
+    {
+      "task_id": "aiclassdocuments-slide-layout-probe-restart-20261011",
+      "status": "pending",
+      "architect_ack": false,
+      "bridge_completed": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "bridge",
+        "target": "restart"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": true,
+        "commit": false,
+        "push": false
+      },
+      "metadata": {
+        "ack_policy": "auto_success",
+        "purpose": "Load safe read-only slide layout diagnostic after verified GitHub Actions tests"
+      },
+      "payload": {
+        "expected_bridge_main_commit": "a6637daad0f6b0fe8c739e9779c302b6c518c975",
+        "purpose": "One managed AIBridge restart to load reviewed slide_layout_probe handler merged in PR #3; retain worker ownership, Edge profile and authorized sessions. Do not reset credentials or browser profiles."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
+    },
+    {
+      "task_id": "aiclassdocuments-jetking4371618-slide-layout-probe-20261011",
+      "status": "pending",
+      "architect_ack": false,
+      "bridge_completed": false,
+      "system_id": "aiclassdocuments",
+      "project_id": "AIClassDocuments",
+      "worker_id": "AIClassDocuments-architect",
+      "execution_target": {
+        "kind": "bridge-runtime",
+        "host": "127.0.0.1",
+        "port": 0,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "delivery_target": {
+        "kind": "browser-cdp",
+        "host": "127.0.0.1",
+        "port": 9222,
+        "instance_id": "AIClassDocuments-architect"
+      },
+      "project": {
+        "repository": "https://github.com/nguyenletrian/AIClassDocuments.git",
+        "branch": "main"
+      },
+      "action": {
+        "type": "browser",
+        "target": "read_web"
+      },
+      "permissions": {
+        "read": true,
+        "edit": false,
+        "execute": false,
+        "commit": false,
+        "push": false
+      },
+      "payload": {
+        "url": "https://www.jetking.co/learn/home/VN-course?lessonId=4371618",
+        "extractor": "slide_layout_probe",
+        "target_mode": "temporary",
+        "provider": "OpenAI",
+        "via": "web",
+        "purpose": "One bounded read-only DOM spatial-layout diagnostic for only the currently visible Jetking slide. Report pageIndicator, textLayerCount, visibleTextSpanCount, visibleCanvasCount, domOrderPreview and visualOrderPreview. This is not full transcription. Never click, navigate slide pages, download media, read cookies or change progress. Preserve AWAITING_SOURCE pending human/source validation."
+      },
+      "return_route": {
+        "type": "provider",
+        "target": "OpenAI",
+        "via": "web"
+      }
     }
   ]
 }
