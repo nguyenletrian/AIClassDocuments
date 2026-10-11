@@ -1019,8 +1019,8 @@
   ],
   "force_restart": {
     "enabled": true,
-    "request_id": "aiclassdocuments-reminders-60s-pr22-restart-20261011",
-    "reason": "Load merged AIBridge main ee9b3222aa15adc7faa155c7bfbbcb2cced3fbef (PR #22) once, enabling owner-approved 60-second informational task_request reminders, with bounded privacy-safe local status for the existing pending DOM-shape task. Preserve Edge ChatGPT conversation, local queue evidence, all TaskSource history and paused Jetking goal; do not ACK task without an actual result, resend ambiguous provider payload or create new chat."
+    "request_id": "aiclassdocuments-global-bridge-reminders-pr23-20261011",
+    "reason": "Load merged shared AIBridge PR #23 main b07295dd90d550278abe0ab9da629e105b63aaf2 once. All managed workers now inherit 60-second task_request reminders from Bridge runtime (not TaskSource). Preserve current Edge profile, ChatGPT conversation, worker local queue state/result and all task history; do not re-execute or blind resend the existing browser:conversation_structure_probe. Retry only its allowlisted content-free Git recovery review publication for the original saved successful result, await exact Architect ACK. Keep paused Jetking goal disabled and do not trigger conversation rollover."
   },
   "goal_review": {
     "enabled": false,
@@ -1034,12 +1034,5 @@
     "next_review": "Automatic goal reviews paused until owner-authorized evidence of the first rendered slide (private screenshot or permitted notes/transcript) becomes available. Do not rerun identical DOM/AX probe, restart AIBrigde to force a duplicate review, or examine slides 2-44 without validating slide 1. After independent source verification, explicitly update goal_review.revision and enabled=true.",
     "evidence_path": "docs/JETKING-4371618-SLIDE-DIAGNOSIS.md",
     "review_hold": "Awaiting independent owner-permitted source evidence; do not generate more ChatGPT notifications without new relevant input."
-  },
-  "request_reminders": {
-    "enabled": true,
-    "revision": "owner-sixty-second-status-20261011-v2",
-    "interval_seconds": 60,
-    "stalled_after_seconds": 45,
-    "max_per_episode": 4
   }
 }
