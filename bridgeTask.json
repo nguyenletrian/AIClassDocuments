@@ -497,9 +497,9 @@
     },
     {
       "task_id": "aiclassdocuments-manual-log-check-pr15-20261011",
-      "status": "pending",
-      "bridge_completed": false,
-      "architect_ack": false,
+      "status": "completed",
+      "bridge_completed": true,
+      "architect_ack": true,
       "system_id": "aiclassdocuments",
       "project_id": "AIClassDocuments",
       "worker_id": "AIClassDocuments-architect",
@@ -543,6 +543,13 @@
         "type": "provider",
         "target": "OpenAI",
         "via": "web"
+      },
+      "result_review": {
+        "reviewed_at": "2026-10-11",
+        "success": true,
+        "delivery_id": "68b603fd7332e803303c",
+        "outcome": "Read 24 redacted worker log entries returned to Architect. Managed restart request observed at 13:03:46 and new worker PID 12016 started 13:03:47. Worker received manual log task 13:06:10. Earlier 10s AX return-recovery polling and a prior Send selector failure identified; no new automated goal work authorized.",
+        "next_action": "No duplicate log task. If needed, investigate repetitive read-only RETURN_RECOVERY diagnostic polling separately; confirm SERVER_HEAD from actual current startup log for exact binary version. Keep Jetking AWAITING_SOURCE and goal auto-review paused."
       }
     }
   ],
