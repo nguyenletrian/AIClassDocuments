@@ -275,250 +275,230 @@ print(df.sort_values("sale",ascending=False).head(2))
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What does a Boolean filter do? — Lọc Boolean làm gì?**
 
-**Q1. What best describes loc? — Mô tả nào đúng với loc?**
+A. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
 
-A. A different idea is Chọn hàng/cột theo số nguyên tính từ 0 — Chọn hàng/cột theo số nguyên tính từ 0
+B. Index labels — Nhãn index
 
-B. It is Chọn hàng/cột theo tên — Chọn hàng/cột theo tên
+C. Integer positions — Vị trí số nguyên
 
-C. A different idea is Gom các hàng cùng giá trị để tổng hợp — Gom các hàng cùng giá trị để tổng hợp
+D. Groups records sharing a key — Gom bản ghi có chung khóa
 
-D. A different idea is Nối bảng qua khóa chung — Nối bảng qua khóa chung
+**Q2. What does `loc` use to select rows? — `loc` chọn hàng bằng gì?**
 
+A. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
 
-**Q2. What best describes iloc? — Mô tả nào đúng với iloc?**
+B. Index labels — Nhãn index
 
-A. It is Chọn hàng/cột theo số nguyên tính từ 0 — Chọn hàng/cột theo số nguyên tính từ 0
+C. Integer positions — Vị trí số nguyên
 
-B. A different idea is Gom các hàng cùng giá trị để tổng hợp — Gom các hàng cùng giá trị để tổng hợp
+D. Groups records sharing a key — Gom bản ghi có chung khóa
 
-C. A different idea is Nối bảng qua khóa chung — Nối bảng qua khóa chung
+**Q3. What does `iloc` use to select rows? — `iloc` chọn hàng bằng gì?**
 
-D. A different idea is Chọn hàng/cột theo tên — Chọn hàng/cột theo tên
+A. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
 
+B. Index labels — Nhãn index
 
-**Q3. What best describes groupby? — Mô tả nào đúng với groupby?**
+C. Integer positions — Vị trí số nguyên
 
-A. A different idea is Nối bảng qua khóa chung — Nối bảng qua khóa chung
+D. Groups records sharing a key — Gom bản ghi có chung khóa
 
-B. A different idea is Chọn hàng/cột theo tên — Chọn hàng/cột theo tên
+**Q4. What does `groupby` do? — `groupby` làm gì?**
 
-C. A different idea is Chọn hàng/cột theo số nguyên tính từ 0 — Chọn hàng/cột theo số nguyên tính từ 0
+A. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
 
-D. It is Gom các hàng cùng giá trị để tổng hợp — Gom các hàng cùng giá trị để tổng hợp
+B. Index labels — Nhãn index
 
+C. Integer positions — Vị trí số nguyên
 
-**Q4. What best describes merge? — Mô tả nào đúng với merge?**
+D. Groups records sharing a key — Gom bản ghi có chung khóa
 
-A. A different idea is Chọn hàng/cột theo tên — Chọn hàng/cột theo tên
+**Q5. What is the join key in `merge`? — Khóa ghép trong `merge` là gì?**
 
-B. A different idea is Chọn hàng/cột theo số nguyên tính từ 0 — Chọn hàng/cột theo số nguyên tính từ 0
+A. A shared field used to match rows — Trường chung để ghép các hàng
 
-C. It is Nối bảng qua khóa chung — Nối bảng qua khóa chung
+B. All rows from the left table — Mọi hàng bảng trái
 
-D. A different idea is Gom các hàng cùng giá trị để tổng hợp — Gom các hàng cùng giá trị để tổng hợp
+C. A sale total per city — Tổng doanh thu theo từng vùng
 
+D. Descending order — Thứ tự giảm dần
 
-**Q5. Which operation matches df.loc[label]? — Mục đích của df.loc[label] là gì?**
+**Q6. What does `how='left'` retain? — `how='left'` giữ gì?**
 
-A. Another operation is used to Chọn theo vị trí; stop của slice không bao gồm — Chọn theo vị trí; stop của slice không bao gồm
+A. A shared field used to match rows — Trường chung để ghép các hàng
 
-B. It is used to Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối — Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối
+B. All rows from the left table — Mọi hàng bảng trái
 
-C. Another operation is used to Gộp nhóm rồi tính tổng/trung bình/số dòng — Gộp nhóm rồi tính tổng/trung bình/số dòng
+C. A sale total per city — Tổng doanh thu theo từng vùng
 
-D. Another operation is used to Ghép theo khóa, cách inner/left/right/outer khác nhau — Ghép theo khóa, cách inner/left/right/outer khác nhau
+D. Descending order — Thứ tự giảm dần
 
+**Q7. What does `groupby('city')['sale'].sum()` return? — `groupby('city')['sale'].sum()` trả gì?**
 
-**Q6. Which operation matches df.iloc[position]? — Mục đích của df.iloc[position] là gì?**
+A. A shared field used to match rows — Trường chung để ghép các hàng
 
-A. It is used to Chọn theo vị trí; stop của slice không bao gồm — Chọn theo vị trí; stop của slice không bao gồm
+B. All rows from the left table — Mọi hàng bảng trái
 
-B. Another operation is used to Gộp nhóm rồi tính tổng/trung bình/số dòng — Gộp nhóm rồi tính tổng/trung bình/số dòng
+C. A sale total per city — Tổng doanh thu theo từng vùng
 
-C. Another operation is used to Ghép theo khóa, cách inner/left/right/outer khác nhau — Ghép theo khóa, cách inner/left/right/outer khác nhau
+D. Descending order — Thứ tự giảm dần
 
-D. Another operation is used to Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối — Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối
+**Q8. What does `ascending=False` mean in sorting? — `ascending=False` khi sắp xếp nghĩa là gì?**
 
+A. A shared field used to match rows — Trường chung để ghép các hàng
 
-**Q7. Which operation matches df.groupby(key).agg()? — Mục đích của df.groupby(key).agg() là gì?**
+B. All rows from the left table — Mọi hàng bảng trái
 
-A. Another operation is used to Ghép theo khóa, cách inner/left/right/outer khác nhau — Ghép theo khóa, cách inner/left/right/outer khác nhau
+C. A sale total per city — Tổng doanh thu theo từng vùng
 
-B. Another operation is used to Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối — Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối
+D. Descending order — Thứ tự giảm dần
 
-C. Another operation is used to Chọn theo vị trí; stop của slice không bao gồm — Chọn theo vị trí; stop của slice không bao gồm
+**Q9. What distinguishes `loc` from `iloc`? — `loc` khác `iloc` ở đâu?**
 
-D. It is used to Gộp nhóm rồi tính tổng/trung bình/số dòng — Gộp nhóm rồi tính tổng/trung bình/số dòng
+A. Labels versus positions — Nhãn so với vị trí
 
+B. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
 
-**Q8. Which operation matches pd.merge(left,right,on=,how=)? — Mục đích của pd.merge(left,right,on=,how=) là gì?**
+C. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
 
-A. Another operation is used to Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối — Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối
+D. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
 
-B. Another operation is used to Chọn theo vị trí; stop của slice không bao gồm — Chọn theo vị trí; stop của slice không bao gồm
+**Q10. How does filtering differ from grouping? — Lọc khác phân nhóm như thế nào?**
 
-C. It is used to Ghép theo khóa, cách inner/left/right/outer khác nhau — Ghép theo khóa, cách inner/left/right/outer khác nhau
+A. Labels versus positions — Nhãn so với vị trí
 
-D. Another operation is used to Gộp nhóm rồi tính tổng/trung bình/số dòng — Gộp nhóm rồi tính tổng/trung bình/số dòng
+B. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
 
+C. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
 
-**Q9. Why was the method chosen for scenario 1? — Vì sao chọn cách giải của tình huống 1?**
+D. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
 
-A. Another reason is iloc dùng vị trí thay vì tên index — iloc dùng vị trí thay vì tên index
+**Q11. How does `head(2)` differ from `tail(2)`? — `head(2)` khác `tail(2)` thế nào?**
 
-B. Because Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp — Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp
+A. Labels versus positions — Nhãn so với vị trí
 
-C. Another reason is groupby theo city rồi sum tránh cộng chung toàn quốc — groupby theo city rồi sum tránh cộng chung toàn quốc
+B. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
 
-D. Another reason is merge trên customer_id giữ quan hệ ID đúng — merge trên customer_id giữ quan hệ ID đúng
+C. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
 
+D. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
 
-**Q10. Why was the method chosen for scenario 2? — Vì sao chọn cách giải của tình huống 2?**
+**Q12. How does an inner join differ from a left join? — Inner join khác left join thế nào?**
 
-A. Because iloc dùng vị trí thay vì tên index — iloc dùng vị trí thay vì tên index
+A. Labels versus positions — Nhãn so với vị trí
 
-B. Another reason is groupby theo city rồi sum tránh cộng chung toàn quốc — groupby theo city rồi sum tránh cộng chung toàn quốc
+B. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
 
-C. Another reason is merge trên customer_id giữ quan hệ ID đúng — merge trên customer_id giữ quan hệ ID đúng
+C. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
 
-D. Another reason is sort_values theo revenue rồi head lấy hai dòng đầu — sort_values theo revenue rồi head lấy hai dòng đầu
+D. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
 
+**Q13. What risk comes from duplicate right-side join keys? — Khóa ghép bảng phải bị trùng gây nguy cơ gì?**
 
-**Q11. Why was the method chosen for scenario 3? — Vì sao chọn cách giải của tình huống 3?**
+A. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
 
-A. Another reason is merge trên customer_id giữ quan hệ ID đúng — merge trên customer_id giữ quan hệ ID đúng
+B. Unique right-side join keys — Khóa ghép bảng phải duy nhất
 
-B. Another reason is sort_values theo revenue rồi head lấy hai dòng đầu — sort_values theo revenue rồi head lấy hai dòng đầu
+C. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
 
-C. Another reason is Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp — Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp
+D. Ascending order — Thứ tự tăng dần
 
-D. Because groupby theo city rồi sum tránh cộng chung toàn quốc — groupby theo city rồi sum tránh cộng chung toàn quốc
+**Q14. What does `validate='many_to_one'` check? — `validate='many_to_one'` kiểm tra gì?**
 
+A. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
 
-**Q12. Why was the method chosen for scenario 4? — Vì sao chọn cách giải của tình huống 4?**
+B. Unique right-side join keys — Khóa ghép bảng phải duy nhất
 
-A. Another reason is sort_values theo revenue rồi head lấy hai dòng đầu — sort_values theo revenue rồi head lấy hai dòng đầu
+C. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
 
-B. Another reason is Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp — Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp
+D. Ascending order — Thứ tự tăng dần
 
-C. Because merge trên customer_id giữ quan hệ ID đúng — merge trên customer_id giữ quan hệ ID đúng
+**Q15. What does `reset_index(drop=True)` change? — `reset_index(drop=True)` thay đổi gì?**
 
-D. Another reason is iloc dùng vị trí thay vì tên index — iloc dùng vị trí thay vì tên index
+A. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
 
+B. Unique right-side join keys — Khóa ghép bảng phải duy nhất
 
-**Q13. Why was the method chosen for scenario 5? — Vì sao chọn cách giải của tình huống 5?**
+C. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
 
-A. Another reason is Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp — Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp
+D. Ascending order — Thứ tự tăng dần
 
-B. Because sort_values theo revenue rồi head lấy hai dòng đầu — sort_values theo revenue rồi head lấy hai dòng đầu
+**Q16. What does `ascending=True` request? — `ascending=True` yêu cầu gì?**
 
-C. Another reason is iloc dùng vị trí thay vì tên index — iloc dùng vị trí thay vì tên index
+A. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
 
-D. Another reason is groupby theo city rồi sum tránh cộng chung toàn quốc — groupby theo city rồi sum tránh cộng chung toàn quốc
+B. Unique right-side join keys — Khóa ghép bảng phải duy nhất
 
+C. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
 
-**Q14. What input is used in scenario 1? — Tình huống 1 dùng dữ liệu gì?**
+D. Ascending order — Thứ tự tăng dần
 
-A. The data are 3 sản phẩm, giá nghìn đồng — 3 sản phẩm, giá nghìn đồng
+**Q17. What does `df.iloc[0]` select? — `df.iloc[0]` chọn gì?**
 
-B. Other data are Ba ID theo thứ tự A B C — Ba ID theo thứ tự A B C
+A. The first row by position — Hàng đầu theo vị trí
 
-C. Other data are 3 đơn A A B, nghìn đồng — 3 đơn A A B, nghìn đồng
+B. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
 
-D. Other data are Hai bảng order/customer — Hai bảng order/customer
+C. Rows within each group — Số hàng trong từng nhóm
 
+D. Keys must have compatible representations — Khóa cần biểu diễn tương thích
 
-**Q15. What input is used in scenario 2? — Tình huống 2 dùng dữ liệu gì?**
+**Q18. What does `df.loc[mask, ['a','b']]` select? — `df.loc[mask, ['a','b']]` chọn gì?**
 
-A. Other data are 3 đơn A A B, nghìn đồng — 3 đơn A A B, nghìn đồng
+A. The first row by position — Hàng đầu theo vị trí
 
-B. Other data are Hai bảng order/customer — Hai bảng order/customer
+B. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
 
-C. Other data are 4 đơn với doanh thu nghìn đồng — 4 đơn với doanh thu nghìn đồng
+C. Rows within each group — Số hàng trong từng nhóm
 
-D. The data are Ba ID theo thứ tự A B C — Ba ID theo thứ tự A B C
+D. Keys must have compatible representations — Khóa cần biểu diễn tương thích
 
+**Q19. What does `groupby('type').size()` count? — `groupby('type').size()` đếm gì?**
 
-**Q16. What input is used in scenario 3? — Tình huống 3 dùng dữ liệu gì?**
+A. The first row by position — Hàng đầu theo vị trí
 
-A. Other data are Hai bảng order/customer — Hai bảng order/customer
+B. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
 
-B. Other data are 4 đơn với doanh thu nghìn đồng — 4 đơn với doanh thu nghìn đồng
+C. Rows within each group — Số hàng trong từng nhóm
 
-C. The data are 3 đơn A A B, nghìn đồng — 3 đơn A A B, nghìn đồng
+D. Keys must have compatible representations — Khóa cần biểu diễn tương thích
 
-D. Other data are 3 sản phẩm, giá nghìn đồng — 3 sản phẩm, giá nghìn đồng
+**Q20. Why check types of columns used as merge keys? — Vì sao cần kiểm tra kiểu cột khóa khi merge?**
 
+A. The first row by position — Hàng đầu theo vị trí
 
-**Q17. What input is used in scenario 4? — Tình huống 4 dùng dữ liệu gì?**
+B. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
 
-A. Other data are 4 đơn với doanh thu nghìn đồng — 4 đơn với doanh thu nghìn đồng
+C. Rows within each group — Số hàng trong từng nhóm
 
-B. The data are Hai bảng order/customer — Hai bảng order/customer
-
-C. Other data are 3 sản phẩm, giá nghìn đồng — 3 sản phẩm, giá nghìn đồng
-
-D. Other data are Ba ID theo thứ tự A B C — Ba ID theo thứ tự A B C
-
-
-**Q18. What input is used in scenario 5? — Tình huống 5 dùng dữ liệu gì?**
-
-A. The data are 4 đơn với doanh thu nghìn đồng — 4 đơn với doanh thu nghìn đồng
-
-B. Other data are 3 sản phẩm, giá nghìn đồng — 3 sản phẩm, giá nghìn đồng
-
-C. Other data are Ba ID theo thứ tự A B C — Ba ID theo thứ tự A B C
-
-D. Other data are 3 đơn A A B, nghìn đồng — 3 đơn A A B, nghìn đồng
-
-
-**Q19. What information should a dataset have? — Dataset cần thông tin gì?**
-
-A. Only a filename — Chỉ tên file
-
-B. Only an editor font — Chỉ font soạn code
-
-C. Only a line count — Chỉ số dòng
-
-D. Meaning of rows, columns and units — Ý nghĩa hàng, cột và đơn vị
-
-
-**Q20. After the program works, what comes next? — Sau khi code chạy đúng thì làm gì?**
-
-A. Assume every input works — Cho rằng mọi đầu vào đều đúng
-
-B. Erase validation — Xóa kiểm tra dữ liệu
-
-C. Check the result and limitations — Kiểm tra kết quả và giới hạn
-
-D. Ignore edge cases — Bỏ qua trường hợp biên
+D. Keys must have compatible representations — Khóa cần biểu diễn tương thích
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Chọn hàng/cột theo tên | Chọn hàng/cột theo tên |
-| Q2 | **A** | It is Chọn hàng/cột theo số nguyên tính từ 0 | Chọn hàng/cột theo số nguyên tính từ 0 |
-| Q3 | **D** | It is Gom các hàng cùng giá trị để tổng hợp | Gom các hàng cùng giá trị để tổng hợp |
-| Q4 | **C** | It is Nối bảng qua khóa chung | Nối bảng qua khóa chung |
-| Q5 | **B** | It is used to Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối | Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối |
-| Q6 | **A** | It is used to Chọn theo vị trí; stop của slice không bao gồm | Chọn theo vị trí; stop của slice không bao gồm |
-| Q7 | **D** | It is used to Gộp nhóm rồi tính tổng/trung bình/số dòng | Gộp nhóm rồi tính tổng/trung bình/số dòng |
-| Q8 | **C** | It is used to Ghép theo khóa, cách inner/left/right/outer khác nhau | Ghép theo khóa, cách inner/left/right/outer khác nhau |
-| Q9 | **B** | Because Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp | Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp |
-| Q10 | **A** | Because iloc dùng vị trí thay vì tên index | iloc dùng vị trí thay vì tên index |
-| Q11 | **D** | Because groupby theo city rồi sum tránh cộng chung toàn quốc | groupby theo city rồi sum tránh cộng chung toàn quốc |
-| Q12 | **C** | Because merge trên customer_id giữ quan hệ ID đúng | merge trên customer_id giữ quan hệ ID đúng |
-| Q13 | **B** | Because sort_values theo revenue rồi head lấy hai dòng đầu | sort_values theo revenue rồi head lấy hai dòng đầu |
-| Q14 | **A** | The data are 3 sản phẩm, giá nghìn đồng | 3 sản phẩm, giá nghìn đồng |
-| Q15 | **D** | The data are Ba ID theo thứ tự A B C | Ba ID theo thứ tự A B C |
-| Q16 | **C** | The data are 3 đơn A A B, nghìn đồng | 3 đơn A A B, nghìn đồng |
-| Q17 | **B** | The data are Hai bảng order/customer | Hai bảng order/customer |
-| Q18 | **A** | The data are 4 đơn với doanh thu nghìn đồng | 4 đơn với doanh thu nghìn đồng |
-| Q19 | **D** | Meaning of rows, columns and units | Ý nghĩa hàng, cột và đơn vị |
-| Q20 | **C** | Check the result and limitations | Kiểm tra kết quả và giới hạn |
+| Q1 | **A** | A Boolean mask specifies which rows to retain. | Mặt nạ Boolean xác định hàng cần giữ. |
+| Q2 | **B** | loc selects by labels, including row index names. | loc chọn theo nhãn hàng. |
+| Q3 | **C** | iloc selects by zero-based position. | iloc chọn theo vị trí đếm từ 0. |
+| Q4 | **D** | Grouping collects rows by a selected field. | Phân nhóm gom các hàng có chung một trường. |
+| Q5 | **A** | Rows join when key values match. | Các hàng được ghép khi khóa phù hợp. |
+| Q6 | **B** | A left join retains unmatched left records. | Ghép trái không bỏ hàng bên trái chưa khớp. |
+| Q7 | **C** | sum aggregates sales within each city group. | sum cộng giá trị sale theo từng vùng. |
+| Q8 | **D** | False reverses normal ascending ordering. | False chuyển sang thứ tự giảm dần. |
+| Q9 | **A** | A label 7 need not occupy position 7. | Nhãn 7 không nhất thiết nằm ở vị trí 7. |
+| Q10 | **B** | Filtering removes nonmatches; grouping organizes records. | Lọc bỏ hàng không khớp; nhóm tổ chức bản ghi. |
+| Q11 | **C** | The two functions select opposite ends. | Hai hàm lấy dữ liệu ở hai đầu bảng. |
+| Q12 | **D** | Inner joins drop left-side records without a match. | Inner join bỏ hàng trái không ghép được. |
+| Q13 | **A** | Each extra matching right row can duplicate left data. | Mỗi hàng phải khớp thêm có thể nhân dữ liệu trái. |
+| Q14 | **B** | Many left records may match one right record. | Nhiều hàng trái được phép ghép một hàng phải. |
+| Q15 | **C** | Resetting index avoids carrying old row indices. | Đánh lại index loại bỏ nhãn hàng cũ. |
+| Q16 | **D** | Ascending is the default sort direction. | Tăng dần là hướng sắp xếp mặc định. |
+| Q17 | **A** | The first position has index zero. | Vị trí đầu tiên mang số 0. |
+| Q18 | **B** | The mask restricts rows and the names restrict columns. | Mask lọc hàng, danh sách tên lọc cột. |
+| Q19 | **C** | size counts all rows in each grouping category. | size đếm số hàng ở mỗi nhóm. |
+| Q20 | **D** | Different or malformed key types may block correct matches. | Kiểu khóa khác nhau hoặc sai có thể cản trở ghép đúng. |
 
 ## 8. Nối sang bài tiếp
 
