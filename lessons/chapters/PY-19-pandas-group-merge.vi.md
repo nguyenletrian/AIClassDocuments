@@ -277,228 +277,228 @@ print(df.sort_values("sale", ascending=False).head(2))
 
 **Q1. What does a Boolean filter do? — Lọc Boolean làm gì?**
 
-A. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
+A. Integer positions — Vị trí số nguyên
 
-B. Index labels — Nhãn index
+B. Groups records sharing a key — Gom bản ghi có chung khóa
 
-C. Integer positions — Vị trí số nguyên
+C. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
 
-D. Groups records sharing a key — Gom bản ghi có chung khóa
+D. Index labels — Nhãn index
 
 **Q2. What does `loc` use to select rows? — `loc` chọn hàng bằng gì?**
 
 A. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
 
-B. Index labels — Nhãn index
+B. Integer positions — Vị trí số nguyên
 
-C. Integer positions — Vị trí số nguyên
+C. Groups records sharing a key — Gom bản ghi có chung khóa
 
-D. Groups records sharing a key — Gom bản ghi có chung khóa
+D. Index labels — Nhãn index
 
 **Q3. What does `iloc` use to select rows? — `iloc` chọn hàng bằng gì?**
 
-A. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
+A. Integer positions — Vị trí số nguyên
 
-B. Index labels — Nhãn index
+B. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
 
-C. Integer positions — Vị trí số nguyên
+C. Groups records sharing a key — Gom bản ghi có chung khóa
 
-D. Groups records sharing a key — Gom bản ghi có chung khóa
+D. Index labels — Nhãn index
 
 **Q4. What does `groupby` do? — `groupby` làm gì?**
 
-A. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
+A. Index labels — Nhãn index
 
-B. Index labels — Nhãn index
+B. Keeps rows matching a condition — Giữ hàng thỏa điều kiện
 
-C. Integer positions — Vị trí số nguyên
+C. Groups records sharing a key — Gom bản ghi có chung khóa
 
-D. Groups records sharing a key — Gom bản ghi có chung khóa
+D. Integer positions — Vị trí số nguyên
 
 **Q5. What is the join key in `merge`? — Khóa ghép trong `merge` là gì?**
 
-A. A shared field used to match rows — Trường chung để ghép các hàng
+A. A sale total per city — Tổng doanh thu theo từng vùng
 
-B. All rows from the left table — Mọi hàng bảng trái
+B. Descending order — Thứ tự giảm dần
 
-C. A sale total per city — Tổng doanh thu theo từng vùng
+C. A shared field used to match rows — Trường chung để ghép các hàng
 
-D. Descending order — Thứ tự giảm dần
+D. All rows from the left table — Mọi hàng bảng trái
 
 **Q6. What does `how='left'` retain? — `how='left'` giữ gì?**
 
-A. A shared field used to match rows — Trường chung để ghép các hàng
+A. Descending order — Thứ tự giảm dần
 
-B. All rows from the left table — Mọi hàng bảng trái
+B. A shared field used to match rows — Trường chung để ghép các hàng
 
 C. A sale total per city — Tổng doanh thu theo từng vùng
 
-D. Descending order — Thứ tự giảm dần
+D. All rows from the left table — Mọi hàng bảng trái
 
 **Q7. What does `groupby('city')['sale'].sum()` return? — `groupby('city')['sale'].sum()` trả gì?**
 
 A. A shared field used to match rows — Trường chung để ghép các hàng
 
-B. All rows from the left table — Mọi hàng bảng trái
+B. A sale total per city — Tổng doanh thu theo từng vùng
 
-C. A sale total per city — Tổng doanh thu theo từng vùng
+C. Descending order — Thứ tự giảm dần
 
-D. Descending order — Thứ tự giảm dần
+D. All rows from the left table — Mọi hàng bảng trái
 
 **Q8. What does `ascending=False` mean in sorting? — `ascending=False` khi sắp xếp nghĩa là gì?**
 
-A. A shared field used to match rows — Trường chung để ghép các hàng
+A. All rows from the left table — Mọi hàng bảng trái
 
-B. All rows from the left table — Mọi hàng bảng trái
+B. A shared field used to match rows — Trường chung để ghép các hàng
 
-C. A sale total per city — Tổng doanh thu theo từng vùng
+C. Descending order — Thứ tự giảm dần
 
-D. Descending order — Thứ tự giảm dần
+D. A sale total per city — Tổng doanh thu theo từng vùng
 
 **Q9. What distinguishes `loc` from `iloc`? — `loc` khác `iloc` ở đâu?**
 
-A. Labels versus positions — Nhãn so với vị trí
+A. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
 
-B. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
+B. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
 
-C. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
+C. Labels versus positions — Nhãn so với vị trí
 
 D. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
 
 **Q10. How does filtering differ from grouping? — Lọc khác phân nhóm như thế nào?**
 
-A. Labels versus positions — Nhãn so với vị trí
+A. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
 
-B. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
+B. Labels versus positions — Nhãn so với vị trí
 
 C. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
 
-D. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
+D. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
 
 **Q11. How does `head(2)` differ from `tail(2)`? — `head(2)` khác `tail(2)` thế nào?**
 
-A. Labels versus positions — Nhãn so với vị trí
+A. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
 
-B. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
+B. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
 
-C. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
+C. Labels versus positions — Nhãn so với vị trí
 
 D. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
 
 **Q12. How does an inner join differ from a left join? — Inner join khác left join thế nào?**
 
-A. Labels versus positions — Nhãn so với vị trí
+A. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
 
-B. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
+B. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
 
-C. First two rows versus last two — Hai hàng đầu so với hai hàng cuối
+C. Retains selected rows versus grouping by key — Giữ hàng được chọn so với gom theo khóa
 
-D. Matching rows only versus all left rows — Chỉ hàng khớp so với mọi hàng trái
+D. Labels versus positions — Nhãn so với vị trí
 
 **Q13. What risk comes from duplicate right-side join keys? — Khóa ghép bảng phải bị trùng gây nguy cơ gì?**
 
 A. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
 
-B. Unique right-side join keys — Khóa ghép bảng phải duy nhất
+B. Ascending order — Thứ tự tăng dần
 
-C. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
+C. Unique right-side join keys — Khóa ghép bảng phải duy nhất
 
-D. Ascending order — Thứ tự tăng dần
+D. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
 
 **Q14. What does `validate='many_to_one'` check? — `validate='many_to_one'` kiểm tra gì?**
 
-A. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
+A. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
 
 B. Unique right-side join keys — Khóa ghép bảng phải duy nhất
 
-C. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
+C. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
 
 D. Ascending order — Thứ tự tăng dần
 
 **Q15. What does `reset_index(drop=True)` change? — `reset_index(drop=True)` thay đổi gì?**
 
-A. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
+A. Ascending order — Thứ tự tăng dần
 
 B. Unique right-side join keys — Khóa ghép bảng phải duy nhất
 
-C. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
+C. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
 
-D. Ascending order — Thứ tự tăng dần
+D. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
 
 **Q16. What does `ascending=True` request? — `ascending=True` yêu cầu gì?**
 
-A. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
+A. Ascending order — Thứ tự tăng dần
 
 B. Unique right-side join keys — Khóa ghép bảng phải duy nhất
 
-C. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
+C. Unexpected row multiplication — Nhân số hàng ngoài ý muốn
 
-D. Ascending order — Thứ tự tăng dần
+D. Rebuilds sequential row labels — Đánh lại nhãn hàng liên tiếp
 
 **Q17. What does `df.iloc[0]` select? — `df.iloc[0]` chọn gì?**
 
 A. The first row by position — Hàng đầu theo vị trí
 
-B. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
+B. Keys must have compatible representations — Khóa cần biểu diễn tương thích
 
 C. Rows within each group — Số hàng trong từng nhóm
 
-D. Keys must have compatible representations — Khóa cần biểu diễn tương thích
+D. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
 
 **Q18. What does `df.loc[mask, ['a','b']]` select? — `df.loc[mask, ['a','b']]` chọn gì?**
 
-A. The first row by position — Hàng đầu theo vị trí
+A. Rows within each group — Số hàng trong từng nhóm
 
-B. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
+B. The first row by position — Hàng đầu theo vị trí
 
-C. Rows within each group — Số hàng trong từng nhóm
+C. Keys must have compatible representations — Khóa cần biểu diễn tương thích
 
-D. Keys must have compatible representations — Khóa cần biểu diễn tương thích
+D. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
 
 **Q19. What does `groupby('type').size()` count? — `groupby('type').size()` đếm gì?**
 
-A. The first row by position — Hàng đầu theo vị trí
+A. Rows within each group — Số hàng trong từng nhóm
 
 B. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
 
-C. Rows within each group — Số hàng trong từng nhóm
+C. The first row by position — Hàng đầu theo vị trí
 
 D. Keys must have compatible representations — Khóa cần biểu diễn tương thích
 
 **Q20. Why check types of columns used as merge keys? — Vì sao cần kiểm tra kiểu cột khóa khi merge?**
 
-A. The first row by position — Hàng đầu theo vị trí
+A. Rows within each group — Số hàng trong từng nhóm
 
-B. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
+B. Keys must have compatible representations — Khóa cần biểu diễn tương thích
 
-C. Rows within each group — Số hàng trong từng nhóm
+C. Matching rows in named columns a and b — Hàng phù hợp ở hai cột a và b
 
-D. Keys must have compatible representations — Khóa cần biểu diễn tương thích
+D. The first row by position — Hàng đầu theo vị trí
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A Boolean mask specifies which rows to retain. For `df[df['score'] >= 8]`, only records meeting the score threshold remain; other rows are filtered out, not aggregated. | Mặt nạ Boolean xác định hàng cần giữ. Với `df[df['score'] >= 8]`, chỉ những bản ghi đạt ngưỡng điểm được giữ lại; các hàng khác bị lọc, không phải được gộp thống kê. |
-| Q2 | **B** | loc selects by labels, including row index names. If a DataFrame has index label `'A'`, `df.loc['A']` targets that label even when it is not the first row. | loc chọn theo nhãn hàng. Nếu DataFrame có nhãn hàng `'A'`, `df.loc['A']` chọn theo nhãn đó dù hàng không nằm ở vị trí đầu. |
-| Q3 | **C** | iloc selects by zero-based position. `df.iloc[0]` selects the first physical row; a row labeled `0` need not be the first after data is reordered. | iloc chọn theo vị trí đếm từ 0. `df.iloc[0]` chọn hàng đầu theo vị trí; hàng có nhãn `0` không nhất thiết nằm đầu sau khi sắp xếp dữ liệu. |
-| Q4 | **D** | Grouping collects rows by a selected field. For cities `HN`, `HN`, `HCM`, grouping by city creates two groups to aggregate, without itself discarding unmatched cities. | Phân nhóm gom các hàng có chung một trường. Với các thành phố `HN`, `HN`, `HCM`, groupby theo thành phố tạo hai nhóm để tổng hợp mà không tự loại các thành phố còn lại. |
-| Q5 | **A** | Rows join when key values match. If both tables contain `customer_id`, rows with matching IDs may be joined; key types and duplicates must still be checked. | Các hàng được ghép khi khóa phù hợp. Nếu hai bảng đều có `customer_id`, các hàng có mã khớp có thể ghép với nhau; vẫn cần xem kiểu dữ liệu và khóa trùng. |
-| Q6 | **B** | A left join retains unmatched left records. A left join retains every left-side record even when no right match exists, filling missing right fields; duplicate right matches may expand the output rows. | Ghép trái không bỏ hàng bên trái chưa khớp. Left join giữ mọi bản ghi bảng trái kể cả khi bảng phải không khớp và điền giá trị thiếu phía phải; nhiều hàng phải cùng khớp có thể làm tăng số hàng kết quả. |
-| Q7 | **C** | sum aggregates sales within each city group. If `HN` has sales 10 and 15 and `HCM` has sale 8, the totals per city are 25 and 8, not a grand total alone. | sum cộng giá trị sale theo từng vùng. Nếu `HN` có doanh thu 10, 15 và `HCM` có 8, tổng từng thành phố lần lượt là 25 và 8, không chỉ một tổng toàn bảng. |
-| Q8 | **D** | False reverses normal ascending ordering. Sorting scores `[3,1,2]` with `ascending=False` yields `[3,2,1]`, not the original order. | False chuyển sang thứ tự giảm dần. Sắp điểm `[3,1,2]` với `ascending=False` cho `[3,2,1]`, không giữ thứ tự gốc. |
-| Q9 | **A** | A label 7 need not occupy position 7. A label `'7'` can be at the first physical position, so `loc['7']` and `iloc[7]` may select different rows or raise errors. | Nhãn 7 không nhất thiết nằm ở vị trí 7. Nhãn `'7'` có thể nằm tại vị trí đầu, nên `loc['7']` và `iloc[7]` có thể chọn các hàng khác nhau hoặc gây lỗi. |
-| Q10 | **B** | Filtering removes nonmatches; grouping organizes records. Filtering keeps only records satisfying a predicate; grouping retains records organized by key so operations like `sum()` can aggregate them. | Lọc bỏ hàng không khớp; nhóm tổ chức bản ghi. Lọc chỉ giữ bản ghi thỏa điều kiện, còn phân nhóm tổ chức bản ghi theo khóa để có thể tính tổng từng nhóm bằng `sum()`. |
-| Q11 | **C** | The two functions select opposite ends. For five rows, `head(2)` selects rows 1–2 while `tail(2)` selects rows 4–5 in their current order. | Hai hàm lấy dữ liệu ở hai đầu bảng. Với năm hàng, `head(2)` lấy hai hàng đầu, còn `tail(2)` lấy hàng thứ tư và thứ năm theo thứ tự hiện tại. |
-| Q12 | **D** | Inner joins drop left-side records without a match. If a left customer has no match in the right table, inner join omits it while left join retains it with missing right-side fields. | Inner join bỏ hàng trái không ghép được. Nếu một khách trong bảng trái không có hàng ghép bên phải, inner join bỏ khách đó, còn left join giữ lại với các trường phải bị thiếu. |
+| Q1 | **C** | A Boolean mask specifies which rows to retain. For `df[df['score'] >= 8]`, only records meeting the score threshold remain; other rows are filtered out, not aggregated. | Mặt nạ Boolean xác định hàng cần giữ. Với `df[df['score'] >= 8]`, chỉ những bản ghi đạt ngưỡng điểm được giữ lại; các hàng khác bị lọc, không phải được gộp thống kê. |
+| Q2 | **D** | loc selects by labels, including row index names. If a DataFrame has index label `'A'`, `df.loc['A']` targets that label even when it is not the first row. | loc chọn theo nhãn hàng. Nếu DataFrame có nhãn hàng `'A'`, `df.loc['A']` chọn theo nhãn đó dù hàng không nằm ở vị trí đầu. |
+| Q3 | **A** | iloc selects by zero-based position. `df.iloc[0]` selects the first physical row; a row labeled `0` need not be the first after data is reordered. | iloc chọn theo vị trí đếm từ 0. `df.iloc[0]` chọn hàng đầu theo vị trí; hàng có nhãn `0` không nhất thiết nằm đầu sau khi sắp xếp dữ liệu. |
+| Q4 | **C** | Grouping collects rows by a selected field. For cities `HN`, `HN`, `HCM`, grouping by city creates two groups to aggregate, without itself discarding unmatched cities. | Phân nhóm gom các hàng có chung một trường. Với các thành phố `HN`, `HN`, `HCM`, groupby theo thành phố tạo hai nhóm để tổng hợp mà không tự loại các thành phố còn lại. |
+| Q5 | **C** | Rows join when key values match. If both tables contain `customer_id`, rows with matching IDs may be joined; key types and duplicates must still be checked. | Các hàng được ghép khi khóa phù hợp. Nếu hai bảng đều có `customer_id`, các hàng có mã khớp có thể ghép với nhau; vẫn cần xem kiểu dữ liệu và khóa trùng. |
+| Q6 | **D** | A left join retains unmatched left records. A left join retains every left-side record even when no right match exists, filling missing right fields; duplicate right matches may expand the output rows. | Ghép trái không bỏ hàng bên trái chưa khớp. Left join giữ mọi bản ghi bảng trái kể cả khi bảng phải không khớp và điền giá trị thiếu phía phải; nhiều hàng phải cùng khớp có thể làm tăng số hàng kết quả. |
+| Q7 | **B** | sum aggregates sales within each city group. If `HN` has sales 10 and 15 and `HCM` has sale 8, the totals per city are 25 and 8, not a grand total alone. | sum cộng giá trị sale theo từng vùng. Nếu `HN` có doanh thu 10, 15 và `HCM` có 8, tổng từng thành phố lần lượt là 25 và 8, không chỉ một tổng toàn bảng. |
+| Q8 | **C** | False reverses normal ascending ordering. Sorting scores `[3,1,2]` with `ascending=False` yields `[3,2,1]`, not the original order. | False chuyển sang thứ tự giảm dần. Sắp điểm `[3,1,2]` với `ascending=False` cho `[3,2,1]`, không giữ thứ tự gốc. |
+| Q9 | **C** | A label 7 need not occupy position 7. A label `'7'` can be at the first physical position, so `loc['7']` and `iloc[7]` may select different rows or raise errors. | Nhãn 7 không nhất thiết nằm ở vị trí 7. Nhãn `'7'` có thể nằm tại vị trí đầu, nên `loc['7']` và `iloc[7]` có thể chọn các hàng khác nhau hoặc gây lỗi. |
+| Q10 | **D** | Filtering removes nonmatches; grouping organizes records. Filtering keeps only records satisfying a predicate; grouping retains records organized by key so operations like `sum()` can aggregate them. | Lọc bỏ hàng không khớp; nhóm tổ chức bản ghi. Lọc chỉ giữ bản ghi thỏa điều kiện, còn phân nhóm tổ chức bản ghi theo khóa để có thể tính tổng từng nhóm bằng `sum()`. |
+| Q11 | **B** | The two functions select opposite ends. For five rows, `head(2)` selects rows 1–2 while `tail(2)` selects rows 4–5 in their current order. | Hai hàm lấy dữ liệu ở hai đầu bảng. Với năm hàng, `head(2)` lấy hai hàng đầu, còn `tail(2)` lấy hàng thứ tư và thứ năm theo thứ tự hiện tại. |
+| Q12 | **B** | Inner joins drop left-side records without a match. If a left customer has no match in the right table, inner join omits it while left join retains it with missing right-side fields. | Inner join bỏ hàng trái không ghép được. Nếu một khách trong bảng trái không có hàng ghép bên phải, inner join bỏ khách đó, còn left join giữ lại với các trường phải bị thiếu. |
 | Q13 | **A** | Each extra matching right row can duplicate left data. One left key matching two right rows can produce two merged rows, inflating totals if duplicate join keys were not expected. | Mỗi hàng phải khớp thêm có thể nhân dữ liệu trái. Một khóa trái khớp hai hàng phải có thể sinh hai hàng ghép, làm tổng bị phóng đại nếu không dự kiến khóa trùng. |
 | Q14 | **B** | Many left records may match one right record. This validation permits multiple left rows per key but requires at most one matching right row per key, otherwise Pandas raises a merge validation error. | Nhiều hàng trái được phép ghép một hàng phải. Kiểm tra này cho phép nhiều hàng trái có cùng khóa nhưng yêu cầu phía phải tối đa một hàng cho mỗi khóa, nếu không Pandas báo lỗi kiểm chứng merge. |
-| Q15 | **C** | Resetting index avoids carrying old row indices. After filtering leaves labels `[2,5]`, `reset_index(drop=True)` relabels rows `[0,1]` without saving the old labels in a column. | Đánh lại index loại bỏ nhãn hàng cũ. Sau khi lọc còn nhãn `[2,5]`, `reset_index(drop=True)` đánh nhãn lại `[0,1]` mà không giữ nhãn cũ thành cột. |
-| Q16 | **D** | Ascending is the default sort direction. With ascending order, numerical values 1, 2, 3 appear in that order; `ascending=False` reverses the sort. | Tăng dần là hướng sắp xếp mặc định. Khi sắp tăng dần, các số 1, 2, 3 theo đúng thứ tự đó; `ascending=False` chuyển sang giảm dần. |
+| Q15 | **D** | Resetting index avoids carrying old row indices. After filtering leaves labels `[2,5]`, `reset_index(drop=True)` relabels rows `[0,1]` without saving the old labels in a column. | Đánh lại index loại bỏ nhãn hàng cũ. Sau khi lọc còn nhãn `[2,5]`, `reset_index(drop=True)` đánh nhãn lại `[0,1]` mà không giữ nhãn cũ thành cột. |
+| Q16 | **A** | Ascending is the default sort direction. With ascending order, numerical values 1, 2, 3 appear in that order; `ascending=False` reverses the sort. | Tăng dần là hướng sắp xếp mặc định. Khi sắp tăng dần, các số 1, 2, 3 theo đúng thứ tự đó; `ascending=False` chuyển sang giảm dần. |
 | Q17 | **A** | The first position has index zero. `iloc[0]` selects position zero regardless of the row's label; it generally returns one Series representing the first row. | Vị trí đầu tiên mang số 0. `iloc[0]` chọn vị trí không bất kể nhãn hàng là gì; thao tác thường trả một Series đại diện cho hàng đầu. |
-| Q18 | **B** | The mask restricts rows and the names restrict columns. The Boolean mask selects qualifying rows, while `['a','b']` limits the output to those two named columns. | Mask lọc hàng, danh sách tên lọc cột. Mask Boolean chọn các hàng đạt điều kiện, còn `['a','b']` giới hạn kết quả ở đúng hai cột có tên đó. |
-| Q19 | **C** | size counts all rows in each grouping category. Unlike `count()` on a nullable field, group `size()` includes rows even when some other column values are missing. | size đếm số hàng ở mỗi nhóm. Khác `count()` trên một cột có giá trị thiếu, `size()` của nhóm vẫn đếm hàng ngay cả khi ô ở cột khác bị thiếu. |
-| Q20 | **D** | Different or malformed key types may block correct matches. A string key `'001'` is not the same representation as numeric `1`, so normalize types and formats before comparing merge matches. | Kiểu khóa khác nhau hoặc sai có thể cản trở ghép đúng. Khóa chuỗi `'001'` không có biểu diễn giống số `1`, nên cần chuẩn hóa kiểu và định dạng trước khi ghép dữ liệu. |
+| Q18 | **D** | The mask restricts rows and the names restrict columns. The Boolean mask selects qualifying rows, while `['a','b']` limits the output to those two named columns. | Mask lọc hàng, danh sách tên lọc cột. Mask Boolean chọn các hàng đạt điều kiện, còn `['a','b']` giới hạn kết quả ở đúng hai cột có tên đó. |
+| Q19 | **A** | size counts all rows in each grouping category. Unlike `count()` on a nullable field, group `size()` includes rows even when some other column values are missing. | size đếm số hàng ở mỗi nhóm. Khác `count()` trên một cột có giá trị thiếu, `size()` của nhóm vẫn đếm hàng ngay cả khi ô ở cột khác bị thiếu. |
+| Q20 | **B** | Different or malformed key types may block correct matches. A string key `'001'` is not the same representation as numeric `1`, so normalize types and formats before comparing merge matches. | Kiểu khóa khác nhau hoặc sai có thể cản trở ghép đúng. Khóa chuỗi `'001'` không có biểu diễn giống số `1`, nên cần chuẩn hóa kiểu và định dạng trước khi ghép dữ liệu. |
 
 ## 8. Nối sang bài tiếp
 
