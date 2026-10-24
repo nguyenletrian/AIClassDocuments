@@ -1,14 +1,8 @@
 # PY-33 — Jacobian, Hessian và điểm cực trị
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Jacobian** — ma trận Jacobian; **Hessian** — ma trận Hessian.
-
 `Gradient → Jacobian → Hessian → Tối ưu mô hình`
-
-Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất, thống kê và các bước học máy.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 
 ## 3. Hàm Python và tham số quan trọng
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / cú pháp | Cách sử dụng |
 |---|---|
 | `sympy.Matrix([...]).jacobian(vars)` | Đạo hàm riêng hàm vector theo biến |
@@ -34,69 +26,49 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 
 ### 4.1. Jacobian
 
-**Từ vựng trong mục:** **Jacobian** — ma trận Jacobian.
-
-Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra.
 
 ```python
 import sympy as sp
 x,y=sp.symbols('x y');F=sp.Matrix([x+y,x*y]);print(F.jacobian([x,y]))
 ```
 
-**Tự kiểm tra:** Jacobian là gì? **Đáp án:** Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra.
-
 ### 4.2. Hessian
 
-**Từ vựng trong mục:** **Hessian** — ma trận Hessian.
-
-Bảng đạo hàm riêng bậc hai của hàm vô hướng. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Bảng đạo hàm riêng bậc hai của hàm vô hướng.
 
 ```python
 import sympy as sp
 x,y=sp.symbols('x y');print(sp.hessian(x*x+y*y,[x,y]))
 ```
 
-**Tự kiểm tra:** Hessian là gì? **Đáp án:** Bảng đạo hàm riêng bậc hai của hàm vô hướng.
-
 ### 4.3. Critical point
 
-**Từ vựng trong mục:** **Critical point** — điểm tới hạn.
-
-Điểm có gradient bằng 0 hoặc không xác định. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Điểm có gradient bằng 0 hoặc không xác định.
 
 ```python
 import sympy as sp
 x=sp.symbols('x');print(sp.solve(sp.diff(x*x,x),x))
 ```
 
-**Tự kiểm tra:** Critical point là gì? **Đáp án:** Điểm có gradient bằng 0 hoặc không xác định.
-
 ### 4.4. Curvature
 
-**Từ vựng trong mục:** **Curvature** — độ cong.
-
-Cách độ dốc biến thiên quanh vị trí đang xét. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Cách độ dốc biến thiên quanh vị trí đang xét.
 
 ```python
 import sympy as sp
 x=sp.symbols('x');print(sp.diff(x*x,x,2))
 ```
 
-**Tự kiểm tra:** Curvature là gì? **Đáp án:** Cách độ dốc biến thiên quanh vị trí đang xét.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Độ nhạy hai đầu ra cảm biến
 
-**Từ vựng trong mục:** **Jacobian** — ma trận Jacobian.
-
 **Vấn đề:** Độ nhạy hai đầu ra cảm biến.
 
-**Vì sao chọn phương pháp này?** Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất.
 
-**Dữ liệu:** F1=x+y, F2=x*y. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** F1=x+y, F2=x*y.
 
 ```python
 import sympy as sp
@@ -105,19 +77,13 @@ F=sp.Matrix([x+y,x*y])
 print(F.jacobian([x,y]).subs({x:3,y:2}))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 2 — Độ cong hàm lỗi
-
-**Từ vựng trong mục:** **Hessian** — ma trận Hessian.
 
 **Vấn đề:** Độ cong hàm lỗi.
 
-**Vì sao chọn phương pháp này?** Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau.
 
-**Dữ liệu:** f=x²+2y². Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** f=x²+2y².
 
 ```python
 import sympy as sp
@@ -125,19 +91,13 @@ x,y=sp.symbols("x y")
 print(sp.hessian(x*x+2*y*y,[x,y]))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 3 — Tìm tối ưu chi phí
-
-**Từ vựng trong mục:** **Critical point** — điểm tới hạn.
 
 **Vấn đề:** Tìm tối ưu chi phí.
 
-**Vì sao chọn phương pháp này?** Giải gradient=0 cho hàm bậc hai. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Giải gradient=0 cho hàm bậc hai.
 
-**Dữ liệu:** f=(x-3)²+(y-2)². Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** f=(x-3)²+(y-2)².
 
 ```python
 import sympy as sp
@@ -145,19 +105,13 @@ x,y=sp.symbols("x y");f=(x-3)**2+(y-2)**2
 print(sp.solve([sp.diff(f,x),sp.diff(f,y)],[x,y]))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 4 — Phân biệt cực tiểu và cực đại
-
-**Từ vựng trong mục:** **Curvature** — độ cong.
 
 **Vấn đề:** Phân biệt cực tiểu và cực đại.
 
-**Vì sao chọn phương pháp này?** Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương.
 
-**Dữ liệu:** f=x²+y² tại (0,0). Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** f=x²+y² tại (0,0).
 
 ```python
 import sympy as sp,numpy as np
@@ -165,19 +119,13 @@ x,y=sp.symbols("x y");H=sp.hessian(x*x+y*y,[x,y])
 print(np.linalg.eigvalsh(np.array(H,dtype=float)))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 5 — Độ nhạy hàm nhiều đầu ra
-
-**Từ vựng trong mục:** **Jacobian** — ma trận Jacobian.
 
 **Vấn đề:** Độ nhạy hàm nhiều đầu ra.
 
-**Vì sao chọn phương pháp này?** Kiểm Jacobian đầu ra có shape đúng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Kiểm Jacobian đầu ra có shape đúng.
 
-**Dữ liệu:** F gồm hai hàm của 2 biến. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** F gồm hai hàm của 2 biến.
 
 ```python
 import sympy as sp
@@ -186,15 +134,11 @@ J=sp.Matrix([x*x+y,x+y*y]).jacobian([x,y])
 print(J.shape)
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ## 6. Những nhầm lẫn thường gặp
 
 Xác suất có điều kiện cần mẫu nền; xác suất của phân phối liên tục tại một điểm không phải PDF; thống kê từ một nhóm nhỏ không tự chứng minh kết quả cho quần thể. Chú ý định nghĩa mean/std và giả định độc lập.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Jacobian? — Thuật ngữ Jacobian là gì?**
@@ -440,7 +384,3 @@ D. Ignoring missing inputs — Bỏ dữ liệu thiếu mà không đánh giá
 | Q18 | **A** | The input is F gồm hai hàm của 2 biến | F gồm hai hàm của 2 biến |
 | Q19 | **D** | Assumptions, units and sample size | Giả định, đơn vị và kích thước mẫu |
 | Q20 | **C** | Checking assumptions and edge cases | Kiểm tra giả định và trường hợp biên |
-
-## 8. Liên hệ bài tiếp theo
-
-`Gradient → Jacobian → Hessian → Tối ưu mô hình`.
