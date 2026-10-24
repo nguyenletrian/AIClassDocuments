@@ -1,6 +1,5 @@
 # PY-41 — Phân hoạch dữ liệu, classification và clustering
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
