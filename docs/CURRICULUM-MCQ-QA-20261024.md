@@ -11,7 +11,7 @@
 
 | Bài | Phát hiện | Khắc phục |
 |---|---|---|
-| PY-07 Q9 | Dấu `|` trong bảng đáp án tạo các cột Markdown sai | Escape dưới dạng `&#124;`, giải thích rõ hợp so với giao |
+| PY-07 Q9 | Dấu `&#124;` trong bảng đáp án tạo các cột Markdown sai | Escape bằng entity `&#124;`, giải thích rõ hợp so với giao |
 | PY-20 Q4 | Từ "independent choices" ở nguyên lý nhân đếm dễ bị hiểu nhầm là độc lập xác suất | Sửa điều kiện đếm theo số lựa chọn nối tiếp hợp lệ, nêu rõ không cần độc lập xác suất |
 | PY-41 Q13 và Q19 | Cách hỏi chưa khớp chính xác với kiểu đáp án | Viết lại câu hỏi để chỉ có một cách hiểu |
 | PY-42 | Biểu thức Jaccard gốc bị thiếu cú pháp/mẫu số | Sửa `len(a & b) / len(a | b)`, xử lý hợp rỗng bằng quy ước rõ |
