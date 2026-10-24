@@ -96,7 +96,7 @@ print(v[:,-1])
 
 **Vì sao chọn phương án?** Chọn eigenvector tương ứng eigenvalue lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Covariance minh họa chéo [2,3]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** Covariance minh họa chéo [2,3].
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -106,7 +106,6 @@ C=np.diag([2.,3.]);w,v=np.linalg.eigh(C)
 print(w[-1],v[:,-1])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 2 — Xem dữ liệu có trùng tuyến tính
 
@@ -116,7 +115,7 @@ print(w[-1],v[:,-1])
 
 **Vì sao chọn phương án?** Eigenvalue gần 0 biểu thị hướng rất ít biến thiên; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ba điểm cùng tăng hai feature. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** Ba điểm cùng tăng hai feature.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -126,7 +125,6 @@ X=np.array([[1,2],[2,4],[3,6]],dtype=float)
 print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 3 — Kiểm công thức eigen
 
@@ -136,7 +134,7 @@ print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
 
 **Vì sao chọn phương án?** A@v gần lambda*v cho cặp riêng chính xác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ma trận chéo 2×2. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** Ma trận chéo 2×2.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -146,7 +144,6 @@ A=np.diag([2.,3.]);w,v=np.linalg.eigh(A)
 print(np.allclose(A@v[:,-1],w[-1]*v[:,-1]))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 4 — Sắp thứ tự mức phương sai
 
@@ -156,7 +153,7 @@ print(np.allclose(A@v[:,-1],w[-1]*v[:,-1]))
 
 **Vì sao chọn phương án?** argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Giá trị riêng [4,1,3]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** Giá trị riêng [4,1,3].
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -166,7 +163,6 @@ values=np.array([4,1,3])
 print(np.argsort(values)[::-1])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 5 — So với PCA của sklearn
 
@@ -176,7 +172,7 @@ print(np.argsort(values)[::-1])
 
 **Vì sao chọn phương án?** Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** 3 khách × 2 feature. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** 3 khách × 2 feature.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -187,7 +183,6 @@ X=np.array([[1,2],[2,3],[3,4]],dtype=float)
 print(PCA(n_components=1).fit_transform(X).shape)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ## 6. Sai lầm cần tránh
 
