@@ -31,15 +31,18 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Permutation
+Khi chọn người hoặc sắp xếp công việc, câu hỏi đầu tiên là **đổi thứ tự có tạo ra kết quả khác không?** Nếu có, ta đếm các cách sắp xếp bằng **hoán vị**; nếu không, ta đếm **tổ hợp**. **Giai thừa** là phép nhân nền tảng để tính những số cách đó, còn **hệ số nhị thức** tạo nên các hàng của tam giác Pascal.
 
-**Từ vựng trong mục:** **Permutation** — hoán vị.
+### 4.1. Permutation — Chọn và phân vai có thứ tự
 
-Chọn có phân biệt thứ tự. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Permutation** — chỉnh hợp/hoán vị có thứ tự; **Order** — thứ tự.
+
+Có năm ứng viên và hai vị trí **khác nhau** là trưởng nhóm, phó nhóm. Chọn trưởng có 5 cách; sau đó chọn phó còn 4 cách, nên có `5 × 4 = 20` phương án. Đảo vai trò hai người tạo phương án khác. `math.perm(n,k)` đếm cách lấy **k người khác nhau từ n người** và phân thứ tự, với `0 ≤ k ≤ n`. Nếu dùng hết n người, kết quả là `n!`.
 
 ```python
 import math
-print(math.perm(5,2))
+
+print(math.perm(5, 2))
 ```
 
 **Kết quả khi chạy:**
@@ -48,15 +51,18 @@ print(math.perm(5,2))
 20
 ```
 
-### 4.2. Combination
+Có 20 cách phân vai trưởng/phó; đổi thứ tự hai người được tính là cách khác.
 
-**Từ vựng trong mục:** **Combination** — tổ hợp.
+### 4.2. Combination — Chọn nhóm không phân vai
 
-Chọn nhóm không xét thứ tự. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Combination** — tổ hợp; **Order-independent** — không xét thứ tự.
+
+Nếu năm ứng viên chỉ cần chọn **hai người cùng một đội**, cặp An–Bình và Bình–An là **một** đội, không phải hai. Công thức `C(n,k) = n! / (k!(n-k)!)`; với 5 chọn 2 có 10 nhóm. `math.comb(n,k)` tính trực tiếp số nhóm mà không cần liệt kê từng cặp. Trong thực tế cần xác nhận có được chọn một người nhiều lần hay không; ở đây mỗi ứng viên chỉ chọn tối đa một lần.
 
 ```python
 import math
-print(math.comb(5,2))
+
+print(math.comb(5, 2))
 ```
 
 **Kết quả khi chạy:**
@@ -65,14 +71,17 @@ print(math.comb(5,2))
 10
 ```
 
-### 4.3. Factorial
+Số nhóm bằng nửa số cách phân vai hai người vì hoán đổi hai vai không tạo đội mới.
 
-**Từ vựng trong mục:** **Factorial** — giai thừa.
+### 4.3. Factorial — Sắp xếp tất cả phần tử
 
-Tích các số từ 1 đến n. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Factorial** — giai thừa; **Arrangement** — thứ tự sắp xếp.
+
+Với bốn nhiệm vụ **khác nhau**, có 4 cách chọn việc đầu, 3 cách chọn việc thứ hai, rồi 2 và 1. Tổng số cách sắp xếp là `4! = 4×3×2×1 = 24`. Đây là **giai thừa**. Quy ước `0! = 1` vì có đúng một cách sắp xếp dãy rỗng. `math.factorial` áp dụng cho số nguyên không âm.
 
 ```python
 import math
+
 print(math.factorial(4))
 ```
 
@@ -82,23 +91,27 @@ print(math.factorial(4))
 24
 ```
 
-### 4.4. Binomial coefficient
+Bốn nhiệm vụ khác nhau có 24 thứ tự thực hiện nếu mỗi nhiệm vụ xuất hiện đúng một lần.
 
-**Từ vựng trong mục:** **Binomial coefficient** — hệ số nhị thức.
+### 4.4. Binomial coefficient và tam giác Pascal
 
-Số cách chọn k từ n. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Binomial coefficient** — hệ số nhị thức; **Pascal triangle** — tam giác Pascal.
+
+**Hệ số nhị thức** `C(n,k)` là số cách chọn k phần tử không xét thứ tự, đồng thời là hệ số của `a^(n-k)b^k` trong khai triển `(a+b)^n`. Các giá trị `C(n,0)` đến `C(n,n)` tạo thành **hàng n của tam giác Pascal** (đếm từ hàng 0). Với n = 4, hàng có năm hệ số `1,4,6,4,1`; hai cạnh bằng 1 và mỗi ô trong bằng tổng hai ô ngay phía trên.
 
 ```python
 import math
-print(math.comb(6,3))
+
+print([math.comb(4, k) for k in range(5)])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-20
+[1, 4, 6, 4, 1]
 ```
 
+Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
 ## 5. Năm vấn đề thực tế
 
 ### Tình huống 1 — Chọn trưởng và phó nhóm
@@ -107,14 +120,18 @@ print(math.comb(6,3))
 
 **Tình huống thực tế:** Ban tổ chức có 5 ứng viên và cần chọn một trưởng nhóm, một phó nhóm, hai vị trí khác nhau. Có bao nhiêu cách chọn?
 
-**Vì sao chọn phương án này?** Vị trí trưởng và phó khác nhau nên dùng hoán vị. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Hai vai trò khác nhau nên phải tính số cách có thứ tự, dùng `perm`.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Xác định trưởng nhóm và phó nhóm là hai vị trí khác nhau.
+2. Chọn trưởng trong năm người rồi phó trong bốn người còn lại.
+3. Nhân 5×4 hoặc gọi `math.perm(5,2)` để đếm.
 
 ```python
 import math
-print(math.perm(5,2))
+print(math.perm(5, 2))
 ```
 
 **Kết quả khi chạy:**
@@ -129,14 +146,18 @@ print(math.perm(5,2))
 
 **Tình huống thực tế:** Một đội thi cần chọn 5 người từ 12 ứng viên; vai trò của người được chọn không phân biệt. Có bao nhiêu đội?
 
-**Vì sao chọn phương án này?** Các thành viên không phân vai trò nên dùng tổ hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Không phân vai nên mỗi nhóm năm người chỉ được đếm một lần, dùng `comb`.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Ghi nhận đội có năm thành viên và có 12 ứng viên.
+2. Xác định thứ tự thành viên không quan trọng.
+3. Gọi `math.comb(12,5)` để đếm các đội khác nhau.
 
 ```python
 import math
-print(math.comb(12,5))
+print(math.comb(12, 5))
 ```
 
 **Kết quả khi chạy:**
@@ -151,20 +172,24 @@ print(math.comb(12,5))
 
 **Tình huống thực tế:** Bộ kiểm thử có ba tác vụ A, B, C; cần thử mọi thứ tự thực hiện. Liệt kê các thứ tự.
 
-**Vì sao chọn phương án này?** Thứ tự thực hiện làm kết quả khác nhau. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Đề yêu cầu toàn bộ thứ tự của ba tác vụ, nên cần hoán vị độ dài ba và nhận `3!` kết quả.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo ba tác vụ A, B, C, mỗi tác vụ phải xuất hiện một lần.
+2. Dùng `itertools.permutations(tasks)` không truyền độ dài để lấy đủ ba tác vụ.
+3. In sáu thứ tự; đối chiếu `3! = 6`.
 
 ```python
 from itertools import permutations
-print(list(permutations(["A","B","C"])))
+print(list(permutations(['A', 'B', 'C'])))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[('A', 'B'), ('A', 'C'), ('B', 'A'), ('B', 'C'), ('C', 'A'), ('C', 'B')]
+[('A', 'B', 'C'), ('A', 'C', 'B'), ('B', 'A', 'C'), ('B', 'C', 'A'), ('C', 'A', 'B'), ('C', 'B', 'A')]
 ```
 
 ### Tình huống 4 — Đề xuất cặp môn học
@@ -173,14 +198,18 @@ print(list(permutations(["A","B","C"])))
 
 **Tình huống thực tế:** Nhóm học chọn hai môn trong ba môn Python, AI, SQL; thứ tự không quan trọng. Liệt kê các cặp môn.
 
-**Vì sao chọn phương án này?** Mỗi cặp môn học không cần phân biệt thứ tự. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Cặp môn không có thứ tự, vì vậy `combinations` không nhân đôi những cặp đảo chiều.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Lưu ba môn Python, AI, SQL vào List.
+2. Dùng `combinations(subjects,2)` vì không phân biệt hai thứ tự trong cùng cặp.
+3. In ba cặp môn có thể chọn.
 
 ```python
 from itertools import combinations
-print(list(combinations(["Python","AI","SQL"],2)))
+print(list(combinations(["Python", "AI", "SQL"], 2)))
 ```
 
 **Kết quả khi chạy:**
@@ -195,14 +224,18 @@ print(list(combinations(["Python","AI","SQL"],2)))
 
 **Tình huống thực tế:** Giáo viên cần viết hàng n=4 của tam giác Pascal bằng C(4,k), k từ 0 đến 4.
 
-**Vì sao chọn phương án này?** Hệ số comb cho từng vị trí hàng n. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Các giá trị của tam giác Pascal chính là các hệ số nhị thức `C(n,k)`.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Chọn hàng n=4 của tam giác Pascal.
+2. Tính các hệ số `math.comb(4,k)` với k=0..4.
+3. In năm giá trị và kiểm tra tính đối xứng.
 
 ```python
 import math
-print([math.comb(4,k) for k in range(5)])
+print([math.comb(4, k) for k in range(5)])
 ```
 
 **Kết quả khi chạy:**
@@ -211,258 +244,242 @@ print([math.comb(4,k) for k in range(5)])
 [1, 4, 6, 4, 1]
 ```
 
-## 6. Các lỗi dễ mắc
+## 6. Sai lầm thường gặp
 
-Cần phân biệt khi nào thứ tự quan trọng, khi nào phần tử trùng được tính lại, và khi nào dữ liệu thật không có đủ điều kiện như ví dụ. Xem kỹ kiểu dữ liệu và đầu vào trống.
+- Phân biệt bài toán **có thứ tự** (`perm`) với **không xét thứ tự** (`comb`).
+- `itertools.permutations(items,2)` chỉ tạo các cặp có thứ tự, không phải sắp xếp toàn bộ ba phần tử; không truyền k để lấy toàn bộ.
+- Cả `math.perm` và `math.comb` giả định các phần tử phân biệt và không chọn trùng một phần tử.
+- `math.factorial` cần số nguyên không âm; `0! = 1`.
+- `itertools` để **liệt kê** các phương án; `math` giúp **đếm** khi số phương án quá lớn không nên liệt kê.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. When should permutations be used? — Khi nào dùng hoán vị/chỉnh hợp?**
 
-**Q1. What best describes Permutation? — Mô tả nào đúng với Permutation?**
+A. When order matters — Khi thứ tự quan trọng
 
-A. A different idea is Chọn nhóm không xét thứ tự — Chọn nhóm không xét thứ tự
+B. When order does not matter — Khi thứ tự không quan trọng
 
-B. It is Chọn có phân biệt thứ tự — Chọn có phân biệt thứ tự
+C. The product 1×2×…×n — Tích 1×2×…×n
 
-C. A different idea is Tích các số từ 1 đến n — Tích các số từ 1 đến n
+D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
-D. A different idea is Số cách chọn k từ n — Số cách chọn k từ n
+**Q2. When should combinations be used? — Khi nào dùng tổ hợp?**
 
+A. When order matters — Khi thứ tự quan trọng
 
-**Q2. What best describes Combination? — Mô tả nào đúng với Combination?**
+B. When order does not matter — Khi thứ tự không quan trọng
 
-A. It is Chọn nhóm không xét thứ tự — Chọn nhóm không xét thứ tự
+C. The product 1×2×…×n — Tích 1×2×…×n
 
-B. A different idea is Tích các số từ 1 đến n — Tích các số từ 1 đến n
+D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
-C. A different idea is Số cách chọn k từ n — Số cách chọn k từ n
+**Q3. What is factorial n!? — Giai thừa n! là gì?**
 
-D. A different idea is Chọn có phân biệt thứ tự — Chọn có phân biệt thứ tự
+A. When order matters — Khi thứ tự quan trọng
 
+B. When order does not matter — Khi thứ tự không quan trọng
 
-**Q3. What best describes Factorial? — Mô tả nào đúng với Factorial?**
+C. The product 1×2×…×n — Tích 1×2×…×n
 
-A. A different idea is Số cách chọn k từ n — Số cách chọn k từ n
+D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
-B. A different idea is Chọn có phân biệt thứ tự — Chọn có phân biệt thứ tự
+**Q4. What is a binomial coefficient C(n,k)? — Hệ số nhị thức C(n,k) là gì?**
 
-C. A different idea is Chọn nhóm không xét thứ tự — Chọn nhóm không xét thứ tự
+A. When order matters — Khi thứ tự quan trọng
 
-D. It is Tích các số từ 1 đến n — Tích các số từ 1 đến n
+B. When order does not matter — Khi thứ tự không quan trọng
 
+C. The product 1×2×…×n — Tích 1×2×…×n
 
-**Q4. What best describes Binomial coefficient? — Mô tả nào đúng với Binomial coefficient?**
+D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
-A. A different idea is Chọn có phân biệt thứ tự — Chọn có phân biệt thứ tự
+**Q5. Which function counts ordered selections? — Hàm nào đếm cách chọn có thứ tự?**
 
-B. A different idea is Chọn nhóm không xét thứ tự — Chọn nhóm không xét thứ tự
+A. `math.perm(n, k)` — `math.perm(n, k)`
 
-C. It is Số cách chọn k từ n — Số cách chọn k từ n
+B. `math.comb(n, k)` — `math.comb(n, k)`
 
-D. A different idea is Tích các số từ 1 đến n — Tích các số từ 1 đến n
+C. `math.factorial(n)` — `math.factorial(n)`
 
+D. `itertools.permutations(items)` — `itertools.permutations(items)`
 
-**Q5. Which operation matches math.factorial(n)? — Mục đích của math.factorial(n) là gì?**
+**Q6. Which function counts unordered selections? — Hàm nào đếm cách chọn không thứ tự?**
 
-A. Another operation is used to Đếm cách chọn có thứ tự k từ n — Đếm cách chọn có thứ tự k từ n
+A. `math.perm(n, k)` — `math.perm(n, k)`
 
-B. It is used to Tính n!, n không âm — Tính n!, n không âm
+B. `math.comb(n, k)` — `math.comb(n, k)`
 
-C. Another operation is used to Đếm cách chọn không thứ tự — Đếm cách chọn không thứ tự
+C. `math.factorial(n)` — `math.factorial(n)`
 
-D. Another operation is used to Liệt kê kết quả khi n nhỏ — Liệt kê kết quả khi n nhỏ
+D. `itertools.permutations(items)` — `itertools.permutations(items)`
 
+**Q7. Which function calculates n!? — Hàm nào tính n!?**
 
-**Q6. Which operation matches math.perm(n,k)? — Mục đích của math.perm(n,k) là gì?**
+A. `math.perm(n, k)` — `math.perm(n, k)`
 
-A. It is used to Đếm cách chọn có thứ tự k từ n — Đếm cách chọn có thứ tự k từ n
+B. `math.comb(n, k)` — `math.comb(n, k)`
 
-B. Another operation is used to Đếm cách chọn không thứ tự — Đếm cách chọn không thứ tự
+C. `math.factorial(n)` — `math.factorial(n)`
 
-C. Another operation is used to Liệt kê kết quả khi n nhỏ — Liệt kê kết quả khi n nhỏ
+D. `itertools.permutations(items)` — `itertools.permutations(items)`
 
-D. Another operation is used to Tính n!, n không âm — Tính n!, n không âm
+**Q8. Which function lists all ordered arrangements? — Hàm nào liệt kê các cách sắp xếp có thứ tự?**
 
+A. `math.perm(n, k)` — `math.perm(n, k)`
 
-**Q7. Which operation matches math.comb(n,k)? — Mục đích của math.comb(n,k) là gì?**
+B. `math.comb(n, k)` — `math.comb(n, k)`
 
-A. Another operation is used to Liệt kê kết quả khi n nhỏ — Liệt kê kết quả khi n nhỏ
+C. `math.factorial(n)` — `math.factorial(n)`
 
-B. Another operation is used to Tính n!, n không âm — Tính n!, n không âm
+D. `itertools.permutations(items)` — `itertools.permutations(items)`
 
-C. Another operation is used to Đếm cách chọn có thứ tự k từ n — Đếm cách chọn có thứ tự k từ n
+**Q9. What is the value of 0!? — 0! bằng bao nhiêu?**
 
-D. It is used to Đếm cách chọn không thứ tự — Đếm cách chọn không thứ tự
+A. 1 — 1
 
+B. 6 — 6
 
-**Q8. Which operation matches itertools.combinations/permutations? — Mục đích của itertools.combinations/permutations là gì?**
+C. 10 pairs — 10 cặp
 
-A. Another operation is used to Tính n!, n không âm — Tính n!, n không âm
+D. 12 pairs — 12 cặp
 
-B. Another operation is used to Đếm cách chọn có thứ tự k từ n — Đếm cách chọn có thứ tự k từ n
+**Q10. How many full orderings of three distinct items exist? — Ba phần tử phân biệt có bao nhiêu thứ tự đầy đủ?**
 
-C. It is used to Liệt kê kết quả khi n nhỏ — Liệt kê kết quả khi n nhỏ
+A. 1 — 1
 
-D. Another operation is used to Đếm cách chọn không thứ tự — Đếm cách chọn không thứ tự
+B. 6 — 6
 
+C. 10 pairs — 10 cặp
 
-**Q9. Why was the method chosen for scenario 1? — Vì sao chọn cách giải của tình huống 1?**
+D. 12 pairs — 12 cặp
 
-A. Another reason is Các thành viên không phân vai trò nên dùng tổ hợp — Các thành viên không phân vai trò nên dùng tổ hợp
+**Q11. How many unordered pairs can be chosen from five distinct items? — Chọn cặp không thứ tự từ năm phần tử có bao nhiêu cách?**
 
-B. Because Vị trí trưởng và phó khác nhau nên dùng hoán vị — Vị trí trưởng và phó khác nhau nên dùng hoán vị
+A. 1 — 1
 
-C. Another reason is Thứ tự thực hiện làm kết quả khác nhau — Thứ tự thực hiện làm kết quả khác nhau
+B. 6 — 6
 
-D. Another reason is Mỗi cặp môn học không cần phân biệt thứ tự — Mỗi cặp môn học không cần phân biệt thứ tự
+C. 10 pairs — 10 cặp
 
+D. 12 pairs — 12 cặp
 
-**Q10. Why was the method chosen for scenario 2? — Vì sao chọn cách giải của tình huống 2?**
+**Q12. How many ordered pairs can be formed from four distinct items without repetition? — Từ bốn phần tử phân biệt có bao nhiêu cặp có thứ tự không lặp?**
 
-A. Because Các thành viên không phân vai trò nên dùng tổ hợp — Các thành viên không phân vai trò nên dùng tổ hợp
+A. 1 — 1
 
-B. Another reason is Thứ tự thực hiện làm kết quả khác nhau — Thứ tự thực hiện làm kết quả khác nhau
+B. 6 — 6
 
-C. Another reason is Mỗi cặp môn học không cần phân biệt thứ tự — Mỗi cặp môn học không cần phân biệt thứ tự
+C. 10 pairs — 10 cặp
 
-D. Another reason is Hệ số comb cho từng vị trí hàng n — Hệ số comb cho từng vị trí hàng n
+D. 12 pairs — 12 cặp
 
+**Q13. What identity relates combinations and permutations? — Công thức nào liên hệ tổ hợp và chỉnh hợp?**
 
-**Q11. Why was the method chosen for scenario 3? — Vì sao chọn cách giải của tình huống 3?**
+A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
 
-A. Another reason is Mỗi cặp môn học không cần phân biệt thứ tự — Mỗi cặp môn học không cần phân biệt thứ tự
+B. 1 — 1
 
-B. Another reason is Hệ số comb cho từng vị trí hàng n — Hệ số comb cho từng vị trí hàng n
+C. n — n
 
-C. Another reason is Vị trí trưởng và phó khác nhau nên dùng hoán vị — Vị trí trưởng và phó khác nhau nên dùng hoán vị
+D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
-D. Because Thứ tự thực hiện làm kết quả khác nhau — Thứ tự thực hiện làm kết quả khác nhau
+**Q14. What is C(n,0)? — C(n,0) bằng gì?**
 
+A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
 
-**Q12. Why was the method chosen for scenario 4? — Vì sao chọn cách giải của tình huống 4?**
+B. 1 — 1
 
-A. Another reason is Hệ số comb cho từng vị trí hàng n — Hệ số comb cho từng vị trí hàng n
+C. n — n
 
-B. Another reason is Vị trí trưởng và phó khác nhau nên dùng hoán vị — Vị trí trưởng và phó khác nhau nên dùng hoán vị
+D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
-C. Because Mỗi cặp môn học không cần phân biệt thứ tự — Mỗi cặp môn học không cần phân biệt thứ tự
+**Q15. What is C(n,n−1)? — C(n,n−1) bằng gì?**
 
-D. Another reason is Các thành viên không phân vai trò nên dùng tổ hợp — Các thành viên không phân vai trò nên dùng tổ hợp
+A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
 
+B. 1 — 1
 
-**Q13. Why was the method chosen for scenario 5? — Vì sao chọn cách giải của tình huống 5?**
+C. n — n
 
-A. Another reason is Vị trí trưởng và phó khác nhau nên dùng hoán vị — Vị trí trưởng và phó khác nhau nên dùng hoán vị
+D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
-B. Because Hệ số comb cho từng vị trí hàng n — Hệ số comb cho từng vị trí hàng n
+**Q16. How are entries in Pascal's triangle obtained? — Các ô trong tam giác Pascal được tạo ra sao?**
 
-C. Another reason is Các thành viên không phân vai trò nên dùng tổ hợp — Các thành viên không phân vai trò nên dùng tổ hợp
+A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
 
-D. Another reason is Thứ tự thực hiện làm kết quả khác nhau — Thứ tự thực hiện làm kết quả khác nhau
+B. 1 — 1
 
+C. n — n
 
-**Q14. What input is used in scenario 1? — Tình huống 1 dùng dữ liệu gì?**
+D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
-A. The data are 5 ứng viên, 2 vai trò — 5 ứng viên, 2 vai trò
+**Q17. What does `itertools.combinations(items,2)` list? — `itertools.combinations(items,2)` liệt kê gì?**
 
-B. Other data are 12 người, chọn 5 — 12 người, chọn 5
+A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
 
-C. Other data are 3 bài test A B C — 3 bài test A B C
+B. Ordered two-item arrangements — Cặp hai phần tử có thứ tự
 
-D. Other data are Ba môn Python AI SQL — Ba môn Python AI SQL
+C. It returns zero — Hàm trả về 0
 
+D. The number grows factorially — Số cách tăng theo giai thừa
 
-**Q15. What input is used in scenario 2? — Tình huống 2 dùng dữ liệu gì?**
+**Q18. What does `itertools.permutations(items,2)` list? — `itertools.permutations(items,2)` liệt kê gì?**
 
-A. Other data are 3 bài test A B C — 3 bài test A B C
+A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
 
-B. Other data are Ba môn Python AI SQL — Ba môn Python AI SQL
+B. Ordered two-item arrangements — Cặp hai phần tử có thứ tự
 
-C. Other data are Hàng n=4 — Hàng n=4
+C. It returns zero — Hàm trả về 0
 
-D. The data are 12 người, chọn 5 — 12 người, chọn 5
+D. The number grows factorially — Số cách tăng theo giai thừa
 
+**Q19. What happens if k>n in `math.comb(n,k)` for nonnegative integers? — Nếu k>n trong math.comb với số nguyên không âm thì sao?**
 
-**Q16. What input is used in scenario 3? — Tình huống 3 dùng dữ liệu gì?**
+A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
 
-A. Other data are Ba môn Python AI SQL — Ba môn Python AI SQL
+B. Ordered two-item arrangements — Cặp hai phần tử có thứ tự
 
-B. Other data are Hàng n=4 — Hàng n=4
+C. It returns zero — Hàm trả về 0
 
-C. The data are 3 bài test A B C — 3 bài test A B C
+D. The number grows factorially — Số cách tăng theo giai thừa
 
-D. Other data are 5 ứng viên, 2 vai trò — 5 ứng viên, 2 vai trò
+**Q20. Why avoid materializing all permutations for large n? — Vì sao tránh liệt kê toàn bộ hoán vị khi n lớn?**
 
+A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
 
-**Q17. What input is used in scenario 4? — Tình huống 4 dùng dữ liệu gì?**
+B. Ordered two-item arrangements — Cặp hai phần tử có thứ tự
 
-A. Other data are Hàng n=4 — Hàng n=4
+C. It returns zero — Hàm trả về 0
 
-B. The data are Ba môn Python AI SQL — Ba môn Python AI SQL
-
-C. Other data are 5 ứng viên, 2 vai trò — 5 ứng viên, 2 vai trò
-
-D. Other data are 12 người, chọn 5 — 12 người, chọn 5
-
-
-**Q18. What input is used in scenario 5? — Tình huống 5 dùng dữ liệu gì?**
-
-A. The data are Hàng n=4 — Hàng n=4
-
-B. Other data are 5 ứng viên, 2 vai trò — 5 ứng viên, 2 vai trò
-
-C. Other data are 12 người, chọn 5 — 12 người, chọn 5
-
-D. Other data are 3 bài test A B C — 3 bài test A B C
-
-
-**Q19. What information should a dataset have? — Dataset cần thông tin gì?**
-
-A. Only a filename — Chỉ tên file
-
-B. Only an editor font — Chỉ font soạn code
-
-C. Only a line count — Chỉ số dòng
-
-D. Meaning of rows, columns and units — Ý nghĩa hàng, cột và đơn vị
-
-
-**Q20. After the program works, what comes next? — Sau khi code chạy đúng thì làm gì?**
-
-A. Assume every input works — Cho rằng mọi đầu vào đều đúng
-
-B. Erase validation — Xóa kiểm tra dữ liệu
-
-C. Check the result and limitations — Kiểm tra kết quả và giới hạn
-
-D. Ignore edge cases — Bỏ qua trường hợp biên
+D. The number grows factorially — Số cách tăng theo giai thừa
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Chọn có phân biệt thứ tự | Chọn có phân biệt thứ tự |
-| Q2 | **A** | It is Chọn nhóm không xét thứ tự | Chọn nhóm không xét thứ tự |
-| Q3 | **D** | It is Tích các số từ 1 đến n | Tích các số từ 1 đến n |
-| Q4 | **C** | It is Số cách chọn k từ n | Số cách chọn k từ n |
-| Q5 | **B** | It is used to Tính n!, n không âm | Tính n!, n không âm |
-| Q6 | **A** | It is used to Đếm cách chọn có thứ tự k từ n | Đếm cách chọn có thứ tự k từ n |
-| Q7 | **D** | It is used to Đếm cách chọn không thứ tự | Đếm cách chọn không thứ tự |
-| Q8 | **C** | It is used to Liệt kê kết quả khi n nhỏ | Liệt kê kết quả khi n nhỏ |
-| Q9 | **B** | Because Vị trí trưởng và phó khác nhau nên dùng hoán vị | Vị trí trưởng và phó khác nhau nên dùng hoán vị |
-| Q10 | **A** | Because Các thành viên không phân vai trò nên dùng tổ hợp | Các thành viên không phân vai trò nên dùng tổ hợp |
-| Q11 | **D** | Because Thứ tự thực hiện làm kết quả khác nhau | Thứ tự thực hiện làm kết quả khác nhau |
-| Q12 | **C** | Because Mỗi cặp môn học không cần phân biệt thứ tự | Mỗi cặp môn học không cần phân biệt thứ tự |
-| Q13 | **B** | Because Hệ số comb cho từng vị trí hàng n | Hệ số comb cho từng vị trí hàng n |
-| Q14 | **A** | The data are 5 ứng viên, 2 vai trò | 5 ứng viên, 2 vai trò |
-| Q15 | **D** | The data are 12 người, chọn 5 | 12 người, chọn 5 |
-| Q16 | **C** | The data are 3 bài test A B C | 3 bài test A B C |
-| Q17 | **B** | The data are Ba môn Python AI SQL | Ba môn Python AI SQL |
-| Q18 | **A** | The data are Hàng n=4 | Hàng n=4 |
-| Q19 | **D** | Meaning of rows, columns and units | Ý nghĩa hàng, cột và đơn vị |
-| Q20 | **C** | Check the result and limitations | Kiểm tra kết quả và giới hạn |
+| Q1 | **A** | Reordering selected people produces a different arrangement. | Đổi thứ tự người được chọn tạo cách sắp khác. |
+| Q2 | **B** | A group remains the same after members swap positions. | Nhóm không đổi khi thành viên đổi chỗ. |
+| Q3 | **C** | Factorial counts arrangements of n distinct items. | Giai thừa đếm cách sắp xếp n phần tử phân biệt. |
+| Q4 | **D** | C(n,k) is also a coefficient in (a+b)^n. | C(n,k) còn là hệ số trong khai triển (a+b)^n. |
+| Q5 | **A** | perm counts arrangements without replacement. | perm đếm cách chọn có thứ tự không lặp. |
+| Q6 | **B** | comb counts distinct groups rather than arrangements. | comb đếm các nhóm khác nhau, không xét sắp xếp. |
+| Q7 | **C** | factorial multiplies integers from one through n. | factorial nhân các số nguyên từ một tới n. |
+| Q8 | **D** | Without r, permutations enumerates complete orderings. | Không truyền r, permutations liệt kê toàn bộ thứ tự. |
+| Q9 | **A** | The empty arrangement has exactly one possible order. | Dãy rỗng có một cách sắp xếp. |
+| Q10 | **B** | 3! = 3×2×1 = 6. | 3! = 3×2×1 = 6. |
+| Q11 | **C** | Choosing two from five without order gives C(5,2)=10 pairs. | Chọn hai từ năm không xét thứ tự có C(5,2)=10 cặp. |
+| Q12 | **D** | 4×3 = 12. | 4×3 = 12. |
+| Q13 | **A** | Each chosen group can be arranged in k! orders. | Mỗi nhóm k người có k! cách sắp. |
+| Q14 | **B** | There is one way to choose nobody. | Có một cách chọn tập rỗng. |
+| Q15 | **C** | Choosing n−1 items from n is equivalent to choosing which one to leave out, giving n possibilities. | Chọn n−1 từ n tương đương chọn một phần tử bỏ lại nên có n cách. |
+| Q16 | **D** | Pascal's identity is C(n,k)=C(n−1,k−1)+C(n−1,k). | Hệ thức Pascal cộng hai hệ số ở hàng trước. |
+| Q17 | **A** | It emits each distinct pair once. | Hàm tạo mỗi cặp khác nhau đúng một lần. |
+| Q18 | **B** | Reversing a pair yields a different result. | Đổi thứ tự hai phần tử tạo kết quả khác. |
+| Q19 | **C** | No k-subset exists when fewer than k items are available. | Không thể chọn k phần tử nếu tổng phần tử ít hơn k. |
+| Q20 | **D** | n! quickly becomes too large to store or display. | n! tăng nhanh khiến không thể lưu hoặc in hết. |
 
 ## 8. Nối sang bài tiếp
 
