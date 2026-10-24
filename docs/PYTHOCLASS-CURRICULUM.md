@@ -1,3 +1,5 @@
+**Trước mỗi lần tạo bài, đọc bắt buộc `docs/CURRICULUM-STYLE-GUIDE.md` và `templates/lesson.md`. Bản dịch trắc nghiệm Q/A nằm cùng dòng: `**Q1. English? — Tiếng Việt?**`, `A. English — Tiếng Việt`.**
+
 # PythoClass → AIClassDocuments — Hướng dẫn biên soạn giáo trình (2026-10-24)
 
 ## Nhiệm vụ mới
