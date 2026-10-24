@@ -14,6 +14,17 @@ Giữ bằng mọi giá: **định nghĩa, thông số kỹ thuật, điều ki�
 
 Sau mỗi lần biên tập, đối chiếu số ví dụ, code, 5 tình huống, 20 câu hỏi và 80 lựa chọn trắc nghiệm Anh–Việt cùng dòng và bảng đáp án. Soát lại Markdown, liên kết hình và code block. **Không sửa nội dung trong code fence bằng quy tắc cắt chữ.**
 
+### Giải thích khái niệm chính và khái niệm liên quan — bắt buộc
+
+- Mục 4 **phải định nghĩa chính nội dung ghi trong tiêu đề bài học trước**, rồi giải thích lần lượt các khái niệm nền có quan hệ trực tiếp; không biến mục này thành bảng các thuật ngữ liên quan mà bỏ trống kiến thức trung tâm.
+- Mỗi tiểu mục phải là **lời giảng độc lập**: định nghĩa rõ **đây là gì**, thành phần/cấu trúc gồm những gì, **vì sao** nó liên quan đến bài, **khi nào** dùng, rồi minh họa bằng một bài toán nhỏ có số liệu. Sinh viên đọc riêng tiểu mục vẫn hiểu mà không bị buộc mở lại bài trước.
+- Khi dùng vector/matrix/dataset, nói rõ **mỗi hàng đại diện điều gì**, **mỗi cột đại diện điều gì**, biến/ẩn nào ứng với cột nào, giá trị ở từng ô biểu thị gì, kích thước (shape), đơn vị (nếu có). Liên kết các ý trong **một ví dụ xuyên suốt**; không chèn câu rỗng như `Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào`.
+- Giải thích thuật ngữ mới **trước khi** dùng thuật ngữ đó trong công thức; nêu công thức bằng lời và đối chiếu từng thành phần với dữ liệu cụ thể. Độ sâu vừa đủ cho học viên bắt đầu học Python/AI, không lặp định nghĩa hoặc lý thuyết ngoài phạm vi bài.
+- **Cấm toàn bộ mục hỏi đáp chen giữa nội dung bài** dưới các nhãn `**Tự kiểm tra:**`, `**Tự kiểm tra nhanh:**`, `**Đáp án:**` hoặc biến thể. Chỉ giữ **20 câu hỏi trắc nghiệm song ngữ ở mục 7**, với đáp án và giải thích trong bảng trả lời cuối mục.
+- Kết quả code in ra vẫn phải đặt **ngay dưới khối Python** theo quy tắc trước; giải thích kết quả bằng giá trị thật, không lặp một định nghĩa chung chung.
+
+**Mẫu giảng đúng cho hệ phương trình tuyến tính:** Có hai món hàng chưa biết giá là `x` và `y`. Một món mỗi loại giá 5 nghìn đồng: `x + y = 5`; hai món loại thứ nhất và một món loại thứ hai giá 8 nghìn đồng: `2x + y = 8`. Đây là **hệ hai phương trình tuyến tính cùng hai ẩn**. Viết thành `A @ [x, y] = b`, trong đó `A = [[1, 1], [2, 1]]`; **mỗi hàng là một giao dịch/phương trình**, **mỗi cột là số lượng của loại hàng tương ứng với ẩn x/y**; `b = [5, 8]` là tổng tiền từng giao dịch, đơn vị nghìn đồng. Giải được `x=3`, `y=2` (nghìn đồng). Có thể nối sang rank, nghiệm và sai số dư bằng **chính ví dụ này**.
+
 ### Viết đề bài thực tế thành một đoạn hoàn chỉnh
 
 Mỗi `### Tình huống N` phải có **một dòng/đoạn `**Tình huống thực tế:**` chứa đủ bối cảnh cụ thể (ai/cơ quan nào gặp nhu cầu gì), dữ liệu/số liệu thực tế có đơn vị và **yêu cầu đầu ra/điều cần quyết định**. Không tách thành `**Vấn đề:** Xét VIP` và `**Dữ liệu:** Khách 5 năm...` vì đó không phải đề bài có thể tự hiểu. Cũng không dùng lời mơ hồ như `xử lý dữ liệu và cho biết kết quả theo yêu cầu` nếu có thể nêu rõ kết quả cần tính.
