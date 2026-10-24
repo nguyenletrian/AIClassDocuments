@@ -1,6 +1,5 @@
 # PY-25 — Ma trận, chuyển vị, nhân ma trận và định thức
 
-*DRAFT · Dữ liệu số mô phỏng; chưa xác nhận kiểm thử trên Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
