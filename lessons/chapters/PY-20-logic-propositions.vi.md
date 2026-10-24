@@ -254,7 +254,7 @@ B. A table of all input truth-value combinations — Bảng các tổ hợp giá
 
 C. The logical conditional 'if p then q' — Điều kiện logic 'nếu p thì q'
 
-D. Multiply the numbers of sequential independent choices — Nhân số lựa chọn qua các bước kết hợp đầy đủ
+D. Multiply choice counts across sequential stages when each earlier choice permits the stated number of later choices — Nhân số cách chọn qua các bước khi mỗi lựa chọn trước cho phép đúng số cách ở bước sau
 
 **Q2. What is a truth table? — Bảng chân trị là gì?**
 
@@ -453,7 +453,7 @@ D. When some outcomes belong to more than one counted group — Khi một kết 
 | Q1 | **A** | A proposition has a definite truth value. | Mệnh đề có một giá trị đúng/sai xác định. |
 | Q2 | **B** | Truth tables enumerate Boolean possibilities. | Bảng chân trị liệt kê các khả năng Boolean. |
 | Q3 | **C** | Implication only fails with a true premise and false conclusion. | Kéo theo chỉ sai khi tiền đề đúng, kết luận sai. |
-| Q4 | **D** | Every choice in one step must allow the counted choices in the next. | Mỗi lựa chọn ở bước trước cần kết hợp được với đủ lựa chọn bước tiếp. |
+| Q4 | **D** | If stage one has m options and each of them has exactly n possible continuations at stage two, there are m×n complete outcomes. This counting rule does not require probabilistic independence; it requires valid stage-by-stage counting. | Nếu bước đầu có m cách và mỗi cách đều có đúng n lựa chọn nối tiếp ở bước hai thì có m×n kết quả hoàn chỉnh. Đây là điều kiện đếm qua các bước, không bắt buộc hai biến cố độc lập về xác suất. |
 | Q5 | **A** | AND requires both conditions. | AND cần cả hai điều kiện đúng. |
 | Q6 | **B** | Inclusive OR accepts either or both true conditions. | OR bao hàm chấp nhận một hoặc cả hai điều kiện đúng. |
 | Q7 | **C** | NOT negates its Boolean operand. | NOT phủ định giá trị Boolean. |
