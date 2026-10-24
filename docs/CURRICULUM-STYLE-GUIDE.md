@@ -76,6 +76,15 @@ Ví dụ: `print((2, 3))` in `(2, 3)`; `print(set([1, 1, 2]))` in tập `{1, 2}`
 - Phân bố câu hỏi đa dạng, không dùng máy móc cùng một khuôn `What does ... mean?`; bảng đáp án **giải thích vì sao đáp án đúng**, không chỉ lặp nguyên văn phương án. Mỗi câu và từng A/B/C/D đều phải có cả tiếng Anh và tiếng Việt cùng dòng.
 - Trước khi merge, tìm các cụm `scenario [0-9]`, `example [0-9]`, `tình huống [0-9]`, `ví dụ [0-9]` trong **mục 7** và sửa hết; kiểm tra đủ 20 câu, 80 phương án và 20 dòng đáp án đúng thứ tự.
 
+### Kiểm duyệt tính đúng của trắc nghiệm và độ sâu giải thích — bắt buộc trước merge
+
+- **Không chỉ đếm đủ câu hay kiểm tra đáp án có trong A/B/C/D.** Với từng Q1–Q20, đọc nguyên câu hỏi (cả hai ngôn ngữ), tìm đáp án đúng độc lập rồi đối chiếu chữ cái trong bảng đáp án. Cả Anh và Việt phải diễn đạt cùng điều kiện. Kiểm riêng câu phủ định, điều kiện biên, số học, thứ tự chỉ số, đơn vị và khác biệt khái niệm gần nhau.
+- **Bắt buộc đúng duy nhất một phương án** dưới giả định đã nêu. Rà cả ba phương án nhiễu theo **nghĩa**, không chỉ so chữ trùng. Nếu nhiều phương án cùng đúng thì làm rõ điều kiện hoặc thay đáp án. Phương án nhiễu phải cùng loại và đủ gần để có giá trị học tập.
+- **Bảng đáp án phải giải thích chứ không nhắc lại lựa chọn.** Mỗi câu có ít nhất hai ý có nội dung ở cả hai ngôn ngữ: nguyên lý hoặc tính toán chứng minh đúng, và ví dụ nhỏ/hệ quả/đối chiếu nhầm lẫn gần. Không thêm lời đệm chung như 'đúng theo định nghĩa' nếu không giải thích định nghĩa.
+- Với câu dự đoán output, chạy đúng biểu thức/code độc lập trong phiên bản Python/phụ thuộc đã nêu, kiểm cú pháp và kiểu dữ liệu (`1` khác `1.0`, `False` khác chuỗi `'False'`). Với số học cần đối chiếu phép tính; với xác suất nêu các giả định và mẫu số. Không mặc định RNG, Set, Git hoặc mô hình học máy in giống nhau ở mọi môi trường.
+- Kiểm bảng Markdown: dấu pipe `|` bên trong ô giải thích/công thức phải escape như `&#124;` để không lệch cột. Mỗi dòng answer key phải đủ bốn cột: số câu, chữ cái, giải thích tiếng Anh, giải thích tiếng Việt.
+- Lưu bằng chứng QA nội bộ tách khỏi bài học: số câu đã soát về ngữ nghĩa, mục đã sửa và phạm vi môi trường thực sự kiểm thử. **QA cấu trúc tự động không thay thế kiểm tra đúng/sai ngữ nghĩa.**
+
 ## Kết cấu dành cho sinh viên
 1. **Bài đang ở đâu trong chuỗi kiến thức?** Trình bày các bài trước → bài hiện tại → bài liên quan, dễ theo dõi.
 2. **Từ vựng trong mục:** trước từng mục và tiểu mục, 2–5 thuật ngữ `English — tiếng Việt`; đoạn văn phía sau viết tự nhiên, **không** thêm `(Vietnamese)` sau mỗi lần nhắc. Những bảng thuật ngữ chỉ ghi từ thật sự dùng trong mục.
