@@ -1,6 +1,5 @@
 # PY-31 — Giới hạn, tính liên tục và đạo hàm
 
-*DRAFT · Học qua Python · Cần kiểm tra kết quả và môi trường trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
