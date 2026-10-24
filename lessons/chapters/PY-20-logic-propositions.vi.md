@@ -1,6 +1,5 @@
 # PY-20 — Logic mệnh đề, bảng chân trị và quy tắc đếm
 
-*DRAFT · Dữ liệu giả lập · Cần kiểm chứng code trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
