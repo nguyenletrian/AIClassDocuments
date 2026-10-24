@@ -67,13 +67,22 @@ Sau **mọi** khối code minh họa, thêm dòng **`**Kết quả khi chạy:**
 
 Ví dụ: `print((2, 3))` in `(2, 3)`; `print(set([1, 1, 2]))` in tập `{1, 2}`, **không** phải list `[1, 2]`. Với Set nhiều phần tử, thứ tự hiển thị không được đảm bảo; cho một kết quả mẫu và nói rõ thứ tự có thể khác. Mọi dòng kết quả phải khớp đúng với code, kể cả chữ hoa, dấu cách, dấu ngoặc, `True`/`False` và dữ liệu `None`.
 
+
+### Phạm vi câu hỏi trắc nghiệm — chỉ kiểm tra kiến thức bài học
+
+- **Cả 20 câu hỏi trong mục 7 chỉ kiểm tra khái niệm, nguyên lý hoạt động, cú pháp, hàm/tham số, sự khác biệt giữa các khái niệm, cách đọc biểu thức và lỗi thường gặp được dạy trong bài.** Ví dụ nhỏ tự chứa để đọc và dự đoán một biểu thức là được; không cần nhớ các tình huống ở mục 5.
+- **Tuyệt đối không hỏi về ví dụ/tình huống đánh số**: `What solves scenario 4?`, `Which data is used in scenario 2?`, `Which reason fits example 3?`, hoặc bất kỳ câu nào tham chiếu “tình huống N”, “ví dụ N”, nhân vật, số liệu cụ thể chỉ có trong tình huống. Không kiểm tra khả năng nhớ đề bài đã đọc.
+- Câu hỏi phải **độc lập**, đọc riêng vẫn hiểu, có một đáp án đúng rõ ràng và ba lựa chọn nhiễu hợp lý; ưu tiên hỏi khác nhau giữa `for` và `while`, `class` và `object`, `axis=0` và `axis=1`, `slice` và `fancy indexing`... theo đúng chủ đề bài.
+- Phân bố câu hỏi đa dạng, không dùng máy móc cùng một khuôn `What does ... mean?`; bảng đáp án **giải thích vì sao đáp án đúng**, không chỉ lặp nguyên văn phương án. Mỗi câu và từng A/B/C/D đều phải có cả tiếng Anh và tiếng Việt cùng dòng.
+- Trước khi merge, tìm các cụm `scenario [0-9]`, `example [0-9]`, `tình huống [0-9]`, `ví dụ [0-9]` trong **mục 7** và sửa hết; kiểm tra đủ 20 câu, 80 phương án và 20 dòng đáp án đúng thứ tự.
+
 ## Kết cấu dành cho sinh viên
 1. **Bài đang ở đâu trong chuỗi kiến thức?** Trình bày các bài trước → bài hiện tại → bài liên quan, dễ theo dõi.
 2. **Từ vựng trong mục:** trước từng mục và tiểu mục, 2–5 thuật ngữ `English — tiếng Việt`; đoạn văn phía sau viết tự nhiên, **không** thêm `(Vietnamese)` sau mỗi lần nhắc. Những bảng thuật ngữ chỉ ghi từ thật sự dùng trong mục.
 3. **Thư viện và hàm:** cú pháp, mục đích, các tham số được giải thích cùng hàm (`dtype=float` trong `np.array`, `axis=0` trong các phép thống kê...), không rải quá nhiều chú thích tham số khắp code.
 4. **Khái niệm chính và khái niệm liên quan:** có lời dẫn về chủ đề của bài; định nghĩa khái niệm chính đầy đủ, rồi giải thích khái niệm liên quan theo cùng chuẩn: logic, dữ liệu và ví dụ nhỏ dễ hiểu → code Python → kết quả in ngay dưới code → giải thích ý nghĩa. **Không chèn tự kiểm tra/đáp án giữa bài.** Không có mục chứng minh toán học, mục tiêu dành cho giảng viên hoặc chữ “Subconcept”.
 5. **5 tình huống thực tế:** gộp bối cảnh + vấn đề + số liệu + yêu cầu đầu ra thành **một đề bài có thể tự hiểu** ở `**Tình huống thực tế:**`. Sau đó trình bày vì sao chọn phép giải, các bước cụ thể, code và đầu ra. Không lặp nhãn vấn đề/dữ liệu hoặc quy trình chung.
-6. **20 câu trắc nghiệm Anh–Việt** với mỗi câu và **bản dịch trên CÙNG MỘT DÒNG**, ví dụ: `**Q1. What is a vector? — Vector là gì?**`. Mỗi phương án nằm trên **một dòng**: `A. A sequence of numbers — Một dãy số`. Đủ 4 lựa chọn cho một câu. Phần answer key là bảng 4 cột: `Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt)`. Không viết một dòng dịch tách dưới câu hỏi/phương án.
+6. **20 câu trắc nghiệm Anh–Việt chỉ về kiến thức/lý thuyết của bài, tuyệt đối không tham chiếu tình huống hoặc ví dụ đánh số**, với mỗi câu và **bản dịch trên CÙNG MỘT DÒNG**, ví dụ: `**Q1. What is a vector? — Vector là gì?**`. Mỗi phương án nằm trên **một dòng**: `A. A sequence of numbers — Một dãy số`. Đủ 4 lựa chọn cho một câu. Phần answer key là bảng 4 cột: `Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt)`. Không viết một dòng dịch tách dưới câu hỏi/phương án.
 7. **Nối sang bài kế tiếp:** giải thích mối liên hệ trong chuỗi kiến thức, không ép hiểu thuật toán nâng cao trước khi học nền.
 8. Hình minh họa khi có ích phải là file SVG/PNG có thật, đường dẫn tương đối **đúng chính xác** với file Markdown và kiểm tra tồn tại. Không chỉnh tên file trong quá trình dịch thuật. Nếu ảnh được tạo từ dữ liệu thì phải khớp tọa độ/số liệu.
 9. **Markdown là bản gốc**. PDF sau này phát hành riêng ở `exports/pdf/`, bảo toàn bảng/hình/code/dấu tiếng Việt và được render kiểm tra trước khi công bố.
