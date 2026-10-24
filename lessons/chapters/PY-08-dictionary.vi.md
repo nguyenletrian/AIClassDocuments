@@ -1,4 +1,4 @@
-# 08 — Dictionary: key/value và thao tác CRUD
+# PY-08 — Dictionary: khóa, giá trị và thêm sửa xóa
 
 
 ## 1. Vị trí trong chuỗi kiến thức
@@ -7,7 +7,7 @@
 
 `List/Set → Dictionary → JSON/CSV → DataFrame`
 
-Từ kiến thức trước, phần này giúp sinh viên quyết định nên tổ chức và xử lý dữ liệu bằng cấu trúc nào, rồi mới tiến tới các bài xử lý dữ liệu cho AI.
+Sau List, Tuple và Set, ta học Dictionary để tìm thông tin qua một tên hoặc mã riêng. Thay vì nhớ số thứ tự, ta lấy thông tin theo khóa như `id`, `name` hoặc mã sản phẩm.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -29,86 +29,88 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 | `obj[key] = value` | Thêm hoặc cập nhật dữ liệu |
 | `del, pop(key)` | Xóa thông tin bằng khóa |
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Dictionary
 
 **Từ vựng trong mục:** **Dictionary** — từ điển.
 
-Ánh xạ khóa sang giá trị. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Dictionary lưu thông tin thành từng cặp khóa và giá trị. Ví dụ `{'id': 'O1'}` có khóa `id` và giá trị `O1`. Ta dùng `{}` để tạo Dictionary.
 
 ```python
 print({'id':'O1'})
 ```
 
-**Tự kiểm tra:** Dictionary có nghĩa gì? **Đáp án:** Ánh xạ khóa sang giá trị.
-
 ### 4.2. Key
 
 **Từ vựng trong mục:** **Key** — khóa.
 
-Tên hoặc mã để truy tìm giá trị. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Khóa là tên dùng để lấy dữ liệu, ví dụ `'id'`. `{'id': 'O1'}['id']` cho kết quả `O1`. Khóa trong cùng một Dictionary phải duy nhất.
 
 ```python
 print({'id':'O1'}['id'])
 ```
 
-**Tự kiểm tra:** Key có nghĩa gì? **Đáp án:** Tên hoặc mã để truy tìm giá trị.
-
 ### 4.3. Value
 
 **Từ vựng trong mục:** **Value** — giá trị.
 
-Thông tin được lưu theo một khóa. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Giá trị là thông tin nằm sau khóa, có thể là chữ, số hoặc một Dictionary khác. `{'x': 5}.get('x')` trả về `5`; với khóa không tồn tại, `get()` mặc định trả về `None`.
 
 ```python
 print({'x':5}.get('x'))
 ```
 
-**Tự kiểm tra:** Value có nghĩa gì? **Đáp án:** Thông tin được lưu theo một khóa.
-
 ### 4.4. Nested dict
 
 **Từ vựng trong mục:** **Nested dict** — từ điển lồng.
 
-Một từ điển có từ điển con. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Dictionary lồng nhau là Dictionary chứa Dictionary khác. Ví dụ mã học viên `A` chứa `{'score': 8}`; dùng `['A']['score']` để lấy điểm `8`.
 
 ```python
 print({'A':{'score':8}}['A']['score'])
 ```
 
-**Tự kiểm tra:** Nested dict có nghĩa gì? **Đáp án:** Một từ điển có từ điển con.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tra cứu đơn theo mã
 
-**Từ vựng trong mục:** **Dictionary** — từ điển.
+**Từ vựng trong mục:** **Dictionary** — từ điển; **Key** — khóa.
 
-**Tình huống thực tế:** Một cửa hàng cần tra cứu đơn theo mã. Dữ liệu hiện có: Hai đơn O1 và O2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Cửa hàng đang lưu trạng thái hai đơn hàng: `O1` đã thanh toán (`paid`) và `O2` đang chờ (`pending`). Khách nhập mã `O3`, chưa có trong hệ thống.
 
-**Vì sao chọn cách này?** Tra khóa trực tiếp thay vì duyệt từng vị trí trong list.
+**Yêu cầu:** Tra cứu mã `O3` và in thông báo nếu không tìm thấy.
 
+**Vì sao chọn cách giải này?** `get(key, default)` tìm theo mã đơn và trả về `Not found` khi khóa chưa tồn tại, thay vì phát sinh `KeyError`.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu trạng thái đơn theo từng mã.
+2. Tra `O3` bằng `get()` và truyền vào câu báo `Not found`.
+3. In kết quả.
 
 ```python
 orders={"O1":"paid","O2":"pending"}
 print(orders.get("O3","Not found"))
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `Not found` — không có mã đơn `O3` trong dữ liệu.
 
 ### Tình huống 2 — Cập nhật tồn kho
 
-**Từ vựng trong mục:** **Key** — khóa.
+**Từ vựng trong mục:** **Key** — khóa; **Value** — giá trị.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần cập nhật tồn kho. Dữ liệu hiện có: SKU01 tồn 5, bán 2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Kho có sản phẩm mã `SKU01` với 5 món. Sau khi bán 2 món, nhân viên cần cập nhật số lượng còn lại.
 
-**Vì sao chọn cách này?** SKU là khóa ổn định phù hợp cập nhật số lượng.
+**Yêu cầu:** Trừ 2 khỏi tồn kho của `SKU01` rồi in Dictionary.
 
+**Vì sao chọn cách giải này?** Mã SKU là khóa của sản phẩm; `stock['SKU01'] -= 2` thay đổi số lượng ngay tại khóa tương ứng.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu số lượng ban đầu theo mã SKU.
+2. Lấy số lượng ở khóa `SKU01` và trừ 2.
+3. In tồn kho đã cập nhật.
 
 ```python
 stock={"SKU01":5}
@@ -116,18 +118,23 @@ stock["SKU01"]-=2
 print(stock)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `{'SKU01': 3}` — sản phẩm còn 3 món.
 
 ### Tình huống 3 — Đếm nhãn
 
-**Từ vựng trong mục:** **Value** — giá trị.
+**Từ vựng trong mục:** **Dictionary** — từ điển; **Count** — số lần.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần đếm nhãn. Dữ liệu hiện có: Ba nhãn AI Math AI; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một hệ thống phân loại ghi ba nhãn theo thứ tự `AI`, `Math`, `AI`. Người quản lý muốn biết mỗi nhãn xuất hiện bao nhiêu lần.
 
-**Vì sao chọn cách này?** get(key,0) giúp cộng dồn an toàn từ 0.
+**Yêu cầu:** Tạo Dictionary đếm số lượt của từng nhãn.
 
+**Vì sao chọn cách giải này?** `get(x, 0)` lấy số đếm cũ hoặc 0 nếu nhãn mới xuất hiện, sau đó cộng thêm 1.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Tạo list nhãn và Dictionary `count` rỗng.
+2. Duyệt từng nhãn bằng `for`.
+3. Tăng bộ đếm của nhãn và in kết quả.
 
 ```python
 labels=["AI","Math","AI"]
@@ -136,36 +143,46 @@ for x in labels: count[x]=count.get(x,0)+1
 print(count)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `{'AI': 2, 'Math': 1}` — AI xuất hiện hai lần, Math một lần.
 
 ### Tình huống 4 — Hồ sơ lồng nhau
 
-**Từ vựng trong mục:** **Nested dict** — từ điển lồng.
+**Từ vựng trong mục:** **Nested dict** — từ điển lồng; **Key** — khóa.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần hồ sơ lồng nhau. Dữ liệu hiện có: Hai SV với điểm 8 và 9; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Trung tâm có hồ sơ `SV1` tên An, điểm 8 và `SV2` tên Lan, điểm 9. Hồ sơ lưu theo mã sinh viên, bên trong chứa tên và điểm.
 
-**Vì sao chọn cách này?** Từ điển con gom dữ liệu theo từng mã sinh viên.
+**Yêu cầu:** Lấy điểm của `SV2` và in kết quả.
 
+**Vì sao chọn cách giải này?** Dictionary lồng nhau giúp tìm sinh viên bằng mã rồi lấy đúng trường `score` của người đó.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu hai hồ sơ trong `students`.
+2. Chọn sinh viên bằng khóa `SV2`.
+3. Lấy khóa `score` trong hồ sơ con và in điểm.
 
 ```python
 students={"SV1":{"name":"An","score":8},"SV2":{"name":"Lan","score":9}}
 print(students["SV2"]["score"])
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `9` — điểm của học viên Lan (`SV2`).
 
 ### Tình huống 5 — Xóa SKU không có
 
-**Từ vựng trong mục:** **Dictionary** — từ điển.
+**Từ vựng trong mục:** **Dictionary** — từ điển; **Pop** — lấy và xóa.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần xóa sku không có. Dữ liệu hiện có: Danh sách có P01 nhưng không có P02; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Kho đang có sản phẩm `P01` với 10 món. Nhân viên muốn xóa mã `P02`, nhưng mã này không có trong Dictionary.
 
-**Vì sao chọn cách này?** pop mặc định None ngăn lỗi khi mã không tồn tại.
+**Yêu cầu:** Thử xóa `P02` và in kết quả thao tác, không làm chương trình lỗi.
 
+**Vì sao chọn cách giải này?** `pop('P02', None)` trả về `None` nếu không có mã, thay vì gây `KeyError`. Không có phần tử nào bị xóa.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu mã hàng đang có.
+2. Gọi `pop()` với mã `P02` và giá trị mặc định `None`.
+3. In biến `removed`.
 
 ```python
 items={"P01":10}
@@ -173,260 +190,244 @@ removed=items.pop("P02",None)
 print(removed)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `None` — không có mã `P02` để xóa; `P01` vẫn còn trong Dictionary.
 
 ## 6. Nhầm lẫn dễ gặp
 
-Không sử dụng cấu trúc dữ liệu sai với mục đích: ví dụ tập hợp không hỗ trợ truy cập theo chỉ số như list; tuple không sửa từng phần tử. Mọi dữ liệu thật cần xác minh kiểu, đơn vị và tính hợp lệ.
+- `obj[key]` gây `KeyError` nếu khóa chưa tồn tại; `obj.get(key)` trả về `None` hoặc giá trị mặc định đã truyền vào.
+- Gán `obj[key] = value` sẽ thêm khóa mới hoặc ghi đè giá trị đang có.
+- `pop(key)` lấy và xóa giá trị; nếu khóa không tồn tại, nên truyền giá trị mặc định khi phù hợp.
+- Khóa Dictionary phải là kiểu có thể băm (hashable), như chuỗi hoặc số; không dùng List làm khóa.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is Dictionary? — Thuật ngữ Dictionary có nghĩa gì?**
+**Q1. What does a dictionary store? — Dictionary lưu thông tin như thế nào?**
 
-A. A different concept: Tên hoặc mã để truy tìm giá trị — Tên hoặc mã để truy tìm giá trị
+A. Key–value pairs — Các cặp khóa và giá trị
 
-B. A concept described as: Ánh xạ khóa sang giá trị — Ánh xạ khóa sang giá trị
+B. Only numbers — Chỉ số
 
-C. A different concept: Thông tin được lưu theo một khóa — Thông tin được lưu theo một khóa
+C. Only list indexes — Chỉ chỉ số list
 
-D. A different concept: Một từ điển có từ điển con — Một từ điển có từ điển con
+D. Only unique words — Chỉ từ không trùng
 
+**Q2. What is a key in a dictionary? — Khóa trong Dictionary là gì?**
 
-**Q2. What is Key? — Thuật ngữ Key có nghĩa gì?**
+A. The largest number — Số lớn nhất
 
-A. A concept described as: Tên hoặc mã để truy tìm giá trị — Tên hoặc mã để truy tìm giá trị
+B. An identifier used to look up a value — Tên hoặc mã để tìm giá trị
 
-B. A different concept: Thông tin được lưu theo một khóa — Thông tin được lưu theo một khóa
+C. An automatic sort rule — Quy tắc sắp xếp
 
-C. A different concept: Một từ điển có từ điển con — Một từ điển có từ điển con
+D. Always a list — Luôn là list
 
-D. A different concept: Ánh xạ khóa sang giá trị — Ánh xạ khóa sang giá trị
+**Q3. What is a dictionary value? — Giá trị của Dictionary là gì?**
 
+A. Always a filename — Luôn là tên file
 
-**Q3. What is Value? — Thuật ngữ Value có nghĩa gì?**
+B. Always a Boolean — Luôn là đúng sai
 
-A. A different concept: Một từ điển có từ điển con — Một từ điển có từ điển con
+C. Information stored under a key — Thông tin được lưu theo một khóa
 
-B. A different concept: Ánh xạ khóa sang giá trị — Ánh xạ khóa sang giá trị
+D. The number of keys — Số lượng khóa
 
-C. A different concept: Tên hoặc mã để truy tìm giá trị — Tên hoặc mã để truy tìm giá trị
+**Q4. What is a nested dictionary? — Dictionary lồng nhau là gì?**
 
-D. A concept described as: Thông tin được lưu theo một khóa — Thông tin được lưu theo một khóa
+A. A sorted list — List đã sắp xếp
 
+B. A set of numbers — Tập hợp số
 
-**Q4. What is Nested dict? — Thuật ngữ Nested dict có nghĩa gì?**
+C. A text file — File văn bản
 
-A. A different concept: Ánh xạ khóa sang giá trị — Ánh xạ khóa sang giá trị
+D. A dictionary containing another dictionary — Dictionary chứa Dictionary con
 
-B. A different concept: Tên hoặc mã để truy tìm giá trị — Tên hoặc mã để truy tìm giá trị
+**Q5. What does obj.get('x') return if x is absent? — get('x') trả về gì nếu thiếu khóa x?**
 
-C. A concept described as: Một từ điển có từ điển con — Một từ điển có từ điển con
+A. None by default — Mặc định là None
 
-D. A different concept: Thông tin được lưu theo một khóa — Thông tin được lưu theo một khóa
+B. Always 0 — Luôn là 0
 
+C. A KeyError — Lỗi KeyError
 
-**Q5. Which statement fits 'obj[key], obj.get(key)'? — Mô tả nào đúng với 'obj[key], obj.get(key)'?**
+D. The first value — Giá trị đầu
 
-A. It is used for: Duyệt cặp khóa/giá trị hay riêng giá trị — Duyệt cặp khóa/giá trị hay riêng giá trị
+**Q6. What does obj.items() provide? — obj.items() cung cấp gì?**
 
-B. This syntax is used for: Tra cứu khóa hoặc nhận giá trị mặc định — Tra cứu khóa hoặc nhận giá trị mặc định
+A. Only keys — Chỉ khóa
 
-C. It is used for: Thêm hoặc cập nhật dữ liệu — Thêm hoặc cập nhật dữ liệu
+B. Key–value pairs — Các cặp khóa và giá trị
 
-D. It is used for: Xóa thông tin bằng khóa — Xóa thông tin bằng khóa
+C. Only values — Chỉ giá trị
 
+D. The last item — Phần tử cuối
 
-**Q6. Which statement fits 'obj.items(), obj.values()'? — Mô tả nào đúng với 'obj.items(), obj.values()'?**
+**Q7. What does obj['x'] = 5 do? — obj['x'] = 5 làm gì?**
 
-A. This syntax is used for: Duyệt cặp khóa/giá trị hay riêng giá trị — Duyệt cặp khóa/giá trị hay riêng giá trị
+A. Deletes x — Xóa khóa x
 
-B. It is used for: Thêm hoặc cập nhật dữ liệu — Thêm hoặc cập nhật dữ liệu
+B. Sorts all keys — Sắp xếp mọi khóa
 
-C. It is used for: Xóa thông tin bằng khóa — Xóa thông tin bằng khóa
+C. Adds or updates x — Thêm hoặc cập nhật khóa x
 
-D. It is used for: Tra cứu khóa hoặc nhận giá trị mặc định — Tra cứu khóa hoặc nhận giá trị mặc định
+D. Returns a list — Trả về list
 
+**Q8. What does obj.pop('x', None) do when x is missing? — pop('x', None) làm gì khi thiếu x?**
 
-**Q7. Which statement fits 'obj[key] = value'? — Mô tả nào đúng với 'obj[key] = value'?**
+A. Creates x — Tạo khóa x
 
-A. It is used for: Xóa thông tin bằng khóa — Xóa thông tin bằng khóa
+B. Deletes every key — Xóa mọi khóa
 
-B. It is used for: Tra cứu khóa hoặc nhận giá trị mặc định — Tra cứu khóa hoặc nhận giá trị mặc định
+C. Always raises KeyError — Luôn báo KeyError
 
-C. It is used for: Duyệt cặp khóa/giá trị hay riêng giá trị — Duyệt cặp khóa/giá trị hay riêng giá trị
+D. Returns None — Trả về None
 
-D. This syntax is used for: Thêm hoặc cập nhật dữ liệu — Thêm hoặc cập nhật dữ liệu
+**Q9. What is returned for unknown order O3? — Tra cứu đơn O3 chưa có trả về gì?**
 
+A. Not found — Not found
 
-**Q8. Which statement fits 'del, pop(key)'? — Mô tả nào đúng với 'del, pop(key)'?**
+B. paid — paid
 
-A. It is used for: Tra cứu khóa hoặc nhận giá trị mặc định — Tra cứu khóa hoặc nhận giá trị mặc định
+C. pending — pending
 
-B. It is used for: Duyệt cặp khóa/giá trị hay riêng giá trị — Duyệt cặp khóa/giá trị hay riêng giá trị
+D. O1 — O1
 
-C. This syntax is used for: Xóa thông tin bằng khóa — Xóa thông tin bằng khóa
+**Q10. How many SKU01 items remain after selling two? — SKU01 còn bao nhiêu món sau khi bán hai?**
 
-D. It is used for: Thêm hoặc cập nhật dữ liệu — Thêm hoặc cập nhật dữ liệu
+A. 5 — 5
 
+B. 3 — 3
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn cách này ở tình huống 1?**
+C. 2 — 2
 
-A. Because SKU là khóa ổn định phù hợp cập nhật số lượng — SKU là khóa ổn định phù hợp cập nhật số lượng
+D. 7 — 7
 
-B. Because Tra khóa trực tiếp thay vì duyệt từng vị trí trong list — Tra khóa trực tiếp thay vì duyệt từng vị trí trong list
+**Q11. How many AI labels are counted? — Nhãn AI xuất hiện bao nhiêu lần?**
 
-C. Because get(key,0) giúp cộng dồn an toàn từ 0 — get(key,0) giúp cộng dồn an toàn từ 0
+A. 1 — 1
 
-D. Because Từ điển con gom dữ liệu theo từng mã sinh viên — Từ điển con gom dữ liệu theo từng mã sinh viên
+B. 3 — 3
 
+C. 2 — 2
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn cách này ở tình huống 2?**
+D. 0 — 0
 
-A. Because SKU là khóa ổn định phù hợp cập nhật số lượng — SKU là khóa ổn định phù hợp cập nhật số lượng
+**Q12. What score belongs to SV2? — Điểm của SV2 là bao nhiêu?**
 
-B. Because get(key,0) giúp cộng dồn an toàn từ 0 — get(key,0) giúp cộng dồn an toàn từ 0
+A. 8 — 8
 
-C. Because Từ điển con gom dữ liệu theo từng mã sinh viên — Từ điển con gom dữ liệu theo từng mã sinh viên
+B. 10 — 10
 
-D. Because pop mặc định None ngăn lỗi khi mã không tồn tại — pop mặc định None ngăn lỗi khi mã không tồn tại
+C. 0 — 0
 
+D. 9 — 9
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn cách này ở tình huống 3?**
+**Q13. What is printed when P02 is not present? — In gì khi không có P02?**
 
-A. Because Từ điển con gom dữ liệu theo từng mã sinh viên — Từ điển con gom dữ liệu theo từng mã sinh viên
+A. None — None
 
-B. Because pop mặc định None ngăn lỗi khi mã không tồn tại — pop mặc định None ngăn lỗi khi mã không tồn tại
+B. P01 — P01
 
-C. Because Tra khóa trực tiếp thay vì duyệt từng vị trí trong list — Tra khóa trực tiếp thay vì duyệt từng vị trí trong list
+C. 10 — 10
 
-D. Because get(key,0) giúp cộng dồn an toàn từ 0 — get(key,0) giúp cộng dồn an toàn từ 0
+D. KeyError — KeyError
 
+**Q14. Which expression safely looks up an optional key? — Cách nào tra khóa có thể không tồn tại?**
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn cách này ở tình huống 4?**
+A. obj['x'] always — Luôn dùng obj['x']
 
-A. Because pop mặc định None ngăn lỗi khi mã không tồn tại — pop mặc định None ngăn lỗi khi mã không tồn tại
+B. obj.get('x') — obj.get('x')
 
-B. Because Tra khóa trực tiếp thay vì duyệt từng vị trí trong list — Tra khóa trực tiếp thay vì duyệt từng vị trí trong list
+C. obj.remove('x') — obj.remove('x')
 
-C. Because Từ điển con gom dữ liệu theo từng mã sinh viên — Từ điển con gom dữ liệu theo từng mã sinh viên
+D. obj.sort() — obj.sort()
 
-D. Because SKU là khóa ổn định phù hợp cập nhật số lượng — SKU là khóa ổn định phù hợp cập nhật số lượng
+**Q15. What does count.get(x, 0) provide for a new label? — count.get(x, 0) cho gì khi gặp nhãn mới?**
 
+A. A string — Một chuỗi
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn cách này ở tình huống 5?**
+B. A list — Một list
 
-A. Because Tra khóa trực tiếp thay vì duyệt từng vị trí trong list — Tra khóa trực tiếp thay vì duyệt từng vị trí trong list
+C. 0 — 0
 
-B. Because pop mặc định None ngăn lỗi khi mã không tồn tại — pop mặc định None ngăn lỗi khi mã không tồn tại
+D. An exception — Một lỗi
 
-C. Because SKU là khóa ổn định phù hợp cập nhật số lượng — SKU là khóa ổn định phù hợp cập nhật số lượng
+**Q16. What happens when you assign an existing key? — Gán vào khóa đã tồn tại sẽ thế nào?**
 
-D. Because get(key,0) giúp cộng dồn an toàn từ 0 — get(key,0) giúp cộng dồn an toàn từ 0
+A. Nothing changes — Không thay đổi
 
+B. It creates a duplicate key — Tạo khóa trùng
 
-**Q14. What input belongs to scenario 1? — Tình huống 1 sử dụng dữ liệu gì?**
+C. It always fails — Luôn lỗi
 
-A. The stated input: Hai đơn O1 và O2 — Hai đơn O1 và O2
+D. Its value is replaced — Giá trị được thay thế
 
-B. The input is SKU01 tồn 5, bán 2 — SKU01 tồn 5, bán 2
+**Q17. How do you access a score inside students['SV2']? — Lấy điểm trong students['SV2'] bằng cách nào?**
 
-C. The input is Ba nhãn AI Math AI — Ba nhãn AI Math AI
+A. students['SV2']['score'] — students['SV2']['score']
 
-D. The input is Hai SV với điểm 8 và 9 — Hai SV với điểm 8 và 9
+B. students[2] — students[2]
 
+C. students.score only — Chỉ students.score
 
-**Q15. What input belongs to scenario 2? — Tình huống 2 sử dụng dữ liệu gì?**
+D. students.pop() — students.pop()
 
-A. The input is Ba nhãn AI Math AI — Ba nhãn AI Math AI
+**Q18. What does obj.values() give? — obj.values() cho kết quả gì?**
 
-B. The input is Hai SV với điểm 8 và 9 — Hai SV với điểm 8 và 9
+A. Only keys — Chỉ khóa
 
-C. The input is Danh sách có P01 nhưng không có P02 — Danh sách có P01 nhưng không có P02
+B. The stored values — Các giá trị đã lưu
 
-D. The stated input: SKU01 tồn 5, bán 2 — SKU01 tồn 5, bán 2
+C. Key/value pairs — Các cặp khóa và giá trị
 
+D. Sorted keys — Khóa đã sắp
 
-**Q16. What input belongs to scenario 3? — Tình huống 3 sử dụng dữ liệu gì?**
+**Q19. Can a list normally be used as a dictionary key? — Có thể dùng List làm khóa Dictionary không?**
 
-A. The input is Hai SV với điểm 8 và 9 — Hai SV với điểm 8 và 9
+A. Yes, always — Có, luôn được
 
-B. The input is Danh sách có P01 nhưng không có P02 — Danh sách có P01 nhưng không có P02
+B. Only if empty — Chỉ khi rỗng
 
-C. The stated input: Ba nhãn AI Math AI — Ba nhãn AI Math AI
+C. No, lists are unhashable — Không, List không thể băm
 
-D. The input is Hai đơn O1 và O2 — Hai đơn O1 và O2
+D. Only with pop — Chỉ khi dùng pop
 
+**Q20. Which object is best for looking up stock by SKU? — Nên dùng gì để tìm tồn kho theo mã SKU?**
 
-**Q17. What input belongs to scenario 4? — Tình huống 4 sử dụng dữ liệu gì?**
+A. A single float — Một số thực
 
-A. The input is Danh sách có P01 nhưng không có P02 — Danh sách có P01 nhưng không có P02
+B. A bare Boolean — Một giá trị đúng sai
 
-B. The stated input: Hai SV với điểm 8 và 9 — Hai SV với điểm 8 và 9
+C. An unrelated tuple — Tuple không liên quan
 
-C. The input is Hai đơn O1 và O2 — Hai đơn O1 và O2
-
-D. The input is SKU01 tồn 5, bán 2 — SKU01 tồn 5, bán 2
-
-
-**Q18. What input belongs to scenario 5? — Tình huống 5 sử dụng dữ liệu gì?**
-
-A. The stated input: Danh sách có P01 nhưng không có P02 — Danh sách có P01 nhưng không có P02
-
-B. The input is Hai đơn O1 và O2 — Hai đơn O1 và O2
-
-C. The input is SKU01 tồn 5, bán 2 — SKU01 tồn 5, bán 2
-
-D. The input is Ba nhãn AI Math AI — Ba nhãn AI Math AI
-
-
-**Q19. What must be known before processing data? — Cần biết gì trước khi xử lý dữ liệu?**
-
-A. Only file name — Chỉ tên file
-
-B. Only editor theme — Chỉ màu giao diện
-
-C. Only line count — Chỉ số dòng
-
-D. Input meaning, type and units — Ý nghĩa, kiểu và đơn vị đầu vào
-
-
-**Q20. How should a student check an example? — Nên kiểm tra ví dụ như thế nào?**
-
-A. Assume all inputs work — Cho rằng dữ liệu nào cũng đúng
-
-B. Ignore errors — Bỏ qua lỗi
-
-C. Verify output and edge cases — Đối chiếu kết quả và thử trường hợp biên
-
-D. Delete comments — Xóa chú thích
+D. A dictionary mapping SKU to quantity — Dictionary nối mã SKU với số lượng
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | A concept described as: Ánh xạ khóa sang giá trị | Ánh xạ khóa sang giá trị |
-| Q2 | **A** | A concept described as: Tên hoặc mã để truy tìm giá trị | Tên hoặc mã để truy tìm giá trị |
-| Q3 | **D** | A concept described as: Thông tin được lưu theo một khóa | Thông tin được lưu theo một khóa |
-| Q4 | **C** | A concept described as: Một từ điển có từ điển con | Một từ điển có từ điển con |
-| Q5 | **B** | This syntax is used for: Tra cứu khóa hoặc nhận giá trị mặc định | Tra cứu khóa hoặc nhận giá trị mặc định |
-| Q6 | **A** | This syntax is used for: Duyệt cặp khóa/giá trị hay riêng giá trị | Duyệt cặp khóa/giá trị hay riêng giá trị |
-| Q7 | **D** | This syntax is used for: Thêm hoặc cập nhật dữ liệu | Thêm hoặc cập nhật dữ liệu |
-| Q8 | **C** | This syntax is used for: Xóa thông tin bằng khóa | Xóa thông tin bằng khóa |
-| Q9 | **B** | Because Tra khóa trực tiếp thay vì duyệt từng vị trí trong list | Tra khóa trực tiếp thay vì duyệt từng vị trí trong list |
-| Q10 | **A** | Because SKU là khóa ổn định phù hợp cập nhật số lượng | SKU là khóa ổn định phù hợp cập nhật số lượng |
-| Q11 | **D** | Because get(key,0) giúp cộng dồn an toàn từ 0 | get(key,0) giúp cộng dồn an toàn từ 0 |
-| Q12 | **C** | Because Từ điển con gom dữ liệu theo từng mã sinh viên | Từ điển con gom dữ liệu theo từng mã sinh viên |
-| Q13 | **B** | Because pop mặc định None ngăn lỗi khi mã không tồn tại | pop mặc định None ngăn lỗi khi mã không tồn tại |
-| Q14 | **A** | The stated input: Hai đơn O1 và O2 | Hai đơn O1 và O2 |
-| Q15 | **D** | The stated input: SKU01 tồn 5, bán 2 | SKU01 tồn 5, bán 2 |
-| Q16 | **C** | The stated input: Ba nhãn AI Math AI | Ba nhãn AI Math AI |
-| Q17 | **B** | The stated input: Hai SV với điểm 8 và 9 | Hai SV với điểm 8 và 9 |
-| Q18 | **A** | The stated input: Danh sách có P01 nhưng không có P02 | Danh sách có P01 nhưng không có P02 |
-| Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
-| Q20 | **C** | Verify output and edge cases | Đối chiếu kết quả và thử trường hợp biên |
+| Q1 | **A** | A dictionary maps keys to values. | Dictionary nối mỗi khóa với một giá trị. |
+| Q2 | **B** | Keys identify stored values. | Khóa dùng để tìm thông tin đã lưu. |
+| Q3 | **C** | Values are associated with keys. | Mỗi giá trị gắn với một khóa. |
+| Q4 | **D** | Nested dictionaries group related details. | Dictionary lồng giúp gom thông tin liên quan. |
+| Q5 | **A** | get returns None when no default is specified. | get trả về None nếu không truyền giá trị mặc định. |
+| Q6 | **B** | items yields pairs for iteration. | items cung cấp các cặp khi duyệt. |
+| Q7 | **C** | Assignment creates or replaces the value. | Phép gán tạo hoặc sửa giá trị. |
+| Q8 | **D** | The default prevents KeyError for a missing key. | Giá trị mặc định giúp tránh KeyError. |
+| Q9 | **A** | O3 is absent, so get returns the default. | O3 không tồn tại nên get trả về câu mặc định. |
+| Q10 | **B** | Five minus two equals three. | Năm trừ hai còn ba. |
+| Q11 | **C** | AI appears twice in the input list. | AI xuất hiện hai lần trong list. |
+| Q12 | **D** | SV2 has score 9. | SV2 có điểm 9. |
+| Q13 | **A** | pop uses None as the fallback. | pop trả về None khi không có khóa. |
+| Q14 | **B** | get can handle a missing key. | get xử lý được khóa không tồn tại. |
+| Q15 | **C** | The fallback starts counting at zero. | Giá trị mặc định giúp bắt đầu đếm từ 0. |
+| Q16 | **D** | Dictionary keys are unique. | Các khóa của Dictionary là duy nhất. |
+| Q17 | **A** | Two key lookups reach the nested value. | Hai lần tra khóa lấy được giá trị bên trong. |
+| Q18 | **B** | values exposes the dictionary's values. | values cho phép duyệt các giá trị. |
+| Q19 | **C** | Mutable lists are unhashable. | List có thể thay đổi nên không dùng làm khóa. |
+| Q20 | **D** | Dictionary keys enable SKU-based lookups. | Khóa Dictionary giúp tra mã SKU. |
 
-## 8. Kết nối bài tiếp theo
+## 8. Nối sang bài tiếp theo
 
 `List/Set → Dictionary → JSON/CSV → DataFrame`.
