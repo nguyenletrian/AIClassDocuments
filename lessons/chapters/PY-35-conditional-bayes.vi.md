@@ -86,11 +86,10 @@ print(.6*.8+.4*.2)
 
 **Từ vựng trong mục:** **Conditional probability** — xác suất có điều kiện.
 
-**Vấn đề:** Đánh giá tín hiệu kiểm tra.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần đánh giá tín hiệu kiểm tra để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Tỷ lệ nền 1%, độ nhạy 99%, dương giả 5%. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Cần tính tỷ lệ dương tính thật sau khi nhận kết quả dương. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Tỷ lệ nền 1%, độ nhạy 99%, dương giả 5%.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -105,11 +104,10 @@ print(round(posterior,4))
 
 **Từ vựng trong mục:** **Independence** — độc lập.
 
-**Vấn đề:** Tỷ lệ mua khi đã xem quảng cáo.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tỷ lệ mua khi đã xem quảng cáo để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 20 mua trên 100 khách đã thấy. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Chỉ xét những khách đã thấy quảng cáo. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** 20 mua trên 100 khách đã thấy.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -123,11 +121,10 @@ print(bought_after/seen)
 
 **Từ vựng trong mục:** **Bayes theorem** — định lý Bayes.
 
-**Vấn đề:** Tính tỷ lệ ủng hộ chung.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tính tỷ lệ ủng hộ chung để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 60% nhóm X ủng hộ 80%, 40% nhóm Y ủng hộ 20%. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Gộp các nhóm theo tỷ lệ thành viên thay vì cộng trực tiếp. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** 60% nhóm X ủng hộ 80%, 40% nhóm Y ủng hộ 20%.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -141,11 +138,10 @@ print(sum(a*b for a,b in zip(share,support)))
 
 **Từ vựng trong mục:** **Total probability** — xác suất toàn phần.
 
-**Vấn đề:** Kiểm độc lập hai biến cố.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần kiểm độc lập hai biến cố để phục vụ một công việc cụ thể. Đầu vào được cung cấp: P(A)=0.5, P(B)=0.4, giao=0.2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** So P(A∩B) với P(A)P(B) theo giả định số liệu. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** P(A)=0.5, P(B)=0.4, giao=0.2.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -159,11 +155,10 @@ print(abs(pab-pa*pb)<1e-12)
 
 **Từ vựng trong mục:** **Conditional probability** — xác suất có điều kiện.
 
-**Vấn đề:** Phân tích kiểm thử lỗi hàng hóa.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần phân tích kiểm thử lỗi hàng hóa để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Tỷ lệ lỗi 2%, phát hiện lỗi 95%, dương giả 10%. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Bayes giúp tránh hiểu lầm độ nhạy cao nghĩa là xác suất lỗi thật cao. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Tỷ lệ lỗi 2%, phát hiện lỗi 95%, dương giả 10%.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 

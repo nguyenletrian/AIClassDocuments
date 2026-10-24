@@ -86,11 +86,10 @@ print(2**4)
 
 **Từ vựng trong mục:** **Linear function** — hàm tuyến tính.
 
-**Vấn đề:** Ước lượng phí giao hàng.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần ước lượng phí giao hàng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 3 km, phí nền 10000 đồng, 5000 đồng/km. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Mỗi km tăng một mức phí ổn định nên chọn tuyến tính
 
-**Dữ liệu:** 3 km, phí nền 10000 đồng, 5000 đồng/km.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -104,11 +103,10 @@ print(total)
 
 **Từ vựng trong mục:** **Quadratic** — hàm bậc hai.
 
-**Vấn đề:** Mô hình chi phí tăng theo tải.
+**Tình huống thực tế:** Một nhóm phát triển AI cần mô hình chi phí tăng theo tải để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Tải x=4. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Chi phí có phần tăng bậc hai với tải lớn
 
-**Dữ liệu:** Tải x=4.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -123,11 +121,10 @@ print(cost)
 
 **Từ vựng trong mục:** **Polynomial** — hàm đa thức.
 
-**Vấn đề:** Dự báo từ đa thức mô phỏng.
+**Tình huống thực tế:** Một nhóm phát triển AI cần dự báo từ đa thức mô phỏng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Ba điểm thời gian [0,1,2], hệ số [1,0,2]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** polyval giúp biểu diễn đường cong hệ số đã biết
 
-**Dữ liệu:** Ba điểm thời gian [0,1,2], hệ số [1,0,2].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -141,11 +138,10 @@ print(np.polyval([1,0,2],np.array([0,1,2])))
 
 **Từ vựng trong mục:** **Exponential** — hàm mũ.
 
-**Vấn đề:** Mô phỏng tăng trưởng qua kỳ.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần mô phỏng tăng trưởng qua kỳ để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 1000 đơn vị ban đầu, 3 kỳ. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Lũy thừa mô tả tăng 5% mỗi kỳ, không phải dự đoán chắc chắn
 
-**Dữ liệu:** 1000 đơn vị ban đầu, 3 kỳ.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -159,11 +155,10 @@ print(round(start*(1+rate)**periods,2))
 
 **Từ vựng trong mục:** **Linear function** — hàm tuyến tính.
 
-**Vấn đề:** Vẽ đường tuyến tính dữ liệu.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần vẽ đường tuyến tính dữ liệu để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 5 điểm x từ 0 đến 10. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** linspace tạo mẫu x đều để tính y
 
-**Dữ liệu:** 5 điểm x từ 0 đến 10.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 

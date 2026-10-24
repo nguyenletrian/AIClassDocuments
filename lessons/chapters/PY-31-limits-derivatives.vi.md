@@ -89,11 +89,10 @@ x=sp.symbols('x');print(sp.diff(x*x,x).subs(x,3))
 
 **Từ vựng trong mục:** **Limit** — giới hạn.
 
-**Vấn đề:** Xem giá trị gần điểm rỗng.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần xem giá trị gần điểm rỗng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: (x²-4)/(x-2), khi x→2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm
 
-**Dữ liệu:** (x²-4)/(x-2), khi x→2.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -108,11 +107,10 @@ print(sp.limit((x*x-4)/(x-2),x,2))
 
 **Từ vựng trong mục:** **Continuity** — tính liên tục.
 
-**Vấn đề:** Tốc độ tăng quãng đường.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tốc độ tăng quãng đường để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Quãng đường s(t)=t², t=3 giây. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Đạo hàm quãng đường theo thời gian là vận tốc
 
-**Dữ liệu:** Quãng đường s(t)=t², t=3 giây.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -127,11 +125,10 @@ print(v.subs(t,3))
 
 **Từ vựng trong mục:** **Derivative** — đạo hàm.
 
-**Vấn đề:** Độ dốc đường giá.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần độ dốc đường giá để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Hàm doanh thu f(x)=2x²+3x. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Tìm đạo hàm để biết xu hướng ở x=4
 
-**Dữ liệu:** Hàm doanh thu f(x)=2x²+3x.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -146,11 +143,10 @@ print(sp.diff(f,x).subs(x,4))
 
 **Từ vựng trong mục:** **Tangent slope** — độ dốc tiếp tuyến.
 
-**Vấn đề:** Kiểm liên tục hàm đơn giản.
+**Tình huống thực tế:** Một nhóm phát triển AI cần kiểm liên tục hàm đơn giản để phục vụ một công việc cụ thể. Đầu vào được cung cấp: f(x)=x² tại x=2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Đối chiếu limit và f(a)
 
-**Dữ liệu:** f(x)=x² tại x=2.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -165,11 +161,10 @@ print(sp.limit(f,x,2)==f.subs(x,2))
 
 **Từ vựng trong mục:** **Limit** — giới hạn.
 
-**Vấn đề:** Ước lượng đạo hàm từ cảm biến.
+**Tình huống thực tế:** Một nhóm phát triển AI cần ước lượng đạo hàm từ cảm biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 5 thời điểm cách nhau 1 giây. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** gradient gần đúng khi dữ liệu chỉ có giá trị mẫu
 
-**Dữ liệu:** 5 thời điểm cách nhau 1 giây.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 

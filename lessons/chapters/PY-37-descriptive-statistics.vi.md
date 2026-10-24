@@ -89,11 +89,10 @@ print(np.std([1,2,3]))
 
 **Từ vựng trong mục:** **Mean** — trung bình.
 
-**Vấn đề:** Trung bình thời gian giao hàng.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần trung bình thời gian giao hàng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: [2,3,4] ngày. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** [2,3,4] ngày.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -107,11 +106,10 @@ print(np.mean([2,3,4]))
 
 **Từ vựng trong mục:** **Median** — trung vị.
 
-**Vấn đề:** So trung vị tiền hàng.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần so trung vị tiền hàng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: [100,120,10000] nghìn đồng. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** [100,120,10000] nghìn đồng.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -126,11 +124,10 @@ print(np.mean(x),np.median(x))
 
 **Từ vựng trong mục:** **Variance** — phương sai.
 
-**Vấn đề:** Tính phương sai điểm.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tính phương sai điểm để phục vụ một công việc cụ thể. Đầu vào được cung cấp: [6,8,10] điểm. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Variance đo sự phân tán theo đơn vị bình phương. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** [6,8,10] điểm.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -144,11 +141,10 @@ print(np.var([6,8,10],ddof=0))
 
 **Từ vựng trong mục:** **Standard deviation** — độ lệch chuẩn.
 
-**Vấn đề:** Xem độ ổn định cảm biến.
+**Tình huống thực tế:** Một hệ thống giám sát cần xem độ ổn định cảm biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: [20,21,19,20] độ C. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** [20,21,19,20] độ C.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -162,11 +158,10 @@ print(np.std([20,21,19,20],ddof=0))
 
 **Từ vựng trong mục:** **Mean** — trung bình.
 
-**Vấn đề:** Tìm loại sản phẩm phổ biến.
+**Tình huống thực tế:** Một công ty bán lẻ cần tìm loại sản phẩm phổ biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Nhãn A,A,B,C,A. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** value_counts cho số lần mỗi nhãn xuất hiện. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Nhãn A,A,B,C,A.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 

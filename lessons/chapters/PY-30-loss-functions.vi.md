@@ -89,11 +89,10 @@ p=np.array([.5,.5]);q=np.array([.6,.4]);print(np.sum(p*np.log(p/q)))
 
 **Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
 
-**Vấn đề:** Đánh giá sai giá nhà.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần đánh giá sai giá nhà để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Giá thật [100,200], dự đoán [110,170], triệu đồng. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** MSE phạt dự đoán sai lớn hơn nhiều
 
-**Dữ liệu:** Giá thật [100,200], dự đoán [110,170], triệu đồng.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -108,11 +107,10 @@ print(np.mean((y-pred)**2))
 
 **Từ vựng trong mục:** **MAE** — sai số tuyệt đối trung bình.
 
-**Vấn đề:** Đánh giá dự báo có outlier.
+**Tình huống thực tế:** Một nhóm phát triển AI cần đánh giá dự báo có outlier để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Doanh thu [10,20,30], dự đoán [9,19,50]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** MAE giúp so mức sai số tuyệt đối dễ hiểu
 
-**Dữ liệu:** Doanh thu [10,20,30], dự đoán [9,19,50].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -126,11 +124,10 @@ print(np.mean(np.abs(np.array([10,20,30])-np.array([9,19,50]))))
 
 **Từ vựng trong mục:** **Cross-entropy** — entropy chéo.
 
-**Vấn đề:** Tính Huber cho lỗi đo.
+**Tình huống thực tế:** Một hệ thống giám sát cần tính huber cho lỗi đo để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Sai số [-1,2,5], delta=1. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính
 
-**Dữ liệu:** Sai số [-1,2,5], delta=1.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -146,11 +143,10 @@ print(loss.mean())
 
 **Từ vựng trong mục:** **KL divergence** — độ lệch KL.
 
-**Vấn đề:** Phạt nhãn dự đoán sai.
+**Tình huống thực tế:** Một hệ thống giám sát cần phạt nhãn dự đoán sai để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Xác suất đúng nhãn 0.8. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Cross-entropy dùng xác suất của đúng nhãn
 
-**Dữ liệu:** Xác suất đúng nhãn 0.8.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -165,11 +161,10 @@ print(-math.log(prob_true))
 
 **Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
 
-**Vấn đề:** So phân phối dự báo.
+**Tình huống thực tế:** Một nhóm phát triển AI cần so phân phối dự báo để phục vụ một công việc cụ thể. Đầu vào được cung cấp: p=[.5,.5], q=[.6,.4]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng
 
-**Dữ liệu:** p=[.5,.5], q=[.6,.4].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 

@@ -87,11 +87,10 @@ for epoch in range(3): print(epoch)
 
 **Từ vựng trong mục:** **Partial derivative** — đạo hàm riêng.
 
-**Vấn đề:** Giảm chi phí một biến.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần giảm chi phí một biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Bắt đầu w=4, lr=0.1, 10 bước. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Cập nhật w theo độ dốc của hàm w²
 
-**Dữ liệu:** Bắt đầu w=4, lr=0.1, 10 bước.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -107,11 +106,10 @@ print(round(w,4))
 
 **Từ vựng trong mục:** **Gradient** — vector gradient.
 
-**Vấn đề:** Đạo hàm riêng chi phí.
+**Tình huống thực tế:** Một nhóm phát triển AI cần đạo hàm riêng chi phí để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Hàm tại x=1,y=2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Hàm hai biến f=x²+3xy+y² cần đạo hàm từng biến
 
-**Dữ liệu:** Hàm tại x=1,y=2.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -126,11 +124,10 @@ print(sp.diff(f,x).subs({x:1,y:2}))
 
 **Từ vựng trong mục:** **Learning rate** — tốc độ học.
 
-**Vấn đề:** Theo dõi lịch sử loss.
+**Tình huống thực tế:** Một nhóm phát triển AI cần theo dõi lịch sử loss để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Hàm loss w² với w=3. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Lưu loss sau từng bước để xem có giảm
 
-**Dữ liệu:** Hàm loss w² với w=3.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -147,11 +144,10 @@ print(history)
 
 **Từ vựng trong mục:** **Epoch** — vòng huấn luyện.
 
-**Vấn đề:** So tốc độ học.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần so tốc độ học để phục vụ một công việc cụ thể. Đầu vào được cung cấp: w=4, lr 0.1 và 1.1. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Learning rate quá cao có thể làm mất ổn định
 
-**Dữ liệu:** w=4, lr 0.1 và 1.1.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -167,11 +163,10 @@ for lr in [.1,1.1]:
 
 **Từ vựng trong mục:** **Partial derivative** — đạo hàm riêng.
 
-**Vấn đề:** Fit giá nhà bằng gradient.
+**Tình huống thực tế:** Một nhóm phát triển AI cần fit giá nhà bằng gradient để phục vụ một công việc cụ thể. Đầu vào được cung cấp: X=[1,2,3], y=[2,4,6], 100 bước. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương án?** Tính dMSE/dw rồi cập nhật hệ số hồi quy tuyến tính
 
-**Dữ liệu:** X=[1,2,3], y=[2,4,6], 100 bước.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 

@@ -89,11 +89,10 @@ x=sp.symbols('x');print(sp.diff(x*x,x,2))
 
 **Từ vựng trong mục:** **Jacobian** — ma trận Jacobian.
 
-**Vấn đề:** Độ nhạy hai đầu ra cảm biến.
+**Tình huống thực tế:** Một hệ thống giám sát cần độ nhạy hai đầu ra cảm biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: F1=x+y, F2=x*y. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** F1=x+y, F2=x*y. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -110,11 +109,10 @@ print(F.jacobian([x,y]).subs({x:3,y:2}))
 
 **Từ vựng trong mục:** **Hessian** — ma trận Hessian.
 
-**Vấn đề:** Độ cong hàm lỗi.
+**Tình huống thực tế:** Một nhóm phát triển AI cần độ cong hàm lỗi để phục vụ một công việc cụ thể. Đầu vào được cung cấp: f=x²+2y². Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** f=x²+2y². Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -130,11 +128,10 @@ print(sp.hessian(x*x+2*y*y,[x,y]))
 
 **Từ vựng trong mục:** **Critical point** — điểm tới hạn.
 
-**Vấn đề:** Tìm tối ưu chi phí.
+**Tình huống thực tế:** Một nhóm phát triển AI cần tìm tối ưu chi phí để phục vụ một công việc cụ thể. Đầu vào được cung cấp: f=(x-3)²+(y-2)². Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Giải gradient=0 cho hàm bậc hai. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** f=(x-3)²+(y-2)². Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -150,11 +147,10 @@ print(sp.solve([sp.diff(f,x),sp.diff(f,y)],[x,y]))
 
 **Từ vựng trong mục:** **Curvature** — độ cong.
 
-**Vấn đề:** Phân biệt cực tiểu và cực đại.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần phân biệt cực tiểu và cực đại để phục vụ một công việc cụ thể. Đầu vào được cung cấp: f=x²+y² tại (0,0). Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** f=x²+y² tại (0,0). Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -170,11 +166,10 @@ print(np.linalg.eigvalsh(np.array(H,dtype=float)))
 
 **Từ vựng trong mục:** **Jacobian** — ma trận Jacobian.
 
-**Vấn đề:** Độ nhạy hàm nhiều đầu ra.
+**Tình huống thực tế:** Một nhóm phát triển AI cần độ nhạy hàm nhiều đầu ra để phục vụ một công việc cụ thể. Đầu vào được cung cấp: F gồm hai hàm của 2 biến. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Kiểm Jacobian đầu ra có shape đúng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** F gồm hai hàm của 2 biến. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
