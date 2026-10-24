@@ -7,7 +7,9 @@
 
 `Điều kiện → Vòng lặp → Xử lý hàng loạt`
 
-Bài trước dùng `if` để chọn việc cần làm. Bài này dùng vòng lặp để xử lý nhiều dữ liệu mà không phải viết đi viết lại cùng một lệnh.
+**Học xong dùng để làm gì?** Tự động tính toán hoặc kiểm tra nhiều dòng dữ liệu bằng for/while, tránh sao chép cùng thao tác.
+
+**Kết nối kiến thức tiếp theo:** Sang PY-06, lưu nhiều giá trị trong List để vòng lặp có dữ liệu thực tế mà xử lý.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -311,6 +313,11 @@ C. Only a Boolean condition — Chỉ một điều kiện Boolean
 
 D. Always index-value pairs — Luôn là cặp chỉ số-giá trị
 
+**Đáp án: B**
+
+**Giải thích:** Vòng `for` lần lượt lấy phần tử từ đối tượng duyệt được, ví dụ các giá trị `0`, `1`, `2` của `range(3)`. Cách hoạt động này khác `while` kiểm tra lại điều kiện ở mỗi lượt.
+
+
 **Q2. When does a `while` loop repeat? — Khi nào vòng `while` tiếp tục lặp?**
 
 A. Always for a predetermined count — Luôn theo số lượt đã xác định
@@ -320,6 +327,11 @@ B. Until exactly one iteration has completed — Chỉ đến khi chạy xong đ
 C. As long as its condition remains true — Chừng nào điều kiện vẫn đúng
 
 D. Only when iterating over a list — Chỉ khi duyệt một list
+
+**Đáp án: C**
+
+**Giải thích:** Vòng `while` kiểm tra điều kiện trước mỗi lượt và chỉ lặp khi điều kiện còn đúng. Ví dụ `while n < 3:` dừng khi `n` đạt 3 nếu thân vòng lặp tăng `n` sau mỗi lượt.
+
 
 **Q3. What is an iteration? — Một lần lặp là gì?**
 
@@ -331,6 +343,11 @@ C. One pass through the loop body — Một lượt thực hiện thân vòng l�
 
 D. A collection that can be iterated — Một tập hợp có thể duyệt
 
+**Đáp án: C**
+
+**Giải thích:** Một lần lặp là một lượt chạy thân vòng lặp. Với `for x in range(3):`, thân vòng lặp chạy ba lần, lần lượt `x` bằng 0, 1, 2.
+
+
 **Q4. What are nested loops? — Vòng lặp lồng nhau là gì?**
 
 A. A loop that runs exactly once — Một vòng chỉ chạy đúng một lần
@@ -340,6 +357,11 @@ B. Two loops written one after another — Hai vòng lặp viết nối tiếp n
 C. A `for` and `while` with the same variable — `for` và `while` dùng cùng một biến
 
 D. A loop placed inside another loop's body — Một vòng đặt trong thân vòng khác
+
+**Đáp án: D**
+
+**Giải thích:** Vòng lặp lồng nhau đặt một vòng trong thân vòng khác. Nếu vòng ngoài có 2 phần tử và vòng trong có 3 phần tử, thân vòng trong có thể chạy 2 nhân 3 bằng 6 lần, ứng với từng cặp kết hợp.
+
 
 **Q5. What does `break` do inside a loop? — `break` làm gì trong vòng lặp?**
 
@@ -351,6 +373,11 @@ C. Immediately exits the entire Python process — Thoát toàn bộ tiến trì
 
 D. Immediately exits the innermost enclosing loop — Thoát ngay vòng lặp bao gần nhất
 
+**Đáp án: D**
+
+**Giải thích:** `break` kết thúc ngay vòng lặp bao gần nhất đang chạy. Với vòng lặp lồng nhau, nó không tự kết thúc mọi vòng ngoài; `continue` thì vẫn để vòng lặp tiếp tục.
+
+
 **Q6. What does `continue` do? — `continue` có tác dụng gì?**
 
 A. Skips the remaining body and moves toward the next iteration — Bỏ phần thân còn lại và chuyển tới lượt kế tiếp
@@ -360,6 +387,11 @@ B. Restarts the complete program — Khởi động lại toàn bộ chương tr
 C. Exits the current loop completely — Kết thúc hẳn vòng lặp hiện tại
 
 D. Acts as a no-op placeholder — Là câu lệnh giữ chỗ không thao tác
+
+**Đáp án: A**
+
+**Giải thích:** `continue` bỏ qua những câu lệnh còn lại trong lượt hiện tại rồi tiếp tục theo loại vòng lặp. Với `for`, chương trình lấy phần tử kế tiếp; với `while`, nó kiểm tra lại điều kiện.
+
 
 **Q7. What does `pass` do? — `pass` làm gì?**
 
@@ -371,6 +403,11 @@ C. Performs no operation and then continues normally — Không thao tác gì r�
 
 D. Leaves the loop — Rời khỏi vòng lặp
 
+**Đáp án: C**
+
+**Giải thích:** `pass` là câu lệnh hợp lệ nhưng không làm gì, hữu ích để giữ chỗ cho thân khối bắt buộc. Khác `continue`, nó không bỏ qua những câu lệnh phía sau trong cùng lượt lặp.
+
+
 **Q8. When does a loop's `else` execute? — `else` của vòng lặp chạy khi nào?**
 
 A. Every time a loop body executes — Mỗi khi thân vòng lặp chạy
@@ -380,6 +417,11 @@ B. When the loop finishes normally without `break` — Khi vòng lặp kết th�
 C. Only when `break` was executed — Chỉ khi đã chạy `break`
 
 D. At the start of the first iteration — Khi bắt đầu lượt lặp đầu
+
+**Đáp án: B**
+
+**Giải thích:** `else` của vòng lặp chạy sau khi vòng lặp kết thúc bình thường: `for` duyệt hết phần tử hoặc điều kiện `while` thành sai. Nó bị bỏ qua nếu `break` kết thúc vòng lặp, khác `else` dự phòng của `if`.
+
 
 **Q9. What does `range(1, 4)` represent? — `range(1, 4)` biểu diễn gì?**
 
@@ -391,6 +433,11 @@ C. Values 1, 3 — Các giá trị 1, 3
 
 D. Values 0, 1, 2, 3 — Các giá trị 0, 1, 2, 3
 
+**Đáp án: A**
+
+**Giải thích:** `range(1, 4)` biểu diễn các số 1, 2, 3 vì mốc dừng 4 không được lấy. Nếu muốn bao gồm 4, cần đặt mốc dừng là 5.
+
+
 **Q10. What does `enumerate(items)` provide? — `enumerate(items)` cung cấp gì?**
 
 A. Pairs sorted by item value — Các cặp được sắp theo giá trị
@@ -400,6 +447,11 @@ B. Pairs of index and item — Các cặp chỉ số và phần tử
 C. Only the items, without their indexes — Chỉ các phần tử, không kèm chỉ số
 
 D. Only the indexes, without items — Chỉ chỉ số, không kèm phần tử
+
+**Đáp án: B**
+
+**Giải thích:** `enumerate(items)` tạo các cặp chỉ số và phần tử, mặc định bắt đầu từ chỉ số 0. Với `['a', 'b']`, khi duyệt sẽ nhận `(0, 'a')` rồi `(1, 'b')`; hàm không sắp xếp danh sách.
+
 
 **Q11. What does `zip(a, b)` do? — `zip(a, b)` làm gì?**
 
@@ -411,6 +463,11 @@ C. Sorts the inputs together — Sắp xếp hai đầu vào cùng nhau
 
 D. Generates every possible pair — Tạo mọi cặp kết hợp
 
+**Đáp án: A**
+
+**Giải thích:** `zip(a, b)` ghép phần tử ở cùng vị trí, ví dụ `list(zip([1, 2], ['x', 'y']))` cho `[(1, 'x'), (2, 'y')]`. Mặc định hàm dừng khi dãy ngắn nhất hết phần tử, chứ không tạo mọi cặp kết hợp.
+
+
 **Q12. What does `reversed(items)` provide for a sequence? — `reversed(items)` cung cấp gì cho một dãy?**
 
 A. Always returns a fully materialized list — Luôn trả về list đã tạo sẵn
@@ -420,6 +477,11 @@ B. Provides an iterator in reverse positional order — Cung cấp iterator theo
 C. Sorts elements from largest to smallest — Sắp phần tử từ lớn đến nhỏ
 
 D. Preserves the original order — Giữ nguyên thứ tự ban đầu
+
+**Đáp án: B**
+
+**Giải thích:** `reversed()` cung cấp bộ duyệt ngược thứ tự vị trí của dãy phù hợp. Với `[3, 1, 2]`, nó cho `2, 1, 3`, không phải sắp xếp số giảm dần `3, 2, 1`.
+
 
 **Q13. How many iterations does a complete `for` loop over `range(3)` execute? — Vòng `for` duyệt hết `range(3)` thực hiện bao nhiêu lượt lặp?**
 
@@ -431,6 +493,11 @@ C. 0 iterations — 0 lượt lặp
 
 D. 2 iterations — 2 lượt lặp
 
+**Đáp án: A**
+
+**Giải thích:** `range(3)` tạo các giá trị `0`, `1`, `2`: bắt đầu mặc định từ 0 và không lấy mốc dừng 3. Vòng `for` duyệt hết sẽ chạy thân đúng ba lượt; đây là số lượt lặp, không có nghĩa dãy chứa giá trị 3.
+
+
 **Q14. What does `range(2, 7, 2)` yield? — `range(2, 7, 2)` cho những số nào?**
 
 A. 3, 5 — 3, 5
@@ -440,6 +507,11 @@ B. 2, 4, 6 — 2, 4, 6
 C. 2, 3, 4, 5, 6 — 2, 3, 4, 5, 6
 
 D. 2, 4, 6, 8 — 2, 4, 6, 8
+
+**Đáp án: B**
+
+**Giải thích:** `range(start, stop, step)` bắt đầu tại 2, mỗi lượt cộng thêm 2 và không lấy giá trị đạt hoặc vượt mốc dừng 7. Vì vậy dãy là 2, 4, 6, không phải 2, 4, 6, 8.
+
 
 **Q15. What does `enumerate(['a','b'])` start indexing from? — `enumerate(['a','b'])` bắt đầu chỉ số từ đâu?**
 
@@ -451,6 +523,11 @@ C. 0 — 0
 
 D. 1 — 1
 
+**Đáp án: C**
+
+**Giải thích:** `enumerate()` mặc định bắt đầu chỉ số bằng `0` nếu không truyền `start`. Với `['a', 'b']`, cặp đầu là `(0, 'a')`; `enumerate(items, start=1)` mới bắt đầu từ 1.
+
+
 **Q16. What does `list(zip([1,2], ['a']))` contain? — `list(zip([1,2], ['a']))` gồm gì?**
 
 A. `[(1, 'a'), (2, 'a')]` — `[(1, 'a'), (2, 'a')]`
@@ -460,6 +537,11 @@ B. `[(1, 2), ('a',)]` — `[(1, 2), ('a',)]`
 C. `[(1, 'a'), (2, None)]` — `[(1, 'a'), (2, None)]`
 
 D. `[(1, 'a')]` — `[(1, 'a')]`
+
+**Đáp án: D**
+
+**Giải thích:** `zip()` lấy một phần tử từ mỗi dãy ở một lượt và dừng khi dãy ngắn hơn hết. Vì vậy `list(zip([1,2], ['a']))` chỉ chứa `[(1, 'a')]`, không có cặp chứa 2.
+
 
 **Q17. What is a common cause of an infinite `while` loop? — Nguyên nhân thường gặp khiến `while` lặp vô hạn là gì?**
 
@@ -471,6 +553,11 @@ C. A `for` loop exhausts a finite iterable — `for` duyệt hết một dãy h�
 
 D. The `while` condition stays true and no exit is reached — Điều kiện `while` luôn đúng và không gặp lối thoát
 
+**Đáp án: D**
+
+**Giải thích:** Vòng `while` có thể lặp vô hạn khi điều kiện luôn đúng, ví dụ `while n < 3:` không bao giờ thay đổi `n` và không gặp `break`. Cần cập nhật biến hướng tới điều kiện sai hoặc chủ động có lối thoát.
+
+
 **Q18. How can a loop ignore invalid data and continue processing? — Làm sao bỏ qua dữ liệu lỗi nhưng vẫn xử lý phần tử sau?**
 
 A. Use `continue` for that invalid item — Dùng `continue` với phần tử lỗi
@@ -480,6 +567,11 @@ B. Use `return` to exit the whole function — Dùng `return` thoát toàn bộ 
 C. Use only `pass` in the invalid-data branch — Chỉ dùng `pass` trong nhánh dữ liệu lỗi
 
 D. Use `break` when the invalid item appears — Dùng `break` khi gặp phần tử lỗi
+
+**Đáp án: A**
+
+**Giải thích:** Dùng `continue` khi cần bỏ qua một phần tử không hợp lệ nhưng vẫn xử lý các phần tử sau. `break` sẽ kết thúc vòng lặp, còn chỉ dùng `pass` không ngăn những lệnh phía sau xử lý phần tử lỗi.
+
 
 **Q19. How can a search stop immediately after a match? — Làm sao dừng tìm kiếm ngay khi đã thấy phần tử phù hợp?**
 
@@ -491,6 +583,11 @@ C. Use `else` instead of checking — Dùng `else` thay kiểm tra
 
 D. Use `break` after the match — Dùng `break` sau khi khớp
 
+**Đáp án: D**
+
+**Giải thích:** Dùng `break` ngay khi tìm thấy phần tử cần tìm vì không cần kiểm tra những phần tử còn lại. `continue` chỉ chuyển tới phần tử tiếp theo, còn `pass` không dừng việc tìm kiếm.
+
+
 **Q20. How do you traverse every combination of two small collections? — Làm sao duyệt mọi kết hợp của hai nhóm nhỏ?**
 
 A. Use `enumerate()` on one collection — Dùng `enumerate()` trên một nhóm
@@ -501,30 +598,9 @@ C. Use one loop nested inside the other — Đặt một vòng lồng bên trong
 
 D. Use `zip()` on the two collections — Dùng `zip()` trên hai nhóm
 
-### Answer key — Đáp án song ngữ
+**Đáp án: C**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **B** | A `for` loop retrieves successive items from an iterable, such as values `0`, `1`, `2` from `range(3)`. It is not controlled by a repeatedly evaluated `while` condition. | Vòng `for` lần lượt lấy phần tử từ đối tượng duyệt được, ví dụ các giá trị `0`, `1`, `2` của `range(3)`. Cách hoạt động này khác `while` kiểm tra lại điều kiện ở mỗi lượt. |
-| Q2 | **C** | A `while` loop tests its condition before each iteration and repeats only while the condition is truthy. For example, `while n < 3:` stops once `n` reaches 3 if the body increments `n`. | Vòng `while` kiểm tra điều kiện trước mỗi lượt và chỉ lặp khi điều kiện còn đúng. Ví dụ `while n < 3:` dừng khi `n` đạt 3 nếu thân vòng lặp tăng `n` sau mỗi lượt. |
-| Q3 | **C** | One iteration is one pass through the loop body. For `for x in range(3):`, the body runs three times, with `x` equal to 0, 1, and 2 in successive iterations. | Một lần lặp là một lượt chạy thân vòng lặp. Với `for x in range(3):`, thân vòng lặp chạy ba lần, lần lượt `x` bằng 0, 1, 2. |
-| Q4 | **D** | Nested loops place one loop inside another. If the outer iterable has 2 elements and the inner has 3, the inner body can execute 2 times 3 = 6 times, once for every pair. | Vòng lặp lồng nhau đặt một vòng trong thân vòng khác. Nếu vòng ngoài có 2 phần tử và vòng trong có 3 phần tử, thân vòng trong có thể chạy 2 nhân 3 bằng 6 lần, ứng với từng cặp kết hợp. |
-| Q5 | **D** | `break` immediately terminates the innermost enclosing loop that is currently executing. In nested loops, it does not automatically terminate all outer loops; `continue` instead keeps the loop running. | `break` kết thúc ngay vòng lặp bao gần nhất đang chạy. Với vòng lặp lồng nhau, nó không tự kết thúc mọi vòng ngoài; `continue` thì vẫn để vòng lặp tiếp tục. |
-| Q6 | **A** | `continue` skips the remaining statements in the current iteration, then advances according to the loop type. In a `for` loop the next item is requested; in a `while` loop the condition is checked again. | `continue` bỏ qua những câu lệnh còn lại trong lượt hiện tại rồi tiếp tục theo loại vòng lặp. Với `for`, chương trình lấy phần tử kế tiếp; với `while`, nó kiểm tra lại điều kiện. |
-| Q7 | **C** | `pass` is a valid statement that performs no action. It is useful as a placeholder for a required body, but unlike `continue`, it does not skip statements that follow it in the same iteration. | `pass` là câu lệnh hợp lệ nhưng không làm gì, hữu ích để giữ chỗ cho thân khối bắt buộc. Khác `continue`, nó không bỏ qua những câu lệnh phía sau trong cùng lượt lặp. |
-| Q8 | **B** | A loop's `else` runs after normal completion: a `for` exhausts its iterable or a `while` condition becomes false. It is skipped when `break` exits that loop, and is different from the fallback `else` of an `if`. | `else` của vòng lặp chạy sau khi vòng lặp kết thúc bình thường: `for` duyệt hết phần tử hoặc điều kiện `while` thành sai. Nó bị bỏ qua nếu `break` kết thúc vòng lặp, khác `else` dự phòng của `if`. |
-| Q9 | **A** | `range(1, 4)` represents the integers 1, 2, and 3 because the stop value 4 is excluded. To include 4, the stop argument would need to be 5. | `range(1, 4)` biểu diễn các số 1, 2, 3 vì mốc dừng 4 không được lấy. Nếu muốn bao gồm 4, cần đặt mốc dừng là 5. |
-| Q10 | **B** | `enumerate(items)` yields pairs containing the index and item, normally starting at index 0. For `['a', 'b']`, iteration yields `(0, 'a')` then `(1, 'b')`; it does not sort the collection. | `enumerate(items)` tạo các cặp chỉ số và phần tử, mặc định bắt đầu từ chỉ số 0. Với `['a', 'b']`, khi duyệt sẽ nhận `(0, 'a')` rồi `(1, 'b')`; hàm không sắp xếp danh sách. |
-| Q11 | **A** | `zip(a, b)` pairs items at matching positions, such as `list(zip([1, 2], ['x', 'y']))` giving `[(1, 'x'), (2, 'y')]`. By default, it stops when the shortest input is exhausted, not when every combination is formed. | `zip(a, b)` ghép phần tử ở cùng vị trí, ví dụ `list(zip([1, 2], ['x', 'y']))` cho `[(1, 'x'), (2, 'y')]`. Mặc định hàm dừng khi dãy ngắn nhất hết phần tử, chứ không tạo mọi cặp kết hợp. |
-| Q12 | **B** | `reversed()` provides an iterator over eligible sequences in reverse positional order. For `[3, 1, 2]` it produces `2, 1, 3`, not descending numeric sort `3, 2, 1`. | `reversed()` cung cấp bộ duyệt ngược thứ tự vị trí của dãy phù hợp. Với `[3, 1, 2]`, nó cho `2, 1, 3`, không phải sắp xếp số giảm dần `3, 2, 1`. |
-| Q13 | **A** | `range(3)` provides `0`, `1`, and `2`: the default start is zero, and the stop value 3 is excluded. A complete `for` loop therefore executes its body three times; this is a count of iterations rather than a claim that the range contains the number 3. | `range(3)` tạo các giá trị `0`, `1`, `2`: bắt đầu mặc định từ 0 và không lấy mốc dừng 3. Vòng `for` duyệt hết sẽ chạy thân đúng ba lượt; đây là số lượt lặp, không có nghĩa dãy chứa giá trị 3. |
-| Q14 | **B** | `range(start, stop, step)` starts at 2, adds 2 each time, and excludes values at or beyond stop 7. Thus the sequence is 2, 4, 6, not 2, 4, 6, 8. | `range(start, stop, step)` bắt đầu tại 2, mỗi lượt cộng thêm 2 và không lấy giá trị đạt hoặc vượt mốc dừng 7. Vì vậy dãy là 2, 4, 6, không phải 2, 4, 6, 8. |
-| Q15 | **C** | `enumerate()` starts its index at `0` unless `start` is provided. For `['a', 'b']` the first pair is `(0, 'a')`; `enumerate(items, start=1)` would start at 1 instead. | `enumerate()` mặc định bắt đầu chỉ số bằng `0` nếu không truyền `start`. Với `['a', 'b']`, cặp đầu là `(0, 'a')`; `enumerate(items, start=1)` mới bắt đầu từ 1. |
-| Q16 | **D** | `zip()` consumes one element from each input at a time and stops when the shorter input is exhausted. Therefore `list(zip([1,2], ['a']))` contains only `[(1, 'a')]`, not a pair with 2. | `zip()` lấy một phần tử từ mỗi dãy ở một lượt và dừng khi dãy ngắn hơn hết. Vì vậy `list(zip([1,2], ['a']))` chỉ chứa `[(1, 'a')]`, không có cặp chứa 2. |
-| Q17 | **D** | A `while` loop can run indefinitely when its condition stays true, for example if `while n < 3:` never changes `n` and no `break` is reached. Progress toward a false condition or a deliberate exit is needed. | Vòng `while` có thể lặp vô hạn khi điều kiện luôn đúng, ví dụ `while n < 3:` không bao giờ thay đổi `n` và không gặp `break`. Cần cập nhật biến hướng tới điều kiện sai hoặc chủ động có lối thoát. |
-| Q18 | **A** | Use `continue` when one invalid item should be skipped but later items still processed. `break` would terminate the whole loop, while `pass` alone would not prevent the following statements from processing the invalid item. | Dùng `continue` khi cần bỏ qua một phần tử không hợp lệ nhưng vẫn xử lý các phần tử sau. `break` sẽ kết thúc vòng lặp, còn chỉ dùng `pass` không ngăn những lệnh phía sau xử lý phần tử lỗi. |
-| Q19 | **D** | Use `break` once the required match is found, because no later items need to be checked. `continue` only advances to the next candidate, and `pass` does not stop the search. | Dùng `break` ngay khi tìm thấy phần tử cần tìm vì không cần kiểm tra những phần tử còn lại. `continue` chỉ chuyển tới phần tử tiếp theo, còn `pass` không dừng việc tìm kiếm. |
-| Q20 | **C** | To visit every pair from two collections, loop over the first collection and, inside its body, loop over the second. With 2 outer items and 3 inner items, this visits 6 pairs; `zip()` instead visits only corresponding positions. | Muốn duyệt mọi cặp kết hợp của hai nhóm, đặt vòng duyệt nhóm thứ hai bên trong vòng duyệt nhóm thứ nhất. Với 2 phần tử ngoài và 3 phần tử trong, ta được 6 cặp; `zip()` chỉ ghép phần tử cùng vị trí. |
+**Giải thích:** Muốn duyệt mọi cặp kết hợp của hai nhóm, đặt vòng duyệt nhóm thứ hai bên trong vòng duyệt nhóm thứ nhất. Với 2 phần tử ngoài và 3 phần tử trong, ta được 6 cặp; `zip()` chỉ ghép phần tử cùng vị trí.
 
 ## 8. Nối sang bài tiếp theo
 
