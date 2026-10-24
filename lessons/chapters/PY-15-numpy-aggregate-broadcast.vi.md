@@ -401,7 +401,7 @@ C. `%` — `%`
 
 D. `@` — `@`
 
-**Q13. What does `np.minimum(a, 10)` do? — `np.minimum(a, 10)` có tác dụng gì?**
+**Q13. For finite numeric array values, what does `np.minimum(a, 10)` do? — Với mảng chứa các giá trị số hữu hạn, `np.minimum(a, 10)` làm gì?**
 
 A. Cap each value at 10 — Giới hạn mỗi giá trị tối đa 10
 
@@ -495,16 +495,16 @@ D. It determines whether rows or columns answer the question — Nó quyết đ�
 | Q8 | **D** | NumPy compares aligned dimensions from right to left: each pair must match or one size must be `1`. Thus sizes `3` and `1` can broadcast, while `3` and `2` on the same axis generally cannot. | NumPy đối chiếu các chiều từ phải sang trái: mỗi cặp phải bằng nhau hoặc một bên có kích thước `1`. Vì vậy chiều `3` và `1` tương thích, còn `3` và `2` trên cùng trục thường không tương thích. |
 | Q9 | **A** | Incompatible shapes cannot be aligned for an element-wise operation, so NumPy normally raises `ValueError`. For example, adding shape `(2,3)` to `(2,)` fails because the trailing dimensions 3 and 2 differ. | Shape không tương thích không thể ghép cho phép toán theo phần tử, nên NumPy thường gây `ValueError`. Ví dụ cộng `(2,3)` với `(2,)` lỗi vì hai chiều cuối 3 và 2 không khớp. |
 | Q10 | **B** | Vectorization applies operations directly to NumPy arrays rather than writing a Python loop over every element. For instance, `a * 2` multiplies all numeric elements, while aggregation such as `a.sum()` reduces them to a summary. | Vector hóa áp dụng phép toán trực tiếp trên mảng NumPy thay vì viết vòng lặp Python qua từng phần tử. Ví dụ `a * 2` nhân mọi ô số, còn tổng hợp như `a.sum()` gộp chúng thành một thống kê. |
-| Q11 | **C** | The star operator is element-wise multiplication for ndarrays. | Toán tử sao `*` nhân theo từng phần tử của ndarray. |
-| Q12 | **D** | The @ operator follows matrix multiplication rules rather than element-wise multiplication. | Toán tử @ tuân theo quy tắc nhân ma trận, không phải nhân theo từng phần tử. |
-| Q13 | **A** | It returns the smaller of each array value and the given scalar. | Hàm chọn số nhỏ hơn giữa từng phần tử và ngưỡng 10. |
-| Q14 | **B** | np.min reduces along an axis; np.minimum performs element-wise comparisons. | np.min lấy giá trị nhỏ nhất qua một trục; np.minimum so sánh từng ô. |
-| Q15 | **C** | Summing across three columns leaves one total per row, two totals overall. | Cộng qua ba cột còn một tổng mỗi hàng, tức hai tổng. |
-| Q16 | **D** | Reducing the two rows leaves one mean for each of three columns. | Gộp hai hàng còn một trung bình cho mỗi ba cột. |
-| Q17 | **A** | A length-three vector matches the three columns and broadcasts across both rows. | Vector dài 3 khớp ba cột và được áp lên cả hai hàng. |
-| Q18 | **B** | Broadcasting describes compatible virtual expansion for operations. | Broadcasting mô tả việc mở rộng logic các chiều tương thích khi tính toán. |
-| Q19 | **C** | Vectorized operations often preserve shapes, whereas aggregates may reduce dimensions. | Tính vector hóa thường giữ kích thước, còn tổng hợp có thể giảm số chiều. |
-| Q20 | **D** | The same array operation has a different interpretation for different row/column meanings. | Cùng phép tính mảng có thể mang ý nghĩa khác nhau tùy nội dung hàng/cột. |
+| Q11 | **C** | For NumPy numeric arrays, `*` multiplies corresponding entries with broadcasting when needed. Thus `[2,3] * [4,5]` element-wise gives `[8,15]`; matrix multiplication uses `@` instead. | Với mảng số NumPy, `*` nhân các ô tương ứng và có thể dùng broadcasting. Vì vậy hai mảng `[2,3]` và `[4,5]` nhân theo phần tử cho `[8,15]`; phép nhân ma trận dùng `@`. |
+| Q12 | **D** | The `@` operator performs matrix multiplication, combining rows and columns according to linear-algebra rules. Unlike `*`, it does not simply multiply each pair of same-position entries. | Toán tử `@` thực hiện nhân ma trận theo quy tắc đại số tuyến tính, kết hợp hàng với cột. Khác `*`, nó không chỉ nhân các phần tử ở cùng vị trí. |
+| Q13 | **A** | For finite numeric values, `np.minimum(a, 10)` compares each entry with 10 and keeps the smaller one. Thus `[8,12]` becomes `[8,10]`; it does not discard the entry below 10. | Với giá trị số hữu hạn, `np.minimum(a, 10)` so từng ô với 10 rồi lấy số nhỏ hơn. Vì vậy `[8,12]` thành `[8,10]`; nó không xóa phần tử nhỏ hơn 10. |
+| Q14 | **B** | `np.min(a)` reduces many values to one minimum by default, or to minima along a chosen axis. `np.minimum(a,b)` compares corresponding entries element-wise using broadcasting, usually preserving an array-shaped result. | `np.min(a)` mặc định gộp nhiều giá trị thành một cực tiểu, hoặc lấy cực tiểu theo trục được chọn. `np.minimum(a,b)` so từng ô tương ứng có thể dùng broadcasting và thường trả mảng kết quả. |
+| Q15 | **C** | A matrix with shape `(2,3)` has two rows, each containing three values. `sum(axis=1)` collapses those three columns within each row, leaving two totals and shape `(2,)`. | Ma trận shape `(2,3)` có hai hàng, mỗi hàng gồm ba số. `sum(axis=1)` cộng ba cột trong từng hàng, để lại hai tổng với shape `(2,)`. |
+| Q16 | **D** | For a `(2,3)` array, `mean(axis=0)` averages across the two rows independently for each column. Three column means remain, so its default result shape is `(3,)`, not `(2,)`. | Với mảng `(2,3)`, `mean(axis=0)` lấy trung bình qua hai hàng cho từng cột. Còn lại ba trung bình cột, nên shape kết quả mặc định là `(3,)`, không phải `(2,)`. |
+| Q17 | **A** | A length-three offset vector matches the trailing column dimension of a `(2,3)` matrix. Broadcasting adds `[1,2,3]` to both rows, assigning a distinct offset to each column; length two does not align with dimension three. | Vector bù dài ba khớp chiều cuối gồm ba cột của ma trận `(2,3)`. Broadcasting cộng `[1,2,3]` vào cả hai hàng, mỗi cột một mức riêng; vector dài hai không khớp chiều ba. |
+| Q18 | **B** | Broadcasting can logically reuse a smaller operand across compatible dimensions without physically duplicating all its data first. This differs from requiring a manual loop or permanently changing the input's shape. | Broadcasting có thể tái sử dụng toán hạng nhỏ trên các chiều tương thích mà không cần nhân bản vật lý toàn bộ dữ liệu trước. Nó khác việc phải viết vòng lặp hoặc đổi shape của đầu vào vĩnh viễn. |
+| Q19 | **C** | Aggregation combines values into summaries, often reducing an axis, while vectorized operations apply computations over many entries directly. For example, `a.mean()` summarizes values whereas `a * 2` transforms each entry. | Tổng hợp gộp các giá trị thành thống kê, thường giảm một trục, còn phép toán vector hóa tính trực tiếp trên nhiều ô. Ví dụ `a.mean()` tóm tắt dữ liệu, còn `a * 2` biến đổi từng phần tử. |
+| Q20 | **D** | The correct axis depends on what each row and column represents. If rows denote learners and columns subjects, `mean(axis=0)` averages each subject across learners, while `mean(axis=1)` averages each learner across subjects. | Chọn trục đúng phụ thuộc ý nghĩa hàng và cột. Nếu hàng là học viên, cột là môn, `mean(axis=0)` tính trung bình từng môn qua học viên, còn `mean(axis=1)` tính trung bình các môn của mỗi học viên. |
 
 ## 8. Nối bài tiếp theo
 
