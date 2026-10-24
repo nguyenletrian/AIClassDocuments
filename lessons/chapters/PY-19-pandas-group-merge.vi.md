@@ -31,83 +31,94 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 
 ## 4. Khái niệm liên quan
 
-### 4.1. loc
+**Phân tích bảng với Pandas** thường gồm ba thao tác nối tiếp: **lọc** để giữ dòng đúng điều kiện, **nhóm** để tính thống kê theo loại, rồi **ghép** để bổ sung thông tin từ bảng khác; muốn chọn hàng chính xác cần phân biệt `.loc` theo nhãn và `.iloc` theo vị trí. Ví dụ hàng sản phẩm, giao dịch và khách hàng sẽ cho thấy vì sao cách tổ chức bảng quyết định phép xử lý.
 
-**Từ vựng trong mục:** **loc** — chọn theo nhãn.
+### 4.1. Filtering, loc — Lọc hàng theo điều kiện hoặc nhãn
 
-`loc` chọn hàng hoặc cột theo tên nhãn, chẳng hạn mã sinh viên `SV1`.
+**Từ vựng trong mục:** **Filter** — lọc; **loc** — chọn theo nhãn.
+
+**Lọc dữ liệu** là giữ các hàng thỏa một điều kiện. Ví dụ bảng có ba mặt hàng A, B, C, giá lần lượt 300, 900, 1200 (nghìn đồng). **Mỗi hàng** là một sản phẩm, **cột price** là giá. `df['price'] >= 800` tạo một Series Boolean; `df.loc[mask, ['name','price']]` chỉ giữ các hàng có giá từ 800 và hai cột muốn xem. `.loc` cũng chọn trực tiếp theo **nhãn index**, khác chọn vị trí số.
 
 ```python
 import pandas as pd
-x=pd.DataFrame({"score":[8]},index=["SV1"])
-print(x.loc["SV1"])
+
+products = pd.DataFrame({'name': ['A', 'B', 'C'], 'price': [300, 900, 1200]})
+selected = products.loc[products['price'] >= 800, 'name']
+print(selected.tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-score    8
-Name: SV1, dtype: int64
+['B', 'C']
 ```
 
-### 4.2. iloc
+Sản phẩm B, C thỏa mức giá; A giá 300 thấp hơn 800 nên bị loại. Kết quả chuyển sang List để tập trung vào tên.
 
-**Từ vựng trong mục:** **iloc** — chọn theo vị trí.
+### 4.2. iloc — Chọn theo vị trí hàng và cột
 
-`iloc` chọn hàng và cột theo vị trí số nguyên, bắt đầu từ 0.
+**Từ vựng trong mục:** **iloc** — chọn theo vị trí; **Index** — chỉ số.
+
+`.iloc` chọn **vị trí số nguyên**, tính từ 0, bất kể nhãn index của bảng. Với ba khách A, B, C theo thứ tự hàng, `df.iloc[1]` là khách ở **hàng thứ hai**. Cú pháp `df.iloc[row, col]` lấy một ô, ví dụ `[1, 0]` là cột đầu của hàng hai. Trái lại `.loc['B']` chỉ hoạt động khi **nhãn index thực sự là B**, không phải chỉ vì cột `id` có chữ B.
 
 ```python
 import pandas as pd
-x=pd.DataFrame({"score":[8,9]})
-print(x.iloc[1])
+
+people = pd.DataFrame({'id': ['A', 'B', 'C']})
+print(people.iloc[1, 0])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-score    9
-Name: 1, dtype: int64
+B
 ```
 
-### 4.3. groupby
+Chỉ số 1 lấy hàng thứ hai và chỉ số cột 0 lấy trường `id`, nên in B.
 
-**Từ vựng trong mục:** **groupby** — nhóm dữ liệu.
+### 4.3. GroupBy — Tổng hợp trong từng nhóm
 
-`groupby` gom những hàng có cùng nhãn rồi tính tổng, trung bình hoặc số lượng cho từng nhóm.
+**Từ vựng trong mục:** **GroupBy** — nhóm theo khóa; **Aggregation** — phép tổng hợp.
+
+`groupby` gom những hàng có **cùng giá trị ở một cột khóa**, rồi tính thống kê riêng cho từng nhóm. Giả sử ba giao dịch có `city = A,A,B` và `sale = 10,20,8` nghìn đồng. **Mỗi hàng** là một giao dịch; **cột city** là vùng, **sale** là tiền. `groupby('city')['sale'].sum()` cộng doanh thu của A thành 30 và B thành 8. Không nhầm GroupBy với lọc: lọc loại hàng, còn groupby kết hợp các hàng thành thống kê nhóm.
 
 ```python
 import pandas as pd
-x=pd.DataFrame({"city":["A","A"],"sale":[2,3]})
-print(x.groupby("city").sale.sum())
+
+sales = pd.DataFrame({'city': ['A', 'A', 'B'], 'sale': [10, 20, 8]})
+print(sales.groupby('city')['sale'].sum().to_dict())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-city
-A    5
-Name: sale, dtype: int64
+{'A': 30, 'B': 8}
 ```
 
-### 4.4. merge
+Vùng A có hai giao dịch nên tổng 30 nghìn đồng; vùng B chỉ có một giao dịch 8 nghìn đồng.
 
-**Từ vựng trong mục:** **merge** — ghép bảng.
+### 4.4. Merge — Ghép bảng theo khóa
 
-`merge` ghép hai bảng bằng cột khóa chung; cần kiểm tra khóa để tránh nhân bản dòng ngoài ý muốn.
+**Từ vựng trong mục:** **Merge** — ghép bảng; **Join key** — khóa ghép.
+
+Khi thông tin nằm trong hai bảng, `merge` dùng cột **khóa chung** để ghép các hàng liên quan. Bảng `orders` có đơn của khách `id=1` và `id=2`, cột `sale` là giá trị đơn; bảng `customers` có tên An, Lan theo cùng id. `merge(on='id', how='left')` giữ mọi dòng bên trái và bổ sung tên nếu tìm thấy. Nếu bảng bên phải có nhiều dòng trùng khóa, một dòng đơn hàng có thể bị nhân bản; dùng `validate='many_to_one'` để kiểm tra mỗi id bên phải là duy nhất.
 
 ```python
 import pandas as pd
-a=pd.DataFrame({"id":[1],"x":[2]})
-b=pd.DataFrame({"id":[1],"y":[3]})
-print(a.merge(b,on="id"))
+
+orders = pd.DataFrame({'id': [1, 2], 'sale': [10, 20]})
+customers = pd.DataFrame({'id': [1, 2], 'name': ['An', 'Lan']})
+merged = orders.merge(customers, on='id', how='left', validate='many_to_one')
+print(merged['name'].tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-   id  x  y
-0   1  2  3
+['An', 'Lan']
 ```
+
+Hai tên khách được ghép đúng theo id, không phải dựa vào vị trí hàng ngẫu nhiên.
 
 ## 5. Năm vấn đề thực tế
 
@@ -119,7 +130,11 @@ print(a.merge(b,on="id"))
 
 **Vì sao chọn cách giải này?** Điều kiện `df.price >= 800` chọn hai hàng phù hợp.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo bảng gồm tên và giá của ba sản phẩm.
+2. Tạo mặt nạ `price >= 800` để giữ sản phẩm đạt ngưỡng.
+3. In bảng đã lọc, giữ B và C cùng giá tương ứng.
 
 ```python
 import pandas as pd
@@ -143,7 +158,11 @@ print(df[df.price>=800])
 
 **Vì sao chọn cách giải này?** `iloc[1]` lấy vị trí thứ hai do chỉ số bắt đầu từ 0.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo bảng mã khách A, B, C theo đúng thứ tự hàng.
+2. Gọi `.iloc[1]` để lấy hàng ở chỉ số 1.
+3. In dữ liệu của khách thứ hai, không nhầm nhãn với vị trí.
 
 ```python
 import pandas as pd
@@ -166,7 +185,11 @@ Name: 1, dtype: object
 
 **Vì sao chọn cách giải này?** `groupby('city')['sale'].sum()` cộng các dòng có cùng vùng.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo ba dòng doanh thu và gắn khóa vùng A, A, B.
+2. Nhóm theo cột `city` và cộng `sale` cho từng nhóm.
+3. In tổng của vùng A và B, đơn vị tiền giữ nguyên.
 
 ```python
 import pandas as pd
@@ -191,7 +214,11 @@ Name: sale, dtype: int64
 
 **Vì sao chọn cách giải này?** `merge(..., on='id', how='left')` giữ các dòng bán hàng bên trái và lấy tên tương ứng.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo bảng đơn hàng với khóa `id` và bảng khách cũng có `id`.
+2. Ghép từ bảng đơn bằng `merge(on='id', how='left')`.
+3. In tên sau khi ghép và kiểm tra số hàng vẫn là hai.
 
 ```python
 import pandas as pd
@@ -210,13 +237,17 @@ print(a.merge(b,on="id",how="left"))
 
 ### Tình huống 5 — Top doanh số
 
-**Từ vựng trong mục:** **loc** — chọn theo nhãn.
+**Từ vựng trong mục:** **sort_values** — sắp xếp theo giá trị.
 
 **Tình huống thực tế:** Bốn nhân viên A, B, C, D có doanh số 30,80,20,60 đơn vị tiền. In hai người có doanh số cao nhất.
 
 **Vì sao chọn cách giải này?** `sort_values(ascending=False).head(2)` sắp giảm dần và lấy hai dòng đầu.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo bảng bốn nhân viên với doanh số tương ứng.
+2. Sắp xếp theo `sale` giảm dần.
+3. Dùng `head(2)` để lấy hai nhân viên đứng đầu và in bảng.
 
 ```python
 import pandas as pd
@@ -232,9 +263,13 @@ print(df.sort_values("sale",ascending=False).head(2))
 3  D    60
 ```
 
-## 6. Các lỗi dễ mắc
+## 6. Sai lầm thường gặp
 
-Cần phân biệt khi nào thứ tự quan trọng, khi nào phần tử trùng được tính lại, và khi nào dữ liệu thật không có đủ điều kiện như ví dụ. Xem kỹ kiểu dữ liệu và đầu vào trống.
+- `.loc` dùng **nhãn**, `.iloc` dùng **vị trí số**; không nhầm nhãn cột `id` với index của DataFrame.
+- Với lọc Boolean, phải dùng điều kiện trên đúng cột; `df.loc[mask, columns]` khác `.iloc`.
+- `groupby('city').sum()` chỉ có ý nghĩa khi hiểu **mỗi hàng là giao dịch**, cột `city` là khóa phân nhóm và `sale` là lượng cần tổng hợp.
+- `merge` dùng khóa; nếu bảng phụ có **khóa trùng**, số hàng sau ghép có thể tăng. Có thể dùng `validate='many_to_one'` khi bảng phải phải duy nhất.
+- `sort_values()` mặc định tăng dần; để lấy nhóm doanh thu cao nhất cần `ascending=False` trước `head()`.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
