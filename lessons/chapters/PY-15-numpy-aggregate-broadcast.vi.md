@@ -283,117 +283,117 @@ Kênh thứ nhất có giá trị tối đa 5, kênh thứ hai tối đa 6.
 
 **Q1. What is aggregation in NumPy? — Phép tổng hợp trong NumPy là gì?**
 
-A. Combining multiple values into summary statistics — Kết hợp nhiều giá trị thành thống kê tổng hợp
+A. Replacing array values without computation — Thay giá trị mảng mà không tính toán
 
-B. Creating a new class by inheritance — Tạo lớp con nhờ kế thừa
+B. Rearranging all values in descending order — Sắp mọi giá trị giảm dần
 
-C. Reading every file in a folder — Đọc mọi file trong thư mục
+C. Converting array dimensions into text labels — Đổi kích thước mảng thành nhãn văn bản
 
-D. Converting all arrays to strings — Đổi mọi mảng thành chuỗi
+D. Combining multiple values into summary statistics — Kết hợp nhiều giá trị thành thống kê tổng hợp
 
 **Q2. How does `sum()` differ from `mean()`? — `sum()` khác `mean()` ra sao?**
 
-A. mean returns the largest number — mean trả số lớn nhất
+A. `sum` always returns the largest element — `sum` luôn trả phần tử lớn nhất
 
-B. sum totals values; mean computes their average — sum cộng tổng; mean tính trung bình
+B. `mean` ignores the number of values — `mean` không dùng số lượng phần tử
 
-C. sum sorts; mean deletes values — sum sắp xếp; mean xóa giá trị
+C. sum totals values; mean computes their average — sum cộng tổng; mean tính trung bình
 
-D. Both always return the same result — Cả hai luôn bằng nhau
+D. `sum` computes average; `mean` computes total — `sum` tính trung bình; `mean` tính tổng
 
 **Q3. What does `max()` return? — `max()` trả về gì?**
 
-A. The number of columns only — Chỉ số cột
+A. The sum of all elements — Tổng mọi phần tử
 
-B. The sum of every negative value — Tổng các số âm
+B. The average of the chosen values — Trung bình các giá trị được chọn
 
 C. The largest value along the chosen axis — Giá trị lớn nhất theo trục đã chọn
 
-D. The arithmetic average — Trung bình cộng
+D. The first item in the array — Phần tử đầu của mảng
 
 **Q4. In a 2-D array, what does `sum(axis=0)` return? — Trong mảng hai chiều, `sum(axis=0)` trả về gì?**
 
-A. One sum per row — Một tổng cho mỗi hàng
+A. One scalar sum for all cells — Một tổng vô hướng cho mọi ô
 
-B. Only the first row — Chỉ hàng đầu
+B. The first column with original values — Cột đầu với giá trị gốc
 
-C. A boolean mask — Mặt nạ Boolean
+C. One sum per column — Một tổng cho mỗi cột
 
-D. One sum per column — Một tổng cho mỗi cột
+D. One sum for each row — Một tổng theo mỗi hàng
 
 **Q5. In a 2-D array, what does `sum(axis=1)` return? — Trong mảng hai chiều, `sum(axis=1)` trả về gì?**
 
-A. One sum per row — Một tổng cho mỗi hàng
+A. One sum for each column — Một tổng theo mỗi cột
 
-B. One sum per column — Một tổng cho mỗi cột
+B. A one-dimensional array of all original values — Mảng một chiều gồm mọi giá trị ban đầu
 
-C. Only a scalar index — Chỉ một chỉ số
+C. The last row without adding values — Hàng cuối mà không cộng giá trị
 
-D. The data type of values — Kiểu dữ liệu
+D. One sum per row — Một tổng cho mỗi hàng
 
 **Q6. What does broadcasting allow? — Broadcasting cho phép làm gì?**
 
-A. Replacing a function with a class — Thay hàm bằng lớp
+A. Multiplying two matrices using dot products — Nhân hai ma trận bằng tích vô hướng
 
 B. Operating on arrays with compatible shapes — Thực hiện phép toán trên các mảng có shape tương thích
 
-C. Using any shapes without restrictions — Dùng mọi shape không giới hạn
+C. Arbitrary operations regardless of shape compatibility — Mọi phép toán dù shape không tương thích
 
-D. Automatically converting all arrays to CSV — Tự chuyển mọi mảng thành CSV
+D. Always making a physical copy of the smaller operand — Luôn sao chép vật lý toán hạng nhỏ
 
 **Q7. Why does `a + 1` work on a numeric ndarray? — Vì sao `a + 1` hoạt động với ndarray số?**
 
-A. Only the first element is changed — Chỉ phần tử đầu thay đổi
+A. The scalar broadcasts to every array element — Số 1 được broadcast tới từng phần tử
 
-B. It performs matrix multiplication — Nó nhân ma trận
+B. A scalar is added only to the first element — Vô hướng chỉ cộng vào phần tử đầu
 
-C. The scalar broadcasts to every array element — Số 1 được broadcast tới từng phần tử
+C. Scalar addition means matrix multiplication — Cộng vô hướng nghĩa là nhân ma trận
 
-D. The array is converted to a string — Mảng bị chuyển thành chuỗi
+D. NumPy converts the array into a list first — NumPy đổi mảng thành List trước
 
 **Q8. Which pair of trailing dimensions is broadcast-compatible? — Hai chiều cuối nào tương thích broadcasting?**
 
-A. Only both zero — Chỉ khi cùng bằng 0
+A. Equal sizes or one size equal to 1 — Bằng nhau hoặc một chiều có kích thước 1
 
-B. Always 2 and 3 — Luôn là 2 và 3
+B. Two dimensions are compatible when their sizes add to four — Hai chiều hợp lệ khi tổng kích thước bằng bốn
 
-C. Any unrelated positive sizes — Hai số dương bất kỳ
+C. Every pair of positive dimension sizes is compatible — Mọi cặp kích thước chiều dương đều tương thích
 
-D. Equal sizes or one size equal to 1 — Bằng nhau hoặc một chiều có kích thước 1
+D. Only dimensions with exactly zero size are compatible — Chỉ chiều có kích thước đúng 0 mới tương thích
 
 **Q9. What happens for incompatible broadcast shapes? — Điều gì xảy ra khi hai shape không tương thích broadcasting?**
 
 A. A ValueError is generally raised — Thường phát sinh ValueError
 
-B. NumPy silently discards extra rows — NumPy tự bỏ hàng thừa
+B. NumPy silently removes unmatched rows — NumPy âm thầm xóa hàng không khớp
 
-C. NumPy always returns None — NumPy luôn trả None
+C. NumPy guarantees a valid result by padding zeros — NumPy bảo đảm kết quả bằng cách chèn số 0
 
-D. A CSV file is created — Một file CSV được tạo
+D. The result is always `None` — Kết quả luôn là `None`
 
 **Q10. What is vectorization? — Vectorization là gì?**
 
-A. Removing all calculations — Loại bỏ mọi phép tính
+A. Reducing every array into one scalar only — Chỉ gộp mọi mảng thành một vô hướng
 
-B. Applying numerical operations to arrays directly — Áp dụng phép toán số trực tiếp lên mảng
+B. Automatically turning numbers into strings — Tự chuyển số thành chuỗi
 
-C. Manually printing each item — Tự in từng phần tử
+C. Requiring a Python `for` loop around each item — Bắt buộc dùng vòng `for` Python quanh từng phần tử
 
-D. Turning every number into a set — Biến mọi số thành Set
+D. Applying numerical operations to arrays directly — Áp dụng phép toán số trực tiếp lên mảng
 
 **Q11. What does NumPy `a * b` do for equal-shaped numeric arrays? — NumPy `a * b` làm gì với hai mảng số cùng shape?**
 
-A. Concatenate the arrays — Nối hai mảng
+A. Concatenation of array elements — Nối phần tử của các mảng
 
-B. Compare the shapes only — Chỉ so sánh shape
+B. Only checking if the arrays have equal shape — Chỉ kiểm tra shape có bằng nhau
 
 C. Multiply corresponding elements — Nhân các phần tử cùng vị trí
 
-D. Always compute matrix multiplication — Luôn nhân ma trận
+D. Matrix multiplication regardless of array dimensions — Nhân ma trận bất kể các chiều
 
 **Q12. Which operator is used for matrix multiplication? — Toán tử nào dùng để nhân ma trận?**
 
-A. `*` alone — Chỉ `*`
+A. `*` — `*`
 
 B. `and` — `and`
 
@@ -403,108 +403,108 @@ D. `@` — `@`
 
 **Q13. What does `np.minimum(a, 10)` do? — `np.minimum(a, 10)` có tác dụng gì?**
 
-A. Cap each value at 10 — Giới hạn mỗi giá trị tối đa 10
+A. Making every array element equal to 10 — Đặt mọi phần tử bằng 10
 
-B. Select the largest value only — Chỉ chọn số lớn nhất
+B. Cap each value at 10 — Giới hạn mỗi giá trị tối đa 10
 
-C. Sum all values and multiply by 10 — Cộng tổng rồi nhân 10
+C. Discarding every value below 10 — Loại mọi giá trị nhỏ hơn 10
 
-D. Remove every element below 10 — Xóa mọi phần tử dưới 10
+D. Returning only the smallest element of the full array — Chỉ trả cực tiểu toàn mảng
 
 **Q14. How does `np.min()` differ from `np.minimum()`? — `np.min()` khác `np.minimum()` thế nào?**
 
-A. min performs sorting descending — min sắp xếp giảm dần
+A. `np.minimum` sorts values before selecting one element — `np.minimum` sắp xếp rồi chọn một phần tử
 
 B. min reduces values; minimum compares values element-wise — min tổng hợp lấy cực tiểu; minimum so từng phần tử
 
-C. Both always return the same shape — Cả hai luôn trả cùng shape
+C. `np.min` compares each pair elementwise — `np.min` so sánh từng cặp phần tử
 
-D. minimum reads files; min writes files — minimum đọc file, min ghi file
+D. Both functions always return scalar values — Cả hai hàm luôn trả vô hướng
 
 **Q15. For shape `(2,3)`, what is the shape of `sum(axis=1)`? — Với shape `(2,3)`, `sum(axis=1)` có shape nào?**
 
-A. `(2,3)` — `(2,3)`
+A. `(1,3)` — `(1,3)`
 
-B. `(1,3)` — `(1,3)`
+B. `(2,)` — `(2,)`
 
-C. `(2,)` — `(2,)`
+C. `(3,)` — `(3,)`
 
-D. `(3,)` — `(3,)`
+D. `(2,3)` — `(2,3)`
 
 **Q16. For shape `(2,3)`, what is the shape of `mean(axis=0)`? — Với shape `(2,3)`, `mean(axis=0)` có shape nào?**
 
-A. `(2,)` — `(2,)`
+A. `(2,3)` — `(2,3)`
 
-B. `(2,3)` — `(2,3)`
+B. `(3,2)` — `(3,2)`
 
-C. `(3,2)` — `(3,2)`
+C. `(3,)` — `(3,)`
 
-D. `(3,)` — `(3,)`
+D. `(2,)` — `(2,)`
 
 **Q17. Which expression adds a distinct offset to each column of a `(2,3)` matrix? — Biểu thức nào cộng một giá trị riêng cho mỗi cột của ma trận (2,3)?**
 
-A. `X + np.array([1,2,3])` — `X + np.array([1,2,3])`
+A. `X + np.array([1, 2])` — `X + np.array([1, 2])`
 
-B. `X + np.array([1,2])` — `X + np.array([1,2])`
+B. `X @ np.array([1, 2, 3])` — `X @ np.array([1, 2, 3])`
 
-C. `X @ np.array([1,2,3])` — `X @ np.array([1,2,3])`
+C. `X.shape + 1` — `X.shape + 1`
 
-D. `X.shape + 1` — `X.shape + 1`
+D. `X + np.array([1,2,3])` — `X + np.array([1,2,3])`
 
 **Q18. Which statement about broadcasting is correct? — Phát biểu nào đúng về broadcasting?**
 
-A. It requires writing explicit for loops — Nó bắt buộc viết vòng for
+A. It may apply a smaller operand without physically copying it — Nó có thể áp toán hạng nhỏ mà không cần sao chép vật lý
 
-B. It may apply a smaller operand without physically copying it — Nó có thể áp toán hạng nhỏ mà không cần sao chép vật lý
+B. It always duplicates the smaller operand before calculation — Nó luôn sao chép toán hạng nhỏ trước khi tính
 
-C. It always duplicates the entire array in memory first — Nó luôn sao chép toàn mảng trước
+C. It only works after manually expanding shapes with loops — Nó chỉ chạy sau khi mở shape thủ công bằng vòng lặp
 
-D. It permanently changes the array shape in every case — Nó luôn thay shape vĩnh viễn
+D. It guarantees no output array will be allocated — Nó bảo đảm không cấp phát mảng kết quả
 
 **Q19. How do aggregation and vectorization differ? — Aggregation khác vectorization thế nào?**
 
-A. Vectorization must reduce to one number — Vectorization luôn phải trả một số
+A. Aggregation summarizes values; vectorization operates over arrays — Aggregation tổng hợp giá trị; vectorization tính trực tiếp trên mảng
 
-B. Aggregation never uses NumPy — Aggregation không bao giờ dùng NumPy
+B. Aggregation always returns a sorted list — Tổng hợp luôn trả List đã sắp
 
-C. Aggregation summarizes values; vectorization operates over arrays — Aggregation tổng hợp giá trị; vectorization tính trực tiếp trên mảng
+C. Vectorization always reduces to one scalar — Vector hóa luôn gộp thành một vô hướng
 
-D. Both mean sorting only — Cả hai chỉ là sắp xếp
+D. Aggregation and vectorization are identical terms — Tổng hợp và vector hóa là hai thuật ngữ giống hệt
 
 **Q20. Why should data meaning be known before choosing `axis`? — Vì sao phải hiểu ý nghĩa dữ liệu trước khi chọn `axis`?**
 
-A. It changes Python syntax rules — Nó đổi quy tắc cú pháp Python
+A. Naming rows and columns changes the numerical dtype — Đặt tên hàng và cột làm đổi dtype số
 
-B. It ensures every value is positive — Nó bảo đảm mọi giá trị dương
+B. It determines whether rows or columns answer the question — Nó quyết định cần tổng hợp theo hàng hay cột
 
-C. It avoids specifying array shape — Nó giúp khỏi nêu shape
+C. `axis` always refers to subjects regardless of layout — `axis` luôn chỉ môn học bất kể cách xếp dữ liệu
 
-D. It determines whether rows or columns answer the question — Nó quyết định cần tổng hợp theo hàng hay cột
+D. `axis` must be 0 for every aggregation — `axis` phải bằng 0 cho mọi phép tổng hợp
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | Aggregation combines multiple array values into summaries, such as a sum, mean or maximum. For `[2,4,6]`, `mean` is 4, whereas a vectorized elementwise operation may retain three values. | Aggregation tổng hợp nhiều giá trị mảng thành kết quả tóm tắt như tổng, trung bình hoặc cực đại. Với `[2,4,6]`, trung bình bằng 4; phép toán theo từng phần tử có thể vẫn giữ ba giá trị. |
-| Q2 | **B** | `sum()` adds all included values, whereas `mean()` divides that total by the number of included entries. For `[2,4,6]`, sum is 12 and mean is `12/3=4`; they answer different questions. | `sum()` cộng các giá trị được xét, còn `mean()` chia tổng cho số phần tử được xét. Với `[2,4,6]`, tổng là 12 và trung bình bằng `12/3=4`; hai phép trả lời mục đích khác nhau. |
+| Q1 | **D** | Aggregation combines multiple array values into summaries, such as a sum, mean or maximum. For `[2,4,6]`, `mean` is 4, whereas a vectorized elementwise operation may retain three values. | Aggregation tổng hợp nhiều giá trị mảng thành kết quả tóm tắt như tổng, trung bình hoặc cực đại. Với `[2,4,6]`, trung bình bằng 4; phép toán theo từng phần tử có thể vẫn giữ ba giá trị. |
+| Q2 | **C** | `sum()` adds all included values, whereas `mean()` divides that total by the number of included entries. For `[2,4,6]`, sum is 12 and mean is `12/3=4`; they answer different questions. | `sum()` cộng các giá trị được xét, còn `mean()` chia tổng cho số phần tử được xét. Với `[2,4,6]`, tổng là 12 và trung bình bằng `12/3=4`; hai phép trả lời mục đích khác nhau. |
 | Q3 | **C** | `max()` finds the greatest value in the selected group or along an axis. For `[3,9,5]`, it returns 9, not the sum 17 or arithmetic average. | `max()` lấy giá trị lớn nhất trong nhóm được chọn hoặc theo một trục. Với `[3,9,5]`, nó cho 9, không phải tổng 17 hay trung bình cộng. |
-| Q4 | **D** | On a 2-D array, `sum(axis=0)` reduces rows and returns one sum per column. For `[[1,2],[3,4]]`, the output is `[4,6]`, not the row sums `[3,7]`. | Với mảng hai chiều, `sum(axis=0)` gộp các hàng và trả một tổng theo từng cột. Với `[[1,2],[3,4]]`, đầu ra `[4,6]`, không phải tổng từng hàng `[3,7]`. |
-| Q5 | **A** | On a 2-D array, `sum(axis=1)` adds across columns within each row. For `[[1,2],[3,4]]`, it returns `[3,7]`; `axis=0` would instead return `[4,6]`. | Với mảng hai chiều, `sum(axis=1)` cộng qua các cột trên từng hàng. Với `[[1,2],[3,4]]`, kết quả `[3,7]`; còn `axis=0` sẽ cho `[4,6]`. |
+| Q4 | **C** | On a 2-D array, `sum(axis=0)` reduces rows and returns one sum per column. For `[[1,2],[3,4]]`, the output is `[4,6]`, not the row sums `[3,7]`. | Với mảng hai chiều, `sum(axis=0)` gộp các hàng và trả một tổng theo từng cột. Với `[[1,2],[3,4]]`, đầu ra `[4,6]`, không phải tổng từng hàng `[3,7]`. |
+| Q5 | **D** | On a 2-D array, `sum(axis=1)` adds across columns within each row. For `[[1,2],[3,4]]`, it returns `[3,7]`; `axis=0` would instead return `[4,6]`. | Với mảng hai chiều, `sum(axis=1)` cộng qua các cột trên từng hàng. Với `[[1,2],[3,4]]`, kết quả `[3,7]`; còn `axis=0` sẽ cho `[4,6]`. |
 | Q6 | **B** | Broadcasting allows elementwise operations on arrays whose shapes align by NumPy's compatibility rules. Dimensions are compared from the right; two are compatible if equal or either equals one. | Broadcasting cho phép phép toán theo phần tử trên các mảng có shape phù hợp quy tắc NumPy. Các chiều được đối chiếu từ phải sang trái; hai chiều tương thích khi bằng nhau hoặc một bên bằng một. |
-| Q7 | **C** | A scalar has no array axes and can broadcast against a numeric array. Thus `np.array([1,2]) + 1` produces `[2,3]` by adding one to each element, without a Python `for` loop. | Vô hướng không có trục mảng và có thể broadcast với mảng số. Vì vậy `np.array([1,2]) + 1` tạo `[2,3]` bằng cách cộng một cho từng phần tử mà không cần vòng `for` Python. |
-| Q8 | **D** | Broadcasting checks dimensions from the right: sizes match when equal or one is one. For example trailing sizes 3 and 1 work, whereas 2 and 3 cannot match without another compatible dimension. | Broadcasting xét các chiều từ bên phải: kích thước hợp lệ nếu bằng nhau hoặc có một bên bằng 1. Ví dụ kích thước cuối 3 và 1 dùng được, còn 2 và 3 không ghép trực tiếp được. |
+| Q7 | **A** | A scalar has no array axes and can broadcast against a numeric array. Thus `np.array([1,2]) + 1` produces `[2,3]` by adding one to each element, without a Python `for` loop. | Vô hướng không có trục mảng và có thể broadcast với mảng số. Vì vậy `np.array([1,2]) + 1` tạo `[2,3]` bằng cách cộng một cho từng phần tử mà không cần vòng `for` Python. |
+| Q8 | **A** | Broadcasting checks dimensions from the right: sizes match when equal or one is one. For example trailing sizes 3 and 1 work, whereas 2 and 3 cannot match without another compatible dimension. | Broadcasting xét các chiều từ bên phải: kích thước hợp lệ nếu bằng nhau hoặc có một bên bằng 1. Ví dụ kích thước cuối 3 và 1 dùng được, còn 2 và 3 không ghép trực tiếp được. |
 | Q9 | **A** | Incompatible shapes cannot align for ordinary elementwise operations, and NumPy typically raises `ValueError`. For example shapes `(2,3)` and `(2,)` conflict at their trailing dimensions 3 and 2. | Các shape không tương thích không thể ghép cho phép toán theo phần tử thông thường, và NumPy thường gây `ValueError`. Ví dụ `(2,3)` và `(2,)` xung đột ở chiều cuối 3 so với 2. |
-| Q10 | **B** | Vectorization expresses numerical calculations directly over arrays, often avoiding explicit loops in user Python code. For example `a*2` scales every element of an ndarray, whereas a `for` loop could calculate the same results item by item. | Vectorization diễn đạt phép tính trực tiếp trên mảng, thường không cần tự viết vòng lặp Python. Ví dụ `a*2` nhân đôi từng phần tử ndarray, còn vòng `for` có thể tính tương tự từng phần tử. |
+| Q10 | **D** | Vectorization expresses numerical calculations directly over arrays, often avoiding explicit loops in user Python code. For example `a*2` scales every element of an ndarray, whereas a `for` loop could calculate the same results item by item. | Vectorization diễn đạt phép tính trực tiếp trên mảng, thường không cần tự viết vòng lặp Python. Ví dụ `a*2` nhân đôi từng phần tử ndarray, còn vòng `for` có thể tính tương tự từng phần tử. |
 | Q11 | **C** | For equal-shaped numerical ndarrays, `a*b` multiplies corresponding elements, not matrices. If `a=[1,2]` and `b=[3,4]`, the result is `[3,8]`; matrix multiplication uses `@` when dimensions allow. | Với hai ndarray số cùng shape, `a*b` nhân từng cặp phần tử, không phải nhân ma trận. Nếu `a=[1,2]` và `b=[3,4]`, kết quả `[3,8]`; nhân ma trận dùng `@` khi các chiều phù hợp. |
 | Q12 | **D** | The `@` operator performs matrix multiplication according to linear-algebra dimension rules. Unlike `*`, it combines rows and columns; a `(2,3)` matrix multiplied by a `(3,4)` matrix produces shape `(2,4)`. | Toán tử `@` thực hiện nhân ma trận theo quy tắc chiều của đại số tuyến tính. Khác `*`, phép này kết hợp hàng và cột; ma trận `(2,3)` nhân `(3,4)` cho shape `(2,4)`. |
-| Q13 | **A** | `np.minimum(a,10)` takes the smaller value at each element, effectively capping numbers above 10. For `a=[7,12]`, it returns `[7,10]`, which is not the single minimum of the whole array. | `np.minimum(a,10)` lấy giá trị nhỏ hơn theo từng phần tử, tức chặn các số lớn hơn 10. Với `a=[7,12]`, kết quả `[7,10]`, không phải một cực tiểu chung của toàn mảng. |
+| Q13 | **B** | `np.minimum(a,10)` takes the smaller value at each element, effectively capping numbers above 10. For `a=[7,12]`, it returns `[7,10]`, which is not the single minimum of the whole array. | `np.minimum(a,10)` lấy giá trị nhỏ hơn theo từng phần tử, tức chặn các số lớn hơn 10. Với `a=[7,12]`, kết quả `[7,10]`, không phải một cực tiểu chung của toàn mảng. |
 | Q14 | **B** | `np.min(a)` aggregates values by finding a minimum, often returning a scalar when no axis is given. `np.minimum(a,b)` compares matching or broadcastable elements and returns elementwise results. | `np.min(a)` tổng hợp bằng cách lấy cực tiểu, thường trả một số nếu không nêu axis. `np.minimum(a,b)` so sánh từng cặp phần tử tương ứng hoặc broadcast được và trả kết quả theo phần tử. |
-| Q15 | **C** | With input shape `(2,3)`, `sum(axis=1)` reduces the three columns within each of the two rows. One sum per row remains, giving a one-dimensional output shape `(2,)`, unless `keepdims=True` is requested. | Với đầu vào shape `(2,3)`, `sum(axis=1)` gộp ba cột ở mỗi một trong hai hàng. Mỗi hàng còn một tổng nên shape đầu ra là `(2,)`, trừ khi yêu cầu `keepdims=True`. |
-| Q16 | **D** | For `(2,3)`, `mean(axis=0)` reduces the two rows for each of three columns. Three means remain, so the result shape is `(3,)`; `axis=1` would instead leave two means. | Với `(2,3)`, `mean(axis=0)` gộp hai hàng ở mỗi một trong ba cột. Còn ba trung bình nên shape kết quả `(3,)`; nếu dùng `axis=1` sẽ còn hai trung bình. |
-| Q17 | **A** | `X+np.array([1,2,3])` broadcasts a length-three vector across both rows of a `(2,3)` array. Each column receives its own offset, unlike a length-two vector whose trailing dimension does not match three columns. | `X+np.array([1,2,3])` broadcast vector ba phần tử qua cả hai hàng của mảng `(2,3)`. Mỗi cột nhận độ lệch riêng, khác vector dài hai không khớp chiều cuối gồm ba cột. |
-| Q18 | **B** | Broadcasting often acts as a virtual expansion instead of physically copying a smaller operand into a large array first. It may still allocate a result array; virtual broadcasting does not guarantee the whole operation uses no extra memory. | Broadcasting thường hoạt động như mở rộng ảo thay vì sao chép sẵn toán hạng nhỏ thành mảng lớn. Phép toán vẫn có thể cấp phát mảng kết quả; mở rộng ảo không bảo đảm không tốn thêm bộ nhớ. |
-| Q19 | **C** | Aggregation reduces groups into summaries, often removing an axis, while vectorization applies operations across arrays without writing per-item Python loops. A vectorized sum can perform aggregation, so these ideas are related but not identical. | Aggregation gom nhóm thành kết quả tóm tắt, thường giảm số chiều, còn vectorization thực hiện phép toán trên mảng mà không tự viết vòng Python cho mỗi phần tử. Phép sum vector hóa có thể là tổng hợp nên hai khái niệm liên hệ nhưng không đồng nghĩa. |
-| Q20 | **D** | The meaning of `axis` depends on what rows and columns represent. If rows are learners and columns subjects, `mean(axis=0)` averages each subject across learners; confusing the axes would answer a different question. | Ý nghĩa `axis` phụ thuộc hàng và cột biểu diễn gì. Nếu hàng là học viên và cột là môn, `mean(axis=0)` tính điểm trung bình từng môn qua học viên; nhầm trục sẽ trả lời một câu hỏi khác. |
+| Q15 | **B** | With input shape `(2,3)`, `sum(axis=1)` reduces the three columns within each of the two rows. One sum per row remains, giving a one-dimensional output shape `(2,)`, unless `keepdims=True` is requested. | Với đầu vào shape `(2,3)`, `sum(axis=1)` gộp ba cột ở mỗi một trong hai hàng. Mỗi hàng còn một tổng nên shape đầu ra là `(2,)`, trừ khi yêu cầu `keepdims=True`. |
+| Q16 | **C** | For `(2,3)`, `mean(axis=0)` reduces the two rows for each of three columns. Three means remain, so the result shape is `(3,)`; `axis=1` would instead leave two means. | Với `(2,3)`, `mean(axis=0)` gộp hai hàng ở mỗi một trong ba cột. Còn ba trung bình nên shape kết quả `(3,)`; nếu dùng `axis=1` sẽ còn hai trung bình. |
+| Q17 | **D** | `X+np.array([1,2,3])` broadcasts a length-three vector across both rows of a `(2,3)` array. Each column receives its own offset, unlike a length-two vector whose trailing dimension does not match three columns. | `X+np.array([1,2,3])` broadcast vector ba phần tử qua cả hai hàng của mảng `(2,3)`. Mỗi cột nhận độ lệch riêng, khác vector dài hai không khớp chiều cuối gồm ba cột. |
+| Q18 | **A** | Broadcasting often acts as a virtual expansion instead of physically copying a smaller operand into a large array first. It may still allocate a result array; virtual broadcasting does not guarantee the whole operation uses no extra memory. | Broadcasting thường hoạt động như mở rộng ảo thay vì sao chép sẵn toán hạng nhỏ thành mảng lớn. Phép toán vẫn có thể cấp phát mảng kết quả; mở rộng ảo không bảo đảm không tốn thêm bộ nhớ. |
+| Q19 | **A** | Aggregation reduces groups into summaries, often removing an axis, while vectorization applies operations across arrays without writing per-item Python loops. A vectorized sum can perform aggregation, so these ideas are related but not identical. | Aggregation gom nhóm thành kết quả tóm tắt, thường giảm số chiều, còn vectorization thực hiện phép toán trên mảng mà không tự viết vòng Python cho mỗi phần tử. Phép sum vector hóa có thể là tổng hợp nên hai khái niệm liên hệ nhưng không đồng nghĩa. |
+| Q20 | **B** | The meaning of `axis` depends on what rows and columns represent. If rows are learners and columns subjects, `mean(axis=0)` averages each subject across learners; confusing the axes would answer a different question. | Ý nghĩa `axis` phụ thuộc hàng và cột biểu diễn gì. Nếu hàng là học viên và cột là môn, `mean(axis=0)` tính điểm trung bình từng môn qua học viên; nhầm trục sẽ trả lời một câu hỏi khác. |
 
 ## 8. Nối bài tiếp theo
 
