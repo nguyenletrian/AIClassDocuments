@@ -42,6 +42,12 @@ graph={'An':{'Binh'},'Binh':{'An'}}
 print(graph)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+{'An': {'Binh'}, 'Binh': {'An'}}
+```
+
 **Tự kiểm tra:** Graph có nghĩa gì? **Đáp án:** Các đỉnh và cạnh mô tả quan hệ giữa đối tượng.
 
 ### 4.2. Vertex
@@ -53,6 +59,12 @@ Một đối tượng được biểu diễn trong đồ thị. Trước khi s�
 ```python
 vertices={'An','Binh'}
 print(len(vertices))
+```
+
+**Kết quả khi chạy:**
+
+```text
+2
 ```
 
 **Tự kiểm tra:** Vertex có nghĩa gì? **Đáp án:** Một đối tượng được biểu diễn trong đồ thị.
@@ -68,6 +80,12 @@ edges={('An','Binh')}
 print(len(edges))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+1
+```
+
 **Tự kiểm tra:** Edge có nghĩa gì? **Đáp án:** Liên hệ hoặc đường nối giữa hai đỉnh.
 
 ### 4.4. Jaccard
@@ -78,7 +96,13 @@ Tỷ lệ số phần tử giao trên hợp giữa hai tập. Trước khi sử 
 
 ```python
 a={'Python','AI'};b={'Python'}
-print(len(a&b)/len(a
+print(len(a & b) / len(a | b))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.5
 ```
 
 **Tự kiểm tra:** Jaccard có nghĩa gì? **Đáp án:** Tỷ lệ số phần tử giao trên hợp giữa hai tập.
@@ -101,6 +125,12 @@ graph={"An":{"Binh","Lan"},"Binh":{"An"},"Lan":{"An"}}
 print(graph["An"])
 ```
 
+**Kết quả khi chạy:**
+
+```text
+{'Binh', 'Lan'}
+```
+
 **Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 2 — So trùng sở thích
@@ -117,6 +147,12 @@ print(graph["An"])
 ```python
 a={"Python","AI"};b={"Python","SQL"}
 print(len(a&b)/len(a|b))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.3333333333333333
 ```
 
 **Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
@@ -139,6 +175,12 @@ scores={n:len(target&s)/len(target|s) for n,s in people.items()}
 print(max(scores,key=scores.get))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+C
+```
+
 **Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 4 — Quan hệ có hướng
@@ -155,6 +197,12 @@ print(max(scores,key=scores.get))
 ```python
 graph={"A":{"B"},"B":{"C"},"C":set()}
 print("B" in graph["A"],"A" in graph["B"])
+```
+
+**Kết quả khi chạy:**
+
+```text
+True False
 ```
 
 **Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
@@ -174,6 +222,12 @@ print("B" in graph["A"],"A" in graph["B"])
 import networkx as nx
 G=nx.Graph();G.add_edges_from([("A","B"),("B","C")])
 print(nx.shortest_path(G,"A","C"))
+```
+
+**Kết quả khi chạy:**
+
+```text
+['A', 'B', 'C']
 ```
 
 **Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
