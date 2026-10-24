@@ -63,7 +63,7 @@ class CurriculumStructureTests(unittest.TestCase):
         for path in self.paths:
             with self.subTest(chapter=path.name):
                 text = path.read_text(encoding="utf-8")
-                self.assertNotRegex(text, r"(?m)^\\*(?:DRAFT\\b|Trạng thái:)")
+                self.assertNotRegex(text, r"(?m)^\*(?:DRAFT\b|Trạng thái:)")
                 self.assertNotIn("**Quy trình:**", text)
                 for phrase in banned:
                     self.assertNotIn(phrase, text)
