@@ -66,3 +66,6 @@ test runner riêng vào dự án. Hợp đồng tham khảo:
 - Không commit credential, session hoặc thông tin cá nhân.
 - Commit nhỏ, mô tả được công việc; không overwrite công việc người dùng.
 - Repo và Bridge là các thành phần riêng: cấu hình máy, endpoint và secret đặt ngoài repo.
+
+## Đối chiếu chất lượng tình huống thực tế
+Mỗi bài có đúng năm đề bài thực tế với bối cảnh, đối tượng, số liệu có đơn vị, ngưỡng/điều kiện, và **yêu cầu lập trình cụ thể**. Cho phép nhãn `**Vấn đề thực tế:**` + `**Yêu cầu:**`, không được trở lại nhãn rời `**Vấn đề:**`/`**Dữ liệu:**`. Kiểm tra riêng xem input đề bài khớp các hằng số/biến trong code, `**Vì sao chọn cách giải này?**` giải thích đúng thao tác, `**Quy trình giải:**` mô tả đúng thứ tự và `**Kết quả:**` giải thích đúng output. Không chấp nhận câu chung chung kiểu “xử lý dữ liệu này và xác định kết quả theo yêu cầu”. Chỉnh sửa ở nhánh hiện tại; tránh đụng code fence, câu hỏi và đáp án khi chỉ sửa văn xuôi. Không merge khi chưa hoàn thành kiểm tra.
