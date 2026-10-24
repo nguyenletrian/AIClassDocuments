@@ -18,411 +18,471 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 | Normal | phân phối chuẩn | Phân phối liên tục hình chuông với mean/std |
 | PMF/PDF | hàm khối/mật độ | PMF cho biến rời rạc, PDF là mật độ cho biến liên tục |
 
-## 3. Hàm Python và tham số quan trọng
+## 3. Các hàm Python cần nhớ
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
-| Hàm / cú pháp | Cách sử dụng |
+| Hàm | Ý nghĩa |
 |---|---|
-| `scipy.stats.binom.pmf(k,n,p)` | P(X=k) cho số thành công rời rạc |
-| `scipy.stats.binom.cdf(k,n,p)` | P(X<=k) trong mô hình nhị thức |
-| `scipy.stats.norm.pdf(x,loc,scale)` | Mật độ tại x, không phải P(X=x) |
-| `scipy.stats.norm.cdf(x,loc,scale)` | P(X<=x) với phân phối chuẩn |
+| `binom.pmf(k, n, p)` | Xác suất **đúng** k thành công |
+| `binom.cdf(k, n, p)` | Xác suất **không quá** k thành công |
+| `norm.pdf(x, loc, scale)` | Mật độ chuẩn tại x, không phải xác suất tại điểm |
+| `norm.cdf(x, loc, scale)` | Xác suất X ≤ x |
+| `rng.normal(loc, scale, size)` | Lấy số mẫu giả ngẫu nhiên theo phân phối chuẩn |
 
-## 4. Khái niệm liên quan, ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Random variable
+**Mạch kiến thức:** Phép thử tạo kết quả; biến ngẫu nhiên biến kết quả thành số; phân phối cho khả năng từng giá trị. Nhị thức dành cho số lần thành công rời rạc, chuẩn cho biến liên tục; PMF, PDF và CDF trả lời những câu hỏi xác suất khác nhau.
 
-**Từ vựng trong mục:** **Random variable** — biến ngẫu nhiên.
+### 4.1. Random variable — Chuyển kết quả thử thành con số
 
-Đại lượng có kết quả tùy phép thử. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+**Từ vựng:** **Random variable** — biến ngẫu nhiên; **Outcome** — kết quả thử.
 
-```python
-import numpy as np
-print(np.random.default_rng(1).integers(0,2,5))
-```
-
-**Tự kiểm tra:** Random variable là gì? **Đáp án:** Đại lượng có kết quả tùy phép thử.
-
-### 4.2. Binomial
-
-**Từ vựng trong mục:** **Binomial** — phân phối nhị thức.
-
-Số thành công của n thử Bernoulli độc lập. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
-
-```python
-import scipy.stats as st
-print(st.binom.pmf(3,10,.5))
-```
-
-**Tự kiểm tra:** Binomial là gì? **Đáp án:** Số thành công của n thử Bernoulli độc lập.
-
-### 4.3. Normal
-
-**Từ vựng trong mục:** **Normal** — phân phối chuẩn.
-
-Phân phối liên tục hình chuông với mean/std. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
-
-```python
-import scipy.stats as st
-print(st.norm.cdf(0))
-```
-
-**Tự kiểm tra:** Normal là gì? **Đáp án:** Phân phối liên tục hình chuông với mean/std.
-
-### 4.4. PMF/PDF
-
-**Từ vựng trong mục:** **PMF/PDF** — hàm khối/mật độ.
-
-PMF cho biến rời rạc, PDF là mật độ cho biến liên tục. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
-
-```python
-import scipy.stats as st
-print(st.binom.pmf(1,2,.5))
-```
-
-**Tự kiểm tra:** PMF/PDF là gì? **Đáp án:** PMF cho biến rời rạc, PDF là mật độ cho biến liên tục.
-
-## 5. Năm tình huống thực tế
-
-### Tình huống 1 — Tính số lần giao hàng đúng giờ
-
-**Từ vựng trong mục:** **Random variable** — biến ngẫu nhiên.
-
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tính số lần giao hàng đúng giờ để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 10 đơn, xác suất mỗi đơn đúng giờ 0.8. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
-
-**Vì sao chọn phương pháp này?** Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
-
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
-
-```python
-from scipy.stats import binom
-print(round(binom.pmf(8,10,.8),4))
-```
-
-
-### Tình huống 2 — Tỷ lệ 3 lỗi hoặc ít hơn
-
-**Từ vựng trong mục:** **Binomial** — phân phối nhị thức.
-
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tỷ lệ 3 lỗi hoặc ít hơn để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 10 sản phẩm, lỗi độc lập p=0.1. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
-
-**Vì sao chọn phương pháp này?** CDF cộng xác suất từ 0 đến 3 lỗi. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
-
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
-
-```python
-from scipy.stats import binom
-print(round(binom.cdf(3,10,.1),4))
-```
-
-
-### Tình huống 3 — Điểm chuẩn của cảm biến
-
-**Từ vựng trong mục:** **Normal** — phân phối chuẩn.
-
-**Tình huống thực tế:** Một hệ thống giám sát cần điểm chuẩn của cảm biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Trung bình 100, độ lệch chuẩn 15, ngưỡng 115. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
-
-**Vì sao chọn phương pháp này?** CDF cho tỷ lệ thấp hơn một ngưỡng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
-
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
-
-```python
-from scipy.stats import norm
-print(norm.cdf(115,loc=100,scale=15))
-```
-
-
-### Tình huống 4 — Xem mật độ tại một điểm
-
-**Từ vựng trong mục:** **PMF/PDF** — hàm khối/mật độ.
-
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần xem mật độ tại một điểm để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Phân phối chuẩn mean=0,std=1 tại x=0. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
-
-**Vì sao chọn phương pháp này?** PDF là mật độ, không phải xác suất tại đúng một điểm liên tục. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
-
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
-
-```python
-from scipy.stats import norm
-print(norm.pdf(0))
-```
-
-
-### Tình huống 5 — Sinh dữ liệu chuẩn mô phỏng
-
-**Từ vựng trong mục:** **Random variable** — biến ngẫu nhiên.
-
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần sinh dữ liệu chuẩn mô phỏng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 5 mẫu chuẩn mean=0,std=1. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
-
-**Vì sao chọn phương pháp này?** RNG dùng seed để kết quả minh họa lặp được. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
-
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+Biến ngẫu nhiên X gán một giá trị số cho mỗi kết quả của phép thử. Ví dụ trong ba lần giao hàng, X là **số đơn đúng giờ** nên X có thể bằng 0, 1, 2 hoặc 3, không phải tên từng đơn. Một phép thử cụ thể chỉ tạo một giá trị X; **phân phối xác suất** mô tả khả năng của toàn bộ các giá trị đó. Mô phỏng sử dụng `seed` chỉ để có thể lặp lại kết quả.
 
 ```python
 import numpy as np
-rng=np.random.default_rng(42)
-print(rng.normal(loc=0,scale=1,size=5))
+
+rng = np.random.default_rng(42)
+print(rng.binomial(n=3, p=0.8, size=5).tolist())
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Những nhầm lẫn thường gặp
+```text
+[2, 3, 2, 2, 3]
+```
 
-Xác suất có điều kiện cần mẫu nền; xác suất của phân phối liên tục tại một điểm không phải PDF; thống kê từ một nhóm nhỏ không tự chứng minh kết quả cho quần thể. Chú ý định nghĩa mean/std và giả định độc lập.
+Mỗi phần tử là số đơn đúng giờ trong một nhóm ba đơn; đây là năm lần thử giả lập.
+
+### 4.2. Binomial — Đếm thành công từ các lần thử độc lập
+
+**Từ vựng:** **Binomial** — nhị thức; **Bernoulli** — phép thử thành công/thất bại.
+
+Phân phối nhị thức tính số lần **thành công trong n phép thử độc lập**, mỗi lần có cùng xác suất thành công p. Với 10 đơn hàng, xác suất giao đúng giờ từng đơn bằng 0,8, biến X đếm số đơn đúng giờ. `binom.pmf(8,10,0.8)` tính **đúng 8 đơn** đúng giờ; `binom.cdf(8,10,0.8)` lại tính **tối đa 8 đơn**. Không dùng nhị thức khi xác suất từng lần khác nhau hoặc các lần phụ thuộc mạnh mà không điều chỉnh mô hình.
+
+```python
+from scipy.stats import binom
+
+print(round(float(binom.pmf(8, 10, 0.8)), 4))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.302
+```
+
+Xác suất đúng 8 trong 10 đơn đúng giờ khoảng 30,2% theo mô hình độc lập.
+
+### 4.3. Normal — Phân phối liên tục quanh trung bình
+
+**Từ vựng:** **Normal** — chuẩn; **Mean/standard deviation** — trung bình/độ lệch chuẩn.
+
+Phân phối chuẩn có dạng chuông đối xứng quanh trung bình μ, với độ phân tán đo bằng σ (độ lệch chuẩn, σ>0). Ví dụ điểm cảm biến được **giả định** chuẩn với μ=100 và σ=15 (cùng đơn vị đo). Ngưỡng 115 cao hơn trung bình đúng một σ. `norm.cdf(115,loc=100,scale=15)` tính khả năng X **không vượt quá 115**, xấp xỉ 0,8413. Không nhầm giá trị CDF với mật độ tại điểm.
+
+```python
+from scipy.stats import norm
+
+print(round(float(norm.cdf(115, loc=100, scale=15)), 4))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.8413
+```
+
+Khoảng 84,13% giá trị nằm từ phía âm vô hạn tới ngưỡng 115 theo giả định chuẩn.
+
+### 4.4. PMF, PDF và CDF — Ba câu hỏi khác nhau
+
+**Từ vựng:** **PMF** — khối xác suất; **PDF** — mật độ xác suất; **CDF** — xác suất tích lũy.
+
+**PMF** cho biến rời rạc trả xác suất **bằng đúng** một giá trị, chẳng hạn P(X=1) khi X là số lần thành công. **PDF** cho biến liên tục trả *mật độ* tại x, **không phải P(X=x)** (với phân phối chuẩn, xác suất tại đúng một điểm là 0). **CDF** ở cả hai loại biến biểu diễn P(X≤x). Để tính xác suất trong một khoảng liên tục `(a,b]`, ta trừ CDF(b)−CDF(a).
+
+```python
+from scipy.stats import norm
+
+probability = norm.cdf(1) - norm.cdf(-1)
+print(round(float(probability), 4))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.6827
+```
+
+Theo chuẩn tắc N(0,1), khoảng −1 đến +1 chứa khoảng 68,27% xác suất.
+
+## 5. Năm tình huống ứng dụng
+
+### Tình huống 1 — Đếm đúng tám đơn hàng giao đúng giờ
+
+**Tình huống thực tế:** Một kho vận giả định mỗi đơn có xác suất 0,8 giao đúng giờ, độc lập với các đơn khác. Trong một nhóm 10 đơn, cần biết xác suất **chính xác tám đơn** đạt yêu cầu.
+
+**Vì sao chọn cách giải này?** PMF nhị thức tính xác suất đúng k lần thành công trên n phép thử độc lập cùng xác suất p.
+
+**Quy trình giải:**
+
+1. Xác định thành công là đơn đúng giờ, n=10, p=0.8 và k=8.
+2. Dùng `binom.pmf(k,n,p)`.
+3. In xác suất và ghi rõ đây là đúng 8, không phải tối đa 8.
+
+```python
+from scipy.stats import binom
+
+print(round(float(binom.pmf(8, 10, 0.8)), 4))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.302
+```
+
+Xác suất đúng tám đơn đúng giờ là khoảng 0,302 theo các giả định.
+
+### Tình huống 2 — Xác suất có không quá ba lỗi
+
+**Tình huống thực tế:** Nhà máy xét 10 linh kiện độc lập, xác suất lỗi mỗi chiếc 0,1. Bộ phận kiểm định muốn xác suất có từ 0 đến 3 chiếc lỗi, **bao gồm cả 3**.
+
+**Vì sao chọn cách giải này?** CDF nhị thức cộng các xác suất P(X=0), P(X=1), P(X=2), P(X=3).
+
+**Quy trình giải:**
+
+1. Đặt X là số linh kiện lỗi, n=10 và p=0.1.
+2. Tính `binom.cdf(3,10,0.1)`.
+3. Làm tròn bốn chữ số và in kết quả.
+
+```python
+from scipy.stats import binom
+
+print(round(float(binom.cdf(3, 10, 0.1)), 4))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.9872
+```
+
+Theo mô hình, xác suất có tối đa ba linh kiện lỗi khoảng 98,72%.
+
+### Tình huống 3 — Tỷ lệ đo cảm biến dưới ngưỡng
+
+**Tình huống thực tế:** Một cảm biến có phép đo được giả định chuẩn với trung bình 100, độ lệch chuẩn 15 đơn vị đo. Ngưỡng theo dõi là 115; cần tính tỷ lệ phép đo không vượt ngưỡng.
+
+**Vì sao chọn cách giải này?** CDF chuẩn cộng xác suất của mọi giá trị từ dưới ngưỡng đến ngưỡng.
+
+**Quy trình giải:**
+
+1. Gán μ=100, σ=15 và ngưỡng 115 cùng đơn vị.
+2. Gọi `norm.cdf` với `loc=100`, `scale=15`.
+3. In xác suất đến bốn chữ số thập phân.
+
+```python
+from scipy.stats import norm
+
+print(round(float(norm.cdf(115, loc=100, scale=15)), 4))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.8413
+```
+
+Khoảng 84,13% phép đo không vượt 115 nếu giả định phân phối chuẩn phù hợp.
+
+### Tình huống 4 — Phân biệt mật độ tại điểm và xác suất
+
+**Tình huống thực tế:** Mô hình độ lệch chuẩn tắc X~N(0,1). Nhà phân tích cần xem **mật độ** ở x=0, không phải tỷ lệ quan sát bằng chính xác 0.
+
+**Vì sao chọn cách giải này?** PDF chuẩn cho chiều cao đường cong tại điểm; xác suất của điểm đơn lẻ trong biến liên tục bằng 0.
+
+**Quy trình giải:**
+
+1. Chọn phân phối chuẩn tắc μ=0, σ=1.
+2. Tính `norm.pdf(0)`.
+3. In mật độ và tránh diễn giải như tỷ lệ sự kiện X=0.
+
+```python
+from scipy.stats import norm
+
+print(round(float(norm.pdf(0)), 4))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.3989
+```
+
+0,3989 là mật độ tại 0, **không phải 39,89% xác suất có giá trị đúng bằng 0**.
+
+### Tình huống 5 — Tạo năm mẫu cảm biến chuẩn để thử code
+
+**Tình huống thực tế:** Lập trình viên muốn năm số thử để kiểm tra luồng dữ liệu cảm biến giả lập N(0,1), có thể tạo lại khi học viên chạy đúng môi trường.
+
+**Vì sao chọn cách giải này?** Bộ sinh NumPy với seed giúp kiểm tra cùng chuỗi dữ liệu trong phiên bản tương thích.
+
+**Quy trình giải:**
+
+1. Tạo `default_rng(42)`.
+2. Sinh năm mẫu chuẩn trung bình 0, độ lệch chuẩn 1.
+3. Làm tròn ba chữ số và chuyển List để in ổn định.
+
+```python
+import numpy as np
+
+rng = np.random.default_rng(42)
+samples = rng.normal(loc=0, scale=1, size=5)
+print(np.round(samples, 3).tolist())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.305, -1.04, 0.75, 0.941, -1.951]
+```
+
+Đây là năm giá trị giả lập, không phải minh chứng rằng dữ liệu cảm biến thực tế tuân phân phối chuẩn.
+
+## 6. Sai lầm thường gặp
+
+- PMF tính xác suất đúng một giá trị **rời rạc**; PDF là mật độ cho biến liên tục, không phải P(X=x).
+- CDF là P(X≤x), khác PMF tại k và PDF tại x.
+- Mô hình nhị thức cần n lần thử độc lập với p giống nhau; thay điều kiện có thể làm kết quả sai.
+- `scale` là độ lệch chuẩn dương, không phải phương sai.
+- Seed cố định cho mô phỏng có thể tái lập trong môi trường tương thích; không bảo đảm thống kê mẫu bằng lý thuyết.
+- Xác suất dưới mô hình không chứng minh quy trình thực tế đúng giả định.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Q1. What is a random variable? — Biến ngẫu nhiên là gì?**
 
+A. A numerical quantity assigned to random outcomes — Đại lượng số gắn với kết quả ngẫu nhiên
 
-**Q1. What is Random variable? — Thuật ngữ Random variable là gì?**
+B. Successes in independent same-p trials — Số thành công trong các lần thử độc lập cùng p
 
-A. Another concept means Số thành công của n thử Bernoulli độc lập — Số thành công của n thử Bernoulli độc lập
+C. A continuous symmetric bell-shaped density — Mật độ liên tục dạng chuông đối xứng
 
-B. It means Đại lượng có kết quả tùy phép thử — Đại lượng có kết quả tùy phép thử
+D. Probability mass at a discrete value — Xác suất ở một giá trị rời rạc
 
-C. Another concept means Phân phối liên tục hình chuông với mean/std — Phân phối liên tục hình chuông với mean/std
+**Q2. What does binomial X count? — Biến nhị thức X đếm gì?**
 
-D. Another concept means PMF cho biến rời rạc, PDF là mật độ cho biến liên tục — PMF cho biến rời rạc, PDF là mật độ cho biến liên tục
+A. A numerical quantity assigned to random outcomes — Đại lượng số gắn với kết quả ngẫu nhiên
 
+B. Successes in independent same-p trials — Số thành công trong các lần thử độc lập cùng p
 
-**Q2. What is Binomial? — Thuật ngữ Binomial là gì?**
+C. A continuous symmetric bell-shaped density — Mật độ liên tục dạng chuông đối xứng
 
-A. It means Số thành công của n thử Bernoulli độc lập — Số thành công của n thử Bernoulli độc lập
+D. Probability mass at a discrete value — Xác suất ở một giá trị rời rạc
 
-B. Another concept means Phân phối liên tục hình chuông với mean/std — Phân phối liên tục hình chuông với mean/std
+**Q3. What characterizes a normal distribution? — Phân phối chuẩn có đặc điểm gì?**
 
-C. Another concept means PMF cho biến rời rạc, PDF là mật độ cho biến liên tục — PMF cho biến rời rạc, PDF là mật độ cho biến liên tục
+A. A numerical quantity assigned to random outcomes — Đại lượng số gắn với kết quả ngẫu nhiên
 
-D. Another concept means Đại lượng có kết quả tùy phép thử — Đại lượng có kết quả tùy phép thử
+B. Successes in independent same-p trials — Số thành công trong các lần thử độc lập cùng p
 
+C. A continuous symmetric bell-shaped density — Mật độ liên tục dạng chuông đối xứng
 
-**Q3. What is Normal? — Thuật ngữ Normal là gì?**
+D. Probability mass at a discrete value — Xác suất ở một giá trị rời rạc
 
-A. Another concept means PMF cho biến rời rạc, PDF là mật độ cho biến liên tục — PMF cho biến rời rạc, PDF là mật độ cho biến liên tục
+**Q4. What is a PMF? — PMF là gì?**
 
-B. Another concept means Đại lượng có kết quả tùy phép thử — Đại lượng có kết quả tùy phép thử
+A. A numerical quantity assigned to random outcomes — Đại lượng số gắn với kết quả ngẫu nhiên
 
-C. Another concept means Số thành công của n thử Bernoulli độc lập — Số thành công của n thử Bernoulli độc lập
+B. Successes in independent same-p trials — Số thành công trong các lần thử độc lập cùng p
 
-D. It means Phân phối liên tục hình chuông với mean/std — Phân phối liên tục hình chuông với mean/std
+C. A continuous symmetric bell-shaped density — Mật độ liên tục dạng chuông đối xứng
 
+D. Probability mass at a discrete value — Xác suất ở một giá trị rời rạc
 
-**Q4. What is PMF/PDF? — Thuật ngữ PMF/PDF là gì?**
+**Q5. What is a PDF? — PDF là gì?**
 
-A. Another concept means Đại lượng có kết quả tùy phép thử — Đại lượng có kết quả tùy phép thử
+A. Density, not point probability, for continuous data — Mật độ, không phải xác suất tại điểm liên tục
 
-B. Another concept means Số thành công của n thử Bernoulli độc lập — Số thành công của n thử Bernoulli độc lập
+B. Probability that X is at most x — Xác suất X nhỏ hơn hoặc bằng x
 
-C. It means PMF cho biến rời rạc, PDF là mật độ cho biến liên tục — PMF cho biến rời rạc, PDF là mật độ cho biến liên tục
+C. Probability of exactly k successes — Xác suất đúng k lần thành công
 
-D. Another concept means Phân phối liên tục hình chuông với mean/std — Phân phối liên tục hình chuông với mean/std
+D. Probability of k or fewer successes — Xác suất tối đa k lần thành công
 
+**Q6. What is a CDF? — CDF là gì?**
 
-**Q5. What does scipy.stats.binom.pmf(k,n,p) calculate? — Hàm scipy.stats.binom.pmf(k,n,p) tính gì?**
+A. Density, not point probability, for continuous data — Mật độ, không phải xác suất tại điểm liên tục
 
-A. Another calculation is P(X<=k) trong mô hình nhị thức — P(X<=k) trong mô hình nhị thức
+B. Probability that X is at most x — Xác suất X nhỏ hơn hoặc bằng x
 
-B. It calculates P(X=k) cho số thành công rời rạc — P(X=k) cho số thành công rời rạc
+C. Probability of exactly k successes — Xác suất đúng k lần thành công
 
-C. Another calculation is Mật độ tại x, không phải P(X=x) — Mật độ tại x, không phải P(X=x)
+D. Probability of k or fewer successes — Xác suất tối đa k lần thành công
 
-D. Another calculation is P(X<=x) với phân phối chuẩn — P(X<=x) với phân phối chuẩn
+**Q7. What does binom.pmf(k,n,p) compute? — binom.pmf(k,n,p) tính gì?**
 
+A. Density, not point probability, for continuous data — Mật độ, không phải xác suất tại điểm liên tục
 
-**Q6. What does scipy.stats.binom.cdf(k,n,p) calculate? — Hàm scipy.stats.binom.cdf(k,n,p) tính gì?**
+B. Probability that X is at most x — Xác suất X nhỏ hơn hoặc bằng x
 
-A. It calculates P(X<=k) trong mô hình nhị thức — P(X<=k) trong mô hình nhị thức
+C. Probability of exactly k successes — Xác suất đúng k lần thành công
 
-B. Another calculation is Mật độ tại x, không phải P(X=x) — Mật độ tại x, không phải P(X=x)
+D. Probability of k or fewer successes — Xác suất tối đa k lần thành công
 
-C. Another calculation is P(X<=x) với phân phối chuẩn — P(X<=x) với phân phối chuẩn
+**Q8. What does binom.cdf(k,n,p) compute? — binom.cdf(k,n,p) tính gì?**
 
-D. Another calculation is P(X=k) cho số thành công rời rạc — P(X=k) cho số thành công rời rạc
+A. Density, not point probability, for continuous data — Mật độ, không phải xác suất tại điểm liên tục
 
+B. Probability that X is at most x — Xác suất X nhỏ hơn hoặc bằng x
 
-**Q7. What does scipy.stats.norm.pdf(x,loc,scale) calculate? — Hàm scipy.stats.norm.pdf(x,loc,scale) tính gì?**
+C. Probability of exactly k successes — Xác suất đúng k lần thành công
 
-A. Another calculation is P(X<=x) với phân phối chuẩn — P(X<=x) với phân phối chuẩn
+D. Probability of k or fewer successes — Xác suất tối đa k lần thành công
 
-B. Another calculation is P(X=k) cho số thành công rời rạc — P(X=k) cho số thành công rời rạc
+**Q9. What condition is essential for a simple binomial model? — Điều kiện quan trọng của nhị thức đơn giản là gì?**
 
-C. Another calculation is P(X<=k) trong mô hình nhị thức — P(X<=k) trong mô hình nhị thức
+A. Independent trials with constant success probability — Các lần thử độc lập cùng xác suất thành công
 
-D. It calculates Mật độ tại x, không phải P(X=x) — Mật độ tại x, không phải P(X=x)
+B. Center and spread — Trung tâm và độ phân tán
 
+C. Zero — Bằng 0
 
-**Q8. What does scipy.stats.norm.cdf(x,loc,scale) calculate? — Hàm scipy.stats.norm.cdf(x,loc,scale) tính gì?**
+D. Strictly positive standard deviation — Độ lệch chuẩn phải lớn hơn 0
 
-A. Another calculation is P(X=k) cho số thành công rời rạc — P(X=k) cho số thành công rời rạc
+**Q10. What do mean and standard deviation determine for normal? — Mean và std xác định gì trong chuẩn?**
 
-B. Another calculation is P(X<=k) trong mô hình nhị thức — P(X<=k) trong mô hình nhị thức
+A. Independent trials with constant success probability — Các lần thử độc lập cùng xác suất thành công
 
-C. It calculates P(X<=x) với phân phối chuẩn — P(X<=x) với phân phối chuẩn
+B. Center and spread — Trung tâm và độ phân tán
 
-D. Another calculation is Mật độ tại x, không phải P(X=x) — Mật độ tại x, không phải P(X=x)
+C. Zero — Bằng 0
 
+D. Strictly positive standard deviation — Độ lệch chuẩn phải lớn hơn 0
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn phương pháp trong tình huống 1?**
+**Q11. What is P(X=x) for a continuous normal variable? — P(X=x) với biến chuẩn liên tục bằng bao nhiêu?**
 
-A. CDF cộng xác suất từ 0 đến 3 lỗi — CDF cộng xác suất từ 0 đến 3 lỗi
+A. Independent trials with constant success probability — Các lần thử độc lập cùng xác suất thành công
 
-B. Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p — Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p
+B. Center and spread — Trung tâm và độ phân tán
 
-C. CDF cho tỷ lệ thấp hơn một ngưỡng — CDF cho tỷ lệ thấp hơn một ngưỡng
+C. Zero — Bằng 0
 
-D. PDF là mật độ, không phải xác suất tại đúng một điểm liên tục — PDF là mật độ, không phải xác suất tại đúng một điểm liên tục
+D. Strictly positive standard deviation — Độ lệch chuẩn phải lớn hơn 0
 
+**Q12. Which quantity must be positive for norm.pdf scale? — scale của norm.pdf cần điều kiện nào?**
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn phương pháp trong tình huống 2?**
+A. Independent trials with constant success probability — Các lần thử độc lập cùng xác suất thành công
 
-A. CDF cộng xác suất từ 0 đến 3 lỗi — CDF cộng xác suất từ 0 đến 3 lỗi
+B. Center and spread — Trung tâm và độ phân tán
 
-B. CDF cho tỷ lệ thấp hơn một ngưỡng — CDF cho tỷ lệ thấp hơn một ngưỡng
+C. Zero — Bằng 0
 
-C. PDF là mật độ, không phải xác suất tại đúng một điểm liên tục — PDF là mật độ, không phải xác suất tại đúng một điểm liên tục
+D. Strictly positive standard deviation — Độ lệch chuẩn phải lớn hơn 0
 
-D. RNG dùng seed để kết quả minh họa lặp được — RNG dùng seed để kết quả minh họa lặp được
+**Q13. What does norm.cdf(0) equal for N(0,1)? — norm.cdf(0) với N(0,1) bằng gì?**
 
+A. 0.5 — 0.5
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn phương pháp trong tình huống 3?**
+B. CDF(b) minus CDF(a) — CDF(b) trừ CDF(a)
 
-A. PDF là mật độ, không phải xác suất tại đúng một điểm liên tục — PDF là mật độ, không phải xác suất tại đúng một điểm liên tục
+C. No, sampling noise remains — Không, vẫn có dao động lấy mẫu
 
-B. RNG dùng seed để kết quả minh họa lặp được — RNG dùng seed để kết quả minh họa lặp được
+D. From 0 to 1 inclusive — Từ 0 đến 1 gồm hai đầu
 
-C. Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p — Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p
+**Q14. How do you calculate normal P(a<X≤b)? — Tính P(a<X≤b) cho chuẩn bằng gì?**
 
-D. CDF cho tỷ lệ thấp hơn một ngưỡng — CDF cho tỷ lệ thấp hơn một ngưỡng
+A. 0.5 — 0.5
 
+B. CDF(b) minus CDF(a) — CDF(b) trừ CDF(a)
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn phương pháp trong tình huống 4?**
+C. No, sampling noise remains — Không, vẫn có dao động lấy mẫu
 
-A. RNG dùng seed để kết quả minh họa lặp được — RNG dùng seed để kết quả minh họa lặp được
+D. From 0 to 1 inclusive — Từ 0 đến 1 gồm hai đầu
 
-B. Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p — Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p
+**Q15. Does fixed RNG seed force sample mean to equal μ? — Seed cố định có buộc mean mẫu bằng μ?**
 
-C. PDF là mật độ, không phải xác suất tại đúng một điểm liên tục — PDF là mật độ, không phải xác suất tại đúng một điểm liên tục
+A. 0.5 — 0.5
 
-D. CDF cộng xác suất từ 0 đến 3 lỗi — CDF cộng xác suất từ 0 đến 3 lỗi
+B. CDF(b) minus CDF(a) — CDF(b) trừ CDF(a)
 
+C. No, sampling noise remains — Không, vẫn có dao động lấy mẫu
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn phương pháp trong tình huống 5?**
+D. From 0 to 1 inclusive — Từ 0 đến 1 gồm hai đầu
 
-A. Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p — Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p
+**Q16. What is the range of probabilities? — Xác suất nằm trong đoạn nào?**
 
-B. RNG dùng seed để kết quả minh họa lặp được — RNG dùng seed để kết quả minh họa lặp được
+A. 0.5 — 0.5
 
-C. CDF cộng xác suất từ 0 đến 3 lỗi — CDF cộng xác suất từ 0 đến 3 lỗi
+B. CDF(b) minus CDF(a) — CDF(b) trừ CDF(a)
 
-D. CDF cho tỷ lệ thấp hơn một ngưỡng — CDF cho tỷ lệ thấp hơn một ngưỡng
+C. No, sampling noise remains — Không, vẫn có dao động lấy mẫu
 
+D. From 0 to 1 inclusive — Từ 0 đến 1 gồm hai đầu
 
-**Q14. Which input is from scenario 1? — Dữ liệu nào thuộc tình huống 1?**
+**Q17. Can a continuous PDF exceed 1 at a point? — PDF liên tục có thể lớn hơn 1 tại một điểm không?**
 
-A. The input is 10 đơn, xác suất mỗi đơn đúng giờ 0.8 — 10 đơn, xác suất mỗi đơn đúng giờ 0.8
+A. Yes; only its total integral must be one — Có; chỉ tích phân toàn miền phải bằng một
 
-B. Another input is 10 sản phẩm, lỗi độc lập p=0.1 — 10 sản phẩm, lỗi độc lập p=0.1
+B. The distribution becomes wider — Phân phối trải rộng hơn
 
-C. Another input is Trung bình 100, độ lệch chuẩn 15, ngưỡng 115 — Trung bình 100, độ lệch chuẩn 15, ngưỡng 115
+C. Point probabilities behave differently — Xác suất tại một điểm có ý nghĩa khác nhau
 
-D. Another input is Phân phối chuẩn mean=0,std=1 tại x=0 — Phân phối chuẩn mean=0,std=1 tại x=0
+D. Cumulative probability up to x — Xác suất tích lũy tới x
 
+**Q18. What happens when standard deviation of normal increases? — Std phân phối chuẩn tăng sẽ thế nào?**
 
-**Q15. Which input is from scenario 2? — Dữ liệu nào thuộc tình huống 2?**
+A. Yes; only its total integral must be one — Có; chỉ tích phân toàn miền phải bằng một
 
-A. Another input is Trung bình 100, độ lệch chuẩn 15, ngưỡng 115 — Trung bình 100, độ lệch chuẩn 15, ngưỡng 115
+B. The distribution becomes wider — Phân phối trải rộng hơn
 
-B. Another input is Phân phối chuẩn mean=0,std=1 tại x=0 — Phân phối chuẩn mean=0,std=1 tại x=0
+C. Point probabilities behave differently — Xác suất tại một điểm có ý nghĩa khác nhau
 
-C. Another input is 5 mẫu chuẩn mean=0,std=1 — 5 mẫu chuẩn mean=0,std=1
+D. Cumulative probability up to x — Xác suất tích lũy tới x
 
-D. The input is 10 sản phẩm, lỗi độc lập p=0.1 — 10 sản phẩm, lỗi độc lập p=0.1
+**Q19. Why distinguish discrete and continuous variables? — Vì sao phân biệt biến rời rạc và liên tục?**
 
+A. Yes; only its total integral must be one — Có; chỉ tích phân toàn miền phải bằng một
 
-**Q16. Which input is from scenario 3? — Dữ liệu nào thuộc tình huống 3?**
+B. The distribution becomes wider — Phân phối trải rộng hơn
 
-A. Another input is Phân phối chuẩn mean=0,std=1 tại x=0 — Phân phối chuẩn mean=0,std=1 tại x=0
+C. Point probabilities behave differently — Xác suất tại một điểm có ý nghĩa khác nhau
 
-B. Another input is 5 mẫu chuẩn mean=0,std=1 — 5 mẫu chuẩn mean=0,std=1
+D. Cumulative probability up to x — Xác suất tích lũy tới x
 
-C. The input is Trung bình 100, độ lệch chuẩn 15, ngưỡng 115 — Trung bình 100, độ lệch chuẩn 15, ngưỡng 115
+**Q20. What does norm.cdf(x,loc,scale) return? — norm.cdf(x,loc,scale) trả gì?**
 
-D. Another input is 10 đơn, xác suất mỗi đơn đúng giờ 0.8 — 10 đơn, xác suất mỗi đơn đúng giờ 0.8
+A. Yes; only its total integral must be one — Có; chỉ tích phân toàn miền phải bằng một
 
+B. The distribution becomes wider — Phân phối trải rộng hơn
 
-**Q17. Which input is from scenario 4? — Dữ liệu nào thuộc tình huống 4?**
+C. Point probabilities behave differently — Xác suất tại một điểm có ý nghĩa khác nhau
 
-A. Another input is 5 mẫu chuẩn mean=0,std=1 — 5 mẫu chuẩn mean=0,std=1
-
-B. The input is Phân phối chuẩn mean=0,std=1 tại x=0 — Phân phối chuẩn mean=0,std=1 tại x=0
-
-C. Another input is 10 đơn, xác suất mỗi đơn đúng giờ 0.8 — 10 đơn, xác suất mỗi đơn đúng giờ 0.8
-
-D. Another input is 10 sản phẩm, lỗi độc lập p=0.1 — 10 sản phẩm, lỗi độc lập p=0.1
-
-
-**Q18. Which input is from scenario 5? — Dữ liệu nào thuộc tình huống 5?**
-
-A. The input is 5 mẫu chuẩn mean=0,std=1 — 5 mẫu chuẩn mean=0,std=1
-
-B. Another input is 10 đơn, xác suất mỗi đơn đúng giờ 0.8 — 10 đơn, xác suất mỗi đơn đúng giờ 0.8
-
-C. Another input is 10 sản phẩm, lỗi độc lập p=0.1 — 10 sản phẩm, lỗi độc lập p=0.1
-
-D. Another input is Trung bình 100, độ lệch chuẩn 15, ngưỡng 115 — Trung bình 100, độ lệch chuẩn 15, ngưỡng 115
-
-
-**Q19. What must a statistical report mention? — Báo cáo thống kê cần nêu gì?**
-
-A. Only plot colors — Chỉ màu biểu đồ
-
-B. Only a filename — Chỉ tên tệp
-
-C. Only code line count — Chỉ số dòng code
-
-D. Assumptions, units and sample size — Giả định, đơn vị và kích thước mẫu
-
-
-**Q20. What makes a numerical result reliable? — Điều gì làm kết quả số đáng tin?**
-
-A. Assuming all data independent — Cho rằng mọi dữ liệu độc lập
-
-B. Deleting verification — Xóa bước xác minh
-
-C. Checking assumptions and edge cases — Kiểm tra giả định và trường hợp biên
-
-D. Ignoring missing inputs — Bỏ dữ liệu thiếu mà không đánh giá
+D. Cumulative probability up to x — Xác suất tích lũy tới x
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It means Đại lượng có kết quả tùy phép thử | Đại lượng có kết quả tùy phép thử |
-| Q2 | **A** | It means Số thành công của n thử Bernoulli độc lập | Số thành công của n thử Bernoulli độc lập |
-| Q3 | **D** | It means Phân phối liên tục hình chuông với mean/std | Phân phối liên tục hình chuông với mean/std |
-| Q4 | **C** | It means PMF cho biến rời rạc, PDF là mật độ cho biến liên tục | PMF cho biến rời rạc, PDF là mật độ cho biến liên tục |
-| Q5 | **B** | It calculates P(X=k) cho số thành công rời rạc | P(X=k) cho số thành công rời rạc |
-| Q6 | **A** | It calculates P(X<=k) trong mô hình nhị thức | P(X<=k) trong mô hình nhị thức |
-| Q7 | **D** | It calculates Mật độ tại x, không phải P(X=x) | Mật độ tại x, không phải P(X=x) |
-| Q8 | **C** | It calculates P(X<=x) với phân phối chuẩn | P(X<=x) với phân phối chuẩn |
-| Q9 | **B** | Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p | Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p |
-| Q10 | **A** | CDF cộng xác suất từ 0 đến 3 lỗi | CDF cộng xác suất từ 0 đến 3 lỗi |
-| Q11 | **D** | CDF cho tỷ lệ thấp hơn một ngưỡng | CDF cho tỷ lệ thấp hơn một ngưỡng |
-| Q12 | **C** | PDF là mật độ, không phải xác suất tại đúng một điểm liên tục | PDF là mật độ, không phải xác suất tại đúng một điểm liên tục |
-| Q13 | **B** | RNG dùng seed để kết quả minh họa lặp được | RNG dùng seed để kết quả minh họa lặp được |
-| Q14 | **A** | The input is 10 đơn, xác suất mỗi đơn đúng giờ 0.8 | 10 đơn, xác suất mỗi đơn đúng giờ 0.8 |
-| Q15 | **D** | The input is 10 sản phẩm, lỗi độc lập p=0.1 | 10 sản phẩm, lỗi độc lập p=0.1 |
-| Q16 | **C** | The input is Trung bình 100, độ lệch chuẩn 15, ngưỡng 115 | Trung bình 100, độ lệch chuẩn 15, ngưỡng 115 |
-| Q17 | **B** | The input is Phân phối chuẩn mean=0,std=1 tại x=0 | Phân phối chuẩn mean=0,std=1 tại x=0 |
-| Q18 | **A** | The input is 5 mẫu chuẩn mean=0,std=1 | 5 mẫu chuẩn mean=0,std=1 |
-| Q19 | **D** | Assumptions, units and sample size | Giả định, đơn vị và kích thước mẫu |
-| Q20 | **C** | Checking assumptions and edge cases | Kiểm tra giả định và trường hợp biên |
+| Q1 | **A** | It maps outcomes to numbers. | Nó biến kết quả phép thử thành số. |
+| Q2 | **B** | Each trial has success or failure. | Mỗi lần thử có hai kết quả thành công hoặc thất bại. |
+| Q3 | **C** | It is specified by mean and standard deviation. | Được xác định bởi trung bình và độ lệch chuẩn. |
+| Q4 | **D** | PMF returns probability for a discrete outcome. | PMF tính xác suất đúng một kết quả rời rạc. |
+| Q5 | **A** | Continuous intervals require integrating density. | Xác suất khoảng liên tục tính từ diện tích dưới mật độ. |
+| Q6 | **B** | CDF includes all outcomes at or below the threshold. | CDF cộng xác suất đến ngưỡng đã cho. |
+| Q7 | **C** | PMF is an exact-count probability. | PMF cho xác suất đúng số lần thành công. |
+| Q8 | **D** | CDF sums counts from zero through k. | CDF cộng từ 0 tới k. |
+| Q9 | **A** | Dependencies invalidate the simple assumptions. | Phụ thuộc giữa lần thử làm sai giả định mô hình. |
+| Q10 | **B** | Mean locates the bell and std sets its width. | Trung bình định vị và độ lệch chuẩn xác định độ rộng. |
+| Q11 | **C** | A single point has zero probability mass. | Một điểm đơn có xác suất bằng 0. |
+| Q12 | **D** | A nonpositive scale is not a valid normal std. | Độ lệch chuẩn không dương không hợp lệ. |
+| Q13 | **A** | The standard normal is symmetric around zero. | Chuẩn tắc đối xứng quanh 0. |
+| Q14 | **B** | Cumulative differences give interval probability. | Hiệu xác suất tích lũy cho xác suất đoạn. |
+| Q15 | **C** | A seed reproduces samples, not exact theoretical moments. | Seed lặp được mẫu, không đảm bảo đúng moment lý thuyết. |
+| Q16 | **D** | Probabilities cannot be negative or exceed one. | Xác suất không âm và không vượt một. |
+| Q17 | **A** | Density height need not itself be a probability. | Chiều cao mật độ không phải xác suất. |
+| Q18 | **B** | The same total area spreads over a wider range. | Cùng tổng diện tích được trải ra trên miền rộng hơn. |
+| Q19 | **C** | PMF probabilities differ from PDF densities. | PMF là xác suất còn PDF là mật độ. |
+| Q20 | **D** | It is P(X≤x) under a normal model. | Nó là P(X≤x) theo phân phối chuẩn. |
 
 ## 8. Liên hệ bài tiếp theo
 
