@@ -320,7 +320,7 @@ C. Matrix multiplication — Phép nhân ma trận
 
 D. Writes an array to an NPY file — Ghi mảng vào tệp NPY
 
-**Q5. Which new shape can six elements have? — Sáu phần tử có thể reshape thành dạng nào?**
+**Q5. Which shape specifically has two rows and three columns? — Shape nào có đúng hai hàng và ba cột?**
 
 A. `(2, 3)` — `(2, 3)`
 
@@ -488,7 +488,7 @@ D. `dtype` — `dtype`
 | Q2 | **B** | A transpose exchanges the two axes of a matrix. | Chuyển vị tráo hai trục của ma trận. |
 | Q3 | **C** | The @ operator follows matrix multiplication rather than per-cell multiplication. | Toán tử @ tuân theo quy tắc nhân ma trận chứ không nhân riêng từng ô. |
 | Q4 | **D** | NumPy saves array values, shape and dtype in NPY format. | NumPy lưu giá trị, shape và dtype ở định dạng NPY. |
-| Q5 | **A** | Two times three equals six, so the reshape is valid. | Hai nhân ba bằng sáu nên hình dạng này hợp lệ. |
+| Q5 | **A** | The first dimension counts rows and the second counts columns: (2,3). | Chiều thứ nhất là số hàng và chiều thứ hai là số cột: (2,3). |
 | Q6 | **B** | A transpose swaps row and column dimensions. | Chuyển vị đảo kích thước hàng và cột. |
 | Q7 | **C** | Matching inner dimensions 3 leave outer dimensions 2 and 4. | Hai chiều trong cùng bằng 3, còn hai chiều ngoài là 2 và 4. |
 | Q8 | **D** | A flat six-element array has one dimension of length six. | Mảng phẳng sáu phần tử có một chiều độ dài sáu. |
