@@ -146,8 +146,8 @@ Mảng được ghi ra tệp `.npy` rồi đọc lại đủ ba phần tử. Th�
 
 ```python
 import numpy as np
-values=np.array([20,21,22,23,24,25])
-print(values.reshape(2,3))
+values = np.array([20, 21, 22, 23, 24, 25])
+print(values.reshape(2, 3))
 ```
 
 **Kết quả khi chạy:**
@@ -173,7 +173,7 @@ print(values.reshape(2,3))
 
 ```python
 import numpy as np
-scores=np.array([[8,7,9],[6,5,8]])
+scores = np.array([[8, 7, 9], [6, 5, 8]])
 print(scores.T.shape)
 ```
 
@@ -199,8 +199,8 @@ print(scores.T.shape)
 
 ```python
 import numpy as np
-scores=np.array([8,7,9])
-w=np.array([.2,.3,.5])
+scores = np.array([8, 7, 9])
+w = np.array([.2, .3, .5])
 print(scores@w)
 ```
 
@@ -226,8 +226,8 @@ print(scores@w)
 
 ```python
 import numpy as np
-X=np.array([[8,7,9],[6,5,8]])
-W=np.array([[.5,0],[.5,.5],[0,.5]])
+X = np.array([[8, 7, 9], [6, 5, 8]])
+W = np.array([[.5, 0], [.5, .5], [0, .5]])
 print(X@W)
 ```
 
@@ -257,9 +257,9 @@ import numpy as np
 from pathlib import Path
 from tempfile import TemporaryDirectory
 with TemporaryDirectory() as folder:
-    p=Path(folder)/"data.npy"
-    np.save(p,np.array([3,5,7]))
-    print(np.load(p,allow_pickle=False))
+    p = Path(folder)/"data.npy"
+    np.save(p, np.array([3, 5, 7]))
+    print(np.load(p, allow_pickle=False))
 ```
 
 **Kết quả khi chạy:**
