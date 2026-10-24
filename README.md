@@ -1,13 +1,13 @@
-# AIClassDocuments — Giáo trình Python ứng dụng AI từ PythoClass
+# AIClassDocuments — Tài liệu tự học Python và AI
 
-**Mục tiêu mới (24/10/2026):** Dựa trên toàn bộ ghi chép, lab, bài tập và code tại [PythoClass](https://github.com/nguyenletrian/PythoClass), biên soạn thành bài học Python + Toán + AI chính xác, dễ đọc, có tính thực hành và truy nguyên nguồn.
+**Định hướng:** Tài liệu giúp sinh viên hệ thống hóa kiến thức Python, xử lý dữ liệu và AI, đặt mỗi khái niệm đúng vị trí trong chuỗi học, có ví dụ code và bài toán thực tế. Nguồn phục vụ biên tập được quản lý riêng ở tài liệu dự án.
 
-Không chỉ viết lại ghi chép: dự án phải giải thích **khái niệm, mục đích, công thức (nếu có), thư viện, cách sử dụng trong Python, ứng dụng thực tế trong AI và khoảng 5 bài tập lập trình** cho mỗi bài. Mọi khái niệm trong nguồn, kể cả chỉ được nhắc ngắn, đều có vị trí trong bản đồ giáo trình.
+Bài học đi theo thứ tự: **chuỗi kiến thức → English vocabulary → thư viện và hàm Python → khái niệm và khái niệm con → năm tình huống thực tế → English multiple-choice questions và đáp án**. Các phép tính được thể hiện ngay trong Python; không có phần chứng minh toán học hoặc mục tiêu giáo án.
 
 ## Bài mẫu chờ góp ý
 **[AI-MATH-01 — PCA: Phân tích thành phần chính](lessons/pilot/AI-MATH-01-pca.vi.md)**
 
-Bài thử này dùng ba script PythoClass, trình bày toán nền tảng và năm bài tập Python đã được chạy đối chiếu. Đây chỉ là **pilot**; chưa nhân rộng toàn repo trước khi owner duyệt.
+Bài thử gồm năm tình huống thực tế được minh họa bằng Python với chú thích lý do và tám câu hỏi trắc nghiệm tiếng Anh có đáp án. Đây chỉ là **pilot**; chưa nhân rộng toàn bộ giáo trình trước khi duyệt.
 
 ## Cấu trúc
 - `AGENTS.md`: quy tắc cho Architect/Document Author và giữ tính an toàn Bridge.
