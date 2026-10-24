@@ -30,59 +30,82 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `pd.to_numeric(errors='coerce')` | Chuyển chuỗi lỗi thành NaN để xử lý có kiểm soát |
 
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Missing value
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu.
 
-Ô không chứa số liệu hợp lệ. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Dữ liệu thiếu là ô không có giá trị, thường hiển thị thành `NaN` hoặc `None` và có thể kiểm tra bằng `isna()`.
 
 ```python
 import pandas as pd
 print(pd.Series([1,None]).isna())
 ```
 
-**Tự kiểm tra:** Missing value có nghĩa gì? **Đáp án:** Ô không chứa số liệu hợp lệ.
+**Kết quả khi chạy:**
+
+```text
+0    False
+1     True
+dtype: bool
+```
 
 ### 4.2. Duplicate
 
 **Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
 
-Hai hàng dữ liệu giống nhau. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Dữ liệu trùng là những dòng lặp lại; `duplicated()` đánh dấu bản ghi trùng sau bản đầu.
 
 ```python
 import pandas as pd
 print(pd.Series([1,1]).duplicated())
 ```
 
-**Tự kiểm tra:** Duplicate có nghĩa gì? **Đáp án:** Hai hàng dữ liệu giống nhau.
+**Kết quả khi chạy:**
+
+```text
+0    False
+1     True
+dtype: bool
+```
 
 ### 4.3. Imputation
 
 **Từ vựng trong mục:** **Imputation** — điền khuyết.
 
-Thay ô trống bằng giá trị phù hợp. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Điền khuyết thay số liệu thiếu bằng giá trị được chọn như trung vị; cần giải thích vì sao chọn giá trị đó.
 
 ```python
 import pandas as pd
 print(pd.Series([1,None]).fillna(0))
 ```
 
-**Tự kiểm tra:** Imputation có nghĩa gì? **Đáp án:** Thay ô trống bằng giá trị phù hợp.
+**Kết quả khi chạy:**
+
+```text
+0    1.0
+1    0.0
+dtype: float64
+```
 
 ### 4.4. Data validation
 
 **Từ vựng trong mục:** **Data validation** — kiểm tra dữ liệu.
 
-Xác nhận dữ liệu đúng kiểu và giới hạn. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Kiểm tra dữ liệu giúp phát hiện kiểu sai, giá trị ngoài khoảng hoặc chuỗi không đổi được thành số.
 
 ```python
 import pandas as pd
 print(pd.to_numeric(pd.Series(['2']),errors='coerce'))
 ```
 
-**Tự kiểm tra:** Data validation có nghĩa gì? **Đáp án:** Xác nhận dữ liệu đúng kiểu và giới hạn.
+**Kết quả khi chạy:**
+
+```text
+0    2
+dtype: int64
+```
 
 ## 5. Năm tình huống thực tế
 
@@ -90,12 +113,11 @@ print(pd.to_numeric(pd.Series(['2']),errors='coerce'))
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu.
 
-**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn báo số khách thiếu tuổi. Bộ dữ liệu đang có: 3 khách, cột age có một None. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Một bảng tuổi khách có ba hàng `[20, None, 25]`, trong đó khách thứ hai chưa nhập tuổi. Đếm số tuổi bị thiếu.
 
-**Vì sao chọn cách giải này?** isna().sum() giúp biết cột nào cần xử lý.
+**Vì sao chọn cách giải này?** `isna()` đánh dấu các ô thiếu; `sum()` đếm các ô đó theo cột.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -103,17 +125,24 @@ df=pd.DataFrame({"age":[20,None,25]})
 print(df.isna().sum())
 ```
 
+**Kết quả khi chạy:**
+
+```text
+age    1
+dtype: int64
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 2 — Điền giá trị trung vị
 
 **Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
 
-**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn điền giá trị trung vị. Bộ dữ liệu đang có: Cột chi tiêu 3 khách có 1 None. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Cửa hàng có mức chi tiêu `[100, None, 200]` đơn vị tiền; một dòng chưa có số liệu. Điền chỗ thiếu bằng trung vị của số liệu hiện có.
 
-**Vì sao chọn cách giải này?** Median đỡ bị ảnh hưởng bởi một giá trị quá lớn.
+**Vì sao chọn cách giải này?** Trung vị của 100 và 200 là 150; `fillna` chỉ thay giá trị thiếu.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -122,17 +151,26 @@ df["spent"]=df["spent"].fillna(df["spent"].median())
 print(df)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+   spent
+0  100.0
+1  150.0
+2  200.0
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 3 — Loại trùng mã đơn
 
 **Từ vựng trong mục:** **Imputation** — điền khuyết.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn loại trùng mã đơn. Bộ dữ liệu đang có: 3 dòng mã O1 O1 O2. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Đơn hàng có ba dòng O1:10, O1:10 và O2:20, trong đó hai dòng O1 giống hệt nhau. Loại dòng trùng hoàn toàn và in bảng còn lại.
 
-**Vì sao chọn cách giải này?** Loại dòng trùng sau khi xác nhận cùng bản ghi.
+**Vì sao chọn cách giải này?** `drop_duplicates()` giữ một bản của những dòng giống nhau.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -140,17 +178,25 @@ df=pd.DataFrame({"id":["O1","O1","O2"],"amount":[10,10,20]})
 print(df.drop_duplicates())
 ```
 
+**Kết quả khi chạy:**
+
+```text
+   id  amount
+0  O1      10
+2  O2      20
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 4 — Đổi chuỗi giá sang số
 
 **Từ vựng trong mục:** **Data validation** — kiểm tra dữ liệu.
 
-**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn đổi chuỗi giá sang số. Bộ dữ liệu đang có: Giá ['100','bad','250'] đồng. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Dữ liệu giá nhận ba chuỗi `100`, `bad`, `250`. Giá trị `bad` không thể đổi thành số. Đổi các chuỗi số thành số, còn giá trị không hợp lệ thành NaN.
 
-**Vì sao chọn cách giải này?** coerce đánh dấu đầu vào lỗi để không tính nhầm.
+**Vì sao chọn cách giải này?** `to_numeric(errors='coerce')` cho phép xử lý giá trị sai kiểu mà không dừng chương trình.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -158,17 +204,26 @@ s=pd.Series(["100","bad","250"])
 print(pd.to_numeric(s,errors="coerce"))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+0    100.0
+1      NaN
+2    250.0
+dtype: float64
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 5 — Chuẩn bị train/test tránh leakage
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chuẩn bị train/test tránh leakage. Bộ dữ liệu đang có: Train [10,None,20], test [None,30]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Dữ liệu train là `[10, None, 20]` và test là `[None,30]`. Lấy trung vị từ train rồi điền số thiếu của cả train và test.
 
-**Vì sao chọn cách giải này?** Median phải học từ train và dùng lại cho test.
+**Vì sao chọn cách giải này?** Tính thống kê chỉ từ tập train giúp tránh rò rỉ thông tin từ test.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -177,6 +232,18 @@ median=train.median()
 print(train.fillna(median),test.fillna(median))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+0    10.0
+1    15.0
+2    20.0
+dtype: float64 0    15.0
+1    30.0
+dtype: float64
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ## 6. Sai lầm thường gặp
 
