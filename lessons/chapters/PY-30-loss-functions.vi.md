@@ -29,7 +29,7 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 | `np.where(abs_err<=delta,... )` | Huber phối hợp bình phương và tuyến tính |
 | `-np.sum(y*np.log(probs))` | Cross-entropy trên xác suất có clip để tránh log(0) |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. MSE
 
@@ -40,6 +40,12 @@ Trung bình bình phương hiệu dự đoán và giá trị thật.
 ```python
 import numpy as np
 print(np.mean((np.array([2,3])-np.array([1,4]))**2))
+```
+
+**Kết quả khi chạy:**
+
+```text
+1.0
 ```
 
 **Tự kiểm tra:** MSE là gì? **Đáp án:** Trung bình bình phương hiệu dự đoán và giá trị thật.
@@ -55,6 +61,12 @@ import numpy as np
 print(np.mean(np.abs(np.array([2,3])-np.array([1,4]))))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+1.0
+```
+
 **Tự kiểm tra:** MAE là gì? **Đáp án:** Trung bình trị tuyệt đối sai số.
 
 ### 4.3. Cross-entropy
@@ -68,6 +80,12 @@ import math
 print(-math.log(.8))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+0.2231435513142097
+```
+
 **Tự kiểm tra:** Cross-entropy là gì? **Đáp án:** Phạt dự đoán xác suất sai nhãn mạnh hơn.
 
 ### 4.4. KL divergence
@@ -78,7 +96,15 @@ print(-math.log(.8))
 
 ```python
 import numpy as np
-p=np.array([.5,.5]);q=np.array([.6,.4]);print(np.sum(p*np.log(p/q)))
+p=np.array([.5,.5])
+q=np.array([.6,.4])
+print(np.sum(p*np.log(p/q)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.020410997260127586
 ```
 
 **Tự kiểm tra:** KL divergence là gì? **Đáp án:** Đo sai khác một chiều giữa hai phân phối xác suất.
@@ -98,8 +124,15 @@ p=np.array([.5,.5]);q=np.array([.6,.4]);print(np.sum(p*np.log(p/q)))
 
 ```python
 import numpy as np
-y=np.array([100,200]);pred=np.array([110,170])
+y=np.array([100,200])
+pred=np.array([110,170])
 print(np.mean((y-pred)**2))
+```
+
+**Kết quả khi chạy:**
+
+```text
+500.0
 ```
 
 
@@ -119,6 +152,12 @@ import numpy as np
 print(np.mean(np.abs(np.array([10,20,30])-np.array([9,19,50]))))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+7.333333333333333
+```
+
 
 ### Tình huống 3 — Tính Huber cho lỗi đo
 
@@ -133,9 +172,16 @@ print(np.mean(np.abs(np.array([10,20,30])-np.array([9,19,50]))))
 
 ```python
 import numpy as np
-e=np.array([-1.,2.,5.]);delta=1.
+e=np.array([-1.,2.,5.])
+delta=1.
 loss=np.where(np.abs(e)<=delta,.5*e**2,delta*(np.abs(e)-.5*delta))
 print(loss.mean())
+```
+
+**Kết quả khi chạy:**
+
+```text
+2.1666666666666665
 ```
 
 
@@ -156,6 +202,12 @@ prob_true=.8
 print(-math.log(prob_true))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+0.2231435513142097
+```
+
 
 ### Tình huống 5 — So phân phối dự báo
 
@@ -170,8 +222,15 @@ print(-math.log(prob_true))
 
 ```python
 import numpy as np
-p=np.array([.5,.5]);q=np.array([.6,.4])
+p=np.array([.5,.5])
+q=np.array([.6,.4])
 print(np.sum(p*np.log(p/q)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.020410997260127586
 ```
 
 
