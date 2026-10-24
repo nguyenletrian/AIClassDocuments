@@ -12,27 +12,25 @@
 4. Ghi chép gốc có thể chứa typo, code thiếu ngoặc, sai định nghĩa, tên hàm hoặc khái niệm chưa hoàn chỉnh. **Không sao chép sai**; viết phần hiệu đính, giải thích tại sao và kiểm tra bằng code/toán.
 5. Không tuyên bố bao phủ toàn bộ repo khi còn file binary, notebook, code hoặc comment chưa duyệt. Đối chiếu trước và sau bằng số file đã review, số concept đã lập chỉ mục, số bài đã xuất, số mục chưa xử lý.
 
-## Cấu trúc bắt buộc cho mỗi bài
-- Tên bài, trình độ, kiến thức cần có, mục tiêu đầu ra
-- **Khái niệm** chính xác và trực giác
-- **Mục đích**/lý do sử dụng và khi không nên sử dụng
-- **Công thức** và giải thích từng ký hiệu/nếu không có ghi *không áp dụng*
-- **Thư viện** Python, cài đặt, các API và thao tác liên quan
-- **Cách dùng trong Python**: ví dụ độc lập và kết quả kiểm tra
-- **Ứng dụng thực tế trong lập trình AI**: pipeline, xử lý dữ liệu, bài toán tương ứng; không vẽ ra lợi ích không chứng minh
-- **Khoảng năm bài tập** lập trình theo cấp độ, có đề bài, mã mẫu/lời giải, cách kiểm tra, thử thách mở rộng
-- Các lỗi điển hình, FAQ/ôn tập, thuật ngữ, nguồn chi tiết, phần AI tự bổ sung
+## Cấu trúc bắt buộc cho mỗi bài (bản đọc của sinh viên)
+1. Bản đồ **vị trí trong chuỗi kiến thức**, cho thấy kiến thức trước/sau và quan hệ giữa các khái niệm.
+2. **English vocabulary** liên quan đến toàn bài, đi trước tất cả các API và định nghĩa.
+3. **Thư viện, hàm, API Python**, bảng ngắn giải thích từng tên và cách dùng, ví dụ đầu vào/đầu ra.
+4. **Khái niệm và khái niệm con**, luôn đi cùng mã Python thể hiện cách tính hoặc biểu thức tương đương; bỏ phần "toán học đằng sau"/chứng minh dài.
+5. **Khoảng 5 vấn đề thực tiễn**: bối cảnh công việc → kiến thức phù hợp → quy trình giải → code có chú thích **vì sao viết như vậy** → cách kiểm tra và hạn chế.
+6. **English multiple-choice questions** (khoảng 5–10 câu), đủ đáp án và giải thích bằng tiếng Anh.
+7. **Liên hệ bài tiếp theo**, duy trì sơ đồ logic tiến trình.
 
-Với chủ đề toán: ký hiệu, giả định, kích thước mảng và các bẫy tính toán quan trọng. Với chủ đề không có công thức: không ép thêm công thức vô nghĩa.
+Không dùng mục "mục tiêu học tập", "sau bài học bạn sẽ làm được gì", không xưng hô như giảng viên, không yêu cầu học sinh chứng minh công thức toán. Sinh viên phải có thể tự đọc để hệ thống hóa những gì từng học. Không chỉ biến bài toán thuần túy thành một câu chuyện giả: tình huống cần có quyết định, dữ liệu và thao tác Python hợp lý.
 
 ## Truy nguyên nguồn
-- Có ít nhất một dẫn nguồn `PythoClass` từ đường dẫn file cụ thể, khuyến khích kèm commit SHA và cell hoặc đoạn code.
-- Ghi: **Có trong ghi chép / Đã sửa lỗi / Mở rộng do AI biên soạn**.
+- Có ít nhất một dẫn nguồn repo gốc từ đường dẫn file cụ thể trong **hồ sơ nội bộ** `sources/`/docs, khuyến khích kèm commit SHA và cell hoặc đoạn code.
+- Ghi nội bộ: **Có trong ghi chép / Đã sửa lỗi / Mở rộng do AI biên soạn**. **Tuyệt đối không đưa nguồn biên tập/tên repo PythoClass hoặc PythonClass vào bài học phát hành cho sinh viên**, không đưa nhãn nguồn nội bộ, không chèn dẫn chiếu lịch sử ghi chú.
 - Có thể tham chiếu tài liệu API chính thức để chuẩn hóa nếu cần, nhưng vẫn giữ mối liên hệ với ghi chép gốc.
 - Không sửa hoặc ghi đè `PythoClass`. Không đưa thông tin bí mật, file cá nhân hoặc nội dung bên thứ ba không được phép lên GitHub.
 
 ## Test và nghiệm thu
-- Code của năm bài tập phải chạy hoặc được kiểm tra rõ điều kiện cài đặt và dữ liệu. Đoạn cần UI/biểu đồ có thể chạy headless bằng việc kiểm tra dữ liệu trước `show()`.
+- Code của năm tình huống thực tế phải chạy hoặc được kiểm tra rõ điều kiện cài đặt và dữ liệu. Comment giải thích lý do chọn biến đổi/hàm, không chỉ mô tả câu lệnh. Đoạn cần UI/biểu đồ có thể chạy headless bằng việc kiểm tra dữ liệu trước `show()`.
 - Đối chiếu con số xuất ra, shape, đơn vị đo, `random_state` và tránh data leakage với ML.
 - Ghi trạng thái: `SOURCE_MAPPED → DRAFT → SELF_REVIEW → PILOT_REVIEW → OWNER_APPROVED`.
 - Bài thử đầu: `lessons/pilot/AI-MATH-01-pca.vi.md`. **Chỉ sau khi owner duyệt bố cục** mới mở rộng ra toàn repo. Trước đó không tạo hàng loạt, không tự queue task làm tài liệu mới và không tự bật `goal_review.enabled`.
