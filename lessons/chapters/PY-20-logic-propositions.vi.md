@@ -229,250 +229,230 @@ print(list(product(["red", "blue"], ["S", "M"])))
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What is a proposition? — Mệnh đề là gì?**
 
-**Q1. What best describes Proposition? — Mô tả nào đúng với Proposition?**
+A. A statement with a truth value — Phát biểu có giá trị đúng sai
 
-A. A different idea is Liệt kê kết quả ứng với mọi tổ hợp logic — Liệt kê kết quả ứng với mọi tổ hợp logic
+B. A Python folder — Thư mục Python
 
-B. It is Câu có giá trị True hoặc False — Câu có giá trị True hoặc False
+C. An image format — Định dạng ảnh
 
-C. A different idea is Quan hệ P⇒Q tương đương (not P) or Q — Quan hệ P⇒Q tương đương (not P) or Q
+D. A list length — Độ dài list
 
-D. A different idea is Đếm số khả năng khi ghép lựa chọn — Đếm số khả năng khi ghép lựa chọn
+**Q2. What does not True evaluate to? — not True bằng gì?**
 
+A. True — True
 
-**Q2. What best describes Truth table? — Mô tả nào đúng với Truth table?**
+B. False — False
 
-A. It is Liệt kê kết quả ứng với mọi tổ hợp logic — Liệt kê kết quả ứng với mọi tổ hợp logic
+C. None — None
 
-B. A different idea is Quan hệ P⇒Q tương đương (not P) or Q — Quan hệ P⇒Q tương đương (not P) or Q
+D. 1 — 1
 
-C. A different idea is Đếm số khả năng khi ghép lựa chọn — Đếm số khả năng khi ghép lựa chọn
+**Q3. When is p and q true? — Khi nào p and q đúng?**
 
-D. A different idea is Câu có giá trị True hoặc False — Câu có giá trị True hoặc False
+A. When p is false — Khi p sai
 
+B. When at least one is true — Khi có ít nhất một đúng
 
-**Q3. What best describes Implication? — Mô tả nào đúng với Implication?**
+C. When both are true — Khi cả hai đúng
 
-A. A different idea is Đếm số khả năng khi ghép lựa chọn — Đếm số khả năng khi ghép lựa chọn
+D. Always — Luôn đúng
 
-B. A different idea is Câu có giá trị True hoặc False — Câu có giá trị True hoặc False
+**Q4. When is p or q false? — Khi nào p or q sai?**
 
-C. A different idea is Liệt kê kết quả ứng với mọi tổ hợp logic — Liệt kê kết quả ứng với mọi tổ hợp logic
+A. When both true — Khi cả hai đúng
 
-D. It is Quan hệ P⇒Q tương đương (not P) or Q — Quan hệ P⇒Q tương đương (not P) or Q
+B. When exactly one true — Khi chỉ một đúng
 
+C. When p true — Khi p đúng
 
-**Q4. What best describes Counting? — Mô tả nào đúng với Counting?**
+D. When both false — Khi cả hai sai
 
-A. A different idea is Câu có giá trị True hoặc False — Câu có giá trị True hoặc False
+**Q5. How many cases are in a truth table for two Booleans? — Bảng chân trị hai biến Boolean có bao nhiêu trường hợp?**
 
-B. A different idea is Liệt kê kết quả ứng với mọi tổ hợp logic — Liệt kê kết quả ứng với mọi tổ hợp logic
+A. 4 — 4
 
-C. It is Đếm số khả năng khi ghép lựa chọn — Đếm số khả năng khi ghép lựa chọn
+B. 2 — 2
 
-D. A different idea is Quan hệ P⇒Q tương đương (not P) or Q — Quan hệ P⇒Q tương đương (not P) or Q
+C. 6 — 6
 
+D. 8 — 8
 
-**Q5. Which operation matches and/or/not? — Mục đích của and/or/not là gì?**
+**Q6. What is implication p ⇒ q equivalent to? — p kéo theo q tương đương biểu thức nào?**
 
-A. Another operation is used to Biểu diễn phép kéo theo P⇒Q — Biểu diễn phép kéo theo P⇒Q
+A. p and q — p and q
 
-B. It is used to Ghép điều kiện, chọn ít nhất một hoặc phủ định — Ghép điều kiện, chọn ít nhất một hoặc phủ định
+B. (not p) or q — (not p) or q
 
-C. Another operation is used to Tạo tích Descartes của hai tập tùy chọn — Tạo tích Descartes của hai tập tùy chọn
+C. p or (not q) — p or (not q)
 
-D. Another operation is used to Nhân số lựa chọn từng bước độc lập — Nhân số lựa chọn từng bước độc lập
+D. not p and q — not p and q
 
+**Q7. When is p ⇒ q false? — Khi nào p kéo theo q sai?**
 
-**Q6. Which operation matches (not p) or q? — Mục đích của (not p) or q là gì?**
+A. p false and q true — p sai q đúng
 
-A. It is used to Biểu diễn phép kéo theo P⇒Q — Biểu diễn phép kéo theo P⇒Q
+B. Both false — Cả hai sai
 
-B. Another operation is used to Tạo tích Descartes của hai tập tùy chọn — Tạo tích Descartes của hai tập tùy chọn
+C. p true and q false — p đúng q sai
 
-C. Another operation is used to Nhân số lựa chọn từng bước độc lập — Nhân số lựa chọn từng bước độc lập
+D. Both true — Cả hai đúng
 
-D. Another operation is used to Ghép điều kiện, chọn ít nhất một hoặc phủ định — Ghép điều kiện, chọn ít nhất một hoặc phủ định
+**Q8. What does itertools.product produce? — itertools.product tạo gì?**
 
+A. A sum only — Chỉ một tổng
 
-**Q7. Which operation matches itertools.product(A,B)? — Mục đích của itertools.product(A,B) là gì?**
+B. A dictionary key — Khóa Dictionary
 
-A. Another operation is used to Nhân số lựa chọn từng bước độc lập — Nhân số lựa chọn từng bước độc lập
+C. A random option — Một lựa chọn ngẫu nhiên
 
-B. Another operation is used to Ghép điều kiện, chọn ít nhất một hoặc phủ định — Ghép điều kiện, chọn ít nhất một hoặc phủ định
+D. All cross-product tuples — Tất cả bộ kết hợp giữa các nguồn
 
-C. Another operation is used to Biểu diễn phép kéo theo P⇒Q — Biểu diễn phép kéo theo P⇒Q
+**Q9. Why is login access denied in the example? — Vì sao ví dụ đăng nhập bị từ chối?**
 
-D. It is used to Tạo tích Descartes của hai tập tùy chọn — Tạo tích Descartes của hai tập tùy chọn
+A. The account is not verified — Tài khoản chưa xác minh
 
+B. The account is logged out — Tài khoản chưa đăng nhập
 
-**Q8. Which operation matches math.prod(counts)? — Mục đích của math.prod(counts) là gì?**
+C. Both flags are true — Cả hai cờ đúng
 
-A. Another operation is used to Ghép điều kiện, chọn ít nhất một hoặc phủ định — Ghép điều kiện, chọn ít nhất một hoặc phủ định
+D. There is no condition — Không có điều kiện
 
-B. Another operation is used to Biểu diễn phép kéo theo P⇒Q — Biểu diễn phép kéo theo P⇒Q
+**Q10. What does True and False print? — True and False in gì?**
 
-C. It is used to Nhân số lựa chọn từng bước độc lập — Nhân số lựa chọn từng bước độc lập
+A. True — True
 
-D. Another operation is used to Tạo tích Descartes của hai tập tùy chọn — Tạo tích Descartes của hai tập tùy chọn
+B. False — False
 
+C. 0 — 0
 
-**Q9. Why was the method chosen for scenario 1? — Vì sao chọn cách giải của tình huống 1?**
+D. None — None
 
-A. Another reason is Quét bốn tổ hợp của hai mệnh đề — Quét bốn tổ hợp của hai mệnh đề
+**Q11. What does True or False print? — True or False in gì?**
 
-B. Because Dùng and để đòi cả đăng nhập và xác minh — Dùng and để đòi cả đăng nhập và xác minh
+A. False — False
 
-C. Another reason is Phép kéo theo chỉ sai khi P đúng nhưng Q sai — Phép kéo theo chỉ sai khi P đúng nhưng Q sai
+B. None — None
 
-D. Another reason is Nguyên lý nhân đếm số tổ hợp — Nguyên lý nhân đếm số tổ hợp
+C. True — True
 
+D. Error — Lỗi
 
-**Q10. Why was the method chosen for scenario 2? — Vì sao chọn cách giải của tình huống 2?**
+**Q12. What does implication print for p=True, q=False? — Phép kéo theo in gì khi p=True q=False?**
 
-A. Because Quét bốn tổ hợp của hai mệnh đề — Quét bốn tổ hợp của hai mệnh đề
+A. True — True
 
-B. Another reason is Phép kéo theo chỉ sai khi P đúng nhưng Q sai — Phép kéo theo chỉ sai khi P đúng nhưng Q sai
+B. None — None
 
-C. Another reason is Nguyên lý nhân đếm số tổ hợp — Nguyên lý nhân đếm số tổ hợp
+C. 1 — 1
 
-D. Another reason is product liệt kê từng cặp màu và size — product liệt kê từng cặp màu và size
+D. False — False
 
+**Q13. How many combinations arise from 3 colors and 4 sizes? — 3 màu và 4 cỡ có bao nhiêu kết hợp?**
 
-**Q11. Why was the method chosen for scenario 3? — Vì sao chọn cách giải của tình huống 3?**
+A. 12 — 12
 
-A. Another reason is Nguyên lý nhân đếm số tổ hợp — Nguyên lý nhân đếm số tổ hợp
+B. 7 — 7
 
-B. Another reason is product liệt kê từng cặp màu và size — product liệt kê từng cặp màu và size
+C. 3 — 3
 
-C. Another reason is Dùng and để đòi cả đăng nhập và xác minh — Dùng and để đòi cả đăng nhập và xác minh
+D. 4 — 4
 
-D. Because Phép kéo theo chỉ sai khi P đúng nhưng Q sai — Phép kéo theo chỉ sai khi P đúng nhưng Q sai
+**Q14. What must hold for simple multiplication counting? — Điều kiện dùng nguyên lý nhân trực tiếp là gì?**
 
+A. Only one choice exists — Chỉ có một lựa chọn
 
-**Q12. Why was the method chosen for scenario 4? — Vì sao chọn cách giải của tình huống 4?**
+B. Each option has the stated number of following choices — Mỗi lựa chọn có đủ số lựa chọn bước tiếp
 
-A. Another reason is product liệt kê từng cặp màu và size — product liệt kê từng cặp màu và size
+C. No options can combine — Không có lựa chọn nào kết hợp
 
-B. Another reason is Dùng and để đòi cả đăng nhập và xác minh — Dùng and để đòi cả đăng nhập và xác minh
+D. Every option is identical — Mọi lựa chọn giống nhau
 
-C. Because Nguyên lý nhân đếm số tổ hợp — Nguyên lý nhân đếm số tổ hợp
+**Q15. How many pairs result from 2 colors and 2 sizes? — 2 màu và 2 cỡ tạo mấy cặp?**
 
-D. Another reason is Quét bốn tổ hợp của hai mệnh đề — Quét bốn tổ hợp của hai mệnh đề
+A. 2 — 2
 
+B. 8 — 8
 
-**Q13. Why was the method chosen for scenario 5? — Vì sao chọn cách giải của tình huống 5?**
+C. 4 — 4
 
-A. Another reason is Dùng and để đòi cả đăng nhập và xác minh — Dùng and để đòi cả đăng nhập và xác minh
+D. 6 — 6
 
-B. Because product liệt kê từng cặp màu và size — product liệt kê từng cặp màu và size
+**Q16. What does the truth table enumerate? — Bảng chân trị liệt kê gì?**
 
-C. Another reason is Quét bốn tổ hợp của hai mệnh đề — Quét bốn tổ hợp của hai mệnh đề
+A. Only true outcomes — Chỉ kết quả đúng
 
-D. Another reason is Phép kéo theo chỉ sai khi P đúng nhưng Q sai — Phép kéo theo chỉ sai khi P đúng nhưng Q sai
+B. Only false outcomes — Chỉ kết quả sai
 
+C. Random inputs — Đầu vào ngẫu nhiên
 
-**Q14. What input is used in scenario 1? — Tình huống 1 dùng dữ liệu gì?**
+D. All logical input combinations — Mọi tổ hợp đầu vào logic
 
-A. The data are Hai cờ Boolean — Hai cờ Boolean
+**Q17. Which expression negates a Boolean p? — Biểu thức phủ định p là gì?**
 
-B. Other data are P và Q nhận True/False — P và Q nhận True/False
+A. not p — not p
 
-C. Other data are P đúng, Q sai — P đúng, Q sai
+B. p and p — p and p
 
-D. Other data are 3 màu và 4 cỡ áo — 3 màu và 4 cỡ áo
+C. p or p — p or p
 
+D. p == p — p == p
 
-**Q15. What input is used in scenario 2? — Tình huống 2 dùng dữ liệu gì?**
+**Q18. What is False ⇒ False? — False kéo theo False có giá trị gì?**
 
-A. Other data are P đúng, Q sai — P đúng, Q sai
+A. False — False
 
-B. Other data are 3 màu và 4 cỡ áo — 3 màu và 4 cỡ áo
+B. True — True
 
-C. Other data are 2 màu và 2 size — 2 màu và 2 size
+C. None — None
 
-D. The data are P và Q nhận True/False — P và Q nhận True/False
+D. Error — Lỗi
 
+**Q19. How many outputs does the nested truth-table loop print? — Vòng lặp bảng chân trị in bao nhiêu dòng?**
 
-**Q16. What input is used in scenario 3? — Tình huống 3 dùng dữ liệu gì?**
+A. 2 — 2
 
-A. Other data are 3 màu và 4 cỡ áo — 3 màu và 4 cỡ áo
+B. 3 — 3
 
-B. Other data are 2 màu và 2 size — 2 màu và 2 size
+C. 4 — 4
 
-C. The data are P đúng, Q sai — P đúng, Q sai
+D. 8 — 8
 
-D. Other data are Hai cờ Boolean — Hai cờ Boolean
+**Q20. What is the difference between counting and product()? — Khác biệt giữa đếm và product() là gì?**
 
+A. Both always return only a number — Cả hai luôn chỉ trả về số
 
-**Q17. What input is used in scenario 4? — Tình huống 4 dùng dữ liệu gì?**
+B. product ignores pairings — product bỏ qua các cặp
 
-A. Other data are 2 màu và 2 size — 2 màu và 2 size
+C. Counting always prints strings — Đếm luôn in chuỗi
 
-B. The data are 3 màu và 4 cỡ áo — 3 màu và 4 cỡ áo
-
-C. Other data are Hai cờ Boolean — Hai cờ Boolean
-
-D. Other data are P và Q nhận True/False — P và Q nhận True/False
-
-
-**Q18. What input is used in scenario 5? — Tình huống 5 dùng dữ liệu gì?**
-
-A. The data are 2 màu và 2 size — 2 màu và 2 size
-
-B. Other data are Hai cờ Boolean — Hai cờ Boolean
-
-C. Other data are P và Q nhận True/False — P và Q nhận True/False
-
-D. Other data are P đúng, Q sai — P đúng, Q sai
-
-
-**Q19. What information should a dataset have? — Dataset cần thông tin gì?**
-
-A. Only a filename — Chỉ tên file
-
-B. Only an editor font — Chỉ font soạn code
-
-C. Only a line count — Chỉ số dòng
-
-D. Meaning of rows, columns and units — Ý nghĩa hàng, cột và đơn vị
-
-
-**Q20. After the program works, what comes next? — Sau khi code chạy đúng thì làm gì?**
-
-A. Assume every input works — Cho rằng mọi đầu vào đều đúng
-
-B. Erase validation — Xóa kiểm tra dữ liệu
-
-C. Check the result and limitations — Kiểm tra kết quả và giới hạn
-
-D. Ignore edge cases — Bỏ qua trường hợp biên
+D. Counting gives quantity; product lists pairs — Đếm cho số lượng còn product liệt kê cặp
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Câu có giá trị True hoặc False | Câu có giá trị True hoặc False |
-| Q2 | **A** | It is Liệt kê kết quả ứng với mọi tổ hợp logic | Liệt kê kết quả ứng với mọi tổ hợp logic |
-| Q3 | **D** | It is Quan hệ P⇒Q tương đương (not P) or Q | Quan hệ P⇒Q tương đương (not P) or Q |
-| Q4 | **C** | It is Đếm số khả năng khi ghép lựa chọn | Đếm số khả năng khi ghép lựa chọn |
-| Q5 | **B** | It is used to Ghép điều kiện, chọn ít nhất một hoặc phủ định | Ghép điều kiện, chọn ít nhất một hoặc phủ định |
-| Q6 | **A** | It is used to Biểu diễn phép kéo theo P⇒Q | Biểu diễn phép kéo theo P⇒Q |
-| Q7 | **D** | It is used to Tạo tích Descartes của hai tập tùy chọn | Tạo tích Descartes của hai tập tùy chọn |
-| Q8 | **C** | It is used to Nhân số lựa chọn từng bước độc lập | Nhân số lựa chọn từng bước độc lập |
-| Q9 | **B** | Because Dùng and để đòi cả đăng nhập và xác minh | Dùng and để đòi cả đăng nhập và xác minh |
-| Q10 | **A** | Because Quét bốn tổ hợp của hai mệnh đề | Quét bốn tổ hợp của hai mệnh đề |
-| Q11 | **D** | Because Phép kéo theo chỉ sai khi P đúng nhưng Q sai | Phép kéo theo chỉ sai khi P đúng nhưng Q sai |
-| Q12 | **C** | Because Nguyên lý nhân đếm số tổ hợp | Nguyên lý nhân đếm số tổ hợp |
-| Q13 | **B** | Because product liệt kê từng cặp màu và size | product liệt kê từng cặp màu và size |
-| Q14 | **A** | The data are Hai cờ Boolean | Hai cờ Boolean |
-| Q15 | **D** | The data are P và Q nhận True/False | P và Q nhận True/False |
-| Q16 | **C** | The data are P đúng, Q sai | P đúng, Q sai |
-| Q17 | **B** | The data are 3 màu và 4 cỡ áo | 3 màu và 4 cỡ áo |
-| Q18 | **A** | The data are 2 màu và 2 size | 2 màu và 2 size |
-| Q19 | **D** | Meaning of rows, columns and units | Ý nghĩa hàng, cột và đơn vị |
-| Q20 | **C** | Check the result and limitations | Kiểm tra kết quả và giới hạn |
+| Q1 | **A** | A statement with a truth value | Phát biểu có giá trị đúng sai |
+| Q2 | **B** | False | False |
+| Q3 | **C** | When both are true | Khi cả hai đúng |
+| Q4 | **D** | When both false | Khi cả hai sai |
+| Q5 | **A** | 4 | 4 |
+| Q6 | **B** | (not p) or q | (not p) or q |
+| Q7 | **C** | p true and q false | p đúng q sai |
+| Q8 | **D** | All cross-product tuples | Tất cả bộ kết hợp giữa các nguồn |
+| Q9 | **A** | The account is not verified | Tài khoản chưa xác minh |
+| Q10 | **B** | False | False |
+| Q11 | **C** | True | True |
+| Q12 | **D** | False | False |
+| Q13 | **A** | 12 | 12 |
+| Q14 | **B** | Each option has the stated number of following choices | Mỗi lựa chọn có đủ số lựa chọn bước tiếp |
+| Q15 | **C** | 4 | 4 |
+| Q16 | **D** | All logical input combinations | Mọi tổ hợp đầu vào logic |
+| Q17 | **A** | not p | not p |
+| Q18 | **B** | True | True |
+| Q19 | **C** | 4 | 4 |
+| Q20 | **D** | Counting gives quantity; product lists pairs | Đếm cho số lượng còn product liệt kê cặp |
 
 ## 8. Nối sang bài tiếp
 
