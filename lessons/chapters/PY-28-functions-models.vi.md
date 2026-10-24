@@ -29,7 +29,7 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 | `np.polyval(coefficients,x)` | Đánh giá đa thức theo hệ số cao xuống thấp |
 | `np.exp(x)/base**x` | Hàm mũ; cẩn thận overflow và miền thực |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. Linear function
 
@@ -40,6 +40,12 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 ```python
 def f(x):return 2*x+5
 print(f(3))
+```
+
+**Kết quả khi chạy:**
+
+```text
+11
 ```
 
 **Tự kiểm tra:** Linear function là gì? **Đáp án:** Đường thẳng có tốc độ thay đổi hằng số.
@@ -54,6 +60,12 @@ Hàm chứa x², đồ thị là parabol khi hệ số bậc hai khác 0.
 print(2**2-3*2+1)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+-1
+```
+
 **Tự kiểm tra:** Quadratic là gì? **Đáp án:** Hàm chứa x², đồ thị là parabol khi hệ số bậc hai khác 0.
 
 ### 4.3. Polynomial
@@ -66,6 +78,12 @@ Tổng các lũy thừa nguyên không âm của x.
 print(3**3-2*3**2+3)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+12
+```
+
 **Tự kiểm tra:** Polynomial là gì? **Đáp án:** Tổng các lũy thừa nguyên không âm của x.
 
 ### 4.4. Exponential
@@ -76,6 +94,12 @@ Biến nằm trong số mũ, thường mô tả tăng/giảm theo tỷ lệ.
 
 ```python
 print(2**4)
+```
+
+**Kết quả khi chạy:**
+
+```text
+16
 ```
 
 **Tự kiểm tra:** Exponential là gì? **Đáp án:** Biến nằm trong số mũ, thường mô tả tăng/giảm theo tỷ lệ.
@@ -94,8 +118,15 @@ print(2**4)
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
 ```python
-km=3;total=10000+5000*km
+km=3
+total=10000+5000*km
 print(total)
+```
+
+**Kết quả khi chạy:**
+
+```text
+25000
 ```
 
 
@@ -116,6 +147,12 @@ cost=2*load**2+3*load+10
 print(cost)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+54
+```
+
 
 ### Tình huống 3 — Dự báo từ đa thức mô phỏng
 
@@ -131,6 +168,12 @@ print(cost)
 ```python
 import numpy as np
 print(np.polyval([1,0,2],np.array([0,1,2])))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[2 3 6]
 ```
 
 
@@ -150,6 +193,12 @@ start,rate,periods=1000,0.05,3
 print(round(start*(1+rate)**periods,2))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+1157.63
+```
+
 
 ### Tình huống 5 — Vẽ đường tuyến tính dữ liệu
 
@@ -167,6 +216,12 @@ import numpy as np
 x=np.linspace(0,10,5)
 y=2*x+5
 print(list(zip(x,y)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[(np.float64(0.0), np.float64(5.0)), (np.float64(2.5), np.float64(10.0)), (np.float64(5.0), np.float64(15.0)), (np.float64(7.5), np.float64(20.0)), (np.float64(10.0), np.float64(25.0))]
 ```
 
 
