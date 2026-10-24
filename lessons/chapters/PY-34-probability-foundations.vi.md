@@ -29,401 +29,464 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 | `np.random.default_rng(seed)` | Tạo bộ sinh ngẫu nhiên tái lập |
 | `np.mean(condition)` | Ước lượng tỷ lệ đúng trong mô phỏng |
 
-## 4. Khái niệm liên quan, ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Experiment
+**Mạch kiến thức:** Từ một phép thử ta xác định không gian mẫu chứa mọi kết quả, chọn một tập con là biến cố, rồi mới tính xác suất dựa trên giả định đồng khả năng hoặc dựa vào phân phối đã biết. Mô phỏng cho tần suất quan sát, không thay thế xác suất lý thuyết.
 
-**Từ vựng trong mục:** **Experiment** — phép thử.
+### 4.1. Experiment — Phép thử và kết quả ngẫu nhiên
 
-Thao tác có kết quả quan sát được. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+**Từ vựng:** **Experiment** — phép thử; **Outcome** — kết quả.
 
-```python
-import random
-print(random.choice([0,1]))
-```
-
-**Tự kiểm tra:** Experiment là gì? **Đáp án:** Thao tác có kết quả quan sát được.
-
-### 4.2. Sample space
-
-**Từ vựng trong mục:** **Sample space** — không gian mẫu.
-
-Tập mọi kết quả khả dĩ. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
-
-```python
-print(set(range(1,7)))
-```
-
-**Tự kiểm tra:** Sample space là gì? **Đáp án:** Tập mọi kết quả khả dĩ.
-
-### 4.3. Event
-
-**Từ vựng trong mục:** **Event** — biến cố.
-
-Nhóm kết quả được quan tâm. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
-
-```python
-print({2,4,6})
-```
-
-**Tự kiểm tra:** Event là gì? **Đáp án:** Nhóm kết quả được quan tâm.
-
-### 4.4. Probability
-
-**Từ vựng trong mục:** **Probability** — xác suất.
-
-Mức khả năng xảy ra một biến cố, từ 0 tới 1. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
-
-```python
-print(3/6)
-```
-
-**Tự kiểm tra:** Probability là gì? **Đáp án:** Mức khả năng xảy ra một biến cố, từ 0 tới 1.
-
-## 5. Năm tình huống thực tế
-
-### Tình huống 1 — Xác suất xúc xắc chẵn
-
-**Từ vựng trong mục:** **Experiment** — phép thử.
-
-**Tình huống thực tế:** Một nhóm phát triển AI cần xác suất xúc xắc chẵn để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Xúc xắc công bằng có mặt 1..6. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
-
-**Vì sao chọn phương pháp này?** Ba mặt chẵn trong sáu mặt đồng khả năng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
-
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
-
-```python
-space=set(range(1,7));even={2,4,6}
-print(len(even)/len(space))
-```
-
-
-### Tình huống 2 — Mô phỏng tung đồng xu
-
-**Từ vựng trong mục:** **Sample space** — không gian mẫu.
-
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần mô phỏng tung đồng xu để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 1000 lần tung giả lập. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
-
-**Vì sao chọn phương pháp này?** Đếm tỷ lệ mặt sấp khi có nhiều lần thử. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
-
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Phép thử ngẫu nhiên** là thao tác có những kết quả khả dĩ biết trước, nhưng không biết chắc kết quả của **một lần thử**. Tung một đồng xu công bằng là ví dụ: kết quả có thể là ngửa hoặc sấp; mỗi lần chỉ xuất hiện một mặt. Để minh họa mà không in kết quả thất thường, tạo số ngẫu nhiên bằng `np.random.default_rng(seed)` giúp **tái lập cùng chuỗi giả ngẫu nhiên**, nhưng seed không biến thử nghiệm thành không ngẫu nhiên trong lý thuyết.
 
 ```python
 import numpy as np
-rng=np.random.default_rng(42)
-tosses=rng.integers(0,2,size=1000)
-print(tosses.mean())
+
+rng = np.random.default_rng(42)
+print(rng.integers(0, 2, size=5).tolist())
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 3 — Hai xúc xắc tổng bằng 9
+```text
+[0, 1, 1, 0, 0]
+```
 
-**Từ vựng trong mục:** **Event** — biến cố.
+Năm kết quả mô phỏng 0/1 với seed 42 tái lập được trong phiên bản NumPy tương thích.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần hai xúc xắc tổng bằng 9 để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Hai xúc xắc công bằng độc lập. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### 4.2. Sample space — Liệt kê toàn bộ kết quả có thể
 
-**Vì sao chọn phương pháp này?** Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Từ vựng:** **Sample space** — không gian mẫu; **Outcome** — phần tử mẫu.
 
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Không gian mẫu** Ω chứa toàn bộ kết quả có thể của phép thử. Với xúc xắc sáu mặt chuẩn, Ω=`{1,2,3,4,5,6}`; mỗi số chỉ là **một kết quả**, chưa phải xác suất. Đếm `len(Ω)=6` cho biết số trường hợp khả dĩ. Chỉ khi xúc xắc **công bằng** ta mới giả định cả sáu mặt đồng xác suất `1/6`. Set không bảo đảm thứ tự hiển thị nên in qua `sorted()`.
 
 ```python
-pairs=[(a,b) for a in range(1,7) for b in range(1,7)]
-print(sum(a+b==9 for a,b in pairs)/len(pairs))
+space = set(range(1, 7))
+print(sorted(space))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 4 — Ước lượng tỷ lệ sự kiện
+```text
+[1, 2, 3, 4, 5, 6]
+```
 
-**Từ vựng trong mục:** **Probability** — xác suất.
+Không gian mẫu của một lần gieo có sáu mặt, được sắp thứ tự để dễ đọc.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần ước lượng tỷ lệ sự kiện để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 10000 lần với xác suất 0.2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### 4.3. Event — Một nhóm kết quả quan tâm
 
-**Vì sao chọn phương pháp này?** Mô phỏng rút ngẫu nhiên với seed để lặp lại. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Từ vựng:** **Event** — biến cố; **Subset** — tập con.
 
+**Biến cố** là một tập con của không gian mẫu. Khi gieo xúc xắc, biến cố `E = ra số chẵn` gồm `{2,4,6}`. Nó không phải một kết quả duy nhất: trong một lần gieo, E xảy ra nếu số được gieo **thuộc** Set E. Gọi `sorted(E)` để hiển thị rõ ba trường hợp; phép kiểm tra `4 in E` cho True.
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+```python
+even = {2, 4, 6}
+print(sorted(even))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[2, 4, 6]
+```
+
+Biến cố ra số chẵn có ba kết quả thuận lợi trong sáu mặt xúc xắc.
+
+### 4.4. Probability — Tỷ lệ khả năng dưới giả định
+
+**Từ vựng:** **Probability** — xác suất; **Equally likely** — đồng khả năng.
+
+**Xác suất** P(E) là số trong `[0,1]` đo khả năng của biến cố E. Khi các phần tử không gian mẫu **đồng khả năng**, `P(E)=số kết quả thuận lợi / số kết quả có thể`. Với xúc xắc công bằng, E là các mặt chẵn `{2,4,6}` nên `P(E)=3/6=0.5`. Nếu xúc xắc lệch, không thể dùng số mặt thuận lợi chia số mặt một cách máy móc: cần xác suất của từng mặt.
+
+```python
+space = set(range(1, 7))
+even = {2, 4, 6}
+print(len(even) / len(space))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.5
+```
+
+Một lần gieo xúc xắc công bằng có xác suất 50% ra mặt chẵn.
+
+## 5. Năm tình huống ứng dụng
+
+### Tình huống 1 — Xác suất ra mặt chẵn của xúc xắc
+
+**Tình huống thực tế:** Trò chơi sử dụng xúc xắc công bằng có sáu mặt đánh số 1 tới 6; người chơi thắng nếu ra mặt chẵn. Tính xác suất thắng trong một lần gieo.
+
+**Vì sao chọn cách giải này?** Sáu mặt đồng khả năng nên xác suất cổ điển là số mặt chẵn chia sáu.
+
+**Quy trình giải:**
+
+1. Liệt kê không gian mẫu sáu mặt và biến cố {2,4,6}.
+2. Đếm số kết quả thuận lợi, số kết quả có thể.
+3. Chia hai số và in xác suất.
+
+```python
+space = set(range(1, 7))
+even = {2, 4, 6}
+print(len(even) / len(space))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.5
+```
+
+Xác suất thắng bằng 0.5 (50%) theo giả định xúc xắc công bằng.
+
+### Tình huống 2 — Mô phỏng 1.000 lần tung đồng xu
+
+**Tình huống thực tế:** Phòng thực hành mô phỏng 1.000 lần tung đồng xu công bằng, mã 1 là ngửa, mã 0 là sấp. Cần xem tỷ lệ ngửa quan sát được và hiểu vì sao nó có thể khác 0.5.
+
+**Vì sao chọn cách giải này?** `default_rng(seed)` giúp kết quả tái lập và trung bình của dãy 0/1 bằng tỷ lệ mặt ngửa.
+
+**Quy trình giải:**
+
+1. Khởi tạo RNG seed 42.
+2. Sinh 1.000 số 0 hoặc 1.
+3. Tính tỷ lệ số 1 và làm tròn ba chữ số.
 
 ```python
 import numpy as np
-r=np.random.default_rng(1)
-print(np.mean(r.random(10000)<.2))
+
+rng = np.random.default_rng(42)
+tosses = rng.integers(0, 2, size=1000)
+print(round(float(tosses.mean()), 3))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 5 — So lý thuyết với thực nghiệm
+```text
+0.509
+```
 
-**Từ vựng trong mục:** **Experiment** — phép thử.
+Tỷ lệ mô phỏng khoảng 50.9%, không bắt buộc bằng xác suất lý thuyết 50%.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần so lý thuyết với thực nghiệm để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Đồng xu công bằng, 100 và 10000 lần. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 3 — Xác suất tổng hai xúc xắc bằng chín
 
-**Vì sao chọn phương pháp này?** Số lượt thử tăng khiến ước lượng thường ổn định hơn. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Tình huống thực tế:** Hai xúc xắc công bằng được gieo độc lập. Mỗi kết quả là **cặp có thứ tự** `(a,b)`, mỗi giá trị từ 1 đến 6. Người chơi thắng nếu tổng hai mặt bằng 9.
 
+**Vì sao chọn cách giải này?** Hai xúc xắc cho 6×6=36 cặp đồng khả năng, trong đó có bốn cặp cộng thành 9.
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Quy trình giải:**
+
+1. Liệt kê mọi cặp a,b bằng hai vòng for.
+2. Đếm những cặp có tổng bằng 9.
+3. Chia cho 36 và làm tròn ba chữ số.
+
+```python
+pairs = [(a, b) for a in range(1, 7) for b in range(1, 7)]
+valid = sum(a + b == 9 for a, b in pairs)
+print(round(valid / len(pairs), 3))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.111
+```
+
+Có bốn cặp thắng trên 36 cặp, xác suất bằng khoảng 11.1%.
+
+### Tình huống 4 — Ước lượng tỷ lệ sự kiện hiếm
+
+**Tình huống thực tế:** Một ứng dụng giả lập 10.000 lượt, mỗi lượt có xác suất 0.2 phát sinh sự kiện và các lượt độc lập. Đội phân tích cần biết tỷ lệ thực tế trong một lần mô phỏng.
+
+**Vì sao chọn cách giải này?** So sánh số ngẫu nhiên đều với 0.2 mô phỏng Bernoulli; trung bình Boolean là tỷ lệ sự kiện xảy ra.
+
+**Quy trình giải:**
+
+1. Khởi tạo RNG seed 1, sinh 10.000 số trong [0,1).
+2. Đánh dấu sự kiện khi số nhỏ hơn 0.2.
+3. Lấy trung bình và làm tròn ba chữ số.
 
 ```python
 import numpy as np
-r=np.random.default_rng(7)
-for n in [100,10000]:
-    print(n,(r.integers(0,2,n)==1).mean())
+
+rng = np.random.default_rng(1)
+events = rng.random(10000) < 0.2
+print(round(float(events.mean()), 3))
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Những nhầm lẫn thường gặp
+```text
+0.2
+```
 
-Xác suất có điều kiện cần mẫu nền; xác suất của phân phối liên tục tại một điểm không phải PDF; thống kê từ một nhóm nhỏ không tự chứng minh kết quả cho quần thể. Chú ý định nghĩa mean/std và giả định độc lập.
+Tỷ lệ mô phỏng gần 20% theo giả định; seed cho kết quả có thể tái lập.
+
+### Tình huống 5 — So mô phỏng ít lượt và nhiều lượt
+
+**Tình huống thực tế:** Một đồng xu công bằng được mô phỏng hai nhóm liên tiếp: 100 lượt rồi 10.000 lượt, cùng bộ sinh seed 7. Cần so độ chênh lệch tỷ lệ mặt ngửa so với 0.5.
+
+**Vì sao chọn cách giải này?** Số lượt lớn thường cho ước lượng ổn định hơn về mặt thống kê, nhưng không đảm bảo từng lần chạy đều gần hơn.
+
+**Quy trình giải:**
+
+1. Khởi tạo một RNG cố định seed 7.
+2. Lần lượt sinh 100 và 10.000 lần, mỗi lần tính tỷ lệ mã 1.
+3. In kích thước và tỷ lệ làm tròn ba chữ số.
+
+```python
+import numpy as np
+
+rng = np.random.default_rng(7)
+for count in [100, 10000]:
+    tosses = rng.integers(0, 2, size=count)
+    print(count, round(float(tosses.mean()), 3))
+```
+
+**Kết quả khi chạy:**
+
+```text
+100 0.56
+10000 0.493
+```
+
+Mẫu lớn ở lần chạy này gần 0.5 hơn, nhưng đó là quan sát mô phỏng chứ không phải định luật đúng cho mọi lần.
+
+## 6. Sai lầm thường gặp
+
+- Phép thử không giống biến cố: phép thử tạo kết quả, biến cố là nhóm kết quả được quan tâm.
+- Công thức số kết quả thuận lợi chia tổng kết quả chỉ đúng với các kết quả **đồng khả năng**.
+- Trong mô phỏng, tỷ lệ quan sát có thể khác xác suất thật ngay cả khi seed cố định.
+- `np.random.default_rng(seed)` giúp tái lập trong môi trường tương thích, không đảm bảo mẫu luôn đúng tỷ lệ lý thuyết.
+- Set không có thứ tự cố định, nên in bằng `sorted` nếu cần đối chiếu đầu ra.
+- Khi số mẫu tăng, độ dao động của ước lượng thường giảm, không bắt buộc mỗi lần chạy đều gần hơn.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Q1. What is a random experiment? — Phép thử ngẫu nhiên là gì?**
 
+A. A repeatable procedure with uncertain individual outcome — Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-**Q1. What is Experiment? — Thuật ngữ Experiment là gì?**
+B. Set of all possible outcomes — Tập tất cả kết quả có thể
 
-A. Another concept means Tập mọi kết quả khả dĩ — Tập mọi kết quả khả dĩ
+C. A subset of the sample space — Một tập con của không gian mẫu
 
-B. It means Thao tác có kết quả quan sát được — Thao tác có kết quả quan sát được
+D. A measure between zero and one of an event's chance — Thước đo từ 0 đến 1 cho khả năng biến cố
 
-C. Another concept means Nhóm kết quả được quan tâm — Nhóm kết quả được quan tâm
+**Q2. What is a sample space? — Không gian mẫu là gì?**
 
-D. Another concept means Mức khả năng xảy ra một biến cố, từ 0 tới 1 — Mức khả năng xảy ra một biến cố, từ 0 tới 1
+A. A repeatable procedure with uncertain individual outcome — Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
+B. Set of all possible outcomes — Tập tất cả kết quả có thể
 
-**Q2. What is Sample space? — Thuật ngữ Sample space là gì?**
+C. A subset of the sample space — Một tập con của không gian mẫu
 
-A. It means Tập mọi kết quả khả dĩ — Tập mọi kết quả khả dĩ
+D. A measure between zero and one of an event's chance — Thước đo từ 0 đến 1 cho khả năng biến cố
 
-B. Another concept means Nhóm kết quả được quan tâm — Nhóm kết quả được quan tâm
+**Q3. What is an event? — Biến cố là gì?**
 
-C. Another concept means Mức khả năng xảy ra một biến cố, từ 0 tới 1 — Mức khả năng xảy ra một biến cố, từ 0 tới 1
+A. A repeatable procedure with uncertain individual outcome — Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-D. Another concept means Thao tác có kết quả quan sát được — Thao tác có kết quả quan sát được
+B. Set of all possible outcomes — Tập tất cả kết quả có thể
 
+C. A subset of the sample space — Một tập con của không gian mẫu
 
-**Q3. What is Event? — Thuật ngữ Event là gì?**
+D. A measure between zero and one of an event's chance — Thước đo từ 0 đến 1 cho khả năng biến cố
 
-A. Another concept means Mức khả năng xảy ra một biến cố, từ 0 tới 1 — Mức khả năng xảy ra một biến cố, từ 0 tới 1
+**Q4. What is probability? — Xác suất là gì?**
 
-B. Another concept means Thao tác có kết quả quan sát được — Thao tác có kết quả quan sát được
+A. A repeatable procedure with uncertain individual outcome — Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-C. Another concept means Tập mọi kết quả khả dĩ — Tập mọi kết quả khả dĩ
+B. Set of all possible outcomes — Tập tất cả kết quả có thể
 
-D. It means Nhóm kết quả được quan tâm — Nhóm kết quả được quan tâm
+C. A subset of the sample space — Một tập con của không gian mẫu
 
+D. A measure between zero and one of an event's chance — Thước đo từ 0 đến 1 cho khả năng biến cố
 
-**Q4. What is Probability? — Thuật ngữ Probability là gì?**
+**Q5. When does counting favorable outcomes over total outcomes work? — Khi nào chia số trường hợp thuận lợi cho tổng số trường hợp là đúng?**
 
-A. Another concept means Thao tác có kết quả quan sát được — Thao tác có kết quả quan sát được
+A. When outcomes are equally likely — Khi các kết quả đồng khả năng
 
-B. Another concept means Tập mọi kết quả khả dĩ — Tập mọi kết quả khả dĩ
+B. n values of zero or one — n giá trị 0 hoặc 1
 
-C. It means Mức khả năng xảy ra một biến cố, từ 0 tới 1 — Mức khả năng xảy ra một biến cố, từ 0 tới 1
+C. Reproducible pseudorandom sequences — Chuỗi giả ngẫu nhiên tái lập
 
-D. Another concept means Nhóm kết quả được quan tâm — Nhóm kết quả được quan tâm
+D. Fraction of True values — Tỷ lệ các phần tử True
 
+**Q6. What does `rng.integers(0,2,size=n)` generate? — `rng.integers(0,2,size=n)` tạo gì?**
 
-**Q5. What does len(event)/len(space) calculate? — Hàm len(event)/len(space) tính gì?**
+A. When outcomes are equally likely — Khi các kết quả đồng khả năng
 
-A. Another calculation is Rút một phần tử ngẫu nhiên từ danh sách — Rút một phần tử ngẫu nhiên từ danh sách
+B. n values of zero or one — n giá trị 0 hoặc 1
 
-B. It calculates Xác suất cổ điển khi kết quả đồng khả năng — Xác suất cổ điển khi kết quả đồng khả năng
+C. Reproducible pseudorandom sequences — Chuỗi giả ngẫu nhiên tái lập
 
-C. Another calculation is Tạo bộ sinh ngẫu nhiên tái lập — Tạo bộ sinh ngẫu nhiên tái lập
+D. Fraction of True values — Tỷ lệ các phần tử True
 
-D. Another calculation is Ước lượng tỷ lệ đúng trong mô phỏng — Ước lượng tỷ lệ đúng trong mô phỏng
+**Q7. What does `default_rng(seed)` provide? — `default_rng(seed)` cung cấp gì?**
 
+A. When outcomes are equally likely — Khi các kết quả đồng khả năng
 
-**Q6. What does random.choice(values) calculate? — Hàm random.choice(values) tính gì?**
+B. n values of zero or one — n giá trị 0 hoặc 1
 
-A. It calculates Rút một phần tử ngẫu nhiên từ danh sách — Rút một phần tử ngẫu nhiên từ danh sách
+C. Reproducible pseudorandom sequences — Chuỗi giả ngẫu nhiên tái lập
 
-B. Another calculation is Tạo bộ sinh ngẫu nhiên tái lập — Tạo bộ sinh ngẫu nhiên tái lập
+D. Fraction of True values — Tỷ lệ các phần tử True
 
-C. Another calculation is Ước lượng tỷ lệ đúng trong mô phỏng — Ước lượng tỷ lệ đúng trong mô phỏng
+**Q8. What does `np.mean(mask)` compute for Boolean mask? — `np.mean(mask)` tính gì với mặt nạ Boolean?**
 
-D. Another calculation is Xác suất cổ điển khi kết quả đồng khả năng — Xác suất cổ điển khi kết quả đồng khả năng
+A. When outcomes are equally likely — Khi các kết quả đồng khả năng
 
+B. n values of zero or one — n giá trị 0 hoặc 1
 
-**Q7. What does np.random.default_rng(seed) calculate? — Hàm np.random.default_rng(seed) tính gì?**
+C. Reproducible pseudorandom sequences — Chuỗi giả ngẫu nhiên tái lập
 
-A. Another calculation is Ước lượng tỷ lệ đúng trong mô phỏng — Ước lượng tỷ lệ đúng trong mô phỏng
+D. Fraction of True values — Tỷ lệ các phần tử True
 
-B. Another calculation is Xác suất cổ điển khi kết quả đồng khả năng — Xác suất cổ điển khi kết quả đồng khả năng
+**Q9. What is P(even) for a fair six-sided die? — Xác suất mặt chẵn của xúc xắc công bằng sáu mặt?**
 
-C. Another calculation is Rút một phần tử ngẫu nhiên từ danh sách — Rút một phần tử ngẫu nhiên từ danh sách
+A. `1/2` — `1/2`
 
-D. It calculates Tạo bộ sinh ngẫu nhiên tái lập — Tạo bộ sinh ngẫu nhiên tái lập
+B. 36 — 36
 
+C. 4 — 4
 
-**Q8. What does np.mean(condition) calculate? — Hàm np.mean(condition) tính gì?**
+D. Zero — Bằng 0
 
-A. Another calculation is Xác suất cổ điển khi kết quả đồng khả năng — Xác suất cổ điển khi kết quả đồng khả năng
+**Q10. How many outcomes are possible with two ordered six-sided dice? — Hai xúc xắc sáu mặt theo cặp có thứ tự có bao nhiêu kết quả?**
 
-B. Another calculation is Rút một phần tử ngẫu nhiên từ danh sách — Rút một phần tử ngẫu nhiên từ danh sách
+A. `1/2` — `1/2`
 
-C. It calculates Ước lượng tỷ lệ đúng trong mô phỏng — Ước lượng tỷ lệ đúng trong mô phỏng
+B. 36 — 36
 
-D. Another calculation is Tạo bộ sinh ngẫu nhiên tái lập — Tạo bộ sinh ngẫu nhiên tái lập
+C. 4 — 4
 
+D. Zero — Bằng 0
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn phương pháp trong tình huống 1?**
+**Q11. How many ordered pairs of dice sum to nine? — Bao nhiêu cặp có thứ tự của hai xúc xắc có tổng 9?**
 
-A. Đếm tỷ lệ mặt sấp khi có nhiều lần thử — Đếm tỷ lệ mặt sấp khi có nhiều lần thử
+A. `1/2` — `1/2`
 
-B. Ba mặt chẵn trong sáu mặt đồng khả năng — Ba mặt chẵn trong sáu mặt đồng khả năng
+B. 36 — 36
 
-C. Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả — Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả
+C. 4 — 4
 
-D. Mô phỏng rút ngẫu nhiên với seed để lặp lại — Mô phỏng rút ngẫu nhiên với seed để lặp lại
+D. Zero — Bằng 0
 
+**Q12. What is the probability of the empty event? — Xác suất biến cố rỗng là gì?**
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn phương pháp trong tình huống 2?**
+A. `1/2` — `1/2`
 
-A. Đếm tỷ lệ mặt sấp khi có nhiều lần thử — Đếm tỷ lệ mặt sấp khi có nhiều lần thử
+B. 36 — 36
 
-B. Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả — Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả
+C. 4 — 4
 
-C. Mô phỏng rút ngẫu nhiên với seed để lặp lại — Mô phỏng rút ngẫu nhiên với seed để lặp lại
+D. Zero — Bằng 0
 
-D. Số lượt thử tăng khiến ước lượng thường ổn định hơn — Số lượt thử tăng khiến ước lượng thường ổn định hơn
+**Q13. What is the probability of the entire sample space? — Xác suất của cả không gian mẫu là gì?**
 
+A. One — Bằng 1
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn phương pháp trong tình huống 3?**
+B. `1-P(A)` — `1-P(A)`
 
-A. Mô phỏng rút ngẫu nhiên với seed để lặp lại — Mô phỏng rút ngẫu nhiên với seed để lặp lại
+C. No, sampling variation occurs — Không, có dao động do lấy mẫu
 
-B. Số lượt thử tăng khiến ước lượng thường ổn định hơn — Số lượt thử tăng khiến ước lượng thường ổn định hơn
+D. One die's result does not change probabilities of the other — Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
-C. Ba mặt chẵn trong sáu mặt đồng khả năng — Ba mặt chẵn trong sáu mặt đồng khả năng
+**Q14. What is P(not A) in terms of P(A)? — P(không A) theo P(A) là gì?**
 
-D. Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả — Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả
+A. One — Bằng 1
 
+B. `1-P(A)` — `1-P(A)`
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn phương pháp trong tình huống 4?**
+C. No, sampling variation occurs — Không, có dao động do lấy mẫu
 
-A. Số lượt thử tăng khiến ước lượng thường ổn định hơn — Số lượt thử tăng khiến ước lượng thường ổn định hơn
+D. One die's result does not change probabilities of the other — Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
-B. Ba mặt chẵn trong sáu mặt đồng khả năng — Ba mặt chẵn trong sáu mặt đồng khả năng
+**Q15. Does a simulation always equal the true probability exactly? — Tỷ lệ mô phỏng có luôn bằng xác suất thật?**
 
-C. Mô phỏng rút ngẫu nhiên với seed để lặp lại — Mô phỏng rút ngẫu nhiên với seed để lặp lại
+A. One — Bằng 1
 
-D. Đếm tỷ lệ mặt sấp khi có nhiều lần thử — Đếm tỷ lệ mặt sấp khi có nhiều lần thử
+B. `1-P(A)` — `1-P(A)`
 
+C. No, sampling variation occurs — Không, có dao động do lấy mẫu
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn phương pháp trong tình huống 5?**
+D. One die's result does not change probabilities of the other — Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
-A. Ba mặt chẵn trong sáu mặt đồng khả năng — Ba mặt chẵn trong sáu mặt đồng khả năng
+**Q16. What does independence of two dice mean? — Hai xúc xắc độc lập nghĩa là gì?**
 
-B. Số lượt thử tăng khiến ước lượng thường ổn định hơn — Số lượt thử tăng khiến ước lượng thường ổn định hơn
+A. One — Bằng 1
 
-C. Đếm tỷ lệ mặt sấp khi có nhiều lần thử — Đếm tỷ lệ mặt sấp khi có nhiều lần thử
+B. `1-P(A)` — `1-P(A)`
 
-D. Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả — Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả
+C. No, sampling variation occurs — Không, có dao động do lấy mẫu
 
+D. One die's result does not change probabilities of the other — Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
-**Q14. Which input is from scenario 1? — Dữ liệu nào thuộc tình huống 1?**
+**Q17. Why is printing a Set directly fragile for sample output? — Vì sao in trực tiếp Set khó đối chiếu đầu ra mẫu?**
 
-A. The input is Xúc xắc công bằng có mặt 1..6 — Xúc xắc công bằng có mặt 1..6
+A. Display order is not promised — Thứ tự hiển thị không được đảm bảo
 
-B. Another input is 1000 lần tung giả lập — 1000 lần tung giả lập
+B. That empirical frequency equals theoretical probability — Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-C. Another input is Hai xúc xắc công bằng độc lập — Hai xúc xắc công bằng độc lập
+C. It tends to reduce sampling variability — Thường làm giảm dao động lấy mẫu
 
-D. Another input is 10000 lần với xác suất 0.2 — 10000 lần với xác suất 0.2
+D. Its faces do not have equal probabilities — Các mặt không đồng xác suất
 
+**Q18. What does a fixed RNG seed not guarantee? — Seed RNG cố định không bảo đảm điều gì?**
 
-**Q15. Which input is from scenario 2? — Dữ liệu nào thuộc tình huống 2?**
+A. Display order is not promised — Thứ tự hiển thị không được đảm bảo
 
-A. Another input is Hai xúc xắc công bằng độc lập — Hai xúc xắc công bằng độc lập
+B. That empirical frequency equals theoretical probability — Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-B. Another input is 10000 lần với xác suất 0.2 — 10000 lần với xác suất 0.2
+C. It tends to reduce sampling variability — Thường làm giảm dao động lấy mẫu
 
-C. Another input is Đồng xu công bằng, 100 và 10000 lần — Đồng xu công bằng, 100 và 10000 lần
+D. Its faces do not have equal probabilities — Các mặt không đồng xác suất
 
-D. The input is 1000 lần tung giả lập — 1000 lần tung giả lập
+**Q19. How does larger sample size generally affect estimate variability? — Tăng số mẫu thường ảnh hưởng độ dao động ước lượng thế nào?**
 
+A. Display order is not promised — Thứ tự hiển thị không được đảm bảo
 
-**Q16. Which input is from scenario 3? — Dữ liệu nào thuộc tình huống 3?**
+B. That empirical frequency equals theoretical probability — Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-A. Another input is 10000 lần với xác suất 0.2 — 10000 lần với xác suất 0.2
+C. It tends to reduce sampling variability — Thường làm giảm dao động lấy mẫu
 
-B. Another input is Đồng xu công bằng, 100 và 10000 lần — Đồng xu công bằng, 100 và 10000 lần
+D. Its faces do not have equal probabilities — Các mặt không đồng xác suất
 
-C. The input is Hai xúc xắc công bằng độc lập — Hai xúc xắc công bằng độc lập
+**Q20. Why can't a biased die use simple favorable-count ratios? — Vì sao xúc xắc lệch không dùng phép đếm mặt đơn giản?**
 
-D. Another input is Xúc xắc công bằng có mặt 1..6 — Xúc xắc công bằng có mặt 1..6
+A. Display order is not promised — Thứ tự hiển thị không được đảm bảo
 
+B. That empirical frequency equals theoretical probability — Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-**Q17. Which input is from scenario 4? — Dữ liệu nào thuộc tình huống 4?**
+C. It tends to reduce sampling variability — Thường làm giảm dao động lấy mẫu
 
-A. Another input is Đồng xu công bằng, 100 và 10000 lần — Đồng xu công bằng, 100 và 10000 lần
-
-B. The input is 10000 lần với xác suất 0.2 — 10000 lần với xác suất 0.2
-
-C. Another input is Xúc xắc công bằng có mặt 1..6 — Xúc xắc công bằng có mặt 1..6
-
-D. Another input is 1000 lần tung giả lập — 1000 lần tung giả lập
-
-
-**Q18. Which input is from scenario 5? — Dữ liệu nào thuộc tình huống 5?**
-
-A. The input is Đồng xu công bằng, 100 và 10000 lần — Đồng xu công bằng, 100 và 10000 lần
-
-B. Another input is Xúc xắc công bằng có mặt 1..6 — Xúc xắc công bằng có mặt 1..6
-
-C. Another input is 1000 lần tung giả lập — 1000 lần tung giả lập
-
-D. Another input is Hai xúc xắc công bằng độc lập — Hai xúc xắc công bằng độc lập
-
-
-**Q19. What must a statistical report mention? — Báo cáo thống kê cần nêu gì?**
-
-A. Only plot colors — Chỉ màu biểu đồ
-
-B. Only a filename — Chỉ tên tệp
-
-C. Only code line count — Chỉ số dòng code
-
-D. Assumptions, units and sample size — Giả định, đơn vị và kích thước mẫu
-
-
-**Q20. What makes a numerical result reliable? — Điều gì làm kết quả số đáng tin?**
-
-A. Assuming all data independent — Cho rằng mọi dữ liệu độc lập
-
-B. Deleting verification — Xóa bước xác minh
-
-C. Checking assumptions and edge cases — Kiểm tra giả định và trường hợp biên
-
-D. Ignoring missing inputs — Bỏ dữ liệu thiếu mà không đánh giá
+D. Its faces do not have equal probabilities — Các mặt không đồng xác suất
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It means Thao tác có kết quả quan sát được | Thao tác có kết quả quan sát được |
-| Q2 | **A** | It means Tập mọi kết quả khả dĩ | Tập mọi kết quả khả dĩ |
-| Q3 | **D** | It means Nhóm kết quả được quan tâm | Nhóm kết quả được quan tâm |
-| Q4 | **C** | It means Mức khả năng xảy ra một biến cố, từ 0 tới 1 | Mức khả năng xảy ra một biến cố, từ 0 tới 1 |
-| Q5 | **B** | It calculates Xác suất cổ điển khi kết quả đồng khả năng | Xác suất cổ điển khi kết quả đồng khả năng |
-| Q6 | **A** | It calculates Rút một phần tử ngẫu nhiên từ danh sách | Rút một phần tử ngẫu nhiên từ danh sách |
-| Q7 | **D** | It calculates Tạo bộ sinh ngẫu nhiên tái lập | Tạo bộ sinh ngẫu nhiên tái lập |
-| Q8 | **C** | It calculates Ước lượng tỷ lệ đúng trong mô phỏng | Ước lượng tỷ lệ đúng trong mô phỏng |
-| Q9 | **B** | Ba mặt chẵn trong sáu mặt đồng khả năng | Ba mặt chẵn trong sáu mặt đồng khả năng |
-| Q10 | **A** | Đếm tỷ lệ mặt sấp khi có nhiều lần thử | Đếm tỷ lệ mặt sấp khi có nhiều lần thử |
-| Q11 | **D** | Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả | Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả |
-| Q12 | **C** | Mô phỏng rút ngẫu nhiên với seed để lặp lại | Mô phỏng rút ngẫu nhiên với seed để lặp lại |
-| Q13 | **B** | Số lượt thử tăng khiến ước lượng thường ổn định hơn | Số lượt thử tăng khiến ước lượng thường ổn định hơn |
-| Q14 | **A** | The input is Xúc xắc công bằng có mặt 1..6 | Xúc xắc công bằng có mặt 1..6 |
-| Q15 | **D** | The input is 1000 lần tung giả lập | 1000 lần tung giả lập |
-| Q16 | **C** | The input is Hai xúc xắc công bằng độc lập | Hai xúc xắc công bằng độc lập |
-| Q17 | **B** | The input is 10000 lần với xác suất 0.2 | 10000 lần với xác suất 0.2 |
-| Q18 | **A** | The input is Đồng xu công bằng, 100 và 10000 lần | Đồng xu công bằng, 100 và 10000 lần |
-| Q19 | **D** | Assumptions, units and sample size | Giả định, đơn vị và kích thước mẫu |
-| Q20 | **C** | Checking assumptions and edge cases | Kiểm tra giả định và trường hợp biên |
+| Q1 | **A** | The procedure can produce different outcomes. | Phép thử có thể sinh kết quả khác nhau. |
+| Q2 | **B** | The sample space contains all possible outcomes. | Không gian mẫu chứa mọi kết quả khả dĩ. |
+| Q3 | **C** | An event is a collection of outcomes. | Biến cố là một nhóm kết quả. |
+| Q4 | **D** | Probabilities range from zero to one. | Xác suất trong đoạn 0 đến 1. |
+| Q5 | **A** | Counting assumes equal outcome probabilities. | Đếm cổ điển đòi hỏi các kết quả đồng khả năng. |
+| Q6 | **B** | Upper bound two excludes two, leaving zero and one. | Cận trên 2 không lấy 2, chỉ còn 0 và 1. |
+| Q7 | **C** | A seed controls a reproducible pseudorandom stream. | Seed điều khiển chuỗi giả ngẫu nhiên tái lập. |
+| Q8 | **D** | True counts as one and False as zero. | True tính như 1, False tính như 0. |
+| Q9 | **A** | Three of six faces are even. | Ba trong sáu mặt là số chẵn. |
+| Q10 | **B** | Two independent dice have 6×6 ordered outcomes. | Hai xúc xắc có 6×6 cặp có thứ tự. |
+| Q11 | **C** | The pairs are (3,6), (4,5), (5,4), (6,3). | Bốn cặp là (3,6), (4,5), (5,4), (6,3). |
+| Q12 | **D** | An impossible event has probability zero. | Biến cố không thể có xác suất 0. |
+| Q13 | **A** | A certain event occurs with probability one. | Biến cố chắc chắn có xác suất 1. |
+| Q14 | **B** | Complement probabilities sum to one. | Biến cố và biến cố đối có tổng xác suất 1. |
+| Q15 | **C** | Finite samples fluctuate around the underlying probability. | Mẫu hữu hạn dao động quanh xác suất nền. |
+| Q16 | **D** | Independence means one result gives no probability change for the other. | Độc lập nghĩa là một kết quả không đổi xác suất của biến cố còn lại. |
+| Q17 | **A** | Sets have no guaranteed display order. | Set không bảo đảm thứ tự in. |
+| Q18 | **B** | Seeds reproduce simulations but do not remove sampling noise. | Seed giúp lặp lại mô phỏng nhưng không loại dao động. |
+| Q19 | **C** | Larger samples typically stabilize relative frequencies. | Mẫu lớn thường ổn định tần suất tương đối hơn. |
+| Q20 | **D** | Unequal probabilities require weighted sums. | Xác suất không đều cần cộng theo trọng số. |
 
 ## 8. Liên hệ bài tiếp theo
 
