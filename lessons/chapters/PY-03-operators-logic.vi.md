@@ -107,7 +107,6 @@ price = 250000
 print(price * (1 - 0.10))
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 2 — Xét VIP
 
@@ -126,7 +125,6 @@ years, spending = 5, 1200000
 print(years >= 5 and spending >= 1000000)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 3 — Đóng thùng hàng
 
@@ -145,7 +143,6 @@ items, box_size = 23, 5
 print(items // box_size, items % box_size)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 4 — Đọc cờ thiết bị
 
@@ -164,7 +161,6 @@ status = 0b1010
 print(bool(status & 0b0010))
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 5 — Ưu tiên đơn hàng
 
@@ -183,7 +179,6 @@ amount, delay = 3000000, 0
 print(amount >= 2000000 or delay > 2)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ## 6. Những nhầm lẫn thường gặp
 
