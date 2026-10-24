@@ -29,7 +29,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 | `v/np.linalg.norm(v)` | Chuẩn hóa về độ dài 1, phải tránh norm bằng 0 |
 | `a @ b / np.dot(a,b)` | Tích vô hướng nếu hai vector một chiều cùng độ dài |
 
-## 4. Khái niệm kèm ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Scalar
 
@@ -40,6 +40,12 @@ Một số đơn lẻ có thể đo độ lớn. Trước khi sử dụng biểu
 ```python
 rate=2.5
 print(rate)
+```
+
+**Kết quả khi chạy:**
+
+```text
+2.5
 ```
 
 **Tự kiểm tra:** Scalar có nghĩa gì? **Đáp án:** Một số đơn lẻ có thể đo độ lớn.
@@ -55,6 +61,12 @@ import numpy as np
 print(np.array([3,4]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[3 4]
+```
+
 **Tự kiểm tra:** Vector có nghĩa gì? **Đáp án:** Dãy số mô tả nhiều thành phần của một đối tượng.
 
 ### 4.3. Norm
@@ -66,6 +78,12 @@ print(np.array([3,4]))
 ```python
 import numpy as np
 print(np.linalg.norm([3,4]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+5.0
 ```
 
 **Tự kiểm tra:** Norm có nghĩa gì? **Đáp án:** Độ dài theo chuẩn đã chọn.
@@ -81,6 +99,12 @@ import numpy as np
 print(np.dot([1,2],[3,4]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+11
+```
+
 **Tự kiểm tra:** Dot product có nghĩa gì? **Đáp án:** Nhân từng cặp tọa độ tương ứng rồi cộng.
 
 ## 5. Năm tình huống ứng dụng
@@ -89,12 +113,12 @@ print(np.dot([1,2],[3,4]))
 
 **Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
 
-**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn tính khoảng cách 2D. Bộ dữ liệu đang có: Vị trí điểm [3,4] mét. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Robot di chuyển từ (0,0) tới (3,4) mét. Tính khoảng cách theo đường thẳng.
 
 **Vì sao chọn phương án?** Norm từ véc-tơ độ lệch giúp tính khoảng cách đến gốc; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
@@ -102,23 +126,36 @@ v=np.array([3,4],dtype=float)
 print(np.linalg.norm(v))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+5.0
+```
+
 
 ### Tình huống 2 — Chuẩn hóa hướng di chuyển
 
 **Từ vựng trong mục:** **Vector** — véc-tơ.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chuẩn hóa hướng di chuyển. Bộ dữ liệu đang có: Véc-tơ [3,4] mét. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Robot nhận vector hướng (3,4). Chuẩn hóa thành vector đơn vị để chỉ biểu thị hướng.
 
 **Vì sao chọn phương án?** Chia norm giúp hướng có độ dài 1 trước điều khiển tốc độ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
-v=np.array([3.,4.]);norm=np.linalg.norm(v)
+v=np.array([3.,4.])
+norm=np.linalg.norm(v)
 u=v/norm if norm else v
 print(u)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.6 0.8]
 ```
 
 
@@ -126,17 +163,24 @@ print(u)
 
 **Từ vựng trong mục:** **Norm** — độ lớn véc-tơ.
 
-**Tình huống thực tế:** Một trường học muốn điểm tổng kết có trọng số. Bộ dữ liệu đang có: Điểm 8 7 9; trọng số 0.2,0.3,0.5. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Điểm ba môn của học viên là [8,7,9] theo trọng số [20%,30%,50%]. Tính điểm tổng kết.
 
 **Vì sao chọn phương án?** Dot product của điểm và trọng số tạo điểm tổng; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
-scores=np.array([8,7,9]);weights=np.array([.2,.3,.5])
+scores=np.array([8,7,9])
+weights=np.array([.2,.3,.5])
 print(scores@weights)
+```
+
+**Kết quả khi chạy:**
+
+```text
+8.2
 ```
 
 
@@ -144,17 +188,24 @@ print(scores@weights)
 
 **Từ vựng trong mục:** **Dot product** — tích vô hướng.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tìm hai hướng vuông góc. Bộ dữ liệu đang có: a=[1,0], b=[0,1]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Hai hướng [1,0] và [0,1] cần kiểm tra vuông góc bằng tích vô hướng.
 
 **Vì sao chọn phương án?** Dot bằng 0 cho hai vector khác 0 biểu thị trực giao; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
-a=np.array([1,0]);b=np.array([0,1])
+a=np.array([1,0])
+b=np.array([0,1])
 print(a@b)
+```
+
+**Kết quả khi chạy:**
+
+```text
+0
 ```
 
 
@@ -162,17 +213,24 @@ print(a@b)
 
 **Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
 
-**Tình huống thực tế:** Một hệ thống giám sát muốn tính sai khác cảm biến. Bộ dữ liệu đang có: Hai kênh cảm biến trên cùng đơn vị. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Hai lần đo cảm biến theo cặp cùng đơn vị là (20,30) và (23,34). Tính độ lệch Euclid.
 
 **Vì sao chọn phương án?** Norm của hiệu vector đo mức sai khác tổng hợp; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
-a=np.array([20,30]);b=np.array([23,34])
+a=np.array([20,30])
+b=np.array([23,34])
 print(np.linalg.norm(a-b))
+```
+
+**Kết quả khi chạy:**
+
+```text
+5.0
 ```
 
 
