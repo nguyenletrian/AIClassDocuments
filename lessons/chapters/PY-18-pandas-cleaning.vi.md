@@ -1,6 +1,5 @@
 # PY-18 — Pandas: missing values, duplicates và kiểu dữ liệu
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
