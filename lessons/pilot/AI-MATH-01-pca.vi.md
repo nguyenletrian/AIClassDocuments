@@ -1,6 +1,6 @@
 # PCA — Giảm chiều dữ liệu để nhìn rõ vấn đề trong AI
 
-*AI / Data Science · Tài liệu tự học dành cho sinh viên · Phiên bản góp ý 03*
+*AI / Data Science · Tài liệu tự học dành cho sinh viên · Phiên bản góp ý 05*
 
 ## 1. PCA nằm ở đâu trong chuỗi kiến thức?
 
@@ -171,6 +171,10 @@ print("Shape:", X.shape)  # (5, 5)
 
 **Nối với PCA:** Nếu sau này cửa hàng có **100 khách × 5 feature**, shape là `(100, 5)`. PCA giảm còn hai thành phần chính sẽ cho bảng mới có shape `(100, 2)`: **vẫn 100 khách**, nhưng mỗi khách được biểu diễn bằng **2 tọa độ tổng hợp PC1/PC2**, không phải chọn lại nguyên hai cột gốc. Bảng dữ liệu gốc vẫn cần được lưu nếu muốn xem thông tin chi tiết như số đơn hay chi tiêu.
 
+**Tự kiểm tra nhanh — 4.2:** Một cửa hàng có 20 khách, mỗi khách có 6 feature. Ma trận có shape nào? `X[:, 2]` lấy gì?
+
+**Đáp án gợi ý:** `(20, 6)`; `X[:, 2]` lấy **toàn bộ 20 giá trị của feature ở cột thứ ba** (Python đếm cột từ 0).
+
 ### 4.3. Mean (trung bình), Variance (phương sai), Standardization (chuẩn hóa)
 
 **Nhắc lại kiến thức liên quan:** Ở mục 4.2, mỗi **hàng** là một khách hàng và mỗi **cột** là một feature. Vì một cột có thể có giá trị lớn hơn cột khác do đơn vị đo, chúng ta cần biết **Mean** (giá trị trung bình), **Variance** (độ phân tán) trước khi dùng **StandardScaler** để các cột có thể được so sánh hợp lý.
@@ -206,6 +210,10 @@ print("Scaled variance:", np.round(scaled.var(axis=0), 5))  # [1. 1.]
 
 **Đọc kết quả:** Hai cột vẫn mô tả ba khách, nhưng giá trị đã được đổi sang thang đo chuẩn. Không phải dữ liệu nào cũng bắt buộc chuẩn hóa; hãy xét ý nghĩa đơn vị và mục tiêu phân tích.
 
+**Tự kiểm tra nhanh — 4.3:** Vì sao không nên đưa trực tiếp hai cột `Orders` (đơn) và `Spending` (nghìn đồng) vào PCA mà không xem xét đơn vị?
+
+**Đáp án gợi ý:** Cột chi tiêu có thể có phương sai số học lớn hơn **chỉ vì thang đo**, khiến PCA chú trọng cột đó quá mức. Ta cân nhắc `StandardScaler` để so sánh đặc trưng hợp lý hơn.
+
 ### 4.4. Covariance (hiệp phương sai), Eigenvector (hướng riêng), Eigenvalue (giá trị riêng)
 
 **Nhắc lại kiến thức liên quan:** Một **matrix** lưu nhiều mẫu theo hàng và feature theo cột. **Variance** đo sự phân tán của *một* cột; **Covariance** giúp xem *hai* cột thay đổi cùng nhau ra sao. Từ matrix hiệp phương sai, ta tìm các **hướng biến thiên** (Eigenvector) và mức biến thiên theo mỗi hướng (Eigenvalue) — đây là những gì PCA sử dụng khi tạo đặc trưng mới.
@@ -213,6 +221,16 @@ print("Scaled variance:", np.round(scaled.var(axis=0), 5))  # [1. 1.]
 **Covariance** giúp mô tả *hai feature có xu hướng thay đổi cùng nhau hay không*. Ví dụ, nếu khách ghé cửa hàng nhiều hơn và số đơn hàng cũng thường tăng, hai cột có thể có hiệp phương sai dương. Khi một cột tăng mà cột kia thường giảm, hiệp phương sai có thể âm. Gần 0 có nghĩa ít biến thiên **tuyến tính cùng nhau**, không khẳng định các biến hoàn toàn không liên quan.
 
 **Eigenvector** trong bối cảnh PCA có thể hình dung là một **hướng mới** mà dữ liệu trải dài theo đó. **Eigenvalue** cho biết **mức phương sai** của dữ liệu theo hướng riêng tương ứng. PCA ưu tiên hướng có eigenvalue lớn để giữ lại mức biến thiên đáng kể. Không cần tự giải phương trình ma trận trong bài này vì NumPy có hàm tính sẵn.
+
+**Hình dung đời thường:** Tưởng tượng chấm mỗi khách hàng lên một biểu đồ: trục ngang là **số lần ghé**, trục dọc là **số đơn hàng**. Nếu người ghé nhiều thường mua nhiều, các điểm sẽ tạo thành một đám kéo dài theo hướng chéo lên. Khi đó:
+
+- **Hướng dài của đám điểm** giống trực giác về `PC1`: hướng giữ nhiều sự thay đổi nhất.
+- **Hướng vuông góc** là `PC2`: nếu ba điểm nằm đúng trên một đường thẳng, theo hướng này gần như không có sự khác nhau.
+- Với ma trận hiệp phương sai, **eigenvector** mô tả các hướng đó; **eigenvalue** mô tả lượng phương sai theo từng hướng. Không cần chứng minh công thức để biết chúng đang giúp PCA làm gì.
+
+![Ba khách hàng tạo thành một xu hướng; minh họa PC1 và PC2](assets/pca-direction-intuition.svg)
+
+*Đây là sơ đồ trực giác từ ba khách giả lập, không phải hình vẽ tự động lấy từ dữ liệu sinh viên ở phần sau. Hướng của vector riêng có thể đổi dấu mà vẫn biểu diễn cùng một trục.*
 
 **Ví dụ nhỏ — lượt ghé và đơn hàng tăng cùng nhau:**
 
@@ -241,6 +259,10 @@ print("Direction count:", eigenvectors.shape[1])  # 2
 ```
 
 **Đọc kết quả:** Một hướng có phương sai lớn hơn, hướng kia gần như không có phương sai vì hai feature giống nhau trong ví dụ. PCA có thể tận dụng sự trùng lặp tuyến tính này để giảm chiều. Không dùng kết luận này để xóa dữ liệu đo lường quan trọng trong hệ thống thực.
+
+**Tự kiểm tra nhanh — 4.4:** Nếu hai feature luôn tăng cùng nhau, PCA thường cần hướng nào để giữ phần lớn phương sai? `np.linalg.eigh` trả về thông tin gì?
+
+**Đáp án gợi ý:** Hướng đi **dọc theo đám điểm** thường giữ nhiều phương sai. `np.linalg.eigh` trả về **eigenvalues** (mức phương sai theo hướng) và **eigenvectors** (các hướng) của ma trận đối xứng đầu vào.
 
 ### 4.5. Principal Component (PC1, PC2) và tỷ lệ phương sai giữ lại
 
@@ -284,9 +306,33 @@ X_new = pca.fit_transform(scaled)
 print("Before:", X.shape)  # (8, 5)
 print("After:", X_new.shape)  # (8, 2)
 print("Retained (%):", round(pca.explained_variance_ratio_.sum() * 100, 2))
+
+# In tọa độ mới của 3 sinh viên đầu tiên để thấy PC là số cụ thể.
+for index, (pc1, pc2) in enumerate(X_new[:3], start=1):
+    print(f"SV{index}: PC1={pc1:.2f}; PC2={pc2:.2f}")
 ```
 
+**Nhìn tận mắt dữ liệu trước và sau**
+
+![Bảng dữ liệu gốc 8 sinh viên với 5 feature và biểu đồ 8 điểm ở hai trục PC1/PC2](assets/pca-before-after.svg)
+
+*Hình được dựng từ chính 8 sinh viên giả lập trong đoạn Python ở trên, sau `StandardScaler` và `PCA(n_components=2)`. Bảng bên trái là **5 cột số gốc**; hình bên phải là **2 tọa độ PC mới**. Mỗi nhãn SV1–SV8 vẫn đại diện cho đúng một sinh viên.*
+
+| Sinh viên | Một vài feature **ban đầu** | PC1 sau PCA | PC2 sau PCA |
+|---|---|---:|---:|
+| SV1 | Toán 80, Lý 81, Anh 72, tự học 20 giờ, chuyên cần 90% | 0.75 | -0.54 |
+| SV2 | Toán 85, Lý 88, Anh 80, tự học 22 giờ, chuyên cần 95% | 1.85 | -0.40 |
+| SV3 | Toán 60, Lý 65, Anh 72, tự học 12 giờ, chuyên cần 75% | -1.81 | 0.71 |
+
+**Đọc bảng:** Các giá trị `PC1`/`PC2` là **tọa độ mới**, không phải điểm Toán, điểm Anh hay phần trăm chuyên cần. PCA chỉ đổi cách **biểu diễn** 8 sinh viên; không xác định sinh viên tốt/xấu. Dấu `+`/`-` của các PC có thể đảo giữa các thuật toán/phiên bản mà ý nghĩa giảm chiều vẫn tương đương.
+
+**Vì sao chỉ có hai trục trên hình?** Với bộ dữ liệu này, PC1 giữ khoảng **93,99% phương sai**, PC2 thêm khoảng **4,67%**; tổng khoảng **98,65%**. Hai tọa độ thuận tiện để trực quan hóa, nhưng **không giữ nguyên từng feature ban đầu**.
+
 **Đọc kết quả:** Vẫn có **8 sinh viên** nhưng mỗi người có **2 tọa độ PC**, thay cho năm thông tin ban đầu trong bảng biểu diễn mới. Trên dữ liệu minh họa, tỷ lệ phương sai giữ lại khoảng **98,65%**. Đây không phải thước đo chất lượng học tập của sinh viên.
+
+**Tự kiểm tra nhanh — 4.5:** Nếu có 8 sinh viên × 5 feature, sau PCA còn 2 PC, bao nhiêu sinh viên được giữ lại? Nếu giữ 98,65% phương sai thì AI có tự đạt 98,65% accuracy không?
+
+**Đáp án gợi ý:** Vẫn **8 sinh viên**, vì số hàng không đổi; không, phương sai và độ chính xác dự đoán là hai thước đo khác nhau.
 
 ### 4.6. Fit (học từ dữ liệu), Transform (áp dụng) và Data Leakage (rò rỉ dữ liệu)
 
@@ -323,9 +369,15 @@ print("New shape:", new_scaled.shape)  # (1, 2)
 
 **Khi sử dụng PCA để đánh giá mô hình dự đoán**, hãy đặt `StandardScaler` và `PCA` trong `Pipeline` rồi gọi `fit` trên tập train. Trình tự đầy đủ được minh họa ở tình huống 5.
 
+**Tự kiểm tra nhanh — 4.6:** Khi có `X_train` và `X_test`, scaler/PCA được `fit` trên tập nào? Vì sao không `fit` lại trên test?
+
+**Đáp án gợi ý:** Chỉ `fit` scaler và PCA trên **train**, rồi `transform` test bằng quy tắc đã học, để tránh **data leakage** và giữ đánh giá khách quan.
+
 ## 5. Năm tình huống lập trình trong thực tế
 
 Mỗi tình huống đều gồm: **vấn đề → nhắc lại các khái niệm cần dùng → vì sao chọn cách giải → quy trình → mô tả dữ liệu (từng hàng/cột/đơn vị) → code có ghi từng bước → kiểm tra kết quả**. Trừ Iris là bộ dữ liệu có sẵn, các bảng dữ liệu còn lại đều là **ví dụ giả lập để học cách xử lý**, không phải hồ sơ người hay doanh nghiệp thật.
+
+**Cách học nhẹ nhàng:** Tình huống 1, 2, 4 tập trung trực tiếp vào PCA và cách đọc dữ liệu. **Tình huống 3 (KMeans) và 5 (LogisticRegression/Pipeline) là phần mở rộng**, cho thấy PCA kết hợp với thuật toán AI khác như thế nào. Nếu chưa học phân cụm hoặc phân loại, bạn vẫn có thể đọc ý tưởng và bỏ qua phần chi tiết thuật toán rồi quay lại sau; chúng **không phải kiến thức bắt buộc để hiểu PCA**.
 
 ### Tình huống 1 — Phòng đào tạo muốn nhìn tổng quan hồ sơ học tập
 
@@ -446,6 +498,8 @@ print("Variance retained (%):", round(100 * pca.explained_variance_ratio_.sum(),
 
 ### Tình huống 3 — Bộ phận marketing muốn khám phá nhóm khách hàng
 
+**Phần mở rộng — có thể đọc sau:** `KMeans` là thuật toán **phân cụm**, tự thử nhóm những điểm gần nhau mà không cần nhãn nhóm có sẵn. Bài này chủ yếu minh họa rằng **PCA tạo tọa độ**, còn KMeans dùng tọa độ đó để thử phân nhóm. Chưa cần học sâu KMeans để hiểu PCA.
+
 **Vấn đề:** Mỗi khách có số lượt xem hàng, đơn hàng, chi tiêu và thời gian tương tác. Cần xem nhóm khách nào có hành vi tương tự trước khi thiết kế chiến dịch. Không thể trực quan hóa cả bốn feature trên một đồ thị 2D.
 
 **Chọn khái niệm:** StandardScaler + PCA để tạo 2 tọa độ, sau đó **KMeans** để thử nhóm khách hàng. PCA **không tự phân cụm**.
@@ -550,6 +604,8 @@ print("Variance retained (%):", round(100 * pca.explained_variance_ratio_.sum(),
 **Kiểm tra:** số cột mới không quá 5, tỷ lệ phương sai được giữ lại **tối thiểu 95%** với bộ dữ liệu minh họa này. Trong dự án thật, hãy so sánh hiệu quả dashboard hoặc mô hình trước/sau giảm chiều, không chỉ nhìn con số 95%.
 
 ### Tình huống 5 — Ứng dụng nông nghiệp nhận diện loài hoa từ số đo
+
+**Phần mở rộng — có thể đọc sau:** `LogisticRegression` là mô hình **phân loại có giám sát**: học từ những mẫu đã biết nhãn để dự đoán nhãn mẫu mới. `Pipeline` là cách xâu chuỗi nhiều bước (scale → PCA → phân loại) để dùng đúng thứ tự. Chỉ cần nhớ rằng PCA **không tự dự đoán loài hoa**; thuật toán phân loại làm việc đó.
 
 **Vấn đề:** Một hệ thống phân loại hoa nhận 4 số đo trên mỗi mẫu hoa. Chúng ta muốn thử giảm còn 2 feature trước khi huấn luyện mô hình phân loại, nhưng vẫn cần đánh giá với dữ liệu chưa dùng để học.
 
