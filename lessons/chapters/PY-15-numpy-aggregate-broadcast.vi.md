@@ -29,7 +29,6 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `X + scalar / X + vector` | Broadcast nếu shape tương thích |
 | `np.sqrt()/np.exp()` | Biến đổi từng phần tử, chú ý miền giá trị |
 
-Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã được giải thích ngay tại bảng hàm này.
 
 ## 4. Khái niệm liên quan và ví dụ nhỏ
 
@@ -93,9 +92,9 @@ print(np.array([1,2,3])*2)
 
 **Vấn đề:** Tổng doanh thu mỗi cửa hàng.
 
-**Vì sao chọn cách giải này?** axis=1 cộng các ngày trên một hàng/cửa hàng. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** axis=1 cộng các ngày trên một hàng/cửa hàng.
 
-**Dữ liệu:** 2 cửa hàng × 3 ngày, nghìn đồng; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 2 cửa hàng × 3 ngày, nghìn đồng.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -105,7 +104,6 @@ sales=np.array([[10,20,30],[8,12,16]])
 print(sales.sum(axis=1))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 2 — Điểm trung bình từng môn
 
@@ -113,9 +111,9 @@ print(sales.sum(axis=1))
 
 **Vấn đề:** Điểm trung bình từng môn.
 
-**Vì sao chọn cách giải này?** axis=0 gom toàn bộ học sinh theo một cột môn. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** axis=0 gom toàn bộ học sinh theo một cột môn.
 
-**Dữ liệu:** 3 học sinh × 2 môn; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 3 học sinh × 2 môn.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -125,7 +123,6 @@ X=np.array([[8,9],[6,7],[9,8]],dtype=float)
 print(X.mean(axis=0))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 3 — Cộng điểm chuyên cần
 
@@ -133,9 +130,9 @@ print(X.mean(axis=0))
 
 **Vấn đề:** Cộng điểm chuyên cần.
 
-**Vì sao chọn cách giải này?** Broadcast cộng thưởng 1 điểm cho từng môn. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Broadcast cộng thưởng 1 điểm cho từng môn.
 
-**Dữ liệu:** 2 học sinh × 3 môn; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 2 học sinh × 3 môn.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -145,7 +142,6 @@ X=np.array([[7,8,9],[6,7,8]])
 print(np.minimum(X+1,10))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 4 — Nhân các kênh cảm biến
 
@@ -153,9 +149,9 @@ print(np.minimum(X+1,10))
 
 **Vấn đề:** Nhân các kênh cảm biến.
 
-**Vì sao chọn cách giải này?** Vector hóa nhân hệ số cho toàn bộ kênh. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Vector hóa nhân hệ số cho toàn bộ kênh.
 
-**Dữ liệu:** 3 giá trị đo và hệ số quy đổi; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 3 giá trị đo và hệ số quy đổi.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -166,7 +162,6 @@ factors=np.array([1.0,0.5,2.0])
 print(signals*factors)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 5 — Tìm giá trị cao nhất theo cột
 
@@ -174,9 +169,9 @@ print(signals*factors)
 
 **Vấn đề:** Tìm giá trị cao nhất theo cột.
 
-**Vì sao chọn cách giải này?** max(axis=0) chọn đỉnh từng feature. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** max(axis=0) chọn đỉnh từng feature.
 
-**Dữ liệu:** 3 mẫu × 2 kênh; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 3 mẫu × 2 kênh.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -186,7 +181,6 @@ X=np.array([[2,4],[5,1],[3,6]])
 print(X.max(axis=0))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ## 6. Sai lầm thường gặp
 
