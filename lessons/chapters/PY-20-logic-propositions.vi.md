@@ -370,7 +370,7 @@ D. 16 — 16
 
 A. `(not p) or q` — `(not p) or q`
 
-B. `True` — `True`
+B. `(True, False)` — `(True, False)`
 
 C. `False` — `False`
 
@@ -390,7 +390,7 @@ D. `True` — `True`
 
 A. `(not p) or q` — `(not p) or q`
 
-B. `True` — `True`
+B. `(True, False)` — `(True, False)`
 
 C. `False` — `False`
 
@@ -400,7 +400,7 @@ D. `True` — `True`
 
 A. `(not p) or q` — `(not p) or q`
 
-B. `True` — `True`
+B. `(True, False)` — `(True, False)`
 
 C. `False` — `False`
 
