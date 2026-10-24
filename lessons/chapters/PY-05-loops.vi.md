@@ -41,6 +41,13 @@ Mỗi lần vòng lặp chạy một lượt gọi là một lần lặp. `range
 for i in range(2): print(i)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+0
+1
+```
+
 ### 4.2. For loop
 
 **Từ vựng trong mục:** **For loop** — vòng for.
@@ -49,6 +56,13 @@ Dùng `for` khi muốn lần lượt xử lý các giá trị trong một danh s
 
 ```python
 for x in [1,2]: print(x)
+```
+
+**Kết quả khi chạy:**
+
+```text
+1
+2
 ```
 
 ### 4.3. While loop
@@ -63,6 +77,8 @@ while n>0:
     n-=1
 ```
 
+**Kết quả khi chạy:** Không in ra màn hình. Biến `n` giảm từ `2` xuống `0`.
+
 ### 4.4. Break/continue
 
 **Từ vựng trong mục:** **Break/continue** — dừng/bỏ qua.
@@ -73,6 +89,13 @@ while n>0:
 for x in [0,1,2]:
     if x==0: continue
     print(x)
+```
+
+**Kết quả khi chạy:**
+
+```text
+1
+2
 ```
 
 ## 5. Năm tình huống lập trình thực tế
@@ -98,6 +121,12 @@ orders=[120,80,200]
 total=0
 for value in orders: total+=value
 print(total)
+```
+
+**Kết quả khi chạy:**
+
+```text
+400
 ```
 
 **Kết quả:** `400` nghìn đồng, tương đương 400.000 đồng.
@@ -128,6 +157,12 @@ for x in data:
 print(valid)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[30, 35, 33]
+```
+
 **Kết quả:** `[30, 35, 33]` — chỉ còn ba lần đo có số liệu.
 
 ### Tình huống 3 — Tìm hàng hết tồn
@@ -152,6 +187,12 @@ for i,x in enumerate(stocks):
     if x==0:
         print("Hết hàng:",i)
         break
+```
+
+**Kết quả khi chạy:**
+
+```text
+Hết hàng: 2
 ```
 
 **Kết quả:** `Hết hàng: 2` — vị trí thứ ba trong danh sách (chỉ số 2) đã hết hàng.
@@ -181,6 +222,12 @@ while attempts<3 and not connected:
 print(attempts,connected)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+2 True
+```
+
 **Kết quả:** `2 True` — chương trình thử hai lần rồi dừng vì đã kết nối. Đây là mô phỏng, không tạo kết nối mạng thật.
 
 ### Tình huống 5 — Lập bảng lịch học
@@ -205,6 +252,17 @@ students=["An","Lan"]
 for student in students:
     for day in range(1,4):
         print(student,day)
+```
+
+**Kết quả khi chạy:**
+
+```text
+An 1
+An 2
+An 3
+Lan 1
+Lan 2
+Lan 3
 ```
 
 **Kết quả:** Sáu dòng: `An 1`, `An 2`, `An 3`, `Lan 1`, `Lan 2`, `Lan 3`.
