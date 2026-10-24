@@ -1,10 +1,6 @@
 # PY-38 — Quantile, IQR, outlier, skewness và kurtosis
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
-
 ## 1. Vị trí trong chuỗi kiến thức
-
-**Từ vựng trong mục:** **Quantile** — phân vị; **IQR** — khoảng tứ phân vị.
 
 `Thống kê mô tả → Quantile/IQR → Outlier → Kiểm tra dữ liệu ML`
 
@@ -21,8 +17,6 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ## 3. Thư viện và hàm Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cách viết | Khi nào dùng, ý nghĩa tham số |
 |---|---|
 | `np.quantile(x,[.25,.5,.75])` | Tìm các phân vị 25%, 50%, 75% |
@@ -34,8 +28,6 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ### 4.1. Quantile
 
-**Từ vựng trong mục:** **Quantile** — phân vị.
-
 Giá trị chia phân phối theo tỷ lệ tích lũy. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
 ```python
@@ -43,11 +35,7 @@ import numpy as np
 print(np.quantile([1,2,3,4],.25))
 ```
 
-**Tự kiểm tra:** Quantile là gì? **Đáp án:** Giá trị chia phân phối theo tỷ lệ tích lũy.
-
 ### 4.2. IQR
-
-**Từ vựng trong mục:** **IQR** — khoảng tứ phân vị.
 
 Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -56,11 +44,7 @@ import numpy as np
 x=[1,2,3,4,5];print(np.quantile(x,.75)-np.quantile(x,.25))
 ```
 
-**Tự kiểm tra:** IQR là gì? **Đáp án:** Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa.
-
 ### 4.3. Skewness
-
-**Từ vựng trong mục:** **Skewness** — độ lệch phân phối.
 
 Mức bất đối xứng của phân phối quanh tâm. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -69,11 +53,7 @@ import pandas as pd
 print(pd.Series([1,1,2,8]).skew())
 ```
 
-**Tự kiểm tra:** Skewness là gì? **Đáp án:** Mức bất đối xứng của phân phối quanh tâm.
-
 ### 4.4. Kurtosis
-
-**Từ vựng trong mục:** **Kurtosis** — độ nhọn/đuôi phân phối.
 
 Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -82,13 +62,9 @@ import pandas as pd
 print(pd.Series([1,2,3,4,5]).kurt())
 ```
 
-**Tự kiểm tra:** Kurtosis là gì? **Đáp án:** Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Mốc chi tiêu 75%
-
-**Từ vựng trong mục:** **Quantile** — phân vị.
 
 **Vấn đề:** Mốc chi tiêu 75%.
 
@@ -96,27 +72,19 @@ print(pd.Series([1,2,3,4,5]).kurt())
 
 **Dữ liệu:** 5 số chi tiêu [10,20,30,40,50], nghìn đồng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 import numpy as np
 x=[10,20,30,40,50]
 print(np.quantile(x,.75))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 2 — Kiểm outlier hóa đơn
-
-**Từ vựng trong mục:** **IQR** — khoảng tứ phân vị.
 
 **Vấn đề:** Kiểm outlier hóa đơn.
 
 **Vì sao chọn cách này?** IQR gợi ý hóa đơn bất thường để rà soát; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
 **Dữ liệu:** 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
 ```python
 import numpy as np
@@ -125,11 +93,7 @@ q1,q3=np.quantile(x,[.25,.75]);iqr=q3-q1
 print(x[(x<q1-1.5*iqr)|(x>q3+1.5*iqr)])
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 3 — So độ lệch phân phối
-
-**Từ vựng trong mục:** **Skewness** — độ lệch phân phối.
 
 **Vấn đề:** So độ lệch phân phối.
 
@@ -137,18 +101,12 @@ print(x[(x<q1-1.5*iqr)|(x>q3+1.5*iqr)])
 
 **Dữ liệu:** Giá trị [1,1,2,8]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 import pandas as pd
 print(pd.Series([1,1,2,8]).skew())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 4 — Xem độ nhọn phân phối
-
-**Từ vựng trong mục:** **Kurtosis** — độ nhọn/đuôi phân phối.
 
 **Vấn đề:** Xem độ nhọn phân phối.
 
@@ -156,19 +114,13 @@ print(pd.Series([1,1,2,8]).skew())
 
 **Dữ liệu:** 10 giá trị đo minh họa. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 import pandas as pd
 s=pd.Series([2,3,3,4,4,5,5,6,7,20])
 print(s.kurt())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 5 — Chọn cách điền dữ liệu
-
-**Từ vựng trong mục:** **Quantile** — phân vị.
 
 **Vấn đề:** Chọn cách điền dữ liệu.
 
@@ -176,15 +128,11 @@ print(s.kurt())
 
 **Dữ liệu:** [100,120,10000,None] nghìn đồng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 import pandas as pd
 s=pd.Series([100,120,10000,None])
 print(s.fillna(s.median()))
 ```
-
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 
@@ -192,8 +140,6 @@ print(s.fillna(s.median()))
 - Kiểm tra giả định, cỡ mẫu, đơn vị, độ nhạy kết quả và data leakage trước khi ứng dụng AI thật.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Quantile? — Khái niệm Quantile là gì?**
@@ -439,7 +385,3 @@ D. It removes test sets — Nó không cần tập kiểm tra
 | Q18 | **A** | The input is [100,120,10000,None] nghìn đồng | [100,120,10000,None] nghìn đồng |
 | Q19 | **D** | Units, sample meaning and assumptions | Đơn vị, ý nghĩa mẫu và giả định |
 | Q20 | **C** | An example may not generalize | Ví dụ có thể không tổng quát |
-
-## 8. Liên hệ bài kế tiếp
-
-`Thống kê mô tả → Quantile/IQR → Outlier → Kiểm tra dữ liệu ML`.
