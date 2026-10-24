@@ -126,8 +126,6 @@ print(values.reshape(2,3))
  [23 24 25]]
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 2 — Đổi hàng cột báo cáo
 
 **Từ vựng trong mục:** **Transpose** — chuyển vị.
@@ -150,8 +148,6 @@ print(scores.T.shape)
 (3, 2)
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 3 — Điểm tổng kết có trọng số
 
 **Từ vựng trong mục:** **Matrix multiply** — nhân ma trận.
@@ -164,7 +160,8 @@ print(scores.T.shape)
 
 ```python
 import numpy as np
-scores=np.array([8,7,9]);w=np.array([.2,.3,.5])
+scores=np.array([8,7,9])
+w=np.array([.2,.3,.5])
 print(scores@w)
 ```
 
@@ -173,8 +170,6 @@ print(scores@w)
 ```text
 8.2
 ```
-
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 4 — Tạo đặc trưng tổng hợp
 
@@ -199,8 +194,6 @@ print(X@W)
 [[7.5 8. ]
  [5.5 6.5]]
 ```
-
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 5 — Lưu và đọc mảng an toàn
 
@@ -227,8 +220,6 @@ with TemporaryDirectory() as folder:
 ```text
 [3 5 7]
 ```
-
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ## 6. Sai lầm thường gặp
 
