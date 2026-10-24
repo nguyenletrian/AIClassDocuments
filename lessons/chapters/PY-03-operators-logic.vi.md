@@ -265,15 +265,25 @@ True
 
 **Q1. Which operator performs multiplication? — Toán tử nào thực hiện phép nhân?**
 
-A. `and` — `and`
+A. `*` — `*`
 
-B. `*` — `*`
+B. `&` — `&`
+
+C. `==` — `==`
+
+D. `and` — `and`
+
+**Q2. Which operator tests equality? — Toán tử nào kiểm tra bằng nhau?**
+
+A. `*` — `*`
+
+B. `==` — `==`
 
 C. `&` — `&`
 
-D. `==` — `==`
+D. `and` — `and`
 
-**Q2. Which operator tests equality? — Toán tử nào kiểm tra bằng nhau?**
+**Q3. Which Python keyword performs short-circuit logical AND? — Từ khóa Python nào thực hiện phép VÀ logic có đánh giá ngắn mạch?**
 
 A. `==` — `==`
 
@@ -283,45 +293,35 @@ C. `and` — `and`
 
 D. `*` — `*`
 
-**Q3. Which operator represents logical AND? — Toán tử nào biểu diễn phép VÀ logic?**
+**Q4. Which operator performs bitwise AND on integers? — Toán tử nào thực hiện AND theo bit trên số nguyên?**
 
 A. `and` — `and`
 
-B. `*` — `*`
+B. `==` — `==`
 
-C. `==` — `==`
+C. `*` — `*`
 
 D. `&` — `&`
 
-**Q4. Which operator performs bitwise AND on integers? — Toán tử nào thực hiện AND theo bit trên số nguyên?**
-
-A. `*` — `*`
-
-B. `&` — `&`
-
-C. `and` — `and`
-
-D. `==` — `==`
-
 **Q5. What does `7 // 2` return? — `7 // 2` trả về gì?**
 
-A. `8` — `8`
+A. `1` — `1`
 
-B. `1` — `1`
+B. `3.5` — `3.5`
 
-C. `3.5` — `3.5`
+C. `3` — `3`
 
-D. `3` — `3`
+D. `8` — `8`
 
 **Q6. What does `7 % 2` return? — `7 % 2` trả về gì?**
 
-A. `3` — `3`
+A. `1` — `1`
 
-B. `8` — `8`
+B. `3.5` — `3.5`
 
-C. `1` — `1`
+C. `3` — `3`
 
-D. `3.5` — `3.5`
+D. `8` — `8`
 
 **Q7. What does `2 ** 3` return? — `2 ** 3` trả về gì?**
 
@@ -335,43 +335,43 @@ D. `8` — `8`
 
 **Q8. What does `7 / 2` return? — `7 / 2` trả về gì?**
 
-A. `1` — `1`
+A. `3.5` — `3.5`
 
-B. `8` — `8`
+B. `3` — `3`
 
-C. `3.5` — `3.5`
+C. `1` — `1`
 
-D. `3` — `3`
+D. `8` — `8`
 
 **Q9. What is `True and False`? — `True and False` bằng gì?**
 
-A. `0` (integer) — `0` (số nguyên)
+A. `True` (Boolean) — `True` (Boolean)
 
-B. `False` (Boolean) — `False` (Boolean)
+B. `None` — `None`
 
-C. `True` (Boolean) — `True` (Boolean)
+C. `0` (integer) — `0` (số nguyên)
 
-D. `None` — `None`
+D. `False` (Boolean) — `False` (Boolean)
 
 **Q10. What is `False or True`? — `False or True` bằng gì?**
 
-A. `True` (Boolean) — `True` (Boolean)
+A. `1` (integer) — `1` (số nguyên)
 
-B. `False` (Boolean) — `False` (Boolean)
+B. `True` (Boolean) — `True` (Boolean)
 
-C. `None` — `None`
+C. `False` (Boolean) — `False` (Boolean)
 
-D. `1` (integer) — `1` (số nguyên)
+D. `None` — `None`
 
 **Q11. What does `not True` produce? — `not True` cho kết quả gì?**
 
-A. `True` (Boolean) — `True` (Boolean)
+A. `0` (integer) — `0` (số nguyên)
 
-B. `0` (integer) — `0` (số nguyên)
+B. `None` — `None`
 
-C. `None` — `None`
+C. `False` (Boolean) — `False` (Boolean)
 
-D. `False` (Boolean) — `False` (Boolean)
+D. `True` (Boolean) — `True` (Boolean)
 
 **Q12. What does `5 & 3` produce? — `5 & 3` tạo ra gì?**
 
@@ -395,13 +395,13 @@ D. `in` — `in`
 
 **Q14. Which operator means 'at least'? — Toán tử nào biểu diễn 'lớn hơn hoặc bằng'?**
 
-A. `in` — `in`
+A. `!=` — `!=`
 
-B. `>=` — `>=`
+B. `in` — `in`
 
-C. `=` — `=`
+C. `>=` — `>=`
 
-D. `!=` — `!=`
+D. `=` — `=`
 
 **Q15. Which operator checks membership in a collection? — Toán tử nào kiểm tra phần tử thuộc một tập dữ liệu?**
 
@@ -425,68 +425,68 @@ D. `in` — `in`
 
 **Q17. Which result comes from `3 > 5`? — `3 > 5` trả về gì?**
 
-A. `None` — `None`
-
-B. `0` (integer) — `0` (số nguyên)
-
-C. `False` (Boolean) — `False` (Boolean)
-
-D. `True` (Boolean) — `True` (Boolean)
-
-**Q18. What result comes from `2 + 3 * 4`? — `2 + 3 * 4` bằng bao nhiêu?**
-
-A. `20` — `20`
-
-B. `9` — `9`
-
-C. `14` — `14`
-
-D. `False` — `False`
-
-**Q19. What does `True or False` return? — `True or False` trả về gì?**
-
-A. `1` (integer) — `1` (số nguyên)
+A. `0` (integer) — `0` (số nguyên)
 
 B. `False` (Boolean) — `False` (Boolean)
 
-C. `None` — `None`
+C. `True` (Boolean) — `True` (Boolean)
 
-D. `True` (Boolean) — `True` (Boolean)
+D. `None` — `None`
+
+**Q18. What result comes from `2 + 3 * 4`? — `2 + 3 * 4` bằng bao nhiêu?**
+
+A. `9` — `9`
+
+B. `14` — `14`
+
+C. `False` — `False`
+
+D. `20` — `20`
+
+**Q19. What does `True or False` return? — `True or False` trả về gì?**
+
+A. `True` (Boolean) — `True` (Boolean)
+
+B. `1` (integer) — `1` (số nguyên)
+
+C. `False` (Boolean) — `False` (Boolean)
+
+D. `None` — `None`
 
 **Q20. What does `5 ^ 3` return for integers? — `5 ^ 3` trả về gì với số nguyên?**
 
-A. `15` — `15`
+A. `5` — `5`
 
-B. `6` — `6`
+B. `2` — `2`
 
-C. `5` — `5`
+C. `15` — `15`
 
-D. `2` — `2`
+D. `6` — `6`
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | `*` multiplies numbers, for example `3 * 4` produces `12`. `==` compares values, `and` combines truth conditions, and `&` applies bitwise AND to integers. | `*` nhân các số, ví dụ `3 * 4` cho `12`. `==` so sánh giá trị, `and` kết hợp điều kiện logic, còn `&` thực hiện AND theo bit trên số nguyên. |
-| Q2 | **A** | `==` checks whether two values are equal and produces a Boolean, for example `2 == 2` is `True`. A single `=` instead assigns a value to a name, rather than comparing it. | `==` kiểm tra hai giá trị có bằng nhau và tạo Boolean, ví dụ `2 == 2` là `True`. Một dấu `=` dùng để gán giá trị cho tên, chứ không so sánh. |
-| Q3 | **A** | Logical `and` evaluates to a truthy result only when both Boolean conditions hold: `True and False` is `False`. It differs from bitwise `&`, which combines individual integer bits. | `and` chỉ cho kết quả logic đúng khi cả hai điều kiện Boolean cùng đúng: `True and False` là `False`. Nó khác `&` theo bit, vốn kết hợp từng bit của số nguyên. |
-| Q4 | **B** | For integers, `&` performs AND on corresponding binary bits: `5 & 3` compares `0101` and `0011`, giving `0001` (`1`). It is not ordinary multiplication or the logical keyword `and`. | Với số nguyên, `&` thực hiện AND trên từng bit: `5 & 3` đối chiếu `0101` và `0011`, được `0001` (`1`). Đây không phải phép nhân thông thường hay từ khóa logic `and`. |
-| Q5 | **D** | `//` performs floor division: `7 / 2` is `3.5`, and rounding that quotient downward gives `3`. Be careful: for a negative result, flooring means toward negative infinity, so `-7 // 2` is `-4`. | `//` thực hiện chia lấy sàn: `7 / 2` bằng `3.5`, làm tròn xuống được `3`. Với thương âm, làm tròn xuống nghĩa là về âm vô cực nên `-7 // 2` bằng `-4`. |
-| Q6 | **C** | `%` returns the remainder consistent with floor division: `7 = 2 * 3 + 1`, so `7 % 2` is `1`. It is not the quotient `3` or floating result `3.5`. | `%` trả phần dư theo phép chia lấy sàn: `7 = 2 * 3 + 1`, nên `7 % 2` bằng `1`. Nó không phải thương `3` hay kết quả chia thực `3.5`. |
+| Q1 | **A** | `*` multiplies numbers, for example `3 * 4` produces `12`. `==` compares values, `and` combines truth conditions, and `&` applies bitwise AND to integers. | `*` nhân các số, ví dụ `3 * 4` cho `12`. `==` so sánh giá trị, `and` kết hợp điều kiện logic, còn `&` thực hiện AND theo bit trên số nguyên. |
+| Q2 | **B** | `==` checks whether two values are equal and produces a Boolean, for example `2 == 2` is `True`. A single `=` instead assigns a value to a name, rather than comparing it. | `==` kiểm tra hai giá trị có bằng nhau và tạo Boolean, ví dụ `2 == 2` là `True`. Một dấu `=` dùng để gán giá trị cho tên, chứ không so sánh. |
+| Q3 | **C** | The keyword `and` performs short-circuit logical AND: if its left operand is false, Python does not evaluate the right operand. The `&` symbol is bitwise AND on integers and, even when used with Booleans, does not short-circuit. | Từ khóa `and` thực hiện phép VÀ logic ngắn mạch: nếu vế trái sai, Python không đánh giá vế phải. Ký hiệu `&` thực hiện AND theo bit trên số nguyên và kể cả dùng với Boolean cũng không đánh giá ngắn mạch. |
+| Q4 | **D** | For integers, `&` performs AND on corresponding binary bits: `5 & 3` compares `0101` and `0011`, giving `0001` (`1`). It is not ordinary multiplication or the logical keyword `and`. | Với số nguyên, `&` thực hiện AND trên từng bit: `5 & 3` đối chiếu `0101` và `0011`, được `0001` (`1`). Đây không phải phép nhân thông thường hay từ khóa logic `and`. |
+| Q5 | **C** | `//` performs floor division: `7 / 2` is `3.5`, and rounding that quotient downward gives `3`. Be careful: for a negative result, flooring means toward negative infinity, so `-7 // 2` is `-4`. | `//` thực hiện chia lấy sàn: `7 / 2` bằng `3.5`, làm tròn xuống được `3`. Với thương âm, làm tròn xuống nghĩa là về âm vô cực nên `-7 // 2` bằng `-4`. |
+| Q6 | **A** | `%` returns the remainder consistent with floor division: `7 = 2 * 3 + 1`, so `7 % 2` is `1`. It is not the quotient `3` or floating result `3.5`. | `%` trả phần dư theo phép chia lấy sàn: `7 = 2 * 3 + 1`, nên `7 % 2` bằng `1`. Nó không phải thương `3` hay kết quả chia thực `3.5`. |
 | Q7 | **D** | `**` denotes exponentiation: `2 ** 3` multiplies 2 by itself three times, giving `8`. A single `*` is multiplication, while `^` is bitwise XOR in Python, not exponentiation. | `**` là phép lũy thừa: `2 ** 3` nhân 2 với chính nó ba lần, cho `8`. Một dấu `*` là phép nhân, còn `^` trong Python là XOR theo bit, không phải lũy thừa. |
-| Q8 | **C** | In Python 3, `/` performs true division, so `7 / 2` returns floating-point `3.5`. The related operator `//` floors the quotient to `3`; `%` would return remainder `1`. | Trong Python 3, `/` chia thực nên `7 / 2` trả về số thực `3.5`. Toán tử `//` lấy sàn thương được `3`, còn `%` trả phần dư `1`. |
-| Q9 | **B** | Boolean `and` needs both operands to be true, but the second operand here is `False`. Thus `True and False` is the Boolean `False`, not the integer `0` or `None`. | `and` Boolean yêu cầu cả hai vế đều đúng, nhưng vế thứ hai là `False`. Vì thế `True and False` cho Boolean `False`, không phải số nguyên `0` hay `None`. |
-| Q10 | **A** | Boolean `or` succeeds if at least one operand is true; the right operand of `False or True` is `True`. Its result here is Boolean `True`, not numeric `1`, even though `True` can behave like 1 in some numeric contexts. | `or` Boolean đúng nếu có ít nhất một vế đúng; vế phải của `False or True` là `True`. Kết quả ở đây là Boolean `True`, không phải số nguyên `1`, dù `True` có thể hoạt động như 1 trong một số phép số học. |
-| Q11 | **D** | `not` negates truth values, so `not True` becomes Boolean `False`. By contrast, `not False` is `True`; numerical zero is a different value type. | `not` đảo giá trị logic nên `not True` thành Boolean `False`. Ngược lại `not False` là `True`; số nguyên không là giá trị thuộc kiểu khác. |
+| Q8 | **A** | In Python 3, `/` performs true division, so `7 / 2` returns floating-point `3.5`. The related operator `//` floors the quotient to `3`; `%` would return remainder `1`. | Trong Python 3, `/` chia thực nên `7 / 2` trả về số thực `3.5`. Toán tử `//` lấy sàn thương được `3`, còn `%` trả phần dư `1`. |
+| Q9 | **D** | Boolean `and` needs both operands to be true, but the second operand here is `False`. Thus `True and False` is the Boolean `False`, not the integer `0` or `None`. | `and` Boolean yêu cầu cả hai vế đều đúng, nhưng vế thứ hai là `False`. Vì thế `True and False` cho Boolean `False`, không phải số nguyên `0` hay `None`. |
+| Q10 | **B** | Boolean `or` succeeds if at least one operand is true; the right operand of `False or True` is `True`. Its result here is Boolean `True`, not numeric `1`, even though `True` can behave like 1 in some numeric contexts. | `or` Boolean đúng nếu có ít nhất một vế đúng; vế phải của `False or True` là `True`. Kết quả ở đây là Boolean `True`, không phải số nguyên `1`, dù `True` có thể hoạt động như 1 trong một số phép số học. |
+| Q11 | **C** | `not` negates truth values, so `not True` becomes Boolean `False`. By contrast, `not False` is `True`; numerical zero is a different value type. | `not` đảo giá trị logic nên `not True` thành Boolean `False`. Ngược lại `not False` là `True`; số nguyên không là giá trị thuộc kiểu khác. |
 | Q12 | **D** | The integers are `5 = 0101` and `3 = 0011` in four binary digits. Bitwise `&` keeps only positions where both bits are 1, producing `0001`, which equals integer `1`, not Boolean `True`. | Hai số nguyên là `5 = 0101` và `3 = 0011` ở hệ nhị phân bốn bit. Toán tử `&` chỉ giữ vị trí có cả hai bit bằng 1, cho `0001`, tức số nguyên `1`, không phải Boolean `True`. |
 | Q13 | **A** | `!=` checks whether values differ: `3 != 4` evaluates to `True`, while `3 != 3` is `False`. It contrasts with `==`, which checks equality. | `!=` kiểm tra hai giá trị có khác nhau: `3 != 4` là `True`, còn `3 != 3` là `False`. Nó đối lập với `==` dùng để kiểm tra bằng nhau. |
-| Q14 | **B** | `>=` means greater than or equal to, so `5 >= 5` and `6 >= 5` are both `True`. The equal case matters: using `>` instead would reject exactly 5. | `>=` nghĩa là lớn hơn hoặc bằng, nên `5 >= 5` và `6 >= 5` đều là `True`. Trường hợp bằng ngưỡng rất quan trọng: dùng `>` sẽ loại đúng giá trị 5. |
+| Q14 | **C** | `>=` means greater than or equal to, so `5 >= 5` and `6 >= 5` are both `True`. The equal case matters: using `>` instead would reject exactly 5. | `>=` nghĩa là lớn hơn hoặc bằng, nên `5 >= 5` và `6 >= 5` đều là `True`. Trường hợp bằng ngưỡng rất quan trọng: dùng `>` sẽ loại đúng giá trị 5. |
 | Q15 | **B** | The `in` operator tests membership: `2 in [1, 2, 3]` is `True`, while `4 in [1, 2, 3]` is `False`. It does not assign a value or compare numeric magnitude. | Toán tử `in` kiểm tra phần tử có thuộc tập hợp: `2 in [1, 2, 3]` là `True`, còn `4 in [1, 2, 3]` là `False`. Nó không gán giá trị hay so sánh độ lớn. |
 | Q16 | **C** | The assignment operator `=` binds a name to a value, as in `total = 10`. To compare two values instead, use `==`; writing `=` in an ordinary comparison condition is a syntax error. | Toán tử gán `=` liên kết tên với giá trị, như `total = 10`. Muốn so sánh hai giá trị thì dùng `==`; dùng `=` trong điều kiện so sánh thông thường sẽ sai cú pháp. |
-| Q17 | **C** | `>` checks strict greater-than, and 3 is smaller than 5, so `3 > 5` evaluates to Boolean `False`. The result is a logical value, not the integer `0`. | `>` kiểm tra lớn hơn nghiêm ngặt, mà 3 nhỏ hơn 5 nên `3 > 5` cho Boolean `False`. Kết quả là giá trị logic, không phải số nguyên `0`. |
-| Q18 | **C** | Multiplication binds more tightly than addition: calculate `3 * 4 = 12` first, then `2 + 12 = 14`. Parentheses such as `(2 + 3) * 4` would change the result to `20`. | Phép nhân có độ ưu tiên cao hơn cộng: tính `3 * 4 = 12` trước, rồi `2 + 12 = 14`. Thêm ngoặc như `(2 + 3) * 4` sẽ đổi kết quả thành `20`. |
-| Q19 | **D** | `or` is true when at least one Boolean operand is true; since the left side is `True`, `True or False` returns `True`. With Boolean inputs this is Boolean `True`, not the integer `1`. | `or` đúng khi ít nhất một toán hạng Boolean đúng; vì vế trái là `True` nên `True or False` trả `True`. Với đầu vào Boolean, đây là Boolean `True`, không phải số nguyên `1`. |
-| Q20 | **B** | `^` is bitwise XOR, not exponentiation: `5 = 0101` and `3 = 0011` differ in the `0100` and `0010` bit positions, producing `0110` = `6`. Exponentiation would use `**`, not `^`. | `^` là XOR theo bit, không phải lũy thừa: `5 = 0101` và `3 = 0011` khác nhau tại các vị trí bit `0100` và `0010`, cho `0110` = `6`. Lũy thừa phải dùng `**`, không dùng `^`. |
+| Q17 | **B** | `>` checks strict greater-than, and 3 is smaller than 5, so `3 > 5` evaluates to Boolean `False`. The result is a logical value, not the integer `0`. | `>` kiểm tra lớn hơn nghiêm ngặt, mà 3 nhỏ hơn 5 nên `3 > 5` cho Boolean `False`. Kết quả là giá trị logic, không phải số nguyên `0`. |
+| Q18 | **B** | Multiplication binds more tightly than addition: calculate `3 * 4 = 12` first, then `2 + 12 = 14`. Parentheses such as `(2 + 3) * 4` would change the result to `20`. | Phép nhân có độ ưu tiên cao hơn cộng: tính `3 * 4 = 12` trước, rồi `2 + 12 = 14`. Thêm ngoặc như `(2 + 3) * 4` sẽ đổi kết quả thành `20`. |
+| Q19 | **A** | `or` is true when at least one Boolean operand is true; since the left side is `True`, `True or False` returns `True`. With Boolean inputs this is Boolean `True`, not the integer `1`. | `or` đúng khi ít nhất một toán hạng Boolean đúng; vì vế trái là `True` nên `True or False` trả `True`. Với đầu vào Boolean, đây là Boolean `True`, không phải số nguyên `1`. |
+| Q20 | **D** | `^` is bitwise XOR, not exponentiation: `5 = 0101` and `3 = 0011` differ in the `0100` and `0010` bit positions, producing `0110` = `6`. Exponentiation would use `**`, not `^`. | `^` là XOR theo bit, không phải lũy thừa: `5 = 0101` và `3 = 0011` khác nhau tại các vị trí bit `0100` và `0010`, cho `0110` = `6`. Lũy thừa phải dùng `**`, không dùng `^`. |
 
 ## 8. Nối sang bài kế tiếp
 
