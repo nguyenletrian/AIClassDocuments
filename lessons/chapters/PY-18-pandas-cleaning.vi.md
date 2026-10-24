@@ -29,7 +29,6 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `df.duplicated()/drop_duplicates()` | Phát hiện và loại bỏ hàng trùng |
 | `pd.to_numeric(errors='coerce')` | Chuyển chuỗi lỗi thành NaN để xử lý có kiểm soát |
 
-Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã được giải thích ngay tại bảng hàm này.
 
 ## 4. Khái niệm liên quan và ví dụ nhỏ
 
@@ -93,9 +92,9 @@ print(pd.to_numeric(pd.Series(['2']),errors='coerce'))
 
 **Vấn đề:** Báo số khách thiếu tuổi.
 
-**Vì sao chọn cách giải này?** isna().sum() giúp biết cột nào cần xử lý. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** isna().sum() giúp biết cột nào cần xử lý.
 
-**Dữ liệu:** 3 khách, cột age có một None; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 3 khách, cột age có một None.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -105,7 +104,6 @@ df=pd.DataFrame({"age":[20,None,25]})
 print(df.isna().sum())
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 2 — Điền giá trị trung vị
 
@@ -113,9 +111,9 @@ print(df.isna().sum())
 
 **Vấn đề:** Điền giá trị trung vị.
 
-**Vì sao chọn cách giải này?** Median đỡ bị ảnh hưởng bởi một giá trị quá lớn. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Median đỡ bị ảnh hưởng bởi một giá trị quá lớn.
 
-**Dữ liệu:** Cột chi tiêu 3 khách có 1 None; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** Cột chi tiêu 3 khách có 1 None.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -126,7 +124,6 @@ df["spent"]=df["spent"].fillna(df["spent"].median())
 print(df)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 3 — Loại trùng mã đơn
 
@@ -134,9 +131,9 @@ print(df)
 
 **Vấn đề:** Loại trùng mã đơn.
 
-**Vì sao chọn cách giải này?** Loại dòng trùng sau khi xác nhận cùng bản ghi. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Loại dòng trùng sau khi xác nhận cùng bản ghi.
 
-**Dữ liệu:** 3 dòng mã O1 O1 O2; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 3 dòng mã O1 O1 O2.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -146,7 +143,6 @@ df=pd.DataFrame({"id":["O1","O1","O2"],"amount":[10,10,20]})
 print(df.drop_duplicates())
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 4 — Đổi chuỗi giá sang số
 
@@ -154,9 +150,9 @@ print(df.drop_duplicates())
 
 **Vấn đề:** Đổi chuỗi giá sang số.
 
-**Vì sao chọn cách giải này?** coerce đánh dấu đầu vào lỗi để không tính nhầm. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** coerce đánh dấu đầu vào lỗi để không tính nhầm.
 
-**Dữ liệu:** Giá ['100','bad','250'] đồng; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** Giá ['100','bad','250'] đồng.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -166,7 +162,6 @@ s=pd.Series(["100","bad","250"])
 print(pd.to_numeric(s,errors="coerce"))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 5 — Chuẩn bị train/test tránh leakage
 
@@ -174,9 +169,9 @@ print(pd.to_numeric(s,errors="coerce"))
 
 **Vấn đề:** Chuẩn bị train/test tránh leakage.
 
-**Vì sao chọn cách giải này?** Median phải học từ train và dùng lại cho test. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Median phải học từ train và dùng lại cho test.
 
-**Dữ liệu:** Train [10,None,20], test [None,30]; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** Train [10,None,20], test [None,30].
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -187,7 +182,6 @@ median=train.median()
 print(train.fillna(median),test.fillna(median))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ## 6. Sai lầm thường gặp
 
