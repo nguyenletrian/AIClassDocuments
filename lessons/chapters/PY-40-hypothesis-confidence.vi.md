@@ -1,10 +1,6 @@
 # PY-40 — Kiểm định giả thuyết, p-value và khoảng tin cậy
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
-
 ## 1. Vị trí trong chuỗi kiến thức
-
-**Từ vựng trong mục:** **Null hypothesis** — giả thuyết không; **p-value** — giá trị p.
 
 `CLT/SE → Hypothesis Testing → Confidence Interval → A/B Test`
 
@@ -21,8 +17,6 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ## 3. Thư viện và hàm Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cách viết | Khi nào dùng, ý nghĩa tham số |
 |---|---|
 | `scipy.stats.ttest_1samp(values,popmean)` | Kiểm định mean so với mốc, giả định cần kiểm tra |
@@ -34,19 +28,13 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ### 4.1. Null hypothesis
 
-**Từ vựng trong mục:** **Null hypothesis** — giả thuyết không.
-
 Phát biểu gốc đem kiểm định, ký hiệu H0. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
 ```python
 print('H0: mean = 50')
 ```
 
-**Tự kiểm tra:** Null hypothesis là gì? **Đáp án:** Phát biểu gốc đem kiểm định, ký hiệu H0.
-
 ### 4.2. p-value
-
-**Từ vựng trong mục:** **p-value** — giá trị p.
 
 Độ bất thường của dữ liệu nếu giả định H0 đúng. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -55,11 +43,7 @@ from scipy.stats import ttest_1samp
 print(ttest_1samp([8,9,10,11,12],10).pvalue)
 ```
 
-**Tự kiểm tra:** p-value là gì? **Đáp án:** Độ bất thường của dữ liệu nếu giả định H0 đúng.
-
 ### 4.3. T-test
-
-**Từ vựng trong mục:** **T-test** — kiểm định t.
 
 Kiểm định trung bình khi phương sai tổng thể chưa biết. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -68,11 +52,7 @@ from scipy.stats import ttest_1samp
 print(ttest_1samp([8,9,10,11,12],10).statistic)
 ```
 
-**Tự kiểm tra:** T-test là gì? **Đáp án:** Kiểm định trung bình khi phương sai tổng thể chưa biết.
-
 ### 4.4. Confidence interval
-
-**Từ vựng trong mục:** **Confidence interval** — khoảng tin cậy.
 
 Khoảng tính theo quy trình có mức bao phủ dài hạn xác định. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -81,13 +61,9 @@ import numpy as np
 print(np.mean([2,3,4]))
 ```
 
-**Tự kiểm tra:** Confidence interval là gì? **Đáp án:** Khoảng tính theo quy trình có mức bao phủ dài hạn xác định.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Đánh giá điểm trung bình so với 50
-
-**Từ vựng trong mục:** **Null hypothesis** — giả thuyết không.
 
 **Vấn đề:** Đánh giá điểm trung bình so với 50.
 
@@ -95,27 +71,19 @@ print(np.mean([2,3,4]))
 
 **Dữ liệu:** 7 điểm [48,52,55,49,51,47,53]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 from scipy.stats import ttest_1samp
 x=[48,52,55,49,51,47,53]
 print(ttest_1samp(x,popmean=50).pvalue)
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 2 — Khoảng tin cậy thời gian giao hàng
-
-**Từ vựng trong mục:** **p-value** — giá trị p.
 
 **Vấn đề:** Khoảng tin cậy thời gian giao hàng.
 
 **Vì sao chọn cách này?** t.interval dùng std mẫu khi n nhỏ và giả định phù hợp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
 **Dữ liệu:** 5 số ngày [2,3,3,4,2]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
 ```python
 import numpy as np
@@ -124,11 +92,7 @@ x=np.array([2.,3.,3.,4.,2.]);mean=x.mean()
 print(t.interval(.95,df=len(x)-1,loc=mean,scale=sem(x)))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 3 — Xem sai số chuẩn
-
-**Từ vựng trong mục:** **T-test** — kiểm định t.
 
 **Vấn đề:** Xem sai số chuẩn.
 
@@ -136,18 +100,12 @@ print(t.interval(.95,df=len(x)-1,loc=mean,scale=sem(x)))
 
 **Dữ liệu:** 5 ngày giao hàng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 from scipy.stats import sem
 print(sem([2,3,3,4,2]))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 4 — Kiểm định thang thời gian
-
-**Từ vựng trong mục:** **Confidence interval** — khoảng tin cậy.
 
 **Vấn đề:** Kiểm định thang thời gian.
 
@@ -155,19 +113,13 @@ print(sem([2,3,3,4,2]))
 
 **Dữ liệu:** Giả sử alpha=0.05. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 from scipy.stats import ttest_1samp
 p=ttest_1samp([5,6,7,8,9],popmean=6).pvalue
 print("Reject H0" if p<.05 else "Not enough evidence")
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 5 — Phân biệt ý nghĩa alpha
-
-**Từ vựng trong mục:** **Null hypothesis** — giả thuyết không.
 
 **Vấn đề:** Phân biệt ý nghĩa alpha.
 
@@ -175,14 +127,10 @@ print("Reject H0" if p<.05 else "Not enough evidence")
 
 **Dữ liệu:** pvalue=0.04, alpha 0.01 và 0.05. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 p=.04
 for alpha in [.01,.05]:print(alpha,p<alpha)
 ```
-
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 
@@ -190,8 +138,6 @@ for alpha in [.01,.05]:print(alpha,p<alpha)
 - Kiểm tra giả định, cỡ mẫu, đơn vị, độ nhạy kết quả và data leakage trước khi ứng dụng AI thật.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Null hypothesis? — Khái niệm Null hypothesis là gì?**
@@ -437,7 +383,3 @@ D. It removes test sets — Nó không cần tập kiểm tra
 | Q18 | **A** | The input is pvalue=0.04, alpha 0.01 và 0.05 | pvalue=0.04, alpha 0.01 và 0.05 |
 | Q19 | **D** | Units, sample meaning and assumptions | Đơn vị, ý nghĩa mẫu và giả định |
 | Q20 | **C** | An example may not generalize | Ví dụ có thể không tổng quát |
-
-## 8. Liên hệ bài kế tiếp
-
-`CLT/SE → Hypothesis Testing → Confidence Interval → A/B Test`.
