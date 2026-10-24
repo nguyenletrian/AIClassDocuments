@@ -30,7 +30,7 @@ Một chương trình nhận thông tin, lưu vào biến, xử lý và tạo ra
 | `type()` | Kiểm tra kiểu dữ liệu khi chưa rõ đầu vào |
 
 
-## 4. Khái niệm liên quan — từ lời giải thích đến Python
+## 4. Khái niệm liên quan
 
 ### 4.1. Variable
 
