@@ -78,7 +78,8 @@ Cột là một thuộc tính, chẳng hạn `Price` biểu thị giá và `Qty`
 
 ```python
 import pandas as pd
-x=pd.DataFrame({'price':[10]});print(x['price'])
+x=pd.DataFrame({'price':[10]})
+print(x['price'])
 ```
 
 **Kết quả khi chạy:**
@@ -132,8 +133,6 @@ print(df)
 1    Book  35000    1
 ```
 
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
-
 ### Tình huống 2 — Đọc đơn từ CSV văn bản
 
 **Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
@@ -158,8 +157,6 @@ print(df.head())
 0  O1   10000
 1  O2   30000
 ```
-
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 3 — Tạo doanh thu mỗi dòng
 
@@ -186,8 +183,6 @@ print(df)
 1     20    3       60
 ```
 
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
-
 ### Tình huống 4 — Xem kiểu dữ liệu đầu vào
 
 **Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
@@ -212,8 +207,6 @@ qty      int64
 dtype: object
 ```
 
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
-
 ### Tình huống 5 — Chọn dữ liệu tập huấn luyện
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
@@ -236,8 +229,6 @@ print(X.shape)
 ```text
 (2, 2)
 ```
-
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ## 6. Sai lầm thường gặp
 

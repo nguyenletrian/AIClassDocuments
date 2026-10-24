@@ -40,8 +40,10 @@ Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ n
 Kế thừa cho phép lớp con dùng lại thuộc tính và phương thức có từ lớp cha.
 
 ```python
-class P: pass
-class C(P): pass
+class P:
+    pass
+class C(P):
+    pass
 print(isinstance(C(),P))
 ```
 
@@ -59,7 +61,8 @@ True
 
 ```python
 class A:
-    def f(self):return 1
+    def f(self):
+        return 1
 print(A().f())
 ```
 
@@ -77,7 +80,8 @@ Lớp trừu tượng có thể quy định phương thức mà lớp con phải
 
 ```python
 from abc import ABC
-class Base(ABC): pass
+class Base(ABC):
+    pass
 print(isinstance(Base(), ABC))
 ```
 
@@ -97,9 +101,11 @@ Ghi đè là khi lớp con tự viết lại phương thức cùng tên với l�
 
 ```python
 class A:
-    def f(self):return 1
+    def f(self):
+        return 1
 class B(A):
-    def f(self):return 2
+    def f(self):
+        return 2
 print(B().f())
 ```
 
@@ -123,9 +129,11 @@ print(B().f())
 
 ```python
 class Product:
-    def __init__(self,name):self.name=name
+    def __init__(self,name):
+        self.name=name
 class Electronic(Product):
-    def category(self):return "electronic"
+    def category(self):
+        return "electronic"
 print(Electronic("Phone").category())
 ```
 
@@ -134,8 +142,6 @@ print(Electronic("Phone").category())
 ```text
 electronic
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 2 — Giao diện gửi thông báo
 
@@ -151,9 +157,11 @@ electronic
 from abc import ABC,abstractmethod
 class Notifier(ABC):
     @abstractmethod
-    def send(self,msg):pass
+    def send(self,msg):
+        pass
 class Console(Notifier):
-    def send(self,msg):return "Sent:"+msg
+    def send(self,msg):
+        return "Sent:"+msg
 print(Console().send("Hello"))
 ```
 
@@ -162,8 +170,6 @@ print(Console().send("Hello"))
 ```text
 Sent:Hello
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 3 — Tính phí vận chuyển
 
@@ -177,9 +183,11 @@ Sent:Hello
 
 ```python
 class Shipping:
-    def fee(self):return 0
+    def fee(self):
+        return 0
 class Express(Shipping):
-    def fee(self):return 35000
+    def fee(self):
+        return 35000
 print(Express().fee())
 ```
 
@@ -188,8 +196,6 @@ print(Express().fee())
 ```text
 35000
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 4 — Đọc nhiều loại cảm biến
 
@@ -203,12 +209,16 @@ print(Express().fee())
 
 ```python
 class Sensor:
-    def read(self):return 0
+    def read(self):
+        return 0
 class Temp(Sensor):
-    def read(self):return 26.5
+    def read(self):
+        return 26.5
 class Humidity(Sensor):
-    def read(self):return 62
-for s in [Temp(),Humidity()]:print(s.read())
+    def read(self):
+        return 62
+for s in [Temp(),Humidity()]:
+    print(s.read())
 ```
 
 **Kết quả khi chạy:**
@@ -217,8 +227,6 @@ for s in [Temp(),Humidity()]:print(s.read())
 26.5
 62
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 5 — Chuyển định dạng báo cáo
 
@@ -232,9 +240,11 @@ for s in [Temp(),Humidity()]:print(s.read())
 
 ```python
 class Report:
-    def render(self):return "plain"
+    def render(self):
+        return "plain"
 class HtmlReport(Report):
-    def render(self):return "<p>report</p>"
+    def render(self):
+        return "<p>report</p>"
 print(HtmlReport().render())
 ```
 
@@ -243,8 +253,6 @@ print(HtmlReport().render())
 ```text
 <p>report</p>
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ## 6. Sai lầm thường gặp
 

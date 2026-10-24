@@ -39,7 +39,8 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 Class là khuôn mẫu để tạo các đối tượng có cùng kiểu thông tin và phương thức.
 
 ```python
-class P: pass
+class P:
+    pass
 print(P)
 ```
 
@@ -58,7 +59,8 @@ print(P)
 Object là một đối tượng cụ thể được tạo từ class; mỗi đối tượng có dữ liệu riêng.
 
 ```python
-class P: pass
+class P:
+    pass
 print(type(P()))
 ```
 
@@ -78,7 +80,8 @@ print(type(P()))
 
 ```python
 class P:
-    def __init__(self,x): self.x=x
+    def __init__(self,x):
+        self.x=x
 print(P(3).x)
 ```
 
@@ -96,9 +99,13 @@ print(P(3).x)
 
 ```python
 class Counter:
-    def __init__(self): self.n=0
-    def add(self): self.n+=1
-c=Counter();c.add();print(c.n)
+    def __init__(self):
+        self.n=0
+    def add(self):
+        self.n+=1
+c=Counter()
+c.add()
+print(c.n)
 ```
 
 **Kết quả khi chạy:**
@@ -121,7 +128,8 @@ c=Counter();c.add();print(c.n)
 
 ```python
 class Student:
-    def __init__(self,name,score): self.name,self.score=name,score
+    def __init__(self,name,score):
+        self.name,self.score=name,score
 s=Student("An",8)
 print(s.name,s.score)
 ```
@@ -131,8 +139,6 @@ print(s.name,s.score)
 ```text
 An 8
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 2 — Giỏ hàng có phương thức
 
@@ -146,10 +152,15 @@ An 8
 
 ```python
 class Cart:
-    def __init__(self): self.prices=[]
-    def add(self,p): self.prices.append(p)
-    def total(self): return sum(self.prices)
-c=Cart();c.add(100);c.add(200)
+    def __init__(self):
+        self.prices=[]
+    def add(self,p):
+        self.prices.append(p)
+    def total(self):
+        return sum(self.prices)
+c=Cart()
+c.add(100)
+c.add(200)
 print(c.total())
 ```
 
@@ -158,8 +169,6 @@ print(c.total())
 ```text
 300
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 3 — Ràng buộc điểm nhập
 
@@ -173,11 +182,15 @@ print(c.total())
 
 ```python
 class Score:
-    def __init__(self): self.value=0
+    def __init__(self):
+        self.value=0
     def set(self,x):
-        if not 0<=x<=10: raise ValueError("score")
+        if not 0<=x<=10:
+            raise ValueError("score")
         self.value=x
-s=Score();s.set(9);print(s.value)
+s=Score()
+s.set(9)
+print(s.value)
 ```
 
 **Kết quả khi chạy:**
@@ -185,8 +198,6 @@ s=Score();s.set(9);print(s.value)
 ```text
 9
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 4 — In hóa đơn dễ đọc
 
@@ -200,8 +211,10 @@ s=Score();s.set(9);print(s.value)
 
 ```python
 class Order:
-    def __init__(self,code,total):self.code,self.total=code,total
-    def __str__(self):return f"{self.code}: {self.total} VND"
+    def __init__(self,code,total):
+        self.code,self.total=code,total
+    def __str__(self):
+        return f"{self.code}: {self.total} VND"
 print(Order("O01",150000))
 ```
 
@@ -210,8 +223,6 @@ print(Order("O01",150000))
 ```text
 O01: 150000 VND
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 5 — Hai cảm biến độc lập
 
@@ -225,7 +236,8 @@ O01: 150000 VND
 
 ```python
 class Sensor:
-    def __init__(self,value): self.value=value
+    def __init__(self,value):
+        self.value=value
 a,b=Sensor(20),Sensor(40)
 a.value=25
 print(a.value,b.value)
@@ -236,8 +248,6 @@ print(a.value,b.value)
 ```text
 25 40
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ## 6. Sai lầm thường gặp
 

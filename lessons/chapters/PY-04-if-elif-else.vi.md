@@ -54,7 +54,8 @@ True
 Nhánh là phần code chỉ chạy khi điều kiện phù hợp. Sau `if` phải có dấu `:`; các lệnh nằm trong nhánh phải được thụt vào. Trong ví dụ, `True` khiến Python in `ok`.
 
 ```python
-if True: print('ok')
+if True:
+    print('ok')
 ```
 
 **Kết quả khi chạy:**
@@ -88,7 +89,8 @@ True
 ```python
 x=2
 if x>0:
-    if x%2==0: print('even')
+    if x%2==0:
+        print('even')
 ```
 
 **Kết quả khi chạy:**
@@ -118,9 +120,12 @@ even
 
 ```python
 score=85
-if score>=90: grade="A"
-elif score>=80: grade="B"
-else: grade="Other"
+if score>=90:
+    grade="A"
+elif score>=80:
+    grade="B"
+else:
+    grade="Other"
 print(grade)
 ```
 
@@ -151,9 +156,12 @@ B
 
 ```python
 qty=4
-if qty<=0: state="Out"
-elif qty<=5: state="Low"
-else: state="OK"
+if qty<=0:
+    state="Out"
+elif qty<=5:
+    state="Low"
+else:
+    state="OK"
 print(state)
 ```
 
@@ -184,8 +192,10 @@ Low
 
 ```python
 years,paid=6,1500000
-if years>=5 and paid>=1000000: print("VIP")
-else: print("Regular")
+if years>=5 and paid>=1000000:
+    print("VIP")
+else:
+    print("Regular")
 ```
 
 **Kết quả khi chạy:**
@@ -216,7 +226,8 @@ VIP
 online,temp=True,82
 if online:
     print("Hot" if temp>=80 else "Normal")
-else: print("Offline")
+else:
+    print("Offline")
 ```
 
 **Kết quả khi chạy:**
@@ -245,8 +256,10 @@ Hot
 
 ```python
 month=10
-if 1<=month<=12: print((month-1)//3+1)
-else: print("Invalid")
+if 1<=month<=12:
+    print((month-1)//3+1)
+else:
+    print("Invalid")
 ```
 
 **Kết quả khi chạy:**

@@ -74,7 +74,8 @@ Mặt nạ Boolean lọc những phần tử hoặc hàng thỏa điều kiện 
 
 ```python
 import numpy as np
-x=np.array([4,7,9]);print(x[x>=7])
+x=np.array([4,7,9])
+print(x[x>=7])
 ```
 
 **Kết quả khi chạy:**
@@ -91,7 +92,8 @@ Fancy indexing dùng danh sách chỉ số để chọn nhiều vị trí không
 
 ```python
 import numpy as np
-x=np.array([3,5,7]);print(x[[0,2]])
+x=np.array([3,5,7])
+print(x[[0,2]])
 ```
 
 **Kết quả khi chạy:**
@@ -124,8 +126,6 @@ print(scores[1,0])
 6
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 2 — Báo danh sách điểm cao
 
 **Từ vựng trong mục:** **Slice** — cắt lát.
@@ -148,8 +148,6 @@ print(X[X[:,0]>=8])
 [[8 9]
  [9 8]]
 ```
-
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 3 — Lấy hai môn cần kiểm
 
@@ -174,8 +172,6 @@ print(X[:,[0,2]])
  [6 8]]
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 4 — Lấy ba khách đầu tiên
 
 **Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao.
@@ -198,8 +194,6 @@ print(spend[:3])
 [100 200  50]
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 5 — Sửa số đo bất thường
 
 **Từ vựng trong mục:** **Index** — chỉ số.
@@ -213,7 +207,8 @@ print(spend[:3])
 ```python
 import numpy as np
 values=np.array([20,-1,23,24])
-clean=values.copy();clean[clean<0]=0
+clean=values.copy()
+clean[clean<0]=0
 print(values,clean)
 ```
 
@@ -222,8 +217,6 @@ print(values,clean)
 ```text
 [20 -1 23 24] [20  0 23 24]
 ```
-
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ## 6. Sai lầm thường gặp
 

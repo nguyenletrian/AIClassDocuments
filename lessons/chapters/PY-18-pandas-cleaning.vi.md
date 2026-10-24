@@ -132,8 +132,6 @@ age    1
 dtype: int64
 ```
 
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
-
 ### Tình huống 2 — Điền giá trị trung vị
 
 **Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
@@ -160,8 +158,6 @@ print(df)
 2  200.0
 ```
 
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
-
 ### Tình huống 3 — Loại trùng mã đơn
 
 **Từ vựng trong mục:** **Imputation** — điền khuyết.
@@ -185,8 +181,6 @@ print(df.drop_duplicates())
 0  O1      10
 2  O2      20
 ```
-
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 4 — Đổi chuỗi giá sang số
 
@@ -213,8 +207,6 @@ print(pd.to_numeric(s,errors="coerce"))
 dtype: float64
 ```
 
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
-
 ### Tình huống 5 — Chuẩn bị train/test tránh leakage
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu.
@@ -227,7 +219,8 @@ dtype: float64
 
 ```python
 import pandas as pd
-train=pd.Series([10,None,20]);test=pd.Series([None,30])
+train=pd.Series([10,None,20])
+test=pd.Series([None,30])
 median=train.median()
 print(train.fillna(median),test.fillna(median))
 ```
@@ -242,8 +235,6 @@ dtype: float64 0    15.0
 1    30.0
 dtype: float64
 ```
-
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ## 6. Sai lầm thường gặp
 

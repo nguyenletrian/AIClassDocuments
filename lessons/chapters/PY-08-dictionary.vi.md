@@ -175,7 +175,8 @@ print(stock)
 ```python
 labels=["AI","Math","AI"]
 count={}
-for x in labels: count[x]=count.get(x,0)+1
+for x in labels:
+    count[x]=count.get(x,0)+1
 print(count)
 ```
 
