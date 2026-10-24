@@ -20,11 +20,11 @@ class StudentPcaLessonTests(unittest.TestCase):
 
     def test_student_first_layout_and_no_internal_sources(self):
         for expected in ("## 1. PCA nằm ở đâu", "## 2. English vocabulary",
-                         "## 3. Thư viện và hàm Python", "## 4. Khái niệm PCA",
+                         "## 3. Thư viện và hàm Python", "## 4. PCA và các khái niệm liên quan",
                          "## 5. Năm tình huống", "## 7. English multiple-choice"):
             self.assertIn(expected, self.text)
         self.assertEqual(len(re.findall(r"^### Tình huống [1-5]", self.text, re.M)), 5)
-        self.assertEqual(len(re.findall(r"^\*\*Q\d+\.", self.text, re.M)), 20)
+        self.assertEqual(len(re.findall(r"^\| Q\d+ \|", self.text, re.M)), 20)
         for forbidden in ("PythoClass", "PythonClass", "Toán học đằng sau", "Sau bài học"):
             self.assertNotIn(forbidden, self.text)
         self.assertEqual(len(self.blocks), 12)
