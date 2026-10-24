@@ -42,6 +42,7 @@
 **Mean** cộng các giá trị rồi chia cho số quan sát. Ba đơn giao trong 2, 3, 4 ngày có trung bình `(2+3+4)/3=3` ngày. Mean sử dụng **mọi giá trị**, nên có thể bị kéo lệch nếu có một đơn rất chậm. Phải đảm bảo các thời gian dùng cùng đơn vị; mean của các mã sản phẩm không có ý nghĩa.
 
 ```python
+# Mục đích: Điểm cân bằng của các quan sát.
 import numpy as np
 
 days = np.array([2, 3, 4])
@@ -63,6 +64,7 @@ Thời gian trung bình ba đơn là 3 ngày, không có nghĩa đơn nào cũng
 **Median** là số ở giữa khi dữ liệu được **sắp tăng dần**; nếu có số quan sát chẵn thì là trung bình hai số giữa. Với giá trị đơn hàng `[100,120,10000]` nghìn đồng, trung vị 120 nghìn, còn mean vượt 3.400 nghìn vì đơn 10.000 quá lớn. Median thường giúp mô tả giá trị trung tâm khi dữ liệu lệch, nhưng không thay thế việc kiểm tra liệu giá trị bất thường có hợp lệ.
 
 ```python
+# Mục đích: Vị trí giữa sau khi xếp thứ tự.
 import numpy as np
 
 amounts = [100, 120, 10000]
@@ -84,6 +86,7 @@ Trung vị 120 nghìn đồng ít bị ảnh hưởng bởi đơn 10.000 nghìn 
 Phương sai đo độ phân tán bằng **trung bình bình phương sai lệch so với mean**. Điểm `[6,8,10]` có mean 8, các lệch `[-2,0,2]`, bình phương `[4,0,4]`. Phương sai **quần thể** `ddof=0` bằng `8/3≈2.667` điểm². Nếu dùng để **ước lượng từ mẫu**, phương sai mẫu với `ddof=1` là `8/2=4` điểm². Cần nêu rõ đang dùng mẫu hay toàn bộ quần thể.
 
 ```python
+# Mục đích: Sai khác bình phương quanh mean.
 import numpy as np
 
 scores = [6, 8, 10]
@@ -105,6 +108,7 @@ Phương sai quần thể 2,667 điểm bình phương; không phải số đi�
 **Standard deviation (std)** là căn bậc hai của phương sai, có **cùng đơn vị** với số đo. Cảm biến nhiệt độ đo `[20,21,19,20]` °C: mean=20 °C, std quần thể bằng `sqrt(0.5)≈0.707` °C. Trong khi đó **mode** là giá trị xuất hiện nhiều nhất, ở đây 20 °C hai lần; đây là câu hỏi về tần suất, không phải độ phân tán.
 
 ```python
+# Mục đích: Độ phân tán cùng đơn vị dữ liệu.
 import numpy as np
 
 celsius = [20, 21, 19, 20]
@@ -134,6 +138,7 @@ print(round(float(np.std(celsius, ddof=0)), 3))
 3. In kết quả, chú ý không phải mọi đơn đều bằng mean.
 
 ```python
+# Mục đích: Trung bình thời gian giao ba đơn.
 import numpy as np
 
 days = np.array([2, 3, 4])
@@ -161,6 +166,7 @@ Trung bình ba đơn là 3 ngày.
 3. Làm tròn mean ba chữ số và in trung vị.
 
 ```python
+# Mục đích: So mean và median hóa đơn.
 import numpy as np
 
 amounts = [100, 120, 10000]
@@ -188,6 +194,7 @@ Mean cao bất thường nhưng trung vị 120 nghìn gần hai hóa đơn thôn
 3. In kết quả ba chữ số.
 
 ```python
+# Mục đích: Đo độ phân tán điểm thi.
 import numpy as np
 
 scores = [6, 8, 10]
@@ -215,6 +222,7 @@ Phương sai quần thể khoảng 2,667 điểm².
 3. Làm tròn ba chữ số và in.
 
 ```python
+# Mục đích: Kiểm tra độ dao động nhiệt độ.
 import numpy as np
 
 celsius = [20, 21, 19, 20]
@@ -242,6 +250,7 @@ Std khoảng 0,707 °C quanh mức trung bình 20 °C.
 3. Lấy nhãn đầu và số lượt mua.
 
 ```python
+# Mục đích: Tìm nhãn sản phẩm xuất hiện nhiều nhất.
 import pandas as pd
 
 products = pd.Series(['A', 'A', 'B', 'C', 'A'])
@@ -266,302 +275,302 @@ Mã A xuất hiện ba lượt, nhiều nhất trong danh sách.
 - Đừng diễn giải std của quan sát thành sai số chuẩn của trung bình mẫu.
 - Đổi dữ liệu về cùng đơn vị trước khi tính thống kê.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
-**Q1. What does mean calculate? — Mean tính gì?**
+**Q1. What does mean calculate? | Mean tính gì?**
 
-A. Sum divided by observation count — Tổng chia số quan sát
+A. Sum divided by observation count | Tổng chia số quan sát
 
-B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
+B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
+C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
-D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
+D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
 **Đáp án: A**
 
 **Giải thích:** Mọi quan sát góp vào trung bình.
 
 
-**Q2. What is median? — Median là gì?**
+**Q2. What is median? | Median là gì?**
 
-A. Sum divided by observation count — Tổng chia số quan sát
+A. Sum divided by observation count | Tổng chia số quan sát
 
-B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
+B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
+C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
-D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
+D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
 **Đáp án: B**
 
 **Giải thích:** Trung vị dựa trên thứ tự, không dựa trên tổng độ lớn.
 
 
-**Q3. What does variance measure? — Variance đo gì?**
+**Q3. What does variance measure? | Variance đo gì?**
 
-A. Sum divided by observation count — Tổng chia số quan sát
+A. Sum divided by observation count | Tổng chia số quan sát
 
-B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
+B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
+C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
-D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
+D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
 **Đáp án: C**
 
 **Giải thích:** Nó lấy trung bình bình phương độ lệch.
 
 
-**Q4. What does standard deviation measure? — Std đo gì?**
+**Q4. What does standard deviation measure? | Std đo gì?**
 
-A. Sum divided by observation count — Tổng chia số quan sát
+A. Sum divided by observation count | Tổng chia số quan sát
 
-B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
+B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
+C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
-D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
+D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
 **Đáp án: D**
 
 **Giải thích:** Std là căn bậc hai phương sai.
 
 
-**Q5. What is mode? — Mode là gì?**
+**Q5. What is mode? | Mode là gì?**
 
-A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
+A. Most frequent observed value | Giá trị xuất hiện nhiều nhất
 
-B. Divide sum of squares by n — Chia tổng bình phương cho n
+B. Divide sum of squares by n | Chia tổng bình phương cho n
 
-C. Divide by n−1 — Chia cho n−1
+C. Divide by n−1 | Chia cho n−1
 
-D. Frequency per distinct label — Tần suất từng nhãn khác nhau
+D. Frequency per distinct label | Tần suất từng nhãn khác nhau
 
 **Đáp án: A**
 
 **Giải thích:** Yếu vị dùng được cho nhãn lẫn số.
 
 
-**Q6. What is ddof=0 in np.var? — ddof=0 trong np.var là gì?**
+**Q6. What is ddof=0 in np.var? | ddof=0 trong np.var là gì?**
 
-A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
+A. Most frequent observed value | Giá trị xuất hiện nhiều nhất
 
-B. Divide sum of squares by n — Chia tổng bình phương cho n
+B. Divide sum of squares by n | Chia tổng bình phương cho n
 
-C. Divide by n−1 — Chia cho n−1
+C. Divide by n−1 | Chia cho n−1
 
-D. Frequency per distinct label — Tần suất từng nhãn khác nhau
+D. Frequency per distinct label | Tần suất từng nhãn khác nhau
 
 **Đáp án: B**
 
 **Giải thích:** Nó tính phương sai theo quy ước quần thể.
 
 
-**Q7. What is ddof=1 for sample variance? — ddof=1 dùng cho gì?**
+**Q7. What is ddof=1 for sample variance? | ddof=1 dùng cho gì?**
 
-A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
+A. Most frequent observed value | Giá trị xuất hiện nhiều nhất
 
-B. Divide sum of squares by n — Chia tổng bình phương cho n
+B. Divide sum of squares by n | Chia tổng bình phương cho n
 
-C. Divide by n−1 — Chia cho n−1
+C. Divide by n−1 | Chia cho n−1
 
-D. Frequency per distinct label — Tần suất từng nhãn khác nhau
+D. Frequency per distinct label | Tần suất từng nhãn khác nhau
 
 **Đáp án: C**
 
 **Giải thích:** Đó là ước lượng phương sai mẫu thông dụng.
 
 
-**Q8. What does value_counts() produce? — value_counts() tạo gì?**
+**Q8. What does value_counts() produce? | value_counts() tạo gì?**
 
-A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
+A. Most frequent observed value | Giá trị xuất hiện nhiều nhất
 
-B. Divide sum of squares by n — Chia tổng bình phương cho n
+B. Divide sum of squares by n | Chia tổng bình phương cho n
 
-C. Divide by n−1 — Chia cho n−1
+C. Divide by n−1 | Chia cho n−1
 
-D. Frequency per distinct label — Tần suất từng nhãn khác nhau
+D. Frequency per distinct label | Tần suất từng nhãn khác nhau
 
 **Đáp án: D**
 
 **Giải thích:** Nó đếm lượt xuất hiện của từng nhãn.
 
 
-**Q9. What is mean of 2,3,4? — Mean của 2,3,4 là bao nhiêu?**
+**Q9. What is mean of 2,3,4? | Mean của 2,3,4 là bao nhiêu?**
 
-A. 3 — 3
+A. 3 | 3
 
-B. 4 — 4
+B. 4 | 4
 
-C. 2/3 — 2/3
+C. 2/3 | 2/3
 
-D. 1 — 1
+D. 1 | 1
 
 **Đáp án: A**
 
 **Giải thích:** Tổng 9 chia 3 bằng 3.
 
 
-**Q10. What is median of 2,4,100? — Median của 2,4,100 là bao nhiêu?**
+**Q10. What is median of 2,4,100? | Median của 2,4,100 là bao nhiêu?**
 
-A. 3 — 3
+A. 3 | 3
 
-B. 4 — 4
+B. 4 | 4
 
-C. 2/3 — 2/3
+C. 2/3 | 2/3
 
-D. 1 — 1
+D. 1 | 1
 
 **Đáp án: B**
 
 **Giải thích:** Bốn nằm giữa dãy đã sắp.
 
 
-**Q11. What is population variance of 1,2,3? — Phương sai quần thể của 1,2,3 là gì?**
+**Q11. What is population variance of 1,2,3? | Phương sai quần thể của 1,2,3 là gì?**
 
-A. 3 — 3
+A. 3 | 3
 
-B. 4 — 4
+B. 4 | 4
 
-C. 2/3 — 2/3
+C. 2/3 | 2/3
 
-D. 1 — 1
+D. 1 | 1
 
 **Đáp án: C**
 
 **Giải thích:** Bình phương lệch là 1,0,1 rồi chia ba.
 
 
-**Q12. What is sample variance of 1,2,3? — Phương sai mẫu của 1,2,3 là gì?**
+**Q12. What is sample variance of 1,2,3? | Phương sai mẫu của 1,2,3 là gì?**
 
-A. 3 — 3
+A. 3 | 3
 
-B. 4 — 4
+B. 4 | 4
 
-C. 2/3 — 2/3
+C. 2/3 | 2/3
 
-D. 1 — 1
+D. 1 | 1
 
 **Đáp án: D**
 
 **Giải thích:** Tổng bình phương 2 chia n−1=2.
 
 
-**Q13. What unit does variance have? — Variance có đơn vị gì?**
+**Q13. What unit does variance have? | Variance có đơn vị gì?**
 
-A. Squared input units — Bình phương đơn vị dữ liệu
+A. Squared input units | Bình phương đơn vị dữ liệu
 
-B. Original input units — Đơn vị gốc của dữ liệu
+B. Original input units | Đơn vị gốc của dữ liệu
 
-C. Median — Trung vị
+C. Median | Trung vị
 
-D. Mode — Yếu vị
+D. Mode | Yếu vị
 
 **Đáp án: A**
 
 **Giải thích:** Bình phương lệch làm bình phương đơn vị.
 
 
-**Q14. What unit does std have? — Std có đơn vị gì?**
+**Q14. What unit does std have? | Std có đơn vị gì?**
 
-A. Squared input units — Bình phương đơn vị dữ liệu
+A. Squared input units | Bình phương đơn vị dữ liệu
 
-B. Original input units — Đơn vị gốc của dữ liệu
+B. Original input units | Đơn vị gốc của dữ liệu
 
-C. Median — Trung vị
+C. Median | Trung vị
 
-D. Mode — Yếu vị
+D. Mode | Yếu vị
 
 **Đáp án: B**
 
 **Giải thích:** Lấy căn đưa về đơn vị ban đầu.
 
 
-**Q15. Which statistic resists large outliers better? — Thống kê nào ít nhạy với ngoại lệ cực lớn hơn?**
+**Q15. Which statistic resists large outliers better? | Thống kê nào ít nhạy với ngoại lệ cực lớn hơn?**
 
-A. Squared input units — Bình phương đơn vị dữ liệu
+A. Squared input units | Bình phương đơn vị dữ liệu
 
-B. Original input units — Đơn vị gốc của dữ liệu
+B. Original input units | Đơn vị gốc của dữ liệu
 
-C. Median — Trung vị
+C. Median | Trung vị
 
-D. Mode — Yếu vị
+D. Mode | Yếu vị
 
 **Đáp án: C**
 
 **Giải thích:** Giá trị cực lớn ít tác động vị trí giữa.
 
 
-**Q16. Which statistic is useful for categorical labels? — Thống kê nào phù hợp nhãn phân loại?**
+**Q16. Which statistic is useful for categorical labels? | Thống kê nào phù hợp nhãn phân loại?**
 
-A. Squared input units — Bình phương đơn vị dữ liệu
+A. Squared input units | Bình phương đơn vị dữ liệu
 
-B. Original input units — Đơn vị gốc của dữ liệu
+B. Original input units | Đơn vị gốc của dữ liệu
 
-C. Median — Trung vị
+C. Median | Trung vị
 
-D. Mode — Yếu vị
+D. Mode | Yếu vị
 
 **Đáp án: D**
 
 **Giải thích:** Lấy trung bình mã chữ không có ý nghĩa số học.
 
 
-**Q17. Does std equal standard error? — Std có giống sai số chuẩn không?**
+**Q17. Does std equal standard error? | Std có giống sai số chuẩn không?**
 
-A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
+A. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
 
-B. Yes, large outliers can pull it up — Có, ngoại lệ lớn kéo mean lên
+B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-C. Different denominators give different results — Mẫu số khác nhau cho kết quả khác
+C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
-D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
+D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
 **Đáp án: A**
 
 **Giải thích:** SE đo độ biến thiên của thống kê ước lượng.
 
 
-**Q18. Can mean lie above most observations? — Mean có thể lớn hơn phần lớn quan sát không?**
+**Q18. Can mean lie above most observations? | Mean có thể lớn hơn phần lớn quan sát không?**
 
-A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
+A. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
 
-B. Yes, large outliers can pull it up — Có, ngoại lệ lớn kéo mean lên
+B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-C. Different denominators give different results — Mẫu số khác nhau cho kết quả khác
+C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
-D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
+D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
 **Đáp án: B**
 
 **Giải thích:** Mean phụ thuộc tổng các giá trị.
 
 
-**Q19. Why state ddof when reporting variance? — Vì sao báo ddof khi trình bày phương sai?**
+**Q19. Why state ddof when reporting variance? | Vì sao báo ddof khi trình bày phương sai?**
 
-A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
+A. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
 
-B. Yes, large outliers can pull it up — Có, ngoại lệ lớn kéo mean lên
+B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-C. Different denominators give different results — Mẫu số khác nhau cho kết quả khác
+C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
-D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
+D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
 **Đáp án: C**
 
 **Giải thích:** Quy ước mẫu và quần thể khác nhau.
 
 
-**Q20. What happens if values use mismatched units? — Nếu số liệu dùng đơn vị không thống nhất thì sao?**
+**Q20. What happens if values use mismatched units? | Nếu số liệu dùng đơn vị không thống nhất thì sao?**
 
-A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
+A. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
 
-B. Yes, large outliers can pull it up — Có, ngoại lệ lớn kéo mean lên
+B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-C. Different denominators give different results — Mẫu số khác nhau cho kết quả khác
+C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
-D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
+D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
 **Đáp án: D**
 
