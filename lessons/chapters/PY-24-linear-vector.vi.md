@@ -31,15 +31,15 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Scalar
+Bài học nối bốn ý: **scalar** là số đơn lẻ, **vector** chứa tọa độ, **norm** đo độ dài, **dot product** kết hợp các thành phần. Robot dịch chuyển `(3,4)` mét có vector hai chiều nhưng quãng đường thẳng chỉ là một số bằng 5 mét.
 
-**Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
+### 4.1. Scalar — Số đơn lẻ và đơn vị
 
-Một số đơn lẻ có thể đo độ lớn. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Scalar là một giá trị số như vận tốc 2,5 mét/giây. Python lưu số, còn ý nghĩa và đơn vị phải do người lập trình nêu. Scalar khác vector vì không chứa nhiều thành phần tọa độ.
 
 ```python
-rate=2.5
-print(rate)
+speed = 2.5
+print(speed)
 ```
 
 **Kết quả khi chạy:**
@@ -48,17 +48,17 @@ print(rate)
 2.5
 ```
 
-**Tự kiểm tra:** Scalar có nghĩa gì? **Đáp án:** Một số đơn lẻ có thể đo độ lớn.
+Số 2.5 đại diện vận tốc m/s, không phải tọa độ.
 
-### 4.2. Vector
+### 4.2. Vector — Các tọa độ có thứ tự
 
-**Từ vựng trong mục:** **Vector** — véc-tơ.
-
-Dãy số mô tả nhiều thành phần của một đối tượng. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Vector là dãy tọa độ theo một hệ trục. Robot đi 3 m theo x và 4 m theo y nên dùng vector `[3,4]`. Phần tử đầu là x, phần tử sau là y. Đổi `[3,4]` thành `[4,3]` sẽ đổi ý nghĩa hai trục.
 
 ```python
 import numpy as np
-print(np.array([3,4]))
+
+movement = np.array([3, 4])
+print(movement)
 ```
 
 **Kết quả khi chạy:**
@@ -67,17 +67,17 @@ print(np.array([3,4]))
 [3 4]
 ```
 
-**Tự kiểm tra:** Vector có nghĩa gì? **Đáp án:** Dãy số mô tả nhiều thành phần của một đối tượng.
+Hai phần tử lần lượt là độ dịch chuyển theo x và y (mét).
 
-### 4.3. Norm
+### 4.3. Norm — Độ dài vector
 
-**Từ vựng trong mục:** **Norm** — độ lớn véc-tơ.
-
-Độ dài theo chuẩn đã chọn. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Chuẩn Euclid là độ dài `sqrt(x²+y²)`. Với vector `(3,4)`, độ dài bằng `sqrt(9+16)=5` m. Vector đơn vị giữ hướng và có norm bằng 1; muốn chuẩn hóa phải chia các thành phần cho norm, trừ trường hợp norm bằng 0.
 
 ```python
 import numpy as np
-print(np.linalg.norm([3,4]))
+
+movement = np.array([3.0, 4.0])
+print(np.linalg.norm(movement))
 ```
 
 **Kết quả khi chạy:**
@@ -86,17 +86,18 @@ print(np.linalg.norm([3,4]))
 5.0
 ```
 
-**Tự kiểm tra:** Norm có nghĩa gì? **Đáp án:** Độ dài theo chuẩn đã chọn.
+Robot cách gốc tọa độ 5 mét theo đường thẳng.
 
-### 4.4. Dot product
+### 4.4. Dot product — Nhân và cộng cùng vị trí
 
-**Từ vựng trong mục:** **Dot product** — tích vô hướng.
-
-Nhân từng cặp tọa độ tương ứng rồi cộng. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Tích vô hướng của hai vector cùng số chiều bằng tổng các tích từng thành phần: `(1,2)·(3,4)=1×3+2×4=11`. Dùng để tính điểm có trọng số hoặc kiểm tra hai vector khác không vuông góc (khi tích vô hướng bằng 0).
 
 ```python
 import numpy as np
-print(np.dot([1,2],[3,4]))
+
+a = np.array([1, 2])
+b = np.array([3, 4])
+print(a @ b)
 ```
 
 **Kết quả khi chạy:**
@@ -105,7 +106,7 @@ print(np.dot([1,2],[3,4]))
 11
 ```
 
-**Tự kiểm tra:** Dot product có nghĩa gì? **Đáp án:** Nhân từng cặp tọa độ tương ứng rồi cộng.
+Tích vô hướng trả một scalar bằng 11.
 
 ## 5. Năm tình huống ứng dụng
 
@@ -115,10 +116,14 @@ print(np.dot([1,2],[3,4]))
 
 **Tình huống thực tế:** Robot di chuyển từ (0,0) tới (3,4) mét. Tính khoảng cách theo đường thẳng.
 
-**Vì sao chọn phương án?** Norm từ véc-tơ độ lệch giúp tính khoảng cách đến gốc; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Norm của vector dịch chuyển là khoảng cách tới gốc.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo vector từ (0,0) đến (3,4) mét.
+2. Tính norm Euclid.
+3. In khoảng cách 5 mét.
 
 ```python
 import numpy as np
@@ -139,10 +144,14 @@ print(np.linalg.norm(v))
 
 **Tình huống thực tế:** Robot nhận vector hướng (3,4). Chuẩn hóa thành vector đơn vị để chỉ biểu thị hướng.
 
-**Vì sao chọn phương án?** Chia norm giúp hướng có độ dài 1 trước điều khiển tốc độ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Chia vector cho norm tạo hướng có độ dài bằng 1.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo vector hướng (3,4) dạng float.
+2. Tính norm và chia nếu norm khác 0.
+3. In vector đơn vị [0.6,0.8].
 
 ```python
 import numpy as np
@@ -161,14 +170,18 @@ print(u)
 
 ### Tình huống 3 — Điểm tổng kết có trọng số
 
-**Từ vựng trong mục:** **Norm** — độ lớn véc-tơ.
+**Từ vựng trong mục:** **Dot product** — tích vô hướng.
 
 **Tình huống thực tế:** Điểm ba môn của học viên là [8,7,9] theo trọng số [20%,30%,50%]. Tính điểm tổng kết.
 
-**Vì sao chọn phương án?** Dot product của điểm và trọng số tạo điểm tổng; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Tích vô hướng kết hợp điểm số và trọng số từng môn.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Lưu ba điểm và ba trọng số theo cùng thứ tự môn.
+2. Nhân bằng `@` để tính tổng có trọng số.
+3. In 8.2 điểm trên thang 10.
 
 ```python
 import numpy as np
@@ -190,10 +203,14 @@ print(scores@weights)
 
 **Tình huống thực tế:** Hai hướng [1,0] và [0,1] cần kiểm tra vuông góc bằng tích vô hướng.
 
-**Vì sao chọn phương án?** Dot bằng 0 cho hai vector khác 0 biểu thị trực giao; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Tích vô hướng bằng 0 với hai vector khác không chứng tỏ vuông góc.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo hai vector khác không [1,0] và [0,1].
+2. Tính tích vô hướng.
+3. In 0 và xác định hai vector vuông góc.
 
 ```python
 import numpy as np
@@ -215,10 +232,14 @@ print(a@b)
 
 **Tình huống thực tế:** Hai lần đo cảm biến theo cặp cùng đơn vị là (20,30) và (23,34). Tính độ lệch Euclid.
 
-**Vì sao chọn phương án?** Norm của hiệu vector đo mức sai khác tổng hợp; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Norm của hiệu vector đo khoảng cách giữa hai lần đo.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Lưu hai cặp đo cùng đơn vị.
+2. Tính hiệu vector và norm của hiệu.
+3. In chênh lệch Euclid là 5.
 
 ```python
 import numpy as np
@@ -234,9 +255,13 @@ print(np.linalg.norm(a-b))
 ```
 
 
-## 6. Sai lầm cần tránh
+## 6. Sai lầm thường gặp
 
-Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
+- Scalar là số đơn; vector là dãy các thành phần có thứ tự.
+- Khi tính khoảng cách, các thành phần phải cùng hệ trục và đơn vị phù hợp.
+- Không chuẩn hóa vector không vì norm bằng 0.
+- Dấu `*` NumPy nhân từng phần tử; `@` với hai vector 1-D tính tích vô hướng.
+- Khi kiểm tra vuông góc với dữ liệu float, nên so với một ngưỡng sai số nhỏ.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
