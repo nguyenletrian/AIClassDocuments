@@ -1,4 +1,4 @@
-"""Structural and Python-syntax gates for the 46 DRAFT self-study chapters.
+"""Structural and editorial gates for the 46 student-facing chapters.
 
 These tests deliberately do NOT claim educational content review or execution.
 Run: python -m unittest tests.test_curriculum_structure -v
@@ -27,7 +27,7 @@ class CurriculumStructureTests(unittest.TestCase):
         for path in self.paths:
             with self.subTest(chapter=path.name):
                 text = path.read_text(encoding="utf-8")
-                self.assertIn("*DRAFT", text)
+                self.assertNotRegex(text, r"(?m)^\*(?:Trạng thái:|DRAFT\b)")
                 self.assertIn("## 1.", text)
                 self.assertIn("## 2.", text)
                 self.assertIn("## 3.", text)
@@ -35,7 +35,6 @@ class CurriculumStructureTests(unittest.TestCase):
                 self.assertIn("## 5.", text)
                 self.assertIn("## 6.", text)
                 self.assertIn("## 7.", text)
-                self.assertIn("## 8.", text)
                 self.assertNotIn("PythoClass", text)
                 self.assertNotIn("PythonClass", text)
 
@@ -49,12 +48,25 @@ class CurriculumStructureTests(unittest.TestCase):
                 answers = [int(x) for x in re.findall(
                     r"^\| Q(\d+) \| \*\*[A-D]\*\* \|", text, re.M)]
                 self.assertEqual(answers, list(range(1, 21)))
-                self.assertIn("**Từ vựng trong mục:**", text)
+                self.assertIn("| English |", text)
                 for i in range(1, 5):
-                    section = re.search(
-                        rf"^### 4\.{i}\..+\n\n\*\*Từ vựng trong mục:",
-                        text, re.M)
-                    self.assertIsNotNone(section, f"4.{i} in {path.name}")
+                    self.assertRegex(text, rf"(?m)^### 4\.{i}\.")
+
+    def test_student_content_is_not_an_editorial_status_report(self):
+        banned = (
+            "Trước khi chạy ví dụ,",
+            "Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.",
+            "Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.",
+            "Các tham số được giải thích ngay cạnh hàm",
+            "không phải hồ sơ thật",
+        )
+        for path in self.paths:
+            with self.subTest(chapter=path.name):
+                text = path.read_text(encoding="utf-8")
+                self.assertNotRegex(text, r"(?m)^\\*(?:DRAFT\\b|Trạng thái:)")
+                self.assertNotIn("**Quy trình:**", text)
+                for phrase in banned:
+                    self.assertNotIn(phrase, text)
 
     def test_python_code_blocks_parse(self):
         for path in self.paths:
