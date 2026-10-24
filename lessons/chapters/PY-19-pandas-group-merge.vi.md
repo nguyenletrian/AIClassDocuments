@@ -138,7 +138,7 @@ Hai tên khách được ghép đúng theo id, không phải dựa vào vị tr�
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"name":["A","B","C"],"price":[300,900,1200]})
+df = pd.DataFrame({"name":["A", "B", "C"], "price":[300, 900, 1200]})
 print(df[df.price>=800])
 ```
 
@@ -166,7 +166,7 @@ print(df[df.price>=800])
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"id":["A","B","C"]})
+df = pd.DataFrame({"id":["A", "B", "C"]})
 print(df.iloc[1])
 ```
 
@@ -193,7 +193,7 @@ Name: 1, dtype: object
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"city":["A","A","B"],"sale":[10,20,8]})
+df = pd.DataFrame({"city":["A", "A", "B"], "sale":[10, 20, 8]})
 print(df.groupby("city")["sale"].sum())
 ```
 
@@ -222,9 +222,9 @@ Name: sale, dtype: int64
 
 ```python
 import pandas as pd
-a=pd.DataFrame({"id":[1,2],"sale":[10,20]})
-b=pd.DataFrame({"id":[1,2],"name":["An","Lan"]})
-print(a.merge(b,on="id",how="left"))
+a = pd.DataFrame({"id":[1, 2], "sale":[10, 20]})
+b = pd.DataFrame({"id":[1, 2], "name":["An", "Lan"]})
+print(a.merge(b, on="id", how="left"))
 ```
 
 **Kết quả khi chạy:**
@@ -251,8 +251,8 @@ print(a.merge(b,on="id",how="left"))
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"id":["A","B","C","D"],"sale":[30,80,20,60]})
-print(df.sort_values("sale",ascending=False).head(2))
+df = pd.DataFrame({"id":["A", "B", "C", "D"], "sale":[30, 80, 20, 60]})
+print(df.sort_values("sale", ascending=False).head(2))
 ```
 
 **Kết quả khi chạy:**
