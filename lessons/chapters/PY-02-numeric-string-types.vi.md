@@ -76,7 +76,7 @@ Dấu chấm trong code biểu diễn phần thập phân; đơn vị đo phải
 
 **Từ vựng trong mục:** **Boolean** — giá trị logic; **True/False** — đúng/sai.
 
-`bool` chỉ có hai giá trị `True` và `False`, phù hợp với câu hỏi dạng “đã thanh toán chưa?” hoặc “đủ điều kiện chưa?”. Biến `ok = True` ở đây tượng trưng cho trạng thái kiểm tra đã đạt. Đây không phải chữ ``"True"`: Python hiểu là giá trị logic.
+`bool` chỉ có hai giá trị `True` và `False`, phù hợp với câu hỏi dạng “đã thanh toán chưa?” hoặc “đủ điều kiện chưa?”. Biến `ok = True` ở đây tượng trưng cho trạng thái kiểm tra đã đạt. Đây không phải chữ `"True"`: Python hiểu là giá trị logic.
 
 ```python
 ok = True
