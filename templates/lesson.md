@@ -1,48 +1,90 @@
-# [Mã bài] — [Tên khái niệm] trong Python & AI
+# [Mã bài] — [Tên khái niệm bằng tiếng Việt và tiếng Anh]
 
-> **Nguồn gốc:** PythoClass — [file cụ thể và đường dẫn GitHub]
-> **Trạng thái:** DRAFT / SELF_REVIEW / PILOT_REVIEW / READY_FOR_OWNER_TEST / APPROVED
-> **Trình độ / prerequisite:** [kiến thức cần có]
-> **Nguồn đã đối chiếu:** [file/cell/commit], **phần mở rộng:** [mô tả]
+*[Nhóm kiến thức: Python / Data / Machine Learning / AI]*
 
-## 1. Mục tiêu học tập
-[Bài học giúp người học làm được điều gì?]
+## 1. Vị trí trong chuỗi kiến thức
 
-## 2. Khái niệm và trực giác
-[Định nghĩa chính xác; ví dụ đời thường hoặc dữ liệu dễ hình dung.]
+```text
+[Khái niệm đã biết] → [Kiến thức nền] → [BÀI NÀY] → [Ứng dụng / Bài tiếp theo]
+```
 
-## 3. Mục đích, khi nào dùng và khi nào không nên dùng
-[Lợi ích cụ thể, giới hạn, đánh đổi.]
+[Giải thích bài này đang đứng ở đâu trong chuỗi từ dễ đến khó. Các khái niệm con cũng phải có vị trí logic. Không viết mục tiêu giảng dạy, không viết "sau bài học bạn sẽ...".]
 
-## 4. Công thức và toán liên quan
-[Ký hiệu, công thức, giải thích từng phần, ví dụ nhỏ. Nếu không áp dụng, ghi rõ lý do.]
+## 2. English vocabulary — Các thuật ngữ cần biết
 
-## 5. Thư viện Python và API cần biết
-[Thư viện, lệnh cài đặt, tên hàm, tham số quan trọng, shape đầu vào/đầu ra.]
+| English | Nghĩa ngắn gọn | Nhận biết khi dùng Python |
+|---|---|---|
+| ... | ... | ... |
 
-## 6. Ví dụ căn bản có thể chạy
-[Đoạn code độc lập, dữ liệu, kết quả kỳ vọng và diễn giải.]
+[Đưa thuật ngữ tiếng Anh lên TRƯỚC thư viện và khái niệm. Thuật ngữ hữu ích, không cố nhồi từ khó.]
 
-## 7. Ứng dụng trong lập trình AI
-[Ít nhất một trường hợp dùng thực tế; không nói quá kết quả.]
+## 3. Python libraries & functions — Thư viện, API và hàm
 
-## 8. Năm bài tập lập trình
-### 8.1. Bài tập dễ
-[Mục tiêu, đề, code mẫu, kết quả kiểm tra, thử thách.]
-### 8.2. Bài tập căn bản+
-[...]
-### 8.3. Bài tập dữ liệu thực nghiệm
-[...]
-### 8.4. Bài tập biến thể và đánh giá
-[...]
-### 8.5. Bài tập ứng dụng AI
-[...]
+[Cách cài thư viện (nếu có), bảng hàm với công dụng và tham số quan trọng, ví dụ ngắn có thể chạy. Giải thích `fit`, `transform`, `axis`, `shape`... trước khi bài dùng chúng.]
 
-## 9. Sai lầm phổ biến và câu hỏi ôn tập
-[Những ngộ nhận cần tránh; câu hỏi và lời giải gợi ý.]
+## 4. Concepts & subconcepts — Khái niệm và khái niệm con
 
-## 10. Nguồn & phân biệt đóng góp
-- **Ghi chép nguồn:** [nội dung thật đã có]
-- **Đã hiệu đính:** [lỗi từ note/code đã sửa]
-- **Tự mở rộng:** [bài tập, ví dụ AI và kiến thức thêm]
-- **Giới hạn / chưa xác minh:** [minh bạch]
+### 4.1. [Khái niệm chính]
+[Khái niệm, mục đích và khi nào dùng bằng ngôn ngữ sinh viên dễ tự đọc.]
+
+```python
+# Thể hiện phép tính hay công thức bằng Python, giải thích vì sao dùng cách này.
+```
+
+### 4.2. [Khái niệm phụ]
+[Giải thích và phép tính ngay trong Python. Lặp lại cho mọi khái niệm phụ cần thiết.]
+
+**Lưu ý:** KHÔNG tạo phần "Toán học đằng sau" hoặc chứng minh hàn lâm. Nếu phải biết công thức, đặt biểu thức Python ngay cạnh khái niệm và giải thích ý nghĩa đầu vào/đầu ra.
+
+## 5. Real-world programming problems — Khoảng năm tình huống thực tế
+
+### Tình huống 1 — [Tên vấn đề có thực trong công việc / AI]
+
+**Vấn đề:** [Ai đang gặp khó khăn gì, cần kết quả nào?]
+
+**Chọn khái niệm:** [Vì sao khái niệm và thư viện trong bài giải được vấn đề này?]
+
+**Quy trình:** [Các bước cụ thể theo đúng thứ tự.]
+
+```python
+# Comment tập trung vào LÝ DO chọn thao tác, không chỉ nhắc lại lệnh.
+```
+
+**Kiểm tra:** [Kết quả thực tế, shape, giới hạn, điều kiện cần thận trọng.]
+
+[Lặp lại đến tình huống 5. Chuyển hóa những bài tập đã ghi nhận trong nguồn nội bộ thành tình huống thực tiễn, không sao chép mô tả hàn lâm.]
+
+## 6. Những lỗi dễ gặp
+
+[Những hiểu lầm hoặc sai lầm khiến sinh viên viết code sai. Đưa ví dụ Python ngắn nếu hữu ích.]
+
+## 7. English multiple-choice questions
+
+**Q1. [English question]?**
+
+A. ...  
+B. ...  
+C. ...  
+D. ...
+
+[Khoảng 5–10 câu, phù hợp nội dung vừa học, không đánh đố.]
+
+### Answer key & short explanations
+
+| Question | Answer | Explanation |
+|---|---|---|
+| Q1 | **B** | Short English explanation. |
+
+## 8. Nối sang bài tiếp theo
+
+```text
+[Bài trước] → [BÀI NÀY] → [Bài liên quan / bước tiếp theo]
+```
+
+[1 đoạn ngắn giúp sinh viên hệ thống hóa, không lặp mục tiêu học tập.]
+
+---
+
+### Ghi chú dành cho biên tập viên — KHÔNG NẰM TRONG TÀI LIỆU SINH VIÊN
+
+Nguồn gốc từng khái niệm, file/cell, mức độ kiểm chứng, phần hiệu đính, bài tập gốc đã chuyển đổi, và thay đổi giữa các phiên bản được ghi **riêng** tại `sources/` và tài liệu nghiệp vụ. **Không đưa tên PythoClass/PythonClass, đường dẫn ghi chép, trạng thái review nội bộ, hay nhãn “AI tự bổ sung” vào bài học phát hành.** Lúc tạo bài từ mẫu này, xóa toàn bộ phần ghi chú biên tập viên này.
