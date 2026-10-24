@@ -1,10 +1,6 @@
 # PY-39 — Lấy mẫu, CLT và sai số chuẩn
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
-
 ## 1. Vị trí trong chuỗi kiến thức
-
-**Từ vựng trong mục:** **Population** — tổng thể; **Sample** — mẫu.
 
 `Thống kê → Sampling → Central Limit Theorem → Confidence Interval`
 
@@ -21,8 +17,6 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ## 3. Thư viện và hàm Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cách viết | Khi nào dùng, ý nghĩa tham số |
 |---|---|
 | `df.sample(n=,random_state=)` | Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu |
@@ -34,19 +28,13 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ### 4.1. Population
 
-**Từ vựng trong mục:** **Population** — tổng thể.
-
 Toàn bộ đối tượng cần nghiên cứu. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
 ```python
 population=list(range(100));print(len(population))
 ```
 
-**Tự kiểm tra:** Population là gì? **Đáp án:** Toàn bộ đối tượng cần nghiên cứu.
-
 ### 4.2. Sample
-
-**Từ vựng trong mục:** **Sample** — mẫu.
 
 Nhóm con lấy từ tổng thể theo cách rõ ràng. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -55,11 +43,7 @@ import random
 print(random.sample(range(20),5))
 ```
 
-**Tự kiểm tra:** Sample là gì? **Đáp án:** Nhóm con lấy từ tổng thể theo cách rõ ràng.
-
 ### 4.3. CLT
-
-**Từ vựng trong mục:** **CLT** — định lý giới hạn trung tâm.
 
 Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -68,11 +52,7 @@ import numpy as np
 r=np.random.default_rng(1);print([r.normal(size=10).mean() for _ in range(3)])
 ```
 
-**Tự kiểm tra:** CLT là gì? **Đáp án:** Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp.
-
 ### 4.4. Standard error
-
-**Từ vựng trong mục:** **Standard error** — sai số chuẩn.
 
 Độ biến thiên của một thống kê giữa các mẫu. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -81,13 +61,9 @@ import numpy as np
 print(np.std([1,2,3],ddof=1)/np.sqrt(3))
 ```
 
-**Tự kiểm tra:** Standard error là gì? **Đáp án:** Độ biến thiên của một thống kê giữa các mẫu.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Rút mẫu kiểm kê
-
-**Từ vựng trong mục:** **Population** — tổng thể.
 
 **Vấn đề:** Rút mẫu kiểm kê.
 
@@ -95,26 +71,18 @@ print(np.std([1,2,3],ddof=1)/np.sqrt(3))
 
 **Dữ liệu:** 20 đơn, lấy ngẫu nhiên 5. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 import random
 print(random.Random(42).sample(list(range(1,21)),5))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 2 — So biến thiên mean mẫu
-
-**Từ vựng trong mục:** **Sample** — mẫu.
 
 **Vấn đề:** So biến thiên mean mẫu.
 
 **Vì sao chọn cách này?** Rút mẫu nhiều lần để quan sát trung bình mẫu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
 **Dữ liệu:** Tổng thể 10000 giá trị lệch, mỗi mẫu n=40. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
 ```python
 import numpy as np
@@ -124,11 +92,7 @@ means=[r.choice(pop,size=40,replace=True).mean() for _ in range(200)]
 print(np.mean(means),np.std(means))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 3 — Tính sai số chuẩn điểm
-
-**Từ vựng trong mục:** **CLT** — định lý giới hạn trung tâm.
 
 **Vấn đề:** Tính sai số chuẩn điểm.
 
@@ -136,19 +100,13 @@ print(np.mean(means),np.std(means))
 
 **Dữ liệu:** 5 điểm [6,7,8,9,10]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 import numpy as np
 x=np.array([6,7,8,9,10],dtype=float)
 print(x.std(ddof=1)/np.sqrt(len(x)))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 4 — Cỡ mẫu tăng tác động SE
-
-**Từ vựng trong mục:** **Standard error** — sai số chuẩn.
 
 **Vấn đề:** Cỡ mẫu tăng tác động SE.
 
@@ -156,19 +114,13 @@ print(x.std(ddof=1)/np.sqrt(len(x)))
 
 **Dữ liệu:** sigma=10, n=25 và 100. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 import numpy as np
 sigma=10
 for n in [25,100]:print(n,sigma/np.sqrt(n))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 5 — Lấy mẫu bảng khách hàng
-
-**Từ vựng trong mục:** **Population** — tổng thể.
 
 **Vấn đề:** Lấy mẫu bảng khách hàng.
 
@@ -176,15 +128,11 @@ for n in [25,100]:print(n,sigma/np.sqrt(n))
 
 **Dữ liệu:** 10 khách, lấy 3. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 import pandas as pd
 df=pd.DataFrame({"id":list(range(10))})
 print(df.sample(n=3,random_state=42))
 ```
-
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 
@@ -192,8 +140,6 @@ print(df.sample(n=3,random_state=42))
 - Kiểm tra giả định, cỡ mẫu, đơn vị, độ nhạy kết quả và data leakage trước khi ứng dụng AI thật.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Population? — Khái niệm Population là gì?**
@@ -439,7 +385,3 @@ D. It removes test sets — Nó không cần tập kiểm tra
 | Q18 | **A** | The input is 10 khách, lấy 3 | 10 khách, lấy 3 |
 | Q19 | **D** | Units, sample meaning and assumptions | Đơn vị, ý nghĩa mẫu và giả định |
 | Q20 | **C** | An example may not generalize | Ví dụ có thể không tổng quát |
-
-## 8. Liên hệ bài kế tiếp
-
-`Thống kê → Sampling → Central Limit Theorem → Confidence Interval`.
