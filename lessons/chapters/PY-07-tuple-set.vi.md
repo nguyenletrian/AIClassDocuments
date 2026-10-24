@@ -298,230 +298,230 @@ print(required-done)
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. Which property describes a tuple? — Tuple có đặc điểm gì?**
+**Q1. What is a tuple? — Tuple là gì?**
 
-A. Ordered and cannot be changed in place — Có thứ tự và không sửa trực tiếp được
+A. An ordered immutable collection — Bộ giá trị có thứ tự, không thể sửa trực tiếp
 
-B. Always removes duplicates — Luôn bỏ phần tử trùng
+B. A collection of unique elements — Tập hợp các phần tử không trùng
 
-C. Always sorts numbers — Luôn sắp xếp số
+C. Elements in either set — Phần tử thuộc ít nhất một trong hai tập
 
-D. Has no positions — Không có vị trí
+D. Elements common to both sets — Phần tử chung của cả hai tập
 
-**Q2. What is the main feature of a set? — Set có đặc điểm chính gì?**
+**Q2. What is a set? — Set là gì?**
 
-A. Keeps every duplicate — Giữ mọi giá trị trùng
+A. An ordered immutable collection — Bộ giá trị có thứ tự, không thể sửa trực tiếp
 
-B. Contains unique elements — Chỉ chứa phần tử không trùng
+B. A collection of unique elements — Tập hợp các phần tử không trùng
 
-C. Supports index access — Có thể lấy bằng chỉ số
+C. Elements in either set — Phần tử thuộc ít nhất một trong hai tập
 
-D. Always has sorted order — Luôn theo thứ tự sắp xếp
+D. Elements common to both sets — Phần tử chung của cả hai tập
 
-**Q3. What does set union mean? — Phép hợp tập hợp là gì?**
+**Q3. What does set union collect? — Phép hợp Set lấy gì?**
 
-A. Only common elements — Chỉ phần tử chung
+A. An ordered immutable collection — Bộ giá trị có thứ tự, không thể sửa trực tiếp
 
-B. Only left-side elements — Chỉ phần tử bên trái
+B. A collection of unique elements — Tập hợp các phần tử không trùng
 
-C. All distinct elements from either set — Mọi phần tử khác nhau từ hai tập
+C. Elements in either set — Phần tử thuộc ít nhất một trong hai tập
 
-D. No elements — Không có phần tử
+D. Elements common to both sets — Phần tử chung của cả hai tập
 
-**Q4. What does intersection return? — Phép giao cho kết quả gì?**
+**Q4. What does set intersection collect? — Phép giao Set lấy gì?**
 
-A. All original duplicates — Toàn bộ phần tử trùng gốc
+A. An ordered immutable collection — Bộ giá trị có thứ tự, không thể sửa trực tiếp
 
-B. Elements in exactly one set — Phần tử chỉ thuộc một tập
+B. A collection of unique elements — Tập hợp các phần tử không trùng
 
-C. The larger set — Tập lớn hơn
+C. Elements in either set — Phần tử thuộc ít nhất một trong hai tập
 
-D. Elements shared by both sets — Phần tử chung của cả hai tập
+D. Elements common to both sets — Phần tử chung của cả hai tập
 
-**Q5. What does tuple([3, 4]) create? — tuple([3, 4]) tạo gì?**
+**Q5. Which expression constructs a two-element tuple? — Biểu thức nào tạo Tuple có hai phần tử?**
 
-A. (3, 4) — (3, 4)
+A. `(2, 3)` — `(2, 3)`
 
-B. {3, 4} — {3, 4}
+B. `{2, 3}` — `{2, 3}`
 
-C. [3, 4] — [3, 4]
+C. `set()` — `set()`
 
-D. 3 — 3
+D. `{}` — `{}`
 
-**Q6. What is set([1, 1, 2])? — set([1, 1, 2]) chứa gì?**
+**Q6. Which expression constructs a nonempty set? — Biểu thức nào tạo Set không rỗng?**
 
-A. Three separate items — Ba phần tử khác nhau
+A. `(2, 3)` — `(2, 3)`
 
-B. The elements 1 and 2 — Hai phần tử 1 và 2
+B. `{2, 3}` — `{2, 3}`
 
-C. Only 1 — Chỉ có 1
+C. `set()` — `set()`
 
-D. An error — Báo lỗi
+D. `{}` — `{}`
 
-**Q7. What does a | b perform on sets? — a | b thực hiện phép nào?**
+**Q7. Which expression constructs an empty set? — Biểu thức nào tạo Set rỗng?**
 
-A. Difference — Hiệu
+A. `(2, 3)` — `(2, 3)`
 
-B. Intersection — Giao
+B. `{2, 3}` — `{2, 3}`
 
-C. Union — Hợp
+C. `set()` — `set()`
 
-D. Division — Chia
+D. `{}` — `{}`
 
-**Q8. What does a & b perform on sets? — a & b thực hiện phép nào?**
+**Q8. Which expression constructs an empty dictionary? — Biểu thức nào tạo Dictionary rỗng?**
 
-A. Union — Hợp
+A. `(2, 3)` — `(2, 3)`
 
-B. Difference — Hiệu
+B. `{2, 3}` — `{2, 3}`
 
-C. Exclusive-or — Hiệu đối xứng
+C. `set()` — `set()`
 
-D. Intersection — Giao
+D. `{}` — `{}`
 
-**Q9. How many distinct email addresses are listed? — Có bao nhiêu email khác nhau?**
+**Q9. What does `a | b` do for sets? — `a | b` làm gì với hai Set?**
 
-A. 3 — 3
+A. Set union — Phép hợp tập hợp
 
-B. 4 — 4
+B. Set intersection — Phép giao tập hợp
 
-C. 2 — 2
+C. Elements in a but not b — Các phần tử thuộc a nhưng không thuộc b
 
-D. 1 — 1
+D. Symmetric difference — Hiệu đối xứng
 
-**Q10. What is x*x + y*y for point (3, 4)? — x*x + y*y bằng bao nhiêu với điểm (3, 4)?**
+**Q10. What does `a & b` do for sets? — `a & b` làm gì với hai Set?**
 
-A. 5 — 5
+A. Set union — Phép hợp tập hợp
 
-B. 25 — 25
+B. Set intersection — Phép giao tập hợp
 
-C. 7 — 7
+C. Elements in a but not b — Các phần tử thuộc a nhưng không thuộc b
 
-D. 12 — 12
+D. Symmetric difference — Hiệu đối xứng
 
-**Q11. Which skills appear in both groups? — Kỹ năng nào có ở cả hai nhóm?**
+**Q11. What does `a - b` do for sets? — `a - b` làm gì với hai Set?**
 
-A. SQL and Math — SQL và Math
+A. Set union — Phép hợp tập hợp
 
-B. Only Python — Chỉ Python
+B. Set intersection — Phép giao tập hợp
 
-C. Python and AI — Python và AI
+C. Elements in a but not b — Các phần tử thuộc a nhưng không thuộc b
 
-D. Only SQL — Chỉ SQL
+D. Symmetric difference — Hiệu đối xứng
 
-**Q12. Which subjects are in the union of both groups? — Phép hợp hai nhóm chủ đề gồm gì?**
+**Q12. What does `a ^ b` do for sets? — `a ^ b` làm gì với hai Set?**
 
-A. Only Math — Chỉ Math
+A. Set union — Phép hợp tập hợp
 
-B. Only Python and AI — Chỉ Python và AI
+B. Set intersection — Phép giao tập hợp
 
-C. Four duplicate labels — Bốn nhãn có trùng
+C. Elements in a but not b — Các phần tử thuộc a nhưng không thuộc b
 
-D. Python, Math, and AI — Python, Math và AI
+D. Symmetric difference — Hiệu đối xứng
 
-**Q13. What skills remain to learn? — Những kỹ năng nào còn phải học?**
+**Q13. What is the length of `set([1,1,2])`? — `set([1,1,2])` có bao nhiêu phần tử?**
 
-A. SQL and AI — SQL và AI
+A. `2` — `2`
 
-B. Python only — Chỉ Python
+B. `TypeError` — `TypeError`
 
-C. None — Không còn gì
+C. `TypeError` — `TypeError`
 
-D. Python and SQL — Python và SQL
+D. No fixed order is guaranteed — Không bảo đảm thứ tự cố định
 
-**Q14. Which expression finds missing skills? — Cách nào tìm kỹ năng còn thiếu?**
+**Q14. What happens when assigning `t[0] = 9` on a tuple? — Gán `t[0] = 9` trên Tuple sẽ thế nào?**
 
-A. required & done — required & done
+A. `2` — `2`
 
-B. required - done — required - done
+B. `TypeError` — `TypeError`
 
-C. required  —  done
+C. `TypeError` — `TypeError`
 
-D. required == done — required == done
+D. No fixed order is guaranteed — Không bảo đảm thứ tự cố định
 
-**Q15. Can a tuple element be reassigned? — Có thể gán lại một phần tử tuple không?**
+**Q15. What does indexing a set as `s[0]` cause? — Dùng `s[0]` để truy cập Set gây gì?**
 
-A. Yes, using append — Có, dùng append
+A. `2` — `2`
 
-B. Yes, with a set — Có, dùng set
+B. `TypeError` — `TypeError`
 
-C. No, tuples are immutable — Không, tuple không sửa trực tiếp được
+C. `TypeError` — `TypeError`
 
-D. Only if it stores strings — Chỉ khi chứa chuỗi
+D. No fixed order is guaranteed — Không bảo đảm thứ tự cố định
 
-**Q16. Can a set be accessed with [0]? — Có thể lấy phần tử set bằng [0] không?**
+**Q16. Is order of printed set elements guaranteed? — Thứ tự phần tử in từ Set có được bảo đảm không?**
 
-A. Yes, always — Có, luôn được
+A. `2` — `2`
 
-B. Only for strings — Chỉ với chuỗi
+B. `TypeError` — `TypeError`
 
-C. Only after union — Chỉ sau phép hợp
+C. `TypeError` — `TypeError`
 
-D. No, sets are not indexed — Không, set không có chỉ số
+D. No fixed order is guaranteed — Không bảo đảm thứ tự cố định
 
-**Q17. What does a ^ b return for sets? — a ^ b cho kết quả gì?**
+**Q17. Which type best fits a fixed coordinate pair? — Kiểu nào phù hợp cho cặp tọa độ cố định?**
 
-A. Elements present in exactly one set — Phần tử chỉ thuộc một trong hai tập
+A. Tuple — Tuple
 
-B. Only shared elements — Chỉ phần tử chung
+B. Set — Set
 
-C. All duplicates — Mọi phần tử trùng
+C. `isdisjoint()` — `isdisjoint()`
 
-D. An ordered tuple — Tuple có thứ tự
+D. `sorted()` — `sorted()`
 
-**Q18. Does printing a set guarantee order? — In một set có đảm bảo thứ tự không?**
+**Q18. Which type is suitable for deduplicating tags? — Kiểu nào phù hợp để loại nhãn trùng?**
 
-A. Yes, alphabetical — Có, theo chữ cái
+A. Tuple — Tuple
 
-B. No, the order is not guaranteed — Không, thứ tự không được đảm bảo
+B. Set — Set
 
-C. Yes, insertion order — Có, theo thứ tự thêm
+C. `isdisjoint()` — `isdisjoint()`
 
-D. Yes, numerical order — Có, theo số
+D. `sorted()` — `sorted()`
 
-**Q19. What does a - b contain? — a - b gồm phần tử nào?**
+**Q19. Which method checks whether sets share no elements? — Phương thức nào kiểm tra hai Set không có phần tử chung?**
 
-A. Only common elements — Chỉ phần tử chung
+A. Tuple — Tuple
 
-B. Everything in b — Toàn bộ phần tử b
+B. Set — Set
 
-C. Elements in a but not b — Phần tử thuộc a nhưng không thuộc b
+C. `isdisjoint()` — `isdisjoint()`
 
-D. Everything in both — Toàn bộ phần tử hai tập
+D. `sorted()` — `sorted()`
 
-**Q20. What type suits a fixed coordinate pair? — Kiểu nào phù hợp để lưu cặp tọa độ không đổi?**
+**Q20. Which function creates a sorted list from a set? — Hàm nào tạo List đã sắp từ một Set?**
 
-A. set — set
+A. Tuple — Tuple
 
-B. dict — dict
+B. Set — Set
 
-C. list only — Chỉ list
+C. `isdisjoint()` — `isdisjoint()`
 
-D. tuple — tuple
+D. `sorted()` — `sorted()`
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | Tuple elements cannot be reassigned. | Không thể gán lại trực tiếp phần tử của tuple. |
-| Q2 | **B** | Sets eliminate duplicate elements. | Set bỏ các phần tử trùng. |
-| Q3 | **C** | Union contains elements appearing in either set. | Phép hợp chứa phần tử thuộc ít nhất một tập. |
-| Q4 | **D** | Intersection keeps shared elements. | Phép giao giữ phần tử chung. |
-| Q5 | **A** | tuple converts the list into a tuple. | tuple đổi list thành tuple. |
-| Q6 | **B** | The repeated 1 is removed. | Số 1 trùng được bỏ. |
-| Q7 | **C** | The  |  operator computes set union. |
-| Q8 | **D** | The & operator computes intersection. | Toán tử & tính phép giao. |
-| Q9 | **A** | One email is repeated, leaving three unique addresses. | Một email bị lặp nên còn ba địa chỉ khác nhau. |
-| Q10 | **B** | 3 squared plus 4 squared equals 25. | 3 bình phương cộng 4 bình phương bằng 25. |
-| Q11 | **C** | The intersection contains Python and AI. | Phép giao cho Python và AI. |
-| Q12 | **D** | The union keeps each label once. | Phép hợp chỉ giữ mỗi nhãn một lần. |
-| Q13 | **A** | Subtracting completed skills leaves SQL and AI. | Trừ kỹ năng đã học còn SQL và AI. |
-| Q14 | **B** | Set difference removes completed skills. | Hiệu tập hợp bỏ các kỹ năng đã hoàn thành. |
-| Q15 | **C** | Tuple item assignment raises TypeError. | Gán vào phần tử tuple gây TypeError. |
-| Q16 | **D** | Sets do not support positional indexing. | Set không hỗ trợ truy cập theo vị trí. |
-| Q17 | **A** | Symmetric difference excludes shared elements. | Hiệu đối xứng bỏ phần tử chung. |
-| Q18 | **B** | Sets are unordered collections. | Set là tập hợp không có thứ tự cố định. |
-| Q19 | **C** | Difference keeps items exclusive to a. | Phép trừ giữ phần tử của a không có trong b. |
-| Q20 | **D** | A tuple stores the ordered coordinate pair. | Tuple lưu cặp tọa độ có thứ tự. |
+| Q1 | **A** | A tuple preserves order while preventing reassignment of its elements. | Tuple giữ thứ tự nhưng không cho gán lại từng phần tử. |
+| Q2 | **B** | A set contains distinct values and has no positional indexing. | Set giữ giá trị không trùng và không truy cập theo chỉ số vị trí. |
+| Q3 | **C** | Union includes all distinct members found in either set. | Phép hợp chứa các phần tử khác nhau có trong ít nhất một tập. |
+| Q4 | **D** | Intersection contains only elements shared by both inputs. | Phép giao chỉ lấy phần tử có ở cả hai tập. |
+| Q5 | **A** | Parentheses with two comma-separated values represent a tuple. | Hai giá trị phân cách bởi dấu phẩy trong ngoặc tròn tạo Tuple. |
+| Q6 | **B** | Curly braces around plain distinct values form a set. | Ngoặc nhọn bao các giá trị riêng lẻ tạo Set. |
+| Q7 | **C** | Empty braces create a dictionary, not a set. | Ngoặc nhọn rỗng tạo Dictionary, không phải Set. |
+| Q8 | **D** | Empty curly braces denote a dictionary. | Cặp ngoặc nhọn rỗng biểu thị Dictionary. |
+| Q9 | **A** | The | operator includes elements present in either set. | Toán tử | lấy các phần tử thuộc ít nhất một tập. |
+| Q10 | **B** | The & operator keeps elements present in both sets. | Toán tử & chỉ lấy phần tử chung. |
+| Q11 | **C** | Set difference subtracts members of b from a. | Hiệu tập hợp loại khỏi a những phần tử đã có trong b. |
+| Q12 | **D** | Symmetric difference keeps values present in exactly one set. | Hiệu đối xứng lấy phần tử chỉ có ở đúng một tập. |
+| Q13 | **A** | Duplicate ones collapse to one value. | Hai giá trị 1 trùng nhau chỉ còn một phần tử. |
+| Q14 | **B** | Tuples disallow item assignment. | Tuple không cho phép gán lại phần tử theo chỉ số. |
+| Q15 | **C** | A set is not subscriptable by positional index. | Set không hỗ trợ truy cập bằng chỉ số vị trí. |
+| Q16 | **D** | Sets do not promise an iteration or display order. | Set không cam kết thứ tự duyệt hoặc hiển thị cố định. |
+| Q17 | **A** | Ordered coordinates can be packaged as an immutable pair. | Hai tọa độ theo thứ tự có thể lưu bằng Tuple không sửa trực tiếp. |
+| Q18 | **B** | Sets preserve distinct values automatically. | Set tự giữ các giá trị khác nhau. |
+| Q19 | **C** | isdisjoint returns True when the intersection is empty. | isdisjoint trả True khi phép giao rỗng. |
+| Q20 | **D** | sorted returns an ordered list without changing the set. | sorted trả List có thứ tự mà không sửa Set. |
 
 ## 8. Nối sang bài tiếp theo
 
