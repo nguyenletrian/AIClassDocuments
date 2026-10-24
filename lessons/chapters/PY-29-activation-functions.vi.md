@@ -29,7 +29,7 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 | `np.tanh(x)` | Kích hoạt có đầu ra âm/dương |
 | `np.exp(z-max(z))/sum(... )` | Softmax ổn định hơn tính exp(z) trực tiếp |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. ReLU
 
@@ -42,6 +42,12 @@ import numpy as np
 print(np.maximum(0,[-2,3]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[0 3]
+```
+
 **Tự kiểm tra:** ReLU là gì? **Đáp án:** Giữ số dương, số âm thành 0.
 
 ### 4.2. Sigmoid
@@ -52,7 +58,14 @@ print(np.maximum(0,[-2,3]))
 
 ```python
 import numpy as np
-x=np.array([0.]);print(1/(1+np.exp(-x)))
+x=np.array([0.])
+print(1/(1+np.exp(-x)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.5]
 ```
 
 **Tự kiểm tra:** Sigmoid là gì? **Đáp án:** Ánh xạ số thực về khoảng (0,1).
@@ -68,6 +81,12 @@ import numpy as np
 print(np.tanh([0.,1.]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[0.         0.76159416]
+```
+
 **Tự kiểm tra:** Tanh là gì? **Đáp án:** Ánh xạ số thực về (-1,1).
 
 ### 4.4. Softmax
@@ -78,7 +97,15 @@ Biến logits thành phân phối xác suất tổng bằng 1.
 
 ```python
 import numpy as np
-z=np.array([1.,2.]);e=np.exp(z-z.max());print(e/e.sum())
+z=np.array([1.,2.])
+e=np.exp(z-z.max())
+print(e/e.sum())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.26894142 0.73105858]
 ```
 
 **Tự kiểm tra:** Softmax là gì? **Đáp án:** Biến logits thành phân phối xác suất tổng bằng 1.
@@ -89,12 +116,12 @@ z=np.array([1.,2.]);e=np.exp(z-z.max());print(e/e.sum())
 
 **Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần kích hoạt tín hiệu nhiễu âm để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 4 tín hiệu giả lập [-2,0,3,5]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Mạng nơ-ron nhận tín hiệu [-2,0,3,5]. Dùng ReLU bỏ tín hiệu âm nhưng giữ phần dương.
 
 **Vì sao chọn phương án?** ReLU chặn giá trị âm khi đó là chính sách kích hoạt
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -102,17 +129,23 @@ x=np.array([-2.,0.,3.,5.])
 print(np.maximum(0,x))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[0. 0. 3. 5.]
+```
+
 
 ### Tình huống 2 — Đổi điểm thô sang tỷ lệ
 
 **Từ vựng trong mục:** **Sigmoid** — hàm sigmoid.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần đổi điểm thô sang tỷ lệ để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Điểm số [-1,0,1]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Ba điểm số [-1,0,1] cần được ánh xạ về khoảng (0,1) bằng sigmoid.
 
 **Vì sao chọn phương án?** Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -120,21 +153,33 @@ x=np.array([-1.,0.,1.])
 print(1/(1+np.exp(-x)))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[0.26894142 0.5        0.73105858]
+```
+
 
 ### Tình huống 3 — Kích hoạt đối xứng
 
 **Từ vựng trong mục:** **Tanh** — hàm tanh.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần kích hoạt đối xứng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Tín hiệu [-1,0,1]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Ba tín hiệu [-1,0,1] cần hàm tanh để giữ âm, không và dương.
 
 **Vì sao chọn phương án?** tanh cho dấu âm/dương quanh 0
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
 print(np.tanh([-1,0,1]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[-0.76159416  0.          0.76159416]
 ```
 
 
@@ -142,17 +187,25 @@ print(np.tanh([-1,0,1]))
 
 **Từ vựng trong mục:** **Softmax** — hàm softmax.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần chuẩn hóa điểm phân loại để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Ba logit [2,1,0.1]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Bộ phân loại cho ba lớp điểm [2,1,0.1]. Dùng softmax tính điểm chuẩn hóa tổng bằng 1.
 
 **Vì sao chọn phương án?** Softmax tạo tổng xác suất bằng 1 từ logits
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
-z=np.array([2.,1.,.1]);e=np.exp(z-z.max())
-p=e/e.sum();print(p,p.sum())
+z=np.array([2.,1.,.1])
+e=np.exp(z-z.max())
+p=e/e.sum()
+print(p,p.sum())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.65900114 0.24243297 0.09856589] 1.0
 ```
 
 
@@ -160,18 +213,24 @@ p=e/e.sum();print(p,p.sum())
 
 **Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần so mô hình tuyến tính và relu để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Dữ liệu x từ -2 tới 2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Một mô hình ghép hai ReLU trên x từ -2 đến 2 để tạo đáp ứng đối xứng theo độ lớn ngoài khoảng [-1,1].
 
 **Vì sao chọn phương án?** Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
 x=np.linspace(-2,2,5)
 y=np.maximum(0,x-1)+np.maximum(0,-x-1)
 print(y)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[1. 0. 0. 0. 1.]
 ```
 
 
