@@ -1,4 +1,4 @@
-"""Structural and Python-syntax gates for the 46 DRAFT self-study chapters.
+"""Structural and Python-syntax gates for the 46 self-study chapters.
 
 These tests deliberately do NOT claim educational content review or execution.
 Run: python -m unittest tests.test_curriculum_structure -v
@@ -27,7 +27,7 @@ class CurriculumStructureTests(unittest.TestCase):
         for path in self.paths:
             with self.subTest(chapter=path.name):
                 text = path.read_text(encoding="utf-8")
-                self.assertIn("*DRAFT", text)
+                self.assertNotRegex(text, r"(?im)^\s*\*{0,2}(?:Trạng thái:\s*)?DRAFT\b")
                 self.assertIn("## 1.", text)
                 self.assertIn("## 2.", text)
                 self.assertIn("## 3.", text)
