@@ -342,7 +342,7 @@ C. A Series containing column x — Series chứa cột x
 
 D. A tuple with row and column counts — Tuple gồm số hàng và số cột
 
-**Q7. What does `df['x']` return in a normal DataFrame? — `df['x']` thường trả về gì?**
+**Q7. When DataFrame column labels are unique, what does `df['x']` return? — Khi tên cột DataFrame không trùng nhau, `df['x']` trả về gì?**
 
 A. A Series with default index 0,1 — Series có index mặc định 0,1
 
@@ -486,26 +486,26 @@ D. To interpret the data and calculations correctly — Để hiểu đúng dữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | Series associates values with an index. | Series liên kết từng giá trị với một nhãn index. |
-| Q2 | **B** | A DataFrame organizes records in rows and fields in columns. | DataFrame tổ chức bản ghi thành hàng và trường thành cột. |
-| Q3 | **C** | A column holds the same kind of attribute for each row. | Cột lưu cùng một thuộc tính ở các hàng. |
-| Q4 | **D** | read_csv interprets separated fields and header names. | read_csv đọc các trường được phân cách cùng hàng tên cột. |
-| Q5 | **A** | Default integer labels are assigned when none are given. | Không chỉ định nhãn thì Pandas tự gán chỉ số nguyên. |
-| Q6 | **B** | Double brackets select a list of columns and preserve tabular form. | Hai lớp ngoặc vuông chọn danh sách cột và giữ dạng bảng. |
-| Q7 | **C** | Single-bracket column lookup returns a Series. | Tra cứu một cột bằng ngoặc đơn trả Series. |
-| Q8 | **D** | Shape gives the two dimensions of a DataFrame. | Shape cho biết hai kích thước của DataFrame. |
-| Q9 | **A** | head returns the requested number of top rows. | head lấy số hàng đầu theo đối số. |
-| Q10 | **B** | Each column can have its own dtype. | Mỗi cột có thể mang dtype riêng. |
-| Q11 | **C** | info reports the table structure and completeness. | info cho biết cấu trúc và mức độ đầy đủ của bảng. |
-| Q12 | **D** | describe computes basic summaries for numeric fields. | describe tính những thống kê cơ bản cho cột số. |
-| Q13 | **A** | The index is separate from ordinary columns unless explicitly converted. | Index tách với các cột thông thường trừ khi được chuyển đổi. |
-| Q14 | **B** | Pandas aligns data by matching index labels. | Pandas ghép giá trị theo các nhãn index tương ứng. |
-| Q15 | **C** | The columns index lists field names. | Thuộc tính columns liệt kê tên trường. |
-| Q16 | **D** | A consistent row meaning makes aggregations interpretable. | Ý nghĩa hàng nhất quán giúp hiểu đúng các phép tổng hợp. |
-| Q17 | **A** | Aligned price and quantity values are multiplied for each record. | Giá và lượng tương ứng được nhân ở từng bản ghi. |
-| Q18 | **B** | A list of names selects multiple columns. | Danh sách tên cho phép lấy nhiều cột. |
-| Q19 | **C** | Malformed values can prevent numeric type inference. | Giá trị không hợp lệ có thể khiến Pandas không nhận kiểu số. |
-| Q20 | **D** | Row and column semantics determine what a result means. | Ý nghĩa hàng và cột quyết định cách diễn giải kết quả. |
+| Q1 | **A** | Series associates values with an index. For instance, `pd.Series([5,6], index=['a','b'])` labels the values with `'a'` and `'b'`, unlike a plain unlabeled list. | Series liên kết từng giá trị với một nhãn index. Ví dụ `pd.Series([5,6], index=['a','b'])` gắn nhãn `'a'`, `'b'` cho các giá trị, khác với List không có hệ nhãn riêng. |
+| Q2 | **B** | A DataFrame organizes records in rows and fields in columns. A table with three observations and two fields has shape `(3,2)`; a Series instead has one labeled axis. | DataFrame tổ chức bản ghi thành hàng và trường thành cột. Bảng gồm ba quan sát và hai trường có shape `(3,2)`; Series lại là cấu trúc một chiều có nhãn. |
+| Q3 | **C** | A column holds the same kind of attribute for each row. If rows are orders, a `price` column records the price for each order and should carry an explicit currency unit. | Cột lưu cùng một thuộc tính ở các hàng. Nếu các hàng là đơn hàng, cột `price` ghi giá của từng đơn và cần xác định rõ đơn vị tiền tệ. |
+| Q4 | **D** | read_csv interprets separated fields and header names. For example, a CSV header `name,score` becomes column labels, although malformed numeric cells may need later cleaning. | read_csv đọc các trường được phân cách cùng hàng tên cột. Ví dụ hàng tiêu đề CSV `name,score` tạo tên cột tương ứng, nhưng các ô số sai định dạng vẫn có thể cần làm sạch sau khi đọc. |
+| Q5 | **A** | Default integer labels are assigned when none are given. Without an explicit index, the two values receive labels `0` and `1`; this is a Series, not a one-column DataFrame. | Không chỉ định nhãn thì Pandas tự gán chỉ số nguyên. Không truyền index, hai giá trị nhận nhãn `0` và `1`; kết quả là Series chứ không phải DataFrame một cột. |
+| Q6 | **B** | Double brackets select a list of columns and preserve tabular form. If `df` has five rows, `df[['x']]` preserves a two-dimensional result with shape `(5,1)`, unlike `df['x']`. | Hai lớp ngoặc vuông chọn danh sách cột và giữ dạng bảng. Nếu `df` có năm hàng, `df[['x']]` giữ kết quả hai chiều với shape `(5,1)`, khác `df['x']`. |
+| Q7 | **C** | Single-bracket column lookup returns a Series. With unique column names, `df['x']` is a one-dimensional Series; double brackets instead return a DataFrame. | Tra cứu một cột bằng ngoặc đơn trả Series. Với tên cột không trùng, `df['x']` là Series một chiều; hai lớp ngoặc vuông thì trả DataFrame. |
+| Q8 | **D** | Shape gives the two dimensions of a DataFrame. For a DataFrame with four records and three fields, `df.shape` is `(4,3)`, not the count of nonmissing cells. | Shape cho biết hai kích thước của DataFrame. Với DataFrame bốn bản ghi và ba trường, `df.shape` là `(4,3)`, không phải số ô không thiếu. |
+| Q9 | **A** | head returns the requested number of top rows. If the DataFrame has only two rows, `head(3)` returns those two rather than inventing another row. | head lấy số hàng đầu theo đối số. Nếu DataFrame chỉ có hai hàng, `head(3)` trả hai hàng đó chứ không tạo thêm hàng giả. |
+| Q10 | **B** | Each column can have its own dtype. A `price` column can have float dtype while `name` has text dtype; `dtypes` does not calculate descriptive statistics. | Mỗi cột có thể mang dtype riêng. Cột `price` có thể có dtype thực, còn `name` mang kiểu văn bản; `dtypes` không tính thống kê mô tả. |
+| Q11 | **C** | info reports the table structure and completeness. It displays column names, non-null counts, dtypes and memory usage; it is not the same as previewing records with `head()`. | info cho biết cấu trúc và mức độ đầy đủ của bảng. Nó hiển thị tên cột, số giá trị không thiếu, dtype và bộ nhớ; khác thao tác xem trước hàng dữ liệu bằng `head()`. |
+| Q12 | **D** | describe computes basic summaries for numeric fields. For numeric values `[2,4,6]`, the mean is 4 and quartiles describe their spread; `head()` only displays original rows. | describe tính những thống kê cơ bản cho cột số. Với số `[2,4,6]`, trung bình bằng 4 và các tứ phân vị cho biết mức phân tán; `head()` chỉ hiển thị hàng dữ liệu gốc. |
+| Q13 | **A** | The index is separate from ordinary columns unless explicitly converted. Indexes can be labels such as student IDs and are separate from normal data columns unless reset or converted. | Index tách với các cột thông thường trừ khi được chuyển đổi. Index có thể là nhãn như mã học viên và tách khỏi các cột dữ liệu thường, trừ khi được đưa trở lại thành cột. |
+| Q14 | **B** | Pandas aligns data by matching index labels. If two Series list labels in different orders, Pandas matches the same labels before adding values instead of blindly pairing positions. | Pandas ghép giá trị theo các nhãn index tương ứng. Nếu hai Series sắp nhãn theo thứ tự khác nhau, Pandas ghép giá trị cùng nhãn trước khi cộng chứ không cộng máy móc theo vị trí. |
+| Q15 | **C** | The columns index lists field names. For columns `name` and `age`, `list(df.columns)` gives their names; it does not list the row indices. | Thuộc tính columns liệt kê tên trường. Với các cột `name` và `age`, `list(df.columns)` trả danh sách tên cột, không phải nhãn hàng. |
+| Q16 | **D** | A consistent row meaning makes aggregations interpretable. A row may be one learner, one purchase or one measurement, but it must be described consistently to interpret statistics. | Ý nghĩa hàng nhất quán giúp hiểu đúng các phép tổng hợp. Một hàng có thể là một học viên, giao dịch hoặc lần đo, nhưng cần định nghĩa nhất quán để hiểu đúng thống kê. |
+| Q17 | **A** | Aligned price and quantity values are multiplied for each record. If an aligned row has price 10 dollars and quantity 3 items, its product is 30 dollars, not a cross-row total. | Giá và lượng tương ứng được nhân ở từng bản ghi. Nếu cùng một hàng có giá 10 đô la và số lượng 3 món, tích là 30 đô la, không phải tổng của nhiều hàng. |
+| Q18 | **B** | A list of names selects multiple columns. The result remains a DataFrame with both `a` and `b` in the given order, whereas `df['a']` normally returns a Series. | Danh sách tên cho phép lấy nhiều cột. Kết quả vẫn là DataFrame chứa `a` và `b` theo thứ tự đã nêu, còn `df['a']` thường trả Series. |
+| Q19 | **C** | Malformed values can prevent numeric type inference. A cell such as `'unknown'` inside a numeric column may force a text/object dtype, so verify and convert before arithmetic. | Giá trị không hợp lệ có thể khiến Pandas không nhận kiểu số. Ô như `'unknown'` nằm trong cột số có thể khiến kiểu bị suy ra thành văn bản/object, nên phải kiểm tra và đổi kiểu trước khi tính. |
+| Q20 | **D** | Row and column semantics determine what a result means. If rows are sales and columns include price and quantity, documenting units prevents multiplying unrelated fields or misreading revenue. | Ý nghĩa hàng và cột quyết định cách diễn giải kết quả. Nếu hàng là giao dịch và cột gồm giá cùng số lượng, nêu rõ đơn vị giúp tránh nhân nhầm trường và hiểu sai doanh thu. |
 
 ## 8. Nối bài tiếp theo
 
