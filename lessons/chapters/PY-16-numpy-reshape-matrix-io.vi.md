@@ -1,6 +1,5 @@
 # PY-16 — NumPy reshape, transpose, ma trận và lưu file
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `A @ B / np.dot(A,B)` | Nhân tuyến tính yêu cầu kích thước tương thích |
 | `np.save()/np.load()` | Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy |
 
-Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã được giải thích ngay tại bảng hàm này.
 
 ## 4. Khái niệm liên quan và ví dụ nhỏ
 
@@ -92,11 +90,10 @@ print(np.array([1,2]).tolist())
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng.
 
-**Vấn đề:** Tổ chức dữ liệu đo theo giờ.
+**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc tổ chức dữ liệu đo theo giờ. Thông tin đầu vào: 6 số đo nhiệt độ giờ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** reshape đổi 6 giá trị thành 2 ngày × 3 giờ. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** reshape đổi 6 giá trị thành 2 ngày × 3 giờ.
 
-**Dữ liệu:** 6 số đo nhiệt độ giờ; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -106,17 +103,15 @@ values=np.array([20,21,22,23,24,25])
 print(values.reshape(2,3))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 2 — Đổi hàng cột báo cáo
 
 **Từ vựng trong mục:** **Transpose** — chuyển vị.
 
-**Vấn đề:** Đổi hàng cột báo cáo.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc đổi hàng cột báo cáo. Thông tin đầu vào: 2 SV × 3 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Transpose làm môn thành hàng, học sinh thành cột. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Transpose làm môn thành hàng, học sinh thành cột.
 
-**Dữ liệu:** 2 SV × 3 môn; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -126,17 +121,15 @@ scores=np.array([[8,7,9],[6,5,8]])
 print(scores.T.shape)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 3 — Điểm tổng kết có trọng số
 
 **Từ vựng trong mục:** **Matrix multiply** — nhân ma trận.
 
-**Vấn đề:** Điểm tổng kết có trọng số.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc điểm tổng kết có trọng số. Thông tin đầu vào: 3 môn, trọng số cộng bằng 1. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Nhân vector điểm với vector trọng số. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Nhân vector điểm với vector trọng số.
 
-**Dữ liệu:** 3 môn, trọng số cộng bằng 1; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -146,17 +139,15 @@ scores=np.array([8,7,9]);w=np.array([.2,.3,.5])
 print(scores@w)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 4 — Tạo đặc trưng tổng hợp
 
 **Từ vựng trong mục:** **Serialization** — lưu dữ liệu.
 
-**Vấn đề:** Tạo đặc trưng tổng hợp.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc tạo đặc trưng tổng hợp. Thông tin đầu vào: 2 SV × 3 môn, tạo 2 đặc trưng. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Nhân matrix học sinh × matrix trọng số. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Nhân matrix học sinh × matrix trọng số.
 
-**Dữ liệu:** 2 SV × 3 môn, tạo 2 đặc trưng; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -167,17 +158,15 @@ W=np.array([[.5,0],[.5,.5],[0,.5]])
 print(X@W)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 5 — Lưu và đọc mảng an toàn
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng.
 
-**Vấn đề:** Lưu và đọc mảng an toàn.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc lưu và đọc mảng an toàn. Thông tin đầu vào: Mảng [3,5,7]. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo.
 
-**Dữ liệu:** Mảng [3,5,7]; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -191,7 +180,6 @@ with TemporaryDirectory() as folder:
     print(np.load(p,allow_pickle=False))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ## 6. Sai lầm thường gặp
 

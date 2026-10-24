@@ -1,6 +1,5 @@
 # PY-11 — Kế thừa, đa hình và lớp trừu tượng ABC
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -98,11 +97,10 @@ print(B().f())
 
 **Từ vựng trong mục:** **Inheritance** — kế thừa.
 
-**Vấn đề:** Các loại sản phẩm.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc các loại sản phẩm. Thông tin đầu vào: Một sản phẩm điện tử giả lập. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Điểm chung được đặt ở lớp cha, khác biệt ở lớp con. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Một sản phẩm điện tử giả lập. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -120,11 +118,10 @@ print(Electronic("Phone").category())
 
 **Từ vựng trong mục:** **Polymorphism** — đa hình.
 
-**Vấn đề:** Giao diện gửi thông báo.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc giao diện gửi thông báo. Thông tin đầu vào: Tin nhắn Hello. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** ABC bắt buộc các cách gửi cùng có send. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Tin nhắn Hello. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -144,11 +141,10 @@ print(Console().send("Hello"))
 
 **Từ vựng trong mục:** **Abstract class** — lớp trừu tượng.
 
-**Vấn đề:** Tính phí vận chuyển.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc tính phí vận chuyển. Thông tin đầu vào: Dịch vụ Express phí 35000 đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Dịch vụ Express phí 35000 đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -166,11 +162,10 @@ print(Express().fee())
 
 **Từ vựng trong mục:** **Override** — ghi đè.
 
-**Vấn đề:** Đọc nhiều loại cảm biến.
+**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc đọc nhiều loại cảm biến. Thông tin đầu vào: Nhiệt độ 26.5 °C, độ ẩm 62%. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Các cảm biến dùng chung read nhưng trả số đo khác nhau. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Nhiệt độ 26.5 °C, độ ẩm 62%. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -190,11 +185,10 @@ for s in [Temp(),Humidity()]:print(s.read())
 
 **Từ vựng trong mục:** **Inheritance** — kế thừa.
 
-**Vấn đề:** Chuyển định dạng báo cáo.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm đang cần giải quyết việc chuyển định dạng báo cáo. Thông tin đầu vào: Báo cáo plain và HTML. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Ghi đè render giúp thêm loại xuất mà không sửa lời gọi. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Báo cáo plain và HTML. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 

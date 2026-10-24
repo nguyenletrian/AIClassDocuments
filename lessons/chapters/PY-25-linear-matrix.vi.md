@@ -1,6 +1,5 @@
 # PY-25 — Ma trận, chuyển vị, nhân ma trận và định thức
 
-*DRAFT · Dữ liệu số mô phỏng; chưa xác nhận kiểm thử trên Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -90,11 +89,10 @@ print(np.linalg.inv([[2.,0.],[0.,3.]]))
 
 **Từ vựng trong mục:** **Matrix** — ma trận.
 
-**Vấn đề:** Đổi bố cục dữ liệu báo cáo.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn đổi bố cục dữ liệu báo cáo. Bộ dữ liệu đang có: 2 cửa hàng × 3 ngày. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** 2 cửa hàng × 3 ngày. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -104,17 +102,15 @@ X=np.array([[10,20,30],[12,8,5]])
 print(X.T.shape)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 2 — Nhân bảng điểm và trọng số
 
 **Từ vựng trong mục:** **Transpose** — chuyển vị.
 
-**Vấn đề:** Nhân bảng điểm và trọng số.
+**Tình huống thực tế:** Một trường học muốn nhân bảng điểm và trọng số. Bộ dữ liệu đang có: 2 SV × 3 môn → 2 kết quả. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Matrix product kết hợp các đặc trưng theo trọng số; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** 2 SV × 3 môn → 2 kết quả. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -125,17 +121,15 @@ W=np.array([[.2],[.3],[.5]])
 print(X@W)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 3 — Kiểm tra ma trận khả nghịch
 
 **Từ vựng trong mục:** **Determinant** — định thức.
 
-**Vấn đề:** Kiểm tra ma trận khả nghịch.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu muốn kiểm tra ma trận khả nghịch. Bộ dữ liệu đang có: Ma trận vuông 2×2. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ma trận vuông 2×2. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -145,17 +139,15 @@ A=np.array([[2,1],[1,2]],dtype=float)
 print(round(np.linalg.det(A),6))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 4 — Kiểm tra nghịch đảo
 
 **Từ vựng trong mục:** **Inverse** — ma trận nghịch đảo.
 
-**Vấn đề:** Kiểm tra nghịch đảo.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm tra nghịch đảo. Bộ dữ liệu đang có: Ma trận chéo 2×2. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Tích A@inv(A) phải gần đơn vị; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ma trận chéo 2×2. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -165,17 +157,15 @@ A=np.diag([2.,4.])
 print(np.allclose(A@np.linalg.inv(A),np.eye(2)))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 5 — Kiểm tra shape trước nhân
 
 **Từ vựng trong mục:** **Matrix** — ma trận.
 
-**Vấn đề:** Kiểm tra shape trước nhân.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm tra shape trước nhân. Bộ dữ liệu đang có: A (2×3), B (3×2). Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Shape không phù hợp sẽ báo lỗi nên kiểm trước; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** A (2×3), B (3×2). Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -186,7 +176,6 @@ assert A.shape[1]==B.shape[0]
 print((A@B).shape)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ## 6. Sai lầm cần tránh
 

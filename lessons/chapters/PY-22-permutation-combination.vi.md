@@ -1,6 +1,5 @@
 # PY-22 — Hoán vị, tổ hợp và tam giác Pascal
 
-*DRAFT · Dữ liệu giả lập · Cần kiểm chứng code trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -90,11 +89,10 @@ print(math.comb(6,3))
 
 **Từ vựng trong mục:** **Permutation** — hoán vị.
 
-**Vấn đề:** Chọn trưởng và phó nhóm.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chọn trưởng và phó nhóm. Bộ dữ liệu đang có: 5 ứng viên, 2 vai trò. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Vị trí trưởng và phó khác nhau nên dùng hoán vị. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** 5 ứng viên, 2 vai trò. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -109,11 +107,10 @@ print(math.perm(5,2))
 
 **Từ vựng trong mục:** **Combination** — tổ hợp.
 
-**Vấn đề:** Chọn đội thi.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chọn đội thi. Bộ dữ liệu đang có: 12 người, chọn 5. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Các thành viên không phân vai trò nên dùng tổ hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** 12 người, chọn 5. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -128,11 +125,10 @@ print(math.comb(12,5))
 
 **Từ vựng trong mục:** **Factorial** — giai thừa.
 
-**Vấn đề:** Sắp thứ tự kiểm thử.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn sắp thứ tự kiểm thử. Bộ dữ liệu đang có: 3 bài test A B C. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Thứ tự thực hiện làm kết quả khác nhau. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** 3 bài test A B C. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -147,11 +143,10 @@ print(list(permutations(["A","B","C"])))
 
 **Từ vựng trong mục:** **Binomial coefficient** — hệ số nhị thức.
 
-**Vấn đề:** Đề xuất cặp môn học.
+**Tình huống thực tế:** Một trường học muốn đề xuất cặp môn học. Bộ dữ liệu đang có: Ba môn Python AI SQL. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Mỗi cặp môn học không cần phân biệt thứ tự. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** Ba môn Python AI SQL. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -166,11 +161,10 @@ print(list(combinations(["Python","AI","SQL"],2)))
 
 **Từ vựng trong mục:** **Permutation** — hoán vị.
 
-**Vấn đề:** Tính hàng Pascal.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tính hàng Pascal. Bộ dữ liệu đang có: Hàng n=4. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Hệ số comb cho từng vị trí hàng n. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** Hàng n=4. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 

@@ -1,6 +1,5 @@
 # PY-42 — Tiền xử lý văn bản, token và Jaccard trong NLP
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -87,11 +86,10 @@ print(len(a&b)/len(a
 
 **Từ vựng trong mục:** **Token** — đơn vị từ.
 
-**Vấn đề:** Chuẩn hóa câu tìm kiếm.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần chuẩn hóa câu tìm kiếm cho công việc của mình. Dữ liệu đầu vào: Chuỗi '  Machine LEARNING '. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Chữ hoa và khoảng trắng làm tìm kiếm không khớp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Chuỗi '  Machine LEARNING '. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -100,17 +98,15 @@ text="  Machine LEARNING "
 print(text.strip().lower())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 2 — Tách từ câu đơn giản
 
 **Từ vựng trong mục:** **Vocabulary** — từ vựng.
 
-**Vấn đề:** Tách từ câu đơn giản.
+**Tình huống thực tế:** Một doanh nghiệp cần tách từ câu đơn giản cho công việc của mình. Dữ liệu đầu vào: Câu tiếng Anh 'AI helps Python'. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Câu tiếng Anh 'AI helps Python'. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -119,17 +115,15 @@ sentence="AI helps Python"
 print(sentence.lower().split())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 3 — Lập kho từ vựng
 
 **Từ vựng trong mục:** **Normalization** — chuẩn hóa văn bản.
 
-**Vấn đề:** Lập kho từ vựng.
+**Tình huống thực tế:** Một doanh nghiệp cần lập kho từ vựng cho công việc của mình. Dữ liệu đầu vào: Hai câu ngắn tiếng Anh. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Set lọc token lặp để đếm từ duy nhất; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Hai câu ngắn tiếng Anh. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -139,17 +133,15 @@ words=set(" ".join(sentences).lower().split())
 print(sorted(words))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 4 — Độ giống hai tài liệu
 
 **Từ vựng trong mục:** **Jaccard** — tương đồng Jaccard.
 
-**Vấn đề:** Độ giống hai tài liệu.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần độ giống hai tài liệu cho công việc của mình. Dữ liệu đầu vào: Hai văn bản có từ 'python' chung. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Jaccard xét số từ chung không tính tần suất; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Hai văn bản có từ 'python' chung. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -158,17 +150,15 @@ a=set("python for ai".split());b=set("python and sql".split())
 print(len(a&b)/len(a|b))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 5 — Kiểm văn bản không có từ
 
 **Từ vựng trong mục:** **Token** — đơn vị từ.
 
-**Vấn đề:** Kiểm văn bản không có từ.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần kiểm văn bản không có từ cho công việc của mình. Dữ liệu đầu vào: Hai chuỗi rỗng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Hai chuỗi rỗng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -178,7 +168,6 @@ score=1.0 if not(a|b) else len(a&b)/len(a|b)
 print(score)
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 

@@ -50,6 +50,10 @@ class CurriculumStructureTests(unittest.TestCase):
                     r"^\| Q(\d+) \| \*\*[A-D]\*\* \|", text, re.M)]
                 self.assertEqual(answers, list(range(1, 21)))
                 self.assertIn("**Từ vựng trong mục:**", text)
+                cases_text = text.split("## 5.", 1)[1].split("## 6.", 1)[0]
+                self.assertEqual(cases_text.count("**Tình huống thực tế:**"), 5)
+                self.assertNotIn("**Vấn đề:**", cases_text)
+                self.assertNotIn("**Dữ liệu:**", cases_text)
                 for i in range(1, 5):
                     section = re.search(
                         rf"^### 4\.{i}\..+\n\n\*\*Từ vựng trong mục:",

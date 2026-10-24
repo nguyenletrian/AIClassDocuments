@@ -1,6 +1,5 @@
 # PY-14 — NumPy indexing, slicing, boolean và fancy indexing
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `X[condition]` | Giữ các phần tử thỏa điều kiện logic |
 | `X[:,[0,2]]` | Chọn các cột không liền nhau |
 
-Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã được giải thích ngay tại bảng hàm này.
 
 ## 4. Khái niệm liên quan và ví dụ nhỏ
 
@@ -92,11 +90,10 @@ x=np.array([3,5,7]);print(x[[0,2]])
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-**Vấn đề:** Tra điểm một sinh viên.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc tra điểm một sinh viên. Thông tin đầu vào: 3 học sinh × 2 môn, điểm thang 10. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Lấy đúng hàng sinh viên và cột môn học. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Lấy đúng hàng sinh viên và cột môn học.
 
-**Dữ liệu:** 3 học sinh × 2 môn, điểm thang 10; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -106,17 +103,15 @@ scores=np.array([[8,9],[6,7],[9,8]])
 print(scores[1,0])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 2 — Báo danh sách điểm cao
 
 **Từ vựng trong mục:** **Slice** — cắt lát.
 
-**Vấn đề:** Báo danh sách điểm cao.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc báo danh sách điểm cao. Thông tin đầu vào: 3 học sinh × 2 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Mask lọc hàng điểm Python>=8. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Mask lọc hàng điểm Python>=8.
 
-**Dữ liệu:** 3 học sinh × 2 môn; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -126,17 +121,15 @@ X=np.array([[8,9],[6,7],[9,8]])
 print(X[X[:,0]>=8])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 3 — Lấy hai môn cần kiểm
 
 **Từ vựng trong mục:** **Boolean mask** — mặt nạ logic.
 
-**Vấn đề:** Lấy hai môn cần kiểm.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc lấy hai môn cần kiểm. Thông tin đầu vào: 2 sinh viên × 3 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Fancy indexing chọn cột không cần liền nhau. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Fancy indexing chọn cột không cần liền nhau.
 
-**Dữ liệu:** 2 sinh viên × 3 môn; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -146,17 +139,15 @@ X=np.array([[8,7,9],[6,5,8]])
 print(X[:,[0,2]])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 4 — Lấy ba khách đầu tiên
 
 **Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao.
 
-**Vấn đề:** Lấy ba khách đầu tiên.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc lấy ba khách đầu tiên. Thông tin đầu vào: 5 khách với điểm chi tiêu. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Slice theo chiều hàng để xem mẫu báo cáo. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Slice theo chiều hàng để xem mẫu báo cáo.
 
-**Dữ liệu:** 5 khách với điểm chi tiêu; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -166,17 +157,15 @@ spend=np.array([100,200,50,300,120])
 print(spend[:3])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 5 — Sửa số đo bất thường
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-**Vấn đề:** Sửa số đo bất thường.
+**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc sửa số đo bất thường. Thông tin đầu vào: 4 nhiệt độ có một giá trị âm lỗi. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Thao tác mask trên bản sao để không đổi mảng gốc. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Thao tác mask trên bản sao để không đổi mảng gốc.
 
-**Dữ liệu:** 4 nhiệt độ có một giá trị âm lỗi; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -187,7 +176,6 @@ clean=values.copy();clean[clean<0]=0
 print(values,clean)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ## 6. Sai lầm thường gặp
 

@@ -2,12 +2,32 @@
 
 **Áp dụng cho mọi bài mới và khi chỉnh bài cũ.** Mỗi lần tạo bài, agent **phải đọc tệp này và `templates/lesson.md` trước khi viết**, sau đó chạy checklist bên dưới. Không chỉ suy từ một ví dụ PCA hoặc tin rằng ghi nhớ lịch sử là đủ.
 
+## Quy tắc biên tập tinh gọn — bắt buộc cho tất cả bài
+
+**Nội dung dành cho sinh viên phải là kiến thức, không phải ghi chú về quy trình biên soạn.** Bỏ khỏi phần thân bài các dòng `Trạng thái: DRAFT`, `Chưa xác nhận chạy Windows`, `Dữ liệu minh họa giả lập` mang tính metadata. Trạng thái kiểm duyệt vẫn **phải tồn tại trong hồ sơ nội bộ** `sources/`, `docs/CURRICULUM-QA-STATUS.md` và kiểm thử; không được giả vờ bài đã được duyệt.
+
+Cắt các câu hướng dẫn người viết hoặc đệm vô ích: `Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiều comment vào ví dụ.`; `Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.`; `Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.`; `không phải hồ sơ thật.` nếu chỉ lặp trạng thái giả lập. Dữ liệu thực tế/giả lập cần làm rõ **một lần ở nơi có thể gây hiểu nhầm**, không lặp sau mỗi tình huống.
+
+Cắt trạng ngữ và mở đầu nếu bỏ đi không làm thay đổi nghĩa: `Trước khi chạy ví dụ,`, `Ở bước này,`, `Như đã đề cập,`, `Chúng ta có thể thấy rằng`. Rút `Trước khi chạy ví dụ, xác định kiểu dữ liệu đầu vào` thành `Xác định kiểu dữ liệu đầu vào` **nếu phần còn lại vẫn có ích**; không xóa nguyên câu nếu nó chứa điều kiện kỹ thuật quan trọng.
+
+Giữ bằng mọi giá: **định nghĩa, thông số kỹ thuật, điều kiện áp dụng, ý nghĩa hàng/cột/đơn vị, công thức, giải thích tại sao chọn giải pháp khi mang thông tin, kết quả thực tế, cảnh báo an toàn/bảo mật, lỗi biên, hướng dẫn kiểm chứng có tính bài học, code, câu hỏi, phương án và đáp án**. Không biến bài thành quá ngắn hoặc làm mất mạch lập luận. Ưu tiên ví dụ số cụ thể thay vì lời khuyên chung chung; gộp câu lặp nhưng không bỏ chi tiết có giá trị học tập.
+
+Sau mỗi lần biên tập, đối chiếu số ví dụ, code, 5 tình huống, 20 câu hỏi và 80 lựa chọn trắc nghiệm Anh–Việt cùng dòng và bảng đáp án. Soát lại Markdown, liên kết hình và code block. **Không sửa nội dung trong code fence bằng quy tắc cắt chữ.**
+
+### Viết đề bài thực tế thành một đoạn hoàn chỉnh
+
+Mỗi `### Tình huống N` phải có **một dòng/đoạn `**Tình huống thực tế:**` chứa đủ bối cảnh cụ thể (ai/cơ quan nào gặp nhu cầu gì), dữ liệu/số liệu thực tế có đơn vị và **yêu cầu đầu ra/điều cần quyết định**. Không tách thành `**Vấn đề:** Xét VIP` và `**Dữ liệu:** Khách 5 năm...` vì đó không phải đề bài có thể tự hiểu. Cũng không dùng lời mơ hồ như `xử lý dữ liệu và cho biết kết quả theo yêu cầu` nếu có thể nêu rõ kết quả cần tính.
+
+**Ví dụ đúng:** `**Tình huống thực tế:** Một cửa hàng chỉ xếp khách vào hạng VIP nếu đã gắn bó ít nhất 5 năm **và** có tổng chi tiêu từ 1.000.000 đồng. Khách An đã mua hàng được 5 năm và chi 1.200.000 đồng. Hãy viết chương trình trả về khách An có đủ điều kiện VIP không.`
+
+**Sau đề bài:** `**Vì sao chọn cách này?**` giải thích phép toán/phương pháp phù hợp; `**Quy trình:**` nêu các bước **riêng cho tình huống** (không lặp các bước chung chung kiểu "xác định đầu vào → in kết quả" cho cả 5 bài); tiếp đến code và giải thích đầu ra cụ thể. Không lặp lại dữ liệu ở một nhãn `**Dữ liệu:**` riêng. **Giữ nguyên dữ liệu, ngưỡng và điều kiện thật trong code**, nếu không suy ra được ý nghĩa thì phải rà code, không tự đặt chính sách khác.
+
 ## Kết cấu dành cho sinh viên
 1. **Bài đang ở đâu trong chuỗi kiến thức?** Trình bày các bài trước → bài hiện tại → bài liên quan, dễ theo dõi.
 2. **Từ vựng trong mục:** trước từng mục và tiểu mục, 2–5 thuật ngữ `English — tiếng Việt`; đoạn văn phía sau viết tự nhiên, **không** thêm `(Vietnamese)` sau mỗi lần nhắc. Những bảng thuật ngữ chỉ ghi từ thật sự dùng trong mục.
 3. **Thư viện và hàm:** cú pháp, mục đích, các tham số được giải thích cùng hàm (`dtype=float` trong `np.array`, `axis=0` trong các phép thống kê...), không rải quá nhiều chú thích tham số khắp code.
 4. **Khái niệm và khái niệm liên quan:** giải thích trước bằng tiếng Việt phổ thông → một ví dụ nhỏ có dữ liệu và đơn vị → code Python → giải thích kết quả → câu tự kiểm tra với đáp án. Không có mục chứng minh toán học, mục tiêu dành cho giảng viên hoặc chữ “Subconcept”.
-5. **5 tình huống thực tế:** mỗi tình huống có hoàn cảnh, vấn đề, vì sao chọn cách giải này (so với phương án khác), trình tự xử lý, dữ liệu (mỗi hàng, cột, đơn vị, giả lập hay thật), chương trình chạy được với comment giải thích lý do từng bước, đầu ra/cách tự kiểm chứng và giới hạn sử dụng.
+5. **5 tình huống thực tế:** gộp bối cảnh + vấn đề + số liệu + yêu cầu đầu ra thành **một đề bài có thể tự hiểu** ở `**Tình huống thực tế:**`. Sau đó trình bày vì sao chọn phép giải, các bước cụ thể, code và đầu ra. Không lặp nhãn vấn đề/dữ liệu hoặc quy trình chung.
 6. **20 câu trắc nghiệm Anh–Việt** với mỗi câu và **bản dịch trên CÙNG MỘT DÒNG**, ví dụ: `**Q1. What is a vector? — Vector là gì?**`. Mỗi phương án nằm trên **một dòng**: `A. A sequence of numbers — Một dãy số`. Đủ 4 lựa chọn cho một câu. Phần answer key là bảng 4 cột: `Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt)`. Không viết một dòng dịch tách dưới câu hỏi/phương án.
 7. **Nối sang bài kế tiếp:** giải thích mối liên hệ trong chuỗi kiến thức, không ép hiểu thuật toán nâng cao trước khi học nền.
 8. Hình minh họa khi có ích phải là file SVG/PNG có thật, đường dẫn tương đối **đúng chính xác** với file Markdown và kiểm tra tồn tại. Không chỉnh tên file trong quá trình dịch thuật. Nếu ảnh được tạo từ dữ liệu thì phải khớp tọa độ/số liệu.

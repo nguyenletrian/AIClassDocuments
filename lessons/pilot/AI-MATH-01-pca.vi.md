@@ -62,7 +62,7 @@ Cài thư viện:
 python -m pip install numpy scikit-learn matplotlib
 ```
 
-Các tham số viết dạng `tên=giá_trị` (*keyword arguments — đối số đặt tên*) được giải thích **cùng hàm mà chúng điều khiển**. Khi đến ví dụ, ta chỉ chú thích dữ liệu và **lý do thực hiện từng bước**, tránh giải nghĩa đi giải nghĩa lại mỗi tham số trong code.
+
 
 ### 3.1. NumPy — tạo, kiểm tra và tính trên dữ liệu
 

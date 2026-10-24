@@ -1,6 +1,5 @@
 # PY-19 — Pandas: lọc, groupby, merge và sắp xếp
 
-*DRAFT · Dữ liệu giả lập · Cần kiểm chứng code trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -94,11 +93,10 @@ print(a.merge(b,on="id"))
 
 **Từ vựng trong mục:** **loc** — chọn theo nhãn.
 
-**Vấn đề:** Đơn hàng giá cao.
+**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn đơn hàng giá cao. Bộ dữ liệu đang có: 3 sản phẩm, giá nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** 3 sản phẩm, giá nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -114,11 +112,10 @@ print(df[df.price>=800])
 
 **Từ vựng trong mục:** **iloc** — chọn theo vị trí.
 
-**Vấn đề:** Tra dòng thứ hai.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tra dòng thứ hai. Bộ dữ liệu đang có: Ba ID theo thứ tự A B C. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** iloc dùng vị trí thay vì tên index. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** Ba ID theo thứ tự A B C. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -134,11 +131,10 @@ print(df.iloc[1])
 
 **Từ vựng trong mục:** **groupby** — nhóm dữ liệu.
 
-**Vấn đề:** Doanh thu từng vùng.
+**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn doanh thu từng vùng. Bộ dữ liệu đang có: 3 đơn A A B, nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** groupby theo city rồi sum tránh cộng chung toàn quốc. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** 3 đơn A A B, nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -154,11 +150,10 @@ print(df.groupby("city")["sale"].sum())
 
 **Từ vựng trong mục:** **merge** — ghép bảng.
 
-**Vấn đề:** Đơn hàng và khách.
+**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn đơn hàng và khách. Bộ dữ liệu đang có: Hai bảng order/customer. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** merge trên customer_id giữ quan hệ ID đúng. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** Hai bảng order/customer. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -175,11 +170,10 @@ print(a.merge(b,on="id",how="left"))
 
 **Từ vựng trong mục:** **loc** — chọn theo nhãn.
 
-**Vấn đề:** Top doanh số.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn top doanh số. Bộ dữ liệu đang có: 4 đơn với doanh thu nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** sort_values theo revenue rồi head lấy hai dòng đầu. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** 4 đơn với doanh thu nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 

@@ -1,6 +1,5 @@
 # PY-46 — Mini project: dữ liệu → làm sạch → mô hình → đánh giá
 
-*DRAFT · Bài tổng hợp dành cho sinh viên; cần kiểm tra code và môi trường cài đặt trước phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -36,7 +35,7 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 **Từ vựng trong mục:** **Feature** — đặc trưng.
 
-Cột đầu vào cho mô hình. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Cột đầu vào cho mô hình.
 
 ```python
 x=[[1,2],[3,4]]
@@ -49,7 +48,7 @@ print(len(x[0]))
 
 **Từ vựng trong mục:** **Label** — nhãn.
 
-Giá trị mục tiêu cần dự đoán. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Giá trị mục tiêu cần dự đoán.
 
 ```python
 y=[0,1]
@@ -62,7 +61,7 @@ print(y)
 
 **Từ vựng trong mục:** **Pipeline** — chuỗi xử lý.
 
-Gom tiền xử lý và mô hình thành các bước. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Gom tiền xử lý và mô hình thành các bước.
 
 ```python
 from sklearn.pipeline import Pipeline
@@ -75,7 +74,7 @@ print(Pipeline)
 
 **Từ vựng trong mục:** **Evaluation** — đánh giá.
 
-Đo kết quả trên dữ liệu chưa dùng để fit. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Đo kết quả trên dữ liệu chưa dùng để fit.
 
 ```python
 print(8/10)
@@ -89,11 +88,10 @@ print(8/10)
 
 **Từ vựng trong mục:** **Feature** — đặc trưng.
 
-**Bài toán:** Kiểm schema dữ liệu.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần kiểm schema dữ liệu cho công việc của mình. Dữ liệu đầu vào: Iris có 150 hoa × 4 số đo cm và một nhãn loài. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Nêu rõ đầu vào và nhãn trước khi huấn luyện; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Nêu rõ đầu vào và nhãn trước khi huấn luyện
 
-**Dữ liệu:** Iris có 150 hoa × 4 số đo cm và một nhãn loài. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -103,17 +101,15 @@ D=load_iris()
 print(D.data.shape,D.target.shape)
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 2 — Chia tập có phân tầng
 
 **Từ vựng trong mục:** **Label** — nhãn.
 
-**Bài toán:** Chia tập có phân tầng.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần chia tập có phân tầng cho công việc của mình. Dữ liệu đầu vào: Iris có 3 loài. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** stratify giúp tỷ lệ nhãn ba loài ổn định; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** stratify giúp tỷ lệ nhãn ba loài ổn định
 
-**Dữ liệu:** Iris có 3 loài. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -124,17 +120,15 @@ D=load_iris();a,b,c,d=train_test_split(D.data,D.target,stratify=D.target,random_
 print(a.shape,b.shape)
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 3 — Huấn luyện pipeline
 
 **Từ vựng trong mục:** **Pipeline** — chuỗi xử lý.
 
-**Bài toán:** Huấn luyện pipeline.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần huấn luyện pipeline cho công việc của mình. Dữ liệu đầu vào: Iris với 4 đặc trưng cm. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test
 
-**Dữ liệu:** Iris với 4 đặc trưng cm. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -149,17 +143,15 @@ m=make_pipeline(StandardScaler(),LogisticRegression(max_iter=1000));m.fit(a,c)
 print(m.score(b,d))
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 4 — Dùng confusion matrix
 
 **Từ vựng trong mục:** **Evaluation** — đánh giá.
 
-**Bài toán:** Dùng confusion matrix.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần dùng confusion matrix cho công việc của mình. Dữ liệu đầu vào: Các nhãn thật và dự đoán mô phỏng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm
 
-**Dữ liệu:** Các nhãn thật và dự đoán mô phỏng. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -168,17 +160,15 @@ from sklearn.metrics import confusion_matrix
 print(confusion_matrix([0,1,1,0],[0,1,0,0]))
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 5 — So baseline không PCA
 
 **Từ vựng trong mục:** **Feature** — đặc trưng.
 
-**Bài toán:** So baseline không PCA.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so baseline không pca cho công việc của mình. Dữ liệu đầu vào: Iris 150 hoa, 4 đặc trưng số. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Phải so trên cùng tập train/test mới kết luận được; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Phải so trên cùng tập train/test mới kết luận được
 
-**Dữ liệu:** Iris 150 hoa, 4 đặc trưng số. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -191,7 +181,6 @@ print(PCA(n_components=2).fit_transform(X).shape)
 # Đây chỉ là biểu diễn, chưa phải kết quả đánh giá mô hình.
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ## 6. Nhầm lẫn cần tránh
 

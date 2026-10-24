@@ -1,6 +1,5 @@
 # PY-45 — Matplotlib: biểu đồ line, scatter và histogram
 
-*DRAFT · Bài tổng hợp dành cho sinh viên; cần kiểm tra code và môi trường cài đặt trước phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -36,7 +35,7 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 **Từ vựng trong mục:** **Line chart** — biểu đồ đường.
 
-Biểu diễn thay đổi theo thứ tự thời gian. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Biểu diễn thay đổi theo thứ tự thời gian.
 
 ```python
 import matplotlib.pyplot as plt
@@ -49,7 +48,7 @@ plt.plot([1,2,3],[2,3,5]);plt.close()
 
 **Từ vựng trong mục:** **Scatter plot** — biểu đồ phân tán.
 
-Mỗi cặp x,y tạo thành một điểm quan sát. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Mỗi cặp x,y tạo thành một điểm quan sát.
 
 ```python
 import matplotlib.pyplot as plt
@@ -62,7 +61,7 @@ plt.scatter([1,2],[3,4]);plt.close()
 
 **Từ vựng trong mục:** **Histogram** — biểu đồ tần suất.
 
-Đếm số mẫu trong từng khoảng giá trị. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Đếm số mẫu trong từng khoảng giá trị.
 
 ```python
 import matplotlib.pyplot as plt
@@ -75,7 +74,7 @@ plt.hist([1,1,2,3]);plt.close()
 
 **Từ vựng trong mục:** **Axis label** — nhãn trục.
 
-Mô tả đại lượng và đơn vị trên trục. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Mô tả đại lượng và đơn vị trên trục.
 
 ```python
 import matplotlib.pyplot as plt
@@ -90,11 +89,10 @@ plt.xlabel('Time (s)');plt.close()
 
 **Từ vựng trong mục:** **Line chart** — biểu đồ đường.
 
-**Bài toán:** Doanh thu ba ngày.
+**Tình huống thực tế:** Một doanh nghiệp cần doanh thu ba ngày cho công việc của mình. Dữ liệu đầu vào: 3 ngày, doanh thu nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Line chart tốt cho xu hướng theo thời gian; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Line chart tốt cho xu hướng theo thời gian
 
-**Dữ liệu:** 3 ngày, doanh thu nghìn đồng. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -103,17 +101,15 @@ import matplotlib.pyplot as plt
 plt.plot([1,2,3],[10,15,12]);plt.xlabel("Day");plt.ylabel("Revenue (thousand VND)");plt.close()
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 2 — Giờ học và điểm
 
 **Từ vựng trong mục:** **Scatter plot** — biểu đồ phân tán.
 
-**Bài toán:** Giờ học và điểm.
+**Tình huống thực tế:** Một trung tâm đào tạo cần giờ học và điểm cho công việc của mình. Dữ liệu đầu vào: 3 SV, giờ/tuần và điểm/10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Scatter cho thấy từng sinh viên là một cặp số; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Scatter cho thấy từng sinh viên là một cặp số
 
-**Dữ liệu:** 3 SV, giờ/tuần và điểm/10. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -122,17 +118,15 @@ import matplotlib.pyplot as plt
 plt.scatter([2,4,6],[5,7,9]);plt.xlabel("Hours/week");plt.ylabel("Score");plt.close()
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 3 — Phân bố điểm thi
 
 **Từ vựng trong mục:** **Histogram** — biểu đồ tần suất.
 
-**Bài toán:** Phân bố điểm thi.
+**Tình huống thực tế:** Một trung tâm đào tạo cần phân bố điểm thi cho công việc của mình. Dữ liệu đầu vào: 6 điểm trên thang 10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Histogram đếm số SV theo dải điểm; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Histogram đếm số SV theo dải điểm
 
-**Dữ liệu:** 6 điểm trên thang 10. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -141,17 +135,15 @@ import matplotlib.pyplot as plt
 plt.hist([5,6,6,7,8,9],bins=5);plt.xlabel("Score");plt.ylabel("Students");plt.close()
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 4 — Lưu biểu đồ PNG
 
 **Từ vựng trong mục:** **Axis label** — nhãn trục.
 
-**Bài toán:** Lưu biểu đồ PNG.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần lưu biểu đồ png cho công việc của mình. Dữ liệu đầu vào: Dữ liệu hai tháng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** savefig tạo tài liệu không cần màn hình tương tác; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** savefig tạo tài liệu không cần màn hình tương tác
 
-**Dữ liệu:** Dữ liệu hai tháng. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -164,17 +156,15 @@ with TemporaryDirectory() as d:
     print((Path(d)/"chart.png").is_file())
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 5 — Đặt nhãn đọc được
 
 **Từ vựng trong mục:** **Line chart** — biểu đồ đường.
 
-**Bài toán:** Đặt nhãn đọc được.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần đặt nhãn đọc được cho công việc của mình. Dữ liệu đầu vào: 3 điểm thời gian–nhiệt độ. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Nhãn giúp không nhầm giá trị x/y và đơn vị; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Nhãn giúp không nhầm giá trị x/y và đơn vị
 
-**Dữ liệu:** 3 điểm thời gian–nhiệt độ. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -183,7 +173,6 @@ import matplotlib.pyplot as plt
 plt.plot([1,2,3],[22,24,23]);plt.xlabel("Time (hours)");plt.ylabel("Temperature (C)");plt.close()
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ## 6. Nhầm lẫn cần tránh
 

@@ -1,6 +1,5 @@
 # PY-17 — Pandas Series, DataFrame và đọc CSV
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `pd.read_csv(path)` | Đọc CSV có tiêu đề, quy định đường dẫn/encoding |
 | `df.head()/df.info()/df.describe()` | Xem nhanh bản ghi, schema, thống kê |
 
-Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã được giải thích ngay tại bảng hàm này.
 
 ## 4. Khái niệm liên quan và ví dụ nhỏ
 
@@ -92,11 +90,10 @@ print(pd.read_csv(io.StringIO('x\n1')))
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
-**Vấn đề:** Tạo bảng giá sản phẩm.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tạo bảng giá sản phẩm. Thông tin đầu vào: 2 sản phẩm với Price đồng, Qty cái. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** DataFrame tên cột giúp tránh nhầm giá với số lượng. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** DataFrame tên cột giúp tránh nhầm giá với số lượng.
 
-**Dữ liệu:** 2 sản phẩm với Price đồng, Qty cái; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -106,17 +103,15 @@ df=pd.DataFrame({"Product":["Pen","Book"],"Price":[10000,35000],"Qty":[2,1]})
 print(df)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 2 — Đọc đơn từ CSV văn bản
 
 **Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
 
-**Vấn đề:** Đọc đơn từ CSV văn bản.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc đọc đơn từ CSV văn bản. Thông tin đầu vào: 2 dòng đơn, cột id,amount (đồng). Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Dùng StringIO tạo CSV không phụ thuộc file máy. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Dùng StringIO tạo CSV không phụ thuộc file máy.
 
-**Dữ liệu:** 2 dòng đơn, cột id,amount (đồng); mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -127,17 +122,15 @@ df=pd.read_csv(io.StringIO(csv_text))
 print(df.head())
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 3 — Tạo doanh thu mỗi dòng
 
 **Từ vựng trong mục:** **Column** — cột.
 
-**Vấn đề:** Tạo doanh thu mỗi dòng.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tạo doanh thu mỗi dòng. Thông tin đầu vào: 2 sản phẩm. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Một cột mới tính Price × Quantity. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Một cột mới tính Price × Quantity.
 
-**Dữ liệu:** 2 sản phẩm; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -148,17 +141,15 @@ df["Revenue"]=df.Price*df.Qty
 print(df)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 4 — Xem kiểu dữ liệu đầu vào
 
 **Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
 
-**Vấn đề:** Xem kiểu dữ liệu đầu vào.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc xem kiểu dữ liệu đầu vào. Thông tin đầu vào: Một cột số lượng, một cột tên. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi.
 
-**Dữ liệu:** Một cột số lượng, một cột tên; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -168,17 +159,15 @@ df=pd.DataFrame({"name":["A","B"],"qty":[2,3]})
 print(df.dtypes)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 5 — Chọn dữ liệu tập huấn luyện
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
-**Vấn đề:** Chọn dữ liệu tập huấn luyện.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc chọn dữ liệu tập huấn luyện. Thông tin đầu vào: 2 khách, 3 thuộc tính. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
-**Vì sao chọn cách giải này?** Chỉ giữ các cột feature phù hợp để tạo X. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Chỉ giữ các cột feature phù hợp để tạo X.
 
-**Dữ liệu:** 2 khách, 3 thuộc tính; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -189,7 +178,6 @@ X=df[["visits","spent"]]
 print(X.shape)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ## 6. Sai lầm thường gặp
 

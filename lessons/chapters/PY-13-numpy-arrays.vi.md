@@ -1,6 +1,5 @@
 # PY-13 — NumPy ndarray, shape, dtype và axis
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -92,11 +91,10 @@ print(np.array([[1,2],[3,4]]).sum(axis=0))
 
 **Từ vựng trong mục:** **ndarray** — mảng NumPy.
 
-**Vấn đề:** Gom điểm học sinh.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc gom điểm học sinh. Thông tin đầu vào: 3 học sinh × 2 môn, điểm thang 10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Dùng ma trận một hàng mỗi SV và cột mỗi môn. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** 3 học sinh × 2 môn, điểm thang 10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -112,11 +110,10 @@ print(scores.shape)
 
 **Từ vựng trong mục:** **Shape** — kích thước mảng.
 
-**Vấn đề:** Trung bình từng môn.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc trung bình từng môn. Thông tin đầu vào: 3 học sinh, 2 môn. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** axis=0 cho phép tính trung bình theo cột môn học. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** 3 học sinh, 2 môn. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -132,11 +129,10 @@ print(scores.mean(axis=0))
 
 **Từ vựng trong mục:** **dtype** — kiểu phần tử.
 
-**Vấn đề:** Tính tổng doanh thu theo cửa hàng.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tính tổng doanh thu theo cửa hàng. Thông tin đầu vào: 2 cửa hàng × 3 ngày, đơn vị nghìn đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** axis=1 gom giá trị theo từng HÀNG/cửa hàng. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** 2 cửa hàng × 3 ngày, đơn vị nghìn đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -152,11 +148,10 @@ print(sales.sum(axis=1))
 
 **Từ vựng trong mục:** **Axis** — trục tính toán.
 
-**Vấn đề:** Tạo bảng dự báo ban đầu.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc tạo bảng dự báo ban đầu. Thông tin đầu vào: 2 ngày × 3 kênh cảm biến. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** zeros cấp đúng kích thước chờ ghi kết quả. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** 2 ngày × 3 kênh cảm biến. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -172,11 +167,10 @@ print(forecast.shape)
 
 **Từ vựng trong mục:** **ndarray** — mảng NumPy.
 
-**Vấn đề:** Kiểm kiểu điểm đầu vào.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc kiểm kiểu điểm đầu vào. Thông tin đầu vào: Điểm 7.5, 8.0. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Mảng float giữ điểm có phần thập phân. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Điểm 7.5, 8.0. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 

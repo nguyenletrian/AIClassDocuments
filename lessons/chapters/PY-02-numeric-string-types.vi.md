@@ -1,6 +1,5 @@
 # PY-02 — Kiểu số, Boolean và chuỗi
 
-*Trạng thái: DRAFT · Dữ liệu minh họa giả lập · Chưa xác nhận chạy Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 | `split()/replace()` | Tách chuỗi hoặc thay thế đoạn văn bản |
 | `s[start:stop]` | Cắt ký tự theo vị trí, không lấy chỉ số stop |
 
-Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiều comment vào ví dụ.
 
 ## 4. Khái niệm liên quan — từ lời giải thích đến Python
 
@@ -38,7 +36,7 @@ Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiề
 
 **Từ vựng trong mục:** **Integer** — số nguyên.
 
-Giá trị không có phần thập phân. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Giá trị không có phần thập phân. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 n = 5
@@ -53,7 +51,7 @@ print(type(n))
 
 **Từ vựng trong mục:** **Float** — số thực.
 
-Số có thể có phần lẻ. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Số có thể có phần lẻ. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 x = 3.5
@@ -68,7 +66,7 @@ print(x)
 
 **Từ vựng trong mục:** **Boolean** — giá trị logic.
 
-Giá trị True hoặc False. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Giá trị True hoặc False. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 ok = True
@@ -83,7 +81,7 @@ print(ok)
 
 **Từ vựng trong mục:** **String** — chuỗi.
 
-Dãy ký tự có thể cắt lát. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Dãy ký tự có thể cắt lát. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 code = 'AB12'
@@ -100,11 +98,10 @@ print(code[:2])
 
 **Từ vựng trong mục:** **Integer** — số nguyên.
 
-**Vấn đề:** Chuẩn hóa email.
+**Tình huống thực tế:** Một ứng dụng thực tế cần chuẩn hóa email. Dữ liệu hiện có: Email nhập thừa khoảng trắng. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** Bỏ khoảng trắng và đổi chữ thường trước so trùng. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Bỏ khoảng trắng và đổi chữ thường trước so trùng.
 
-**Dữ liệu:** Email nhập thừa khoảng trắng; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -113,17 +110,15 @@ email = "  Lan@Example.COM "
 print(email.strip().lower())
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 2 — Tách nhãn sản phẩm
 
 **Từ vựng trong mục:** **Float** — số thực.
 
-**Vấn đề:** Tách nhãn sản phẩm.
+**Tình huống thực tế:** Một cửa hàng cần tách nhãn sản phẩm. Dữ liệu hiện có: Chuỗi có 3 nhãn. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** Dấu phẩy tạo ranh giới giữa nhãn. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Dấu phẩy tạo ranh giới giữa nhãn.
 
-**Dữ liệu:** Chuỗi có 3 nhãn; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -132,17 +127,15 @@ labels = "AI,Python,Math"
 print(labels.split(","))
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 3 — Giữ mã đầu 0
 
 **Từ vựng trong mục:** **Boolean** — giá trị logic.
 
-**Vấn đề:** Giữ mã đầu 0.
+**Tình huống thực tế:** Một ứng dụng thực tế cần giữ mã đầu 0. Dữ liệu hiện có: Mã đơn 00045. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** Mã không được mất chữ số đầu khi dùng để tra cứu. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Mã không được mất chữ số đầu khi dùng để tra cứu.
 
-**Dữ liệu:** Mã đơn 00045; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -151,17 +144,15 @@ order_id = "00045"
 print(order_id[:3])
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 4 — Đổi số từ CSV
 
 **Từ vựng trong mục:** **String** — chuỗi.
 
-**Vấn đề:** Đổi số từ CSV.
+**Tình huống thực tế:** Một ứng dụng thực tế cần đổi số từ csv. Dữ liệu hiện có: Giá 12.5, số lượng 3. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** Chuyển chuỗi số trước khi tính tổng. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Chuyển chuỗi số trước khi tính tổng.
 
-**Dữ liệu:** Giá 12.5, số lượng 3; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -171,17 +162,15 @@ qty = int("3")
 print(price * qty)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 5 — Che số liên lạc
 
 **Từ vựng trong mục:** **Integer** — số nguyên.
 
-**Vấn đề:** Che số liên lạc.
+**Tình huống thực tế:** Một ứng dụng thực tế cần che số liên lạc. Dữ liệu hiện có: Số mô phỏng 0900123456. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** Lấy ba ký tự cuối mà không lộ phần trước. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Lấy ba ký tự cuối mà không lộ phần trước.
 
-**Dữ liệu:** Số mô phỏng 0900123456; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -190,7 +179,6 @@ phone = "0900123456"
 print("*" * (len(phone)-3) + phone[-3:])
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ## 6. Những nhầm lẫn thường gặp
 

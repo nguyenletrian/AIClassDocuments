@@ -1,6 +1,5 @@
 # PY-27 — Eigenvalue, Eigenvector và hướng biến thiên
 
-*DRAFT · Dữ liệu số mô phỏng; chưa xác nhận kiểm thử trên Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -93,11 +92,10 @@ print(v[:,-1])
 
 **Từ vựng trong mục:** **Eigenvector** — vector riêng.
 
-**Vấn đề:** Chọn hướng đo biến thiên lớn.
+**Tình huống thực tế:** Một hệ thống giám sát muốn chọn hướng đo biến thiên lớn. Bộ dữ liệu đang có: Covariance minh họa chéo [2,3]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Chọn eigenvector tương ứng eigenvalue lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Covariance minh họa chéo [2,3]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -107,17 +105,15 @@ C=np.diag([2.,3.]);w,v=np.linalg.eigh(C)
 print(w[-1],v[:,-1])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 2 — Xem dữ liệu có trùng tuyến tính
 
 **Từ vựng trong mục:** **Eigenvalue** — giá trị riêng.
 
-**Vấn đề:** Xem dữ liệu có trùng tuyến tính.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn xem dữ liệu có trùng tuyến tính. Bộ dữ liệu đang có: Ba điểm cùng tăng hai feature. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Eigenvalue gần 0 biểu thị hướng rất ít biến thiên; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ba điểm cùng tăng hai feature. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -127,17 +123,15 @@ X=np.array([[1,2],[2,4],[3,6]],dtype=float)
 print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 3 — Kiểm công thức eigen
 
 **Từ vựng trong mục:** **Covariance** — hiệp phương sai.
 
-**Vấn đề:** Kiểm công thức eigen.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm công thức eigen. Bộ dữ liệu đang có: Ma trận chéo 2×2. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** A@v gần lambda*v cho cặp riêng chính xác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ma trận chéo 2×2. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -147,17 +141,15 @@ A=np.diag([2.,3.]);w,v=np.linalg.eigh(A)
 print(np.allclose(A@v[:,-1],w[-1]*v[:,-1]))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 4 — Sắp thứ tự mức phương sai
 
 **Từ vựng trong mục:** **Principal direction** — hướng chính.
 
-**Vấn đề:** Sắp thứ tự mức phương sai.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn sắp thứ tự mức phương sai. Bộ dữ liệu đang có: Giá trị riêng [4,1,3]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Giá trị riêng [4,1,3]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -167,17 +159,15 @@ values=np.array([4,1,3])
 print(np.argsort(values)[::-1])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 5 — So với PCA của sklearn
 
 **Từ vựng trong mục:** **Eigenvector** — vector riêng.
 
-**Vấn đề:** So với PCA của sklearn.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn so với PCA của sklearn. Bộ dữ liệu đang có: 3 khách × 2 feature. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** 3 khách × 2 feature. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -188,7 +178,6 @@ X=np.array([[1,2],[2,3],[3,4]],dtype=float)
 print(PCA(n_components=1).fit_transform(X).shape)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ## 6. Sai lầm cần tránh
 

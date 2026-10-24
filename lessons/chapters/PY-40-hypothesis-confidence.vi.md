@@ -1,6 +1,5 @@
 # PY-40 — Kiểm định giả thuyết, p-value và khoảng tin cậy
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -89,11 +88,10 @@ print(np.mean([2,3,4]))
 
 **Từ vựng trong mục:** **Null hypothesis** — giả thuyết không.
 
-**Vấn đề:** Đánh giá điểm trung bình so với 50.
+**Tình huống thực tế:** Một trung tâm đào tạo cần đánh giá điểm trung bình so với 50 cho công việc của mình. Dữ liệu đầu vào: 7 điểm [48,52,55,49,51,47,53]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** T-test giúp so mean của mẫu với một chuẩn đã định; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 7 điểm [48,52,55,49,51,47,53]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -103,17 +101,15 @@ x=[48,52,55,49,51,47,53]
 print(ttest_1samp(x,popmean=50).pvalue)
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 2 — Khoảng tin cậy thời gian giao hàng
 
 **Từ vựng trong mục:** **p-value** — giá trị p.
 
-**Vấn đề:** Khoảng tin cậy thời gian giao hàng.
+**Tình huống thực tế:** Một doanh nghiệp cần khoảng tin cậy thời gian giao hàng cho công việc của mình. Dữ liệu đầu vào: 5 số ngày [2,3,3,4,2]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** t.interval dùng std mẫu khi n nhỏ và giả định phù hợp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 số ngày [2,3,3,4,2]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -124,17 +120,15 @@ x=np.array([2.,3.,3.,4.,2.]);mean=x.mean()
 print(t.interval(.95,df=len(x)-1,loc=mean,scale=sem(x)))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 3 — Xem sai số chuẩn
 
 **Từ vựng trong mục:** **T-test** — kiểm định t.
 
-**Vấn đề:** Xem sai số chuẩn.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần xem sai số chuẩn cho công việc của mình. Dữ liệu đầu vào: 5 ngày giao hàng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** sem cho biết mức bất định của mean mẫu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 ngày giao hàng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -143,17 +137,15 @@ from scipy.stats import sem
 print(sem([2,3,3,4,2]))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 4 — Kiểm định thang thời gian
 
 **Từ vựng trong mục:** **Confidence interval** — khoảng tin cậy.
 
-**Vấn đề:** Kiểm định thang thời gian.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần kiểm định thang thời gian cho công việc của mình. Dữ liệu đầu vào: Giả sử alpha=0.05. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** So pvalue với ngưỡng alpha chứ không coi pvalue là xác suất H0 đúng; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Giả sử alpha=0.05. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -163,17 +155,15 @@ p=ttest_1samp([5,6,7,8,9],popmean=6).pvalue
 print("Reject H0" if p<.05 else "Not enough evidence")
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 5 — Phân biệt ý nghĩa alpha
 
 **Từ vựng trong mục:** **Null hypothesis** — giả thuyết không.
 
-**Vấn đề:** Phân biệt ý nghĩa alpha.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần phân biệt ý nghĩa alpha cho công việc của mình. Dữ liệu đầu vào: pvalue=0.04, alpha 0.01 và 0.05. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Thay alpha đổi quyết định chứ không đổi dữ liệu pvalue; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** pvalue=0.04, alpha 0.01 và 0.05. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -182,7 +172,6 @@ p=.04
 for alpha in [.01,.05]:print(alpha,p<alpha)
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 

@@ -1,6 +1,5 @@
 # PY-10 — Class, Object, constructor và đóng gói
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `self.attribute` | Truy cập thuộc tính thuộc về chính đối tượng |
 | `__str__/set_*/get_*` | Hiển thị và kiểm tra thao tác thay đổi giá trị |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
 
 ## 4. Khái niệm và ví dụ nhỏ
 
@@ -95,11 +93,10 @@ c=Counter();c.add();print(c.n)
 
 **Từ vựng trong mục:** **Class** — lớp.
 
-**Vấn đề:** Tạo hồ sơ học viên.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc tạo hồ sơ học viên. Thông tin đầu vào: Một sinh viên có tên An, điểm 8. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Một sinh viên có tên An, điểm 8. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -116,11 +113,10 @@ print(s.name,s.score)
 
 **Từ vựng trong mục:** **Object** — đối tượng.
 
-**Vấn đề:** Giỏ hàng có phương thức.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc giỏ hàng có phương thức. Thông tin đầu vào: Giá [100,200] nghìn đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Đặt add và total cùng nơi lưu giá sản phẩm. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Giá [100,200] nghìn đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -139,11 +135,10 @@ print(c.total())
 
 **Từ vựng trong mục:** **Constructor** — hàm khởi tạo.
 
-**Vấn đề:** Ràng buộc điểm nhập.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc ràng buộc điểm nhập. Thông tin đầu vào: Một lần nhập 9/10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Setter chặn điểm ngoài thang 0–10. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Một lần nhập 9/10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -162,11 +157,10 @@ s=Score();s.set(9);print(s.value)
 
 **Từ vựng trong mục:** **Encapsulation** — đóng gói.
 
-**Vấn đề:** In hóa đơn dễ đọc.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc in hóa đơn dễ đọc. Thông tin đầu vào: Đơn O01 trị giá 150000 đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** __str__ định nghĩa chữ hiện khi in đối tượng. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Đơn O01 trị giá 150000 đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -183,11 +177,10 @@ print(Order("O01",150000))
 
 **Từ vựng trong mục:** **Class** — lớp.
 
-**Vấn đề:** Hai cảm biến độc lập.
+**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc hai cảm biến độc lập. Thông tin đầu vào: Cảm biến A=20, B=40 độ C. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Instance khác nhau không chia sẻ nhầm dữ liệu đo. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Cảm biến A=20, B=40 độ C. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 

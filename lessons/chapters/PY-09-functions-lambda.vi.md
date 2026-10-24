@@ -1,6 +1,5 @@
 # PY-09 — Hàm, return, lambda và phạm vi biến
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `lambda x: expr` | Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh |
 | `sorted(..., key=...)` | Chọn tiêu chí để sắp xếp bản ghi |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
 
 ## 4. Khái niệm và ví dụ nhỏ
 
@@ -91,11 +89,10 @@ print((lambda x: x+1)(5))
 
 **Từ vựng trong mục:** **Function** — hàm.
 
-**Vấn đề:** Tính thuế giá trị gia tăng.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tính thuế giá trị gia tăng. Thông tin đầu vào: Giá 100000 đồng, VAT 10%. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Giá 100000 đồng, VAT 10%. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -111,11 +108,10 @@ print(with_vat(100000))
 
 **Từ vựng trong mục:** **Parameter** — tham số.
 
-**Vấn đề:** Sắp điểm theo thứ hạng.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc sắp điểm theo thứ hạng. Thông tin đầu vào: Hai hồ sơ tên và điểm. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Dùng lambda làm khóa sắp để không cần dựng hàm dài. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Hai hồ sơ tên và điểm. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -130,11 +126,10 @@ print(sorted(people,key=lambda r:r["score"],reverse=True))
 
 **Từ vựng trong mục:** **Return** — trả về.
 
-**Vấn đề:** Kiểm tra điểm hợp lệ.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc kiểm tra điểm hợp lệ. Thông tin đầu vào: Điểm phải nằm từ 0 đến 10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Hàm trả Boolean để nhiều nơi có thể dùng chung. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Điểm phải nằm từ 0 đến 10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -149,11 +144,10 @@ print(valid_score(11))
 
 **Từ vựng trong mục:** **Lambda** — hàm ẩn danh.
 
-**Vấn đề:** Trả thống kê đơn giản.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc trả thống kê đơn giản. Thông tin đầu vào: Ba số lượng [7,8,9]. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Một hàm trả tuple gồm tổng và trung bình. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Ba số lượng [7,8,9]. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -170,11 +164,10 @@ print(total,average)
 
 **Từ vựng trong mục:** **Function** — hàm.
 
-**Vấn đề:** Lọc yêu cầu ưu tiên.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc lọc yêu cầu ưu tiên. Thông tin đầu vào: Điểm ưu tiên [1,5,2,4]. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** filter áp dụng cùng điều kiện cho từng yêu cầu. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Điểm ưu tiên [1,5,2,4]. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 

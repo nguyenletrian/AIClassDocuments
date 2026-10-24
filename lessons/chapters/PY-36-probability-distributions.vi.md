@@ -1,6 +1,5 @@
 # PY-36 — Phân phối nhị thức và phân phối chuẩn
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -90,11 +89,10 @@ print(st.binom.pmf(1,2,.5))
 
 **Từ vựng trong mục:** **Random variable** — biến ngẫu nhiên.
 
-**Vấn đề:** Tính số lần giao hàng đúng giờ.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tính số lần giao hàng đúng giờ để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 10 đơn, xác suất mỗi đơn đúng giờ 0.8. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** 10 đơn, xác suất mỗi đơn đúng giờ 0.8. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -103,17 +101,15 @@ from scipy.stats import binom
 print(round(binom.pmf(8,10,.8),4))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 2 — Tỷ lệ 3 lỗi hoặc ít hơn
 
 **Từ vựng trong mục:** **Binomial** — phân phối nhị thức.
 
-**Vấn đề:** Tỷ lệ 3 lỗi hoặc ít hơn.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tỷ lệ 3 lỗi hoặc ít hơn để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 10 sản phẩm, lỗi độc lập p=0.1. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** CDF cộng xác suất từ 0 đến 3 lỗi. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** 10 sản phẩm, lỗi độc lập p=0.1. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -122,17 +118,15 @@ from scipy.stats import binom
 print(round(binom.cdf(3,10,.1),4))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 3 — Điểm chuẩn của cảm biến
 
 **Từ vựng trong mục:** **Normal** — phân phối chuẩn.
 
-**Vấn đề:** Điểm chuẩn của cảm biến.
+**Tình huống thực tế:** Một hệ thống giám sát cần điểm chuẩn của cảm biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Trung bình 100, độ lệch chuẩn 15, ngưỡng 115. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** CDF cho tỷ lệ thấp hơn một ngưỡng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Trung bình 100, độ lệch chuẩn 15, ngưỡng 115. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -141,17 +135,15 @@ from scipy.stats import norm
 print(norm.cdf(115,loc=100,scale=15))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 4 — Xem mật độ tại một điểm
 
 **Từ vựng trong mục:** **PMF/PDF** — hàm khối/mật độ.
 
-**Vấn đề:** Xem mật độ tại một điểm.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần xem mật độ tại một điểm để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Phân phối chuẩn mean=0,std=1 tại x=0. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** PDF là mật độ, không phải xác suất tại đúng một điểm liên tục. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Phân phối chuẩn mean=0,std=1 tại x=0. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -160,17 +152,15 @@ from scipy.stats import norm
 print(norm.pdf(0))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 5 — Sinh dữ liệu chuẩn mô phỏng
 
 **Từ vựng trong mục:** **Random variable** — biến ngẫu nhiên.
 
-**Vấn đề:** Sinh dữ liệu chuẩn mô phỏng.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần sinh dữ liệu chuẩn mô phỏng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 5 mẫu chuẩn mean=0,std=1. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** RNG dùng seed để kết quả minh họa lặp được. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** 5 mẫu chuẩn mean=0,std=1. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -180,7 +170,6 @@ rng=np.random.default_rng(42)
 print(rng.normal(loc=0,scale=1,size=5))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ## 6. Những nhầm lẫn thường gặp
 

@@ -1,6 +1,5 @@
 # 05 — Vòng lặp for/while, break/continue
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -90,11 +89,10 @@ for x in [0,1,2]:
 
 **Từ vựng trong mục:** **Iteration** — lần lặp.
 
-**Vấn đề thực tế:** Tổng hợp doanh thu.
+**Tình huống thực tế:** Một cửa hàng cần tổng hợp doanh thu. Dữ liệu hiện có: 3 đơn vị nghìn đồng: 120, 80, 200; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng.
 
-**Dữ liệu:** 3 đơn vị nghìn đồng: 120, 80, 200; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -111,11 +109,10 @@ print(total)
 
 **Từ vựng trong mục:** **For loop** — vòng for.
 
-**Vấn đề thực tế:** Loại dòng trống.
+**Tình huống thực tế:** Một ứng dụng thực tế cần loại dòng trống. Dữ liệu hiện có: Bốn giá trị nhiệt độ, một None; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác.
 
-**Dữ liệu:** Bốn giá trị nhiệt độ, một None; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -134,11 +131,10 @@ print(valid)
 
 **Từ vựng trong mục:** **While loop** — vòng while.
 
-**Vấn đề thực tế:** Tìm hàng hết tồn.
+**Tình huống thực tế:** Một cửa hàng cần tìm hàng hết tồn. Dữ liệu hiện có: Bốn mã hàng có số lượng [5,3,0,4]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** Dừng ngay khi thấy số lượng bằng 0; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Dừng ngay khi thấy số lượng bằng 0.
 
-**Dữ liệu:** Bốn mã hàng có số lượng [5,3,0,4]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -156,11 +152,10 @@ for i,x in enumerate(stocks):
 
 **Từ vựng trong mục:** **Break/continue** — dừng/bỏ qua.
 
-**Vấn đề thực tế:** Giới hạn kết nối.
+**Tình huống thực tế:** Một ứng dụng thực tế cần giới hạn kết nối. Dữ liệu hiện có: Tối đa ba lần thử kết nối mô phỏng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** While có giới hạn số lượt tránh chạy vô hạn; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** While có giới hạn số lượt tránh chạy vô hạn.
 
-**Dữ liệu:** Tối đa ba lần thử kết nối mô phỏng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -178,11 +173,10 @@ print(attempts,connected)
 
 **Từ vựng trong mục:** **Iteration** — lần lặp.
 
-**Vấn đề thực tế:** Lập bảng lịch học.
+**Tình huống thực tế:** Một trung tâm đào tạo cần lập bảng lịch học. Dữ liệu hiện có: 2 sinh viên, 3 ngày; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
-**Vì sao chọn cách này?** Lặp lồng khi có hai chiều sinh viên và ngày; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Lặp lồng khi có hai chiều sinh viên và ngày.
 
-**Dữ liệu:** 2 sinh viên, 3 ngày; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 

@@ -1,6 +1,5 @@
 # PY-38 — Quantile, IQR, outlier, skewness và kurtosis
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -90,11 +89,10 @@ print(pd.Series([1,2,3,4,5]).kurt())
 
 **Từ vựng trong mục:** **Quantile** — phân vị.
 
-**Vấn đề:** Mốc chi tiêu 75%.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần mốc chi tiêu 75% cho công việc của mình. Dữ liệu đầu vào: 5 số chi tiêu [10,20,30,40,50], nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Phân vị chia nhóm khách theo vị trí chi tiêu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 số chi tiêu [10,20,30,40,50], nghìn đồng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -104,17 +102,15 @@ x=[10,20,30,40,50]
 print(np.quantile(x,.75))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 2 — Kiểm outlier hóa đơn
 
 **Từ vựng trong mục:** **IQR** — khoảng tứ phân vị.
 
-**Vấn đề:** Kiểm outlier hóa đơn.
+**Tình huống thực tế:** Một doanh nghiệp cần kiểm outlier hóa đơn cho công việc của mình. Dữ liệu đầu vào: 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** IQR gợi ý hóa đơn bất thường để rà soát; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -125,17 +121,15 @@ q1,q3=np.quantile(x,[.25,.75]);iqr=q3-q1
 print(x[(x<q1-1.5*iqr)|(x>q3+1.5*iqr)])
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 3 — So độ lệch phân phối
 
 **Từ vựng trong mục:** **Skewness** — độ lệch phân phối.
 
-**Vấn đề:** So độ lệch phân phối.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so độ lệch phân phối cho công việc của mình. Dữ liệu đầu vào: Giá trị [1,1,2,8]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** skew dương giúp nhận ra đuôi phải dài; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Giá trị [1,1,2,8]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -144,17 +138,15 @@ import pandas as pd
 print(pd.Series([1,1,2,8]).skew())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 4 — Xem độ nhọn phân phối
 
 **Từ vựng trong mục:** **Kurtosis** — độ nhọn/đuôi phân phối.
 
-**Vấn đề:** Xem độ nhọn phân phối.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần xem độ nhọn phân phối cho công việc của mình. Dữ liệu đầu vào: 10 giá trị đo minh họa. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 10 giá trị đo minh họa. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -164,17 +156,15 @@ s=pd.Series([2,3,3,4,4,5,5,6,7,20])
 print(s.kurt())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 5 — Chọn cách điền dữ liệu
 
 **Từ vựng trong mục:** **Quantile** — phân vị.
 
-**Vấn đề:** Chọn cách điền dữ liệu.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần chọn cách điền dữ liệu cho công việc của mình. Dữ liệu đầu vào: [100,120,10000,None] nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Median có thể hữu ích khi có giá trị lớn bất thường; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** [100,120,10000,None] nghìn đồng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -184,7 +174,6 @@ s=pd.Series([100,120,10000,None])
 print(s.fillna(s.median()))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 

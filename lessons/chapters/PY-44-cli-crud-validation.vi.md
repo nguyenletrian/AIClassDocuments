@@ -1,6 +1,5 @@
 # PY-44 — Ứng dụng CLI: CRUD, kiểm tra dữ liệu và thống kê hồ sơ
 
-*DRAFT · Bài tổng hợp dành cho sinh viên; cần kiểm tra code và môi trường cài đặt trước phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -36,7 +35,7 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 **Từ vựng trong mục:** **CRUD** — tạo/đọc/sửa/xóa.
 
-Bốn thao tác quản lý bản ghi. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Bốn thao tác quản lý bản ghi.
 
 ```python
 db={'S1':8}
@@ -49,7 +48,7 @@ print(db)
 
 **Từ vựng trong mục:** **Validation** — xác minh dữ liệu.
 
-Đảm bảo giá trị đúng giới hạn. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Đảm bảo giá trị đúng giới hạn.
 
 ```python
 print(0<=8<=10)
@@ -61,7 +60,7 @@ print(0<=8<=10)
 
 **Từ vựng trong mục:** **Lookup** — tra cứu.
 
-Tìm bản ghi qua khóa. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Tìm bản ghi qua khóa.
 
 ```python
 print({'S1':8}.get('S1'))
@@ -73,7 +72,7 @@ print({'S1':8}.get('S1'))
 
 **Từ vựng trong mục:** **Aggregate** — tổng hợp.
 
-Tính chỉ số từ nhiều hồ sơ. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Tính chỉ số từ nhiều hồ sơ.
 
 ```python
 print(sum([7,8,9])/3)
@@ -87,11 +86,10 @@ print(sum([7,8,9])/3)
 
 **Từ vựng trong mục:** **CRUD** — tạo/đọc/sửa/xóa.
 
-**Bài toán:** Thêm sinh viên.
+**Tình huống thực tế:** Một trung tâm đào tạo cần thêm sinh viên cho công việc của mình. Dữ liệu đầu vào: Một hồ sơ S1 mới, điểm 8/10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Kiểm mã trùng trước khi thêm để không ghi đè; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Kiểm mã trùng trước khi thêm để không ghi đè
 
-**Dữ liệu:** Một hồ sơ S1 mới, điểm 8/10. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -103,17 +101,15 @@ if student_id not in db and 0<=score<=10:
 print(db)
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 2 — Tra cứu bằng mã
 
 **Từ vựng trong mục:** **Validation** — xác minh dữ liệu.
 
-**Bài toán:** Tra cứu bằng mã.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần tra cứu bằng mã cho công việc của mình. Dữ liệu đầu vào: Hai sinh viên mã S1 S2. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Dictionary truy xuất bằng khóa không cần biết thứ tự bản ghi; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Dictionary truy xuất bằng khóa không cần biết thứ tự bản ghi
 
-**Dữ liệu:** Hai sinh viên mã S1 S2. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -122,17 +118,15 @@ db={"S1":{"score":8},"S2":{"score":9}}
 print(db.get("S3","Not found"))
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 3 — Cập nhật điểm
 
 **Từ vựng trong mục:** **Lookup** — tra cứu.
 
-**Bài toán:** Cập nhật điểm.
+**Tình huống thực tế:** Một trung tâm đào tạo cần cập nhật điểm cho công việc của mình. Dữ liệu đầu vào: SV S1 có điểm 7 sửa thành 9. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** Ràng buộc 0–10 trước khi thay giá trị; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Ràng buộc 0–10 trước khi thay giá trị
 
-**Dữ liệu:** SV S1 có điểm 7 sửa thành 9. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -142,17 +136,15 @@ if 0<=new_score<=10:db["S1"]["score"]=new_score
 print(db)
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 4 — Xóa bản ghi
 
 **Từ vựng trong mục:** **Aggregate** — tổng hợp.
 
-**Bài toán:** Xóa bản ghi.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần xóa bản ghi cho công việc của mình. Dữ liệu đầu vào: Mã S2 chưa tồn tại. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** pop với giá trị mặc định tránh KeyError; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** pop với giá trị mặc định tránh KeyError
 
-**Dữ liệu:** Mã S2 chưa tồn tại. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -161,17 +153,15 @@ db={"S1":{"score":8}}
 print(db.pop("S2",None))
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 5 — Báo cáo điểm lớp
 
 **Từ vựng trong mục:** **CRUD** — tạo/đọc/sửa/xóa.
 
-**Bài toán:** Báo cáo điểm lớp.
+**Tình huống thực tế:** Một trung tâm đào tạo cần báo cáo điểm lớp cho công việc của mình. Dữ liệu đầu vào: Điểm 7,8,9 trên thang 10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
-**Vì sao chọn cách này?** mean tính trung bình và max xác định điểm cao; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** mean tính trung bình và max xác định điểm cao
 
-**Dữ liệu:** Điểm 7,8,9 trên thang 10. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -180,7 +170,6 @@ scores=[7,8,9]
 print({"mean":sum(scores)/len(scores),"max":max(scores)})
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ## 6. Nhầm lẫn cần tránh
 

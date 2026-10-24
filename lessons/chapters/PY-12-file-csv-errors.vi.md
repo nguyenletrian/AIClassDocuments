@@ -94,11 +94,10 @@ with io.StringIO('abc') as f:print(f.read())
 
 **Từ vựng trong mục:** **File I/O** — đọc ghi file.
 
-**Vấn đề:** Đọc CSV sản phẩm.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc đọc CSV sản phẩm. Thông tin đầu vào: Hai sản phẩm với hai cột name,price. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** DictReader dùng tiêu đề cột để tránh tráo giá và tên. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Hai sản phẩm với hai cột name,price. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -115,11 +114,10 @@ print(rows[1]["name"])
 
 **Từ vựng trong mục:** **CSV** — dữ liệu phân cách.
 
-**Vấn đề:** Lưu nhật ký ứng dụng.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm đang cần giải quyết việc lưu nhật ký ứng dụng. Thông tin đầu vào: Một dòng log Started. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Quản lý tệp trong thư mục tạm để không để lại file học thử. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Một dòng log Started. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -138,11 +136,10 @@ with TemporaryDirectory() as folder:
 
 **Từ vựng trong mục:** **Exception** — ngoại lệ.
 
-**Vấn đề:** Chặn nhập sai kiểu.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc chặn nhập sai kiểu. Thông tin đầu vào: Dữ liệu đầu vào 'abc'. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Chỉ bắt ValueError khi nhập không chuyển sang số được. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Dữ liệu đầu vào 'abc'. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -161,11 +158,10 @@ print(number)
 
 **Từ vựng trong mục:** **Context manager** — quản lý ngữ cảnh.
 
-**Vấn đề:** Xuất CSV báo cáo.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm đang cần giải quyết việc xuất CSV báo cáo. Thông tin đầu vào: Ngày và doanh thu ví dụ. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** DictWriter giữ thứ tự tên cột rõ ràng. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Ngày và doanh thu ví dụ. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 
@@ -183,11 +179,10 @@ print(b.getvalue())
 
 **Từ vựng trong mục:** **File I/O** — đọc ghi file.
 
-**Vấn đề:** Báo lỗi file thiếu.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm đang cần giải quyết việc báo lỗi file thiếu. Thông tin đầu vào: Một tệp giả định không tồn tại. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải?** Bắt FileNotFoundError để chương trình không dừng không rõ nguyên nhân. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
 
-**Dữ liệu:** Một tệp giả định không tồn tại. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
 
 **Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
 

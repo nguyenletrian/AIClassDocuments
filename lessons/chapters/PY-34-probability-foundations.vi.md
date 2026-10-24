@@ -1,6 +1,5 @@
 # PY-34 — Xác suất, không gian mẫu và biến cố
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -87,11 +86,10 @@ print(3/6)
 
 **Từ vựng trong mục:** **Experiment** — phép thử.
 
-**Vấn đề:** Xác suất xúc xắc chẵn.
+**Tình huống thực tế:** Một nhóm phát triển AI cần xác suất xúc xắc chẵn để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Xúc xắc công bằng có mặt 1..6. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Ba mặt chẵn trong sáu mặt đồng khả năng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Xúc xắc công bằng có mặt 1..6. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -100,17 +98,15 @@ space=set(range(1,7));even={2,4,6}
 print(len(even)/len(space))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 2 — Mô phỏng tung đồng xu
 
 **Từ vựng trong mục:** **Sample space** — không gian mẫu.
 
-**Vấn đề:** Mô phỏng tung đồng xu.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần mô phỏng tung đồng xu để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 1000 lần tung giả lập. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Đếm tỷ lệ mặt sấp khi có nhiều lần thử. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** 1000 lần tung giả lập. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -121,17 +117,15 @@ tosses=rng.integers(0,2,size=1000)
 print(tosses.mean())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 3 — Hai xúc xắc tổng bằng 9
 
 **Từ vựng trong mục:** **Event** — biến cố.
 
-**Vấn đề:** Hai xúc xắc tổng bằng 9.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần hai xúc xắc tổng bằng 9 để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Hai xúc xắc công bằng độc lập. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Hai xúc xắc công bằng độc lập. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -140,17 +134,15 @@ pairs=[(a,b) for a in range(1,7) for b in range(1,7)]
 print(sum(a+b==9 for a,b in pairs)/len(pairs))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 4 — Ước lượng tỷ lệ sự kiện
 
 **Từ vựng trong mục:** **Probability** — xác suất.
 
-**Vấn đề:** Ước lượng tỷ lệ sự kiện.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần ước lượng tỷ lệ sự kiện để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 10000 lần với xác suất 0.2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Mô phỏng rút ngẫu nhiên với seed để lặp lại. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** 10000 lần với xác suất 0.2. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -160,17 +152,15 @@ r=np.random.default_rng(1)
 print(np.mean(r.random(10000)<.2))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 5 — So lý thuyết với thực nghiệm
 
 **Từ vựng trong mục:** **Experiment** — phép thử.
 
-**Vấn đề:** So lý thuyết với thực nghiệm.
+**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần so lý thuyết với thực nghiệm để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Đồng xu công bằng, 100 và 10000 lần. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
 
 **Vì sao chọn phương pháp này?** Số lượt thử tăng khiến ước lượng thường ổn định hơn. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Đồng xu công bằng, 100 và 10000 lần. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -181,7 +171,6 @@ for n in [100,10000]:
     print(n,(r.integers(0,2,n)==1).mean())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ## 6. Những nhầm lẫn thường gặp
 
