@@ -1,14 +1,8 @@
 # PY-25 — Ma trận, chuyển vị, nhân ma trận và định thức
 
-*DRAFT · Dữ liệu số mô phỏng; chưa xác nhận kiểm thử trên Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Matrix** — ma trận; **Transpose** — chuyển vị.
-
 `Vector → Matrix → Hệ tuyến tính → Eigenvalue/PCA`
-
-Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python trước khi sử dụng vào học máy.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 3. NumPy và các hàm liên quan
 
-**Từ vựng trong mục:** **Function** — hàm; **Shape** — kích thước mảng.
-
 | Hàm / tham số | Dùng làm gì |
 |---|---|
 | `np.eye(n)` | Ma trận đơn vị vuông, nhân vào không đổi vector |
@@ -34,69 +26,49 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ### 4.1. Matrix
 
-**Từ vựng trong mục:** **Matrix** — ma trận.
-
-Bảng hai chiều chứa giá trị theo hàng và cột. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Bảng hai chiều chứa giá trị theo hàng và cột.
 
 ```python
 import numpy as np
 print(np.array([[1,2],[3,4]]).shape)
 ```
 
-**Tự kiểm tra:** Matrix có nghĩa gì? **Đáp án:** Bảng hai chiều chứa giá trị theo hàng và cột.
-
 ### 4.2. Transpose
 
-**Từ vựng trong mục:** **Transpose** — chuyển vị.
-
-Đổi vai trò hàng và cột của ma trận. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Đổi vai trò hàng và cột của ma trận.
 
 ```python
 import numpy as np
 print(np.array([[1,2],[3,4]]).T)
 ```
 
-**Tự kiểm tra:** Transpose có nghĩa gì? **Đáp án:** Đổi vai trò hàng và cột của ma trận.
-
 ### 4.3. Determinant
 
-**Từ vựng trong mục:** **Determinant** — định thức.
-
-Số của ma trận vuông dùng xét tính khả nghịch. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Số của ma trận vuông dùng xét tính khả nghịch.
 
 ```python
 import numpy as np
 print(np.linalg.det([[1,2],[3,4]]))
 ```
 
-**Tự kiểm tra:** Determinant có nghĩa gì? **Đáp án:** Số của ma trận vuông dùng xét tính khả nghịch.
-
 ### 4.4. Inverse
 
-**Từ vựng trong mục:** **Inverse** — ma trận nghịch đảo.
-
-Ma trận B làm AB=BA=I khi tồn tại. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Ma trận B làm AB=BA=I khi tồn tại.
 
 ```python
 import numpy as np
 print(np.linalg.inv([[2.,0.],[0.,3.]]))
 ```
 
-**Tự kiểm tra:** Inverse có nghĩa gì? **Đáp án:** Ma trận B làm AB=BA=I khi tồn tại.
-
 ## 5. Năm tình huống ứng dụng
 
 ### Tình huống 1 — Đổi bố cục dữ liệu báo cáo
 
-**Từ vựng trong mục:** **Matrix** — ma trận.
-
 **Vấn đề:** Đổi bố cục dữ liệu báo cáo.
 
-**Vì sao chọn phương án?** Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng
 
-**Dữ liệu:** 2 cửa hàng × 3 ngày. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** 2 cửa hàng × 3 ngày.
 
 ```python
 import numpy as np
@@ -104,19 +76,13 @@ X=np.array([[10,20,30],[12,8,5]])
 print(X.T.shape)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 2 — Nhân bảng điểm và trọng số
-
-**Từ vựng trong mục:** **Transpose** — chuyển vị.
 
 **Vấn đề:** Nhân bảng điểm và trọng số.
 
-**Vì sao chọn phương án?** Matrix product kết hợp các đặc trưng theo trọng số; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Matrix product kết hợp các đặc trưng theo trọng số
 
-**Dữ liệu:** 2 SV × 3 môn → 2 kết quả. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** 2 SV × 3 môn → 2 kết quả.
 
 ```python
 import numpy as np
@@ -125,19 +91,13 @@ W=np.array([[.2],[.3],[.5]])
 print(X@W)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 3 — Kiểm tra ma trận khả nghịch
-
-**Từ vựng trong mục:** **Determinant** — định thức.
 
 **Vấn đề:** Kiểm tra ma trận khả nghịch.
 
-**Vì sao chọn phương án?** Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo
 
-**Dữ liệu:** Ma trận vuông 2×2. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Ma trận vuông 2×2.
 
 ```python
 import numpy as np
@@ -145,19 +105,13 @@ A=np.array([[2,1],[1,2]],dtype=float)
 print(round(np.linalg.det(A),6))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 4 — Kiểm tra nghịch đảo
-
-**Từ vựng trong mục:** **Inverse** — ma trận nghịch đảo.
 
 **Vấn đề:** Kiểm tra nghịch đảo.
 
-**Vì sao chọn phương án?** Tích A@inv(A) phải gần đơn vị; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Tích A@inv(A) phải gần đơn vị
 
-**Dữ liệu:** Ma trận chéo 2×2. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Ma trận chéo 2×2.
 
 ```python
 import numpy as np
@@ -165,19 +119,13 @@ A=np.diag([2.,4.])
 print(np.allclose(A@np.linalg.inv(A),np.eye(2)))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 5 — Kiểm tra shape trước nhân
-
-**Từ vựng trong mục:** **Matrix** — ma trận.
 
 **Vấn đề:** Kiểm tra shape trước nhân.
 
-**Vì sao chọn phương án?** Shape không phù hợp sẽ báo lỗi nên kiểm trước; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Shape không phù hợp sẽ báo lỗi nên kiểm trước
 
-**Dữ liệu:** A (2×3), B (3×2). Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** A (2×3), B (3×2).
 
 ```python
 import numpy as np
@@ -186,15 +134,11 @@ assert A.shape[1]==B.shape[0]
 print((A@B).shape)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ## 6. Sai lầm cần tránh
 
 Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Matrix? — Thuật ngữ Matrix có nghĩa gì?**
@@ -440,7 +384,3 @@ D. It guarantees no leakage — Nó bảo đảm không rò rỉ dữ liệu
 | Q18 | **A** | The input is A (2×3), B (3×2) | A (2×3), B (3×2) |
 | Q19 | **D** | Shapes and data units | Shape và đơn vị dữ liệu |
 | Q20 | **C** | It does not establish predictive performance | Nó không đo chất lượng dự đoán |
-
-## 8. Nối sang bài kế tiếp
-
-`Vector → Matrix → Hệ tuyến tính → Eigenvalue/PCA`.
