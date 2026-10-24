@@ -1,7 +1,5 @@
 # PCA — Giảm chiều dữ liệu để nhìn rõ vấn đề trong AI
 
-*AI / Data Science · Tài liệu tự học dành cho sinh viên · Phiên bản góp ý 05*
-
 ## 1. PCA nằm ở đâu trong chuỗi kiến thức?
 
 **Từ vựng trong mục:** **PCA** — phân tích thành phần chính; **Vector** — véc-tơ; **Matrix** — ma trận; **Feature** — đặc trưng.
@@ -109,8 +107,6 @@ print("Mean per feature:", X.mean(axis=0))  # [3. 4.]
 | `LogisticRegression(max_iter=1000)` | Mô hình classification; `max_iter` cho phép tối đa 1000 lượt tối ưu, không buộc chạy đủ 1000. | **Phần mở rộng:** dự đoán nhãn |
 | `enumerate(items, start=1)` | `start=1` đếm từ 1 thay vì 0. | Đặt nhãn SV1, SV2... |
 | `plt.annotate(..., xytext=(4,4), textcoords="offset points")` | Dời vị trí chữ chú thích tương đối 4 point theo hai hướng để không đè điểm vẽ. | Hiển thị biểu đồ rõ ràng |
-
-**Điểm cần nhớ:** Tên hàm và các tham số đã được giải thích ở đây. Trong code minh họa phía dưới, comment chỉ tập trung vào: **dữ liệu chứa gì, vì sao làm bước đó và kết quả cần kiểm tra gì**.
 
 ## 4. PCA và các khái niệm liên quan
 
@@ -402,7 +398,7 @@ print("New shape:", new_scaled.shape)  # (1, 2)
 
 **Từ vựng trong mục:** **PCA** — phân tích thành phần chính; **Feature** — đặc trưng; **Pipeline** — chuỗi xử lý.
 
-Mỗi tình huống đều gồm: **vấn đề → nhắc lại các khái niệm cần dùng → vì sao chọn cách giải → quy trình → mô tả dữ liệu (từng hàng/cột/đơn vị) → code có ghi từng bước → kiểm tra kết quả**. Trừ Iris là bộ dữ liệu có sẵn, các bảng dữ liệu còn lại đều là **ví dụ giả lập để học cách xử lý**, không phải hồ sơ người hay doanh nghiệp thật.
+**Nguồn dữ liệu:** Iris là bộ dữ liệu mẫu trong scikit-learn; các bảng còn lại là dữ liệu tự tạo để minh họa cách xử lý.
 
 **Cách học nhẹ nhàng:** Tình huống 1, 2, 4 tập trung trực tiếp vào PCA và cách đọc dữ liệu. **Tình huống 3 (KMeans) và 5 (LogisticRegression/Pipeline) là phần mở rộng**, cho thấy PCA kết hợp với thuật toán AI khác như thế nào. Nếu chưa học phân cụm hoặc phân loại, bạn vẫn có thể đọc ý tưởng và bỏ qua phần chi tiết thuật toán rồi quay lại sau; chúng **không phải kiến thức bắt buộc để hiểu PCA**.
 
