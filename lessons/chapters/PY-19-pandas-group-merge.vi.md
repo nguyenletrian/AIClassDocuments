@@ -29,13 +29,13 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 | `df.groupby(key).agg()` | Gộp nhóm rồi tính tổng/trung bình/số dòng |
 | `pd.merge(left,right,on=,how=)` | Ghép theo khóa, cách inner/left/right/outer khác nhau |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. loc
 
 **Từ vựng trong mục:** **loc** — chọn theo nhãn.
 
-Chọn hàng/cột theo tên. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+`loc` chọn hàng hoặc cột theo tên nhãn, chẳng hạn mã sinh viên `SV1`.
 
 ```python
 import pandas as pd
@@ -43,13 +43,18 @@ x=pd.DataFrame({"score":[8]},index=["SV1"])
 print(x.loc["SV1"])
 ```
 
-**Tự kiểm tra nhanh:** loc là gì? **Đáp án:** Chọn hàng/cột theo tên.
+**Kết quả khi chạy:**
+
+```text
+score    8
+Name: SV1, dtype: int64
+```
 
 ### 4.2. iloc
 
 **Từ vựng trong mục:** **iloc** — chọn theo vị trí.
 
-Chọn hàng/cột theo số nguyên tính từ 0. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+`iloc` chọn hàng và cột theo vị trí số nguyên, bắt đầu từ 0.
 
 ```python
 import pandas as pd
@@ -57,13 +62,18 @@ x=pd.DataFrame({"score":[8,9]})
 print(x.iloc[1])
 ```
 
-**Tự kiểm tra nhanh:** iloc là gì? **Đáp án:** Chọn hàng/cột theo số nguyên tính từ 0.
+**Kết quả khi chạy:**
+
+```text
+score    9
+Name: 1, dtype: int64
+```
 
 ### 4.3. groupby
 
 **Từ vựng trong mục:** **groupby** — nhóm dữ liệu.
 
-Gom các hàng cùng giá trị để tổng hợp. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+`groupby` gom những hàng có cùng nhãn rồi tính tổng, trung bình hoặc số lượng cho từng nhóm.
 
 ```python
 import pandas as pd
@@ -71,13 +81,19 @@ x=pd.DataFrame({"city":["A","A"],"sale":[2,3]})
 print(x.groupby("city").sale.sum())
 ```
 
-**Tự kiểm tra nhanh:** groupby là gì? **Đáp án:** Gom các hàng cùng giá trị để tổng hợp.
+**Kết quả khi chạy:**
+
+```text
+city
+A    5
+Name: sale, dtype: int64
+```
 
 ### 4.4. merge
 
 **Từ vựng trong mục:** **merge** — ghép bảng.
 
-Nối bảng qua khóa chung. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+`merge` ghép hai bảng bằng cột khóa chung; cần kiểm tra khóa để tránh nhân bản dòng ngoài ý muốn.
 
 ```python
 import pandas as pd
@@ -85,7 +101,12 @@ a=pd.DataFrame({"id":[1],"x":[2]});b=pd.DataFrame({"id":[1],"y":[3]})
 print(a.merge(b,on="id"))
 ```
 
-**Tự kiểm tra nhanh:** merge là gì? **Đáp án:** Nối bảng qua khóa chung.
+**Kết quả khi chạy:**
+
+```text
+   id  x  y
+0   1  2  3
+```
 
 ## 5. Năm vấn đề thực tế
 
@@ -93,12 +114,11 @@ print(a.merge(b,on="id"))
 
 **Từ vựng trong mục:** **loc** — chọn theo nhãn.
 
-**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn đơn hàng giá cao. Bộ dữ liệu đang có: 3 sản phẩm, giá nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Cửa hàng có ba sản phẩm A, B, C với giá 300, 900 và 1.200 đơn vị tiền. In các sản phẩm có giá từ 800 trở lên.
 
-**Vì sao chọn phương án này?** Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Điều kiện `df.price >= 800` chọn hai hàng phù hợp.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -106,18 +126,25 @@ df=pd.DataFrame({"name":["A","B","C"],"price":[300,900,1200]})
 print(df[df.price>=800])
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+  name  price
+1    B    900
+2    C   1200
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 2 — Tra dòng thứ hai
 
 **Từ vựng trong mục:** **iloc** — chọn theo vị trí.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tra dòng thứ hai. Bộ dữ liệu đang có: Ba ID theo thứ tự A B C. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Bảng mã khách theo thứ tự A, B, C. Lấy dòng thứ hai của bảng.
 
-**Vì sao chọn phương án này?** iloc dùng vị trí thay vì tên index. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** `iloc[1]` lấy vị trí thứ hai do chỉ số bắt đầu từ 0.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -125,18 +152,24 @@ df=pd.DataFrame({"id":["A","B","C"]})
 print(df.iloc[1])
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+id    B
+Name: 1, dtype: object
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 3 — Doanh thu từng vùng
 
 **Từ vựng trong mục:** **groupby** — nhóm dữ liệu.
 
-**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn doanh thu từng vùng. Bộ dữ liệu đang có: 3 đơn A A B, nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Bảng doanh thu có ba giao dịch: vùng A được 10 và 20, vùng B được 8 đơn vị tiền. Tính tổng doanh thu theo từng vùng.
 
-**Vì sao chọn phương án này?** groupby theo city rồi sum tránh cộng chung toàn quốc. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** `groupby('city')['sale'].sum()` cộng các dòng có cùng vùng.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -144,18 +177,26 @@ df=pd.DataFrame({"city":["A","A","B"],"sale":[10,20,8]})
 print(df.groupby("city")["sale"].sum())
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+city
+A    30
+B     8
+Name: sale, dtype: int64
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 4 — Đơn hàng và khách
 
 **Từ vựng trong mục:** **merge** — ghép bảng.
 
-**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn đơn hàng và khách. Bộ dữ liệu đang có: Hai bảng order/customer. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Bảng bán hàng có ID 1,2 với doanh thu 10,20. Bảng khách có ID 1 là An, ID 2 là Lan. Ghép tên khách vào từng dòng doanh thu theo ID.
 
-**Vì sao chọn phương án này?** merge trên customer_id giữ quan hệ ID đúng. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** `merge(..., on='id', how='left')` giữ các dòng bán hàng bên trái và lấy tên tương ứng.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -164,18 +205,25 @@ b=pd.DataFrame({"id":[1,2],"name":["An","Lan"]})
 print(a.merge(b,on="id",how="left"))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+   id  sale name
+0   1    10   An
+1   2    20  Lan
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 5 — Top doanh số
 
 **Từ vựng trong mục:** **loc** — chọn theo nhãn.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn top doanh số. Bộ dữ liệu đang có: 4 đơn với doanh thu nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Bốn nhân viên A, B, C, D có doanh số 30,80,20,60 đơn vị tiền. In hai người có doanh số cao nhất.
 
-**Vì sao chọn phương án này?** sort_values theo revenue rồi head lấy hai dòng đầu. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** `sort_values(ascending=False).head(2)` sắp giảm dần và lấy hai dòng đầu.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -183,7 +231,15 @@ df=pd.DataFrame({"id":["A","B","C","D"],"sale":[30,80,20,60]})
 print(df.sort_values("sale",ascending=False).head(2))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+  id  sale
+1  B    80
+3  D    60
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ## 6. Các lỗi dễ mắc
 
