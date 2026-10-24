@@ -90,7 +90,7 @@ print(3/6)
 
 **Vì sao chọn phương pháp này?** Ba mặt chẵn trong sáu mặt đồng khả năng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Xúc xắc công bằng có mặt 1..6. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** Xúc xắc công bằng có mặt 1..6.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -99,7 +99,6 @@ space=set(range(1,7));even={2,4,6}
 print(len(even)/len(space))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 2 — Mô phỏng tung đồng xu
 
@@ -109,7 +108,7 @@ print(len(even)/len(space))
 
 **Vì sao chọn phương pháp này?** Đếm tỷ lệ mặt sấp khi có nhiều lần thử. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** 1000 lần tung giả lập. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** 1000 lần tung giả lập.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -120,7 +119,6 @@ tosses=rng.integers(0,2,size=1000)
 print(tosses.mean())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 3 — Hai xúc xắc tổng bằng 9
 
@@ -130,7 +128,7 @@ print(tosses.mean())
 
 **Vì sao chọn phương pháp này?** Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Hai xúc xắc công bằng độc lập. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** Hai xúc xắc công bằng độc lập.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -139,7 +137,6 @@ pairs=[(a,b) for a in range(1,7) for b in range(1,7)]
 print(sum(a+b==9 for a,b in pairs)/len(pairs))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 4 — Ước lượng tỷ lệ sự kiện
 
@@ -149,7 +146,7 @@ print(sum(a+b==9 for a,b in pairs)/len(pairs))
 
 **Vì sao chọn phương pháp này?** Mô phỏng rút ngẫu nhiên với seed để lặp lại. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** 10000 lần với xác suất 0.2. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** 10000 lần với xác suất 0.2.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -159,7 +156,6 @@ r=np.random.default_rng(1)
 print(np.mean(r.random(10000)<.2))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 5 — So lý thuyết với thực nghiệm
 
@@ -169,7 +165,7 @@ print(np.mean(r.random(10000)<.2))
 
 **Vì sao chọn phương pháp này?** Số lượt thử tăng khiến ước lượng thường ổn định hơn. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Đồng xu công bằng, 100 và 10000 lần. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** Đồng xu công bằng, 100 và 10000 lần.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -180,7 +176,6 @@ for n in [100,10000]:
     print(n,(r.integers(0,2,n)==1).mean())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ## 6. Những nhầm lẫn thường gặp
 
