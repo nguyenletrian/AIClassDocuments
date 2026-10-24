@@ -7,7 +7,7 @@
 
 `Vòng lặp → Hàm → OOP → Pipeline`
 
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
+Sau khi biết xử lý dữ liệu bằng vòng lặp và danh sách, ta tạo hàm để dùng lại cùng một công việc mà không phải viết code nhiều lần.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -30,58 +30,74 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `sorted(..., key=...)` | Chọn tiêu chí để sắp xếp bản ghi |
 
 
-## 4. Khái niệm và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Function
 
 **Từ vựng trong mục:** **Function** — hàm.
 
-Khối code tái sử dụng và nhận tham số. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Hàm là một nhóm lệnh có tên, có thể gọi nhiều lần. `twice(x)` nhân giá trị truyền vào với 2; `twice(3)` trả về `6`.
 
 ```python
 def twice(x): return x*2
 print(twice(3))
 ```
 
-**Tự kiểm tra:** Function là gì? **Đáp án:** Khối code tái sử dụng và nhận tham số.
+**Kết quả khi chạy:**
+
+```text
+6
+```
 
 ### 4.2. Parameter
 
 **Từ vựng trong mục:** **Parameter** — tham số.
 
-Tên đầu vào dùng trong định nghĩa hàm. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Tham số là tên biến khai báo trong hàm, như `name` của `hello(name)`. Khi gọi `hello('Lan')`, chuỗi `'Lan'` được truyền vào và in ra `Lan`.
 
 ```python
 def hello(name): return name
 print(hello('Lan'))
 ```
 
-**Tự kiểm tra:** Parameter là gì? **Đáp án:** Tên đầu vào dùng trong định nghĩa hàm.
+**Kết quả khi chạy:**
+
+```text
+Lan
+```
 
 ### 4.3. Return
 
 **Từ vựng trong mục:** **Return** — trả về.
 
-Kết quả gửi từ hàm về nơi gọi. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+`return` gửi kết quả về nơi gọi hàm; khác với `print()` chỉ hiển thị ra màn hình. `add(2, 3)` trả về `5`, rồi `print()` hiển thị số đó.
 
 ```python
 def add(a,b): return a+b
 print(add(2,3))
 ```
 
-**Tự kiểm tra:** Return là gì? **Đáp án:** Kết quả gửi từ hàm về nơi gọi.
+**Kết quả khi chạy:**
+
+```text
+5
+```
 
 ### 4.4. Lambda
 
 **Từ vựng trong mục:** **Lambda** — hàm ẩn danh.
 
-Biểu thức hàm ngắn không cần đặt tên. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+`lambda` tạo hàm ngắn chỉ có một biểu thức, phù hợp cho thao tác đơn giản như chọn khóa sắp xếp. `(lambda x: x+1)(5)` cho kết quả `6`.
 
 ```python
 print((lambda x: x+1)(5))
 ```
 
-**Tự kiểm tra:** Lambda là gì? **Đáp án:** Biểu thức hàm ngắn không cần đặt tên.
+**Kết quả khi chạy:**
+
+```text
+6
+```
 
 ## 5. Năm tình huống lập trình thực tế
 
@@ -89,12 +105,17 @@ print((lambda x: x+1)(5))
 
 **Từ vựng trong mục:** **Function** — hàm.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tính thuế giá trị gia tăng. Thông tin đầu vào: Giá 100000 đồng, VAT 10%. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Một cửa hàng bán sản phẩm giá 100.000 đồng chưa có thuế. Để minh họa cách tính, cửa hàng dùng mức VAT giả định 10% cho sản phẩm này.
 
-**Vì sao chọn cách giải?** Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Yêu cầu:** Viết hàm tính giá sau thuế và in số tiền cần thanh toán.
 
+**Vì sao chọn cách giải này?** Hàm `with_vat` nhận giá và mức thuế, với `rate=0.10` là mức mặc định. `return` trả tổng tiền đã làm tròn.
 
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:**
+
+1. Định nghĩa hàm với tham số giá và thuế mặc định.
+2. Nhân giá với `1 + rate`.
+3. Gọi hàm bằng giá 100.000 và in kết quả.
 
 ```python
 def with_vat(price, rate=0.10):
@@ -102,54 +123,87 @@ def with_vat(price, rate=0.10):
 print(with_vat(100000))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+110000
+```
+
+**Kết quả:** `110000` đồng — giá 100.000 đồng cộng 10% thuế.
 
 ### Tình huống 2 — Sắp điểm theo thứ hạng
 
 **Từ vựng trong mục:** **Parameter** — tham số.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc sắp điểm theo thứ hạng. Thông tin đầu vào: Hai hồ sơ tên và điểm. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Trung tâm có hai hồ sơ học viên: A đạt 8 điểm và B đạt 10 điểm trên thang 10. Cần ưu tiên hiển thị người có điểm cao hơn.
 
-**Vì sao chọn cách giải?** Dùng lambda làm khóa sắp để không cần dựng hàm dài. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Yêu cầu:** In danh sách hồ sơ theo điểm giảm dần.
 
+**Vì sao chọn cách giải này?** `sorted()` tạo danh sách đã sắp xếp; `lambda r: r['score']` cho biết phải dùng trường điểm để so sánh.
 
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:**
+
+1. Tạo hai Dictionary học viên.
+2. Dùng `sorted` với `key` lấy điểm và `reverse=True`.
+3. In danh sách sau khi sắp xếp.
 
 ```python
 people=[{"name":"A","score":8},{"name":"B","score":10}]
 print(sorted(people,key=lambda r:r["score"],reverse=True))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+[{'name': 'B', 'score': 10}, {'name': 'A', 'score': 8}]
+```
+
+**Kết quả:** `[{'name': 'B', 'score': 10}, {'name': 'A', 'score': 8}]` — B đứng trước A.
 
 ### Tình huống 3 — Kiểm tra điểm hợp lệ
 
 **Từ vựng trong mục:** **Return** — trả về.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc kiểm tra điểm hợp lệ. Thông tin đầu vào: Điểm phải nằm từ 0 đến 10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Một trung tâm chỉ chấp nhận điểm kiểm tra từ 0 đến 10. Nhân viên cần kiểm tra điểm nhập vào là 11.
 
-**Vì sao chọn cách giải?** Hàm trả Boolean để nhiều nơi có thể dùng chung. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Yêu cầu:** Viết hàm trả về `True` khi điểm nằm trong khoảng hợp lệ, ngược lại trả về `False`.
 
+**Vì sao chọn cách giải này?** Hàm `valid_score()` kết hợp hai phép so sánh trong một biểu thức, nên có thể gọi lại cho nhiều học viên.
 
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:**
+
+1. Định nghĩa hàm nhận điểm `x`.
+2. Kiểm tra `0 <= x <= 10`.
+3. Truyền điểm 11 vào hàm và in kết quả.
 
 ```python
 def valid_score(x): return 0<=x<=10
 print(valid_score(11))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+False
+```
+
+**Kết quả:** `False` — điểm 11 vượt quá thang điểm 10.
 
 ### Tình huống 4 — Trả thống kê đơn giản
 
 **Từ vựng trong mục:** **Lambda** — hàm ẩn danh.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc trả thống kê đơn giản. Thông tin đầu vào: Ba số lượng [7,8,9]. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Một cửa hàng ghi số lượng sản phẩm bán được trong ba ngày lần lượt là 7, 8 và 9 món.
 
-**Vì sao chọn cách giải?** Một hàm trả tuple gồm tổng và trung bình. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Yêu cầu:** Viết hàm trả về cả tổng số món lẫn số món trung bình mỗi ngày.
 
+**Vì sao chọn cách giải này?** `return` có thể gửi về hai kết quả trong một tuple, sau đó dùng hai biến để nhận tổng và trung bình.
 
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:**
+
+1. Truyền list `[7, 8, 9]` vào hàm.
+2. Dùng `sum()` tính tổng và chia cho số ngày để tính trung bình.
+3. Nhận hai kết quả và in ra.
 
 ```python
 def summary(values):
@@ -158,279 +212,279 @@ total,average=summary([7,8,9])
 print(total,average)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+24 8.0
+```
+
+**Kết quả:** `24 8.0` — bán tổng cộng 24 món, trung bình 8 món/ngày.
 
 ### Tình huống 5 — Lọc yêu cầu ưu tiên
 
 **Từ vựng trong mục:** **Function** — hàm.
 
-**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc lọc yêu cầu ưu tiên. Thông tin đầu vào: Điểm ưu tiên [1,5,2,4]. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Bộ phận vận hành có bốn yêu cầu với điểm ưu tiên `[1, 5, 2, 4]`. Chỉ các yêu cầu có điểm từ 4 trở lên cần được xử lý trước.
 
-**Vì sao chọn cách giải?** filter áp dụng cùng điều kiện cho từng yêu cầu. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Yêu cầu:** In danh sách các điểm ưu tiên đạt ngưỡng.
 
+**Vì sao chọn cách giải này?** `filter()` áp dụng điều kiện do `lambda` định nghĩa cho từng điểm; `list()` chuyển các kết quả được giữ lại thành danh sách.
 
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:**
+
+1. Lưu bốn điểm ưu tiên.
+2. Lọc từng điểm bằng điều kiện `x >= 4`.
+3. Chuyển kết quả lọc thành list rồi in ra.
 
 ```python
 priorities=[1,5,2,4]
 print(list(filter(lambda x:x>=4,priorities)))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+[5, 4]
+```
+
+**Kết quả:** `[5, 4]` — chỉ hai yêu cầu đạt ngưỡng ưu tiên.
 
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
-- Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
+- `return` trả giá trị về chỗ gọi hàm; nếu muốn thấy giá trị trên màn hình thì gọi `print()`.
+- Tham số mặc định như `rate=0.10` được dùng khi không truyền giá trị khác vào.
+- `lambda` phù hợp biểu thức ngắn, còn xử lý nhiều bước nên dùng `def` cho dễ đọc.
+- Hàm tính trung bình cần xử lý danh sách rỗng trước khi chia cho `len(values)`.
+- Khi sắp xếp bản ghi, phải chọn đúng trường dữ liệu trong `key`.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What is a function? — Hàm là gì?**
 
-**Q1. Which description matches Function? — Mô tả nào đúng với Function?**
+A. A reusable block of code — Khối code có thể gọi nhiều lần
 
-A. A different concept described as Tên đầu vào dùng trong định nghĩa hàm — Tên đầu vào dùng trong định nghĩa hàm
+B. A CSV file — Một file CSV
 
-B. The concept described as Khối code tái sử dụng và nhận tham số — Khối code tái sử dụng và nhận tham số
+C. A loop counter — Biến đếm vòng lặp
 
-C. A different concept described as Kết quả gửi từ hàm về nơi gọi — Kết quả gửi từ hàm về nơi gọi
+D. A folder name — Tên thư mục
 
-D. A different concept described as Biểu thức hàm ngắn không cần đặt tên — Biểu thức hàm ngắn không cần đặt tên
+**Q2. What is a parameter? — Tham số là gì?**
 
+A. A value returned by print — Giá trị print trả về
 
-**Q2. Which description matches Parameter? — Mô tả nào đúng với Parameter?**
+B. A name used in a function definition — Tên biến trong phần định nghĩa hàm
 
-A. The concept described as Tên đầu vào dùng trong định nghĩa hàm — Tên đầu vào dùng trong định nghĩa hàm
+C. A list index — Chỉ số list
 
-B. A different concept described as Kết quả gửi từ hàm về nơi gọi — Kết quả gửi từ hàm về nơi gọi
+D. A syntax error — Lỗi cú pháp
 
-C. A different concept described as Biểu thức hàm ngắn không cần đặt tên — Biểu thức hàm ngắn không cần đặt tên
+**Q3. What does return do? — return làm gì?**
 
-D. A different concept described as Khối code tái sử dụng và nhận tham số — Khối code tái sử dụng và nhận tham số
+A. End the program always — Luôn kết thúc chương trình
 
+B. Display text only — Chỉ hiển thị chữ
 
-**Q3. Which description matches Return? — Mô tả nào đúng với Return?**
+C. Send a value back to the caller — Trả giá trị về nơi gọi
 
-A. A different concept described as Biểu thức hàm ngắn không cần đặt tên — Biểu thức hàm ngắn không cần đặt tên
+D. Sort the list — Sắp xếp list
 
-B. A different concept described as Khối code tái sử dụng và nhận tham số — Khối code tái sử dụng và nhận tham số
+**Q4. What is lambda? — lambda là gì?**
 
-C. A different concept described as Tên đầu vào dùng trong định nghĩa hàm — Tên đầu vào dùng trong định nghĩa hàm
+A. A short anonymous function — Hàm ngắn không cần tên
 
-D. The concept described as Kết quả gửi từ hàm về nơi gọi — Kết quả gửi từ hàm về nơi gọi
+B. A file format — Định dạng file
 
+C. A Boolean only — Chỉ giá trị Boolean
 
-**Q4. Which description matches Lambda? — Mô tả nào đúng với Lambda?**
+D. A type of loop — Một loại vòng lặp
 
-A. A different concept described as Khối code tái sử dụng và nhận tham số — Khối code tái sử dụng và nhận tham số
+**Q5. What does def do? — def làm gì?**
 
-B. A different concept described as Tên đầu vào dùng trong định nghĩa hàm — Tên đầu vào dùng trong định nghĩa hàm
+A. It defines a function — Nó định nghĩa hàm
 
-C. The concept described as Biểu thức hàm ngắn không cần đặt tên — Biểu thức hàm ngắn không cần đặt tên
+B. It deletes a file — Nó xóa file
 
-D. A different concept described as Kết quả gửi từ hàm về nơi gọi — Kết quả gửi từ hàm về nơi gọi
+C. It opens a browser — Nó mở trình duyệt
 
+D. It creates a set — Nó tạo set
 
-**Q5. Which use matches def func(...):? — Công dụng nào đúng với def func(...):?**
+**Q6. What does a default parameter do? — Tham số mặc định dùng để làm gì?**
 
-A. Use a different operation to Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc — Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc
+A. It provides a default argument value — Nó cung cấp giá trị tham số mặc định
 
-B. Use this syntax to Định nghĩa một hàm, sử dụng return để trả kết quả — Định nghĩa một hàm, sử dụng return để trả kết quả
+B. It changes a string to uppercase — Nó đổi chữ hoa
 
-C. Use a different operation to Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh — Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh
+C. It disables return — Nó vô hiệu return
 
-D. Use a different operation to Chọn tiêu chí để sắp xếp bản ghi — Chọn tiêu chí để sắp xếp bản ghi
+D. It forces every argument to be a list — Nó bắt buộc tham số là list
 
+**Q7. When is lambda suitable? — Khi nào lambda phù hợp?**
 
-**Q6. Which use matches default / keyword arguments? — Công dụng nào đúng với default / keyword arguments?**
+A. A short function expression — Biểu thức hàm ngắn
 
-A. Use this syntax to Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc — Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc
+B. A class definition — Định nghĩa lớp
 
-B. Use a different operation to Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh — Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh
+C. A while loop — Vòng while
 
-C. Use a different operation to Chọn tiêu chí để sắp xếp bản ghi — Chọn tiêu chí để sắp xếp bản ghi
+D. A dictionary literal — Dictionary
 
-D. Use a different operation to Định nghĩa một hàm, sử dụng return để trả kết quả — Định nghĩa một hàm, sử dụng return để trả kết quả
+**Q8. What does the key argument of sorted do? — Tham số key của sorted dùng làm gì?**
 
+A. It chooses a sorting criterion — Nó chọn tiêu chí sắp xếp
 
-**Q7. Which use matches lambda x: expr? — Công dụng nào đúng với lambda x: expr?**
+B. It removes duplicates only — Nó chỉ bỏ trùng
 
-A. Use a different operation to Chọn tiêu chí để sắp xếp bản ghi — Chọn tiêu chí để sắp xếp bản ghi
+C. It prints without sorting — Nó in mà không sắp xếp
 
-B. Use a different operation to Định nghĩa một hàm, sử dụng return để trả kết quả — Định nghĩa một hàm, sử dụng return để trả kết quả
+D. It closes a file — Nó đóng file
 
-C. Use a different operation to Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc — Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc
+**Q9. Why define a VAT function? — Vì sao tạo hàm tính thuế?**
 
-D. Use this syntax to Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh — Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh
+A. Reuse the same tax calculation — Dùng lại phép tính thuế
 
+B. Never pay tax — Không bao giờ tính thuế
 
-**Q8. Which use matches sorted(..., key=...)? — Công dụng nào đúng với sorted(..., key=...)?**
+C. Change the input randomly — Đổi đầu vào ngẫu nhiên
 
-A. Use a different operation to Định nghĩa một hàm, sử dụng return để trả kết quả — Định nghĩa một hàm, sử dụng return để trả kết quả
+D. Delete prices — Xóa giá
 
-B. Use a different operation to Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc — Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc
+**Q10. Why use a score-based lambda in sorted? — Vì sao dùng lambda theo điểm khi sắp xếp?**
 
-C. Use this syntax to Chọn tiêu chí để sắp xếp bản ghi — Chọn tiêu chí để sắp xếp bản ghi
+A. Sort by each person's score — Sắp theo điểm mỗi người
 
-D. Use a different operation to Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh — Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh
+B. Sort alphabetically only — Chỉ sắp theo chữ
 
+C. Add all scores — Cộng mọi điểm
 
-**Q9. What solves scenario 1? — Cách nào giải quyết tình huống 1?**
+D. Filter missing records — Lọc hồ sơ thiếu
 
-A. Another method is chosen because Dùng lambda làm khóa sắp để không cần dựng hàm dài — Dùng lambda làm khóa sắp để không cần dựng hàm dài
+**Q11. Why define valid_score()? — Vì sao tạo valid_score()?**
 
-B. Choose the method because Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc — Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc
+A. Reuse the score validation rule — Dùng lại quy tắc kiểm tra điểm
 
-C. Another method is chosen because Hàm trả Boolean để nhiều nơi có thể dùng chung — Hàm trả Boolean để nhiều nơi có thể dùng chung
+B. Skip all checks — Bỏ mọi kiểm tra
 
-D. Another method is chosen because Một hàm trả tuple gồm tổng và trung bình — Một hàm trả tuple gồm tổng và trung bình
+C. Always return True — Luôn trả True
 
+D. Convert scores to names — Đổi điểm thành tên
 
-**Q10. What solves scenario 2? — Cách nào giải quyết tình huống 2?**
+**Q12. Why return two summary values? — Vì sao trả hai giá trị thống kê?**
 
-A. Choose the method because Dùng lambda làm khóa sắp để không cần dựng hàm dài — Dùng lambda làm khóa sắp để không cần dựng hàm dài
+A. Return sum and average together — Trả tổng và trung bình cùng lúc
 
-B. Another method is chosen because Hàm trả Boolean để nhiều nơi có thể dùng chung — Hàm trả Boolean để nhiều nơi có thể dùng chung
+B. Return a password — Trả mật khẩu
 
-C. Another method is chosen because Một hàm trả tuple gồm tổng và trung bình — Một hàm trả tuple gồm tổng và trung bình
+C. Delete input values — Xóa dữ liệu đầu vào
 
-D. Another method is chosen because filter áp dụng cùng điều kiện cho từng yêu cầu — filter áp dụng cùng điều kiện cho từng yêu cầu
+D. Only sort values — Chỉ sắp xếp
 
+**Q13. Why filter priorities? — Vì sao lọc điểm ưu tiên?**
 
-**Q11. What solves scenario 3? — Cách nào giải quyết tình huống 3?**
+A. Keep priorities of at least four — Giữ điểm ưu tiên từ bốn trở lên
 
-A. Another method is chosen because Một hàm trả tuple gồm tổng và trung bình — Một hàm trả tuple gồm tổng và trung bình
+B. Keep all priorities — Giữ mọi điểm
 
-B. Another method is chosen because filter áp dụng cùng điều kiện cho từng yêu cầu — filter áp dụng cùng điều kiện cho từng yêu cầu
+C. Reverse the values — Đảo giá trị
 
-C. Another method is chosen because Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc — Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc
+D. Remove every item — Xóa mọi phần tử
 
-D. Choose the method because Hàm trả Boolean để nhiều nơi có thể dùng chung — Hàm trả Boolean để nhiều nơi có thể dùng chung
+**Q14. What input is used for the VAT example? — Ví dụ thuế dùng dữ liệu nào?**
 
+A. A price of 100000 VND with 10% VAT — Giá 100000 đồng thuế 10%
 
-**Q12. What solves scenario 4? — Cách nào giải quyết tình huống 4?**
+B. A score of 11 — Điểm 11
 
-A. Another method is chosen because filter áp dụng cùng điều kiện cho từng yêu cầu — filter áp dụng cùng điều kiện cho từng yêu cầu
+C. Three daily quantities — Ba số lượng theo ngày
 
-B. Another method is chosen because Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc — Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc
+D. Four priorities — Bốn mức ưu tiên
 
-C. Choose the method because Một hàm trả tuple gồm tổng và trung bình — Một hàm trả tuple gồm tổng và trung bình
+**Q15. What input is used for sorting learners? — Ví dụ xếp hạng dùng dữ liệu nào?**
 
-D. Another method is chosen because Dùng lambda làm khóa sắp để không cần dựng hàm dài — Dùng lambda làm khóa sắp để không cần dựng hàm dài
+A. Two people with scores 8 and 10 — Hai người có điểm 8 và 10
 
+B. Three temperatures — Ba nhiệt độ
 
-**Q13. What solves scenario 5? — Cách nào giải quyết tình huống 5?**
+C. An empty file — File trống
 
-A. Another method is chosen because Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc — Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc
+D. Two stock codes — Hai mã hàng
 
-B. Choose the method because filter áp dụng cùng điều kiện cho từng yêu cầu — filter áp dụng cùng điều kiện cho từng yêu cầu
+**Q16. What input is checked by valid_score()? — valid_score() kiểm tra dữ liệu nào?**
 
-C. Another method is chosen because Dùng lambda làm khóa sắp để không cần dựng hàm dài — Dùng lambda làm khóa sắp để không cần dựng hàm dài
+A. Score 11 compared with the valid 0–10 range — Điểm 11 so với khoảng 0 đến 10
 
-D. Another method is chosen because Hàm trả Boolean để nhiều nơi có thể dùng chung — Hàm trả Boolean để nhiều nơi có thể dùng chung
+B. A single text line — Một dòng văn bản
 
+C. Two tax rates — Hai mức thuế
 
-**Q14. Which data is used in scenario 1? — Tình huống 1 dùng dữ liệu nào?**
+D. A phone number — Số điện thoại
 
-A. The described input Giá 100000 đồng, VAT 10% — Giá 100000 đồng, VAT 10%
+**Q17. What data is summarized? — Hàm summary xử lý dữ liệu nào?**
 
-B. Another input Hai hồ sơ tên và điểm — Hai hồ sơ tên và điểm
+A. Daily counts 7, 8 and 9 — Số lượng ba ngày 7 8 và 9
 
-C. Another input Điểm phải nằm từ 0 đến 10 — Điểm phải nằm từ 0 đến 10
+B. Three student names — Ba tên học viên
 
-D. Another input Ba số lượng [7,8,9] — Ba số lượng [7,8,9]
+C. Only one score — Chỉ một điểm
 
+D. A CSV header — Tiêu đề CSV
 
-**Q15. Which data is used in scenario 2? — Tình huống 2 dùng dữ liệu nào?**
+**Q18. What values are filtered? — Những giá trị nào được lọc?**
 
-A. Another input Điểm phải nằm từ 0 đến 10 — Điểm phải nằm từ 0 đến 10
+A. Priority values 1, 5, 2 and 4 — Các điểm ưu tiên 1 5 2 và 4
 
-B. Another input Ba số lượng [7,8,9] — Ba số lượng [7,8,9]
+B. Two email addresses — Hai email
 
-C. Another input Điểm ưu tiên [1,5,2,4] — Điểm ưu tiên [1,5,2,4]
+C. A product price only — Chỉ giá sản phẩm
 
-D. The described input Hai hồ sơ tên và điểm — Hai hồ sơ tên và điểm
+D. A tuple of coordinates — Tuple tọa độ
 
+**Q19. What is true about return and print? — Phát biểu nào đúng về return và print?**
 
-**Q16. Which data is used in scenario 3? — Tình huống 3 dùng dữ liệu nào?**
+A. A function may return a value without printing — Hàm có thể trả giá trị mà không in
 
-A. Another input Ba số lượng [7,8,9] — Ba số lượng [7,8,9]
+B. return always prints — return luôn in
 
-B. Another input Điểm ưu tiên [1,5,2,4] — Điểm ưu tiên [1,5,2,4]
+C. print defines a function — print định nghĩa hàm
 
-C. The described input Điểm phải nằm từ 0 đến 10 — Điểm phải nằm từ 0 đến 10
+D. lambda only sorts — lambda chỉ sắp xếp
 
-D. Another input Giá 100000 đồng, VAT 10% — Giá 100000 đồng, VAT 10%
+**Q20. What is necessary before averaging a list? — Cần làm gì trước khi tính trung bình một list?**
 
+A. Check the empty list before dividing by its length — Kiểm tra list rỗng trước khi chia độ dài
 
-**Q17. Which data is used in scenario 4? — Tình huống 4 dùng dữ liệu nào?**
+B. Always divide by zero — Luôn chia cho 0
 
-A. Another input Điểm ưu tiên [1,5,2,4] — Điểm ưu tiên [1,5,2,4]
+C. Ignore missing data always — Luôn bỏ qua dữ liệu thiếu
 
-B. The described input Ba số lượng [7,8,9] — Ba số lượng [7,8,9]
-
-C. Another input Giá 100000 đồng, VAT 10% — Giá 100000 đồng, VAT 10%
-
-D. Another input Hai hồ sơ tên và điểm — Hai hồ sơ tên và điểm
-
-
-**Q18. Which data is used in scenario 5? — Tình huống 5 dùng dữ liệu nào?**
-
-A. The described input Điểm ưu tiên [1,5,2,4] — Điểm ưu tiên [1,5,2,4]
-
-B. Another input Giá 100000 đồng, VAT 10% — Giá 100000 đồng, VAT 10%
-
-C. Another input Hai hồ sơ tên và điểm — Hai hồ sơ tên và điểm
-
-D. Another input Điểm phải nằm từ 0 đến 10 — Điểm phải nằm từ 0 đến 10
-
-
-**Q19. What must be clear before computing? — Cần hiểu gì trước khi tính?**
-
-A. Only font color — Chỉ màu chữ
-
-B. Only filename length — Chỉ độ dài tên file
-
-C. Only number of comments — Chỉ số comment
-
-D. Input meaning and units — Ý nghĩa và đơn vị dữ liệu
-
-
-**Q20. What should follow a successful demo? — Sau khi demo chạy đúng nên làm gì?**
-
-A. Assume it works for all data — Cho rằng luôn đúng với mọi dữ liệu
-
-B. Remove input validation — Xóa kiểm tra đầu vào
-
-C. Verify output and unusual inputs — Kiểm tra đầu ra và giá trị biên
-
-D. Ignore unexpected results — Bỏ qua kết quả bất thường
+D. Remove the return statement — Xóa return
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | The concept described as Khối code tái sử dụng và nhận tham số | Khối code tái sử dụng và nhận tham số |
-| Q2 | **A** | The concept described as Tên đầu vào dùng trong định nghĩa hàm | Tên đầu vào dùng trong định nghĩa hàm |
-| Q3 | **D** | The concept described as Kết quả gửi từ hàm về nơi gọi | Kết quả gửi từ hàm về nơi gọi |
-| Q4 | **C** | The concept described as Biểu thức hàm ngắn không cần đặt tên | Biểu thức hàm ngắn không cần đặt tên |
-| Q5 | **B** | Use this syntax to Định nghĩa một hàm, sử dụng return để trả kết quả | Định nghĩa một hàm, sử dụng return để trả kết quả |
-| Q6 | **A** | Use this syntax to Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc | Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc |
-| Q7 | **D** | Use this syntax to Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh | Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh |
-| Q8 | **C** | Use this syntax to Chọn tiêu chí để sắp xếp bản ghi | Chọn tiêu chí để sắp xếp bản ghi |
-| Q9 | **B** | Choose the method because Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc | Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc |
-| Q10 | **A** | Choose the method because Dùng lambda làm khóa sắp để không cần dựng hàm dài | Dùng lambda làm khóa sắp để không cần dựng hàm dài |
-| Q11 | **D** | Choose the method because Hàm trả Boolean để nhiều nơi có thể dùng chung | Hàm trả Boolean để nhiều nơi có thể dùng chung |
-| Q12 | **C** | Choose the method because Một hàm trả tuple gồm tổng và trung bình | Một hàm trả tuple gồm tổng và trung bình |
-| Q13 | **B** | Choose the method because filter áp dụng cùng điều kiện cho từng yêu cầu | filter áp dụng cùng điều kiện cho từng yêu cầu |
-| Q14 | **A** | The described input Giá 100000 đồng, VAT 10% | Giá 100000 đồng, VAT 10% |
-| Q15 | **D** | The described input Hai hồ sơ tên và điểm | Hai hồ sơ tên và điểm |
-| Q16 | **C** | The described input Điểm phải nằm từ 0 đến 10 | Điểm phải nằm từ 0 đến 10 |
-| Q17 | **B** | The described input Ba số lượng [7,8,9] | Ba số lượng [7,8,9] |
-| Q18 | **A** | The described input Điểm ưu tiên [1,5,2,4] | Điểm ưu tiên [1,5,2,4] |
-| Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị dữ liệu |
-| Q20 | **C** | Verify output and unusual inputs | Kiểm tra đầu ra và giá trị biên |
+| Q1 | **A** | A reusable block of code | Khối code có thể gọi nhiều lần |
+| Q2 | **B** | A name used in a function definition | Tên biến trong phần định nghĩa hàm |
+| Q3 | **C** | Send a value back to the caller | Trả giá trị về nơi gọi |
+| Q4 | **A** | A short anonymous function | Hàm ngắn không cần tên |
+| Q5 | **A** | It defines a function | Nó định nghĩa hàm |
+| Q6 | **A** | It provides a default argument value | Nó cung cấp giá trị tham số mặc định |
+| Q7 | **A** | A short function expression | Biểu thức hàm ngắn |
+| Q8 | **A** | It chooses a sorting criterion | Nó chọn tiêu chí sắp xếp |
+| Q9 | **A** | Reuse the same tax calculation | Dùng lại phép tính thuế |
+| Q10 | **A** | Sort by each person's score | Sắp theo điểm mỗi người |
+| Q11 | **A** | Reuse the score validation rule | Dùng lại quy tắc kiểm tra điểm |
+| Q12 | **A** | Return sum and average together | Trả tổng và trung bình cùng lúc |
+| Q13 | **A** | Keep priorities of at least four | Giữ điểm ưu tiên từ bốn trở lên |
+| Q14 | **A** | A price of 100000 VND with 10% VAT | Giá 100000 đồng thuế 10% |
+| Q15 | **A** | Two people with scores 8 and 10 | Hai người có điểm 8 và 10 |
+| Q16 | **A** | Score 11 compared with the valid 0–10 range | Điểm 11 so với khoảng 0 đến 10 |
+| Q17 | **A** | Daily counts 7, 8 and 9 | Số lượng ba ngày 7 8 và 9 |
+| Q18 | **A** | Priority values 1, 5, 2 and 4 | Các điểm ưu tiên 1 5 2 và 4 |
+| Q19 | **A** | A function may return a value without printing | Hàm có thể trả giá trị mà không in |
+| Q20 | **A** | Check the empty list before dividing by its length | Kiểm tra list rỗng trước khi chia độ dài |
 
 ## 8. Nối sang bài tiếp theo
 
