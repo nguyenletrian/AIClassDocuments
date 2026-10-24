@@ -1,6 +1,5 @@
 # PY-21 — Tập hợp, bao hàm–loại trừ và phân hoạch
 
-*DRAFT · Dữ liệu giả lập · Cần kiểm chứng code trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
