@@ -402,26 +402,26 @@ D. Review status and staged diff — Xem status và diff đã stage
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | Git tracks snapshots and references in `.git`, not merely a folder of files. | Git lưu trạng thái và tham chiếu trong `.git`, không chỉ gom file vào thư mục. |
-| Q2 | **B** | A commit represents indexed content and has an identity and message. | Commit lưu nội dung đã stage cùng mã định danh và thông điệp. |
-| Q3 | **C** | Creating a branch does not clone all files into a separate physical folder. | Tạo nhánh không sao chép vật lý toàn bộ file sang thư mục khác. |
-| Q4 | **D** | Remote configuration tells Git where to fetch/push; rights are separate. | Remote chỉ định địa chỉ đồng bộ; quyền truy cập được kiểm riêng. |
-| Q5 | **A** | It reports repository state without creating a commit. | Lệnh chỉ báo trạng thái, không tạo commit. |
-| Q6 | **B** | Staging prepares content for the next commit, not remote upload. | Stage chuẩn bị cho commit, không phải tải lên remote. |
-| Q7 | **C** | The working tree can still contain unstaged edits. | Sau commit vẫn có thể còn sửa đổi chưa stage. |
-| Q8 | **D** | It displays commit identifiers and subjects, not file diffs. | Hiển thị hash và tiêu đề, không phải diff chi tiết. |
-| Q9 | **A** | The branch begins at the current commit unless another start point is given. | Nhánh bắt đầu từ commit hiện tại nếu không chỉ định mốc khác. |
-| Q10 | **B** | It helps avoid committing on the wrong branch. | Giúp tránh commit trên nhánh không mong muốn. |
-| Q11 | **C** | Plain diff compares working content with the index. | diff thường so working tree với staging area. |
-| Q12 | **D** | It previews the indexed content likely to enter a commit. | Giúp xem nội dung đã stage trước khi commit. |
-| Q13 | **A** | Fetching updates local knowledge of remote history; work branch remains unchanged. | Fetch cập nhật thông tin remote nhưng chưa nhập vào nhánh đang làm. |
-| Q14 | **B** | It does not stage or commit working changes automatically. | Push không tự stage hoặc commit thay đổi chưa lưu. |
-| Q15 | **C** | Isolation helps review experiments without directly changing main. | Tách nhánh cho phép xem thử trước khi ảnh hưởng main. |
-| Q16 | **D** | Staged content can differ from later working-tree edits. | Nội dung đã stage có thể khác sửa đổi mới trong working tree. |
-| Q17 | **A** | It refuses histories requiring non-fast-forward integration. | Nó từ chối lịch sử cần tích hợp kiểu không fast-forward. |
-| Q18 | **B** | An URL can be configured even without write access. | Có thể cấu hình URL dù không có quyền ghi. |
-| Q19 | **C** | The commit records the index, which may be older than working content. | Commit lưu trạng thái index, có thể cũ hơn nội dung đang sửa. |
-| Q20 | **D** | Review catches unintended files and content before recording history. | Kiểm tra giúp phát hiện file hoặc dòng thay đổi ngoài ý muốn. |
+| Q1 | **A** | Git tracks snapshots and references in `.git`, not merely a folder of files. It is the working version-control context, not a single commit or branch. | Git lưu trạng thái và tham chiếu trong `.git`, không chỉ gom file vào thư mục. Nó là phạm vi quản lý lịch sử dự án, không phải một commit hay nhánh riêng lẻ. |
+| Q2 | **B** | A commit represents indexed content and has an identity and message. Changing files without staging them does not automatically alter the next commit. | Commit lưu nội dung đã stage cùng mã định danh và thông điệp. Chỉnh file mà chưa stage không tự làm thay đổi nội dung của commit kế. |
+| Q3 | **C** | Creating a branch does not clone all files into a separate physical folder. A branch moves as new commits are added; the commit itself stays immutable. | Tạo nhánh không sao chép vật lý toàn bộ file sang thư mục khác. Nhánh dịch chuyển khi có commit mới, còn commit đã tạo là một bản ghi bất biến. |
+| Q4 | **D** | Remote configuration tells Git where to fetch/push; rights are separate. Changing an origin URL does not authenticate a user or create remote commits. | Remote chỉ định địa chỉ đồng bộ; quyền truy cập được kiểm riêng. Đổi URL origin không tự xác thực người dùng hay tạo commit ở remote. |
+| Q5 | **A** | It reports repository state without creating a commit. Use status before add/commit to identify untracked or unstaged files. | Lệnh chỉ báo trạng thái, không tạo commit. Hãy xem status trước add/commit để phát hiện file chưa theo dõi hoặc chưa stage. |
+| Q6 | **B** | Staging prepares content for the next commit, not remote upload. After `git add`, review `git diff --cached` to ensure only intended content is staged. | Stage chuẩn bị cho commit, không phải tải lên remote. Sau `git add`, xem `git diff --cached` để chắc chỉ những phần mong muốn được đưa vào stage. |
+| Q7 | **C** | The working tree can still contain unstaged edits. Edits not in the index are not part of the snapshot until added again. | Sau commit vẫn có thể còn sửa đổi chưa stage. Sửa đổi không nằm trong index sẽ không thuộc commit cho tới khi stage lại. |
+| Q8 | **D** | It displays commit identifiers and subjects, not file diffs. For exact file changes, use diff or show instead of relying only on log subjects. | Hiển thị hash và tiêu đề, không phải diff chi tiết. Muốn xem thay đổi từng dòng phải dùng diff hoặc show, không chỉ đọc tiêu đề log. |
+| Q9 | **A** | The branch begins at the current commit unless another start point is given. Using an existing name will fail unless switching rather than creating is requested. | Nhánh bắt đầu từ commit hiện tại nếu không chỉ định mốc khác. Nếu tên đã tồn tại thì tạo nhánh mới sẽ báo lỗi; khi đó cần chuyển nhánh thay vì tạo tiếp. |
+| Q10 | **B** | It helps avoid committing on the wrong branch. On a detached HEAD, there may be no current branch name to print. | Giúp tránh commit trên nhánh không mong muốn. Nếu đang ở detached HEAD, có thể không có tên nhánh hiện tại để in. |
+| Q11 | **C** | Plain diff compares working content with the index. For changes already staged, plain `git diff` is not the right comparison. | diff thường so working tree với staging area. Với nội dung đã stage, `git diff` thường không hiện; phải xem diff cached. |
+| Q12 | **D** | It previews the indexed content likely to enter a commit. This previews what a new commit would include, not what is currently only in the working tree. | Giúp xem nội dung đã stage trước khi commit. Nó cho biết nội dung sẽ vào commit, khác phần mới chỉ đang sửa ngoài working tree. |
+| Q13 | **A** | Fetching updates local knowledge of remote history; work branch remains unchanged. Fetch may update remote-tracking names, but does not integrate them into the current local branch. | Fetch cập nhật thông tin remote nhưng chưa nhập vào nhánh đang làm. Fetch có thể cập nhật nhánh theo dõi remote nhưng không nhập chúng vào nhánh local đang đứng. |
+| Q14 | **B** | It does not stage or commit working changes automatically. Uncommitted changes must be committed before a normal push can share them as history. | Push không tự stage hoặc commit thay đổi chưa lưu. Các sửa đổi chưa commit phải được ghi vào lịch sử trước khi push chia sẻ bình thường. |
+| Q15 | **C** | Isolation helps review experiments without directly changing main. Review and merge the feature branch only after verifying its intended changes. | Tách nhánh cho phép xem thử trước khi ảnh hưởng main. Chỉ nên merge nhánh tính năng sau khi kiểm tra đúng phần thay đổi dự định. |
+| Q16 | **D** | Staged content can differ from later working-tree edits. The index separates what will be committed from all edits still present locally. | Nội dung đã stage có thể khác sửa đổi mới trong working tree. Index tách phần được ghi vào commit với những sửa đổi khác vẫn còn ở máy. |
+| Q17 | **A** | It refuses histories requiring non-fast-forward integration. A divergent local history needs a separate integration decision; fast-forward-only does not discard commits. | Nó từ chối lịch sử cần tích hợp kiểu không fast-forward. Lịch sử đã phân nhánh cần quyết định tích hợp riêng; ff-only không tự xóa commit. |
+| Q18 | **B** | An URL can be configured even without write access. Permission is enforced by the server and credentials, not by the existence of a local remote name. | Có thể cấu hình URL dù không có quyền ghi. Quyền do máy chủ và thông tin đăng nhập quyết định, không phải do tên remote trên máy. |
+| Q19 | **C** | The commit records the index, which may be older than working content. Running add again captures the newer version; otherwise the commit keeps the staged snapshot. | Commit lưu trạng thái index, có thể cũ hơn nội dung đang sửa. Stage lại sẽ chụp phiên bản mới; nếu không commit dùng bản đã stage cũ. |
+| Q20 | **D** | Review catches unintended files and content before recording history. If the staged diff includes secrets or unrelated files, unstage or revise it before committing. | Kiểm tra giúp phát hiện file hoặc dòng thay đổi ngoài ý muốn. Nếu diff đã stage có bí mật hoặc file ngoài phạm vi, hãy bỏ stage hoặc sửa trước khi commit. |
 
 ## 8. Nối sang bài tiếp
 
