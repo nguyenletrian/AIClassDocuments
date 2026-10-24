@@ -314,6 +314,7 @@ C. Only a loop executed once — Chỉ vòng lặp chạy một lần
 
 D. Reusable callable code that can accept inputs — Phần mã có thể gọi lại, có thể nhận đầu vào
 
+
 **Q2. What is a parameter? — Tham số là gì?**
 
 A. A value supplied by the caller — Giá trị truyền từ nơi gọi
@@ -323,6 +324,7 @@ B. A name declared in a function's definition — Tên khai báo trong định n
 C. The value printed by a function — Giá trị được hàm in ra
 
 D. A variable always declared global — Biến luôn được khai báo toàn cục
+
 
 **Q3. What is an argument? — Đối số là gì?**
 
@@ -334,6 +336,7 @@ C. A value supplied in a function call — Giá trị truyền khi gọi hàm
 
 D. The result returned by a function — Kết quả hàm trả về
 
+
 **Q4. What is a return value? — Giá trị trả về là gì?**
 
 A. A result sent back to the caller — Kết quả gửi về nơi gọi
@@ -343,6 +346,7 @@ B. A parameter name — Tên tham số
 C. The function's source-code text — Văn bản mã nguồn hàm
 
 D. A displayed message from `print` — Thông báo hiển thị bởi `print`
+
 
 **Q5. Which keyword defines a normal function? — Từ khóa nào định nghĩa hàm thông thường?**
 
@@ -354,6 +358,7 @@ C. `if` — `if`
 
 D. `def` — `def`
 
+
 **Q6. Which keyword sends a value back to the caller? — Từ khóa nào trả giá trị về nơi gọi?**
 
 A. `lambda` — `lambda`
@@ -363,6 +368,7 @@ B. `if` — `if`
 C. `def` — `def`
 
 D. `return` — `return`
+
 
 **Q7. Which keyword defines a short anonymous function expression? — Từ khóa nào tạo biểu thức hàm ngắn không tên?**
 
@@ -374,6 +380,7 @@ C. `lambda` — `lambda`
 
 D. `if` — `if`
 
+
 **Q8. Which keyword supplies a conditional branch inside a function? — Từ khóa nào tạo nhánh điều kiện bên trong hàm?**
 
 A. `lambda` — `lambda`
@@ -383,6 +390,7 @@ B. `if` — `if`
 C. `def` — `def`
 
 D. `return` — `return`
+
 
 **Q9. What does a default parameter provide? — Tham số mặc định có tác dụng gì?**
 
@@ -394,25 +402,26 @@ C. A fallback value used when the caller omits an argument — Giá trị dự p
 
 D. A value that overrides every explicit argument — Giá trị ghi đè mọi đối số truyền vào
 
+
 **Q10. What is a keyword argument? — Đối số theo tên là gì?**
 
-A. An argument always matched only by position — Đối số luôn ghép bằng vị trí
+A. An argument supplied using its parameter's name — Đối số truyền bằng tên tham số
 
 B. A local variable defined outside the function — Biến cục bộ định nghĩa ngoài hàm
 
 C. A function name passed without calling — Tên hàm được truyền mà không gọi
 
-D. An argument supplied using its parameter's name — Đối số truyền bằng tên tham số
+D. An argument always matched only by position — Đối số luôn ghép bằng vị trí
 
 **Q11. What does `sorted(rows, key=func)` use `func` for? — Trong `sorted(rows, key=func)`, func dùng để làm gì?**
 
 A. Filtering out all false-valued items before sorting — Loại mọi phần tử có giá trị sai trước khi sắp
 
-B. Printing each row during sorting — In từng hàng trong lúc sắp
+B. Computing a sort key for each item — Tính khóa sắp xếp cho từng phần tử
 
 C. Replacing every row with `None` — Thay mỗi hàng bằng `None`
 
-D. Computing a sort key for each item — Tính khóa sắp xếp cho từng phần tử
+D. Printing each row during sorting — In từng hàng trong lúc sắp
 
 **Q12. What does `filter(test, items)` keep? — `filter(test, items)` giữ gì?**
 
@@ -424,6 +433,7 @@ C. Items for which `test(item)` is truthy — Phần tử mà `test(item)` có g
 
 D. All items, regardless of the test — Mọi phần tử, bất kể phép kiểm tra
 
+
 **Q13. What is a local variable? — Biến cục bộ là gì?**
 
 A. Any name defined at module level — Bất kỳ tên nào khai báo cấp module
@@ -433,6 +443,7 @@ B. A name automatically shared by every function — Tên tự chia sẻ cho m�
 C. A name that can never change value — Tên không bao giờ đổi giá trị
 
 D. A name bound within a function's local scope — Tên được gán trong phạm vi cục bộ hàm
+
 
 **Q14. What is a global variable? — Biến toàn cục là gì?**
 
@@ -444,6 +455,7 @@ C. A name inaccessible to all functions — Tên mọi hàm đều không truy c
 
 D. A name created only by `lambda` — Tên chỉ do `lambda` tạo
 
+
 **Q15. What is a lambda expression limited to? — Nội dung của lambda bị giới hạn như thế nào?**
 
 A. A complete `try/except` statement block — Khối câu lệnh `try/except` đầy đủ
@@ -454,15 +466,16 @@ C. Only a numeric literal — Chỉ một literal số
 
 D. A series of ordinary statements — Chuỗi các câu lệnh thông thường
 
+
 **Q16. What is a closure? — Closure là gì?**
 
-A. A function whose enclosing names remain accessible — Hàm vẫn truy cập được tên của phạm vi bao ngoài
+A. A function forced to return `None` — Hàm bị buộc trả `None`
 
 B. A function that prints its enclosing scope — Hàm in phạm vi bao ngoài
 
 C. A function that discards all free variables — Hàm loại bỏ mọi biến tự do
 
-D. A function forced to return `None` — Hàm bị buộc trả `None`
+D. A function whose enclosing names remain accessible — Hàm vẫn truy cập được tên của phạm vi bao ngoài
 
 **Q17. When a function reaches its end without executing `return`, what value does it return? — Khi hàm chạy đến cuối mà không thực hiện `return`, nó trả giá trị nào?**
 
@@ -474,6 +487,7 @@ C. The last local variable — Biến cục bộ cuối
 
 D. `NameError` — `NameError`
 
+
 **Q18. What does `print()` do instead of returning a useful result? — `print()` làm gì thay vì trả một kết quả để tính tiếp?**
 
 A. Displays output while returning `None` — Hiển thị đầu ra và trả `None`
@@ -484,6 +498,7 @@ C. Raises `TypeError` whenever called — Mỗi khi gọi đều gây `TypeError
 
 D. Always returns the printed string — Luôn trả chuỗi đã in
 
+
 **Q19. What does a function's `return a, b` actually return? — `return a, b` thực chất trả gì?**
 
 A. The result of adding `a` and `b` — Kết quả cộng `a` với `b`
@@ -493,6 +508,7 @@ B. A tuple containing both values — Tuple chứa cả hai giá trị
 C. A list containing both values — List chứa cả hai giá trị
 
 D. The two values as separate function return objects — Hai giá trị thành hai đối tượng trả về riêng
+
 
 **Q20. What happens when code outside a function reads an undefined local name? — Đọc biến cục bộ không tồn tại ở ngoài hàm gây gì?**
 
