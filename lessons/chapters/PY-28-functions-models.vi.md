@@ -7,7 +7,9 @@
 
 `Hàm Python → Hàm toán theo dữ liệu → Loss → Gradient`
 
-Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc tối ưu tính toán phục vụ AI. Đọc ví dụ trước khi liên hệ tới mô hình phức tạp.
+**Học xong dùng để làm gì?** Mô tả dự đoán bằng hàm f(x), nhận biết đầu vào, đầu ra và ảnh hưởng của tham số.
+
+**Kết nối kiến thức tiếp theo:** PY-29 bổ sung hàm kích hoạt để biểu diễn quan hệ phi tuyến.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -276,6 +278,11 @@ C. Highest nonzero power of x — Lũy thừa cao nhất có hệ số khác 0
 
 D. A variable appears in the exponent — Biến xuất hiện ở số mũ
 
+**Đáp án: A**
+
+**Giải thích:** Dạng affine gồm hệ số góc và hệ số chặn.
+
+
 **Q2. Which form contains a nonzero quadratic term? — Dạng nào có hạng bậc hai khác 0?**
 
 A. `y=m*x+b` — `y=m*x+b`
@@ -285,6 +292,11 @@ B. `y=a*x**2+b*x+c` with a≠0 — `y=a*x**2+b*x+c` với a≠0
 C. Highest nonzero power of x — Lũy thừa cao nhất có hệ số khác 0
 
 D. A variable appears in the exponent — Biến xuất hiện ở số mũ
+
+**Đáp án: B**
+
+**Giải thích:** Hàm bậc hai có hạng x bình phương.
+
 
 **Q3. What does polynomial degree measure? — Bậc đa thức cho biết gì?**
 
@@ -296,6 +308,11 @@ C. Highest nonzero power of x — Lũy thừa cao nhất có hệ số khác 0
 
 D. A variable appears in the exponent — Biến xuất hiện ở số mũ
 
+**Đáp án: C**
+
+**Giải thích:** Bậc là số mũ cao nhất có hệ số khác 0.
+
+
 **Q4. What characterizes an exponential function? — Đặc điểm của hàm mũ là gì?**
 
 A. `y=m*x+b` — `y=m*x+b`
@@ -305,6 +322,11 @@ B. `y=a*x**2+b*x+c` with a≠0 — `y=a*x**2+b*x+c` với a≠0
 C. Highest nonzero power of x — Lũy thừa cao nhất có hệ số khác 0
 
 D. A variable appears in the exponent — Biến xuất hiện ở số mũ
+
+**Đáp án: D**
+
+**Giải thích:** Hàm mũ có số mũ thay đổi.
+
 
 **Q5. What does slope m represent in y=mx+b? — Hệ số góc m trong y=mx+b biểu thị gì?**
 
@@ -316,6 +338,11 @@ C. Parabola — Parabol
 
 D. It compounds relative changes — Nó cộng dồn mức tăng theo tỷ lệ
 
+**Đáp án: A**
+
+**Giải thích:** Hệ số góc là mức đổi y mỗi đơn vị x.
+
+
 **Q6. What does intercept b represent? — Hệ số chặn b biểu thị gì?**
 
 A. Output change per one input unit — Mức thay đổi đầu ra mỗi đơn vị đầu vào
@@ -325,6 +352,11 @@ B. Predicted output at x=0 — Đầu ra dự tính khi x=0
 C. Parabola — Parabol
 
 D. It compounds relative changes — Nó cộng dồn mức tăng theo tỷ lệ
+
+**Đáp án: B**
+
+**Giải thích:** Đặt x=0 còn hệ số chặn.
+
 
 **Q7. What shape does a quadratic graph typically have? — Đồ thị hàm bậc hai thường có dạng gì?**
 
@@ -336,6 +368,11 @@ C. Parabola — Parabol
 
 D. It compounds relative changes — Nó cộng dồn mức tăng theo tỷ lệ
 
+**Đáp án: C**
+
+**Giải thích:** Hạng bậc hai khác 0 tạo đồ thị parabol.
+
+
 **Q8. How does exponential growth differ from linear growth? — Tăng trưởng mũ khác tăng tuyến tính ở đâu?**
 
 A. Output change per one input unit — Mức thay đổi đầu ra mỗi đơn vị đầu vào
@@ -345,6 +382,11 @@ B. Predicted output at x=0 — Đầu ra dự tính khi x=0
 C. Parabola — Parabol
 
 D. It compounds relative changes — Nó cộng dồn mức tăng theo tỷ lệ
+
+**Đáp án: D**
+
+**Giải thích:** Lãi kép nhân theo tỷ lệ mỗi kỳ.
+
 
 **Q9. Which NumPy function evaluates a polynomial? — Hàm NumPy nào tính đa thức?**
 
@@ -356,6 +398,11 @@ C. `np.exp(x)` — `np.exp(x)`
 
 D. `np.linspace(start,stop,num)` — `np.linspace(start,stop,num)`
 
+**Đáp án: A**
+
+**Giải thích:** polyval tính đa thức theo các hệ số có thứ tự.
+
+
 **Q10. In what order does `np.polyval` take coefficients? — `np.polyval` nhận hệ số theo thứ tự gì?**
 
 A. `np.polyval(coefficients,x)` — `np.polyval(coefficients,x)`
@@ -365,6 +412,11 @@ B. Highest degree first — Bậc cao nhất trước
 C. `np.exp(x)` — `np.exp(x)`
 
 D. `np.linspace(start,stop,num)` — `np.linspace(start,stop,num)`
+
+**Đáp án: B**
+
+**Giải thích:** Hệ số bậc cao nhất đứng đầu.
+
 
 **Q11. Which function computes e raised to x? — Hàm nào tính e mũ x?**
 
@@ -376,6 +428,11 @@ C. `np.exp(x)` — `np.exp(x)`
 
 D. `np.linspace(start,stop,num)` — `np.linspace(start,stop,num)`
 
+**Đáp án: C**
+
+**Giải thích:** exp tính hàm mũ cơ số e.
+
+
 **Q12. Which function makes evenly spaced samples? — Hàm nào tạo các điểm cách đều?**
 
 A. `np.polyval(coefficients,x)` — `np.polyval(coefficients,x)`
@@ -385,6 +442,11 @@ B. Highest degree first — Bậc cao nhất trước
 C. `np.exp(x)` — `np.exp(x)`
 
 D. `np.linspace(start,stop,num)` — `np.linspace(start,stop,num)`
+
+**Đáp án: D**
+
+**Giải thích:** linspace tạo số lượng điểm cách đều yêu cầu.
+
 
 **Q13. What is the value of y=2x+5 at x=0? — Giá trị y=2x+5 khi x=0 là gì?**
 
@@ -396,6 +458,11 @@ C. 16 — 16
 
 D. 4 — 4
 
+**Đáp án: A**
+
+**Giải thích:** Khi x=0, ta có 2×0+5=5.
+
+
 **Q14. What is the value of x²+2 at x=2? — Giá trị x²+2 khi x=2 là gì?**
 
 A. 5 — 5
@@ -405,6 +472,11 @@ B. 6 — 6
 C. 16 — 16
 
 D. 4 — 4
+
+**Đáp án: B**
+
+**Giải thích:** Bình phương 2 rồi cộng 2 bằng 6.
+
 
 **Q15. What is 2 raised to the fourth power? — 2 mũ 4 bằng gì?**
 
@@ -416,6 +488,11 @@ C. 16 — 16
 
 D. 4 — 4
 
+**Đáp án: C**
+
+**Giải thích:** 2 nhân bốn lần bằng 16.
+
+
 **Q16. How many intervals are between five evenly spaced points? — Năm điểm cách đều tạo bao nhiêu khoảng?**
 
 A. 5 — 5
@@ -425,6 +502,11 @@ B. 6 — 6
 C. 16 — 16
 
 D. 4 — 4
+
+**Đáp án: D**
+
+**Giải thích:** n điểm tạo n−1 khoảng.
+
 
 **Q17. What does `np.exp(0)` equal? — `np.exp(0)` bằng bao nhiêu?**
 
@@ -436,6 +518,11 @@ C. A constant additive increment — Mỗi bước cộng cùng một mức
 
 D. Accuracy on unseen real-world data — Độ chính xác trên dữ liệu thực chưa gặp
 
+**Đáp án: A**
+
+**Giải thích:** Cơ số khác 0 mũ 0 bằng 1.
+
+
 **Q18. How does a quadratic differ from a first-degree affine function? — Hàm bậc hai khác hàm affine bậc nhất ở đâu?**
 
 A. 1 — 1
@@ -445,6 +532,11 @@ B. Its slope changes with x — Độ dốc thay đổi theo x
 C. A constant additive increment — Mỗi bước cộng cùng một mức
 
 D. Accuracy on unseen real-world data — Độ chính xác trên dữ liệu thực chưa gặp
+
+**Đáp án: B**
+
+**Giải thích:** Mức tăng của hàm bậc hai thay đổi theo x.
+
 
 **Q19. Which constraint gives a constant-per-step growth model? — Mô hình tăng đều mỗi bước cần điều kiện gì?**
 
@@ -456,6 +548,11 @@ C. A constant additive increment — Mỗi bước cộng cùng một mức
 
 D. Accuracy on unseen real-world data — Độ chính xác trên dữ liệu thực chưa gặp
 
+**Đáp án: C**
+
+**Giải thích:** Cộng hằng số tạo mức tăng cố định.
+
+
 **Q20. What does a fitted function alone not prove? — Một hàm được khớp dữ liệu chưa chứng minh được gì?**
 
 A. 1 — 1
@@ -466,30 +563,9 @@ C. A constant additive increment — Mỗi bước cộng cùng một mức
 
 D. Accuracy on unseen real-world data — Độ chính xác trên dữ liệu thực chưa gặp
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | Affine form has a slope and intercept. | Dạng affine gồm hệ số góc và hệ số chặn. |
-| Q2 | **B** | Quadratics include an x-squared term. | Hàm bậc hai có hạng x bình phương. |
-| Q3 | **C** | Degree is the largest exponent present with nonzero coefficient. | Bậc là số mũ cao nhất có hệ số khác 0. |
-| Q4 | **D** | Exponential forms raise a base to a varying power. | Hàm mũ có số mũ thay đổi. |
-| Q5 | **A** | Slope is output change for one unit of x. | Hệ số góc là mức đổi y mỗi đơn vị x. |
-| Q6 | **B** | Setting x to zero leaves the intercept. | Đặt x=0 còn hệ số chặn. |
-| Q7 | **C** | A nonzero quadratic term yields a parabolic graph. | Hạng bậc hai khác 0 tạo đồ thị parabol. |
-| Q8 | **D** | Compounding multiplies by a rate factor each period. | Lãi kép nhân theo tỷ lệ mỗi kỳ. |
-| Q9 | **A** | polyval evaluates ordered polynomial coefficients. | polyval tính đa thức theo các hệ số có thứ tự. |
-| Q10 | **B** | The coefficient of the highest power comes first. | Hệ số bậc cao nhất đứng đầu. |
-| Q11 | **C** | exp implements the natural exponential. | exp tính hàm mũ cơ số e. |
-| Q12 | **D** | linspace creates a chosen count of evenly spaced values. | linspace tạo số lượng điểm cách đều yêu cầu. |
-| Q13 | **A** | At zero, 2×0+5 equals 5. | Khi x=0, ta có 2×0+5=5. |
-| Q14 | **B** | Two squared plus two is six. | Bình phương 2 rồi cộng 2 bằng 6. |
-| Q15 | **C** | 2×2×2×2 equals 16. | 2 nhân bốn lần bằng 16. |
-| Q16 | **D** | n points form n−1 gaps. | n điểm tạo n−1 khoảng. |
-| Q17 | **A** | Any nonzero base raised to zero equals one. | Cơ số khác 0 mũ 0 bằng 1. |
-| Q18 | **B** | Quadratic rates change as x changes. | Mức tăng của hàm bậc hai thay đổi theo x. |
-| Q19 | **C** | A constant addition yields equal increments. | Cộng hằng số tạo mức tăng cố định. |
-| Q20 | **D** | Generalization needs validation beyond fitting examples. | Khả năng dự đoán cần được kiểm chứng ngoài các ví dụ khớp. |
+**Giải thích:** Khả năng dự đoán cần được kiểm chứng ngoài các ví dụ khớp.
 
 ## 8. Bài tiếp theo
 
