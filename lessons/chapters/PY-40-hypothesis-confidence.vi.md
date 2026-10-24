@@ -474,26 +474,26 @@ D. No; effect size and context still matter — Không; còn kích thước tác
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | It is the reference assumption for the test. | Đó là giả định gốc của kiểm định. |
-| Q2 | **B** | It conditions on the null model. | Nó được tính với điều kiện mô hình H₀ đúng. |
-| Q3 | **C** | It uses the sample mean and estimated variance. | Nó dùng trung bình và ước lượng phương sai mẫu. |
-| Q4 | **D** | Coverage describes repeated procedures. | Bao phủ được hiểu qua những lần lấy mẫu lặp. |
-| Q5 | **A** | It controls the rejection rule. | α điều khiển quy tắc bác bỏ. |
-| Q6 | **B** | The result is unusual under the null assumption. | Kết quả bất thường dưới giả thuyết gốc. |
-| Q7 | **C** | Nonrejection is not proof of H0. | Không bác bỏ không phải chứng minh H₀. |
-| Q8 | **D** | It implements a one-sample t-test. | Nó chạy kiểm định t một mẫu. |
-| Q9 | **A** | It standardizes the observed mean difference. | Nó chuẩn hóa độ lệch của mean so với mốc. |
-| Q10 | **B** | It estimates variability of the sample mean. | Nó ước lượng độ dao động của mean mẫu. |
-| Q11 | **C** | The interval depends on confidence, df, loc and scale. | Khoảng phụ thuộc mức tin cậy, df, vị trí và độ rộng. |
-| Q12 | **D** | Estimating sample variance consumes one degree. | Ước lượng phương sai mẫu làm mất một bậc tự do. |
-| Q13 | **A** | A frequentist p-value is not a posterior probability. | p theo tần suất không phải posterior. |
-| Q14 | **B** | Matched procedures often agree under shared assumptions. | Các quy trình tương ứng thường thống nhất dưới cùng giả định. |
-| Q15 | **C** | Alpha bounds type I error under test assumptions. | Alpha kiểm soát lỗi loại I dưới giả định kiểm định. |
-| Q16 | **D** | It differs from rejecting a true H0. | Nó khác lỗi bác bỏ H₀ đúng. |
-| Q17 | **A** | The frequentist parameter is fixed, interval random before sampling. | Trong diễn giải tần suất, tham số cố định và khoảng thay đổi theo mẫu. |
-| Q18 | **B** | Inference relies on a credible sampling model. | Suy luận cần mô hình lấy mẫu phù hợp. |
-| Q19 | **C** | More uncertainty produces a broader interval. | Bất định cao làm khoảng rộng hơn. |
-| Q20 | **D** | Small p does not prove a large useful effect. | p nhỏ không chứng minh hiệu quả thực tế lớn. |
+| Q1 | **A** | It is the reference assumption for the test. For example H0: μ=50 concerns the population mean, not an obligation for the observed sample mean to equal 50. | Đó là giả định gốc của kiểm định. Ví dụ H₀: μ=50 nói về mean quần thể; không đòi mean mẫu quan sát phải đúng 50. |
+| Q2 | **B** | It conditions on the null model. The p-value is derived from the chosen test statistic and null distribution, not from directly assigning a probability to the null hypothesis. | Nó được tính với điều kiện mô hình H₀ đúng. p-value được tính từ thống kê kiểm định và phân phối dưới H₀, chứ không trực tiếp gán xác suất cho H₀. |
+| Q3 | **C** | It uses the sample mean and estimated variance. It is distinct from a two-sample test: the one-sample version compares a single sample mean to a fixed reference. | Nó dùng trung bình và ước lượng phương sai mẫu. Khác kiểm định hai mẫu, t-test một mẫu so trung bình một mẫu với mốc cố định. |
+| Q4 | **D** | Coverage describes repeated procedures. The 95% coverage describes the method over repeated samples, so a realized CI should be reported with its endpoints and assumptions. | Bao phủ được hiểu qua những lần lấy mẫu lặp. Mức bao phủ 95% thuộc quy trình qua nhiều mẫu; một CI đã tính cần báo hai đầu mút và giả định đi kèm. |
+| Q5 | **A** | It controls the rejection rule. Choosing alpha after seeing a p-value can distort the intended false-positive control. | α điều khiển quy tắc bác bỏ. Chọn alpha sau khi nhìn p-value có thể làm sai ý nghĩa kiểm soát báo động nhầm dự kiến. |
+| Q6 | **B** | The result is unusual under the null assumption. Rejection provides evidence against H0 under the model; it does not measure the probability H0 is false. | Kết quả bất thường dưới giả thuyết gốc. Bác bỏ cung cấp bằng chứng chống H₀ dưới mô hình, không đo xác suất H₀ sai. |
+| Q7 | **C** | Nonrejection is not proof of H0. A small sample may fail to detect a real effect; 'not rejected' is not the same as 'verified equal'. | Không bác bỏ không phải chứng minh H₀. Mẫu nhỏ có thể bỏ sót tác động thật; 'không bác bỏ' khác với 'đã xác nhận bằng nhau'. |
+| Q8 | **D** | It implements a one-sample t-test. The returned object includes a test statistic and p-value; read `.pvalue` explicitly for the decision. | Nó chạy kiểm định t một mẫu. Đối tượng trả về có thống kê kiểm định và p-value; lấy `.pvalue` khi cần quyết định. |
+| Q9 | **A** | It standardizes the observed mean difference. A difference of 2 points only matters statistically relative to the mean's estimated sampling uncertainty. | Nó chuẩn hóa độ lệch của mean so với mốc. Chênh hai điểm chỉ có ý nghĩa kiểm định khi so với độ bất định lấy mẫu của mean. |
+| Q10 | **B** | It estimates variability of the sample mean. SE decreases as sample size grows under suitable sampling assumptions, whereas individual-score SD need not. | Nó ước lượng độ dao động của mean mẫu. SE có xu hướng giảm khi n tăng dưới giả định phù hợp, còn SD của từng điểm không nhất thiết giảm. |
+| Q11 | **C** | The interval depends on confidence, df, loc and scale. A larger scale yields wider endpoints; loc is the estimated center, not a confidence percentage. | Khoảng phụ thuộc mức tin cậy, df, vị trí và độ rộng. Scale lớn làm khoảng rộng; loc là ước lượng trung tâm chứ không phải phần trăm tin cậy. |
+| Q12 | **D** | Estimating sample variance consumes one degree. The t statistic uses the sample variance estimate, leaving n−1 independent degrees of freedom. | Ước lượng phương sai mẫu làm mất một bậc tự do. Thống kê t ước lượng phương sai từ mẫu nên thường còn n−1 bậc tự do. |
+| Q13 | **A** | A frequentist p-value is not a posterior probability. Confusing p with P(H0&#124;data) reverses the conditioning; the frequentist test instead evaluates data extremeness under H0. | p theo tần suất không phải posterior. Nhầm p với P(H₀&#124;dữ liệu) là đảo chiều điều kiện; kiểm định tần suất xét mức cực đoan của dữ liệu khi H₀ đúng. |
+| Q14 | **B** | Matched procedures often agree under shared assumptions. This correspondence requires matching two-sided tests, confidence level and assumptions; it does not hold for arbitrary tests and intervals. | Các quy trình tương ứng thường thống nhất dưới cùng giả định. Sự tương ứng cần kiểm định hai phía, mức tin cậy và giả định phù hợp; không đúng với mọi loại kiểm định và khoảng. |
+| Q15 | **C** | Alpha bounds type I error under test assumptions. Type I error is a false positive; alpha is the preselected bound or rate under the null-model assumptions. | Alpha kiểm soát lỗi loại I dưới giả định kiểm định. Sai lầm loại I là báo dương sai; alpha được chọn trước để kiểm soát xác suất lỗi này dưới giả định H₀. |
+| Q16 | **D** | It differs from rejecting a true H0. Power equals one minus the probability of type II error under a specified alternative, linking errors to sample design. | Nó khác lỗi bác bỏ H₀ đúng. Power bằng một trừ xác suất sai lầm loại II dưới giả thuyết đối cụ thể, liên quan đến thiết kế cỡ mẫu. |
+| Q17 | **A** | The frequentist parameter is fixed, interval random before sampling. The probability statement applies to a random interval procedure before sampling, rather than to the fixed unknown μ after observing one CI. | Trong diễn giải tần suất, tham số cố định và khoảng thay đổi theo mẫu. Phát biểu xác suất áp dụng cho quy trình tạo khoảng ngẫu nhiên trước lấy mẫu, không phải μ cố định sau khi quan sát một CI. |
+| Q18 | **B** | Inference relies on a credible sampling model. With very small samples, heavy outliers or dependence can make the reported p-value and CI misleading. | Suy luận cần mô hình lấy mẫu phù hợp. Mẫu rất nhỏ, ngoại lệ nặng hoặc phụ thuộc có thể khiến p-value và CI báo ra thiếu tin cậy. |
+| Q19 | **C** | More uncertainty produces a broader interval. In a t interval, greater SE expands the margin `t_critical × SE`, making both endpoints farther from the mean. | Bất định cao làm khoảng rộng hơn. Trong khoảng t, SE tăng làm biên `t_critical × SE` tăng, khiến hai đầu mút cách mean xa hơn. |
+| Q20 | **D** | Small p does not prove a large useful effect. Report effect size and uncertainty as well as p-value; a tiny effect can be statistically detectable but not practically useful. | p nhỏ không chứng minh hiệu quả thực tế lớn. Ngoài p-value cần báo kích thước tác động và độ bất định; tác động rất nhỏ có thể có ý nghĩa thống kê nhưng không hữu ích thực tế. |
 
 ## 8. Liên hệ bài kế tiếp
 
