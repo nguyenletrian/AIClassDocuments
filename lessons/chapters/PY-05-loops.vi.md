@@ -301,230 +301,230 @@ Lan 3
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is an iteration? — Một lần lặp là gì?**
+**Q1. What does a `for` loop normally iterate over? — Vòng `for` thường duyệt qua gì?**
 
-A. One pass through a loop — Một lượt chạy của vòng lặp
+A. An iterable of items — Một đối tượng có thể duyệt
 
-B. A complete Python file — Một file Python hoàn chỉnh
+B. While its condition remains true — Khi điều kiện của nó còn đúng
 
-C. A string comparison — Phép so sánh chuỗi
+C. One execution of a loop body — Một lượt thực thi thân vòng lặp
 
-D. A stored password — Mật khẩu đã lưu
+D. A loop inside another loop — Một vòng lặp nằm trong vòng khác
 
-**Q2. When is a for loop useful? — Khi nào nên dùng vòng for?**
+**Q2. When does a `while` loop repeat? — Khi nào vòng `while` tiếp tục lặp?**
 
-A. When iterating over items — Khi duyệt lần lượt các phần tử
+A. An iterable of items — Một đối tượng có thể duyệt
 
-B. Only when connecting to the internet — Chỉ khi kết nối mạng
+B. While its condition remains true — Khi điều kiện của nó còn đúng
 
-C. To replace every if statement — Để thay mọi câu if
+C. One execution of a loop body — Một lượt thực thi thân vòng lặp
 
-D. To delete a list — Để xóa danh sách
+D. A loop inside another loop — Một vòng lặp nằm trong vòng khác
 
-**Q3. When does a while loop continue? — Khi nào vòng while tiếp tục chạy?**
+**Q3. What is an iteration? — Một lần lặp là gì?**
 
-A. While its condition is true — Khi điều kiện còn đúng
+A. An iterable of items — Một đối tượng có thể duyệt
 
-B. Only on the first iteration — Chỉ trong lượt đầu
+B. While its condition remains true — Khi điều kiện của nó còn đúng
 
-C. After break executes — Sau khi break chạy
+C. One execution of a loop body — Một lượt thực thi thân vòng lặp
 
-D. Only if a list is empty — Chỉ khi danh sách rỗng
+D. A loop inside another loop — Một vòng lặp nằm trong vòng khác
 
-**Q4. How do break and continue differ? — break khác continue thế nào?**
+**Q4. What are nested loops? — Vòng lặp lồng nhau là gì?**
 
-A. Both end the program — Cả hai kết thúc chương trình
+A. An iterable of items — Một đối tượng có thể duyệt
 
-B. break exits the loop; continue skips to the next iteration — break thoát vòng lặp; continue sang lượt kế tiếp
+B. While its condition remains true — Khi điều kiện của nó còn đúng
 
-C. Both skip only one line — Cả hai chỉ bỏ qua một dòng
+C. One execution of a loop body — Một lượt thực thi thân vòng lặp
 
-D. continue exits Python — continue thoát Python
+D. A loop inside another loop — Một vòng lặp nằm trong vòng khác
 
-**Q5. What does range(1, 4) produce? — range(1, 4) tạo những số nào?**
+**Q5. What does `break` do inside a loop? — `break` làm gì trong vòng lặp?**
 
-A. 1, 2, 3, 4 — 1, 2, 3, 4
+A. Exits the innermost enclosing loop — Thoát khỏi vòng lặp bao gần nhất
 
-B. 0, 1, 2, 3 — 0, 1, 2, 3
+B. Skips the rest of the current iteration — Bỏ phần còn lại của lượt lặp hiện tại
 
-C. 1, 2, 3 — 1, 2, 3
+C. Nothing; it is a placeholder statement — Không làm gì; đó là câu lệnh giữ chỗ
 
-D. 4 only — Chỉ số 4
+D. When the loop ends without `break` — Khi vòng lặp kết thúc mà không gặp `break`
 
-**Q6. What does enumerate(items) provide? — enumerate(items) cung cấp gì?**
+**Q6. What does `continue` do? — `continue` có tác dụng gì?**
 
-A. Only item names — Chỉ tên phần tử
+A. Exits the innermost enclosing loop — Thoát khỏi vòng lặp bao gần nhất
 
-B. Index and value — Vị trí và giá trị
+B. Skips the rest of the current iteration — Bỏ phần còn lại của lượt lặp hiện tại
 
-C. Sorted values — Các giá trị đã sắp xếp
+C. Nothing; it is a placeholder statement — Không làm gì; đó là câu lệnh giữ chỗ
 
-D. Only the last item — Chỉ phần tử cuối
+D. When the loop ends without `break` — Khi vòng lặp kết thúc mà không gặp `break`
 
-**Q7. Which statement exits a loop early? — Lệnh nào dừng vòng lặp sớm?**
+**Q7. What does `pass` do? — `pass` làm gì?**
 
-A. continue — continue
+A. Exits the innermost enclosing loop — Thoát khỏi vòng lặp bao gần nhất
 
-B. pass — pass
+B. Skips the rest of the current iteration — Bỏ phần còn lại của lượt lặp hiện tại
 
-C. break — break
+C. Nothing; it is a placeholder statement — Không làm gì; đó là câu lệnh giữ chỗ
 
-D. print — print
+D. When the loop ends without `break` — Khi vòng lặp kết thúc mà không gặp `break`
 
-**Q8. Which statement skips the current item? — Lệnh nào bỏ qua phần còn lại của lượt hiện tại?**
+**Q8. When does a loop's `else` execute? — `else` của vòng lặp chạy khi nào?**
 
-A. continue — continue
+A. Exits the innermost enclosing loop — Thoát khỏi vòng lặp bao gần nhất
 
-B. break — break
+B. Skips the rest of the current iteration — Bỏ phần còn lại của lượt lặp hiện tại
 
-C. return — return
+C. Nothing; it is a placeholder statement — Không làm gì; đó là câu lệnh giữ chỗ
 
-D. input — input
+D. When the loop ends without `break` — Khi vòng lặp kết thúc mà không gặp `break`
 
-**Q9. Why use a loop to sum three sales? — Vì sao dùng vòng lặp cộng doanh thu?**
+**Q9. What does `range(1, 4)` represent? — `range(1, 4)` biểu diễn gì?**
 
-A. To repeat accumulation for each sale — Để cộng dồn từng khoản bán
+A. Numbers 1, 2, 3 — Các số 1, 2, 3
 
-B. To erase sales data — Để xóa doanh thu
+B. Index-item pairs — Các cặp chỉ số và phần tử
 
-C. To round all amounts — Để làm tròn mọi khoản tiền
+C. Pairs corresponding items from two iterables — Ghép phần tử cùng vị trí của hai dãy
 
-D. To hide the total — Để giấu tổng tiền
+D. An iterator in reverse order — Bộ duyệt theo thứ tự đảo ngược
 
-**Q10. Why skip None in temperature readings? — Vì sao bỏ qua None trong số đo nhiệt độ?**
+**Q10. What does `enumerate(items)` provide? — `enumerate(items)` cung cấp gì?**
 
-A. None always means zero degrees — None luôn là 0 độ
+A. Numbers 1, 2, 3 — Các số 1, 2, 3
 
-B. None is a missing reading — None là lần đo thiếu dữ liệu
+B. Index-item pairs — Các cặp chỉ số và phần tử
 
-C. None is the highest temperature — None là nhiệt độ cao nhất
+C. Pairs corresponding items from two iterables — Ghép phần tử cùng vị trí của hai dãy
 
-D. None must be converted to 100 — Phải đổi None thành 100
+D. An iterator in reverse order — Bộ duyệt theo thứ tự đảo ngược
 
-**Q11. Why use break after finding zero stock? — Vì sao dùng break sau khi tìm thấy hàng hết tồn?**
+**Q11. What does `zip(a, b)` do? — `zip(a, b)` làm gì?**
 
-A. To stop once the first match is found — Để dừng khi gặp vị trí đầu tiên
+A. Numbers 1, 2, 3 — Các số 1, 2, 3
 
-B. To count all products — Để đếm mọi sản phẩm
+B. Index-item pairs — Các cặp chỉ số và phần tử
 
-C. To sort stock values — Để sắp xếp số lượng
+C. Pairs corresponding items from two iterables — Ghép phần tử cùng vị trí của hai dãy
 
-D. To restart the search — Để tìm lại từ đầu
+D. An iterator in reverse order — Bộ duyệt theo thứ tự đảo ngược
 
-**Q12. Why limit the while connection attempts? — Vì sao giới hạn số lần thử kết nối?**
+**Q12. What does `reversed(items)` provide for a sequence? — `reversed(items)` cung cấp gì cho một dãy?**
 
-A. To ensure the loop terminates — Để vòng lặp có thể kết thúc
+A. Numbers 1, 2, 3 — Các số 1, 2, 3
 
-B. To make every attempt succeed — Để mọi lần thử đều thành công
+B. Index-item pairs — Các cặp chỉ số và phần tử
 
-C. To remove the need for a condition — Để bỏ điều kiện
+C. Pairs corresponding items from two iterables — Ghép phần tử cùng vị trí của hai dãy
 
-D. To hide connection status — Để giấu trạng thái kết nối
+D. An iterator in reverse order — Bộ duyệt theo thứ tự đảo ngược
 
-**Q13. Why use nested loops for student schedules? — Vì sao dùng vòng lặp lồng nhau cho lịch học?**
+**Q13. How many iterations does `range(3)` produce? — `range(3)` cho mấy lượt lặp?**
 
-A. To combine each student with each day — Để ghép từng học viên với từng ngày
+A. 3 — 3
 
-B. To print only the last student — Để chỉ in người cuối
+B. 2, 4, 6 — 2, 4, 6
 
-C. To delete the days — Để xóa các ngày
+C. 0 — 0
 
-D. To stop after one pair — Để dừng sau một cặp
+D. `[(1, 'a')]` — `[(1, 'a')]`
 
-**Q14. What is the sales total for [120, 80, 200]? — Tổng [120, 80, 200] là bao nhiêu?**
+**Q14. What does `range(2, 7, 2)` yield? — `range(2, 7, 2)` cho những số nào?**
 
-A. 200 — 200
+A. 3 — 3
 
-B. 300 — 300
+B. 2, 4, 6 — 2, 4, 6
 
-C. 400 — 400
+C. 0 — 0
 
-D. 480 — 480
+D. `[(1, 'a')]` — `[(1, 'a')]`
 
-**Q15. What remains after skipping None? — Còn gì sau khi bỏ qua None?**
+**Q15. What does `enumerate(['a','b'])` start indexing from? — `enumerate(['a','b'])` bắt đầu chỉ số từ đâu?**
 
-A. [30, 35, 33] — [30, 35, 33]
+A. 3 — 3
 
-B. [30, None, 35, 33] — [30, None, 35, 33]
+B. 2, 4, 6 — 2, 4, 6
 
-C. [None] — [None]
+C. 0 — 0
 
-D. [] — []
+D. `[(1, 'a')]` — `[(1, 'a')]`
 
-**Q16. What is the index of the first zero in [5, 3, 0, 4]? — Vị trí đầu tiên có số 0 là chỉ số nào?**
+**Q16. What does `list(zip([1,2], ['a']))` contain? — `list(zip([1,2], ['a']))` gồm gì?**
 
-A. 0 — 0
+A. 3 — 3
 
-B. 1 — 1
+B. 2, 4, 6 — 2, 4, 6
 
-C. 2 — 2
+C. 0 — 0
 
-D. 3 — 3
+D. `[(1, 'a')]` — `[(1, 'a')]`
 
-**Q17. How many attempts occur in the connection simulation? — Mô phỏng kết nối thử bao nhiêu lần?**
+**Q17. What is a common cause of an infinite `while` loop? — Nguyên nhân thường gặp khiến `while` lặp vô hạn là gì?**
 
-A. 1 — 1
+A. The stopping condition never becomes false — Điều kiện dừng không bao giờ thành sai
 
-B. 2 — 2
+B. Use `continue` for the invalid item — Dùng `continue` ở phần tử không hợp lệ
 
-C. 3 — 3
+C. Use `break` after finding the match — Dùng `break` sau khi tìm thấy
 
-D. Unlimited — Không giới hạn
+D. Use nested loops — Dùng vòng lặp lồng nhau
 
-**Q18. How many schedule lines are printed? — Lịch học in ra bao nhiêu dòng?**
+**Q18. How can a loop ignore invalid data and continue processing? — Làm sao bỏ qua dữ liệu lỗi nhưng vẫn xử lý phần tử sau?**
 
-A. 2 — 2
+A. The stopping condition never becomes false — Điều kiện dừng không bao giờ thành sai
 
-B. 3 — 3
+B. Use `continue` for the invalid item — Dùng `continue` ở phần tử không hợp lệ
 
-C. 5 — 5
+C. Use `break` after finding the match — Dùng `break` sau khi tìm thấy
 
-D. 6 — 6
+D. Use nested loops — Dùng vòng lặp lồng nhau
 
-**Q19. What can cause an infinite while loop? — Điều gì có thể khiến while lặp mãi?**
+**Q19. How can a search stop immediately after a match? — Làm sao dừng tìm kiếm ngay khi đã thấy phần tử phù hợp?**
 
-A. A condition that never becomes false — Điều kiện không bao giờ sai
+A. The stopping condition never becomes false — Điều kiện dừng không bao giờ thành sai
 
-B. A list with two items — Danh sách có hai phần tử
+B. Use `continue` for the invalid item — Dùng `continue` ở phần tử không hợp lệ
 
-C. Using print — Dùng print
+C. Use `break` after finding the match — Dùng `break` sau khi tìm thấy
 
-D. Using range(2) — Dùng range(2)
+D. Use nested loops — Dùng vòng lặp lồng nhau
 
-**Q20. What does continue do inside a for loop? — continue làm gì trong vòng for?**
+**Q20. How do you traverse every combination of two small collections? — Làm sao duyệt mọi kết hợp của hai nhóm nhỏ?**
 
-A. Stops the Python process — Dừng chương trình Python
+A. The stopping condition never becomes false — Điều kiện dừng không bao giờ thành sai
 
-B. Restarts the entire program — Khởi động lại toàn bộ chương trình
+B. Use `continue` for the invalid item — Dùng `continue` ở phần tử không hợp lệ
 
-C. Skips to the next iteration — Chuyển sang lượt lặp sau
+C. Use `break` after finding the match — Dùng `break` sau khi tìm thấy
 
-D. Deletes the iterable — Xóa tập phần tử
+D. Use nested loops — Dùng vòng lặp lồng nhau
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A loop can execute several iterations. | Một vòng lặp có thể chạy nhiều lượt. |
-| Q2 | **A** | for processes items from an iterable. | for dùng để duyệt các phần tử. |
-| Q3 | **A** | while checks its condition before each iteration. | while kiểm tra điều kiện trước mỗi lượt. |
-| Q4 | **B** | break stops the loop, while continue advances to the next iteration. | break dừng vòng lặp, continue chuyển sang lượt tiếp theo. |
-| Q5 | **C** | The stop value 4 is excluded. | Giá trị dừng 4 không được lấy. |
-| Q6 | **B** | enumerate yields an index alongside each item. | enumerate trả về vị trí và giá trị mỗi phần tử. |
-| Q7 | **C** | break exits the innermost enclosing loop. | break thoát vòng lặp gần nhất chứa nó. |
-| Q8 | **A** | continue moves to the next loop iteration. | continue chuyển sang lượt lặp tiếp theo. |
-| Q9 | **A** | The same addition works for any number of sales. | Cùng một phép cộng dùng được cho nhiều khoản bán. |
-| Q10 | **B** | Missing readings should not be treated as measured temperatures. | Không nên coi số liệu thiếu là nhiệt độ đo được. |
-| Q11 | **A** | The task asks only for the first empty position. | Bài yêu cầu tìm vị trí hết hàng đầu tiên. |
-| Q12 | **A** | A retry limit prevents indefinite attempts. | Giới hạn lượt thử tránh lặp mãi. |
-| Q13 | **A** | The inner loop visits every day for each student. | Vòng trong duyệt từng ngày cho mỗi học viên. |
-| Q14 | **C** | 120 + 80 + 200 = 400. | 120 + 80 + 200 = 400. |
-| Q15 | **A** | continue skips the None item. | continue bỏ qua phần tử None. |
-| Q16 | **C** | Python indexes start at zero. | Chỉ số Python bắt đầu từ 0. |
-| Q17 | **B** | The simulated connection succeeds on attempt 2. | Mô phỏng kết nối thành công ở lần thứ hai. |
-| Q18 | **D** | Two students times three days gives six lines. | Hai học viên nhân ba ngày tạo sáu dòng. |
-| Q19 | **A** | A while loop needs a way to stop. | Vòng while cần có điều kiện dừng. |
-| Q20 | **C** | continue does not exit the loop. | continue không thoát cả vòng lặp. |
+| Q1 | **A** | for obtains successive items from an iterable. | for lần lượt lấy phần tử từ dữ liệu duyệt được. |
+| Q2 | **B** | while rechecks the condition before each iteration. | while kiểm tra điều kiện trước mỗi lần lặp. |
+| Q3 | **C** | Iteration means one pass through the loop body. | Một lần lặp là một lượt chạy thân vòng lặp. |
+| Q4 | **D** | The inner loop runs as part of the outer loop's body. | Vòng trong chạy bên trong thân vòng ngoài. |
+| Q5 | **A** | break leaves the current enclosing loop immediately. | break thoát ngay vòng lặp hiện tại. |
+| Q6 | **B** | continue moves directly toward the next iteration. | continue chuyển tới lượt lặp kế tiếp. |
+| Q7 | **C** | pass is syntactically valid but performs no operation. | pass hợp lệ về cú pháp nhưng không thực hiện thao tác. |
+| Q8 | **D** | A loop else is skipped when break terminates that loop. | Nhánh else của vòng lặp không chạy nếu break kết thúc vòng lặp. |
+| Q9 | **A** | The stop argument is exclusive. | Giá trị stop không được lấy. |
+| Q10 | **B** | enumerate yields an index alongside each item. | enumerate đưa ra chỉ số kèm từng phần tử. |
+| Q11 | **C** | zip advances both iterables together, stopping at the shorter one by default. | zip duyệt hai dãy đồng thời, mặc định dừng theo dãy ngắn hơn. |
+| Q12 | **D** | reversed traverses an eligible sequence backwards. | reversed duyệt dãy theo chiều ngược. |
+| Q13 | **A** | The generated values are 0, 1 and 2. | Giá trị nhận được là 0, 1 và 2. |
+| Q14 | **B** | The step is two and the stop seven is excluded. | Bước nhảy bằng hai và không lấy mốc 7. |
+| Q15 | **C** | enumerate uses zero as its default starting index. | enumerate mặc định đánh chỉ số từ 0. |
+| Q16 | **D** | zip stops when the shorter input runs out. | zip dừng khi dãy ngắn hơn hết phần tử. |
+| Q17 | **A** | Without progress toward stopping, while may repeat forever. | Không có thay đổi hướng tới điều kiện dừng có thể khiến while lặp mãi. |
+| Q18 | **B** | continue skips only the current iteration. | continue chỉ bỏ lượt hiện tại. |
+| Q19 | **C** | break prevents unnecessary subsequent iterations. | break tránh duyệt tiếp các lượt không cần thiết. |
+| Q20 | **D** | For each outer item, the inner loop processes the second collection. | Với mỗi phần tử vòng ngoài, vòng trong duyệt nhóm thứ hai. |
 
 ## 8. Nối sang bài tiếp theo
 
