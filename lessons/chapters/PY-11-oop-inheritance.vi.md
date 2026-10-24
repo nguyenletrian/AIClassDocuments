@@ -337,173 +337,173 @@ print(HtmlReport().render())
 
 **Q1. What does class inheritance primarily enable? — Kế thừa lớp chủ yếu giúp gì?**
 
-A. Reuse and extend behavior of a parent class — Dùng lại và mở rộng hành vi của lớp cha
+A. Reuse or extend parent-class behavior — Dùng lại hoặc mở rộng hành vi class cha
 
-B. Copy every object in memory — Sao chép mọi đối tượng trong bộ nhớ
+B. Create copies of all existing parent instances — Sao chép mọi instance cha đang tồn tại
 
-C. Convert a class into a file — Chuyển lớp thành tệp
+C. Guarantee all subclasses have identical state — Bắt buộc mọi class con có trạng thái giống hệt
 
-D. Prevent all method calls — Ngăn mọi lời gọi phương thức
+D. Convert the parent class to a function — Chuyển class cha thành hàm
 
 **Q2. What does `class Dog(Animal):` express? — `class Dog(Animal):` thể hiện điều gì?**
 
-A. Dog is a function inside Animal — Dog là hàm trong Animal
+A. `Dog` inherits from `Animal` — `Dog` kế thừa `Animal`
 
-B. Dog inherits from Animal — Dog kế thừa Animal
+B. `Animal` inherits from `Dog` — `Animal` kế thừa `Dog`
 
-C. Animal inherits from Dog — Animal kế thừa Dog
+C. `Dog` is an instance of `Animal` — `Dog` là instance của `Animal`
 
-D. Dog is an instance of Animal — Dog là đối tượng tạo từ Animal
+D. `Dog` is a method inside `Animal` — `Dog` là phương thức bên trong `Animal`
 
 **Q3. Why call `super().__init__(name)` in a subclass? — Vì sao lớp con gọi `super().__init__(name)`?**
 
-A. To replace every attribute with None — Để thay mọi thuộc tính bằng None
+A. Remove parent methods from the subclass — Xóa phương thức cha khỏi class con
 
-B. To make the child an abstract class — Để biến lớp con thành lớp trừu tượng
+B. Make the subclass automatically abstract — Tự biến class con thành class trừu tượng
 
-C. To initialize inherited parent state — Để khởi tạo dữ liệu chung từ lớp cha
+C. Initialize parent-defined instance state — Khởi tạo trạng thái instance do class cha định nghĩa
 
-D. To delete the parent class — Để xóa lớp cha
+D. Create a second, unrelated parent instance — Tạo instance cha thứ hai không liên quan
 
 **Q4. Which statement best describes polymorphism? — Câu nào mô tả đúng đa hình?**
 
-A. All objects must store identical values — Mọi đối tượng phải có giá trị giống nhau
+A. Every method must have a distinct name — Mọi phương thức phải có tên khác nhau
 
-B. All methods must have different names — Mọi phương thức phải có tên khác nhau
+B. Only one class can provide a method named `speak` — Chỉ một class được có phương thức tên `speak`
 
-C. A child class cannot override methods — Lớp con không thể ghi đè phương thức
+C. Different objects can implement the same expected operation — Các đối tượng khác nhau có thể cài cùng thao tác dự kiến
 
-D. Different objects respond to the same method call — Các đối tượng khác nhau xử lý cùng một lời gọi phương thức
+D. All objects must have identical attribute values — Mọi đối tượng phải có thuộc tính bằng nhau
 
 **Q5. What is method overriding? — Ghi đè phương thức là gì?**
 
-A. Defining a same-named method in a subclass — Định nghĩa lại phương thức cùng tên ở lớp con
+A. Delete all methods from the parent class — Xóa mọi phương thức khỏi class cha
 
-B. Removing every inherited attribute — Xóa mọi thuộc tính kế thừa
+B. Change only a local variable inside a method — Chỉ đổi biến cục bộ bên trong phương thức
 
-C. Changing a local variable only — Chỉ thay đổi một biến cục bộ
+C. Define a same-named method in the subclass — Định nghĩa phương thức cùng tên tại class con
 
-D. Calling the parent method unchanged — Gọi nguyên phương thức lớp cha
+D. Call an inherited method without changing it — Chỉ gọi phương thức kế thừa và không đổi gì
 
 **Q6. What does `@abstractmethod` mark? — `@abstractmethod` đánh dấu điều gì?**
 
-A. A property unique to integers — Thuộc tính riêng của số nguyên
+A. A method forbidden from containing any code — Phương thức bị cấm chứa mã
 
-B. A method subclasses must implement to become concrete — Phương thức lớp con phải triển khai để có thể khởi tạo
+B. A static method with no arguments — Phương thức tĩnh không có đối số
 
-C. A method that can never be called — Phương thức không bao giờ được gọi
+C. A method automatically called after `print` — Phương thức được tự gọi sau `print`
 
-D. A method that prints automatically — Phương thức tự động in
+D. An abstract method requirement for concrete subclasses — Yêu cầu phương thức phải được class cụ thể đáp ứng
 
 **Q7. Is inheriting from `ABC` alone enough to require an override? — Chỉ kế thừa `ABC` có buộc ghi đè phương thức không?**
 
-A. Yes, all subclass methods are deleted — Có, mọi phương thức lớp con bị xóa
+A. No; specific methods must be marked abstract — Không; cần đánh dấu phương thức trừu tượng cụ thể
 
-B. No, ABC forbids inheritance — Không, ABC cấm kế thừa
+B. Yes; every method becomes abstract by default — Có; mặc định mọi phương thức đều trừu tượng
 
-C. No, an abstract method must be declared — Không, cần khai báo phương thức trừu tượng
+C. Yes; all subclass instance attributes must be removed — Có; phải xóa mọi thuộc tính instance của class con
 
-D. Yes, every method becomes abstract — Có, mọi phương thức đều trừu tượng
+D. No; `ABC` cannot be subclassed — Không; không thể kế thừa `ABC`
 
 **Q8. What happens if an abstract method is left unimplemented? — Điều gì xảy ra nếu phương thức trừu tượng chưa được cài đặt?**
 
-A. Python silently returns zero — Python âm thầm trả về 0
+A. The missing method is filled with `return None` automatically — Phương thức thiếu được tự thêm `return None`
 
-B. The method automatically sends an email — Phương thức tự gửi email
+B. The subclass loses all inherited attributes — Class con mất mọi thuộc tính kế thừa
 
-C. The base class is erased — Lớp cha bị xóa
+C. The abstract method is executed once on construction — Phương thức trừu tượng chạy một lần khi khởi tạo
 
-D. The concrete instance cannot be created — Không thể tạo đối tượng từ lớp còn phương thức trừu tượng
+D. The subclass remains abstract and instantiation fails — Class con vẫn trừu tượng và việc tạo instance thất bại
 
 **Q9. What does `isinstance(obj, Parent)` check? — `isinstance(obj, Parent)` kiểm tra gì?**
 
-A. Whether obj is an instance of Parent or its subclasses — obj có thuộc Parent hoặc lớp con hay không
+A. Whether `obj` has exactly the class `Parent` only — `obj` có đúng duy nhất class `Parent` không
 
-B. Whether obj has been printed — obj đã được in hay chưa
+B. Whether `Parent` has an empty method body — `Parent` có thân phương thức rỗng không
 
-C. Whether Parent has no methods — Parent có rỗng phương thức không
+C. Whether `obj` contains a string attribute — `obj` có thuộc tính chuỗi không
 
-D. Whether obj is a string — obj có phải chuỗi không
+D. Whether `obj` is an instance of `Parent` or a subclass — `obj` có thuộc `Parent` hoặc class con không
 
 **Q10. If a child overrides `fee()`, which version runs on `Child().fee()`? — Nếu lớp con ghi đè `fee()`, `Child().fee()` chạy bản nào?**
 
-A. Neither version — Không chạy bản nào
+A. No method, because overriding causes an error — Không chạy bản nào vì ghi đè gây lỗi
 
-B. The child's version — Bản của lớp con
+B. The child's overriding implementation — Bản ghi đè của class con
 
-C. The parent's version in every case — Luôn bản của lớp cha
+C. The parent's implementation always — Luôn là bản của class cha
 
-D. Both versions automatically — Tự động chạy cả hai bản
+D. Both methods automatically in sequence — Tự động chạy cả hai phương thức liên tiếp
 
 **Q11. Can a child access an inherited attribute set in the parent initializer? — Lớp con có thể dùng thuộc tính khởi tạo ở lớp cha không?**
 
-A. Only if the attribute is named `class` — Chỉ khi tên thuộc tính là class
+A. Only if the subclass overrides every method — Chỉ nếu class con ghi đè mọi phương thức
 
-B. Only for integer attributes — Chỉ với thuộc tính số nguyên
+B. Yes, when required parent state has been initialized — Có, khi trạng thái cha cần thiết đã được khởi tạo
 
-C. Yes, if the parent initialization is performed — Có, nếu đã thực hiện khởi tạo lớp cha
+C. No, subclass methods can never see attributes set by a parent — Không, phương thức con không bao giờ thấy thuộc tính do cha tạo
 
-D. No, inherited fields are always hidden — Không, thuộc tính kế thừa luôn bị ẩn
+D. Only if the attribute is an integer — Chỉ nếu thuộc tính là số nguyên
 
 **Q12. Must polymorphic objects share exactly the same class? — Đối tượng đa hình có bắt buộc cùng một class không?**
 
-A. Yes, they must be identical objects — Có, phải là cùng một đối tượng
+A. No; different classes may support the same operation — Không; các class khác nhau có thể hỗ trợ cùng thao tác
 
-B. Yes, inheritance is forbidden — Có, không được kế thừa
+B. Yes; every polymorphic object must be the same class — Có; mọi đối tượng đa hình phải cùng class
 
-C. No, methods must all be absent — Không, không được có phương thức
+C. Yes; all polymorphic objects must share all attribute values — Có; mọi đối tượng đa hình phải có mọi thuộc tính bằng nhau
 
-D. No, they can provide the same expected method — Không, có thể thuộc các lớp khác nhau nhưng cùng phương thức
+D. No; polymorphism means there are no methods at all — Không; đa hình nghĩa là không có phương thức
 
 **Q13. What does `self` refer to inside an instance method? — `self` trong phương thức đối tượng chỉ gì?**
 
-A. The current object receiving the call — Đối tượng hiện tại đang nhận lời gọi
+A. The current Python module — Module Python hiện tại
 
-B. The name of the Python module — Tên module Python
+B. The current instance receiving the call — Instance hiện tại đang nhận lời gọi
 
-C. Every object in the program — Toàn bộ đối tượng của chương trình
+C. The parent class definition only — Chỉ định nghĩa class cha
 
-D. Only the parent class definition — Chỉ phần định nghĩa lớp cha
+D. Every object belonging to that class — Mọi đối tượng thuộc class đó
 
 **Q14. Does overriding a method erase it from the parent class? — Ghi đè phương thức có xóa bản lớp cha không?**
 
-A. Only when `print()` is used — Chỉ khi dùng print
+A. Yes; every parent instance loses its methods — Có; mọi instance cha mất phương thức
 
-B. No, the parent method still exists — Không, phương thức của lớp cha vẫn tồn tại
+B. Only if the method uses `print()` — Chỉ khi phương thức dùng `print()`
 
-C. Yes, it deletes all parent code — Có, xóa toàn bộ code lớp cha
+C. No; the parent's original method remains defined — Không; phương thức gốc của class cha vẫn tồn tại
 
-D. Yes, it deletes the class name — Có, xóa tên lớp
+D. Yes; overriding deletes the method from the parent class — Có; ghi đè xóa phương thức khỏi class cha
 
 **Q15. How can an override call the parent's implementation? — Phương thức ghi đè gọi bản của lớp cha bằng gì?**
 
-A. `print(super)` only — Chỉ `print(super)`
+A. `None.method()` — `None.method()`
 
-B. `None.method()` — `None.method()`
+B. `del Parent.method` — `del Parent.method`
 
-C. `super().method()` — `super().method()`
+C. `print(super)` — `print(super)`
 
-D. `del Parent` — `del Parent`
+D. `super().method()` — `super().method()`
 
 **Q16. Can an abstract class define ordinary implemented methods? — Lớp trừu tượng có thể có phương thức thông thường đã triển khai không?**
 
-A. No, it must only contain pass — Không, chỉ được chứa pass
+A. Only if the class has no subclasses — Chỉ khi class không có class con
 
-B. No, it cannot define attributes — Không, không thể có thuộc tính
+B. Yes; reusable methods can coexist with abstract methods — Có; phương thức dùng chung có thể cùng tồn tại với phương thức trừu tượng
 
-C. Only when it has no subclasses — Chỉ khi không có lớp con
+C. No; abstract classes can contain only `pass` — Không; class trừu tượng chỉ được có `pass`
 
-D. Yes, it can provide reusable behavior too — Có, nó vẫn có thể cung cấp hành vi dùng chung
+D. No; abstract classes cannot define attributes — Không; class trừu tượng không thể có thuộc tính
 
 **Q17. What is the relation between overriding and polymorphism? — Ghi đè liên quan gì đến đa hình?**
 
-A. Overriding can provide distinct behavior for a common call — Ghi đè tạo hành vi khác nhau cho cùng lời gọi
+A. Overriding prevents calls on subclasses — Ghi đè ngăn lời gọi trên class con
 
-B. Overriding prevents polymorphism — Ghi đè ngăn đa hình
+B. Overriding forces different method names — Ghi đè buộc phương thức có tên khác nhau
 
-C. They both mean deleting attributes — Cả hai đều là xóa thuộc tính
+C. Polymorphism only applies when no method is overridden — Đa hình chỉ tồn tại khi không ghi đè
 
-D. They only apply to CSV files — Chúng chỉ áp dụng cho CSV
+D. Overriding can supply different behavior for one method name — Ghi đè cho phép hành vi khác nhau với cùng tên phương thức
 
 **Q18. Which part of `class Child(Parent):` names the superclass? — Trong `class Child(Parent):`, đâu là tên lớp cha?**
 
@@ -517,48 +517,48 @@ D. `class` — `class`
 
 **Q19. What is a good reason to create a shared base class? — Khi nào nên tạo lớp cha chung?**
 
-A. To avoid using any methods — Để không cần phương thức
+A. Related subclasses share meaningful state or behavior — Các class con liên quan có trạng thái hoặc hành vi chung
 
-B. To make all values constant — Để mọi giá trị là hằng số
+B. The objects have no common behavior at all — Các đối tượng không có hành vi chung nào
 
-C. Several subclasses share data or behavior — Nhiều lớp con có chung dữ liệu hoặc hành vi
+C. Every subclass must contain completely unrelated logic — Mỗi class con buộc có logic hoàn toàn không liên quan
 
-D. Every object is unrelated — Mọi đối tượng hoàn toàn không liên quan
+D. Every variable must be made global — Mọi biến phải chuyển thành biến toàn cục
 
 **Q20. Which error may follow if a child skips necessary parent initialization? — Nếu lớp con bỏ khởi tạo lớp cha cần thiết, điều gì có thể xảy ra?**
 
-A. All integers turn into strings — Mọi số nguyên biến thành chuỗi
+A. Every integer becomes a string — Mọi số nguyên biến thành chuỗi
 
-B. Python automatically runs CSV conversion — Python tự chuyển CSV
+B. All subclass methods must execute twice — Mọi phương thức class con phải chạy hai lần
 
-C. Every method prints twice — Mọi phương thức in hai lần
+C. An expected inherited instance attribute may be missing — Thuộc tính instance kế thừa được mong đợi có thể bị thiếu
 
-D. An expected inherited instance attribute may be missing — Một thuộc tính đối tượng cần thiết có thể chưa được tạo
+D. The entire parent class is automatically deleted — Toàn bộ class cha tự bị xóa
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A subclass can build on code defined by its parent. | Lớp con có thể kế thừa và mở rộng phần đã được lớp cha định nghĩa. |
-| Q2 | **B** | The parentheses name the parent class of Dog. | Trong khai báo lớp, ngoặc chỉ lớp cha của Dog. |
-| Q3 | **C** | The parent's initializer can set attributes shared across subclasses. | Phương thức khởi tạo lớp cha giúp thiết lập các thuộc tính dùng chung. |
-| Q4 | **D** | Polymorphism lets callers use a common operation without checking concrete types. | Đa hình cho phép dùng một thao tác chung mà không cần phân nhánh theo từng kiểu đối tượng. |
-| Q5 | **A** | For a child instance, its overriding method is selected in place of the inherited one. | Khi lớp con ghi đè, đối tượng lớp con dùng cách triển khai mới. |
-| Q6 | **B** | With ABC, an unimplemented abstract method prevents instantiating the abstract class. | Trong ABC, phương thức trừu tượng chưa triển khai khiến lớp không được khởi tạo trực tiếp. |
-| Q7 | **C** | ABC provides infrastructure; `@abstractmethod` identifies required methods. | ABC cung cấp cơ chế, còn `@abstractmethod` chỉ ra phương thức bắt buộc. |
-| Q8 | **D** | The subclass remains abstract until required methods are implemented. | Lớp con vẫn trừu tượng nếu chưa cài đặt đầy đủ các phương thức yêu cầu. |
-| Q9 | **A** | Inheritance relationships are included in an isinstance check. | Kiểm tra isinstance cũng tính quan hệ kế thừa, không chỉ đúng lớp trực tiếp. |
-| Q10 | **B** | Python resolves the method on the actual child object first. | Python ưu tiên phương thức phù hợp trên đối tượng lớp con. |
-| Q11 | **C** | Calling the parent initializer makes shared instance data available to the child. | Gọi khởi tạo lớp cha sẽ tạo dữ liệu chung để lớp con dùng. |
-| Q12 | **D** | What matters is that callers can use the expected operation. | Điểm cốt lõi là các đối tượng đáp ứng thao tác mà nơi gọi cần. |
-| Q13 | **A** | Instance attributes such as `self.name` belong to that specific object. | Thuộc tính như `self.name` thuộc về đối tượng đang thực hiện phương thức. |
-| Q14 | **B** | The child selects its implementation, while parent instances retain their method. | Lớp con dùng bản mới, còn đối tượng lớp cha vẫn giữ phương thức của nó. |
-| Q15 | **C** | super can delegate to the next method in the inheritance resolution order. | super cho phép gọi phương thức kế tiếp trong thứ tự phân giải kế thừa. |
-| Q16 | **D** | Abstract classes can combine shared logic with required abstract operations. | Lớp trừu tượng có thể vừa chứa logic chung vừa quy định thao tác bắt buộc. |
-| Q17 | **A** | The common method name can execute differently on different subclasses. | Tên phương thức chung có thể chạy khác nhau trên các lớp con. |
-| Q18 | **B** | Parent in parentheses is the class being inherited. | Tên trong dấu ngoặc là lớp được kế thừa. |
-| Q19 | **C** | A base class reduces repeated definitions across related subclasses. | Lớp cha giúp tránh viết lặp những thành phần chung của các lớp có liên quan. |
-| Q20 | **D** | Without initialization, an attribute such as `name` might not be set. | Không gọi phần khởi tạo cần thiết có thể khiến thuộc tính như `name` chưa tồn tại. |
+| Q1 | **A** | Inheritance allows a subclass to reuse or extend code from a parent class, such as shared `name` handling in `Animal` and extra `bark()` behavior in `Dog`. It does not copy every live object; it establishes a relationship between classes. | Kế thừa cho phép class con dùng lại hoặc mở rộng mã của class cha, ví dụ `Animal` quản lý `name` còn `Dog` bổ sung `bark()`. Cơ chế này không sao chép mọi đối tượng đang tồn tại mà thiết lập quan hệ giữa các class. |
+| Q2 | **A** | In `class Dog(Animal):`, the class name before parentheses is `Dog` and the parent class named inside is `Animal`. This declares an inheritance relationship; it does not instantiate either class. | Trong `class Dog(Animal):`, `Dog` là class đang được định nghĩa còn `Animal` trong ngoặc là class cha. Đây là khai báo kế thừa, không tự tạo instance của class nào. |
+| Q3 | **C** | `super().__init__(name)` delegates initialization to the next initializer in the method resolution order, commonly setting inherited state such as `self.name`. Without that needed initialization, later methods may find the attribute missing. | `super().__init__(name)` chuyển việc khởi tạo tới phương thức tiếp theo trong thứ tự phân giải phương thức, thường thiết lập trạng thái kế thừa như `self.name`. Nếu bỏ bước cần thiết này, các phương thức sau có thể không tìm thấy thuộc tính. |
+| Q4 | **C** | Polymorphism means different objects can respond to the same expected operation in their own ways. For example, both `Dog.speak()` and `Cat.speak()` may be called as `animal.speak()` while producing different sounds. | Đa hình nghĩa là các đối tượng khác nhau có thể đáp ứng cùng một thao tác theo cách riêng. Ví dụ `Dog.speak()` và `Cat.speak()` đều có thể được gọi qua `animal.speak()` nhưng tạo âm thanh khác nhau. |
+| Q5 | **C** | Overriding occurs when a subclass defines a method with the same name as an inherited method, providing a more specific implementation. A child `speak()` is then chosen for a child instance, without deleting the parent's method. | Ghi đè xảy ra khi class con định nghĩa phương thức cùng tên với phương thức kế thừa để thay cách triển khai. Instance con sẽ chọn `speak()` của class con mà không xóa phương thức của class cha. |
+| Q6 | **D** | With Python's `ABC` machinery, `@abstractmethod` marks a method requirement for concrete subclasses. A class with unresolved abstract methods cannot be instantiated, although the abstract method itself may contain reusable code. | Với cơ chế `ABC` của Python, `@abstractmethod` đánh dấu phương thức cần được triển khai để class trở thành cụ thể. Class còn phương thức trừu tượng chưa được đáp ứng thì không khởi tạo được, dù bản thân phương thức trừu tượng vẫn có thể chứa mã. |
+| Q7 | **A** | Inheriting `ABC` does not automatically make every method abstract. A requirement exists only when a method is marked appropriately, such as with `@abstractmethod`; ordinary implemented methods may still be inherited as normal. | Kế thừa `ABC` không tự khiến mọi phương thức trở thành trừu tượng. Yêu cầu chỉ hình thành khi phương thức được đánh dấu phù hợp, ví dụ `@abstractmethod`; phương thức thường đã triển khai vẫn được kế thừa như bình thường. |
+| Q8 | **D** | A subclass that still has an unimplemented abstract method remains abstract and normally cannot be instantiated. Python raises `TypeError` when attempting to create such an instance; it does not silently skip the requirement. | Class con còn phương thức trừu tượng chưa triển khai thì vẫn trừu tượng và thông thường không thể tạo instance. Python phát sinh `TypeError` khi cố khởi tạo, không tự bỏ qua yêu cầu. |
+| Q9 | **D** | `isinstance(obj, Parent)` tests whether the object is an instance of `Parent` or an inherited subclass. A `Child` instance can therefore pass the test, unlike the exact-class comparison `type(obj) is Parent`. | `isinstance(obj, Parent)` kiểm tra đối tượng có là instance của `Parent` hoặc class con kế thừa không. Vì thế instance `Child` cũng có thể thỏa, khác phép so class chính xác `type(obj) is Parent`. |
+| Q10 | **B** | When a child overrides `fee()`, method lookup on a `Child` instance selects the child implementation. The parent's method is not automatically run as well; the child can explicitly delegate using `super().fee()` if needed. | Khi class con ghi đè `fee()`, tra cứu phương thức trên instance `Child` sẽ chọn bản của class con. Bản cha không tự chạy cùng lúc; class con có thể chủ động gọi qua `super().fee()` khi cần. |
+| Q11 | **B** | An inherited instance attribute exists when suitable initialization creates it, often by calling the parent's `__init__`. A child can then read `self.name`, but merely declaring inheritance does not automatically execute every custom parent initializer. | Thuộc tính instance kế thừa tồn tại khi bước khởi tạo phù hợp đã tạo nó, thường nhờ gọi `__init__` của class cha. Class con có thể đọc `self.name`, nhưng chỉ khai báo kế thừa không tự chạy mọi hàm khởi tạo cha tùy chỉnh. |
+| Q12 | **A** | Polymorphism depends on a shared expected interface or operation, not identical concrete classes. Separate classes may both provide `draw()` so client code can call it on either object. | Đa hình phụ thuộc vào giao diện hoặc thao tác dự kiến dùng chung, không bắt buộc class cụ thể giống nhau. Hai class riêng biệt có thể đều cung cấp `draw()` để mã gọi sử dụng được trên cả hai. |
+| Q13 | **B** | `self` conventionally refers to the object on which an instance method is called. Reading `self.name` on two different instances may return different values, even when the method code is shared. | `self` theo quy ước chỉ đối tượng mà phương thức instance đang được gọi trên đó. Đọc `self.name` ở hai instance khác nhau có thể cho giá trị khác dù dùng chung mã phương thức. |
+| Q14 | **C** | Overriding changes which implementation method lookup selects on a child, not the parent's class definition. A parent instance can still invoke the original method; `super()` can often access it from the child. | Ghi đè thay đổi bản triển khai được chọn khi tra cứu trên class con, không xóa định nghĩa class cha. Instance cha vẫn gọi được phương thức gốc; class con thường có thể truy cập qua `super()`. |
+| Q15 | **D** | `super().method()` delegates to the next implementation according to the method resolution order, often the parent method in simple inheritance. This allows a child override to extend parent behavior rather than duplicate it. | `super().method()` chuyển lời gọi tới bản triển khai kế tiếp theo thứ tự phân giải phương thức, thường là class cha trong kế thừa đơn. Nhờ đó phương thức ghi đè có thể mở rộng hành vi của cha thay vì chép lại. |
+| Q16 | **B** | An abstract class can provide ordinary implemented methods alongside abstract requirements. For example, a base shape may implement `describe()` but require subclasses to implement `area()`. | Class trừu tượng có thể có phương thức thường đã triển khai cùng với phương thức bắt buộc. Ví dụ class hình học cơ sở cài `describe()` nhưng yêu cầu class con cài `area()`. |
+| Q17 | **D** | Overriding is one way to implement polymorphism: a shared call such as `animal.speak()` can execute different subclass implementations. Overriding is not required for all forms of polymorphism, such as duck typing. | Ghi đè là một cách tạo đa hình: lời gọi chung như `animal.speak()` có thể chạy các bản triển khai khác nhau của class con. Tuy nhiên không phải mọi dạng đa hình đều bắt buộc ghi đè, ví dụ duck typing. |
+| Q18 | **B** | In `class Child(Parent):`, the name in the parentheses is the superclass, so `Parent` is inherited by `Child`. `Child` is the new subclass name, and `class` is a declaration keyword. | Trong `class Child(Parent):`, tên trong ngoặc là class cha nên `Parent` được `Child` kế thừa. `Child` là tên class con mới, còn `class` là từ khóa khai báo. |
+| Q19 | **A** | A shared base class is useful when related subclasses have common state or behavior, such as a common `name` field. It avoids duplicated definitions while allowing each subclass to specialize its own behavior. | Class cha chung có ích khi các class con liên quan dùng chung trạng thái hoặc hành vi, như trường `name`. Cách này giảm định nghĩa lặp và vẫn cho phép mỗi class con triển khai phần riêng. |
+| Q20 | **C** | If a subclass skips necessary parent initialization, parent-defined fields such as `self.name` may never be created. Accessing a missing field normally raises `AttributeError`; calling `super().__init__` or properly reproducing the setup prevents that. | Nếu class con bỏ bước khởi tạo cha cần thiết, các trường do cha thiết lập như `self.name` có thể chưa được tạo. Truy cập trường thiếu thường gây `AttributeError`; gọi `super().__init__` hoặc thực hiện khởi tạo tương đương sẽ ngăn lỗi. |
 
 ## 8. Nối sang bài tiếp theo
 
