@@ -32,80 +32,99 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Series
+**Pandas** giúp quản lý dữ liệu dạng bảng trước khi phân tích và huấn luyện AI. Ta bắt đầu từ một dãy có nhãn (**Series**), mở rộng thành bảng nhiều thuộc tính (**DataFrame**), chọn và tính trên từng cột, rồi đọc dữ liệu thật từ **CSV**. Trong mọi ví dụ, phải nêu rõ một hàng đại diện cho ai/cái gì và một cột là thuộc tính nào.
 
-**Từ vựng trong mục:** **Series** — chuỗi Pandas.
+### 4.1. Series — Dữ liệu một chiều có nhãn
 
-Series là dãy dữ liệu một chiều có chỉ số, giúp gắn giá trị với vị trí hoặc nhãn.
+**Từ vựng trong mục:** **Series** — dãy có nhãn; **Index** — nhãn hàng.
 
-```python
-import pandas as pd
-print(pd.Series([3,4]))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0    3
-1    4
-dtype: int64
-```
-
-### 4.2. DataFrame
-
-**Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
-
-DataFrame là bảng có hàng và cột; mỗi cột mang một loại thông tin rõ ràng.
+**Series** là dãy một chiều của Pandas, trong đó mỗi giá trị gắn với một **index** (nhãn). Ví dụ theo dõi điểm hai học viên An, Bình: nhãn `An`, `Binh` xác định ai sở hữu giá trị 8 hay 6. Khác List thuần túy thường truy cập bằng vị trí, Series còn truy cập theo **nhãn** bằng `.loc`. Khi không tự đặt nhãn, Pandas thường tạo chỉ số 0, 1, 2...
 
 ```python
 import pandas as pd
-print(pd.DataFrame({'x':[1,2]}))
+
+scores = pd.Series([8, 6], index=['An', 'Binh'])
+print(scores.loc['Binh'])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-   x
-0  1
-1  2
+6
 ```
 
-### 4.3. Column
+Nhãn `Binh` trỏ tới giá trị điểm 6; nhãn là chỉ số hàng, không phải nội dung một cột riêng.
 
-**Từ vựng trong mục:** **Column** — cột.
+### 4.2. DataFrame — Bảng hàng và cột
 
-Cột là một thuộc tính, chẳng hạn `Price` biểu thị giá và `Qty` biểu thị số lượng.
+**Từ vựng trong mục:** **DataFrame** — bảng dữ liệu; **Row/column** — hàng/cột.
+
+**DataFrame** là bảng hai chiều. Cửa hàng có hai sản phẩm: Pen giá 10.000 đồng và Book giá 35.000 đồng. **Mỗi hàng** là một sản phẩm, **mỗi cột** là một thuộc tính (`Product` tên hàng; `Price` giá đơn vị đồng). Chỉ số 0, 1 bên trái là **index**, không phải một cột dữ liệu mặc định. Mỗi cột tương tự một Series có chung nhãn hàng.
 
 ```python
 import pandas as pd
-x=pd.DataFrame({'price':[10]})
-print(x['price'])
+
+products = pd.DataFrame({
+    'Product': ['Pen', 'Book'],
+    'Price': [10000, 35000],
+})
+print(products)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0    10
-Name: price, dtype: int64
+  Product  Price
+0     Pen  10000
+1    Book  35000
 ```
 
-### 4.4. CSV
+Bảng có 2 hàng sản phẩm × 2 cột thuộc tính; số 0 và 1 là nhãn index mặc định.
 
-**Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
+### 4.3. Column và dtype — Đọc và tính trên thuộc tính
 
-`read_csv` đọc bảng từ dữ liệu CSV; hàng đầu thường chứa tên cột.
+**Từ vựng trong mục:** **Column** — cột; **dtype** — kiểu dữ liệu cột.
+
+Cột là tập các giá trị của **một thuộc tính** trên nhiều hàng. Với đơn giá `[10,20]` nghìn đồng và số lượng `[2,3]` cái, ta tạo hai cột `price` và `qty` rồi thêm `revenue = price * qty`. Pandas thực hiện phép nhân **theo hàng có cùng index**. Đơn giá nhân số lượng tạo doanh thu 20 và 60 nghìn đồng. `df['price']` chọn một cột, còn `df[['price','qty']]` chọn bảng hai cột.
 
 ```python
-import pandas as pd,io
-print(pd.read_csv(io.StringIO('x\n1')))
+import pandas as pd
+
+sales = pd.DataFrame({'price': [10, 20], 'qty': [2, 3]})
+sales['revenue'] = sales['price'] * sales['qty']
+print(sales['revenue'].tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-   x
-0  1
+[20, 60]
 ```
+
+Hai số là doanh thu của hàng thứ nhất và thứ hai. Nhân cột có ý nghĩa khi các giá trị đã căn đúng theo cùng hàng.
+
+### 4.4. read_csv — Đọc bảng từ văn bản CSV
+
+**Từ vựng trong mục:** **CSV** — bảng văn bản phân cách; **read_csv** — đọc CSV.
+
+**CSV** lưu dữ liệu theo các dòng văn bản, thường dòng đầu chứa tên cột. `pd.read_csv()` chuyển nội dung thành DataFrame, có thể từ đường dẫn file hoặc bộ đệm `StringIO`. Ví dụ hai đơn hàng O1, O2 với `amount` 100 và 200 đồng; **mỗi hàng là một đơn**, cột `id` là mã đơn, cột `amount` là số tiền. Pandas thường tự nhận dạng cột số, nhưng dữ liệu phức tạp có thể cần chỉ định kiểu hoặc làm sạch trước khi tính.
+
+```python
+import pandas as pd
+from io import StringIO
+
+csv_text = 'id,amount\nO1,100\nO2,200\n'
+orders = pd.read_csv(StringIO(csv_text))
+print(orders['amount'].sum())
+```
+
+**Kết quả khi chạy:**
+
+```text
+300
+```
+
+Tổng số tiền hai đơn là 300 đồng. `read_csv` đọc bảng từ văn bản chứ không cần nhập lại thủ công từng dòng.
 
 ## 5. Năm tình huống thực tế
 
@@ -117,7 +136,11 @@ print(pd.read_csv(io.StringIO('x\n1')))
 
 **Vì sao chọn cách giải này?** DataFrame đặt tên các cột, mỗi hàng là một sản phẩm.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo mỗi hàng là một sản phẩm với cột `Product`, `Price`, `Qty`.
+2. Giữ đơn giá theo đồng và số lượng theo cái.
+3. In DataFrame, kiểm tra Pen và Book nằm ở hai hàng.
 
 ```python
 import pandas as pd
@@ -141,7 +164,11 @@ print(df)
 
 **Vì sao chọn cách giải này?** `read_csv` chuyển CSV thành DataFrame; `head()` xem những hàng đầu.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Lưu CSV có tiêu đề `id,amount` và hai đơn O1, O2.
+2. Đưa văn bản vào `StringIO`, đọc bằng `pd.read_csv`.
+3. In `head()` để kiểm tra cột mã đơn và số tiền.
 
 ```python
 import pandas as pd,io
@@ -166,7 +193,11 @@ print(df.head())
 
 **Vì sao chọn cách giải này?** Pandas nhân từng hàng của hai cột Price và Qty.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo bảng hai hàng với cột `Price` và `Qty` cùng thứ tự sản phẩm.
+2. Nhân hai cột để thêm `Revenue` theo từng hàng.
+3. In bảng, kiểm tra doanh thu 20 và 60 theo đơn vị tiền đã chọn.
 
 ```python
 import pandas as pd
@@ -191,7 +222,11 @@ print(df)
 
 **Vì sao chọn cách giải này?** `dtypes` cho biết cột chữ và cột số đang được lưu dưới kiểu nào.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo cột `name` gồm chữ và `qty` gồm số nguyên.
+2. Truy cập `df.dtypes` để kiểm tra kiểu của từng cột.
+3. Đối chiếu `name` dạng chuỗi và `qty` dạng số nguyên.
 
 ```python
 import pandas as pd
@@ -215,7 +250,11 @@ dtype: object
 
 **Vì sao chọn cách giải này?** `df[[...]]` chọn hai cột, bỏ city khỏi đầu vào mẫu.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo bảng hai khách gồm `visits`, `spent`, `city`.
+2. Chọn đúng hai cột số `visits`, `spent` làm đầu vào.
+3. In `shape` của bảng chọn để thấy hai hàng × hai đặc trưng.
 
 ```python
 import pandas as pd
@@ -232,7 +271,11 @@ print(X.shape)
 
 ## 6. Sai lầm thường gặp
 
-Các tham số như axis, shape, dtype hoặc cách xử lý giá trị thiếu có thể thay đổi kết quả. Trước khi xử lý phải biết số hàng, số cột, đơn vị và mục đích của từng phép biến đổi.
+- **Series** một chiều, **DataFrame** hai chiều. `df['x']` chọn Series; `df[['x']]` giữ dạng DataFrame một cột.
+- Phải hiểu **index** là nhãn hàng, không nhất thiết là cột dữ liệu. Pandas căn dữ liệu theo index khi kết hợp các Series.
+- Đơn giá, số lượng và doanh thu có **đơn vị khác nhau**; nhân `price × qty` mới có ý nghĩa là thành tiền.
+- CSV vốn là văn bản; cần xem lại `dtype` vì dữ liệu bẩn có thể khiến cột số bị đọc thành chuỗi.
+- Không đưa mã định danh hoặc nhãn `city` vào mô hình dự đoán chỉ vì chúng có mặt trong bảng; phải chọn đặc trưng theo mục tiêu.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
