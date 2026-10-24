@@ -263,250 +263,230 @@ print(sorted(web ^ ai))
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What does a union contain? — Phép hợp chứa gì?**
 
-**Q1. What best describes Union? — Mô tả nào đúng với Union?**
+A. Elements in at least one set — Phần tử thuộc ít nhất một tập
 
-A. A different idea is Lấy phần tử có trong cả hai tập — Lấy phần tử có trong cả hai tập
+B. Elements common to both sets — Phần tử có ở cả hai tập
 
-B. It is Lấy tất cả phần tử thuộc ít nhất một tập — Lấy tất cả phần tử thuộc ít nhất một tập
+C. Elements in A but not in B — Phần tử thuộc A nhưng không thuộc B
 
-C. A different idea is Cộng từng tập rồi trừ phần giao bị đếm hai lần — Cộng từng tập rồi trừ phần giao bị đếm hai lần
+D. Nonempty disjoint parts covering the original set — Các phần không rỗng, rời nhau và phủ đủ tập gốc
 
-D. A different idea is Chia thành các nhóm rời nhau phủ đủ tập gốc — Chia thành các nhóm rời nhau phủ đủ tập gốc
+**Q2. What does an intersection contain? — Phép giao chứa gì?**
 
+A. Elements in at least one set — Phần tử thuộc ít nhất một tập
 
-**Q2. What best describes Intersection? — Mô tả nào đúng với Intersection?**
+B. Elements common to both sets — Phần tử có ở cả hai tập
 
-A. It is Lấy phần tử có trong cả hai tập — Lấy phần tử có trong cả hai tập
+C. Elements in A but not in B — Phần tử thuộc A nhưng không thuộc B
 
-B. A different idea is Cộng từng tập rồi trừ phần giao bị đếm hai lần — Cộng từng tập rồi trừ phần giao bị đếm hai lần
+D. Nonempty disjoint parts covering the original set — Các phần không rỗng, rời nhau và phủ đủ tập gốc
 
-C. A different idea is Chia thành các nhóm rời nhau phủ đủ tập gốc — Chia thành các nhóm rời nhau phủ đủ tập gốc
+**Q3. What is set difference A−B? — Hiệu tập hợp A−B là gì?**
 
-D. A different idea is Lấy tất cả phần tử thuộc ít nhất một tập — Lấy tất cả phần tử thuộc ít nhất một tập
+A. Elements in at least one set — Phần tử thuộc ít nhất một tập
 
+B. Elements common to both sets — Phần tử có ở cả hai tập
 
-**Q3. What best describes Inclusion–exclusion? — Mô tả nào đúng với Inclusion–exclusion?**
+C. Elements in A but not in B — Phần tử thuộc A nhưng không thuộc B
 
-A. A different idea is Chia thành các nhóm rời nhau phủ đủ tập gốc — Chia thành các nhóm rời nhau phủ đủ tập gốc
+D. Nonempty disjoint parts covering the original set — Các phần không rỗng, rời nhau và phủ đủ tập gốc
 
-B. A different idea is Lấy tất cả phần tử thuộc ít nhất một tập — Lấy tất cả phần tử thuộc ít nhất một tập
+**Q4. What defines a partition of a set? — Điều gì xác định một phân hoạch?**
 
-C. A different idea is Lấy phần tử có trong cả hai tập — Lấy phần tử có trong cả hai tập
+A. Elements in at least one set — Phần tử thuộc ít nhất một tập
 
-D. It is Cộng từng tập rồi trừ phần giao bị đếm hai lần — Cộng từng tập rồi trừ phần giao bị đếm hai lần
+B. Elements common to both sets — Phần tử có ở cả hai tập
 
+C. Elements in A but not in B — Phần tử thuộc A nhưng không thuộc B
 
-**Q4. What best describes Partition? — Mô tả nào đúng với Partition?**
+D. Nonempty disjoint parts covering the original set — Các phần không rỗng, rời nhau và phủ đủ tập gốc
 
-A. A different idea is Lấy tất cả phần tử thuộc ít nhất một tập — Lấy tất cả phần tử thuộc ít nhất một tập
+**Q5. Which operator computes union for sets? — Toán tử nào tính phép hợp Set?**
 
-B. A different idea is Lấy phần tử có trong cả hai tập — Lấy phần tử có trong cả hai tập
+A. `a | b` — `a | b`
 
-C. It is Chia thành các nhóm rời nhau phủ đủ tập gốc — Chia thành các nhóm rời nhau phủ đủ tập gốc
+B. `a & b` — `a & b`
 
-D. A different idea is Cộng từng tập rồi trừ phần giao bị đếm hai lần — Cộng từng tập rồi trừ phần giao bị đếm hai lần
+C. `a ^ b` — `a ^ b`
 
+D. `a.isdisjoint(b)` — `a.isdisjoint(b)`
 
-**Q5. Which operation matches a | b, a & b? — Mục đích của a | b, a & b là gì?**
+**Q6. Which operator computes intersection? — Toán tử nào tính phép giao?**
 
-A. Another operation is used to Hiệu và hiệu đối xứng — Hiệu và hiệu đối xứng
+A. `a | b` — `a | b`
 
-B. It is used to Hợp và giao các tập hợp — Hợp và giao các tập hợp
+B. `a & b` — `a & b`
 
-C. Another operation is used to Đếm phần tử khác nhau — Đếm phần tử khác nhau
+C. `a ^ b` — `a ^ b`
 
-D. Another operation is used to Kiểm tra hai nhóm có trùng phần tử không — Kiểm tra hai nhóm có trùng phần tử không
+D. `a.isdisjoint(b)` — `a.isdisjoint(b)`
 
+**Q7. Which operator computes symmetric difference? — Toán tử nào tính hiệu đối xứng?**
 
-**Q6. Which operation matches a - b, a ^ b? — Mục đích của a - b, a ^ b là gì?**
+A. `a | b` — `a | b`
 
-A. It is used to Hiệu và hiệu đối xứng — Hiệu và hiệu đối xứng
+B. `a & b` — `a & b`
 
-B. Another operation is used to Đếm phần tử khác nhau — Đếm phần tử khác nhau
+C. `a ^ b` — `a ^ b`
 
-C. Another operation is used to Kiểm tra hai nhóm có trùng phần tử không — Kiểm tra hai nhóm có trùng phần tử không
+D. `a.isdisjoint(b)` — `a.isdisjoint(b)`
 
-D. Another operation is used to Hợp và giao các tập hợp — Hợp và giao các tập hợp
+**Q8. Which method checks that two sets do not overlap? — Phương thức nào kiểm tra hai Set không trùng nhau?**
 
+A. `a | b` — `a | b`
 
-**Q7. Which operation matches len(a | b)? — Mục đích của len(a | b) là gì?**
+B. `a & b` — `a & b`
 
-A. Another operation is used to Kiểm tra hai nhóm có trùng phần tử không — Kiểm tra hai nhóm có trùng phần tử không
+C. `a ^ b` — `a ^ b`
 
-B. Another operation is used to Hợp và giao các tập hợp — Hợp và giao các tập hợp
+D. `a.isdisjoint(b)` — `a.isdisjoint(b)`
 
-C. Another operation is used to Hiệu và hiệu đối xứng — Hiệu và hiệu đối xứng
+**Q9. Why does inclusion–exclusion subtract an intersection? — Vì sao bao hàm–loại trừ phải trừ phần giao?**
 
-D. It is used to Đếm phần tử khác nhau — Đếm phần tử khác nhau
+A. To correct double counting — Để sửa việc đếm trùng
 
+B. Distinct elements in either set — Số phần tử khác nhau ở ít nhất một tập
 
-**Q8. Which operation matches a.isdisjoint(b)? — Mục đích của a.isdisjoint(b) là gì?**
+C. When the sets share no members — Khi hai tập không có phần tử chung
 
-A. Another operation is used to Hợp và giao các tập hợp — Hợp và giao các tập hợp
+D. An ordered List of its elements — List chứa các phần tử được sắp thứ tự
 
-B. Another operation is used to Hiệu và hiệu đối xứng — Hiệu và hiệu đối xứng
+**Q10. What does `len(a | b)` count? — `len(a | b)` đếm gì?**
 
-C. It is used to Kiểm tra hai nhóm có trùng phần tử không — Kiểm tra hai nhóm có trùng phần tử không
+A. To correct double counting — Để sửa việc đếm trùng
 
-D. Another operation is used to Đếm phần tử khác nhau — Đếm phần tử khác nhau
+B. Distinct elements in either set — Số phần tử khác nhau ở ít nhất một tập
 
+C. When the sets share no members — Khi hai tập không có phần tử chung
 
-**Q9. Why was the method chosen for scenario 1? — Vì sao chọn cách giải của tình huống 1?**
+D. An ordered List of its elements — List chứa các phần tử được sắp thứ tự
 
-A. Another reason is Phép giao lấy đúng người thuộc hai nhóm — Phép giao lấy đúng người thuộc hai nhóm
+**Q11. When is `a.isdisjoint(b)` True? — Khi nào `a.isdisjoint(b)` bằng True?**
 
-B. Because Phép hợp tránh đếm người học cả hai môn hai lần — Phép hợp tránh đếm người học cả hai môn hai lần
+A. To correct double counting — Để sửa việc đếm trùng
 
-C. Another reason is Bao hàm–loại trừ cho kết quả như hợp — Bao hàm–loại trừ cho kết quả như hợp
+B. Distinct elements in either set — Số phần tử khác nhau ở ít nhất một tập
 
-D. Another reason is Hai nhóm ID đánh giá không trùng nhau — Hai nhóm ID đánh giá không trùng nhau
+C. When the sets share no members — Khi hai tập không có phần tử chung
 
+D. An ordered List of its elements — List chứa các phần tử được sắp thứ tự
 
-**Q10. Why was the method chosen for scenario 2? — Vì sao chọn cách giải của tình huống 2?**
+**Q12. What does `sorted(my_set)` produce? — `sorted(my_set)` tạo gì?**
 
-A. Because Phép giao lấy đúng người thuộc hai nhóm — Phép giao lấy đúng người thuộc hai nhóm
+A. To correct double counting — Để sửa việc đếm trùng
 
-B. Another reason is Bao hàm–loại trừ cho kết quả như hợp — Bao hàm–loại trừ cho kết quả như hợp
+B. Distinct elements in either set — Số phần tử khác nhau ở ít nhất một tập
 
-C. Another reason is Hai nhóm ID đánh giá không trùng nhau — Hai nhóm ID đánh giá không trùng nhau
+C. When the sets share no members — Khi hai tập không có phần tử chung
 
-D. Another reason is Hiệu đối xứng lấy người chỉ thuộc một nhóm — Hiệu đối xứng lấy người chỉ thuộc một nhóm
+D. An ordered List of its elements — List chứa các phần tử được sắp thứ tự
 
+**Q13. How many distinct values are in `{1,1,2}`? — `{1,1,2}` có mấy phần tử khác nhau?**
 
-**Q11. Why was the method chosen for scenario 3? — Vì sao chọn cách giải của tình huống 3?**
+A. 2 — 2
 
-A. Another reason is Hai nhóm ID đánh giá không trùng nhau — Hai nhóm ID đánh giá không trùng nhau
+B. 4 — 4
 
-B. Another reason is Hiệu đối xứng lấy người chỉ thuộc một nhóm — Hiệu đối xứng lấy người chỉ thuộc một nhóm
+C. Every part is nonempty and the union covers the original set — Mỗi phần không rỗng và hợp phủ đủ tập gốc
 
-C. Another reason is Phép hợp tránh đếm người học cả hai môn hai lần — Phép hợp tránh đếm người học cả hai môn hai lần
+D. No element is shared — Không có phần tử chung
 
-D. Because Bao hàm–loại trừ cho kết quả như hợp — Bao hàm–loại trừ cho kết quả như hợp
+**Q14. If |A|=3, |B|=2, |A∩B|=1, what is |A∪B|? — Nếu |A|=3, |B|=2, |A∩B|=1 thì |A∪B| bằng bao nhiêu?**
 
+A. 2 — 2
 
-**Q12. Why was the method chosen for scenario 4? — Vì sao chọn cách giải của tình huống 4?**
+B. 4 — 4
 
-A. Another reason is Hiệu đối xứng lấy người chỉ thuộc một nhóm — Hiệu đối xứng lấy người chỉ thuộc một nhóm
+C. Every part is nonempty and the union covers the original set — Mỗi phần không rỗng và hợp phủ đủ tập gốc
 
-B. Another reason is Phép hợp tránh đếm người học cả hai môn hai lần — Phép hợp tránh đếm người học cả hai môn hai lần
+D. No element is shared — Không có phần tử chung
 
-C. Because Hai nhóm ID đánh giá không trùng nhau — Hai nhóm ID đánh giá không trùng nhau
+**Q15. Which two conditions besides disjointness are needed to verify a nonempty partition? — Ngoài rời nhau, cần kiểm tra gì để xác nhận các phần không rỗng là phân hoạch?**
 
-D. Another reason is Phép giao lấy đúng người thuộc hai nhóm — Phép giao lấy đúng người thuộc hai nhóm
+A. 2 — 2
 
+B. 4 — 4
 
-**Q13. Why was the method chosen for scenario 5? — Vì sao chọn cách giải của tình huống 5?**
+C. Every part is nonempty and the union covers the original set — Mỗi phần không rỗng và hợp phủ đủ tập gốc
 
-A. Another reason is Phép hợp tránh đếm người học cả hai môn hai lần — Phép hợp tránh đếm người học cả hai môn hai lần
+D. No element is shared — Không có phần tử chung
 
-B. Because Hiệu đối xứng lấy người chỉ thuộc một nhóm — Hiệu đối xứng lấy người chỉ thuộc một nhóm
+**Q16. What does the empty intersection mean? — Phần giao rỗng nghĩa là gì?**
 
-C. Another reason is Phép giao lấy đúng người thuộc hai nhóm — Phép giao lấy đúng người thuộc hai nhóm
+A. 2 — 2
 
-D. Another reason is Bao hàm–loại trừ cho kết quả như hợp — Bao hàm–loại trừ cho kết quả như hợp
+B. 4 — 4
 
+C. Every part is nonempty and the union covers the original set — Mỗi phần không rỗng và hợp phủ đủ tập gốc
 
-**Q14. What input is used in scenario 1? — Tình huống 1 dùng dữ liệu gì?**
+D. No element is shared — Không có phần tử chung
 
-A. The data are Nhóm học Python và AI — Nhóm học Python và AI
+**Q17. What does A∪A equal? — A∪A bằng gì?**
 
-B. Other data are Nhóm sinh viên hai môn — Nhóm sinh viên hai môn
+A. A — A
 
-C. Other data are Hai tập ID có giao — Hai tập ID có giao
+B. A itself — Chính tập A
 
-D. Other data are train={1,2,3}, test={4,5} — train={1,2,3}, test={4,5}
+C. No fixed order is promised — Không bảo đảm thứ tự cố định
 
+D. Related records or future information may cross splits — Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
 
-**Q15. What input is used in scenario 2? — Tình huống 2 dùng dữ liệu gì?**
+**Q18. What does A∩A equal? — A∩A bằng gì?**
 
-A. Other data are Hai tập ID có giao — Hai tập ID có giao
+A. A — A
 
-B. Other data are train={1,2,3}, test={4,5} — train={1,2,3}, test={4,5}
+B. A itself — Chính tập A
 
-C. Other data are Hai nhóm Web và AI — Hai nhóm Web và AI
+C. No fixed order is promised — Không bảo đảm thứ tự cố định
 
-D. The data are Nhóm sinh viên hai môn — Nhóm sinh viên hai môn
+D. Related records or future information may cross splits — Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
 
+**Q19. Is set iteration order guaranteed? — Thứ tự duyệt Set có được đảm bảo không?**
 
-**Q16. What input is used in scenario 3? — Tình huống 3 dùng dữ liệu gì?**
+A. A — A
 
-A. Other data are train={1,2,3}, test={4,5} — train={1,2,3}, test={4,5}
+B. A itself — Chính tập A
 
-B. Other data are Hai nhóm Web và AI — Hai nhóm Web và AI
+C. No fixed order is promised — Không bảo đảm thứ tự cố định
 
-C. The data are Hai tập ID có giao — Hai tập ID có giao
+D. Related records or future information may cross splits — Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
 
-D. Other data are Nhóm học Python và AI — Nhóm học Python và AI
+**Q20. Why can two data splits with disjoint IDs still leak information? — Vì sao hai tập dữ liệu không trùng ID vẫn có thể rò rỉ thông tin?**
 
+A. A — A
 
-**Q17. What input is used in scenario 4? — Tình huống 4 dùng dữ liệu gì?**
+B. A itself — Chính tập A
 
-A. Other data are Hai nhóm Web và AI — Hai nhóm Web và AI
+C. No fixed order is promised — Không bảo đảm thứ tự cố định
 
-B. The data are train={1,2,3}, test={4,5} — train={1,2,3}, test={4,5}
-
-C. Other data are Nhóm học Python và AI — Nhóm học Python và AI
-
-D. Other data are Nhóm sinh viên hai môn — Nhóm sinh viên hai môn
-
-
-**Q18. What input is used in scenario 5? — Tình huống 5 dùng dữ liệu gì?**
-
-A. The data are Hai nhóm Web và AI — Hai nhóm Web và AI
-
-B. Other data are Nhóm học Python và AI — Nhóm học Python và AI
-
-C. Other data are Nhóm sinh viên hai môn — Nhóm sinh viên hai môn
-
-D. Other data are Hai tập ID có giao — Hai tập ID có giao
-
-
-**Q19. What information should a dataset have? — Dataset cần thông tin gì?**
-
-A. Only a filename — Chỉ tên file
-
-B. Only an editor font — Chỉ font soạn code
-
-C. Only a line count — Chỉ số dòng
-
-D. Meaning of rows, columns and units — Ý nghĩa hàng, cột và đơn vị
-
-
-**Q20. After the program works, what comes next? — Sau khi code chạy đúng thì làm gì?**
-
-A. Assume every input works — Cho rằng mọi đầu vào đều đúng
-
-B. Erase validation — Xóa kiểm tra dữ liệu
-
-C. Check the result and limitations — Kiểm tra kết quả và giới hạn
-
-D. Ignore edge cases — Bỏ qua trường hợp biên
+D. Related records or future information may cross splits — Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Lấy tất cả phần tử thuộc ít nhất một tập | Lấy tất cả phần tử thuộc ít nhất một tập |
-| Q2 | **A** | It is Lấy phần tử có trong cả hai tập | Lấy phần tử có trong cả hai tập |
-| Q3 | **D** | It is Cộng từng tập rồi trừ phần giao bị đếm hai lần | Cộng từng tập rồi trừ phần giao bị đếm hai lần |
-| Q4 | **C** | It is Chia thành các nhóm rời nhau phủ đủ tập gốc | Chia thành các nhóm rời nhau phủ đủ tập gốc |
-| Q5 | **B** | It is used to Hợp và giao các tập hợp | Hợp và giao các tập hợp |
-| Q6 | **A** | It is used to Hiệu và hiệu đối xứng | Hiệu và hiệu đối xứng |
-| Q7 | **D** | It is used to Đếm phần tử khác nhau | Đếm phần tử khác nhau |
-| Q8 | **C** | It is used to Kiểm tra hai nhóm có trùng phần tử không | Kiểm tra hai nhóm có trùng phần tử không |
-| Q9 | **B** | Because Phép hợp tránh đếm người học cả hai môn hai lần | Phép hợp tránh đếm người học cả hai môn hai lần |
-| Q10 | **A** | Because Phép giao lấy đúng người thuộc hai nhóm | Phép giao lấy đúng người thuộc hai nhóm |
-| Q11 | **D** | Because Bao hàm–loại trừ cho kết quả như hợp | Bao hàm–loại trừ cho kết quả như hợp |
-| Q12 | **C** | Because Hai nhóm ID đánh giá không trùng nhau | Hai nhóm ID đánh giá không trùng nhau |
-| Q13 | **B** | Because Hiệu đối xứng lấy người chỉ thuộc một nhóm | Hiệu đối xứng lấy người chỉ thuộc một nhóm |
-| Q14 | **A** | The data are Nhóm học Python và AI | Nhóm học Python và AI |
-| Q15 | **D** | The data are Nhóm sinh viên hai môn | Nhóm sinh viên hai môn |
-| Q16 | **C** | The data are Hai tập ID có giao | Hai tập ID có giao |
-| Q17 | **B** | The data are train={1,2,3}, test={4,5} | train={1,2,3}, test={4,5} |
-| Q18 | **A** | The data are Hai nhóm Web và AI | Hai nhóm Web và AI |
-| Q19 | **D** | Meaning of rows, columns and units | Ý nghĩa hàng, cột và đơn vị |
-| Q20 | **C** | Check the result and limitations | Kiểm tra kết quả và giới hạn |
+| Q1 | **A** | Union combines distinct elements of either set. | Hợp chứa các phần tử khác nhau của hai tập. |
+| Q2 | **B** | Intersection keeps elements shared by both sets. | Giao chỉ giữ phần tử chung của hai tập. |
+| Q3 | **C** | Set difference excludes B's members from A. | Hiệu A−B loại phần tử của B ra khỏi A. |
+| Q4 | **D** | All parts must be disjoint and their union the original set. | Mọi phần không giao nhau và hợp bằng tập gốc. |
+| Q5 | **A** | The vertical bar denotes set union. | Dấu | là phép hợp tập hợp. |
+| Q6 | **B** | The ampersand keeps shared elements. | Dấu & giữ các phần tử chung. |
+| Q7 | **C** | Symmetric difference keeps elements exclusive to either side. | Hiệu đối xứng giữ phần tử chỉ ở một bên. |
+| Q8 | **D** | isdisjoint is true when the intersection is empty. | isdisjoint đúng khi phần giao rỗng. |
+| Q9 | **A** | Intersection elements appear in both individual counts. | Phần tử giao đã được tính trong cả hai số đếm. |
+| Q10 | **B** | The union automatically deduplicates overlapping members. | Hợp tự loại phần trùng của các nhóm. |
+| Q11 | **C** | Disjoint sets have empty intersection. | Hai tập rời có phần giao rỗng. |
+| Q12 | **D** | sorted returns a list without changing the set. | sorted tạo List và không sửa Set gốc. |
+| Q13 | **A** | Duplicate values in a set are stored once. | Giá trị trùng chỉ xuất hiện một lần trong Set. |
+| Q14 | **B** | Apply 3+2−1 = 4. | Dùng công thức 3+2−1=4. |
+| Q15 | **C** | A partition must cover every original element without empty parts. | Phân hoạch phải phủ đủ phần tử gốc và không có phần rỗng. |
+| Q16 | **D** | An empty intersection means the sets are disjoint. | Giao rỗng biểu thị hai tập rời nhau. |
+| Q17 | **A** | Union with the same set adds nothing new. | Hợp một tập với chính nó không thêm phần tử. |
+| Q18 | **B** | Every member of A also belongs to A. | Mọi phần tử của A cũng thuộc A. |
+| Q19 | **C** | Python sets are not ordered sequences. | Set Python không phải dãy có thứ tự. |
+| Q20 | **D** | Disjoint IDs alone do not rule out all leakage. | ID không trùng chưa loại được mọi nguồn rò rỉ. |
 
 ## 8. Nối sang bài tiếp
 
