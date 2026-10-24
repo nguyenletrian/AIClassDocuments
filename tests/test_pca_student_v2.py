@@ -40,18 +40,18 @@ class StudentPcaLessonTests(unittest.TestCase):
         self.assertNotIn("Subconcept", self.text)
         # Feature/Vector/Matrix are defined in prose before the first code sample.
         concepts = self.text.split("### 4.2.", 1)[1].split("### 4.3.", 1)[0]
-        for concept in ("**Feature (đặc trưng):**", "**Vector:**", "**Matrix (ma trận):**"):
+        for concept in ("**Feature (đặc trưng):**", "**Vector (véc-tơ):**", "**Matrix (ma trận):**"):
             self.assertIn(concept, concepts)
         self.assertLess(concepts.index("**Feature (đặc trưng):**"), concepts.index("```python"))
-        self.assertLess(concepts.index("**Vector:**"), concepts.index("```python"))
+        self.assertLess(concepts.index("**Vector (véc-tơ):**"), concepts.index("```python"))
 
 
     def test_explanations_progress_from_vectors_to_matrix(self):
         # The concept example must construct five profiles, then stack them.
         section = self.text.split("### 4.2.", 1)[1].split("### 4.3.", 1)[0]
         for expected in (
-            "**Nhắc lại các khái niệm", "5 khách hàng → 5 vector → 1 ma trận",
-            "**5 khách → 5 vector:**", "**5 vector → 1 matrix:**",
+            "**Nhắc lại các khái niệm", "5 khách hàng → 5 vector (véc-tơ) → 1 ma trận",
+            "**5 khách → 5 vector (véc-tơ):**", "**5 vector (véc-tơ) → 1 matrix (ma trận):**",
             "customer_1 =", "customer_5 =", "np.vstack(customer_vectors)",
             "print(\"Shape:\", X.shape)  # (5, 5)",
         ):
@@ -87,23 +87,42 @@ class StudentPcaLessonTests(unittest.TestCase):
         self.assertIn("iris.target là NHÃN loài hoa", scenario_code[4])
         self.assertIn("profiles.shape", scenario_code[0])
 
-    def test_named_python_arguments_are_explained(self):
-        glossary = self.text.split("### 3.3.", 1)[1].split("## 4.", 1)[0]
-        for keyword in (
-            'dtype=float', 'axis=0', 'rowvar=False', 'n_components=2',
-            'n_components=1', 'n_components=0.95', 'svd_solver="full"',
-            'random_state=42', 'n_init=10', 'test_size=0.25',
-            'stratify=iris.target', 'max_iter=1000', 'start=1',
-            'textcoords="offset points"',
-        ):
-            with self.subTest(argument=keyword):
-                self.assertIn(keyword, glossary)
-        for comment in (
-            '# dtype=float:', '# axis=0:', '# rowvar=False:',
-            '# n_init=10:', '# random_state=42:', '# test_size=0.25:',
-            '# max_iter=1000:',
-        ):
-            self.assertIn(comment, self.text)
+    def test_named_arguments_are_grouped_with_their_functions(self):
+        library = self.text.split('## 3.', 1)[1].split('## 4.', 1)[0]
+        self.assertNotIn('### 3.3.', library)  # No separate flag catalog.
+        examples = (
+            ('np.array(data, dtype=float)', 'dtype=float'),
+            ('X.mean(axis=0)', 'axis=0'),
+            ('np.cov(X, rowvar=False)', 'rowvar=False'),
+            ('PCA(n_components=2)', 'n_components=2'),
+            ('PCA(n_components=1)', 'n_components=1'),
+            ('PCA(n_components=0.95, svd_solver="full")', 'svd_solver="full"'),
+            ('KMeans(n_clusters=2, random_state=42, n_init=10)', 'n_init=10'),
+            ('LogisticRegression(max_iter=1000)', 'max_iter=1000'),
+            ('train_test_split(..., test_size=0.25, stratify=iris.target, random_state=42)', 'test_size=0.25'),
+        )
+        for signature, argument in examples:
+            with self.subTest(signature=signature):
+                matches = [line for line in library.splitlines() if signature in line]
+                self.assertEqual(len(matches), 1, signature)
+                self.assertIn(argument, matches[0])
+                self.assertIn(' | ', matches[0])  # Explanation co-located in API table.
+        self.assertIn('số thực', library)  # dtype=float is explained alongside np.array.
+        code_blocks = '\n'.join(self.blocks)
+        for flag in ('dtype=float', 'axis=0', 'rowvar=False', 'random_state=42', 'n_init=10'):
+            with self.subTest(no_redundant_note=flag):
+                self.assertNotRegex(code_blocks, r'(?m)^\s*#\s*' + re.escape(flag) + r'\s*:')
+
+    def test_english_concepts_have_vietnamese_translation_in_prose(self):
+        core = self.text.split('### 4.4.', 1)[1].split('### 4.5.', 1)[0]
+        self.assertIn('Eigenvector (vector riêng)', core)
+        self.assertIn('Eigenvalue (giá trị riêng)', core)
+        self.assertIn('Covariance (hiệp phương sai)', core)
+        self.assertNotIn('vector (véc-tơ) riêng', core)
+        self.assertIn('Feature (đặc trưng)', self.text)
+        self.assertIn('Matrix (ma trận)', self.text)
+        quiz = self.text.split('## 7. English multiple-choice', 1)[1]
+        self.assertNotIn('feature (đặc trưng)', quiz)  # Preserve English questions.
 
     def test_five_immediate_self_checks_and_advanced_labels(self):
         sections = [
