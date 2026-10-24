@@ -424,7 +424,7 @@ A. `2` — `2`
 
 B. `TypeError` — `TypeError`
 
-C. `TypeError` — `TypeError`
+C. `x in s` — `x in s`
 
 D. No fixed order is guaranteed — Không bảo đảm thứ tự cố định
 
@@ -434,17 +434,17 @@ A. `2` — `2`
 
 B. `TypeError` — `TypeError`
 
-C. `TypeError` — `TypeError`
+C. `x in s` — `x in s`
 
 D. No fixed order is guaranteed — Không bảo đảm thứ tự cố định
 
-**Q15. What does indexing a set as `s[0]` cause? — Dùng `s[0]` để truy cập Set gây gì?**
+**Q15. How do you test membership in a set? — Làm sao kiểm tra một giá trị thuộc Set?**
 
 A. `2` — `2`
 
 B. `TypeError` — `TypeError`
 
-C. `TypeError` — `TypeError`
+C. `x in s` — `x in s`
 
 D. No fixed order is guaranteed — Không bảo đảm thứ tự cố định
 
@@ -454,7 +454,7 @@ A. `2` — `2`
 
 B. `TypeError` — `TypeError`
 
-C. `TypeError` — `TypeError`
+C. `x in s` — `x in s`
 
 D. No fixed order is guaranteed — Không bảo đảm thứ tự cố định
 
@@ -516,7 +516,7 @@ D. `sorted()` — `sorted()`
 | Q12 | **D** | Symmetric difference keeps values present in exactly one set. | Hiệu đối xứng lấy phần tử chỉ có ở đúng một tập. |
 | Q13 | **A** | Duplicate ones collapse to one value. | Hai giá trị 1 trùng nhau chỉ còn một phần tử. |
 | Q14 | **B** | Tuples disallow item assignment. | Tuple không cho phép gán lại phần tử theo chỉ số. |
-| Q15 | **C** | A set is not subscriptable by positional index. | Set không hỗ trợ truy cập bằng chỉ số vị trí. |
+| Q15 | **C** | The `in` operator tests whether a value belongs to a set. | Toán tử `in` kiểm tra giá trị có thuộc Set hay không. |
 | Q16 | **D** | Sets do not promise an iteration or display order. | Set không cam kết thứ tự duyệt hoặc hiển thị cố định. |
 | Q17 | **A** | Ordered coordinates can be packaged as an immutable pair. | Hai tọa độ theo thứ tự có thể lưu bằng Tuple không sửa trực tiếp. |
 | Q18 | **B** | Sets preserve distinct values automatically. | Set tự giữ các giá trị khác nhau. |
