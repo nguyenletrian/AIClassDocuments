@@ -1,6 +1,5 @@
 # PY-43 — Git: quản lý phiên bản và hợp tác trên mã nguồn
 
-*DRAFT · Bài tổng hợp dành cho sinh viên; cần kiểm tra code và môi trường cài đặt trước phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
