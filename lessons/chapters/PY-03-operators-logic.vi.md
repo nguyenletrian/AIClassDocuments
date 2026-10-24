@@ -94,7 +94,7 @@ print(5 & 3)
 
 **Từ vựng trong mục:** **Arithmetic** — số học.
 
-**Tình huống thực tế:** Một cửa hàng cần tính ưu đãi. Dữ liệu hiện có: Giá 250000 đồng giảm 10%. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một cửa hàng giảm giá 10% cho sản phẩm có giá niêm yết 250.000 đồng. Hãy tính số tiền khách hàng phải thanh toán sau giảm giá.
 
 **Vì sao chọn cách này?** Nhân tỷ lệ giảm với giá để tính tiền còn lại.
 
@@ -111,12 +111,12 @@ print(price * (1 - 0.10))
 
 **Từ vựng trong mục:** **Comparison** — so sánh.
 
-**Tình huống thực tế:** Một cửa hàng quy định khách đạt hạng VIP khi gắn bó ít nhất 5 năm và chi tiêu từ 1.000.000 đồng. Khách 5 năm, chi 1200000 đồng. Hãy xác định khách hàng này có đạt hạng VIP hay không.
+**Tình huống thực tế:** Một cửa hàng quy định khách đạt hạng VIP khi gắn bó ít nhất 5 năm và chi tiêu từ 1.000.000 đồng. Một khách hàng đã gắn bó 5 năm và có tổng chi tiêu 1.200.000 đồng. Hãy xác định khách này có đủ điều kiện VIP không.
 
 **Vì sao chọn cách này?** Hai điều kiện đều phải đúng.
 
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình:** kiểm tra `years >= 5` và `spending >= 1000000` → dùng `and` vì phải thỏa cả hai điều kiện → trả về `True` nếu đủ điều kiện, ngược lại `False`.
 
 ```python
 years, spending = 5, 1200000
@@ -128,7 +128,7 @@ print(years >= 5 and spending >= 1000000)
 
 **Từ vựng trong mục:** **Logical** — logic.
 
-**Tình huống thực tế:** Một cửa hàng cần đóng thùng hàng. Dữ liệu hiện có: 23 sản phẩm, 5 sản phẩm/thùng. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Kho hàng cần đóng 23 sản phẩm vào các thùng, mỗi thùng chứa tối đa 5 sản phẩm. Hãy tính số thùng đóng đầy và số sản phẩm còn lại.
 
 **Vì sao chọn cách này?** Chia nguyên đếm thùng đủ và dư đếm món lẻ.
 
