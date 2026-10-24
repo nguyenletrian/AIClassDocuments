@@ -30,59 +30,75 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `X[:,[0,2]]` | Chọn các cột không liền nhau |
 
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Index
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-Địa chỉ phần tử của mảng. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Chỉ số NumPy bắt đầu từ 0; với bảng hai chiều, `a[row, col]` lấy ô theo hàng và cột.
 
 ```python
 import numpy as np
 print(np.array([8,9])[0])
 ```
 
-**Tự kiểm tra:** Index có nghĩa gì? **Đáp án:** Địa chỉ phần tử của mảng.
+**Kết quả khi chạy:**
+
+```text
+8
+```
 
 ### 4.2. Slice
 
 **Từ vựng trong mục:** **Slice** — cắt lát.
 
-Lấy một đoạn theo start:stop. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Cắt mảng bằng `[start:stop]` lấy các vị trí từ start tới trước stop.
 
 ```python
 import numpy as np
 print(np.arange(5)[1:3])
 ```
 
-**Tự kiểm tra:** Slice có nghĩa gì? **Đáp án:** Lấy một đoạn theo start:stop.
+**Kết quả khi chạy:**
+
+```text
+[1 2]
+```
 
 ### 4.3. Boolean mask
 
 **Từ vựng trong mục:** **Boolean mask** — mặt nạ logic.
 
-Mảng True/False để lọc phần tử. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Mặt nạ Boolean lọc những phần tử hoặc hàng thỏa điều kiện so sánh.
 
 ```python
 import numpy as np
 x=np.array([4,7,9]);print(x[x>=7])
 ```
 
-**Tự kiểm tra:** Boolean mask có nghĩa gì? **Đáp án:** Mảng True/False để lọc phần tử.
+**Kết quả khi chạy:**
+
+```text
+[7 9]
+```
 
 ### 4.4. Fancy indexing
 
 **Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao.
 
-Chọn nhiều vị trí theo danh sách chỉ số. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Fancy indexing dùng danh sách chỉ số để chọn nhiều vị trí không liền nhau.
 
 ```python
 import numpy as np
 x=np.array([3,5,7]);print(x[[0,2]])
 ```
 
-**Tự kiểm tra:** Fancy indexing có nghĩa gì? **Đáp án:** Chọn nhiều vị trí theo danh sách chỉ số.
+**Kết quả khi chạy:**
+
+```text
+[3 7]
+```
 
 ## 5. Năm tình huống thực tế
 
@@ -90,12 +106,11 @@ x=np.array([3,5,7]);print(x[[0,2]])
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc tra điểm một sinh viên. Thông tin đầu vào: 3 học sinh × 2 môn, điểm thang 10. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Trung tâm lưu điểm ba học viên, hai môn: `(8,9)`, `(6,7)`, `(9,8)` trên thang 10. Lấy điểm môn thứ nhất của học viên thứ hai.
 
-**Vì sao chọn cách giải này?** Lấy đúng hàng sinh viên và cột môn học.
+**Vì sao chọn cách giải này?** Chỉ số hàng 1, cột 0 trỏ vào giá trị 6.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -103,17 +118,23 @@ scores=np.array([[8,9],[6,7],[9,8]])
 print(scores[1,0])
 ```
 
+**Kết quả khi chạy:**
+
+```text
+6
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 2 — Báo danh sách điểm cao
 
 **Từ vựng trong mục:** **Slice** — cắt lát.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc báo danh sách điểm cao. Thông tin đầu vào: 3 học sinh × 2 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Trung tâm có bảng điểm ba học viên như trên và muốn xem người đạt ít nhất 8 điểm ở môn thứ nhất. In những hàng có điểm môn thứ nhất từ 8 trở lên.
 
-**Vì sao chọn cách giải này?** Mask lọc hàng điểm Python>=8.
+**Vì sao chọn cách giải này?** `X[:,0] >= 8` tạo mặt nạ theo cột đầu, sau đó lọc cả hàng.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -121,17 +142,24 @@ X=np.array([[8,9],[6,7],[9,8]])
 print(X[X[:,0]>=8])
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[8 9]
+ [9 8]]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 3 — Lấy hai môn cần kiểm
 
 **Từ vựng trong mục:** **Boolean mask** — mặt nạ logic.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc lấy hai môn cần kiểm. Thông tin đầu vào: 2 sinh viên × 3 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Bảng điểm hai học viên gồm ba môn: `(8,7,9)` và `(6,5,8)`. Chỉ cần kiểm tra môn thứ nhất và thứ ba. In hai cột môn được chọn.
 
-**Vì sao chọn cách giải này?** Fancy indexing chọn cột không cần liền nhau.
+**Vì sao chọn cách giải này?** `X[:,[0,2]]` lấy mọi hàng và hai cột ở chỉ số 0, 2.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -139,17 +167,24 @@ X=np.array([[8,7,9],[6,5,8]])
 print(X[:,[0,2]])
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[8 9]
+ [6 8]]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 4 — Lấy ba khách đầu tiên
 
 **Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc lấy ba khách đầu tiên. Thông tin đầu vào: 5 khách với điểm chi tiêu. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Năm khách có mức chi tiêu lần lượt 100, 200, 50, 300, 120 nghìn đồng. In ba mức chi tiêu đầu tiên.
 
-**Vì sao chọn cách giải này?** Slice theo chiều hàng để xem mẫu báo cáo.
+**Vì sao chọn cách giải này?** `[:3]` cắt ba phần tử đầu, không lấy phần tử thứ tư.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -157,17 +192,23 @@ spend=np.array([100,200,50,300,120])
 print(spend[:3])
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[100 200  50]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 5 — Sửa số đo bất thường
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc sửa số đo bất thường. Thông tin đầu vào: 4 nhiệt độ có một giá trị âm lỗi. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Cảm biến ghi các số đo `[20,-1,23,24]` °C, trong đó -1 là mã báo lỗi. Tạo bản sao và thay mã lỗi âm bằng 0 nhưng giữ nguyên dữ liệu ban đầu.
 
-**Vì sao chọn cách giải này?** Thao tác mask trên bản sao để không đổi mảng gốc.
+**Vì sao chọn cách giải này?** `copy()` tránh sửa mảng gốc; điều kiện `<0` chỉ chọn giá trị âm.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -176,6 +217,13 @@ clean=values.copy();clean[clean<0]=0
 print(values,clean)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[20 -1 23 24] [20  0 23 24]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ## 6. Sai lầm thường gặp
 
