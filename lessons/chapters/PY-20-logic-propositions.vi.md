@@ -1,10 +1,6 @@
 # PY-20 — Logic mệnh đề, bảng chân trị và quy tắc đếm
 
-*DRAFT · Dữ liệu giả lập · Cần kiểm chứng code trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
-
-**Từ vựng trong mục:** **Proposition** — mệnh đề; **Truth table** — bảng chân trị.
 
 `Boolean → logic mệnh đề → tổ hợp → xác suất`
 
@@ -21,8 +17,6 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 
 ## 3. Hàm Python và tham số
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / cú pháp | Vì sao dùng |
 |---|---|
 | `and/or/not` | Ghép điều kiện, chọn ít nhất một hoặc phủ định |
@@ -34,8 +28,6 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 
 ### 4.1. Proposition
 
-**Từ vựng trong mục:** **Proposition** — mệnh đề.
-
 Câu có giá trị True hoặc False. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
@@ -45,8 +37,6 @@ print(3>1)
 **Tự kiểm tra nhanh:** Proposition là gì? **Đáp án:** Câu có giá trị True hoặc False.
 
 ### 4.2. Truth table
-
-**Từ vựng trong mục:** **Truth table** — bảng chân trị.
 
 Liệt kê kết quả ứng với mọi tổ hợp logic. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
@@ -59,8 +49,6 @@ for p in [True,False]:
 
 ### 4.3. Implication
 
-**Từ vựng trong mục:** **Implication** — kéo theo.
-
 Quan hệ P⇒Q tương đương (not P) or Q. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
@@ -71,8 +59,6 @@ print((not p) or q)
 **Tự kiểm tra nhanh:** Implication là gì? **Đáp án:** Quan hệ P⇒Q tương đương (not P) or Q.
 
 ### 4.4. Counting
-
-**Từ vựng trong mục:** **Counting** — nguyên lý đếm.
 
 Đếm số khả năng khi ghép lựa chọn. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
@@ -86,26 +72,18 @@ print(3*4)
 
 ### Tình huống 1 — Điều kiện đăng nhập
 
-**Từ vựng trong mục:** **Proposition** — mệnh đề.
-
 **Vấn đề:** Điều kiện đăng nhập.
 
 **Vì sao chọn phương án này?** Dùng and để đòi cả đăng nhập và xác minh. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 **Dữ liệu:** Hai cờ Boolean. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 logged_in,verified=True,False
 print(logged_in and verified)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 2 — Bảng chân trị
-
-**Từ vựng trong mục:** **Truth table** — bảng chân trị.
 
 **Vấn đề:** Bảng chân trị.
 
@@ -113,19 +91,13 @@ print(logged_in and verified)
 
 **Dữ liệu:** P và Q nhận True/False. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 for p in [True,False]:
     for q in [True,False]:
         print(p,q,p and q,p or q)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 3 — Kiểm quy tắc kéo theo
-
-**Từ vựng trong mục:** **Implication** — kéo theo.
 
 **Vấn đề:** Kiểm quy tắc kéo theo.
 
@@ -133,18 +105,12 @@ for p in [True,False]:
 
 **Dữ liệu:** P đúng, Q sai. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 p,q=True,False
 print((not p) or q)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 4 — Cấu hình áo
-
-**Từ vựng trong mục:** **Counting** — nguyên lý đếm.
 
 **Vấn đề:** Cấu hình áo.
 
@@ -152,17 +118,11 @@ print((not p) or q)
 
 **Dữ liệu:** 3 màu và 4 cỡ áo. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 print(3*4)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 5 — Ghép các tùy chọn
-
-**Từ vựng trong mục:** **Proposition** — mệnh đề.
 
 **Vấn đề:** Ghép các tùy chọn.
 
@@ -170,22 +130,16 @@ print(3*4)
 
 **Dữ liệu:** 2 màu và 2 size. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 from itertools import product
 print(list(product(["red","blue"],["S","M"])))
 ```
-
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
 
 ## 6. Các lỗi dễ mắc
 
 Cần phân biệt khi nào thứ tự quan trọng, khi nào phần tử trùng được tính lại, và khi nào dữ liệu thật không có đủ điều kiện như ví dụ. Xem kỹ kiểu dữ liệu và đầu vào trống.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What best describes Proposition? — Mô tả nào đúng với Proposition?**
@@ -431,7 +385,3 @@ D. Ignore edge cases — Bỏ qua trường hợp biên
 | Q18 | **A** | The data are 2 màu và 2 size | 2 màu và 2 size |
 | Q19 | **D** | Meaning of rows, columns and units | Ý nghĩa hàng, cột và đơn vị |
 | Q20 | **C** | Check the result and limitations | Kiểm tra kết quả và giới hạn |
-
-## 8. Nối sang bài tiếp
-
-`Boolean → logic mệnh đề → tổ hợp → xác suất`.
