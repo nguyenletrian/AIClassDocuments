@@ -18,410 +18,464 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 | Normalization | chuẩn hóa văn bản | Đưa chữ về dạng phù hợp để so khớp |
 | Jaccard | tương đồng Jaccard | Tỷ lệ giao trên hợp của hai tập token |
 
-## 3. Thư viện và hàm Python
+## 3. Hàm và công thức quan trọng
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
-| Hàm / cách viết | Khi nào dùng, ý nghĩa tham số |
+| Cú pháp | Cách dùng |
 |---|---|
-| `str.lower()/strip()` | Chuẩn hóa chữ hoa và khoảng trắng đơn giản |
-| `str.split()` | Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ |
-| `set(tokens)` | Lọc trùng khi so tập từ vựng |
-| `len(a&b)/len(a` | b) |
+| `text.strip().lower()` | Bỏ khoảng trắng hai đầu rồi chuyển chữ thường |
+| `text.split()` | Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ |
+| `set(tokens)` | Lấy token khác nhau, bỏ lượt lặp |
+| `len(a & b) / len(a | b)` | Jaccard khi hợp khác rỗng; kiểm tra mẫu số trước khi chia |
 
-## 4. Khái niệm với ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Token
+**Mạch kiến thức:** Một câu văn trước tiên được chuẩn hóa rồi tách thành token. Các token khác nhau tạo vocabulary; từ hai vocabulary, Jaccard đo mức trùng nhau theo mặt chữ. Cần hiểu sự khác nhau giữa tách từ đơn giản và hiểu ngữ nghĩa.
 
-**Từ vựng trong mục:** **Token** — đơn vị từ.
+### 4.1. Token — Đơn vị nhỏ sau quy tắc tách
 
-Một phần văn bản sau khi tách theo quy tắc. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+**Từ vựng:** **Token**.
 
-```python
-print('AI helps'.split())
-```
-
-**Tự kiểm tra:** Token là gì? **Đáp án:** Một phần văn bản sau khi tách theo quy tắc.
-
-### 4.2. Vocabulary
-
-**Từ vựng trong mục:** **Vocabulary** — từ vựng.
-
-Tập token khác nhau trong dữ liệu. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+Trong xử lý ngôn ngữ tự nhiên (NLP), **token** là đơn vị văn bản sau một bước tách: có thể là từ, dấu câu, hoặc phần nhỏ của từ. Với câu tiếng Anh đơn giản `AI helps Python`, `split()` theo khoảng trắng tạo ba token. Đây **không phải** bộ tách từ tiếng Việt chuẩn: một từ ghép tiếng Việt có thể gồm nhiều tiếng và cần tokenizer chuyên biệt.
 
 ```python
-print(set('AI Python AI'.split()))
-```
-
-**Tự kiểm tra:** Vocabulary là gì? **Đáp án:** Tập token khác nhau trong dữ liệu.
-
-### 4.3. Normalization
-
-**Từ vựng trong mục:** **Normalization** — chuẩn hóa văn bản.
-
-Đưa chữ về dạng phù hợp để so khớp. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
-
-```python
-print('  AI  '.strip().lower())
-```
-
-**Tự kiểm tra:** Normalization là gì? **Đáp án:** Đưa chữ về dạng phù hợp để so khớp.
-
-### 4.4. Jaccard
-
-**Từ vựng trong mục:** **Jaccard** — tương đồng Jaccard.
-
-Tỷ lệ giao trên hợp của hai tập token. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
-
-```python
-a={'ai','python'};b={'ai'}
-print(len(a&b)/len(a
-```
-
-**Tự kiểm tra:** Jaccard là gì? **Đáp án:** Tỷ lệ giao trên hợp của hai tập token.
-
-## 5. Năm tình huống thực tế
-
-### Tình huống 1 — Chuẩn hóa câu tìm kiếm
-
-**Từ vựng trong mục:** **Token** — đơn vị từ.
-
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần chuẩn hóa câu tìm kiếm cho công việc của mình. Dữ liệu đầu vào: Chuỗi '  Machine LEARNING '. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Chữ hoa và khoảng trắng làm tìm kiếm không khớp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
-
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
-```python
-text="  Machine LEARNING "
-print(text.strip().lower())
-```
-
-
-### Tình huống 2 — Tách từ câu đơn giản
-
-**Từ vựng trong mục:** **Vocabulary** — từ vựng.
-
-**Tình huống thực tế:** Một doanh nghiệp cần tách từ câu đơn giản cho công việc của mình. Dữ liệu đầu vào: Câu tiếng Anh 'AI helps Python'. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
-
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
-```python
-sentence="AI helps Python"
+sentence = 'AI helps Python'
 print(sentence.lower().split())
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 3 — Lập kho từ vựng
+```text
+['ai', 'helps', 'python']
+```
 
-**Từ vựng trong mục:** **Normalization** — chuẩn hóa văn bản.
+Ba token chữ thường sau tách theo khoảng trắng; dấu câu chưa được xử lý.
 
-**Tình huống thực tế:** Một doanh nghiệp cần lập kho từ vựng cho công việc của mình. Dữ liệu đầu vào: Hai câu ngắn tiếng Anh. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### 4.2. Vocabulary — Tập token duy nhất
 
-**Vì sao chọn cách này?** Set lọc token lặp để đếm từ duy nhất; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Từ vựng:** **Vocabulary**.
 
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**Vocabulary** là tập các token **khác nhau** quan sát được trong kho văn bản. Hai câu `AI uses data` và `AI uses Python` có token chung `AI`, `uses`; dùng Set chỉ giữ mỗi từ một lần. Set giúp đếm từ duy nhất nhưng không giữ số lần xuất hiện, khác Bag-of-Words. In qua `sorted()` để không phụ thuộc thứ tự Set.
 
 ```python
-sentences=["AI uses data","AI uses Python"]
-words=set(" ".join(sentences).lower().split())
+sentences = ['AI uses data', 'AI uses Python']
+tokens = ' '.join(sentences).lower().split()
+print(sorted(set(tokens)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+['ai', 'data', 'python', 'uses']
+```
+
+Kho từ vựng có bốn token khác nhau; `ai` và `uses` không bị đếm hai lần.
+
+### 4.3. Normalization — Chuẩn hóa trước khi so từ
+
+**Từ vựng:** **Normalization**.
+
+**Normalization** đưa văn bản về một quy ước nhất quán: bỏ khoảng trắng hai đầu, chuyển chữ về thường, đôi khi xử lý Unicode và dấu câu. Ví dụ `  Machine LEARNING ` chuẩn hóa thành `machine learning`. Nếu không chuẩn hóa, `AI` và `ai` có thể bị xem là hai token; tuy nhiên xóa dấu tiếng Việt tùy tiện có thể làm mất nghĩa.
+
+```python
+text = '  Machine LEARNING '
+print(text.strip().lower())
+```
+
+**Kết quả khi chạy:**
+
+```text
+machine learning
+```
+
+Khoảng trắng ở đầu/cuối bị bỏ, chữ hoa chuyển thành chữ thường.
+
+### 4.4. Jaccard — Tỷ lệ token chung so với tất cả token
+
+**Từ vựng:** **Jaccard similarity**.
+
+**Jaccard** đo độ giống của hai **tập token**: `J(A,B)=|A∩B|/|A∪B|` nếu hợp khác rỗng. Câu A `python for ai` có ba token; câu B `python and sql` cũng ba token. Giao chỉ có `python` (1 phần tử), hợp có năm từ, nên J=0.2. Jaccard Set không tính tần suất và không hiểu nghĩa tương đương của từ; với hai tập rỗng cần chọn quy ước riêng để tránh chia 0.
+
+```python
+a = set('python for ai'.split())
+b = set('python and sql'.split())
+print(round(len(a & b) / len(a | b), 2))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.2
+```
+
+Hai tài liệu chung một trên năm token khác nhau; độ giống tập hợp 20%.
+
+## 5. Năm tình huống ứng dụng
+
+### Tình huống 1 — Chuẩn hóa từ khóa tìm kiếm
+
+**Tình huống thực tế:** Thanh tìm kiếm nhận chuỗi `  Machine LEARNING ` từ người dùng. Cần bỏ khoảng trắng hai đầu và đồng nhất chữ thường trước khi so khớp đơn giản.
+
+**Vì sao chọn cách giải này?** `strip().lower()` xử lý đúng hai thay đổi đang cần, không tự xóa dấu hoặc ký tự khác.
+
+**Quy trình giải:**
+
+1. Lưu chuỗi gốc.
+2. Gọi `strip()` rồi `lower()` theo thứ tự.
+3. In chuỗi chuẩn hóa.
+
+```python
+text = '  Machine LEARNING '
+print(text.strip().lower())
+```
+
+**Kết quả khi chạy:**
+
+```text
+machine learning
+```
+
+Chuỗi được chuẩn hóa để so với từ khóa cùng quy ước.
+
+### Tình huống 2 — Tách token của câu tiếng Anh
+
+**Tình huống thực tế:** Một ứng dụng tìm kiếm thử nghiệm nhận câu `AI helps Python`, chưa có dấu câu. Cần tách thành các token theo khoảng trắng và đưa về chữ thường.
+
+**Vì sao chọn cách giải này?** `lower().split()` đủ cho câu thử đơn giản; công việc NLP thực cần tokenizer theo ngôn ngữ.
+
+**Quy trình giải:**
+
+1. Lưu câu đầu vào.
+2. Chuyển chữ thường rồi tách theo khoảng trắng.
+3. In danh sách token theo thứ tự xuất hiện.
+
+```python
+sentence = 'AI helps Python'
+print(sentence.lower().split())
+```
+
+**Kết quả khi chạy:**
+
+```text
+['ai', 'helps', 'python']
+```
+
+Ba token được tạo; cách làm chưa giải quyết từ ghép tiếng Việt hay dấu câu.
+
+### Tình huống 3 — Tạo kho từ vựng từ hai tài liệu
+
+**Tình huống thực tế:** Hai đoạn `AI uses data`, `AI uses Python` có token lặp. Bộ phận tìm kiếm cần tập các từ khác nhau để xây dựng danh sách tra cứu.
+
+**Vì sao chọn cách giải này?** Set bỏ trùng; sắp xếp khi in giúp học viên kiểm tra kết quả dễ.
+
+**Quy trình giải:**
+
+1. Ghép hai câu bằng khoảng trắng.
+2. Chuyển chữ thường, tách và đưa vào Set.
+3. Sắp thứ tự token rồi in.
+
+```python
+sentences = ['AI uses data', 'AI uses Python']
+words = set(' '.join(sentences).lower().split())
 print(sorted(words))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 4 — Độ giống hai tài liệu
-
-**Từ vựng trong mục:** **Jaccard** — tương đồng Jaccard.
-
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần độ giống hai tài liệu cho công việc của mình. Dữ liệu đầu vào: Hai văn bản có từ 'python' chung. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Jaccard xét số từ chung không tính tần suất; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
-
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
-```python
-a=set("python for ai".split());b=set("python and sql".split())
-print(len(a&b)/len(a|b))
+```text
+['ai', 'data', 'python', 'uses']
 ```
 
+Vocabulary có bốn từ khác nhau, không đếm số lần xuất hiện.
 
-### Tình huống 5 — Kiểm văn bản không có từ
+### Tình huống 4 — So hai tài liệu bằng Jaccard
 
-**Từ vựng trong mục:** **Token** — đơn vị từ.
+**Tình huống thực tế:** Hai câu có từ chung `python`: A=`python for ai`, B=`python and sql`. Đội tìm kiếm muốn tỷ lệ trùng token khác nhau, chưa cần so ngữ nghĩa.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần kiểm văn bản không có từ cho công việc của mình. Dữ liệu đầu vào: Hai chuỗi rỗng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+**Vì sao chọn cách giải này?** Jaccard của hai Set cho tỷ lệ giao/hợp; phù hợp so trùng từ không xét tần suất.
 
-**Vì sao chọn cách này?** Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Quy trình giải:**
 
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+1. Biến mỗi câu thành Set token.
+2. Tính kích thước giao và hợp; kiểm tra hợp không rỗng.
+3. Chia, làm tròn hai chữ số và in.
 
 ```python
-a=set();b=set()
-score=1.0 if not(a|b) else len(a&b)/len(a|b)
+a = set('python for ai'.split())
+b = set('python and sql'.split())
+print(round(len(a & b) / len(a | b), 2))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.2
+```
+
+Tập từ trùng chiếm một phần năm tất cả từ, Jaccard bằng 0,2.
+
+### Tình huống 5 — Tránh chia cho 0 ở hai văn bản rỗng
+
+**Tình huống thực tế:** Hệ thống có thể nhận hai chuỗi chỉ gồm khoảng trắng. Sau `split()`, cả hai tập token rỗng. Cần quy ước đánh giá giống nhau 100% trong **ứng dụng này** và tránh chia cho 0.
+
+**Vì sao chọn cách giải này?** Kiểm tra hợp rỗng trước khi chia; kết quả 1 cho hai tập rỗng là **quy ước**, không phải công thức Jaccard thông thường.
+
+**Quy trình giải:**
+
+1. Tách hai chuỗi rỗng thành Set.
+2. Nếu hợp rỗng, trả 1.0 theo chính sách này.
+3. Ngược lại chia giao cho hợp và in.
+
+```python
+a = set(' '.split())
+b = set(''.split())
+union = a | b
+score = 1.0 if not union else len(a & b) / len(union)
 print(score)
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Nhầm lẫn thường gặp
+```text
+1.0
+```
 
-- Không nhầm thống kê/tỷ lệ mô phỏng với xác suất dự đoán chắc chắn.
-- Kiểm tra giả định, cỡ mẫu, đơn vị, độ nhạy kết quả và data leakage trước khi ứng dụng AI thật.
+Hai tập rỗng được gán độ giống 1.0 theo quy ước đã công bố.
+
+## 6. Sai lầm thường gặp
+
+- Tách theo khoảng trắng không luôn phân đoạn từ tiếng Việt chính xác; tokenizer phụ thuộc ngôn ngữ và mục tiêu.
+- `lower()` không xóa dấu câu, `strip()` không xóa mọi khoảng trắng giữa câu.
+- Set bỏ trùng nhưng đánh mất thứ tự và tần suất; Jaccard trên Set không hiểu từ đồng nghĩa.
+- Mẫu số của Jaccard là kích thước **hợp**, không phải độ dài một tài liệu.
+- Hai tập rỗng gây phép chia 0/0, cần nêu rõ quy ước ứng dụng.
+- Không so sánh tài liệu khác cách chuẩn hóa, vì khác tiền xử lý sẽ tạo token khác nhau.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Q1. What is a token? — Token là gì?**
 
+A. A unit produced by a text-splitting rule — Đơn vị do quy tắc tách văn bản tạo
 
-**Q1. What is Token? — Khái niệm Token là gì?**
+B. A collection of distinct tokens — Tập các token khác nhau
 
-A. Another concept is Tập token khác nhau trong dữ liệu — Tập token khác nhau trong dữ liệu
+C. Applying consistent text representations — Đưa văn bản về dạng biểu diễn nhất quán
 
-B. It is Một phần văn bản sau khi tách theo quy tắc — Một phần văn bản sau khi tách theo quy tắc
+D. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
 
-C. Another concept is Đưa chữ về dạng phù hợp để so khớp — Đưa chữ về dạng phù hợp để so khớp
+**Q2. What is a vocabulary? — Vocabulary là gì?**
 
-D. Another concept is Tỷ lệ giao trên hợp của hai tập token — Tỷ lệ giao trên hợp của hai tập token
+A. A unit produced by a text-splitting rule — Đơn vị do quy tắc tách văn bản tạo
 
+B. A collection of distinct tokens — Tập các token khác nhau
 
-**Q2. What is Vocabulary? — Khái niệm Vocabulary là gì?**
+C. Applying consistent text representations — Đưa văn bản về dạng biểu diễn nhất quán
 
-A. It is Tập token khác nhau trong dữ liệu — Tập token khác nhau trong dữ liệu
+D. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
 
-B. Another concept is Đưa chữ về dạng phù hợp để so khớp — Đưa chữ về dạng phù hợp để so khớp
+**Q3. What is text normalization? — Chuẩn hóa văn bản là gì?**
 
-C. Another concept is Tỷ lệ giao trên hợp của hai tập token — Tỷ lệ giao trên hợp của hai tập token
+A. A unit produced by a text-splitting rule — Đơn vị do quy tắc tách văn bản tạo
 
-D. Another concept is Một phần văn bản sau khi tách theo quy tắc — Một phần văn bản sau khi tách theo quy tắc
+B. A collection of distinct tokens — Tập các token khác nhau
 
+C. Applying consistent text representations — Đưa văn bản về dạng biểu diễn nhất quán
 
-**Q3. What is Normalization? — Khái niệm Normalization là gì?**
+D. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
 
-A. Another concept is Tỷ lệ giao trên hợp của hai tập token — Tỷ lệ giao trên hợp của hai tập token
+**Q4. What is set-based Jaccard similarity? — Jaccard trên Set là gì?**
 
-B. Another concept is Một phần văn bản sau khi tách theo quy tắc — Một phần văn bản sau khi tách theo quy tắc
+A. A unit produced by a text-splitting rule — Đơn vị do quy tắc tách văn bản tạo
 
-C. Another concept is Tập token khác nhau trong dữ liệu — Tập token khác nhau trong dữ liệu
+B. A collection of distinct tokens — Tập các token khác nhau
 
-D. It is Đưa chữ về dạng phù hợp để so khớp — Đưa chữ về dạng phù hợp để so khớp
+C. Applying consistent text representations — Đưa văn bản về dạng biểu diễn nhất quán
 
+D. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
 
-**Q4. What is Jaccard? — Khái niệm Jaccard là gì?**
+**Q5. What does `str.split()` do without arguments? — `str.split()` không đối số làm gì?**
 
-A. Another concept is Một phần văn bản sau khi tách theo quy tắc — Một phần văn bản sau khi tách theo quy tắc
+A. Splits on runs of whitespace — Tách theo chuỗi khoảng trắng liên tiếp
 
-B. Another concept is Tập token khác nhau trong dữ liệu — Tập token khác nhau trong dữ liệu
+B. Converts letters to lowercase — Chuyển chữ thành chữ thường
 
-C. It is Tỷ lệ giao trên hợp của hai tập token — Tỷ lệ giao trên hợp của hai tập token
+C. Removes leading and trailing whitespace — Bỏ khoảng trắng hai đầu
 
-D. Another concept is Đưa chữ về dạng phù hợp để so khớp — Đưa chữ về dạng phù hợp để so khớp
+D. To deduplicate and display consistently — Để bỏ token trùng và hiển thị ổn định
 
+**Q6. What does `lower()` do? — `lower()` làm gì?**
 
-**Q5. When should str.lower()/strip() be used? — Khi nào nên dùng str.lower()/strip()?**
+A. Splits on runs of whitespace — Tách theo chuỗi khoảng trắng liên tiếp
 
-A. Another operation is for Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ — Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ
+B. Converts letters to lowercase — Chuyển chữ thành chữ thường
 
-B. When you need to Chuẩn hóa chữ hoa và khoảng trắng đơn giản — Chuẩn hóa chữ hoa và khoảng trắng đơn giản
+C. Removes leading and trailing whitespace — Bỏ khoảng trắng hai đầu
 
-C. Another operation is for Lọc trùng khi so tập từ vựng — Lọc trùng khi so tập từ vựng
+D. To deduplicate and display consistently — Để bỏ token trùng và hiển thị ổn định
 
-D. Another operation is for b) — b)
+**Q7. What does `strip()` do? — `strip()` làm gì?**
 
+A. Splits on runs of whitespace — Tách theo chuỗi khoảng trắng liên tiếp
 
-**Q6. When should str.split() be used? — Khi nào nên dùng str.split()?**
+B. Converts letters to lowercase — Chuyển chữ thành chữ thường
 
-A. When you need to Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ — Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ
+C. Removes leading and trailing whitespace — Bỏ khoảng trắng hai đầu
 
-B. Another operation is for Lọc trùng khi so tập từ vựng — Lọc trùng khi so tập từ vựng
+D. To deduplicate and display consistently — Để bỏ token trùng và hiển thị ổn định
 
-C. Another operation is for b) — b)
+**Q8. Why use `sorted(set(tokens))` for examples? — Vì sao dùng `sorted(set(tokens))`?**
 
-D. Another operation is for Chuẩn hóa chữ hoa và khoảng trắng đơn giản — Chuẩn hóa chữ hoa và khoảng trắng đơn giản
+A. Splits on runs of whitespace — Tách theo chuỗi khoảng trắng liên tiếp
 
+B. Converts letters to lowercase — Chuyển chữ thành chữ thường
 
-**Q7. When should set(tokens) be used? — Khi nào nên dùng set(tokens)?**
+C. Removes leading and trailing whitespace — Bỏ khoảng trắng hai đầu
 
-A. Another operation is for b) — b)
+D. To deduplicate and display consistently — Để bỏ token trùng và hiển thị ổn định
 
-B. Another operation is for Chuẩn hóa chữ hoa và khoảng trắng đơn giản — Chuẩn hóa chữ hoa và khoảng trắng đơn giản
+**Q9. What does A & B produce for sets? — A & B trên Set tạo gì?**
 
-C. Another operation is for Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ — Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ
+A. Common tokens — Các token chung
 
-D. When you need to Lọc trùng khi so tập từ vựng — Lọc trùng khi so tập từ vựng
+B. All distinct tokens from either set — Mọi token khác nhau thuộc ít nhất một tập
 
+C. It ignores repeated occurrences — Bỏ qua số lần lặp
 
-**Q8. When should len(a&b)/len(a be used? — Khi nào nên dùng len(a&b)/len(a?**
+D. 1.0 — 1.0
 
-A. Another operation is for Chuẩn hóa chữ hoa và khoảng trắng đơn giản — Chuẩn hóa chữ hoa và khoảng trắng đơn giản
+**Q10. What does A | B produce for sets? — A | B trên Set tạo gì?**
 
-B. Another operation is for Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ — Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ
+A. Common tokens — Các token chung
 
-C. When you need to b) — b)
+B. All distinct tokens from either set — Mọi token khác nhau thuộc ít nhất một tập
 
-D. Another operation is for Lọc trùng khi so tập từ vựng — Lọc trùng khi so tập từ vựng
+C. It ignores repeated occurrences — Bỏ qua số lần lặp
 
+D. 1.0 — 1.0
 
-**Q9. Why is this method used in scenario 1? — Vì sao dùng phương pháp ở tình huống 1?**
+**Q11. How does Set Jaccard treat token frequency? — Jaccard Set xử lý tần suất token ra sao?**
 
-A. split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp — split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp
+A. Common tokens — Các token chung
 
-B. Chữ hoa và khoảng trắng làm tìm kiếm không khớp — Chữ hoa và khoảng trắng làm tìm kiếm không khớp
+B. All distinct tokens from either set — Mọi token khác nhau thuộc ít nhất một tập
 
-C. Set lọc token lặp để đếm từ duy nhất — Set lọc token lặp để đếm từ duy nhất
+C. It ignores repeated occurrences — Bỏ qua số lần lặp
 
-D. Jaccard xét số từ chung không tính tần suất — Jaccard xét số từ chung không tính tần suất
+D. 1.0 — 1.0
 
+**Q12. What happens for identical nonempty token sets? — Hai tập token giống hệt và không rỗng cho Jaccard gì?**
 
-**Q10. Why is this method used in scenario 2? — Vì sao dùng phương pháp ở tình huống 2?**
+A. Common tokens — Các token chung
 
-A. split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp — split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp
+B. All distinct tokens from either set — Mọi token khác nhau thuộc ít nhất một tập
 
-B. Set lọc token lặp để đếm từ duy nhất — Set lọc token lặp để đếm từ duy nhất
+C. It ignores repeated occurrences — Bỏ qua số lần lặp
 
-C. Jaccard xét số từ chung không tính tần suất — Jaccard xét số từ chung không tính tần suất
+D. 1.0 — 1.0
 
-D. Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0 — Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0
+**Q13. What happens for disjoint nonempty token sets? — Hai tập token rời không rỗng cho Jaccard gì?**
 
+A. 0.0 — 0.0
 
-**Q11. Why is this method used in scenario 3? — Vì sao dùng phương pháp ở tình huống 3?**
+B. The formula has zero denominator; choose a convention — Công thức có mẫu số 0; cần quy ước riêng
 
-A. Jaccard xét số từ chung không tính tần suất — Jaccard xét số từ chung không tính tần suất
+C. No, multi-syllable words need more care — Không, từ nhiều tiếng cần xử lý thêm
 
-B. Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0 — Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0
+D. No; punctuation remains — Không, dấu câu vẫn còn
 
-C. Chữ hoa và khoảng trắng làm tìm kiếm không khớp — Chữ hoa và khoảng trắng làm tìm kiếm không khớp
+**Q14. What happens when both sets are empty? — Nếu hai Set đều rỗng thì Jaccard sao?**
 
-D. Set lọc token lặp để đếm từ duy nhất — Set lọc token lặp để đếm từ duy nhất
+A. 0.0 — 0.0
 
+B. The formula has zero denominator; choose a convention — Công thức có mẫu số 0; cần quy ước riêng
 
-**Q12. Why is this method used in scenario 4? — Vì sao dùng phương pháp ở tình huống 4?**
+C. No, multi-syllable words need more care — Không, từ nhiều tiếng cần xử lý thêm
 
-A. Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0 — Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0
+D. No; punctuation remains — Không, dấu câu vẫn còn
 
-B. Chữ hoa và khoảng trắng làm tìm kiếm không khớp — Chữ hoa và khoảng trắng làm tìm kiếm không khớp
+**Q15. Does whitespace splitting correctly segment all Vietnamese words? — split theo khoảng trắng có tách đúng mọi từ tiếng Việt không?**
 
-C. Jaccard xét số từ chung không tính tần suất — Jaccard xét số từ chung không tính tần suất
+A. 0.0 — 0.0
 
-D. split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp — split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp
+B. The formula has zero denominator; choose a convention — Công thức có mẫu số 0; cần quy ước riêng
 
+C. No, multi-syllable words need more care — Không, từ nhiều tiếng cần xử lý thêm
 
-**Q13. Why is this method used in scenario 5? — Vì sao dùng phương pháp ở tình huống 5?**
+D. No; punctuation remains — Không, dấu câu vẫn còn
 
-A. Chữ hoa và khoảng trắng làm tìm kiếm không khớp — Chữ hoa và khoảng trắng làm tìm kiếm không khớp
+**Q16. Can lowercasing alone remove punctuation? — Chỉ lower() có xóa dấu câu không?**
 
-B. Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0 — Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0
+A. 0.0 — 0.0
 
-C. split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp — split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp
+B. The formula has zero denominator; choose a convention — Công thức có mẫu số 0; cần quy ước riêng
 
-D. Set lọc token lặp để đếm từ duy nhất — Set lọc token lặp để đếm từ duy nhất
+C. No, multi-syllable words need more care — Không, từ nhiều tiếng cần xử lý thêm
 
+D. No; punctuation remains — Không, dấu câu vẫn còn
 
-**Q14. Which input describes scenario 1? — Dữ liệu nào thuộc tình huống 1?**
+**Q17. Does Jaccard understand semantic synonyms? — Jaccard theo Set có hiểu từ đồng nghĩa không?**
 
-A. The input is Chuỗi '  Machine LEARNING ' — Chuỗi '  Machine LEARNING '
+A. No, it compares literal token identities — Không, nó so token theo mặt chữ
 
-B. Another input is Câu tiếng Anh 'AI helps Python' — Câu tiếng Anh 'AI helps Python'
+B. Number of distinct tokens in either document — Số token khác nhau ở ít nhất một tài liệu
 
-C. Another input is Hai câu ngắn tiếng Anh — Hai câu ngắn tiếng Anh
+C. Word order and term frequencies — Thứ tự và tần suất từ
 
-D. Another input is Hai văn bản có từ 'python' chung — Hai văn bản có từ 'python' chung
+D. For complex punctuation or multilingual segmentation — Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
 
+**Q18. What does len(A|B) represent? — len(A|B) biểu thị gì?**
 
-**Q15. Which input describes scenario 2? — Dữ liệu nào thuộc tình huống 2?**
+A. No, it compares literal token identities — Không, nó so token theo mặt chữ
 
-A. Another input is Hai câu ngắn tiếng Anh — Hai câu ngắn tiếng Anh
+B. Number of distinct tokens in either document — Số token khác nhau ở ít nhất một tài liệu
 
-B. Another input is Hai văn bản có từ 'python' chung — Hai văn bản có từ 'python' chung
+C. Word order and term frequencies — Thứ tự và tần suất từ
 
-C. Another input is Hai chuỗi rỗng — Hai chuỗi rỗng
+D. For complex punctuation or multilingual segmentation — Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
 
-D. The input is Câu tiếng Anh 'AI helps Python' — Câu tiếng Anh 'AI helps Python'
+**Q19. What is lost when building a vocabulary as a Set? — Tạo vocabulary bằng Set mất thông tin nào?**
 
+A. No, it compares literal token identities — Không, nó so token theo mặt chữ
 
-**Q16. Which input describes scenario 3? — Dữ liệu nào thuộc tình huống 3?**
+B. Number of distinct tokens in either document — Số token khác nhau ở ít nhất một tài liệu
 
-A. Another input is Hai văn bản có từ 'python' chung — Hai văn bản có từ 'python' chung
+C. Word order and term frequencies — Thứ tự và tần suất từ
 
-B. Another input is Hai chuỗi rỗng — Hai chuỗi rỗng
+D. For complex punctuation or multilingual segmentation — Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
 
-C. The input is Hai câu ngắn tiếng Anh — Hai câu ngắn tiếng Anh
+**Q20. When should a specialized tokenizer be considered? — Khi nào nên xem bộ tách từ chuyên biệt?**
 
-D. Another input is Chuỗi '  Machine LEARNING ' — Chuỗi '  Machine LEARNING '
+A. No, it compares literal token identities — Không, nó so token theo mặt chữ
 
+B. Number of distinct tokens in either document — Số token khác nhau ở ít nhất một tài liệu
 
-**Q17. Which input describes scenario 4? — Dữ liệu nào thuộc tình huống 4?**
+C. Word order and term frequencies — Thứ tự và tần suất từ
 
-A. Another input is Hai chuỗi rỗng — Hai chuỗi rỗng
-
-B. The input is Hai văn bản có từ 'python' chung — Hai văn bản có từ 'python' chung
-
-C. Another input is Chuỗi '  Machine LEARNING ' — Chuỗi '  Machine LEARNING '
-
-D. Another input is Câu tiếng Anh 'AI helps Python' — Câu tiếng Anh 'AI helps Python'
-
-
-**Q18. Which input describes scenario 5? — Dữ liệu nào thuộc tình huống 5?**
-
-A. The input is Hai chuỗi rỗng — Hai chuỗi rỗng
-
-B. Another input is Chuỗi '  Machine LEARNING ' — Chuỗi '  Machine LEARNING '
-
-C. Another input is Câu tiếng Anh 'AI helps Python' — Câu tiếng Anh 'AI helps Python'
-
-D. Another input is Hai câu ngắn tiếng Anh — Hai câu ngắn tiếng Anh
-
-
-**Q19. What should be stated before analyzing data? — Cần nêu gì trước khi phân tích dữ liệu?**
-
-A. Only file extensions — Chỉ đuôi file
-
-B. Only terminal colors — Chỉ màu terminal
-
-C. Only number of lines — Chỉ số dòng code
-
-D. Units, sample meaning and assumptions — Đơn vị, ý nghĩa mẫu và giả định
-
-
-**Q20. Why is validating results important? — Vì sao cần kiểm tra kết quả?**
-
-A. One example guarantees AI accuracy — Một ví dụ bảo đảm AI đúng
-
-B. It replaces data collection — Nó thay việc thu thập dữ liệu
-
-C. An example may not generalize — Ví dụ có thể không tổng quát
-
-D. It removes test sets — Nó không cần tập kiểm tra
+D. For complex punctuation or multilingual segmentation — Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Một phần văn bản sau khi tách theo quy tắc | Một phần văn bản sau khi tách theo quy tắc |
-| Q2 | **A** | It is Tập token khác nhau trong dữ liệu | Tập token khác nhau trong dữ liệu |
-| Q3 | **D** | It is Đưa chữ về dạng phù hợp để so khớp | Đưa chữ về dạng phù hợp để so khớp |
-| Q4 | **C** | It is Tỷ lệ giao trên hợp của hai tập token | Tỷ lệ giao trên hợp của hai tập token |
-| Q5 | **B** | When you need to Chuẩn hóa chữ hoa và khoảng trắng đơn giản | Chuẩn hóa chữ hoa và khoảng trắng đơn giản |
-| Q6 | **A** | When you need to Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ | Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ |
-| Q7 | **D** | When you need to Lọc trùng khi so tập từ vựng | Lọc trùng khi so tập từ vựng |
-| Q8 | **C** | When you need to b) | b) |
-| Q9 | **B** | Chữ hoa và khoảng trắng làm tìm kiếm không khớp | Chữ hoa và khoảng trắng làm tìm kiếm không khớp |
-| Q10 | **A** | split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp | split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp |
-| Q11 | **D** | Set lọc token lặp để đếm từ duy nhất | Set lọc token lặp để đếm từ duy nhất |
-| Q12 | **C** | Jaccard xét số từ chung không tính tần suất | Jaccard xét số từ chung không tính tần suất |
-| Q13 | **B** | Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0 | Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0 |
-| Q14 | **A** | The input is Chuỗi '  Machine LEARNING ' | Chuỗi '  Machine LEARNING ' |
-| Q15 | **D** | The input is Câu tiếng Anh 'AI helps Python' | Câu tiếng Anh 'AI helps Python' |
-| Q16 | **C** | The input is Hai câu ngắn tiếng Anh | Hai câu ngắn tiếng Anh |
-| Q17 | **B** | The input is Hai văn bản có từ 'python' chung | Hai văn bản có từ 'python' chung |
-| Q18 | **A** | The input is Hai chuỗi rỗng | Hai chuỗi rỗng |
-| Q19 | **D** | Units, sample meaning and assumptions | Đơn vị, ý nghĩa mẫu và giả định |
-| Q20 | **C** | An example may not generalize | Ví dụ có thể không tổng quát |
+| Q1 | **A** | Tokens may be words, word pieces, or punctuation depending on the tokenizer. The exact unit depends on tokenizer rules, so a token is not always a whole natural-language word. | Token có thể là từ, mảnh từ hoặc dấu câu tùy bộ tách. Đơn vị cụ thể phụ thuộc quy tắc tokenizer; token không nhất thiết là một từ hoàn chỉnh. |
+| Q2 | **B** | Vocabulary deduplicates token identities, unlike a frequency list. It answers which tokens exist, not how many times each occurs in a document. | Tập từ vựng bỏ trùng danh tính token, khác bảng tần suất. Nó trả lời có những token nào, chứ không trả lời mỗi token xuất hiện bao nhiêu lần. |
+| Q3 | **C** | Lowercasing and trimming help match equivalent surface forms. Normalization changes the representation; its rules must remain consistent across compared documents. | Chữ thường và cắt khoảng trắng giúp khớp dạng văn bản. Chuẩn hóa đổi cách biểu diễn; quy tắc phải nhất quán giữa các văn bản đem so. |
+| Q4 | **D** | It measures shared distinct tokens relative to all distinct tokens. One shared token among five distinct tokens gives 1/5, not 1/3 or 1/6. | Nó đo từ khác nhau chung so với tổng số từ khác nhau. Một từ chung trong năm từ khác nhau cho 1/5, không phải lấy độ dài một câu làm mẫu số. |
+| Q5 | **A** | Whitespace splitting does not understand all language word boundaries. This is a parsing rule, not a Vietnamese linguistic word segmentation algorithm. | Tách bằng khoảng trắng không hiểu mọi ranh giới từ. Đây là quy tắc tách chuỗi, không phải thuật toán phân đoạn từ tiếng Việt về mặt ngôn ngữ. |
+| Q6 | **B** | It can align case variants for matching but does not remove punctuation. `lower` changes case but does not remove spaces or split the text into tokens. | Giúp so biến thể chữ hoa/thường nhưng không bỏ dấu câu. `lower` chỉ đổi chữ hoa/thường, không tự xóa khoảng trắng hoặc tách token. |
+| Q7 | **C** | Interior whitespace is not removed by strip. Use `split` or another normalization step for internal whitespace rather than assuming `strip` handles it. | strip không xóa khoảng trắng giữa câu. Muốn xử lý khoảng trắng giữa câu cần `split` hoặc bước khác, không thể chỉ dùng `strip`. |
+| Q8 | **D** | Sets are unordered for display, sorted returns an ordered list. A Set removes duplicates, while `sorted` creates the predictable ordered List for display. | Set không bảo đảm thứ tự; sorted tạo List có thứ tự. Set loại phần tử trùng, còn `sorted` tạo List có thứ tự để in ổn định. |
+| Q9 | **A** | The intersection contains values present in both sets. For A={'ai','python'} and B={'ai'}, the intersection is {'ai'}, not all of A. | Giao chỉ giữ giá trị có ở cả hai tập. Với A={'ai','python'}, B={'ai'}, giao chỉ có 'ai', không chứa toàn bộ A. |
+| Q10 | **B** | The union deduplicates tokens occurring in both. Union includes tokens exclusive to either side as well as their common tokens. | Hợp loại token trùng ở cả hai bên. Hợp gồm từ riêng ở mỗi bên lẫn các từ chung giữa hai bên. |
+| Q11 | **C** | Converting to Set removes counts and word order. Therefore Jaccard on Sets cannot distinguish one occurrence from ten occurrences of the same token. | Chuyển sang Set mất số lần và thứ tự từ. Vì vậy Jaccard trên Set không phân biệt từ xuất hiện một lần với mười lần. |
+| Q12 | **D** | Their intersection equals their union. This is only defined when the shared union is nonempty, which the question explicitly ensures. | Giao bằng hợp nên tỷ số bằng một. Kết quả này áp dụng khi hợp không rỗng, đúng điều kiện đã nêu trong câu hỏi. |
+| Q13 | **A** | There are no shared tokens in the numerator. The numerator is zero while the denominator remains positive. | Không có token chung nên tử số bằng không. Tử số bằng không nhưng mẫu số vẫn dương. |
+| Q14 | **B** | No mathematical quotient is defined for 0/0. A business rule may choose similarity 1 for two empty documents, but another application may choose 0 or 'undefined'. | Phép chia 0/0 không xác định; ứng dụng phải tự quy định. Ứng dụng có thể quy ước hai văn bản rỗng giống nhau 1, nhưng hệ khác có thể chọn 0 hoặc không xác định. |
+| Q15 | **C** | Whitespace-separated syllables need not be distinct lexical words. A Vietnamese word can consist of several whitespace-separated syllables. | Các tiếng ngăn bởi khoảng trắng chưa chắc là từ độc lập. Một từ tiếng Việt có thể gồm nhiều tiếng được ngăn bằng khoảng trắng. |
+| Q16 | **D** | Case conversion and punctuation handling are separate steps. A punctuation mark can remain attached to a word until a separate cleaning/tokenization rule handles it. | Đổi chữ thường và xử lý dấu câu là hai bước khác nhau. Dấu câu có thể còn dính vào token cho đến khi có bước làm sạch/tách riêng. |
+| Q17 | **A** | Different words can mean the same but have zero direct overlap. Jaccard measures overlap in surface forms; semantic similarity needs more linguistic representation. | Hai từ khác chữ dù đồng nghĩa vẫn có thể không chung token. Jaccard đo trùng mặt chữ; muốn so ý nghĩa cần biểu diễn ngôn ngữ phong phú hơn. |
+| Q18 | **B** | The union is the denominator of set Jaccard. For nonempty union this count is the denominator; using len(A) alone would inflate scores. | Hợp là mẫu số của Jaccard trên Set. Khi hợp khác rỗng, đây là mẫu số; chỉ dùng len(A) có thể khiến điểm sai. |
+| Q19 | **C** | Set records membership only, not sequence or counts. Use a frequency Counter or token list if occurrence counts or ordering matters. | Set chỉ lưu sự có mặt, không lưu vị trí hay lượt xuất hiện. Khi cần đếm số lần hoặc giữ thứ tự, hãy dùng Counter hoặc List token. |
+| Q20 | **D** | A language-aware tokenizer can handle boundaries beyond whitespace. Choose a tokenizer appropriate for the language and retain the same rule at indexing and querying. | Tokenizer theo ngôn ngữ xử lý ranh giới vượt quá khoảng trắng. Chọn bộ tách phù hợp ngôn ngữ và dùng thống nhất lúc lập chỉ mục lẫn lúc truy vấn. |
 
 ## 8. Liên hệ bài kế tiếp
 
