@@ -511,26 +511,26 @@ D. reader yields field lists; DictReader uses column keys — reader trả danh 
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | I/O stands for input/output; files can receive and provide data.~I/O là nhập/xuất; tệp có thể là nơi nhận và cung cấp dữ liệu. | undefined |
-| Q2 | **B** | Path identifies where a file or directory is located.~Đường dẫn cho biết tệp hoặc thư mục nằm ở đâu. | undefined |
-| Q3 | **C** | read_text returns the file's text contents, given a suitable encoding.~read_text trả về nội dung chữ của tệp với mã hóa phù hợp. | undefined |
-| Q4 | **D** | write_text writes the supplied text and replaces prior contents by default.~write_text ghi văn bản và mặc định thay nội dung cũ. | undefined |
-| Q5 | **A** | Explicit UTF-8 helps preserve Vietnamese and other Unicode characters.~Chỉ rõ UTF-8 giúp lưu và đọc đúng tiếng Việt và ký tự Unicode. | undefined |
-| Q6 | **B** | CSV stores tabular records as text, often with a header row.~CSV biểu diễn bản ghi dạng bảng bằng văn bản, thường có hàng tiêu đề. | undefined |
-| Q7 | **C** | DictReader commonly takes keys from the header fields.~DictReader thường lấy tên khóa từ hàng tiêu đề CSV. | undefined |
-| Q8 | **D** | CSV is text, so numeric-looking cells must be converted explicitly.~CSV là văn bản nên ô trông giống số vẫn cần chuyển kiểu rõ ràng. | undefined |
-| Q9 | **A** | writeheader emits the field names defined for the writer.~writeheader ghi các tên trường đã cấu hình cho bộ ghi. | undefined |
-| Q10 | **B** | A comma inside a quoted CSV field is data, not a separator.~Dấu phẩy trong một trường CSV có dấu nháy là dữ liệu, không phải dấu tách trường. | undefined |
-| Q11 | **C** | Exceptions report exceptional execution conditions and may be handled.~Ngoại lệ báo trạng thái bất thường khi chạy và có thể được xử lý. | undefined |
-| Q12 | **D** | The string is not a valid integer representation.~Chuỗi abc không phải biểu diễn số nguyên hợp lệ. | undefined |
-| Q13 | **A** | A specific exception handler does not indiscriminately swallow other errors.~Bắt đúng loại ValueError tránh che mất các lỗi khác không liên quan. | undefined |
-| Q14 | **B** | The missing path raises FileNotFoundError on file access.~Truy cập một tệp không tồn tại thường phát sinh FileNotFoundError. | undefined |
-| Q15 | **C** | The context manager closes the file even if an exception occurs inside.~Trình quản lý ngữ cảnh đóng file kể cả khi có ngoại lệ trong khối. | undefined |
-| Q16 | **D** | StringIO lets text readers and writers work without a physical file.~StringIO cho phép xử lý văn bản như file mà không cần tạo tệp trên đĩa. | undefined |
-| Q17 | **A** | Mode w truncates existing content, while a appends new data.~Chế độ w cắt nội dung cũ, còn a bổ sung cuối tệp. | undefined |
-| Q18 | **B** | Catch errors that the code intentionally knows how to handle.~Chỉ nên bắt những loại lỗi chương trình có cách xử lý cụ thể. | undefined |
-| Q19 | **C** | The end argument controls what print appends after its contents.~Tham số end điều khiển ký tự được print thêm vào cuối nội dung. | undefined |
-| Q20 | **D** | DictReader makes column-name lookups easier than positional lists.~DictReader giúp tra cứu theo tên cột thay vì chỉ theo vị trí. | undefined |
+| Q1 | **A** | I/O stands for input/output; files can receive and provide data. | I/O là nhập/xuất; tệp có thể là nơi nhận và cung cấp dữ liệu. |
+| Q2 | **B** | Path identifies where a file or directory is located. | Đường dẫn cho biết tệp hoặc thư mục nằm ở đâu. |
+| Q3 | **C** | read_text returns the file's text contents, given a suitable encoding. | read_text trả về nội dung chữ của tệp với mã hóa phù hợp. |
+| Q4 | **D** | write_text writes the supplied text and replaces prior contents by default. | write_text ghi văn bản và mặc định thay nội dung cũ. |
+| Q5 | **A** | Explicit UTF-8 helps preserve Vietnamese and other Unicode characters. | Chỉ rõ UTF-8 giúp lưu và đọc đúng tiếng Việt và ký tự Unicode. |
+| Q6 | **B** | CSV stores tabular records as text, often with a header row. | CSV biểu diễn bản ghi dạng bảng bằng văn bản, thường có hàng tiêu đề. |
+| Q7 | **C** | DictReader commonly takes keys from the header fields. | DictReader thường lấy tên khóa từ hàng tiêu đề CSV. |
+| Q8 | **D** | CSV is text, so numeric-looking cells must be converted explicitly. | CSV là văn bản nên ô trông giống số vẫn cần chuyển kiểu rõ ràng. |
+| Q9 | **A** | writeheader emits the field names defined for the writer. | writeheader ghi các tên trường đã cấu hình cho bộ ghi. |
+| Q10 | **B** | A comma inside a quoted CSV field is data, not a separator. | Dấu phẩy trong một trường CSV có dấu nháy là dữ liệu, không phải dấu tách trường. |
+| Q11 | **C** | Exceptions report exceptional execution conditions and may be handled. | Ngoại lệ báo trạng thái bất thường khi chạy và có thể được xử lý. |
+| Q12 | **D** | The string is not a valid integer representation. | Chuỗi abc không phải biểu diễn số nguyên hợp lệ. |
+| Q13 | **A** | A specific exception handler does not indiscriminately swallow other errors. | Bắt đúng loại ValueError tránh che mất các lỗi khác không liên quan. |
+| Q14 | **B** | The missing path raises FileNotFoundError on file access. | Truy cập một tệp không tồn tại thường phát sinh FileNotFoundError. |
+| Q15 | **C** | The context manager closes the file even if an exception occurs inside. | Trình quản lý ngữ cảnh đóng file kể cả khi có ngoại lệ trong khối. |
+| Q16 | **D** | StringIO lets text readers and writers work without a physical file. | StringIO cho phép xử lý văn bản như file mà không cần tạo tệp trên đĩa. |
+| Q17 | **A** | Mode w truncates existing content, while a appends new data. | Chế độ w cắt nội dung cũ, còn a bổ sung cuối tệp. |
+| Q18 | **B** | Catch errors that the code intentionally knows how to handle. | Chỉ nên bắt những loại lỗi chương trình có cách xử lý cụ thể. |
+| Q19 | **C** | The end argument controls what print appends after its contents. | Tham số end điều khiển ký tự được print thêm vào cuối nội dung. |
+| Q20 | **D** | DictReader makes column-name lookups easier than positional lists. | DictReader giúp tra cứu theo tên cột thay vì chỉ theo vị trí. |
 
 ## 8. Nối sang bài tiếp theo
 
