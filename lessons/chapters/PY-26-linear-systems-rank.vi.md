@@ -35,7 +35,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 **Từ vựng trong mục:** **Linear system** — hệ tuyến tính.
 
-Nhiều phương trình chứa cùng các ẩn số. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Một **hệ phương trình tuyến tính** gồm nhiều phương trình bậc nhất dùng chung các ẩn cần tìm. Ví dụ, cửa hàng chưa biết giá hai sản phẩm là `x` và `y` (nghìn đồng). Mua mỗi loại một món hết 5 nghìn đồng nên `x + y = 5`; mua hai món loại thứ nhất và một món loại thứ hai hết 8 nghìn đồng nên `2x + y = 8`. Hai phương trình phải cùng đúng. Viết gọn thành `A @ [x, y] = b`, với `A = [[1, 1], [2, 1]]` và `b = [5, 8]`. **Mỗi hàng của A là một giao dịch/phương trình; mỗi cột tương ứng số lượng sản phẩm x hoặc y; mỗi phần tử là hệ số của ẩn tương ứng.** Mảng `b` chứa tổng tiền từng giao dịch theo nghìn đồng. Hàm `solve()` tìm được `x=3` và `y=2` nghìn đồng.
 
 ```python
 import numpy as np
@@ -48,13 +48,11 @@ print(np.linalg.solve([[1,1],[2,1]],[5,8]))
 [3. 2.]
 ```
 
-**Tự kiểm tra:** Linear system có nghĩa gì? **Đáp án:** Nhiều phương trình chứa cùng các ẩn số.
-
 ### 4.2. Rank
 
 **Từ vựng trong mục:** **Rank** — hạng ma trận.
 
-Số hàng/cột độc lập tuyến tính. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+**Rank (hạng ma trận)** là số hàng hoặc cột độc lập tuyến tính tối đa: không thể tạo một hàng độc lập bằng cách nhân/cộng các hàng còn lại. Chẳng hạn `[[1, 2], [2, 4]]` có hàng thứ hai bằng hai lần hàng đầu, nên chỉ cung cấp một thông tin độc lập và có rank bằng `1`, không phải `2`. Với hệ hai ẩn, thiếu phương trình độc lập có thể khiến ta không xác định được một nghiệm duy nhất. Trong ví dụ giá hàng ở mục 4.1, hai hàng `[1, 1]` và `[2, 1]` không là bội của nhau nên đủ hai điều kiện độc lập.
 
 ```python
 import numpy as np
@@ -67,13 +65,11 @@ print(np.linalg.matrix_rank([[1,2],[2,4]]))
 1
 ```
 
-**Tự kiểm tra:** Rank có nghĩa gì? **Đáp án:** Số hàng/cột độc lập tuyến tính.
-
 ### 4.3. Coefficient matrix
 
 **Từ vựng trong mục:** **Coefficient matrix** — ma trận hệ số.
 
-Các hệ số của ẩn trong Ax=b. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+**Ma trận hệ số** gom các hệ số đứng trước các ẩn vào một bảng số. Ở bài toán giá hai sản phẩm, `A = [[1, 1], [2, 1]]` có kích thước `2 × 2`: **hàng 0** ứng với giao dịch một món mỗi loại, **hàng 1** ứng với giao dịch hai món loại x và một món loại y; **cột 0** là số lượng loại x, **cột 1** là số lượng loại y. Vector ẩn `[x, y]` có hai phần tử là giá mỗi loại, đơn vị nghìn đồng; vector vế phải `[5, 8]` là tổng tiền hai giao dịch. Phép nhân `A @ [x, y]` tái tạo hai tổng tiền.
 
 ```python
 import numpy as np
@@ -87,13 +83,11 @@ print(np.array([[1,1],[2,1]]))
  [2 1]]
 ```
 
-**Tự kiểm tra:** Coefficient matrix có nghĩa gì? **Đáp án:** Các hệ số của ẩn trong Ax=b.
-
 ### 4.4. Residual
 
 **Từ vựng trong mục:** **Residual** — sai số dư.
 
-Độ sai khác giữa dự đoán Ax và b. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+**Residual (sai số dư)** là hiệu giữa giá trị tính từ nghiệm và giá trị quan sát: `r = A @ x - b`. Nếu mọi phương trình được thỏa đúng thì residual bằng 0 (hoặc gần 0 do sai số tính toán). Ví dụ đơn giản trong code dưới dùng ma trận đơn vị `A = [[1, 0], [0, 1]]`, nghiệm thử `[2, 3]` và vế phải `[2, 3]`, nên residual là `[0, 0]`. Trong bài toán giá hàng ở trên, khi `x=3`, `y=2` thì hai tổng tiền tính lại là `[5, 8]`, sai số dư cũng bằng 0.
 
 ```python
 import numpy as np
@@ -108,8 +102,6 @@ print(A@x-b)
 ```text
 [0. 0.]
 ```
-
-**Tự kiểm tra:** Residual có nghĩa gì? **Đáp án:** Độ sai khác giữa dự đoán Ax và b.
 
 ## 5. Năm tình huống ứng dụng
 
