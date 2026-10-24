@@ -29,405 +29,473 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 | `np.mean(samples,axis=1)` | Tính trung bình từng lần lấy mẫu |
 | `s / np.sqrt(n)` | Ước lượng SE của mean từ std mẫu s |
 
-## 4. Khái niệm với ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Population
+**Mạch kiến thức:** Tổng thể là nhóm cần kết luận, mẫu là những quan sát thực sự lấy. Lặp lấy mẫu sinh ra nhiều trung bình mẫu; CLT giải thích xu hướng phân phối của chúng, còn sai số chuẩn đo mức dao động của thống kê giữa các mẫu.
 
-**Từ vựng trong mục:** **Population** — tổng thể.
+### 4.1. Population — Toàn bộ nhóm cần nghiên cứu
 
-Toàn bộ đối tượng cần nghiên cứu. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+**Từ vựng:** **Population** — tổng thể; **Unit** — đơn vị quan sát.
+
+**Tổng thể** là toàn bộ các đối tượng mà ta muốn kết luận, như 100 hóa đơn của một cửa hàng trong một ngày. Mỗi hóa đơn là **một đơn vị quan sát**; các cột có thể là giá trị, thời gian, trạng thái giao. Nếu chỉ đo 5 hóa đơn, kết luận không tự mở rộng thành 100 hóa đơn mà không xem cách chọn mẫu. Trong ví dụ, tổng thể gồm đúng 100 mã 0–99, nên `len` bằng 100.
 
 ```python
-population=list(range(100));print(len(population))
+population = list(range(100))
+print(len(population))
 ```
 
-**Tự kiểm tra:** Population là gì? **Đáp án:** Toàn bộ đối tượng cần nghiên cứu.
+**Kết quả khi chạy:**
 
-### 4.2. Sample
+```text
+100
+```
 
-**Từ vựng trong mục:** **Sample** — mẫu.
+Tổng thể có 100 mã hóa đơn; số lượng tổng thể là N=100.
 
-Nhóm con lấy từ tổng thể theo cách rõ ràng. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+### 4.2. Sample — Nhóm con lấy theo cách xác định
+
+**Từ vựng:** **Sample** — mẫu; **Sampling** — lấy mẫu.
+
+**Mẫu** là một phần các đối tượng được chọn từ tổng thể. Ví dụ từ 5 mã hóa đơn `[1,2,3,4,5]`, chọn 3 mã **không hoàn lại** nghĩa là mỗi mã xuất hiện tối đa một lần trong mẫu. `rng.choice(...,replace=False)` cho chọn mẫu giả ngẫu nhiên, seed giúp tái lập. Chọn ngẫu nhiên hợp lý hỗ trợ giảm thiên lệch chọn mẫu, nhưng nếu dữ liệu nguồn đã thiếu nhóm quan trọng thì seed không thể khắc phục.
+
+```python
+import numpy as np
+
+rng = np.random.default_rng(1)
+sample = rng.choice([1, 2, 3, 4, 5], size=3, replace=False)
+print(sample.tolist())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[3, 2, 4]
+```
+
+Mẫu có ba mã khác nhau vì lấy không hoàn lại; đây là một kết quả ngẫu nhiên có thể tái lập.
+
+### 4.3. CLT — Phân phối trung bình của các mẫu
+
+**Từ vựng:** **CLT** — định lý giới hạn trung tâm; **Sampling distribution** — phân phối lấy mẫu.
+
+**CLT** nói rằng dưới các điều kiện phù hợp như quan sát độc lập, cùng phân phối, phương sai hữu hạn, khi **cỡ mẫu n lớn**, phân phối của **trung bình mẫu** sau chuẩn hóa thường tiến gần dạng chuẩn, ngay cả khi dữ liệu gốc không chuẩn. Nó **không** nói dữ liệu gốc trở thành chuẩn hay từng mẫu đều có mean giống nhau. Mô phỏng 200 nhóm, mỗi nhóm 40 giá trị từ phân phối mũ mean lý thuyết 2, cho trung bình các mean gần 2.
+
+```python
+import numpy as np
+
+rng = np.random.default_rng(1)
+groups = rng.exponential(scale=2, size=(200, 40))
+means = groups.mean(axis=1)
+print(round(float(means.mean()), 3))
+```
+
+**Kết quả khi chạy:**
+
+```text
+2.011
+```
+
+200 trung bình mẫu xoay quanh giá trị kỳ vọng 2; một số mô phỏng không chứng minh CLT nhưng minh họa cách lấy mẫu lặp.
+
+### 4.4. Standard error — Độ biến thiên của một ước lượng
+
+**Từ vựng:** **Standard error (SE)** — sai số chuẩn; **Standard deviation (SD)** — độ lệch chuẩn.
+
+**SD** mô tả độ phân tán của **quan sát riêng lẻ**, còn **SE của mean** mô tả mức dao động **giữa các trung bình mẫu** nếu lặp lấy mẫu cùng cách. Với n quan sát độc lập và ước lượng SD mẫu s, SE(mean) thường ước tính bằng `s/sqrt(n)` (trường hợp thích hợp). Năm điểm `[6,7,8,9,10]` có s≈1,581 điểm, nên SE≈0,707 điểm. Cỡ mẫu gấp 4 làm SE còn một nửa nếu độ phân tán giữ nguyên.
+
+```python
+import numpy as np
+
+scores = np.array([6, 7, 8, 9, 10], dtype=float)
+se = scores.std(ddof=1) / np.sqrt(len(scores))
+print(round(float(se), 3))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.707
+```
+
+SE của trung bình mẫu xấp xỉ 0,707 điểm; nó không phải SD của từng điểm.
+
+## 5. Năm tình huống ứng dụng
+
+### Tình huống 1 — Rút năm đơn trong hai mươi đơn để kiểm kê
+
+**Tình huống thực tế:** Kho có đúng 20 đơn được gắn mã 1 đến 20; người kiểm kê chỉ đủ thời gian xem 5 đơn. Cần lấy mẫu không hoàn lại, mọi mã có cơ hội như nhau.
+
+**Vì sao chọn cách giải này?** Lấy mẫu ngẫu nhiên không hoàn lại giúp chọn năm mã phân biệt; seed cố định chỉ phục vụ tái lập thử nghiệm.
+
+**Quy trình giải:**
+
+1. Tạo danh sách ID từ 1 đến 20.
+2. Dùng `random.Random(42).sample` lấy năm ID không trùng.
+3. In danh sách mã được chọn.
 
 ```python
 import random
-print(random.sample(range(20),5))
+
+ids = list(range(1, 21))
+print(random.Random(42).sample(ids, 5))
 ```
 
-**Tự kiểm tra:** Sample là gì? **Đáp án:** Nhóm con lấy từ tổng thể theo cách rõ ràng.
+**Kết quả khi chạy:**
 
-### 4.3. CLT
+```text
+[4, 1, 9, 8, 17]
+```
 
-**Từ vựng trong mục:** **CLT** — định lý giới hạn trung tâm.
+Năm đơn được chọn không trùng nhau, nhưng kết quả không thay thế quy trình lấy mẫu thực tế của kho.
 
-Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+### Tình huống 2 — Thử biến thiên trung bình với nguồn lệch phải
+
+**Tình huống thực tế:** Một quá trình giả lập có thời gian chờ tuân phân phối mũ với trung bình 2 phút. Nhóm phân tích lấy 200 mẫu độc lập, mỗi mẫu gồm 40 thời gian chờ, để quan sát phân phối các mean.
+
+**Vì sao chọn cách giải này?** Lấy nhiều nhóm rồi tính mean từng nhóm giúp minh họa biến thiên của trung bình mẫu trong CLT.
+
+**Quy trình giải:**
+
+1. Sinh bảng 200×40 số từ phân phối mũ có mean lý thuyết 2 phút.
+2. Lấy mean theo từng hàng, được 200 trung bình mẫu.
+3. In trung bình và SD giữa các mean sau làm tròn.
 
 ```python
 import numpy as np
-r=np.random.default_rng(1);print([r.normal(size=10).mean() for _ in range(3)])
+
+rng = np.random.default_rng(1)
+groups = rng.exponential(scale=2, size=(200, 40))
+means = groups.mean(axis=1)
+print(round(float(means.mean()), 3), round(float(means.std(ddof=1)), 3))
 ```
 
-**Tự kiểm tra:** CLT là gì? **Đáp án:** Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp.
+**Kết quả khi chạy:**
 
-### 4.4. Standard error
+```text
+2.011 0.333
+```
 
-**Từ vựng trong mục:** **Standard error** — sai số chuẩn.
+Các mean dao động quanh 2 phút; độ phân tán thực nghiệm giữa chúng khoảng 0,333 phút.
 
-Độ biến thiên của một thống kê giữa các mẫu. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+### Tình huống 3 — Ước lượng sai số chuẩn của điểm trung bình
+
+**Tình huống thực tế:** Trung tâm có năm điểm `[6,7,8,9,10]` cùng thang điểm. Muốn báo SE cho **trung bình mẫu**, không phải độ phân tán của từng học viên.
+
+**Vì sao chọn cách giải này?** SE ước lượng bằng SD mẫu `ddof=1` chia căn cỡ mẫu khi giả định lấy mẫu độc lập phù hợp.
+
+**Quy trình giải:**
+
+1. Tạo mảng năm điểm.
+2. Tính SD mẫu và chia cho căn của 5.
+3. In SE sau làm tròn ba chữ số.
 
 ```python
 import numpy as np
-print(np.std([1,2,3],ddof=1)/np.sqrt(3))
+
+scores = np.array([6, 7, 8, 9, 10], dtype=float)
+print(round(float(scores.std(ddof=1) / np.sqrt(len(scores))), 3))
 ```
 
-**Tự kiểm tra:** Standard error là gì? **Đáp án:** Độ biến thiên của một thống kê giữa các mẫu.
+**Kết quả khi chạy:**
 
-## 5. Năm tình huống thực tế
-
-### Tình huống 1 — Rút mẫu kiểm kê
-
-**Từ vựng trong mục:** **Population** — tổng thể.
-
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần rút mẫu kiểm kê cho công việc của mình. Dữ liệu đầu vào: 20 đơn, lấy ngẫu nhiên 5. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Lấy ngẫu nhiên một số đơn để kiểm tra thủ công; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
-
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
-```python
-import random
-print(random.Random(42).sample(list(range(1,21)),5))
+```text
+0.707
 ```
 
+SE ước lượng khoảng 0,707 điểm. Mẫu chỉ có năm người nên còn bất định cao.
 
-### Tình huống 2 — So biến thiên mean mẫu
+### Tình huống 4 — Xem tác động của số người đo lên SE
 
-**Từ vựng trong mục:** **Sample** — mẫu.
+**Tình huống thực tế:** Độ lệch chuẩn quần thể được giả định cố định σ=10 điểm. So hai nghiên cứu dùng n=25 và n=100 người, trong điều kiện lấy mẫu độc lập thích hợp.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so biến thiên mean mẫu cho công việc của mình. Dữ liệu đầu vào: Tổng thể 10000 giá trị lệch, mỗi mẫu n=40. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+**Vì sao chọn cách giải này?** SE của trung bình theo công thức σ/sqrt(n), nên n tăng bốn lần khiến SE giảm một nửa.
 
-**Vì sao chọn cách này?** Rút mẫu nhiều lần để quan sát trung bình mẫu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Quy trình giải:**
 
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+1. Đặt sigma=10.
+2. Với n=25 và n=100, chia sigma cho căn n.
+3. In từng cỡ mẫu cùng SE, giữ đơn vị điểm.
 
 ```python
 import numpy as np
-r=np.random.default_rng(1)
-pop=r.exponential(scale=2,size=10000)
-means=[r.choice(pop,size=40,replace=True).mean() for _ in range(200)]
-print(np.mean(means),np.std(means))
+
+sigma = 10
+for n in [25, 100]:
+    print(n, sigma / np.sqrt(n))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 3 — Tính sai số chuẩn điểm
-
-**Từ vựng trong mục:** **CLT** — định lý giới hạn trung tâm.
-
-**Tình huống thực tế:** Một trung tâm đào tạo cần tính sai số chuẩn điểm cho công việc của mình. Dữ liệu đầu vào: 5 điểm [6,7,8,9,10]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** SE khác độ lệch chuẩn của điểm riêng lẻ; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
-
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
-```python
-import numpy as np
-x=np.array([6,7,8,9,10],dtype=float)
-print(x.std(ddof=1)/np.sqrt(len(x)))
+```text
+25 2.0
+100 1.0
 ```
 
+Cỡ mẫu 100 cho SE 1 điểm, một nửa của SE khi n=25.
 
-### Tình huống 4 — Cỡ mẫu tăng tác động SE
+### Tình huống 5 — Chọn khách từ bảng dữ liệu để khảo sát
 
-**Từ vựng trong mục:** **Standard error** — sai số chuẩn.
+**Tình huống thực tế:** Cửa hàng có bảng 10 khách, ID từ 0 tới 9. Nhóm chăm sóc khách muốn rút 3 ID không trùng từ DataFrame để mời khảo sát.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần cỡ mẫu tăng tác động se cho công việc của mình. Dữ liệu đầu vào: sigma=10, n=25 và 100. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+**Vì sao chọn cách giải này?** `DataFrame.sample` chọn hàng; `random_state` giữ ví dụ có kết quả xác định và có thể sắp ID trước khi in.
 
-**Vì sao chọn cách này?** Với sigma giữ nguyên, SE giảm theo căn n; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Quy trình giải:**
 
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
-```python
-import numpy as np
-sigma=10
-for n in [25,100]:print(n,sigma/np.sqrt(n))
-```
-
-
-### Tình huống 5 — Lấy mẫu bảng khách hàng
-
-**Từ vựng trong mục:** **Population** — tổng thể.
-
-**Tình huống thực tế:** Một doanh nghiệp cần lấy mẫu bảng khách hàng cho công việc của mình. Dữ liệu đầu vào: 10 khách, lấy 3. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** random_state giữ kết quả thử lặp lại; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
-
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+1. Tạo bảng một cột `id` với 10 khách.
+2. Lấy ba hàng bằng `.sample(n=3,random_state=42)`.
+3. Chỉ lấy ID, sắp tăng để đầu ra dễ đối chiếu.
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"id":list(range(10))})
-print(df.sample(n=3,random_state=42))
+
+customers = pd.DataFrame({'id': list(range(10))})
+sampled = customers.sample(n=3, random_state=42)
+print(sorted(sampled['id'].tolist()))
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Nhầm lẫn thường gặp
+```text
+[1, 5, 8]
+```
 
-- Không nhầm thống kê/tỷ lệ mô phỏng với xác suất dự đoán chắc chắn.
-- Kiểm tra giả định, cỡ mẫu, đơn vị, độ nhạy kết quả và data leakage trước khi ứng dụng AI thật.
+Mẫu gồm ba ID khác nhau; cố định seed làm ví dụ tái lập, không bảo đảm tính đại diện của mọi nhóm khách.
+
+## 6. Sai lầm thường gặp
+
+- CLT nói về phân phối của **trung bình mẫu** dưới các điều kiện thích hợp, không biến dữ liệu gốc thành chuẩn.
+- SD mô tả số đo cá thể, SE mô tả mức biến thiên ước lượng giữa các mẫu.
+- Công thức SE≈s/√n cần giả định lấy mẫu phù hợp; phụ thuộc, chọn mẫu không ngẫu nhiên và quần thể hữu hạn có thể cần điều chỉnh.
+- Seed giúp tái lập phép mô phỏng, **không** sửa thiên lệch chọn mẫu hoặc bảo đảm mẫu đại diện.
+- Cỡ mẫu lớn thường giảm SE, nhưng không sửa được sai lệch có hệ thống.
+- Không kết luận mọi mẫu sẽ gần trung bình thật hay một ngưỡng n cố định đúng cho mọi phân phối.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Q1. What is a population? — Tổng thể là gì?**
 
+A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
 
-**Q1. What is Population? — Khái niệm Population là gì?**
+B. A selected subset of the population — Một nhóm con được chọn từ tổng thể
 
-A. Another concept is Nhóm con lấy từ tổng thể theo cách rõ ràng — Nhóm con lấy từ tổng thể theo cách rõ ràng
+C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
 
-B. It is Toàn bộ đối tượng cần nghiên cứu — Toàn bộ đối tượng cần nghiên cứu
+D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
 
-C. Another concept is Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp — Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp
+**Q2. What is a sample? — Mẫu là gì?**
 
-D. Another concept is Độ biến thiên của một thống kê giữa các mẫu — Độ biến thiên của một thống kê giữa các mẫu
+A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
 
+B. A selected subset of the population — Một nhóm con được chọn từ tổng thể
 
-**Q2. What is Sample? — Khái niệm Sample là gì?**
+C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
 
-A. It is Nhóm con lấy từ tổng thể theo cách rõ ràng — Nhóm con lấy từ tổng thể theo cách rõ ràng
+D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
 
-B. Another concept is Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp — Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp
+**Q3. What does CLT describe? — CLT mô tả gì?**
 
-C. Another concept is Độ biến thiên của một thống kê giữa các mẫu — Độ biến thiên của một thống kê giữa các mẫu
+A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
 
-D. Another concept is Toàn bộ đối tượng cần nghiên cứu — Toàn bộ đối tượng cần nghiên cứu
+B. A selected subset of the population — Một nhóm con được chọn từ tổng thể
 
+C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
 
-**Q3. What is CLT? — Khái niệm CLT là gì?**
+D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
 
-A. Another concept is Độ biến thiên của một thống kê giữa các mẫu — Độ biến thiên của một thống kê giữa các mẫu
+**Q4. What is standard error? — SE là gì?**
 
-B. Another concept is Toàn bộ đối tượng cần nghiên cứu — Toàn bộ đối tượng cần nghiên cứu
+A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
 
-C. Another concept is Nhóm con lấy từ tổng thể theo cách rõ ràng — Nhóm con lấy từ tổng thể theo cách rõ ràng
+B. A selected subset of the population — Một nhóm con được chọn từ tổng thể
 
-D. It is Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp — Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp
+C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
 
+D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
 
-**Q4. What is Standard error? — Khái niệm Standard error là gì?**
+**Q5. What does `replace=False` mean when sampling? — `replace=False` khi lấy mẫu nghĩa là gì?**
 
-A. Another concept is Toàn bộ đối tượng cần nghiên cứu — Toàn bộ đối tượng cần nghiên cứu
+A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
 
-B. Another concept is Nhóm con lấy từ tổng thể theo cách rõ ràng — Nhóm con lấy từ tổng thể theo cách rõ ràng
+B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể lặp
 
-C. It is Độ biến thiên của một thống kê giữa các mẫu — Độ biến thiên của một thống kê giữa các mẫu
+C. Computes one mean per row — Tính một trung bình cho mỗi hàng
 
-D. Another concept is Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp — Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp
+D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
 
+**Q6. What does a random seed enable? — Seed ngẫu nhiên cho phép gì?**
 
-**Q5. When should df.sample(n=,random_state=) be used? — Khi nào nên dùng df.sample(n=,random_state=)?**
+A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
 
-A. Another operation is for Lấy mẫu thay thế hoặc không thay thế — Lấy mẫu thay thế hoặc không thay thế
+B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể lặp
 
-B. When you need to Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu — Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu
+C. Computes one mean per row — Tính một trung bình cho mỗi hàng
 
-C. Another operation is for Tính trung bình từng lần lấy mẫu — Tính trung bình từng lần lấy mẫu
+D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
 
-D. Another operation is for Ước lượng SE của mean từ std mẫu s — Ước lượng SE của mean từ std mẫu s
+**Q7. What does `mean(axis=1)` do on a 2-D sample table? — `mean(axis=1)` trên bảng mẫu 2-D làm gì?**
 
+A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
 
-**Q6. When should rng.choice(values,size=,replace=) be used? — Khi nào nên dùng rng.choice(values,size=,replace=)?**
+B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể lặp
 
-A. When you need to Lấy mẫu thay thế hoặc không thay thế — Lấy mẫu thay thế hoặc không thay thế
+C. Computes one mean per row — Tính một trung bình cho mỗi hàng
 
-B. Another operation is for Tính trung bình từng lần lấy mẫu — Tính trung bình từng lần lấy mẫu
+D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
 
-C. Another operation is for Ước lượng SE của mean từ std mẫu s — Ước lượng SE của mean từ std mẫu s
+**Q8. What does `df.sample(n=3)` select? — `df.sample(n=3)` chọn gì?**
 
-D. Another operation is for Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu — Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu
+A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
 
+B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể lặp
 
-**Q7. When should np.mean(samples,axis=1) be used? — Khi nào nên dùng np.mean(samples,axis=1)?**
+C. Computes one mean per row — Tính một trung bình cho mỗi hàng
 
-A. Another operation is for Ước lượng SE của mean từ std mẫu s — Ước lượng SE của mean từ std mẫu s
+D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
 
-B. Another operation is for Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu — Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu
+**Q9. What does sample SD measure? — SD mẫu đo gì?**
 
-C. Another operation is for Lấy mẫu thay thế hoặc không thay thế — Lấy mẫu thay thế hoặc không thay thế
+A. Spread of individual values — Độ phân tán giá trị từng quan sát
 
-D. When you need to Tính trung bình từng lần lấy mẫu — Tính trung bình từng lần lấy mẫu
+B. Spread among hypothetical sample means — Độ phân tán giữa các mean mẫu giả định
 
+C. s/sqrt(n) — s/sqrt(n)
 
-**Q8. When should s / np.sqrt(n) be used? — Khi nào nên dùng s / np.sqrt(n)?**
+D. It halves — Giảm một nửa
 
-A. Another operation is for Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu — Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu
+**Q10. What does the SE of a mean measure? — SE của mean đo gì?**
 
-B. Another operation is for Lấy mẫu thay thế hoặc không thay thế — Lấy mẫu thay thế hoặc không thay thế
+A. Spread of individual values — Độ phân tán giá trị từng quan sát
 
-C. When you need to Ước lượng SE của mean từ std mẫu s — Ước lượng SE của mean từ std mẫu s
+B. Spread among hypothetical sample means — Độ phân tán giữa các mean mẫu giả định
 
-D. Another operation is for Tính trung bình từng lần lấy mẫu — Tính trung bình từng lần lấy mẫu
+C. s/sqrt(n) — s/sqrt(n)
 
+D. It halves — Giảm một nửa
 
-**Q9. Why is this method used in scenario 1? — Vì sao dùng phương pháp ở tình huống 1?**
+**Q11. What is a common estimated SE formula? — Công thức ước lượng SE thường dùng?**
 
-A. Rút mẫu nhiều lần để quan sát trung bình mẫu — Rút mẫu nhiều lần để quan sát trung bình mẫu
+A. Spread of individual values — Độ phân tán giá trị từng quan sát
 
-B. Lấy ngẫu nhiên một số đơn để kiểm tra thủ công — Lấy ngẫu nhiên một số đơn để kiểm tra thủ công
+B. Spread among hypothetical sample means — Độ phân tán giữa các mean mẫu giả định
 
-C. SE khác độ lệch chuẩn của điểm riêng lẻ — SE khác độ lệch chuẩn của điểm riêng lẻ
+C. s/sqrt(n) — s/sqrt(n)
 
-D. Với sigma giữ nguyên, SE giảm theo căn n — Với sigma giữ nguyên, SE giảm theo căn n
+D. It halves — Giảm một nửa
 
+**Q12. How does SE change when n quadruples and sigma is fixed? — SE đổi sao khi n gấp bốn, sigma giữ nguyên?**
 
-**Q10. Why is this method used in scenario 2? — Vì sao dùng phương pháp ở tình huống 2?**
+A. Spread of individual values — Độ phân tán giá trị từng quan sát
 
-A. Rút mẫu nhiều lần để quan sát trung bình mẫu — Rút mẫu nhiều lần để quan sát trung bình mẫu
+B. Spread among hypothetical sample means — Độ phân tán giữa các mean mẫu giả định
 
-B. SE khác độ lệch chuẩn của điểm riêng lẻ — SE khác độ lệch chuẩn của điểm riêng lẻ
+C. s/sqrt(n) — s/sqrt(n)
 
-C. Với sigma giữ nguyên, SE giảm theo căn n — Với sigma giữ nguyên, SE giảm theo căn n
+D. It halves — Giảm một nửa
 
-D. random_state giữ kết quả thử lặp lại — random_state giữ kết quả thử lặp lại
+**Q13. Does CLT assert that raw data become normally distributed? — CLT có nói dữ liệu gốc thành phân phối chuẩn không?**
 
+A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
 
-**Q11. Why is this method used in scenario 3? — Vì sao dùng phương pháp ở tình huống 3?**
+B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan trọng
 
-A. Với sigma giữ nguyên, SE giảm theo căn n — Với sigma giữ nguyên, SE giảm theo căn n
+C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
 
-B. random_state giữ kết quả thử lặp lại — random_state giữ kết quả thử lặp lại
+D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
 
-C. Lấy ngẫu nhiên một số đơn để kiểm tra thủ công — Lấy ngẫu nhiên một số đơn để kiểm tra thủ công
+**Q14. Is a sample necessarily representative because a seed is fixed? — Có seed cố định thì mẫu chắc chắn đại diện không?**
 
-D. SE khác độ lệch chuẩn của điểm riêng lẻ — SE khác độ lệch chuẩn của điểm riêng lẻ
+A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
 
+B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan trọng
 
-**Q12. Why is this method used in scenario 4? — Vì sao dùng phương pháp ở tình huống 4?**
+C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
 
-A. random_state giữ kết quả thử lặp lại — random_state giữ kết quả thử lặp lại
+D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
 
-B. Lấy ngẫu nhiên một số đơn để kiểm tra thủ công — Lấy ngẫu nhiên một số đơn để kiểm tra thủ công
+**Q15. What often happens to sampling variability as n grows? — n tăng thì dao động lấy mẫu thường thế nào?**
 
-C. Với sigma giữ nguyên, SE giảm theo căn n — Với sigma giữ nguyên, SE giảm theo căn n
+A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
 
-D. Rút mẫu nhiều lần để quan sát trung bình mẫu — Rút mẫu nhiều lần để quan sát trung bình mẫu
+B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan trọng
 
+C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
 
-**Q13. Why is this method used in scenario 5? — Vì sao dùng phương pháp ở tình huống 5?**
+D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
 
-A. Lấy ngẫu nhiên một số đơn để kiểm tra thủ công — Lấy ngẫu nhiên một số đơn để kiểm tra thủ công
+**Q16. What is the impact of selection bias? — Thiên lệch chọn mẫu gây gì?**
 
-B. random_state giữ kết quả thử lặp lại — random_state giữ kết quả thử lặp lại
+A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
 
-C. Rút mẫu nhiều lần để quan sát trung bình mẫu — Rút mẫu nhiều lần để quan sát trung bình mẫu
+B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan trọng
 
-D. SE khác độ lệch chuẩn của điểm riêng lẻ — SE khác độ lệch chuẩn của điểm riêng lẻ
+C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
 
+D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
 
-**Q14. Which input describes scenario 1? — Dữ liệu nào thuộc tình huống 1?**
+**Q17. Does n=40 guarantee a good normal approximation in every problem? — n=40 có bảo đảm xấp xỉ chuẩn tốt ở mọi bài toán không?**
 
-A. The input is 20 đơn, lấy ngẫu nhiên 5 — 20 đơn, lấy ngẫu nhiên 5
+A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
 
-B. Another input is Tổng thể 10000 giá trị lệch, mỗi mẫu n=40 — Tổng thể 10000 giá trị lệch, mỗi mẫu n=40
+B. Uses n−1 in variance denominator — Dùng n−1 ở mẫu số phương sai
 
-C. Another input is 5 điểm [6,7,8,9,10] — 5 điểm [6,7,8,9,10]
+C. Standard deviation — Độ lệch chuẩn
 
-D. Another input is sigma=10, n=25 và 100 — sigma=10, n=25 và 100
+D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
 
+**Q18. What does `ddof=1` change in SD? — `ddof=1` đổi gì trong SD?**
 
-**Q15. Which input describes scenario 2? — Dữ liệu nào thuộc tình huống 2?**
+A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
 
-A. Another input is 5 điểm [6,7,8,9,10] — 5 điểm [6,7,8,9,10]
+B. Uses n−1 in variance denominator — Dùng n−1 ở mẫu số phương sai
 
-B. Another input is sigma=10, n=25 và 100 — sigma=10, n=25 và 100
+C. Standard deviation — Độ lệch chuẩn
 
-C. Another input is 10 khách, lấy 3 — 10 khách, lấy 3
+D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
 
-D. The input is Tổng thể 10000 giá trị lệch, mỗi mẫu n=40 — Tổng thể 10000 giá trị lệch, mỗi mẫu n=40
+**Q19. Which quantity stays in original units, SD or variance? — Đại lượng nào giữ đơn vị gốc, SD hay variance?**
 
+A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
 
-**Q16. Which input describes scenario 3? — Dữ liệu nào thuộc tình huống 3?**
+B. Uses n−1 in variance denominator — Dùng n−1 ở mẫu số phương sai
 
-A. Another input is sigma=10, n=25 và 100 — sigma=10, n=25 và 100
+C. Standard deviation — Độ lệch chuẩn
 
-B. Another input is 10 khách, lấy 3 — 10 khách, lấy 3
+D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
 
-C. The input is 5 điểm [6,7,8,9,10] — 5 điểm [6,7,8,9,10]
+**Q20. What is a prerequisite for repeated-sampling inference? — Điều kiện quan trọng của suy luận từ lấy mẫu lặp?**
 
-D. Another input is 20 đơn, lấy ngẫu nhiên 5 — 20 đơn, lấy ngẫu nhiên 5
+A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
 
+B. Uses n−1 in variance denominator — Dùng n−1 ở mẫu số phương sai
 
-**Q17. Which input describes scenario 4? — Dữ liệu nào thuộc tình huống 4?**
+C. Standard deviation — Độ lệch chuẩn
 
-A. Another input is 10 khách, lấy 3 — 10 khách, lấy 3
-
-B. The input is sigma=10, n=25 và 100 — sigma=10, n=25 và 100
-
-C. Another input is 20 đơn, lấy ngẫu nhiên 5 — 20 đơn, lấy ngẫu nhiên 5
-
-D. Another input is Tổng thể 10000 giá trị lệch, mỗi mẫu n=40 — Tổng thể 10000 giá trị lệch, mỗi mẫu n=40
-
-
-**Q18. Which input describes scenario 5? — Dữ liệu nào thuộc tình huống 5?**
-
-A. The input is 10 khách, lấy 3 — 10 khách, lấy 3
-
-B. Another input is 20 đơn, lấy ngẫu nhiên 5 — 20 đơn, lấy ngẫu nhiên 5
-
-C. Another input is Tổng thể 10000 giá trị lệch, mỗi mẫu n=40 — Tổng thể 10000 giá trị lệch, mỗi mẫu n=40
-
-D. Another input is 5 điểm [6,7,8,9,10] — 5 điểm [6,7,8,9,10]
-
-
-**Q19. What should be stated before analyzing data? — Cần nêu gì trước khi phân tích dữ liệu?**
-
-A. Only file extensions — Chỉ đuôi file
-
-B. Only terminal colors — Chỉ màu terminal
-
-C. Only number of lines — Chỉ số dòng code
-
-D. Units, sample meaning and assumptions — Đơn vị, ý nghĩa mẫu và giả định
-
-
-**Q20. Why is validating results important? — Vì sao cần kiểm tra kết quả?**
-
-A. One example guarantees AI accuracy — Một ví dụ bảo đảm AI đúng
-
-B. It replaces data collection — Nó thay việc thu thập dữ liệu
-
-C. An example may not generalize — Ví dụ có thể không tổng quát
-
-D. It removes test sets — Nó không cần tập kiểm tra
+D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Toàn bộ đối tượng cần nghiên cứu | Toàn bộ đối tượng cần nghiên cứu |
-| Q2 | **A** | It is Nhóm con lấy từ tổng thể theo cách rõ ràng | Nhóm con lấy từ tổng thể theo cách rõ ràng |
-| Q3 | **D** | It is Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp | Phân phối trung bình mẫu tiến gần chuẩn theo điều kiện thích hợp |
-| Q4 | **C** | It is Độ biến thiên của một thống kê giữa các mẫu | Độ biến thiên của một thống kê giữa các mẫu |
-| Q5 | **B** | When you need to Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu | Lấy mẫu có thể lặp, chú ý phương pháp lấy mẫu |
-| Q6 | **A** | When you need to Lấy mẫu thay thế hoặc không thay thế | Lấy mẫu thay thế hoặc không thay thế |
-| Q7 | **D** | When you need to Tính trung bình từng lần lấy mẫu | Tính trung bình từng lần lấy mẫu |
-| Q8 | **C** | When you need to Ước lượng SE của mean từ std mẫu s | Ước lượng SE của mean từ std mẫu s |
-| Q9 | **B** | Lấy ngẫu nhiên một số đơn để kiểm tra thủ công | Lấy ngẫu nhiên một số đơn để kiểm tra thủ công |
-| Q10 | **A** | Rút mẫu nhiều lần để quan sát trung bình mẫu | Rút mẫu nhiều lần để quan sát trung bình mẫu |
-| Q11 | **D** | SE khác độ lệch chuẩn của điểm riêng lẻ | SE khác độ lệch chuẩn của điểm riêng lẻ |
-| Q12 | **C** | Với sigma giữ nguyên, SE giảm theo căn n | Với sigma giữ nguyên, SE giảm theo căn n |
-| Q13 | **B** | random_state giữ kết quả thử lặp lại | random_state giữ kết quả thử lặp lại |
-| Q14 | **A** | The input is 20 đơn, lấy ngẫu nhiên 5 | 20 đơn, lấy ngẫu nhiên 5 |
-| Q15 | **D** | The input is Tổng thể 10000 giá trị lệch, mỗi mẫu n=40 | Tổng thể 10000 giá trị lệch, mỗi mẫu n=40 |
-| Q16 | **C** | The input is 5 điểm [6,7,8,9,10] | 5 điểm [6,7,8,9,10] |
-| Q17 | **B** | The input is sigma=10, n=25 và 100 | sigma=10, n=25 và 100 |
-| Q18 | **A** | The input is 10 khách, lấy 3 | 10 khách, lấy 3 |
-| Q19 | **D** | Units, sample meaning and assumptions | Đơn vị, ý nghĩa mẫu và giả định |
-| Q20 | **C** | An example may not generalize | Ví dụ có thể không tổng quát |
+| Q1 | **A** | The intended inference concerns the population. | Kết luận dự kiến hướng đến tổng thể. |
+| Q2 | **B** | A sample provides partial observations. | Mẫu chứa một phần quan sát. |
+| Q3 | **C** | It concerns repeated means, not raw observations. | CLT nói về mean qua nhiều mẫu, không nói mọi giá trị gốc thành chuẩn. |
+| Q4 | **D** | SE quantifies uncertainty in the statistic. | SE mô tả độ bất định của thống kê. |
+| Q5 | **A** | Sampling is without replacement. | Lấy mẫu không hoàn lại. |
+| Q6 | **B** | It controls a repeatable sequence. | Nó kiểm soát chuỗi có thể tái tạo. |
+| Q7 | **C** | Each row can represent a separate sample. | Mỗi hàng có thể là một lần lấy mẫu. |
+| Q8 | **D** | It operates on DataFrame rows by default. | Mặc định hàm lấy hàng của DataFrame. |
+| Q9 | **A** | SD differs from uncertainty of sample mean. | SD khác bất định của mean mẫu. |
+| Q10 | **B** | Repeated sampling creates variation of means. | Lấy mẫu lặp gây biến thiên trung bình. |
+| Q11 | **C** | This is appropriate under common independent-sampling conditions. | Công thức phù hợp trong các giả định lấy mẫu độc lập thường gặp. |
+| Q12 | **D** | Square root of four equals two. | Căn bậc hai của bốn là hai. |
+| Q13 | **A** | A skewed population can remain skewed. | Tổng thể lệch vẫn có thể lệch. |
+| Q14 | **B** | A seed only repeats the selection. | Seed chỉ lặp cách chọn. |
+| Q15 | **C** | SE typically scales with inverse sqrt(n). | SE thường tỷ lệ nghịch căn n. |
+| Q16 | **D** | More samples do not automatically cure bad selection. | Tăng mẫu không tự sửa cách chọn sai. |
+| Q17 | **A** | There is no universal sample-size threshold. | Không có ngưỡng cỡ mẫu đúng cho mọi trường hợp. |
+| Q18 | **B** | It follows the sample convention. | Đây là quy ước cho ước lượng phương sai mẫu. |
+| Q19 | **C** | Variance squares the units. | Phương sai có đơn vị bình phương. |
+| Q20 | **D** | Dependence and sampling design affect SE. | Sự phụ thuộc và cách chọn mẫu ảnh hưởng SE. |
 
 ## 8. Liên hệ bài kế tiếp
 
