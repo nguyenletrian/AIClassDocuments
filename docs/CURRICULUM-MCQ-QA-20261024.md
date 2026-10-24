@@ -38,3 +38,23 @@ Guide kiểm tra tính đúng theo nghĩa đã được merge riêng tại **PR 
 - **PY-04 Q13–Q16:** loại những phương án nhiễu cùng có `False` hoặc diễn đạt `False` khiến có hơn một phương án đúng, thay bằng giá trị cụ thể khác kiểu. Riêng Q15 sửa key **C → A**; Q16 key D giữ nguyên sau khi phân biệt Boolean và số nguyên.
 - **PY-05 Q8:** giải thích điều kiện vòng lặp kết thúc bình thường với `else`, phân biệt `break` và `else` của `if`.
 - **Chưa hoàn tất:** biên tập sâu tất cả lời giải thích còn ngắn, kiểm chứng độc lập mọi distractor trong 100 câu và chạy thử toàn bộ code. Chưa kiểm Windows; không đánh dấu cả nhóm đã duyệt học thuật. Tiếp tục mở rộng giải thích và kiểm toán ngữ nghĩa trước khi công bố.
+
+
+## Vòng biên tập chiều sâu PY-01–PY-05 — 24/10/2026 (sau PR #107)
+
+**Phạm vi thay đổi:** đúng mục 7 của 5 bài PY-01–PY-05, hồ sơ QA này và một assertion trong `tests/test_curriculum_structure.py`. Phần giảng, 5 tình huống và code fence của bài học không thay đổi so với `main` ở thời điểm bắt đầu nhánh.
+
+### Đã thực hiện và kiểm chứng
+
+- Đọc từng câu Q1–Q20, bốn phương án và key của 5 bài; **viết lại 100 lời giải thích bằng cả tiếng Anh và tiếng Việt**, với nguyên lý, ví dụ tính toán/cú pháp và phân biệt nhầm lẫn. Mở rộng các distractor thiếu tính cùng loại thành lựa chọn sai nhưng hợp lý; sửa PY-03 Q3 để phân biệt toán tử logic ngắn mạch `and` với phép bitwise `&`.
+- Xáo trộn lựa chọn một cách xác định, cập nhật key theo **nội dung phương án đúng**, không dựa vào mẫu A–B–C–D cũ. Mỗi bài phân phối A/B/C/D đúng 5 lần, không cho học viên đoán theo vòng lặp ABCD.
+- Kiểm tra từ chính nội dung ở đầu ra sau ghi GitHub: **100 câu, 400 phương án, 100 key đúng thứ tự**, đủ cấu trúc song ngữ, không có phương án trùng nguyên văn trong một câu, không hỏi nhớ tình huống/ví dụ đánh số; mọi key được đối chiếu với 100 mô tả đáp án đúng độc lập với vị trí chữ cái. **100/100 đối chiếu đạt**. Bảng Markdown key được phân tích theo bốn cột; không có dòng lỗi.
+- So sánh nội dung ngoài mục 7 giữa nhánh và commit gốc của 5 bài: **không đổi**. Giữ 5 tình huống/bài, 9 code fence Python/bài và 9 nhãn `**Kết quả khi chạy:**`/bài.
+- **43 kiểm chứng runtime trên Python 3.13.5**: 38 biểu thức/kiểu/giá trị, 2 trường hợp ngoại lệ (`ValueError`, `TypeError`), 2 kết quả `print()` và 1 kiểm chứng short-circuit `and`. **43/43 đạt**. Các kiểm chứng này là kiểm chứng có phạm vi, không phải thử nghiệm mọi code block hoặc chạy trên Windows.
+- Phát hiện assertion `self.assertIn("*DRAFT", text)` trong test cấu trúc đi ngược quy tắc hiện hành bỏ metadata DRAFT. Thay bằng kiểm tra không còn dòng trạng thái DRAFT; thay đổi chỉ ở test, không sửa nội dung bài để làm hài lòng assertion cũ.
+
+### Kết luận và giới hạn
+
+- **PY-01–PY-05:** đã hoàn tất một vòng biên tập QA ngữ nghĩa do AI thực hiện, với việc đọc và sửa 100/100 câu cùng lời giải thích. Các lựa chọn đúng đã được đối chiếu độc lập với vị trí key và các biểu thức chọn lọc đã chạy thành công. **Chưa phải thẩm định học thuật độc lập bởi giảng viên**.
+- **Chưa chạy Windows**; chưa chạy toàn bộ `tests/test_curriculum_structure.py` trên checkout có đủ 46 file và chưa chạy mọi code fence của giáo trình. Không gắn `WINDOWS_VERIFIED` hoặc khẳng định mọi bài đã qua kiểm thử runtime.
+- **PY-06–PY-40:** cần tiếp tục vòng rà distractor chuyên sâu và mở rộng giải thích; **PY-41–PY-46:** vẫn cần xác nhận học thuật độc lập trước phát hành.
