@@ -6,6 +6,7 @@ import os
 import re
 import unittest
 from pathlib import Path
+from xml.etree import ElementTree as ET
 from unittest.mock import patch
 
 os.environ.setdefault("MPLBACKEND", "Agg")
@@ -39,10 +40,10 @@ class StudentPcaLessonTests(unittest.TestCase):
         self.assertNotIn("Subconcept", self.text)
         # Feature/Vector/Matrix are defined in prose before the first code sample.
         concepts = self.text.split("### 4.2.", 1)[1].split("### 4.3.", 1)[0]
-        for concept in ("**Feature là gì?**", "**Vector là gì?**", "**Matrix là gì?**"):
+        for concept in ("**Feature (đặc trưng):**", "**Vector:**", "**Matrix (ma trận):**"):
             self.assertIn(concept, concepts)
-        self.assertLess(concepts.index("**Feature là gì?**"), concepts.index("```python"))
-        self.assertLess(concepts.index("**Vector là gì?**"), concepts.index("```python"))
+        self.assertLess(concepts.index("**Feature (đặc trưng):**"), concepts.index("```python"))
+        self.assertLess(concepts.index("**Vector:**"), concepts.index("```python"))
 
 
     def test_explanations_progress_from_vectors_to_matrix(self):
@@ -85,6 +86,105 @@ class StudentPcaLessonTests(unittest.TestCase):
                 self.assertRegex(block, r"(?i)giờ|phút|đơn|đồng|cm|đơn vị")
         self.assertIn("iris.target là NHÃN loài hoa", scenario_code[4])
         self.assertIn("profiles.shape", scenario_code[0])
+
+    def test_named_python_arguments_are_explained(self):
+        glossary = self.text.split("### 3.3.", 1)[1].split("## 4.", 1)[0]
+        for keyword in (
+            'dtype=float', 'axis=0', 'rowvar=False', 'n_components=2',
+            'n_components=1', 'n_components=0.95', 'svd_solver="full"',
+            'random_state=42', 'n_init=10', 'test_size=0.25',
+            'stratify=iris.target', 'max_iter=1000', 'start=1',
+            'textcoords="offset points"',
+        ):
+            with self.subTest(argument=keyword):
+                self.assertIn(keyword, glossary)
+        for comment in (
+            '# dtype=float:', '# axis=0:', '# rowvar=False:',
+            '# n_init=10:', '# random_state=42:', '# test_size=0.25:',
+            '# max_iter=1000:',
+        ):
+            self.assertIn(comment, self.text)
+
+    def test_five_immediate_self_checks_and_advanced_labels(self):
+        sections = [
+            self.text.split(f"### 4.{i}.", 1)[1].split(f"### 4.{i+1}.", 1)[0]
+            for i in range(2, 6)
+        ]
+        sections.append(
+            self.text.split("### 4.6.", 1)[1].split("## 5.", 1)[0]
+        )
+        for i, section in enumerate(sections, start=2):
+            with self.subTest(concept=i):
+                self.assertIn(f"**Tự kiểm tra nhanh — 4.{i}:**", section)
+                self.assertIn("**Đáp án gợi ý:**", section)
+        self.assertGreaterEqual(self.text.count("**Phần mở rộng — có thể đọc sau:**"), 2)
+        self.assertIn("KMeans", self.text)
+        self.assertIn("LogisticRegression", self.text)
+
+    def test_before_after_table_matches_real_pca_values(self):
+        # Exact synthetic student data from the lesson, NOT a screenshot guess.
+        import numpy as np
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.decomposition import PCA
+
+        data = np.array([
+            [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+            [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+            [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+            [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+        ], dtype=float)
+        pca = PCA(n_components=2)
+        points = pca.fit_transform(StandardScaler().fit_transform(data))
+        expected = (
+            ("SV1", "0.75", "-0.54"),
+            ("SV2", "1.85", "-0.40"),
+            ("SV3", "-1.81", "0.71"),
+        )
+        section = self.text.split("### 4.5.", 1)[1].split("### 4.6.", 1)[0]
+        self.assertIn("![Bảng dữ liệu gốc", section)
+        for n, (label, x, y) in enumerate(expected):
+            self.assertEqual(label, f"SV{n+1}")
+            self.assertAlmostEqual(points[n, 0], float(x), delta=.006)
+            self.assertAlmostEqual(points[n, 1], float(y), delta=.006)
+            self.assertRegex(section, rf"\| {label} \| .* \| {re.escape(x)} \| {re.escape(y)} \|")
+        self.assertAlmostEqual(pca.explained_variance_ratio_.sum(), .9865238828, places=7)
+        self.assertIn("98,65%", section)
+
+    def test_source_figures_are_local_svg_and_pca_coordinates_match(self):
+        assets = LESSON.parent / "assets"
+        paths = [
+            assets / "pca-before-after.svg",
+            assets / "pca-direction-intuition.svg",
+        ]
+        for path in paths:
+            self.assertTrue(path.is_file(), str(path))
+            root = ET.parse(path).getroot()
+            self.assertTrue(root.tag.endswith("svg"))
+            self.assertFalse(any(
+                key.lower().endswith("href") and ("http://" in val or "https://" in val)
+                for element in root.iter()
+                for key, val in element.attrib.items()
+            ))
+        before = ET.parse(paths[0]).getroot()
+        nodes = [
+            element for element in before.iter()
+            if element.attrib.get("data-student", "").startswith("SV")
+        ]
+        self.assertEqual(len(nodes), 8)
+        import numpy as np
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.decomposition import PCA
+        profiles = np.array([
+            [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+            [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+            [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+            [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+        ], dtype=float)
+        coords = PCA(n_components=2).fit_transform(StandardScaler().fit_transform(profiles))
+        for i, node in enumerate(nodes):
+            self.assertEqual(node.attrib["data-student"], f"SV{i+1}")
+            self.assertAlmostEqual(float(node.attrib["data-pc1"]), coords[i, 0], delta=.0001)
+            self.assertAlmostEqual(float(node.attrib["data-pc2"]), coords[i, 1], delta=.0001)
 
     def test_all_python_snippets_have_valid_syntax(self):
         for number, block in enumerate(self.blocks, 1):

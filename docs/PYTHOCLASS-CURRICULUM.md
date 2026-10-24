@@ -16,11 +16,14 @@
 1. Bản đồ **vị trí trong chuỗi kiến thức**, cho thấy kiến thức trước/sau và quan hệ giữa các khái niệm.
 2. **English vocabulary** liên quan đến toàn bài, đi trước tất cả các API và định nghĩa.
 3. **Thư viện, hàm, API Python**, bảng ngắn giải thích từng tên và cách dùng, ví dụ đầu vào/đầu ra.
+   - Bổ sung từ điển **các đối số đặt tên (keyword arguments / options)**, như `dtype=float`, `axis=0`, `n_components=2`, `rowvar=False`, `random_state=42`, `test_size=0.25`. Mỗi đối số cần có **ý nghĩa, lý do chọn giá trị và tác động nếu đổi**; nhắc lại ngắn bằng comment sát từng lệnh Python đang dùng.
 4. **Khái niệm và các khái niệm liên quan**: giải thích bằng lời dễ hiểu, ví dụ gần gũi trước rồi đến công thức tính thể hiện bằng **code Python nhỏ**. Mỗi nhóm Feature / Vector / Matrix, Mean / Variance... đều cần định nghĩa riêng; không dùng tiêu đề “Subconcept”; bỏ chứng minh toán học dài.
    - Nhắc lại các khái niệm được sử dụng **ngay tại từng tiểu mục** rồi tạo một ví dụ tăng tiến: nhiều đối tượng → mỗi đối tượng một vector → xếp vector thành một matrix → phép tính → đọc shape/kết quả. Không yêu cầu sinh viên tự suy đoán dữ liệu từ một dãy số trần.
    - Mọi bảng/`np.array`/`DataFrame`/dataset đều phải chú thích **mỗi hàng là mẫu gì, mỗi cột là feature nào, đơn vị đo gì, bao nhiêu hàng/cột, dữ liệu thật hay minh họa**. Với dữ liệu có nhãn, phân biệt nhãn mục tiêu với cột đầu vào. Chú thích bước xử lý `BƯỚC 1/2/3...` và giải thích tại sao code như vậy.
+4a. **Kiểm tra hiểu ngay tại mỗi khái niệm:** một câu ngắn và đáp án gợi ý ngay sau đoạn ví dụ. Với khái niệm trừu tượng, ưu tiên **tình huống đời thường và hình trực giác** trước số liệu/công thức. Với các phép biến đổi dữ liệu, phải có bảng **trước / sau** (ít nhất vài hàng) và hình được tạo từ **kết quả chạy thật** khi trực quan hóa giúp ích; kiểm tra tương ứng với chương trình tạo hình. Hình minh họa giả lập phải ghi nguồn và giới hạn; không dùng tranh trang trí thay cho dữ liệu đúng.
 5. **Khoảng 5 vấn đề thực tiễn**: bối cảnh và nhu cầu → khái niệm phù hợp → **vì sao chọn phương pháp này thay vì phương pháp khác, lợi ích/giới hạn** → quy trình giải → code có chú thích **vì sao viết như vậy** → cách kiểm tra và hạn chế.
    - Trước code mỗi tình huống, công bố metadata của dataset: đơn vị, ý nghĩa từng cột, ý nghĩa từng hàng, số mẫu và provenance. Trong code khởi tạo nhiều vector rõ ràng khi sinh viên cần hiểu quá trình hình thành matrix.
+5a. **Tải nhận thức:** các bài thực tiễn kết hợp thuật toán chưa được học (như clustering/classification khi bài chính là PCA) phải mang nhãn **Phần mở rộng — có thể đọc sau** và giải thích ngắn vai trò của thuật toán, không ép sinh viên phải hiểu toàn bộ trước khi nắm bài chính.
 6. **20 English multiple-choice questions** với bốn đáp án mỗi câu, đủ bảng đáp án và giải thích bằng tiếng Anh, bao quát thuật ngữ, Python, khái niệm và các quyết định thực tiễn.
 7. **Liên hệ bài tiếp theo**, duy trì sơ đồ logic tiến trình.
 

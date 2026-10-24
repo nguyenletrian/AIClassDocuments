@@ -21,8 +21,10 @@
 ## 3. Python libraries & functions — Thư viện, API và hàm
 
 [Cách cài thư viện (nếu có), bảng hàm với công dụng và tham số quan trọng, ví dụ ngắn có thể chạy. Giải thích `fit`, `transform`, `axis`, `shape`... trước khi bài dùng chúng.]
+ 
+**3.x. Các tham số / keyword arguments:** [Giải thích ngay từ phần thư viện: mỗi tham số là gì, tại sao chọn giá trị này và sẽ thay đổi gì nếu đổi/bỏ. Ví dụ `dtype=float` lưu số thực, `axis=0` tính theo từng cột, `rowvar=False`, `n_components=2`, `random_state=42`... Không chỉ liệt kê tên hàm.]
 
-## 4. Concepts & subconcepts — Khái niệm và khái niệm con
+## 4. Khái niệm và các kiến thức liên quan
 
 ### 4.1. [Khái niệm chính]
 [Khái niệm, mục đích và khi nào dùng bằng ngôn ngữ sinh viên dễ tự đọc.]
@@ -47,11 +49,16 @@ import numpy as np
 # Mỗi HÀNG = một đối tượng; các CỘT = feature kèm đơn vị đo.
 # BƯỚC 2 — Tạo từng vector của đối tượng, chỉ rõ thứ tự feature.
 # BƯỚC 3 — Ghép vector thành matrix (nếu phù hợp).
-# BƯỚC 4 — Áp dụng hàm/khái niệm và giải thích vì sao dùng thao tác đó.
+# BƯỚC 4 — Áp dụng hàm/khái niệm; giải thích NGAY TRÊN DÒNG GỌI HÀM
+# mỗi lựa chọn như dtype=float, axis=0, n_components=2 có tác dụng gì.
 # BƯỚC 5 — In shape / kết quả để kiểm tra ý nghĩa.
 ```
 
 **Đọc kết quả từng bước:** [Giải thích ý nghĩa từng output, số dòng và số cột, cái gì được giữ nguyên hoặc thay đổi, điều gì KHÔNG thể suy ra].
+
+**Trước / sau (khi có phép biến đổi dữ liệu):** [Hiển thị vài hàng của bảng gốc, vài hàng sau biến đổi và **hình kết quả thực được tính từ đúng dữ liệu minh họa** nếu hình giúp hiểu khái niệm. Ghi shape trước/sau, tỷ lệ thông tin giữ lại nếu có, tên hàng/cột, đơn vị; không dùng đồ thị tùy ý không liên quan dữ liệu.]
+
+**Tự kiểm tra nhanh:** [Một câu ngắn kiểm tra ngay khái niệm vừa học, không cần thêm thư viện. Có **đáp án gợi ý** ngay sau đó. Mỗi nhóm kiến thức chính có một câu để người học không phải đợi tới cuối bài.]
 
 **Quy tắc:** Trong mỗi mục 4.2, 4.3... phải nhắc lại khái niệm liên quan rồi mới bắt đầu ví dụ nhỏ **từng bước**. Khi có mảng số, phải nói rõ hàng/cột, từng đặc trưng/đơn vị và ví dụ minh họa cách ghép vector thành matrix khi cần. Không dùng chữ “Subconcept” làm tiêu đề. Viết “Khái niệm liên quan” hoặc tên chủ đề bằng tiếng Việt dễ hiểu. Không giải thích bằng cú pháp hay tên hàm trước khi nói rõ bằng văn; người học phải hiểu *feature là gì* rồi mới gặp ví dụ `np.array`. Không tạo phần “Toán học đằng sau” hoặc chứng minh hàn lâm. Mỗi công thức thể hiện bằng Python trong một ví dụ nhỏ ngay dưới đoạn giải thích.
 
@@ -72,13 +79,17 @@ import numpy as np
 ```python
 # BƯỚC 1 — Chú thích dữ liệu: mỗi HÀNG và từng CỘT/đơn vị.
 # BƯỚC 2 — Xây dựng các vector và matrix đầu vào theo thứ tự hợp lý.
-# BƯỚC 3 — Chọn API theo lý do đã giải thích, không chỉ ghi lại tên lệnh.
+# BƯỚC 3 — Chọn API, diễn giải cả các đối số (flags/options)
+# chẳng hạn dtype=float (số thực), n_components=2 (hai PC)
+# và nêu lý do không dùng giá trị khác.
 # BƯỚC 4 — Kiểm tra shape và ý nghĩa kết quả.
 ```
 
 **Kiểm tra:** [Kết quả thực tế, shape, giới hạn, điều kiện cần thận trọng.]
 
 [Lặp lại đến tình huống 5. Chuyển hóa những bài tập đã ghi nhận trong nguồn nội bộ thành tình huống thực tiễn, không sao chép mô tả hàn lâm.]
+
+**Tính tùy chọn của kiến thức nâng cao:** [Nếu bài tình huống cần KMeans, LogisticRegression, Pipeline hoặc API chưa được dạy trong chuỗi, đánh dấu **Phần mở rộng — có thể đọc sau**, định nghĩa chúng bằng lời ngắn gọn, chỉ yêu cầu nắm vai trò của bài hiện tại; không đột ngột biến chúng thành kiến thức tiên quyết.]
 
 ## 6. Những lỗi dễ gặp
 

@@ -7,7 +7,7 @@ Bài học đi theo thứ tự: **chuỗi kiến thức → English vocabulary �
 ## Bài mẫu chờ góp ý
 **[AI-MATH-01 — PCA: Phân tích thành phần chính](lessons/pilot/AI-MATH-01-pca.vi.md)**
 
-Bài thử gồm năm tình huống thực tế được minh họa bằng Python với chú thích lý do và 20 câu hỏi trắc nghiệm tiếng Anh có đáp án. Đây chỉ là **pilot**; chưa nhân rộng toàn bộ giáo trình trước khi duyệt.
+Bài thử có hình minh họa PCA trước/sau từ dữ liệu chạy thật, câu tự kiểm tra ngay sau các nhóm khái niệm, năm tình huống thực tế bằng Python có chú thích lý do, và 20 câu trắc nghiệm tiếng Anh kèm đáp án. Các thuật toán mở rộng được đánh dấu để sinh viên đọc sau. Đây chỉ là **pilot**; chưa nhân rộng toàn bộ giáo trình trước khi duyệt.
 
 ## Cấu trúc
 - `AGENTS.md`: quy tắc cho Architect/Document Author và giữ tính an toàn Bridge.

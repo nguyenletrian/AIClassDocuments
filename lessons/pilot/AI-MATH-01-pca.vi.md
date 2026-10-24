@@ -1,6 +1,6 @@
 # PCA — Giảm chiều dữ liệu để nhìn rõ vấn đề trong AI
 
-*AI / Data Science · Tài liệu tự học dành cho sinh viên · Phiên bản góp ý 03*
+*AI / Data Science · Tài liệu tự học dành cho sinh viên · Phiên bản góp ý 05*
 
 ## 1. PCA nằm ở đâu trong chuỗi kiến thức?
 
@@ -76,10 +76,12 @@ import numpy as np
 
 # Dữ liệu minh họa của 2 khách hàng.
 # Mỗi hàng = một khách; cột 0 = lượt ghé, cột 1 = số đơn.
-X = np.array([[2, 3], [4, 5]], dtype=float)
+# dtype=float: giữ các số dưới dạng float (số thực), thuận tiện cho phép tính.
+X = np.array([[2, 3], [4, 5]], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 
 # Từ 2 vector của khách, có 1 ma trận 2 hàng × 2 feature.
 print("Samples x Features:", X.shape)  # (2, 2)
+# axis=0: gộp giá trị các hàng và tính trung bình riêng từng CỘT.
 print("Mean per feature:", X.mean(axis=0))  # [3. 4.]
 ```
 
@@ -99,6 +101,29 @@ print("Mean per feature:", X.mean(axis=0))  # [3. 4.]
 | `Pipeline([...])` | Xử lý các bước theo đúng thứ tự, tránh học nhầm dữ liệu test |
 
 **Ghi nhớ `fit` khác `transform`:** `fit` tạo ra quy tắc từ tập dữ liệu; `transform` áp dụng đúng quy tắc đó cho dữ liệu khác. Khi có train/test, chỉ gọi `fit` trên **train**.
+
+### 3.3. Tham số trong dấu ngoặc — vì sao phải chọn giá trị?
+
+Trong Python, phần `tên=giá_trị` khi gọi hàm là **đối số đặt tên** (*keyword argument*). Ví dụ `dtype=float` yêu cầu NumPy lưu dữ liệu dưới dạng **số thực**, chứ không phải thực hiện phép tính PCA. Hãy luôn hỏi: *Tham số điều khiển điều gì, vì sao chọn giá trị đó và nếu đổi thì kết quả có thể khác gì?*
+
+| Đối số | Nghĩa đơn giản | Vì sao dùng trong bài? |
+|---|---|---|
+| `dtype=float` | Lưu mảng dưới dạng số thực, có thể chứa phần thập phân | Thuận tiện khi chuẩn hóa/tính tọa độ PCA; **không** tự chuẩn hóa |
+| `axis=0` | Với `X.mean`, gom các **hàng** và trả kết quả theo **từng cột** | Tính trung bình mỗi feature |
+| `rowvar=False` | Với `np.cov`/`np.corrcoef`, coi **các cột là biến** | Bảng khách hàng/sinh viên lưu mỗi hàng là một mẫu |
+| `n_components=2` | Lấy hai PC | Vẽ tọa độ trên mặt phẳng 2D |
+| `n_components=1` | Lấy một PC | Thử tóm tắt các kênh cảm biến |
+| `n_components=0.95` | Chọn số PC để giữ ít nhất 95% phương sai (với solver thích hợp) | Không phải đoán sẵn số cột |
+| `svd_solver="full"` | Dùng SVD đầy đủ | Hỗ trợ chọn số PC theo ngưỡng phương sai |
+| `random_state=42` | Cố định hạt giống ngẫu nhiên | Chạy lại dễ tái lập; số **42 không có ý nghĩa khoa học đặc biệt** |
+| `n_init=10` | KMeans thử 10 lần khởi tạo tâm cụm | Giảm phụ thuộc một lần khởi tạo |
+| `test_size=0.25` | Giữ 25% dữ liệu làm test | Có tập để kiểm tra mô hình |
+| `stratify=iris.target` | Chia tập theo tỷ lệ nhãn loài | Các loài có tỷ lệ gần giống nhau ở train/test |
+| `max_iter=1000` | Cho LogisticRegression tối đa 1000 lượt tối ưu | Tránh dừng quá sớm; không nhất thiết cần đủ 1000 |
+| `start=1` | `enumerate` đếm từ 1 thay vì 0 | Hiện SV1, SV2... |
+| `xytext=(4,4)` + `textcoords="offset points"` | Dịch chữ ghi chú khỏi dấu chấm trên biểu đồ | Giúp nhãn không chồng lên điểm |
+
+**Thử đọc một lệnh:** `X = np.array([[1,100],[2,200]], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.` tạo matrix **2 hàng × 2 cột**, kiểu số thực. Bạn có thể xem `X.dtype` để kiểm tra. Với mảng toàn số nguyên, bỏ `dtype=float` thường làm NumPy dùng kiểu số nguyên; khi cần lưu số thập phân phải chọn kiểu phù hợp.
 
 ## 4. PCA và các khái niệm liên quan
 
@@ -151,6 +176,7 @@ customer_5 = np.array([6, 1, 220, 5, 1])      # Khách 5
 customer_vectors = [
     customer_1, customer_2, customer_3, customer_4, customer_5
 ]
+# np.vstack xếp các vector theo chiều DỌC: 5 vector thành 5 hàng.
 X = np.vstack(customer_vectors)
 
 # BƯỚC 3 — Đọc một hàng và một cột để hiểu cấu trúc dữ liệu.
@@ -159,6 +185,7 @@ print("Chi tiêu 5 khách:", X[:, 2])  # [950 1200 500 1600 220]
 
 # BƯỚC 4 — Số hàng × số cột = số khách × số feature.
 print("Số vector:", len(customer_vectors))  # 5
+# shape=(hàng, cột): (5,5) là 5 khách với 5 đặc trưng mỗi khách.
 print("Shape:", X.shape)  # (5, 5)
 ```
 
@@ -170,6 +197,10 @@ print("Shape:", X.shape)  # (5, 5)
 4. **Kiểm tra `shape`:** `(5, 5)` nghĩa là **5 khách hàng và 5 đặc trưng**, không phải 25 khách hàng.
 
 **Nối với PCA:** Nếu sau này cửa hàng có **100 khách × 5 feature**, shape là `(100, 5)`. PCA giảm còn hai thành phần chính sẽ cho bảng mới có shape `(100, 2)`: **vẫn 100 khách**, nhưng mỗi khách được biểu diễn bằng **2 tọa độ tổng hợp PC1/PC2**, không phải chọn lại nguyên hai cột gốc. Bảng dữ liệu gốc vẫn cần được lưu nếu muốn xem thông tin chi tiết như số đơn hay chi tiêu.
+
+**Tự kiểm tra nhanh — 4.2:** Một cửa hàng có 20 khách, mỗi khách có 6 feature. Ma trận có shape nào? `X[:, 2]` lấy gì?
+
+**Đáp án gợi ý:** `(20, 6)`; `X[:, 2]` lấy **toàn bộ 20 giá trị của feature ở cột thứ ba** (Python đếm cột từ 0).
 
 ### 4.3. Mean (trung bình), Variance (phương sai), Standardization (chuẩn hóa)
 
@@ -192,7 +223,7 @@ X = np.array([
     [1, 100],  # K1: 1 đơn, 100 nghìn đồng
     [2, 200],  # K2: 2 đơn, 200 nghìn đồng
     [3, 300],  # K3: 3 đơn, 300 nghìn đồng
-], dtype=float)
+], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 
 # BƯỚC 2 — axis=0 tính mean/variance theo từng cột cho mọi khách.
 print("Mean:", X.mean(axis=0))  # [  2. 200.]
@@ -206,6 +237,10 @@ print("Scaled variance:", np.round(scaled.var(axis=0), 5))  # [1. 1.]
 
 **Đọc kết quả:** Hai cột vẫn mô tả ba khách, nhưng giá trị đã được đổi sang thang đo chuẩn. Không phải dữ liệu nào cũng bắt buộc chuẩn hóa; hãy xét ý nghĩa đơn vị và mục tiêu phân tích.
 
+**Tự kiểm tra nhanh — 4.3:** Vì sao không nên đưa trực tiếp hai cột `Orders` (đơn) và `Spending` (nghìn đồng) vào PCA mà không xem xét đơn vị?
+
+**Đáp án gợi ý:** Cột chi tiêu có thể có phương sai số học lớn hơn **chỉ vì thang đo**, khiến PCA chú trọng cột đó quá mức. Ta cân nhắc `StandardScaler` để so sánh đặc trưng hợp lý hơn.
+
 ### 4.4. Covariance (hiệp phương sai), Eigenvector (hướng riêng), Eigenvalue (giá trị riêng)
 
 **Nhắc lại kiến thức liên quan:** Một **matrix** lưu nhiều mẫu theo hàng và feature theo cột. **Variance** đo sự phân tán của *một* cột; **Covariance** giúp xem *hai* cột thay đổi cùng nhau ra sao. Từ matrix hiệp phương sai, ta tìm các **hướng biến thiên** (Eigenvector) và mức biến thiên theo mỗi hướng (Eigenvalue) — đây là những gì PCA sử dụng khi tạo đặc trưng mới.
@@ -213,6 +248,16 @@ print("Scaled variance:", np.round(scaled.var(axis=0), 5))  # [1. 1.]
 **Covariance** giúp mô tả *hai feature có xu hướng thay đổi cùng nhau hay không*. Ví dụ, nếu khách ghé cửa hàng nhiều hơn và số đơn hàng cũng thường tăng, hai cột có thể có hiệp phương sai dương. Khi một cột tăng mà cột kia thường giảm, hiệp phương sai có thể âm. Gần 0 có nghĩa ít biến thiên **tuyến tính cùng nhau**, không khẳng định các biến hoàn toàn không liên quan.
 
 **Eigenvector** trong bối cảnh PCA có thể hình dung là một **hướng mới** mà dữ liệu trải dài theo đó. **Eigenvalue** cho biết **mức phương sai** của dữ liệu theo hướng riêng tương ứng. PCA ưu tiên hướng có eigenvalue lớn để giữ lại mức biến thiên đáng kể. Không cần tự giải phương trình ma trận trong bài này vì NumPy có hàm tính sẵn.
+
+**Hình dung đời thường:** Tưởng tượng chấm mỗi khách hàng lên một biểu đồ: trục ngang là **số lần ghé**, trục dọc là **số đơn hàng**. Nếu người ghé nhiều thường mua nhiều, các điểm sẽ tạo thành một đám kéo dài theo hướng chéo lên. Khi đó:
+
+- **Hướng dài của đám điểm** giống trực giác về `PC1`: hướng giữ nhiều sự thay đổi nhất.
+- **Hướng vuông góc** là `PC2`: nếu ba điểm nằm đúng trên một đường thẳng, theo hướng này gần như không có sự khác nhau.
+- Với ma trận hiệp phương sai, **eigenvector** mô tả các hướng đó; **eigenvalue** mô tả lượng phương sai theo từng hướng. Không cần chứng minh công thức để biết chúng đang giúp PCA làm gì.
+
+![Ba khách hàng tạo thành một xu hướng; minh họa PC1 và PC2](assets/pca-direction-intuition.svg)
+
+*Đây là sơ đồ trực giác từ ba khách giả lập, không phải hình vẽ tự động lấy từ dữ liệu sinh viên ở phần sau. Hướng của vector riêng có thể đổi dấu mà vẫn biểu diễn cùng một trục.*
 
 **Ví dụ nhỏ — lượt ghé và đơn hàng tăng cùng nhau:**
 
@@ -226,13 +271,15 @@ X = np.array([
     [1, 1],  # K1: 1 lượt, 1 đơn
     [2, 2],  # K2: 2 lượt, 2 đơn
     [3, 3],  # K3: 3 lượt, 3 đơn
-], dtype=float)
+], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 
 # BƯỚC 2 — rowvar=False: mỗi cột là một feature, mỗi hàng là một khách.
+# rowvar=False: mỗi CỘT là một feature, không xem mỗi khách là biến.
 covariance = np.cov(X, rowvar=False)
 
 # BƯỚC 3 — Covariance là ma trận đối xứng nên dùng eigh.
 # Kết quả gồm eigenvalue (độ biến thiên) và eigenvector (hướng).
+# eigh dùng cho ma trận đối xứng như covariance (khác eig tổng quát).
 eigenvalues, eigenvectors = np.linalg.eigh(covariance)
 
 print("Covariance:", covariance)
@@ -241,6 +288,10 @@ print("Direction count:", eigenvectors.shape[1])  # 2
 ```
 
 **Đọc kết quả:** Một hướng có phương sai lớn hơn, hướng kia gần như không có phương sai vì hai feature giống nhau trong ví dụ. PCA có thể tận dụng sự trùng lặp tuyến tính này để giảm chiều. Không dùng kết luận này để xóa dữ liệu đo lường quan trọng trong hệ thống thực.
+
+**Tự kiểm tra nhanh — 4.4:** Nếu hai feature luôn tăng cùng nhau, PCA thường cần hướng nào để giữ phần lớn phương sai? `np.linalg.eigh` trả về thông tin gì?
+
+**Đáp án gợi ý:** Hướng đi **dọc theo đám điểm** thường giữ nhiều phương sai. `np.linalg.eigh` trả về **eigenvalues** (mức phương sai theo hướng) và **eigenvectors** (các hướng) của ma trận đối xứng đầu vào.
 
 ### 4.5. Principal Component (PC1, PC2) và tỷ lệ phương sai giữ lại
 
@@ -271,22 +322,49 @@ X = np.array([
     [88, 87, 89, 20, 90],  # SV6
     [40, 45, 50, 10, 70],  # SV7
     [75, 73, 76, 15, 85],  # SV8
-], dtype=float)
+], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 print("Số sinh viên × số feature:", X.shape)  # (8, 5)
 
 # BƯỚC 2 — Chuẩn hóa 5 cột vì điểm, giờ học và phần trăm khác đơn vị.
 scaled = StandardScaler().fit_transform(X)
 
 # BƯỚC 3 — Cần xem dữ liệu trên đồ thị phẳng nên giữ hai tọa độ PC.
+# n_components=2: muốn có hai tọa độ PC mới để vẽ trên mặt phẳng.
 pca = PCA(n_components=2)
+# fit_transform: học hai hướng PC rồi biến đổi cả 8 hàng dữ liệu.
 X_new = pca.fit_transform(scaled)
 
 print("Before:", X.shape)  # (8, 5)
 print("After:", X_new.shape)  # (8, 2)
 print("Retained (%):", round(pca.explained_variance_ratio_.sum() * 100, 2))
+
+# In tọa độ mới của 3 sinh viên đầu tiên để thấy PC là số cụ thể.
+# [:3] chỉ lấy 3 sinh viên đầu; start=1 để đánh số từ SV1 thay vì SV0.
+for index, (pc1, pc2) in enumerate(X_new[:3], start=1):
+    print(f"SV{index}: PC1={pc1:.2f}; PC2={pc2:.2f}")
 ```
 
+**Nhìn tận mắt dữ liệu trước và sau**
+
+![Bảng dữ liệu gốc 8 sinh viên với 5 feature và biểu đồ 8 điểm ở hai trục PC1/PC2](assets/pca-before-after.svg)
+
+*Hình được dựng từ chính 8 sinh viên giả lập trong đoạn Python ở trên, sau `StandardScaler` và `PCA(n_components=2)`. Bảng bên trái là **5 cột số gốc**; hình bên phải là **2 tọa độ PC mới**. Mỗi nhãn SV1–SV8 vẫn đại diện cho đúng một sinh viên.*
+
+| Sinh viên | Một vài feature **ban đầu** | PC1 sau PCA | PC2 sau PCA |
+|---|---|---:|---:|
+| SV1 | Toán 80, Lý 81, Anh 72, tự học 20 giờ, chuyên cần 90% | 0.75 | -0.54 |
+| SV2 | Toán 85, Lý 88, Anh 80, tự học 22 giờ, chuyên cần 95% | 1.85 | -0.40 |
+| SV3 | Toán 60, Lý 65, Anh 72, tự học 12 giờ, chuyên cần 75% | -1.81 | 0.71 |
+
+**Đọc bảng:** Các giá trị `PC1`/`PC2` là **tọa độ mới**, không phải điểm Toán, điểm Anh hay phần trăm chuyên cần. PCA chỉ đổi cách **biểu diễn** 8 sinh viên; không xác định sinh viên tốt/xấu. Dấu `+`/`-` của các PC có thể đảo giữa các thuật toán/phiên bản mà ý nghĩa giảm chiều vẫn tương đương.
+
+**Vì sao chỉ có hai trục trên hình?** Với bộ dữ liệu này, PC1 giữ khoảng **93,99% phương sai**, PC2 thêm khoảng **4,67%**; tổng khoảng **98,65%**. Hai tọa độ thuận tiện để trực quan hóa, nhưng **không giữ nguyên từng feature ban đầu**.
+
 **Đọc kết quả:** Vẫn có **8 sinh viên** nhưng mỗi người có **2 tọa độ PC**, thay cho năm thông tin ban đầu trong bảng biểu diễn mới. Trên dữ liệu minh họa, tỷ lệ phương sai giữ lại khoảng **98,65%**. Đây không phải thước đo chất lượng học tập của sinh viên.
+
+**Tự kiểm tra nhanh — 4.5:** Nếu có 8 sinh viên × 5 feature, sau PCA còn 2 PC, bao nhiêu sinh viên được giữ lại? Nếu giữ 98,65% phương sai thì AI có tự đạt 98,65% accuracy không?
+
+**Đáp án gợi ý:** Vẫn **8 sinh viên**, vì số hàng không đổi; không, phương sai và độ chính xác dự đoán là hai thước đo khác nhau.
 
 ### 4.6. Fit (học từ dữ liệu), Transform (áp dụng) và Data Leakage (rò rỉ dữ liệu)
 
@@ -308,11 +386,11 @@ train = np.array([
     [1, 100],  # K1
     [2, 200],  # K2
     [3, 300],  # K3
-], dtype=float)
+], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 
 # BƯỚC 2 — Một khách mới K4, cùng đúng hai cột và đơn vị.
 # Không học lại quy tắc chỉ từ một khách mới vì muốn áp dụng quy tắc cũ.
-new_customer = np.array([[4, 350]], dtype=float)
+new_customer = np.array([[4, 350]], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 
 scaler = StandardScaler()
 scaler.fit(train)                      # BƯỚC 3 — Học chỉ từ 3 khách train
@@ -323,9 +401,15 @@ print("New shape:", new_scaled.shape)  # (1, 2)
 
 **Khi sử dụng PCA để đánh giá mô hình dự đoán**, hãy đặt `StandardScaler` và `PCA` trong `Pipeline` rồi gọi `fit` trên tập train. Trình tự đầy đủ được minh họa ở tình huống 5.
 
+**Tự kiểm tra nhanh — 4.6:** Khi có `X_train` và `X_test`, scaler/PCA được `fit` trên tập nào? Vì sao không `fit` lại trên test?
+
+**Đáp án gợi ý:** Chỉ `fit` scaler và PCA trên **train**, rồi `transform` test bằng quy tắc đã học, để tránh **data leakage** và giữ đánh giá khách quan.
+
 ## 5. Năm tình huống lập trình trong thực tế
 
 Mỗi tình huống đều gồm: **vấn đề → nhắc lại các khái niệm cần dùng → vì sao chọn cách giải → quy trình → mô tả dữ liệu (từng hàng/cột/đơn vị) → code có ghi từng bước → kiểm tra kết quả**. Trừ Iris là bộ dữ liệu có sẵn, các bảng dữ liệu còn lại đều là **ví dụ giả lập để học cách xử lý**, không phải hồ sơ người hay doanh nghiệp thật.
+
+**Cách học nhẹ nhàng:** Tình huống 1, 2, 4 tập trung trực tiếp vào PCA và cách đọc dữ liệu. **Tình huống 3 (KMeans) và 5 (LogisticRegression/Pipeline) là phần mở rộng**, cho thấy PCA kết hợp với thuật toán AI khác như thế nào. Nếu chưa học phân cụm hoặc phân loại, bạn vẫn có thể đọc ý tưởng và bỏ qua phần chi tiết thuật toán rồi quay lại sau; chúng **không phải kiến thức bắt buộc để hiểu PCA**.
 
 ### Tình huống 1 — Phòng đào tạo muốn nhìn tổng quan hồ sơ học tập
 
@@ -363,7 +447,7 @@ profiles = np.array([
     [88, 87, 89, 20, 90],  # SV6
     [40, 45, 50, 10, 70],  # SV7
     [75, 73, 76, 15, 85],  # SV8
-], dtype=float)
+], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 print("Bảng hồ sơ sinh viên:", profiles.shape)  # (8, 5)
 
 # BƯỚC 2 — Vì điểm số, giờ học và chuyên cần dùng thang khác nhau,
@@ -383,6 +467,7 @@ print("Retained (%):", round(100 * pca.explained_variance_ratio_.sum(), 2))
 plt.scatter(map_2d[:, 0], map_2d[:, 1])
 for index, (x, y) in enumerate(map_2d, start=1):
     # Chú thích bằng nhãn ẩn danh; không sử dụng dữ liệu cá nhân thật.
+    # xytext=(4,4), textcoords="offset points": dịch chữ khỏi dấu chấm 4 point.
     plt.annotate(f"SV{index}", (x, y), xytext=(4, 4), textcoords="offset points")
 plt.xlabel("PC1")
 plt.ylabel("PC2")
@@ -426,15 +511,17 @@ sensors = np.array([
     [33, 67, 331],  # T6
     [35, 71, 352],  # T7
     [38, 76, 379],  # T8
-], dtype=float)
+], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 print("Thời điểm × kênh đo:", sensors.shape)  # (8, 3)
 
 # BƯỚC 2 — Xem các cột có tương quan không trước khi thử nén chúng.
+# rowvar=False: xem 3 CỘT cảm biến là 3 biến để tính tương quan.
 correlation = np.corrcoef(sensors, rowvar=False)
 print("Correlation (rounded):\n", np.round(correlation, 2))
 
 # BƯỚC 3 — Đơn vị/độ lớn khác nhau nên chuẩn hóa trước khi giảm chiều.
 scaled = StandardScaler().fit_transform(sensors)
+# n_components=1: thử biểu diễn cả 3 kênh bằng một tọa độ tổng hợp.
 pca = PCA(n_components=1)
 compressed = pca.fit_transform(scaled)
 
@@ -445,6 +532,8 @@ print("Variance retained (%):", round(100 * pca.explained_variance_ratio_.sum(),
 **Kiểm tra:** shape thay từ `(8, 3)` thành `(8, 1)` và tỷ lệ giữ lại gần 100% trên bộ dữ liệu mẫu. **Không** nên vì tỷ lệ cao mà xóa cảm biến thật: những sai số hiếm hoặc điều kiện bất thường có thể bị mất.
 
 ### Tình huống 3 — Bộ phận marketing muốn khám phá nhóm khách hàng
+
+**Phần mở rộng — có thể đọc sau:** `KMeans` là thuật toán **phân cụm**, tự thử nhóm những điểm gần nhau mà không cần nhãn nhóm có sẵn. Bài này chủ yếu minh họa rằng **PCA tạo tọa độ**, còn KMeans dùng tọa độ đó để thử phân nhóm. Chưa cần học sâu KMeans để hiểu PCA.
 
 **Vấn đề:** Mỗi khách có số lượt xem hàng, đơn hàng, chi tiêu và thời gian tương tác. Cần xem nhóm khách nào có hành vi tương tự trước khi thiết kế chiến dịch. Không thể trực quan hóa cả bốn feature trên một đồ thị 2D.
 
@@ -479,7 +568,7 @@ customers = np.array([
     [76, 10, 1550, 55], # KH8
     [88, 14, 1900, 68], # KH9
     [95, 13, 1850, 72], # KH10
-], dtype=float)
+], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 print("Khách hàng × feature:", customers.shape)  # (10, 4)
 
 # BƯỚC 2 — Các cột chi tiêu và lượt xem lớn hơn số đơn, cần cùng thang đo.
@@ -490,6 +579,9 @@ locations = PCA(n_components=2).fit_transform(scaled)
 
 # BƯỚC 4 — KMeans mới là bước quyết định nhãn nhóm;
 # PCA chỉ biến đổi tọa độ chứ không tự phân cụm.
+# n_clusters=2: chỉ THỬ 2 nhóm, không khẳng định có đúng 2 nhóm.
+# random_state=42: cố định lựa chọn ngẫu nhiên để chạy lại ra kết quả tương tự.
+# n_init=10: thử 10 lần khởi tạo tâm cụm để giảm phụ thuộc một lần thử.
 labels = KMeans(n_clusters=2, random_state=42, n_init=10).fit_predict(locations)
 
 print("PCA shape:", locations.shape)
@@ -532,13 +624,15 @@ shops = np.array([
     [450, 68, 160000, 109, 98], # CH6
     [250, 36, 85000, 64, 60],   # CH7
     [600, 90, 210000, 150, 125],# CH8
-], dtype=float)
+], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
 print("Cửa hàng × feature:", shops.shape)  # (8, 5)
 
 # BƯỚC 2 — Không để cột doanh thu lớn chi phối chỉ vì cách ghi đơn vị.
 scaled = StandardScaler().fit_transform(shops)
 
 # BƯỚC 3 — 0.95 yêu cầu giữ ít nhất 95% phương sai, KHÔNG phải 0.95 chiều.
+# n_components=0.95: giữ ít PC nhất để đạt >=95% phương sai.
+# svd_solver="full": phép phân rã cho phép chọn số PC theo ngưỡng.
 pca = PCA(n_components=0.95, svd_solver="full")
 compressed = pca.fit_transform(scaled)
 
@@ -550,6 +644,8 @@ print("Variance retained (%):", round(100 * pca.explained_variance_ratio_.sum(),
 **Kiểm tra:** số cột mới không quá 5, tỷ lệ phương sai được giữ lại **tối thiểu 95%** với bộ dữ liệu minh họa này. Trong dự án thật, hãy so sánh hiệu quả dashboard hoặc mô hình trước/sau giảm chiều, không chỉ nhìn con số 95%.
 
 ### Tình huống 5 — Ứng dụng nông nghiệp nhận diện loài hoa từ số đo
+
+**Phần mở rộng — có thể đọc sau:** `LogisticRegression` là mô hình **phân loại có giám sát**: học từ những mẫu đã biết nhãn để dự đoán nhãn mẫu mới. `Pipeline` là cách xâu chuỗi nhiều bước (scale → PCA → phân loại) để dùng đúng thứ tự. Chỉ cần nhớ rằng PCA **không tự dự đoán loài hoa**; thuật toán phân loại làm việc đó.
 
 **Vấn đề:** Một hệ thống phân loại hoa nhận 4 số đo trên mỗi mẫu hoa. Chúng ta muốn thử giảm còn 2 feature trước khi huấn luyện mô hình phân loại, nhưng vẫn cần đánh giá với dữ liệu chưa dùng để học.
 
@@ -583,6 +679,9 @@ print("Nhãn loài:", iris.target_names)
 # BƯỚC 2 — Chia train/test trước mọi bước học từ dữ liệu.
 X_train, X_test, y_train, y_test = train_test_split(
     iris.data, iris.target,
+    # test_size=0.25: dành 25% hoa để kiểm tra, không cho học trước.
+    # stratify=iris.target: giữ tỷ lệ các loài hoa tương tự trong train/test.
+    # random_state=42: cố định phép chia để có thể so sánh lại kết quả.
     test_size=0.25, stratify=iris.target, random_state=42
 )
 
@@ -591,6 +690,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 with_pca = Pipeline([
     ("scale", StandardScaler()),
     ("reduce", PCA(n_components=2)),
+    # max_iter=1000: tối đa 1000 vòng tối ưu; mô hình có thể hội tụ sớm hơn.
     ("predict", LogisticRegression(max_iter=1000)),
 ])
 
@@ -598,6 +698,7 @@ with_pca = Pipeline([
 # để có đối chứng công bằng khi quyết định có nên dùng PCA hay không.
 without_pca = Pipeline([
     ("scale", StandardScaler()),
+    # max_iter=1000: tối đa 1000 vòng tối ưu; mô hình có thể hội tụ sớm hơn.
     ("predict", LogisticRegression(max_iter=1000)),
 ])
 
