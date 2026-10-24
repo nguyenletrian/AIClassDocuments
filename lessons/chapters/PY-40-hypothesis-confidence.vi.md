@@ -92,7 +92,7 @@ print(np.mean([2,3,4]))
 
 **Vì sao chọn cách này?** T-test giúp so mean của mẫu với một chuẩn đã định; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 7 điểm [48,52,55,49,51,47,53]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 7 điểm [48,52,55,49,51,47,53].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -102,7 +102,6 @@ x=[48,52,55,49,51,47,53]
 print(ttest_1samp(x,popmean=50).pvalue)
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 2 — Khoảng tin cậy thời gian giao hàng
 
@@ -112,7 +111,7 @@ print(ttest_1samp(x,popmean=50).pvalue)
 
 **Vì sao chọn cách này?** t.interval dùng std mẫu khi n nhỏ và giả định phù hợp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 số ngày [2,3,3,4,2]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 5 số ngày [2,3,3,4,2].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -123,7 +122,6 @@ x=np.array([2.,3.,3.,4.,2.]);mean=x.mean()
 print(t.interval(.95,df=len(x)-1,loc=mean,scale=sem(x)))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 3 — Xem sai số chuẩn
 
@@ -133,7 +131,7 @@ print(t.interval(.95,df=len(x)-1,loc=mean,scale=sem(x)))
 
 **Vì sao chọn cách này?** sem cho biết mức bất định của mean mẫu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 ngày giao hàng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 5 ngày giao hàng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -142,7 +140,6 @@ from scipy.stats import sem
 print(sem([2,3,3,4,2]))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 4 — Kiểm định thang thời gian
 
@@ -152,7 +149,7 @@ print(sem([2,3,3,4,2]))
 
 **Vì sao chọn cách này?** So pvalue với ngưỡng alpha chứ không coi pvalue là xác suất H0 đúng; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Giả sử alpha=0.05. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Giả sử alpha=0.05.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -162,7 +159,6 @@ p=ttest_1samp([5,6,7,8,9],popmean=6).pvalue
 print("Reject H0" if p<.05 else "Not enough evidence")
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 5 — Phân biệt ý nghĩa alpha
 
@@ -172,7 +168,7 @@ print("Reject H0" if p<.05 else "Not enough evidence")
 
 **Vì sao chọn cách này?** Thay alpha đổi quyết định chứ không đổi dữ liệu pvalue; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** pvalue=0.04, alpha 0.01 và 0.05. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** pvalue=0.04, alpha 0.01 và 0.05.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -181,7 +177,6 @@ p=.04
 for alpha in [.01,.05]:print(alpha,p<alpha)
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 
