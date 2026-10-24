@@ -1,14 +1,8 @@
 # PY-01 — Biến, đầu vào và đầu ra trong Python
 
-*Trạng thái: DRAFT · Dữ liệu minh họa giả lập · Chưa xác nhận chạy Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Variable** — biến; **Input** — đầu vào.
-
 `Chương trình → Biến → Kiểu dữ liệu → Điều kiện`
-
-Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu đầu vào, thao tác và đầu ra trước khi dùng cho dữ liệu AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 
 ## 3. Các hàm và tùy chọn Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cú pháp | Mục đích và ý nghĩa lựa chọn |
 |---|---|
 | `print()` | Hiển thị kết quả, nhận nhiều giá trị phân cách bằng dấu phẩy |
@@ -30,81 +22,49 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 | `int()/float()` | Đổi chuỗi hợp lệ sang số trước khi tính toán |
 | `type()` | Kiểm tra kiểu dữ liệu khi chưa rõ đầu vào |
 
-Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiều comment vào ví dụ.
-
 ## 4. Khái niệm liên quan — từ lời giải thích đến Python
 
 ### 4.1. Variable
 
-**Từ vựng trong mục:** **Variable** — biến.
-
-Tên dùng để tham chiếu một giá trị. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Tên dùng để tham chiếu một giá trị.
 
 ```python
 total = 12
 print(total)
 ```
 
-**Tự kiểm tra:** Variable có ý nghĩa gì?
-
-**Đáp án:** Tên dùng để tham chiếu một giá trị.
-
 ### 4.2. Input
 
-**Từ vựng trong mục:** **Input** — đầu vào.
-
-Thông tin đưa vào chương trình. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Thông tin đưa vào chương trình.
 
 ```python
 name = 'An'
 print(name)
 ```
 
-**Tự kiểm tra:** Input có ý nghĩa gì?
-
-**Đáp án:** Thông tin đưa vào chương trình.
-
 ### 4.3. Output
 
-**Từ vựng trong mục:** **Output** — đầu ra.
-
-Thông tin chương trình tạo ra. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Thông tin chương trình tạo ra.
 
 ```python
 print('Xin chào')
 ```
 
-**Tự kiểm tra:** Output có ý nghĩa gì?
-
-**Đáp án:** Thông tin chương trình tạo ra.
-
 ### 4.4. Type
 
-**Từ vựng trong mục:** **Type** — kiểu dữ liệu.
-
-Nhóm giá trị như str, int, float. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Nhóm giá trị như str, int, float.
 
 ```python
 print(type(2.5))
 ```
 
-**Tự kiểm tra:** Type có ý nghĩa gì?
-
-**Đáp án:** Nhóm giá trị như str, int, float.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Chào khách mới
 
-**Từ vựng trong mục:** **Variable** — biến.
+**Vì sao chọn cách này?** Lưu tên trong biến để dùng lại trong nhiều thông báo.
 
-**Vấn đề:** Chào khách mới.
-
-**Vì sao chọn cách này?** Lưu tên trong biến để dùng lại trong nhiều thông báo. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Một chuỗi là tên khách; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Một chuỗi là tên khách
 
 ```python
 name = "Lan"
@@ -112,19 +72,11 @@ name = "Lan"
 print(f"Xin chào {name}!")
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 2 — Tính tiền hóa đơn
 
-**Từ vựng trong mục:** **Input** — đầu vào.
+**Vì sao chọn cách này?** Đổi số từ văn bản thành số trước khi nhân.
 
-**Vấn đề:** Tính tiền hóa đơn.
-
-**Vì sao chọn cách này?** Đổi số từ văn bản thành số trước khi nhân. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Giá 120000 đồng, số lượng 3; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Giá 120000 đồng, số lượng 3
 
 ```python
 price = int("120000")
@@ -132,57 +84,33 @@ quantity = int("3")
 print(price * quantity)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 3 — Hiển thị điểm
 
-**Từ vựng trong mục:** **Output** — đầu ra.
+**Vì sao chọn cách này?** Format tên và điểm để xuất ra một dòng dễ đọc.
 
-**Vấn đề:** Hiển thị điểm.
-
-**Vì sao chọn cách này?** Format tên và điểm để xuất ra một dòng dễ đọc. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Tên An, điểm 8.5/10; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Tên An, điểm 8.5/10
 
 ```python
 name, score = "An", 8.5
 print(f"{name}: {score}/10")
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 4 — Ghi nhiệt độ
 
-**Từ vựng trong mục:** **Type** — kiểu dữ liệu.
+**Vì sao chọn cách này?** Giữ kiểu số thực để không mất phần thập phân.
 
-**Vấn đề:** Ghi nhiệt độ.
-
-**Vì sao chọn cách này?** Giữ kiểu số thực để không mất phần thập phân. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Nhiệt độ 36.5 độ C; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Nhiệt độ 36.5 độ C
 
 ```python
 temperature = 36.5
 print(type(temperature), temperature)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 5 — Giữ mã đơn
 
-**Từ vựng trong mục:** **Variable** — biến.
+**Vì sao chọn cách này?** Mã đơn không phải đại lượng nên giữ dạng chuỗi.
 
-**Vấn đề:** Giữ mã đơn.
-
-**Vì sao chọn cách này?** Mã đơn không phải đại lượng nên giữ dạng chuỗi. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Mã 0007; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Mã 0007
 
 ```python
 order_id = "0007"
@@ -190,16 +118,11 @@ print(order_id)
 assert order_id.startswith("00")
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ## 6. Những nhầm lẫn thường gặp
 
-- Không suy diễn từ một ví dụ minh họa sang mọi bộ dữ liệu thật.
 - Dùng phép xử lý phù hợp với kiểu dữ liệu và đơn vị đo. Khi có đầu vào người dùng, cần kiểm tra lỗi.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 **Q1. What is Variable? — Thuật ngữ Variable có nghĩa gì?**
 
@@ -444,7 +367,3 @@ D. Ignore input errors — Bỏ qua lỗi nhập liệu
 | Q18 | **A** | The sample described for Preserve order ID | Mã 0007 |
 | Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
 | Q20 | **C** | Validate output and edge cases | Kiểm tra kết quả và trường hợp biên |
-
-## 8. Nối sang bài kế tiếp
-
-`Chương trình → Biến → Kiểu dữ liệu → Điều kiện`.

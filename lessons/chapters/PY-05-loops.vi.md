@@ -1,14 +1,8 @@
 # 05 — Vòng lặp for/while, break/continue
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Iteration** — lần lặp; **For loop** — vòng for.
-
 `Điều kiện → Vòng lặp → Xử lý hàng loạt`
-
-Từ kiến thức trước, phần này giúp sinh viên quyết định nên tổ chức và xử lý dữ liệu bằng cấu trúc nào, rồi mới tiến tới các bài xử lý dữ liệu cho AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 
 ## 3. Hàm và cú pháp Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cú pháp | Mục đích và lựa chọn liên quan |
 |---|---|
 | `range(start,stop)` | Tạo chỉ số nguyên, không bao gồm stop |
@@ -34,33 +26,23 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 
 ### 4.1. Iteration
 
-**Từ vựng trong mục:** **Iteration** — lần lặp.
-
-Một lượt thực hiện trong quá trình lặp. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Một lượt thực hiện trong quá trình lặp.
 
 ```python
 for i in range(2): print(i)
 ```
 
-**Tự kiểm tra:** Iteration có nghĩa gì? **Đáp án:** Một lượt thực hiện trong quá trình lặp.
-
 ### 4.2. For loop
 
-**Từ vựng trong mục:** **For loop** — vòng for.
-
-Lặp qua từng phần tử trong một nhóm. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Lặp qua từng phần tử trong một nhóm.
 
 ```python
 for x in [1,2]: print(x)
 ```
 
-**Tự kiểm tra:** For loop có nghĩa gì? **Đáp án:** Lặp qua từng phần tử trong một nhóm.
-
 ### 4.3. While loop
 
-**Từ vựng trong mục:** **While loop** — vòng while.
-
-Lặp khi một điều kiện còn đúng. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Lặp khi một điều kiện còn đúng.
 
 ```python
 n=2
@@ -68,13 +50,9 @@ while n>0:
     n-=1
 ```
 
-**Tự kiểm tra:** While loop có nghĩa gì? **Đáp án:** Lặp khi một điều kiện còn đúng.
-
 ### 4.4. Break/continue
 
-**Từ vựng trong mục:** **Break/continue** — dừng/bỏ qua.
-
-Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại.
 
 ```python
 for x in [0,1,2]:
@@ -82,21 +60,13 @@ for x in [0,1,2]:
     print(x)
 ```
 
-**Tự kiểm tra:** Break/continue có nghĩa gì? **Đáp án:** Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tổng hợp doanh thu
 
-**Từ vựng trong mục:** **Iteration** — lần lặp.
+**Vì sao chọn cách này?** Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng
 
-**Vấn đề thực tế:** Tổng hợp doanh thu.
-
-**Vì sao chọn cách này?** Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** 3 đơn vị nghìn đồng: 120, 80, 200; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** 3 đơn vị nghìn đồng: 120, 80, 200
 
 ```python
 orders=[120,80,200]
@@ -105,19 +75,11 @@ for value in orders: total+=value
 print(total)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 2 — Loại dòng trống
 
-**Từ vựng trong mục:** **For loop** — vòng for.
+**Vì sao chọn cách này?** Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác
 
-**Vấn đề thực tế:** Loại dòng trống.
-
-**Vì sao chọn cách này?** Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Bốn giá trị nhiệt độ, một None; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Bốn giá trị nhiệt độ, một None
 
 ```python
 data=[30,None,35,33]
@@ -128,19 +90,11 @@ for x in data:
 print(valid)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 3 — Tìm hàng hết tồn
 
-**Từ vựng trong mục:** **While loop** — vòng while.
+**Vì sao chọn cách này?** Dừng ngay khi thấy số lượng bằng 0
 
-**Vấn đề thực tế:** Tìm hàng hết tồn.
-
-**Vì sao chọn cách này?** Dừng ngay khi thấy số lượng bằng 0; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Bốn mã hàng có số lượng [5,3,0,4]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Bốn mã hàng có số lượng [5,3,0,4]
 
 ```python
 stocks=[5,3,0,4]
@@ -150,19 +104,11 @@ for i,x in enumerate(stocks):
         break
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 4 — Giới hạn kết nối
 
-**Từ vựng trong mục:** **Break/continue** — dừng/bỏ qua.
+**Vì sao chọn cách này?** While có giới hạn số lượt tránh chạy vô hạn
 
-**Vấn đề thực tế:** Giới hạn kết nối.
-
-**Vì sao chọn cách này?** While có giới hạn số lượt tránh chạy vô hạn; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Tối đa ba lần thử kết nối mô phỏng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Tối đa ba lần thử kết nối mô phỏng
 
 ```python
 attempts,connected=0,False
@@ -172,19 +118,11 @@ while attempts<3 and not connected:
 print(attempts,connected)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 5 — Lập bảng lịch học
 
-**Từ vựng trong mục:** **Iteration** — lần lặp.
+**Vì sao chọn cách này?** Lặp lồng khi có hai chiều sinh viên và ngày
 
-**Vấn đề thực tế:** Lập bảng lịch học.
-
-**Vì sao chọn cách này?** Lặp lồng khi có hai chiều sinh viên và ngày; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** 2 sinh viên, 3 ngày; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** 2 sinh viên, 3 ngày
 
 ```python
 students=["An","Lan"]
@@ -193,15 +131,11 @@ for student in students:
         print(student,day)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ## 6. Nhầm lẫn dễ gặp
 
 Không sử dụng cấu trúc dữ liệu sai với mục đích: ví dụ tập hợp không hỗ trợ truy cập theo chỉ số như list; tuple không sửa từng phần tử. Mọi dữ liệu thật cần xác minh kiểu, đơn vị và tính hợp lệ.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 **Q1. What is Iteration? — Thuật ngữ Iteration có nghĩa gì?**
 
@@ -446,7 +380,3 @@ D. Delete comments — Xóa chú thích
 | Q18 | **A** | The stated input: 2 sinh viên, 3 ngày | 2 sinh viên, 3 ngày |
 | Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
 | Q20 | **C** | Verify output and edge cases | Đối chiếu kết quả và thử trường hợp biên |
-
-## 8. Kết nối bài tiếp theo
-
-`Điều kiện → Vòng lặp → Xử lý hàng loạt`.

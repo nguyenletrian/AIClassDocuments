@@ -1,14 +1,8 @@
 # PY-09 — Hàm, return, lambda và phạm vi biến
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 `Vòng lặp → Hàm → OOP → Pipeline`
-
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 
 ## 3. Thư viện, hàm và tham số
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm/cú pháp | Giải thích và lý do dùng |
 |---|---|
 | `def func(...):` | Định nghĩa một hàm, sử dụng return để trả kết quả |
@@ -30,74 +22,50 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `lambda x: expr` | Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh |
 | `sorted(..., key=...)` | Chọn tiêu chí để sắp xếp bản ghi |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
-
 ## 4. Khái niệm và ví dụ nhỏ
 
 ### 4.1. Function
 
-**Từ vựng trong mục:** **Function** — hàm.
-
-Khối code tái sử dụng và nhận tham số. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Khối code tái sử dụng và nhận tham số.
 
 ```python
 def twice(x): return x*2
 print(twice(3))
 ```
 
-**Tự kiểm tra:** Function là gì? **Đáp án:** Khối code tái sử dụng và nhận tham số.
-
 ### 4.2. Parameter
 
-**Từ vựng trong mục:** **Parameter** — tham số.
-
-Tên đầu vào dùng trong định nghĩa hàm. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Tên đầu vào dùng trong định nghĩa hàm.
 
 ```python
 def hello(name): return name
 print(hello('Lan'))
 ```
 
-**Tự kiểm tra:** Parameter là gì? **Đáp án:** Tên đầu vào dùng trong định nghĩa hàm.
-
 ### 4.3. Return
 
-**Từ vựng trong mục:** **Return** — trả về.
-
-Kết quả gửi từ hàm về nơi gọi. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Kết quả gửi từ hàm về nơi gọi.
 
 ```python
 def add(a,b): return a+b
 print(add(2,3))
 ```
 
-**Tự kiểm tra:** Return là gì? **Đáp án:** Kết quả gửi từ hàm về nơi gọi.
-
 ### 4.4. Lambda
 
-**Từ vựng trong mục:** **Lambda** — hàm ẩn danh.
-
-Biểu thức hàm ngắn không cần đặt tên. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Biểu thức hàm ngắn không cần đặt tên.
 
 ```python
 print((lambda x: x+1)(5))
 ```
 
-**Tự kiểm tra:** Lambda là gì? **Đáp án:** Biểu thức hàm ngắn không cần đặt tên.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tính thuế giá trị gia tăng
 
-**Từ vựng trong mục:** **Function** — hàm.
+**Vì sao chọn cách giải?** Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc.
 
-**Vấn đề:** Tính thuế giá trị gia tăng.
-
-**Vì sao chọn cách giải?** Hàm có mặc định rate nên mọi hóa đơn dùng cùng quy tắc. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Giá 100000 đồng, VAT 10%. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Giá 100000 đồng, VAT 10%.
 
 ```python
 def with_vat(price, rate=0.10):
@@ -105,57 +73,33 @@ def with_vat(price, rate=0.10):
 print(with_vat(100000))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 2 — Sắp điểm theo thứ hạng
 
-**Từ vựng trong mục:** **Parameter** — tham số.
+**Vì sao chọn cách giải?** Dùng lambda làm khóa sắp để không cần dựng hàm dài.
 
-**Vấn đề:** Sắp điểm theo thứ hạng.
-
-**Vì sao chọn cách giải?** Dùng lambda làm khóa sắp để không cần dựng hàm dài. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Hai hồ sơ tên và điểm. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Hai hồ sơ tên và điểm.
 
 ```python
 people=[{"name":"A","score":8},{"name":"B","score":10}]
 print(sorted(people,key=lambda r:r["score"],reverse=True))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 3 — Kiểm tra điểm hợp lệ
 
-**Từ vựng trong mục:** **Return** — trả về.
+**Vì sao chọn cách giải?** Hàm trả Boolean để nhiều nơi có thể dùng chung.
 
-**Vấn đề:** Kiểm tra điểm hợp lệ.
-
-**Vì sao chọn cách giải?** Hàm trả Boolean để nhiều nơi có thể dùng chung. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Điểm phải nằm từ 0 đến 10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Điểm phải nằm từ 0 đến 10.
 
 ```python
 def valid_score(x): return 0<=x<=10
 print(valid_score(11))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 4 — Trả thống kê đơn giản
 
-**Từ vựng trong mục:** **Lambda** — hàm ẩn danh.
+**Vì sao chọn cách giải?** Một hàm trả tuple gồm tổng và trung bình.
 
-**Vấn đề:** Trả thống kê đơn giản.
-
-**Vì sao chọn cách giải?** Một hàm trả tuple gồm tổng và trung bình. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Ba số lượng [7,8,9]. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Ba số lượng [7,8,9].
 
 ```python
 def summary(values):
@@ -164,35 +108,22 @@ total,average=summary([7,8,9])
 print(total,average)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 5 — Lọc yêu cầu ưu tiên
 
-**Từ vựng trong mục:** **Function** — hàm.
+**Vì sao chọn cách giải?** filter áp dụng cùng điều kiện cho từng yêu cầu.
 
-**Vấn đề:** Lọc yêu cầu ưu tiên.
-
-**Vì sao chọn cách giải?** filter áp dụng cùng điều kiện cho từng yêu cầu. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Điểm ưu tiên [1,5,2,4]. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Điểm ưu tiên [1,5,2,4].
 
 ```python
 priorities=[1,5,2,4]
 print(list(filter(lambda x:x>=4,priorities)))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
 - Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. Which description matches Function? — Mô tả nào đúng với Function?**
@@ -438,7 +369,3 @@ D. Ignore unexpected results — Bỏ qua kết quả bất thường
 | Q18 | **A** | The described input Điểm ưu tiên [1,5,2,4] | Điểm ưu tiên [1,5,2,4] |
 | Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị dữ liệu |
 | Q20 | **C** | Verify output and unusual inputs | Kiểm tra đầu ra và giá trị biên |
-
-## 8. Nối sang bài tiếp theo
-
-`Vòng lặp → Hàm → OOP → Pipeline`.

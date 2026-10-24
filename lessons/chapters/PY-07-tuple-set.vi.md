@@ -1,14 +1,8 @@
 # 07 — Tuple, Set và phép hợp/giao
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Tuple** — bộ giá trị; **Set** — tập hợp.
-
 `List → Tuple và Set → Tập hợp/Jaccard`
-
-Từ kiến thức trước, phần này giúp sinh viên quyết định nên tổ chức và xử lý dữ liệu bằng cấu trúc nào, rồi mới tiến tới các bài xử lý dữ liệu cho AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 
 ## 3. Hàm và cú pháp Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cú pháp | Mục đích và lựa chọn liên quan |
 |---|---|
 | `tuple(items)` | Lưu một bộ dữ liệu có thứ tự và cố định |
@@ -34,85 +26,55 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 
 ### 4.1. Tuple
 
-**Từ vựng trong mục:** **Tuple** — bộ giá trị.
-
-Dãy có thứ tự không sửa phần tử được. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Dãy có thứ tự không sửa phần tử được.
 
 ```python
 point=(2,3)
 print(point)
 ```
 
-**Tự kiểm tra:** Tuple có nghĩa gì? **Đáp án:** Dãy có thứ tự không sửa phần tử được.
-
 ### 4.2. Set
 
-**Từ vựng trong mục:** **Set** — tập hợp.
-
-Nhóm phần tử không trùng lặp. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Nhóm phần tử không trùng lặp.
 
 ```python
 print(set([1,1,2]))
 ```
 
-**Tự kiểm tra:** Set có nghĩa gì? **Đáp án:** Nhóm phần tử không trùng lặp.
-
 ### 4.3. Union
 
-**Từ vựng trong mục:** **Union** — phép hợp.
-
-Mọi phần tử có trong ít nhất một tập. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Mọi phần tử có trong ít nhất một tập.
 
 ```python
 print({1,2}
 ```
 
-**Tự kiểm tra:** Union có nghĩa gì? **Đáp án:** Mọi phần tử có trong ít nhất một tập.
-
 ### 4.4. Intersection
 
-**Từ vựng trong mục:** **Intersection** — phép giao.
-
-Phần tử chung của hai tập. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Phần tử chung của hai tập.
 
 ```python
 print({1,2}&{2,3})
 ```
 
-**Tự kiểm tra:** Intersection có nghĩa gì? **Đáp án:** Phần tử chung của hai tập.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Khử email trùng
 
-**Từ vựng trong mục:** **Tuple** — bộ giá trị.
+**Vì sao chọn cách này?** Set loại bản ghi email giống hệt nhau
 
-**Vấn đề thực tế:** Khử email trùng.
-
-**Vì sao chọn cách này?** Set loại bản ghi email giống hệt nhau; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Bốn email có hai trùng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Bốn email có hai trùng
 
 ```python
 emails=["a@x.vn","b@x.vn","a@x.vn","c@x.vn"]
 print(len(set(emails)))
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 2 — Lưu tọa độ
 
-**Từ vựng trong mục:** **Set** — tập hợp.
+**Vì sao chọn cách này?** Tuple phù hợp điểm cố định (x,y) trong một phép tính
 
-**Vấn đề thực tế:** Lưu tọa độ.
-
-**Vì sao chọn cách này?** Tuple phù hợp điểm cố định (x,y) trong một phép tính; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Tọa độ (3,4); nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Tọa độ (3,4)
 
 ```python
 point=(3,4)
@@ -120,19 +82,11 @@ x,y=point
 print(x*x+y*y)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 3 — Tìm kỹ năng chung
 
-**Từ vựng trong mục:** **Union** — phép hợp.
+**Vì sao chọn cách này?** Phép giao cho biết kỹ năng cả hai cùng có
 
-**Vấn đề thực tế:** Tìm kỹ năng chung.
-
-**Vì sao chọn cách này?** Phép giao cho biết kỹ năng cả hai cùng có; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Hai danh sách kỹ năng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Hai danh sách kỹ năng
 
 ```python
 a={"Python","AI","SQL"}
@@ -140,19 +94,11 @@ b={"Python","Math","AI"}
 print(a&b)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 4 — Gộp nhóm chủ đề
 
-**Từ vựng trong mục:** **Intersection** — phép giao.
+**Vì sao chọn cách này?** Phép hợp giữ mỗi chủ đề một lần
 
-**Vấn đề thực tế:** Gộp nhóm chủ đề.
-
-**Vì sao chọn cách này?** Phép hợp giữ mỗi chủ đề một lần; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Hai nhóm nhãn tài liệu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Hai nhóm nhãn tài liệu
 
 ```python
 a={"Python","Math"}
@@ -160,19 +106,11 @@ b={"Math","AI"}
 print(a|b)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 5 — Liệt kê bài còn thiếu
 
-**Từ vựng trong mục:** **Tuple** — bộ giá trị.
+**Vì sao chọn cách này?** Hiệu tập cho ra mục cần học nhưng chưa hoàn thành
 
-**Vấn đề thực tế:** Liệt kê bài còn thiếu.
-
-**Vì sao chọn cách này?** Hiệu tập cho ra mục cần học nhưng chưa hoàn thành; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Yêu cầu Python SQL AI, đã học Python; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Yêu cầu Python SQL AI, đã học Python
 
 ```python
 required={"Python","SQL","AI"}
@@ -180,15 +118,11 @@ done={"Python"}
 print(required-done)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ## 6. Nhầm lẫn dễ gặp
 
 Không sử dụng cấu trúc dữ liệu sai với mục đích: ví dụ tập hợp không hỗ trợ truy cập theo chỉ số như list; tuple không sửa từng phần tử. Mọi dữ liệu thật cần xác minh kiểu, đơn vị và tính hợp lệ.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 **Q1. What is Tuple? — Thuật ngữ Tuple có nghĩa gì?**
 
@@ -433,7 +367,3 @@ D. Delete comments — Xóa chú thích
 | Q18 | **A** | The stated input: Yêu cầu Python SQL AI, đã học Python | Yêu cầu Python SQL AI, đã học Python |
 | Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
 | Q20 | **C** | Verify output and edge cases | Đối chiếu kết quả và thử trường hợp biên |
-
-## 8. Kết nối bài tiếp theo
-
-`List → Tuple và Set → Tập hợp/Jaccard`.

@@ -1,14 +1,8 @@
 # 08 — Dictionary: key/value và thao tác CRUD
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Dictionary** — từ điển; **Key** — khóa.
-
 `List/Set → Dictionary → JSON/CSV → DataFrame`
-
-Từ kiến thức trước, phần này giúp sinh viên quyết định nên tổ chức và xử lý dữ liệu bằng cấu trúc nào, rồi mới tiến tới các bài xử lý dữ liệu cho AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 
 ## 3. Hàm và cú pháp Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cú pháp | Mục đích và lựa chọn liên quan |
 |---|---|
 | `obj[key], obj.get(key)` | Tra cứu khóa hoặc nhận giá trị mặc định |
@@ -34,84 +26,54 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 
 ### 4.1. Dictionary
 
-**Từ vựng trong mục:** **Dictionary** — từ điển.
-
-Ánh xạ khóa sang giá trị. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Ánh xạ khóa sang giá trị.
 
 ```python
 print({'id':'O1'})
 ```
 
-**Tự kiểm tra:** Dictionary có nghĩa gì? **Đáp án:** Ánh xạ khóa sang giá trị.
-
 ### 4.2. Key
 
-**Từ vựng trong mục:** **Key** — khóa.
-
-Tên hoặc mã để truy tìm giá trị. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Tên hoặc mã để truy tìm giá trị.
 
 ```python
 print({'id':'O1'}['id'])
 ```
 
-**Tự kiểm tra:** Key có nghĩa gì? **Đáp án:** Tên hoặc mã để truy tìm giá trị.
-
 ### 4.3. Value
 
-**Từ vựng trong mục:** **Value** — giá trị.
-
-Thông tin được lưu theo một khóa. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Thông tin được lưu theo một khóa.
 
 ```python
 print({'x':5}.get('x'))
 ```
 
-**Tự kiểm tra:** Value có nghĩa gì? **Đáp án:** Thông tin được lưu theo một khóa.
-
 ### 4.4. Nested dict
 
-**Từ vựng trong mục:** **Nested dict** — từ điển lồng.
-
-Một từ điển có từ điển con. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Một từ điển có từ điển con.
 
 ```python
 print({'A':{'score':8}}['A']['score'])
 ```
 
-**Tự kiểm tra:** Nested dict có nghĩa gì? **Đáp án:** Một từ điển có từ điển con.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tra cứu đơn theo mã
 
-**Từ vựng trong mục:** **Dictionary** — từ điển.
+**Vì sao chọn cách này?** Tra khóa trực tiếp thay vì duyệt từng vị trí trong list
 
-**Vấn đề thực tế:** Tra cứu đơn theo mã.
-
-**Vì sao chọn cách này?** Tra khóa trực tiếp thay vì duyệt từng vị trí trong list; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Hai đơn O1 và O2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Hai đơn O1 và O2
 
 ```python
 orders={"O1":"paid","O2":"pending"}
 print(orders.get("O3","Not found"))
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 2 — Cập nhật tồn kho
 
-**Từ vựng trong mục:** **Key** — khóa.
+**Vì sao chọn cách này?** SKU là khóa ổn định phù hợp cập nhật số lượng
 
-**Vấn đề thực tế:** Cập nhật tồn kho.
-
-**Vì sao chọn cách này?** SKU là khóa ổn định phù hợp cập nhật số lượng; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** SKU01 tồn 5, bán 2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** SKU01 tồn 5, bán 2
 
 ```python
 stock={"SKU01":5}
@@ -119,19 +81,11 @@ stock["SKU01"]-=2
 print(stock)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 3 — Đếm nhãn
 
-**Từ vựng trong mục:** **Value** — giá trị.
+**Vì sao chọn cách này?** get(key,0) giúp cộng dồn an toàn từ 0
 
-**Vấn đề thực tế:** Đếm nhãn.
-
-**Vì sao chọn cách này?** get(key,0) giúp cộng dồn an toàn từ 0; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Ba nhãn AI Math AI; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Ba nhãn AI Math AI
 
 ```python
 labels=["AI","Math","AI"]
@@ -140,38 +94,22 @@ for x in labels: count[x]=count.get(x,0)+1
 print(count)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 4 — Hồ sơ lồng nhau
 
-**Từ vựng trong mục:** **Nested dict** — từ điển lồng.
+**Vì sao chọn cách này?** Từ điển con gom dữ liệu theo từng mã sinh viên
 
-**Vấn đề thực tế:** Hồ sơ lồng nhau.
-
-**Vì sao chọn cách này?** Từ điển con gom dữ liệu theo từng mã sinh viên; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Hai SV với điểm 8 và 9; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Hai SV với điểm 8 và 9
 
 ```python
 students={"SV1":{"name":"An","score":8},"SV2":{"name":"Lan","score":9}}
 print(students["SV2"]["score"])
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 5 — Xóa SKU không có
 
-**Từ vựng trong mục:** **Dictionary** — từ điển.
+**Vì sao chọn cách này?** pop mặc định None ngăn lỗi khi mã không tồn tại
 
-**Vấn đề thực tế:** Xóa SKU không có.
-
-**Vì sao chọn cách này?** pop mặc định None ngăn lỗi khi mã không tồn tại; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Danh sách có P01 nhưng không có P02; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Danh sách có P01 nhưng không có P02
 
 ```python
 items={"P01":10}
@@ -179,15 +117,11 @@ removed=items.pop("P02",None)
 print(removed)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ## 6. Nhầm lẫn dễ gặp
 
 Không sử dụng cấu trúc dữ liệu sai với mục đích: ví dụ tập hợp không hỗ trợ truy cập theo chỉ số như list; tuple không sửa từng phần tử. Mọi dữ liệu thật cần xác minh kiểu, đơn vị và tính hợp lệ.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 **Q1. What is Dictionary? — Thuật ngữ Dictionary có nghĩa gì?**
 
@@ -432,7 +366,3 @@ D. Delete comments — Xóa chú thích
 | Q18 | **A** | The stated input: Danh sách có P01 nhưng không có P02 | Danh sách có P01 nhưng không có P02 |
 | Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
 | Q20 | **C** | Verify output and edge cases | Đối chiếu kết quả và thử trường hợp biên |
-
-## 8. Kết nối bài tiếp theo
-
-`List/Set → Dictionary → JSON/CSV → DataFrame`.

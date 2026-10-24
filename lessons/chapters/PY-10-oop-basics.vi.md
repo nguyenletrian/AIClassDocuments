@@ -1,14 +1,8 @@
 # PY-10 — Class, Object, constructor và đóng gói
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Class** — lớp; **Object** — đối tượng.
-
 `Hàm / Dictionary → OOP → Kế thừa`
-
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 
 ## 3. Thư viện, hàm và tham số
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm/cú pháp | Giải thích và lý do dùng |
 |---|---|
 | `class Name:` | Định nghĩa kiểu đối tượng và các phương thức |
@@ -30,41 +22,29 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `self.attribute` | Truy cập thuộc tính thuộc về chính đối tượng |
 | `__str__/set_*/get_*` | Hiển thị và kiểm tra thao tác thay đổi giá trị |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
-
 ## 4. Khái niệm và ví dụ nhỏ
 
 ### 4.1. Class
 
-**Từ vựng trong mục:** **Class** — lớp.
-
-Khuôn mô tả dữ liệu và cách xử lý. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Khuôn mô tả dữ liệu và cách xử lý.
 
 ```python
 class P: pass
 print(P)
 ```
 
-**Tự kiểm tra:** Class là gì? **Đáp án:** Khuôn mô tả dữ liệu và cách xử lý.
-
 ### 4.2. Object
 
-**Từ vựng trong mục:** **Object** — đối tượng.
-
-Một thể hiện cụ thể của lớp. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Một thể hiện cụ thể của lớp.
 
 ```python
 class P: pass
 print(type(P()))
 ```
 
-**Tự kiểm tra:** Object là gì? **Đáp án:** Một thể hiện cụ thể của lớp.
-
 ### 4.3. Constructor
 
-**Từ vựng trong mục:** **Constructor** — hàm khởi tạo.
-
-Thiết lập thuộc tính lúc tạo instance. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Thiết lập thuộc tính lúc tạo instance.
 
 ```python
 class P:
@@ -72,13 +52,9 @@ class P:
 print(P(3).x)
 ```
 
-**Tự kiểm tra:** Constructor là gì? **Đáp án:** Thiết lập thuộc tính lúc tạo instance.
-
 ### 4.4. Encapsulation
 
-**Từ vựng trong mục:** **Encapsulation** — đóng gói.
-
-Đặt dữ liệu và hành vi bên trong đối tượng. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Đặt dữ liệu và hành vi bên trong đối tượng.
 
 ```python
 class Counter:
@@ -87,21 +63,13 @@ class Counter:
 c=Counter();c.add();print(c.n)
 ```
 
-**Tự kiểm tra:** Encapsulation là gì? **Đáp án:** Đặt dữ liệu và hành vi bên trong đối tượng.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tạo hồ sơ học viên
 
-**Từ vựng trong mục:** **Class** — lớp.
+**Vì sao chọn cách giải?** Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song.
 
-**Vấn đề:** Tạo hồ sơ học viên.
-
-**Vì sao chọn cách giải?** Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Một sinh viên có tên An, điểm 8. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Một sinh viên có tên An, điểm 8.
 
 ```python
 class Student:
@@ -110,19 +78,11 @@ s=Student("An",8)
 print(s.name,s.score)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 2 — Giỏ hàng có phương thức
 
-**Từ vựng trong mục:** **Object** — đối tượng.
+**Vì sao chọn cách giải?** Đặt add và total cùng nơi lưu giá sản phẩm.
 
-**Vấn đề:** Giỏ hàng có phương thức.
-
-**Vì sao chọn cách giải?** Đặt add và total cùng nơi lưu giá sản phẩm. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Giá [100,200] nghìn đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Giá [100,200] nghìn đồng.
 
 ```python
 class Cart:
@@ -133,19 +93,11 @@ c=Cart();c.add(100);c.add(200)
 print(c.total())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 3 — Ràng buộc điểm nhập
 
-**Từ vựng trong mục:** **Constructor** — hàm khởi tạo.
+**Vì sao chọn cách giải?** Setter chặn điểm ngoài thang 0–10.
 
-**Vấn đề:** Ràng buộc điểm nhập.
-
-**Vì sao chọn cách giải?** Setter chặn điểm ngoài thang 0–10. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Một lần nhập 9/10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Một lần nhập 9/10.
 
 ```python
 class Score:
@@ -156,19 +108,11 @@ class Score:
 s=Score();s.set(9);print(s.value)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 4 — In hóa đơn dễ đọc
 
-**Từ vựng trong mục:** **Encapsulation** — đóng gói.
+**Vì sao chọn cách giải?** __str__ định nghĩa chữ hiện khi in đối tượng.
 
-**Vấn đề:** In hóa đơn dễ đọc.
-
-**Vì sao chọn cách giải?** __str__ định nghĩa chữ hiện khi in đối tượng. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Đơn O01 trị giá 150000 đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Đơn O01 trị giá 150000 đồng.
 
 ```python
 class Order:
@@ -177,19 +121,11 @@ class Order:
 print(Order("O01",150000))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 5 — Hai cảm biến độc lập
 
-**Từ vựng trong mục:** **Class** — lớp.
+**Vì sao chọn cách giải?** Instance khác nhau không chia sẻ nhầm dữ liệu đo.
 
-**Vấn đề:** Hai cảm biến độc lập.
-
-**Vì sao chọn cách giải?** Instance khác nhau không chia sẻ nhầm dữ liệu đo. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
-
-**Dữ liệu:** Cảm biến A=20, B=40 độ C. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Cảm biến A=20, B=40 độ C.
 
 ```python
 class Sensor:
@@ -199,16 +135,11 @@ a.value=25
 print(a.value,b.value)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
 - Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. Which description matches Class? — Mô tả nào đúng với Class?**
@@ -454,7 +385,3 @@ D. Ignore unexpected results — Bỏ qua kết quả bất thường
 | Q18 | **A** | The described input Cảm biến A=20, B=40 độ C | Cảm biến A=20, B=40 độ C |
 | Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị dữ liệu |
 | Q20 | **C** | Verify output and unusual inputs | Kiểm tra đầu ra và giá trị biên |
-
-## 8. Nối sang bài tiếp theo
-
-`Hàm / Dictionary → OOP → Kế thừa`.

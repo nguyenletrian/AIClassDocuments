@@ -1,14 +1,8 @@
 # PY-03 — Toán tử số học, so sánh và logic
 
-*Trạng thái: DRAFT · Dữ liệu minh họa giả lập · Chưa xác nhận chạy Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Arithmetic** — số học; **Comparison** — so sánh.
-
 `Kiểu dữ liệu → Toán tử → Điều kiện → Quy tắc nghiệp vụ`
-
-Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu đầu vào, thao tác và đầu ra trước khi dùng cho dữ liệu AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 
 ## 3. Các hàm và tùy chọn Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cú pháp | Mục đích và ý nghĩa lựa chọn |
 |---|---|
 | `+, -, *, /` | Tính số học và tỷ lệ |
@@ -30,171 +22,102 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 | `==, !=, <=, >=, and, or` | So sánh và kết hợp điều kiện |
 | `&, |, ^` | Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ |
 
-Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiều comment vào ví dụ.
-
 ## 4. Khái niệm liên quan — từ lời giải thích đến Python
 
 ### 4.1. Arithmetic
 
-**Từ vựng trong mục:** **Arithmetic** — số học.
-
-Phép cộng trừ nhân chia. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Phép cộng trừ nhân chia.
 
 ```python
 print(5 * 3)
 ```
 
-**Tự kiểm tra:** Arithmetic có ý nghĩa gì?
-
-**Đáp án:** Phép cộng trừ nhân chia.
-
 ### 4.2. Comparison
 
-**Từ vựng trong mục:** **Comparison** — so sánh.
-
-Đối chiếu hai giá trị. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Đối chiếu hai giá trị.
 
 ```python
 print(8 >= 5)
 ```
 
-**Tự kiểm tra:** Comparison có ý nghĩa gì?
-
-**Đáp án:** Đối chiếu hai giá trị.
-
 ### 4.3. Logical
 
-**Từ vựng trong mục:** **Logical** — logic.
-
-Kết hợp các điều kiện. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Kết hợp các điều kiện.
 
 ```python
 print(True and False)
 ```
 
-**Tự kiểm tra:** Logical có ý nghĩa gì?
-
-**Đáp án:** Kết hợp các điều kiện.
-
 ### 4.4. Bitwise
 
-**Từ vựng trong mục:** **Bitwise** — thao tác bit.
-
-Phép tính trên các bit của số nguyên. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Phép tính trên các bit của số nguyên.
 
 ```python
 print(5 & 3)
 ```
 
-**Tự kiểm tra:** Bitwise có ý nghĩa gì?
-
-**Đáp án:** Phép tính trên các bit của số nguyên.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tính ưu đãi
 
-**Từ vựng trong mục:** **Arithmetic** — số học.
+**Vì sao chọn cách này?** Nhân tỷ lệ giảm với giá để tính tiền còn lại.
 
-**Vấn đề:** Tính ưu đãi.
-
-**Vì sao chọn cách này?** Nhân tỷ lệ giảm với giá để tính tiền còn lại. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Giá 250000 đồng giảm 10%; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Giá 250000 đồng giảm 10%
 
 ```python
 price = 250000
 print(price * (1 - 0.10))
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 2 — Xét VIP
 
-**Từ vựng trong mục:** **Comparison** — so sánh.
+**Vì sao chọn cách này?** Hai điều kiện đều phải đúng.
 
-**Vấn đề:** Xét VIP.
-
-**Vì sao chọn cách này?** Hai điều kiện đều phải đúng. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Khách 5 năm, chi 1200000 đồng; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Khách 5 năm, chi 1200000 đồng
 
 ```python
 years, spending = 5, 1200000
 print(years >= 5 and spending >= 1000000)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 3 — Đóng thùng hàng
 
-**Từ vựng trong mục:** **Logical** — logic.
+**Vì sao chọn cách này?** Chia nguyên đếm thùng đủ và dư đếm món lẻ.
 
-**Vấn đề:** Đóng thùng hàng.
-
-**Vì sao chọn cách này?** Chia nguyên đếm thùng đủ và dư đếm món lẻ. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** 23 sản phẩm, 5 sản phẩm/thùng; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** 23 sản phẩm, 5 sản phẩm/thùng
 
 ```python
 items, box_size = 23, 5
 print(items // box_size, items % box_size)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 4 — Đọc cờ thiết bị
 
-**Từ vựng trong mục:** **Bitwise** — thao tác bit.
+**Vì sao chọn cách này?** Kiểm một bit bằng phép AND trên số nhị phân.
 
-**Vấn đề:** Đọc cờ thiết bị.
-
-**Vì sao chọn cách này?** Kiểm một bit bằng phép AND trên số nhị phân. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Trạng thái mô phỏng 0b1010; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Trạng thái mô phỏng 0b1010
 
 ```python
 status = 0b1010
 print(bool(status & 0b0010))
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 5 — Ưu tiên đơn hàng
 
-**Từ vựng trong mục:** **Arithmetic** — số học.
+**Vì sao chọn cách này?** Chỉ cần một trong hai ngưỡng được đáp ứng.
 
-**Vấn đề:** Ưu tiên đơn hàng.
-
-**Vì sao chọn cách này?** Chỉ cần một trong hai ngưỡng được đáp ứng. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Giá trị 3000000 đồng hoặc trễ 2 ngày; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Giá trị 3000000 đồng hoặc trễ 2 ngày
 
 ```python
 amount, delay = 3000000, 0
 print(amount >= 2000000 or delay > 2)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ## 6. Những nhầm lẫn thường gặp
 
-- Không suy diễn từ một ví dụ minh họa sang mọi bộ dữ liệu thật.
 - Dùng phép xử lý phù hợp với kiểu dữ liệu và đơn vị đo. Khi có đầu vào người dùng, cần kiểm tra lỗi.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 **Q1. What is Arithmetic? — Thuật ngữ Arithmetic có nghĩa gì?**
 
@@ -439,7 +362,3 @@ D. Ignore input errors — Bỏ qua lỗi nhập liệu
 | Q18 | **A** | The sample described for Priority | Giá trị 3000000 đồng hoặc trễ 2 ngày |
 | Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
 | Q20 | **C** | Validate output and edge cases | Kiểm tra kết quả và trường hợp biên |
-
-## 8. Nối sang bài kế tiếp
-
-`Kiểu dữ liệu → Toán tử → Điều kiện → Quy tắc nghiệp vụ`.

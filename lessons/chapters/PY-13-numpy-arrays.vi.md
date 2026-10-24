@@ -1,14 +1,8 @@
 # PY-13 — NumPy ndarray, shape, dtype và axis
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **ndarray** — mảng NumPy; **Shape** — kích thước mảng.
-
 `List → NumPy Array → Matrix → PCA`
-
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 
 ## 3. Thư viện, hàm và tham số
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm/cú pháp | Giải thích và lý do dùng |
 |---|---|
 | `np.array(data,dtype=float)` | Tạo mảng số thực, dtype=float cho phép lưu phần thập phân |
@@ -30,75 +22,53 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `X.mean(axis=0)` | Tính trung bình của từng CỘT từ các hàng |
 | `np.zeros()/np.ones()` | Tạo dữ liệu số được khởi tạo rõ hình dạng |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
-
 ## 4. Khái niệm và ví dụ nhỏ
 
 ### 4.1. ndarray
 
-**Từ vựng trong mục:** **ndarray** — mảng NumPy.
-
-Một mảng đồng nhất về kiểu phần tử. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Một mảng đồng nhất về kiểu phần tử.
 
 ```python
 import numpy as np
 print(np.array([1,2]))
 ```
 
-**Tự kiểm tra:** ndarray là gì? **Đáp án:** Một mảng đồng nhất về kiểu phần tử.
-
 ### 4.2. Shape
 
-**Từ vựng trong mục:** **Shape** — kích thước mảng.
-
-Số phần tử trên từng chiều. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Số phần tử trên từng chiều.
 
 ```python
 import numpy as np
 print(np.zeros((2,3)).shape)
 ```
 
-**Tự kiểm tra:** Shape là gì? **Đáp án:** Số phần tử trên từng chiều.
-
 ### 4.3. dtype
 
-**Từ vựng trong mục:** **dtype** — kiểu phần tử.
-
-Kiểu dữ liệu của giá trị trong mảng. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Kiểu dữ liệu của giá trị trong mảng.
 
 ```python
 import numpy as np
 print(np.array([1.5]).dtype)
 ```
 
-**Tự kiểm tra:** dtype là gì? **Đáp án:** Kiểu dữ liệu của giá trị trong mảng.
-
 ### 4.4. Axis
 
-**Từ vựng trong mục:** **Axis** — trục tính toán.
-
-Chiều dọc theo phép tổng hợp. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Chiều dọc theo phép tổng hợp.
 
 ```python
 import numpy as np
 print(np.array([[1,2],[3,4]]).sum(axis=0))
 ```
 
-**Tự kiểm tra:** Axis là gì? **Đáp án:** Chiều dọc theo phép tổng hợp.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Gom điểm học sinh
 
-**Từ vựng trong mục:** **ndarray** — mảng NumPy.
-
 **Vấn đề:** Gom điểm học sinh.
 
-**Vì sao chọn cách giải?** Dùng ma trận một hàng mỗi SV và cột mỗi môn. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** Dùng ma trận một hàng mỗi SV và cột mỗi môn.
 
-**Dữ liệu:** 3 học sinh × 2 môn, điểm thang 10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** 3 học sinh × 2 môn, điểm thang 10.
 
 ```python
 import numpy as np
@@ -106,19 +76,13 @@ scores=np.array([[8,9],[6,7],[9,8]],dtype=float)
 print(scores.shape)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 2 — Trung bình từng môn
-
-**Từ vựng trong mục:** **Shape** — kích thước mảng.
 
 **Vấn đề:** Trung bình từng môn.
 
-**Vì sao chọn cách giải?** axis=0 cho phép tính trung bình theo cột môn học. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** axis=0 cho phép tính trung bình theo cột môn học.
 
-**Dữ liệu:** 3 học sinh, 2 môn. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** 3 học sinh, 2 môn.
 
 ```python
 import numpy as np
@@ -126,19 +90,13 @@ scores=np.array([[8,9],[6,7],[9,8]],dtype=float)
 print(scores.mean(axis=0))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 3 — Tính tổng doanh thu theo cửa hàng
-
-**Từ vựng trong mục:** **dtype** — kiểu phần tử.
 
 **Vấn đề:** Tính tổng doanh thu theo cửa hàng.
 
-**Vì sao chọn cách giải?** axis=1 gom giá trị theo từng HÀNG/cửa hàng. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** axis=1 gom giá trị theo từng HÀNG/cửa hàng.
 
-**Dữ liệu:** 2 cửa hàng × 3 ngày, đơn vị nghìn đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** 2 cửa hàng × 3 ngày, đơn vị nghìn đồng.
 
 ```python
 import numpy as np
@@ -146,19 +104,13 @@ sales=np.array([[10,20,30],[8,12,16]])
 print(sales.sum(axis=1))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 4 — Tạo bảng dự báo ban đầu
-
-**Từ vựng trong mục:** **Axis** — trục tính toán.
 
 **Vấn đề:** Tạo bảng dự báo ban đầu.
 
-**Vì sao chọn cách giải?** zeros cấp đúng kích thước chờ ghi kết quả. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** zeros cấp đúng kích thước chờ ghi kết quả.
 
-**Dữ liệu:** 2 ngày × 3 kênh cảm biến. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** 2 ngày × 3 kênh cảm biến.
 
 ```python
 import numpy as np
@@ -166,19 +118,13 @@ forecast=np.zeros((2,3))
 print(forecast.shape)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 5 — Kiểm kiểu điểm đầu vào
-
-**Từ vựng trong mục:** **ndarray** — mảng NumPy.
 
 **Vấn đề:** Kiểm kiểu điểm đầu vào.
 
-**Vì sao chọn cách giải?** Mảng float giữ điểm có phần thập phân. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** Mảng float giữ điểm có phần thập phân.
 
-**Dữ liệu:** Điểm 7.5, 8.0. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Điểm 7.5, 8.0.
 
 ```python
 import numpy as np
@@ -186,16 +132,11 @@ scores=np.array([7.5,8],dtype=float)
 print(scores.dtype,scores.size)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
 - Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. Which description matches ndarray? — Mô tả nào đúng với ndarray?**
@@ -441,7 +382,3 @@ D. Ignore unexpected results — Bỏ qua kết quả bất thường
 | Q18 | **A** | The described input Điểm 7.5, 8.0 | Điểm 7.5, 8.0 |
 | Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị dữ liệu |
 | Q20 | **C** | Verify output and unusual inputs | Kiểm tra đầu ra và giá trị biên |
-
-## 8. Nối sang bài tiếp theo
-
-`List → NumPy Array → Matrix → PCA`.

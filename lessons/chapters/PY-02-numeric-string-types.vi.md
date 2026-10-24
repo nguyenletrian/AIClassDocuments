@@ -1,14 +1,8 @@
 # PY-02 — Kiểu số, Boolean và chuỗi
 
-*Trạng thái: DRAFT · Dữ liệu minh họa giả lập · Chưa xác nhận chạy Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Integer** — số nguyên; **Float** — số thực.
-
 `Biến → int/float/bool/str → Slicing → Xử lý văn bản`
-
-Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu đầu vào, thao tác và đầu ra trước khi dùng cho dữ liệu AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 
 ## 3. Các hàm và tùy chọn Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cú pháp | Mục đích và ý nghĩa lựa chọn |
 |---|---|
 | `str()/int()/float()` | Chuyển kiểu phù hợp trước khi xử lý |
@@ -30,140 +22,84 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 | `split()/replace()` | Tách chuỗi hoặc thay thế đoạn văn bản |
 | `s[start:stop]` | Cắt ký tự theo vị trí, không lấy chỉ số stop |
 
-Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiều comment vào ví dụ.
-
 ## 4. Khái niệm liên quan — từ lời giải thích đến Python
 
 ### 4.1. Integer
 
-**Từ vựng trong mục:** **Integer** — số nguyên.
-
-Giá trị không có phần thập phân. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Giá trị không có phần thập phân.
 
 ```python
 n = 5
 print(type(n))
 ```
 
-**Tự kiểm tra:** Integer có ý nghĩa gì?
-
-**Đáp án:** Giá trị không có phần thập phân.
-
 ### 4.2. Float
 
-**Từ vựng trong mục:** **Float** — số thực.
-
-Số có thể có phần lẻ. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Số có thể có phần lẻ.
 
 ```python
 x = 3.5
 print(x)
 ```
 
-**Tự kiểm tra:** Float có ý nghĩa gì?
-
-**Đáp án:** Số có thể có phần lẻ.
-
 ### 4.3. Boolean
 
-**Từ vựng trong mục:** **Boolean** — giá trị logic.
-
-Giá trị True hoặc False. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Giá trị True hoặc False.
 
 ```python
 ok = True
 print(ok)
 ```
 
-**Tự kiểm tra:** Boolean có ý nghĩa gì?
-
-**Đáp án:** Giá trị True hoặc False.
-
 ### 4.4. String
 
-**Từ vựng trong mục:** **String** — chuỗi.
-
-Dãy ký tự có thể cắt lát. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Dãy ký tự có thể cắt lát.
 
 ```python
 code = 'AB12'
 print(code[:2])
 ```
 
-**Tự kiểm tra:** String có ý nghĩa gì?
-
-**Đáp án:** Dãy ký tự có thể cắt lát.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Chuẩn hóa email
 
-**Từ vựng trong mục:** **Integer** — số nguyên.
+**Vì sao chọn cách này?** Bỏ khoảng trắng và đổi chữ thường trước so trùng.
 
-**Vấn đề:** Chuẩn hóa email.
-
-**Vì sao chọn cách này?** Bỏ khoảng trắng và đổi chữ thường trước so trùng. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Email nhập thừa khoảng trắng; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Email nhập thừa khoảng trắng
 
 ```python
 email = "  Lan@Example.COM "
 print(email.strip().lower())
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 2 — Tách nhãn sản phẩm
 
-**Từ vựng trong mục:** **Float** — số thực.
+**Vì sao chọn cách này?** Dấu phẩy tạo ranh giới giữa nhãn.
 
-**Vấn đề:** Tách nhãn sản phẩm.
-
-**Vì sao chọn cách này?** Dấu phẩy tạo ranh giới giữa nhãn. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Chuỗi có 3 nhãn; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Chuỗi có 3 nhãn
 
 ```python
 labels = "AI,Python,Math"
 print(labels.split(","))
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 3 — Giữ mã đầu 0
 
-**Từ vựng trong mục:** **Boolean** — giá trị logic.
+**Vì sao chọn cách này?** Mã không được mất chữ số đầu khi dùng để tra cứu.
 
-**Vấn đề:** Giữ mã đầu 0.
-
-**Vì sao chọn cách này?** Mã không được mất chữ số đầu khi dùng để tra cứu. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Mã đơn 00045; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Mã đơn 00045
 
 ```python
 order_id = "00045"
 print(order_id[:3])
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 4 — Đổi số từ CSV
 
-**Từ vựng trong mục:** **String** — chuỗi.
+**Vì sao chọn cách này?** Chuyển chuỗi số trước khi tính tổng.
 
-**Vấn đề:** Đổi số từ CSV.
-
-**Vì sao chọn cách này?** Chuyển chuỗi số trước khi tính tổng. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Giá 12.5, số lượng 3; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Giá 12.5, số lượng 3
 
 ```python
 price = float("12.5")
@@ -171,35 +107,22 @@ qty = int("3")
 print(price * qty)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ### Tình huống 5 — Che số liên lạc
 
-**Từ vựng trong mục:** **Integer** — số nguyên.
+**Vì sao chọn cách này?** Lấy ba ký tự cuối mà không lộ phần trước.
 
-**Vấn đề:** Che số liên lạc.
-
-**Vì sao chọn cách này?** Lấy ba ký tự cuối mà không lộ phần trước. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
-
-**Dữ liệu:** Số mô phỏng 0900123456; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
-
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Dữ liệu:** Số mô phỏng 0900123456
 
 ```python
 phone = "0900123456"
 print("*" * (len(phone)-3) + phone[-3:])
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
-
 ## 6. Những nhầm lẫn thường gặp
 
-- Không suy diễn từ một ví dụ minh họa sang mọi bộ dữ liệu thật.
 - Dùng phép xử lý phù hợp với kiểu dữ liệu và đơn vị đo. Khi có đầu vào người dùng, cần kiểm tra lỗi.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 **Q1. What is Integer? — Thuật ngữ Integer có nghĩa gì?**
 
@@ -444,7 +367,3 @@ D. Ignore input errors — Bỏ qua lỗi nhập liệu
 | Q18 | **A** | The sample described for Mask contact | Số mô phỏng 0900123456 |
 | Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
 | Q20 | **C** | Validate output and edge cases | Kiểm tra kết quả và trường hợp biên |
-
-## 8. Nối sang bài kế tiếp
-
-`Biến → int/float/bool/str → Slicing → Xử lý văn bản`.

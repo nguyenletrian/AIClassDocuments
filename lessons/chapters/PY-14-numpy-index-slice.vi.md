@@ -1,14 +1,8 @@
 # PY-14 — NumPy indexing, slicing, boolean và fancy indexing
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Index** — chỉ số; **Slice** — cắt lát.
-
 `NumPy ndarray → Chọn hàng/cột → DataFrame/PCA`
-
-Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều đối tượng và đặc trưng trước khi dùng trong AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 
 ## 3. Thư viện, hàm và lựa chọn
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / tham số | Giải thích ngay theo hàm |
 |---|---|
 | `X[row,col]` | Chọn một ô theo hàng/cột, đếm từ 0 |
@@ -30,75 +22,53 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `X[condition]` | Giữ các phần tử thỏa điều kiện logic |
 | `X[:,[0,2]]` | Chọn các cột không liền nhau |
 
-Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã được giải thích ngay tại bảng hàm này.
-
 ## 4. Khái niệm liên quan và ví dụ nhỏ
 
 ### 4.1. Index
 
-**Từ vựng trong mục:** **Index** — chỉ số.
-
-Địa chỉ phần tử của mảng. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Địa chỉ phần tử của mảng.
 
 ```python
 import numpy as np
 print(np.array([8,9])[0])
 ```
 
-**Tự kiểm tra:** Index có nghĩa gì? **Đáp án:** Địa chỉ phần tử của mảng.
-
 ### 4.2. Slice
 
-**Từ vựng trong mục:** **Slice** — cắt lát.
-
-Lấy một đoạn theo start:stop. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Lấy một đoạn theo start:stop.
 
 ```python
 import numpy as np
 print(np.arange(5)[1:3])
 ```
 
-**Tự kiểm tra:** Slice có nghĩa gì? **Đáp án:** Lấy một đoạn theo start:stop.
-
 ### 4.3. Boolean mask
 
-**Từ vựng trong mục:** **Boolean mask** — mặt nạ logic.
-
-Mảng True/False để lọc phần tử. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Mảng True/False để lọc phần tử.
 
 ```python
 import numpy as np
 x=np.array([4,7,9]);print(x[x>=7])
 ```
 
-**Tự kiểm tra:** Boolean mask có nghĩa gì? **Đáp án:** Mảng True/False để lọc phần tử.
-
 ### 4.4. Fancy indexing
 
-**Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao.
-
-Chọn nhiều vị trí theo danh sách chỉ số. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Chọn nhiều vị trí theo danh sách chỉ số.
 
 ```python
 import numpy as np
 x=np.array([3,5,7]);print(x[[0,2]])
 ```
 
-**Tự kiểm tra:** Fancy indexing có nghĩa gì? **Đáp án:** Chọn nhiều vị trí theo danh sách chỉ số.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Tra điểm một sinh viên
 
-**Từ vựng trong mục:** **Index** — chỉ số.
-
 **Vấn đề:** Tra điểm một sinh viên.
 
-**Vì sao chọn cách giải này?** Lấy đúng hàng sinh viên và cột môn học. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Lấy đúng hàng sinh viên và cột môn học.
 
-**Dữ liệu:** 3 học sinh × 2 môn, điểm thang 10; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 3 học sinh × 2 môn, điểm thang 10.
 
 ```python
 import numpy as np
@@ -106,19 +76,13 @@ scores=np.array([[8,9],[6,7],[9,8]])
 print(scores[1,0])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 2 — Báo danh sách điểm cao
-
-**Từ vựng trong mục:** **Slice** — cắt lát.
 
 **Vấn đề:** Báo danh sách điểm cao.
 
-**Vì sao chọn cách giải này?** Mask lọc hàng điểm Python>=8. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Mask lọc hàng điểm Python>=8.
 
-**Dữ liệu:** 3 học sinh × 2 môn; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 3 học sinh × 2 môn.
 
 ```python
 import numpy as np
@@ -126,19 +90,13 @@ X=np.array([[8,9],[6,7],[9,8]])
 print(X[X[:,0]>=8])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 3 — Lấy hai môn cần kiểm
-
-**Từ vựng trong mục:** **Boolean mask** — mặt nạ logic.
 
 **Vấn đề:** Lấy hai môn cần kiểm.
 
-**Vì sao chọn cách giải này?** Fancy indexing chọn cột không cần liền nhau. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Fancy indexing chọn cột không cần liền nhau.
 
-**Dữ liệu:** 2 sinh viên × 3 môn; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 2 sinh viên × 3 môn.
 
 ```python
 import numpy as np
@@ -146,19 +104,13 @@ X=np.array([[8,7,9],[6,5,8]])
 print(X[:,[0,2]])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 4 — Lấy ba khách đầu tiên
-
-**Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao.
 
 **Vấn đề:** Lấy ba khách đầu tiên.
 
-**Vì sao chọn cách giải này?** Slice theo chiều hàng để xem mẫu báo cáo. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Slice theo chiều hàng để xem mẫu báo cáo.
 
-**Dữ liệu:** 5 khách với điểm chi tiêu; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 5 khách với điểm chi tiêu.
 
 ```python
 import numpy as np
@@ -166,19 +118,13 @@ spend=np.array([100,200,50,300,120])
 print(spend[:3])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 5 — Sửa số đo bất thường
-
-**Từ vựng trong mục:** **Index** — chỉ số.
 
 **Vấn đề:** Sửa số đo bất thường.
 
-**Vì sao chọn cách giải này?** Thao tác mask trên bản sao để không đổi mảng gốc. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Thao tác mask trên bản sao để không đổi mảng gốc.
 
-**Dữ liệu:** 4 nhiệt độ có một giá trị âm lỗi; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 4 nhiệt độ có một giá trị âm lỗi.
 
 ```python
 import numpy as np
@@ -187,15 +133,11 @@ clean=values.copy();clean[clean<0]=0
 print(values,clean)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ## 6. Sai lầm thường gặp
 
 Các tham số như axis, shape, dtype hoặc cách xử lý giá trị thiếu có thể thay đổi kết quả. Trước khi xử lý phải biết số hàng, số cột, đơn vị và mục đích của từng phép biến đổi.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What does Index mean? — Ý nghĩa của Index là gì?**
@@ -441,7 +383,3 @@ D. To change column meanings — Để thay đổi nghĩa các cột
 | Q18 | **A** | The stated data are 4 nhiệt độ có một giá trị âm lỗi | 4 nhiệt độ có một giá trị âm lỗi |
 | Q19 | **D** | Rows, columns and units | Hàng, cột và đơn vị |
 | Q20 | **C** | To check limitations and edge cases | Để thấy giới hạn và trường hợp biên |
-
-## 8. Nối bài tiếp theo
-
-`NumPy ndarray → Chọn hàng/cột → DataFrame/PCA`.

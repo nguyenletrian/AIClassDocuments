@@ -1,14 +1,8 @@
 # 06 — List, chỉ số, slicing và sắp xếp
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **List** — danh sách; **Index** — chỉ số.
-
 `Vòng lặp → List → Vector/Array`
-
-Từ kiến thức trước, phần này giúp sinh viên quyết định nên tổ chức và xử lý dữ liệu bằng cấu trúc nào, rồi mới tiến tới các bài xử lý dữ liệu cho AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 
 ## 3. Hàm và cú pháp Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cú pháp | Mục đích và lựa chọn liên quan |
 |---|---|
 | `append(), extend(), insert()` | Thêm từng phần tử hoặc nhiều phần tử vào danh sách |
@@ -34,46 +26,32 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 
 ### 4.1. List
 
-**Từ vựng trong mục:** **List** — danh sách.
-
-Tập hợp có thứ tự, có thể thay đổi. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Tập hợp có thứ tự, có thể thay đổi.
 
 ```python
 a=[1,2]
 print(a)
 ```
 
-**Tự kiểm tra:** List có nghĩa gì? **Đáp án:** Tập hợp có thứ tự, có thể thay đổi.
-
 ### 4.2. Index
 
-**Từ vựng trong mục:** **Index** — chỉ số.
-
-Vị trí tính từ 0 để lấy phần tử. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Vị trí tính từ 0 để lấy phần tử.
 
 ```python
 print([8,9][0])
 ```
 
-**Tự kiểm tra:** Index có nghĩa gì? **Đáp án:** Vị trí tính từ 0 để lấy phần tử.
-
 ### 4.3. Slice
 
-**Từ vựng trong mục:** **Slice** — cắt lát.
-
-Lấy đoạn phần tử theo start:stop. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Lấy đoạn phần tử theo start:stop.
 
 ```python
 print([1,2,3][:2])
 ```
 
-**Tự kiểm tra:** Slice có nghĩa gì? **Đáp án:** Lấy đoạn phần tử theo start:stop.
-
 ### 4.4. Mutability
 
-**Từ vựng trong mục:** **Mutability** — khả năng sửa.
-
-Có thể cập nhật phần tử của danh sách. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Có thể cập nhật phần tử của danh sách.
 
 ```python
 a=[1,2]
@@ -81,21 +59,13 @@ a[1]=5
 print(a)
 ```
 
-**Tự kiểm tra:** Mutability có nghĩa gì? **Đáp án:** Có thể cập nhật phần tử của danh sách.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Giỏ hàng
 
-**Từ vựng trong mục:** **List** — danh sách.
+**Vì sao chọn cách này?** Thêm món mới vào danh sách thứ tự đã chọn
 
-**Vấn đề thực tế:** Giỏ hàng.
-
-**Vì sao chọn cách này?** Thêm món mới vào danh sách thứ tự đã chọn; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Hai món ban đầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Hai món ban đầu
 
 ```python
 basket=["milk","bread"]
@@ -103,38 +73,22 @@ basket.append("rice")
 print(basket)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 2 — Lấy hai ưu tiên cao
 
-**Từ vựng trong mục:** **Index** — chỉ số.
+**Vì sao chọn cách này?** Sắp xếp bản sao giữ thứ tự gốc để còn so sánh
 
-**Vấn đề thực tế:** Lấy hai ưu tiên cao.
-
-**Vì sao chọn cách này?** Sắp xếp bản sao giữ thứ tự gốc để còn so sánh; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Điểm ưu tiên [2,9,4,7]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Điểm ưu tiên [2,9,4,7]
 
 ```python
 scores=[2,9,4,7]
 print(sorted(scores,reverse=True)[:2])
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 3 — Lọc điểm đạt
 
-**Từ vựng trong mục:** **Slice** — cắt lát.
+**Vì sao chọn cách này?** Chọn điểm >=5 bằng điều kiện trong list comprehension
 
-**Vấn đề thực tế:** Lọc điểm đạt.
-
-**Vì sao chọn cách này?** Chọn điểm >=5 bằng điều kiện trong list comprehension; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** 4 điểm thang 10; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** 4 điểm thang 10
 
 ```python
 scores=[4,7,9,3]
@@ -142,19 +96,11 @@ passed=[x for x in scores if x>=5]
 print(passed)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 4 — Sửa tồn kho
 
-**Từ vựng trong mục:** **Mutability** — khả năng sửa.
+**Vì sao chọn cách này?** Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai
 
-**Vấn đề thực tế:** Sửa tồn kho.
-
-**Vì sao chọn cách này?** Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** Tồn 3 mặt hàng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** Tồn 3 mặt hàng
 
 ```python
 stock=[8,6,9]
@@ -162,19 +108,11 @@ stock[1]=4
 print(stock)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ### Tình huống 5 — Hàng đợi yêu cầu
 
-**Từ vựng trong mục:** **List** — danh sách.
+**Vì sao chọn cách này?** Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách
 
-**Vấn đề thực tế:** Hàng đợi yêu cầu.
-
-**Vì sao chọn cách này?** Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
-
-**Dữ liệu:** 3 mã yêu cầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
-
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Dữ liệu:** 3 mã yêu cầu
 
 ```python
 queue=["REQ01","REQ02","REQ03"]
@@ -182,15 +120,11 @@ done=queue.pop(0)
 print(done,queue)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
-
 ## 6. Nhầm lẫn dễ gặp
 
 Không sử dụng cấu trúc dữ liệu sai với mục đích: ví dụ tập hợp không hỗ trợ truy cập theo chỉ số như list; tuple không sửa từng phần tử. Mọi dữ liệu thật cần xác minh kiểu, đơn vị và tính hợp lệ.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 **Q1. What is List? — Thuật ngữ List có nghĩa gì?**
 
@@ -435,7 +369,3 @@ D. Delete comments — Xóa chú thích
 | Q18 | **A** | The stated input: 3 mã yêu cầu | 3 mã yêu cầu |
 | Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
 | Q20 | **C** | Verify output and edge cases | Đối chiếu kết quả và thử trường hợp biên |
-
-## 8. Kết nối bài tiếp theo
-
-`Vòng lặp → List → Vector/Array`.

@@ -1,14 +1,8 @@
 # PY-11 — Kế thừa, đa hình và lớp trừu tượng ABC
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Inheritance** — kế thừa; **Polymorphism** — đa hình.
-
 `Class/Object → Inheritance → Abstract API → Kiến trúc ứng dụng`
-
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 
 ## 3. Thư viện, hàm và tham số
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm/cú pháp | Giải thích và lý do dùng |
 |---|---|
 | `class Child(Parent)` | Kế thừa thông tin chung |
@@ -30,15 +22,11 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `ABC/@abstractmethod` | Bắt lớp con định nghĩa giao diện bắt buộc |
 | `isinstance(obj,Class)` | Xác minh đối tượng thuộc lớp khi cần |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
-
 ## 4. Khái niệm và ví dụ nhỏ
 
 ### 4.1. Inheritance
 
-**Từ vựng trong mục:** **Inheritance** — kế thừa.
-
-Lớp con dùng lại các đặc điểm lớp cha. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Lớp con dùng lại các đặc điểm lớp cha.
 
 ```python
 class P: pass
@@ -46,13 +34,9 @@ class C(P): pass
 print(isinstance(C(),P))
 ```
 
-**Tự kiểm tra:** Inheritance là gì? **Đáp án:** Lớp con dùng lại các đặc điểm lớp cha.
-
 ### 4.2. Polymorphism
 
-**Từ vựng trong mục:** **Polymorphism** — đa hình.
-
-Cùng lời gọi nhưng các lớp có cách đáp khác nhau. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Cùng lời gọi nhưng các lớp có cách đáp khác nhau.
 
 ```python
 class A:
@@ -60,13 +44,9 @@ class A:
 print(A().f())
 ```
 
-**Tự kiểm tra:** Polymorphism là gì? **Đáp án:** Cùng lời gọi nhưng các lớp có cách đáp khác nhau.
-
 ### 4.3. Abstract class
 
-**Từ vựng trong mục:** **Abstract class** — lớp trừu tượng.
-
-Khung lớp ràng buộc phương thức cần cài đặt. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Khung lớp ràng buộc phương thức cần cài đặt.
 
 ```python
 from abc import ABC
@@ -74,13 +54,9 @@ class Base(ABC): pass
 print(Base())
 ```
 
-**Tự kiểm tra:** Abstract class là gì? **Đáp án:** Khung lớp ràng buộc phương thức cần cài đặt.
-
 ### 4.4. Override
 
-**Từ vựng trong mục:** **Override** — ghi đè.
-
-Lớp con cài lại phương thức của lớp cha. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Lớp con cài lại phương thức của lớp cha.
 
 ```python
 class A:
@@ -90,21 +66,15 @@ class B(A):
 print(B().f())
 ```
 
-**Tự kiểm tra:** Override là gì? **Đáp án:** Lớp con cài lại phương thức của lớp cha.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Các loại sản phẩm
 
-**Từ vựng trong mục:** **Inheritance** — kế thừa.
-
 **Vấn đề:** Các loại sản phẩm.
 
-**Vì sao chọn cách giải?** Điểm chung được đặt ở lớp cha, khác biệt ở lớp con. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** Điểm chung được đặt ở lớp cha, khác biệt ở lớp con.
 
-**Dữ liệu:** Một sản phẩm điện tử giả lập. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Một sản phẩm điện tử giả lập.
 
 ```python
 class Product:
@@ -114,19 +84,13 @@ class Electronic(Product):
 print(Electronic("Phone").category())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 2 — Giao diện gửi thông báo
-
-**Từ vựng trong mục:** **Polymorphism** — đa hình.
 
 **Vấn đề:** Giao diện gửi thông báo.
 
-**Vì sao chọn cách giải?** ABC bắt buộc các cách gửi cùng có send. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** ABC bắt buộc các cách gửi cùng có send.
 
-**Dữ liệu:** Tin nhắn Hello. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Tin nhắn Hello.
 
 ```python
 from abc import ABC,abstractmethod
@@ -138,19 +102,13 @@ class Console(Notifier):
 print(Console().send("Hello"))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 3 — Tính phí vận chuyển
-
-**Từ vựng trong mục:** **Abstract class** — lớp trừu tượng.
 
 **Vấn đề:** Tính phí vận chuyển.
 
-**Vì sao chọn cách giải?** Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất.
 
-**Dữ liệu:** Dịch vụ Express phí 35000 đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Dịch vụ Express phí 35000 đồng.
 
 ```python
 class Shipping:
@@ -160,19 +118,13 @@ class Express(Shipping):
 print(Express().fee())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 4 — Đọc nhiều loại cảm biến
-
-**Từ vựng trong mục:** **Override** — ghi đè.
 
 **Vấn đề:** Đọc nhiều loại cảm biến.
 
-**Vì sao chọn cách giải?** Các cảm biến dùng chung read nhưng trả số đo khác nhau. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** Các cảm biến dùng chung read nhưng trả số đo khác nhau.
 
-**Dữ liệu:** Nhiệt độ 26.5 °C, độ ẩm 62%. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Nhiệt độ 26.5 °C, độ ẩm 62%.
 
 ```python
 class Sensor:
@@ -184,19 +136,13 @@ class Humidity(Sensor):
 for s in [Temp(),Humidity()]:print(s.read())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 5 — Chuyển định dạng báo cáo
-
-**Từ vựng trong mục:** **Inheritance** — kế thừa.
 
 **Vấn đề:** Chuyển định dạng báo cáo.
 
-**Vì sao chọn cách giải?** Ghi đè render giúp thêm loại xuất mà không sửa lời gọi. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** Ghi đè render giúp thêm loại xuất mà không sửa lời gọi.
 
-**Dữ liệu:** Báo cáo plain và HTML. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Báo cáo plain và HTML.
 
 ```python
 class Report:
@@ -206,16 +152,11 @@ class HtmlReport(Report):
 print(HtmlReport().render())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
 - Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. Which description matches Inheritance? — Mô tả nào đúng với Inheritance?**
@@ -461,7 +402,3 @@ D. Ignore unexpected results — Bỏ qua kết quả bất thường
 | Q18 | **A** | The described input Báo cáo plain và HTML | Báo cáo plain và HTML |
 | Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị dữ liệu |
 | Q20 | **C** | Verify output and unusual inputs | Kiểm tra đầu ra và giá trị biên |
-
-## 8. Nối sang bài tiếp theo
-
-`Class/Object → Inheritance → Abstract API → Kiến trúc ứng dụng`.

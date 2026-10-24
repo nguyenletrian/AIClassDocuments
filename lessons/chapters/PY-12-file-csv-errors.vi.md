@@ -1,14 +1,8 @@
 # PY-12 — File I/O, CSV và xử lý ngoại lệ
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **File I/O** — đọc ghi file; **CSV** — dữ liệu phân cách.
-
 `Dictionary → File/CSV → DataFrame → Dataset AI`
-
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 
 ## 3. Thư viện, hàm và tham số
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm/cú pháp | Giải thích và lý do dùng |
 |---|---|
 | `open(...,encoding='utf-8')` | Đọc/ghi Unicode và tự đóng bằng with |
@@ -30,41 +22,29 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `try/except ValueError` | Bắt riêng lỗi dữ liệu nhập không hợp lệ |
 | `Path.read_text()/write_text()` | Đọc/ghi file với đường dẫn kiểu Path |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
-
 ## 4. Khái niệm và ví dụ nhỏ
 
 ### 4.1. File I/O
 
-**Từ vựng trong mục:** **File I/O** — đọc ghi file.
-
-Lấy hoặc lưu dữ liệu trên đĩa. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Lấy hoặc lưu dữ liệu trên đĩa.
 
 ```python
 from pathlib import Path
 print(Path('x.csv').suffix)
 ```
 
-**Tự kiểm tra:** File I/O là gì? **Đáp án:** Lấy hoặc lưu dữ liệu trên đĩa.
-
 ### 4.2. CSV
 
-**Từ vựng trong mục:** **CSV** — dữ liệu phân cách.
-
-Định dạng bảng dạng văn bản. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Định dạng bảng dạng văn bản.
 
 ```python
 import csv
 print(csv.__name__)
 ```
 
-**Tự kiểm tra:** CSV là gì? **Đáp án:** Định dạng bảng dạng văn bản.
-
 ### 4.3. Exception
 
-**Từ vựng trong mục:** **Exception** — ngoại lệ.
-
-Lỗi xuất hiện khi chạy chương trình. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Lỗi xuất hiện khi chạy chương trình.
 
 ```python
 try:
@@ -73,34 +53,24 @@ except ValueError:
     print('Bad input')
 ```
 
-**Tự kiểm tra:** Exception là gì? **Đáp án:** Lỗi xuất hiện khi chạy chương trình.
-
 ### 4.4. Context manager
 
-**Từ vựng trong mục:** **Context manager** — quản lý ngữ cảnh.
-
-Tự đóng tài nguyên sau khối with. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Tự đóng tài nguyên sau khối with.
 
 ```python
 import io
 with io.StringIO('abc') as f:print(f.read())
 ```
 
-**Tự kiểm tra:** Context manager là gì? **Đáp án:** Tự đóng tài nguyên sau khối with.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Đọc CSV sản phẩm
 
-**Từ vựng trong mục:** **File I/O** — đọc ghi file.
-
 **Vấn đề:** Đọc CSV sản phẩm.
 
-**Vì sao chọn cách giải?** DictReader dùng tiêu đề cột để tránh tráo giá và tên. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** DictReader dùng tiêu đề cột để tránh tráo giá và tên.
 
-**Dữ liệu:** Hai sản phẩm với hai cột name,price. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Hai sản phẩm với hai cột name,price.
 
 ```python
 import csv,io
@@ -109,19 +79,13 @@ rows=list(csv.DictReader(io.StringIO(csv_text)))
 print(rows[1]["name"])
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 2 — Lưu nhật ký ứng dụng
-
-**Từ vựng trong mục:** **CSV** — dữ liệu phân cách.
 
 **Vấn đề:** Lưu nhật ký ứng dụng.
 
-**Vì sao chọn cách giải?** Quản lý tệp trong thư mục tạm để không để lại file học thử. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** Quản lý tệp trong thư mục tạm để không để lại file học thử.
 
-**Dữ liệu:** Một dòng log Started. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Một dòng log Started.
 
 ```python
 from pathlib import Path
@@ -132,19 +96,13 @@ with TemporaryDirectory() as folder:
     print(p.read_text(encoding="utf-8"))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 3 — Chặn nhập sai kiểu
-
-**Từ vựng trong mục:** **Exception** — ngoại lệ.
 
 **Vấn đề:** Chặn nhập sai kiểu.
 
-**Vì sao chọn cách giải?** Chỉ bắt ValueError khi nhập không chuyển sang số được. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** Chỉ bắt ValueError khi nhập không chuyển sang số được.
 
-**Dữ liệu:** Dữ liệu đầu vào 'abc'. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Dữ liệu đầu vào 'abc'.
 
 ```python
 raw="abc"
@@ -155,19 +113,13 @@ except ValueError:
 print(number)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 4 — Xuất CSV báo cáo
-
-**Từ vựng trong mục:** **Context manager** — quản lý ngữ cảnh.
 
 **Vấn đề:** Xuất CSV báo cáo.
 
-**Vì sao chọn cách giải?** DictWriter giữ thứ tự tên cột rõ ràng. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** DictWriter giữ thứ tự tên cột rõ ràng.
 
-**Dữ liệu:** Ngày và doanh thu ví dụ. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Ngày và doanh thu ví dụ.
 
 ```python
 import csv,io
@@ -177,19 +129,13 @@ w.writeheader();w.writerow({"date":"2026-10-24","revenue":1200})
 print(b.getvalue())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ### Tình huống 5 — Báo lỗi file thiếu
-
-**Từ vựng trong mục:** **File I/O** — đọc ghi file.
 
 **Vấn đề:** Báo lỗi file thiếu.
 
-**Vì sao chọn cách giải?** Bắt FileNotFoundError để chương trình không dừng không rõ nguyên nhân. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải?** Bắt FileNotFoundError để chương trình không dừng không rõ nguyên nhân.
 
-**Dữ liệu:** Một tệp giả định không tồn tại. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ.
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Dữ liệu:** Một tệp giả định không tồn tại.
 
 ```python
 from pathlib import Path
@@ -200,16 +146,11 @@ except FileNotFoundError:
 print(text)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
-
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
 - Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. Which description matches File I/O? — Mô tả nào đúng với File I/O?**
@@ -455,7 +396,3 @@ D. Ignore unexpected results — Bỏ qua kết quả bất thường
 | Q18 | **A** | The described input Một tệp giả định không tồn tại | Một tệp giả định không tồn tại |
 | Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị dữ liệu |
 | Q20 | **C** | Verify output and unusual inputs | Kiểm tra đầu ra và giá trị biên |
-
-## 8. Nối sang bài tiếp theo
-
-`Dictionary → File/CSV → DataFrame → Dataset AI`.
