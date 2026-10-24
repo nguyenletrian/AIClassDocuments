@@ -7,14 +7,14 @@
 
 `Kiểu dữ liệu → Toán tử → Điều kiện → Quy tắc nghiệp vụ`
 
-Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu đầu vào, thao tác và đầu ra trước khi dùng cho dữ liệu AI.
+Sau khi biết dùng biến và kiểu dữ liệu, ta học các phép tính và cách kiểm tra điều kiện. Toán tử giúp tính hóa đơn, xét ưu đãi và xử lý các trạng thái đúng/sai.
 
 ## 2. English vocabulary — Từ vựng
 
 | English | Nghĩa tiếng Việt | Giải thích |
 |---|---|---|
 | Arithmetic | số học | Phép cộng trừ nhân chia |
-| Comparison | so sánh | Đối chiếu hai giá trị |
+| Comparison | so sánh | So sánh hai giá trị |
 | Logical | logic | Kết hợp các điều kiện |
 | Bitwise | thao tác bit | Phép tính trên các bit của số nguyên |
 
@@ -30,155 +30,175 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 | `&, |, ^` | Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ |
 
 
-## 4. Khái niệm liên quan — từ lời giải thích đến Python
+## 4. Khái niệm liên quan
 
 ### 4.1. Arithmetic
 
 **Từ vựng trong mục:** **Arithmetic** — số học.
 
-Phép cộng trừ nhân chia. xác định giá trị đầu vào có ý nghĩa gì.
+Toán tử số học dùng để tính cộng `+`, trừ `-`, nhân `*`, chia `/`. Ví dụ `5 * 3` cho kết quả `15`. Python còn có `//` để chia lấy phần nguyên và `%` để lấy phần dư.
 
 ```python
 print(5 * 3)
 ```
 
-**Tự kiểm tra:** Arithmetic có ý nghĩa gì?
-
-**Đáp án:** Phép cộng trừ nhân chia.
 
 ### 4.2. Comparison
 
 **Từ vựng trong mục:** **Comparison** — so sánh.
 
-Đối chiếu hai giá trị. xác định giá trị đầu vào có ý nghĩa gì.
+Toán tử so sánh kiểm tra hai giá trị bằng nhau, khác nhau, lớn hơn hay nhỏ hơn. Ví dụ, `8 >= 5` trả về `True` vì 8 lớn hơn 5. Dùng `==` để so sánh bằng nhau, khác với `=` để gán giá trị.
 
 ```python
 print(8 >= 5)
 ```
 
-**Tự kiểm tra:** Comparison có ý nghĩa gì?
-
-**Đáp án:** Đối chiếu hai giá trị.
 
 ### 4.3. Logical
 
 **Từ vựng trong mục:** **Logical** — logic.
 
-Kết hợp các điều kiện. xác định giá trị đầu vào có ý nghĩa gì.
+Toán tử logic nối các điều kiện đúng/sai: `and` cần cả hai đúng, `or` chỉ cần ít nhất một điều kiện đúng, còn `not` đảo ngược kết quả. `True and False` trả về `False`.
 
 ```python
 print(True and False)
 ```
 
-**Tự kiểm tra:** Logical có ý nghĩa gì?
-
-**Đáp án:** Kết hợp các điều kiện.
 
 ### 4.4. Bitwise
 
 **Từ vựng trong mục:** **Bitwise** — thao tác bit.
 
-Phép tính trên các bit của số nguyên. xác định giá trị đầu vào có ý nghĩa gì.
+Bit là một chữ số nhị phân, chỉ có thể là `0` hoặc `1`. Phép `&` chỉ giữ bit bằng 1 ở cả hai số: `5` (`0101`) và `3` (`0011`) cho kết quả `1` (`0001`). Đây là phép xử lý bit, khác với toán tử logic `and`.
 
 ```python
 print(5 & 3)
 ```
 
-**Tự kiểm tra:** Bitwise có ý nghĩa gì?
-
-**Đáp án:** Phép tính trên các bit của số nguyên.
 
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tính ưu đãi
 
-**Từ vựng trong mục:** **Arithmetic** — số học.
+**Từ vựng trong mục:** **Arithmetic** — số học; **Discount** — giảm giá.
 
-**Tình huống thực tế:** Một cửa hàng giảm giá 10% cho sản phẩm có giá niêm yết 250.000 đồng. Hãy tính số tiền khách hàng phải thanh toán sau giảm giá.
+**Tình huống thực tế:** Cửa hàng bán một sản phẩm giá 250.000 đồng và giảm 10% trên giá niêm yết.
 
-**Vì sao chọn cách này?** Nhân tỷ lệ giảm với giá để tính tiền còn lại.
+**Yêu cầu:** Tính số tiền khách phải trả sau giảm giá.
 
+**Vì sao chọn cách giải này?** Nhân giá gốc với `(1 - 0.10)` để lấy 90% giá ban đầu.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu giá gốc vào `price`.
+2. Tính tỷ lệ còn lại là `1 - 0.10`.
+3. Nhân giá với tỷ lệ còn lại và in kết quả.
 
 ```python
 price = 250000
 print(price * (1 - 0.10))
 ```
 
+**Kết quả:** `225000.0` đồng — khách được giảm 25.000 đồng.
 
 ### Tình huống 2 — Xét VIP
 
-**Từ vựng trong mục:** **Comparison** — so sánh.
+**Từ vựng trong mục:** **Comparison** — so sánh; **Logical AND** — phép và.
 
-**Tình huống thực tế:** Một cửa hàng quy định khách đạt hạng VIP khi gắn bó ít nhất 5 năm và chi tiêu từ 1.000.000 đồng. Một khách hàng đã gắn bó 5 năm và có tổng chi tiêu 1.200.000 đồng. Hãy xác định khách này có đủ điều kiện VIP không.
+**Tình huống thực tế:** Một cửa hàng công nhận khách VIP khi đã là thành viên ít nhất 5 năm và chi tiêu từ 1.000.000 đồng. Một khách đã tham gia 5 năm và chi 1.200.000 đồng.
 
-**Vì sao chọn cách này?** Hai điều kiện đều phải đúng.
+**Yêu cầu:** Kiểm tra khách này có đủ điều kiện VIP hay không.
 
+**Vì sao chọn cách giải này?** Dùng `>=` để kiểm tra từng ngưỡng, rồi dùng `and` vì hai điều kiện phải đồng thời đúng.
 
-**Quy trình:** kiểm tra `years >= 5` và `spending >= 1000000` → dùng `and` vì phải thỏa cả hai điều kiện → trả về `True` nếu đủ điều kiện, ngược lại `False`.
+**Quy trình giải:**
+
+1. Lưu số năm thành viên và tổng chi tiêu.
+2. Kiểm tra từng giá trị có đạt ngưỡng không.
+3. Nối hai điều kiện bằng `and` và in kết quả.
 
 ```python
 years, spending = 5, 1200000
 print(years >= 5 and spending >= 1000000)
 ```
 
+**Kết quả:** `True` — khách đạt cả hai tiêu chí VIP.
 
 ### Tình huống 3 — Đóng thùng hàng
 
-**Từ vựng trong mục:** **Logical** — logic.
+**Từ vựng trong mục:** **Integer division** — chia lấy phần nguyên; **Remainder** — số dư.
 
-**Tình huống thực tế:** Kho hàng cần đóng 23 sản phẩm vào các thùng, mỗi thùng chứa tối đa 5 sản phẩm. Hãy tính số thùng đóng đầy và số sản phẩm còn lại.
+**Tình huống thực tế:** Kho hàng có 23 sản phẩm và dùng thùng chứa đúng 5 sản phẩm khi đầy. Sản phẩm chưa đủ một thùng được giữ lại.
 
-**Vì sao chọn cách này?** Chia nguyên đếm thùng đủ và dư đếm món lẻ.
+**Yêu cầu:** Tính số thùng đầy và số sản phẩm còn dư.
 
+**Vì sao chọn cách giải này?** Chia nguyên `//` cho số thùng đầy; chia lấy dư `%` cho số sản phẩm còn lại.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu số sản phẩm và sức chứa mỗi thùng.
+2. Dùng `//` đếm số thùng đầy.
+3. Dùng `%` tính sản phẩm còn dư.
 
 ```python
 items, box_size = 23, 5
 print(items // box_size, items % box_size)
 ```
 
+**Kết quả:** `4 3` — có 4 thùng đầy và 3 sản phẩm dư.
 
 ### Tình huống 4 — Đọc cờ thiết bị
 
-**Từ vựng trong mục:** **Bitwise** — thao tác bit.
+**Từ vựng trong mục:** **Bitwise AND** — phép và theo bit; **Mask** — mặt nạ bit.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần đọc cờ thiết bị. Dữ liệu hiện có: Trạng thái mô phỏng 0b1010. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một thiết bị lưu trạng thái bốn công tắc trong số nhị phân `0b1010`. Mỗi bit thể hiện một công tắc bật (`1`) hoặc tắt (`0`). Công tắc tương ứng với bit `0b0010` cần được kiểm tra.
 
-**Vì sao chọn cách này?** Kiểm một bit bằng phép AND trên số nhị phân.
+**Yêu cầu:** In `True` nếu công tắc đó bật, ngược lại in `False`.
 
+**Vì sao chọn cách giải này?** Dùng phép AND bit `&` cùng mặt nạ `0b0010` để lấy đúng bit cần kiểm tra; `bool()` đổi kết quả thành đúng/sai.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu trạng thái nhị phân.
+2. Dùng `status & 0b0010` để lấy bit mục tiêu.
+3. Dùng `bool()` và in kết quả.
 
 ```python
 status = 0b1010
 print(bool(status & 0b0010))
 ```
 
+**Kết quả:** `True` — bit `0b0010` đang bật.
 
 ### Tình huống 5 — Ưu tiên đơn hàng
 
-**Từ vựng trong mục:** **Arithmetic** — số học.
+**Từ vựng trong mục:** **Logical OR** — phép hoặc; **Comparison** — so sánh.
 
-**Tình huống thực tế:** Một cửa hàng cần ưu tiên đơn hàng. Dữ liệu hiện có: Giá trị 3000000 đồng hoặc trễ 2 ngày. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Cửa hàng ưu tiên một đơn hàng nếu giá trị từ 2.000.000 đồng hoặc đơn bị trễ hơn 2 ngày. Một đơn có giá trị 3.000.000 đồng và chưa trễ ngày nào (`delay = 0`).
 
-**Vì sao chọn cách này?** Chỉ cần một trong hai ngưỡng được đáp ứng.
+**Yêu cầu:** Kiểm tra đơn hàng có được ưu tiên hay không.
 
+**Vì sao chọn cách giải này?** Dùng `or` vì chỉ cần một trong hai điều kiện đạt ngưỡng là đủ.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu giá trị đơn và số ngày trễ.
+2. Kiểm tra giá trị đơn đạt từ 2.000.000 đồng.
+3. Kiểm tra số ngày trễ lớn hơn 2, nối hai kết quả bằng `or`.
 
 ```python
 amount, delay = 3000000, 0
 print(amount >= 2000000 or delay > 2)
 ```
 
+**Kết quả:** `True` — đơn được ưu tiên nhờ giá trị đạt ngưỡng.
 
 ## 6. Những nhầm lẫn thường gặp
 
-- Không suy diễn từ một ví dụ minh họa sang mọi bộ dữ liệu thật.
-- Dùng phép xử lý phù hợp với kiểu dữ liệu và đơn vị đo. Khi có đầu vào người dùng, cần kiểm tra lỗi.
+- `=` dùng để gán giá trị, còn `==` dùng để so sánh bằng nhau.
+- `and` và `or` kiểm tra điều kiện; `&` và `|` thao tác trên các bit, không thay thế tùy tiện cho nhau.
+- `/` cho kết quả chia thông thường, `//` lấy phần nguyên theo hướng làm tròn xuống, `%` lấy số dư.
+- Với giá tiền cần tính chính xác đến từng đồng, nên cân nhắc dùng số nguyên đồng hoặc `Decimal` thay vì dựa vào số thực cho phép tính tiền phức tạp.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
@@ -186,7 +206,7 @@ print(amount >= 2000000 or delay > 2)
 
 **Q1. What is Arithmetic? — Thuật ngữ Arithmetic có nghĩa gì?**
 
-A. A true-or-false comparison — Đối chiếu hai giá trị
+A. A true-or-false comparison — So sánh hai giá trị
 
 B. Math operations on numbers — Phép cộng trừ nhân chia
 
@@ -197,7 +217,7 @@ D. Operations on binary digits — Phép tính trên các bit của số nguyên
 
 **Q2. What is Comparison? — Thuật ngữ Comparison có nghĩa gì?**
 
-A. A true-or-false comparison — Đối chiếu hai giá trị
+A. A true-or-false comparison — So sánh hai giá trị
 
 B. Combining boolean conditions — Kết hợp các điều kiện
 
@@ -212,7 +232,7 @@ A. Operations on binary digits — Phép tính trên các bit của số nguyên
 
 B. Math operations on numbers — Phép cộng trừ nhân chia
 
-C. A true-or-false comparison — Đối chiếu hai giá trị
+C. A true-or-false comparison — So sánh hai giá trị
 
 D. Combining boolean conditions — Kết hợp các điều kiện
 
@@ -221,7 +241,7 @@ D. Combining boolean conditions — Kết hợp các điều kiện
 
 A. Math operations on numbers — Phép cộng trừ nhân chia
 
-B. A true-or-false comparison — Đối chiếu hai giá trị
+B. A true-or-false comparison — So sánh hai giá trị
 
 C. Operations on binary digits — Phép tính trên các bit của số nguyên
 
@@ -232,7 +252,7 @@ D. Combining boolean conditions — Kết hợp các điều kiện
 
 A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
 
-B. This Python operation supports the described task — Tính số học và tỷ lệ
+B. These operators perform arithmetic calculations — Tính số học và tỷ lệ
 
 C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
 
@@ -241,7 +261,7 @@ D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra
 
 **Q6. Which use matches //, %, **? — Công dụng nào đúng với //, %, **?**
 
-A. This Python operation supports the described task — Chia nguyên, lấy dư, lũy thừa
+A. These operators calculate floor division, remainder and powers — Chia nguyên, lấy dư, lũy thừa
 
 B. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
 
@@ -258,7 +278,7 @@ B. It automatically trains a neural network — Nó tự huấn luyện mạng n
 
 C. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
 
-D. This Python operation supports the described task — So sánh và kết hợp điều kiện
+D. These operators compare values and combine conditions — So sánh và kết hợp điều kiện
 
 
 **Q8. Which use matches &, |, ^? — Công dụng nào đúng với &, |, ^?**
@@ -267,7 +287,7 @@ A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệ
 
 B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
 
-C. This Python operation supports the described task — Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ
+C. These operators work on individual bits of integers — Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ
 
 D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
 
@@ -408,13 +428,13 @@ D. Ignore input errors — Bỏ qua lỗi nhập liệu
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
 | Q1 | **B** | Math operations on numbers | Phép cộng trừ nhân chia |
-| Q2 | **A** | A true-or-false comparison | Đối chiếu hai giá trị |
+| Q2 | **A** | A true-or-false comparison | So sánh hai giá trị |
 | Q3 | **D** | Combining boolean conditions | Kết hợp các điều kiện |
 | Q4 | **C** | Operations on binary digits | Phép tính trên các bit của số nguyên |
-| Q5 | **B** | This Python operation supports the described task | Tính số học và tỷ lệ |
-| Q6 | **A** | This Python operation supports the described task | Chia nguyên, lấy dư, lũy thừa |
-| Q7 | **D** | This Python operation supports the described task | So sánh và kết hợp điều kiện |
-| Q8 | **C** | This Python operation supports the described task | Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ |
+| Q5 | **B** | These operators perform arithmetic calculations | Tính số học và tỷ lệ |
+| Q6 | **A** | These operators calculate floor division, remainder and powers | Chia nguyên, lấy dư, lũy thừa |
+| Q7 | **D** | These operators compare values and combine conditions | So sánh và kết hợp điều kiện |
+| Q8 | **C** | These operators work on individual bits of integers | Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ |
 | Q9 | **B** | Compute discount proportion | Nhân tỷ lệ giảm với giá để tính tiền còn lại |
 | Q10 | **A** | Require both VIP conditions | Hai điều kiện đều phải đúng |
 | Q11 | **D** | Use division and remainder | Chia nguyên đếm thùng đủ và dư đếm món lẻ |
