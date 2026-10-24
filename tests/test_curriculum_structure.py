@@ -47,7 +47,7 @@ class CurriculumStructureTests(unittest.TestCase):
                 options = re.findall(r"^([A-D])\. .+ \| .+$", text, re.M)
                 self.assertEqual(options, list("ABCD") * 20)
                 qa_text = text.split("## 7.", 1)[1].split("## 8.", 1)[0]
-                self.assertTrue(qa_text.startswith(" Trắc nghiệm\\n"))
+                self.assertTrue(qa_text.startswith(" Trắc nghiệm\n"))
                 blocks = re.findall(
                     r"(?ms)^\*\*Q(\d+)\..*?\*\*$"
                     r"(.*?)(?=^\*\*Q\d+\.|\Z)", qa_text)
