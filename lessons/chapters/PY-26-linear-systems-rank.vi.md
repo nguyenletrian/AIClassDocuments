@@ -207,11 +207,13 @@ A=np.column_stack([x,np.ones_like(x)])
 print(np.linalg.lstsq(A,y,rcond=None)[0])
 ```
 
-**Kết quả khi chạy:**
+**Kết quả khi chạy (tham khảo):**
 
 ```text
-[2.00000000e+00 3.60138006e-16]
+[2.00000000e+00 2.32610211e-15]
 ```
+
+*Hệ số thứ hai rất gần 0; các chữ số cuối có thể thay đổi theo phiên bản NumPy và môi trường tính toán.*
 
 
 ### Tình huống 5 — Tìm sai số dư
