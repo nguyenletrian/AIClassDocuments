@@ -1,6 +1,5 @@
 # 07 — Tuple, Set và phép hợp/giao
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -89,7 +88,7 @@ print({1,2}&{2,3})
 
 **Vấn đề thực tế:** Khử email trùng.
 
-**Vì sao chọn cách này?** Set loại bản ghi email giống hệt nhau; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Set loại bản ghi email giống hệt nhau.
 
 **Dữ liệu:** Bốn email có hai trùng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -108,7 +107,7 @@ print(len(set(emails)))
 
 **Vấn đề thực tế:** Lưu tọa độ.
 
-**Vì sao chọn cách này?** Tuple phù hợp điểm cố định (x,y) trong một phép tính; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Tuple phù hợp điểm cố định (x,y) trong một phép tính.
 
 **Dữ liệu:** Tọa độ (3,4); nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -128,7 +127,7 @@ print(x*x+y*y)
 
 **Vấn đề thực tế:** Tìm kỹ năng chung.
 
-**Vì sao chọn cách này?** Phép giao cho biết kỹ năng cả hai cùng có; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Phép giao cho biết kỹ năng cả hai cùng có.
 
 **Dữ liệu:** Hai danh sách kỹ năng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -148,7 +147,7 @@ print(a&b)
 
 **Vấn đề thực tế:** Gộp nhóm chủ đề.
 
-**Vì sao chọn cách này?** Phép hợp giữ mỗi chủ đề một lần; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Phép hợp giữ mỗi chủ đề một lần.
 
 **Dữ liệu:** Hai nhóm nhãn tài liệu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -168,7 +167,7 @@ print(a|b)
 
 **Vấn đề thực tế:** Liệt kê bài còn thiếu.
 
-**Vì sao chọn cách này?** Hiệu tập cho ra mục cần học nhưng chưa hoàn thành; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Hiệu tập cho ra mục cần học nhưng chưa hoàn thành.
 
 **Dữ liệu:** Yêu cầu Python SQL AI, đã học Python; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
