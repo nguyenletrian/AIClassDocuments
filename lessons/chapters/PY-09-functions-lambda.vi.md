@@ -306,63 +306,63 @@ print(list(filter(lambda x:x>=4,priorities)))
 
 **Q1. What is a Python function? — Hàm Python là gì?**
 
-A. A reusable named block of code — Khối code có tên, dùng lại được
+A. Only a variable declared at module level — Chỉ biến khai báo ở cấp module
 
-B. A name declared in a function definition — Tên khai báo trong định nghĩa hàm
+B. Only code that prints text — Chỉ mã in văn bản
 
-C. A value supplied when calling a function — Giá trị truyền lúc gọi hàm
+C. Only a loop executed once — Chỉ vòng lặp chạy một lần
 
-D. A result sent back to the caller — Kết quả gửi về nơi gọi
+D. Reusable callable code that can accept inputs — Phần mã có thể gọi lại, có thể nhận đầu vào
 
 **Q2. What is a parameter? — Tham số là gì?**
 
-A. A reusable named block of code — Khối code có tên, dùng lại được
+A. A value supplied by the caller — Giá trị truyền từ nơi gọi
 
-B. A name declared in a function definition — Tên khai báo trong định nghĩa hàm
+B. A name declared in a function's definition — Tên khai báo trong định nghĩa hàm
 
-C. A value supplied when calling a function — Giá trị truyền lúc gọi hàm
+C. The value printed by a function — Giá trị được hàm in ra
 
-D. A result sent back to the caller — Kết quả gửi về nơi gọi
+D. A variable always declared global — Biến luôn được khai báo toàn cục
 
 **Q3. What is an argument? — Đối số là gì?**
 
-A. A reusable named block of code — Khối code có tên, dùng lại được
+A. The name in the function definition — Tên trong định nghĩa hàm
 
-B. A name declared in a function definition — Tên khai báo trong định nghĩa hàm
+B. A keyword beginning a function body — Từ khóa bắt đầu thân hàm
 
-C. A value supplied when calling a function — Giá trị truyền lúc gọi hàm
+C. A value supplied in a function call — Giá trị truyền khi gọi hàm
 
-D. A result sent back to the caller — Kết quả gửi về nơi gọi
+D. The result returned by a function — Kết quả hàm trả về
 
 **Q4. What is a return value? — Giá trị trả về là gì?**
 
-A. A reusable named block of code — Khối code có tên, dùng lại được
+A. A result sent back to the caller — Kết quả gửi về nơi gọi
 
-B. A name declared in a function definition — Tên khai báo trong định nghĩa hàm
+B. A parameter name — Tên tham số
 
-C. A value supplied when calling a function — Giá trị truyền lúc gọi hàm
+C. The function's source-code text — Văn bản mã nguồn hàm
 
-D. A result sent back to the caller — Kết quả gửi về nơi gọi
+D. A displayed message from `print` — Thông báo hiển thị bởi `print`
 
 **Q5. Which keyword defines a normal function? — Từ khóa nào định nghĩa hàm thông thường?**
 
-A. `def` — `def`
+A. `return` — `return`
 
-B. `return` — `return`
+B. `lambda` — `lambda`
 
-C. `lambda` — `lambda`
+C. `if` — `if`
 
-D. `if` — `if`
+D. `def` — `def`
 
 **Q6. Which keyword sends a value back to the caller? — Từ khóa nào trả giá trị về nơi gọi?**
 
-A. `def` — `def`
+A. `lambda` — `lambda`
 
-B. `return` — `return`
+B. `if` — `if`
 
-C. `lambda` — `lambda`
+C. `def` — `def`
 
-D. `if` — `if`
+D. `return` — `return`
 
 **Q7. Which keyword defines a short anonymous function expression? — Từ khóa nào tạo biểu thức hàm ngắn không tên?**
 
@@ -376,158 +376,158 @@ D. `if` — `if`
 
 **Q8. Which keyword supplies a conditional branch inside a function? — Từ khóa nào tạo nhánh điều kiện bên trong hàm?**
 
-A. `def` — `def`
+A. `lambda` — `lambda`
 
-B. `return` — `return`
+B. `if` — `if`
 
-C. `lambda` — `lambda`
+C. `def` — `def`
 
-D. `if` — `if`
+D. `return` — `return`
 
 **Q9. What does a default parameter provide? — Tham số mặc định có tác dụng gì?**
 
-A. A fallback value when an argument is omitted — Giá trị dùng khi không truyền đối số
+A. A value calculated only after the function returns — Giá trị chỉ tính sau khi hàm trả về
 
-B. An argument passed by parameter name — Đối số truyền theo tên tham số
+B. A value that must be supplied for every call — Giá trị bắt buộc phải truyền ở mọi lần gọi
 
-C. Computing a sorting key for each item — Tính khóa sắp xếp cho từng phần tử
+C. A fallback value used when the caller omits an argument — Giá trị dự phòng khi nơi gọi không truyền đối số
 
-D. Items for which test is truthy — Phần tử có điều kiện test đúng
+D. A value that overrides every explicit argument — Giá trị ghi đè mọi đối số truyền vào
 
 **Q10. What is a keyword argument? — Đối số theo tên là gì?**
 
-A. A fallback value when an argument is omitted — Giá trị dùng khi không truyền đối số
+A. An argument always matched only by position — Đối số luôn ghép bằng vị trí
 
-B. An argument passed by parameter name — Đối số truyền theo tên tham số
+B. A local variable defined outside the function — Biến cục bộ định nghĩa ngoài hàm
 
-C. Computing a sorting key for each item — Tính khóa sắp xếp cho từng phần tử
+C. A function name passed without calling — Tên hàm được truyền mà không gọi
 
-D. Items for which test is truthy — Phần tử có điều kiện test đúng
+D. An argument supplied using its parameter's name — Đối số truyền bằng tên tham số
 
 **Q11. What does `sorted(rows, key=func)` use `func` for? — Trong `sorted(rows, key=func)`, func dùng để làm gì?**
 
-A. A fallback value when an argument is omitted — Giá trị dùng khi không truyền đối số
+A. Filtering out all false-valued items before sorting — Loại mọi phần tử có giá trị sai trước khi sắp
 
-B. An argument passed by parameter name — Đối số truyền theo tên tham số
+B. Printing each row during sorting — In từng hàng trong lúc sắp
 
-C. Computing a sorting key for each item — Tính khóa sắp xếp cho từng phần tử
+C. Replacing every row with `None` — Thay mỗi hàng bằng `None`
 
-D. Items for which test is truthy — Phần tử có điều kiện test đúng
+D. Computing a sort key for each item — Tính khóa sắp xếp cho từng phần tử
 
 **Q12. What does `filter(test, items)` keep? — `filter(test, items)` giữ gì?**
 
-A. A fallback value when an argument is omitted — Giá trị dùng khi không truyền đối số
+A. Only items whose test result is false — Chỉ phần tử có kết quả kiểm tra sai
 
-B. An argument passed by parameter name — Đối số truyền theo tên tham số
+B. Items in descending order — Phần tử theo thứ tự giảm dần
 
-C. Computing a sorting key for each item — Tính khóa sắp xếp cho từng phần tử
+C. Items for which `test(item)` is truthy — Phần tử mà `test(item)` có giá trị đúng
 
-D. Items for which test is truthy — Phần tử có điều kiện test đúng
+D. All items, regardless of the test — Mọi phần tử, bất kể phép kiểm tra
 
 **Q13. What is a local variable? — Biến cục bộ là gì?**
 
-A. A name bound within a function's scope — Tên được tạo trong phạm vi hàm
+A. Any name defined at module level — Bất kỳ tên nào khai báo cấp module
 
-B. A name defined at module level — Tên được định nghĩa ở mức module
+B. A name automatically shared by every function — Tên tự chia sẻ cho mọi hàm
 
-C. A single expression — Một biểu thức
+C. A name that can never change value — Tên không bao giờ đổi giá trị
 
-D. A function retaining access to enclosing variables — Hàm còn truy cập được biến từ phạm vi bao ngoài
+D. A name bound within a function's local scope — Tên được gán trong phạm vi cục bộ hàm
 
 **Q14. What is a global variable? — Biến toàn cục là gì?**
 
-A. A name bound within a function's scope — Tên được tạo trong phạm vi hàm
+A. A name bound at module level — Tên được gán ở cấp module
 
-B. A name defined at module level — Tên được định nghĩa ở mức module
+B. A name that exists only inside a class — Tên chỉ tồn tại trong class
 
-C. A single expression — Một biểu thức
+C. A name inaccessible to all functions — Tên mọi hàm đều không truy cập được
 
-D. A function retaining access to enclosing variables — Hàm còn truy cập được biến từ phạm vi bao ngoài
+D. A name created only by `lambda` — Tên chỉ do `lambda` tạo
 
 **Q15. What is a lambda expression limited to? — Nội dung của lambda bị giới hạn như thế nào?**
 
-A. A name bound within a function's scope — Tên được tạo trong phạm vi hàm
+A. A complete `try/except` statement block — Khối câu lệnh `try/except` đầy đủ
 
-B. A name defined at module level — Tên được định nghĩa ở mức module
+B. A single expression — Một biểu thức
 
-C. A single expression — Một biểu thức
+C. Only a numeric literal — Chỉ một literal số
 
-D. A function retaining access to enclosing variables — Hàm còn truy cập được biến từ phạm vi bao ngoài
+D. A series of ordinary statements — Chuỗi các câu lệnh thông thường
 
 **Q16. What is a closure? — Closure là gì?**
 
-A. A name bound within a function's scope — Tên được tạo trong phạm vi hàm
+A. A function whose enclosing names remain accessible — Hàm vẫn truy cập được tên của phạm vi bao ngoài
 
-B. A name defined at module level — Tên được định nghĩa ở mức module
+B. A function that prints its enclosing scope — Hàm in phạm vi bao ngoài
 
-C. A single expression — Một biểu thức
+C. A function that discards all free variables — Hàm loại bỏ mọi biến tự do
 
-D. A function retaining access to enclosing variables — Hàm còn truy cập được biến từ phạm vi bao ngoài
+D. A function forced to return `None` — Hàm bị buộc trả `None`
 
 **Q17. What does a function without explicit `return` produce? — Hàm không có `return` rõ ràng trả về gì?**
 
 A. `None` — `None`
 
-B. Displays output — Hiển thị đầu ra
+B. An empty string `''` — Chuỗi rỗng `''`
 
-C. A tuple of two values — Một Tuple gồm hai giá trị
+C. The last local variable — Biến cục bộ cuối
 
 D. `NameError` — `NameError`
 
 **Q18. What does `print()` do instead of returning a useful result? — `print()` làm gì thay vì trả một kết quả để tính tiếp?**
 
-A. `None` — `None`
+A. Displays output while returning `None` — Hiển thị đầu ra và trả `None`
 
-B. Displays output — Hiển thị đầu ra
+B. Returns a tuple with the printed text — Trả Tuple chứa văn bản đã in
 
-C. A tuple of two values — Một Tuple gồm hai giá trị
+C. Raises `TypeError` whenever called — Mỗi khi gọi đều gây `TypeError`
 
-D. `NameError` — `NameError`
+D. Always returns the printed string — Luôn trả chuỗi đã in
 
 **Q19. What does a function's `return a, b` actually return? — `return a, b` thực chất trả gì?**
 
-A. `None` — `None`
+A. The result of adding `a` and `b` — Kết quả cộng `a` với `b`
 
-B. Displays output — Hiển thị đầu ra
+B. A tuple containing both values — Tuple chứa cả hai giá trị
 
-C. A tuple of two values — Một Tuple gồm hai giá trị
+C. A list containing both values — List chứa cả hai giá trị
 
-D. `NameError` — `NameError`
+D. The two values as separate function return objects — Hai giá trị thành hai đối tượng trả về riêng
 
 **Q20. What happens when code outside a function reads an undefined local name? — Đọc biến cục bộ không tồn tại ở ngoài hàm gây gì?**
 
-A. `None` — `None`
+A. The most recent printed value is used — Dùng giá trị vừa được in
 
-B. Displays output — Hiển thị đầu ra
+B. The local name is exported automatically — Tên cục bộ tự xuất ra ngoài
 
-C. A tuple of two values — Một Tuple gồm hai giá trị
+C. `NameError` for the undefined name — `NameError` vì tên chưa được định nghĩa
 
-D. `NameError` — `NameError`
+D. `None` is silently substituted — Tự thay bằng `None`
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A function packages related operations and may be called repeatedly. | Hàm gom thao tác liên quan và có thể gọi nhiều lần. |
-| Q2 | **B** | A parameter acts as a local name for supplied input. | Tham số là tên cục bộ nhận dữ liệu đầu vào. |
-| Q3 | **C** | The caller supplies argument values for parameters. | Nơi gọi truyền giá trị đối số vào tham số. |
-| Q4 | **D** | return provides a result that calling code can reuse. | return trả kết quả để nơi gọi có thể tiếp tục sử dụng. |
-| Q5 | **A** | def introduces a function body with a name. | def mở phần khai báo hàm có tên. |
-| Q6 | **B** | return exits the function and optionally sends its value back. | return kết thúc hàm và có thể trả lại giá trị. |
-| Q7 | **C** | lambda creates a callable function from one expression. | lambda tạo hàm từ một biểu thức. |
-| Q8 | **D** | if chooses a branch while the function executes. | if lựa chọn nhánh khi hàm đang chạy. |
-| Q9 | **A** | Default values are used only when the caller omits that argument. | Giá trị mặc định được dùng khi nơi gọi không truyền đối số tương ứng. |
-| Q10 | **B** | Keyword arguments explicitly name the parameter being filled. | Đối số theo tên chỉ rõ tham số được gán giá trị. |
-| Q11 | **C** | The key function determines comparison values for ordering. | Hàm key xác định giá trị dùng để so sánh khi sắp xếp. |
-| Q12 | **D** | filter retains elements that satisfy the predicate. | filter giữ phần tử thỏa điều kiện lọc. |
-| Q13 | **A** | A local binding generally exists only for that function execution. | Biến cục bộ thường chỉ tồn tại trong phạm vi thực thi hàm. |
-| Q14 | **B** | Module-level names are available for reading from functions unless shadowed. | Tên cấp module có thể được hàm đọc nếu không bị che bởi tên cục bộ. |
-| Q15 | **C** | lambda syntax uses one expression, not a normal multi-statement block. | lambda dùng một biểu thức, không có thân nhiều câu lệnh thông thường. |
-| Q16 | **D** | A closure can retain references to variables in an enclosing scope. | Closure có thể tiếp tục dùng các biến ở phạm vi hàm bao ngoài. |
-| Q17 | **A** | Python implicitly returns None when execution reaches the function end. | Python ngầm trả None khi hàm chạy tới cuối mà không return. |
-| Q18 | **B** | print shows data; return is how a function passes a result to its caller. | print hiển thị dữ liệu, còn return truyền kết quả về nơi gọi. |
-| Q19 | **C** | Comma-separated return values are packed into a tuple. | Hai giá trị sau return được đóng gói thành Tuple. |
-| Q20 | **D** | A local name is not automatically defined in the caller's scope. | Tên cục bộ không tự tồn tại trong phạm vi nơi gọi. |
+| Q1 | **D** | A Python function is reusable callable code that can accept inputs and may return a result. A normal function can be defined with `def`, while `lambda` also creates a function from one expression; being named is not a requirement of all functions. | Hàm Python là phần mã có thể gọi lại nhiều lần, có thể nhận đầu vào và trả kết quả. Hàm thường có thể định nghĩa bằng `def`, còn `lambda` cũng tạo hàm từ một biểu thức; không phải mọi hàm đều bắt buộc có tên. |
+| Q2 | **B** | A parameter is a name declared in the function definition to receive an input. In `def double(x):`, `x` is a parameter, whereas the `3` in `double(3)` is an argument supplied at call time. | Tham số là tên khai báo trong định nghĩa hàm để nhận đầu vào. Trong `def double(x):`, `x` là tham số, còn số `3` trong `double(3)` là đối số được truyền khi gọi. |
+| Q3 | **C** | An argument is the actual value supplied in a function call. For `double(3)`, the integer `3` is the argument bound to parameter `x`; the parameter name appears in the definition. | Đối số là giá trị thực tế được truyền vào khi gọi hàm. Với `double(3)`, số nguyên `3` là đối số gắn vào tham số `x`; tên tham số xuất hiện trong phần định nghĩa. |
+| Q4 | **A** | A return value is information passed back to the caller by the function's `return` statement. Unlike `print`, which displays text, `return` lets surrounding code reuse the computed value. | Giá trị trả về là thông tin hàm gửi về nơi gọi qua câu lệnh `return`. Khác `print` dùng để hiển thị, `return` giúp mã gọi hàm tiếp tục sử dụng kết quả tính toán. |
+| Q5 | **D** | `def` begins a named function definition followed by parameters, a colon, and an indented body. `lambda` creates a function expression, while `return` is used within the body to send back a result. | `def` mở đầu định nghĩa hàm có tên, tiếp theo là tham số, dấu hai chấm và thân hàm thụt lề. `lambda` tạo biểu thức hàm, còn `return` dùng bên trong thân để trả kết quả. |
+| Q6 | **D** | `return` ends the current function call and sends the indicated value to its caller. For `return x * 2`, the caller receives the doubled value; `print(x * 2)` merely displays it and then returns `None`. | `return` kết thúc lần gọi hàm hiện tại và chuyển giá trị đã chỉ ra về nơi gọi. Với `return x * 2`, nơi gọi nhận giá trị gấp đôi; `print(x * 2)` chỉ hiển thị rồi trả `None`. |
+| Q7 | **C** | `lambda` creates a function using a single expression, such as `lambda x: x * 2`. The function may be assigned to a name or passed as an argument, unlike `def` which introduces a regular statement-based definition. | `lambda` tạo hàm từ một biểu thức, chẳng hạn `lambda x: x * 2`. Hàm có thể gán cho tên hoặc truyền làm đối số, khác `def` mở định nghĩa hàm theo dạng câu lệnh. |
+| Q8 | **B** | `if` introduces a conditional branch inside a function, so the function may execute different paths based on input. It does not by itself create a function or return a value to the caller. | `if` mở nhánh điều kiện bên trong hàm, giúp hàm chọn đường thực thi theo đầu vào. Bản thân `if` không tạo hàm và cũng không trả giá trị về nơi gọi. |
+| Q9 | **C** | A default parameter value is used when the caller omits that argument; for `def greet(name='An')`, `greet()` uses `'An'`. Explicitly passing `greet('Binh')` overrides that default, so it is a fallback rather than a forced value. | Giá trị mặc định của tham số được dùng khi nơi gọi bỏ qua đối số đó; với `def greet(name='An')`, `greet()` dùng `'An'`. Nếu gọi `greet('Binh')` thì giá trị truyền vào thay mặc định, vì vậy đây là dự phòng chứ không phải giá trị bắt buộc. |
+| Q10 | **A** | A keyword argument names the parameter in the call, such as `greet(name='An')`. This differs from a positional argument such as `greet('An')`, which is matched by its position. | Đối số theo tên nêu rõ tên tham số lúc gọi, ví dụ `greet(name='An')`. Nó khác đối số theo vị trí như `greet('An')`, vốn ghép với tham số dựa trên vị trí truyền vào. |
+| Q11 | **B** | In `sorted(rows, key=func)`, `func` computes a comparison key for each item; sorting uses those returned keys. For `key=len`, shorter strings come first by length rather than lexicographic order. | Trong `sorted(rows, key=func)`, `func` tính giá trị khóa so sánh cho từng phần tử; phép sắp xếp dùng các khóa đó. Ví dụ `key=len` sẽ ưu tiên chuỗi ngắn trước theo độ dài thay vì thứ tự chữ cái. |
+| Q12 | **C** | `filter(test, items)` selects items for which `test(item)` is truthy, returning an iterator in Python 3. For `filter(lambda x: x > 0, [-1,2])`, converting to `list` gives `[2]`, not all original elements. | `filter(test, items)` chọn phần tử mà `test(item)` có giá trị đúng, trả iterator trong Python 3. Với `filter(lambda x: x > 0, [-1,2])`, chuyển sang `list` được `[2]`, không phải mọi phần tử ban đầu. |
+| Q13 | **D** | A local variable is a name bound in a function's local scope, such as `total` assigned inside `def add():`. It is not automatically defined outside the function, unlike a module-level global name. | Biến cục bộ là tên được gán trong phạm vi cục bộ của hàm, như `total` gán trong `def add():`. Nó không tự tồn tại ngoài hàm, khác tên toàn cục khai báo ở cấp module. |
+| Q14 | **A** | A global variable is a name bound at module level and is generally readable inside functions unless shadowed. Assigning to the global binding inside a function usually requires a `global` declaration, unlike simply reading it. | Biến toàn cục là tên được gán ở cấp module và thường có thể đọc trong hàm nếu không bị che khuất. Muốn gán lại chính biến toàn cục từ trong hàm thường phải khai báo `global`, khác việc chỉ đọc giá trị. |
+| Q15 | **B** | A Python `lambda` body consists of a single expression whose value becomes the function result. It cannot contain ordinary multi-statement bodies like a sequence of `for` statements and assignments; use `def` for those. | Thân `lambda` trong Python chỉ chứa một biểu thức và giá trị biểu thức trở thành kết quả hàm. Nó không chứa khối nhiều câu lệnh thông thường như chuỗi lệnh `for` và gán; cần dùng `def` trong trường hợp đó. |
+| Q16 | **D** | A closure is a function that retains access to names from its enclosing lexical scope, even after the outer function returns. It retains references to those bindings, not necessarily frozen snapshots of their values. | Closure là hàm vẫn truy cập được các tên thuộc phạm vi bao ngoài, kể cả sau khi hàm ngoài đã trả về. Nó giữ liên kết tham chiếu tới các tên đó chứ không nhất thiết chụp cố định giá trị tại một thời điểm. |
+| Q17 | **A** | If execution reaches the end of a function without an explicit `return`, Python implicitly returns `None`. The function can still print messages, but printing does not turn those messages into its return value. | Nếu hàm chạy đến cuối mà không có `return` tường minh, Python ngầm trả `None`. Hàm vẫn có thể in thông báo nhưng việc in không biến thông báo đó thành giá trị trả về. |
+| Q18 | **A** | `print()` sends text to standard output and its return value is `None`. For example `result = print('Hi')` displays `Hi` but stores `None` in `result`; use `return` in a function when later code needs a result. | `print()` đưa văn bản ra đầu ra chuẩn và giá trị trả về là `None`. Ví dụ `result = print('Hi')` hiển thị `Hi` nhưng lưu `None` vào `result`; dùng `return` trong hàm nếu mã phía sau cần kết quả. |
+| Q19 | **B** | A comma-separated return expression packs values into a tuple, so `return a, b` returns `(a, b)`. The caller can unpack it into two names, but the function actually returns one tuple object. | Biểu thức trả về có các giá trị cách nhau bằng dấu phẩy đóng gói chúng thành Tuple, nên `return a, b` trả `(a, b)`. Nơi gọi có thể giải nén ra hai tên, nhưng hàm thực tế trả một đối tượng Tuple. |
+| Q20 | **C** | A local name assigned only inside a function does not automatically exist in the module's scope. Reading that undefined name outside raises `NameError`; return it explicitly or store it in a separate accessible binding. | Tên cục bộ chỉ được gán bên trong hàm không tự tồn tại ở phạm vi module. Đọc tên chưa được định nghĩa ở ngoài gây `NameError`; cần trả về tường minh hoặc lưu vào liên kết có thể truy cập. |
 
 ## 8. Nối sang bài tiếp theo
 
