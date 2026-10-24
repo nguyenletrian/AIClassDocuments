@@ -31,83 +31,87 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Matrix
+**Ma trận (matrix)** là bảng có hàng và cột được xác định rõ theo dữ liệu. Từ bảng điểm hai học viên và ba môn, bài học giải thích chuyển vị để đổi cách xem, nhân ma trận để tổng hợp trọng số, rồi định thức và nghịch đảo khi làm việc với ma trận vuông.
 
-**Từ vựng trong mục:** **Matrix** — ma trận.
+### 4.1. Matrix — Bảng số có hàng và cột
 
-Bảng hai chiều chứa giá trị theo hàng và cột. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Ma trận là bảng số hai chiều. Với điểm học viên An `[8,7,9]` và Bình `[6,5,8]` ở ba môn Toán, Văn, Python, bảng có **hai hàng học viên** và **ba cột môn**. Giá trị `[1,0]` nghĩa là điểm Toán của Bình bằng 6. `shape` cho kích thước, theo thứ tự (số hàng, số cột).
 
 ```python
 import numpy as np
-print(np.array([[1,2],[3,4]]).shape)
+
+scores = np.array([[8, 7, 9], [6, 5, 8]])
+print(scores.shape)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(2, 2)
+(2, 3)
 ```
 
-**Tự kiểm tra:** Matrix có nghĩa gì? **Đáp án:** Bảng hai chiều chứa giá trị theo hàng và cột.
+Bảng có hai học viên và ba môn học.
 
-### 4.2. Transpose
+### 4.2. Transpose — Hoán đổi hai trục
 
-**Từ vựng trong mục:** **Transpose** — chuyển vị.
-
-Đổi vai trò hàng và cột của ma trận. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Chuyển vị `A.T` biến hàng thành cột và cột thành hàng. Với bảng điểm hai học viên × ba môn, ma trận sau chuyển vị có ba hàng môn và hai cột học viên. Ví dụ hàng đầu là điểm Toán của An và Bình, `[8,6]`; không có điểm nào bị thay đổi.
 
 ```python
 import numpy as np
-print(np.array([[1,2],[3,4]]).T)
+
+scores = np.array([[8, 7, 9], [6, 5, 8]])
+print(scores.T)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[1 3]
- [2 4]]
+[[8 6]
+ [7 5]
+ [9 8]]
 ```
 
-**Tự kiểm tra:** Transpose có nghĩa gì? **Đáp án:** Đổi vai trò hàng và cột của ma trận.
+Kết quả gồm ba hàng môn × hai cột học viên.
 
-### 4.3. Determinant
+### 4.3. Matrix multiplication — Nhân ma trận
 
-**Từ vựng trong mục:** **Determinant** — định thức.
-
-Số của ma trận vuông dùng xét tính khả nghịch. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Nhân `X @ W` yêu cầu số cột của X bằng số hàng của W. Bảng điểm X có shape `(2,3)`, trọng số ba môn W có shape `(3,1)`, tích có shape `(2,1)` cho điểm tổng của từng học viên. Dòng An là `8×0.2 + 7×0.3 + 9×0.5 = 8.2`. `@` khác phép nhân từng phần tử `*`.
 
 ```python
 import numpy as np
-print(np.linalg.det([[1,2],[3,4]]))
+
+X = np.array([[8, 7, 9], [6, 5, 8]])
+W = np.array([[0.2], [0.3], [0.5]])
+print(X @ W)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
--2.0000000000000004
+[[8.2]
+ [6.7]]
 ```
 
-**Tự kiểm tra:** Determinant có nghĩa gì? **Đáp án:** Số của ma trận vuông dùng xét tính khả nghịch.
+Hai hàng là hai học viên; một cột là điểm tổng kết của mỗi người.
 
-### 4.4. Inverse
+### 4.4. Determinant và inverse — Khả nghịch
 
-**Từ vựng trong mục:** **Inverse** — ma trận nghịch đảo.
-
-Ma trận B làm AB=BA=I khi tồn tại. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Định thức `det(A)` là số xác định cho **ma trận vuông**. Với A=`[[2,1],[1,2]]`, định thức bằng `2×2 - 1×1 = 3`, khác 0, nên tồn tại ma trận nghịch đảo `A⁻¹` thỏa `A @ A⁻¹ = I`. Nếu định thức bằng 0 thì không có nghịch đảo. Khi giải hệ phương trình, ưu tiên `np.linalg.solve` hơn việc tính nghịch đảo trực tiếp.
 
 ```python
 import numpy as np
-print(np.linalg.inv([[2.,0.],[0.,3.]]))
+
+A = np.array([[2.0, 1.0], [1.0, 2.0]])
+print(round(float(np.linalg.det(A)), 6))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[0.5        0.        ]
- [0.         0.33333333]]
+3.0
 ```
 
-**Tự kiểm tra:** Inverse có nghĩa gì? **Đáp án:** Ma trận B làm AB=BA=I khi tồn tại.
+Định thức 3 khác 0, nên ma trận vuông này khả nghịch.
 
 ## 5. Năm tình huống ứng dụng
 
@@ -117,10 +121,14 @@ print(np.linalg.inv([[2.,0.],[0.,3.]]))
 
 **Tình huống thực tế:** Báo cáo bán hàng có 2 cửa hàng và 3 ngày, mỗi hàng là một cửa hàng. Đổi thành 3 hàng ngày và 2 cột cửa hàng.
 
-**Vì sao chọn phương án?** Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Chuyển vị đổi bảng hai hàng cửa hàng × ba cột ngày thành ba hàng ngày × hai cột cửa hàng.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Lưu bảng hai cửa hàng × ba ngày.
+2. Chuyển vị bằng `.T`.
+3. In shape `(3,2)` tương ứng ngày × cửa hàng.
 
 ```python
 import numpy as np
@@ -137,14 +145,18 @@ print(X.T.shape)
 
 ### Tình huống 2 — Nhân bảng điểm và trọng số
 
-**Từ vựng trong mục:** **Transpose** — chuyển vị.
+**Từ vựng trong mục:** **Matrix multiplication** — nhân ma trận.
 
 **Tình huống thực tế:** Hai học viên có điểm theo ba môn lần lượt (8,7,9) và (6,5,8); hệ số là (0.2,0.3,0.5). Tính điểm có trọng số.
 
-**Vì sao chọn phương án?** Matrix product kết hợp các đặc trưng theo trọng số; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Nhân bảng điểm 2×3 với trọng số 3×1 tạo mỗi học viên một điểm tổng.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo bảng hai học viên × ba môn.
+2. Đặt trọng số ba môn theo một cột (3×1).
+3. Nhân `X @ W` và in hai điểm tổng.
 
 ```python
 import numpy as np
@@ -167,10 +179,14 @@ print(X@W)
 
 **Tình huống thực tế:** Ma trận hệ số [[2,1],[1,2]] có thể khả nghịch nếu định thức khác 0. Tính định thức để kiểm tra.
 
-**Vì sao chọn phương án?** Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Định thức khác 0 xác định ma trận vuông khả nghịch; làm tròn hạn chế nhiễu số cuối.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo ma trận vuông hệ số `[[2,1],[1,2]]`.
+2. Tính định thức và làm tròn sáu chữ số.
+3. Kiểm tra giá trị 3 khác 0 để kết luận khả nghịch.
 
 ```python
 import numpy as np
@@ -191,10 +207,14 @@ print(round(np.linalg.det(A),6))
 
 **Tình huống thực tế:** Với ma trận đường chéo diag(2,4), kiểm tra tích ma trận và nghịch đảo có gần ma trận đơn vị không.
 
-**Vì sao chọn phương án?** Tích A@inv(A) phải gần đơn vị; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Nhân ma trận với nghịch đảo gần ma trận đơn vị; `allclose` chấp nhận sai số dấu phẩy động.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo ma trận đường chéo `diag(2,4)`.
+2. Tính nghịch đảo rồi nhân `A @ inv(A)`.
+3. So với ma trận đơn vị bằng `np.allclose`.
 
 ```python
 import numpy as np
@@ -215,10 +235,14 @@ True
 
 **Tình huống thực tế:** Một ma trận 2×3 nhân một ma trận 3×2. Kiểm tra kích thước tích kết quả.
 
-**Vì sao chọn phương án?** Shape không phù hợp sẽ báo lỗi nên kiểm trước; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn cách giải này?** Kiểm tra chiều trong bằng nhau để xác định phép nhân hợp lệ và shape kết quả.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo A shape 2×3 và B shape 3×2.
+2. So số cột A với số hàng B.
+3. Nhân A@B và in shape `(2,2)`.
 
 ```python
 import numpy as np
@@ -235,9 +259,13 @@ print((A@B).shape)
 ```
 
 
-## 6. Sai lầm cần tránh
+## 6. Sai lầm thường gặp
 
-Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
+- `shape=(2,3)` nghĩa là hai hàng và ba cột, không phải ba hàng hai cột.
+- `.T` hoán đổi trục; phép nhân `@` yêu cầu số cột bên trái bằng số hàng bên phải.
+- Định thức chỉ tính trên ma trận vuông; ma trận có định thức 0 không có nghịch đảo.
+- Dữ liệu số thực có sai số làm tròn; dùng `np.allclose` khi kiểm tra gần đúng với ma trận đơn vị.
+- Khi giải hệ tuyến tính, thường ưu tiên `np.linalg.solve` thay vì tính nghịch đảo trực tiếp.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
