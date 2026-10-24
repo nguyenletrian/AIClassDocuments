@@ -1,14 +1,8 @@
 # PY-36 — Phân phối nhị thức và phân phối chuẩn
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Random variable** — biến ngẫu nhiên; **Binomial** — phân phối nhị thức.
-
 `Xác suất → Biến ngẫu nhiên → Phân phối → Thống kê`
-
-Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất, thống kê và các bước học máy.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 
 ## 3. Hàm Python và tham số quan trọng
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / cú pháp | Cách sử dụng |
 |---|---|
 | `scipy.stats.binom.pmf(k,n,p)` | P(X=k) cho số thành công rời rạc |
@@ -34,145 +26,101 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 
 ### 4.1. Random variable
 
-**Từ vựng trong mục:** **Random variable** — biến ngẫu nhiên.
-
-Đại lượng có kết quả tùy phép thử. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Đại lượng có kết quả tùy phép thử.
 
 ```python
 import numpy as np
 print(np.random.default_rng(1).integers(0,2,5))
 ```
 
-**Tự kiểm tra:** Random variable là gì? **Đáp án:** Đại lượng có kết quả tùy phép thử.
-
 ### 4.2. Binomial
 
-**Từ vựng trong mục:** **Binomial** — phân phối nhị thức.
-
-Số thành công của n thử Bernoulli độc lập. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Số thành công của n thử Bernoulli độc lập.
 
 ```python
 import scipy.stats as st
 print(st.binom.pmf(3,10,.5))
 ```
 
-**Tự kiểm tra:** Binomial là gì? **Đáp án:** Số thành công của n thử Bernoulli độc lập.
-
 ### 4.3. Normal
 
-**Từ vựng trong mục:** **Normal** — phân phối chuẩn.
-
-Phân phối liên tục hình chuông với mean/std. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Phân phối liên tục hình chuông với mean/std.
 
 ```python
 import scipy.stats as st
 print(st.norm.cdf(0))
 ```
 
-**Tự kiểm tra:** Normal là gì? **Đáp án:** Phân phối liên tục hình chuông với mean/std.
-
 ### 4.4. PMF/PDF
 
-**Từ vựng trong mục:** **PMF/PDF** — hàm khối/mật độ.
-
-PMF cho biến rời rạc, PDF là mật độ cho biến liên tục. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+PMF cho biến rời rạc, PDF là mật độ cho biến liên tục.
 
 ```python
 import scipy.stats as st
 print(st.binom.pmf(1,2,.5))
 ```
 
-**Tự kiểm tra:** PMF/PDF là gì? **Đáp án:** PMF cho biến rời rạc, PDF là mật độ cho biến liên tục.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Tính số lần giao hàng đúng giờ
 
-**Từ vựng trong mục:** **Random variable** — biến ngẫu nhiên.
-
 **Vấn đề:** Tính số lần giao hàng đúng giờ.
 
-**Vì sao chọn phương pháp này?** Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Nhị thức mô tả số đơn đạt trong n đơn độc lập cùng p.
 
-**Dữ liệu:** 10 đơn, xác suất mỗi đơn đúng giờ 0.8. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** 10 đơn, xác suất mỗi đơn đúng giờ 0.8.
 
 ```python
 from scipy.stats import binom
 print(round(binom.pmf(8,10,.8),4))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 2 — Tỷ lệ 3 lỗi hoặc ít hơn
-
-**Từ vựng trong mục:** **Binomial** — phân phối nhị thức.
 
 **Vấn đề:** Tỷ lệ 3 lỗi hoặc ít hơn.
 
-**Vì sao chọn phương pháp này?** CDF cộng xác suất từ 0 đến 3 lỗi. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** CDF cộng xác suất từ 0 đến 3 lỗi.
 
-**Dữ liệu:** 10 sản phẩm, lỗi độc lập p=0.1. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** 10 sản phẩm, lỗi độc lập p=0.1.
 
 ```python
 from scipy.stats import binom
 print(round(binom.cdf(3,10,.1),4))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 3 — Điểm chuẩn của cảm biến
-
-**Từ vựng trong mục:** **Normal** — phân phối chuẩn.
 
 **Vấn đề:** Điểm chuẩn của cảm biến.
 
-**Vì sao chọn phương pháp này?** CDF cho tỷ lệ thấp hơn một ngưỡng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** CDF cho tỷ lệ thấp hơn một ngưỡng.
 
-**Dữ liệu:** Trung bình 100, độ lệch chuẩn 15, ngưỡng 115. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** Trung bình 100, độ lệch chuẩn 15, ngưỡng 115.
 
 ```python
 from scipy.stats import norm
 print(norm.cdf(115,loc=100,scale=15))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 4 — Xem mật độ tại một điểm
-
-**Từ vựng trong mục:** **PMF/PDF** — hàm khối/mật độ.
 
 **Vấn đề:** Xem mật độ tại một điểm.
 
-**Vì sao chọn phương pháp này?** PDF là mật độ, không phải xác suất tại đúng một điểm liên tục. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** PDF là mật độ, không phải xác suất tại đúng một điểm liên tục.
 
-**Dữ liệu:** Phân phối chuẩn mean=0,std=1 tại x=0. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** Phân phối chuẩn mean=0,std=1 tại x=0.
 
 ```python
 from scipy.stats import norm
 print(norm.pdf(0))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 5 — Sinh dữ liệu chuẩn mô phỏng
-
-**Từ vựng trong mục:** **Random variable** — biến ngẫu nhiên.
 
 **Vấn đề:** Sinh dữ liệu chuẩn mô phỏng.
 
-**Vì sao chọn phương pháp này?** RNG dùng seed để kết quả minh họa lặp được. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** RNG dùng seed để kết quả minh họa lặp được.
 
-**Dữ liệu:** 5 mẫu chuẩn mean=0,std=1. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** 5 mẫu chuẩn mean=0,std=1.
 
 ```python
 import numpy as np
@@ -180,15 +128,11 @@ rng=np.random.default_rng(42)
 print(rng.normal(loc=0,scale=1,size=5))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ## 6. Những nhầm lẫn thường gặp
 
 Xác suất có điều kiện cần mẫu nền; xác suất của phân phối liên tục tại một điểm không phải PDF; thống kê từ một nhóm nhỏ không tự chứng minh kết quả cho quần thể. Chú ý định nghĩa mean/std và giả định độc lập.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Random variable? — Thuật ngữ Random variable là gì?**
@@ -434,7 +378,3 @@ D. Ignoring missing inputs — Bỏ dữ liệu thiếu mà không đánh giá
 | Q18 | **A** | The input is 5 mẫu chuẩn mean=0,std=1 | 5 mẫu chuẩn mean=0,std=1 |
 | Q19 | **D** | Assumptions, units and sample size | Giả định, đơn vị và kích thước mẫu |
 | Q20 | **C** | Checking assumptions and edge cases | Kiểm tra giả định và trường hợp biên |
-
-## 8. Liên hệ bài tiếp theo
-
-`Xác suất → Biến ngẫu nhiên → Phân phối → Thống kê`.
