@@ -29,7 +29,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 | `v/np.linalg.norm(v)` | Chuẩn hóa về độ dài 1, phải tránh norm bằng 0 |
 | `a @ b / np.dot(a,b)` | Tích vô hướng nếu hai vector một chiều cùng độ dài |
 
-## 4. Khái niệm kèm ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Scalar
 
@@ -40,6 +40,12 @@ Một số đơn lẻ có thể đo độ lớn. Trước khi sử dụng biểu
 ```python
 rate=2.5
 print(rate)
+```
+
+**Kết quả khi chạy:**
+
+```text
+2.5
 ```
 
 **Tự kiểm tra:** Scalar có nghĩa gì? **Đáp án:** Một số đơn lẻ có thể đo độ lớn.
@@ -55,6 +61,12 @@ import numpy as np
 print(np.array([3,4]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[3 4]
+```
+
 **Tự kiểm tra:** Vector có nghĩa gì? **Đáp án:** Dãy số mô tả nhiều thành phần của một đối tượng.
 
 ### 4.3. Norm
@@ -68,6 +80,12 @@ import numpy as np
 print(np.linalg.norm([3,4]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+5.0
+```
+
 **Tự kiểm tra:** Norm có nghĩa gì? **Đáp án:** Độ dài theo chuẩn đã chọn.
 
 ### 4.4. Dot product
@@ -79,6 +97,12 @@ Nhân từng cặp tọa độ tương ứng rồi cộng. Trước khi sử d�
 ```python
 import numpy as np
 print(np.dot([1,2],[3,4]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+11
 ```
 
 **Tự kiểm tra:** Dot product có nghĩa gì? **Đáp án:** Nhân từng cặp tọa độ tương ứng rồi cộng.
@@ -102,6 +126,12 @@ v=np.array([3,4],dtype=float)
 print(np.linalg.norm(v))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+5.0
+```
+
 
 ### Tình huống 2 — Chuẩn hóa hướng di chuyển
 
@@ -116,9 +146,16 @@ print(np.linalg.norm(v))
 
 ```python
 import numpy as np
-v=np.array([3.,4.]);norm=np.linalg.norm(v)
+v=np.array([3.,4.])
+norm=np.linalg.norm(v)
 u=v/norm if norm else v
 print(u)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.6 0.8]
 ```
 
 
@@ -135,8 +172,15 @@ print(u)
 
 ```python
 import numpy as np
-scores=np.array([8,7,9]);weights=np.array([.2,.3,.5])
+scores=np.array([8,7,9])
+weights=np.array([.2,.3,.5])
 print(scores@weights)
+```
+
+**Kết quả khi chạy:**
+
+```text
+8.2
 ```
 
 
@@ -153,8 +197,15 @@ print(scores@weights)
 
 ```python
 import numpy as np
-a=np.array([1,0]);b=np.array([0,1])
+a=np.array([1,0])
+b=np.array([0,1])
 print(a@b)
+```
+
+**Kết quả khi chạy:**
+
+```text
+0
 ```
 
 
@@ -171,8 +222,15 @@ print(a@b)
 
 ```python
 import numpy as np
-a=np.array([20,30]);b=np.array([23,34])
+a=np.array([20,30])
+b=np.array([23,34])
 print(np.linalg.norm(a-b))
+```
+
+**Kết quả khi chạy:**
+
+```text
+5.0
 ```
 
 
