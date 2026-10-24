@@ -28,3 +28,13 @@ Guide kiểm tra tính đúng theo nghĩa đã được merge riêng tại **PR 
 3. Kiểm bảng Markdown bốn cột và kết quả Python ngay dưới mỗi khối; code cần được thử trên môi trường đích khi phát hành.
 4. Các bản sửa hiện tại được thực hiện qua GitHub; **chưa phải chứng nhận QA runtime trên Windows**, và chưa phải duyệt học thuật độc lập toàn bộ 920 câu.
 
+
+## Vòng QA chuyên sâu PY-01–PY-05 (24/10/2026) — đang thực hiện
+
+- Đọc riêng mục 7 và bảng đáp án của 5 bài: 100 câu, 400 phương án. Kiểm tra tự động trên nhánh: mỗi bài vẫn có 20 Q, 80 phương án, 20 dòng đáp án đúng thứ tự, không tham chiếu tình huống/ví dụ đánh số. Đây chỉ là kiểm tra cấu trúc sau sửa, **không phải SEMANTIC_QA_PASS cho cả 100 câu**.
+- **PY-01 Q18:** bỏ dấu chấm phẩy nén hai phép gán trong đề; diễn đạt theo hai dòng và giải thích giá trị ghi đè.
+- **PY-02 Q17:** thay ba phương án nhiễu không cùng loại câu trả lời bằng ba nhận định về tính bất biến của chuỗi; giải thích lỗi `TypeError` khi gán chỉ số.
+- **PY-03 Q11:** phương án C trước đây là “The opposite Boolean value”, cũng mô tả đúng đáp án `False`. Sửa C thành `not False` và cập nhật key **C → A**; giải thích phân biệt Boolean với số nguyên.
+- **PY-04 Q13–Q16:** loại những phương án nhiễu cùng có `False` hoặc diễn đạt `False` khiến có hơn một phương án đúng, thay bằng giá trị cụ thể khác kiểu. Riêng Q15 sửa key **C → A**; Q16 key D giữ nguyên sau khi phân biệt Boolean và số nguyên.
+- **PY-05 Q8:** giải thích điều kiện vòng lặp kết thúc bình thường với `else`, phân biệt `break` và `else` của `if`.
+- **Chưa hoàn tất:** biên tập sâu tất cả lời giải thích còn ngắn, kiểm chứng độc lập mọi distractor trong 100 câu và chạy thử toàn bộ code. Chưa kiểm Windows; không đánh dấu cả nhóm đã duyệt học thuật. Tiếp tục mở rộng giải thích và kiểm toán ngữ nghĩa trước khi công bố.
