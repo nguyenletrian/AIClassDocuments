@@ -77,3 +77,16 @@ Guide kiểm tra tính đúng theo nghĩa đã được merge riêng tại **PR 
 - Đây là một vòng đọc, biên tập và xác minh ngữ nghĩa do AI thực hiện; chưa có phản biện học thuật độc lập bởi giảng viên.
 - Chưa chạy toàn bộ unit test của repository trên checkout 46 bài, chưa xác minh runtime Windows; không tuyên bố `WINDOWS_VERIFIED`.
 - Tiếp tục QA theo cùng tiêu chuẩn cho **PY-11–PY-15**, rồi lần lượt đến PY-40; PY-41–PY-46 vẫn cần phê duyệt học thuật độc lập trước phát hành.
+
+
+## Sửa lỗi nghiêm trọng trong bảng đáp án PY-11–PY-15 — 24/10/2026
+
+**Vấn đề phát hiện:** Cả 100/100 hàng Q1–Q20 của 5 bài PY-11–PY-15 có định dạng `Explanation English~Giải thích tiếng Việt` trong cùng một ô của bảng Markdown, còn ô **Giải thích (Tiếng Việt)** chứa nguyên chữ `undefined`. Đây là lỗi chất lượng nội dung song ngữ, không thể được coi là đạt QA dù bảng vẫn hiển thị đủ bốn cột.
+
+**Đã sửa:**
+- Tách chính xác 100 bản dịch sẵn có về hai cột giải thích tương ứng, xóa toàn bộ `undefined` và ký tự nối `~` trong bảng answer key của PY-11–PY-15. Không tự suy diễn thêm nội dung của những giải thích chưa biên tập sâu.
+- **PY-13 Q18:** bản tiếng Anh trước đó hỏi ép số nguyên sang kiểu nguyên, còn tiếng Việt hỏi số có phần lẻ; nội dung đáp án về mất phần thập phân mâu thuẫn với tiền đề tiếng Anh. Viết lại câu hỏi song ngữ với điều kiện số thực hữu hạn nằm trong miền giá trị kiểu nguyên đích, sửa A/B/C/D và lý do đáp án B. Kiểm chứng trực tiếp trong Python 3.13.5 và NumPy 2.3.5: `np.array([2.9, -2.9]).astype(int)` cho `[2, -2]` và giữ shape `(2,)`.
+- Đọc lại trên nhánh: mỗi bài vẫn có **20 câu hỏi, 80 lựa chọn song ngữ, 20 dòng đáp án**; không có hàng sai 4 cột hay dấu `undefined`/`~`. Nội dung ngoài mục 7 không thay đổi.
+- Quét 31 bài **PY-16–PY-46** ở `main`: mỗi bài 20 answer rows, không phát hiện kiểu hỏng `undefined`/`~` này. Đây chỉ là phép kiểm tra một dạng lỗi cụ thể, không chứng nhận 31 bài đạt QA học thuật.
+
+**Trạng thái:** `BILINGUAL_TABLE_REPAIRED` cho PY-11–PY-15; **chưa** `SEMANTIC_QA_PASS` cho 100 câu. Phần lớn giải thích cũ vẫn ngắn, cần đọc và nâng cấp toàn bộ câu hỏi, ba nhiễu, giải thích bằng quy trình chuyên sâu; chưa có rà duyệt giảng viên, chạy full repository tests hay kiểm thử Windows.
