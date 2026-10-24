@@ -304,230 +304,230 @@ print(list(filter(lambda x:x>=4,priorities)))
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is a function? — Hàm là gì?**
+**Q1. What is a Python function? — Hàm Python là gì?**
 
-A. A reusable block of code — Khối code có thể gọi nhiều lần
+A. A reusable named block of code — Khối code có tên, dùng lại được
 
-B. A CSV file — Một file CSV
+B. A name declared in a function definition — Tên khai báo trong định nghĩa hàm
 
-C. A loop counter — Biến đếm vòng lặp
+C. A value supplied when calling a function — Giá trị truyền lúc gọi hàm
 
-D. A folder name — Tên thư mục
+D. A result sent back to the caller — Kết quả gửi về nơi gọi
 
 **Q2. What is a parameter? — Tham số là gì?**
 
-A. A value returned by print — Giá trị print trả về
+A. A reusable named block of code — Khối code có tên, dùng lại được
 
-B. A name used in a function definition — Tên biến trong phần định nghĩa hàm
+B. A name declared in a function definition — Tên khai báo trong định nghĩa hàm
 
-C. A list index — Chỉ số list
+C. A value supplied when calling a function — Giá trị truyền lúc gọi hàm
 
-D. A syntax error — Lỗi cú pháp
+D. A result sent back to the caller — Kết quả gửi về nơi gọi
 
-**Q3. What does return do? — return làm gì?**
+**Q3. What is an argument? — Đối số là gì?**
 
-A. End the program always — Luôn kết thúc chương trình
+A. A reusable named block of code — Khối code có tên, dùng lại được
 
-B. Display text only — Chỉ hiển thị chữ
+B. A name declared in a function definition — Tên khai báo trong định nghĩa hàm
 
-C. Send a value back to the caller — Trả giá trị về nơi gọi
+C. A value supplied when calling a function — Giá trị truyền lúc gọi hàm
 
-D. Sort the list — Sắp xếp list
+D. A result sent back to the caller — Kết quả gửi về nơi gọi
 
-**Q4. What is lambda? — lambda là gì?**
+**Q4. What is a return value? — Giá trị trả về là gì?**
 
-A. A short anonymous function — Hàm ngắn không cần tên
+A. A reusable named block of code — Khối code có tên, dùng lại được
 
-B. A file format — Định dạng file
+B. A name declared in a function definition — Tên khai báo trong định nghĩa hàm
 
-C. A Boolean only — Chỉ giá trị Boolean
+C. A value supplied when calling a function — Giá trị truyền lúc gọi hàm
 
-D. A type of loop — Một loại vòng lặp
+D. A result sent back to the caller — Kết quả gửi về nơi gọi
 
-**Q5. What does def do? — def làm gì?**
+**Q5. Which keyword defines a normal function? — Từ khóa nào định nghĩa hàm thông thường?**
 
-A. It defines a function — Nó định nghĩa hàm
+A. `def` — `def`
 
-B. It deletes a file — Nó xóa file
+B. `return` — `return`
 
-C. It opens a browser — Nó mở trình duyệt
+C. `lambda` — `lambda`
 
-D. It creates a set — Nó tạo set
+D. `if` — `if`
 
-**Q6. What does a default parameter do? — Tham số mặc định dùng để làm gì?**
+**Q6. Which keyword sends a value back to the caller? — Từ khóa nào trả giá trị về nơi gọi?**
 
-A. It provides a default argument value — Nó cung cấp giá trị tham số mặc định
+A. `def` — `def`
 
-B. It changes a string to uppercase — Nó đổi chữ hoa
+B. `return` — `return`
 
-C. It disables return — Nó vô hiệu return
+C. `lambda` — `lambda`
 
-D. It forces every argument to be a list — Nó bắt buộc tham số là list
+D. `if` — `if`
 
-**Q7. When is lambda suitable? — Khi nào lambda phù hợp?**
+**Q7. Which keyword defines a short anonymous function expression? — Từ khóa nào tạo biểu thức hàm ngắn không tên?**
 
-A. A short function expression — Biểu thức hàm ngắn
+A. `def` — `def`
 
-B. A class definition — Định nghĩa lớp
+B. `return` — `return`
 
-C. A while loop — Vòng while
+C. `lambda` — `lambda`
 
-D. A dictionary literal — Dictionary
+D. `if` — `if`
 
-**Q8. What does the key argument of sorted do? — Tham số key của sorted dùng làm gì?**
+**Q8. Which keyword supplies a conditional branch inside a function? — Từ khóa nào tạo nhánh điều kiện bên trong hàm?**
 
-A. It chooses a sorting criterion — Nó chọn tiêu chí sắp xếp
+A. `def` — `def`
 
-B. It removes duplicates only — Nó chỉ bỏ trùng
+B. `return` — `return`
 
-C. It prints without sorting — Nó in mà không sắp xếp
+C. `lambda` — `lambda`
 
-D. It closes a file — Nó đóng file
+D. `if` — `if`
 
-**Q9. Why define a VAT function? — Vì sao tạo hàm tính thuế?**
+**Q9. What does a default parameter provide? — Tham số mặc định có tác dụng gì?**
 
-A. Reuse the same tax calculation — Dùng lại phép tính thuế
+A. A fallback value when an argument is omitted — Giá trị dùng khi không truyền đối số
 
-B. Never pay tax — Không bao giờ tính thuế
+B. An argument passed by parameter name — Đối số truyền theo tên tham số
 
-C. Change the input randomly — Đổi đầu vào ngẫu nhiên
+C. Computing a sorting key for each item — Tính khóa sắp xếp cho từng phần tử
 
-D. Delete prices — Xóa giá
+D. Items for which test is truthy — Phần tử có điều kiện test đúng
 
-**Q10. Why use a score-based lambda in sorted? — Vì sao dùng lambda theo điểm khi sắp xếp?**
+**Q10. What is a keyword argument? — Đối số theo tên là gì?**
 
-A. Sort by each person's score — Sắp theo điểm mỗi người
+A. A fallback value when an argument is omitted — Giá trị dùng khi không truyền đối số
 
-B. Sort alphabetically only — Chỉ sắp theo chữ
+B. An argument passed by parameter name — Đối số truyền theo tên tham số
 
-C. Add all scores — Cộng mọi điểm
+C. Computing a sorting key for each item — Tính khóa sắp xếp cho từng phần tử
 
-D. Filter missing records — Lọc hồ sơ thiếu
+D. Items for which test is truthy — Phần tử có điều kiện test đúng
 
-**Q11. Why define valid_score()? — Vì sao tạo valid_score()?**
+**Q11. What does `sorted(rows, key=func)` use `func` for? — Trong `sorted(rows, key=func)`, func dùng để làm gì?**
 
-A. Reuse the score validation rule — Dùng lại quy tắc kiểm tra điểm
+A. A fallback value when an argument is omitted — Giá trị dùng khi không truyền đối số
 
-B. Skip all checks — Bỏ mọi kiểm tra
+B. An argument passed by parameter name — Đối số truyền theo tên tham số
 
-C. Always return True — Luôn trả True
+C. Computing a sorting key for each item — Tính khóa sắp xếp cho từng phần tử
 
-D. Convert scores to names — Đổi điểm thành tên
+D. Items for which test is truthy — Phần tử có điều kiện test đúng
 
-**Q12. Why return two summary values? — Vì sao trả hai giá trị thống kê?**
+**Q12. What does `filter(test, items)` keep? — `filter(test, items)` giữ gì?**
 
-A. Return sum and average together — Trả tổng và trung bình cùng lúc
+A. A fallback value when an argument is omitted — Giá trị dùng khi không truyền đối số
 
-B. Return a password — Trả mật khẩu
+B. An argument passed by parameter name — Đối số truyền theo tên tham số
 
-C. Delete input values — Xóa dữ liệu đầu vào
+C. Computing a sorting key for each item — Tính khóa sắp xếp cho từng phần tử
 
-D. Only sort values — Chỉ sắp xếp
+D. Items for which test is truthy — Phần tử có điều kiện test đúng
 
-**Q13. Why filter priorities? — Vì sao lọc điểm ưu tiên?**
+**Q13. What is a local variable? — Biến cục bộ là gì?**
 
-A. Keep priorities of at least four — Giữ điểm ưu tiên từ bốn trở lên
+A. A name bound within a function's scope — Tên được tạo trong phạm vi hàm
 
-B. Keep all priorities — Giữ mọi điểm
+B. A name defined at module level — Tên được định nghĩa ở mức module
 
-C. Reverse the values — Đảo giá trị
+C. A single expression — Một biểu thức
 
-D. Remove every item — Xóa mọi phần tử
+D. A function retaining access to enclosing variables — Hàm còn truy cập được biến từ phạm vi bao ngoài
 
-**Q14. What input is used for the VAT example? — Ví dụ thuế dùng dữ liệu nào?**
+**Q14. What is a global variable? — Biến toàn cục là gì?**
 
-A. A price of 100000 VND with 10% VAT — Giá 100000 đồng thuế 10%
+A. A name bound within a function's scope — Tên được tạo trong phạm vi hàm
 
-B. A score of 11 — Điểm 11
+B. A name defined at module level — Tên được định nghĩa ở mức module
 
-C. Three daily quantities — Ba số lượng theo ngày
+C. A single expression — Một biểu thức
 
-D. Four priorities — Bốn mức ưu tiên
+D. A function retaining access to enclosing variables — Hàm còn truy cập được biến từ phạm vi bao ngoài
 
-**Q15. What input is used for sorting learners? — Ví dụ xếp hạng dùng dữ liệu nào?**
+**Q15. What is a lambda expression limited to? — Nội dung của lambda bị giới hạn như thế nào?**
 
-A. Two people with scores 8 and 10 — Hai người có điểm 8 và 10
+A. A name bound within a function's scope — Tên được tạo trong phạm vi hàm
 
-B. Three temperatures — Ba nhiệt độ
+B. A name defined at module level — Tên được định nghĩa ở mức module
 
-C. An empty file — File trống
+C. A single expression — Một biểu thức
 
-D. Two stock codes — Hai mã hàng
+D. A function retaining access to enclosing variables — Hàm còn truy cập được biến từ phạm vi bao ngoài
 
-**Q16. What input is checked by valid_score()? — valid_score() kiểm tra dữ liệu nào?**
+**Q16. What is a closure? — Closure là gì?**
 
-A. Score 11 compared with the valid 0–10 range — Điểm 11 so với khoảng 0 đến 10
+A. A name bound within a function's scope — Tên được tạo trong phạm vi hàm
 
-B. A single text line — Một dòng văn bản
+B. A name defined at module level — Tên được định nghĩa ở mức module
 
-C. Two tax rates — Hai mức thuế
+C. A single expression — Một biểu thức
 
-D. A phone number — Số điện thoại
+D. A function retaining access to enclosing variables — Hàm còn truy cập được biến từ phạm vi bao ngoài
 
-**Q17. What data is summarized? — Hàm summary xử lý dữ liệu nào?**
+**Q17. What does a function without explicit `return` produce? — Hàm không có `return` rõ ràng trả về gì?**
 
-A. Daily counts 7, 8 and 9 — Số lượng ba ngày 7 8 và 9
+A. `None` — `None`
 
-B. Three student names — Ba tên học viên
+B. Displays output — Hiển thị đầu ra
 
-C. Only one score — Chỉ một điểm
+C. A tuple of two values — Một Tuple gồm hai giá trị
 
-D. A CSV header — Tiêu đề CSV
+D. `NameError` — `NameError`
 
-**Q18. What values are filtered? — Những giá trị nào được lọc?**
+**Q18. What does `print()` do instead of returning a useful result? — `print()` làm gì thay vì trả một kết quả để tính tiếp?**
 
-A. Priority values 1, 5, 2 and 4 — Các điểm ưu tiên 1 5 2 và 4
+A. `None` — `None`
 
-B. Two email addresses — Hai email
+B. Displays output — Hiển thị đầu ra
 
-C. A product price only — Chỉ giá sản phẩm
+C. A tuple of two values — Một Tuple gồm hai giá trị
 
-D. A tuple of coordinates — Tuple tọa độ
+D. `NameError` — `NameError`
 
-**Q19. What is true about return and print? — Phát biểu nào đúng về return và print?**
+**Q19. What does a function's `return a, b` actually return? — `return a, b` thực chất trả gì?**
 
-A. A function may return a value without printing — Hàm có thể trả giá trị mà không in
+A. `None` — `None`
 
-B. return always prints — return luôn in
+B. Displays output — Hiển thị đầu ra
 
-C. print defines a function — print định nghĩa hàm
+C. A tuple of two values — Một Tuple gồm hai giá trị
 
-D. lambda only sorts — lambda chỉ sắp xếp
+D. `NameError` — `NameError`
 
-**Q20. What is necessary before averaging a list? — Cần làm gì trước khi tính trung bình một list?**
+**Q20. What happens when code outside a function reads an undefined local name? — Đọc biến cục bộ không tồn tại ở ngoài hàm gây gì?**
 
-A. Check the empty list before dividing by its length — Kiểm tra list rỗng trước khi chia độ dài
+A. `None` — `None`
 
-B. Always divide by zero — Luôn chia cho 0
+B. Displays output — Hiển thị đầu ra
 
-C. Ignore missing data always — Luôn bỏ qua dữ liệu thiếu
+C. A tuple of two values — Một Tuple gồm hai giá trị
 
-D. Remove the return statement — Xóa return
+D. `NameError` — `NameError`
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A reusable block of code | Khối code có thể gọi nhiều lần |
-| Q2 | **B** | A name used in a function definition | Tên biến trong phần định nghĩa hàm |
-| Q3 | **C** | Send a value back to the caller | Trả giá trị về nơi gọi |
-| Q4 | **A** | A short anonymous function | Hàm ngắn không cần tên |
-| Q5 | **A** | It defines a function | Nó định nghĩa hàm |
-| Q6 | **A** | It provides a default argument value | Nó cung cấp giá trị tham số mặc định |
-| Q7 | **A** | A short function expression | Biểu thức hàm ngắn |
-| Q8 | **A** | It chooses a sorting criterion | Nó chọn tiêu chí sắp xếp |
-| Q9 | **A** | Reuse the same tax calculation | Dùng lại phép tính thuế |
-| Q10 | **A** | Sort by each person's score | Sắp theo điểm mỗi người |
-| Q11 | **A** | Reuse the score validation rule | Dùng lại quy tắc kiểm tra điểm |
-| Q12 | **A** | Return sum and average together | Trả tổng và trung bình cùng lúc |
-| Q13 | **A** | Keep priorities of at least four | Giữ điểm ưu tiên từ bốn trở lên |
-| Q14 | **A** | A price of 100000 VND with 10% VAT | Giá 100000 đồng thuế 10% |
-| Q15 | **A** | Two people with scores 8 and 10 | Hai người có điểm 8 và 10 |
-| Q16 | **A** | Score 11 compared with the valid 0–10 range | Điểm 11 so với khoảng 0 đến 10 |
-| Q17 | **A** | Daily counts 7, 8 and 9 | Số lượng ba ngày 7 8 và 9 |
-| Q18 | **A** | Priority values 1, 5, 2 and 4 | Các điểm ưu tiên 1 5 2 và 4 |
-| Q19 | **A** | A function may return a value without printing | Hàm có thể trả giá trị mà không in |
-| Q20 | **A** | Check the empty list before dividing by its length | Kiểm tra list rỗng trước khi chia độ dài |
+| Q1 | **A** | A function packages related operations and may be called repeatedly. | Hàm gom thao tác liên quan và có thể gọi nhiều lần. |
+| Q2 | **B** | A parameter acts as a local name for supplied input. | Tham số là tên cục bộ nhận dữ liệu đầu vào. |
+| Q3 | **C** | The caller supplies argument values for parameters. | Nơi gọi truyền giá trị đối số vào tham số. |
+| Q4 | **D** | return provides a result that calling code can reuse. | return trả kết quả để nơi gọi có thể tiếp tục sử dụng. |
+| Q5 | **A** | def introduces a function body with a name. | def mở phần khai báo hàm có tên. |
+| Q6 | **B** | return exits the function and optionally sends its value back. | return kết thúc hàm và có thể trả lại giá trị. |
+| Q7 | **C** | lambda creates a callable function from one expression. | lambda tạo hàm từ một biểu thức. |
+| Q8 | **D** | if chooses a branch while the function executes. | if lựa chọn nhánh khi hàm đang chạy. |
+| Q9 | **A** | Default values are used only when the caller omits that argument. | Giá trị mặc định được dùng khi nơi gọi không truyền đối số tương ứng. |
+| Q10 | **B** | Keyword arguments explicitly name the parameter being filled. | Đối số theo tên chỉ rõ tham số được gán giá trị. |
+| Q11 | **C** | The key function determines comparison values for ordering. | Hàm key xác định giá trị dùng để so sánh khi sắp xếp. |
+| Q12 | **D** | filter retains elements that satisfy the predicate. | filter giữ phần tử thỏa điều kiện lọc. |
+| Q13 | **A** | A local binding generally exists only for that function execution. | Biến cục bộ thường chỉ tồn tại trong phạm vi thực thi hàm. |
+| Q14 | **B** | Module-level names are available for reading from functions unless shadowed. | Tên cấp module có thể được hàm đọc nếu không bị che bởi tên cục bộ. |
+| Q15 | **C** | lambda syntax uses one expression, not a normal multi-statement block. | lambda dùng một biểu thức, không có thân nhiều câu lệnh thông thường. |
+| Q16 | **D** | A closure can retain references to variables in an enclosing scope. | Closure có thể tiếp tục dùng các biến ở phạm vi hàm bao ngoài. |
+| Q17 | **A** | Python implicitly returns None when execution reaches the function end. | Python ngầm trả None khi hàm chạy tới cuối mà không return. |
+| Q18 | **B** | print shows data; return is how a function passes a result to its caller. | print hiển thị dữ liệu, còn return truyền kết quả về nơi gọi. |
+| Q19 | **C** | Comma-separated return values are packed into a tuple. | Hai giá trị sau return được đóng gói thành Tuple. |
+| Q20 | **D** | A local name is not automatically defined in the caller's scope. | Tên cục bộ không tự tồn tại trong phạm vi nơi gọi. |
 
 ## 8. Nối sang bài tiếp theo
 
