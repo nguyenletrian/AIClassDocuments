@@ -1,14 +1,8 @@
 # PY-30 — Loss: MSE, MAE, Huber, cross-entropy và KL
 
-*DRAFT · Học qua Python · Cần kiểm tra kết quả và môi trường trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **MSE** — sai số bình phương trung bình; **MAE** — sai số tuyệt đối trung bình.
-
 `Dự đoán → Sai số → Loss → Tối ưu hóa`
-
-Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc tối ưu tính toán phục vụ AI. Đọc ví dụ trước khi liên hệ tới mô hình phức tạp.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 ## 3. Hàm và cách gọi bằng Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / tham số | Giải thích |
 |---|---|
 | `np.mean((y-pred)**2)` | MSE nhạy với sai số lớn do bình phương |
@@ -34,69 +26,49 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 ### 4.1. MSE
 
-**Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
-
-Trung bình bình phương hiệu dự đoán và giá trị thật. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Trung bình bình phương hiệu dự đoán và giá trị thật.
 
 ```python
 import numpy as np
 print(np.mean((np.array([2,3])-np.array([1,4]))**2))
 ```
 
-**Tự kiểm tra:** MSE là gì? **Đáp án:** Trung bình bình phương hiệu dự đoán và giá trị thật.
-
 ### 4.2. MAE
 
-**Từ vựng trong mục:** **MAE** — sai số tuyệt đối trung bình.
-
-Trung bình trị tuyệt đối sai số. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Trung bình trị tuyệt đối sai số.
 
 ```python
 import numpy as np
 print(np.mean(np.abs(np.array([2,3])-np.array([1,4]))))
 ```
 
-**Tự kiểm tra:** MAE là gì? **Đáp án:** Trung bình trị tuyệt đối sai số.
-
 ### 4.3. Cross-entropy
 
-**Từ vựng trong mục:** **Cross-entropy** — entropy chéo.
-
-Phạt dự đoán xác suất sai nhãn mạnh hơn. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Phạt dự đoán xác suất sai nhãn mạnh hơn.
 
 ```python
 import math
 print(-math.log(.8))
 ```
 
-**Tự kiểm tra:** Cross-entropy là gì? **Đáp án:** Phạt dự đoán xác suất sai nhãn mạnh hơn.
-
 ### 4.4. KL divergence
 
-**Từ vựng trong mục:** **KL divergence** — độ lệch KL.
-
-Đo sai khác một chiều giữa hai phân phối xác suất. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Đo sai khác một chiều giữa hai phân phối xác suất.
 
 ```python
 import numpy as np
 p=np.array([.5,.5]);q=np.array([.6,.4]);print(np.sum(p*np.log(p/q)))
 ```
 
-**Tự kiểm tra:** KL divergence là gì? **Đáp án:** Đo sai khác một chiều giữa hai phân phối xác suất.
-
 ## 5. Năm tình huống ứng dụng thực tế
 
 ### Tình huống 1 — Đánh giá sai giá nhà
 
-**Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
-
 **Vấn đề:** Đánh giá sai giá nhà.
 
-**Vì sao chọn phương án?** MSE phạt dự đoán sai lớn hơn nhiều; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** MSE phạt dự đoán sai lớn hơn nhiều
 
-**Dữ liệu:** Giá thật [100,200], dự đoán [110,170], triệu đồng. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Giá thật [100,200], dự đoán [110,170], triệu đồng.
 
 ```python
 import numpy as np
@@ -104,38 +76,26 @@ y=np.array([100,200]);pred=np.array([110,170])
 print(np.mean((y-pred)**2))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 2 — Đánh giá dự báo có outlier
-
-**Từ vựng trong mục:** **MAE** — sai số tuyệt đối trung bình.
 
 **Vấn đề:** Đánh giá dự báo có outlier.
 
-**Vì sao chọn phương án?** MAE giúp so mức sai số tuyệt đối dễ hiểu; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** MAE giúp so mức sai số tuyệt đối dễ hiểu
 
-**Dữ liệu:** Doanh thu [10,20,30], dự đoán [9,19,50]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Doanh thu [10,20,30], dự đoán [9,19,50].
 
 ```python
 import numpy as np
 print(np.mean(np.abs(np.array([10,20,30])-np.array([9,19,50]))))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 3 — Tính Huber cho lỗi đo
-
-**Từ vựng trong mục:** **Cross-entropy** — entropy chéo.
 
 **Vấn đề:** Tính Huber cho lỗi đo.
 
-**Vì sao chọn phương án?** Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính
 
-**Dữ liệu:** Sai số [-1,2,5], delta=1. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Sai số [-1,2,5], delta=1.
 
 ```python
 import numpy as np
@@ -144,19 +104,13 @@ loss=np.where(np.abs(e)<=delta,.5*e**2,delta*(np.abs(e)-.5*delta))
 print(loss.mean())
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 4 — Phạt nhãn dự đoán sai
-
-**Từ vựng trong mục:** **KL divergence** — độ lệch KL.
 
 **Vấn đề:** Phạt nhãn dự đoán sai.
 
-**Vì sao chọn phương án?** Cross-entropy dùng xác suất của đúng nhãn; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Cross-entropy dùng xác suất của đúng nhãn
 
-**Dữ liệu:** Xác suất đúng nhãn 0.8. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Xác suất đúng nhãn 0.8.
 
 ```python
 import math
@@ -164,19 +118,13 @@ prob_true=.8
 print(-math.log(prob_true))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 5 — So phân phối dự báo
-
-**Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
 
 **Vấn đề:** So phân phối dự báo.
 
-**Vì sao chọn phương án?** KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng
 
-**Dữ liệu:** p=[.5,.5], q=[.6,.4]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** p=[.5,.5], q=[.6,.4].
 
 ```python
 import numpy as np
@@ -184,15 +132,11 @@ p=np.array([.5,.5]);q=np.array([.6,.4])
 print(np.sum(p*np.log(p/q)))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ## 6. Các lỗi dễ gặp
 
 Hàm kích hoạt và loss không tự thay thế quy trình huấn luyện; đạo hàm theo một biến không giống gradient nhiều biến. Tránh tràn số mũ, log(0), chia cho 0; luôn để ý learning rate và đơn vị.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What does MSE mean? — Thuật ngữ MSE có nghĩa gì?**
@@ -438,7 +382,3 @@ D. Guess data units — Đoán đơn vị dữ liệu
 | Q18 | **A** | The input is p=[.5,.5], q=[.6,.4] | p=[.5,.5], q=[.6,.4] |
 | Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị đầu vào |
 | Q20 | **C** | Verify results and edge cases | Kiểm tra kết quả và trường hợp biên |
-
-## 8. Bài tiếp theo
-
-`Dự đoán → Sai số → Loss → Tối ưu hóa`.
