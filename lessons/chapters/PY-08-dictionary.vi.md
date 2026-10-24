@@ -1,6 +1,5 @@
 # 08 — Dictionary: key/value và thao tác CRUD
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -88,7 +87,7 @@ print({'A':{'score':8}}['A']['score'])
 
 **Vấn đề thực tế:** Tra cứu đơn theo mã.
 
-**Vì sao chọn cách này?** Tra khóa trực tiếp thay vì duyệt từng vị trí trong list; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Tra khóa trực tiếp thay vì duyệt từng vị trí trong list.
 
 **Dữ liệu:** Hai đơn O1 và O2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -107,7 +106,7 @@ print(orders.get("O3","Not found"))
 
 **Vấn đề thực tế:** Cập nhật tồn kho.
 
-**Vì sao chọn cách này?** SKU là khóa ổn định phù hợp cập nhật số lượng; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** SKU là khóa ổn định phù hợp cập nhật số lượng.
 
 **Dữ liệu:** SKU01 tồn 5, bán 2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -127,7 +126,7 @@ print(stock)
 
 **Vấn đề thực tế:** Đếm nhãn.
 
-**Vì sao chọn cách này?** get(key,0) giúp cộng dồn an toàn từ 0; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** get(key,0) giúp cộng dồn an toàn từ 0.
 
 **Dữ liệu:** Ba nhãn AI Math AI; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -148,7 +147,7 @@ print(count)
 
 **Vấn đề thực tế:** Hồ sơ lồng nhau.
 
-**Vì sao chọn cách này?** Từ điển con gom dữ liệu theo từng mã sinh viên; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Từ điển con gom dữ liệu theo từng mã sinh viên.
 
 **Dữ liệu:** Hai SV với điểm 8 và 9; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -167,7 +166,7 @@ print(students["SV2"]["score"])
 
 **Vấn đề thực tế:** Xóa SKU không có.
 
-**Vì sao chọn cách này?** pop mặc định None ngăn lỗi khi mã không tồn tại; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** pop mặc định None ngăn lỗi khi mã không tồn tại.
 
 **Dữ liệu:** Danh sách có P01 nhưng không có P02; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
