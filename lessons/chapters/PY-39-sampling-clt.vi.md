@@ -92,7 +92,7 @@ print(np.std([1,2,3],ddof=1)/np.sqrt(3))
 
 **Vì sao chọn cách này?** Lấy ngẫu nhiên một số đơn để kiểm tra thủ công; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 20 đơn, lấy ngẫu nhiên 5. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 20 đơn, lấy ngẫu nhiên 5.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -101,7 +101,6 @@ import random
 print(random.Random(42).sample(list(range(1,21)),5))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 2 — So biến thiên mean mẫu
 
@@ -111,7 +110,7 @@ print(random.Random(42).sample(list(range(1,21)),5))
 
 **Vì sao chọn cách này?** Rút mẫu nhiều lần để quan sát trung bình mẫu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Tổng thể 10000 giá trị lệch, mỗi mẫu n=40. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Tổng thể 10000 giá trị lệch, mỗi mẫu n=40.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -123,7 +122,6 @@ means=[r.choice(pop,size=40,replace=True).mean() for _ in range(200)]
 print(np.mean(means),np.std(means))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 3 — Tính sai số chuẩn điểm
 
@@ -133,7 +131,7 @@ print(np.mean(means),np.std(means))
 
 **Vì sao chọn cách này?** SE khác độ lệch chuẩn của điểm riêng lẻ; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 điểm [6,7,8,9,10]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 5 điểm [6,7,8,9,10].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -143,7 +141,6 @@ x=np.array([6,7,8,9,10],dtype=float)
 print(x.std(ddof=1)/np.sqrt(len(x)))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 4 — Cỡ mẫu tăng tác động SE
 
@@ -153,7 +150,7 @@ print(x.std(ddof=1)/np.sqrt(len(x)))
 
 **Vì sao chọn cách này?** Với sigma giữ nguyên, SE giảm theo căn n; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** sigma=10, n=25 và 100. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** sigma=10, n=25 và 100.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -163,7 +160,6 @@ sigma=10
 for n in [25,100]:print(n,sigma/np.sqrt(n))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 5 — Lấy mẫu bảng khách hàng
 
@@ -173,7 +169,7 @@ for n in [25,100]:print(n,sigma/np.sqrt(n))
 
 **Vì sao chọn cách này?** random_state giữ kết quả thử lặp lại; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 10 khách, lấy 3. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 10 khách, lấy 3.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -183,7 +179,6 @@ df=pd.DataFrame({"id":list(range(10))})
 print(df.sample(n=3,random_state=42))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 
