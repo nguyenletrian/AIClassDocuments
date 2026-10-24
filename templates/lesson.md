@@ -83,8 +83,3 @@ D. ...
 
 [1 đoạn ngắn giúp sinh viên hệ thống hóa, không lặp mục tiêu học tập.]
 
----
-
-### Ghi chú dành cho biên tập viên — KHÔNG NẰM TRONG TÀI LIỆU SINH VIÊN
-
-Nguồn gốc từng khái niệm, file/cell, mức độ kiểm chứng, phần hiệu đính, bài tập gốc đã chuyển đổi, và thay đổi giữa các phiên bản được ghi **riêng** tại `sources/` và tài liệu nghiệp vụ. **Không đưa tên PythoClass/PythonClass, đường dẫn ghi chép, trạng thái review nội bộ, hay nhãn “AI tự bổ sung” vào bài học phát hành.** Lúc tạo bài từ mẫu này, xóa toàn bộ phần ghi chú biên tập viên này.
