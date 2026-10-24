@@ -314,250 +314,230 @@ print(a.value, b.value)
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What is a class in Python OOP? — Class trong OOP Python là gì?**
 
-**Q1. Which description matches Class? — Mô tả nào đúng với Class?**
+A. A template defining objects' data and behavior — Khuôn mẫu mô tả dữ liệu và hành vi đối tượng
 
-A. A different concept described as Một thể hiện cụ thể của lớp — Một thể hiện cụ thể của lớp
+B. A concrete value created from a class — Đối tượng cụ thể được tạo từ một class
 
-B. The concept described as Khuôn mô tả dữ liệu và cách xử lý — Khuôn mô tả dữ liệu và cách xử lý
+C. Data stored on an object — Dữ liệu lưu trên đối tượng
 
-C. A different concept described as Thiết lập thuộc tính lúc tạo instance — Thiết lập thuộc tính lúc tạo instance
+D. A function belonging to a class that works with an instance — Hàm thuộc lớp, làm việc với đối tượng
 
-D. A different concept described as Đặt dữ liệu và hành vi bên trong đối tượng — Đặt dữ liệu và hành vi bên trong đối tượng
+**Q2. What is an object or instance? — Object hay instance là gì?**
 
+A. A template defining objects' data and behavior — Khuôn mẫu mô tả dữ liệu và hành vi đối tượng
 
-**Q2. Which description matches Object? — Mô tả nào đúng với Object?**
+B. A concrete value created from a class — Đối tượng cụ thể được tạo từ một class
 
-A. The concept described as Một thể hiện cụ thể của lớp — Một thể hiện cụ thể của lớp
+C. Data stored on an object — Dữ liệu lưu trên đối tượng
 
-B. A different concept described as Thiết lập thuộc tính lúc tạo instance — Thiết lập thuộc tính lúc tạo instance
+D. A function belonging to a class that works with an instance — Hàm thuộc lớp, làm việc với đối tượng
 
-C. A different concept described as Đặt dữ liệu và hành vi bên trong đối tượng — Đặt dữ liệu và hành vi bên trong đối tượng
+**Q3. What is an attribute? — Attribute là gì?**
 
-D. A different concept described as Khuôn mô tả dữ liệu và cách xử lý — Khuôn mô tả dữ liệu và cách xử lý
+A. A template defining objects' data and behavior — Khuôn mẫu mô tả dữ liệu và hành vi đối tượng
 
+B. A concrete value created from a class — Đối tượng cụ thể được tạo từ một class
 
-**Q3. Which description matches Constructor? — Mô tả nào đúng với Constructor?**
+C. Data stored on an object — Dữ liệu lưu trên đối tượng
 
-A. A different concept described as Đặt dữ liệu và hành vi bên trong đối tượng — Đặt dữ liệu và hành vi bên trong đối tượng
+D. A function belonging to a class that works with an instance — Hàm thuộc lớp, làm việc với đối tượng
 
-B. A different concept described as Khuôn mô tả dữ liệu và cách xử lý — Khuôn mô tả dữ liệu và cách xử lý
+**Q4. What is an instance method? — Phương thức đối tượng là gì?**
 
-C. A different concept described as Một thể hiện cụ thể của lớp — Một thể hiện cụ thể của lớp
+A. A template defining objects' data and behavior — Khuôn mẫu mô tả dữ liệu và hành vi đối tượng
 
-D. The concept described as Thiết lập thuộc tính lúc tạo instance — Thiết lập thuộc tính lúc tạo instance
+B. A concrete value created from a class — Đối tượng cụ thể được tạo từ một class
 
+C. Data stored on an object — Dữ liệu lưu trên đối tượng
 
-**Q4. Which description matches Encapsulation? — Mô tả nào đúng với Encapsulation?**
+D. A function belonging to a class that works with an instance — Hàm thuộc lớp, làm việc với đối tượng
 
-A. A different concept described as Khuôn mô tả dữ liệu và cách xử lý — Khuôn mô tả dữ liệu và cách xử lý
+**Q5. Which syntax begins a class definition? — Cú pháp nào mở đầu định nghĩa class?**
 
-B. A different concept described as Một thể hiện cụ thể của lớp — Một thể hiện cụ thể của lớp
+A. `class Student:` — `class Student:`
 
-C. The concept described as Đặt dữ liệu và hành vi bên trong đối tượng — Đặt dữ liệu và hành vi bên trong đối tượng
+B. `Student()` — `Student()`
 
-D. A different concept described as Thiết lập thuộc tính lúc tạo instance — Thiết lập thuộc tính lúc tạo instance
+C. `__init__` — `__init__`
 
+D. The object receiving the method call — Đối tượng đang nhận lời gọi
 
-**Q5. Which use matches class Name:? — Công dụng nào đúng với class Name:?**
+**Q6. Which syntax creates a Student instance? — Cú pháp nào tạo đối tượng Student?**
 
-A. Use a different operation to Khởi tạo trạng thái của từng instance — Khởi tạo trạng thái của từng instance
+A. `class Student:` — `class Student:`
 
-B. Use this syntax to Định nghĩa kiểu đối tượng và các phương thức — Định nghĩa kiểu đối tượng và các phương thức
+B. `Student()` — `Student()`
 
-C. Use a different operation to Truy cập thuộc tính thuộc về chính đối tượng — Truy cập thuộc tính thuộc về chính đối tượng
+C. `__init__` — `__init__`
 
-D. Use a different operation to Hiển thị và kiểm tra thao tác thay đổi giá trị — Hiển thị và kiểm tra thao tác thay đổi giá trị
+D. The object receiving the method call — Đối tượng đang nhận lời gọi
 
+**Q7. Which special method initializes instance attributes? — Phương thức đặc biệt nào khởi tạo thuộc tính đối tượng?**
 
-**Q6. Which use matches __init__(self, ...)? — Công dụng nào đúng với __init__(self, ...)?**
+A. `class Student:` — `class Student:`
 
-A. Use this syntax to Khởi tạo trạng thái của từng instance — Khởi tạo trạng thái của từng instance
+B. `Student()` — `Student()`
 
-B. Use a different operation to Truy cập thuộc tính thuộc về chính đối tượng — Truy cập thuộc tính thuộc về chính đối tượng
+C. `__init__` — `__init__`
 
-C. Use a different operation to Hiển thị và kiểm tra thao tác thay đổi giá trị — Hiển thị và kiểm tra thao tác thay đổi giá trị
+D. The object receiving the method call — Đối tượng đang nhận lời gọi
 
-D. Use a different operation to Định nghĩa kiểu đối tượng và các phương thức — Định nghĩa kiểu đối tượng và các phương thức
+**Q8. What does `self` refer to in an instance method? — `self` trong phương thức đối tượng chỉ gì?**
 
+A. `class Student:` — `class Student:`
 
-**Q7. Which use matches self.attribute? — Công dụng nào đúng với self.attribute?**
+B. `Student()` — `Student()`
 
-A. Use a different operation to Hiển thị và kiểm tra thao tác thay đổi giá trị — Hiển thị và kiểm tra thao tác thay đổi giá trị
+C. `__init__` — `__init__`
 
-B. Use a different operation to Định nghĩa kiểu đối tượng và các phương thức — Định nghĩa kiểu đối tượng và các phương thức
+D. The object receiving the method call — Đối tượng đang nhận lời gọi
 
-C. Use a different operation to Khởi tạo trạng thái của từng instance — Khởi tạo trạng thái của từng instance
+**Q9. What does `self.name = name` do? — `self.name = name` làm gì?**
 
-D. Use this syntax to Truy cập thuộc tính thuộc về chính đối tượng — Truy cập thuộc tính thuộc về chính đối tượng
+A. Stores the name on the current object — Lưu name trên đối tượng hiện tại
 
+B. Readable string representation of an object — Chuỗi hiển thị dễ đọc của đối tượng
 
-**Q8. Which use matches __str__/set_*/get_*? — Công dụng nào đúng với __str__/set_*/get_*?**
+C. Signals an invalid value by raising an exception — Báo giá trị không hợp lệ bằng ngoại lệ
 
-A. Use a different operation to Định nghĩa kiểu đối tượng và các phương thức — Định nghĩa kiểu đối tượng và các phương thức
+D. A non-public implementation detail by convention — Thành phần nội bộ theo quy ước
 
-B. Use a different operation to Khởi tạo trạng thái của từng instance — Khởi tạo trạng thái của từng instance
+**Q10. What does `__str__` normally customize? — `__str__` thường tùy chỉnh điều gì?**
 
-C. Use this syntax to Hiển thị và kiểm tra thao tác thay đổi giá trị — Hiển thị và kiểm tra thao tác thay đổi giá trị
+A. Stores the name on the current object — Lưu name trên đối tượng hiện tại
 
-D. Use a different operation to Truy cập thuộc tính thuộc về chính đối tượng — Truy cập thuộc tính thuộc về chính đối tượng
+B. Readable string representation of an object — Chuỗi hiển thị dễ đọc của đối tượng
 
+C. Signals an invalid value by raising an exception — Báo giá trị không hợp lệ bằng ngoại lệ
 
-**Q9. What solves scenario 1? — Cách nào giải quyết tình huống 1?**
+D. A non-public implementation detail by convention — Thành phần nội bộ theo quy ước
 
-A. Another method is chosen because Đặt add và total cùng nơi lưu giá sản phẩm — Đặt add và total cùng nơi lưu giá sản phẩm
+**Q11. What does `raise ValueError(...)` do? — `raise ValueError(...)` làm gì?**
 
-B. Choose the method because Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song — Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song
+A. Stores the name on the current object — Lưu name trên đối tượng hiện tại
 
-C. Another method is chosen because Setter chặn điểm ngoài thang 0–10 — Setter chặn điểm ngoài thang 0–10
+B. Readable string representation of an object — Chuỗi hiển thị dễ đọc của đối tượng
 
-D. Another method is chosen because __str__ định nghĩa chữ hiện khi in đối tượng — __str__ định nghĩa chữ hiện khi in đối tượng
+C. Signals an invalid value by raising an exception — Báo giá trị không hợp lệ bằng ngoại lệ
 
+D. A non-public implementation detail by convention — Thành phần nội bộ theo quy ước
 
-**Q10. What solves scenario 2? — Cách nào giải quyết tình huống 2?**
+**Q12. What does the prefix `_value` conventionally mean? — Tiền tố `_value` theo quy ước có nghĩa gì?**
 
-A. Choose the method because Đặt add và total cùng nơi lưu giá sản phẩm — Đặt add và total cùng nơi lưu giá sản phẩm
+A. Stores the name on the current object — Lưu name trên đối tượng hiện tại
 
-B. Another method is chosen because Setter chặn điểm ngoài thang 0–10 — Setter chặn điểm ngoài thang 0–10
+B. Readable string representation of an object — Chuỗi hiển thị dễ đọc của đối tượng
 
-C. Another method is chosen because __str__ định nghĩa chữ hiện khi in đối tượng — __str__ định nghĩa chữ hiện khi in đối tượng
+C. Signals an invalid value by raising an exception — Báo giá trị không hợp lệ bằng ngoại lệ
 
-D. Another method is chosen because Instance khác nhau không chia sẻ nhầm dữ liệu đo — Instance khác nhau không chia sẻ nhầm dữ liệu đo
+D. A non-public implementation detail by convention — Thành phần nội bộ theo quy ước
 
+**Q13. What is encapsulation? — Đóng gói trong OOP là gì?**
 
-**Q11. What solves scenario 3? — Cách nào giải quyết tình huống 3?**
+A. Keeping data and its operations together — Gom dữ liệu và thao tác lên dữ liệu cùng nhau
 
-A. Another method is chosen because __str__ định nghĩa chữ hiện khi in đối tượng — __str__ định nghĩa chữ hiện khi in đối tượng
+B. To enforce valid object state — Để giữ trạng thái đối tượng hợp lệ
 
-B. Another method is chosen because Instance khác nhau không chia sẻ nhầm dữ liệu đo — Instance khác nhau không chia sẻ nhầm dữ liệu đo
+C. They share class behavior but can hold different state — Cùng hành vi do lớp định nghĩa nhưng có thể khác dữ liệu
 
-C. Another method is chosen because Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song — Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song
+D. A value defined on the class and shared in lookup — Giá trị định nghĩa trên lớp và dùng chung khi truy cập
 
-D. Choose the method because Setter chặn điểm ngoài thang 0–10 — Setter chặn điểm ngoài thang 0–10
+**Q14. Why validate values in a setter method? — Vì sao kiểm tra dữ liệu trong setter?**
 
+A. Keeping data and its operations together — Gom dữ liệu và thao tác lên dữ liệu cùng nhau
 
-**Q12. What solves scenario 4? — Cách nào giải quyết tình huống 4?**
+B. To enforce valid object state — Để giữ trạng thái đối tượng hợp lệ
 
-A. Another method is chosen because Instance khác nhau không chia sẻ nhầm dữ liệu đo — Instance khác nhau không chia sẻ nhầm dữ liệu đo
+C. They share class behavior but can hold different state — Cùng hành vi do lớp định nghĩa nhưng có thể khác dữ liệu
 
-B. Another method is chosen because Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song — Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song
+D. A value defined on the class and shared in lookup — Giá trị định nghĩa trên lớp và dùng chung khi truy cập
 
-C. Choose the method because __str__ định nghĩa chữ hiện khi in đối tượng — __str__ định nghĩa chữ hiện khi in đối tượng
+**Q15. How do two instances of the same class relate? — Hai đối tượng cùng class có quan hệ gì?**
 
-D. Another method is chosen because Đặt add và total cùng nơi lưu giá sản phẩm — Đặt add và total cùng nơi lưu giá sản phẩm
+A. Keeping data and its operations together — Gom dữ liệu và thao tác lên dữ liệu cùng nhau
 
+B. To enforce valid object state — Để giữ trạng thái đối tượng hợp lệ
 
-**Q13. What solves scenario 5? — Cách nào giải quyết tình huống 5?**
+C. They share class behavior but can hold different state — Cùng hành vi do lớp định nghĩa nhưng có thể khác dữ liệu
 
-A. Another method is chosen because Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song — Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song
+D. A value defined on the class and shared in lookup — Giá trị định nghĩa trên lớp và dùng chung khi truy cập
 
-B. Choose the method because Instance khác nhau không chia sẻ nhầm dữ liệu đo — Instance khác nhau không chia sẻ nhầm dữ liệu đo
+**Q16. What is a class attribute? — Thuộc tính cấp class là gì?**
 
-C. Another method is chosen because Đặt add và total cùng nơi lưu giá sản phẩm — Đặt add và total cùng nơi lưu giá sản phẩm
+A. Keeping data and its operations together — Gom dữ liệu và thao tác lên dữ liệu cùng nhau
 
-D. Another method is chosen because Setter chặn điểm ngoài thang 0–10 — Setter chặn điểm ngoài thang 0–10
+B. To enforce valid object state — Để giữ trạng thái đối tượng hợp lệ
 
+C. They share class behavior but can hold different state — Cùng hành vi do lớp định nghĩa nhưng có thể khác dữ liệu
 
-**Q14. Which data is used in scenario 1? — Tình huống 1 dùng dữ liệu nào?**
+D. A value defined on the class and shared in lookup — Giá trị định nghĩa trên lớp và dùng chung khi truy cập
 
-A. The described input Một sinh viên có tên An, điểm 8 — Một sinh viên có tên An, điểm 8
+**Q17. What does `obj.method()` do? — `obj.method()` làm gì?**
 
-B. Another input Giá [100,200] nghìn đồng — Giá [100,200] nghìn đồng
+A. Invokes a method on obj — Gọi một phương thức trên obj
 
-C. Another input Một lần nhập 9/10 — Một lần nhập 9/10
+B. An attribute associated with obj — Thuộc tính gắn với obj
 
-D. Another input Đơn O01 trị giá 150000 đồng — Đơn O01 trị giá 150000 đồng
+C. Whether obj is an instance of Student or a subclass — obj có là đối tượng của Student hoặc lớp con không
 
+D. The object's actual class — Class thực tế của đối tượng
 
-**Q15. Which data is used in scenario 2? — Tình huống 2 dùng dữ liệu nào?**
+**Q18. What does `obj.attribute` read? — `obj.attribute` đọc gì?**
 
-A. Another input Một lần nhập 9/10 — Một lần nhập 9/10
+A. Invokes a method on obj — Gọi một phương thức trên obj
 
-B. Another input Đơn O01 trị giá 150000 đồng — Đơn O01 trị giá 150000 đồng
+B. An attribute associated with obj — Thuộc tính gắn với obj
 
-C. Another input Cảm biến A=20, B=40 độ C — Cảm biến A=20, B=40 độ C
+C. Whether obj is an instance of Student or a subclass — obj có là đối tượng của Student hoặc lớp con không
 
-D. The described input Giá [100,200] nghìn đồng — Giá [100,200] nghìn đồng
+D. The object's actual class — Class thực tế của đối tượng
 
+**Q19. What does `isinstance(obj, Student)` check? — `isinstance(obj, Student)` kiểm tra gì?**
 
-**Q16. Which data is used in scenario 3? — Tình huống 3 dùng dữ liệu nào?**
+A. Invokes a method on obj — Gọi một phương thức trên obj
 
-A. Another input Đơn O01 trị giá 150000 đồng — Đơn O01 trị giá 150000 đồng
+B. An attribute associated with obj — Thuộc tính gắn với obj
 
-B. Another input Cảm biến A=20, B=40 độ C — Cảm biến A=20, B=40 độ C
+C. Whether obj is an instance of Student or a subclass — obj có là đối tượng của Student hoặc lớp con không
 
-C. The described input Một lần nhập 9/10 — Một lần nhập 9/10
+D. The object's actual class — Class thực tế của đối tượng
 
-D. Another input Một sinh viên có tên An, điểm 8 — Một sinh viên có tên An, điểm 8
+**Q20. What does `type(obj)` return? — `type(obj)` trả về gì?**
 
+A. Invokes a method on obj — Gọi một phương thức trên obj
 
-**Q17. Which data is used in scenario 4? — Tình huống 4 dùng dữ liệu nào?**
+B. An attribute associated with obj — Thuộc tính gắn với obj
 
-A. Another input Cảm biến A=20, B=40 độ C — Cảm biến A=20, B=40 độ C
+C. Whether obj is an instance of Student or a subclass — obj có là đối tượng của Student hoặc lớp con không
 
-B. The described input Đơn O01 trị giá 150000 đồng — Đơn O01 trị giá 150000 đồng
-
-C. Another input Một sinh viên có tên An, điểm 8 — Một sinh viên có tên An, điểm 8
-
-D. Another input Giá [100,200] nghìn đồng — Giá [100,200] nghìn đồng
-
-
-**Q18. Which data is used in scenario 5? — Tình huống 5 dùng dữ liệu nào?**
-
-A. The described input Cảm biến A=20, B=40 độ C — Cảm biến A=20, B=40 độ C
-
-B. Another input Một sinh viên có tên An, điểm 8 — Một sinh viên có tên An, điểm 8
-
-C. Another input Giá [100,200] nghìn đồng — Giá [100,200] nghìn đồng
-
-D. Another input Một lần nhập 9/10 — Một lần nhập 9/10
-
-
-**Q19. What must be clear before computing? — Cần hiểu gì trước khi tính?**
-
-A. Only font color — Chỉ màu chữ
-
-B. Only filename length — Chỉ độ dài tên file
-
-C. Only number of comments — Chỉ số comment
-
-D. Input meaning and units — Ý nghĩa và đơn vị dữ liệu
-
-
-**Q20. What should follow a successful demo? — Sau khi demo chạy đúng nên làm gì?**
-
-A. Assume it works for all data — Cho rằng luôn đúng với mọi dữ liệu
-
-B. Remove input validation — Xóa kiểm tra đầu vào
-
-C. Verify output and unusual inputs — Kiểm tra đầu ra và giá trị biên
-
-D. Ignore unexpected results — Bỏ qua kết quả bất thường
+D. The object's actual class — Class thực tế của đối tượng
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | The concept described as Khuôn mô tả dữ liệu và cách xử lý | Khuôn mô tả dữ liệu và cách xử lý |
-| Q2 | **A** | The concept described as Một thể hiện cụ thể của lớp | Một thể hiện cụ thể của lớp |
-| Q3 | **D** | The concept described as Thiết lập thuộc tính lúc tạo instance | Thiết lập thuộc tính lúc tạo instance |
-| Q4 | **C** | The concept described as Đặt dữ liệu và hành vi bên trong đối tượng | Đặt dữ liệu và hành vi bên trong đối tượng |
-| Q5 | **B** | Use this syntax to Định nghĩa kiểu đối tượng và các phương thức | Định nghĩa kiểu đối tượng và các phương thức |
-| Q6 | **A** | Use this syntax to Khởi tạo trạng thái của từng instance | Khởi tạo trạng thái của từng instance |
-| Q7 | **D** | Use this syntax to Truy cập thuộc tính thuộc về chính đối tượng | Truy cập thuộc tính thuộc về chính đối tượng |
-| Q8 | **C** | Use this syntax to Hiển thị và kiểm tra thao tác thay đổi giá trị | Hiển thị và kiểm tra thao tác thay đổi giá trị |
-| Q9 | **B** | Choose the method because Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song | Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song |
-| Q10 | **A** | Choose the method because Đặt add và total cùng nơi lưu giá sản phẩm | Đặt add và total cùng nơi lưu giá sản phẩm |
-| Q11 | **D** | Choose the method because Setter chặn điểm ngoài thang 0–10 | Setter chặn điểm ngoài thang 0–10 |
-| Q12 | **C** | Choose the method because __str__ định nghĩa chữ hiện khi in đối tượng | __str__ định nghĩa chữ hiện khi in đối tượng |
-| Q13 | **B** | Choose the method because Instance khác nhau không chia sẻ nhầm dữ liệu đo | Instance khác nhau không chia sẻ nhầm dữ liệu đo |
-| Q14 | **A** | The described input Một sinh viên có tên An, điểm 8 | Một sinh viên có tên An, điểm 8 |
-| Q15 | **D** | The described input Giá [100,200] nghìn đồng | Giá [100,200] nghìn đồng |
-| Q16 | **C** | The described input Một lần nhập 9/10 | Một lần nhập 9/10 |
-| Q17 | **B** | The described input Đơn O01 trị giá 150000 đồng | Đơn O01 trị giá 150000 đồng |
-| Q18 | **A** | The described input Cảm biến A=20, B=40 độ C | Cảm biến A=20, B=40 độ C |
-| Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị dữ liệu |
-| Q20 | **C** | Verify output and unusual inputs | Kiểm tra đầu ra và giá trị biên |
+| Q1 | **A** | A class groups common attributes and methods for instances. | Class gom thuộc tính và phương thức chung cho đối tượng. |
+| Q2 | **B** | Each instance stores its own state as defined by its class. | Mỗi đối tượng có trạng thái riêng theo lớp của nó. |
+| Q3 | **C** | Instance attributes hold values such as name or score. | Thuộc tính đối tượng lưu giá trị như tên hoặc điểm. |
+| Q4 | **D** | Instance methods access object state via the instance parameter. | Phương thức đối tượng làm việc với trạng thái qua tham số đối tượng. |
+| Q5 | **A** | The class keyword declares a new class. | Từ khóa class khai báo một lớp mới. |
+| Q6 | **B** | Calling the class creates an instance of that class. | Gọi lớp tạo ra một đối tượng của lớp đó. |
+| Q7 | **C** | Python invokes __init__ after creating a new instance. | Python gọi __init__ sau khi tạo đối tượng mới. |
+| Q8 | **D** | self refers to the specific instance whose method is executing. | self chỉ đối tượng cụ thể đang thực thi phương thức. |
+| Q9 | **A** | Each instance can hold its own name attribute. | Mỗi đối tượng có thể lưu thuộc tính name riêng. |
+| Q10 | **B** | str(obj) and print(obj) use __str__ if implemented. | str(obj) và print(obj) dùng __str__ khi có định nghĩa. |
+| Q11 | **C** | raise interrupts normal flow with the specified exception. | raise ngắt luồng bình thường bằng ngoại lệ tương ứng. |
+| Q12 | **D** | A single leading underscore signals intended internal use, not enforced privacy. | Một gạch dưới đầu tên chỉ quy ước dùng nội bộ, không khóa truy cập tuyệt đối. |
+| Q13 | **A** | Encapsulation groups object state with methods that manage it. | Đóng gói kết hợp trạng thái với phương thức quản lý. |
+| Q14 | **B** | Setters can reject invalid values before storing them. | Setter có thể từ chối giá trị sai trước khi lưu. |
+| Q15 | **C** | Each instance has its own attributes unless explicit shared class state is used. | Mỗi đối tượng có thuộc tính riêng, trừ khi cố ý dùng dữ liệu chung cấp lớp. |
+| Q16 | **D** | Class attributes are available through the class and normally through instances. | Thuộc tính cấp lớp có thể truy cập qua lớp và thông thường qua đối tượng. |
+| Q17 | **A** | Dot notation resolves the named method for the instance. | Cú pháp dấu chấm lấy phương thức theo tên trên đối tượng. |
+| Q18 | **B** | Dot access retrieves the selected attribute on the object. | Dấu chấm truy cập thuộc tính đã chỉ định của đối tượng. |
+| Q19 | **C** | isinstance tests the object's class relationship. | isinstance kiểm tra quan hệ lớp của đối tượng. |
+| Q20 | **D** | type reveals the runtime class of an instance. | type cho biết lớp thực tế của đối tượng lúc chạy. |
 
 ## 8. Nối sang bài tiếp theo
 
