@@ -25,6 +25,14 @@ DROP_LINES = [
 ]
 PHRASES = [
     ("Trước khi chạy ví dụ, ", ""),
+    (" Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.", ""),
+    (" Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.", ""),
+    (" Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.", ""),
+    ("; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.", ""),
+    ("; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.", ""),
+    (" Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.", ""),
+    ("; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.", ""),
+    (" Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.", ""),
     (". Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.", ""),
     ("; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.", ""),
     (". Không dùng thuật toán AI phức tạp khi chỉ cần quy tắc xử lý rõ ràng.", ""),
@@ -38,6 +46,13 @@ MORE_DROP = [
     re.compile(r"^Các tham số được giải thích ngay cùng hàm liên quan;.*\.$"),
     re.compile(r"^Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn\.$"),
     re.compile(r"^Các số là dữ liệu minh họa\.$"),
+    re.compile(r"^Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã được giải thích ngay tại bảng hàm này\\.$"),
+    re.compile(r"^Các tham số như .*được giải thích ngay tại bảng hàm này\\.$"),
+    re.compile(r"^\\*\\*Đọc kết quả:\\*\\* Kiểm tra shape và giá trị in ra\\. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo\\.$"),
+    re.compile(r"^\\*\\*Đọc kết quả:\\*\\* So sánh số in ra với công thức trong bài\\. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI\\.$"),
+    re.compile(r"^\\*\\*Kiểm tra:\\*\\* Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật\\.$"),
+    re.compile(r"^\\*\\*Tự kiểm chứng:\\*\\* Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động\\.$"),
+
 ]
 # These statements are redundant in the lesson body, but real data provenance
 # and actual sampling caveats must remain when they affect interpretation.
