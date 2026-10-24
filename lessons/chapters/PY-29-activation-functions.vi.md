@@ -35,7 +35,7 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 **Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
 
-Giữ số dương, số âm thành 0. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Giữ số dương, số âm thành 0.
 
 ```python
 import numpy as np
@@ -48,7 +48,7 @@ print(np.maximum(0,[-2,3]))
 
 **Từ vựng trong mục:** **Sigmoid** — hàm sigmoid.
 
-Ánh xạ số thực về khoảng (0,1). Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Ánh xạ số thực về khoảng (0,1).
 
 ```python
 import numpy as np
@@ -61,7 +61,7 @@ x=np.array([0.]);print(1/(1+np.exp(-x)))
 
 **Từ vựng trong mục:** **Tanh** — hàm tanh.
 
-Ánh xạ số thực về (-1,1). Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Ánh xạ số thực về (-1,1).
 
 ```python
 import numpy as np
@@ -74,7 +74,7 @@ print(np.tanh([0.,1.]))
 
 **Từ vựng trong mục:** **Softmax** — hàm softmax.
 
-Biến logits thành phân phối xác suất tổng bằng 1. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Biến logits thành phân phối xác suất tổng bằng 1.
 
 ```python
 import numpy as np
@@ -91,9 +91,9 @@ z=np.array([1.,2.]);e=np.exp(z-z.max());print(e/e.sum())
 
 **Vấn đề:** Kích hoạt tín hiệu nhiễu âm.
 
-**Vì sao chọn phương án?** ReLU chặn giá trị âm khi đó là chính sách kích hoạt; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** ReLU chặn giá trị âm khi đó là chính sách kích hoạt
 
-**Dữ liệu:** 4 tín hiệu giả lập [-2,0,3,5]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** 4 tín hiệu giả lập [-2,0,3,5].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -103,7 +103,6 @@ x=np.array([-2.,0.,3.,5.])
 print(np.maximum(0,x))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 2 — Đổi điểm thô sang tỷ lệ
 
@@ -111,9 +110,9 @@ print(np.maximum(0,x))
 
 **Vấn đề:** Đổi điểm thô sang tỷ lệ.
 
-**Vì sao chọn phương án?** Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất
 
-**Dữ liệu:** Điểm số [-1,0,1]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Điểm số [-1,0,1].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -123,7 +122,6 @@ x=np.array([-1.,0.,1.])
 print(1/(1+np.exp(-x)))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 3 — Kích hoạt đối xứng
 
@@ -131,9 +129,9 @@ print(1/(1+np.exp(-x)))
 
 **Vấn đề:** Kích hoạt đối xứng.
 
-**Vì sao chọn phương án?** tanh cho dấu âm/dương quanh 0; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** tanh cho dấu âm/dương quanh 0
 
-**Dữ liệu:** Tín hiệu [-1,0,1]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Tín hiệu [-1,0,1].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -142,7 +140,6 @@ import numpy as np
 print(np.tanh([-1,0,1]))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 4 — Chuẩn hóa điểm phân loại
 
@@ -150,9 +147,9 @@ print(np.tanh([-1,0,1]))
 
 **Vấn đề:** Chuẩn hóa điểm phân loại.
 
-**Vì sao chọn phương án?** Softmax tạo tổng xác suất bằng 1 từ logits; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Softmax tạo tổng xác suất bằng 1 từ logits
 
-**Dữ liệu:** Ba logit [2,1,0.1]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Ba logit [2,1,0.1].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -162,7 +159,6 @@ z=np.array([2.,1.,.1]);e=np.exp(z-z.max())
 p=e/e.sum();print(p,p.sum())
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 5 — So mô hình tuyến tính và ReLU
 
@@ -170,9 +166,9 @@ p=e/e.sum();print(p,p.sum())
 
 **Vấn đề:** So mô hình tuyến tính và ReLU.
 
-**Vì sao chọn phương án?** Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc
 
-**Dữ liệu:** Dữ liệu x từ -2 tới 2. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Dữ liệu x từ -2 tới 2.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -183,7 +179,6 @@ y=np.maximum(0,x-1)+np.maximum(0,-x-1)
 print(y)
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ## 6. Các lỗi dễ gặp
 
