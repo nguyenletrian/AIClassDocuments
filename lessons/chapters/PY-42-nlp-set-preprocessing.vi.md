@@ -40,6 +40,7 @@
 Trong xử lý ngôn ngữ tự nhiên (NLP), **token** là đơn vị văn bản sau một bước tách: có thể là từ, dấu câu, hoặc phần nhỏ của từ. Với câu tiếng Anh đơn giản `AI helps Python`, `split()` theo khoảng trắng tạo ba token. Đây **không phải** bộ tách từ tiếng Việt chuẩn: một từ ghép tiếng Việt có thể gồm nhiều tiếng và cần tokenizer chuyên biệt.
 
 ```python
+# Mục đích: Đơn vị nhỏ sau quy tắc tách.
 sentence = 'AI helps Python'
 print(sentence.lower().split())
 ```
@@ -59,6 +60,7 @@ Ba token chữ thường sau tách theo khoảng trắng; dấu câu chưa đư�
 **Vocabulary** là tập các token **khác nhau** quan sát được trong kho văn bản. Hai câu `AI uses data` và `AI uses Python` có token chung `AI`, `uses`; dùng Set chỉ giữ mỗi từ một lần. Set giúp đếm từ duy nhất nhưng không giữ số lần xuất hiện, khác Bag-of-Words. In qua `sorted()` để không phụ thuộc thứ tự Set.
 
 ```python
+# Mục đích: Tập token duy nhất.
 sentences = ['AI uses data', 'AI uses Python']
 tokens = ' '.join(sentences).lower().split()
 print(sorted(set(tokens)))
@@ -79,6 +81,7 @@ Kho từ vựng có bốn token khác nhau; `ai` và `uses` không bị đếm h
 **Normalization** đưa văn bản về một quy ước nhất quán: bỏ khoảng trắng hai đầu, chuyển chữ về thường, đôi khi xử lý Unicode và dấu câu. Ví dụ `  Machine LEARNING ` chuẩn hóa thành `machine learning`. Nếu không chuẩn hóa, `AI` và `ai` có thể bị xem là hai token; tuy nhiên xóa dấu tiếng Việt tùy tiện có thể làm mất nghĩa.
 
 ```python
+# Mục đích: Chuẩn hóa trước khi so từ.
 text = '  Machine LEARNING '
 print(text.strip().lower())
 ```
@@ -98,6 +101,7 @@ Khoảng trắng ở đầu/cuối bị bỏ, chữ hoa chuyển thành chữ th
 **Jaccard** đo độ giống của hai **tập token**: `J(A,B)=|A∩B|/|A∪B|` nếu hợp khác rỗng. Câu A `python for ai` có ba token; câu B `python and sql` cũng ba token. Giao chỉ có `python` (1 phần tử), hợp có năm từ, nên J=0.2. Jaccard Set không tính tần suất và không hiểu nghĩa tương đương của từ; với hai tập rỗng cần chọn quy ước riêng để tránh chia 0.
 
 ```python
+# Mục đích: Tỷ lệ token chung so với tất cả token.
 a = set('python for ai'.split())
 b = set('python and sql'.split())
 print(round(len(a & b) / len(a | b), 2))
@@ -126,6 +130,7 @@ Hai tài liệu chung một trên năm token khác nhau; độ giống tập h�
 3. In chuỗi chuẩn hóa.
 
 ```python
+# Mục đích: Chuẩn hóa từ khóa tìm kiếm.
 text = '  Machine LEARNING '
 print(text.strip().lower())
 ```
@@ -151,6 +156,7 @@ Chuỗi được chuẩn hóa để so với từ khóa cùng quy ước.
 3. In danh sách token theo thứ tự xuất hiện.
 
 ```python
+# Mục đích: Tách token của câu tiếng Anh.
 sentence = 'AI helps Python'
 print(sentence.lower().split())
 ```
@@ -176,6 +182,7 @@ Ba token được tạo; cách làm chưa giải quyết từ ghép tiếng Vi�
 3. Sắp thứ tự token rồi in.
 
 ```python
+# Mục đích: Tạo kho từ vựng từ hai tài liệu.
 sentences = ['AI uses data', 'AI uses Python']
 words = set(' '.join(sentences).lower().split())
 print(sorted(words))
@@ -202,6 +209,7 @@ Vocabulary có bốn từ khác nhau, không đếm số lần xuất hiện.
 3. Chia, làm tròn hai chữ số và in.
 
 ```python
+# Mục đích: So hai tài liệu bằng Jaccard.
 a = set('python for ai'.split())
 b = set('python and sql'.split())
 print(round(len(a & b) / len(a | b), 2))
@@ -228,6 +236,7 @@ Tập từ trùng chiếm một phần năm tất cả từ, Jaccard bằng 0,2.
 3. Ngược lại chia giao cho hợp và in.
 
 ```python
+# Mục đích: Tránh chia cho 0 ở hai văn bản rỗng.
 a = set(' '.split())
 b = set(''.split())
 union = a | b
@@ -252,302 +261,302 @@ Hai tập rỗng được gán độ giống 1.0 theo quy ước đã công bố
 - Hai tập rỗng gây phép chia 0/0, cần nêu rõ quy ước ứng dụng.
 - Không so sánh tài liệu khác cách chuẩn hóa, vì khác tiền xử lý sẽ tạo token khác nhau.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
-**Q1. What is a token? — Token là gì?**
+**Q1. What is a token? | Token là gì?**
 
-A. A unit produced by a text-splitting rule — Đơn vị do quy tắc tách văn bản tạo
+A. A unit produced by a text-splitting rule | Đơn vị do quy tắc tách văn bản tạo
 
-B. A collection of distinct tokens — Tập các token khác nhau
+B. A collection of distinct tokens | Tập các token khác nhau
 
-C. Applying consistent text representations — Đưa văn bản về dạng biểu diễn nhất quán
+C. Applying consistent text representations | Đưa văn bản về dạng biểu diễn nhất quán
 
-D. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
+D. Intersection size divided by union size | Số phần tử giao chia số phần tử hợp
 
 **Đáp án: A**
 
 **Giải thích:** Token có thể là từ, mảnh từ hoặc dấu câu tùy bộ tách. Đơn vị cụ thể phụ thuộc quy tắc tokenizer; token không nhất thiết là một từ hoàn chỉnh.
 
 
-**Q2. What is a vocabulary? — Vocabulary là gì?**
+**Q2. What is a vocabulary? | Vocabulary là gì?**
 
-A. A unit produced by a text-splitting rule — Đơn vị do quy tắc tách văn bản tạo
+A. A unit produced by a text-splitting rule | Đơn vị do quy tắc tách văn bản tạo
 
-B. A collection of distinct tokens — Tập các token khác nhau
+B. A collection of distinct tokens | Tập các token khác nhau
 
-C. Applying consistent text representations — Đưa văn bản về dạng biểu diễn nhất quán
+C. Applying consistent text representations | Đưa văn bản về dạng biểu diễn nhất quán
 
-D. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
+D. Intersection size divided by union size | Số phần tử giao chia số phần tử hợp
 
 **Đáp án: B**
 
 **Giải thích:** Tập từ vựng bỏ trùng danh tính token, khác bảng tần suất. Nó trả lời có những token nào, chứ không trả lời mỗi token xuất hiện bao nhiêu lần.
 
 
-**Q3. What is text normalization? — Chuẩn hóa văn bản là gì?**
+**Q3. What is text normalization? | Chuẩn hóa văn bản là gì?**
 
-A. A unit produced by a text-splitting rule — Đơn vị do quy tắc tách văn bản tạo
+A. A unit produced by a text-splitting rule | Đơn vị do quy tắc tách văn bản tạo
 
-B. A collection of distinct tokens — Tập các token khác nhau
+B. A collection of distinct tokens | Tập các token khác nhau
 
-C. Applying consistent text representations — Đưa văn bản về dạng biểu diễn nhất quán
+C. Applying consistent text representations | Đưa văn bản về dạng biểu diễn nhất quán
 
-D. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
+D. Intersection size divided by union size | Số phần tử giao chia số phần tử hợp
 
 **Đáp án: C**
 
 **Giải thích:** Chữ thường và cắt khoảng trắng giúp khớp dạng văn bản. Chuẩn hóa đổi cách biểu diễn; quy tắc phải nhất quán giữa các văn bản đem so.
 
 
-**Q4. What is set-based Jaccard similarity? — Jaccard trên Set là gì?**
+**Q4. What is set-based Jaccard similarity? | Jaccard trên Set là gì?**
 
-A. A unit produced by a text-splitting rule — Đơn vị do quy tắc tách văn bản tạo
+A. A unit produced by a text-splitting rule | Đơn vị do quy tắc tách văn bản tạo
 
-B. A collection of distinct tokens — Tập các token khác nhau
+B. A collection of distinct tokens | Tập các token khác nhau
 
-C. Applying consistent text representations — Đưa văn bản về dạng biểu diễn nhất quán
+C. Applying consistent text representations | Đưa văn bản về dạng biểu diễn nhất quán
 
-D. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
+D. Intersection size divided by union size | Số phần tử giao chia số phần tử hợp
 
 **Đáp án: D**
 
 **Giải thích:** Nó đo từ khác nhau chung so với tổng số từ khác nhau. Một từ chung trong năm từ khác nhau cho 1/5, không phải lấy độ dài một câu làm mẫu số.
 
 
-**Q5. What does `str.split()` do without arguments? — `str.split()` không đối số làm gì?**
+**Q5. What does `str.split()` do without arguments? | `str.split()` không đối số làm gì?**
 
-A. Splits on runs of whitespace — Tách theo chuỗi khoảng trắng liên tiếp
+A. Splits on runs of whitespace | Tách theo chuỗi khoảng trắng liên tiếp
 
-B. Converts letters to lowercase — Chuyển chữ thành chữ thường
+B. Converts letters to lowercase | Chuyển chữ thành chữ thường
 
-C. Removes leading and trailing whitespace — Bỏ khoảng trắng hai đầu
+C. Removes leading and trailing whitespace | Bỏ khoảng trắng hai đầu
 
-D. To deduplicate and display consistently — Để bỏ token trùng và hiển thị ổn định
+D. To deduplicate and display consistently | Để bỏ token trùng và hiển thị ổn định
 
 **Đáp án: A**
 
 **Giải thích:** Tách bằng khoảng trắng không hiểu mọi ranh giới từ. Đây là quy tắc tách chuỗi, không phải thuật toán phân đoạn từ tiếng Việt về mặt ngôn ngữ.
 
 
-**Q6. What does `lower()` do? — `lower()` làm gì?**
+**Q6. What does `lower()` do? | `lower()` làm gì?**
 
-A. Splits on runs of whitespace — Tách theo chuỗi khoảng trắng liên tiếp
+A. Splits on runs of whitespace | Tách theo chuỗi khoảng trắng liên tiếp
 
-B. Converts letters to lowercase — Chuyển chữ thành chữ thường
+B. Converts letters to lowercase | Chuyển chữ thành chữ thường
 
-C. Removes leading and trailing whitespace — Bỏ khoảng trắng hai đầu
+C. Removes leading and trailing whitespace | Bỏ khoảng trắng hai đầu
 
-D. To deduplicate and display consistently — Để bỏ token trùng và hiển thị ổn định
+D. To deduplicate and display consistently | Để bỏ token trùng và hiển thị ổn định
 
 **Đáp án: B**
 
 **Giải thích:** Giúp so biến thể chữ hoa/thường nhưng không bỏ dấu câu. `lower` chỉ đổi chữ hoa/thường, không tự xóa khoảng trắng hoặc tách token.
 
 
-**Q7. What does `strip()` do? — `strip()` làm gì?**
+**Q7. What does `strip()` do? | `strip()` làm gì?**
 
-A. Splits on runs of whitespace — Tách theo chuỗi khoảng trắng liên tiếp
+A. Splits on runs of whitespace | Tách theo chuỗi khoảng trắng liên tiếp
 
-B. Converts letters to lowercase — Chuyển chữ thành chữ thường
+B. Converts letters to lowercase | Chuyển chữ thành chữ thường
 
-C. Removes leading and trailing whitespace — Bỏ khoảng trắng hai đầu
+C. Removes leading and trailing whitespace | Bỏ khoảng trắng hai đầu
 
-D. To deduplicate and display consistently — Để bỏ token trùng và hiển thị ổn định
+D. To deduplicate and display consistently | Để bỏ token trùng và hiển thị ổn định
 
 **Đáp án: C**
 
 **Giải thích:** strip không xóa khoảng trắng giữa câu. Muốn xử lý khoảng trắng giữa câu cần `split` hoặc bước khác, không thể chỉ dùng `strip`.
 
 
-**Q8. Why use `sorted(set(tokens))` for examples? — Vì sao dùng `sorted(set(tokens))`?**
+**Q8. Why use `sorted(set(tokens))` for examples? | Vì sao dùng `sorted(set(tokens))`?**
 
-A. Splits on runs of whitespace — Tách theo chuỗi khoảng trắng liên tiếp
+A. Splits on runs of whitespace | Tách theo chuỗi khoảng trắng liên tiếp
 
-B. Converts letters to lowercase — Chuyển chữ thành chữ thường
+B. Converts letters to lowercase | Chuyển chữ thành chữ thường
 
-C. Removes leading and trailing whitespace — Bỏ khoảng trắng hai đầu
+C. Removes leading and trailing whitespace | Bỏ khoảng trắng hai đầu
 
-D. To deduplicate and display consistently — Để bỏ token trùng và hiển thị ổn định
+D. To deduplicate and display consistently | Để bỏ token trùng và hiển thị ổn định
 
 **Đáp án: D**
 
 **Giải thích:** Set không bảo đảm thứ tự; sorted tạo List có thứ tự. Set loại phần tử trùng, còn `sorted` tạo List có thứ tự để in ổn định.
 
 
-**Q9. What does A & B produce for sets? — A & B trên Set tạo gì?**
+**Q9. What does A & B produce for sets? | A & B trên Set tạo gì?**
 
-A. Common tokens — Các token chung
+A. Common tokens | Các token chung
 
-B. All distinct tokens from either set — Mọi token khác nhau thuộc ít nhất một tập
+B. All distinct tokens from either set | Mọi token khác nhau thuộc ít nhất một tập
 
-C. It ignores repeated occurrences — Bỏ qua số lần lặp
+C. It ignores repeated occurrences | Bỏ qua số lần lặp
 
-D. 1.0 — 1.0
+D. 1.0 | 1.0
 
 **Đáp án: A**
 
 **Giải thích:** Giao chỉ giữ giá trị có ở cả hai tập. Với A={'ai','python'}, B={'ai'}, giao chỉ có 'ai', không chứa toàn bộ A.
 
 
-**Q10. What does A | B produce for sets? — A | B trên Set tạo gì?**
+**Q10. What does A | B produce for sets? | A | B trên Set tạo gì?**
 
-A. Common tokens — Các token chung
+A. Common tokens | Các token chung
 
-B. All distinct tokens from either set — Mọi token khác nhau thuộc ít nhất một tập
+B. All distinct tokens from either set | Mọi token khác nhau thuộc ít nhất một tập
 
-C. It ignores repeated occurrences — Bỏ qua số lần lặp
+C. It ignores repeated occurrences | Bỏ qua số lần lặp
 
-D. 1.0 — 1.0
+D. 1.0 | 1.0
 
 **Đáp án: B**
 
 **Giải thích:** Hợp loại token trùng ở cả hai bên. Hợp gồm từ riêng ở mỗi bên lẫn các từ chung giữa hai bên.
 
 
-**Q11. How does Set Jaccard treat token frequency? — Jaccard Set xử lý tần suất token ra sao?**
+**Q11. How does Set Jaccard treat token frequency? | Jaccard Set xử lý tần suất token ra sao?**
 
-A. Common tokens — Các token chung
+A. Common tokens | Các token chung
 
-B. All distinct tokens from either set — Mọi token khác nhau thuộc ít nhất một tập
+B. All distinct tokens from either set | Mọi token khác nhau thuộc ít nhất một tập
 
-C. It ignores repeated occurrences — Bỏ qua số lần lặp
+C. It ignores repeated occurrences | Bỏ qua số lần lặp
 
-D. 1.0 — 1.0
+D. 1.0 | 1.0
 
 **Đáp án: C**
 
 **Giải thích:** Chuyển sang Set mất số lần và thứ tự từ. Vì vậy Jaccard trên Set không phân biệt từ xuất hiện một lần với mười lần.
 
 
-**Q12. What happens for identical nonempty token sets? — Hai tập token giống hệt và không rỗng cho Jaccard gì?**
+**Q12. What happens for identical nonempty token sets? | Hai tập token giống hệt và không rỗng cho Jaccard gì?**
 
-A. Common tokens — Các token chung
+A. Common tokens | Các token chung
 
-B. All distinct tokens from either set — Mọi token khác nhau thuộc ít nhất một tập
+B. All distinct tokens from either set | Mọi token khác nhau thuộc ít nhất một tập
 
-C. It ignores repeated occurrences — Bỏ qua số lần lặp
+C. It ignores repeated occurrences | Bỏ qua số lần lặp
 
-D. 1.0 — 1.0
+D. 1.0 | 1.0
 
 **Đáp án: D**
 
 **Giải thích:** Giao bằng hợp nên tỷ số bằng một. Kết quả này áp dụng khi hợp không rỗng, đúng điều kiện đã nêu trong câu hỏi.
 
 
-**Q13. What happens for disjoint nonempty token sets? — Hai tập token rời không rỗng cho Jaccard gì?**
+**Q13. What happens for disjoint nonempty token sets? | Hai tập token rời không rỗng cho Jaccard gì?**
 
-A. 0.0 — 0.0
+A. 0.0 | 0.0
 
-B. The formula has zero denominator; choose a convention — Công thức có mẫu số 0; cần quy ước riêng
+B. The formula has zero denominator; choose a convention | Công thức có mẫu số 0; cần quy ước riêng
 
-C. No, multi-syllable words need more care — Không, từ nhiều tiếng cần xử lý thêm
+C. No, multi-syllable words need more care | Không, từ nhiều tiếng cần xử lý thêm
 
-D. No; punctuation remains — Không, dấu câu vẫn còn
+D. No; punctuation remains | Không, dấu câu vẫn còn
 
 **Đáp án: A**
 
 **Giải thích:** Không có token chung nên tử số bằng không. Tử số bằng không nhưng mẫu số vẫn dương.
 
 
-**Q14. What happens when both sets are empty? — Nếu hai Set đều rỗng thì Jaccard sao?**
+**Q14. What happens when both sets are empty? | Nếu hai Set đều rỗng thì Jaccard sao?**
 
-A. 0.0 — 0.0
+A. 0.0 | 0.0
 
-B. The formula has zero denominator; choose a convention — Công thức có mẫu số 0; cần quy ước riêng
+B. The formula has zero denominator; choose a convention | Công thức có mẫu số 0; cần quy ước riêng
 
-C. No, multi-syllable words need more care — Không, từ nhiều tiếng cần xử lý thêm
+C. No, multi-syllable words need more care | Không, từ nhiều tiếng cần xử lý thêm
 
-D. No; punctuation remains — Không, dấu câu vẫn còn
+D. No; punctuation remains | Không, dấu câu vẫn còn
 
 **Đáp án: B**
 
 **Giải thích:** Phép chia 0/0 không xác định; ứng dụng phải tự quy định. Ứng dụng có thể quy ước hai văn bản rỗng giống nhau 1, nhưng hệ khác có thể chọn 0 hoặc không xác định.
 
 
-**Q15. Does whitespace splitting correctly segment all Vietnamese words? — split theo khoảng trắng có tách đúng mọi từ tiếng Việt không?**
+**Q15. Does whitespace splitting correctly segment all Vietnamese words? | split theo khoảng trắng có tách đúng mọi từ tiếng Việt không?**
 
-A. 0.0 — 0.0
+A. 0.0 | 0.0
 
-B. The formula has zero denominator; choose a convention — Công thức có mẫu số 0; cần quy ước riêng
+B. The formula has zero denominator; choose a convention | Công thức có mẫu số 0; cần quy ước riêng
 
-C. No, multi-syllable words need more care — Không, từ nhiều tiếng cần xử lý thêm
+C. No, multi-syllable words need more care | Không, từ nhiều tiếng cần xử lý thêm
 
-D. No; punctuation remains — Không, dấu câu vẫn còn
+D. No; punctuation remains | Không, dấu câu vẫn còn
 
 **Đáp án: C**
 
 **Giải thích:** Các tiếng ngăn bởi khoảng trắng chưa chắc là từ độc lập. Một từ tiếng Việt có thể gồm nhiều tiếng được ngăn bằng khoảng trắng.
 
 
-**Q16. Can lowercasing alone remove punctuation? — Chỉ lower() có xóa dấu câu không?**
+**Q16. Can lowercasing alone remove punctuation? | Chỉ lower() có xóa dấu câu không?**
 
-A. 0.0 — 0.0
+A. 0.0 | 0.0
 
-B. The formula has zero denominator; choose a convention — Công thức có mẫu số 0; cần quy ước riêng
+B. The formula has zero denominator; choose a convention | Công thức có mẫu số 0; cần quy ước riêng
 
-C. No, multi-syllable words need more care — Không, từ nhiều tiếng cần xử lý thêm
+C. No, multi-syllable words need more care | Không, từ nhiều tiếng cần xử lý thêm
 
-D. No; punctuation remains — Không, dấu câu vẫn còn
+D. No; punctuation remains | Không, dấu câu vẫn còn
 
 **Đáp án: D**
 
 **Giải thích:** Đổi chữ thường và xử lý dấu câu là hai bước khác nhau. Dấu câu có thể còn dính vào token cho đến khi có bước làm sạch/tách riêng.
 
 
-**Q17. Does Jaccard understand semantic synonyms? — Jaccard theo Set có hiểu từ đồng nghĩa không?**
+**Q17. Does Jaccard understand semantic synonyms? | Jaccard theo Set có hiểu từ đồng nghĩa không?**
 
-A. No, it compares literal token identities — Không, nó so token theo mặt chữ
+A. No, it compares literal token identities | Không, nó so token theo mặt chữ
 
-B. Number of distinct tokens in either document — Số token khác nhau ở ít nhất một tài liệu
+B. Number of distinct tokens in either document | Số token khác nhau ở ít nhất một tài liệu
 
-C. Word order and term frequencies — Thứ tự và tần suất từ
+C. Word order and term frequencies | Thứ tự và tần suất từ
 
-D. For complex punctuation or multilingual segmentation — Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
+D. For complex punctuation or multilingual segmentation | Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
 
 **Đáp án: A**
 
 **Giải thích:** Hai từ khác chữ dù đồng nghĩa vẫn có thể không chung token. Jaccard đo trùng mặt chữ; muốn so ý nghĩa cần biểu diễn ngôn ngữ phong phú hơn.
 
 
-**Q18. What does len(A|B) represent? — len(A|B) biểu thị gì?**
+**Q18. What does len(A|B) represent? | len(A|B) biểu thị gì?**
 
-A. No, it compares literal token identities — Không, nó so token theo mặt chữ
+A. No, it compares literal token identities | Không, nó so token theo mặt chữ
 
-B. Number of distinct tokens in either document — Số token khác nhau ở ít nhất một tài liệu
+B. Number of distinct tokens in either document | Số token khác nhau ở ít nhất một tài liệu
 
-C. Word order and term frequencies — Thứ tự và tần suất từ
+C. Word order and term frequencies | Thứ tự và tần suất từ
 
-D. For complex punctuation or multilingual segmentation — Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
+D. For complex punctuation or multilingual segmentation | Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
 
 **Đáp án: B**
 
 **Giải thích:** Hợp là mẫu số của Jaccard trên Set. Khi hợp khác rỗng, đây là mẫu số; chỉ dùng len(A) có thể khiến điểm sai.
 
 
-**Q19. What is lost when building a vocabulary as a Set? — Tạo vocabulary bằng Set mất thông tin nào?**
+**Q19. What is lost when building a vocabulary as a Set? | Tạo vocabulary bằng Set mất thông tin nào?**
 
-A. No, it compares literal token identities — Không, nó so token theo mặt chữ
+A. No, it compares literal token identities | Không, nó so token theo mặt chữ
 
-B. Number of distinct tokens in either document — Số token khác nhau ở ít nhất một tài liệu
+B. Number of distinct tokens in either document | Số token khác nhau ở ít nhất một tài liệu
 
-C. Word order and term frequencies — Thứ tự và tần suất từ
+C. Word order and term frequencies | Thứ tự và tần suất từ
 
-D. For complex punctuation or multilingual segmentation — Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
+D. For complex punctuation or multilingual segmentation | Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
 
 **Đáp án: C**
 
 **Giải thích:** Set chỉ lưu sự có mặt, không lưu vị trí hay lượt xuất hiện. Khi cần đếm số lần hoặc giữ thứ tự, hãy dùng Counter hoặc List token.
 
 
-**Q20. When should a specialized tokenizer be considered? — Khi nào nên xem bộ tách từ chuyên biệt?**
+**Q20. When should a specialized tokenizer be considered? | Khi nào nên xem bộ tách từ chuyên biệt?**
 
-A. No, it compares literal token identities — Không, nó so token theo mặt chữ
+A. No, it compares literal token identities | Không, nó so token theo mặt chữ
 
-B. Number of distinct tokens in either document — Số token khác nhau ở ít nhất một tài liệu
+B. Number of distinct tokens in either document | Số token khác nhau ở ít nhất một tài liệu
 
-C. Word order and term frequencies — Thứ tự và tần suất từ
+C. Word order and term frequencies | Thứ tự và tần suất từ
 
-D. For complex punctuation or multilingual segmentation — Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
+D. For complex punctuation or multilingual segmentation | Khi có dấu câu phức tạp hoặc phân đoạn đa ngôn ngữ
 
 **Đáp án: D**
 
