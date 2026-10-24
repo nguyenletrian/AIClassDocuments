@@ -1,6 +1,5 @@
 # PY-02 — Kiểu số, Boolean và chuỗi
 
-*Trạng thái: DRAFT · Dữ liệu minh họa giả lập · Chưa xác nhận chạy Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 | `split()/replace()` | Tách chuỗi hoặc thay thế đoạn văn bản |
 | `s[start:stop]` | Cắt ký tự theo vị trí, không lấy chỉ số stop |
 
-Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiều comment vào ví dụ.
 
 ## 4. Khái niệm liên quan — từ lời giải thích đến Python
 
@@ -38,7 +36,7 @@ Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiề
 
 **Từ vựng trong mục:** **Integer** — số nguyên.
 
-Giá trị không có phần thập phân. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Giá trị không có phần thập phân. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 n = 5
@@ -53,7 +51,7 @@ print(type(n))
 
 **Từ vựng trong mục:** **Float** — số thực.
 
-Số có thể có phần lẻ. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Số có thể có phần lẻ. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 x = 3.5
@@ -68,7 +66,7 @@ print(x)
 
 **Từ vựng trong mục:** **Boolean** — giá trị logic.
 
-Giá trị True hoặc False. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Giá trị True hoặc False. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 ok = True
@@ -83,7 +81,7 @@ print(ok)
 
 **Từ vựng trong mục:** **String** — chuỗi.
 
-Dãy ký tự có thể cắt lát. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Dãy ký tự có thể cắt lát. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 code = 'AB12'
@@ -102,9 +100,9 @@ print(code[:2])
 
 **Vấn đề:** Chuẩn hóa email.
 
-**Vì sao chọn cách này?** Bỏ khoảng trắng và đổi chữ thường trước so trùng. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Bỏ khoảng trắng và đổi chữ thường trước so trùng.
 
-**Dữ liệu:** Email nhập thừa khoảng trắng; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Email nhập thừa khoảng trắng.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -121,9 +119,9 @@ print(email.strip().lower())
 
 **Vấn đề:** Tách nhãn sản phẩm.
 
-**Vì sao chọn cách này?** Dấu phẩy tạo ranh giới giữa nhãn. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Dấu phẩy tạo ranh giới giữa nhãn.
 
-**Dữ liệu:** Chuỗi có 3 nhãn; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Chuỗi có 3 nhãn.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -140,9 +138,9 @@ print(labels.split(","))
 
 **Vấn đề:** Giữ mã đầu 0.
 
-**Vì sao chọn cách này?** Mã không được mất chữ số đầu khi dùng để tra cứu. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Mã không được mất chữ số đầu khi dùng để tra cứu.
 
-**Dữ liệu:** Mã đơn 00045; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Mã đơn 00045.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -159,9 +157,9 @@ print(order_id[:3])
 
 **Vấn đề:** Đổi số từ CSV.
 
-**Vì sao chọn cách này?** Chuyển chuỗi số trước khi tính tổng. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Chuyển chuỗi số trước khi tính tổng.
 
-**Dữ liệu:** Giá 12.5, số lượng 3; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Giá 12.5, số lượng 3.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -179,9 +177,9 @@ print(price * qty)
 
 **Vấn đề:** Che số liên lạc.
 
-**Vì sao chọn cách này?** Lấy ba ký tự cuối mà không lộ phần trước. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Lấy ba ký tự cuối mà không lộ phần trước.
 
-**Dữ liệu:** Số mô phỏng 0900123456; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Số mô phỏng 0900123456.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
