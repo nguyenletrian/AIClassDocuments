@@ -1,11 +1,9 @@
 name: PCA Pilot Validation
 
+# Manual-only until a GitHub runner successfully reports job steps/logs.
+# Initial PR validations failed before any recorded job step; do not create
+# automatic failing checks on unrelated learning-material pull requests.
 on:
-  pull_request:
-    paths:
-      - "lessons/pilot/**"
-      - "tests/test_pca_student_v2.py"
-      - ".github/workflows/pca-pilot-checks.yml"
   workflow_dispatch:
 
 permissions:
