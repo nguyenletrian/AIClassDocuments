@@ -263,249 +263,230 @@ True
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is Arithmetic? — Thuật ngữ Arithmetic có nghĩa gì?**
+**Q1. Which operator performs multiplication? — Toán tử nào thực hiện phép nhân?**
 
-A. A true-or-false comparison — So sánh hai giá trị
+A. `*` — `*`
 
-B. Math operations on numbers — Phép cộng trừ nhân chia
+B. `==` — `==`
 
-C. Combining boolean conditions — Kết hợp các điều kiện
+C. `and` — `and`
 
-D. Operations on binary digits — Phép tính trên các bit của số nguyên
+D. `&` — `&`
 
+**Q2. Which operator tests equality? — Toán tử nào kiểm tra bằng nhau?**
 
-**Q2. What is Comparison? — Thuật ngữ Comparison có nghĩa gì?**
+A. `*` — `*`
 
-A. A true-or-false comparison — So sánh hai giá trị
+B. `==` — `==`
 
-B. Combining boolean conditions — Kết hợp các điều kiện
+C. `and` — `and`
 
-C. Operations on binary digits — Phép tính trên các bit của số nguyên
+D. `&` — `&`
 
-D. Math operations on numbers — Phép cộng trừ nhân chia
+**Q3. Which operator represents logical AND? — Toán tử nào biểu diễn phép VÀ logic?**
 
+A. `*` — `*`
 
-**Q3. What is Logical? — Thuật ngữ Logical có nghĩa gì?**
+B. `==` — `==`
 
-A. Operations on binary digits — Phép tính trên các bit của số nguyên
+C. `and` — `and`
 
-B. Math operations on numbers — Phép cộng trừ nhân chia
+D. `&` — `&`
 
-C. A true-or-false comparison — So sánh hai giá trị
+**Q4. Which operator performs bitwise AND on integers? — Toán tử nào thực hiện AND theo bit trên số nguyên?**
 
-D. Combining boolean conditions — Kết hợp các điều kiện
+A. `*` — `*`
 
+B. `==` — `==`
 
-**Q4. What is Bitwise? — Thuật ngữ Bitwise có nghĩa gì?**
+C. `and` — `and`
 
-A. Math operations on numbers — Phép cộng trừ nhân chia
+D. `&` — `&`
 
-B. A true-or-false comparison — So sánh hai giá trị
+**Q5. What does `7 // 2` return? — `7 // 2` trả về gì?**
 
-C. Operations on binary digits — Phép tính trên các bit của số nguyên
+A. `3` — `3`
 
-D. Combining boolean conditions — Kết hợp các điều kiện
+B. `1` — `1`
 
+C. `8` — `8`
 
-**Q5. Which use matches +, -, *, /? — Công dụng nào đúng với +, -, *, /?**
+D. `3.5` — `3.5`
 
-A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+**Q6. What does `7 % 2` return? — `7 % 2` trả về gì?**
 
-B. These operators perform arithmetic calculations — Tính số học và tỷ lệ
+A. `3` — `3`
 
-C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+B. `1` — `1`
 
-D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+C. `8` — `8`
 
+D. `3.5` — `3.5`
 
-**Q6. Which use matches //, %, **? — Công dụng nào đúng với //, %, **?**
+**Q7. What does `2 ** 3` return? — `2 ** 3` trả về gì?**
 
-A. These operators calculate floor division, remainder and powers — Chia nguyên, lấy dư, lũy thừa
+A. `3` — `3`
 
-B. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+B. `1` — `1`
 
-C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+C. `8` — `8`
 
-D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+D. `3.5` — `3.5`
 
+**Q8. What does `7 / 2` return? — `7 / 2` trả về gì?**
 
-**Q7. Which use matches ==, !=, <=, >=, and, or? — Công dụng nào đúng với ==, !=, <=, >=, and, or?**
+A. `3` — `3`
 
-A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+B. `1` — `1`
 
-B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+C. `8` — `8`
 
-C. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+D. `3.5` — `3.5`
 
-D. These operators compare values and combine conditions — So sánh và kết hợp điều kiện
+**Q9. What is `True and False`? — `True and False` bằng gì?**
 
+A. `False` — `False`
 
-**Q8. Which use matches &, |, ^? — Công dụng nào đúng với &, |, ^?**
+B. `True` — `True`
 
-A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+C. The opposite Boolean value — Giá trị Boolean đảo ngược
 
-B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+D. The integer `1` — Số nguyên `1`
 
-C. These operators work on individual bits of integers — Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ
+**Q10. What is `False or True`? — `False or True` bằng gì?**
 
-D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+A. `False` — `False`
 
+B. `True` — `True`
 
-**Q9. Which reason fits 'Discount'? — Lý do nào phù hợp với 'Tính ưu đãi'?**
+C. The opposite Boolean value — Giá trị Boolean đảo ngược
 
-A. Require both VIP conditions — Hai điều kiện đều phải đúng
+D. The integer `1` — Số nguyên `1`
 
-B. Compute discount proportion — Nhân tỷ lệ giảm với giá để tính tiền còn lại
+**Q11. What does `not True` produce? — `not True` cho kết quả gì?**
 
-C. Use division and remainder — Chia nguyên đếm thùng đủ và dư đếm món lẻ
+A. `False` — `False`
 
-D. Inspect a device bit — Kiểm một bit bằng phép AND trên số nhị phân
+B. `True` — `True`
 
+C. The opposite Boolean value — Giá trị Boolean đảo ngược
 
-**Q10. Which reason fits 'VIP eligibility'? — Lý do nào phù hợp với 'Xét VIP'?**
+D. The integer `1` — Số nguyên `1`
 
-A. Require both VIP conditions — Hai điều kiện đều phải đúng
+**Q12. What does `5 & 3` produce? — `5 & 3` tạo ra gì?**
 
-B. Use division and remainder — Chia nguyên đếm thùng đủ và dư đếm món lẻ
+A. `False` — `False`
 
-C. Inspect a device bit — Kiểm một bit bằng phép AND trên số nhị phân
+B. `True` — `True`
 
-D. Trigger if either threshold is crossed — Chỉ cần một trong hai ngưỡng được đáp ứng
+C. The opposite Boolean value — Giá trị Boolean đảo ngược
 
+D. The integer `1` — Số nguyên `1`
 
-**Q11. Which reason fits 'Packing'? — Lý do nào phù hợp với 'Đóng thùng hàng'?**
+**Q13. Which operator tests that two values differ? — Toán tử nào kiểm tra hai giá trị khác nhau?**
 
-A. Inspect a device bit — Kiểm một bit bằng phép AND trên số nhị phân
+A. `!=` — `!=`
 
-B. Trigger if either threshold is crossed — Chỉ cần một trong hai ngưỡng được đáp ứng
+B. `>=` — `>=`
 
-C. Compute discount proportion — Nhân tỷ lệ giảm với giá để tính tiền còn lại
+C. `in` — `in`
 
-D. Use division and remainder — Chia nguyên đếm thùng đủ và dư đếm món lẻ
+D. `=` — `=`
 
+**Q14. Which operator means 'at least'? — Toán tử nào biểu diễn 'lớn hơn hoặc bằng'?**
 
-**Q12. Which reason fits 'Device status flag'? — Lý do nào phù hợp với 'Đọc cờ thiết bị'?**
+A. `!=` — `!=`
 
-A. Trigger if either threshold is crossed — Chỉ cần một trong hai ngưỡng được đáp ứng
+B. `>=` — `>=`
 
-B. Compute discount proportion — Nhân tỷ lệ giảm với giá để tính tiền còn lại
+C. `in` — `in`
 
-C. Inspect a device bit — Kiểm một bit bằng phép AND trên số nhị phân
+D. `=` — `=`
 
-D. Require both VIP conditions — Hai điều kiện đều phải đúng
+**Q15. Which operator checks membership in a collection? — Toán tử nào kiểm tra phần tử thuộc một tập dữ liệu?**
 
+A. `!=` — `!=`
 
-**Q13. Which reason fits 'Priority'? — Lý do nào phù hợp với 'Ưu tiên đơn hàng'?**
+B. `>=` — `>=`
 
-A. Compute discount proportion — Nhân tỷ lệ giảm với giá để tính tiền còn lại
+C. `in` — `in`
 
-B. Trigger if either threshold is crossed — Chỉ cần một trong hai ngưỡng được đáp ứng
+D. `=` — `=`
 
-C. Require both VIP conditions — Hai điều kiện đều phải đúng
+**Q16. Which operator assigns a new value to a variable? — Toán tử nào gán giá trị mới cho biến?**
 
-D. Use division and remainder — Chia nguyên đếm thùng đủ và dư đếm món lẻ
+A. `!=` — `!=`
 
+B. `>=` — `>=`
 
-**Q14. Which input fits 'Discount'? — Dữ liệu nào được dùng cho 'Tính ưu đãi'?**
+C. `in` — `in`
 
-A. The sample described for Discount — Giá 250000 đồng giảm 10%
+D. `=` — `=`
 
-B. Input from VIP eligibility — Khách 5 năm, chi 1200000 đồng
+**Q17. Which result comes from `3 > 5`? — `3 > 5` trả về gì?**
 
-C. Input from Packing — 23 sản phẩm, 5 sản phẩm/thùng
+A. `False` — `False`
 
-D. Input from Device status flag — Trạng thái mô phỏng 0b1010
+B. `14` — `14`
 
+C. `True` — `True`
 
-**Q15. Which input fits 'VIP eligibility'? — Dữ liệu nào được dùng cho 'Xét VIP'?**
+D. `6` — `6`
 
-A. Input from Packing — 23 sản phẩm, 5 sản phẩm/thùng
+**Q18. What result comes from `2 + 3 * 4`? — `2 + 3 * 4` bằng bao nhiêu?**
 
-B. Input from Device status flag — Trạng thái mô phỏng 0b1010
+A. `False` — `False`
 
-C. Input from Priority — Giá trị 3000000 đồng hoặc trễ 2 ngày
+B. `14` — `14`
 
-D. The sample described for VIP eligibility — Khách 5 năm, chi 1200000 đồng
+C. `True` — `True`
 
+D. `6` — `6`
 
-**Q16. Which input fits 'Packing'? — Dữ liệu nào được dùng cho 'Đóng thùng hàng'?**
+**Q19. What does `True or False` return? — `True or False` trả về gì?**
 
-A. Input from Device status flag — Trạng thái mô phỏng 0b1010
+A. `False` — `False`
 
-B. Input from Priority — Giá trị 3000000 đồng hoặc trễ 2 ngày
+B. `14` — `14`
 
-C. The sample described for Packing — 23 sản phẩm, 5 sản phẩm/thùng
+C. `True` — `True`
 
-D. Input from Discount — Giá 250000 đồng giảm 10%
+D. `6` — `6`
 
+**Q20. What does `5 ^ 3` return for integers? — `5 ^ 3` trả về gì với số nguyên?**
 
-**Q17. Which input fits 'Device status flag'? — Dữ liệu nào được dùng cho 'Đọc cờ thiết bị'?**
+A. `False` — `False`
 
-A. Input from Priority — Giá trị 3000000 đồng hoặc trễ 2 ngày
+B. `14` — `14`
 
-B. The sample described for Device status flag — Trạng thái mô phỏng 0b1010
+C. `True` — `True`
 
-C. Input from Discount — Giá 250000 đồng giảm 10%
-
-D. Input from VIP eligibility — Khách 5 năm, chi 1200000 đồng
-
-
-**Q18. Which input fits 'Priority'? — Dữ liệu nào được dùng cho 'Ưu tiên đơn hàng'?**
-
-A. The sample described for Priority — Giá trị 3000000 đồng hoặc trễ 2 ngày
-
-B. Input from Discount — Giá 250000 đồng giảm 10%
-
-C. Input from VIP eligibility — Khách 5 năm, chi 1200000 đồng
-
-D. Input from Packing — 23 sản phẩm, 5 sản phẩm/thùng
-
-
-**Q19. What must be checked before processing input? — Cần xác định gì trước xử lý?**
-
-A. Only text size — Chỉ kích thước chữ
-
-B. Only the file name length — Chỉ độ dài tên file
-
-C. Only program comments — Chỉ phần comment
-
-D. Input meaning, type and units — Ý nghĩa, kiểu và đơn vị đầu vào
-
-
-**Q20. What should follow a successful example? — Sau khi ví dụ chạy đúng nên làm gì?**
-
-A. Assume all datasets work identically — Cho rằng mọi bộ dữ liệu giống nhau
-
-B. Delete all tests — Xóa toàn bộ kiểm thử
-
-C. Validate output and edge cases — Kiểm tra kết quả và trường hợp biên
-
-D. Ignore input errors — Bỏ qua lỗi nhập liệu
+D. `6` — `6`
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | Math operations on numbers | Phép cộng trừ nhân chia |
-| Q2 | **A** | A true-or-false comparison | So sánh hai giá trị |
-| Q3 | **D** | Combining boolean conditions | Kết hợp các điều kiện |
-| Q4 | **C** | Operations on binary digits | Phép tính trên các bit của số nguyên |
-| Q5 | **B** | These operators perform arithmetic calculations | Tính số học và tỷ lệ |
-| Q6 | **A** | These operators calculate floor division, remainder and powers | Chia nguyên, lấy dư, lũy thừa |
-| Q7 | **D** | These operators compare values and combine conditions | So sánh và kết hợp điều kiện |
-| Q8 | **C** | These operators work on individual bits of integers | Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ |
-| Q9 | **B** | Compute discount proportion | Nhân tỷ lệ giảm với giá để tính tiền còn lại |
-| Q10 | **A** | Require both VIP conditions | Hai điều kiện đều phải đúng |
-| Q11 | **D** | Use division and remainder | Chia nguyên đếm thùng đủ và dư đếm món lẻ |
-| Q12 | **C** | Inspect a device bit | Kiểm một bit bằng phép AND trên số nhị phân |
-| Q13 | **B** | Trigger if either threshold is crossed | Chỉ cần một trong hai ngưỡng được đáp ứng |
-| Q14 | **A** | The sample described for Discount | Giá 250000 đồng giảm 10% |
-| Q15 | **D** | The sample described for VIP eligibility | Khách 5 năm, chi 1200000 đồng |
-| Q16 | **C** | The sample described for Packing | 23 sản phẩm, 5 sản phẩm/thùng |
-| Q17 | **B** | The sample described for Device status flag | Trạng thái mô phỏng 0b1010 |
-| Q18 | **A** | The sample described for Priority | Giá trị 3000000 đồng hoặc trễ 2 ngày |
-| Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
-| Q20 | **C** | Validate output and edge cases | Kiểm tra kết quả và trường hợp biên |
+| Q1 | **A** | The star operator multiplies numeric operands. | Dấu sao nhân các toán hạng số. |
+| Q2 | **B** | Double equals compares values; a single equals assigns. | Hai dấu bằng so sánh giá trị; một dấu bằng dùng để gán. |
+| Q3 | **C** | and requires both Boolean conditions to be true. | and chỉ đúng khi cả hai điều kiện đúng. |
+| Q4 | **D** | The ampersand combines corresponding binary bits. | Dấu & xử lý các bit tương ứng của số nguyên. |
+| Q5 | **A** | Floor division rounds the mathematical quotient down. | Phép // lấy phần nguyên theo hướng làm tròn xuống. |
+| Q6 | **B** | 7 divided by 2 leaves remainder 1. | Chia 7 cho 2 có dư 1. |
+| Q7 | **C** | The double star denotes exponentiation, 2 cubed. | Hai dấu sao biểu diễn lũy thừa, 2 mũ 3. |
+| Q8 | **D** | The slash performs true division in Python 3. | Dấu / thực hiện phép chia cho kết quả số thực trong Python 3. |
+| Q9 | **A** | Logical AND fails if either condition is false. | AND sai khi ít nhất một điều kiện sai. |
+| Q10 | **B** | Logical OR is true if either operand is true. | OR đúng khi có ít nhất một điều kiện đúng. |
+| Q11 | **C** | not negates a Boolean expression. | not phủ định biểu thức Boolean. |
+| Q12 | **D** | Binary 0101 AND 0011 equals 0001. | Nhị phân 0101 AND 0011 bằng 0001. |
+| Q13 | **A** | Not-equal checks inequality. | != kiểm tra hai giá trị không bằng nhau. |
+| Q14 | **B** | Greater-than-or-equal includes the boundary value. | >= bao gồm cả giá trị ở ngưỡng. |
+| Q15 | **C** | in tests whether a value occurs in a collection. | in kiểm tra giá trị có nằm trong tập dữ liệu hay không. |
+| Q16 | **D** | A single equal sign performs assignment, not comparison. | Một dấu bằng thực hiện gán chứ không so sánh. |
+| Q17 | **A** | Three is not greater than five. | Số 3 không lớn hơn số 5. |
+| Q18 | **B** | Multiplication has higher precedence than addition. | Phép nhân được thực hiện trước phép cộng. |
+| Q19 | **C** | One true operand is enough for logical OR. | OR đúng khi có ít nhất một vế đúng. |
+| Q20 | **D** | XOR of binary 0101 and 0011 equals 0110. | XOR của 0101 và 0011 cho 0110. |
 
 ## 8. Nối sang bài kế tiếp
 
