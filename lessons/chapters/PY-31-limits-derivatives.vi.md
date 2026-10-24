@@ -42,6 +42,7 @@
 Giới hạn hỏi **f(x) tiến gần giá trị nào khi x tiến gần a**, không bắt buộc f(a) phải có giá trị. Ví dụ `(x²−4)/(x−2)` không xác định tại x=2 vì mẫu số bằng 0. Với x khác 2, rút gọn thành `x+2`; khi x→2, kết quả tiến đến **4**. `sympy.limit` tính giá trị tiến đến của biểu thức thay vì thay trực tiếp x=2 gây chia 0.
 
 ```python
+# Mục đích: Giá trị hàm tiến đến.
 import sympy as sp
 
 x = sp.symbols('x')
@@ -64,6 +65,7 @@ Giới hạn bằng 4 dù biểu thức gốc không xác định ngay tại x=2
 Hàm liên tục tại x=a nếu **f(a) tồn tại**, giới hạn từ hai phía tồn tại và bằng f(a). Ví dụ quãng đường mô phỏng `s(t)=t²` là hàm liên tục; tại t=2 giây, `s(2)=4` mét và khi t tiến gần 2, quãng đường cũng tiến đến 4 mét. Đây là tính chất của **mô hình hàm**, không tự suy ra cảm biến vật lý hoạt động liên tục.
 
 ```python
+# Mục đích: Hàm liên tục tại một điểm.
 import sympy as sp
 
 t = sp.symbols('t')
@@ -86,6 +88,7 @@ Giới hạn bằng giá trị hàm ở t=2, nên mô hình liên tục tại đ
 Đạo hàm `f'(x)` cho biết đầu ra thay đổi bao nhiêu **khi đầu vào thay đổi rất nhỏ**. Về công thức, đó là giới hạn `(f(x+h)−f(x))/h` khi h→0 nếu giới hạn tồn tại. Với `f(x)=x²`, ta có `f'(x)=2x`; độ dốc không cố định: tại x=1 là 2, tại x=3 là 6. Nếu f là quãng đường (mét) theo thời gian (giây), đơn vị đạo hàm là mét/giây.
 
 ```python
+# Mục đích: Tốc độ thay đổi tức thời.
 import sympy as sp
 
 x = sp.symbols('x')
@@ -107,6 +110,7 @@ print(sp.diff(x ** 2, x))
 Nếu đạo hàm là **hàm mô tả độ dốc**, thì độ dốc tiếp tuyến tại x=a là **một số**, chính là `f'(a)`. Với đường `f(x)=x²`, đạo hàm `2x`, nên tại x=3 độ dốc bằng 6. Phân biệt `sp.diff` tạo biểu thức đạo hàm và `.subs(x,3)` thay tọa độ để lấy độ dốc tại đúng điểm đó.
 
 ```python
+# Mục đích: Độ dốc tại một giá trị cụ thể.
 import sympy as sp
 
 x = sp.symbols('x')
@@ -137,6 +141,7 @@ print(slope.subs(x, 3))
 3. Gọi `sp.limit`, in giới hạn.
 
 ```python
+# Mục đích: Giới hạn tại điểm khuyết của biểu thức.
 import sympy as sp
 
 x = sp.symbols('x')
@@ -165,6 +170,7 @@ Giới hạn là 4; biểu thức gốc vẫn không xác định tại x=2.
 3. Thay t=3 rồi in vận tốc.
 
 ```python
+# Mục đích: Tính vận tốc từ mô hình quãng đường.
 import sympy as sp
 
 t = sp.symbols('t')
@@ -194,6 +200,7 @@ Vận tốc tức thời theo mô hình là 6 m/s.
 3. Thay x=4, in độ dốc.
 
 ```python
+# Mục đích: Độ dốc của hàm doanh thu.
 import sympy as sp
 
 x = sp.symbols('x')
@@ -222,6 +229,7 @@ print(sp.diff(revenue, x).subs(x, 4))
 3. In kết quả so sánh Boolean.
 
 ```python
+# Mục đích: Kiểm tra tính liên tục của hàm số.
 import sympy as sp
 
 x = sp.symbols('x')
@@ -250,6 +258,7 @@ Mô hình liên tục tại x=2 vì giới hạn và giá trị thực của hà
 3. In năm ước lượng vận tốc theo m/s.
 
 ```python
+# Mục đích: Ước lượng vận tốc từ năm lần đo.
 import numpy as np
 
 time = np.arange(5, dtype=float)
@@ -274,302 +283,302 @@ print(np.gradient(distance, time))
 - `np.gradient` xấp xỉ từ mẫu; ở đầu và cuối dãy thường dùng sai phân một phía.
 - SymPy là thư viện ngoài cần cài khi chạy các ví dụ ký hiệu.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
-**Q1. What does a limit describe? — Giới hạn mô tả gì?**
+**Q1. What does a limit describe? | Giới hạn mô tả gì?**
 
-A. What f(x) approaches as x approaches a point — Giá trị f(x) tiến đến khi x tiến gần một điểm
+A. What f(x) approaches as x approaches a point | Giá trị f(x) tiến đến khi x tiến gần một điểm
 
-B. The two-sided limit exists and equals f(a) — Giới hạn hai phía tồn tại và bằng f(a)
+B. The two-sided limit exists and equals f(a) | Giới hạn hai phía tồn tại và bằng f(a)
 
-C. Instantaneous rate of change — Tốc độ thay đổi tức thời
+C. Instantaneous rate of change | Tốc độ thay đổi tức thời
 
-D. The derivative evaluated at a — Giá trị đạo hàm tại a
+D. The derivative evaluated at a | Giá trị đạo hàm tại a
 
 **Đáp án: A**
 
 **Giải thích:** Giới hạn xét đầu vào lân cận điểm.
 
 
-**Q2. What does continuity at x=a require? — Liên tục tại x=a cần gì?**
+**Q2. What does continuity at x=a require? | Liên tục tại x=a cần gì?**
 
-A. What f(x) approaches as x approaches a point — Giá trị f(x) tiến đến khi x tiến gần một điểm
+A. What f(x) approaches as x approaches a point | Giá trị f(x) tiến đến khi x tiến gần một điểm
 
-B. The two-sided limit exists and equals f(a) — Giới hạn hai phía tồn tại và bằng f(a)
+B. The two-sided limit exists and equals f(a) | Giới hạn hai phía tồn tại và bằng f(a)
 
-C. Instantaneous rate of change — Tốc độ thay đổi tức thời
+C. Instantaneous rate of change | Tốc độ thay đổi tức thời
 
-D. The derivative evaluated at a — Giá trị đạo hàm tại a
+D. The derivative evaluated at a | Giá trị đạo hàm tại a
 
 **Đáp án: B**
 
 **Giải thích:** Liên tục đòi hỏi giới hạn bằng giá trị hàm.
 
 
-**Q3. What does a derivative describe? — Đạo hàm mô tả gì?**
+**Q3. What does a derivative describe? | Đạo hàm mô tả gì?**
 
-A. What f(x) approaches as x approaches a point — Giá trị f(x) tiến đến khi x tiến gần một điểm
+A. What f(x) approaches as x approaches a point | Giá trị f(x) tiến đến khi x tiến gần một điểm
 
-B. The two-sided limit exists and equals f(a) — Giới hạn hai phía tồn tại và bằng f(a)
+B. The two-sided limit exists and equals f(a) | Giới hạn hai phía tồn tại và bằng f(a)
 
-C. Instantaneous rate of change — Tốc độ thay đổi tức thời
+C. Instantaneous rate of change | Tốc độ thay đổi tức thời
 
-D. The derivative evaluated at a — Giá trị đạo hàm tại a
+D. The derivative evaluated at a | Giá trị đạo hàm tại a
 
 **Đáp án: C**
 
 **Giải thích:** Đạo hàm đo độ thay đổi tại điểm.
 
 
-**Q4. What is tangent slope at x=a? — Độ dốc tiếp tuyến tại x=a là gì?**
+**Q4. What is tangent slope at x=a? | Độ dốc tiếp tuyến tại x=a là gì?**
 
-A. What f(x) approaches as x approaches a point — Giá trị f(x) tiến đến khi x tiến gần một điểm
+A. What f(x) approaches as x approaches a point | Giá trị f(x) tiến đến khi x tiến gần một điểm
 
-B. The two-sided limit exists and equals f(a) — Giới hạn hai phía tồn tại và bằng f(a)
+B. The two-sided limit exists and equals f(a) | Giới hạn hai phía tồn tại và bằng f(a)
 
-C. Instantaneous rate of change — Tốc độ thay đổi tức thời
+C. Instantaneous rate of change | Tốc độ thay đổi tức thời
 
-D. The derivative evaluated at a — Giá trị đạo hàm tại a
+D. The derivative evaluated at a | Giá trị đạo hàm tại a
 
 **Đáp án: D**
 
 **Giải thích:** Độ dốc tiếp tuyến là f'(a).
 
 
-**Q5. What does `sp.limit(f,x,a)` calculate? — `sp.limit(f,x,a)` tính gì?**
+**Q5. What does `sp.limit(f,x,a)` calculate? | `sp.limit(f,x,a)` tính gì?**
 
-A. The limit of f as x approaches a — Giới hạn của f khi x tiến đến a
+A. The limit of f as x approaches a | Giới hạn của f khi x tiến đến a
 
-B. The derivative of f with respect to x — Đạo hàm f theo biến x
+B. The derivative of f with respect to x | Đạo hàm f theo biến x
 
-C. Substitutes a into symbolic expression — Thay a vào biểu thức ký hiệu
+C. Substitutes a into symbolic expression | Thay a vào biểu thức ký hiệu
 
-D. Derivatives from sampled y and x values — Đạo hàm từ các giá trị y, x lấy mẫu
+D. Derivatives from sampled y and x values | Đạo hàm từ các giá trị y, x lấy mẫu
 
 **Đáp án: A**
 
 **Giải thích:** limit tính giới hạn mà không cần thế tại điểm kỳ dị.
 
 
-**Q6. What does `sp.diff(f,x)` return? — `sp.diff(f,x)` trả gì?**
+**Q6. What does `sp.diff(f,x)` return? | `sp.diff(f,x)` trả gì?**
 
-A. The limit of f as x approaches a — Giới hạn của f khi x tiến đến a
+A. The limit of f as x approaches a | Giới hạn của f khi x tiến đến a
 
-B. The derivative of f with respect to x — Đạo hàm f theo biến x
+B. The derivative of f with respect to x | Đạo hàm f theo biến x
 
-C. Substitutes a into symbolic expression — Thay a vào biểu thức ký hiệu
+C. Substitutes a into symbolic expression | Thay a vào biểu thức ký hiệu
 
-D. Derivatives from sampled y and x values — Đạo hàm từ các giá trị y, x lấy mẫu
+D. Derivatives from sampled y and x values | Đạo hàm từ các giá trị y, x lấy mẫu
 
 **Đáp án: B**
 
 **Giải thích:** diff tính đạo hàm ký hiệu.
 
 
-**Q7. What does `expr.subs(x,a)` do? — `expr.subs(x,a)` làm gì?**
+**Q7. What does `expr.subs(x,a)` do? | `expr.subs(x,a)` làm gì?**
 
-A. The limit of f as x approaches a — Giới hạn của f khi x tiến đến a
+A. The limit of f as x approaches a | Giới hạn của f khi x tiến đến a
 
-B. The derivative of f with respect to x — Đạo hàm f theo biến x
+B. The derivative of f with respect to x | Đạo hàm f theo biến x
 
-C. Substitutes a into symbolic expression — Thay a vào biểu thức ký hiệu
+C. Substitutes a into symbolic expression | Thay a vào biểu thức ký hiệu
 
-D. Derivatives from sampled y and x values — Đạo hàm từ các giá trị y, x lấy mẫu
+D. Derivatives from sampled y and x values | Đạo hàm từ các giá trị y, x lấy mẫu
 
 **Đáp án: C**
 
 **Giải thích:** subs thay giá trị vào biểu thức ký hiệu.
 
 
-**Q8. What does `np.gradient(y,x)` approximate? — `np.gradient(y,x)` xấp xỉ gì?**
+**Q8. What does `np.gradient(y,x)` approximate? | `np.gradient(y,x)` xấp xỉ gì?**
 
-A. The limit of f as x approaches a — Giới hạn của f khi x tiến đến a
+A. The limit of f as x approaches a | Giới hạn của f khi x tiến đến a
 
-B. The derivative of f with respect to x — Đạo hàm f theo biến x
+B. The derivative of f with respect to x | Đạo hàm f theo biến x
 
-C. Substitutes a into symbolic expression — Thay a vào biểu thức ký hiệu
+C. Substitutes a into symbolic expression | Thay a vào biểu thức ký hiệu
 
-D. Derivatives from sampled y and x values — Đạo hàm từ các giá trị y, x lấy mẫu
+D. Derivatives from sampled y and x values | Đạo hàm từ các giá trị y, x lấy mẫu
 
 **Đáp án: D**
 
 **Giải thích:** gradient xấp xỉ đạo hàm từ mẫu.
 
 
-**Q9. What is the derivative of x²? — Đạo hàm của x² là gì?**
+**Q9. What is the derivative of x²? | Đạo hàm của x² là gì?**
 
-A. `2*x` — `2*x`
+A. `2*x` | `2*x`
 
-B. Zero — Bằng 0
+B. Zero | Bằng 0
 
-C. 6 — 6
+C. 6 | 6
 
-D. 4 — 4
+D. 4 | 4
 
 **Đáp án: A**
 
 **Giải thích:** Quy tắc đạo hàm lũy thừa cho 2x.
 
 
-**Q10. What is the derivative of a constant? — Đạo hàm của một hằng số là gì?**
+**Q10. What is the derivative of a constant? | Đạo hàm của một hằng số là gì?**
 
-A. `2*x` — `2*x`
+A. `2*x` | `2*x`
 
-B. Zero — Bằng 0
+B. Zero | Bằng 0
 
-C. 6 — 6
+C. 6 | 6
 
-D. 4 — 4
+D. 4 | 4
 
 **Đáp án: B**
 
 **Giải thích:** Hằng số không đổi theo biến.
 
 
-**Q11. What is the slope of x² at x=3? — Độ dốc của x² tại x=3 là gì?**
+**Q11. What is the slope of x² at x=3? | Độ dốc của x² tại x=3 là gì?**
 
-A. `2*x` — `2*x`
+A. `2*x` | `2*x`
 
-B. Zero — Bằng 0
+B. Zero | Bằng 0
 
-C. 6 — 6
+C. 6 | 6
 
-D. 4 — 4
+D. 4 | 4
 
 **Đáp án: C**
 
 **Giải thích:** 2 nhân 3 bằng sáu.
 
 
-**Q12. What is the limit of (x²−4)/(x−2) at x=2? — Giới hạn của (x²−4)/(x−2) khi x→2 là gì?**
+**Q12. What is the limit of (x²−4)/(x−2) at x=2? | Giới hạn của (x²−4)/(x−2) khi x→2 là gì?**
 
-A. `2*x` — `2*x`
+A. `2*x` | `2*x`
 
-B. Zero — Bằng 0
+B. Zero | Bằng 0
 
-C. 6 — 6
+C. 6 | 6
 
-D. 4 — 4
+D. 4 | 4
 
 **Đáp án: D**
 
 **Giải thích:** Rút gọn gần điểm còn x+2.
 
 
-**Q13. What may happen if the left and right limits differ? — Nếu giới hạn trái và phải khác nhau thì sao?**
+**Q13. What may happen if the left and right limits differ? | Nếu giới hạn trái và phải khác nhau thì sao?**
 
-A. The two-sided limit does not exist — Giới hạn hai phía không tồn tại
+A. The two-sided limit does not exist | Giới hạn hai phía không tồn tại
 
-B. Distance per unit time — Khoảng cách trên mỗi đơn vị thời gian
+B. Distance per unit time | Khoảng cách trên mỗi đơn vị thời gian
 
-C. Sampling spacing and numerical scheme — Khoảng cách mẫu và cách lấy sai phân
+C. Sampling spacing and numerical scheme | Khoảng cách mẫu và cách lấy sai phân
 
-D. Yes, if nearby values approach one number — Có, nếu giá trị lân cận tiến đến cùng một số
+D. Yes, if nearby values approach one number | Có, nếu giá trị lân cận tiến đến cùng một số
 
 **Đáp án: A**
 
 **Giải thích:** Giới hạn một phía khác nhau khiến giới hạn hai phía không có.
 
 
-**Q14. What does a derivative unit become for distance over time? — Đạo hàm quãng đường theo thời gian có đơn vị gì?**
+**Q14. What does a derivative unit become for distance over time? | Đạo hàm quãng đường theo thời gian có đơn vị gì?**
 
-A. The two-sided limit does not exist — Giới hạn hai phía không tồn tại
+A. The two-sided limit does not exist | Giới hạn hai phía không tồn tại
 
-B. Distance per unit time — Khoảng cách trên mỗi đơn vị thời gian
+B. Distance per unit time | Khoảng cách trên mỗi đơn vị thời gian
 
-C. Sampling spacing and numerical scheme — Khoảng cách mẫu và cách lấy sai phân
+C. Sampling spacing and numerical scheme | Khoảng cách mẫu và cách lấy sai phân
 
-D. Yes, if nearby values approach one number — Có, nếu giá trị lân cận tiến đến cùng một số
+D. Yes, if nearby values approach one number | Có, nếu giá trị lân cận tiến đến cùng một số
 
 **Đáp án: B**
 
 **Giải thích:** Quãng đường chia thời gian cho đơn vị vận tốc.
 
 
-**Q15. What determines finite-difference accuracy? — Độ chính xác sai phân hữu hạn phụ thuộc gì?**
+**Q15. What determines finite-difference accuracy? | Độ chính xác sai phân hữu hạn phụ thuộc gì?**
 
-A. The two-sided limit does not exist — Giới hạn hai phía không tồn tại
+A. The two-sided limit does not exist | Giới hạn hai phía không tồn tại
 
-B. Distance per unit time — Khoảng cách trên mỗi đơn vị thời gian
+B. Distance per unit time | Khoảng cách trên mỗi đơn vị thời gian
 
-C. Sampling spacing and numerical scheme — Khoảng cách mẫu và cách lấy sai phân
+C. Sampling spacing and numerical scheme | Khoảng cách mẫu và cách lấy sai phân
 
-D. Yes, if nearby values approach one number — Có, nếu giá trị lân cận tiến đến cùng một số
+D. Yes, if nearby values approach one number | Có, nếu giá trị lân cận tiến đến cùng một số
 
 **Đáp án: C**
 
 **Giải thích:** Khoảng lấy mẫu ảnh hưởng độ dốc ước lượng.
 
 
-**Q16. Can a function have a finite limit at an undefined point? — Hàm chưa xác định tại một điểm có thể có giới hạn hữu hạn không?**
+**Q16. Can a function have a finite limit at an undefined point? | Hàm chưa xác định tại một điểm có thể có giới hạn hữu hạn không?**
 
-A. The two-sided limit does not exist — Giới hạn hai phía không tồn tại
+A. The two-sided limit does not exist | Giới hạn hai phía không tồn tại
 
-B. Distance per unit time — Khoảng cách trên mỗi đơn vị thời gian
+B. Distance per unit time | Khoảng cách trên mỗi đơn vị thời gian
 
-C. Sampling spacing and numerical scheme — Khoảng cách mẫu và cách lấy sai phân
+C. Sampling spacing and numerical scheme | Khoảng cách mẫu và cách lấy sai phân
 
-D. Yes, if nearby values approach one number — Có, nếu giá trị lân cận tiến đến cùng một số
+D. Yes, if nearby values approach one number | Có, nếu giá trị lân cận tiến đến cùng một số
 
 **Đáp án: D**
 
 **Giải thích:** Giới hạn có thể có dù hàm không xác định ngay điểm đó.
 
 
-**Q17. How does a derivative differ from an average slope? — Đạo hàm khác độ dốc trung bình thế nào?**
+**Q17. How does a derivative differ from an average slope? | Đạo hàm khác độ dốc trung bình thế nào?**
 
-A. It describes a local infinitesimal change — Nó mô tả độ thay đổi cục bộ rất nhỏ
+A. It describes a local infinitesimal change | Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-B. 2 — 2
+B. 2 | 2
 
-C. `sympy.diff` — `sympy.diff`
+C. `sympy.diff` | `sympy.diff`
 
-D. It often uses one-sided differences — Nó thường dùng sai phân một phía
+D. It often uses one-sided differences | Nó thường dùng sai phân một phía
 
 **Đáp án: A**
 
 **Giải thích:** Độ dốc tức thời là đại lượng giới hạn cục bộ.
 
 
-**Q18. What is the derivative of 2x+3? — Đạo hàm của 2x+3 là gì?**
+**Q18. What is the derivative of 2x+3? | Đạo hàm của 2x+3 là gì?**
 
-A. It describes a local infinitesimal change — Nó mô tả độ thay đổi cục bộ rất nhỏ
+A. It describes a local infinitesimal change | Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-B. 2 — 2
+B. 2 | 2
 
-C. `sympy.diff` — `sympy.diff`
+C. `sympy.diff` | `sympy.diff`
 
-D. It often uses one-sided differences — Nó thường dùng sai phân một phía
+D. It often uses one-sided differences | Nó thường dùng sai phân một phía
 
 **Đáp án: B**
 
 **Giải thích:** Hệ số của x cho đạo hàm bằng 2.
 
 
-**Q19. Which tool calculates symbolic derivatives? — Công cụ nào tính đạo hàm ký hiệu?**
+**Q19. Which tool calculates symbolic derivatives? | Công cụ nào tính đạo hàm ký hiệu?**
 
-A. It describes a local infinitesimal change — Nó mô tả độ thay đổi cục bộ rất nhỏ
+A. It describes a local infinitesimal change | Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-B. 2 — 2
+B. 2 | 2
 
-C. `sympy.diff` — `sympy.diff`
+C. `sympy.diff` | `sympy.diff`
 
-D. It often uses one-sided differences — Nó thường dùng sai phân một phía
+D. It often uses one-sided differences | Nó thường dùng sai phân một phía
 
 **Đáp án: C**
 
 **Giải thích:** SymPy hỗ trợ đạo hàm ký hiệu bằng diff.
 
 
-**Q20. Why is a numerical gradient at a boundary less accurate? — Vì sao gradient số ở biên có thể kém chính xác hơn?**
+**Q20. Why is a numerical gradient at a boundary less accurate? | Vì sao gradient số ở biên có thể kém chính xác hơn?**
 
-A. It describes a local infinitesimal change — Nó mô tả độ thay đổi cục bộ rất nhỏ
+A. It describes a local infinitesimal change | Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-B. 2 — 2
+B. 2 | 2
 
-C. `sympy.diff` — `sympy.diff`
+C. `sympy.diff` | `sympy.diff`
 
-D. It often uses one-sided differences — Nó thường dùng sai phân một phía
+D. It often uses one-sided differences | Nó thường dùng sai phân một phía
 
 **Đáp án: D**
 
