@@ -25,409 +25,474 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 | Hàm / cách viết | Khi nào dùng, ý nghĩa tham số |
 |---|---|
 | `np.quantile(x,[.25,.5,.75])` | Tìm các phân vị 25%, 50%, 75% |
-| `Q1 - 1.5*IQR / Q3 + 1.5*IQR` | Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi |
+| `Q1 - 1.5*IQR` và `Q3 + 1.5*IQR` | Ngưỡng dưới và trên để gắn cờ giá trị cần rà soát |
 | `pd.Series.skew()` | Đánh giá bất đối xứng, nhạy với cỡ mẫu |
 | `pd.Series.kurt()` | Excess kurtosis theo quy ước Pandas |
 
-## 4. Khái niệm với ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Quantile
+**Mạch kiến thức:** Phân vị cho biết vị trí của một giá trị trong dãy đã sắp; IQR đo độ rộng phần giữa để sàng lọc ngoại lệ; skewness nói về bất đối xứng và kurtosis liên quan đặc điểm đuôi. Bất thường không đồng nghĩa sai dữ liệu.
 
-**Từ vựng trong mục:** **Quantile** — phân vị.
+### 4.1. Quantile — Mốc chia thứ tự dữ liệu
 
-Giá trị chia phân phối theo tỷ lệ tích lũy. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+**Từ vựng:** **Quantile** — phân vị; **Q1/Q2/Q3** — tứ phân vị.
 
-```python
-import numpy as np
-print(np.quantile([1,2,3,4],.25))
-```
-
-**Tự kiểm tra:** Quantile là gì? **Đáp án:** Giá trị chia phân phối theo tỷ lệ tích lũy.
-
-### 4.2. IQR
-
-**Từ vựng trong mục:** **IQR** — khoảng tứ phân vị.
-
-Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+Phân vị q là mốc trên dãy số đã sắp, liên quan đến tỷ lệ giá trị ở phía dưới. **Q1** ứng với mức 25%, **Q2** là trung vị 50%, **Q3** ứng với 75%. Ví dụ năm hóa đơn 10,20,30,40,50 nghìn đồng: `np.quantile(x,0.75)` trả 40. Với bộ dữ liệu nhỏ, phương pháp **nội suy** giữa vị trí của các số làm cho kết quả phụ thuộc quy ước từng thư viện; không phải lúc nào phân vị cũng là số gốc trong dữ liệu.
 
 ```python
 import numpy as np
-x=[1,2,3,4,5];print(np.quantile(x,.75)-np.quantile(x,.25))
+
+amounts = [10, 20, 30, 40, 50]
+print(float(np.quantile(amounts, 0.75)))
 ```
 
-**Tự kiểm tra:** IQR là gì? **Đáp án:** Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa.
+**Kết quả khi chạy:**
 
-### 4.3. Skewness
-
-**Từ vựng trong mục:** **Skewness** — độ lệch phân phối.
-
-Mức bất đối xứng của phân phối quanh tâm. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
-
-```python
-import pandas as pd
-print(pd.Series([1,1,2,8]).skew())
+```text
+40.0
 ```
 
-**Tự kiểm tra:** Skewness là gì? **Đáp án:** Mức bất đối xứng của phân phối quanh tâm.
+Mốc phân vị 75% bằng 40 nghìn đồng theo phương pháp nội suy mặc định NumPy.
 
-### 4.4. Kurtosis
+### 4.2. IQR — Độ rộng nửa giữa bộ dữ liệu
 
-**Từ vựng trong mục:** **Kurtosis** — độ nhọn/đuôi phân phối.
+**Từ vựng:** **IQR** — khoảng tứ phân vị; **Q1/Q3** — phân vị 25%/75%.
 
-Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
-
-```python
-import pandas as pd
-print(pd.Series([1,2,3,4,5]).kurt())
-```
-
-**Tự kiểm tra:** Kurtosis là gì? **Đáp án:** Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước.
-
-## 5. Năm tình huống thực tế
-
-### Tình huống 1 — Mốc chi tiêu 75%
-
-**Từ vựng trong mục:** **Quantile** — phân vị.
-
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần mốc chi tiêu 75% cho công việc của mình. Dữ liệu đầu vào: 5 số chi tiêu [10,20,30,40,50], nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Phân vị chia nhóm khách theo vị trí chi tiêu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
-
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**IQR = Q3−Q1** đo độ rộng của khoảng chứa phần giữa dữ liệu. Với `[1,2,3,4,5]`, Q1=2 và Q3=4, nên IQR=2 đơn vị. Một cách **gắn cờ** ngoại lệ là ngoài các ngưỡng `Q1−1.5×IQR` hoặc `Q3+1.5×IQR`. Đây chỉ là quy tắc rà soát, **không chứng minh dữ liệu sai**; chẳng hạn một hóa đơn lớn có thể hoàn toàn hợp lệ.
 
 ```python
 import numpy as np
-x=[10,20,30,40,50]
-print(np.quantile(x,.75))
+
+x = [1, 2, 3, 4, 5]
+q1, q3 = np.quantile(x, [0.25, 0.75])
+print(float(q3 - q1))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 2 — Kiểm outlier hóa đơn
+```text
+2.0
+```
 
-**Từ vựng trong mục:** **IQR** — khoảng tứ phân vị.
+Nửa giữa của dữ liệu trải rộng 2 đơn vị theo quy tắc phân vị đã chọn.
 
-**Tình huống thực tế:** Một doanh nghiệp cần kiểm outlier hóa đơn cho công việc của mình. Dữ liệu đầu vào: 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### 4.3. Skewness — Độ bất đối xứng của phân phối
 
-**Vì sao chọn cách này?** IQR gợi ý hóa đơn bất thường để rà soát; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Từ vựng:** **Skewness** — độ lệch; **Right tail** — đuôi phải.
 
+**Skewness** đo mức bất đối xứng. Một dãy như `[1,1,2,8]` có ba số nhỏ và một số lớn, khiến **đuôi phải kéo dài** và độ lệch dương. `pd.Series.skew()` trả hệ số skew đã được hiệu chỉnh theo công thức Pandas; tính trên mẫu ít quan sát rất kém ổn định. Không suy ra mọi giá trị lớn đều là lỗi từ skew dương.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+```python
+import pandas as pd
+
+x = pd.Series([1, 1, 2, 8])
+print(round(float(x.skew()), 3))
+```
+
+**Kết quả khi chạy:**
+
+```text
+1.887
+```
+
+Độ lệch dương khoảng 1,887 gợi ý đuôi phải dài hơn đuôi trái.
+
+### 4.4. Kurtosis — Đặc điểm đuôi theo quy ước
+
+**Từ vựng:** **Kurtosis** — độ nhọn/hệ số liên quan đến đuôi; **Excess kurtosis** — kurtosis dư.
+
+**Kurtosis** liên quan đến các moment bậc bốn và độ nặng của đuôi phân phối; không nên hiểu đơn giản chỉ là **độ cao của đỉnh**. Pandas `Series.kurt()` trả **excess kurtosis**, lấy phân phối chuẩn làm mốc 0. Với dãy `[2,3,3,4,4,5,5,6,7,20]`, số 20 rất lớn có thể làm kurtosis dư dương. Trên mẫu nhỏ, chỉ số này biến động mạnh.
+
+```python
+import pandas as pd
+
+x = pd.Series([2, 3, 3, 4, 4, 5, 5, 6, 7, 20])
+print(round(float(x.kurt()), 3))
+```
+
+**Kết quả khi chạy:**
+
+```text
+7.824
+```
+
+Excess kurtosis dương lớn cho thấy mẫu này có hành vi đuôi bất thường so với dạng chuẩn.
+
+## 5. Năm tình huống ứng dụng
+
+### Tình huống 1 — Mốc 75% của giá trị đơn hàng
+
+**Tình huống thực tế:** Năm hóa đơn có giá trị 10,20,30,40,50 nghìn đồng. Bộ phận kinh doanh muốn mốc phân vị 75% để mô tả vị trí của hóa đơn cao trong nhóm.
+
+**Vì sao chọn cách giải này?** Phân vị xét vị trí theo thứ tự đã sắp, không dựa trên trung bình mọi hóa đơn.
+
+**Quy trình giải:**
+
+1. Lưu năm giá trị theo nghìn đồng.
+2. Tính phân vị 0.75 bằng `np.quantile`.
+3. In mốc theo nghìn đồng và nêu quy ước nội suy.
 
 ```python
 import numpy as np
-x=np.array([10,11,12,12,13,15,16,90])
-q1,q3=np.quantile(x,[.25,.75]);iqr=q3-q1
-print(x[(x<q1-1.5*iqr)|(x>q3+1.5*iqr)])
+
+amounts = [10, 20, 30, 40, 50]
+print(float(np.quantile(amounts, 0.75)))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 3 — So độ lệch phân phối
+```text
+40.0
+```
 
-**Từ vựng trong mục:** **Skewness** — độ lệch phân phối.
+Mốc 75% bằng 40 nghìn đồng theo quy ước NumPy mặc định.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so độ lệch phân phối cho công việc của mình. Dữ liệu đầu vào: Giá trị [1,1,2,8]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 2 — Gắn cờ hóa đơn lớn cần kiểm tra
 
-**Vì sao chọn cách này?** skew dương giúp nhận ra đuôi phải dài; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Tình huống thực tế:** Tám hóa đơn có số tiền `[10,11,12,12,13,15,16,90]` nghìn đồng. Kế toán muốn tìm những hóa đơn vượt ngưỡng IQR để xem lại chứng từ, không xóa ngay.
 
+**Vì sao chọn cách giải này?** IQR đo phần giữa và ngưỡng 1.5×IQR tạo danh sách điểm cần xác minh.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**Quy trình giải:**
+
+1. Tính Q1, Q3 và IQR trên toàn bộ tám hóa đơn.
+2. Lập ngưỡng dưới và trên bằng 1.5×IQR.
+3. Lọc số tiền ngoài hai ngưỡng và in List.
+
+```python
+import numpy as np
+
+amounts = np.array([10, 11, 12, 12, 13, 15, 16, 90])
+q1, q3 = np.quantile(amounts, [0.25, 0.75])
+iqr = q3 - q1
+outliers = amounts[(amounts < q1 - 1.5 * iqr) | (amounts > q3 + 1.5 * iqr)]
+print(outliers.tolist())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[90]
+```
+
+Hóa đơn 90 nghìn đồng bị gắn cờ để xác minh; không kết luận đây là lỗi ghi chép.
+
+### Tình huống 3 — Kiểm tra độ lệch phải của dữ liệu
+
+**Tình huống thực tế:** Bốn lần đo `[1,1,2,8]` cùng đơn vị có một giá trị lớn hơn nhiều. Nhóm phân tích muốn biết phân phối mẫu lệch về phía giá trị lớn hay nhỏ.
+
+**Vì sao chọn cách giải này?** Skewness dương thể hiện đuôi phải dài hơn; `Series.skew` tính hệ số phù hợp cho dữ liệu một chiều.
+
+**Quy trình giải:**
+
+1. Tạo Series bốn số đo.
+2. Tính hệ số skew theo quy ước Pandas.
+3. Làm tròn ba chữ số rồi đánh giá dấu, không xem là bằng chứng dữ liệu sai.
 
 ```python
 import pandas as pd
-print(pd.Series([1,1,2,8]).skew())
+
+measurements = pd.Series([1, 1, 2, 8])
+print(round(float(measurements.skew()), 3))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 4 — Xem độ nhọn phân phối
+```text
+1.887
+```
 
-**Từ vựng trong mục:** **Kurtosis** — độ nhọn/đuôi phân phối.
+Skew dương gợi ý đuôi phải dài; cỡ mẫu bốn quan sát còn rất nhỏ.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần xem độ nhọn phân phối cho công việc của mình. Dữ liệu đầu vào: 10 giá trị đo minh họa. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 4 — Đánh giá đặc điểm đuôi của một mẫu
 
-**Vì sao chọn cách này?** kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Tình huống thực tế:** Mười số đo cùng đơn vị `[2,3,3,4,4,5,5,6,7,20]` có một số lớn. Nhóm phân tích cần xem hệ số kurtosis dư có đáng chú ý không.
 
+**Vì sao chọn cách giải này?** Kurtosis dư nhạy với chênh lệch lớn bậc bốn, giúp so đặc điểm đuôi theo quy ước Pandas.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**Quy trình giải:**
+
+1. Tạo Series mười số đo.
+2. Dùng `kurt()` tính excess kurtosis.
+3. Làm tròn ba chữ số và nêu giới hạn mẫu nhỏ.
 
 ```python
 import pandas as pd
-s=pd.Series([2,3,3,4,4,5,5,6,7,20])
-print(s.kurt())
+
+measurements = pd.Series([2, 3, 3, 4, 4, 5, 5, 6, 7, 20])
+print(round(float(measurements.kurt()), 3))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 5 — Chọn cách điền dữ liệu
+```text
+7.824
+```
 
-**Từ vựng trong mục:** **Quantile** — phân vị.
+Mẫu có kurtosis dư dương cao, nhưng chỉ là dấu hiệu phân bố, không phải phép kết luận chất lượng dữ liệu.
 
-**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần chọn cách điền dữ liệu cho công việc của mình. Dữ liệu đầu vào: [100,120,10000,None] nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 5 — Điền giá trị thiếu trong nhóm có số cực lớn
 
-**Vì sao chọn cách này?** Median có thể hữu ích khi có giá trị lớn bất thường; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Tình huống thực tế:** Ba hóa đơn là 100,120,10.000 nghìn đồng và có một ô chưa biết. Muốn điền tạm ô thiếu bằng trung vị của **các số quan sát được** trước khi dùng thử mô hình.
 
+**Vì sao chọn cách giải này?** Median bền hơn mean khi có giá trị cực lớn; số điền chỉ là ước lượng, không phải dữ liệu thật.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**Quy trình giải:**
+
+1. Tạo Series gồm ba giá trị và một None.
+2. Tính median từ ba số không thiếu.
+3. Điền None bằng median và in danh sách để kiểm tra.
 
 ```python
 import pandas as pd
-s=pd.Series([100,120,10000,None])
-print(s.fillna(s.median()))
+
+amounts = pd.Series([100, 120, 10000, None])
+print(amounts.fillna(amounts.median()).tolist())
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Nhầm lẫn thường gặp
+```text
+[100.0, 120.0, 10000.0, 120.0]
+```
 
-- Không nhầm thống kê/tỷ lệ mô phỏng với xác suất dự đoán chắc chắn.
-- Kiểm tra giả định, cỡ mẫu, đơn vị, độ nhạy kết quả và data leakage trước khi ứng dụng AI thật.
+Ô thiếu được điền tạm 120 nghìn đồng; với ML cần tính median trên train để tránh rò rỉ.
+
+## 6. Sai lầm thường gặp
+
+- Q1 và Q3 phụ thuộc phương pháp nội suy, nhất là với mẫu nhỏ; cần giữ nhất quán giữa các thư viện.
+- IQR dùng ngưỡng **gợi ý** ngoại lệ, không chứng minh giá trị là lỗi hay phải xóa.
+- Skew dương nói về đuôi phải; skew âm nói về đuôi trái, không đồng nghĩa mean luôn lớn/nhỏ trong mọi dữ liệu.
+- Kurtosis liên quan moment bậc bốn/đuôi, không chỉ độ cao đỉnh; Pandas trả **excess kurtosis**.
+- Skew và kurt mẫu nhỏ không ổn định; cần xem đồ thị và nguồn dữ liệu.
+- Khi điền khuyết cho ML, tính median trên train, không lấy thông tin test.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Q1. What is a quantile? — Phân vị là gì?**
 
+A. A value associated with a cumulative rank — Giá trị gắn với một mức thứ hạng tích lũy
 
-**Q1. What is Quantile? — Khái niệm Quantile là gì?**
+B. The difference Q3−Q1 — Hiệu Q3−Q1
 
-A. Another concept is Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa — Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa
+C. Distribution asymmetry — Mức bất đối xứng phân phối
 
-B. It is Giá trị chia phân phối theo tỷ lệ tích lũy — Giá trị chia phân phối theo tỷ lệ tích lũy
+D. Fourth-moment tail behavior relative to normal — Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
-C. Another concept is Mức bất đối xứng của phân phối quanh tâm — Mức bất đối xứng của phân phối quanh tâm
+**Q2. What is IQR? — IQR là gì?**
 
-D. Another concept is Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước — Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước
+A. A value associated with a cumulative rank — Giá trị gắn với một mức thứ hạng tích lũy
 
+B. The difference Q3−Q1 — Hiệu Q3−Q1
 
-**Q2. What is IQR? — Khái niệm IQR là gì?**
+C. Distribution asymmetry — Mức bất đối xứng phân phối
 
-A. It is Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa — Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa
+D. Fourth-moment tail behavior relative to normal — Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
-B. Another concept is Mức bất đối xứng của phân phối quanh tâm — Mức bất đối xứng của phân phối quanh tâm
+**Q3. What does skewness measure? — Skewness đo gì?**
 
-C. Another concept is Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước — Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước
+A. A value associated with a cumulative rank — Giá trị gắn với một mức thứ hạng tích lũy
 
-D. Another concept is Giá trị chia phân phối theo tỷ lệ tích lũy — Giá trị chia phân phối theo tỷ lệ tích lũy
+B. The difference Q3−Q1 — Hiệu Q3−Q1
 
+C. Distribution asymmetry — Mức bất đối xứng phân phối
 
-**Q3. What is Skewness? — Khái niệm Skewness là gì?**
+D. Fourth-moment tail behavior relative to normal — Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
-A. Another concept is Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước — Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước
+**Q4. What does excess kurtosis measure? — Excess kurtosis mô tả gì?**
 
-B. Another concept is Giá trị chia phân phối theo tỷ lệ tích lũy — Giá trị chia phân phối theo tỷ lệ tích lũy
+A. A value associated with a cumulative rank — Giá trị gắn với một mức thứ hạng tích lũy
 
-C. Another concept is Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa — Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa
+B. The difference Q3−Q1 — Hiệu Q3−Q1
 
-D. It is Mức bất đối xứng của phân phối quanh tâm — Mức bất đối xứng của phân phối quanh tâm
+C. Distribution asymmetry — Mức bất đối xứng phân phối
 
+D. Fourth-moment tail behavior relative to normal — Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
-**Q4. What is Kurtosis? — Khái niệm Kurtosis là gì?**
+**Q5. What is the Q2 quantile? — Q2 là phân vị nào?**
 
-A. Another concept is Giá trị chia phân phối theo tỷ lệ tích lũy — Giá trị chia phân phối theo tỷ lệ tích lũy
+A. The median — Trung vị
 
-B. Another concept is Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa — Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa
+B. The 75th-percentile value — Giá trị phân vị 75%
 
-C. It is Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước — Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước
+C. Q3+1.5×IQR — Q3+1.5×IQR
 
-D. Another concept is Mức bất đối xứng của phân phối quanh tâm — Mức bất đối xứng của phân phối quanh tâm
+D. Q1−1.5×IQR — Q1−1.5×IQR
 
+**Q6. What does np.quantile(x,0.75) return? — np.quantile(x,0.75) trả gì?**
 
-**Q5. When should np.quantile(x,[.25,.5,.75]) be used? — Khi nào nên dùng np.quantile(x,[.25,.5,.75])?**
+A. The median — Trung vị
 
-A. Another operation is for Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi — Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi
+B. The 75th-percentile value — Giá trị phân vị 75%
 
-B. When you need to Tìm các phân vị 25%, 50%, 75% — Tìm các phân vị 25%, 50%, 75%
+C. Q3+1.5×IQR — Q3+1.5×IQR
 
-C. Another operation is for Đánh giá bất đối xứng, nhạy với cỡ mẫu — Đánh giá bất đối xứng, nhạy với cỡ mẫu
+D. Q1−1.5×IQR — Q1−1.5×IQR
 
-D. Another operation is for Excess kurtosis theo quy ước Pandas — Excess kurtosis theo quy ước Pandas
+**Q7. How is an upper IQR fence computed? — Ngưỡng trên IQR được tính sao?**
 
+A. The median — Trung vị
 
-**Q6. When should Q1 - 1.5*IQR / Q3 + 1.5*IQR be used? — Khi nào nên dùng Q1 - 1.5*IQR / Q3 + 1.5*IQR?**
+B. The 75th-percentile value — Giá trị phân vị 75%
 
-A. When you need to Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi — Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi
+C. Q3+1.5×IQR — Q3+1.5×IQR
 
-B. Another operation is for Đánh giá bất đối xứng, nhạy với cỡ mẫu — Đánh giá bất đối xứng, nhạy với cỡ mẫu
+D. Q1−1.5×IQR — Q1−1.5×IQR
 
-C. Another operation is for Excess kurtosis theo quy ước Pandas — Excess kurtosis theo quy ước Pandas
+**Q8. How is a lower IQR fence computed? — Ngưỡng dưới IQR được tính sao?**
 
-D. Another operation is for Tìm các phân vị 25%, 50%, 75% — Tìm các phân vị 25%, 50%, 75%
+A. The median — Trung vị
 
+B. The 75th-percentile value — Giá trị phân vị 75%
 
-**Q7. When should pd.Series.skew() be used? — Khi nào nên dùng pd.Series.skew()?**
+C. Q3+1.5×IQR — Q3+1.5×IQR
 
-A. Another operation is for Excess kurtosis theo quy ước Pandas — Excess kurtosis theo quy ước Pandas
+D. Q1−1.5×IQR — Q1−1.5×IQR
 
-B. Another operation is for Tìm các phân vị 25%, 50%, 75% — Tìm các phân vị 25%, 50%, 75%
+**Q9. What does positive skew suggest? — Skew dương gợi ý gì?**
 
-C. Another operation is for Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi — Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi
+A. A longer right tail — Đuôi phải dài hơn
 
-D. When you need to Đánh giá bất đối xứng, nhạy với cỡ mẫu — Đánh giá bất đối xứng, nhạy với cỡ mẫu
+B. A longer left tail — Đuôi trái dài hơn
 
+C. Excess kurtosis — Kurtosis dư
 
-**Q8. When should pd.Series.kurt() be used? — Khi nào nên dùng pd.Series.kurt()?**
+D. A skewness statistic — Hệ số độ lệch phân phối
 
-A. Another operation is for Tìm các phân vị 25%, 50%, 75% — Tìm các phân vị 25%, 50%, 75%
+**Q10. What does negative skew suggest? — Skew âm gợi ý gì?**
 
-B. Another operation is for Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi — Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi
+A. A longer right tail — Đuôi phải dài hơn
 
-C. When you need to Excess kurtosis theo quy ước Pandas — Excess kurtosis theo quy ước Pandas
+B. A longer left tail — Đuôi trái dài hơn
 
-D. Another operation is for Đánh giá bất đối xứng, nhạy với cỡ mẫu — Đánh giá bất đối xứng, nhạy với cỡ mẫu
+C. Excess kurtosis — Kurtosis dư
 
+D. A skewness statistic — Hệ số độ lệch phân phối
 
-**Q9. Why is this method used in scenario 1? — Vì sao dùng phương pháp ở tình huống 1?**
+**Q11. What does Series.kurt() return? — Series.kurt() trả gì?**
 
-A. IQR gợi ý hóa đơn bất thường để rà soát — IQR gợi ý hóa đơn bất thường để rà soát
+A. A longer right tail — Đuôi phải dài hơn
 
-B. Phân vị chia nhóm khách theo vị trí chi tiêu — Phân vị chia nhóm khách theo vị trí chi tiêu
+B. A longer left tail — Đuôi trái dài hơn
 
-C. skew dương giúp nhận ra đuôi phải dài — skew dương giúp nhận ra đuôi phải dài
+C. Excess kurtosis — Kurtosis dư
 
-D. kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp — kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp
+D. A skewness statistic — Hệ số độ lệch phân phối
 
+**Q12. What does Series.skew() return? — Series.skew() trả gì?**
 
-**Q10. Why is this method used in scenario 2? — Vì sao dùng phương pháp ở tình huống 2?**
+A. A longer right tail — Đuôi phải dài hơn
 
-A. IQR gợi ý hóa đơn bất thường để rà soát — IQR gợi ý hóa đơn bất thường để rà soát
+B. A longer left tail — Đuôi trái dài hơn
 
-B. skew dương giúp nhận ra đuôi phải dài — skew dương giúp nhận ra đuôi phải dài
+C. Excess kurtosis — Kurtosis dư
 
-C. kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp — kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp
+D. A skewness statistic — Hệ số độ lệch phân phối
 
-D. Median có thể hữu ích khi có giá trị lớn bất thường — Median có thể hữu ích khi có giá trị lớn bất thường
+**Q13. What is Q3−Q1 called? — Q3−Q1 gọi là gì?**
 
+A. Interquartile range — Khoảng tứ phân vị
 
-**Q11. Why is this method used in scenario 3? — Vì sao dùng phương pháp ở tình huống 3?**
+B. 3 — 3
 
-A. kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp — kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp
+C. 5 — 5
 
-B. Median có thể hữu ích khi có giá trị lớn bất thường — Median có thể hữu ích khi có giá trị lớn bất thường
+D. No; legitimate extremes may be flagged — Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
-C. Phân vị chia nhóm khách theo vị trí chi tiêu — Phân vị chia nhóm khách theo vị trí chi tiêu
+**Q14. What is median of 1,3,5? — Median của 1,3,5 bằng gì?**
 
-D. skew dương giúp nhận ra đuôi phải dài — skew dương giúp nhận ra đuôi phải dài
+A. Interquartile range — Khoảng tứ phân vị
 
+B. 3 — 3
 
-**Q12. Why is this method used in scenario 4? — Vì sao dùng phương pháp ở tình huống 4?**
+C. 5 — 5
 
-A. Median có thể hữu ích khi có giá trị lớn bất thường — Median có thể hữu ích khi có giá trị lớn bất thường
+D. No; legitimate extremes may be flagged — Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
-B. Phân vị chia nhóm khách theo vị trí chi tiêu — Phân vị chia nhóm khách theo vị trí chi tiêu
+**Q15. What is IQR if Q1=2 and Q3=7? — IQR nếu Q1=2, Q3=7 bằng bao nhiêu?**
 
-C. kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp — kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp
+A. Interquartile range — Khoảng tứ phân vị
 
-D. IQR gợi ý hóa đơn bất thường để rà soát — IQR gợi ý hóa đơn bất thường để rà soát
+B. 3 — 3
 
+C. 5 — 5
 
-**Q13. Why is this method used in scenario 5? — Vì sao dùng phương pháp ở tình huống 5?**
+D. No; legitimate extremes may be flagged — Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
-A. Phân vị chia nhóm khách theo vị trí chi tiêu — Phân vị chia nhóm khách theo vị trí chi tiêu
+**Q16. Does an IQR outlier flag prove a measurement error? — Gắn cờ outlier theo IQR có chứng minh số đo sai không?**
 
-B. Median có thể hữu ích khi có giá trị lớn bất thường — Median có thể hữu ích khi có giá trị lớn bất thường
+A. Interquartile range — Khoảng tứ phân vị
 
-C. IQR gợi ý hóa đơn bất thường để rà soát — IQR gợi ý hóa đơn bất thường để rà soát
+B. 3 — 3
 
-D. skew dương giúp nhận ra đuôi phải dài — skew dương giúp nhận ra đuôi phải dài
+C. 5 — 5
 
+D. No; legitimate extremes may be flagged — Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
-**Q14. Which input describes scenario 1? — Dữ liệu nào thuộc tình huống 1?**
+**Q17. Why can quantile values differ between software packages? — Vì sao phân vị có thể khác giữa các phần mềm?**
 
-A. The input is 5 số chi tiêu [10,20,30,40,50], nghìn đồng — 5 số chi tiêu [10,20,30,40,50], nghìn đồng
+A. Different interpolation conventions — Quy ước nội suy khác nhau
 
-B. Another input is 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng — 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng
+B. It concerns fourth moments and tails — Nó liên quan moment bậc bốn và đuôi
 
-C. Another input is Giá trị [1,1,2,8] — Giá trị [1,1,2,8]
+C. Median — Trung vị
 
-D. Another input is 10 giá trị đo minh họa — 10 giá trị đo minh họa
+D. Fit the imputation value on train only — Tính giá trị điền chỉ từ train
 
+**Q18. Why should you avoid interpreting high kurtosis only as a tall peak? — Vì sao không nên hiểu kurtosis cao chỉ là đỉnh cao?**
 
-**Q15. Which input describes scenario 2? — Dữ liệu nào thuộc tình huống 2?**
+A. Different interpolation conventions — Quy ước nội suy khác nhau
 
-A. Another input is Giá trị [1,1,2,8] — Giá trị [1,1,2,8]
+B. It concerns fourth moments and tails — Nó liên quan moment bậc bốn và đuôi
 
-B. Another input is 10 giá trị đo minh họa — 10 giá trị đo minh họa
+C. Median — Trung vị
 
-C. Another input is [100,120,10000,None] nghìn đồng — [100,120,10000,None] nghìn đồng
+D. Fit the imputation value on train only — Tính giá trị điền chỉ từ train
 
-D. The input is 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng — 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng
+**Q19. What statistic is often robust for imputation with extreme values? — Thống kê nào thường phù hợp điền thiếu khi có ngoại lệ lớn?**
 
+A. Different interpolation conventions — Quy ước nội suy khác nhau
 
-**Q16. Which input describes scenario 3? — Dữ liệu nào thuộc tình huống 3?**
+B. It concerns fourth moments and tails — Nó liên quan moment bậc bốn và đuôi
 
-A. Another input is 10 giá trị đo minh họa — 10 giá trị đo minh họa
+C. Median — Trung vị
 
-B. Another input is [100,120,10000,None] nghìn đồng — [100,120,10000,None] nghìn đồng
+D. Fit the imputation value on train only — Tính giá trị điền chỉ từ train
 
-C. The input is Giá trị [1,1,2,8] — Giá trị [1,1,2,8]
+**Q20. What is a crucial train/test rule when imputing missing values? — Quy tắc train/test quan trọng khi điền khuyết là gì?**
 
-D. Another input is 5 số chi tiêu [10,20,30,40,50], nghìn đồng — 5 số chi tiêu [10,20,30,40,50], nghìn đồng
+A. Different interpolation conventions — Quy ước nội suy khác nhau
 
+B. It concerns fourth moments and tails — Nó liên quan moment bậc bốn và đuôi
 
-**Q17. Which input describes scenario 4? — Dữ liệu nào thuộc tình huống 4?**
+C. Median — Trung vị
 
-A. Another input is [100,120,10000,None] nghìn đồng — [100,120,10000,None] nghìn đồng
-
-B. The input is 10 giá trị đo minh họa — 10 giá trị đo minh họa
-
-C. Another input is 5 số chi tiêu [10,20,30,40,50], nghìn đồng — 5 số chi tiêu [10,20,30,40,50], nghìn đồng
-
-D. Another input is 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng — 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng
-
-
-**Q18. Which input describes scenario 5? — Dữ liệu nào thuộc tình huống 5?**
-
-A. The input is [100,120,10000,None] nghìn đồng — [100,120,10000,None] nghìn đồng
-
-B. Another input is 5 số chi tiêu [10,20,30,40,50], nghìn đồng — 5 số chi tiêu [10,20,30,40,50], nghìn đồng
-
-C. Another input is 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng — 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng
-
-D. Another input is Giá trị [1,1,2,8] — Giá trị [1,1,2,8]
-
-
-**Q19. What should be stated before analyzing data? — Cần nêu gì trước khi phân tích dữ liệu?**
-
-A. Only file extensions — Chỉ đuôi file
-
-B. Only terminal colors — Chỉ màu terminal
-
-C. Only number of lines — Chỉ số dòng code
-
-D. Units, sample meaning and assumptions — Đơn vị, ý nghĩa mẫu và giả định
-
-
-**Q20. Why is validating results important? — Vì sao cần kiểm tra kết quả?**
-
-A. One example guarantees AI accuracy — Một ví dụ bảo đảm AI đúng
-
-B. It replaces data collection — Nó thay việc thu thập dữ liệu
-
-C. An example may not generalize — Ví dụ có thể không tổng quát
-
-D. It removes test sets — Nó không cần tập kiểm tra
+D. Fit the imputation value on train only — Tính giá trị điền chỉ từ train
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Giá trị chia phân phối theo tỷ lệ tích lũy | Giá trị chia phân phối theo tỷ lệ tích lũy |
-| Q2 | **A** | It is Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa | Khoảng cách Q3-Q1, mô tả 50% dữ liệu giữa |
-| Q3 | **D** | It is Mức bất đối xứng của phân phối quanh tâm | Mức bất đối xứng của phân phối quanh tâm |
-| Q4 | **C** | It is Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước | Chỉ số mô tả đặc điểm đuôi so với chuẩn theo quy ước |
-| Q5 | **B** | When you need to Tìm các phân vị 25%, 50%, 75% | Tìm các phân vị 25%, 50%, 75% |
-| Q6 | **A** | When you need to Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi | Ngưỡng gợi ý điểm ngoại lai, không phải chắc chắn lỗi |
-| Q7 | **D** | When you need to Đánh giá bất đối xứng, nhạy với cỡ mẫu | Đánh giá bất đối xứng, nhạy với cỡ mẫu |
-| Q8 | **C** | When you need to Excess kurtosis theo quy ước Pandas | Excess kurtosis theo quy ước Pandas |
-| Q9 | **B** | Phân vị chia nhóm khách theo vị trí chi tiêu | Phân vị chia nhóm khách theo vị trí chi tiêu |
-| Q10 | **A** | IQR gợi ý hóa đơn bất thường để rà soát | IQR gợi ý hóa đơn bất thường để rà soát |
-| Q11 | **D** | skew dương giúp nhận ra đuôi phải dài | skew dương giúp nhận ra đuôi phải dài |
-| Q12 | **C** | kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp | kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp |
-| Q13 | **B** | Median có thể hữu ích khi có giá trị lớn bất thường | Median có thể hữu ích khi có giá trị lớn bất thường |
-| Q14 | **A** | The input is 5 số chi tiêu [10,20,30,40,50], nghìn đồng | 5 số chi tiêu [10,20,30,40,50], nghìn đồng |
-| Q15 | **D** | The input is 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng | 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng |
-| Q16 | **C** | The input is Giá trị [1,1,2,8] | Giá trị [1,1,2,8] |
-| Q17 | **B** | The input is 10 giá trị đo minh họa | 10 giá trị đo minh họa |
-| Q18 | **A** | The input is [100,120,10000,None] nghìn đồng | [100,120,10000,None] nghìn đồng |
-| Q19 | **D** | Units, sample meaning and assumptions | Đơn vị, ý nghĩa mẫu và giả định |
-| Q20 | **C** | An example may not generalize | Ví dụ có thể không tổng quát |
+| Q1 | **A** | Quantiles divide ordered data by proportions. | Phân vị chia dữ liệu sắp thứ tự theo tỷ lệ. |
+| Q2 | **B** | It measures the middle half's spread. | Nó đo độ rộng nửa giữa dữ liệu. |
+| Q3 | **C** | Its sign indicates tail direction. | Dấu gợi ý phía đuôi dài. |
+| Q4 | **D** | Pandas uses a normal-reference zero. | Pandas dùng mốc 0 cho chuẩn. |
+| Q5 | **A** | Q2 corresponds to the 50th percentile. | Q2 tương ứng phân vị 50%. |
+| Q6 | **B** | This is Q3 by the chosen interpolation convention. | Đây là Q3 theo quy ước nội suy đã chọn. |
+| Q7 | **C** | Values above are flagged for review. | Giá trị vượt được gắn cờ rà soát. |
+| Q8 | **D** | Values below are potential outliers. | Giá trị dưới là ứng viên ngoại lệ. |
+| Q9 | **A** | Large values stretch the positive direction. | Giá trị lớn kéo đuôi sang phải. |
+| Q10 | **B** | Small values stretch the negative direction. | Giá trị nhỏ kéo đuôi về trái. |
+| Q11 | **C** | Pandas uses the excess convention. | Pandas dùng quy ước kurtosis dư. |
+| Q12 | **D** | It estimates asymmetry from the sample. | Nó ước lượng bất đối xứng từ mẫu. |
+| Q13 | **A** | The difference is the IQR. | Hiệu này chính là IQR. |
+| Q14 | **B** | The sorted middle value is three. | Giá trị đứng giữa là ba. |
+| Q15 | **C** | Seven minus two is five. | Bảy trừ hai bằng năm. |
+| Q16 | **D** | The fence is a screening rule. | Ngưỡng chỉ là quy tắc sàng lọc. |
+| Q17 | **A** | Small samples especially reveal convention differences. | Mẫu nhỏ dễ cho thấy sự khác biệt quy ước. |
+| Q18 | **B** | Peak height alone is insufficient. | Chỉ độ cao đỉnh không đủ diễn giải. |
+| Q19 | **C** | Ranks reduce sensitivity to large extremes. | Thứ tự khiến trung vị ít nhạy với cực trị. |
+| Q20 | **D** | Test data must not influence fitted preprocessing. | Dữ liệu test không tham gia học tham số tiền xử lý. |
 
 ## 8. Liên hệ bài kế tiếp
 
