@@ -16,6 +16,7 @@
 1. Bản đồ **vị trí trong chuỗi kiến thức**, cho thấy kiến thức trước/sau và quan hệ giữa các khái niệm.
 2. **English vocabulary** liên quan đến toàn bài, đi trước tất cả các API và định nghĩa.
 3. **Thư viện, hàm, API Python**, bảng ngắn giải thích từng tên và cách dùng, ví dụ đầu vào/đầu ra.
+   - Bổ sung từ điển **các đối số đặt tên (keyword arguments / options)**, như `dtype=float`, `axis=0`, `n_components=2`, `rowvar=False`, `random_state=42`, `test_size=0.25`. Mỗi đối số cần có **ý nghĩa, lý do chọn giá trị và tác động nếu đổi**; nhắc lại ngắn bằng comment sát từng lệnh Python đang dùng.
 4. **Khái niệm và các khái niệm liên quan**: giải thích bằng lời dễ hiểu, ví dụ gần gũi trước rồi đến công thức tính thể hiện bằng **code Python nhỏ**. Mỗi nhóm Feature / Vector / Matrix, Mean / Variance... đều cần định nghĩa riêng; không dùng tiêu đề “Subconcept”; bỏ chứng minh toán học dài.
    - Nhắc lại các khái niệm được sử dụng **ngay tại từng tiểu mục** rồi tạo một ví dụ tăng tiến: nhiều đối tượng → mỗi đối tượng một vector → xếp vector thành một matrix → phép tính → đọc shape/kết quả. Không yêu cầu sinh viên tự suy đoán dữ liệu từ một dãy số trần.
    - Mọi bảng/`np.array`/`DataFrame`/dataset đều phải chú thích **mỗi hàng là mẫu gì, mỗi cột là feature nào, đơn vị đo gì, bao nhiêu hàng/cột, dữ liệu thật hay minh họa**. Với dữ liệu có nhãn, phân biệt nhãn mục tiêu với cột đầu vào. Chú thích bước xử lý `BƯỚC 1/2/3...` và giải thích tại sao code như vậy.
