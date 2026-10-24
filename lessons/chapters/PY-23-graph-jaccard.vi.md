@@ -3,7 +3,8 @@
 
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Graph** — đồ thị; **Vertex** — đỉnh.
+**Từ vựng trong mục:** **Graph** — đồ thị
+ **Vertex** — đỉnh.
 
 `Set → Graph → Similarity → Gợi ý bạn học`
 
@@ -20,7 +21,8 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 3. NumPy và các hàm liên quan
 
-**Từ vựng trong mục:** **Function** — hàm; **Shape** — kích thước mảng.
+**Từ vựng trong mục:** **Function** — hàm
+ **Shape** — kích thước mảng.
 
 | Hàm / tham số | Dùng làm gì |
 |---|---|
@@ -95,7 +97,8 @@ print(len(edges))
 Tỷ lệ số phần tử giao trên hợp giữa hai tập. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
 
 ```python
-a={'Python','AI'};b={'Python'}
+a={'Python','AI'}
+b={'Python'}
 print(len(a & b) / len(a | b))
 ```
 
@@ -115,7 +118,8 @@ print(len(a & b) / len(a | b))
 
 **Tình huống thực tế:** Mạng bạn bè cho biết An kết nối với Bình và Lan, còn Bình kết nối lại An. Liệt kê các bạn trực tiếp của An.
 
-**Vì sao chọn phương án?** Danh sách kề cho phép tra bạn của người đang xét; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Danh sách kề cho phép tra bạn của người đang xét
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
 **Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
@@ -131,21 +135,21 @@ print(graph["An"])
 {'Binh', 'Lan'}
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 2 — So trùng sở thích
 
 **Từ vựng trong mục:** **Vertex** — đỉnh.
 
 **Tình huống thực tế:** Hai hồ sơ sở thích A={Python,AI}, B={Python,SQL}. Tính mức tương đồng Jaccard bằng số mục chung chia số mục khác nhau.
 
-**Vì sao chọn phương án?** Jaccard so phần giao với toàn bộ nhãn sở thích; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Jaccard so phần giao với toàn bộ nhãn sở thích
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
 **Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
-a={"Python","AI"};b={"Python","SQL"}
+a={"Python","AI"}
+b={"Python","SQL"}
 print(len(a&b)/len(a|b))
 ```
 
@@ -155,15 +159,15 @@ print(len(a&b)/len(a|b))
 0.3333333333333333
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 3 — Gợi ý đối tác học
 
 **Từ vựng trong mục:** **Edge** — cạnh.
 
-**Tình huống thực tế:** Một học viên thích Python và AI; bạn B thích AI, bạn C thích cả Python lẫn AI. Chọn người có điểm tương đồng cao nhất.
+**Tình huống thực tế:** Một học viên thích Python và AI
+ bạn B thích AI, bạn C thích cả Python lẫn AI. Chọn người có điểm tương đồng cao nhất.
 
-**Vì sao chọn phương án?** Chọn người có Jaccard lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Chọn người có Jaccard lớn nhất
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
 **Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
@@ -181,15 +185,14 @@ print(max(scores,key=scores.get))
 C
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 4 — Quan hệ có hướng
 
 **Từ vựng trong mục:** **Jaccard** — độ tương đồng.
 
 **Tình huống thực tế:** Mạng thông báo có hướng A→B và B→C. Kiểm tra đường A→B có đồng nghĩa với B→A không.
 
-**Vì sao chọn phương án?** Cạnh A tới B không nhất thiết có B tới A; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Cạnh A tới B không nhất thiết có B tới A
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
 **Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
@@ -205,22 +208,22 @@ print("B" in graph["A"],"A" in graph["B"])
 True False
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 5 — Tìm đường trong mạng
 
 **Từ vựng trong mục:** **Graph** — đồ thị.
 
 **Tình huống thực tế:** Ba trạm A, B, C nối bằng hai đoạn A-B và B-C. Tìm đường đi ngắn nhất giữa A và C.
 
-**Vì sao chọn phương án?** Dùng networkx khi đồ thị cần tìm đường thay vì code vòng thủ công; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Dùng networkx khi đồ thị cần tìm đường thay vì code vòng thủ công
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
 **Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import networkx as nx
-G=nx.Graph();G.add_edges_from([("A","B"),("B","C")])
+G=nx.Graph()
+G.add_edges_from([("A","B"),("B","C")])
 print(nx.shortest_path(G,"A","C"))
 ```
 
@@ -230,15 +233,15 @@ print(nx.shortest_path(G,"A","C"))
 ['A', 'B', 'C']
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ## 6. Sai lầm cần tránh
 
-Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
+Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape
+ covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Từ vựng trong mục:** **Question** — câu hỏi
+ **Answer** — đáp án.
 
 
 **Q1. What is Graph? — Thuật ngữ Graph có nghĩa gì?**
