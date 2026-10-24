@@ -131,7 +131,7 @@ Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
 
 ```python
 import math
-print(math.perm(5,2))
+print(math.perm(5, 2))
 ```
 
 **Kết quả khi chạy:**
@@ -157,7 +157,7 @@ print(math.perm(5,2))
 
 ```python
 import math
-print(math.comb(12,5))
+print(math.comb(12, 5))
 ```
 
 **Kết quả khi chạy:**
@@ -209,7 +209,7 @@ print(list(permutations(['A', 'B', 'C'])))
 
 ```python
 from itertools import combinations
-print(list(combinations(["Python","AI","SQL"],2)))
+print(list(combinations(["Python", "AI", "SQL"], 2)))
 ```
 
 **Kết quả khi chạy:**
@@ -235,7 +235,7 @@ print(list(combinations(["Python","AI","SQL"],2)))
 
 ```python
 import math
-print([math.comb(4,k) for k in range(5)])
+print([math.comb(4, k) for k in range(5)])
 ```
 
 **Kết quả khi chạy:**
