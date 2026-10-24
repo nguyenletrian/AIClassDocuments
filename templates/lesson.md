@@ -1,7 +1,5 @@
 # [Mã bài] — [Tên khái niệm bằng tiếng Việt và tiếng Anh]
 
-*[Nhóm kiến thức: Python / Data / Machine Learning / AI]*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
 ```text
@@ -16,7 +14,7 @@
 |---|---|---|
 | ... | ... | ... |
 
-[Bảng này chỉ là từ vựng tổng quan. **Trước mỗi mục/tiểu mục và mỗi tình huống** đều có thêm dòng **Từ vựng trong mục**: English — Tiếng Việt; chọn 2–5 thuật ngữ thực sự xuất hiện trong mục. Nhắc lại có chọn lọc, không nhồi từ khó. **Không** đặt bản dịch (tiếng Việt) sau mỗi lần dùng thuật ngữ trong câu văn.]
+[Giải thích thuật ngữ tại bảng này. Chỉ ghi thêm ở tiểu mục khi có thuật ngữ mới hoặc nghĩa mới; không lặp lại một bản dịch đã nêu.]
 
 ## 3. Python libraries & functions — Thư viện, API và hàm
 
@@ -26,7 +24,6 @@
 
 ### 4.1. [Khái niệm chính]
 
-**Từ vựng trong mục:** **English term** — Nghĩa tiếng Việt; **Another term** — Nghĩa tiếng Việt.
 [Khái niệm, mục đích và khi nào dùng bằng ngôn ngữ sinh viên dễ tự đọc.]
 
 ```python
@@ -35,7 +32,6 @@
 
 ### 4.2. [Khái niệm liên quan 1 — tên tiếng Việt và tiếng Anh]
 
-**Từ vựng trong mục:** **Feature** — đặc trưng; **Vector** — véc-tơ; **Matrix** — ma trận.
 [Trước hết dùng 1–3 đoạn văn ngắn giải thích **đây là gì**, **xuất hiện ở đâu trong ví dụ đời thường**, **liên hệ với khái niệm chính thế nào**; nếu nhiều thuật ngữ thì giải thích riêng từng thuật ngữ rồi mới đưa code.]
 
 **Nhắc lại kiến thức liên quan:** [Liệt kê và nhắc lại các khái niệm ngay trong bài này, bằng câu dễ hiểu. Nếu có Feature, Vector, Matrix thì giải thích lại chúng chứ không chỉ ghi tên. Nêu rõ mỗi hàng/cột tương ứng đối tượng/đặc trưng nào.]
@@ -60,11 +56,11 @@ import numpy as np
 
 **Trước / sau (khi có phép biến đổi dữ liệu):** [Hiển thị vài hàng của bảng gốc, vài hàng sau biến đổi và **hình kết quả thực được tính từ đúng dữ liệu minh họa** nếu hình giúp hiểu khái niệm. Ghi shape trước/sau, tỷ lệ thông tin giữ lại nếu có, tên hàng/cột, đơn vị; không dùng đồ thị tùy ý không liên quan dữ liệu.]
 
-**Tự kiểm tra nhanh:** [Một câu ngắn kiểm tra ngay khái niệm vừa học, không cần thêm thư viện. Có **đáp án gợi ý** ngay sau đó. Mỗi nhóm kiến thức chính có một câu để người học không phải đợi tới cuối bài.]
+[Chỉ thêm tự kiểm tra khi hỏi cách áp dụng hoặc suy luận, không chép lại nguyên định nghĩa vừa giải thích.]
 
 **QUAN TRỌNG:** Đọc `docs/CURRICULUM-STYLE-GUIDE.md` khi tạo mỗi bài; tuân thủ ví dụ hỏi/đáp song ngữ cùng một dòng.
 
-**Quy tắc thuật ngữ:** Ở đầu mỗi mục, tiểu mục và tình huống có một dòng **Từ vựng trong mục:** liệt kê English — nghĩa tiếng Việt. Trong phần diễn giải sau đó chỉ dùng thuật ngữ tự nhiên, không gắn lại phần dịch trong ngoặc ở mọi lần nhắc. Tên hàm, tham số và biến trong code/backticks luôn giữ nguyên. Câu hỏi trắc nghiệm ở cuối được viết **song ngữ Anh–Việt** (câu hỏi, cả bốn phương án, đáp án và giải thích).
+[Bản biên soạn cuối cùng tuân thủ guide v2: không lặp dòng thuật ngữ đã có trong bảng; giữ câu hỏi và đáp án Anh–Việt cùng dòng.]
 
 **Quy tắc:** Trong mỗi mục 4.2, 4.3... phải nhắc lại khái niệm liên quan rồi mới bắt đầu ví dụ nhỏ **từng bước**. Khi có mảng số, phải nói rõ hàng/cột, từng đặc trưng/đơn vị và ví dụ minh họa cách ghép vector thành matrix khi cần. Không dùng chữ “Subconcept” làm tiêu đề. Viết “Khái niệm liên quan” hoặc tên chủ đề bằng tiếng Việt dễ hiểu. Không giải thích bằng cú pháp hay tên hàm trước khi nói rõ bằng văn; người học phải hiểu *feature là gì* rồi mới gặp ví dụ `np.array`. Không tạo phần “Toán học đằng sau” hoặc chứng minh hàn lâm. Mỗi công thức thể hiện bằng Python trong một ví dụ nhỏ ngay dưới đoạn giải thích.
 
@@ -72,15 +68,11 @@ import numpy as np
 
 ### Tình huống 1 — [Tên vấn đề có thực trong công việc / AI]
 
-**Từ vựng trong mục:** **Feature** — đặc trưng; **Dataset** — tập dữ liệu. [Thay theo nội dung mỗi tình huống.]
-
-**Vấn đề:** [Ai đang gặp khó khăn gì, cần kết quả nào?]
-
-**Chọn khái niệm:** [Liệt kê các khái niệm phù hợp.]
+[Một câu mô tả hoàn cảnh/vấn đề cụ thể NẾU tiêu đề chưa nói rõ.]
 
 **Vì sao chọn cách này?** [Một đoạn giải thích rõ vấn đề đòi hỏi gì, tại sao phương pháp/hàm này phù hợp hơn phương án dễ nhầm khác, giả định và khi nào cách này không còn phù hợp. Chỉ liệt kê API không đủ.]
 
-**Quy trình:** [Các bước cụ thể theo đúng thứ tự.]
+[Chỉ thêm quy trình khi các bước là đặc thù của bài toán, không lặp chung cho mọi tình huống.]
 
 **Bộ dữ liệu:** [Mỗi hàng là ai/vật gì? Mỗi cột là feature nào, đo bằng đơn vị gì? Có bao nhiêu mẫu? Là dữ liệu thật, mẫu công khai hay ví dụ giả lập?]
 
@@ -92,7 +84,7 @@ import numpy as np
 # BƯỚC 4 — Kiểm tra shape và ý nghĩa kết quả.
 ```
 
-**Kiểm tra:** [Kết quả thực tế, shape, giới hạn, điều kiện cần thận trọng.]
+[Chỉ viết mục kiểm tra khi có kết quả kỳ vọng hoặc giới hạn kỹ thuật CỤ THỂ của tình huống.]
 
 [Lặp lại đến tình huống 5. Chuyển hóa những bài tập đã ghi nhận trong nguồn nội bộ thành tình huống thực tiễn, không sao chép mô tả hàn lâm.]
 
@@ -122,11 +114,4 @@ D. English option — Phương án D tiếng Việt
 |---|---|---|---|
 | Q1 | **B** | Short English explanation. | Giải thích ngắn bằng tiếng Việt. |
 
-## 8. Nối sang bài tiếp theo
-
-```text
-[Bài trước] → [BÀI NÀY] → [Bài liên quan / bước tiếp theo]
-```
-
-[1 đoạn ngắn giúp sinh viên hệ thống hóa, không lặp mục tiêu học tập.]
-
+[Nếu có mối liên hệ mới tới bài sau, viết một câu ngắn; nếu chỉ lặp sơ đồ ở đầu, không tạo mục cuối bài.]
