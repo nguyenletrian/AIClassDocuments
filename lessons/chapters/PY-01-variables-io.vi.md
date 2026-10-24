@@ -7,7 +7,9 @@
 
 `Chương trình → Biến → Kiểu dữ liệu → Điều kiện`
 
-Một chương trình nhận thông tin, lưu vào biến, xử lý và tạo ra kết quả. Bài này giúp hiểu các bước đó trước khi học kiểu dữ liệu và câu lệnh điều kiện.
+**Học xong dùng để làm gì?** Nhận tên, tuổi hoặc số lượng từ người dùng, lưu vào biến và in ra kết quả có thể kiểm tra.
+
+**Kết nối kiến thức tiếp theo:** Sang PY-02, dùng kiểu số và chuỗi để dữ liệu trong biến được tính toán đúng thay vì chỉ hiển thị.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -277,6 +279,11 @@ C. Data received for processing — Dữ liệu được nhận để xử lý
 
 D. How a value is represented and used — Cách biểu diễn và sử dụng một giá trị
 
+**Đáp án: A**
+
+**Giải thích:** Biến Python là tên được liên kết với đối tượng, chẳng hạn `age = 20`. Biến khác dữ liệu đầu vào hay kết quả in ra; dùng `age` sau đó sẽ truy cập giá trị đang được gán.
+
+
 **Q2. What is program input? — Đầu vào chương trình là gì?**
 
 A. Information produced by a program — Thông tin do chương trình tạo ra
@@ -286,6 +293,11 @@ B. How a value is represented and used — Cách biểu diễn và sử dụng m
 C. A name referring to a value — Tên tham chiếu đến một giá trị
 
 D. Data received for processing — Dữ liệu được nhận để xử lý
+
+**Đáp án: D**
+
+**Giải thích:** Đầu vào là dữ liệu chương trình nhận, ví dụ văn bản người dùng nhập cho `input()`. Chương trình có thể xử lý văn bản rồi tạo đầu ra; đầu vào không phải kết quả chương trình.
+
 
 **Q3. What is program output? — Đầu ra chương trình là gì?**
 
@@ -297,6 +309,11 @@ C. Data received for processing — Dữ liệu được nhận để xử lý
 
 D. A name referring to a value — Tên tham chiếu đến một giá trị
 
+**Đáp án: B**
+
+**Giải thích:** Đầu ra là thông tin chương trình đưa ra ngoài, ví dụ dòng chữ do `print(5)` hiển thị. Nó khác đầu vào do người dùng cung cấp và khác biến dùng để tham chiếu giá trị trong chương trình.
+
+
 **Q4. What does a data type describe? — Kiểu dữ liệu mô tả điều gì?**
 
 A. Information produced by a program — Thông tin do chương trình tạo ra
@@ -306,6 +323,11 @@ B. How a value is represented and used — Cách biểu diễn và sử dụng m
 C. A name referring to a value — Tên tham chiếu đến một giá trị
 
 D. Data received for processing — Dữ liệu được nhận để xử lý
+
+**Đáp án: B**
+
+**Giải thích:** Kiểu dữ liệu quyết định ý nghĩa giá trị và các phép toán phù hợp: `3` thuộc kiểu `int`, còn `'3'` thuộc `str`. Vì vậy `3 + 2` là phép cộng số, còn `'3' + '2'` nối văn bản.
+
 
 **Q5. Which function prints a value? — Hàm nào in một giá trị?**
 
@@ -317,6 +339,11 @@ C. `input()` — `input()`
 
 D. `print()` — `print()`
 
+**Đáp án: D**
+
+**Giải thích:** `print()` ghi biểu diễn của giá trị ra đầu ra chuẩn; chẳng hạn `print(5)` hiển thị `5`. Hàm này không nhận câu trả lời người dùng như `input()`.
+
+
 **Q6. Which function reads keyboard input? — Hàm nào đọc dữ liệu bàn phím?**
 
 A. `input()` — `input()`
@@ -326,6 +353,11 @@ B. `int()` — `int()`
 C. `type()` — `type()`
 
 D. `print()` — `print()`
+
+**Đáp án: A**
+
+**Giải thích:** `input()` nhận một dòng người dùng gõ và trả về văn bản không kèm ký tự xuống dòng cuối. Dù người dùng gõ `12`, kết quả vẫn là chuỗi `'12'`, không tự đổi thành số nguyên `12`.
+
 
 **Q7. Which function finds a value's type? — Hàm nào kiểm tra kiểu giá trị?**
 
@@ -337,6 +369,11 @@ C. `type()` — `type()`
 
 D. `int()` — `int()`
 
+**Đáp án: C**
+
+**Giải thích:** `type(value)` trả về lớp/kiểu của đối tượng: `type(3)` là `int` còn `type('3')` là `str`. Hàm kiểm tra kiểu chứ không chuyển đổi giá trị.
+
+
 **Q8. Which function converts valid decimal digits to an integer? — Hàm nào đổi chuỗi chữ số hợp lệ thành số nguyên?**
 
 A. `int()` — `int()`
@@ -346,6 +383,11 @@ B. `print()` — `print()`
 C. `type()` — `type()`
 
 D. `input()` — `input()`
+
+**Đáp án: A**
+
+**Giải thích:** `int()` phân tích chuỗi biểu diễn số nguyên hợp lệ nên `int('012')` cho số nguyên `12`; số 0 đầu không được giữ lại. Chuỗi `'12.5'` không phải chuỗi số nguyên thập phân hợp lệ và gây `ValueError`.
+
 
 **Q9. Which type represents a count of whole items? — Kiểu nào biểu diễn số lượng món nguyên?**
 
@@ -357,6 +399,11 @@ C. `int` — `int`
 
 D. `bool` — `bool`
 
+**Đáp án: C**
+
+**Giải thích:** `int` biểu diễn số lượng nguyên như 4 vé hoặc 0 lỗi, không có phần lẻ. `float` phù hợp số đo có thể có phần thập phân, không cần thiết cho số đếm các đơn vị nguyên vẹn.
+
+
 **Q10. Which type suits a measurement with fractions? — Kiểu nào phù hợp với số đo có phần lẻ?**
 
 A. `int` — `int`
@@ -366,6 +413,11 @@ B. `float` — `float`
 C. `bool` — `bool`
 
 D. `str` — `str`
+
+**Đáp án: B**
+
+**Giải thích:** `float` biểu diễn giá trị số có thể chứa phần lẻ, ví dụ 2,5 mét. Khác số đếm nguyên, số đo có thể nằm giữa hai số nguyên; số thập phân dạng dấu phẩy động đôi khi chỉ là xấp xỉ.
+
 
 **Q11. Which type preserves a leading zero in an identifier? — Kiểu nào giữ số 0 đầu mã định danh?**
 
@@ -377,6 +429,11 @@ C. `float` — `float`
 
 D. `int` — `int`
 
+**Đáp án: A**
+
+**Giải thích:** Mã định danh như `'007'` nên lưu bằng `str` vì mọi ký tự, kể cả hai số 0 đầu, đều có ý nghĩa. Đổi sang `int` được `7` và làm mất định dạng mã.
+
+
 **Q12. Which type stores a true/false state? — Kiểu nào lưu trạng thái đúng/sai?**
 
 A. `bool` — `bool`
@@ -386,6 +443,11 @@ B. `int` — `int`
 C. `str` — `str`
 
 D. `float` — `float`
+
+**Đáp án: A**
+
+**Giải thích:** `bool` có hai giá trị logic `True` và `False`, thích hợp biểu diễn trạng thái như có được phép truy cập hay không. Đây không phải kiểu đo lường số hay nhãn văn bản.
+
 
 **Q13. What does `x = 5` do? — `x = 5` thực hiện điều gì?**
 
@@ -397,6 +459,11 @@ C. Displays `5` without storing it — Hiển thị `5` mà không gán
 
 D. Assigns the integer `5` to `x` — Gán số nguyên `5` cho `x`
 
+**Đáp án: D**
+
+**Giải thích:** Dấu bằng đơn gán tên `x` cho số nguyên `5`, không kiểm tra bằng nhau và cũng không cộng thêm số. Muốn so sánh `x` có bằng `5` thì dùng `x == 5`.
+
+
 **Q14. What is the type of `input()`'s return value? — Giá trị trả về của `input()` có kiểu nào?**
 
 A. An integer when only digits are typed — Số nguyên nếu chỉ nhập chữ số
@@ -406,6 +473,11 @@ B. A floating-point number by default — Số thực theo mặc định
 C. A Boolean indicating whether input exists — Boolean cho biết có đầu vào hay không
 
 D. A string, even if it contains digits — Chuỗi, kể cả khi chỉ chứa chữ số
+
+**Đáp án: D**
+
+**Giải thích:** `input()` luôn trả về `str` chứa nội dung được nhập, ví dụ `'42'`. Nếu cần tính toán số, hãy dùng `int(input())` hoặc phép đổi kiểu phù hợp khi đầu vào hợp lệ.
+
 
 **Q15. What does `float('2.5')` produce? — `float('2.5')` tạo ra gì?**
 
@@ -417,6 +489,11 @@ C. The floating-point number `2.5` — Số thực `2.5`
 
 D. `ValueError` for any decimal point — `ValueError` nếu có dấu thập phân
 
+**Đáp án: C**
+
+**Giải thích:** `float('2.5')` chuyển văn bản `'2.5'` thành giá trị số thực `2.5`. Kết quả không còn là chuỗi có dấu nháy và không cắt phần lẻ thành số nguyên `2`.
+
+
 **Q16. What does `int('abc')` raise? — `int('abc')` phát sinh gì?**
 
 A. `TypeError` — `TypeError`
@@ -426,6 +503,11 @@ B. `ValueError` — `ValueError`
 C. The integer `0` — Số nguyên `0`
 
 D. `NameError` — `NameError`
+
+**Đáp án: B**
+
+**Giải thích:** `int('abc')` phát sinh `ValueError` vì các chữ cái không tạo thành số nguyên hệ mười hợp lệ. Hàm vẫn tồn tại và nhận được chuỗi, nên đây là lỗi giá trị chuyển đổi chứ không phải `NameError`.
+
 
 **Q17. What does `print(2, 3)` display by default? — `print(2, 3)` mặc định hiển thị gì?**
 
@@ -437,6 +519,11 @@ C. `(2, 3)` — `(2, 3)`
 
 D. `23` — `23`
 
+**Đáp án: B**
+
+**Giải thích:** Mặc định `print` ngăn cách các đối số bằng một dấu cách: `print(2, 3)` hiển thị `2 3`. Nó không dính hai số thành `23` và không in dạng tuple `(2, 3)`.
+
+
 **Q18. If `x = 2` is followed by `x = 4` on the next line, what is the final value of `x`? — Nếu `x = 2` rồi `x = 4` ở dòng tiếp theo, giá trị cuối của `x` là gì?**
 
 A. `ValueError` — `ValueError`
@@ -446,6 +533,11 @@ B. `2` — `2`
 C. `4` — `4`
 
 D. `6` — `6`
+
+**Đáp án: C**
+
+**Giải thích:** Lệnh đầu gán `x` bằng `2`, lệnh tiếp theo gán lại chính tên đó bằng `4`. Vì vậy giá trị cuối là `4`, không phải tổng `6` hay giá trị cũ `2`.
+
 
 **Q19. Which Python type does `type(2.0)` identify? — `type(2.0)` xác định kiểu Python nào?**
 
@@ -457,6 +549,11 @@ C. `float` — `float`
 
 D. `str` — `str`
 
+**Đáp án: C**
+
+**Giải thích:** Literal `2.0` là đối tượng số thực, nên `type(2.0)` xác định kiểu `float` (hiển thị `<class 'float'>`). Trong khi đó `type(2)` là `int`; dấu thập phân làm thay đổi kiểu literal.
+
+
 **Q20. What does `print('Hi')` display? — `print('Hi')` hiển thị gì?**
 
 A. `hi` — `hi`
@@ -467,30 +564,9 @@ C. `'Hi'` including the quotes — `'Hi'` gồm cả dấu nháy
 
 D. `Hi` without quotes — `Hi` không có dấu nháy
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | A Python variable is a name bound to an object, such as `age = 20`. It is not the same as input data or printed output; using `age` later retrieves the currently bound value. | Biến Python là tên được liên kết với đối tượng, chẳng hạn `age = 20`. Biến khác dữ liệu đầu vào hay kết quả in ra; dùng `age` sau đó sẽ truy cập giá trị đang được gán. |
-| Q2 | **D** | Input is data the program receives, for example the text typed when `input()` is called. The program can process that text before producing output; input is not itself the program's result. | Đầu vào là dữ liệu chương trình nhận, ví dụ văn bản người dùng nhập cho `input()`. Chương trình có thể xử lý văn bản rồi tạo đầu ra; đầu vào không phải kết quả chương trình. |
-| Q3 | **B** | Output is information a program sends outward, such as the text shown by `print(5)`. It differs from input, which is supplied to the program, and from a variable, which stores a reference within the program. | Đầu ra là thông tin chương trình đưa ra ngoài, ví dụ dòng chữ do `print(5)` hiển thị. Nó khác đầu vào do người dùng cung cấp và khác biến dùng để tham chiếu giá trị trong chương trình. |
-| Q4 | **B** | A type determines what a value represents and which operations make sense: `3` has type `int`, whereas `'3'` has type `str`. Thus `3 + 2` performs arithmetic, while `'3' + '2'` joins text. | Kiểu dữ liệu quyết định ý nghĩa giá trị và các phép toán phù hợp: `3` thuộc kiểu `int`, còn `'3'` thuộc `str`. Vì vậy `3 + 2` là phép cộng số, còn `'3' + '2'` nối văn bản. |
-| Q5 | **D** | `print()` writes a readable representation of values to the standard output; for example `print(5)` displays `5`. It does not read a user's response as `input()` does. | `print()` ghi biểu diễn của giá trị ra đầu ra chuẩn; chẳng hạn `print(5)` hiển thị `5`. Hàm này không nhận câu trả lời người dùng như `input()`. |
-| Q6 | **A** | `input()` reads a line entered by the user and returns its text without the final newline. Even if the user types `12`, the result is the string `'12'`, not automatically the integer `12`. | `input()` nhận một dòng người dùng gõ và trả về văn bản không kèm ký tự xuống dòng cuối. Dù người dùng gõ `12`, kết quả vẫn là chuỗi `'12'`, không tự đổi thành số nguyên `12`. |
-| Q7 | **C** | `type(value)` returns the Python class of an object: `type(3)` is `int` and `type('3')` is `str`. It inspects the type rather than converting the object. | `type(value)` trả về lớp/kiểu của đối tượng: `type(3)` là `int` còn `type('3')` là `str`. Hàm kiểm tra kiểu chứ không chuyển đổi giá trị. |
-| Q8 | **A** | `int()` parses a valid integer string, so `int('012')` yields integer `12`; leading zeros do not remain. A string such as `'12.5'` is not a valid base-10 integer string and raises `ValueError`. | `int()` phân tích chuỗi biểu diễn số nguyên hợp lệ nên `int('012')` cho số nguyên `12`; số 0 đầu không được giữ lại. Chuỗi `'12.5'` không phải chuỗi số nguyên thập phân hợp lệ và gây `ValueError`. |
-| Q9 | **C** | `int` represents whole-number counts, such as 4 tickets or 0 errors, without a fractional component. `float` is intended for measurements that may have fractions, not for a count of indivisible items. | `int` biểu diễn số lượng nguyên như 4 vé hoặc 0 lỗi, không có phần lẻ. `float` phù hợp số đo có thể có phần thập phân, không cần thiết cho số đếm các đơn vị nguyên vẹn. |
-| Q10 | **B** | `float` represents numeric values that may contain a fractional part: `2.5` meters is an example. Unlike an integer count, a measurement can fall between whole numbers; floating-point decimals may also be approximate. | `float` biểu diễn giá trị số có thể chứa phần lẻ, ví dụ 2,5 mét. Khác số đếm nguyên, số đo có thể nằm giữa hai số nguyên; số thập phân dạng dấu phẩy động đôi khi chỉ là xấp xỉ. |
-| Q11 | **A** | An identifier such as `'007'` should be stored as a `str` because its characters, including the first two zeros, are meaningful. Converting it to `int` yields `7` and loses that formatting. | Mã định danh như `'007'` nên lưu bằng `str` vì mọi ký tự, kể cả hai số 0 đầu, đều có ý nghĩa. Đổi sang `int` được `7` và làm mất định dạng mã. |
-| Q12 | **A** | `bool` has the two logical values `True` and `False`, suitable for statements such as whether access is permitted. It is not a general numeric measurement or a text label. | `bool` có hai giá trị logic `True` và `False`, thích hợp biểu diễn trạng thái như có được phép truy cập hay không. Đây không phải kiểu đo lường số hay nhãn văn bản. |
-| Q13 | **D** | The single equals sign binds name `x` to integer `5`; it neither tests equality nor adds a number. Testing whether `x` equals `5` uses `x == 5` instead. | Dấu bằng đơn gán tên `x` cho số nguyên `5`, không kiểm tra bằng nhau và cũng không cộng thêm số. Muốn so sánh `x` có bằng `5` thì dùng `x == 5`. |
-| Q14 | **D** | `input()` always returns a `str` representing what the user entered, such as `'42'`. If arithmetic is needed, use `int(input())` or another explicit conversion on appropriate input. | `input()` luôn trả về `str` chứa nội dung được nhập, ví dụ `'42'`. Nếu cần tính toán số, hãy dùng `int(input())` hoặc phép đổi kiểu phù hợp khi đầu vào hợp lệ. |
-| Q15 | **C** | `float('2.5')` parses the text `'2.5'` into numeric floating-point value `2.5`. It does not leave the quotation marks or truncate the fraction to integer `2`. | `float('2.5')` chuyển văn bản `'2.5'` thành giá trị số thực `2.5`. Kết quả không còn là chuỗi có dấu nháy và không cắt phần lẻ thành số nguyên `2`. |
-| Q16 | **B** | `int('abc')` raises `ValueError` because the letters do not form a valid base-10 integer. The function exists and receives a string, so this is a conversion-value error, not `NameError`. | `int('abc')` phát sinh `ValueError` vì các chữ cái không tạo thành số nguyên hệ mười hợp lệ. Hàm vẫn tồn tại và nhận được chuỗi, nên đây là lỗi giá trị chuyển đổi chứ không phải `NameError`. |
-| Q17 | **B** | By default `print` joins separate arguments with one space: `print(2, 3)` displays `2 3`. It does not concatenate them as `23` or print tuple notation `(2, 3)`. | Mặc định `print` ngăn cách các đối số bằng một dấu cách: `print(2, 3)` hiển thị `2 3`. Nó không dính hai số thành `23` và không in dạng tuple `(2, 3)`. |
-| Q18 | **C** | The first statement binds `x` to `2`, and the second rebinds the same name to `4`. Therefore the final value is `4`, not the sum `6` or the earlier value `2`. | Lệnh đầu gán `x` bằng `2`, lệnh tiếp theo gán lại chính tên đó bằng `4`. Vì vậy giá trị cuối là `4`, không phải tổng `6` hay giá trị cũ `2`. |
-| Q19 | **C** | The literal `2.0` is a floating-point object, so `type(2.0)` identifies the `float` class (displayed as `<class 'float'>`). In contrast `type(2)` identifies `int`; the decimal point changes the literal's type. | Literal `2.0` là đối tượng số thực, nên `type(2.0)` xác định kiểu `float` (hiển thị `<class 'float'>`). Trong khi đó `type(2)` là `int`; dấu thập phân làm thay đổi kiểu literal. |
-| Q20 | **D** | Quotation marks delimit the string literal but are not part of its characters. Thus `print('Hi')` displays `Hi` followed by a newline, not the quote marks or lowercase `hi`. | Dấu nháy dùng để bao chuỗi trong mã nguồn chứ không phải ký tự thuộc nội dung chuỗi. Vì vậy `print('Hi')` hiển thị `Hi` rồi xuống dòng, không in dấu nháy hoặc chữ thường `hi`. |
+**Giải thích:** Dấu nháy dùng để bao chuỗi trong mã nguồn chứ không phải ký tự thuộc nội dung chuỗi. Vì vậy `print('Hi')` hiển thị `Hi` rồi xuống dòng, không in dấu nháy hoặc chữ thường `hi`.
 
 ## 8. Nối sang bài kế tiếp
 
