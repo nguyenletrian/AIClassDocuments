@@ -1,6 +1,5 @@
 # PY-19 — Pandas: lọc, groupby, merge và sắp xếp
 
-*DRAFT · Dữ liệu giả lập · Cần kiểm chứng code trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
