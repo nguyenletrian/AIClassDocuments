@@ -76,6 +76,19 @@ Ví dụ: `print((2, 3))` in `(2, 3)`; `print(set([1, 1, 2]))` in tập `{1, 2}`
 - Phân bố câu hỏi đa dạng, không dùng máy móc cùng một khuôn `What does ... mean?`; bảng đáp án **giải thích vì sao đáp án đúng**, không chỉ lặp nguyên văn phương án. Mỗi câu và từng A/B/C/D đều phải có cả tiếng Anh và tiếng Việt cùng dòng.
 - Trước khi merge, tìm các cụm `scenario [0-9]`, `example [0-9]`, `tình huống [0-9]`, `ví dụ [0-9]` trong **mục 7** và sửa hết; kiểm tra đủ 20 câu, 80 phương án và 20 dòng đáp án đúng thứ tự.
 
+### Kiểm tra chất lượng trắc nghiệm theo ý nghĩa — bắt buộc trước merge
+
+**Không chỉ kiểm tra đủ 20 câu và 80 phương án.** Với từng câu Q1–Q20, người biên tập phải đọc **nguyên văn câu hỏi Anh–Việt, cả bốn lựa chọn Anh–Việt, đáp án được đánh dấu và hai lời giải thích** rồi xác nhận:
+1. **Đúng câu hỏi:** đáp án thực sự trả lời đúng điều được hỏi, không phải chỉ là một câu đúng nhưng lệch trọng tâm. Kiểm tra tính đúng của công thức, cú pháp, đơn vị, giá trị chạy Python, điều kiện áp dụng và ngữ cảnh.
+2. **Duy nhất một đáp án:** ba phương án nhiễu đều sai **theo điều kiện đã nêu** nhưng có lý do hợp lý khiến người mới học dễ nhầm; không trùng ý, không có phương án nào khác cũng đúng một phần hoặc đúng trong một trường hợp chưa loại trừ. Nếu có nhiều cách hiểu, **sửa câu hỏi hoặc các phương án**, không ép một đáp án.
+3. **Bản dịch tương đương:** câu hỏi và từng A/B/C/D tiếng Việt phải giữ đúng nội hàm của tiếng Anh; kiểm tra cả toán tử, dấu phủ định, từ “không”, “chỉ”, “luôn”, “xấp xỉ”, “ít nhất”, “tối đa”.
+4. **Giải thích mang giá trị học:** mỗi đáp án giải thích **vì sao lựa chọn đúng**, quy tắc/định nghĩa đứng sau và ít nhất một phân biệt quan trọng hoặc ví dụ rất ngắn nếu có ích. Ưu tiên **2–3 câu cụ thể bằng mỗi ngôn ngữ**, không chỉ diễn đạt lại một câu của phương án. Khi có phép tính, trình bày các bước hoặc thay số; khi có code, giải thích điều kiện và kết quả; khi có quan hệ thống kê, nêu rõ giả định.
+5. **Nhất quán thực sự:** chữ A/B/C/D trong bảng phải trỏ tới chính lựa chọn đúng của câu tương ứng. Không được chỉ dựa vào mẫu phân bố đáp án A–B–C–D; câu trả lời được xác nhận bằng nội dung. Không chỉnh phương án mà quên cập nhật bảng và giải thích.
+6. **Bảng Markdown hợp lệ:** trong ô bảng, escape ký tự `|` thành `&#124;` (hoặc dạng mã tương đương) để không tách cột. Kiểm tra chính xác bốn cột, 20 hàng, 20 giải thích song ngữ.
+7. **Ưu tiên kiểm chứng:** câu hỏi có kết quả mã nguồn/số cụ thể phải thực thi hoặc tự tính và so đáp án; câu còn tranh cãi/không xác minh được phải gắn trạng thái cần rà, **không khẳng định đã kiểm chứng chính xác**.
+
+Sau chỉnh sửa, chạy kiểm tra tự động về cấu trúc và **đọc duyệt thủ công 20/20 câu về nội dung**, lưu vấn đề/sửa đổi trong phần theo dõi QA. `STRUCTURE_PASS` **không đồng nghĩa** `SEMANTIC_QA_PASS`. Không tuyên bố toàn bộ câu đúng chỉ vì không có phương án trùng hoặc đáp án đủ dòng.
+
 ## Kết cấu dành cho sinh viên
 1. **Bài đang ở đâu trong chuỗi kiến thức?** Trình bày các bài trước → bài hiện tại → bài liên quan, dễ theo dõi.
 2. **Từ vựng trong mục:** trước từng mục và tiểu mục, 2–5 thuật ngữ `English — tiếng Việt`; đoạn văn phía sau viết tự nhiên, **không** thêm `(Vietnamese)` sau mỗi lần nhắc. Những bảng thuật ngữ chỉ ghi từ thật sự dùng trong mục.
