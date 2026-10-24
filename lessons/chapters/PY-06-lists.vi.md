@@ -109,6 +109,26 @@ print(basket)
 ```
 
 Món thứ hai đổi thành gạo; món sữa đầu tiên vẫn giữ nguyên.
+### 4.5. Sorting — Sắp xếp List
+
+**Từ vựng trong mục:** **Sorting** — sắp xếp; **Ascending/descending** — tăng dần/giảm dần.
+
+Khi có điểm ưu tiên `[7, 9, 4]`, ta thường muốn xem điểm cao trước. Hàm `sorted(scores, reverse=True)` tạo **List mới** theo thứ tự giảm dần; `reverse=False` (mặc định) cho thứ tự tăng dần. List ban đầu không bị sửa bởi `sorted()`, khác với phương thức `scores.sort()` vốn sắp xếp trực tiếp List gốc. Với ví dụ này, điểm 9 đứng đầu, rồi 7 và 4.
+
+```python
+scores = [7, 9, 4]
+ranked = sorted(scores, reverse=True)
+print(ranked)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[9, 7, 4]
+```
+
+Danh sách kết quả được sắp theo điểm giảm dần. Các điểm số không bị thay đổi, chỉ thứ tự của chúng khác đi.
+
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Giỏ hàng
