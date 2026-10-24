@@ -78,16 +78,16 @@ Lớp trừu tượng có thể quy định phương thức mà lớp con phải
 ```python
 from abc import ABC
 class Base(ABC): pass
-print(Base())
+print(isinstance(Base(), ABC))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-<__main__.Base object at 0x...>
+True
 ```
 
-*Địa chỉ bộ nhớ trong biểu diễn đối tượng thay đổi mỗi lần chạy. Ví dụ này chỉ kế thừa `ABC`, chưa có phương thức trừu tượng.*
+*Chỉ kế thừa `ABC` chưa tạo phương thức trừu tượng; cần `@abstractmethod` như trong tình huống 2.*
 
 ### 4.4. Override
 
