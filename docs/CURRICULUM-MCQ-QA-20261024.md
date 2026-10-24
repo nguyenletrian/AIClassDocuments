@@ -58,3 +58,22 @@ Guide kiểm tra tính đúng theo nghĩa đã được merge riêng tại **PR 
 - **PY-01–PY-05:** đã hoàn tất một vòng biên tập QA ngữ nghĩa do AI thực hiện, với việc đọc và sửa 100/100 câu cùng lời giải thích. Các lựa chọn đúng đã được đối chiếu độc lập với vị trí key và các biểu thức chọn lọc đã chạy thành công. **Chưa phải thẩm định học thuật độc lập bởi giảng viên**.
 - **Chưa chạy Windows**; chưa chạy toàn bộ `tests/test_curriculum_structure.py` trên checkout có đủ 46 file và chưa chạy mọi code fence của giáo trình. Không gắn `WINDOWS_VERIFIED` hoặc khẳng định mọi bài đã qua kiểm thử runtime.
 - **PY-06–PY-40:** cần tiếp tục vòng rà distractor chuyên sâu và mở rộng giải thích; **PY-41–PY-46:** vẫn cần xác nhận học thuật độc lập trước phát hành.
+
+
+## Vòng biên tập chiều sâu PY-06–PY-10 — 24/10/2026
+
+**Phạm vi:** năm bài List, Tuple/Set, Dictionary, Function/Lambda và OOP. Đọc và biên tập lại toàn bộ 100 câu trắc nghiệm; chỉnh cả phương án nhiễu và **100 lời giải thích Anh–Việt**. Với các câu hỏi có tiền điều kiện, làm rõ kiểu đầu vào hoặc trường hợp áp dụng: PY-06 Q3 yêu cầu `a` là List, PY-07 Q17 chọn dãy bất biến có thứ tự, PY-07 Q20 yêu cầu Set số có thể so sánh, PY-09 Q17 giả định hàm chạy đến cuối mà không thực hiện `return`, PY-10 Q6 không cần đối số bắt buộc và Q18 thuộc tính tồn tại.
+
+### Kiểm chứng sau khi sửa
+
+- Trực tiếp đọc lại nội dung GitHub trên nhánh QA: **100 câu, 400 phương án song ngữ, 100 dòng đáp án bốn cột** đúng thứ tự. Các lời giải thích có nguyên lý và ví dụ/so sánh; không tham chiếu tình huống hoặc ví dụ đánh số trong câu hỏi. Không có lựa chọn trùng nguyên văn trong một câu.
+- **100/100** chữ cái đáp án trỏ tới chính nội dung lựa chọn đúng đã đối chiếu bằng tiêu chí từ ngữ độc lập với vị trí A/B/C/D. Trong lần đối chiếu đầu, phát hiện **5 sai lệch do hoán đổi lựa chọn trong quá trình biên tập** ở PY-08 Q20, PY-09 Q10/Q11/Q16 và PY-10 Q14; đã sửa trước merge rồi đối chiếu lại **100/100 đạt**. Không coi sự phù hợp của chữ cái theo mẫu là bằng chứng đúng học thuật.
+- Mỗi bài có 5 đáp án A, 5 B, 5 C, 5 D; phá quy luật đáp án A–B–C–D tuần hoàn trước đây.
+- So sánh phần trước mục 7 và sau mục 7 giữa nhánh và commit gốc: **không đổi nội dung ngoài trắc nghiệm**. Mỗi bài vẫn có 5 tình huống; số khối Python và nhãn `**Kết quả khi chạy:**` được giữ nguyên lần lượt **PY-06: 10/10, PY-07: 10/10, PY-08: 9/9, PY-09: 10/10, PY-10: 9/9**.
+- **60/60 kiểm chứng runtime trên Python 3.13.5 đạt**: phép xử lý List, Set, Dictionary, Function/Lambda, OOP cùng kết quả `print`, ngoại lệ, tính bất biến và phạm vi biến. Kiểm thử này chạy trong môi trường Python hiện có, **không phải Windows** và không phải chạy mọi code fence trong cả giáo trình.
+
+### Giới hạn và công việc tiếp theo
+
+- Đây là một vòng đọc, biên tập và xác minh ngữ nghĩa do AI thực hiện; chưa có phản biện học thuật độc lập bởi giảng viên.
+- Chưa chạy toàn bộ unit test của repository trên checkout 46 bài, chưa xác minh runtime Windows; không tuyên bố `WINDOWS_VERIFIED`.
+- Tiếp tục QA theo cùng tiêu chuẩn cho **PY-11–PY-15**, rồi lần lượt đến PY-40; PY-41–PY-46 vẫn cần phê duyệt học thuật độc lập trước phát hành.
