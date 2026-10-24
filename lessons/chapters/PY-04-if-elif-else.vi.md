@@ -1,6 +1,5 @@
 # 04 — Điều kiện if/elif/else
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -90,7 +89,7 @@ if x>0:
 
 **Vấn đề thực tế:** Xếp loại điểm.
 
-**Vì sao chọn cách này?** Kiểm ngưỡng từ cao xuống thấp để không gán sai xếp loại; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Kiểm ngưỡng từ cao xuống thấp để không gán sai xếp loại.
 
 **Dữ liệu:** Một điểm số 85/100; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -112,7 +111,7 @@ print(grade)
 
 **Vấn đề thực tế:** Cảnh báo hàng gần hết.
 
-**Vì sao chọn cách này?** Chia tồn kho thành hết/gần hết/bình thường; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Chia tồn kho thành hết/gần hết/bình thường.
 
 **Dữ liệu:** Số lượng 4 món; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -134,7 +133,7 @@ print(state)
 
 **Vấn đề thực tế:** Xét VIP.
 
-**Vì sao chọn cách này?** Yêu cầu cả năm đăng ký và mức chi tiêu đạt ngưỡng; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Yêu cầu cả năm đăng ký và mức chi tiêu đạt ngưỡng.
 
 **Dữ liệu:** Khách 6 năm và chi 1500000 đồng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -154,7 +153,7 @@ else: print("Regular")
 
 **Vấn đề thực tế:** Kiểm tra cảm biến.
 
-**Vì sao chọn cách này?** Kiểm tra thiết bị online trước khi xét nhiệt độ; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Kiểm tra thiết bị online trước khi xét nhiệt độ.
 
 **Dữ liệu:** Nhiệt độ 82 độ C và online=True; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -175,7 +174,7 @@ else: print("Offline")
 
 **Vấn đề thực tế:** Tính quý của tháng.
 
-**Vì sao chọn cách này?** Dùng khoảng tháng hợp lệ trước khi tính quý; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Dùng khoảng tháng hợp lệ trước khi tính quý.
 
 **Dữ liệu:** Tháng 10; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
