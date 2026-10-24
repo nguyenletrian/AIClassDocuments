@@ -95,7 +95,8 @@ Bad input
 
 ```python
 import io
-with io.StringIO('abc') as f:print(f.read())
+with io.StringIO('abc') as f:
+    print(f.read())
 ```
 
 **Kết quả khi chạy:**
@@ -129,8 +130,6 @@ print(rows[1]["name"])
 Book
 ```
 
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
-
 ### Tình huống 2 — Lưu nhật ký ứng dụng
 
 **Từ vựng trong mục:** **CSV** — dữ liệu phân cách.
@@ -159,8 +158,6 @@ Started
 
 *Lệnh `print()` còn thêm một dòng mới sau ký tự xuống dòng có sẵn trong file.*
 
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
-
 ### Tình huống 3 — Chặn nhập sai kiểu
 
 **Từ vựng trong mục:** **Exception** — ngoại lệ.
@@ -186,8 +183,6 @@ print(number)
 None
 ```
 
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
-
 ### Tình huống 4 — Xuất CSV báo cáo
 
 **Từ vựng trong mục:** **Context manager** — quản lý ngữ cảnh.
@@ -202,7 +197,8 @@ None
 import csv,io
 b=io.StringIO()
 w=csv.DictWriter(b,fieldnames=["date","revenue"])
-w.writeheader();w.writerow({"date":"2026-10-24","revenue":1200})
+w.writeheader()
+w.writerow({"date":"2026-10-24","revenue":1200})
 print(b.getvalue())
 ```
 
@@ -215,8 +211,6 @@ date,revenue
 ```
 
 *Ký tự xuống dòng của CSV có thể hiển thị khác nhau theo nền tảng; `csv` thường tạo dòng kết thúc CRLF.*
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 5 — Báo lỗi file thiếu
 
@@ -242,8 +236,6 @@ print(text)
 ```text
 File unavailable
 ```
-
-**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ## 6. Sai lầm thường gặp
 
