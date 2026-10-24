@@ -29,404 +29,475 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 | `expr.subs(x,value)` | Thay giá trị vào công thức symbolic |
 | `np.gradient(y,x)` | Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Limit
+**Mạch kiến thức:** Giới hạn mô tả xu hướng gần một điểm; liên tục đòi hỏi xu hướng ấy bằng giá trị tại điểm; đạo hàm dùng giới hạn để đo độ thay đổi; độ dốc tiếp tuyến là đạo hàm sau khi thay một tọa độ cụ thể.
 
-**Từ vựng trong mục:** **Limit** — giới hạn.
+### 4.1. Limit — Giá trị hàm tiến đến
 
-Giá trị hàm tiến gần khi đầu vào tiến đến điểm.
+**Từ vựng:** **Limit** — giới hạn; **Approach** — tiến gần.
 
-```python
-import sympy as sp
-x=sp.symbols('x');print(sp.limit((x*x-4)/(x-2),x,2))
-```
-
-**Tự kiểm tra:** Limit là gì? **Đáp án:** Giá trị hàm tiến gần khi đầu vào tiến đến điểm.
-
-### 4.2. Continuity
-
-**Từ vựng trong mục:** **Continuity** — tính liên tục.
-
-Giới hạn và giá trị hàm phù hợp tại điểm xét.
+Giới hạn hỏi **f(x) tiến gần giá trị nào khi x tiến gần a**, không bắt buộc f(a) phải có giá trị. Ví dụ `(x²−4)/(x−2)` không xác định tại x=2 vì mẫu số bằng 0. Với x khác 2, rút gọn thành `x+2`; khi x→2, kết quả tiến đến **4**. `sympy.limit` tính giá trị tiến đến của biểu thức thay vì thay trực tiếp x=2 gây chia 0.
 
 ```python
 import sympy as sp
-x=sp.symbols('x');print(sp.limit(x*x,x,2)==4)
+
+x = sp.symbols('x')
+f = (x ** 2 - 4) / (x - 2)
+print(sp.limit(f, x, 2))
 ```
 
-**Tự kiểm tra:** Continuity là gì? **Đáp án:** Giới hạn và giá trị hàm phù hợp tại điểm xét.
+**Kết quả khi chạy:**
 
-### 4.3. Derivative
+```text
+4
+```
 
-**Từ vựng trong mục:** **Derivative** — đạo hàm.
+Giới hạn bằng 4 dù biểu thức gốc không xác định ngay tại x=2.
 
-Tốc độ thay đổi cục bộ của hàm theo đầu vào.
+### 4.2. Continuity — Hàm liên tục tại một điểm
+
+**Từ vựng:** **Continuity** — tính liên tục; **Function value** — giá trị hàm.
+
+Hàm liên tục tại x=a nếu **f(a) tồn tại**, giới hạn từ hai phía tồn tại và bằng f(a). Ví dụ quãng đường mô phỏng `s(t)=t²` là hàm liên tục; tại t=2 giây, `s(2)=4` mét và khi t tiến gần 2, quãng đường cũng tiến đến 4 mét. Đây là tính chất của **mô hình hàm**, không tự suy ra cảm biến vật lý hoạt động liên tục.
 
 ```python
 import sympy as sp
-x=sp.symbols('x');print(sp.diff(x*x,x))
+
+t = sp.symbols('t')
+s = t ** 2
+print(sp.limit(s, t, 2) == s.subs(t, 2))
 ```
 
-**Tự kiểm tra:** Derivative là gì? **Đáp án:** Tốc độ thay đổi cục bộ của hàm theo đầu vào.
+**Kết quả khi chạy:**
 
-### 4.4. Tangent slope
+```text
+True
+```
 
-**Từ vựng trong mục:** **Tangent slope** — độ dốc tiếp tuyến.
+Giới hạn bằng giá trị hàm ở t=2, nên mô hình liên tục tại điểm xét.
 
-Giá trị đạo hàm tại một điểm.
+### 4.3. Derivative — Tốc độ thay đổi tức thời
+
+**Từ vựng:** **Derivative** — đạo hàm; **Rate of change** — tốc độ thay đổi.
+
+Đạo hàm `f'(x)` cho biết đầu ra thay đổi bao nhiêu **khi đầu vào thay đổi rất nhỏ**. Về công thức, đó là giới hạn `(f(x+h)−f(x))/h` khi h→0 nếu giới hạn tồn tại. Với `f(x)=x²`, ta có `f'(x)=2x`; độ dốc không cố định: tại x=1 là 2, tại x=3 là 6. Nếu f là quãng đường (mét) theo thời gian (giây), đơn vị đạo hàm là mét/giây.
 
 ```python
 import sympy as sp
-x=sp.symbols('x');print(sp.diff(x*x,x).subs(x,3))
+
+x = sp.symbols('x')
+print(sp.diff(x ** 2, x))
 ```
 
-**Tự kiểm tra:** Tangent slope là gì? **Đáp án:** Giá trị đạo hàm tại một điểm.
+**Kết quả khi chạy:**
 
-## 5. Năm tình huống ứng dụng thực tế
+```text
+2*x
+```
 
-### Tình huống 1 — Xem giá trị gần điểm rỗng
+Đạo hàm là biểu thức 2x; tăng x thì độ dốc cục bộ tăng.
 
-**Từ vựng trong mục:** **Limit** — giới hạn.
+### 4.4. Tangent slope — Độ dốc tại một giá trị cụ thể
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần xem giá trị gần điểm rỗng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: (x²-4)/(x-2), khi x→2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Từ vựng:** **Tangent** — tiếp tuyến; **Slope** — độ dốc.
 
-**Vì sao chọn phương án?** Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm
-
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+Nếu đạo hàm là **hàm mô tả độ dốc**, thì độ dốc tiếp tuyến tại x=a là **một số**, chính là `f'(a)`. Với đường `f(x)=x²`, đạo hàm `2x`, nên tại x=3 độ dốc bằng 6. Phân biệt `sp.diff` tạo biểu thức đạo hàm và `.subs(x,3)` thay tọa độ để lấy độ dốc tại đúng điểm đó.
 
 ```python
 import sympy as sp
-x=sp.symbols('x')
-print(sp.limit((x*x-4)/(x-2),x,2))
+
+x = sp.symbols('x')
+slope = sp.diff(x ** 2, x)
+print(slope.subs(x, 3))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 2 — Tốc độ tăng quãng đường
+```text
+6
+```
 
-**Từ vựng trong mục:** **Continuity** — tính liên tục.
+Đường cong có độ dốc tiếp tuyến bằng 6 tại x=3.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tốc độ tăng quãng đường để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Quãng đường s(t)=t², t=3 giây. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+## 5. Năm tình huống ứng dụng
 
-**Vì sao chọn phương án?** Đạo hàm quãng đường theo thời gian là vận tốc
+### Tình huống 1 — Giới hạn tại điểm khuyết của biểu thức
 
+**Tình huống thực tế:** Một công thức chuẩn hóa cho ra `f(x)=(x²−4)/(x−2)`; tại x=2 mẫu số bằng 0. Nhóm phân tích muốn biết **giá trị mà công thức tiến gần**, không cố tính f(2).
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Vì sao chọn cách giải này?** Dùng giới hạn vì phép thay thế trực tiếp bị chia cho 0, còn xu hướng hai phía vẫn có thể tồn tại.
+
+**Quy trình giải:**
+
+1. Đặt x là biến ký hiệu.
+2. Tạo biểu thức với tử và mẫu, chọn điểm x=2.
+3. Gọi `sp.limit`, in giới hạn.
 
 ```python
 import sympy as sp
-t=sp.symbols('t');v=sp.diff(t**2,t)
-print(v.subs(t,3))
+
+x = sp.symbols('x')
+f = (x ** 2 - 4) / (x - 2)
+print(sp.limit(f, x, 2))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 3 — Độ dốc đường giá
+```text
+4
+```
 
-**Từ vựng trong mục:** **Derivative** — đạo hàm.
+Giới hạn là 4; biểu thức gốc vẫn không xác định tại x=2.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần độ dốc đường giá để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Hàm doanh thu f(x)=2x²+3x. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 2 — Tính vận tốc từ mô hình quãng đường
 
-**Vì sao chọn phương án?** Tìm đạo hàm để biết xu hướng ở x=4
+**Tình huống thực tế:** Một robot được mô phỏng theo `s(t)=t²` mét, t tính bằng giây. Cần tìm vận tốc tức thời tại t=3 giây, thay vì vận tốc trung bình trên cả hành trình.
 
+**Vì sao chọn cách giải này?** Vận tốc là đạo hàm quãng đường theo thời gian, có đơn vị mét/giây.
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:**
+
+1. Khai báo t và hàm quãng đường.
+2. Lấy đạo hàm s'(t)=2t.
+3. Thay t=3 rồi in vận tốc.
 
 ```python
 import sympy as sp
-x=sp.symbols('x');f=2*x*x+3*x
-print(sp.diff(f,x).subs(x,4))
+
+t = sp.symbols('t')
+s = t ** 2
+v = sp.diff(s, t)
+print(v.subs(t, 3))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 4 — Kiểm liên tục hàm đơn giản
+```text
+6
+```
 
-**Từ vựng trong mục:** **Tangent slope** — độ dốc tiếp tuyến.
+Vận tốc tức thời theo mô hình là 6 m/s.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần kiểm liên tục hàm đơn giản để phục vụ một công việc cụ thể. Đầu vào được cung cấp: f(x)=x² tại x=2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 3 — Độ dốc của hàm doanh thu
 
-**Vì sao chọn phương án?** Đối chiếu limit và f(a)
+**Tình huống thực tế:** Mô hình doanh thu giả định `R(x)=2x²+3x` nghìn đồng, x là số đơn vị hàng. Đội vận hành muốn biết mức doanh thu thay đổi cục bộ quanh x=4, chưa xét việc x chỉ nhận số nguyên trong giao dịch thực tế.
 
+**Vì sao chọn cách giải này?** Đạo hàm chỉ ra độ tăng cục bộ của mô hình liên tục, không phải tổng doanh thu tại x=4.
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:**
+
+1. Tạo biểu thức R(x)=2x²+3x.
+2. Tính R'(x)=4x+3.
+3. Thay x=4, in độ dốc.
 
 ```python
 import sympy as sp
-x=sp.symbols('x');f=x*x
-print(sp.limit(f,x,2)==f.subs(x,2))
+
+x = sp.symbols('x')
+revenue = 2 * x ** 2 + 3 * x
+print(sp.diff(revenue, x).subs(x, 4))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 5 — Ước lượng đạo hàm từ cảm biến
+```text
+19
+```
 
-**Từ vựng trong mục:** **Limit** — giới hạn.
+Độ dốc là 19 nghìn đồng mỗi đơn vị hàng theo mô hình liên tục.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần ước lượng đạo hàm từ cảm biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 5 thời điểm cách nhau 1 giây. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 4 — Kiểm tra tính liên tục của hàm số
 
-**Vì sao chọn phương án?** gradient gần đúng khi dữ liệu chỉ có giá trị mẫu
+**Tình huống thực tế:** Mô hình tính vị trí `f(x)=x²` tại x=2 mét đầu vào. Cần xem giới hạn của hàm tại điểm này có bằng chính giá trị f(2) hay không.
 
+**Vì sao chọn cách giải này?** So giới hạn với giá trị hàm là kiểm tra định nghĩa liên tục tại điểm đã chọn.
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:**
+
+1. Định nghĩa hàm và điểm x=2.
+2. Tính giới hạn và giá trị tại điểm.
+3. In kết quả so sánh Boolean.
+
+```python
+import sympy as sp
+
+x = sp.symbols('x')
+f = x ** 2
+print(sp.limit(f, x, 2) == f.subs(x, 2))
+```
+
+**Kết quả khi chạy:**
+
+```text
+True
+```
+
+Mô hình liên tục tại x=2 vì giới hạn và giá trị thực của hàm đều là 4.
+
+### Tình huống 5 — Ước lượng vận tốc từ năm lần đo
+
+**Tình huống thực tế:** Cảm biến ghi quãng đường theo mô hình `s=t²` mét ở thời điểm 0,1,2,3,4 giây. Chỉ có năm mẫu rời rạc, nên cần **ước lượng** đạo hàm thay vì dùng biểu thức ký hiệu.
+
+**Vì sao chọn cách giải này?** `np.gradient` dùng chênh lệch hữu hạn; biên có thể kém chính xác hơn các điểm giữa.
+
+**Quy trình giải:**
+
+1. Tạo trục thời gian năm giây và quãng đường tương ứng.
+2. Gọi `np.gradient(distance,time)`.
+3. In năm ước lượng vận tốc theo m/s.
 
 ```python
 import numpy as np
-time=np.arange(5.);distance=time**2
-print(np.gradient(distance,time))
+
+time = np.arange(5, dtype=float)
+distance = time ** 2
+print(np.gradient(distance, time))
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Các lỗi dễ gặp
+```text
+[1. 2. 4. 6. 7.]
+```
 
-Hàm kích hoạt và loss không tự thay thế quy trình huấn luyện; đạo hàm theo một biến không giống gradient nhiều biến. Tránh tràn số mũ, log(0), chia cho 0; luôn để ý learning rate và đơn vị.
+Ở các điểm giữa, ước lượng bằng đạo hàm 2t; hai đầu dùng sai phân một phía nên khác giá trị tức thời chính xác.
+
+## 6. Sai lầm thường gặp
+
+- Giới hạn không nhất thiết bằng giá trị hàm tại điểm nếu hàm không liên tục hoặc không xác định ở đó.
+- Muốn liên tục cần giới hạn trái, phải và giá trị hàm bằng nhau.
+- Đạo hàm là tốc độ thay đổi tức thời; độ dốc trung bình trên một khoảng có thể khác.
+- Với quãng đường theo giây, đạo hàm có đơn vị m/s; không diễn giải thành mét.
+- `np.gradient` xấp xỉ từ mẫu; ở đầu và cuối dãy thường dùng sai phân một phía.
+- SymPy là thư viện ngoài cần cài khi chạy các ví dụ ký hiệu.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Q1. What does a limit describe? — Giới hạn mô tả gì?**
 
+A. What f(x) approaches as x approaches a point — Giá trị f(x) tiến đến khi x tiến gần một điểm
 
-**Q1. What does Limit mean? — Thuật ngữ Limit có nghĩa gì?**
+B. The two-sided limit exists and equals f(a) — Giới hạn hai phía tồn tại và bằng f(a)
 
-A. It instead means Giới hạn và giá trị hàm phù hợp tại điểm xét — Giới hạn và giá trị hàm phù hợp tại điểm xét
+C. Instantaneous rate of change — Tốc độ thay đổi tức thời
 
-B. It means Giá trị hàm tiến gần khi đầu vào tiến đến điểm — Giá trị hàm tiến gần khi đầu vào tiến đến điểm
+D. The derivative evaluated at a — Giá trị đạo hàm tại a
 
-C. It instead means Tốc độ thay đổi cục bộ của hàm theo đầu vào — Tốc độ thay đổi cục bộ của hàm theo đầu vào
+**Q2. What does continuity at x=a require? — Liên tục tại x=a cần gì?**
 
-D. It instead means Giá trị đạo hàm tại một điểm — Giá trị đạo hàm tại một điểm
+A. What f(x) approaches as x approaches a point — Giá trị f(x) tiến đến khi x tiến gần một điểm
 
+B. The two-sided limit exists and equals f(a) — Giới hạn hai phía tồn tại và bằng f(a)
 
-**Q2. What does Continuity mean? — Thuật ngữ Continuity có nghĩa gì?**
+C. Instantaneous rate of change — Tốc độ thay đổi tức thời
 
-A. It means Giới hạn và giá trị hàm phù hợp tại điểm xét — Giới hạn và giá trị hàm phù hợp tại điểm xét
+D. The derivative evaluated at a — Giá trị đạo hàm tại a
 
-B. It instead means Tốc độ thay đổi cục bộ của hàm theo đầu vào — Tốc độ thay đổi cục bộ của hàm theo đầu vào
+**Q3. What does a derivative describe? — Đạo hàm mô tả gì?**
 
-C. It instead means Giá trị đạo hàm tại một điểm — Giá trị đạo hàm tại một điểm
+A. What f(x) approaches as x approaches a point — Giá trị f(x) tiến đến khi x tiến gần một điểm
 
-D. It instead means Giá trị hàm tiến gần khi đầu vào tiến đến điểm — Giá trị hàm tiến gần khi đầu vào tiến đến điểm
+B. The two-sided limit exists and equals f(a) — Giới hạn hai phía tồn tại và bằng f(a)
 
+C. Instantaneous rate of change — Tốc độ thay đổi tức thời
 
-**Q3. What does Derivative mean? — Thuật ngữ Derivative có nghĩa gì?**
+D. The derivative evaluated at a — Giá trị đạo hàm tại a
 
-A. It instead means Giá trị đạo hàm tại một điểm — Giá trị đạo hàm tại một điểm
+**Q4. What is tangent slope at x=a? — Độ dốc tiếp tuyến tại x=a là gì?**
 
-B. It instead means Giá trị hàm tiến gần khi đầu vào tiến đến điểm — Giá trị hàm tiến gần khi đầu vào tiến đến điểm
+A. What f(x) approaches as x approaches a point — Giá trị f(x) tiến đến khi x tiến gần một điểm
 
-C. It instead means Giới hạn và giá trị hàm phù hợp tại điểm xét — Giới hạn và giá trị hàm phù hợp tại điểm xét
+B. The two-sided limit exists and equals f(a) — Giới hạn hai phía tồn tại và bằng f(a)
 
-D. It means Tốc độ thay đổi cục bộ của hàm theo đầu vào — Tốc độ thay đổi cục bộ của hàm theo đầu vào
+C. Instantaneous rate of change — Tốc độ thay đổi tức thời
 
+D. The derivative evaluated at a — Giá trị đạo hàm tại a
 
-**Q4. What does Tangent slope mean? — Thuật ngữ Tangent slope có nghĩa gì?**
+**Q5. What does `sp.limit(f,x,a)` calculate? — `sp.limit(f,x,a)` tính gì?**
 
-A. It instead means Giá trị hàm tiến gần khi đầu vào tiến đến điểm — Giá trị hàm tiến gần khi đầu vào tiến đến điểm
+A. The limit of f as x approaches a — Giới hạn của f khi x tiến đến a
 
-B. It instead means Giới hạn và giá trị hàm phù hợp tại điểm xét — Giới hạn và giá trị hàm phù hợp tại điểm xét
+B. The derivative of f with respect to x — Đạo hàm f theo biến x
 
-C. It means Giá trị đạo hàm tại một điểm — Giá trị đạo hàm tại một điểm
+C. Substitutes a into symbolic expression — Thay a vào biểu thức ký hiệu
 
-D. It instead means Tốc độ thay đổi cục bộ của hàm theo đầu vào — Tốc độ thay đổi cục bộ của hàm theo đầu vào
+D. Derivatives from sampled y and x values — Đạo hàm từ các giá trị y, x lấy mẫu
 
+**Q6. What does `sp.diff(f,x)` return? — `sp.diff(f,x)` trả gì?**
 
-**Q5. What does sympy.symbols()/limit() do? — Mục đích của sympy.symbols()/limit() là gì?**
+A. The limit of f as x approaches a — Giới hạn của f khi x tiến đến a
 
-A. Another operation does Đạo hàm theo biến x — Đạo hàm theo biến x
+B. The derivative of f with respect to x — Đạo hàm f theo biến x
 
-B. It is used to Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định — Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định
+C. Substitutes a into symbolic expression — Thay a vào biểu thức ký hiệu
 
-C. Another operation does Thay giá trị vào công thức symbolic — Thay giá trị vào công thức symbolic
+D. Derivatives from sampled y and x values — Đạo hàm từ các giá trị y, x lấy mẫu
 
-D. Another operation does Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu — Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu
+**Q7. What does `expr.subs(x,a)` do? — `expr.subs(x,a)` làm gì?**
 
+A. The limit of f as x approaches a — Giới hạn của f khi x tiến đến a
 
-**Q6. What does sympy.diff(f,x) do? — Mục đích của sympy.diff(f,x) là gì?**
+B. The derivative of f with respect to x — Đạo hàm f theo biến x
 
-A. It is used to Đạo hàm theo biến x — Đạo hàm theo biến x
+C. Substitutes a into symbolic expression — Thay a vào biểu thức ký hiệu
 
-B. Another operation does Thay giá trị vào công thức symbolic — Thay giá trị vào công thức symbolic
+D. Derivatives from sampled y and x values — Đạo hàm từ các giá trị y, x lấy mẫu
 
-C. Another operation does Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu — Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu
+**Q8. What does `np.gradient(y,x)` approximate? — `np.gradient(y,x)` xấp xỉ gì?**
 
-D. Another operation does Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định — Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định
+A. The limit of f as x approaches a — Giới hạn của f khi x tiến đến a
 
+B. The derivative of f with respect to x — Đạo hàm f theo biến x
 
-**Q7. What does expr.subs(x,value) do? — Mục đích của expr.subs(x,value) là gì?**
+C. Substitutes a into symbolic expression — Thay a vào biểu thức ký hiệu
 
-A. Another operation does Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu — Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu
+D. Derivatives from sampled y and x values — Đạo hàm từ các giá trị y, x lấy mẫu
 
-B. Another operation does Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định — Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định
+**Q9. What is the derivative of x²? — Đạo hàm của x² là gì?**
 
-C. Another operation does Đạo hàm theo biến x — Đạo hàm theo biến x
+A. `2*x` — `2*x`
 
-D. It is used to Thay giá trị vào công thức symbolic — Thay giá trị vào công thức symbolic
+B. Zero — Bằng 0
 
+C. 6 — 6
 
-**Q8. What does np.gradient(y,x) do? — Mục đích của np.gradient(y,x) là gì?**
+D. 4 — 4
 
-A. Another operation does Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định — Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định
+**Q10. What is the derivative of a constant? — Đạo hàm của một hằng số là gì?**
 
-B. Another operation does Đạo hàm theo biến x — Đạo hàm theo biến x
+A. `2*x` — `2*x`
 
-C. It is used to Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu — Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu
+B. Zero — Bằng 0
 
-D. Another operation does Thay giá trị vào công thức symbolic — Thay giá trị vào công thức symbolic
+C. 6 — 6
 
+D. 4 — 4
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn cách giải ở tình huống 1?**
+**Q11. What is the slope of x² at x=3? — Độ dốc của x² tại x=3 là gì?**
 
-A. Đạo hàm quãng đường theo thời gian là vận tốc — Đạo hàm quãng đường theo thời gian là vận tốc
+A. `2*x` — `2*x`
 
-B. Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm — Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm
+B. Zero — Bằng 0
 
-C. Tìm đạo hàm để biết xu hướng ở x=4 — Tìm đạo hàm để biết xu hướng ở x=4
+C. 6 — 6
 
-D. Đối chiếu limit và f(a) — Đối chiếu limit và f(a)
+D. 4 — 4
 
+**Q12. What is the limit of (x²−4)/(x−2) at x=2? — Giới hạn của (x²−4)/(x−2) khi x→2 là gì?**
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn cách giải ở tình huống 2?**
+A. `2*x` — `2*x`
 
-A. Đạo hàm quãng đường theo thời gian là vận tốc — Đạo hàm quãng đường theo thời gian là vận tốc
+B. Zero — Bằng 0
 
-B. Tìm đạo hàm để biết xu hướng ở x=4 — Tìm đạo hàm để biết xu hướng ở x=4
+C. 6 — 6
 
-C. Đối chiếu limit và f(a) — Đối chiếu limit và f(a)
+D. 4 — 4
 
-D. gradient gần đúng khi dữ liệu chỉ có giá trị mẫu — gradient gần đúng khi dữ liệu chỉ có giá trị mẫu
+**Q13. What may happen if the left and right limits differ? — Nếu giới hạn trái và phải khác nhau thì sao?**
 
+A. The two-sided limit does not exist — Giới hạn hai phía không tồn tại
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn cách giải ở tình huống 3?**
+B. Distance per unit time — Khoảng cách trên mỗi đơn vị thời gian
 
-A. Đối chiếu limit và f(a) — Đối chiếu limit và f(a)
+C. Sampling spacing and numerical scheme — Khoảng cách mẫu và cách lấy sai phân
 
-B. gradient gần đúng khi dữ liệu chỉ có giá trị mẫu — gradient gần đúng khi dữ liệu chỉ có giá trị mẫu
+D. Yes, if nearby values approach one number — Có, nếu giá trị lân cận tiến đến cùng một số
 
-C. Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm — Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm
+**Q14. What does a derivative unit become for distance over time? — Đạo hàm quãng đường theo thời gian có đơn vị gì?**
 
-D. Tìm đạo hàm để biết xu hướng ở x=4 — Tìm đạo hàm để biết xu hướng ở x=4
+A. The two-sided limit does not exist — Giới hạn hai phía không tồn tại
 
+B. Distance per unit time — Khoảng cách trên mỗi đơn vị thời gian
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn cách giải ở tình huống 4?**
+C. Sampling spacing and numerical scheme — Khoảng cách mẫu và cách lấy sai phân
 
-A. gradient gần đúng khi dữ liệu chỉ có giá trị mẫu — gradient gần đúng khi dữ liệu chỉ có giá trị mẫu
+D. Yes, if nearby values approach one number — Có, nếu giá trị lân cận tiến đến cùng một số
 
-B. Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm — Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm
+**Q15. What determines finite-difference accuracy? — Độ chính xác sai phân hữu hạn phụ thuộc gì?**
 
-C. Đối chiếu limit và f(a) — Đối chiếu limit và f(a)
+A. The two-sided limit does not exist — Giới hạn hai phía không tồn tại
 
-D. Đạo hàm quãng đường theo thời gian là vận tốc — Đạo hàm quãng đường theo thời gian là vận tốc
+B. Distance per unit time — Khoảng cách trên mỗi đơn vị thời gian
 
+C. Sampling spacing and numerical scheme — Khoảng cách mẫu và cách lấy sai phân
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn cách giải ở tình huống 5?**
+D. Yes, if nearby values approach one number — Có, nếu giá trị lân cận tiến đến cùng một số
 
-A. Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm — Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm
+**Q16. Can a function have a finite limit at an undefined point? — Hàm chưa xác định tại một điểm có thể có giới hạn hữu hạn không?**
 
-B. gradient gần đúng khi dữ liệu chỉ có giá trị mẫu — gradient gần đúng khi dữ liệu chỉ có giá trị mẫu
+A. The two-sided limit does not exist — Giới hạn hai phía không tồn tại
 
-C. Đạo hàm quãng đường theo thời gian là vận tốc — Đạo hàm quãng đường theo thời gian là vận tốc
+B. Distance per unit time — Khoảng cách trên mỗi đơn vị thời gian
 
-D. Tìm đạo hàm để biết xu hướng ở x=4 — Tìm đạo hàm để biết xu hướng ở x=4
+C. Sampling spacing and numerical scheme — Khoảng cách mẫu và cách lấy sai phân
 
+D. Yes, if nearby values approach one number — Có, nếu giá trị lân cận tiến đến cùng một số
 
-**Q14. Which input belongs to scenario 1? — Tình huống 1 sử dụng dữ liệu gì?**
+**Q17. How does a derivative differ from an average slope? — Đạo hàm khác độ dốc trung bình thế nào?**
 
-A. The input is (x²-4)/(x-2), khi x→2 — (x²-4)/(x-2), khi x→2
+A. It describes a local infinitesimal change — Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-B. Another input is Quãng đường s(t)=t², t=3 giây — Quãng đường s(t)=t², t=3 giây
+B. 2 — 2
 
-C. Another input is Hàm doanh thu f(x)=2x²+3x — Hàm doanh thu f(x)=2x²+3x
+C. `sympy.diff` — `sympy.diff`
 
-D. Another input is f(x)=x² tại x=2 — f(x)=x² tại x=2
+D. It often uses one-sided differences — Nó thường dùng sai phân một phía
 
+**Q18. What is the derivative of 2x+3? — Đạo hàm của 2x+3 là gì?**
 
-**Q15. Which input belongs to scenario 2? — Tình huống 2 sử dụng dữ liệu gì?**
+A. It describes a local infinitesimal change — Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-A. Another input is Hàm doanh thu f(x)=2x²+3x — Hàm doanh thu f(x)=2x²+3x
+B. 2 — 2
 
-B. Another input is f(x)=x² tại x=2 — f(x)=x² tại x=2
+C. `sympy.diff` — `sympy.diff`
 
-C. Another input is 5 thời điểm cách nhau 1 giây — 5 thời điểm cách nhau 1 giây
+D. It often uses one-sided differences — Nó thường dùng sai phân một phía
 
-D. The input is Quãng đường s(t)=t², t=3 giây — Quãng đường s(t)=t², t=3 giây
+**Q19. Which tool calculates symbolic derivatives? — Công cụ nào tính đạo hàm ký hiệu?**
 
+A. It describes a local infinitesimal change — Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-**Q16. Which input belongs to scenario 3? — Tình huống 3 sử dụng dữ liệu gì?**
+B. 2 — 2
 
-A. Another input is f(x)=x² tại x=2 — f(x)=x² tại x=2
+C. `sympy.diff` — `sympy.diff`
 
-B. Another input is 5 thời điểm cách nhau 1 giây — 5 thời điểm cách nhau 1 giây
+D. It often uses one-sided differences — Nó thường dùng sai phân một phía
 
-C. The input is Hàm doanh thu f(x)=2x²+3x — Hàm doanh thu f(x)=2x²+3x
+**Q20. Why is a numerical gradient at a boundary less accurate? — Vì sao gradient số ở biên có thể kém chính xác hơn?**
 
-D. Another input is (x²-4)/(x-2), khi x→2 — (x²-4)/(x-2), khi x→2
+A. It describes a local infinitesimal change — Nó mô tả độ thay đổi cục bộ rất nhỏ
 
+B. 2 — 2
 
-**Q17. Which input belongs to scenario 4? — Tình huống 4 sử dụng dữ liệu gì?**
+C. `sympy.diff` — `sympy.diff`
 
-A. Another input is 5 thời điểm cách nhau 1 giây — 5 thời điểm cách nhau 1 giây
-
-B. The input is f(x)=x² tại x=2 — f(x)=x² tại x=2
-
-C. Another input is (x²-4)/(x-2), khi x→2 — (x²-4)/(x-2), khi x→2
-
-D. Another input is Quãng đường s(t)=t², t=3 giây — Quãng đường s(t)=t², t=3 giây
-
-
-**Q18. Which input belongs to scenario 5? — Tình huống 5 sử dụng dữ liệu gì?**
-
-A. The input is 5 thời điểm cách nhau 1 giây — 5 thời điểm cách nhau 1 giây
-
-B. Another input is (x²-4)/(x-2), khi x→2 — (x²-4)/(x-2), khi x→2
-
-C. Another input is Quãng đường s(t)=t², t=3 giây — Quãng đường s(t)=t², t=3 giây
-
-D. Another input is Hàm doanh thu f(x)=2x²+3x — Hàm doanh thu f(x)=2x²+3x
-
-
-**Q19. What must be known before computing? — Trước khi tính phải biết gì?**
-
-A. Only editor color — Chỉ màu giao diện
-
-B. Only filename — Chỉ tên file
-
-C. Only number of comments — Chỉ số lượng comment
-
-D. Input meaning and units — Ý nghĩa và đơn vị đầu vào
-
-
-**Q20. What makes a calculation trustworthy? — Điều gì giúp phép tính đáng tin?**
-
-A. Assume models never fail — Cho rằng mô hình không bao giờ sai
-
-B. Delete validation — Xóa bước xác minh
-
-C. Verify results and edge cases — Kiểm tra kết quả và trường hợp biên
-
-D. Guess data units — Đoán đơn vị dữ liệu
+D. It often uses one-sided differences — Nó thường dùng sai phân một phía
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It means Giá trị hàm tiến gần khi đầu vào tiến đến điểm | Giá trị hàm tiến gần khi đầu vào tiến đến điểm |
-| Q2 | **A** | It means Giới hạn và giá trị hàm phù hợp tại điểm xét | Giới hạn và giá trị hàm phù hợp tại điểm xét |
-| Q3 | **D** | It means Tốc độ thay đổi cục bộ của hàm theo đầu vào | Tốc độ thay đổi cục bộ của hàm theo đầu vào |
-| Q4 | **C** | It means Giá trị đạo hàm tại một điểm | Giá trị đạo hàm tại một điểm |
-| Q5 | **B** | It is used to Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định | Tạo biến ký hiệu và tính giới hạn kể cả điểm không xác định |
-| Q6 | **A** | It is used to Đạo hàm theo biến x | Đạo hàm theo biến x |
-| Q7 | **D** | It is used to Thay giá trị vào công thức symbolic | Thay giá trị vào công thức symbolic |
-| Q8 | **C** | It is used to Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu | Ước lượng đạo hàm từ dãy mẫu, phụ thuộc bước lấy mẫu |
-| Q9 | **B** | Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm | Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm |
-| Q10 | **A** | Đạo hàm quãng đường theo thời gian là vận tốc | Đạo hàm quãng đường theo thời gian là vận tốc |
-| Q11 | **D** | Tìm đạo hàm để biết xu hướng ở x=4 | Tìm đạo hàm để biết xu hướng ở x=4 |
-| Q12 | **C** | Đối chiếu limit và f(a) | Đối chiếu limit và f(a) |
-| Q13 | **B** | gradient gần đúng khi dữ liệu chỉ có giá trị mẫu | gradient gần đúng khi dữ liệu chỉ có giá trị mẫu |
-| Q14 | **A** | The input is (x²-4)/(x-2), khi x→2 | (x²-4)/(x-2), khi x→2 |
-| Q15 | **D** | The input is Quãng đường s(t)=t², t=3 giây | Quãng đường s(t)=t², t=3 giây |
-| Q16 | **C** | The input is Hàm doanh thu f(x)=2x²+3x | Hàm doanh thu f(x)=2x²+3x |
-| Q17 | **B** | The input is f(x)=x² tại x=2 | f(x)=x² tại x=2 |
-| Q18 | **A** | The input is 5 thời điểm cách nhau 1 giây | 5 thời điểm cách nhau 1 giây |
-| Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị đầu vào |
-| Q20 | **C** | Verify results and edge cases | Kiểm tra kết quả và trường hợp biên |
+| Q1 | **A** | A limit concerns nearby input values. | Giới hạn xét đầu vào lân cận điểm. |
+| Q2 | **B** | Continuity requires limit and function value to match. | Liên tục đòi hỏi giới hạn bằng giá trị hàm. |
+| Q3 | **C** | Derivative measures change at a point. | Đạo hàm đo độ thay đổi tại điểm. |
+| Q4 | **D** | The slope of the tangent is f'(a). | Độ dốc tiếp tuyến là f'(a). |
+| Q5 | **A** | limit is symbolic and need not substitute at a singularity. | limit tính giới hạn mà không cần thế tại điểm kỳ dị. |
+| Q6 | **B** | diff computes a symbolic derivative. | diff tính đạo hàm ký hiệu. |
+| Q7 | **C** | subs evaluates a symbolic expression by substitution. | subs thay giá trị vào biểu thức ký hiệu. |
+| Q8 | **D** | gradient estimates derivatives from samples. | gradient xấp xỉ đạo hàm từ mẫu. |
+| Q9 | **A** | The power rule gives 2x. | Quy tắc đạo hàm lũy thừa cho 2x. |
+| Q10 | **B** | A constant does not change. | Hằng số không đổi theo biến. |
+| Q11 | **C** | 2×3 equals six. | 2 nhân 3 bằng sáu. |
+| Q12 | **D** | The removable factor leaves x+2 nearby. | Rút gọn gần điểm còn x+2. |
+| Q13 | **A** | Unequal one-sided limits prevent a two-sided limit. | Giới hạn một phía khác nhau khiến giới hạn hai phía không có. |
+| Q14 | **B** | Dividing distance by time gives speed units. | Quãng đường chia thời gian cho đơn vị vận tốc. |
+| Q15 | **C** | Sample spacing affects estimated slopes. | Khoảng lấy mẫu ảnh hưởng độ dốc ước lượng. |
+| Q16 | **D** | The limit can exist even if the original point is undefined. | Giới hạn có thể có dù hàm không xác định ngay điểm đó. |
+| Q17 | **A** | Instantaneous slope is a limiting local quantity. | Độ dốc tức thời là đại lượng giới hạn cục bộ. |
+| Q18 | **B** | The slope coefficient of 2x is two. | Hệ số của x cho đạo hàm bằng 2. |
+| Q19 | **C** | SymPy exposes symbolic differentiation with diff. | SymPy hỗ trợ đạo hàm ký hiệu bằng diff. |
+| Q20 | **D** | Endpoint estimates frequently rely on one-sided data. | Ước lượng ở đầu dãy thường dùng dữ liệu một phía. |
 
 ## 8. Bài tiếp theo
 
