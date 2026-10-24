@@ -116,6 +116,8 @@ C. English option — Phương án C tiếng Việt
 
 D. English option — Phương án D tiếng Việt
 
+[**Chỉ hỏi lý thuyết và kiến thức bài học** (khái niệm, chức năng, phân biệt, cú pháp, lỗi thường gặp), **không hỏi “tình huống N/ví dụ N giải thế nào”, không hỏi nhớ số liệu/tên nhân vật của ví dụ**.]
+
 [**Đúng 20 câu**: mỗi câu có **English question + bản dịch tiếng Việt**, **bốn lựa chọn Anh–Việt** và đáp án, giải thích **Anh–Việt**. Giữ nguyên cú pháp code, không dịch tên hàm/biến. Không đánh đố.]
 
 ### Answer key / Đáp án và giải thích song ngữ
