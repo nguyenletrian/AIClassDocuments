@@ -29,7 +29,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 | `np.column_stack((A,b))` | Ghép ma trận hệ số và vế phải thành augmented matrix |
 | `np.linalg.lstsq(A,b,rcond=None)` | Tìm nghiệm bình phương tối thiểu khi quá nhiều phương trình |
 
-## 4. Khái niệm kèm ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Linear system
 
@@ -40,6 +40,12 @@ Nhiều phương trình chứa cùng các ẩn số. Trước khi sử dụng bi
 ```python
 import numpy as np
 print(np.linalg.solve([[1,1],[2,1]],[5,8]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[3. 2.]
 ```
 
 **Tự kiểm tra:** Linear system có nghĩa gì? **Đáp án:** Nhiều phương trình chứa cùng các ẩn số.
@@ -55,6 +61,12 @@ import numpy as np
 print(np.linalg.matrix_rank([[1,2],[2,4]]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+1
+```
+
 **Tự kiểm tra:** Rank có nghĩa gì? **Đáp án:** Số hàng/cột độc lập tuyến tính.
 
 ### 4.3. Coefficient matrix
@@ -68,6 +80,13 @@ import numpy as np
 print(np.array([[1,1],[2,1]]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[1 1]
+ [2 1]]
+```
+
 **Tự kiểm tra:** Coefficient matrix có nghĩa gì? **Đáp án:** Các hệ số của ẩn trong Ax=b.
 
 ### 4.4. Residual
@@ -78,7 +97,16 @@ print(np.array([[1,1],[2,1]]))
 
 ```python
 import numpy as np
-A=np.eye(2);x=np.array([2,3]);b=np.array([2,3]);print(A@x-b)
+A=np.eye(2)
+x=np.array([2,3])
+b=np.array([2,3])
+print(A@x-b)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0. 0.]
 ```
 
 **Tự kiểm tra:** Residual có nghĩa gì? **Đáp án:** Độ sai khác giữa dự đoán Ax và b.
@@ -89,17 +117,24 @@ A=np.eye(2);x=np.array([2,3]);b=np.array([2,3]);print(A@x-b)
 
 **Từ vựng trong mục:** **Linear system** — hệ tuyến tính.
 
-**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn tính giá hai loại hàng. Bộ dữ liệu đang có: x+y=5, 2x+y=8 (nghìn đồng). Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Cửa hàng bán hai loại sản phẩm: mua mỗi loại một món hết 5 đơn vị tiền, mua hai món loại đầu và một món loại sau hết 8. Tìm giá từng loại.
 
 **Vì sao chọn phương án?** Solve tìm giá mỗi loại từ hai hóa đơn độc lập; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
-A=np.array([[1,1],[2,1]],dtype=float);b=np.array([5,8])
+A=np.array([[1,1],[2,1]],dtype=float)
+b=np.array([5,8])
 print(np.linalg.solve(A,b))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[3. 2.]
 ```
 
 
@@ -107,12 +142,12 @@ print(np.linalg.solve(A,b))
 
 **Từ vựng trong mục:** **Rank** — hạng ma trận.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn xem cột dữ liệu trùng. Bộ dữ liệu đang có: Ma trận [1,2];[2,4]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Bảng hai cột dữ liệu có hàng [1,2] và [2,4]; cột thứ hai gấp đôi cột đầu. Kiểm tra rank để nhận biết phụ thuộc.
 
 **Vì sao chọn phương án?** Rank thấp phát hiện một feature tuyến tính phụ thuộc feature khác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -120,22 +155,36 @@ A=np.array([[1,2],[2,4]])
 print(np.linalg.matrix_rank(A))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+1
+```
+
 
 ### Tình huống 3 — Kiểm chứng nghiệm
 
 **Từ vựng trong mục:** **Coefficient matrix** — ma trận hệ số.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm chứng nghiệm. Bộ dữ liệu đang có: Hệ x+y=5, 2x+y=8. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Một hệ có ma trận [[1,1],[2,1]] và kết quả [5,8]. Xác nhận nghiệm [3,2] có thỏa cả hai phương trình.
 
 **Vì sao chọn phương án?** Nhân A@x rồi so b để phát hiện sai phép giải; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
-A=np.array([[1,1],[2,1]]);b=np.array([5,8]);x=np.array([3,2])
+A=np.array([[1,1],[2,1]])
+b=np.array([5,8])
+x=np.array([3,2])
 print(np.allclose(A@x,b))
+```
+
+**Kết quả khi chạy:**
+
+```text
+True
 ```
 
 
@@ -143,36 +192,53 @@ print(np.allclose(A@x,b))
 
 **Từ vựng trong mục:** **Residual** — sai số dư.
 
-**Tình huống thực tế:** Một hệ thống giám sát muốn ước lượng từ số đo nhiễu. Bộ dữ liệu đang có: Ba điểm để fit đường y=ax+b. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Ba số đo x=[1,2,3] và y=[2,4,6] có quan hệ gần tuyến tính. Dùng bình phương tối thiểu tìm hệ số góc và hệ số chặn.
 
 **Vì sao chọn phương án?** lstsq phù hợp khi số phương trình lớn hơn số ẩn; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
-x=np.array([1,2,3]);y=np.array([2,4,6])
+x=np.array([1,2,3])
+y=np.array([2,4,6])
 A=np.column_stack([x,np.ones_like(x)])
 print(np.linalg.lstsq(A,y,rcond=None)[0])
 ```
+
+**Kết quả khi chạy (tham khảo):**
+
+```text
+[2.00000000e+00 2.32610211e-15]
+```
+
+*Hệ số thứ hai rất gần 0; các chữ số cuối có thể thay đổi theo phiên bản NumPy và môi trường tính toán.*
 
 
 ### Tình huống 5 — Tìm sai số dư
 
 **Từ vựng trong mục:** **Linear system** — hệ tuyến tính.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tìm sai số dư. Bộ dữ liệu đang có: A=I, x=[2,3], b=[2,4]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Một mô hình dự báo vector [2,3] nhưng giá trị thật là [2,4]. Tính vector sai số dự báo trừ thực tế.
 
 **Vì sao chọn phương án?** Residual cho biết hệ có tái tạo đúng mục tiêu không; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
-A=np.eye(2);x=np.array([2,3]);b=np.array([2,4])
+A=np.eye(2)
+x=np.array([2,3])
+b=np.array([2,4])
 print(A@x-b)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[ 0. -1.]
 ```
 
 
