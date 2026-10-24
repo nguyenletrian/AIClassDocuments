@@ -292,230 +292,230 @@ REQ01 ['REQ02', 'REQ03']
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What does a Python list store? — List lưu gì?**
+**Q1. What is a Python List? — List trong Python là gì?**
 
-A. Multiple ordered values — Nhiều giá trị có thứ tự
-
-B. Only one number — Chỉ một số
-
-C. Only file names — Chỉ tên file
-
-D. A running process — Một tiến trình đang chạy
-
-**Q2. What is the first list index? — Chỉ số đầu tiên của list là bao nhiêu?**
-
-A. 1 — 1
+A. An ordered mutable collection — Tập hợp có thứ tự và thay đổi được
 
 B. 0 — 0
 
-C. -2 — -2
+C. A list of the first two items — List gồm hai phần tử đầu
 
-D. 10 — 10
+D. Its contents can be changed after creation — Có thể đổi nội dung sau khi tạo
 
-**Q3. What does items[:2] return? — items[:2] lấy gì?**
+**Q2. What is the index of the first list element? — Chỉ số của phần tử List đầu tiên là gì?**
 
-A. The last two items — Hai phần tử cuối
+A. An ordered mutable collection — Tập hợp có thứ tự và thay đổi được
 
-B. The third item only — Chỉ phần tử thứ ba
+B. 0 — 0
 
-C. The first two items — Hai phần tử đầu
+C. A list of the first two items — List gồm hai phần tử đầu
 
-D. An empty list always — Luôn là list rỗng
+D. Its contents can be changed after creation — Có thể đổi nội dung sau khi tạo
 
-**Q4. Can list elements be replaced? — Có thể thay đổi phần tử list không?**
+**Q3. What does `a[:2]` return? — `a[:2]` trả về gì?**
 
-A. No, lists are fixed — Không, list không sửa được
+A. An ordered mutable collection — Tập hợp có thứ tự và thay đổi được
 
-B. Only after sorting — Chỉ sau khi sắp xếp
+B. 0 — 0
 
-C. Only with input() — Chỉ bằng input()
+C. A list of the first two items — List gồm hai phần tử đầu
 
-D. Yes, using an index — Có, bằng chỉ số
+D. Its contents can be changed after creation — Có thể đổi nội dung sau khi tạo
 
-**Q5. What does append(x) do? — append(x) làm gì?**
+**Q4. What does 'mutable' mean for a list? — List có tính mutable nghĩa là gì?**
 
-A. Adds x at the end — Thêm x vào cuối
+A. An ordered mutable collection — Tập hợp có thứ tự và thay đổi được
 
-B. Removes x — Xóa x
+B. 0 — 0
 
-C. Sorts the list — Sắp xếp list
+C. A list of the first two items — List gồm hai phần tử đầu
 
-D. Returns the first item — Lấy phần tử đầu
+D. Its contents can be changed after creation — Có thể đổi nội dung sau khi tạo
 
-**Q6. How does extend differ from append? — extend khác append như thế nào?**
+**Q5. What does `append(x)` do? — `append(x)` làm gì?**
 
-A. Both delete values — Cả hai xóa dữ liệu
+A. Adds x as one item at the end — Thêm x thành một phần tử ở cuối
 
-B. extend adds elements from an iterable — extend thêm từng phần tử của một nhóm
+B. Adds each item from an iterable — Thêm từng phần tử của dữ liệu duyệt được
 
-C. extend sorts the list — extend sắp xếp list
+C. Inserts x at the front — Chèn x vào đầu List
 
-D. append always fails — append luôn lỗi
+D. Removes and returns the first item — Xóa và trả lại phần tử đầu
 
-**Q7. What does pop(0) do? — pop(0) làm gì?**
+**Q6. What does `extend(items)` do? — `extend(items)` làm gì?**
 
-A. Removes the last item — Xóa phần tử cuối
+A. Adds x as one item at the end — Thêm x thành một phần tử ở cuối
 
-B. Copies the list — Sao chép list
+B. Adds each item from an iterable — Thêm từng phần tử của dữ liệu duyệt được
 
-C. Removes and returns the first item — Xóa và trả về phần tử đầu
+C. Inserts x at the front — Chèn x vào đầu List
 
-D. Clears all items — Xóa toàn bộ
+D. Removes and returns the first item — Xóa và trả lại phần tử đầu
 
-**Q8. Which operation keeps the original list unchanged? — Cách sắp xếp nào không sửa list gốc?**
+**Q7. What does `insert(0, x)` do? — `insert(0, x)` làm gì?**
 
-A. items.sort() — items.sort()
+A. Adds x as one item at the end — Thêm x thành một phần tử ở cuối
 
-B. items.reverse() — items.reverse()
+B. Adds each item from an iterable — Thêm từng phần tử của dữ liệu duyệt được
 
-C. items.append(2) — items.append(2)
+C. Inserts x at the front — Chèn x vào đầu List
 
-D. sorted(items) — sorted(items)
+D. Removes and returns the first item — Xóa và trả lại phần tử đầu
 
-**Q9. What is the basket after appending rice? — Giỏ hàng sau khi thêm rice là gì?**
+**Q8. What does `pop(0)` do on a nonempty list? — `pop(0)` làm gì với List không rỗng?**
 
-A. ['milk', 'bread', 'rice'] — ['milk', 'bread', 'rice']
+A. Adds x as one item at the end — Thêm x thành một phần tử ở cuối
 
-B. ['rice'] — ['rice']
+B. Adds each item from an iterable — Thêm từng phần tử của dữ liệu duyệt được
 
-C. ['milk', 'bread'] — ['milk', 'bread']
+C. Inserts x at the front — Chèn x vào đầu List
 
-D. ['bread', 'rice'] — ['bread', 'rice']
+D. Removes and returns the first item — Xóa và trả lại phần tử đầu
 
-**Q10. What are the two highest priority scores? — Hai điểm ưu tiên cao nhất là gì?**
+**Q9. What does `remove(x)` do? — `remove(x)` dùng để làm gì?**
 
-A. [2, 4] — [2, 4]
+A. Deletes the first matching value — Xóa giá trị khớp đầu tiên
 
-B. [9, 7] — [9, 7]
+B. Deletes the second indexed item — Xóa phần tử ở chỉ số 1
 
-C. [7, 4] — [7, 4]
+C. `None` — `None`
 
-D. [9, 2] — [9, 2]
+D. Creates a new sorted list — Tạo List mới đã sắp xếp
 
-**Q11. Which scores pass the threshold of 5? — Những điểm nào đạt ngưỡng 5?**
+**Q10. What does `del a[1]` do? — `del a[1]` có tác dụng gì?**
 
-A. [4, 3] — [4, 3]
+A. Deletes the first matching value — Xóa giá trị khớp đầu tiên
 
-B. [4, 7, 9, 3] — [4, 7, 9, 3]
+B. Deletes the second indexed item — Xóa phần tử ở chỉ số 1
 
-C. [7, 9] — [7, 9]
+C. `None` — `None`
 
-D. [] — []
+D. Creates a new sorted list — Tạo List mới đã sắp xếp
 
-**Q12. What is the stock after correcting index 1? — Tồn kho sau khi sửa chỉ số 1 là gì?**
+**Q11. What does `a.sort()` return? — `a.sort()` trả về gì?**
 
-A. [4, 6, 9] — [4, 6, 9]
+A. Deletes the first matching value — Xóa giá trị khớp đầu tiên
 
-B. [8, 6, 4] — [8, 6, 4]
+B. Deletes the second indexed item — Xóa phần tử ở chỉ số 1
 
-C. [8, 6, 9] — [8, 6, 9]
+C. `None` — `None`
 
-D. [8, 4, 9] — [8, 4, 9]
+D. Creates a new sorted list — Tạo List mới đã sắp xếp
 
-**Q13. Which request is processed first? — Yêu cầu nào được xử lý trước?**
+**Q12. What does `sorted(a)` do? — `sorted(a)` làm gì?**
 
-A. REQ01 — REQ01
+A. Deletes the first matching value — Xóa giá trị khớp đầu tiên
 
-B. REQ03 — REQ03
+B. Deletes the second indexed item — Xóa phần tử ở chỉ số 1
 
-C. REQ02 — REQ02
+C. `None` — `None`
 
-D. None — Không có
+D. Creates a new sorted list — Tạo List mới đã sắp xếp
 
-**Q14. What is [8, 9][0]? — [8, 9][0] bằng bao nhiêu?**
+**Q13. What does `a[-1]` read from a nonempty list? — `a[-1]` lấy gì từ List không rỗng?**
 
-A. 9 — 9
+A. The last element — Phần tử cuối
 
-B. 8 — 8
+B. The number of items — Số lượng phần tử
 
-C. 0 — 0
+C. `IndexError` — `IndexError`
 
-D. 2 — 2
+D. Replaces the second element — Thay phần tử thứ hai
 
-**Q15. What is [1, 2, 3][:2]? — [1, 2, 3][:2] bằng gì?**
+**Q14. What does `len(a)` report? — `len(a)` cho biết gì?**
 
-A. [2, 3] — [2, 3]
+A. The last element — Phần tử cuối
 
-B. [1, 2, 3] — [1, 2, 3]
+B. The number of items — Số lượng phần tử
 
-C. [1, 2] — [1, 2]
+C. `IndexError` — `IndexError`
 
-D. [3] — [3]
+D. Replaces the second element — Thay phần tử thứ hai
 
-**Q16. What happens with a[1] = 5 for a = [1, 2]? — a thay đổi thế nào với a[1] = 5?**
+**Q15. What happens for `a[10]` on a two-item list? — `a[10]` sẽ thế nào nếu List có hai phần tử?**
 
-A. [5, 2] — [5, 2]
+A. The last element — Phần tử cuối
 
-B. [1, 2] — [1, 2]
+B. The number of items — Số lượng phần tử
 
-C. [1, 2, 5] — [1, 2, 5]
+C. `IndexError` — `IndexError`
 
-D. [1, 5] — [1, 5]
+D. Replaces the second element — Thay phần tử thứ hai
 
-**Q17. Why use sorted(scores, reverse=True)? — Vì sao dùng sorted(scores, reverse=True)?**
+**Q16. What does `a[1] = 5` do? — `a[1] = 5` làm gì?**
 
-A. To sort descending without changing scores — Để sắp giảm dần mà không sửa scores
+A. The last element — Phần tử cuối
 
-B. To clear scores — Để xóa scores
+B. The number of items — Số lượng phần tử
 
-C. To select random scores — Để chọn điểm ngẫu nhiên
+C. `IndexError` — `IndexError`
 
-D. To convert scores to text — Để đổi điểm thành chữ
+D. Replaces the second element — Thay phần tử thứ hai
 
-**Q18. Which condition retains passing scores? — Điều kiện nào giữ lại điểm đạt?**
+**Q17. Which operation sorts a list in place? — Thao tác nào sắp xếp ngay List gốc?**
 
-A. x < 5 — x < 5
+A. `a.sort()` — `a.sort()`
 
-B. x >= 5 — x >= 5
+B. `sorted(a)` — `sorted(a)`
 
-C. x == 0 — x == 0
+C. Descending order — Thứ tự giảm dần
 
-D. x != x — x != x
+D. One nested item versus two separate items — Một phần tử List con so với hai phần tử riêng
 
-**Q19. What happens when pop(0) is called on an empty list? — Gọi pop(0) trên list rỗng sẽ thế nào?**
+**Q18. Which expression sorts without mutating the original? — Biểu thức nào sắp xếp mà không sửa List gốc?**
 
-A. Returns zero — Trả về số 0
+A. `a.sort()` — `a.sort()`
 
-B. Returns None — Trả về None
+B. `sorted(a)` — `sorted(a)`
 
-C. Raises IndexError — Báo lỗi IndexError
+C. Descending order — Thứ tự giảm dần
 
-D. Creates one element — Tạo một phần tử
+D. One nested item versus two separate items — Một phần tử List con so với hai phần tử riêng
 
-**Q20. What does list.sort() return? — list.sort() trả về gì?**
+**Q19. What does `reverse=True` mean in a numeric sort? — `reverse=True` có ý nghĩa gì khi sắp xếp số?**
 
-A. The sorted copy — Bản sao đã sắp
+A. `a.sort()` — `a.sort()`
 
-B. The largest item — Phần tử lớn nhất
+B. `sorted(a)` — `sorted(a)`
 
-C. The original length — Độ dài ban đầu
+C. Descending order — Thứ tự giảm dần
 
-D. None — None
+D. One nested item versus two separate items — Một phần tử List con so với hai phần tử riêng
+
+**Q20. How do `append([3,4])` and `extend([3,4])` differ? — `append([3,4])` và `extend([3,4])` khác gì?**
+
+A. `a.sort()` — `a.sort()`
+
+B. `sorted(a)` — `sorted(a)`
+
+C. Descending order — Thứ tự giảm dần
+
+D. One nested item versus two separate items — Một phần tử List con so với hai phần tử riêng
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A list stores values in order. | List lưu các giá trị theo thứ tự. |
-| Q2 | **B** | Python list indexing starts at zero. | Chỉ số list bắt đầu từ 0. |
-| Q3 | **C** | The stop index is excluded. | Không lấy phần tử ở vị trí kết thúc. |
-| Q4 | **D** | Lists are mutable. | List có thể thay đổi. |
-| Q5 | **A** | append adds one element. | append thêm một phần tử. |
-| Q6 | **B** | extend adds multiple supplied elements. | extend thêm từng phần tử được truyền vào. |
-| Q7 | **C** | Index zero refers to the first item. | Chỉ số 0 là phần tử đầu. |
-| Q8 | **D** | sorted produces a new list. | sorted tạo list mới. |
-| Q9 | **A** | append keeps existing elements and adds rice. | append giữ các món cũ và thêm rice. |
-| Q10 | **B** | Sort descending and take two items. | Sắp giảm dần rồi lấy hai phần tử. |
-| Q11 | **C** | Only scores at least five pass. | Chỉ điểm từ 5 trở lên được giữ. |
-| Q12 | **D** | Index one is the second item. | Chỉ số 1 là phần tử thứ hai. |
-| Q13 | **A** | pop(0) selects the first request. | pop(0) lấy yêu cầu đầu. |
-| Q14 | **B** | Index zero retrieves 8. | Chỉ số 0 lấy số 8. |
-| Q15 | **C** | Slicing excludes index 2. | Cắt trước chỉ số 2. |
-| Q16 | **D** | The second element is replaced. | Phần tử thứ hai được thay. |
-| Q17 | **A** | sorted returns a new list in descending order. | sorted trả về list mới theo thứ tự giảm dần. |
-| Q18 | **B** | Five or above meets the threshold. | Từ 5 trở lên là đạt. |
-| Q19 | **C** | There is no first element to remove. | List rỗng không có phần tử đầu để lấy. |
-| Q20 | **D** | sort changes the list in place and returns None. | sort sửa trực tiếp list và trả về None. |
+| Q1 | **A** | A list keeps elements in sequence and permits edits. | List lưu phần tử theo thứ tự và có thể sửa. |
+| Q2 | **B** | Python uses zero-based indexing. | Python đánh chỉ số bắt đầu từ 0. |
+| Q3 | **C** | A slice starts at zero and stops before index two. | Lát cắt bắt đầu từ 0, dừng trước vị trí 2. |
+| Q4 | **D** | Mutable lists allow item replacement or insertion. | List có thể thay phần tử hoặc chèn phần tử mới. |
+| Q5 | **A** | append adds a single element to the list's end. | append thêm một phần tử ở cuối list. |
+| Q6 | **B** | extend inserts elements individually from the iterable. | extend thêm lần lượt các phần tử của dãy. |
+| Q7 | **C** | Inserting at index zero shifts existing items to the right. | Chèn ở chỉ số 0 đẩy các phần tử cũ sang phải. |
+| Q8 | **D** | pop uses an index, unlike remove which uses a value. | pop xóa theo chỉ số, khác remove xóa theo giá trị. |
+| Q9 | **A** | remove searches by value, not by index. | remove tìm theo giá trị chứ không theo chỉ số. |
+| Q10 | **B** | del can delete the item at a specified index. | del xóa phần tử tại chỉ số đã chỉ định. |
+| Q11 | **C** | sort modifies a list in place and returns None. | sort sắp xếp list gốc và trả về None. |
+| Q12 | **D** | sorted leaves the original list unchanged. | sorted không sửa List ban đầu. |
+| Q13 | **A** | Negative indices count from the end. | Chỉ số âm đếm từ cuối. |
+| Q14 | **B** | len counts the elements in the list. | len đếm các phần tử có trong List. |
+| Q15 | **C** | Index 10 is outside the available indices. | Chỉ số 10 vượt quá giới hạn List. |
+| Q16 | **D** | A list supports assignment at valid indices. | List cho phép gán lại giá trị ở chỉ số hợp lệ. |
+| Q17 | **A** | sort changes the list itself. | sort thay đổi trực tiếp List. |
+| Q18 | **B** | sorted returns a separate ordered list. | sorted trả về một List mới đã sắp xếp. |
+| Q19 | **C** | reverse True reverses the normal ascending sort order. | reverse True đảo thứ tự sắp xếp tăng dần mặc định. |
+| Q20 | **D** | append adds the list as one value, while extend adds its contents. | append thêm cả List như một phần tử, extend thêm các phần tử bên trong. |
 
 ## 8. Nối sang bài tiếp theo
 
