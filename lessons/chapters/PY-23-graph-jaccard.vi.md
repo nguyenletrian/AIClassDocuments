@@ -1,10 +1,6 @@
 # PY-23 — Đồ thị, danh sách kề và Jaccard similarity
 
-*DRAFT · Dữ liệu số mô phỏng; chưa xác nhận kiểm thử trên Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
-
-**Từ vựng trong mục:** **Graph** — đồ thị; **Vertex** — đỉnh.
 
 `Set → Graph → Similarity → Gợi ý bạn học`
 
@@ -21,8 +17,6 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 3. NumPy và các hàm liên quan
 
-**Từ vựng trong mục:** **Function** — hàm; **Shape** — kích thước mảng.
-
 | Hàm / tham số | Dùng làm gì |
 |---|---|
 | `dict[str,set[str]]` | Danh sách kề đơn giản: key là đỉnh, value là các đỉnh nối |
@@ -34,8 +28,6 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ### 4.1. Graph
 
-**Từ vựng trong mục:** **Graph** — đồ thị.
-
 Các đỉnh và cạnh mô tả quan hệ giữa đối tượng. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
 
 ```python
@@ -43,11 +35,7 @@ graph={'An':{'Binh'},'Binh':{'An'}}
 print(graph)
 ```
 
-**Tự kiểm tra:** Graph có nghĩa gì? **Đáp án:** Các đỉnh và cạnh mô tả quan hệ giữa đối tượng.
-
 ### 4.2. Vertex
-
-**Từ vựng trong mục:** **Vertex** — đỉnh.
 
 Một đối tượng được biểu diễn trong đồ thị. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
 
@@ -56,11 +44,7 @@ vertices={'An','Binh'}
 print(len(vertices))
 ```
 
-**Tự kiểm tra:** Vertex có nghĩa gì? **Đáp án:** Một đối tượng được biểu diễn trong đồ thị.
-
 ### 4.3. Edge
-
-**Từ vựng trong mục:** **Edge** — cạnh.
 
 Liên hệ hoặc đường nối giữa hai đỉnh. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
 
@@ -69,11 +53,7 @@ edges={('An','Binh')}
 print(len(edges))
 ```
 
-**Tự kiểm tra:** Edge có nghĩa gì? **Đáp án:** Liên hệ hoặc đường nối giữa hai đỉnh.
-
 ### 4.4. Jaccard
-
-**Từ vựng trong mục:** **Jaccard** — độ tương đồng.
 
 Tỷ lệ số phần tử giao trên hợp giữa hai tập. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
 
@@ -82,13 +62,9 @@ a={'Python','AI'};b={'Python'}
 print(len(a&b)/len(a
 ```
 
-**Tự kiểm tra:** Jaccard có nghĩa gì? **Đáp án:** Tỷ lệ số phần tử giao trên hợp giữa hai tập.
-
 ## 5. Năm tình huống ứng dụng
 
 ### Tình huống 1 — Bạn bè trực tiếp
-
-**Từ vựng trong mục:** **Graph** — đồ thị.
 
 **Vấn đề:** Bạn bè trực tiếp.
 
@@ -96,18 +72,12 @@ print(len(a&b)/len(a
 
 **Dữ liệu:** Đồ thị An Binh Lan. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
-
 ```python
 graph={"An":{"Binh","Lan"},"Binh":{"An"},"Lan":{"An"}}
 print(graph["An"])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 2 — So trùng sở thích
-
-**Từ vựng trong mục:** **Vertex** — đỉnh.
 
 **Vấn đề:** So trùng sở thích.
 
@@ -115,26 +85,18 @@ print(graph["An"])
 
 **Dữ liệu:** Hai người với sở thích Python AI SQL. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
-
 ```python
 a={"Python","AI"};b={"Python","SQL"}
 print(len(a&b)/len(a|b))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 3 — Gợi ý đối tác học
-
-**Từ vựng trong mục:** **Edge** — cạnh.
 
 **Vấn đề:** Gợi ý đối tác học.
 
 **Vì sao chọn phương án?** Chọn người có Jaccard lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 **Dữ liệu:** Nhóm kỹ năng giả lập. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
 ```python
 target={"AI","Python"}
@@ -143,11 +105,7 @@ scores={n:len(target&s)/len(target|s) for n,s in people.items()}
 print(max(scores,key=scores.get))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 4 — Quan hệ có hướng
-
-**Từ vựng trong mục:** **Jaccard** — độ tương đồng.
 
 **Vấn đề:** Quan hệ có hướng.
 
@@ -155,18 +113,12 @@ print(max(scores,key=scores.get))
 
 **Dữ liệu:** A→B và B→C. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
-
 ```python
 graph={"A":{"B"},"B":{"C"},"C":set()}
 print("B" in graph["A"],"A" in graph["B"])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 5 — Tìm đường trong mạng
-
-**Từ vựng trong mục:** **Graph** — đồ thị.
 
 **Vấn đề:** Tìm đường trong mạng.
 
@@ -174,23 +126,17 @@ print("B" in graph["A"],"A" in graph["B"])
 
 **Dữ liệu:** Ba đỉnh A-B-C. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
-
 ```python
 import networkx as nx
 G=nx.Graph();G.add_edges_from([("A","B"),("B","C")])
 print(nx.shortest_path(G,"A","C"))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ## 6. Sai lầm cần tránh
 
 Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Graph? — Thuật ngữ Graph có nghĩa gì?**
@@ -436,7 +382,3 @@ D. It guarantees no leakage — Nó bảo đảm không rò rỉ dữ liệu
 | Q18 | **A** | The input is Ba đỉnh A-B-C | Ba đỉnh A-B-C |
 | Q19 | **D** | Shapes and data units | Shape và đơn vị dữ liệu |
 | Q20 | **C** | It does not establish predictive performance | Nó không đo chất lượng dự đoán |
-
-## 8. Nối sang bài kế tiếp
-
-`Set → Graph → Similarity → Gợi ý bạn học`.
