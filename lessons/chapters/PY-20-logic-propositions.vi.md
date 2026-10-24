@@ -31,11 +31,13 @@ Sau các điều kiện `if`, ta tìm hiểu vì sao phép `and`, `or`, `not` ch
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Proposition
+**Logic mệnh đề** giúp chương trình quyết định đúng/sai theo quy tắc rõ ràng; **bảng chân trị** giúp kiểm tra tất cả trường hợp của nhiều điều kiện; **phép kéo theo** biểu diễn quy định “nếu… thì…”. Khi phải đếm các lựa chọn có thể xảy ra, **nguyên lý cộng và nhân** cho kết quả mà không cần thử bằng tay từng cách.
 
-**Từ vựng trong mục:** **Proposition** — mệnh đề.
+### 4.1. Proposition — Phát biểu đúng hoặc sai
 
-Mệnh đề là phát biểu có thể xác định đúng (`True`) hoặc sai (`False`). Ví dụ `3 > 1` là một mệnh đề đúng.
+**Từ vựng trong mục:** **Proposition** — mệnh đề; **Boolean** — đúng/sai.
+
+**Mệnh đề** là một phát biểu có giá trị đúng hoặc sai xác định. Chẳng hạn `3 > 1` là đúng, còn `3 < 1` là sai; trong Python, hai kết quả được biểu diễn bằng `True` và `False`. Không phải mọi câu đều là mệnh đề: câu hỏi “Bạn khỏe không?” chưa mang một giá trị đúng/sai để tính toán. Ta dùng mệnh đề khi viết điều kiện kiểm tra truy cập hoặc quy tắc vận hành.
 
 ```python
 print(3 > 1)
@@ -47,33 +49,41 @@ print(3 > 1)
 True
 ```
 
-### 4.2. Truth table
+Mệnh đề `3 > 1` đúng vì số 3 lớn hơn 1; `print` hiển thị Boolean `True`.
 
-**Từ vựng trong mục:** **Truth table** — bảng chân trị.
+### 4.2. Truth table — Bảng chân trị
 
-Bảng chân trị liệt kê mọi khả năng của các biến Boolean. Với một biến `p`, có hai trường hợp: `True` hoặc `False`; phủ định `not p` đảo giá trị đó.
+**Từ vựng trong mục:** **Truth table** — bảng chân trị; **AND/OR/NOT** — và/hoặc/phủ định.
+
+**Bảng chân trị** liệt kê mọi kết hợp đúng/sai có thể có của các điều kiện. Với hai biến p, q, mỗi biến có hai trạng thái nên có `2×2 = 4` cặp. `p and q` chỉ đúng khi cả hai đúng; `p or q` đúng nếu **ít nhất một** đúng; `not p` đảo đúng thành sai và ngược lại. Bảng giúp kiểm tra quy tắc ngay cả ở trường hợp khó nhận ra bằng trực giác.
 
 ```python
 for p in [True, False]:
-        print(p, not p)
+    for q in [True, False]:
+        print(p, q, p and q, p or q)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True False
-False True
+True True True True
+True False False True
+False True False True
+False False False False
 ```
 
-### 4.3. Implication
+Hai cột đầu là đầu vào p, q; cột thứ ba là AND; cột cuối là OR. Bốn dòng bao phủ mọi trường hợp.
 
-**Từ vựng trong mục:** **Implication** — kéo theo.
+### 4.3. Implication — Nếu p thì q
 
-Mệnh đề kéo theo `p ⇒ q` chỉ sai khi `p` đúng nhưng `q` sai. Trong Python ta viết `(not p) or q`. Đây là quy tắc logic, không khẳng định quan hệ nhân quả.
+**Từ vựng trong mục:** **Implication** — kéo theo; **Premise/conclusion** — tiền đề/kết luận.
+
+**Mệnh đề kéo theo** `p ⇒ q` diễn đạt “nếu p thì q”, trong đó p là tiền đề và q là kết luận. Nó **chỉ sai** khi p đúng mà q sai. Ví dụ quy định “nếu đơn được phê duyệt (p), đơn phải có chữ ký (q)”: phê duyệt `True` nhưng có chữ ký `False` là vi phạm. Trong Python ta viết `(not p) or q`. Lưu ý đây là cách kiểm tra logic, không tự chứng minh quan hệ nguyên nhân.
 
 ```python
-p, q = True, False
-print((not p) or q)
+approved = True
+signed = False
+print((not approved) or signed)
 ```
 
 **Kết quả khi chạy:**
@@ -82,14 +92,18 @@ print((not p) or q)
 False
 ```
 
-### 4.4. Counting
+Đã phê duyệt nhưng chưa ký nên quy tắc kéo theo không được thỏa mãn.
 
-**Từ vựng trong mục:** **Counting** — nguyên lý đếm.
+### 4.4. Counting — Nguyên lý cộng và nhân
 
-Nguyên lý nhân: nếu chọn một trong 3 màu và một trong 4 cỡ độc lập thì có `3 * 4 = 12` kiểu kết hợp.
+**Từ vựng trong mục:** **Counting** — quy tắc đếm; **Product** — tích Descartes.
+
+**Nguyên lý nhân**: nếu có 3 cách chọn màu và mỗi màu đều có 4 cỡ, số cặp (màu, cỡ) là `3×4 = 12`. **Nguyên lý cộng** áp dụng cho lựa chọn thuộc **một trong các nhóm không trùng nhau**: có 3 mẫu áo hoặc 4 mẫu quần để chọn **một món**, tổng cộng 7 cách. Nếu các nhóm có phần giao, phải trừ phần bị đếm lặp; bài tiếp theo sẽ học kỹ phép bao hàm–loại trừ. `itertools.product` liệt kê từng cặp thay vì chỉ đếm.
 
 ```python
-print(3 * 4)
+colors = 3
+sizes = 4
+print(colors * sizes)
 ```
 
 **Kết quả khi chạy:**
@@ -97,6 +111,8 @@ print(3 * 4)
 ```text
 12
 ```
+
+Có 12 cách chọn một màu và một cỡ khi mọi màu đều có đủ bốn cỡ.
 
 ## 5. Năm tình huống lập trình thực tế
 
@@ -136,7 +152,7 @@ False
 ```python
 for p in [True, False]:
     for q in [True, False]:
-                print(p, q, p and q, p or q)
+        print(p, q, p and q, p or q)
 ```
 
 **Kết quả khi chạy:**
@@ -218,12 +234,13 @@ print(list(product(["red", "blue"], ["S", "M"])))
 
 **Giải thích kết quả:** Bốn cặp: `(red,S)`, `(red,M)`, `(blue,S)`, `(blue,M)`.
 
-## 6. Các lỗi dễ mắc
+## 6. Sai lầm thường gặp
 
-- `and` chỉ đúng khi cả hai điều kiện đúng, `or` đúng khi ít nhất một điều kiện đúng; `not` đảo Boolean.
-- Với mệnh đề kéo theo `p ⇒ q`, trường hợp `p=False` không chứng minh rằng `q=True`.
-- Nguyên lý nhân chỉ áp dụng trực tiếp khi mỗi lựa chọn ở bước trước đều có đủ lựa chọn tiếp theo.
-- Tích Descartes liệt kê các cặp có thứ tự theo hai nguồn; đừng nhầm với phép hợp của Set.
+- Không nhầm `and` (cả hai đúng) với `or` (ít nhất một đúng); `not` đảo giá trị Boolean.
+- Phép kéo theo `p ⇒ q` chỉ sai khi `p=True`, `q=False`; tiền đề sai không tự chứng minh kết luận đúng.
+- Bảng chân trị hai biến có bốn tổ hợp; nếu thiếu một tổ hợp, kiểm tra logic có thể bỏ sót lỗi.
+- Nguyên lý **nhân** đếm lựa chọn theo nhiều bước kết hợp được với nhau; nguyên lý **cộng** đếm các phương án thay thế không trùng. Nếu trùng phải điều chỉnh số đếm.
+- Set không bảo đảm thứ tự in, còn kết quả `itertools.product` gồm các tuple theo thứ tự nguồn đã đưa vào.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
