@@ -28,7 +28,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ### 4.1. Graph
 
-Các đỉnh và cạnh mô tả quan hệ giữa đối tượng. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Các đỉnh và cạnh mô tả quan hệ giữa đối tượng.
 
 ```python
 graph={'An':{'Binh'},'Binh':{'An'}}
@@ -37,7 +37,7 @@ print(graph)
 
 ### 4.2. Vertex
 
-Một đối tượng được biểu diễn trong đồ thị. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Một đối tượng được biểu diễn trong đồ thị.
 
 ```python
 vertices={'An','Binh'}
@@ -46,7 +46,7 @@ print(len(vertices))
 
 ### 4.3. Edge
 
-Liên hệ hoặc đường nối giữa hai đỉnh. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Liên hệ hoặc đường nối giữa hai đỉnh.
 
 ```python
 edges={('An','Binh')}
@@ -55,7 +55,7 @@ print(len(edges))
 
 ### 4.4. Jaccard
 
-Tỷ lệ số phần tử giao trên hợp giữa hai tập. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Tỷ lệ số phần tử giao trên hợp giữa hai tập.
 
 ```python
 a={'Python','AI'};b={'Python'}
