@@ -248,228 +248,228 @@ print(list(product(["red", "blue"], ["S", "M"])))
 
 **Q1. What is a proposition? — Mệnh đề là gì?**
 
-A. A statement with a truth value — Phát biểu có giá trị đúng sai
+A. A statement that is either true or false — Phát biểu có thể xác định đúng hoặc sai
 
-B. A Python folder — Thư mục Python
+B. A table of all input truth-value combinations — Bảng các tổ hợp giá trị đúng/sai đầu vào
 
-C. An image format — Định dạng ảnh
+C. The logical conditional 'if p then q' — Điều kiện logic 'nếu p thì q'
 
-D. A list length — Độ dài list
+D. Multiply the numbers of sequential independent choices — Nhân số lựa chọn qua các bước kết hợp đầy đủ
 
-**Q2. What does not True evaluate to? — not True bằng gì?**
+**Q2. What is a truth table? — Bảng chân trị là gì?**
 
-A. True — True
+A. A statement that is either true or false — Phát biểu có thể xác định đúng hoặc sai
 
-B. False — False
+B. A table of all input truth-value combinations — Bảng các tổ hợp giá trị đúng/sai đầu vào
 
-C. None — None
+C. The logical conditional 'if p then q' — Điều kiện logic 'nếu p thì q'
 
-D. 1 — 1
+D. Multiply the numbers of sequential independent choices — Nhân số lựa chọn qua các bước kết hợp đầy đủ
 
-**Q3. When is p and q true? — Khi nào p and q đúng?**
+**Q3. What is logical implication `p ⇒ q`? — Phép kéo theo `p ⇒ q` là gì?**
 
-A. When p is false — Khi p sai
+A. A statement that is either true or false — Phát biểu có thể xác định đúng hoặc sai
 
-B. When at least one is true — Khi có ít nhất một đúng
+B. A table of all input truth-value combinations — Bảng các tổ hợp giá trị đúng/sai đầu vào
 
-C. When both are true — Khi cả hai đúng
+C. The logical conditional 'if p then q' — Điều kiện logic 'nếu p thì q'
 
-D. Always — Luôn đúng
+D. Multiply the numbers of sequential independent choices — Nhân số lựa chọn qua các bước kết hợp đầy đủ
 
-**Q4. When is p or q false? — Khi nào p or q sai?**
+**Q4. What is the multiplication counting principle? — Nguyên lý nhân trong đếm là gì?**
 
-A. When both true — Khi cả hai đúng
+A. A statement that is either true or false — Phát biểu có thể xác định đúng hoặc sai
 
-B. When exactly one true — Khi chỉ một đúng
+B. A table of all input truth-value combinations — Bảng các tổ hợp giá trị đúng/sai đầu vào
 
-C. When p true — Khi p đúng
+C. The logical conditional 'if p then q' — Điều kiện logic 'nếu p thì q'
 
-D. When both false — Khi cả hai sai
+D. Multiply the numbers of sequential independent choices — Nhân số lựa chọn qua các bước kết hợp đầy đủ
 
-**Q5. How many cases are in a truth table for two Booleans? — Bảng chân trị hai biến Boolean có bao nhiêu trường hợp?**
+**Q5. When is `p and q` true? — Khi nào `p and q` đúng?**
+
+A. When both p and q are true — Khi p và q đều đúng
+
+B. When at least one of p or q is true — Khi có ít nhất một trong p hoặc q đúng
+
+C. Reverses the truth value of p — Đảo giá trị đúng/sai của p
+
+D. When p is true and q is false — Khi p đúng và q sai
+
+**Q6. When is `p or q` true? — Khi nào `p or q` đúng?**
+
+A. When both p and q are true — Khi p và q đều đúng
+
+B. When at least one of p or q is true — Khi có ít nhất một trong p hoặc q đúng
+
+C. Reverses the truth value of p — Đảo giá trị đúng/sai của p
+
+D. When p is true and q is false — Khi p đúng và q sai
+
+**Q7. What does `not p` do? — `not p` làm gì?**
+
+A. When both p and q are true — Khi p và q đều đúng
+
+B. When at least one of p or q is true — Khi có ít nhất một trong p hoặc q đúng
+
+C. Reverses the truth value of p — Đảo giá trị đúng/sai của p
+
+D. When p is true and q is false — Khi p đúng và q sai
+
+**Q8. When is `p ⇒ q` false? — Khi nào `p ⇒ q` sai?**
+
+A. When both p and q are true — Khi p và q đều đúng
+
+B. When at least one of p or q is true — Khi có ít nhất một trong p hoặc q đúng
+
+C. Reverses the truth value of p — Đảo giá trị đúng/sai của p
+
+D. When p is true and q is false — Khi p đúng và q sai
+
+**Q9. How many rows does a truth table with two variables have? — Bảng chân trị hai biến có mấy hàng?**
 
 A. 4 — 4
 
-B. 2 — 2
+B. 8 — 8
 
-C. 6 — 6
+C. 2 — 2
 
-D. 8 — 8
+D. 16 — 16
 
-**Q6. What is implication p ⇒ q equivalent to? — p kéo theo q tương đương biểu thức nào?**
+**Q10. How many rows does a truth table with three variables have? — Bảng chân trị ba biến có mấy hàng?**
 
-A. p and q — p and q
-
-B. (not p) or q — (not p) or q
-
-C. p or (not q) — p or (not q)
-
-D. not p and q — not p and q
-
-**Q7. When is p ⇒ q false? — Khi nào p kéo theo q sai?**
-
-A. p false and q true — p sai q đúng
-
-B. Both false — Cả hai sai
-
-C. p true and q false — p đúng q sai
-
-D. Both true — Cả hai đúng
-
-**Q8. What does itertools.product produce? — itertools.product tạo gì?**
-
-A. A sum only — Chỉ một tổng
-
-B. A dictionary key — Khóa Dictionary
-
-C. A random option — Một lựa chọn ngẫu nhiên
-
-D. All cross-product tuples — Tất cả bộ kết hợp giữa các nguồn
-
-**Q9. Why is login access denied in the example? — Vì sao ví dụ đăng nhập bị từ chối?**
-
-A. The account is not verified — Tài khoản chưa xác minh
-
-B. The account is logged out — Tài khoản chưa đăng nhập
-
-C. Both flags are true — Cả hai cờ đúng
-
-D. There is no condition — Không có điều kiện
-
-**Q10. What does True and False print? — True and False in gì?**
-
-A. True — True
-
-B. False — False
-
-C. 0 — 0
-
-D. None — None
-
-**Q11. What does True or False print? — True or False in gì?**
-
-A. False — False
-
-B. None — None
-
-C. True — True
-
-D. Error — Lỗi
-
-**Q12. What does implication print for p=True, q=False? — Phép kéo theo in gì khi p=True q=False?**
-
-A. True — True
-
-B. None — None
-
-C. 1 — 1
-
-D. False — False
-
-**Q13. How many combinations arise from 3 colors and 4 sizes? — 3 màu và 4 cỡ có bao nhiêu kết hợp?**
-
-A. 12 — 12
-
-B. 7 — 7
-
-C. 3 — 3
-
-D. 4 — 4
-
-**Q14. What must hold for simple multiplication counting? — Điều kiện dùng nguyên lý nhân trực tiếp là gì?**
-
-A. Only one choice exists — Chỉ có một lựa chọn
-
-B. Each option has the stated number of following choices — Mỗi lựa chọn có đủ số lựa chọn bước tiếp
-
-C. No options can combine — Không có lựa chọn nào kết hợp
-
-D. Every option is identical — Mọi lựa chọn giống nhau
-
-**Q15. How many pairs result from 2 colors and 2 sizes? — 2 màu và 2 cỡ tạo mấy cặp?**
-
-A. 2 — 2
+A. 4 — 4
 
 B. 8 — 8
 
-C. 4 — 4
+C. 2 — 2
 
-D. 6 — 6
+D. 16 — 16
 
-**Q16. What does the truth table enumerate? — Bảng chân trị liệt kê gì?**
+**Q11. How many rows does a truth table with one variable have? — Bảng chân trị một biến có mấy hàng?**
 
-A. Only true outcomes — Chỉ kết quả đúng
+A. 4 — 4
 
-B. Only false outcomes — Chỉ kết quả sai
+B. 8 — 8
 
-C. Random inputs — Đầu vào ngẫu nhiên
+C. 2 — 2
 
-D. All logical input combinations — Mọi tổ hợp đầu vào logic
+D. 16 — 16
 
-**Q17. Which expression negates a Boolean p? — Biểu thức phủ định p là gì?**
+**Q12. How many rows does a truth table with four variables have? — Bảng chân trị bốn biến có mấy hàng?**
 
-A. not p — not p
+A. 4 — 4
 
-B. p and p — p and p
+B. 8 — 8
 
-C. p or p — p or p
+C. 2 — 2
 
-D. p == p — p == p
+D. 16 — 16
 
-**Q18. What is False ⇒ False? — False kéo theo False có giá trị gì?**
+**Q13. Which expression is equivalent to implication `p ⇒ q`? — Biểu thức nào tương đương `p ⇒ q`?**
 
-A. False — False
+A. `(not p) or q` — `(not p) or q`
 
-B. True — True
+B. `True` — `True`
 
-C. None — None
+C. `False` — `False`
 
-D. Error — Lỗi
+D. `True` — `True`
 
-**Q19. How many outputs does the nested truth-table loop print? — Vòng lặp bảng chân trị in bao nhiêu dòng?**
+**Q14. What is `False ⇒ False`? — `False ⇒ False` bằng gì?**
 
-A. 2 — 2
+A. `(not p) or q` — `(not p) or q`
 
-B. 3 — 3
+B. `True` — `True`
 
-C. 4 — 4
+C. `False` — `False`
 
-D. 8 — 8
+D. `True` — `True`
 
-**Q20. What is the difference between counting and product()? — Khác biệt giữa đếm và product() là gì?**
+**Q15. What is `True and False`? — `True and False` bằng gì?**
 
-A. Both always return only a number — Cả hai luôn chỉ trả về số
+A. `(not p) or q` — `(not p) or q`
 
-B. product ignores pairings — product bỏ qua các cặp
+B. `True` — `True`
 
-C. Counting always prints strings — Đếm luôn in chuỗi
+C. `False` — `False`
 
-D. Counting gives quantity; product lists pairs — Đếm cho số lượng còn product liệt kê cặp
+D. `True` — `True`
+
+**Q16. What is `False or True`? — `False or True` bằng gì?**
+
+A. `(not p) or q` — `(not p) or q`
+
+B. `True` — `True`
+
+C. `False` — `False`
+
+D. `True` — `True`
+
+**Q17. When does the addition counting principle apply directly? — Khi nào có thể áp dụng trực tiếp nguyên lý cộng?**
+
+A. When alternatives are disjoint — Khi các phương án thay thế không trùng nhau
+
+B. When each step has the stated choices for every earlier selection — Khi mỗi bước có đủ số lựa chọn với mọi lựa chọn trước đó
+
+C. All ordered pairs taking one element from each input — Mọi cặp có thứ tự gồm một phần tử từ mỗi nguồn
+
+D. When some outcomes belong to more than one counted group — Khi một kết quả nằm trong nhiều nhóm được đếm
+
+**Q18. When can choices be counted by multiplying options? — Khi nào có thể đếm bằng phép nhân?**
+
+A. When alternatives are disjoint — Khi các phương án thay thế không trùng nhau
+
+B. When each step has the stated choices for every earlier selection — Khi mỗi bước có đủ số lựa chọn với mọi lựa chọn trước đó
+
+C. All ordered pairs taking one element from each input — Mọi cặp có thứ tự gồm một phần tử từ mỗi nguồn
+
+D. When some outcomes belong to more than one counted group — Khi một kết quả nằm trong nhiều nhóm được đếm
+
+**Q19. What does `itertools.product(A, B)` generate? — `itertools.product(A, B)` tạo gì?**
+
+A. When alternatives are disjoint — Khi các phương án thay thế không trùng nhau
+
+B. When each step has the stated choices for every earlier selection — Khi mỗi bước có đủ số lựa chọn với mọi lựa chọn trước đó
+
+C. All ordered pairs taking one element from each input — Mọi cặp có thứ tự gồm một phần tử từ mỗi nguồn
+
+D. When some outcomes belong to more than one counted group — Khi một kết quả nằm trong nhiều nhóm được đếm
+
+**Q20. When should overlapping alternatives be adjusted during counting? — Khi nào cần điều chỉnh phần giao khi đếm?**
+
+A. When alternatives are disjoint — Khi các phương án thay thế không trùng nhau
+
+B. When each step has the stated choices for every earlier selection — Khi mỗi bước có đủ số lựa chọn với mọi lựa chọn trước đó
+
+C. All ordered pairs taking one element from each input — Mọi cặp có thứ tự gồm một phần tử từ mỗi nguồn
+
+D. When some outcomes belong to more than one counted group — Khi một kết quả nằm trong nhiều nhóm được đếm
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A statement with a truth value | Phát biểu có giá trị đúng sai |
-| Q2 | **B** | False | False |
-| Q3 | **C** | When both are true | Khi cả hai đúng |
-| Q4 | **D** | When both false | Khi cả hai sai |
-| Q5 | **A** | 4 | 4 |
-| Q6 | **B** | (not p) or q | (not p) or q |
-| Q7 | **C** | p true and q false | p đúng q sai |
-| Q8 | **D** | All cross-product tuples | Tất cả bộ kết hợp giữa các nguồn |
-| Q9 | **A** | The account is not verified | Tài khoản chưa xác minh |
-| Q10 | **B** | False | False |
-| Q11 | **C** | True | True |
-| Q12 | **D** | False | False |
-| Q13 | **A** | 12 | 12 |
-| Q14 | **B** | Each option has the stated number of following choices | Mỗi lựa chọn có đủ số lựa chọn bước tiếp |
-| Q15 | **C** | 4 | 4 |
-| Q16 | **D** | All logical input combinations | Mọi tổ hợp đầu vào logic |
-| Q17 | **A** | not p | not p |
-| Q18 | **B** | True | True |
-| Q19 | **C** | 4 | 4 |
-| Q20 | **D** | Counting gives quantity; product lists pairs | Đếm cho số lượng còn product liệt kê cặp |
+| Q1 | **A** | A proposition has a definite truth value. | Mệnh đề có một giá trị đúng/sai xác định. |
+| Q2 | **B** | Truth tables enumerate Boolean possibilities. | Bảng chân trị liệt kê các khả năng Boolean. |
+| Q3 | **C** | Implication only fails with a true premise and false conclusion. | Kéo theo chỉ sai khi tiền đề đúng, kết luận sai. |
+| Q4 | **D** | Every choice in one step must allow the counted choices in the next. | Mỗi lựa chọn ở bước trước cần kết hợp được với đủ lựa chọn bước tiếp. |
+| Q5 | **A** | AND requires both conditions. | AND cần cả hai điều kiện đúng. |
+| Q6 | **B** | Inclusive OR accepts either or both true conditions. | OR bao hàm chấp nhận một hoặc cả hai điều kiện đúng. |
+| Q7 | **C** | NOT negates its Boolean operand. | NOT phủ định giá trị Boolean. |
+| Q8 | **D** | A true premise with a false conclusion violates implication. | Tiền đề đúng nhưng kết luận sai làm phép kéo theo sai. |
+| Q9 | **A** | Two variables each have two states, giving 2² cases. | Hai biến có hai trạng thái mỗi biến, tạo 2² trường hợp. |
+| Q10 | **B** | Three binary choices give 2³ combinations. | Ba lựa chọn nhị phân tạo 2³ tổ hợp. |
+| Q11 | **C** | One Boolean has True and False. | Một biến Boolean có True và False. |
+| Q12 | **D** | Four Boolean variables give 2⁴ possibilities. | Bốn biến Boolean tạo 2⁴ khả năng. |
+| Q13 | **A** | The expression is false exactly for p=True, q=False. | Biểu thức chỉ sai khi p=True, q=False. |
+| Q14 | **B** | Implication is true whenever its premise is false. | Kéo theo đúng khi tiền đề sai. |
+| Q15 | **C** | AND is false if any operand is false. | AND sai nếu có một vế sai. |
+| Q16 | **D** | OR is true when one operand is true. | OR đúng khi có một vế đúng. |
+| Q17 | **A** | Disjoint alternatives are added without double counting. | Các nhóm không trùng có thể cộng mà không đếm lặp. |
+| Q18 | **B** | Multiplication requires consistent branching counts. | Nguyên lý nhân yêu cầu số nhánh lựa chọn phù hợp ở từng bước. |
+| Q19 | **C** | product enumerates the Cartesian product. | product liệt kê tích Descartes. |
+| Q20 | **D** | Overlapping groups must not be counted twice. | Nhóm có giao nhau không được đếm trùng. |
 
 ## 8. Nối sang bài tiếp
 
