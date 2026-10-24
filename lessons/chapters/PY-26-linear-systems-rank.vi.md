@@ -7,7 +7,9 @@
 
 `Ma trận → Rank/Solve → Regression → AI`
 
-Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python trước khi sử dụng vào học máy.
+**Học xong dùng để làm gì?** Kiểm tra hệ ràng buộc có đủ thông tin để giải hay có phương trình trùng, thiếu hoặc mâu thuẫn.
+
+**Kết nối kiến thức tiếp theo:** PY-27 xác định hướng đặc biệt của phép biến đổi ma trận qua trị riêng/vector riêng.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -291,6 +293,11 @@ C. The coefficients multiplying the unknowns — Các hệ số nhân với từ
 
 D. `A @ x - b` — `A @ x - b`
 
+**Đáp án: A**
+
+**Giải thích:** Các phương trình cùng chứa các ẩn cần giải.
+
+
 **Q2. What does the rank of a matrix measure? — Rank của ma trận đo gì?**
 
 A. Several linear equations sharing unknowns — Nhiều phương trình tuyến tính chung các ẩn
@@ -300,6 +307,11 @@ B. The number of linearly independent rows or columns — Số hàng hoặc cộ
 C. The coefficients multiplying the unknowns — Các hệ số nhân với từng ẩn
 
 D. `A @ x - b` — `A @ x - b`
+
+**Đáp án: B**
+
+**Giải thích:** Rank đếm hướng độc lập, không chỉ số hàng.
+
 
 **Q3. What does a coefficient matrix contain? — Ma trận hệ số chứa gì?**
 
@@ -311,6 +323,11 @@ C. The coefficients multiplying the unknowns — Các hệ số nhân với từ
 
 D. `A @ x - b` — `A @ x - b`
 
+**Đáp án: C**
+
+**Giải thích:** Ma trận chứa hệ số số học của từng ẩn.
+
+
 **Q4. What is the residual vector for Ax=b? — Vector sai số dư của Ax=b là gì?**
 
 A. Several linear equations sharing unknowns — Nhiều phương trình tuyến tính chung các ẩn
@@ -320,6 +337,11 @@ B. The number of linearly independent rows or columns — Số hàng hoặc cộ
 C. The coefficients multiplying the unknowns — Các hệ số nhân với từng ẩn
 
 D. `A @ x - b` — `A @ x - b`
+
+**Đáp án: D**
+
+**Giải thích:** Lấy Ax trừ b cho độ lệch từng phương trình.
+
 
 **Q5. Which tool solves a nonsingular square system? — Hàm nào giải hệ vuông không suy biến?**
 
@@ -331,6 +353,11 @@ C. `np.column_stack((A,b))` — `np.column_stack((A,b))`
 
 D. `np.linalg.lstsq(A,b,rcond=None)` — `np.linalg.lstsq(A,b,rcond=None)`
 
+**Đáp án: A**
+
+**Giải thích:** solve dùng cho ma trận hệ số vuông, không suy biến.
+
+
 **Q6. Which tool determines matrix rank? — Hàm nào tính hạng ma trận?**
 
 A. `np.linalg.solve(A,b)` — `np.linalg.solve(A,b)`
@@ -340,6 +367,11 @@ B. `np.linalg.matrix_rank(A)` — `np.linalg.matrix_rank(A)`
 C. `np.column_stack((A,b))` — `np.column_stack((A,b))`
 
 D. `np.linalg.lstsq(A,b,rcond=None)` — `np.linalg.lstsq(A,b,rcond=None)`
+
+**Đáp án: B**
+
+**Giải thích:** matrix_rank đo số chiều độc lập.
+
 
 **Q7. Which tool builds an augmented matrix? — Hàm nào ghép ma trận mở rộng?**
 
@@ -351,6 +383,11 @@ C. `np.column_stack((A,b))` — `np.column_stack((A,b))`
 
 D. `np.linalg.lstsq(A,b,rcond=None)` — `np.linalg.lstsq(A,b,rcond=None)`
 
+**Đáp án: C**
+
+**Giải thích:** column_stack ghép b thành cột bên cạnh A.
+
+
 **Q8. Which tool computes a least-squares solution? — Hàm nào tìm nghiệm bình phương tối thiểu?**
 
 A. `np.linalg.solve(A,b)` — `np.linalg.solve(A,b)`
@@ -360,6 +397,11 @@ B. `np.linalg.matrix_rank(A)` — `np.linalg.matrix_rank(A)`
 C. `np.column_stack((A,b))` — `np.column_stack((A,b))`
 
 D. `np.linalg.lstsq(A,b,rcond=None)` — `np.linalg.lstsq(A,b,rcond=None)`
+
+**Đáp án: D**
+
+**Giải thích:** lstsq tối thiểu hóa bình phương độ dài Ax−b.
+
 
 **Q9. For Ax=b with A shape (3,2), what do the rows represent? — Với A shape (3,2), các hàng biểu diễn gì?**
 
@@ -371,6 +413,11 @@ C. The right-hand-side values — Các giá trị vế phải
 
 D. It cannot have a unique solution for every b — Không thể có nghiệm duy nhất với mọi b
 
+**Đáp án: A**
+
+**Giải thích:** Ba hàng tương ứng ba quan sát hoặc phương trình.
+
+
 **Q10. For Ax=b with A shape (3,2), what do the columns represent? — Với A shape (3,2), các cột biểu diễn gì?**
 
 A. Three equations or observations — Ba phương trình hoặc quan sát
@@ -380,6 +427,11 @@ B. Coefficients of two unknowns — Hệ số của hai ẩn
 C. The right-hand-side values — Các giá trị vế phải
 
 D. It cannot have a unique solution for every b — Không thể có nghiệm duy nhất với mọi b
+
+**Đáp án: B**
+
+**Giải thích:** Hai cột là hệ số của hai ẩn ở từng phương trình.
+
 
 **Q11. What does the final column of an augmented matrix represent? — Cột cuối của ma trận mở rộng biểu diễn gì?**
 
@@ -391,6 +443,11 @@ C. The right-hand-side values — Các giá trị vế phải
 
 D. It cannot have a unique solution for every b — Không thể có nghiệm duy nhất với mọi b
 
+**Đáp án: C**
+
+**Giải thích:** Ma trận mở rộng ghi các vế phải ở cột cuối.
+
+
 **Q12. What does a rank-deficient square matrix imply? — Ma trận vuông thiếu hạng gợi ý điều gì?**
 
 A. Three equations or observations — Ba phương trình hoặc quan sát
@@ -400,6 +457,11 @@ B. Coefficients of two unknowns — Hệ số của hai ẩn
 C. The right-hand-side values — Các giá trị vế phải
 
 D. It cannot have a unique solution for every b — Không thể có nghiệm duy nhất với mọi b
+
+**Đáp án: D**
+
+**Giải thích:** Thiếu hạng đầy đủ khiến không bảo đảm nghiệm duy nhất.
+
 
 **Q13. If the residual is exactly zero, what is true? — Nếu sai số dư bằng 0 thì điều gì đúng?**
 
@@ -411,6 +473,11 @@ C. Whether a candidate solution approximately satisfies the system — Nghiệm 
 
 D. Ranks of A and its augmented matrix — Hạng của A và ma trận mở rộng
 
+**Đáp án: A**
+
+**Giải thích:** Sai số dư bằng 0 nghĩa là Ax=b.
+
+
 **Q14. What does least squares minimize? — Bình phương tối thiểu làm nhỏ nhất gì?**
 
 A. Every equation is satisfied — Mọi phương trình đều được thỏa
@@ -420,6 +487,11 @@ B. The sum of squared residuals — Tổng bình phương sai số dư
 C. Whether a candidate solution approximately satisfies the system — Nghiệm thử có thỏa hệ gần đúng hay không
 
 D. Ranks of A and its augmented matrix — Hạng của A và ma trận mở rộng
+
+**Đáp án: B**
+
+**Giải thích:** Bình phương sai lệch làm lỗi lớn bị phạt mạnh.
+
 
 **Q15. What does `np.allclose(A@x,b)` check? — `np.allclose(A@x,b)` kiểm tra gì?**
 
@@ -431,6 +503,11 @@ C. Whether a candidate solution approximately satisfies the system — Nghiệm 
 
 D. Ranks of A and its augmented matrix — Hạng của A và ma trận mở rộng
 
+**Đáp án: C**
+
+**Giải thích:** allclose so kết quả trong ngưỡng sai số số học.
+
+
 **Q16. What should be compared to diagnose inconsistency of a system? — Để xét hệ vô nghiệm cần so sánh gì?**
 
 A. Every equation is satisfied — Mọi phương trình đều được thỏa
@@ -440,6 +517,11 @@ B. The sum of squared residuals — Tổng bình phương sai số dư
 C. Whether a candidate solution approximately satisfies the system — Nghiệm thử có thỏa hệ gần đúng hay không
 
 D. Ranks of A and its augmented matrix — Hạng của A và ma trận mở rộng
+
+**Đáp án: D**
+
+**Giải thích:** Hạng A khác hạng [A, b] cho biết hệ vô nghiệm.
+
 
 **Q17. Why isn't the right-hand side b another unknown? — Vì sao b không phải một ẩn mới?**
 
@@ -451,6 +533,11 @@ C. When observations outnumber unknowns or do not fit exactly — Khi nhiều qu
 
 D. Prediction is lower than actual — Dự báo thấp hơn thực tế
 
+**Đáp án: A**
+
+**Giải thích:** b là dữ liệu đã biết, x mới là biến chưa biết.
+
+
 **Q18. What happens when rows of A are multiples of each other? — Nếu các hàng A là bội nhau thì sao?**
 
 A. It contains known target values — Nó chứa giá trị mục tiêu đã biết
@@ -460,6 +547,11 @@ B. They add no new independent direction — Chúng không bổ sung hướng đ
 C. When observations outnumber unknowns or do not fit exactly — Khi nhiều quan sát hơn ẩn hoặc không khớp chính xác
 
 D. Prediction is lower than actual — Dự báo thấp hơn thực tế
+
+**Đáp án: B**
+
+**Giải thích:** Hàng tỷ lệ chỉ lặp thông tin tuyến tính.
+
 
 **Q19. When is `lstsq` useful? — Khi nào `lstsq` hữu ích?**
 
@@ -471,6 +563,11 @@ C. When observations outnumber unknowns or do not fit exactly — Khi nhiều qu
 
 D. Prediction is lower than actual — Dự báo thấp hơn thực tế
 
+**Đáp án: C**
+
+**Giải thích:** Bình phương tối thiểu tìm cách khớp tốt nhất khi hệ không thỏa hết.
+
+
 **Q20. What does a negative residual mean under r=prediction−actual? — Sai số dư âm theo r=dự báo−thực tế nghĩa là gì?**
 
 A. It contains known target values — Nó chứa giá trị mục tiêu đã biết
@@ -481,30 +578,9 @@ C. When observations outnumber unknowns or do not fit exactly — Khi nhiều qu
 
 D. Prediction is lower than actual — Dự báo thấp hơn thực tế
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | The equations share the same unknown variables. | Các phương trình cùng chứa các ẩn cần giải. |
-| Q2 | **B** | Rank counts independent directions, not simply rows. | Rank đếm hướng độc lập, không chỉ số hàng. |
-| Q3 | **C** | The matrix holds each variable's numeric coefficients. | Ma trận chứa hệ số số học của từng ẩn. |
-| Q4 | **D** | Subtracting b from Ax yields equation-by-equation differences. | Lấy Ax trừ b cho độ lệch từng phương trình. |
-| Q5 | **A** | solve targets a square, nonsingular coefficient matrix. | solve dùng cho ma trận hệ số vuông, không suy biến. |
-| Q6 | **B** | matrix_rank reveals the independent dimensionality. | matrix_rank đo số chiều độc lập. |
-| Q7 | **C** | column_stack appends b as a column alongside A. | column_stack ghép b thành cột bên cạnh A. |
-| Q8 | **D** | lstsq minimizes the squared norm of Ax−b. | lstsq tối thiểu hóa bình phương độ dài Ax−b. |
-| Q9 | **A** | Three rows encode three observations or equations. | Ba hàng tương ứng ba quan sát hoặc phương trình. |
-| Q10 | **B** | Two columns encode two unknown coefficients per row. | Hai cột là hệ số của hai ẩn ở từng phương trình. |
-| Q11 | **C** | An augmented matrix includes target values as the final column. | Ma trận mở rộng ghi các vế phải ở cột cuối. |
-| Q12 | **D** | Lack of full rank prevents a guaranteed unique solution. | Thiếu hạng đầy đủ khiến không bảo đảm nghiệm duy nhất. |
-| Q13 | **A** | Zero residual means Ax equals b. | Sai số dư bằng 0 nghĩa là Ax=b. |
-| Q14 | **B** | Squared deviations penalize larger errors more. | Bình phương sai lệch làm lỗi lớn bị phạt mạnh. |
-| Q15 | **C** | allclose compares numerical results within tolerances. | allclose so kết quả trong ngưỡng sai số số học. |
-| Q16 | **D** | Different ranks of A and [A, b] indicate inconsistency. | Hạng A khác hạng [A, b] cho biết hệ vô nghiệm. |
-| Q17 | **A** | b is specified data, while x is to be found. | b là dữ liệu đã biết, x mới là biến chưa biết. |
-| Q18 | **B** | Proportional rows carry redundant linear information. | Hàng tỷ lệ chỉ lặp thông tin tuyến tính. |
-| Q19 | **C** | Least squares finds the closest fit when exact equations conflict. | Bình phương tối thiểu tìm cách khớp tốt nhất khi hệ không thỏa hết. |
-| Q20 | **D** | Prediction minus actual is negative for underprediction. | Dự báo trừ thực tế là số âm khi dự báo thiếu. |
+**Giải thích:** Dự báo trừ thực tế là số âm khi dự báo thiếu.
 
 ## 8. Nối sang bài kế tiếp
 
