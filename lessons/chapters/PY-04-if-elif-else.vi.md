@@ -31,14 +31,66 @@
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Condition
+**Rẽ nhánh** giúp chương trình chọn hành động theo dữ liệu thay vì lúc nào cũng chạy mọi lệnh. Python xét điều kiện `if` trước; nếu sai mới xét các `elif` theo thứ tự, và dùng `else` khi không nhánh nào đúng. Nhờ vậy một giá trị đầu vào được xếp đúng một trạng thái trong cùng chuỗi nhánh.
 
-**Từ vựng trong mục:** **Condition** — điều kiện.
+### 4.1. If / elif / else — Cấu trúc rẽ nhánh
 
-Điều kiện là phép kiểm tra cho kết quả `True` hoặc `False`. Ví dụ `5 > 3` là đúng nên Python in `True`.
+**Từ vựng trong mục:** **Condition** — điều kiện; **If / elif / else** — nếu / nếu khác / còn lại.
+
+Giả sử một cảm biến có nhiệt độ 30 °C: từ 35 °C trở lên gọi là `Hot`, từ 20 đến dưới 35 °C gọi là `Warm`, còn thấp hơn gọi là `Cold`. Chương trình kiểm tra điều kiện từ trên xuống: `if` xét ngưỡng cao, `elif` xét ngưỡng tiếp theo khi nhánh trước sai, còn `else` nhận các trường hợp còn lại. Chỉ một nhánh trong chuỗi này được chạy.
 
 ```python
-print(5>3)
+temperature = 30
+
+if temperature >= 35:
+    state = 'Hot'
+elif temperature >= 20:
+    state = 'Warm'
+else:
+    state = 'Cold'
+
+print(state)
+```
+
+**Kết quả khi chạy:**
+
+```text
+Warm
+```
+
+Nhiệt độ 30 °C không đạt mức `Hot` nhưng đạt mức `Warm`, nên nhánh `elif` được chọn.
+
+### 4.2. Branch — Nhánh lệnh
+
+**Từ vựng trong mục:** **Branch** — nhánh; **Boolean** — đúng/sai.
+
+Một nhánh là nhóm câu lệnh được thụt vào dưới `if` hoặc `else`; nó chỉ chạy khi chương trình chọn nhánh ấy. Ví dụ kho có `0` sản phẩm: nếu số lượng dương thì in `Còn hàng`, ngược lại in `Hết hàng`. Dấu `:` mở đầu nhánh; bốn dấu cách cho biết câu lệnh nào thuộc nhánh.
+
+```python
+stock = 0
+
+if stock > 0:
+    print('Còn hàng')
+else:
+    print('Hết hàng')
+```
+
+**Kết quả khi chạy:**
+
+```text
+Hết hàng
+```
+
+Vì `stock > 0` sai, chương trình bỏ nhánh `if` và chạy nhánh `else`.
+
+### 4.3. Threshold — Ngưỡng
+
+**Từ vựng trong mục:** **Threshold** — ngưỡng; **Comparison** — phép so sánh.
+
+Ngưỡng là ranh giới dùng để chia dữ liệu thành các nhóm. Chẳng hạn trung tâm yêu cầu từ 80 điểm trở lên để đạt mức B. Với điểm 85, `85 >= 80` là đúng. Dấu `>=` có nghĩa **lớn hơn hoặc bằng**, nên đúng cả khi điểm bằng chính mốc 80; điều này quan trọng khi phân loại các giá trị ở ranh giới.
+
+```python
+print(85 >= 80)
 ```
 
 **Kết quả khi chạy:**
@@ -47,49 +99,19 @@ print(5>3)
 True
 ```
 
-### 4.2. Branch
+Điểm 85 đạt ngưỡng 80. Nếu dùng `>` thì người đạt đúng 80 sẽ bị loại ngoài ý muốn.
 
-**Từ vựng trong mục:** **Branch** — nhánh.
+### 4.4. Nested if — Điều kiện lồng nhau
 
-Nhánh là phần code chỉ chạy khi điều kiện phù hợp. Sau `if` phải có dấu `:`; các lệnh nằm trong nhánh phải được thụt vào. Trong ví dụ, `True` khiến Python in `ok`.
+**Từ vựng trong mục:** **Nested if** — điều kiện lồng; **Modulo** — chia lấy dư.
 
-```python
-if True:
-    print('ok')
-```
-
-**Kết quả khi chạy:**
-
-```text
-ok
-```
-
-### 4.3. Threshold
-
-**Từ vựng trong mục:** **Threshold** — ngưỡng.
-
-Ngưỡng là mốc dùng để quyết định kết quả. Chẳng hạn điểm từ 80 trở lên được xét đạt mức B. Phép `85 >= 80` trả về `True`.
+Đôi khi chỉ nên kiểm tra điều kiện thứ hai khi điều kiện đầu tiên đúng. Ví dụ chỉ phân loại số chẵn sau khi xác định số đó dương. `x > 0` mở nhánh ngoài; bên trong, `x % 2 == 0` hỏi phép chia cho 2 có dư 0 không. Với `x = 2`, cả hai điều kiện đúng nên in `even`.
 
 ```python
-print(85>=80)
-```
+x = 2
 
-**Kết quả khi chạy:**
-
-```text
-True
-```
-
-### 4.4. Nested if
-
-**Từ vựng trong mục:** **Nested if** — điều kiện lồng.
-
-`if` lồng nhau nghĩa là kiểm tra thêm một điều kiện bên trong nhánh đã đúng. Ví dụ chỉ kiểm tra số chẵn khi `x` là số dương; với `x = 2`, code in `even`.
-
-```python
-x=2
-if x>0:
-    if x%2==0:
+if x > 0:
+    if x % 2 == 0:
         print('even')
 ```
 
@@ -99,6 +121,7 @@ if x>0:
 even
 ```
 
+Số 2 vừa dương vừa chia hết cho 2, nên chương trình đi vào cả hai nhánh `if`.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Xếp loại điểm
