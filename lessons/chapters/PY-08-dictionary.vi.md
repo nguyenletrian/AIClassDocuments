@@ -31,30 +31,36 @@ Sau List, Tuple và Set, ta học Dictionary để tìm thông tin qua một tê
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Dictionary
+List lấy dữ liệu theo **vị trí**, còn **Dictionary** lấy theo **khóa có ý nghĩa** như mã đơn hàng hoặc tên trường. Mỗi khóa gắn với một giá trị để tra cứu, thêm, sửa hoặc xóa thông tin. Bài dùng hồ sơ đơn hàng làm ví dụ xuyên suốt, từ một mã đơn đơn giản tới hồ sơ có nhiều thuộc tính.
 
-**Từ vựng trong mục:** **Dictionary** — từ điển.
+### 4.1. Dictionary — Dữ liệu dạng khóa và giá trị
 
-Dictionary lưu thông tin thành từng cặp khóa và giá trị. Ví dụ `{'id': 'O1'}` có khóa `id` và giá trị `O1`. Ta dùng `{}` để tạo Dictionary.
+**Từ vựng trong mục:** **Dictionary** — từ điển; **Key–value pair** — cặp khóa–giá trị.
+
+Một cửa hàng lưu đơn hàng mã `O1` có trạng thái `paid` (đã thanh toán). Trong Dictionary `order = {'id': 'O1', 'status': 'paid'}`, **`id` và `status` là hai khóa**; `O1` và `paid` là các giá trị tương ứng. Dấu `{}` bao các cặp `khóa: giá trị`. Dùng Dictionary khi cần đọc thông tin theo tên trường thay vì phải nhớ chỉ số trong List.
 
 ```python
-print({'id':'O1'})
+order = {'id': 'O1', 'status': 'paid'}
+print(order)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'id': 'O1'}
+{'id': 'O1', 'status': 'paid'}
 ```
 
-### 4.2. Key
+Một đơn hàng có hai trường. Mỗi cặp khóa–giá trị mô tả một thông tin riêng.
 
-**Từ vựng trong mục:** **Key** — khóa.
+### 4.2. Key — Khóa để tra cứu
 
-Khóa là tên dùng để lấy dữ liệu, ví dụ `'id'`. `{'id': 'O1'}['id']` cho kết quả `O1`. Khóa trong cùng một Dictionary phải duy nhất.
+**Từ vựng trong mục:** **Key** — khóa; **Lookup** — tra cứu.
+
+Khóa là tên hoặc mã duy nhất **trong cùng một Dictionary**, được dùng để lấy giá trị đúng trường. Với hồ sơ `order`, biểu thức `order['id']` lấy mã O1; còn `order['status']` lấy trạng thái. Nếu dùng dấu `[]` với khóa không tồn tại, Python báo `KeyError`; có thể dùng `get()` khi cần giá trị mặc định.
 
 ```python
-print({'id':'O1'}['id'])
+order = {'id': 'O1', 'status': 'paid'}
+print(order['id'])
 ```
 
 **Kết quả khi chạy:**
@@ -63,38 +69,53 @@ print({'id':'O1'}['id'])
 O1
 ```
 
-### 4.3. Value
+Python tra theo khóa `id`; không cần duyệt qua các trường bằng vòng lặp.
 
-**Từ vựng trong mục:** **Value** — giá trị.
+### 4.3. Value và thao tác thêm, sửa, xóa
 
-Giá trị là thông tin nằm sau khóa, có thể là chữ, số hoặc một Dictionary khác. `{'x': 5}.get('x')` trả về `5`; với khóa không tồn tại, `get()` mặc định trả về `None`.
+**Từ vựng trong mục:** **Value** — giá trị; **Update** — cập nhật.
+
+**Giá trị** là dữ liệu gắn với từng khóa; có thể là chuỗi, số, List hoặc Dictionary khác. Ví dụ đơn `O1` đang có trạng thái `pending` (đang chờ). Lệnh `order['status'] = 'paid'` **sửa** giá trị của khóa đã có. Lệnh `order['amount'] = 100` **thêm** trường số tiền mới; `order.pop('amount')` **xóa** trường ấy. Trong bài này, ta in Dictionary trước và sau khi xóa để nhìn thấy thay đổi; nếu xóa khóa không tồn tại mà không truyền giá trị mặc định cho `pop`, Python báo `KeyError`.
 
 ```python
-print({'x':5}.get('x'))
+order = {'id': 'O1', 'status': 'pending'}
+order['status'] = 'paid'
+order['amount'] = 100
+print(order)
+order.pop('amount')
+print(order)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-5
+{'id': 'O1', 'status': 'paid', 'amount': 100}
+{'id': 'O1', 'status': 'paid'}
 ```
 
-### 4.4. Nested dict
+Dòng đầu có thêm trường `amount` giá trị 100; dòng thứ hai không còn trường này sau `pop()`. Mã đơn O1 và trạng thái `paid` vẫn giữ nguyên.
 
-**Từ vựng trong mục:** **Nested dict** — từ điển lồng.
+### 4.4. Nested dictionary — Hồ sơ có thông tin con
 
-Dictionary lồng nhau là Dictionary chứa Dictionary khác. Ví dụ mã học viên `A` chứa `{'score': 8}`; dùng `['A']['score']` để lấy điểm `8`.
+**Từ vựng trong mục:** **Nested dictionary** — từ điển lồng; **Field** — trường dữ liệu.
+
+Nếu quản lý nhiều đơn hàng, ta có thể dùng **Dictionary ngoài** với khóa là mã đơn (`O1`, `O2`), và **Dictionary trong** lưu thông tin riêng như `status`, `amount`. Khi cần lấy số tiền đơn `O2`, tra trước `orders['O2']` để lấy hồ sơ con, sau đó tra `['amount']`. Cách này giữ các thuộc tính của từng đơn bên nhau.
 
 ```python
-print({'A':{'score':8}}['A']['score'])
+orders = {
+    'O1': {'status': 'paid', 'amount': 100},
+    'O2': {'status': 'pending', 'amount': 200},
+}
+print(orders['O2']['amount'])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-8
+200
 ```
 
+Kết quả `200` là số tiền của đơn O2 (đơn vị tiền theo quy định của cửa hàng), không phải mã đơn hay chỉ số dòng.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tra cứu đơn theo mã
