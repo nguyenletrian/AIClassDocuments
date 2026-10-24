@@ -7,7 +7,7 @@
 
 `List → NumPy Array → Matrix → PCA`
 
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
+Sau List, ta chuyển sang NumPy để xử lý nhiều điểm hoặc số đo trong một mảng. Bài này giải thích cách đọc hàng, cột, kích thước, kiểu phần tử và trục tính toán trước khi dùng các phép xử lý dữ liệu cho AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -29,115 +29,89 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `X.mean(axis=0)` | Tính trung bình của từng CỘT từ các hàng |
 | `np.zeros()/np.ones()` | Tạo dữ liệu số được khởi tạo rõ hình dạng |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
-
 ## 4. Khái niệm liên quan
 
-### 4.1. ndarray
+**NumPy ndarray** là công cụ lưu số liệu có cấu trúc. Một bảng có 3 học viên × 2 môn sẽ xuyên suốt phần khái niệm: từ tạo bảng, xem kích thước, hiểu kiểu phần tử cho tới tính toán theo cột. Nhờ giữ nguyên ý nghĩa hàng và cột, kết quả thống kê sẽ không bị hiểu nhầm.
 
-**Từ vựng trong mục:** **ndarray** — mảng NumPy.
+### 4.1. ndarray — Mảng số cho nhiều học viên
 
-`ndarray` là mảng NumPy để lưu dữ liệu có kiểu nhất quán và tính trên nhiều phần tử.
+**Từ vựng trong mục:** **ndarray** — mảng NumPy; **Element** — phần tử.
+
+**NumPy** là thư viện hỗ trợ tính toán trên nhiều số cùng lúc. Kiểu dữ liệu chính là `ndarray` — một **mảng nhiều chiều**. Ví dụ trung tâm có ba học viên An, Bình, Lan (theo thứ tự ba hàng) và hai môn Toán, Python (theo thứ tự hai cột). Các điểm `[8,9]`, `[6,7]`, `[9,8]` nằm cùng một bảng. **Mỗi hàng** là một người, **mỗi cột** là một môn, **mỗi ô** là điểm của người đó ở môn đó trên thang 10.
 
 ```python
 import numpy as np
-print(np.array([1,2]))
+
+scores = np.array([
+    [8, 9],
+    [6, 7],
+    [9, 8],
+])
+print(scores)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[1 2]
+[[8 9]
+ [6 7]
+ [9 8]]
 ```
 
-### 4.2. Shape
+Hàng đầu là điểm của An, hàng thứ hai của Bình, hàng thứ ba của Lan; hai số trên một hàng lần lượt thuộc hai môn.
 
-**Từ vựng trong mục:** **Shape** — kích thước mảng.
+### 4.2. Shape — Kích thước của mảng
 
-`shape` cho biết mảng có bao nhiêu phần tử ở mỗi chiều; `(2, 3)` là hai hàng, ba cột.
+**Từ vựng trong mục:** **Shape** — kích thước; **Row/column** — hàng/cột.
+
+Thuộc tính `shape` cho biết **số phần tử ở từng chiều** của mảng. Với bảng điểm ba học viên, hai môn, `shape == (3, 2)`: con số 3 là **số hàng/học viên**, con số 2 là **số cột/môn**. Thuộc tính `size` là số ô dữ liệu (3 × 2 = 6), còn `ndim` là số chiều (2). Không nhầm mảng `(3,2)` với ba môn của hai học viên.
 
 ```python
 import numpy as np
-print(np.zeros((2,3)).shape)
+
+scores = np.array([[8, 9], [6, 7], [9, 8]])
+print(scores.shape, scores.size)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(2, 3)
+(3, 2) 6
 ```
 
-### 4.3. dtype
+Bảng có 3 người × 2 môn = 6 giá trị điểm; đây là mảng hai chiều.
 
-**Từ vựng trong mục:** **dtype** — kiểu phần tử.
+### 4.3. dtype — Kiểu của các phần tử
 
-`dtype` cho biết kiểu dữ liệu của các phần tử, ví dụ `float64` thường dùng cho số thập phân.
+**Từ vựng trong mục:** **dtype** — kiểu dữ liệu phần tử; **Float** — số thực.
+
+Một `ndarray` thông thường lưu các phần tử bằng một kiểu dữ liệu chung (`dtype`). Với điểm có phần thập phân như 8,5, ta dùng `dtype=float` khi tạo mảng để giữ phần lẻ và thuận tiện tính trung bình. NumPy trên môi trường thông dụng dùng `float64` cho lựa chọn `float`. Ngược lại, nếu ép điểm thập phân thành số nguyên, phần lẻ có thể mất.
 
 ```python
 import numpy as np
-print(np.array([1.5]).dtype)
+
+scores = np.array([8.5, 7.0], dtype=float)
+print(scores.dtype, scores.size)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-float64
+float64 2
 ```
 
-### 4.4. Axis
+Mảng có hai điểm dạng số thực; `8.5` được giữ chứ không bị cắt thành `8`.
 
-**Từ vựng trong mục:** **Axis** — trục tính toán.
+### 4.4. Axis — Tính theo hàng hoặc cột
 
-`axis=0` thường tính theo cột trong mảng hai chiều, `axis=1` thường tính theo từng hàng.
+**Từ vựng trong mục:** **Axis** — trục tính toán; **Mean** — trung bình.
+
+Khi tổng hợp dữ liệu hai chiều, **`axis=0` gom các hàng để cho ra một kết quả trên mỗi cột**; **`axis=1` gom các cột để cho ra một kết quả trên mỗi hàng**. Trong bảng ba học viên × hai môn, `scores.mean(axis=0)` tính điểm trung bình **từng môn**: môn Toán `(8+6+9)/3 ≈ 7,67`, môn Python `(9+7+8)/3 = 8`. Nếu đổi sang `axis=1`, sẽ ra ba điểm trung bình tương ứng ba học viên.
 
 ```python
 import numpy as np
-print(np.array([[1,2],[3,4]]).sum(axis=0))
-```
 
-**Kết quả khi chạy:**
-
-```text
-[4 6]
-```
-
-## 5. Năm tình huống lập trình thực tế
-
-### Tình huống 1 — Gom điểm học sinh
-
-**Từ vựng trong mục:** **ndarray** — mảng NumPy.
-
-**Tình huống thực tế:** Trung tâm có điểm hai môn của ba học viên lần lượt là (8,9), (6,7), (9,8). Xác định bảng có bao nhiêu hàng và cột.
-
-**Vì sao chọn cách giải này?** `np.array` ghép mỗi học viên thành một hàng, hai môn là hai cột.
-
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
-
-```python
-import numpy as np
-scores=np.array([[8,9],[6,7],[9,8]],dtype=float)
-print(scores.shape)
-```
-
-**Kết quả khi chạy:**
-
-```text
-(3, 2)
-```
-
-### Tình huống 2 — Trung bình từng môn
-
-**Từ vựng trong mục:** **Shape** — kích thước mảng.
-
-**Tình huống thực tế:** Với bảng điểm ba học viên hai môn (8,9), (6,7), (9,8), trung tâm cần trung bình mỗi môn. Tính hai điểm trung bình theo cột.
-
-**Vì sao chọn cách giải này?** `mean(axis=0)` lấy trung bình của từng môn qua các học viên.
-
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
-
-```python
-import numpy as np
-scores=np.array([[8,9],[6,7],[9,8]],dtype=float)
+scores = np.array([[8, 9], [6, 7], [9, 8]], dtype=float)
 print(scores.mean(axis=0))
 ```
 
@@ -147,19 +121,86 @@ print(scores.mean(axis=0))
 [7.66666667 8.        ]
 ```
 
-### Tình huống 3 — Tính tổng doanh thu theo cửa hàng
+Mảng đầu ra có hai số vì bảng có hai **cột/môn**; kết quả lần lượt là trung bình Toán và Python.
 
-**Từ vựng trong mục:** **dtype** — kiểu phần tử.
+## 5. Năm tình huống lập trình thực tế
 
-**Tình huống thực tế:** Hai cửa hàng có doanh thu ba ngày: cửa hàng A `[10,20,30]`, cửa hàng B `[8,12,16]` (triệu đồng). Tính tổng doanh thu của mỗi cửa hàng.
+### Tình huống 1 — Gom bảng điểm học viên
 
-**Vì sao chọn cách giải này?** Mỗi hàng là một cửa hàng nên `sum(axis=1)` tính theo hàng.
+**Từ vựng trong mục:** **ndarray** — mảng NumPy; **Shape** — kích thước.
 
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Tình huống thực tế:** Trung tâm ghi điểm hai môn Toán và Python của ba học viên theo thứ tự An (8,9), Bình (6,7), Lan (9,8), thang điểm 10. Hãy tạo mảng và in số hàng, số cột.
+
+**Vì sao chọn cách giải này?** `np.array` gom điểm thành bảng, `shape` cho biết đúng 3 học viên và 2 môn.
+
+**Quy trình giải:**
+
+1. Tạo mảng hai chiều, mỗi hàng ứng với một học viên.
+2. Giữ thứ tự cột Toán rồi Python.
+3. In `scores.shape` để xác minh số người và môn.
 
 ```python
 import numpy as np
-sales=np.array([[10,20,30],[8,12,16]])
+
+scores = np.array([[8, 9], [6, 7], [9, 8]], dtype=float)
+print(scores.shape)
+```
+
+**Kết quả khi chạy:**
+
+```text
+(3, 2)
+```
+
+Kết quả cho biết 3 hàng học viên và 2 cột môn học.
+
+### Tình huống 2 — Trung bình theo từng môn
+
+**Từ vựng trong mục:** **Axis** — trục tính toán; **Mean** — trung bình.
+
+**Tình huống thực tế:** Với cùng bảng ba học viên, hai môn Toán và Python, trung tâm cần điểm trung bình của **mỗi môn** trên thang 10. Hãy in hai số trung bình theo thứ tự cột.
+
+**Vì sao chọn cách giải này?** `mean(axis=0)` gom các học viên cùng cột môn và tính trung bình.
+
+**Quy trình giải:**
+
+1. Tạo mảng 3 hàng × 2 cột theo thứ tự Toán, Python.
+2. Tính `scores.mean(axis=0)`.
+3. Đối chiếu hai số với phép tính trung bình ở từng cột.
+
+```python
+import numpy as np
+
+scores = np.array([[8, 9], [6, 7], [9, 8]], dtype=float)
+print(scores.mean(axis=0))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[7.66666667 8.        ]
+```
+
+Toán trung bình khoảng 7,67; Python trung bình 8,00 điểm.
+
+### Tình huống 3 — Tính tổng doanh thu mỗi cửa hàng
+
+**Từ vựng trong mục:** **Axis** — trục tính toán; **Sum** — phép cộng tổng.
+
+**Tình huống thực tế:** Cửa hàng A có doanh thu ba ngày `[10,20,30]`, cửa hàng B có `[8,12,16]`, đơn vị triệu đồng. Bảng có **hai hàng cửa hàng** và **ba cột ngày**. Hãy tính tổng doanh thu riêng của từng cửa hàng.
+
+**Vì sao chọn cách giải này?** Vì cửa hàng nằm trên hàng, `sum(axis=1)` cộng ba cột ngày cho mỗi hàng.
+
+**Quy trình giải:**
+
+1. Tạo `sales` với hàng đầu là cửa hàng A và hàng sau là B.
+2. Cộng theo `axis=1`, tức theo từng hàng.
+3. In hai tổng theo thứ tự A rồi B.
+
+```python
+import numpy as np
+
+sales = np.array([[10, 20, 30], [8, 12, 16]])
 print(sales.sum(axis=1))
 ```
 
@@ -169,19 +210,26 @@ print(sales.sum(axis=1))
 [60 36]
 ```
 
-### Tình huống 4 — Tạo bảng dự báo ban đầu
+Cửa hàng A thu 60 triệu đồng; cửa hàng B thu 36 triệu đồng.
 
-**Từ vựng trong mục:** **Axis** — trục tính toán.
+### Tình huống 4 — Tạo bảng dự báo khởi tạo
 
-**Tình huống thực tế:** Đội phân tích cần khởi tạo bảng dự báo rỗng cho hai cửa hàng, mỗi cửa hàng có ba ngày. Tạo bảng ban đầu toàn số 0 và in số hàng/cột.
+**Từ vựng trong mục:** **Shape** — kích thước; **Zero array** — mảng số 0.
 
-**Vì sao chọn cách giải này?** `zeros((2,3))` tạo mảng hai hàng ba cột với giá trị khởi tạo bằng 0.
+**Tình huống thực tế:** Đội phân tích chuẩn bị một bảng dự báo cho 2 cửa hàng và 3 ngày, chưa tính giá trị. Hãy tạo mảng toàn số 0 và in hình dạng bảng.
 
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Vì sao chọn cách giải này?** `np.zeros((2, 3))` khởi tạo đúng số hàng cửa hàng và số cột ngày; số 0 mới là giá trị ban đầu, không phải doanh thu dự báo đã xác minh.
+
+**Quy trình giải:**
+
+1. Gọi `np.zeros` với hình dạng `(2, 3)`.
+2. Mỗi hàng dành cho một cửa hàng, mỗi cột dành cho một ngày.
+3. In `forecast.shape` để kiểm tra cấu trúc.
 
 ```python
 import numpy as np
-forecast=np.zeros((2,3))
+
+forecast = np.zeros((2, 3))
 print(forecast.shape)
 ```
 
@@ -191,20 +239,27 @@ print(forecast.shape)
 (2, 3)
 ```
 
-### Tình huống 5 — Kiểm kiểu điểm đầu vào
+Bảng dành cho hai cửa hàng, ba ngày, tổng cộng sáu vị trí chưa có dự báo thực.
 
-**Từ vựng trong mục:** **ndarray** — mảng NumPy.
+### Tình huống 5 — Kiểm tra kiểu và số lượng điểm
 
-**Tình huống thực tế:** Trung tâm có hai điểm kiểm tra 7.5 và 8.0 trên thang 10. Kiểm tra kiểu dữ liệu và số lượng điểm.
+**Từ vựng trong mục:** **dtype** — kiểu phần tử; **size** — số phần tử.
 
-**Vì sao chọn cách giải này?** Đặt `dtype=float` giữ điểm thập phân; `size` đếm số phần tử.
+**Tình huống thực tế:** Trung tâm nhập hai điểm kiểm tra 7,5 và 8,0 của một học viên. Hãy dùng mảng số thực để giữ phần thập phân rồi in kiểu và số lượng điểm.
 
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Vì sao chọn cách giải này?** `dtype=float` tránh mất phần thập phân; `size` đếm đúng hai số được lưu.
+
+**Quy trình giải:**
+
+1. Tạo mảng chứa `7.5` và `8.0` với `dtype=float`.
+2. Truy cập thuộc tính `dtype` và `size`.
+3. In tên kiểu và số phần tử.
 
 ```python
 import numpy as np
-scores=np.array([7.5,8],dtype=float)
-print(scores.dtype,scores.size)
+
+scores = np.array([7.5, 8.0], dtype=float)
+print(scores.dtype, scores.size)
 ```
 
 **Kết quả khi chạy:**
@@ -213,10 +268,15 @@ print(scores.dtype,scores.size)
 float64 2
 ```
 
+Dữ liệu gồm hai điểm kiểu `float64`, không phải chuỗi.
+
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
-- Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
+- `shape=(3,2)` là **3 hàng và 2 cột**, không phải ngược lại; phải ghi rõ mỗi hàng/cột đại diện điều gì.
+- `axis=0` tổng hợp theo từng cột trong mảng hai chiều; `axis=1` tổng hợp theo từng hàng. Chọn nhầm trục khiến ý nghĩa kết quả khác đi.
+- `dtype=float` giữ phần thập phân, còn kiểu số nguyên có thể cắt phần lẻ nếu ép dữ liệu không phù hợp.
+- Kết quả trung bình là số thực; các chữ số cuối có thể phụ thuộc biểu diễn dấu phẩy động, nên giải thích bằng giá trị gần đúng khi cần.
+- `np.zeros()` chỉ tạo giá trị khởi tạo 0; không được diễn giải là dự báo thực tế đã được mô hình tính.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
