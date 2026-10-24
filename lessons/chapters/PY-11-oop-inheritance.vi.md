@@ -7,7 +7,7 @@
 
 `Class/Object → Inheritance → Abstract API → Kiến trúc ứng dụng`
 
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
+Sau bài Class và Object, ta học cách tạo lớp con tái sử dụng thành phần chung, sau đó thay đổi cách xử lý cho từng loại đối tượng hoặc quy định phương thức bắt buộc.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -29,112 +29,146 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `ABC/@abstractmethod` | Bắt lớp con định nghĩa giao diện bắt buộc |
 | `isinstance(obj,Class)` | Xác minh đối tượng thuộc lớp khi cần |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
-
 ## 4. Khái niệm liên quan
 
-### 4.1. Inheritance
+**Kế thừa, đa hình và lớp trừu tượng** giải quyết ba nhu cầu khác nhau trong OOP: dùng lại đặc điểm chung, xử lý cùng thao tác theo cách riêng và đặt ra chức năng bắt buộc cho lớp con. Từ ví dụ sản phẩm đến dịch vụ thông báo, ta xem từng khái niệm tác động lên lớp, đối tượng và phương thức thế nào.
 
-**Từ vựng trong mục:** **Inheritance** — kế thừa.
+### 4.1. Inheritance — Kế thừa từ lớp cha
 
-Kế thừa cho phép lớp con dùng lại thuộc tính và phương thức có từ lớp cha.
+**Từ vựng trong mục:** **Inheritance** — kế thừa; **Parent/child class** — lớp cha/lớp con.
+
+Cửa hàng có nhiều loại sản phẩm, nhưng mỗi món đều có tên. Lớp cha `Product` giữ tên chung, còn lớp con `Electronic(Product)` nhận lại cách lưu tên và có thêm thuộc tính riêng `warranty_months` (tháng bảo hành). `super().__init__(name)` gọi phương thức khởi tạo của lớp cha; nhờ vậy không phải viết lại cách lưu tên ở mọi loại sản phẩm. Đây là **kế thừa**: lớp con dùng lại và mở rộng hành vi, thuộc tính từ lớp cha.
 
 ```python
-class P:
-    pass
-class C(P):
-    pass
-print(isinstance(C(),P))
+class Product:
+    def __init__(self, name):
+        self.name = name
+
+class Electronic(Product):
+    def __init__(self, name, warranty_months):
+        super().__init__(name)
+        self.warranty_months = warranty_months
+
+phone = Electronic('Phone', 12)
+print(phone.name, phone.warranty_months)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Phone 12
 ```
 
-### 4.2. Polymorphism
+`Phone` là tên được lớp cha khởi tạo; `12` là số tháng bảo hành được lớp con bổ sung.
 
-**Từ vựng trong mục:** **Polymorphism** — đa hình.
+### 4.2. Polymorphism — Đa hình
 
-Đa hình nghĩa là gọi cùng tên phương thức nhưng từng lớp có thể xử lý khác nhau.
+**Từ vựng trong mục:** **Polymorphism** — đa hình; **Method** — phương thức.
+
+Giả sử ứng dụng có thông báo bằng email và tin nhắn. Cả hai đều có phương thức `send(message)`, nhưng kết quả khác nhau tùy loại. **Đa hình** nghĩa là code gọi cùng một tên phương thức trên các đối tượng khác nhau mà mỗi đối tượng tự quyết định cách xử lý. Vòng `for` phía dưới không cần viết hai nhánh kiểm tra loại thông báo.
 
 ```python
-class A:
-    def f(self):
-        return 1
-print(A().f())
+class Email:
+    def send(self, message):
+        return 'Email: ' + message
+
+class SMS:
+    def send(self, message):
+        return 'SMS: ' + message
+
+for sender in [Email(), SMS()]:
+    print(sender.send('Hello'))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-1
+Email: Hello
+SMS: Hello
 ```
 
-### 4.3. Abstract class
+Cùng lời gọi `send('Hello')` nhưng hai loại đối tượng trả về hai kết quả khác nhau.
 
-**Từ vựng trong mục:** **Abstract class** — lớp trừu tượng.
+### 4.3. Abstract class — Lớp trừu tượng
 
-Lớp trừu tượng có thể quy định phương thức mà lớp con phải triển khai; chỉ kế thừa `ABC` thôi chưa bắt buộc lớp là trừu tượng.
+**Từ vựng trong mục:** **Abstract class** — lớp trừu tượng; **Abstract method** — phương thức trừu tượng.
+
+Khi mọi bộ gửi thông báo **bắt buộc** phải có `send()`, ta tạo lớp trừu tượng `Notifier(ABC)` và đánh dấu `@abstractmethod`. Lớp này quy định hợp đồng nhưng chưa đưa ra cách gửi cụ thể. Lớp `Console` phải cài đặt `send()` mới tạo đối tượng được. Chỉ kế thừa `ABC` mà **không có phương thức trừu tượng** thì chưa áp đặt yêu cầu đó.
 
 ```python
-from abc import ABC
-class Base(ABC):
-    pass
-print(isinstance(Base(), ABC))
+from abc import ABC, abstractmethod
+
+class Notifier(ABC):
+    @abstractmethod
+    def send(self, message):
+        pass
+
+class Console(Notifier):
+    def send(self, message):
+        return 'Console: ' + message
+
+print(Console().send('Hello'))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Console: Hello
 ```
 
-*Chỉ kế thừa `ABC` chưa tạo phương thức trừu tượng; cần `@abstractmethod` như trong tình huống 2.*
+`Console` đáp ứng hợp đồng `send()`; nếu bỏ phương thức ấy khỏi `Console`, Python sẽ không cho khởi tạo đối tượng.
 
-### 4.4. Override
+### 4.4. Override — Ghi đè phương thức
 
-**Từ vựng trong mục:** **Override** — ghi đè.
+**Từ vựng trong mục:** **Override** — ghi đè; **Inheritance** — kế thừa.
 
-Ghi đè là khi lớp con tự viết lại phương thức cùng tên với lớp cha.
+Lớp cha `Shipping` có phí mặc định 0 đồng, nhưng giao hàng nhanh cần phí 35.000 đồng. Lớp con `Express` **ghi đè (override)** phương thức `fee()` bằng định nghĩa mới cùng tên. Khi gọi `Express().fee()`, Python dùng bản của `Express`, không dùng bản của `Shipping`. Đây là một cách để đa hình xuất hiện thông qua quan hệ kế thừa.
 
 ```python
-class A:
-    def f(self):
-        return 1
-class B(A):
-    def f(self):
-        return 2
-print(B().f())
+class Shipping:
+    def fee(self):
+        return 0
+
+class Express(Shipping):
+    def fee(self):
+        return 35000
+
+print(Shipping().fee(), Express().fee())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-2
+0 35000
 ```
 
+Hai đối tượng gọi cùng `fee()` nhưng phí khác nhau: gói thường 0 đồng, gói nhanh 35.000 đồng.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Các loại sản phẩm
 
-**Từ vựng trong mục:** **Inheritance** — kế thừa.
+**Từ vựng trong mục:** **Inheritance** — kế thừa; **Method** — phương thức.
 
-**Tình huống thực tế:** Cửa hàng có một sản phẩm điện tử tên Phone, cần xác định nhóm sản phẩm. In nhóm của sản phẩm điện tử.
+**Tình huống thực tế:** Cửa hàng có sản phẩm điện tử `Phone`. Hệ thống dùng lớp `Product` để lưu tên mọi sản phẩm và lớp `Electronic` để xác định nhóm hàng. Hãy in nhóm sản phẩm của chiếc điện thoại.
 
-**Vì sao chọn cách giải này?** `Electronic` kế thừa `Product`, nên tái sử dụng cách lưu tên và bổ sung `category`.
+**Vì sao chọn cách giải này?** Lớp con tái sử dụng phương thức khởi tạo tên từ lớp cha và thêm phương thức phân nhóm.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Định nghĩa `Product` lưu tên trong `self.name`.
+2. Tạo `Electronic(Product)` với phương thức `category()`.
+3. Tạo sản phẩm `Phone`, gọi phương thức phân nhóm và in kết quả.
 
 ```python
 class Product:
-    def __init__(self,name):
-        self.name=name
+    def __init__(self, name):
+        self.name = name
+
 class Electronic(Product):
     def category(self):
-        return "electronic"
-print(Electronic("Phone").category())
+        return 'electronic'
+
+print(Electronic('Phone').category())
 ```
 
 **Kết quả khi chạy:**
@@ -143,26 +177,35 @@ print(Electronic("Phone").category())
 electronic
 ```
 
+Điện thoại được xếp vào nhóm `electronic`; tên `Phone` được giữ qua phần khởi tạo của lớp cha.
+
 ### Tình huống 2 — Giao diện gửi thông báo
 
-**Từ vựng trong mục:** **Polymorphism** — đa hình.
+**Từ vựng trong mục:** **Abstract class** — lớp trừu tượng; **Abstract method** — phương thức trừu tượng.
 
-**Tình huống thực tế:** Ứng dụng cần quy định mọi bộ gửi thông báo đều có phương thức `send`. Một bộ gửi lên màn hình nhận thông điệp Hello. In kết quả gửi thông báo.
+**Tình huống thực tế:** Ứng dụng yêu cầu mọi bộ gửi thông báo phải có phương thức `send()`. Bộ gửi ra màn hình (`Console`) nhận nội dung `Hello`. Hãy dùng lớp trừu tượng để quy định giao diện và in thông điệp đã gửi.
 
-**Vì sao chọn cách giải này?** `ABC` và `@abstractmethod` yêu cầu lớp con cài đặt `send` trước khi tạo đối tượng.
+**Vì sao chọn cách giải này?** `ABC` cùng `@abstractmethod` buộc lớp con triển khai phương thức, giúp tránh lớp gửi thông báo thiếu chức năng.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Định nghĩa `Notifier(ABC)` với phương thức trừu tượng `send()`.
+2. Cài đặt `send()` trong `Console` để tạo nội dung trả về.
+3. Gọi `Console().send('Hello')` và in kết quả.
 
 ```python
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 class Notifier(ABC):
     @abstractmethod
-    def send(self,msg):
+    def send(self, message):
         pass
+
 class Console(Notifier):
-    def send(self,msg):
-        return "Sent:"+msg
-print(Console().send("Hello"))
+    def send(self, message):
+        return 'Sent:' + message
+
+print(Console().send('Hello'))
 ```
 
 **Kết quả khi chạy:**
@@ -171,23 +214,31 @@ print(Console().send("Hello"))
 Sent:Hello
 ```
 
+Phương thức `send()` của `Console` đã được định nghĩa; chương trình trả về chuỗi `Sent:Hello`.
+
 ### Tình huống 3 — Tính phí vận chuyển
 
-**Từ vựng trong mục:** **Abstract class** — lớp trừu tượng.
+**Từ vựng trong mục:** **Override** — ghi đè; **Inheritance** — kế thừa.
 
-**Tình huống thực tế:** Đơn vận chuyển nhanh có phí 35.000 đồng, khác mức mặc định 0 đồng. In phí của gói giao nhanh.
+**Tình huống thực tế:** Một cửa hàng có dịch vụ vận chuyển thường miễn phí và giao nhanh tính 35.000 đồng mỗi đơn. Hãy in phí giao hàng nhanh bằng phương thức của lớp con.
 
-**Vì sao chọn cách giải này?** Lớp `Express` ghi đè phương thức `fee` của `Shipping`.
+**Vì sao chọn cách giải này?** Ghi đè `fee()` cho loại giao hàng nhanh mà vẫn giữ giao diện chung `fee()` của lớp cha.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Lớp `Shipping` định nghĩa phí mặc định bằng 0.
+2. Lớp `Express` kế thừa và ghi đè phí bằng 35000.
+3. Tạo `Express`, gọi `fee()` và in số tiền.
 
 ```python
 class Shipping:
     def fee(self):
         return 0
+
 class Express(Shipping):
     def fee(self):
         return 35000
+
 print(Express().fee())
 ```
 
@@ -197,28 +248,37 @@ print(Express().fee())
 35000
 ```
 
+Giá trị 35000 tương ứng 35.000 đồng phí giao nhanh; không dùng giá trị 0 của lớp cha.
+
 ### Tình huống 4 — Đọc nhiều loại cảm biến
 
-**Từ vựng trong mục:** **Override** — ghi đè.
+**Từ vựng trong mục:** **Polymorphism** — đa hình; **Override** — ghi đè.
 
-**Tình huống thực tế:** Hệ thống có cảm biến nhiệt độ đọc 26.5 °C và cảm biến độ ẩm đọc 62%. Đọc lần lượt hai cảm biến bằng cùng một phương thức `read`.
+**Tình huống thực tế:** Hệ thống có một cảm biến nhiệt độ đo 26,5 °C và một cảm biến độ ẩm đo 62%. Cả hai phải có phương thức `read()`. Hãy đọc lần lượt hai cảm biến mà không cần kiểm tra loại trong vòng lặp.
 
-**Vì sao chọn cách giải này?** Mỗi loại cảm biến triển khai `read` riêng; vòng lặp chỉ cần gọi một tên phương thức.
+**Vì sao chọn cách giải này?** Hai lớp con ghi đè `read()`, cho phép vòng lặp gọi cùng phương thức trên cả hai đối tượng.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Tạo lớp chung `Sensor` có `read()`.
+2. Hai lớp `Temp` và `Humidity` cài đặt kết quả đọc riêng.
+3. Duyệt hai đối tượng và in kết quả từng lời gọi `read()`.
 
 ```python
 class Sensor:
     def read(self):
         return 0
+
 class Temp(Sensor):
     def read(self):
         return 26.5
+
 class Humidity(Sensor):
     def read(self):
         return 62
-for s in [Temp(),Humidity()]:
-    print(s.read())
+
+for sensor in [Temp(), Humidity()]:
+    print(sensor.read())
 ```
 
 **Kết quả khi chạy:**
@@ -228,23 +288,31 @@ for s in [Temp(),Humidity()]:
 62
 ```
 
+Dòng đầu là 26,5 °C; dòng thứ hai là 62% độ ẩm. Chương trình chỉ in số, đơn vị được giải thích trong bài.
+
 ### Tình huống 5 — Chuyển định dạng báo cáo
 
-**Từ vựng trong mục:** **Inheritance** — kế thừa.
+**Từ vựng trong mục:** **Override** — ghi đè; **Method** — phương thức.
 
-**Tình huống thực tế:** Hệ thống xuất báo cáo HTML với nội dung `<p>report</p>`. In kết quả kết xuất HTML.
+**Tình huống thực tế:** Hệ thống có lớp báo cáo thường trả chữ `plain`. Báo cáo HTML cần tạo chuỗi `<p>report</p>`. Hãy in nội dung báo cáo HTML bằng cùng phương thức `render()`.
 
-**Vì sao chọn cách giải này?** `HtmlReport` ghi đè `render` để tạo định dạng HTML thay vì văn bản thường.
+**Vì sao chọn cách giải này?** Lớp `HtmlReport` ghi đè `render()` của lớp cha để trả định dạng HTML.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Lớp cha `Report` định nghĩa `render()` cho văn bản thường.
+2. Lớp con `HtmlReport` định nghĩa lại `render()` cho HTML.
+3. Tạo `HtmlReport` và in kết quả.
 
 ```python
 class Report:
     def render(self):
-        return "plain"
+        return 'plain'
+
 class HtmlReport(Report):
     def render(self):
-        return "<p>report</p>"
+        return '<p>report</p>'
+
 print(HtmlReport().render())
 ```
 
@@ -254,10 +322,14 @@ print(HtmlReport().render())
 <p>report</p>
 ```
 
+Đầu ra là chuỗi thẻ HTML; `print()` không biến chuỗi thành trang web.
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
-- Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
+- **Kế thừa** không tự biến mọi phương thức thành đa hình; lớp con có thể dùng lại hoặc ghi đè tùy nhu cầu.
+- Kế thừa `ABC` **chưa đủ** để buộc lớp con triển khai phương thức; cần thêm `@abstractmethod`.
+- `super().__init__(...)` dùng logic khởi tạo của lớp cha; nếu bỏ khi cần, thuộc tính chung như `name` có thể chưa được tạo.
+- Ghi đè phương thức phải dùng đúng tên và cách nhận tham số phù hợp; khác tên sẽ là phương thức mới.
+- Ví dụ cảm biến in hai giá trị có **đơn vị khác nhau**: không được cộng trực tiếp 26,5 °C và 62%.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
