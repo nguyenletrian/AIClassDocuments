@@ -1,6 +1,5 @@
 # PY-17 — Pandas Series, DataFrame và đọc CSV
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
