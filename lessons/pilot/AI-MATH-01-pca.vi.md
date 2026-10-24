@@ -1,257 +1,359 @@
-# BÀI MẪU — PCA: Phân tích thành phần chính để giảm chiều dữ liệu trong AI
+# PCA — Giảm chiều dữ liệu để nhìn rõ vấn đề trong AI
 
-> **Mã bài:** AI-MATH-01 · **Trình độ:** Python căn bản + NumPy → Machine Learning nhập môn  
-> **Trạng thái:** `PILOT_REVIEW` — chờ người học góp ý, **chưa phát hành đại trà**  
-> **Nguồn học tập thực tế:** [`PythoClass/MON 2/3. Eigens_PCA.py`](https://github.com/nguyenletrian/PythoClass/blob/main/MON%202/3.%20Eigens_PCA.py), [`MON 2/LabSession3_4.py`](https://github.com/nguyenletrian/PythoClass/blob/main/MON%202/LabSession3_4.py), [`MON 2/Linear Algebra.py`](https://github.com/nguyenletrian/PythoClass/blob/main/MON%202/Linear%20Algebra.py).  
-> **Phương pháp biên soạn:** Kế thừa chủ đề và dữ liệu sinh viên trong ghi chép, chỉnh lại lỗi/diễn giải, thêm phần toán học chuẩn, 5 bài tập và ví dụ AI do tác giả tài liệu xây dựng. Đây **không phải** bản chép nguyên văn ghi chép.  
-> **Môi trường kiểm tra:** NumPy 2.3.5, scikit-learn 1.8.0; các đoạn tính toán trong phần bài tập đã được chạy đối chiếu trên môi trường Python. Hình vẽ tùy chọn cần Matplotlib.
+*AI / Data Science · Bài mẫu dành cho sinh viên · Phiên bản góp ý 02*
 
-## 1. Sau bài học, bạn làm được gì?
+## 1. PCA nằm ở đâu trong chuỗi kiến thức?
 
-1. Giải thích PCA (*Principal Component Analysis* — Phân tích thành phần chính) bằng ngôn ngữ bình thường.
-2. Biết khi nào PCA hữu ích và những trường hợp nó **không** bảo đảm cải thiện mô hình.
-3. Hiểu mối liên hệ giữa trung bình, phương sai, ma trận hiệp phương sai, eigenvalue và eigenvector.
-4. Dùng `numpy`, `StandardScaler` và `sklearn.decomposition.PCA`.
-5. Kiểm tra tỷ lệ phương sai được giữ lại, vẽ dữ liệu trên mặt phẳng 2D và ghép PCA vào pipeline Machine Learning đúng cách.
+```text
+Python cơ bản
+   ↓
+List / Tuple / Dictionary
+   ↓
+NumPy Array → Vector → Matrix
+                          ↓
+             Feature và Dataset
+                          ↓
+                Mean / Variance
+                          ↓
+          StandardScaler / Covariance
+                          ↓
+                Eigenvector / Eigenvalue
+                          ↓
+                  PCA ← BÀI NÀY
+                          ↓
+     Data Visualization / Clustering / ML Pipeline
+                          ↓
+            Classification / Prediction
+```
 
-**Kiến thức nên có:** Mảng NumPy, hàng/cột ma trận, hàm `mean()`, phép nhân ma trận `@`. Nếu chưa quen eigenvector, cứ bắt đầu từ trực giác ở mục 2.
+**Bạn đang ở đâu?** PCA thuộc giai đoạn **tiền xử lý và biểu diễn dữ liệu (feature transformation)**, sau khi biết làm việc với mảng, vector, ma trận và thống kê mô tả; trước các bài sử dụng dữ liệu để huấn luyện mô hình AI. PCA không tự dự đoán nhãn, phân cụm hay tìm câu trả lời đúng.
 
-## 2. Khái niệm: PCA là gì?
+**Liên hệ với bài trước:** Một **vector** biểu diễn thông tin của một đối tượng; nhiều vector cùng độ dài xếp thành **matrix**, trong đó mỗi hàng là một đối tượng và mỗi cột là một **feature**. PCA nhận matrix đó và trả về matrix mới có ít cột hơn.
 
-Giả sử chúng ta đo năng lực của mỗi sinh viên qua **5 đặc trưng**: Toán, Vật lý, Tiếng Anh, số giờ học và điểm chuyên cần. Mỗi sinh viên là một điểm trong không gian 5 chiều — con người không thể vẽ trực tiếp không gian này trên mặt giấy.
+## 2. English vocabulary — Các từ cần nhận biết
 
-PCA tìm một **hệ trục mới**:
-- Trục thứ nhất (**PC1**) là hướng mà dữ liệu biến thiên nhiều nhất.
-- Trục thứ hai (**PC2**) vuông góc với PC1 và giữ được lượng biến thiên còn lại lớn nhất có thể.
-- Các PC tiếp theo cũng trực giao và sắp xếp theo phương sai giảm dần.
+| English | Hiểu bằng tiếng Việt | Gặp ở đâu? |
+|---|---|---|
+| **Sample / Observation** | Một mẫu, một đối tượng được ghi nhận | Mỗi dòng dữ liệu |
+| **Feature** | Một đặc trưng mô tả đối tượng | Mỗi cột dữ liệu |
+| **Dataset** | Tập dữ liệu | Bảng nhiều dòng và cột |
+| **Vector** | Một dãy số biểu diễn một đối tượng | `np.array([80, 85, 90])` |
+| **Matrix** | Bảng số hai chiều | `X.shape == (8, 5)` |
+| **Mean** | Giá trị trung bình | `X.mean(axis=0)` |
+| **Variance** | Độ phân tán của dữ liệu | `np.var(X, axis=0)` |
+| **Standardization** | Chuẩn hóa thang đo | `StandardScaler()` |
+| **Covariance** | Hai đặc trưng cùng biến thiên thế nào | `np.cov(X, rowvar=False)` |
+| **Eigenvector / Eigenvalue** | Hướng chính / lượng biến thiên theo hướng đó | `np.linalg.eigh(...)` |
+| **Principal Component (PC)** | Trục dữ liệu mới được PCA tạo ra | `PC1`, `PC2` |
+| **Dimensionality Reduction** | Giảm số lượng đặc trưng | `PCA(n_components=2)` |
+| **Explained Variance Ratio** | Tỷ lệ biến thiên được mỗi PC giữ lại | `pca.explained_variance_ratio_` |
+| **Fit / Transform** | Học quy tắc từ dữ liệu / áp dụng quy tắc đó | `fit()`, `transform()` |
+| **Data Leakage** | Dữ liệu kiểm tra bị dùng để học trước | Tránh bằng `Pipeline` |
 
-Nếu giữ hai trục đầu, một dòng dữ liệu từ **5 số** có thể được mô tả bằng **2 tọa độ mới**. Đây là một phép **biến đổi tuyến tính không giám sát** (*unsupervised linear transformation*), không phải thuật toán phân loại.
+## 3. Thư viện và hàm Python cần biết trước khi học PCA
 
-### PCA dùng để làm gì?
-
-- **Trực quan hóa:** biến dữ liệu nhiều đặc trưng thành tọa độ 2D/3D để quan sát nhóm, xu hướng và điểm bất thường.
-- **Giảm chiều:** nén đặc trưng trước bước học máy, đôi khi giảm chi phí tính toán và bớt sự dư thừa tuyến tính.
-- **Khử nhiễu:** có thể loại bỏ những hướng có phương sai rất nhỏ nếu chúng chủ yếu là nhiễu.
-- **Khám phá dữ liệu:** xem đặc trưng nào đóng góp vào PC qua `components_`.
-
-**Quan trọng:** PCA giữ *phương sai*, không trực tiếp giữ *thông tin dự đoán*. Một thành phần có phương sai nhỏ vẫn có thể chứa tín hiệu rất quan trọng cho nhãn cần dự đoán. Vì thế, không thể kết luận “PCA luôn làm AI tốt hơn”.
-
-## 3. Toán học đằng sau PCA
-
-Giả sử ma trận dữ liệu `X` có `n` dòng (mẫu) và `d` cột (đặc trưng).
-
-### 3.1. Căn giữa hoặc chuẩn hóa đặc trưng
-
-Trung bình của đặc trưng thứ `j`:
-
-\[
-\mu_j = \frac{1}{n}\sum_{i=1}^{n} x_{ij}
-\]
-
-Căn giữa: `X_c = X - μ`. Nếu các cột dùng thang đo rất khác nhau, thường dùng **StandardScaler**:
-
-\[
-z_{ij}=\frac{x_{ij}-\mu_j}{\sigma_j}
-\]
-
-`\sigma_j` trong `StandardScaler` là độ lệch chuẩn quần thể được tính trên tập `fit`. Việc **scale** không bắt buộc trong mọi bài toán PCA; quyết định phụ thuộc ý nghĩa đơn vị và mục tiêu phân tích.
-
-### 3.2. Ma trận hiệp phương sai
-
-Với dữ liệu đã căn giữa:
-
-\[
-C = \frac{1}{n-1}X_c^\mathsf{T}X_c
-\]
-
-`C` là ma trận `d×d`. Phần tử đường chéo là phương sai từng đặc trưng; phần tử ngoài đường chéo biểu diễn cách hai đặc trưng cùng thay đổi tuyến tính.
-
-### 3.3. Eigenvalues và Eigenvectors
-
-Chúng ta tìm vector riêng `v` và giá trị riêng `λ` của ma trận hiệp phương sai:
-
-\[
-Cv = \lambda v
-\]
-
-- `v` cho biết một **hướng thành phần chính**.
-- `λ` cho biết lượng phương sai dọc theo hướng đó.
-- Sắp `λ_1 ≥ λ_2 ≥ … ≥ λ_d`. Khi chọn `k` vector riêng lớn nhất thành `V_k`, tọa độ mới là:
-
-\[
-T = X_cV_k \qquad (n\times d)\,(d\times k)=(n\times k)
-\]
-
-PCA trong scikit-learn thường tính bằng SVD thay vì bắt buộc lập thủ công `C` rồi giải bài toán eigenvalue. Hai cách có mối liên hệ toán học chặt chẽ.
-
-### 3.4. Tỷ lệ phương sai giữ lại
-
-\[
-\mathrm{explained\ variance\ ratio}_i
- = \frac{\lambda_i}{\sum_{j=1}^{d}\lambda_j}
-\]
-
-Tổng tỷ lệ của `k` PC cho biết phần trăm **phương sai của đầu vào** được giữ trong không gian mới. Nó **không** đồng nghĩa với phần trăm độ chính xác mô hình.
-
-## 4. Thư viện và quy trình chuẩn trong Python
-
-Cài đặt:
+Cài đặt một lần:
 
 ```bash
 python -m pip install numpy scikit-learn matplotlib
 ```
 
-| Thư viện / hàm | Công việc |
-|---|---|
-| `numpy.array`, `numpy.mean`, `numpy.cov` | Lưu dữ liệu và tính toán thống kê |
-| `numpy.linalg.eigh` | Eigenvalues/eigenvectors cho ma trận **đối xứng** |
-| `sklearn.preprocessing.StandardScaler` | Chuẩn hóa từng đặc trưng theo tập huấn luyện |
-| `sklearn.decomposition.PCA` | Huấn luyện phép chiếu và giảm chiều |
-| `matplotlib.pyplot` | Vẽ biểu đồ phân tán hai thành phần |
-| `sklearn.pipeline.Pipeline` | Ghép biến đổi + mô hình, tránh rò rỉ dữ liệu |
+### 3.1. NumPy: biểu diễn và kiểm tra dữ liệu
 
-**Workflow:** Chuẩn bị bảng đặc trưng → chia train/test nếu có tác vụ dự đoán → học scaler trên train → PCA `fit` trên train → `transform` dữ liệu → kiểm tra phương sai / điểm dự đoán → ghi nhận kết quả.
+| Hàm / thuộc tính | Khi nào dùng | Ví dụ |
+|---|---|---|
+| `np.array()` | Chuyển dữ liệu thành matrix số | `X = np.array([[2, 3], [4, 5]])` |
+| `X.shape` | Kiểm tra số mẫu, số feature | `(2, 2)` |
+| `X.mean(axis=0)` | Tính trung bình từng feature | `[3., 4.]` |
+| `np.var(X, axis=0)` | Đo mức độ phân tán từng feature | `[1., 1.]` |
+| `np.cov(X, rowvar=False)` | Kiểm tra các cột cùng biến thiên | Matrix hiệp phương sai |
+| `np.linalg.eigh(C)` | Đọc eigenvalue/eigenvector của matrix đối xứng `C` | Phân tích hướng biến thiên |
 
-### Bộ dữ liệu chung cho bài tập 1, 3 và 4
-
-Đây là **8 dòng dữ liệu sinh viên** đã có trong ghi chép `3. Eigens_PCA.py` (Toán, Vật lý, Anh văn, giờ học, chuyên cần):
+Ví dụ ngắn:
 
 ```python
 import numpy as np
-from sklearn.decomposition import PCA
+
+X = np.array([[2, 3], [4, 5]], dtype=float)
+print("Samples x Features:", X.shape)  # (2, 2)
+print("Mean per feature:", X.mean(axis=0))  # [3. 4.]
+```
+
+### 3.2. scikit-learn: những lệnh sẽ dùng liên tục
+
+| Hàm / thuộc tính | Vai trò |
+|---|---|
+| `StandardScaler()` | Đưa các feature khác đơn vị về thang đo so sánh được |
+| `scaler.fit_transform(X)` | Học trung bình/độ lệch chuẩn rồi chuẩn hóa `X` |
+| `scaler.transform(X_new)` | Chuẩn hóa dữ liệu mới theo **quy tắc đã học**, không học lại |
+| `PCA(n_components=2)` | Yêu cầu hai trục dữ liệu mới |
+| `PCA(n_components=0.95, svd_solver="full")` | Chọn ít trục nhất để giữ tối thiểu 95% phương sai trong tập đang fit |
+| `pca.fit_transform(X)` | Học trục PCA và chuyển dữ liệu sang hệ trục mới |
+| `pca.transform(X_new)` | Chiếu dữ liệu mới lên các trục PCA đã học |
+| `pca.components_` | Xem mỗi trục PC kết hợp các feature ban đầu ra sao |
+| `pca.explained_variance_ratio_` | Xem mỗi trục giữ bao nhiêu phần phương sai |
+| `Pipeline([...])` | Xử lý các bước theo đúng thứ tự, tránh học nhầm dữ liệu test |
+
+**Ghi nhớ `fit` khác `transform`:** `fit` tạo ra quy tắc từ tập dữ liệu; `transform` áp dụng đúng quy tắc đó cho dữ liệu khác. Khi có train/test, chỉ gọi `fit` trên **train**.
+
+## 4. Khái niệm PCA và những khái niệm con
+
+### 4.1. Tại sao phải giảm chiều dữ liệu?
+
+Một cửa hàng phân tích khách hàng bằng 5 thông tin: số lần truy cập, số đơn hàng, tổng chi tiêu, thời gian xem sản phẩm và số lần quay lại. Mỗi khách hàng có thể được biểu diễn bằng vector 5 số. Hàng nghìn khách hàng tạo thành matrix có **5 feature**.
+
+Nếu hai hoặc nhiều feature phản ánh những xu hướng gần giống nhau, chúng có thể mang thông tin trùng lặp. PCA tạo các feature mới (`PC1`, `PC2`, ...) để tóm tắt phần lớn **mức biến thiên** của bảng gốc bằng ít cột hơn. Điều này giúp trực quan hóa và đôi khi giúp mô hình xử lý gọn hơn.
+
+**Không nên suy luận:** Giữ 95% phương sai **không có nghĩa** mô hình AI đạt 95% accuracy. PCA cũng có thể làm mất tín hiệu dự đoán quan trọng.
+
+### 4.2. Subconcept — Feature, Vector, Matrix
+
+Một khách hàng: `customer = np.array([12, 4, 950, 18, 7])` là **vector** gồm 5 feature.
+
+Nhiều khách hàng: `X = np.array([[...], [...], ...])` là **matrix**; `X.shape` cho biết số khách hàng và số đặc trưng. Nếu PCA trả về `X_new.shape == (100, 2)`, vẫn có **100 khách hàng**, nhưng mỗi khách hàng được mô tả bằng **2 tọa độ PC** thay vì 5 feature gốc.
+
+### 4.3. Subconcept — Mean, Variance và Standardization
+
+Ví dụ: cột `TotalSpending` có giá trị hàng nghìn, còn `Orders` chỉ vài đơn. Nếu dùng trực tiếp, đặc trưng có đơn vị lớn có thể chi phối PCA. Chuẩn hóa thường giúp so sánh các đặc trưng có đơn vị khác nhau.
+
+**Công thức thể hiện ngay trong Python:**
+
+```python
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 
-students = np.array([
-    [80, 81, 72, 20, 90],
-    [85, 88, 80, 22, 95],
-    [60, 65, 72, 12, 75],
-    [70, 72, 68, 15, 80],
-    [90, 91, 88, 25, 98],
-    [88, 87, 89, 20, 90],
-    [40, 45, 50, 10, 70],
-    [75, 73, 76, 15, 85],
-], dtype=float)
+X = np.array([[10, 1000], [20, 2000], [30, 3000]], dtype=float)
 
-features = ["Math", "Physics", "English", "StudyHours", "Attendance"]
-print("Shape:", students.shape)  # (8, 5)
+# Vì hai cột có thang đo khác nhau, nên chuẩn hóa theo từng cột.
+Z = StandardScaler().fit_transform(X)
+print(np.round(Z.mean(axis=0), 5))  # [0. 0.]
+print(np.round(Z.var(axis=0), 5))   # [1. 1.]
 ```
 
-> Dữ liệu này chỉ dùng để **giảng giải**, quá nhỏ để rút ra kết luận thống kê về sinh viên thật.
+`StandardScaler` thực hiện phép tính tương đương `(giá_trị - trung_bình_cột) / độ_lệch_chuẩn_cột`. Không phải bài toán nào cũng bắt buộc chuẩn hóa: cần xét ý nghĩa của từng đơn vị dữ liệu.
 
-## 5. Năm bài tập lập trình có lời giải mẫu
+### 4.4. Subconcept — Covariance, Eigenvalue và Eigenvector
 
-### Bài tập 1 — Hiểu dữ liệu trước khi giảm chiều
+- **Covariance** cho biết hai cột có xu hướng tăng/giảm cùng nhau hay không. Trong Python: `np.cov(Z, rowvar=False)`. Giá trị gần 0 chỉ gợi ý ít quan hệ **tuyến tính**, không chứng minh hai cột độc lập.
+- **Eigenvector** có thể hiểu là một **hướng biến thiên** trong dữ liệu. Với matrix covariance đối xứng, Python đọc các hướng bằng `np.linalg.eigh(C)`.
+- **Eigenvalue** cho biết phương sai ứng với hướng đó. PCA ưu tiên các hướng có eigenvalue lớn hơn.
 
-**Yêu cầu:** Từ `students`, tính trung bình từng cột, chuẩn hóa, tạo ma trận hiệp phương sai và kiểm tra tính đối xứng. Giải thích vì sao `StudyHours` và các môn học có thang đo khác nhau.
-
-```python
-# Chạy sau khối dữ liệu chung ở mục 4
-means = students.mean(axis=0)
-scaler = StandardScaler()
-Z = scaler.fit_transform(students)
-C = np.cov(Z, rowvar=False)
-
-print("Means:", np.round(means, 2))
-print("Covariance shape:", C.shape)
-print("Symmetric:", np.allclose(C, C.T))
-print("Diagonal:", np.round(np.diag(C), 3))
-```
-
-**Kiểm tra:** `C.shape == (5, 5)` và `Symmetric: True`. Trong ví dụ này, đường chéo xấp xỉ `1.143`, **không phải 1** vì `np.cov` dùng mẫu số `n−1`, còn `StandardScaler` dùng `n` khi tính phương sai để chuẩn hóa.
-
-**Ứng dụng AI:** hiểu tương quan và dữ liệu dư thừa trước khi huấn luyện mô hình.
-
-**Tự luyện thêm:** In tên cặp đặc trưng có hiệp phương sai chuẩn hóa lớn nhất ngoài đường chéo.
-
-### Bài tập 2 — Tự triển khai PCA 2D → 1D bằng NumPy
-
-**Yêu cầu:** Làm thủ công các bước: căn giữa → covariance → eigen → sắp thứ tự eigenvalue → lấy PC1 → chiếu dữ liệu. Dùng bộ `X` từ phần PCA trong ghi chép của bạn.
+Không cần tự giải đa thức hay tính định thức để sử dụng PCA trong bài này. Ví dụ nhận diện bằng Python:
 
 ```python
 import numpy as np
 
-X = np.array([[2, 0], [0, 1], [3, 4]], dtype=float)
-centered = X - X.mean(axis=0)
-C = np.cov(centered, rowvar=False)
-
-values, vectors = np.linalg.eigh(C)  # C đối xứng
-order = np.argsort(values)[::-1]
-values = values[order]
-vectors = vectors[:, order]
-
-pc1 = vectors[:, 0]
-projected = centered @ pc1
-ratio = values[0] / values.sum()
-
-print("Eigenvalues:", np.round(values, 6))
-print("New 1D coordinates:", np.round(projected, 3))
-print("PC1 variance (%):", round(ratio * 100, 2))
+Z = np.array([[-1., -1.], [0., 0.], [1., 1.]])
+C = np.cov(Z, rowvar=False)  # Hai cột thay đổi cùng nhau.
+values, vectors = np.linalg.eigh(C)
+print("Eigenvalues:", np.round(values, 2))  # [0. 2.]
+print("Number of eigenvectors:", vectors.shape[1])  # 2
 ```
 
-**Kiểm tra:** Hai eigenvalue xấp xỉ `5.421661` và `1.245006`; PC1 giữ khoảng **81.32%** phương sai. Dấu `+/-` của vector riêng và tọa độ chiếu **có thể đảo ngược** mà vẫn đúng toán học.
+### 4.5. Subconcept — PC1, PC2 và explained variance ratio
 
-**Ứng dụng AI:** hiểu toán học của PCA trước khi dùng một thư viện tự động.
+`PC1` là trục giữ nhiều phương sai nhất; `PC2` là trục mới vuông góc với PC1 giữ phần phương sai tiếp theo. Khi chuyển từ 5 feature xuống 2 PC, **PC1 không đồng nghĩa với “feature số 1”** và PC2 cũng không phải feature số 2.
 
-**Tự luyện thêm:** Tạo `PCA(n_components=1)` từ scikit-learn và so sánh **giá trị tuyệt đối** của các tọa độ chiếu.
-
-### Bài tập 3 — Giảm 5 đặc trưng sinh viên còn 2 chiều
-
-**Yêu cầu:** Chuẩn hóa `students`, giảm từ `(8,5)` về `(8,2)`, in phương sai giữ lại; vẽ mỗi sinh viên thành một điểm.
+Đọc tỷ lệ giữ lại bằng Python:
 
 ```python
-# Chạy sau khối dữ liệu chung ở mục 4
-Z = StandardScaler().fit_transform(students)
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+
+X = np.array([
+    [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+    [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+    [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+    [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+], dtype=float)
+
+Z = StandardScaler().fit_transform(X)
 pca = PCA(n_components=2)
-points_2d = pca.fit_transform(Z)
+new_features = pca.fit_transform(Z)
+retained = pca.explained_variance_ratio_.sum() * 100
+print(new_features.shape)  # (8, 2)
+print(f"Retained variance: {retained:.2f}%")  # xấp xỉ 98.65%
+```
 
-print("New shape:", points_2d.shape)
-print("Explained ratio:", np.round(pca.explained_variance_ratio_, 4))
-print("Total retained (%):",
-      round(pca.explained_variance_ratio_.sum() * 100, 2))
+Mục đích `explained_variance_ratio_` là **đánh giá thông tin biến thiên còn lại**, không đo độ chính xác của mô hình phân loại.
 
+### 4.6. Subconcept — Fit, Transform và Data Leakage
+
+Nếu dùng PCA trước bước phân loại/dự đoán, dữ liệu **test** phải được giữ lại để đánh giá khách quan. Học cả thông số chuẩn hóa lẫn trục PCA trên **train** rồi mới áp dụng cho test.
+
+```python
+# Trình tự đúng khi có bài toán dự đoán:
+# train_test_split(...) → model.fit(X_train, y_train)
+# → model.predict(X_test)
+# Pipeline sẽ giúp scaler và PCA chỉ fit trên phần train.
+```
+
+## 5. Năm tình huống lập trình trong thực tế
+
+Mỗi tình huống đều gồm: **vấn đề → chọn khái niệm → quy trình → code có chú thích tại sao → kiểm tra kết quả**. Dữ liệu nhỏ là dữ liệu minh họa, không phải kết luận về người hay doanh nghiệp thật.
+
+### Tình huống 1 — Phòng đào tạo muốn nhìn tổng quan hồ sơ học tập
+
+**Vấn đề:** Bộ phận hỗ trợ sinh viên lưu 5 thông tin cho mỗi người: điểm Toán, Vật lý, tiếng Anh, giờ tự học, chuyên cần. Năm cột làm biểu đồ khó nhìn. Cần một sơ đồ 2D để khám phá các nhóm hồ sơ tương tự, **không tự động chấm điểm hay quyết định ai học yếu**.
+
+**Chọn khái niệm:** Matrix, StandardScaler, PCA, explained variance, scatter plot.
+
+**Quy trình:** Chuẩn bị bảng 8 × 5 → chuẩn hóa các thang đo → PCA giữ hai trục → kiểm tra phương sai → vẽ từng hồ sơ sinh viên lên 2D.
+
+```python
+import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 
-plt.scatter(points_2d[:, 0], points_2d[:, 1])
-for i, (x, y) in enumerate(points_2d, start=1):
-    plt.annotate(f"SV{i}", (x, y), xytext=(4, 4),
-                 textcoords="offset points")
+profiles = np.array([
+    [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+    [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+    [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+    [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+], dtype=float)
+
+# Vì điểm số, giờ học và chuyên cần dùng thang khác nhau,
+# cần đưa các cột về thang đo so sánh được trước PCA.
+scaled = StandardScaler().fit_transform(profiles)
+
+# Muốn vẽ trên mặt phẳng nên chọn hai trục, không phải hai cột gốc.
+pca = PCA(n_components=2)
+map_2d = pca.fit_transform(scaled)
+
+# Kiểm tra xem khi chuyển từ 5 cột sang 2 cột ta giữ bao nhiêu phương sai.
+print("New shape:", map_2d.shape)
+print("Retained (%):", round(100 * pca.explained_variance_ratio_.sum(), 2))
+
+plt.scatter(map_2d[:, 0], map_2d[:, 1])
+for index, (x, y) in enumerate(map_2d, start=1):
+    # Chú thích bằng nhãn ẩn danh; không sử dụng dữ liệu cá nhân thật.
+    plt.annotate(f"SV{index}", (x, y), xytext=(4, 4), textcoords="offset points")
 plt.xlabel("PC1")
 plt.ylabel("PC2")
-plt.title("PCA: student features 5D → 2D")
+plt.title("Student profiles after PCA")
 plt.grid(alpha=0.3)
 plt.show()
 ```
 
-**Kiểm tra:** `points_2d.shape == (8,2)`; PC1 ≈ **93.99%**, PC2 ≈ **4.67%**; tổng ≈ **98.65%** phương sai. Ở phần vẽ, tọa độ `y` **phải lấy từ cột 1** của `points_2d`. Trong ghi chép gốc, lời gọi `plt.text` vô tình lấy cột 0 cho cả `x` lẫn `y`; ví dụ đã sửa.
+**Kiểm tra:** shape `(8, 2)`, tổng phương sai giữ lại khoảng **98.65%**. Các điểm gần nhau *trong mặt phẳng PCA* có hồ sơ tương tự theo phép biến đổi đang dùng; điều này không tự động chứng minh họ giống nhau về năng lực thực tế.
 
-**Ứng dụng AI:** biểu diễn dữ liệu nhiều chiều trên một mặt phẳng để quan sát cấu trúc và nhóm mẫu.
+### Tình huống 2 — Nhà máy có cảm biến đo thông tin gần như trùng lặp
 
-**Tự luyện thêm:** Đổi điểm hiển thị thành màu theo một nhãn giả lập và giải thích vì sao PCA không sử dụng nhãn đó.
+**Vấn đề:** Máy móc có 3 kênh cảm biến cùng đo tải hệ thống theo cách khác nhau. Kỹ sư muốn khám phá liệu tín hiệu có thể biểu diễn gọn hơn trước khi vẽ dashboard hay không.
 
-### Bài tập 4 — Chọn bao nhiêu PC là đủ?
+**Chọn khái niệm:** Feature, correlation, covariance, PCA và PC1.
 
-**Yêu cầu:** So sánh giữ 1 PC, 2 PC và ngưỡng giữ ít nhất 95% phương sai. Không chọn số chiều chỉ vì “2D dễ vẽ”.
+**Quy trình:** Gom các phép đo thành matrix → kiểm tra mức tương quan → chuẩn hóa → thử giữ một PC → xem tỷ lệ phương sai còn lại. Nếu PC1 thấp, giữ nhiều PC hơn.
 
 ```python
-# Chạy sau khối dữ liệu chung ở mục 4
-Z = StandardScaler().fit_transform(students)
-for target in [1, 2, 0.95]:
-    model = PCA(n_components=target, svd_solver="full").fit(Z)
-    kept = model.n_components_
-    retained = model.explained_variance_ratio_.sum()
-    print(f"target={target!s:>4} -> PCs={kept}, "
-          f"retained={retained:.2%}")
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+
+# Mỗi dòng là một thời điểm; ba cột là các phép đo có xu hướng giống nhau.
+sensors = np.array([
+    [20, 40, 200], [22, 43, 218], [25, 49, 249],
+    [27, 54, 269], [30, 61, 302], [33, 67, 331],
+    [35, 71, 352], [38, 76, 379],
+], dtype=float)
+
+# Xem các cột có tương quan không trước khi thử nén chúng.
+correlation = np.corrcoef(sensors, rowvar=False)
+print("Correlation (rounded):\n", np.round(correlation, 2))
+
+# Đơn vị/độ lớn khác nhau nên chuẩn hóa trước khi giảm chiều.
+scaled = StandardScaler().fit_transform(sensors)
+pca = PCA(n_components=1)
+compressed = pca.fit_transform(scaled)
+
+print("Before / after:", sensors.shape, "→", compressed.shape)
+print("Variance retained (%):", round(100 * pca.explained_variance_ratio_.sum(), 2))
 ```
 
-**Kiểm tra:** với chính bộ dữ liệu này, `1 PC ≈ 93.99%`; `2 PC ≈ 98.65%`; ngưỡng `0.95` sẽ chọn **2 PC**. `n_components=0.95` là ngưỡng phương sai, không phải “0.95 chiều”.
+**Kiểm tra:** shape thay từ `(8, 3)` thành `(8, 1)` và tỷ lệ giữ lại gần 100% trên bộ dữ liệu mẫu. **Không** nên vì tỷ lệ cao mà xóa cảm biến thật: những sai số hiếm hoặc điều kiện bất thường có thể bị mất.
 
-**Ứng dụng AI:** cân bằng độ gọn của đặc trưng với mức thông tin thống kê được giữ lại.
+### Tình huống 3 — Bộ phận marketing muốn khám phá nhóm khách hàng
 
-**Tự luyện thêm:** Thử ngưỡng `0.90` và dự đoán số PC trước khi chạy.
+**Vấn đề:** Mỗi khách có số lượt xem hàng, đơn hàng, chi tiêu và thời gian tương tác. Cần xem nhóm khách nào có hành vi tương tự trước khi thiết kế chiến dịch. Không thể trực quan hóa cả bốn feature trên một đồ thị 2D.
 
-### Bài tập 5 — Dùng PCA trong pipeline phân loại của AI
+**Chọn khái niệm:** StandardScaler + PCA để tạo 2 tọa độ, sau đó **KMeans** để thử nhóm khách hàng. PCA **không tự phân cụm**.
 
-**Yêu cầu:** Huấn luyện `StandardScaler → PCA(2) → LogisticRegression` trên bộ Iris có sẵn trong scikit-learn. **Chia train/test trước**, để `Pipeline` chỉ học các tham số chuẩn hóa/PCA từ tập train.
+**Quy trình:** Dữ liệu khách hàng → scale → PCA 2D → KMeans 2 nhóm trên hai tọa độ mới → xem số khách từng nhóm. Việc chọn KMeans trên PC hay toàn bộ feature cần được đánh giá riêng khi áp dụng thật.
+
+```python
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+
+# [số lượt xem, số đơn, chi tiêu, số phút tương tác]
+customers = np.array([
+    [12, 1, 120, 8], [14, 1, 150, 9], [18, 2, 230, 11],
+    [20, 2, 250, 12], [16, 1, 140, 10],
+    [80, 11, 1600, 60], [90, 12, 1750, 70], [76, 10, 1550, 55],
+    [88, 14, 1900, 68], [95, 13, 1850, 72],
+], dtype=float)
+
+# Các cột chi tiêu và lượt xem lớn hơn số đơn, cần cùng thang đo.
+scaled = StandardScaler().fit_transform(customers)
+
+# Chọn hai PC để dễ vẽ và dễ quan sát nhóm.
+locations = PCA(n_components=2).fit_transform(scaled)
+
+# KMeans mới là bước quyết định nhãn nhóm; PCA chỉ biến đổi tọa độ.
+labels = KMeans(n_clusters=2, random_state=42, n_init=10).fit_predict(locations)
+
+print("PCA shape:", locations.shape)
+print("Customers per group:", np.bincount(labels))
+print("Labels:", labels)
+```
+
+**Kiểm tra:** shape `(10, 2)` và có 2 nhóm theo cấu hình `n_clusters=2`. **Nhãn `0`/`1` là tên nhóm tùy ý**, không có nghĩa khách tốt/xấu hoặc phân khúc đã được xác nhận.
+
+### Tình huống 4 — Đội vận hành muốn giảm số cột nhưng không mất quá nhiều biến thiên
+
+**Vấn đề:** Một dashboard bán hàng chứa 5 feature cho các cửa hàng: số khách, số đơn, doanh thu, số lượt quảng cáo được nhấp và số sản phẩm bán ra. Cần hệ thống tự chọn số PC thay vì luôn cố định hai chiều.
+
+**Chọn khái niệm:** `PCA(n_components=0.95, svd_solver="full")` và `explained_variance_ratio_`.
+
+**Quy trình:** Tạo matrix cửa hàng → chuẩn hóa → cho PCA chọn số PC giữ tối thiểu 95% phương sai → so sánh số cột và tổng phần trăm giữ lại.
+
+```python
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+
+# Mỗi dòng mô phỏng một cửa hàng trong cùng kỳ báo cáo.
+shops = np.array([
+    [300, 45, 100000, 80, 70], [400, 62, 140000, 100, 92],
+    [200, 30, 70000, 45, 51], [500, 75, 180000, 120, 110],
+    [350, 52, 115000, 89, 79], [450, 68, 160000, 109, 98],
+    [250, 36, 85000, 64, 60], [600, 90, 210000, 150, 125],
+], dtype=float)
+
+# Không để cột doanh thu lớn chi phối chỉ vì cách ghi đơn vị.
+scaled = StandardScaler().fit_transform(shops)
+
+# 0.95 yêu cầu giữ ít nhất 95% phương sai, KHÔNG phải 0.95 chiều.
+pca = PCA(n_components=0.95, svd_solver="full")
+compressed = pca.fit_transform(scaled)
+
+print("Old / new shapes:", shops.shape, compressed.shape)
+print("PC count:", pca.n_components_)
+print("Variance retained (%):", round(100 * pca.explained_variance_ratio_.sum(), 2))
+```
+
+**Kiểm tra:** số cột mới không quá 5, tỷ lệ phương sai được giữ lại **tối thiểu 95%** với bộ dữ liệu minh họa này. Trong dự án thật, hãy so sánh hiệu quả dashboard hoặc mô hình trước/sau giảm chiều, không chỉ nhìn con số 95%.
+
+### Tình huống 5 — Ứng dụng nông nghiệp nhận diện loài hoa từ số đo
+
+**Vấn đề:** Một hệ thống phân loại hoa nhận 4 số đo trên mỗi mẫu hoa. Chúng ta muốn thử giảm còn 2 feature trước khi huấn luyện mô hình phân loại, nhưng vẫn cần đánh giá với dữ liệu chưa dùng để học.
+
+**Chọn khái niệm:** Train/test split, `StandardScaler`, `PCA`, `Pipeline`, `LogisticRegression`.
+
+**Quy trình:** Nạp bộ Iris → chia train/test → tạo pipeline scaler → PCA → classifier → chỉ `fit` trên train → đánh giá trên test → so sánh thử với pipeline không PCA.
 
 ```python
 from sklearn.datasets import load_iris
@@ -263,81 +365,122 @@ from sklearn.pipeline import Pipeline
 
 iris = load_iris()
 X_train, X_test, y_train, y_test = train_test_split(
-    iris.data, iris.target, test_size=0.25,
-    stratify=iris.target, random_state=42
+    iris.data, iris.target,
+    test_size=0.25, stratify=iris.target, random_state=42
 )
 
-model = Pipeline([
+# Pipeline bảo đảm scaler và PCA học từ train, không được nhìn test trước.
+with_pca = Pipeline([
     ("scale", StandardScaler()),
-    ("pca", PCA(n_components=2)),
-    ("classifier", LogisticRegression(max_iter=1000)),
+    ("reduce", PCA(n_components=2)),
+    ("predict", LogisticRegression(max_iter=1000)),
 ])
 
-model.fit(X_train, y_train)
-print("Train size:", len(X_train))
-print("Test size:", len(X_test))
-print("Test accuracy:", round(model.score(X_test, y_test), 4))
+# Cùng loại classifier, nhưng giữ nguyên 4 feature để so sánh công bằng.
+without_pca = Pipeline([
+    ("scale", StandardScaler()),
+    ("predict", LogisticRegression(max_iter=1000)),
+])
+
+with_pca.fit(X_train, y_train)
+without_pca.fit(X_train, y_train)
+
+print("Train / test:", len(X_train), len(X_test))
+print("Accuracy with PCA:", round(with_pca.score(X_test, y_test), 4))
+print("Accuracy without PCA:", round(without_pca.score(X_test, y_test), 4))
 ```
 
-**Kiểm tra:** `112` mẫu train, `38` mẫu test; trong môi trường kiểm tra của bản mẫu, độ chính xác test ≈ **0.8947**. Điểm số có thể thay đổi theo phiên bản thư viện hoặc thay đổi dữ liệu/chia tập.
+**Kiểm tra:** có `112` mẫu train và `38` mẫu test. Trong ví dụ cụ thể, điểm số hai pipeline có thể khác nhau: **PCA không bảo đảm cải thiện accuracy**. Đây là mô phỏng phân loại theo số đo, không phải AI nhận diện hoa bằng ảnh.
 
-**Ứng dụng AI:** PCA như một bước tiền xử lý bên trong pipeline phân loại. **Không `fit_transform` trên toàn bộ dữ liệu rồi mới chia train/test**, vì đó là *data leakage*.
+## 6. Những lỗi dễ gặp khi sử dụng PCA
 
-**Tự luyện thêm:** So sánh pipeline **có** PCA và **không** PCA trên cùng tập chia; mô tả cả điểm accuracy lẫn số đặc trưng đầu vào của bộ phân loại.
-
-## 6. Những nhầm lẫn thường gặp
-
-| Nhầm lẫn | Cách hiểu đúng |
+| Tình huống | Điều cần nhớ |
 |---|---|
-| PCA là thuật toán phân loại | PCA là biến đổi đặc trưng không giám sát |
-| PC1 và PC2 tương ứng hai đặc trưng cũ | Mỗi PC thường là **tổ hợp tuyến tính** của nhiều đặc trưng |
-| Hai PC giữ 98.65% nghĩa là AI đúng 98.65% | Đó chỉ là tỷ lệ **phương sai**, không phải accuracy |
-| Bắt buộc StandardScaler mọi lúc | Quyết định scale tùy thang đo và mục tiêu |
-| Vector riêng đổi dấu là lỗi | `v` và `-v` biểu diễn cùng trục PCA |
-| `fit` PCA trên tất cả dữ liệu rồi chia train/test | Khi đánh giá mô hình dự đoán, hãy `fit` trong pipeline trên train để tránh leakage |
-| Phương sai ít nghĩa là nhiễu | Chưa chắc: tín hiệu nhãn có thể nằm ở PC phương sai thấp |
+| Số cột mới ít hơn số cột cũ | PCA tạo **feature mới**, không đơn giản xóa cột cũ |
+| `explained_variance_ratio_ = 0.95` | Giữ 95% **phương sai**, không phải accuracy 95% |
+| Các feature khác đơn vị | Cân nhắc `StandardScaler`; không áp dụng máy móc trong mọi ngữ cảnh |
+| PCA trước bước phân loại | Chỉ `fit` trên tập train; dùng `Pipeline` để tránh leakage |
+| Dữ liệu đã PCA rồi vẽ | PC1/PC2 là trục mới; không ghi nhãn chúng thành hai feature gốc |
+| Các cụm xuất hiện gần nhau trên hình | Chưa đủ chứng minh các nhóm có ý nghĩa nghiệp vụ |
+| PCA giữ nhiều phương sai | Không đảm bảo giữ mọi thông tin quan trọng cho nhãn dự đoán |
 
-## 7. Kiến thức AI liên quan
+## 7. English multiple-choice questions — Kiểm tra kiến thức
 
-- **Computer Vision:** PCA có thể biểu diễn vector ảnh nhiều chiều bằng ít chiều hơn (ví dụ mô hình *eigenfaces* cổ điển), nhưng không thay thế biểu diễn sâu hiện đại.
-- **Phát hiện bất thường:** nếu dùng PCA để tái tạo dữ liệu, mẫu có sai số tái tạo lớn *có thể* là điểm bất thường — cần kiểm định theo bài toán.
-- **Clustering:** có thể dùng PCA để trực quan hóa cluster hoặc tiền xử lý, nhưng PCA không tự tạo cluster.
-- **Mô hình dự đoán:** thử kết hợp PCA với hồi quy/phân loại; chọn số PC bằng đánh giá trên train/validation.
+**Q1. What is the primary purpose of PCA?**
 
-### Thuật ngữ cần nhớ
+A. To label samples automatically  
+B. To reduce dimensionality by creating new components  
+C. To remove every correlated sample  
+D. To guarantee higher accuracy
 
-| English | Tiếng Việt |
-|---|---|
-| Feature | Đặc trưng |
-| Dimensionality reduction | Giảm chiều dữ liệu |
-| Centering | Căn giữa dữ liệu |
-| Scaling / Standardization | Đưa đặc trưng về thang đo chuẩn |
-| Covariance | Hiệp phương sai |
-| Eigenvalue / Eigenvector | Giá trị riêng / Vector riêng |
-| Principal component | Thành phần chính |
-| Explained variance ratio | Tỷ lệ phương sai giải thích được |
-| Data leakage | Rò rỉ thông tin từ dữ liệu đánh giá |
+**Q2. Which object stores the fraction of variance explained by each component?**
 
-## 8. Tự đánh giá và hướng phát triển
+A. `pca.components_`  
+B. `pca.classes_`  
+C. `pca.explained_variance_ratio_`  
+D. `pca.predict()`
 
-1. Vì sao trước PCA ta thường phải cân nhắc `StandardScaler`?  
-2. Tại sao hai giá trị eigenvector đối dấu vẫn có thể đúng?  
-3. `components_` khác `explained_variance_ratio_` thế nào?  
-4. Nếu PCA giữ 99% phương sai, có chắc mô hình classification sẽ đạt 99% accuracy không?  
-5. Trong `Pipeline`, bước nào được `fit` trên tập test?
+**Q3. Why is `StandardScaler` often used before PCA?**
 
-**Đáp án ngắn:** (1) các feature khác thang đo có thể chi phối phương sai; (2) hướng trục không phụ thuộc chọn dấu; (3) hướng thành phần so với tỷ trọng phương sai; (4) không; (5) **không có bước nào** được fit trên test.
+A. To make every feature an integer  
+B. To ensure different feature scales do not dominate solely because of units  
+C. To guarantee that no data is lost  
+D. To convert all data into labels
 
-## 9. Nguồn, hiệu đính và giới hạn
+**Q4. A dataset has shape `(100, 5)`. After `PCA(n_components=2)`, what is the transformed shape?**
 
-**Có trong PythoClass:** định nghĩa PCA, Eigenvalue/Eigenvector, thao tác NumPy; mẫu PCA `X=[[2,0],[0,1],[3,4]]`; `PCA(n_components=2)`; `StandardScaler`; bảng 8 sinh viên × 5 đặc trưng; cách đọc `components_` và `explained_variance_ratio_`; ví dụ vẽ biểu đồ.
+A. `(5, 2)`  
+B. `(2, 100)`  
+C. `(100, 2)`  
+D. `(100, 5)`
 
-**Biên soạn / mở rộng có chủ đích:** diễn giải công thức thống kê chuẩn, cảnh báo leakage, bài tập so sánh `n_components`, pipeline phân loại Iris, phân biệt phương sai và accuracy, gợi ý ứng dụng AI.
+**Q5. What does `model.fit(X_train, y_train)` do in a scikit-learn `Pipeline`?**
 
-**Điểm đã hiệu đính từ ghi chép:** ví dụ vẽ vị trí nhãn sinh viên; giải thích StandardScaler và covariance; cách chọn các PC và mục đích giảm chiều. Những phần trong ghi chép chỉ là phác thảo được bổ sung định nghĩa, không coi là trích dẫn chính xác một lời giảng bên ngoài.
+A. Fits transformations and the estimator using the training set  
+B. Fits the model on the entire dataset including the test set  
+C. Only prints the model parameters  
+D. Automatically creates the labels
 
-**Giới hạn:** Đây là bài mẫu theo **ba file nguồn được đọc đầy đủ**, chưa phải kết quả rà soát hết mọi file `.ipynb`, `.py`, `.docx`, `.pptx`, `.xlsx` của repo. Việc lập bản đồ toàn bộ chủ đề sẽ được thực hiện riêng sau khi bố cục mẫu được duyệt.
+**Q6. Does retaining 95% of PCA variance guarantee 95% classification accuracy?**
 
----
+A. Yes, always  
+B. Yes, if two components are used  
+C. Only with KMeans  
+D. No, variance retention and classification accuracy measure different things
 
-**Trạng thái nghiệm thu:** `PILOT_REVIEW`. Người học có thể góp ý về độ dài, mức độ toán học, ngôn ngữ, cách đặt bài tập và mức chi tiết của lời giải trước khi nhân rộng ra toàn bộ PythoClass.
+**Q7. Which statement about PCA and KMeans is correct?**
+
+A. PCA automatically assigns cluster labels  
+B. PCA transforms features; KMeans can cluster the transformed features  
+C. KMeans is required to compute eigenvectors  
+D. Both always return the same labels
+
+**Q8. What is data leakage in the PCA workflow?**
+
+A. Drawing a scatter plot from training data  
+B. Selecting two principal components  
+C. Fitting preprocessing steps on test data before evaluating the model  
+D. Calling `transform()` on new data
+
+### Answer key & short explanations
+
+| Question | Answer | Explanation |
+|---|---|---|
+| Q1 | **B** | PCA creates new lower-dimensional features. |
+| Q2 | **C** | It stores explained variance ratios of the retained components. |
+| Q3 | **B** | Feature scales can otherwise dominate PCA. |
+| Q4 | **C** | The number of rows stays 100; columns become 2. |
+| Q5 | **A** | The pipeline fits on training data. |
+| Q6 | **D** | Variance and predictive accuracy are different measurements. |
+| Q7 | **B** | PCA transforms; KMeans clusters. |
+| Q8 | **C** | Test data must remain unseen during fitting. |
+
+## 8. Nối sang bài tiếp theo
+
+```text
+Vector / Matrix → Mean / Variance → Covariance → PCA
+                                         ↓
+                       Visualization / KMeans / Classification
+```
+
+Bạn không cần thuộc cách chứng minh PCA để dùng nó đúng. Điều quan trọng là **nhận biết dữ liệu đang ở dạng nào, vì sao cần giảm chiều, lựa chọn hàm Python nào, kết quả phải kiểm tra điều gì và dữ liệu mới được đưa vào pipeline ra sao**.
