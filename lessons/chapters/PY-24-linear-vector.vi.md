@@ -127,7 +127,7 @@ Tích vô hướng trả một scalar bằng 11.
 
 ```python
 import numpy as np
-v=np.array([3,4],dtype=float)
+v = np.array([3, 4], dtype=float)
 print(np.linalg.norm(v))
 ```
 
@@ -155,9 +155,9 @@ print(np.linalg.norm(v))
 
 ```python
 import numpy as np
-v=np.array([3.,4.])
-norm=np.linalg.norm(v)
-u=v/norm if norm else v
+v = np.array([3., 4.])
+norm = np.linalg.norm(v)
+u = v/norm if norm else v
 print(u)
 ```
 
@@ -185,8 +185,8 @@ print(u)
 
 ```python
 import numpy as np
-scores=np.array([8,7,9])
-weights=np.array([.2,.3,.5])
+scores = np.array([8, 7, 9])
+weights = np.array([.2, .3, .5])
 print(scores@weights)
 ```
 
@@ -214,8 +214,8 @@ print(scores@weights)
 
 ```python
 import numpy as np
-a=np.array([1,0])
-b=np.array([0,1])
+a = np.array([1, 0])
+b = np.array([0, 1])
 print(a@b)
 ```
 
@@ -243,8 +243,8 @@ print(a@b)
 
 ```python
 import numpy as np
-a=np.array([20,30])
-b=np.array([23,34])
+a = np.array([20, 30])
+b = np.array([23, 34])
 print(np.linalg.norm(a-b))
 ```
 
