@@ -32,80 +32,93 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Missing value
+**Data cleaning (làm sạch dữ liệu)** là quá trình tìm và xử lý các giá trị thiếu, dòng lặp và giá trị sai kiểu trước khi phân tích. Với dữ liệu khách hàng và đơn hàng, ta đi từ **phát hiện** thiếu/trùng → **quyết định** xử lý → **kiểm tra** kết quả; không xóa hoặc điền giá trị chỉ vì hàm có sẵn.
 
-**Từ vựng trong mục:** **Missing value** — giá trị thiếu.
+### 4.1. Missing values — Phát hiện dữ liệu thiếu
 
-Dữ liệu thiếu là ô không có giá trị, thường hiển thị thành `NaN` hoặc `None` và có thể kiểm tra bằng `isna()`.
+**Từ vựng trong mục:** **Missing value** — giá trị thiếu; **NaN** — giá trị số thiếu.
+
+**Giá trị thiếu** là ô chưa có dữ liệu hợp lệ, chẳng hạn ba khách hàng có tuổi `[20, None, 25]` và khách thứ hai chưa khai báo. Trong DataFrame, **mỗi hàng là một khách**, cột `age` là tuổi (năm). Pandas thường biểu diễn số thiếu là `NaN`; `isna()` tạo giá trị Boolean đánh dấu ô thiếu, rồi `sum()` đếm số trường hợp `True`. Thiếu khác với tuổi 0: không được tùy tiện coi khách chưa nhập tuổi là trẻ sơ sinh.
 
 ```python
 import pandas as pd
-print(pd.Series([1,None]).isna())
+
+customers = pd.DataFrame({'age': [20, None, 25]})
+print(customers['age'].isna().sum())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0    False
-1     True
-dtype: bool
+1
 ```
 
-### 4.2. Duplicate
+Có một khách chưa có tuổi. Kết quả là **số ô thiếu**, không phải giá trị tuổi của khách.
 
-**Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
+### 4.2. Duplicates — Nhận diện dòng trùng
 
-Dữ liệu trùng là những dòng lặp lại; `duplicated()` đánh dấu bản ghi trùng sau bản đầu.
+**Từ vựng trong mục:** **Duplicate** — bản ghi trùng; **Row** — hàng.
+
+Dữ liệu có thể chứa một giao dịch được ghi hai lần. Ví dụ bảng gồm các dòng `(O1, 10)`, `(O1, 10)`, `(O2, 20)`: **mỗi hàng là một giao dịch**, cột `id` là mã đơn, `amount` là tiền. `duplicated()` đánh dấu dòng lặp giống hệt **sau dòng đầu tiên**; `drop_duplicates()` giữ một bản. Tuy nhiên hai giao dịch cùng mã chưa chắc trùng hoàn toàn nếu số tiền hoặc chi tiết khác nhau — phải xác định quy tắc nhận diện trùng trước khi xóa.
 
 ```python
 import pandas as pd
-print(pd.Series([1,1]).duplicated())
+
+orders = pd.DataFrame({'id': ['O1', 'O1', 'O2'], 'amount': [10, 10, 20]})
+print(orders.duplicated().tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0    False
-1     True
-dtype: bool
+[False, True, False]
 ```
 
-### 4.3. Imputation
+Dòng thứ hai lặp đúng mọi cột của dòng đầu, nên chỉ dòng ấy được đánh dấu trùng.
 
-**Từ vựng trong mục:** **Imputation** — điền khuyết.
+### 4.3. Imputation — Điền dữ liệu thiếu hợp lý
 
-Điền khuyết thay số liệu thiếu bằng giá trị được chọn như trung vị; cần giải thích vì sao chọn giá trị đó.
+**Từ vựng trong mục:** **Imputation** — điền khuyết; **Median** — trung vị.
+
+**Điền khuyết** thay giá trị thiếu bằng một giá trị được lựa chọn theo ý nghĩa dữ liệu. Giả sử ba mức chi tiêu là `[100, None, 200]` nghìn đồng. Trung vị của hai số có thật là `(100+200)/2 = 150`; `fillna(median)` điền 150 vào ô thiếu. Không có một cách điền đúng cho mọi bài toán: với mã đơn thiếu nên xác minh nguồn, không tự thay bằng số trung vị. Nếu có tập train/test, thống kê dùng để điền phải học từ **train** để tránh rò rỉ dữ liệu.
 
 ```python
 import pandas as pd
-print(pd.Series([1,None]).fillna(0))
+
+spent = pd.Series([100, None, 200], dtype=float)
+median = spent.median()
+print(spent.fillna(median).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0    1.0
-1    0.0
-dtype: float64
+[100.0, 150.0, 200.0]
 ```
 
-### 4.4. Data validation
+Ô thứ hai được điền 150 nghìn đồng; hai số đo hợp lệ 100 và 200 được giữ nguyên.
 
-**Từ vựng trong mục:** **Data validation** — kiểm tra dữ liệu.
+### 4.4. Data validation — Kiểm tra giá trị và kiểu
 
-Kiểm tra dữ liệu giúp phát hiện kiểu sai, giá trị ngoài khoảng hoặc chuỗi không đổi được thành số.
+**Từ vựng trong mục:** **Validation** — kiểm tra tính hợp lệ; **Coerce** — chuyển giá trị sai thành thiếu.
+
+**Kiểm tra dữ liệu** bảo đảm kiểu và phạm vi phù hợp trước khi tính. Một bảng giá nhận ba chuỗi `'100'`, `'bad'`, `'250'`. `pd.to_numeric(errors='coerce')` chuyển chuỗi số thành số thực, còn chữ `bad` không đổi được thành `NaN`. Sau đó mới quyết định bỏ hàng, điền khuyết hay yêu cầu sửa ở nguồn. Nếu dùng `errors='raise'`, trường hợp không hợp lệ sẽ phát sinh lỗi để chương trình xử lý.
 
 ```python
 import pandas as pd
-print(pd.to_numeric(pd.Series(['2']),errors='coerce'))
+
+raw = pd.Series(['100', 'bad', '250'])
+prices = pd.to_numeric(raw, errors='coerce')
+print(prices.isna().sum())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0    2
-dtype: int64
+1
 ```
+
+Có đúng một giá trị giá không hợp lệ. Chuyển thành NaN giúp phát hiện, không có nghĩa đã sửa được giá trị thật.
 
 ## 5. Năm tình huống thực tế
 
@@ -117,7 +130,11 @@ dtype: int64
 
 **Vì sao chọn cách giải này?** `isna()` đánh dấu các ô thiếu; `sum()` đếm các ô đó theo cột.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo bảng `age` gồm ba khách, người thứ hai có giá trị thiếu.
+2. Dùng `isna()` đánh dấu từng ô thiếu.
+3. Dùng `sum()` đếm và in số trường hợp cần rà soát.
 
 ```python
 import pandas as pd
@@ -134,13 +151,17 @@ dtype: int64
 
 ### Tình huống 2 — Điền giá trị trung vị
 
-**Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
+**Từ vựng trong mục:** **Imputation** — điền khuyết; **Median** — trung vị.
 
 **Tình huống thực tế:** Cửa hàng có mức chi tiêu `[100, None, 200]` đơn vị tiền; một dòng chưa có số liệu. Điền chỗ thiếu bằng trung vị của số liệu hiện có.
 
 **Vì sao chọn cách giải này?** Trung vị của 100 và 200 là 150; `fillna` chỉ thay giá trị thiếu.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo cột `spent` có hai số 100, 200 và một ô thiếu.
+2. Tính trung vị từ các số có thật, được 150.
+3. Gọi `fillna` trên cột chi tiêu và in bảng đã điền.
 
 ```python
 import pandas as pd
@@ -158,15 +179,19 @@ print(df)
 2  200.0
 ```
 
-### Tình huống 3 — Loại trùng mã đơn
+### Tình huống 3 — Loại dòng trùng hoàn toàn
 
-**Từ vựng trong mục:** **Imputation** — điền khuyết.
+**Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
 
 **Tình huống thực tế:** Đơn hàng có ba dòng O1:10, O1:10 và O2:20, trong đó hai dòng O1 giống hệt nhau. Loại dòng trùng hoàn toàn và in bảng còn lại.
 
 **Vì sao chọn cách giải này?** `drop_duplicates()` giữ một bản của những dòng giống nhau.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo bảng ba dòng với hai bản ghi O1 giống hệt và một O2.
+2. Gọi `drop_duplicates()` để loại dòng trùng hoàn toàn.
+3. In bảng còn hai bản ghi; giữ nguyên index cũ nếu không reset.
 
 ```python
 import pandas as pd
@@ -190,7 +215,11 @@ print(df.drop_duplicates())
 
 **Vì sao chọn cách giải này?** `to_numeric(errors='coerce')` cho phép xử lý giá trị sai kiểu mà không dừng chương trình.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Đọc ba chuỗi giá, trong đó `'bad'` không phải số.
+2. Dùng `pd.to_numeric(..., errors='coerce')` chuyển lỗi thành NaN.
+3. In Series và xác định vị trí giá chưa hợp lệ.
 
 ```python
 import pandas as pd
@@ -215,7 +244,11 @@ dtype: float64
 
 **Vì sao chọn cách giải này?** Tính thống kê chỉ từ tập train giúp tránh rò rỉ thông tin từ test.
 
-**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
+**Quy trình giải:**
+
+1. Tạo riêng Series train `[10, None, 20]` và test `[None, 30]`.
+2. Tính trung vị **chỉ trên train**, thu được 15.
+3. Dùng 15 điền vào ô thiếu của cả train và test, không học từ test.
 
 ```python
 import pandas as pd
@@ -238,7 +271,11 @@ dtype: float64
 
 ## 6. Sai lầm thường gặp
 
-Các tham số như axis, shape, dtype hoặc cách xử lý giá trị thiếu có thể thay đổi kết quả. Trước khi xử lý phải biết số hàng, số cột, đơn vị và mục đích của từng phép biến đổi.
+- **Thiếu dữ liệu** không đồng nghĩa với 0; điền 0 vào tuổi, giá hay lượng hàng thiếu có thể làm sai thống kê.
+- `duplicated()` mặc định xét toàn bộ các cột; xóa trùng phải hiểu **khóa định danh** và ý nghĩa từng bản ghi.
+- `drop_duplicates()` thường giữ **index cũ**; cần `reset_index(drop=True)` nếu muốn đánh lại nhãn hàng.
+- `to_numeric(errors='coerce')` đổi dữ liệu sai thành NaN, **không tự đoán** giá trị thật.
+- Với Machine Learning, chỉ tính trung vị/trung bình để điền từ **tập train**, sau đó áp dụng cho test để tránh data leakage.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
