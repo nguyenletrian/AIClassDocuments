@@ -379,7 +379,7 @@ B. Skips the rest of the current iteration — Bỏ phần còn lại của lư�
 
 C. Nothing; it is a placeholder statement — Không làm gì; đó là câu lệnh giữ chỗ
 
-D. When the loop ends without `break` — Khi vòng lặp kết thúc mà không gặp `break`
+D. Proceeds to the next iteration if there is one — Chuyển sang lượt lặp kế tiếp nếu còn
 
 **Q9. What does `range(1, 4)` represent? — `range(1, 4)` biểu diễn gì?**
 
@@ -512,7 +512,7 @@ D. Use nested loops — Dùng vòng lặp lồng nhau
 | Q5 | **A** | break leaves the current enclosing loop immediately. | break thoát ngay vòng lặp hiện tại. |
 | Q6 | **B** | continue moves directly toward the next iteration. | continue chuyển tới lượt lặp kế tiếp. |
 | Q7 | **C** | pass is syntactically valid but performs no operation. | pass hợp lệ về cú pháp nhưng không thực hiện thao tác. |
-| Q8 | **D** | A loop else is skipped when break terminates that loop. | Nhánh else của vòng lặp không chạy nếu break kết thúc vòng lặp. |
+| Q8 | **D** | The loop's `else` runs only when the loop finishes normally, including a `for` that exhausts its iterable or a `while` whose condition turns false. A `break` skips that `else`; this differs from an `if` statement's `else`. | `else` của vòng lặp chỉ chạy khi vòng lặp kết thúc bình thường, như `for` duyệt hết phần tử hoặc điều kiện `while` thành sai. `break` khiến bỏ qua `else` đó; quy tắc này khác `else` của câu lệnh `if`. |
 | Q9 | **A** | The stop argument is exclusive. | Giá trị stop không được lấy. |
 | Q10 | **B** | enumerate yields an index alongside each item. | enumerate đưa ra chỉ số kèm từng phần tử. |
 | Q11 | **C** | zip advances both iterables together, stopping at the shorter one by default. | zip duyệt hai dãy đồng thời, mặc định dừng theo dãy ngắn hơn. |
