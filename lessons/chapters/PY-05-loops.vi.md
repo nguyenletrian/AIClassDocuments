@@ -421,7 +421,7 @@ C. Sorts elements from largest to smallest — Sắp phần tử từ lớn đ�
 
 D. Preserves the original order — Giữ nguyên thứ tự ban đầu
 
-**Q13. How many values does `range(3)` yield in a complete `for` loop? — Khi vòng `for` duyệt hết `range(3)`, có bao nhiêu giá trị được lấy ra?**
+**Q13. How many iterations does a complete `for` loop over `range(3)` execute? — Vòng `for` duyệt hết `range(3)` thực hiện bao nhiêu lượt lặp?**
 
 A. 3 iterations — 3 lượt lặp
 
@@ -517,7 +517,7 @@ D. Use `zip()` on the two collections — Dùng `zip()` trên hai nhóm
 | Q10 | **B** | `enumerate(items)` yields pairs containing the index and item, normally starting at index 0. For `['a', 'b']`, iteration yields `(0, 'a')` then `(1, 'b')`; it does not sort the collection. | `enumerate(items)` tạo các cặp chỉ số và phần tử, mặc định bắt đầu từ chỉ số 0. Với `['a', 'b']`, khi duyệt sẽ nhận `(0, 'a')` rồi `(1, 'b')`; hàm không sắp xếp danh sách. |
 | Q11 | **A** | `zip(a, b)` pairs items at matching positions, such as `list(zip([1, 2], ['x', 'y']))` giving `[(1, 'x'), (2, 'y')]`. By default, it stops when the shortest input is exhausted, not when every combination is formed. | `zip(a, b)` ghép phần tử ở cùng vị trí, ví dụ `list(zip([1, 2], ['x', 'y']))` cho `[(1, 'x'), (2, 'y')]`. Mặc định hàm dừng khi dãy ngắn nhất hết phần tử, chứ không tạo mọi cặp kết hợp. |
 | Q12 | **B** | `reversed()` provides an iterator over eligible sequences in reverse positional order. For `[3, 1, 2]` it produces `2, 1, 3`, not descending numeric sort `3, 2, 1`. | `reversed()` cung cấp bộ duyệt ngược thứ tự vị trí của dãy phù hợp. Với `[3, 1, 2]`, nó cho `2, 1, 3`, không phải sắp xếp số giảm dần `3, 2, 1`. |
-| Q13 | **A** | `range(3)` represents `0`, `1`, `2`; the start defaults to zero and the stop 3 is excluded. Consequently a `for` loop over this range executes exactly three iterations unless control flow interrupts it. | `range(3)` biểu diễn `0`, `1`, `2`; giá trị bắt đầu mặc định bằng 0 và không lấy mốc dừng 3. Vì vậy vòng `for` duyệt range này chạy đúng ba lượt nếu không bị điều khiển ngắt sớm. |
+| Q13 | **A** | `range(3)` provides `0`, `1`, and `2`: the default start is zero, and the stop value 3 is excluded. A complete `for` loop therefore executes its body three times; this is a count of iterations rather than a claim that the range contains the number 3. | `range(3)` tạo các giá trị `0`, `1`, `2`: bắt đầu mặc định từ 0 và không lấy mốc dừng 3. Vòng `for` duyệt hết sẽ chạy thân đúng ba lượt; đây là số lượt lặp, không có nghĩa dãy chứa giá trị 3. |
 | Q14 | **B** | `range(start, stop, step)` starts at 2, adds 2 each time, and excludes values at or beyond stop 7. Thus the sequence is 2, 4, 6, not 2, 4, 6, 8. | `range(start, stop, step)` bắt đầu tại 2, mỗi lượt cộng thêm 2 và không lấy giá trị đạt hoặc vượt mốc dừng 7. Vì vậy dãy là 2, 4, 6, không phải 2, 4, 6, 8. |
 | Q15 | **C** | `enumerate()` starts its index at `0` unless `start` is provided. For `['a', 'b']` the first pair is `(0, 'a')`; `enumerate(items, start=1)` would start at 1 instead. | `enumerate()` mặc định bắt đầu chỉ số bằng `0` nếu không truyền `start`. Với `['a', 'b']`, cặp đầu là `(0, 'a')`; `enumerate(items, start=1)` mới bắt đầu từ 1. |
 | Q16 | **D** | `zip()` consumes one element from each input at a time and stops when the shorter input is exhausted. Therefore `list(zip([1,2], ['a']))` contains only `[(1, 'a')]`, not a pair with 2. | `zip()` lấy một phần tử từ mỗi dãy ở một lượt và dừng khi dãy ngắn hơn hết. Vì vậy `list(zip([1,2], ['a']))` chỉ chứa `[(1, 'a')]`, không có cặp chứa 2. |
