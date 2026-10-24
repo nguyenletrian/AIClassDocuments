@@ -1,10 +1,6 @@
 # PY-19 — Pandas: lọc, groupby, merge và sắp xếp
 
-*DRAFT · Dữ liệu giả lập · Cần kiểm chứng code trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
-
-**Từ vựng trong mục:** **loc** — chọn theo nhãn; **iloc** — chọn theo vị trí.
 
 `DataFrame → lọc → nhóm → ghép bảng → AI`
 
@@ -21,8 +17,6 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 
 ## 3. Hàm Python và tham số
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / cú pháp | Vì sao dùng |
 |---|---|
 | `df.loc[label]` | Chọn theo nhãn dòng/cột; slicing theo nhãn có thể gồm điểm cuối |
@@ -33,8 +27,6 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 ## 4. Các khái niệm liên quan
 
 ### 4.1. loc
-
-**Từ vựng trong mục:** **loc** — chọn theo nhãn.
 
 Chọn hàng/cột theo tên. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
@@ -48,8 +40,6 @@ print(x.loc["SV1"])
 
 ### 4.2. iloc
 
-**Từ vựng trong mục:** **iloc** — chọn theo vị trí.
-
 Chọn hàng/cột theo số nguyên tính từ 0. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
@@ -62,8 +52,6 @@ print(x.iloc[1])
 
 ### 4.3. groupby
 
-**Từ vựng trong mục:** **groupby** — nhóm dữ liệu.
-
 Gom các hàng cùng giá trị để tổng hợp. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
@@ -75,8 +63,6 @@ print(x.groupby("city").sale.sum())
 **Tự kiểm tra nhanh:** groupby là gì? **Đáp án:** Gom các hàng cùng giá trị để tổng hợp.
 
 ### 4.4. merge
-
-**Từ vựng trong mục:** **merge** — ghép bảng.
 
 Nối bảng qua khóa chung. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
@@ -92,15 +78,11 @@ print(a.merge(b,on="id"))
 
 ### Tình huống 1 — Đơn hàng giá cao
 
-**Từ vựng trong mục:** **loc** — chọn theo nhãn.
-
 **Vấn đề:** Đơn hàng giá cao.
 
 **Vì sao chọn phương án này?** Lọc dựa trên cột đơn giá để lấy bản ghi phù hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 **Dữ liệu:** 3 sản phẩm, giá nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
 ```python
 import pandas as pd
@@ -108,11 +90,7 @@ df=pd.DataFrame({"name":["A","B","C"],"price":[300,900,1200]})
 print(df[df.price>=800])
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 2 — Tra dòng thứ hai
-
-**Từ vựng trong mục:** **iloc** — chọn theo vị trí.
 
 **Vấn đề:** Tra dòng thứ hai.
 
@@ -120,19 +98,13 @@ print(df[df.price>=800])
 
 **Dữ liệu:** Ba ID theo thứ tự A B C. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 import pandas as pd
 df=pd.DataFrame({"id":["A","B","C"]})
 print(df.iloc[1])
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 3 — Doanh thu từng vùng
-
-**Từ vựng trong mục:** **groupby** — nhóm dữ liệu.
 
 **Vấn đề:** Doanh thu từng vùng.
 
@@ -140,27 +112,19 @@ print(df.iloc[1])
 
 **Dữ liệu:** 3 đơn A A B, nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 import pandas as pd
 df=pd.DataFrame({"city":["A","A","B"],"sale":[10,20,8]})
 print(df.groupby("city")["sale"].sum())
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 4 — Đơn hàng và khách
-
-**Từ vựng trong mục:** **merge** — ghép bảng.
 
 **Vấn đề:** Đơn hàng và khách.
 
 **Vì sao chọn phương án này?** merge trên customer_id giữ quan hệ ID đúng. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 **Dữ liệu:** Hai bảng order/customer. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
 ```python
 import pandas as pd
@@ -169,11 +133,7 @@ b=pd.DataFrame({"id":[1,2],"name":["An","Lan"]})
 print(a.merge(b,on="id",how="left"))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 5 — Top doanh số
-
-**Từ vựng trong mục:** **loc** — chọn theo nhãn.
 
 **Vấn đề:** Top doanh số.
 
@@ -181,23 +141,17 @@ print(a.merge(b,on="id",how="left"))
 
 **Dữ liệu:** 4 đơn với doanh thu nghìn đồng. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 import pandas as pd
 df=pd.DataFrame({"id":["A","B","C","D"],"sale":[30,80,20,60]})
 print(df.sort_values("sale",ascending=False).head(2))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ## 6. Các lỗi dễ mắc
 
 Cần phân biệt khi nào thứ tự quan trọng, khi nào phần tử trùng được tính lại, và khi nào dữ liệu thật không có đủ điều kiện như ví dụ. Xem kỹ kiểu dữ liệu và đầu vào trống.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What best describes loc? — Mô tả nào đúng với loc?**
@@ -443,7 +397,3 @@ D. Ignore edge cases — Bỏ qua trường hợp biên
 | Q18 | **A** | The data are 4 đơn với doanh thu nghìn đồng | 4 đơn với doanh thu nghìn đồng |
 | Q19 | **D** | Meaning of rows, columns and units | Ý nghĩa hàng, cột và đơn vị |
 | Q20 | **C** | Check the result and limitations | Kiểm tra kết quả và giới hạn |
-
-## 8. Nối sang bài tiếp
-
-`DataFrame → lọc → nhóm → ghép bảng → AI`.
