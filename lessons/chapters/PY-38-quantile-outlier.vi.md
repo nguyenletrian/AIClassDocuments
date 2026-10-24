@@ -93,7 +93,7 @@ print(pd.Series([1,2,3,4,5]).kurt())
 
 **Vì sao chọn cách này?** Phân vị chia nhóm khách theo vị trí chi tiêu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 số chi tiêu [10,20,30,40,50], nghìn đồng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 5 số chi tiêu [10,20,30,40,50], nghìn đồng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -103,7 +103,6 @@ x=[10,20,30,40,50]
 print(np.quantile(x,.75))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 2 — Kiểm outlier hóa đơn
 
@@ -113,7 +112,7 @@ print(np.quantile(x,.75))
 
 **Vì sao chọn cách này?** IQR gợi ý hóa đơn bất thường để rà soát; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -124,7 +123,6 @@ q1,q3=np.quantile(x,[.25,.75]);iqr=q3-q1
 print(x[(x<q1-1.5*iqr)|(x>q3+1.5*iqr)])
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 3 — So độ lệch phân phối
 
@@ -134,7 +132,7 @@ print(x[(x<q1-1.5*iqr)|(x>q3+1.5*iqr)])
 
 **Vì sao chọn cách này?** skew dương giúp nhận ra đuôi phải dài; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Giá trị [1,1,2,8]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Giá trị [1,1,2,8].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -143,7 +141,6 @@ import pandas as pd
 print(pd.Series([1,1,2,8]).skew())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 4 — Xem độ nhọn phân phối
 
@@ -153,7 +150,7 @@ print(pd.Series([1,1,2,8]).skew())
 
 **Vì sao chọn cách này?** kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 10 giá trị đo minh họa. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 10 giá trị đo minh họa.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -163,7 +160,6 @@ s=pd.Series([2,3,3,4,4,5,5,6,7,20])
 print(s.kurt())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 5 — Chọn cách điền dữ liệu
 
@@ -173,7 +169,7 @@ print(s.kurt())
 
 **Vì sao chọn cách này?** Median có thể hữu ích khi có giá trị lớn bất thường; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** [100,120,10000,None] nghìn đồng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** [100,120,10000,None] nghìn đồng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -183,7 +179,6 @@ s=pd.Series([100,120,10000,None])
 print(s.fillna(s.median()))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 
