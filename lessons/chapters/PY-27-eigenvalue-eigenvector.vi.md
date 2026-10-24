@@ -1,14 +1,8 @@
 # PY-27 — Eigenvalue, Eigenvector và hướng biến thiên
 
-*DRAFT · Dữ liệu số mô phỏng; chưa xác nhận kiểm thử trên Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Eigenvector** — vector riêng; **Eigenvalue** — giá trị riêng.
-
 `Hệ tuyến tính → Eigenvalues/Vectors → Covariance → PCA`
-
-Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python trước khi sử dụng vào học máy.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 3. NumPy và các hàm liên quan
 
-**Từ vựng trong mục:** **Function** — hàm; **Shape** — kích thước mảng.
-
 | Hàm / tham số | Dùng làm gì |
 |---|---|
 | `np.linalg.eigh(C)` | Trả eigenvalues/eigenvectors cho ma trận đối xứng |
@@ -34,9 +26,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ### 4.1. Eigenvector
 
-**Từ vựng trong mục:** **Eigenvector** — vector riêng.
-
-Hướng mà phép biến đổi tuyến tính chỉ co/dãn. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Hướng mà phép biến đổi tuyến tính chỉ co/dãn.
 
 ```python
 import numpy as np
@@ -44,26 +34,18 @@ w,v=np.linalg.eigh([[2.,0.],[0.,3.]])
 print(v.shape)
 ```
 
-**Tự kiểm tra:** Eigenvector có nghĩa gì? **Đáp án:** Hướng mà phép biến đổi tuyến tính chỉ co/dãn.
-
 ### 4.2. Eigenvalue
 
-**Từ vựng trong mục:** **Eigenvalue** — giá trị riêng.
-
-Hệ số co/dãn theo một vector riêng. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Hệ số co/dãn theo một vector riêng.
 
 ```python
 import numpy as np
 print(np.linalg.eigvalsh([[2.,0.],[0.,3.]]))
 ```
 
-**Tự kiểm tra:** Eigenvalue có nghĩa gì? **Đáp án:** Hệ số co/dãn theo một vector riêng.
-
 ### 4.3. Covariance
 
-**Từ vựng trong mục:** **Covariance** — hiệp phương sai.
-
-Cách hai đặc trưng biến thiên cùng nhau. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Cách hai đặc trưng biến thiên cùng nhau.
 
 ```python
 import numpy as np
@@ -71,13 +53,9 @@ X=np.array([[1,2],[2,4],[3,6]])
 print(np.cov(X,rowvar=False))
 ```
 
-**Tự kiểm tra:** Covariance có nghĩa gì? **Đáp án:** Cách hai đặc trưng biến thiên cùng nhau.
-
 ### 4.4. Principal direction
 
-**Từ vựng trong mục:** **Principal direction** — hướng chính.
-
-Hướng chứa nhiều phương sai nhất trong PCA. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Hướng chứa nhiều phương sai nhất trong PCA.
 
 ```python
 import numpy as np
@@ -85,21 +63,15 @@ w,v=np.linalg.eigh([[2.,0.],[0.,3.]])
 print(v[:,-1])
 ```
 
-**Tự kiểm tra:** Principal direction có nghĩa gì? **Đáp án:** Hướng chứa nhiều phương sai nhất trong PCA.
-
 ## 5. Năm tình huống ứng dụng
 
 ### Tình huống 1 — Chọn hướng đo biến thiên lớn
 
-**Từ vựng trong mục:** **Eigenvector** — vector riêng.
-
 **Vấn đề:** Chọn hướng đo biến thiên lớn.
 
-**Vì sao chọn phương án?** Chọn eigenvector tương ứng eigenvalue lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Chọn eigenvector tương ứng eigenvalue lớn nhất
 
-**Dữ liệu:** Covariance minh họa chéo [2,3]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Covariance minh họa chéo [2,3].
 
 ```python
 import numpy as np
@@ -107,19 +79,13 @@ C=np.diag([2.,3.]);w,v=np.linalg.eigh(C)
 print(w[-1],v[:,-1])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 2 — Xem dữ liệu có trùng tuyến tính
-
-**Từ vựng trong mục:** **Eigenvalue** — giá trị riêng.
 
 **Vấn đề:** Xem dữ liệu có trùng tuyến tính.
 
-**Vì sao chọn phương án?** Eigenvalue gần 0 biểu thị hướng rất ít biến thiên; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Eigenvalue gần 0 biểu thị hướng rất ít biến thiên
 
-**Dữ liệu:** Ba điểm cùng tăng hai feature. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Ba điểm cùng tăng hai feature.
 
 ```python
 import numpy as np
@@ -127,19 +93,13 @@ X=np.array([[1,2],[2,4],[3,6]],dtype=float)
 print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 3 — Kiểm công thức eigen
-
-**Từ vựng trong mục:** **Covariance** — hiệp phương sai.
 
 **Vấn đề:** Kiểm công thức eigen.
 
-**Vì sao chọn phương án?** A@v gần lambda*v cho cặp riêng chính xác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** A@v gần lambda*v cho cặp riêng chính xác
 
-**Dữ liệu:** Ma trận chéo 2×2. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Ma trận chéo 2×2.
 
 ```python
 import numpy as np
@@ -147,19 +107,13 @@ A=np.diag([2.,3.]);w,v=np.linalg.eigh(A)
 print(np.allclose(A@v[:,-1],w[-1]*v[:,-1]))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 4 — Sắp thứ tự mức phương sai
-
-**Từ vựng trong mục:** **Principal direction** — hướng chính.
 
 **Vấn đề:** Sắp thứ tự mức phương sai.
 
-**Vì sao chọn phương án?** argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ
 
-**Dữ liệu:** Giá trị riêng [4,1,3]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Giá trị riêng [4,1,3].
 
 ```python
 import numpy as np
@@ -167,19 +121,13 @@ values=np.array([4,1,3])
 print(np.argsort(values)[::-1])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 5 — So với PCA của sklearn
-
-**Từ vựng trong mục:** **Eigenvector** — vector riêng.
 
 **Vấn đề:** So với PCA của sklearn.
 
-**Vì sao chọn phương án?** Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều
 
-**Dữ liệu:** 3 khách × 2 feature. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** 3 khách × 2 feature.
 
 ```python
 import numpy as np
@@ -188,15 +136,11 @@ X=np.array([[1,2],[2,3],[3,4]],dtype=float)
 print(PCA(n_components=1).fit_transform(X).shape)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ## 6. Sai lầm cần tránh
 
 Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Eigenvector? — Thuật ngữ Eigenvector có nghĩa gì?**
@@ -442,7 +386,3 @@ D. It guarantees no leakage — Nó bảo đảm không rò rỉ dữ liệu
 | Q18 | **A** | The input is 3 khách × 2 feature | 3 khách × 2 feature |
 | Q19 | **D** | Shapes and data units | Shape và đơn vị dữ liệu |
 | Q20 | **C** | It does not establish predictive performance | Nó không đo chất lượng dự đoán |
-
-## 8. Nối sang bài kế tiếp
-
-`Hệ tuyến tính → Eigenvalues/Vectors → Covariance → PCA`.
