@@ -106,7 +106,7 @@ print(type(2.5))
 <class 'float'>
 ```
 
-`float` báo đây là số thực, không phải chuỗi ký tự ``2.5`.
+`float` báo đây là số thực, không phải chuỗi ký tự `"2.5"`.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Chào khách mới
