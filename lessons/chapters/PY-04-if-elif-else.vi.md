@@ -304,249 +304,230 @@ else:
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is Condition? — Thuật ngữ Condition có nghĩa gì?**
+**Q1. What does `if` do? — `if` dùng để làm gì?**
 
-A. A block of code selected to run — Phần chương trình được chọn để chạy
+A. Runs its block when a condition is true — Chạy khối lệnh khi điều kiện đúng
 
-B. A test that is true or false — Phép kiểm tra đúng hoặc sai
+B. When preceding branches have not matched — Khi các nhánh trước chưa đúng
 
-C. A cutoff point for changing categories — Ranh giới để chuyển trạng thái
+C. When no earlier condition matched — Khi không điều kiện trước nào đúng
 
-D. A second condition checked inside a branch — Kiểm tra bổ sung bên trong một nhánh
+D. An if statement inside another block — Câu lệnh if nằm trong khối lệnh khác
 
+**Q2. When is an `elif` condition checked? — Khi nào Python xét điều kiện `elif`?**
 
-**Q2. What is Branch? — Thuật ngữ Branch có nghĩa gì?**
+A. Runs its block when a condition is true — Chạy khối lệnh khi điều kiện đúng
 
-A. A block of code selected to run — Phần chương trình được chọn để chạy
+B. When preceding branches have not matched — Khi các nhánh trước chưa đúng
 
-B. A cutoff point for changing categories — Ranh giới để chuyển trạng thái
+C. When no earlier condition matched — Khi không điều kiện trước nào đúng
 
-C. A second condition checked inside a branch — Kiểm tra bổ sung bên trong một nhánh
+D. An if statement inside another block — Câu lệnh if nằm trong khối lệnh khác
 
-D. A test that is true or false — Phép kiểm tra đúng hoặc sai
+**Q3. When does an `else` block run? — Khi nào khối `else` chạy?**
 
+A. Runs its block when a condition is true — Chạy khối lệnh khi điều kiện đúng
 
-**Q3. What is Threshold? — Thuật ngữ Threshold có nghĩa gì?**
+B. When preceding branches have not matched — Khi các nhánh trước chưa đúng
 
-A. A second condition checked inside a branch — Kiểm tra bổ sung bên trong một nhánh
+C. When no earlier condition matched — Khi không điều kiện trước nào đúng
 
-B. A test that is true or false — Phép kiểm tra đúng hoặc sai
+D. An if statement inside another block — Câu lệnh if nằm trong khối lệnh khác
 
-C. A block of code selected to run — Phần chương trình được chọn để chạy
+**Q4. What is a nested `if`? — `if` lồng nhau là gì?**
 
-D. A cutoff point for changing categories — Ranh giới để chuyển trạng thái
+A. Runs its block when a condition is true — Chạy khối lệnh khi điều kiện đúng
 
+B. When preceding branches have not matched — Khi các nhánh trước chưa đúng
 
-**Q4. What is Nested if? — Thuật ngữ Nested if có nghĩa gì?**
+C. When no earlier condition matched — Khi không điều kiện trước nào đúng
 
-A. A test that is true or false — Phép kiểm tra đúng hoặc sai
+D. An if statement inside another block — Câu lệnh if nằm trong khối lệnh khác
 
-B. A block of code selected to run — Phần chương trình được chọn để chạy
+**Q5. Which keyword introduces another conditional test? — Từ khóa nào bổ sung một điều kiện tiếp theo?**
 
-C. A second condition checked inside a branch — Kiểm tra bổ sung bên trong một nhánh
+A. `elif` — `elif`
 
-D. A cutoff point for changing categories — Ranh giới để chuyển trạng thái
+B. `else` — `else`
 
+C. `if` — `if`
 
-**Q5. Which statement fits 'if expression:'? — Mô tả nào đúng với 'if expression:'?**
+D. `in` — `in`
 
-A. Try another condition if earlier branches did not match — Thử điều kiện tiếp theo khi nhánh trước không đúng
+**Q6. Which keyword gives an unconditional fallback branch? — Từ khóa nào tạo nhánh còn lại không cần điều kiện?**
 
-B. Run the branch only when its condition is true — Chỉ chạy nhánh nếu điều kiện đúng
+A. `elif` — `elif`
 
-C. Run the fallback branch without a new condition — Trường hợp còn lại không cần điều kiện mới
+B. `else` — `else`
 
-D. Check membership or combine conditions — Kiểm tra thành viên hoặc kết hợp nhiều điều kiện
+C. `if` — `if`
 
+D. `in` — `in`
 
-**Q6. Which statement fits 'elif expression:'? — Mô tả nào đúng với 'elif expression:'?**
+**Q7. Which keyword starts a conditional branch? — Từ khóa nào bắt đầu một nhánh điều kiện?**
 
-A. Try another condition if earlier branches did not match — Thử điều kiện tiếp theo khi nhánh trước không đúng
+A. `elif` — `elif`
 
-B. Run the fallback branch without a new condition — Trường hợp còn lại không cần điều kiện mới
+B. `else` — `else`
 
-C. Check membership or combine conditions — Kiểm tra thành viên hoặc kết hợp nhiều điều kiện
+C. `if` — `if`
 
-D. Run the branch only when its condition is true — Chỉ chạy nhánh nếu điều kiện đúng
+D. `in` — `in`
 
+**Q8. Which operator asks whether an item belongs to a list? — Toán tử nào kiểm tra phần tử có trong List?**
 
-**Q7. Which statement fits 'else:'? — Mô tả nào đúng với 'else:'?**
+A. `elif` — `elif`
 
-A. Check membership or combine conditions — Kiểm tra thành viên hoặc kết hợp nhiều điều kiện
+B. `else` — `else`
 
-B. Run the branch only when its condition is true — Chỉ chạy nhánh nếu điều kiện đúng
+C. `if` — `if`
 
-C. Try another condition if earlier branches did not match — Thử điều kiện tiếp theo khi nhánh trước không đúng
+D. `in` — `in`
 
-D. Run the fallback branch without a new condition — Trường hợp còn lại không cần điều kiện mới
+**Q9. What does `score >= 80` include? — Điều kiện `score >= 80` bao gồm gì?**
 
+A. Scores equal to or above 80 — Điểm bằng hoặc lớn hơn 80
 
-**Q8. Which statement fits 'in, and, or'? — Mô tả nào đúng với 'in, and, or'?**
+B. Assignment versus comparison — Phép gán và phép so sánh
 
-A. Run the branch only when its condition is true — Chỉ chạy nhánh nếu điều kiện đúng
+C. Indentation — Thụt lề
 
-B. Try another condition if earlier branches did not match — Thử điều kiện tiếp theo khi nhánh trước không đúng
+D. Top to bottom — Từ trên xuống dưới
 
-C. Check membership or combine conditions — Kiểm tra thành viên hoặc kết hợp nhiều điều kiện
+**Q10. What is the difference between `=` and `==`? — Dấu `=` khác `==` ra sao?**
 
-D. Run the fallback branch without a new condition — Trường hợp còn lại không cần điều kiện mới
+A. Scores equal to or above 80 — Điểm bằng hoặc lớn hơn 80
 
+B. Assignment versus comparison — Phép gán và phép so sánh
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn cách này ở tình huống 1?**
+C. Indentation — Thụt lề
 
-A. Classify inventory as out, low or normal — Chia tồn kho thành hết/gần hết/bình thường
+D. Top to bottom — Từ trên xuống dưới
 
-B. Check highest grade threshold first to avoid misclassification — Kiểm ngưỡng từ cao xuống thấp để không gán sai xếp loại
+**Q11. What defines the body of an `if` in Python? — Điều gì xác định thân khối `if` trong Python?**
 
-C. Both membership duration and spending must reach their thresholds — Yêu cầu cả năm đăng ký và mức chi tiêu đạt ngưỡng
+A. Scores equal to or above 80 — Điểm bằng hoặc lớn hơn 80
 
-D. Check that the device is online before interpreting temperature — Kiểm tra thiết bị online trước khi xét nhiệt độ
+B. Assignment versus comparison — Phép gán và phép so sánh
 
+C. Indentation — Thụt lề
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn cách này ở tình huống 2?**
+D. Top to bottom — Từ trên xuống dưới
 
-A. Classify inventory as out, low or normal — Chia tồn kho thành hết/gần hết/bình thường
+**Q12. How are cases checked in an `if/elif` chain? — Các trường hợp được xét theo thứ tự nào trong chuỗi `if/elif`?**
 
-B. Both membership duration and spending must reach their thresholds — Yêu cầu cả năm đăng ký và mức chi tiêu đạt ngưỡng
+A. Scores equal to or above 80 — Điểm bằng hoặc lớn hơn 80
 
-C. Check that the device is online before interpreting temperature — Kiểm tra thiết bị online trước khi xét nhiệt độ
+B. Assignment versus comparison — Phép gán và phép so sánh
 
-D. Validate the month range before calculating the quarter — Dùng khoảng tháng hợp lệ trước khi tính quý
+C. Indentation — Thụt lề
 
+D. Top to bottom — Từ trên xuống dưới
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn cách này ở tình huống 3?**
+**Q13. What does `True and False` evaluate to? — `True and False` bằng gì?**
 
-A. Check that the device is online before interpreting temperature — Kiểm tra thiết bị online trước khi xét nhiệt độ
+A. `False` — `False`
 
-B. Validate the month range before calculating the quarter — Dùng khoảng tháng hợp lệ trước khi tính quý
+B. `True` — `True`
 
-C. Check highest grade threshold first to avoid misclassification — Kiểm ngưỡng từ cao xuống thấp để không gán sai xếp loại
+C. `False` as a negated value — Giá trị phủ định là False
 
-D. Both membership duration and spending must reach their thresholds — Yêu cầu cả năm đăng ký và mức chi tiêu đạt ngưỡng
+D. `False` because five is odd — False vì 5 là số lẻ
 
+**Q14. What does `True or False` evaluate to? — `True or False` bằng gì?**
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn cách này ở tình huống 4?**
+A. `False` — `False`
 
-A. Validate the month range before calculating the quarter — Dùng khoảng tháng hợp lệ trước khi tính quý
+B. `True` — `True`
 
-B. Check highest grade threshold first to avoid misclassification — Kiểm ngưỡng từ cao xuống thấp để không gán sai xếp loại
+C. `False` as a negated value — Giá trị phủ định là False
 
-C. Check that the device is online before interpreting temperature — Kiểm tra thiết bị online trước khi xét nhiệt độ
+D. `False` because five is odd — False vì 5 là số lẻ
 
-D. Classify inventory as out, low or normal — Chia tồn kho thành hết/gần hết/bình thường
+**Q15. What does `not True` evaluate to? — `not True` bằng gì?**
 
+A. `False` — `False`
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn cách này ở tình huống 5?**
+B. `True` — `True`
 
-A. Check highest grade threshold first to avoid misclassification — Kiểm ngưỡng từ cao xuống thấp để không gán sai xếp loại
+C. `False` as a negated value — Giá trị phủ định là False
 
-B. Validate the month range before calculating the quarter — Dùng khoảng tháng hợp lệ trước khi tính quý
+D. `False` because five is odd — False vì 5 là số lẻ
 
-C. Classify inventory as out, low or normal — Chia tồn kho thành hết/gần hết/bình thường
+**Q16. What does `5 % 2 == 0` evaluate to? — `5 % 2 == 0` có kết quả gì?**
 
-D. Both membership duration and spending must reach their thresholds — Yêu cầu cả năm đăng ký và mức chi tiêu đạt ngưỡng
+A. `False` — `False`
 
+B. `True` — `True`
 
-**Q14. What input belongs to scenario 1? — Tình huống 1 sử dụng dữ liệu gì?**
+C. `False` as a negated value — Giá trị phủ định là False
 
-A. A score of 85 out of 100 — Một điểm số 85/100
+D. `False` because five is odd — False vì 5 là số lẻ
 
-B. A stock count of four items — Số lượng 4 món
+**Q17. How many branches run in one `if/elif/else` chain? — Có bao nhiêu nhánh chạy trong một chuỗi `if/elif/else`?**
 
-C. A customer with six membership years and 1,500,000 VND spent — Khách 6 năm và chi 1500000 đồng
+A. At most one branch — Tối đa một nhánh
 
-D. Temperature 82 °C and online=True — Nhiệt độ 82 độ C và online=True
+B. Its body is skipped — Thân nhánh if bị bỏ qua
 
+C. Use `and` — Dùng `and`
 
-**Q15. What input belongs to scenario 2? — Tình huống 2 sử dụng dữ liệu gì?**
+D. Order mutually exclusive threshold branches carefully — Sắp xếp nhánh ngưỡng không chồng lấn cẩn thận
 
-A. A customer with six membership years and 1,500,000 VND spent — Khách 6 năm và chi 1500000 đồng
+**Q18. What happens if an `if` condition is false and there is no `else`? — Nếu `if` sai và không có `else` thì sao?**
 
-B. Temperature 82 °C and online=True — Nhiệt độ 82 độ C và online=True
+A. At most one branch — Tối đa một nhánh
 
-C. Month 10 — Tháng 10
+B. Its body is skipped — Thân nhánh if bị bỏ qua
 
-D. A stock count of four items — Số lượng 4 món
+C. Use `and` — Dùng `and`
 
+D. Order mutually exclusive threshold branches carefully — Sắp xếp nhánh ngưỡng không chồng lấn cẩn thận
 
-**Q16. What input belongs to scenario 3? — Tình huống 3 sử dụng dữ liệu gì?**
+**Q19. How can two conditions both be required for access? — Cách nào yêu cầu đồng thời hai điều kiện để cho phép truy cập?**
 
-A. Temperature 82 °C and online=True — Nhiệt độ 82 độ C và online=True
+A. At most one branch — Tối đa một nhánh
 
-B. Month 10 — Tháng 10
+B. Its body is skipped — Thân nhánh if bị bỏ qua
 
-C. A customer with six membership years and 1,500,000 VND spent — Khách 6 năm và chi 1500000 đồng
+C. Use `and` — Dùng `and`
 
-D. A score of 85 out of 100 — Một điểm số 85/100
+D. Order mutually exclusive threshold branches carefully — Sắp xếp nhánh ngưỡng không chồng lấn cẩn thận
 
+**Q20. What helps prevent overlapping grade categories? — Điều gì giúp tránh các nhóm điểm chồng lấn?**
 
-**Q17. What input belongs to scenario 4? — Tình huống 4 sử dụng dữ liệu gì?**
+A. At most one branch — Tối đa một nhánh
 
-A. Month 10 — Tháng 10
+B. Its body is skipped — Thân nhánh if bị bỏ qua
 
-B. Temperature 82 °C and online=True — Nhiệt độ 82 độ C và online=True
+C. Use `and` — Dùng `and`
 
-C. A score of 85 out of 100 — Một điểm số 85/100
-
-D. A stock count of four items — Số lượng 4 món
-
-
-**Q18. What input belongs to scenario 5? — Tình huống 5 sử dụng dữ liệu gì?**
-
-A. Month 10 — Tháng 10
-
-B. A score of 85 out of 100 — Một điểm số 85/100
-
-C. A stock count of four items — Số lượng 4 món
-
-D. A customer with six membership years and 1,500,000 VND spent — Khách 6 năm và chi 1500000 đồng
-
-
-**Q19. What must be known before processing data? — Cần biết gì trước khi xử lý dữ liệu?**
-
-A. Only file name — Chỉ tên file
-
-B. Only editor theme — Chỉ màu giao diện
-
-C. Only line count — Chỉ số dòng
-
-D. Input meaning, type and units — Ý nghĩa, kiểu và đơn vị đầu vào
-
-
-**Q20. How should a student check an example? — Nên kiểm tra ví dụ như thế nào?**
-
-A. Assume all inputs work — Cho rằng dữ liệu nào cũng đúng
-
-B. Ignore errors — Bỏ qua lỗi
-
-C. Verify output and edge cases — Đối chiếu kết quả và thử trường hợp biên
-
-D. Delete comments — Xóa chú thích
+D. Order mutually exclusive threshold branches carefully — Sắp xếp nhánh ngưỡng không chồng lấn cẩn thận
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | A test that is true or false | Phép kiểm tra đúng hoặc sai |
-| Q2 | **A** | A block of code selected to run | Phần chương trình được chọn để chạy |
-| Q3 | **D** | A cutoff point for changing categories | Ranh giới để chuyển trạng thái |
-| Q4 | **C** | A second condition checked inside a branch | Kiểm tra bổ sung bên trong một nhánh |
-| Q5 | **B** | Run the branch only when its condition is true | Chỉ chạy nhánh nếu điều kiện đúng |
-| Q6 | **A** | Try another condition if earlier branches did not match | Thử điều kiện tiếp theo khi nhánh trước không đúng |
-| Q7 | **D** | Run the fallback branch without a new condition | Trường hợp còn lại không cần điều kiện mới |
-| Q8 | **C** | Check membership or combine conditions | Kiểm tra thành viên hoặc kết hợp nhiều điều kiện |
-| Q9 | **B** | Check highest grade threshold first to avoid misclassification | Kiểm ngưỡng từ cao xuống thấp để không gán sai xếp loại |
-| Q10 | **A** | Classify inventory as out, low or normal | Chia tồn kho thành hết/gần hết/bình thường |
-| Q11 | **D** | Both membership duration and spending must reach their thresholds | Yêu cầu cả năm đăng ký và mức chi tiêu đạt ngưỡng |
-| Q12 | **C** | Check that the device is online before interpreting temperature | Kiểm tra thiết bị online trước khi xét nhiệt độ |
-| Q13 | **B** | Validate the month range before calculating the quarter | Dùng khoảng tháng hợp lệ trước khi tính quý |
-| Q14 | **A** | A score of 85 out of 100 | Một điểm số 85/100 |
-| Q15 | **D** | A stock count of four items | Số lượng 4 món |
-| Q16 | **C** | A customer with six membership years and 1,500,000 VND spent | Khách 6 năm và chi 1500000 đồng |
-| Q17 | **B** | Temperature 82 °C and online=True | Nhiệt độ 82 độ C và online=True |
-| Q18 | **A** | Month 10 | Tháng 10 |
-| Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
-| Q20 | **C** | Verify output and edge cases | Đối chiếu kết quả và thử trường hợp biên |
+| Q1 | **A** | if evaluates a condition to choose a branch. | if đánh giá điều kiện để chọn nhánh lệnh. |
+| Q2 | **B** | An elif is tried only if earlier conditions in the chain failed. | elif chỉ được xét khi các điều kiện trước đó trong chuỗi chưa đúng. |
+| Q3 | **C** | else is the fallback of the same if/elif chain. | else là nhánh dự phòng của chuỗi if/elif. |
+| Q4 | **D** | Nested conditions let an inner test depend on an outer branch. | Điều kiện lồng cho phép kiểm tra bên trong phụ thuộc nhánh ngoài. |
+| Q5 | **A** | elif adds another condition after an if. | elif bổ sung điều kiện sau if. |
+| Q6 | **B** | else has no condition of its own in an if chain. | else không có điều kiện riêng trong chuỗi if. |
+| Q7 | **C** | if introduces the initial condition. | if mở đầu phép kiểm tra điều kiện. |
+| Q8 | **D** | The membership operator checks whether the item appears in a collection. | Toán tử in kiểm tra phần tử có thuộc tập dữ liệu không. |
+| Q9 | **A** | The >= operator includes its threshold. | Dấu >= bao gồm cả mốc 80. |
+| Q10 | **B** | One equals assigns, double equals checks equality. | Một dấu bằng để gán; hai dấu bằng kiểm tra bằng nhau. |
+| Q11 | **C** | Statements at the same indentation level belong to the branch. | Các lệnh thụt cùng mức thuộc cùng khối. |
+| Q12 | **D** | Python checks branches in written order and selects the first match. | Python xét theo thứ tự viết và chọn nhánh đầu tiên đúng. |
+| Q13 | **A** | and requires all conditions to be true. | and yêu cầu tất cả điều kiện đều đúng. |
+| Q14 | **B** | or only needs one true condition. | or chỉ cần một điều kiện đúng. |
+| Q15 | **C** | not reverses the truth value. | not đảo giá trị đúng/sai. |
+| Q16 | **D** | The remainder of dividing five by two is one. | Chia 5 cho 2 dư 1 nên biểu thức sai. |
+| Q17 | **A** | Only the first matching branch runs. | Chỉ nhánh đầu tiên thỏa điều kiện được chạy. |
+| Q18 | **B** | A false if without an else simply does not run its body. | Nếu if sai và không có else thì thân if không chạy. |
+| Q19 | **C** | Logical AND requires both conditions to hold. | AND yêu cầu cả hai điều kiện đều đúng. |
+| Q20 | **D** | A descending threshold order makes the first matching category unambiguous. | Xét các ngưỡng từ cao xuống giúp chọn nhóm đầu tiên khớp rõ ràng. |
 
 ## 8. Nối sang bài tiếp theo
 
