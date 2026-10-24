@@ -71,25 +71,29 @@ O1
 
 Python tra theo khóa `id`; không cần duyệt qua các trường bằng vòng lặp.
 
-### 4.3. Value và cập nhật dữ liệu
+### 4.3. Value và thao tác thêm, sửa, xóa
 
 **Từ vựng trong mục:** **Value** — giá trị; **Update** — cập nhật.
 
-**Giá trị** là dữ liệu gắn với từng khóa; có thể là chuỗi, số, list hoặc Dictionary khác. Ví dụ trạng thái đơn `O1` chuyển từ `pending` (đang chờ) thành `paid`. Phép gán `order['status'] = 'paid'` **sửa giá trị** của khóa hiện có; nếu khóa chưa tồn tại, thao tác tương tự sẽ **thêm** trường mới.
+**Giá trị** là dữ liệu gắn với từng khóa; có thể là chuỗi, số, List hoặc Dictionary khác. Ví dụ đơn `O1` đang có trạng thái `pending` (đang chờ). Lệnh `order['status'] = 'paid'` **sửa** giá trị của khóa đã có. Lệnh `order['amount'] = 100` **thêm** trường số tiền mới; `order.pop('amount')` **xóa** trường ấy. Trong bài này, ta in Dictionary trước và sau khi xóa để nhìn thấy thay đổi; nếu xóa khóa không tồn tại mà không truyền giá trị mặc định cho `pop`, Python báo `KeyError`.
 
 ```python
 order = {'id': 'O1', 'status': 'pending'}
 order['status'] = 'paid'
-print(order['status'])
+order['amount'] = 100
+print(order)
+order.pop('amount')
+print(order)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-paid
+{'id': 'O1', 'status': 'paid', 'amount': 100}
+{'id': 'O1', 'status': 'paid'}
 ```
 
-Chỉ trường `status` đổi giá trị; mã đơn vẫn là `O1`.
+Dòng đầu có thêm trường `amount` giá trị 100; dòng thứ hai không còn trường này sau `pop()`. Mã đơn O1 và trạng thái `paid` vẫn giữ nguyên.
 
 ### 4.4. Nested dictionary — Hồ sơ có thông tin con
 
