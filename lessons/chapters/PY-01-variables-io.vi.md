@@ -7,7 +7,7 @@
 
 `Chương trình → Biến → Kiểu dữ liệu → Điều kiện`
 
-Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu đầu vào, thao tác và đầu ra trước khi dùng cho dữ liệu AI.
+Một chương trình nhận thông tin, lưu vào biến, xử lý và tạo ra kết quả. Bài này giúp hiểu các bước đó trước khi học kiểu dữ liệu và câu lệnh điều kiện.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -30,65 +30,53 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 | `type()` | Kiểm tra kiểu dữ liệu khi chưa rõ đầu vào |
 
 
-## 4. Khái niệm liên quan — từ lời giải thích đến Python
+## 4. Khái niệm liên quan
 
 ### 4.1. Variable
 
 **Từ vựng trong mục:** **Variable** — biến.
 
-Tên dùng để tham chiếu một giá trị. xác định giá trị đầu vào có ý nghĩa gì.
+Biến là tên ta đặt cho một giá trị để dùng lại. Ví dụ, `total = 12` lưu số 12 vào biến `total`; `print(total)` in ra 12.
 
 ```python
 total = 12
 print(total)
 ```
 
-**Tự kiểm tra:** Variable có ý nghĩa gì?
-
-**Đáp án:** Tên dùng để tham chiếu một giá trị.
 
 ### 4.2. Input
 
 **Từ vựng trong mục:** **Input** — đầu vào.
 
-Thông tin đưa vào chương trình. xác định giá trị đầu vào có ý nghĩa gì.
+Đầu vào là thông tin chương trình nhận được, chẳng hạn tên khách do người dùng nhập. `input()` nhận chữ gõ từ bàn phím. Ví dụ dưới đây gán sẵn tên `An` để minh họa cách lưu và dùng thông tin.
 
 ```python
 name = 'An'
 print(name)
 ```
 
-**Tự kiểm tra:** Input có ý nghĩa gì?
-
-**Đáp án:** Thông tin đưa vào chương trình.
 
 ### 4.3. Output
 
 **Từ vựng trong mục:** **Output** — đầu ra.
 
-Thông tin chương trình tạo ra. xác định giá trị đầu vào có ý nghĩa gì.
+Kết quả là thông tin chương trình tạo ra. `print('Xin chào')` hiển thị chữ `Xin chào` trên màn hình.
 
 ```python
 print('Xin chào')
 ```
 
-**Tự kiểm tra:** Output có ý nghĩa gì?
-
-**Đáp án:** Thông tin chương trình tạo ra.
 
 ### 4.4. Type
 
 **Từ vựng trong mục:** **Type** — kiểu dữ liệu.
 
-Nhóm giá trị như str, int, float. xác định giá trị đầu vào có ý nghĩa gì.
+Kiểu dữ liệu cho Python biết một giá trị là chữ hay số. `str` là chuỗi, `int` là số nguyên, còn `float` là số có phần thập phân. `type(2.5)` cho biết `2.5` là số thực.
 
 ```python
 print(type(2.5))
 ```
 
-**Tự kiểm tra:** Type có ý nghĩa gì?
-
-**Đáp án:** Nhóm giá trị như str, int, float.
 
 ## 5. Năm tình huống lập trình thực tế
 
@@ -96,12 +84,17 @@ print(type(2.5))
 
 **Từ vựng trong mục:** **Variable** — biến.
 
-**Tình huống thực tế:** Một cửa hàng cần chào khách mới. Dữ liệu hiện có: Một chuỗi là tên khách. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một cửa hàng muốn gửi lời chào có tên khách. Khách mới tên Lan.
 
-**Vì sao chọn cách này?** Lưu tên trong biến để dùng lại trong nhiều thông báo
+**Yêu cầu:** Viết chương trình in `Xin chào Lan!`.
 
+**Vì sao chọn cách giải này?** Lưu tên trong biến `name` rồi truyền biến vào f-string để tạo lời chào. Khi đổi khách chỉ cần sửa tên.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu tên khách vào `name`.
+2. Chèn tên vào lời chào bằng f-string.
+3. In lời chào.
 
 ```python
 name = "Lan"
@@ -109,17 +102,23 @@ name = "Lan"
 print(f"Xin chào {name}!")
 ```
 
+**Kết quả:** `Xin chào Lan!` — lời chào chứa đúng tên khách.
 
 ### Tình huống 2 — Tính tiền hóa đơn
 
 **Từ vựng trong mục:** **Input** — đầu vào.
 
-**Tình huống thực tế:** Một cửa hàng cần tính tiền hóa đơn. Dữ liệu hiện có: Giá 120000 đồng, số lượng 3. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một cửa hàng bán 3 sản phẩm, mỗi sản phẩm giá 120.000 đồng. Phần mềm đang lưu giá và số lượng dưới dạng chữ `"120000"` và `"3"`.
 
-**Vì sao chọn cách này?** Đổi số từ văn bản thành số trước khi nhân
+**Yêu cầu:** Tính tổng số tiền cần thanh toán.
 
+**Vì sao chọn cách giải này?** `int()` đổi chữ số thành số nguyên để phép nhân giá với số lượng cho ra tổng tiền.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Đổi chuỗi giá thành số bằng `int()`.
+2. Đổi chuỗi số lượng thành số bằng `int()`.
+3. Nhân giá với số lượng và in kết quả.
 
 ```python
 price = int("120000")
@@ -127,51 +126,69 @@ quantity = int("3")
 print(price * quantity)
 ```
 
+**Kết quả:** `360000` — khách phải trả 360.000 đồng.
 
 ### Tình huống 3 — Hiển thị điểm
 
 **Từ vựng trong mục:** **Output** — đầu ra.
 
-**Tình huống thực tế:** Một trung tâm đào tạo cần hiển thị điểm. Dữ liệu hiện có: Tên An, điểm 8.5/10. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Trung tâm đào tạo muốn hiển thị điểm của học viên An, đạt 8,5 điểm trên thang 10.
 
-**Vì sao chọn cách này?** Format tên và điểm để xuất ra một dòng dễ đọc
+**Yêu cầu:** In tên và điểm theo mẫu `An: 8.5/10`.
 
+**Vì sao chọn cách giải này?** F-string ghép tên, điểm và thang điểm thành một dòng dễ đọc.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu tên `An` và điểm `8.5`.
+2. Dùng f-string ghép thông tin.
+3. In kết quả.
 
 ```python
 name, score = "An", 8.5
 print(f"{name}: {score}/10")
 ```
 
+**Kết quả:** `An: 8.5/10` — dòng thông tin gồm tên và điểm học viên.
 
 ### Tình huống 4 — Ghi nhiệt độ
 
 **Từ vựng trong mục:** **Type** — kiểu dữ liệu.
 
-**Tình huống thực tế:** Một hệ thống giám sát cần ghi nhiệt độ. Dữ liệu hiện có: Nhiệt độ 36.5 độ C. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một cảm biến báo nhiệt độ 36,5 °C. Nhân viên cần biết số đo được lưu bằng kiểu dữ liệu gì.
 
-**Vì sao chọn cách này?** Giữ kiểu số thực để không mất phần thập phân
+**Yêu cầu:** In kiểu dữ liệu và số đo nhiệt độ.
 
+**Vì sao chọn cách giải này?** Số có phần thập phân được lưu dưới dạng `float`; `type()` cho biết kiểu dữ liệu.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu `36.5` vào biến `temperature`.
+2. Dùng `type()` xem kiểu dữ liệu.
+3. In kiểu dữ liệu cùng số đo.
 
 ```python
 temperature = 36.5
 print(type(temperature), temperature)
 ```
 
+**Kết quả:** `<class 'float'> 36.5` — kiểu số thực và giá trị 36,5; code chưa in đơn vị °C.
 
 ### Tình huống 5 — Giữ mã đơn
 
 **Từ vựng trong mục:** **Variable** — biến.
 
-**Tình huống thực tế:** Một cửa hàng cần giữ mã đơn. Dữ liệu hiện có: Mã 0007. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một cửa hàng dùng mã đơn bốn chữ số, trong đó hai số `0` đầu tiên phải được giữ lại. Mã đơn hiện tại là `0007`.
 
-**Vì sao chọn cách này?** Mã đơn không phải đại lượng nên giữ dạng chuỗi
+**Yêu cầu:** Lưu và in mã chính xác là `0007`, kiểm tra mã vẫn bắt đầu bằng `00`.
 
+**Vì sao chọn cách giải này?** Mã đơn là thông tin nhận diện, không phải số để tính toán; dùng chuỗi `str` để không làm mất các số `0` ở đầu.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu `"0007"` thành chuỗi trong `order_id`.
+2. In mã đơn.
+3. Dùng `startswith("00")` kiểm tra hai ký tự đầu; `assert` báo lỗi nếu không đúng.
 
 ```python
 order_id = "0007"
@@ -179,11 +196,13 @@ print(order_id)
 assert order_id.startswith("00")
 ```
 
+**Kết quả:** `0007` — mã được in nguyên vẹn; `assert` không in thêm khi kiểm tra đúng.
 
 ## 6. Những nhầm lẫn thường gặp
 
-- Không suy diễn từ một ví dụ minh họa sang mọi bộ dữ liệu thật.
-- Dùng phép xử lý phù hợp với kiểu dữ liệu và đơn vị đo. Khi có đầu vào người dùng, cần kiểm tra lỗi.
+- `input()` nhận chữ; cần đổi sang `int()` hoặc `float()` khi muốn tính toán với số. Chuỗi không hợp lệ có thể gây `ValueError`.
+- Mã đơn `0007` phải lưu dạng chuỗi nếu cần giữ hai số `0` ở đầu.
+- `print()` in kết quả, còn `type()` xem kiểu dữ liệu; hai hàm có nhiệm vụ khác nhau.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
@@ -237,7 +256,7 @@ D. Result produced by a program — Thông tin chương trình tạo ra
 
 A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
 
-B. This Python operation supports the described task — Hiển thị kết quả, nhận nhiều giá trị phân cách bằng dấu phẩy
+B. It displays values on the screen — Hiển thị các giá trị trên màn hình
 
 C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
 
@@ -246,7 +265,7 @@ D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra
 
 **Q6. Which use matches input()? — Công dụng nào đúng với input()?**
 
-A. This Python operation supports the described task — Nhận văn bản từ bàn phím; kết quả luôn là chuỗi
+A. It reads keyboard input as text — Nhận chữ nhập từ bàn phím
 
 B. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
 
@@ -263,7 +282,7 @@ B. It automatically trains a neural network — Nó tự huấn luyện mạng n
 
 C. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
 
-D. This Python operation supports the described task — Đổi chuỗi hợp lệ sang số trước khi tính toán
+D. They convert numeric text into numbers — Đổi chuỗi chứa số thành số để tính toán
 
 
 **Q8. Which use matches type()? — Công dụng nào đúng với type()?**
@@ -272,7 +291,7 @@ A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệ
 
 B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
 
-C. This Python operation supports the described task — Kiểm tra kiểu dữ liệu khi chưa rõ đầu vào
+C. It tells us the type of a value — Cho biết kiểu dữ liệu của một giá trị
 
 D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
 
