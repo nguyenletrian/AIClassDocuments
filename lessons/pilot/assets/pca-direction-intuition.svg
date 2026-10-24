@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="330" viewBox="0 0 820 330" role="img" aria-label="Minh họa ba khách hàng: lượt ghé cửa hàng tăng từ một đến ba, số đơn cũng tăng từ một đến ba. PC1 cùng hướng đám điểm, PC2 vuông góc với hướng đó">
+<rect width="820" height="330" fill="#fff"/>
+<text x="24" y="29" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#172b4d">Một hướng dữ liệu dễ hình dung</text>
+<rect x="20" y="48" width="435" height="258" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+<line x1="90" y1="267" x2="416" y2="267" stroke="#64748b" stroke-width="2"/>
+<line x1="90" y1="267" x2="90" y2="65" stroke="#64748b" stroke-width="2"/>
+<text x="308" y="291" font-family="Arial,sans-serif" font-size="12" fill="#334155">Số lượt ghé cửa hàng</text>
+<text x="96" y="77" font-family="Arial,sans-serif" font-size="12" fill="#334155">Số đơn</text>
+<line x1="131" y1="243" x2="355" y2="91" stroke="#0f766e" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M355 91 L344 95 L349 103 Z" fill="#0f766e"/>
+<line x1="243" y1="167" x2="185" y2="81" stroke="#9333ea" stroke-width="3" stroke-dasharray="6 4"/>
+<path d="M185 81 L197 87 L190 92 Z" fill="#9333ea"/>
+<circle cx="151" cy="231" r="6.5" fill="#2563eb" stroke="white" stroke-width="2"/>
+<circle cx="243" cy="167" r="6.5" fill="#2563eb" stroke="white" stroke-width="2"/>
+<circle cx="335" cy="103" r="6.5" fill="#2563eb" stroke="white" stroke-width="2"/>
+<text x="160" y="228" font-size="12" font-family="Arial,sans-serif" fill="#334155">K1 (1, 1)</text>
+<text x="253" y="163" font-size="12" font-family="Arial,sans-serif" fill="#334155">K2 (2, 2)</text>
+<text x="345" y="101" font-size="12" font-family="Arial,sans-serif" fill="#334155">K3 (3, 3)</text>
+<text x="338" y="85" font-size="12" font-family="Arial,sans-serif" fill="#0f766e" font-weight="700">PC1</text>
+<text x="161" y="75" font-size="12" font-family="Arial,sans-serif" fill="#9333ea" font-weight="700">PC2</text>
+<rect x="474" y="53" width="325" height="80" rx="9" fill="#edf9f5" stroke="#a7e3d1"/>
+<text x="489" y="77" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#0f766e">PC1 (hướng dọc đám điểm)</text>
+<text x="489" y="98" font-family="Arial,sans-serif" font-size="12" fill="#334155">Lượt ghé tăng, số đơn tăng:</text>
+<text x="489" y="115" font-family="Arial,sans-serif" font-size="12" fill="#334155">dữ liệu kéo dài theo hướng này.</text>
+<rect x="474" y="143" width="325" height="80" rx="9" fill="#f5f0ff" stroke="#d2c2fc"/>
+<text x="489" y="167" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#7e22ce">PC2 (vuông góc với PC1)</text>
+<text x="489" y="188" font-family="Arial,sans-serif" font-size="12" fill="#334155">Ví dụ hoàn hảo này gần như không</text>
+<text x="489" y="205" font-family="Arial,sans-serif" font-size="12" fill="#334155">có độ phân tán theo PC2.</text>
+<text x="479" y="255" font-family="Arial,sans-serif" font-size="12" fill="#475569">Minh họa trực giác trên 3 mẫu giả lập.</text>
+<text x="479" y="275" font-family="Arial,sans-serif" font-size="12" fill="#475569">Hướng eigenvector có thể đảo dấu</text>
+<text x="479" y="293" font-family="Arial,sans-serif" font-size="12" fill="#475569">mà vẫn mô tả cùng một trục.</text>
+</svg>
