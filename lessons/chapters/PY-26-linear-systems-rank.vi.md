@@ -93,7 +93,7 @@ A=np.eye(2);x=np.array([2,3]);b=np.array([2,3]);print(A@x-b)
 
 **Vì sao chọn phương án?** Solve tìm giá mỗi loại từ hai hóa đơn độc lập; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** x+y=5, 2x+y=8 (nghìn đồng). Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** x+y=5, 2x+y=8 (nghìn đồng).
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -103,7 +103,6 @@ A=np.array([[1,1],[2,1]],dtype=float);b=np.array([5,8])
 print(np.linalg.solve(A,b))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 2 — Xem cột dữ liệu trùng
 
@@ -113,7 +112,7 @@ print(np.linalg.solve(A,b))
 
 **Vì sao chọn phương án?** Rank thấp phát hiện một feature tuyến tính phụ thuộc feature khác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ma trận [1,2];[2,4]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** Ma trận [1,2];[2,4].
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -123,7 +122,6 @@ A=np.array([[1,2],[2,4]])
 print(np.linalg.matrix_rank(A))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 3 — Kiểm chứng nghiệm
 
@@ -133,7 +131,7 @@ print(np.linalg.matrix_rank(A))
 
 **Vì sao chọn phương án?** Nhân A@x rồi so b để phát hiện sai phép giải; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Hệ x+y=5, 2x+y=8. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** Hệ x+y=5, 2x+y=8.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -143,7 +141,6 @@ A=np.array([[1,1],[2,1]]);b=np.array([5,8]);x=np.array([3,2])
 print(np.allclose(A@x,b))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 4 — Ước lượng từ số đo nhiễu
 
@@ -153,7 +150,7 @@ print(np.allclose(A@x,b))
 
 **Vì sao chọn phương án?** lstsq phù hợp khi số phương trình lớn hơn số ẩn; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ba điểm để fit đường y=ax+b. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** Ba điểm để fit đường y=ax+b.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -164,7 +161,6 @@ A=np.column_stack([x,np.ones_like(x)])
 print(np.linalg.lstsq(A,y,rcond=None)[0])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ### Tình huống 5 — Tìm sai số dư
 
@@ -174,7 +170,7 @@ print(np.linalg.lstsq(A,y,rcond=None)[0])
 
 **Vì sao chọn phương án?** Residual cho biết hệ có tái tạo đúng mục tiêu không; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** A=I, x=[2,3], b=[2,4]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
+**Dữ liệu:** A=I, x=[2,3], b=[2,4].
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -184,7 +180,6 @@ A=np.eye(2);x=np.array([2,3]);b=np.array([2,4])
 print(A@x-b)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
 
 ## 6. Sai lầm cần tránh
 
