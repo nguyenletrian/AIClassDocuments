@@ -427,17 +427,17 @@ D. No element is shared — Không có phần tử chung
 
 A. A — A
 
-B. A itself — Chính tập A
+B. Empty set — Tập rỗng
 
 C. No fixed order is promised — Không bảo đảm thứ tự cố định
 
 D. Related records or future information may cross splits — Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
 
-**Q18. What does A∩A equal? — A∩A bằng gì?**
+**Q18. What does A∩∅ equal? — A∩∅ bằng gì?**
 
 A. A — A
 
-B. A itself — Chính tập A
+B. Empty set — Tập rỗng
 
 C. No fixed order is promised — Không bảo đảm thứ tự cố định
 
@@ -447,7 +447,7 @@ D. Related records or future information may cross splits — Bản ghi liên qu
 
 A. A — A
 
-B. A itself — Chính tập A
+B. Empty set — Tập rỗng
 
 C. No fixed order is promised — Không bảo đảm thứ tự cố định
 
@@ -484,7 +484,7 @@ D. Related records or future information may cross splits — Bản ghi liên qu
 | Q15 | **C** | A partition must cover every original element without empty parts. | Phân hoạch phải phủ đủ phần tử gốc và không có phần rỗng. |
 | Q16 | **D** | An empty intersection means the sets are disjoint. | Giao rỗng biểu thị hai tập rời nhau. |
 | Q17 | **A** | Union with the same set adds nothing new. | Hợp một tập với chính nó không thêm phần tử. |
-| Q18 | **B** | Every member of A also belongs to A. | Mọi phần tử của A cũng thuộc A. |
+| Q18 | **B** | The empty set has no members to share in an intersection. | Tập rỗng không có phần tử nào chung với A nên phép giao rỗng. |
 | Q19 | **C** | Python sets are not ordered sequences. | Set Python không phải dãy có thứ tự. |
 | Q20 | **D** | Disjoint IDs alone do not rule out all leakage. | ID không trùng chưa loại được mọi nguồn rò rỉ. |
 
