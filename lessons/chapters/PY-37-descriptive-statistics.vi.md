@@ -29,401 +29,467 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 | `np.std(x,ddof=0/1)` | Độ lệch chuẩn nhất quán quy ước ddof |
 | `pd.Series.mode()/value_counts()` | Giá trị phổ biến và tần suất |
 
-## 4. Khái niệm liên quan, ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Mean
+**Mạch kiến thức:** Khi có nhiều số đo, mean và median trả lời câu hỏi giá trị ở giữa; variance và std đo mức phân tán. Mode trả lời câu hỏi nhãn nào xuất hiện nhiều nhất. Cần biết đơn vị và đang tính theo quần thể hay mẫu.
 
-**Từ vựng trong mục:** **Mean** — trung bình.
+### 4.1. Mean — Điểm cân bằng của các quan sát
 
-Tổng giá trị chia số quan sát. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+**Từ vựng:** **Mean** — trung bình; **Observation** — quan sát.
 
-```python
-import numpy as np
-print(np.mean([2,4,6]))
-```
-
-**Tự kiểm tra:** Mean là gì? **Đáp án:** Tổng giá trị chia số quan sát.
-
-### 4.2. Median
-
-**Từ vựng trong mục:** **Median** — trung vị.
-
-Giá trị giữa sau khi sắp xếp. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+**Mean** cộng các giá trị rồi chia cho số quan sát. Ba đơn giao trong 2, 3, 4 ngày có trung bình `(2+3+4)/3=3` ngày. Mean sử dụng **mọi giá trị**, nên có thể bị kéo lệch nếu có một đơn rất chậm. Phải đảm bảo các thời gian dùng cùng đơn vị; mean của các mã sản phẩm không có ý nghĩa.
 
 ```python
 import numpy as np
-print(np.median([2,4,100]))
+
+days = np.array([2, 3, 4])
+print(float(np.mean(days)))
 ```
 
-**Tự kiểm tra:** Median là gì? **Đáp án:** Giá trị giữa sau khi sắp xếp.
+**Kết quả khi chạy:**
 
-### 4.3. Variance
+```text
+3.0
+```
 
-**Từ vựng trong mục:** **Variance** — phương sai.
+Thời gian trung bình ba đơn là 3 ngày, không có nghĩa đơn nào cũng giao đúng 3 ngày.
 
-Mức phân tán bình phương quanh trung bình. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+### 4.2. Median — Vị trí giữa sau khi xếp thứ tự
+
+**Từ vựng:** **Median** — trung vị; **Outlier** — giá trị khác biệt lớn.
+
+**Median** là số ở giữa khi dữ liệu được **sắp tăng dần**; nếu có số quan sát chẵn thì là trung bình hai số giữa. Với giá trị đơn hàng `[100,120,10000]` nghìn đồng, trung vị 120 nghìn, còn mean vượt 3.400 nghìn vì đơn 10.000 quá lớn. Median thường giúp mô tả giá trị trung tâm khi dữ liệu lệch, nhưng không thay thế việc kiểm tra liệu giá trị bất thường có hợp lệ.
 
 ```python
 import numpy as np
-print(np.var([1,2,3]))
+
+amounts = [100, 120, 10000]
+print(float(np.median(amounts)))
 ```
 
-**Tự kiểm tra:** Variance là gì? **Đáp án:** Mức phân tán bình phương quanh trung bình.
+**Kết quả khi chạy:**
 
-### 4.4. Standard deviation
+```text
+120.0
+```
 
-**Từ vựng trong mục:** **Standard deviation** — độ lệch chuẩn.
+Trung vị 120 nghìn đồng ít bị ảnh hưởng bởi đơn 10.000 nghìn đồng.
 
-Căn bậc hai của phương sai, cùng đơn vị dữ liệu. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+### 4.3. Variance — Sai khác bình phương quanh mean
+
+**Từ vựng:** **Variance** — phương sai; **ddof** — số bậc tự do trừ đi.
+
+Phương sai đo độ phân tán bằng **trung bình bình phương sai lệch so với mean**. Điểm `[6,8,10]` có mean 8, các lệch `[-2,0,2]`, bình phương `[4,0,4]`. Phương sai **quần thể** `ddof=0` bằng `8/3≈2.667` điểm². Nếu dùng để **ước lượng từ mẫu**, phương sai mẫu với `ddof=1` là `8/2=4` điểm². Cần nêu rõ đang dùng mẫu hay toàn bộ quần thể.
 
 ```python
 import numpy as np
-print(np.std([1,2,3]))
+
+scores = [6, 8, 10]
+print(round(float(np.var(scores, ddof=0)), 3))
 ```
 
-**Tự kiểm tra:** Standard deviation là gì? **Đáp án:** Căn bậc hai của phương sai, cùng đơn vị dữ liệu.
+**Kết quả khi chạy:**
 
-## 5. Năm tình huống thực tế
+```text
+2.667
+```
 
-### Tình huống 1 — Trung bình thời gian giao hàng
+Phương sai quần thể 2,667 điểm bình phương; không phải số điểm trung bình.
 
-**Từ vựng trong mục:** **Mean** — trung bình.
+### 4.4. Standard deviation — Độ phân tán cùng đơn vị dữ liệu
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần trung bình thời gian giao hàng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: [2,3,4] ngày. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Từ vựng:** **Standard deviation** — độ lệch chuẩn; **Mode** — yếu vị.
 
-**Vì sao chọn phương pháp này?** Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
-
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Standard deviation (std)** là căn bậc hai của phương sai, có **cùng đơn vị** với số đo. Cảm biến nhiệt độ đo `[20,21,19,20]` °C: mean=20 °C, std quần thể bằng `sqrt(0.5)≈0.707` °C. Trong khi đó **mode** là giá trị xuất hiện nhiều nhất, ở đây 20 °C hai lần; đây là câu hỏi về tần suất, không phải độ phân tán.
 
 ```python
 import numpy as np
-print(np.mean([2,3,4]))
+
+celsius = [20, 21, 19, 20]
+print(round(float(np.std(celsius, ddof=0)), 3))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 2 — So trung vị tiền hàng
+```text
+0.707
+```
 
-**Từ vựng trong mục:** **Median** — trung vị.
+Độ lệch chuẩn 0,707 °C mô tả dao động nhiệt quanh mean 20 °C.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần so trung vị tiền hàng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: [100,120,10000] nghìn đồng. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+## 5. Năm tình huống ứng dụng
 
-**Vì sao chọn phương pháp này?** Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+### Tình huống 1 — Trung bình thời gian giao ba đơn
 
+**Tình huống thực tế:** Ba đơn hàng có thời gian giao lần lượt 2,3,4 ngày, theo cùng quy định đo. Quản lý muốn một chỉ số đại diện mức thời gian giao trung bình.
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Vì sao chọn cách giải này?** Mean phù hợp khi cần tổng thời gian trên mỗi đơn và dữ liệu không có ngoại lệ lớn.
+
+**Quy trình giải:**
+
+1. Đưa ba thời gian theo ngày vào một mảng.
+2. Tính trung bình bằng `np.mean`.
+3. In kết quả, chú ý không phải mọi đơn đều bằng mean.
 
 ```python
 import numpy as np
-x=[100,120,10000]
-print(np.mean(x),np.median(x))
+
+days = np.array([2, 3, 4])
+print(float(np.mean(days)))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 3 — Tính phương sai điểm
+```text
+3.0
+```
 
-**Từ vựng trong mục:** **Variance** — phương sai.
+Trung bình ba đơn là 3 ngày.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần tính phương sai điểm để phục vụ một công việc cụ thể. Đầu vào được cung cấp: [6,8,10] điểm. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 2 — So mean và median hóa đơn
 
-**Vì sao chọn phương pháp này?** Variance đo sự phân tán theo đơn vị bình phương. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Tình huống thực tế:** Cửa hàng có ba hóa đơn 100, 120 và 10.000 nghìn đồng. Cần trình bày một giá trị trung tâm ít bị hóa đơn cực lớn kéo lên.
 
+**Vì sao chọn cách giải này?** Median bền hơn với giá trị cực đoan so với mean; in cả hai để thấy sự khác biệt.
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Quy trình giải:**
+
+1. Lưu ba hóa đơn theo nghìn đồng.
+2. Tính mean và median cùng bộ dữ liệu.
+3. Làm tròn mean ba chữ số và in trung vị.
 
 ```python
 import numpy as np
-print(np.var([6,8,10],ddof=0))
+
+amounts = [100, 120, 10000]
+print(round(float(np.mean(amounts)), 3), float(np.median(amounts)))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 4 — Xem độ ổn định cảm biến
+```text
+3406.667 120.0
+```
 
-**Từ vựng trong mục:** **Standard deviation** — độ lệch chuẩn.
+Mean cao bất thường nhưng trung vị 120 nghìn gần hai hóa đơn thông thường.
 
-**Tình huống thực tế:** Một hệ thống giám sát cần xem độ ổn định cảm biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: [20,21,19,20] độ C. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 3 — Đo độ phân tán điểm thi
 
-**Vì sao chọn phương pháp này?** Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Tình huống thực tế:** Ba điểm kiểm tra `[6,8,10]` (điểm trên thang 10) tạo toàn bộ nhóm cần mô tả. Cần tính phương sai **quần thể** của nhóm này.
 
+**Vì sao chọn cách giải này?** Bình phương sai khác làm mất dấu âm, sau đó lấy trung bình trên cả ba điểm `ddof=0`.
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Quy trình giải:**
+
+1. Tạo mảng điểm [6,8,10].
+2. Tính `np.var(...,ddof=0)` vì đang mô tả toàn bộ nhóm.
+3. In kết quả ba chữ số.
 
 ```python
 import numpy as np
-print(np.std([20,21,19,20],ddof=0))
+
+scores = [6, 8, 10]
+print(round(float(np.var(scores, ddof=0)), 3))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 5 — Tìm loại sản phẩm phổ biến
+```text
+2.667
+```
 
-**Từ vựng trong mục:** **Mean** — trung bình.
+Phương sai quần thể khoảng 2,667 điểm².
 
-**Tình huống thực tế:** Một công ty bán lẻ cần tìm loại sản phẩm phổ biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Nhãn A,A,B,C,A. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 4 — Kiểm tra độ dao động nhiệt độ
 
-**Vì sao chọn phương pháp này?** value_counts cho số lần mỗi nhãn xuất hiện. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Tình huống thực tế:** Cảm biến ghi 20,21,19,20 °C tại bốn thời điểm. Nhóm kiểm soát muốn đo mức dao động, giữ đơn vị °C để dễ so ngưỡng vận hành.
 
+**Vì sao chọn cách giải này?** Std là căn phương sai, giữ cùng đơn vị nhiệt độ để có thể đọc trực tiếp.
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Quy trình giải:**
+
+1. Lưu bốn nhiệt độ theo °C.
+2. Dùng std quần thể `ddof=0`.
+3. Làm tròn ba chữ số và in.
+
+```python
+import numpy as np
+
+celsius = [20, 21, 19, 20]
+print(round(float(np.std(celsius, ddof=0)), 3))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.707
+```
+
+Std khoảng 0,707 °C quanh mức trung bình 20 °C.
+
+### Tình huống 5 — Tìm nhãn sản phẩm xuất hiện nhiều nhất
+
+**Tình huống thực tế:** Danh sách năm lượt mua mang mã `A,A,B,C,A`. Mỗi phần tử là một lượt, không phải số lượng tồn kho. Cần tìm mã được mua nhiều lượt nhất.
+
+**Vì sao chọn cách giải này?** Mode hoặc `value_counts` phù hợp với nhãn phân loại; không lấy mean của chữ.
+
+**Quy trình giải:**
+
+1. Tạo Series nhãn từng lượt mua.
+2. Dùng `value_counts` đếm tần suất.
+3. Lấy nhãn đầu và số lượt mua.
 
 ```python
 import pandas as pd
-s=pd.Series(["A","A","B","C","A"])
-print(s.value_counts())
+
+products = pd.Series(['A', 'A', 'B', 'C', 'A'])
+counts = products.value_counts()
+print(counts.index[0], int(counts.iloc[0]))
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Những nhầm lẫn thường gặp
+```text
+A 3
+```
 
-Xác suất có điều kiện cần mẫu nền; xác suất của phân phối liên tục tại một điểm không phải PDF; thống kê từ một nhóm nhỏ không tự chứng minh kết quả cho quần thể. Chú ý định nghĩa mean/std và giả định độc lập.
+Mã A xuất hiện ba lượt, nhiều nhất trong danh sách.
+
+## 6. Sai lầm thường gặp
+
+- Mean bị ảnh hưởng bởi ngoại lệ cực lớn; median thường bền hơn nhưng không phát hiện lỗi thay cho việc kiểm tra dữ liệu.
+- `ddof=0` chia cho n; `ddof=1` chia cho n−1 và cần ít nhất hai quan sát để có ước lượng mẫu.
+- Variance mang đơn vị bình phương; std mang đơn vị gốc.
+- Mode/value_counts dành cho nhãn phân loại; không lấy trung bình của mã chữ.
+- Đừng diễn giải std của quan sát thành sai số chuẩn của trung bình mẫu.
+- Đổi dữ liệu về cùng đơn vị trước khi tính thống kê.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Q1. What does mean calculate? — Mean tính gì?**
 
+A. Sum divided by observation count — Tổng chia số quan sát
 
-**Q1. What is Mean? — Thuật ngữ Mean là gì?**
+B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
 
-A. Another concept means Giá trị giữa sau khi sắp xếp — Giá trị giữa sau khi sắp xếp
+C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
 
-B. It means Tổng giá trị chia số quan sát — Tổng giá trị chia số quan sát
+D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
 
-C. Another concept means Mức phân tán bình phương quanh trung bình — Mức phân tán bình phương quanh trung bình
+**Q2. What is median? — Median là gì?**
 
-D. Another concept means Căn bậc hai của phương sai, cùng đơn vị dữ liệu — Căn bậc hai của phương sai, cùng đơn vị dữ liệu
+A. Sum divided by observation count — Tổng chia số quan sát
 
+B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
 
-**Q2. What is Median? — Thuật ngữ Median là gì?**
+C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
 
-A. It means Giá trị giữa sau khi sắp xếp — Giá trị giữa sau khi sắp xếp
+D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
 
-B. Another concept means Mức phân tán bình phương quanh trung bình — Mức phân tán bình phương quanh trung bình
+**Q3. What does variance measure? — Variance đo gì?**
 
-C. Another concept means Căn bậc hai của phương sai, cùng đơn vị dữ liệu — Căn bậc hai của phương sai, cùng đơn vị dữ liệu
+A. Sum divided by observation count — Tổng chia số quan sát
 
-D. Another concept means Tổng giá trị chia số quan sát — Tổng giá trị chia số quan sát
+B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
 
+C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
 
-**Q3. What is Variance? — Thuật ngữ Variance là gì?**
+D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
 
-A. Another concept means Căn bậc hai của phương sai, cùng đơn vị dữ liệu — Căn bậc hai của phương sai, cùng đơn vị dữ liệu
+**Q4. What does standard deviation measure? — Std đo gì?**
 
-B. Another concept means Tổng giá trị chia số quan sát — Tổng giá trị chia số quan sát
+A. Sum divided by observation count — Tổng chia số quan sát
 
-C. Another concept means Giá trị giữa sau khi sắp xếp — Giá trị giữa sau khi sắp xếp
+B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
 
-D. It means Mức phân tán bình phương quanh trung bình — Mức phân tán bình phương quanh trung bình
+C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
 
+D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
 
-**Q4. What is Standard deviation? — Thuật ngữ Standard deviation là gì?**
+**Q5. What is mode? — Mode là gì?**
 
-A. Another concept means Tổng giá trị chia số quan sát — Tổng giá trị chia số quan sát
+A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
 
-B. Another concept means Giá trị giữa sau khi sắp xếp — Giá trị giữa sau khi sắp xếp
+B. Divide sum of squares by n — Chia tổng bình phương cho n
 
-C. It means Căn bậc hai của phương sai, cùng đơn vị dữ liệu — Căn bậc hai của phương sai, cùng đơn vị dữ liệu
+C. Divide by n−1 — Chia cho n−1
 
-D. Another concept means Mức phân tán bình phương quanh trung bình — Mức phân tán bình phương quanh trung bình
+D. Frequency per distinct label — Tần suất từng nhãn khác nhau
 
+**Q6. What is ddof=0 in np.var? — ddof=0 trong np.var là gì?**
 
-**Q5. What does np.mean()/np.median() calculate? — Hàm np.mean()/np.median() tính gì?**
+A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
 
-A. Another calculation is ddof=0 cho quần thể, ddof=1 cho mẫu — ddof=0 cho quần thể, ddof=1 cho mẫu
+B. Divide sum of squares by n — Chia tổng bình phương cho n
 
-B. It calculates Trung bình và trung vị, median bớt nhạy với giá trị cực lớn — Trung bình và trung vị, median bớt nhạy với giá trị cực lớn
+C. Divide by n−1 — Chia cho n−1
 
-C. Another calculation is Độ lệch chuẩn nhất quán quy ước ddof — Độ lệch chuẩn nhất quán quy ước ddof
+D. Frequency per distinct label — Tần suất từng nhãn khác nhau
 
-D. Another calculation is Giá trị phổ biến và tần suất — Giá trị phổ biến và tần suất
+**Q7. What is ddof=1 for sample variance? — ddof=1 dùng cho gì?**
 
+A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
 
-**Q6. What does np.var(x,ddof=0/1) calculate? — Hàm np.var(x,ddof=0/1) tính gì?**
+B. Divide sum of squares by n — Chia tổng bình phương cho n
 
-A. It calculates ddof=0 cho quần thể, ddof=1 cho mẫu — ddof=0 cho quần thể, ddof=1 cho mẫu
+C. Divide by n−1 — Chia cho n−1
 
-B. Another calculation is Độ lệch chuẩn nhất quán quy ước ddof — Độ lệch chuẩn nhất quán quy ước ddof
+D. Frequency per distinct label — Tần suất từng nhãn khác nhau
 
-C. Another calculation is Giá trị phổ biến và tần suất — Giá trị phổ biến và tần suất
+**Q8. What does value_counts() produce? — value_counts() tạo gì?**
 
-D. Another calculation is Trung bình và trung vị, median bớt nhạy với giá trị cực lớn — Trung bình và trung vị, median bớt nhạy với giá trị cực lớn
+A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
 
+B. Divide sum of squares by n — Chia tổng bình phương cho n
 
-**Q7. What does np.std(x,ddof=0/1) calculate? — Hàm np.std(x,ddof=0/1) tính gì?**
+C. Divide by n−1 — Chia cho n−1
 
-A. Another calculation is Giá trị phổ biến và tần suất — Giá trị phổ biến và tần suất
+D. Frequency per distinct label — Tần suất từng nhãn khác nhau
 
-B. Another calculation is Trung bình và trung vị, median bớt nhạy với giá trị cực lớn — Trung bình và trung vị, median bớt nhạy với giá trị cực lớn
+**Q9. What is mean of 2,3,4? — Mean của 2,3,4 là bao nhiêu?**
 
-C. Another calculation is ddof=0 cho quần thể, ddof=1 cho mẫu — ddof=0 cho quần thể, ddof=1 cho mẫu
+A. 3 — 3
 
-D. It calculates Độ lệch chuẩn nhất quán quy ước ddof — Độ lệch chuẩn nhất quán quy ước ddof
+B. 4 — 4
 
+C. 2/3 — 2/3
 
-**Q8. What does pd.Series.mode()/value_counts() calculate? — Hàm pd.Series.mode()/value_counts() tính gì?**
+D. 1 — 1
 
-A. Another calculation is Trung bình và trung vị, median bớt nhạy với giá trị cực lớn — Trung bình và trung vị, median bớt nhạy với giá trị cực lớn
+**Q10. What is median of 2,4,100? — Median của 2,4,100 là bao nhiêu?**
 
-B. Another calculation is ddof=0 cho quần thể, ddof=1 cho mẫu — ddof=0 cho quần thể, ddof=1 cho mẫu
+A. 3 — 3
 
-C. It calculates Giá trị phổ biến và tần suất — Giá trị phổ biến và tần suất
+B. 4 — 4
 
-D. Another calculation is Độ lệch chuẩn nhất quán quy ước ddof — Độ lệch chuẩn nhất quán quy ước ddof
+C. 2/3 — 2/3
 
+D. 1 — 1
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn phương pháp trong tình huống 1?**
+**Q11. What is population variance of 1,2,3? — Phương sai quần thể của 1,2,3 là gì?**
 
-A. Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn — Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn
+A. 3 — 3
 
-B. Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều — Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều
+B. 4 — 4
 
-C. Variance đo sự phân tán theo đơn vị bình phương — Variance đo sự phân tán theo đơn vị bình phương
+C. 2/3 — 2/3
 
-D. Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc — Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc
+D. 1 — 1
 
+**Q12. What is sample variance of 1,2,3? — Phương sai mẫu của 1,2,3 là gì?**
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn phương pháp trong tình huống 2?**
+A. 3 — 3
 
-A. Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn — Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn
+B. 4 — 4
 
-B. Variance đo sự phân tán theo đơn vị bình phương — Variance đo sự phân tán theo đơn vị bình phương
+C. 2/3 — 2/3
 
-C. Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc — Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc
+D. 1 — 1
 
-D. value_counts cho số lần mỗi nhãn xuất hiện — value_counts cho số lần mỗi nhãn xuất hiện
+**Q13. What unit does variance have? — Variance có đơn vị gì?**
 
+A. Squared input units — Bình phương đơn vị dữ liệu
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn phương pháp trong tình huống 3?**
+B. Original input units — Đơn vị gốc của dữ liệu
 
-A. Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc — Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc
+C. Median — Trung vị
 
-B. value_counts cho số lần mỗi nhãn xuất hiện — value_counts cho số lần mỗi nhãn xuất hiện
+D. Mode — Yếu vị
 
-C. Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều — Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều
+**Q14. What unit does std have? — Std có đơn vị gì?**
 
-D. Variance đo sự phân tán theo đơn vị bình phương — Variance đo sự phân tán theo đơn vị bình phương
+A. Squared input units — Bình phương đơn vị dữ liệu
 
+B. Original input units — Đơn vị gốc của dữ liệu
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn phương pháp trong tình huống 4?**
+C. Median — Trung vị
 
-A. value_counts cho số lần mỗi nhãn xuất hiện — value_counts cho số lần mỗi nhãn xuất hiện
+D. Mode — Yếu vị
 
-B. Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều — Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều
+**Q15. Which statistic resists large outliers better? — Thống kê nào ít nhạy với ngoại lệ cực lớn hơn?**
 
-C. Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc — Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc
+A. Squared input units — Bình phương đơn vị dữ liệu
 
-D. Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn — Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn
+B. Original input units — Đơn vị gốc của dữ liệu
 
+C. Median — Trung vị
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn phương pháp trong tình huống 5?**
+D. Mode — Yếu vị
 
-A. Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều — Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều
+**Q16. Which statistic is useful for categorical labels? — Thống kê nào phù hợp nhãn phân loại?**
 
-B. value_counts cho số lần mỗi nhãn xuất hiện — value_counts cho số lần mỗi nhãn xuất hiện
+A. Squared input units — Bình phương đơn vị dữ liệu
 
-C. Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn — Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn
+B. Original input units — Đơn vị gốc của dữ liệu
 
-D. Variance đo sự phân tán theo đơn vị bình phương — Variance đo sự phân tán theo đơn vị bình phương
+C. Median — Trung vị
 
+D. Mode — Yếu vị
 
-**Q14. Which input is from scenario 1? — Dữ liệu nào thuộc tình huống 1?**
+**Q17. Does std equal standard error? — Std có giống sai số chuẩn không?**
 
-A. The input is [2,3,4] ngày — [2,3,4] ngày
+A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
 
-B. Another input is [100,120,10000] nghìn đồng — [100,120,10000] nghìn đồng
+B. Yes, large outliers can pull it up — Có, ngoại lệ lớn kéo mean lên
 
-C. Another input is [6,8,10] điểm — [6,8,10] điểm
+C. Different denominators give different results — Mẫu số khác nhau cho kết quả khác
 
-D. Another input is [20,21,19,20] độ C — [20,21,19,20] độ C
+D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
 
+**Q18. Can mean lie above most observations? — Mean có thể lớn hơn phần lớn quan sát không?**
 
-**Q15. Which input is from scenario 2? — Dữ liệu nào thuộc tình huống 2?**
+A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
 
-A. Another input is [6,8,10] điểm — [6,8,10] điểm
+B. Yes, large outliers can pull it up — Có, ngoại lệ lớn kéo mean lên
 
-B. Another input is [20,21,19,20] độ C — [20,21,19,20] độ C
+C. Different denominators give different results — Mẫu số khác nhau cho kết quả khác
 
-C. Another input is Nhãn A,A,B,C,A — Nhãn A,A,B,C,A
+D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
 
-D. The input is [100,120,10000] nghìn đồng — [100,120,10000] nghìn đồng
+**Q19. Why state ddof when reporting variance? — Vì sao báo ddof khi trình bày phương sai?**
 
+A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
 
-**Q16. Which input is from scenario 3? — Dữ liệu nào thuộc tình huống 3?**
+B. Yes, large outliers can pull it up — Có, ngoại lệ lớn kéo mean lên
 
-A. Another input is [20,21,19,20] độ C — [20,21,19,20] độ C
+C. Different denominators give different results — Mẫu số khác nhau cho kết quả khác
 
-B. Another input is Nhãn A,A,B,C,A — Nhãn A,A,B,C,A
+D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
 
-C. The input is [6,8,10] điểm — [6,8,10] điểm
+**Q20. What happens if values use mismatched units? — Nếu số liệu dùng đơn vị không thống nhất thì sao?**
 
-D. Another input is [2,3,4] ngày — [2,3,4] ngày
+A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
 
+B. Yes, large outliers can pull it up — Có, ngoại lệ lớn kéo mean lên
 
-**Q17. Which input is from scenario 4? — Dữ liệu nào thuộc tình huống 4?**
+C. Different denominators give different results — Mẫu số khác nhau cho kết quả khác
 
-A. Another input is Nhãn A,A,B,C,A — Nhãn A,A,B,C,A
-
-B. The input is [20,21,19,20] độ C — [20,21,19,20] độ C
-
-C. Another input is [2,3,4] ngày — [2,3,4] ngày
-
-D. Another input is [100,120,10000] nghìn đồng — [100,120,10000] nghìn đồng
-
-
-**Q18. Which input is from scenario 5? — Dữ liệu nào thuộc tình huống 5?**
-
-A. The input is Nhãn A,A,B,C,A — Nhãn A,A,B,C,A
-
-B. Another input is [2,3,4] ngày — [2,3,4] ngày
-
-C. Another input is [100,120,10000] nghìn đồng — [100,120,10000] nghìn đồng
-
-D. Another input is [6,8,10] điểm — [6,8,10] điểm
-
-
-**Q19. What must a statistical report mention? — Báo cáo thống kê cần nêu gì?**
-
-A. Only plot colors — Chỉ màu biểu đồ
-
-B. Only a filename — Chỉ tên tệp
-
-C. Only code line count — Chỉ số dòng code
-
-D. Assumptions, units and sample size — Giả định, đơn vị và kích thước mẫu
-
-
-**Q20. What makes a numerical result reliable? — Điều gì làm kết quả số đáng tin?**
-
-A. Assuming all data independent — Cho rằng mọi dữ liệu độc lập
-
-B. Deleting verification — Xóa bước xác minh
-
-C. Checking assumptions and edge cases — Kiểm tra giả định và trường hợp biên
-
-D. Ignoring missing inputs — Bỏ dữ liệu thiếu mà không đánh giá
+D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It means Tổng giá trị chia số quan sát | Tổng giá trị chia số quan sát |
-| Q2 | **A** | It means Giá trị giữa sau khi sắp xếp | Giá trị giữa sau khi sắp xếp |
-| Q3 | **D** | It means Mức phân tán bình phương quanh trung bình | Mức phân tán bình phương quanh trung bình |
-| Q4 | **C** | It means Căn bậc hai của phương sai, cùng đơn vị dữ liệu | Căn bậc hai của phương sai, cùng đơn vị dữ liệu |
-| Q5 | **B** | It calculates Trung bình và trung vị, median bớt nhạy với giá trị cực lớn | Trung bình và trung vị, median bớt nhạy với giá trị cực lớn |
-| Q6 | **A** | It calculates ddof=0 cho quần thể, ddof=1 cho mẫu | ddof=0 cho quần thể, ddof=1 cho mẫu |
-| Q7 | **D** | It calculates Độ lệch chuẩn nhất quán quy ước ddof | Độ lệch chuẩn nhất quán quy ước ddof |
-| Q8 | **C** | It calculates Giá trị phổ biến và tần suất | Giá trị phổ biến và tần suất |
-| Q9 | **B** | Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều | Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều |
-| Q10 | **A** | Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn | Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn |
-| Q11 | **D** | Variance đo sự phân tán theo đơn vị bình phương | Variance đo sự phân tán theo đơn vị bình phương |
-| Q12 | **C** | Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc | Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc |
-| Q13 | **B** | value_counts cho số lần mỗi nhãn xuất hiện | value_counts cho số lần mỗi nhãn xuất hiện |
-| Q14 | **A** | The input is [2,3,4] ngày | [2,3,4] ngày |
-| Q15 | **D** | The input is [100,120,10000] nghìn đồng | [100,120,10000] nghìn đồng |
-| Q16 | **C** | The input is [6,8,10] điểm | [6,8,10] điểm |
-| Q17 | **B** | The input is [20,21,19,20] độ C | [20,21,19,20] độ C |
-| Q18 | **A** | The input is Nhãn A,A,B,C,A | Nhãn A,A,B,C,A |
-| Q19 | **D** | Assumptions, units and sample size | Giả định, đơn vị và kích thước mẫu |
-| Q20 | **C** | Checking assumptions and edge cases | Kiểm tra giả định và trường hợp biên |
+| Q1 | **A** | All observations contribute to the average. | Mọi quan sát góp vào trung bình. |
+| Q2 | **B** | Median uses rank rather than total magnitude. | Trung vị dựa trên thứ tự, không dựa trên tổng độ lớn. |
+| Q3 | **C** | It averages squared deviations. | Nó lấy trung bình bình phương độ lệch. |
+| Q4 | **D** | Std is the square root of variance. | Std là căn bậc hai phương sai. |
+| Q5 | **A** | It applies to categories and numeric data. | Yếu vị dùng được cho nhãn lẫn số. |
+| Q6 | **B** | It computes population-style variance. | Nó tính phương sai theo quy ước quần thể. |
+| Q7 | **C** | It is the conventional sample variance estimator. | Đó là ước lượng phương sai mẫu thông dụng. |
+| Q8 | **D** | It counts categorical occurrences. | Nó đếm lượt xuất hiện của từng nhãn. |
+| Q9 | **A** | (2+3+4)/3=3. | Tổng 9 chia 3 bằng 3. |
+| Q10 | **B** | Four is the middle ranked observation. | Bốn nằm giữa dãy đã sắp. |
+| Q11 | **C** | Squared deviations 1,0,1 average to 2/3. | Bình phương lệch là 1,0,1 rồi chia ba. |
+| Q12 | **D** | Divide squared-deviation sum two by n−1=2. | Tổng bình phương 2 chia n−1=2. |
+| Q13 | **A** | Squaring deviations squares their units. | Bình phương lệch làm bình phương đơn vị. |
+| Q14 | **B** | Square root restores the original units. | Lấy căn đưa về đơn vị ban đầu. |
+| Q15 | **C** | Extreme magnitudes barely change ranks. | Giá trị cực lớn ít tác động vị trí giữa. |
+| Q16 | **D** | Averages of text labels have no numeric meaning. | Lấy trung bình mã chữ không có ý nghĩa số học. |
+| Q17 | **A** | SE concerns variability of estimated statistics. | SE đo độ biến thiên của thống kê ước lượng. |
+| Q18 | **B** | The mean depends on the sum. | Mean phụ thuộc tổng các giá trị. |
+| Q19 | **C** | Sample and population conventions differ. | Quy ước mẫu và quần thể khác nhau. |
+| Q20 | **D** | You must normalize units before calculating. | Cần thống nhất đơn vị trước khi tính. |
 
 ## 8. Liên hệ bài tiếp theo
 
