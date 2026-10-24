@@ -29,403 +29,521 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 | `plt.hist(values,bins=...)` | Gom quan sát vào các khoảng (bins) |
 | `plt.xlabel()/ylabel()/savefig()` | Ghi nhãn kèm đơn vị và lưu hình |
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Line chart
+**Mạch kiến thức:** Khi đã có bảng số liệu, chọn biểu đồ phù hợp câu hỏi: line cho mốc có thứ tự, scatter cho cặp biến trên mỗi mẫu, histogram cho phân bố một biến số. Nhãn trục nối dữ liệu với ý nghĩa và đơn vị để người đọc không suy luận sai.
 
-**Từ vựng trong mục:** **Line chart** — biểu đồ đường.
+### 4.1. Line chart — Nối các mốc có thứ tự
 
-Biểu diễn thay đổi theo thứ tự thời gian.
+**Từ vựng trong mục:** **Line chart — biểu đồ đường**.
+
+Biểu đồ đường nối những điểm theo **thứ tự x**, thích hợp quan sát biến thiên doanh thu theo ngày. Ví dụ ba ngày 1,2,3 có doanh thu 10,15,12 nghìn đồng: trục x là ngày, trục y là nghìn đồng. Nối điểm cho thấy tăng rồi giảm; không có nghĩa tồn tại dữ liệu ở mọi thời điểm giữa hai ngày. `plt.plot(x,y)` yêu cầu hai dãy có cùng số phần tử.
 
 ```python
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-plt.plot([1,2,3],[2,3,5]);plt.close()
+
+plt.plot([1, 2, 3], [10, 15, 12])
+print(len(plt.gca().lines[0].get_xdata()))
+plt.close()
 ```
 
-**Tự kiểm tra:** Line chart nghĩa là gì? **Đáp án:** Biểu diễn thay đổi theo thứ tự thời gian.
+**Kết quả khi chạy:**
 
-### 4.2. Scatter plot
-
-**Từ vựng trong mục:** **Scatter plot** — biểu đồ phân tán.
-
-Mỗi cặp x,y tạo thành một điểm quan sát.
-
-```python
-import matplotlib.pyplot as plt
-plt.scatter([1,2],[3,4]);plt.close()
+```text
+3
 ```
 
-**Tự kiểm tra:** Scatter plot nghĩa là gì? **Đáp án:** Mỗi cặp x,y tạo thành một điểm quan sát.
+Biểu đồ đã nhận ba điểm, rồi đóng Figure; số 3 là số mốc, không phải doanh thu.
 
-### 4.3. Histogram
+### 4.2. Scatter — Mỗi hàng là một cặp quan sát
 
-**Từ vựng trong mục:** **Histogram** — biểu đồ tần suất.
+**Từ vựng trong mục:** **Scatter plot — biểu đồ phân tán**.
 
-Đếm số mẫu trong từng khoảng giá trị.
+Biểu đồ scatter đặt **mỗi mẫu thành một điểm (x,y)**. Ví dụ ba sinh viên học 2,4,6 giờ/tuần, có điểm 5,7,9: mỗi vị trí x ghép đúng điểm y của cùng học viên. Scatter giúp thấy liên hệ, nhưng không tự chứng minh học nhiều gây điểm cao. `plt.scatter` tạo các điểm riêng không nối đường như line chart.
 
 ```python
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-plt.hist([1,1,2,3]);plt.close()
+
+plt.scatter([2, 4, 6], [5, 7, 9])
+print(len(plt.gca().collections[0].get_offsets()))
+plt.close()
 ```
 
-**Tự kiểm tra:** Histogram nghĩa là gì? **Đáp án:** Đếm số mẫu trong từng khoảng giá trị.
+**Kết quả khi chạy:**
 
-### 4.4. Axis label
-
-**Từ vựng trong mục:** **Axis label** — nhãn trục.
-
-Mô tả đại lượng và đơn vị trên trục.
-
-```python
-import matplotlib.pyplot as plt
-plt.xlabel('Time (s)');plt.close()
+```text
+3
 ```
 
-**Tự kiểm tra:** Axis label nghĩa là gì? **Đáp án:** Mô tả đại lượng và đơn vị trên trục.
+Đã vẽ ba điểm đại diện ba sinh viên, giữ đúng cặp giờ học–điểm.
 
-## 5. Năm tình huống thực tế
+### 4.3. Histogram — Đếm số đo rơi vào các khoảng
 
-### Tình huống 1 — Doanh thu ba ngày
+**Từ vựng trong mục:** **Histogram — biểu đồ tần suất; Bin — khoảng**.
 
-**Từ vựng trong mục:** **Line chart** — biểu đồ đường.
-
-**Tình huống thực tế:** Một doanh nghiệp cần doanh thu ba ngày cho công việc của mình. Dữ liệu đầu vào: 3 ngày, doanh thu nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Line chart tốt cho xu hướng theo thời gian
-
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+Histogram dùng **một dãy số** và chia trục giá trị thành các **bins**, rồi đếm số quan sát trong mỗi khoảng. Sáu điểm `[5,6,6,7,8,9]` chia bốn bins đều từ 5 đến 9 tạo tần suất `[1,2,1,2]`. Khác biểu đồ cột cho các loại (A,B,C), histogram phù hợp biến số liên tục hoặc có thứ tự giá trị và phụ thuộc độ rộng bins.
 
 ```python
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-plt.plot([1,2,3],[10,15,12]);plt.xlabel("Day");plt.ylabel("Revenue (thousand VND)");plt.close()
+
+counts, edges, bars = plt.hist([5, 6, 6, 7, 8, 9], bins=[5, 6, 7, 8, 10])
+print(counts.astype(int).tolist())
+plt.close()
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 2 — Giờ học và điểm
-
-**Từ vựng trong mục:** **Scatter plot** — biểu đồ phân tán.
-
-**Tình huống thực tế:** Một trung tâm đào tạo cần giờ học và điểm cho công việc của mình. Dữ liệu đầu vào: 3 SV, giờ/tuần và điểm/10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Scatter cho thấy từng sinh viên là một cặp số
-
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
-
-```python
-import matplotlib.pyplot as plt
-plt.scatter([2,4,6],[5,7,9]);plt.xlabel("Hours/week");plt.ylabel("Score");plt.close()
+```text
+[1, 2, 1, 2]
 ```
 
+Bốn khoảng chứa lần lượt 1, 2, 1, 2 quan sát; khoảng cuối bao gồm cận phải.
 
-### Tình huống 3 — Phân bố điểm thi
+### 4.4. Axis labels — Ghi rõ biến và đơn vị
 
-**Từ vựng trong mục:** **Histogram** — biểu đồ tần suất.
+**Từ vựng trong mục:** **Axis label — nhãn trục; Figure — hình**.
 
-**Tình huống thực tế:** Một trung tâm đào tạo cần phân bố điểm thi cho công việc của mình. Dữ liệu đầu vào: 6 điểm trên thang 10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Histogram đếm số SV theo dải điểm
-
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Nhãn trục** cho biết đang đo gì: `Time (hours)` ở trục ngang và `Temperature (°C)` ở trục dọc. Không ghi đơn vị, người xem dễ nhầm giờ với phút hoặc độ C với độ F. `xlabel`/`ylabel` chỉ đổi chữ trên Figure, không tự đổi dữ liệu. Có thể lưu hình bằng `savefig` rồi đóng `close` để không giữ Figure trong bộ nhớ.
 
 ```python
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-plt.hist([5,6,6,7,8,9],bins=5);plt.xlabel("Score");plt.ylabel("Students");plt.close()
+
+plt.plot([1, 2], [22, 24])
+plt.xlabel('Time (hours)')
+plt.ylabel('Temperature (C)')
+print(plt.gca().get_xlabel())
+plt.close()
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 4 — Lưu biểu đồ PNG
+```text
+Time (hours)
+```
 
-**Từ vựng trong mục:** **Axis label** — nhãn trục.
+Trục x được gắn đúng ý nghĩa thời gian; phải đặt cả y và đơn vị trước khi gửi biểu đồ.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần lưu biểu đồ png cho công việc của mình. Dữ liệu đầu vào: Dữ liệu hai tháng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+## 5. Năm tình huống ứng dụng
 
-**Vì sao chọn cách này?** savefig tạo tài liệu không cần màn hình tương tác
+### Tình huống 1 — Theo dõi doanh thu ba ngày
 
+**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
 
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Tình huống thực tế:** Cửa hàng ghi ngày 1,2,3 và doanh thu 10,15,12 nghìn đồng, một giá trị mỗi ngày. Muốn tạo biểu đồ đường để thấy chiều biến động và kiểm số điểm vẽ.
+
+**Vì sao chọn cách giải này?** Biểu đồ đường phù hợp chuỗi có thứ tự thời gian; nhãn y nêu nghìn đồng, không chỉ số thô.
+
+**Quy trình giải:**
+
+1. Tạo hai List ngày và doanh thu cùng thứ tự.
+2. Vẽ line chart, đặt tên hai trục.
+3. In số điểm dữ liệu rồi đóng Figure.
 
 ```python
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from tempfile import TemporaryDirectory
+
+days = [1, 2, 3]
+revenue = [10, 15, 12]
+plt.plot(days, revenue)
+plt.xlabel('Day')
+plt.ylabel('Revenue (thousand VND)')
+print(len(revenue))
+plt.close()
+```
+
+**Kết quả khi chạy:**
+
+```text
+3
+```
+
+Biểu đồ có ba mốc; doanh thu tăng ngày 2 rồi giảm ngày 3.
+
+### Tình huống 2 — So số giờ học và điểm kiểm tra
+
+**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
+
+**Tình huống thực tế:** Ba học viên học 2,4,6 giờ/tuần và đạt điểm 5,7,9/10 tương ứng. Trung tâm muốn xem mối liên hệ qua ba điểm độc lập.
+
+**Vì sao chọn cách giải này?** Scatter ghép mỗi giờ học với điểm của cùng người mà không giả định đường nối theo thời gian.
+
+**Quy trình giải:**
+
+1. Tạo ba cặp x=giờ/tuần và y=điểm/10.
+2. Vẽ scatter, ghi rõ trục.
+3. In số điểm, đóng hình để giải phóng bộ nhớ.
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+hours = [2, 4, 6]
+scores = [5, 7, 9]
+plt.scatter(hours, scores)
+plt.xlabel('Hours per week')
+plt.ylabel('Score (out of 10)')
+print(len(hours))
+plt.close()
+```
+
+**Kết quả khi chạy:**
+
+```text
+3
+```
+
+Ba điểm mô tả ba học viên; không thể suy ra quan hệ nhân quả từ ba điểm.
+
+### Tình huống 3 — Đếm phân bố điểm theo khoảng
+
+**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
+
+**Tình huống thực tế:** Giáo viên có sáu điểm `[5,6,6,7,8,9]` trên thang 10. Cần đếm số học viên rơi vào bốn khoảng điểm định trước.
+
+**Vì sao chọn cách giải này?** Histogram đếm theo bins; cần công bố biên khoảng để người đọc hiểu tần suất.
+
+**Quy trình giải:**
+
+1. Xác định bốn khoảng [5,6), [6,7), [7,8), [8,10].
+2. Vẽ histogram và nhận số mẫu mỗi bin.
+3. In tần suất rồi đóng Figure.
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+scores = [5, 6, 6, 7, 8, 9]
+counts, edges, bars = plt.hist(scores, bins=[5, 6, 7, 8, 10])
+print(counts.astype(int).tolist())
+plt.close()
+```
+
+**Kết quả khi chạy:**
+
+```text
+[1, 2, 1, 2]
+```
+
+Bốn dải điểm lần lượt có 1, 2, 1, 2 học viên.
+
+### Tình huống 4 — Lưu biểu đồ thành PNG
+
+**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
+
+**Tình huống thực tế:** Nhân viên lập báo cáo cần tạo đồ thị hai tháng doanh thu 10 và 15 nghìn đồng và lưu hình trong một thư mục tạm, không bật cửa sổ màn hình.
+
+**Vì sao chọn cách giải này?** Backend Agg và `savefig` cho phép tạo PNG không cần tương tác; kiểm tệp trước khi thoát thư mục tạm.
+
+**Quy trình giải:**
+
+1. Tạo Figure đường cho hai tháng.
+2. Lưu PNG trong TemporaryDirectory.
+3. Kiểm tệp tồn tại và đóng hình.
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 from pathlib import Path
-with TemporaryDirectory() as d:
-    plt.plot([1,2],[10,15]);plt.savefig(Path(d)/"chart.png");plt.close()
-    print((Path(d)/"chart.png").is_file())
+from tempfile import TemporaryDirectory
+
+with TemporaryDirectory() as folder:
+    plt.plot([1, 2], [10, 15])
+    path = Path(folder) / 'chart.png'
+    plt.savefig(path)
+    print(path.is_file())
+    plt.close()
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 5 — Đặt nhãn đọc được
+```text
+True
+```
 
-**Từ vựng trong mục:** **Line chart** — biểu đồ đường.
+File chart.png đã được tạo trong thư mục tạm và sẽ được xóa khi rời khối with.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần đặt nhãn đọc được cho công việc của mình. Dữ liệu đầu vào: 3 điểm thời gian–nhiệt độ. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 5 — Kiểm nhãn trên biểu đồ nhiệt độ
 
-**Vì sao chọn cách này?** Nhãn giúp không nhầm giá trị x/y và đơn vị
+**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
 
+**Tình huống thực tế:** Ba thời điểm 1,2,3 giờ tương ứng 22,24,23 °C. Bộ phận kỹ thuật muốn người xem hiểu trục x là giờ và trục y là nhiệt độ Celsius.
 
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Vì sao chọn cách giải này?** `xlabel` và `ylabel` làm rõ biến/đơn vị thay vì để trục chỉ ghi số không có ngữ cảnh.
+
+**Quy trình giải:**
+
+1. Vẽ ba điểm nhiệt độ theo thời gian.
+2. Gắn nhãn Time (hours), Temperature (C).
+3. In hai nhãn để đối chiếu rồi đóng hình.
 
 ```python
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-plt.plot([1,2,3],[22,24,23]);plt.xlabel("Time (hours)");plt.ylabel("Temperature (C)");plt.close()
+
+plt.plot([1, 2, 3], [22, 24, 23])
+plt.xlabel('Time (hours)')
+plt.ylabel('Temperature (C)')
+print(plt.gca().get_xlabel(), plt.gca().get_ylabel())
+plt.close()
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Nhầm lẫn cần tránh
+```text
+Time (hours) Temperature (C)
+```
 
-Đừng sao chép lệnh khi chưa hiểu dữ liệu hoặc trạng thái môi trường; kết quả thử nghiệm không chứng minh rằng mọi máy và mọi bộ dữ liệu đều giống nhau.
+Hai trục có tên và đơn vị nhất quán với dữ liệu đầu vào.
+
+## 6. Sai lầm thường gặp
+
+- Dùng line chart để nối dữ liệu không có thứ tự có thể tạo cảm giác xu hướng giả.
+- Scatter phải ghép đúng x và y của **cùng hàng mẫu**; không suy ra nhân quả chỉ từ mối tương quan.
+- Histogram phụ thuộc `bins`; ghi biên khoảng khi báo cáo.
+- Biểu đồ thiếu đơn vị dễ khiến người xem nhầm thời gian, tiền hoặc nhiệt độ.
+- Lưu PNG không thay thế việc lưu bảng dữ liệu gốc và script tạo hình.
+- `matplotlib` là thư viện ngoài; với máy không có màn hình có thể dùng backend Agg và `close()` sau khi vẽ.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer key** — bảng đáp án.
+**Q1. What is a line chart best suited for? — Biểu đồ đường phù hợp gì?**
 
+A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
 
-**Q1. What is Line chart? — Thuật ngữ Line chart là gì?**
+B. Individual paired x-y observations — Từng quan sát theo cặp x-y
 
-A. Another term is Mỗi cặp x,y tạo thành một điểm quan sát — Mỗi cặp x,y tạo thành một điểm quan sát
+C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
 
-B. It is Biểu diễn thay đổi theo thứ tự thời gian — Biểu diễn thay đổi theo thứ tự thời gian
+D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
 
-C. Another term is Đếm số mẫu trong từng khoảng giá trị — Đếm số mẫu trong từng khoảng giá trị
+**Q2. What does a scatter plot represent? — Scatter plot biểu diễn gì?**
 
-D. Another term is Mô tả đại lượng và đơn vị trên trục — Mô tả đại lượng và đơn vị trên trục
+A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
 
+B. Individual paired x-y observations — Từng quan sát theo cặp x-y
 
-**Q2. What is Scatter plot? — Thuật ngữ Scatter plot là gì?**
+C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
 
-A. It is Mỗi cặp x,y tạo thành một điểm quan sát — Mỗi cặp x,y tạo thành một điểm quan sát
+D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
 
-B. Another term is Đếm số mẫu trong từng khoảng giá trị — Đếm số mẫu trong từng khoảng giá trị
+**Q3. What does a histogram represent? — Histogram biểu diễn gì?**
 
-C. Another term is Mô tả đại lượng và đơn vị trên trục — Mô tả đại lượng và đơn vị trên trục
+A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
 
-D. Another term is Biểu diễn thay đổi theo thứ tự thời gian — Biểu diễn thay đổi theo thứ tự thời gian
+B. Individual paired x-y observations — Từng quan sát theo cặp x-y
 
+C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
 
-**Q3. What is Histogram? — Thuật ngữ Histogram là gì?**
+D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
 
-A. Another term is Mô tả đại lượng và đơn vị trên trục — Mô tả đại lượng và đơn vị trên trục
+**Q4. What are axis labels for? — Nhãn trục để làm gì?**
 
-B. Another term is Biểu diễn thay đổi theo thứ tự thời gian — Biểu diễn thay đổi theo thứ tự thời gian
+A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
 
-C. Another term is Mỗi cặp x,y tạo thành một điểm quan sát — Mỗi cặp x,y tạo thành một điểm quan sát
+B. Individual paired x-y observations — Từng quan sát theo cặp x-y
 
-D. It is Đếm số mẫu trong từng khoảng giá trị — Đếm số mẫu trong từng khoảng giá trị
+C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
 
+D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
 
-**Q4. What is Axis label? — Thuật ngữ Axis label là gì?**
+**Q5. Which function draws a line? — Hàm nào vẽ đường?**
 
-A. Another term is Biểu diễn thay đổi theo thứ tự thời gian — Biểu diễn thay đổi theo thứ tự thời gian
+A. `plt.plot(x,y)` — `plt.plot(x,y)`
 
-B. Another term is Mỗi cặp x,y tạo thành một điểm quan sát — Mỗi cặp x,y tạo thành một điểm quan sát
+B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
 
-C. It is Mô tả đại lượng và đơn vị trên trục — Mô tả đại lượng và đơn vị trên trục
+C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
 
-D. Another term is Đếm số mẫu trong từng khoảng giá trị — Đếm số mẫu trong từng khoảng giá trị
+D. `plt.savefig(path)` — `plt.savefig(path)`
 
+**Q6. Which function draws separate x-y points? — Hàm nào vẽ các điểm x-y riêng?**
 
-**Q5. What is plt.plot(x,y) used for? — Cú pháp plt.plot(x,y) dùng để làm gì?**
+A. `plt.plot(x,y)` — `plt.plot(x,y)`
 
-A. A different function is for Vẽ điểm từng mẫu từ hai đại lượng — Vẽ điểm từng mẫu từ hai đại lượng
+B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
 
-B. It is for Đường thay đổi theo thời gian; x,y có cùng số phần tử — Đường thay đổi theo thời gian; x,y có cùng số phần tử
+C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
 
-C. A different function is for Gom quan sát vào các khoảng (bins) — Gom quan sát vào các khoảng (bins)
+D. `plt.savefig(path)` — `plt.savefig(path)`
 
-D. A different function is for Ghi nhãn kèm đơn vị và lưu hình — Ghi nhãn kèm đơn vị và lưu hình
+**Q7. Which function draws histograms? — Hàm nào vẽ histogram?**
 
+A. `plt.plot(x,y)` — `plt.plot(x,y)`
 
-**Q6. What is plt.scatter(x,y) used for? — Cú pháp plt.scatter(x,y) dùng để làm gì?**
+B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
 
-A. It is for Vẽ điểm từng mẫu từ hai đại lượng — Vẽ điểm từng mẫu từ hai đại lượng
+C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
 
-B. A different function is for Gom quan sát vào các khoảng (bins) — Gom quan sát vào các khoảng (bins)
+D. `plt.savefig(path)` — `plt.savefig(path)`
 
-C. A different function is for Ghi nhãn kèm đơn vị và lưu hình — Ghi nhãn kèm đơn vị và lưu hình
+**Q8. Which function saves a figure? — Hàm nào lưu hình?**
 
-D. A different function is for Đường thay đổi theo thời gian; x,y có cùng số phần tử — Đường thay đổi theo thời gian; x,y có cùng số phần tử
+A. `plt.plot(x,y)` — `plt.plot(x,y)`
 
+B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
 
-**Q7. What is plt.hist(values,bins=...) used for? — Cú pháp plt.hist(values,bins=...) dùng để làm gì?**
+C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
 
-A. A different function is for Ghi nhãn kèm đơn vị và lưu hình — Ghi nhãn kèm đơn vị và lưu hình
+D. `plt.savefig(path)` — `plt.savefig(path)`
 
-B. A different function is for Đường thay đổi theo thời gian; x,y có cùng số phần tử — Đường thay đổi theo thời gian; x,y có cùng số phần tử
+**Q9. Why should x and y have matching observation counts? — Vì sao x và y phải có số quan sát tương ứng?**
 
-C. A different function is for Vẽ điểm từng mẫu từ hai đại lượng — Vẽ điểm từng mẫu từ hai đại lượng
+A. Each x needs its matching y — Mỗi x cần y tương ứng
 
-D. It is for Gom quan sát vào các khoảng (bins) — Gom quan sát vào các khoảng (bins)
+B. Closes the current Figure — Đóng Figure hiện tại
 
+C. Horizontal-axis label — Nhãn trục ngang
 
-**Q8. What is plt.xlabel()/ylabel()/savefig() used for? — Cú pháp plt.xlabel()/ylabel()/savefig() dùng để làm gì?**
+D. Vertical-axis label — Nhãn trục dọc
 
-A. A different function is for Đường thay đổi theo thời gian; x,y có cùng số phần tử — Đường thay đổi theo thời gian; x,y có cùng số phần tử
+**Q10. What does `plt.close()` do? — `plt.close()` làm gì?**
 
-B. A different function is for Vẽ điểm từng mẫu từ hai đại lượng — Vẽ điểm từng mẫu từ hai đại lượng
+A. Each x needs its matching y — Mỗi x cần y tương ứng
 
-C. It is for Ghi nhãn kèm đơn vị và lưu hình — Ghi nhãn kèm đơn vị và lưu hình
+B. Closes the current Figure — Đóng Figure hiện tại
 
-D. A different function is for Gom quan sát vào các khoảng (bins) — Gom quan sát vào các khoảng (bins)
+C. Horizontal-axis label — Nhãn trục ngang
 
+D. Vertical-axis label — Nhãn trục dọc
 
-**Q9. Why choose this approach in scenario 1? — Vì sao chọn cách làm trong tình huống 1?**
+**Q11. What does `plt.xlabel()` set? — `plt.xlabel()` đặt gì?**
 
-A. Scatter cho thấy từng sinh viên là một cặp số — Scatter cho thấy từng sinh viên là một cặp số
+A. Each x needs its matching y — Mỗi x cần y tương ứng
 
-B. Line chart tốt cho xu hướng theo thời gian — Line chart tốt cho xu hướng theo thời gian
+B. Closes the current Figure — Đóng Figure hiện tại
 
-C. Histogram đếm số SV theo dải điểm — Histogram đếm số SV theo dải điểm
+C. Horizontal-axis label — Nhãn trục ngang
 
-D. savefig tạo tài liệu không cần màn hình tương tác — savefig tạo tài liệu không cần màn hình tương tác
+D. Vertical-axis label — Nhãn trục dọc
 
+**Q12. What does `plt.ylabel()` set? — `plt.ylabel()` đặt gì?**
 
-**Q10. Why choose this approach in scenario 2? — Vì sao chọn cách làm trong tình huống 2?**
+A. Each x needs its matching y — Mỗi x cần y tương ứng
 
-A. Scatter cho thấy từng sinh viên là một cặp số — Scatter cho thấy từng sinh viên là một cặp số
+B. Closes the current Figure — Đóng Figure hiện tại
 
-B. Histogram đếm số SV theo dải điểm — Histogram đếm số SV theo dải điểm
+C. Horizontal-axis label — Nhãn trục ngang
 
-C. savefig tạo tài liệu không cần màn hình tương tác — savefig tạo tài liệu không cần màn hình tương tác
+D. Vertical-axis label — Nhãn trục dọc
 
-D. Nhãn giúp không nhầm giá trị x/y và đơn vị — Nhãn giúp không nhầm giá trị x/y và đơn vị
+**Q13. How many markers represent three scatter records? — Ba bản ghi scatter tạo mấy điểm?**
 
+A. Three — Ba
 
-**Q11. Why choose this approach in scenario 3? — Vì sao chọn cách làm trong tình huống 3?**
+B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đổi số đếm theo khoảng
 
-A. savefig tạo tài liệu không cần màn hình tương tác — savefig tạo tài liệu không cần màn hình tương tác
+C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
 
-B. Nhãn giúp không nhầm giá trị x/y và đơn vị — Nhãn giúp không nhầm giá trị x/y và đơn vị
+D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
 
-C. Line chart tốt cho xu hướng theo thời gian — Line chart tốt cho xu hướng theo thời gian
+**Q14. Do histogram counts depend on bin boundaries? — Số đếm histogram có phụ thuộc biên bins không?**
 
-D. Histogram đếm số SV theo dải điểm — Histogram đếm số SV theo dải điểm
+A. Three — Ba
 
+B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đổi số đếm theo khoảng
 
-**Q12. Why choose this approach in scenario 4? — Vì sao chọn cách làm trong tình huống 4?**
+C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
 
-A. Nhãn giúp không nhầm giá trị x/y và đơn vị — Nhãn giúp không nhầm giá trị x/y và đơn vị
+D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
 
-B. Line chart tốt cho xu hướng theo thời gian — Line chart tốt cho xu hướng theo thời gian
+**Q15. Is a histogram appropriate for names A, B, C as categories? — Histogram có thích hợp trực tiếp cho nhãn A,B,C không?**
 
-C. savefig tạo tài liệu không cần màn hình tương tác — savefig tạo tài liệu không cần màn hình tương tác
+A. Three — Ba
 
-D. Scatter cho thấy từng sinh viên là một cặp số — Scatter cho thấy từng sinh viên là một cặp số
+B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đổi số đếm theo khoảng
 
+C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
 
-**Q13. Why choose this approach in scenario 5? — Vì sao chọn cách làm trong tình huống 5?**
+D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
 
-A. Line chart tốt cho xu hướng theo thời gian — Line chart tốt cho xu hướng theo thời gian
+**Q16. Can scatter points establish causation? — Scatter có chứng minh quan hệ nhân quả không?**
 
-B. Nhãn giúp không nhầm giá trị x/y và đơn vị — Nhãn giúp không nhầm giá trị x/y và đơn vị
+A. Three — Ba
 
-C. Scatter cho thấy từng sinh viên là một cặp số — Scatter cho thấy từng sinh viên là một cặp số
+B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đổi số đếm theo khoảng
 
-D. Histogram đếm số SV theo dải điểm — Histogram đếm số SV theo dải điểm
+C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
 
+D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
 
-**Q14. What input is used in scenario 1? — Tình huống 1 sử dụng đầu vào nào?**
+**Q17. What does backend Agg help with? — Backend Agg giúp gì?**
 
-A. 3 ngày, doanh thu nghìn đồng — 3 ngày, doanh thu nghìn đồng
+A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
 
-B. 3 SV, giờ/tuần và điểm/10 — 3 SV, giờ/tuần và điểm/10
+B. Order and units of the time axis — Thứ tự và đơn vị trục thời gian
 
-C. 6 điểm trên thang 10 — 6 điểm trên thang 10
+C. Array of bin counts — Mảng số lượng theo mỗi bin
 
-D. Dữ liệu hai tháng — Dữ liệu hai tháng
+D. No, it is a rendered image — Không, nó là ảnh được kết xuất
 
+**Q18. What should be checked before interpreting a time plot? — Trước khi đọc biểu đồ thời gian cần kiểm gì?**
 
-**Q15. What input is used in scenario 2? — Tình huống 2 sử dụng đầu vào nào?**
+A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
 
-A. 6 điểm trên thang 10 — 6 điểm trên thang 10
+B. Order and units of the time axis — Thứ tự và đơn vị trục thời gian
 
-B. Dữ liệu hai tháng — Dữ liệu hai tháng
+C. Array of bin counts — Mảng số lượng theo mỗi bin
 
-C. 3 điểm thời gian–nhiệt độ — 3 điểm thời gian–nhiệt độ
+D. No, it is a rendered image — Không, nó là ảnh được kết xuất
 
-D. 3 SV, giờ/tuần và điểm/10 — 3 SV, giờ/tuần và điểm/10
+**Q19. What does `plt.hist` return first? — `plt.hist` trả gì ở vị trí đầu?**
 
+A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
 
-**Q16. What input is used in scenario 3? — Tình huống 3 sử dụng đầu vào nào?**
+B. Order and units of the time axis — Thứ tự và đơn vị trục thời gian
 
-A. Dữ liệu hai tháng — Dữ liệu hai tháng
+C. Array of bin counts — Mảng số lượng theo mỗi bin
 
-B. 3 điểm thời gian–nhiệt độ — 3 điểm thời gian–nhiệt độ
+D. No, it is a rendered image — Không, nó là ảnh được kết xuất
 
-C. 6 điểm trên thang 10 — 6 điểm trên thang 10
+**Q20. Does a saved PNG retain an editable dataset automatically? — PNG lưu hình có tự chứa bảng dữ liệu có thể sửa không?**
 
-D. 3 ngày, doanh thu nghìn đồng — 3 ngày, doanh thu nghìn đồng
+A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
 
+B. Order and units of the time axis — Thứ tự và đơn vị trục thời gian
 
-**Q17. What input is used in scenario 4? — Tình huống 4 sử dụng đầu vào nào?**
+C. Array of bin counts — Mảng số lượng theo mỗi bin
 
-A. 3 điểm thời gian–nhiệt độ — 3 điểm thời gian–nhiệt độ
-
-B. Dữ liệu hai tháng — Dữ liệu hai tháng
-
-C. 3 ngày, doanh thu nghìn đồng — 3 ngày, doanh thu nghìn đồng
-
-D. 3 SV, giờ/tuần và điểm/10 — 3 SV, giờ/tuần và điểm/10
-
-
-**Q18. What input is used in scenario 5? — Tình huống 5 sử dụng đầu vào nào?**
-
-A. 3 điểm thời gian–nhiệt độ — 3 điểm thời gian–nhiệt độ
-
-B. 3 ngày, doanh thu nghìn đồng — 3 ngày, doanh thu nghìn đồng
-
-C. 3 SV, giờ/tuần và điểm/10 — 3 SV, giờ/tuần và điểm/10
-
-D. 6 điểm trên thang 10 — 6 điểm trên thang 10
-
-
-**Q19. What is important before executing a workflow? — Trước khi chạy workflow cần điều gì?**
-
-A. Only count blank lines — Chỉ đếm dòng trắng
-
-B. Only change editor theme — Chỉ đổi giao diện
-
-C. Ignore credentials — Bỏ qua quản lý tài khoản
-
-D. Understand source, parameters and permissions — Hiểu nguồn, tham số và quyền hạn
-
-
-**Q20. What should be reported after a test? — Sau khi test cần báo cáo gì?**
-
-A. Only a success claim — Chỉ nói thành công
-
-B. A guess of future results — Đoán kết quả tương lai
-
-C. Observed output, failures and limits — Đầu ra thật, lỗi và giới hạn
-
-D. No evidence — Không cần bằng chứng
+D. No, it is a rendered image — Không, nó là ảnh được kết xuất
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Biểu diễn thay đổi theo thứ tự thời gian | Biểu diễn thay đổi theo thứ tự thời gian |
-| Q2 | **A** | It is Mỗi cặp x,y tạo thành một điểm quan sát | Mỗi cặp x,y tạo thành một điểm quan sát |
-| Q3 | **D** | It is Đếm số mẫu trong từng khoảng giá trị | Đếm số mẫu trong từng khoảng giá trị |
-| Q4 | **C** | It is Mô tả đại lượng và đơn vị trên trục | Mô tả đại lượng và đơn vị trên trục |
-| Q5 | **B** | It is for Đường thay đổi theo thời gian; x,y có cùng số phần tử | Đường thay đổi theo thời gian; x,y có cùng số phần tử |
-| Q6 | **A** | It is for Vẽ điểm từng mẫu từ hai đại lượng | Vẽ điểm từng mẫu từ hai đại lượng |
-| Q7 | **D** | It is for Gom quan sát vào các khoảng (bins) | Gom quan sát vào các khoảng (bins) |
-| Q8 | **C** | It is for Ghi nhãn kèm đơn vị và lưu hình | Ghi nhãn kèm đơn vị và lưu hình |
-| Q9 | **B** | Line chart tốt cho xu hướng theo thời gian | Line chart tốt cho xu hướng theo thời gian |
-| Q10 | **A** | Scatter cho thấy từng sinh viên là một cặp số | Scatter cho thấy từng sinh viên là một cặp số |
-| Q11 | **D** | Histogram đếm số SV theo dải điểm | Histogram đếm số SV theo dải điểm |
-| Q12 | **C** | savefig tạo tài liệu không cần màn hình tương tác | savefig tạo tài liệu không cần màn hình tương tác |
-| Q13 | **B** | Nhãn giúp không nhầm giá trị x/y và đơn vị | Nhãn giúp không nhầm giá trị x/y và đơn vị |
-| Q14 | **A** | 3 ngày, doanh thu nghìn đồng | 3 ngày, doanh thu nghìn đồng |
-| Q15 | **D** | 3 SV, giờ/tuần và điểm/10 | 3 SV, giờ/tuần và điểm/10 |
-| Q16 | **C** | 6 điểm trên thang 10 | 6 điểm trên thang 10 |
-| Q17 | **B** | Dữ liệu hai tháng | Dữ liệu hai tháng |
-| Q18 | **A** | 3 điểm thời gian–nhiệt độ | 3 điểm thời gian–nhiệt độ |
-| Q19 | **D** | Understand source, parameters and permissions | Hiểu nguồn, tham số và quyền hạn |
-| Q20 | **C** | Observed output, failures and limits | Đầu ra thật, lỗi và giới hạn |
+| Q1 | **A** | Connecting ordered points shows a trend, not necessarily a measured value between points. | Nối các mốc cho xu hướng, không đảm bảo có số đo giữa các mốc. |
+| Q2 | **B** | Each point comes from matching x and y of the same record. | Mỗi điểm là x và y của cùng một bản ghi. |
+| Q3 | **C** | Histogram groups numeric values by boundaries, unlike a categorical bar chart. | Histogram chia khoảng giá trị số, không giống biểu đồ cột loại. |
+| Q4 | **D** | Labels prevent confusing time, temperature or currency units. | Nhãn tránh nhầm đơn vị thời gian, nhiệt độ hay tiền. |
+| Q5 | **A** | plot connects points in input order by default. | plot nối điểm theo thứ tự đầu vào mặc định. |
+| Q6 | **B** | scatter creates separate markers for each paired observation. | scatter tạo dấu chấm riêng cho từng cặp quan sát. |
+| Q7 | **C** | hist computes bin counts then draws bars for numeric intervals. | hist đếm trong từng khoảng rồi vẽ cột các khoảng số. |
+| Q8 | **D** | savefig writes the rendered figure to a file such as PNG. | savefig ghi hình đã vẽ ra tệp PNG. |
+| Q9 | **A** | Mismatched pairs cannot represent a valid table of points. | Không ghép được cặp khi thiếu phần tử tương ứng. |
+| Q10 | **B** | Closing releases figure resources and avoids accumulating open plots. | Đóng giúp giải phóng tài nguyên và tránh mở nhiều hình. |
+| Q11 | **C** | It changes text, not the x data or its units automatically. | Nó chỉ đổi chữ, không tự đổi dữ liệu hoặc đơn vị. |
+| Q12 | **D** | It describes y values and should include units. | Nó mô tả y và nên kèm đơn vị. |
+| Q13 | **A** | Each row maps to one point. | Mỗi hàng tạo một điểm. |
+| Q14 | **B** | The same observations can be grouped differently. | Cùng dữ liệu có thể được nhóm khác nhau. |
+| Q15 | **C** | Histogram expects numeric ranges rather than category names. | Histogram cần khoảng số thay vì tên loại. |
+| Q16 | **D** | Other variables or selection can explain observed patterns. | Biến khác hoặc cách lấy mẫu có thể tạo cùng xu hướng. |
+| Q17 | **A** | Agg supports batch scripts or server-side saved images. | Agg phù hợp chạy script hàng loạt hoặc lưu hình trên server. |
+| Q18 | **B** | Incorrect ordering or mismatched units distorts trends. | Sai thứ tự hoặc đơn vị khiến xu hướng bị hiểu sai. |
+| Q19 | **C** | The first return value records frequencies; following outputs hold edges and artists. | Giá trị trả về đầu là tần suất, phần sau là biên và đối tượng vẽ. |
+| Q20 | **D** | Store raw data separately for recalculation and reproducibility. | Muốn tính lại và sửa biểu đồ cần lưu dữ liệu gốc riêng. |
 
 ## 8. Nối sang bài tiếp
 
