@@ -382,7 +382,7 @@ A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
 
 B. 1 — 1
 
-C. 1 — 1
+C. n — n
 
 D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
@@ -392,17 +392,17 @@ A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
 
 B. 1 — 1
 
-C. 1 — 1
+C. n — n
 
 D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
-**Q15. What is C(n,n)? — C(n,n) bằng gì?**
+**Q15. What is C(n,n−1)? — C(n,n−1) bằng gì?**
 
 A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
 
 B. 1 — 1
 
-C. 1 — 1
+C. n — n
 
 D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
@@ -412,7 +412,7 @@ A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
 
 B. 1 — 1
 
-C. 1 — 1
+C. n — n
 
 D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
@@ -474,7 +474,7 @@ D. The number grows factorially — Số cách tăng theo giai thừa
 | Q12 | **D** | 4×3 = 12. | 4×3 = 12. |
 | Q13 | **A** | Each chosen group can be arranged in k! orders. | Mỗi nhóm k người có k! cách sắp. |
 | Q14 | **B** | There is one way to choose nobody. | Có một cách chọn tập rỗng. |
-| Q15 | **C** | There is one way to select every available item. | Có một cách lấy toàn bộ n phần tử. |
+| Q15 | **C** | Choosing n−1 items from n is equivalent to choosing which one to leave out, giving n possibilities. | Chọn n−1 từ n tương đương chọn một phần tử bỏ lại nên có n cách. |
 | Q16 | **D** | Pascal's identity is C(n,k)=C(n−1,k−1)+C(n−1,k). | Hệ thức Pascal cộng hai hệ số ở hàng trước. |
 | Q17 | **A** | It emits each distinct pair once. | Hàm tạo mỗi cặp khác nhau đúng một lần. |
 | Q18 | **B** | Reversing a pair yields a different result. | Đổi thứ tự hai phần tử tạo kết quả khác. |
