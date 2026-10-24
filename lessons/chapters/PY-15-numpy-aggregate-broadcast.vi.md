@@ -7,7 +7,7 @@
 
 `Index/Slice → Aggregate/Broadcast → Vectorization → AI`
 
-Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều đối tượng và đặc trưng trước khi dùng trong AI.
+Sau NumPy indexing và slicing, ta học cách tính tổng, trung bình theo đúng trục, cộng hoặc nhân nhiều giá trị đồng loạt, thay vì xử lý từng phần tử bằng các vòng lặp riêng.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -32,89 +32,39 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Aggregate
+Sau khi biết tạo và chọn ô trong `ndarray`, ta cần **tổng hợp và biến đổi nhiều giá trị cùng lúc**. Phần này tiếp nối bảng doanh thu và điểm số: tổng hợp để rút ra thống kê, chọn `axis` để biết tổng hợp theo hàng hay cột, rồi dùng broadcasting và vectorization để xử lý đồng loạt mà không viết từng phép tính.
 
-**Từ vựng trong mục:** **Aggregate** — phép tổng hợp.
+### 4.1. Aggregation — Tổng hợp từ nhiều giá trị
 
-Phép tổng hợp như `sum`, `mean`, `max` rút nhiều giá trị thành một hoặc vài số dễ theo dõi.
+**Từ vựng trong mục:** **Aggregation** — tổng hợp; **Sum/mean** — tổng/trung bình.
+
+Khi quản lý doanh thu, ta thường không cần xem từng giao dịch mà muốn biết **tổng**, **trung bình** hoặc **cao nhất**. Đó là **phép tổng hợp (aggregation)**: kết hợp nhiều giá trị thành một giá trị thống kê. Với doanh thu ba ngày `[10,20,30]` triệu đồng, `sum()` cho 60 triệu đồng; `mean()` cho 20 triệu đồng/ngày; `max()` cho 30 triệu đồng. Không nhầm tổng với trung bình.
 
 ```python
 import numpy as np
-print(np.array([1,2,3]).sum())
+
+sales = np.array([10, 20, 30])
+print(sales.sum(), sales.mean(), sales.max())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-6
+60 20.0 30
 ```
 
-### 4.2. Axis
+Tổng 60 triệu đồng, trung bình 20 triệu đồng/ngày và ngày cao nhất 30 triệu đồng.
 
-**Từ vựng trong mục:** **Axis** — trục tính.
+### 4.2. Axis — Tổng hợp theo hàng hoặc cột
 
-Với mảng hai chiều, `axis=0` tổng hợp theo cột, còn `axis=1` tổng hợp theo hàng.
+**Từ vựng trong mục:** **Axis** — trục tính; **Row/column** — hàng/cột.
+
+Trong bảng doanh thu có **hai hàng cửa hàng** A, B và **ba cột ngày**, `sales.sum(axis=1)` tính tổng ba ngày trên từng **hàng cửa hàng**; còn `sales.sum(axis=0)` tính tổng hai cửa hàng theo từng **cột ngày**. `axis=0` gom **qua các hàng**, `axis=1` gom **qua các cột**. Vì vậy trước khi chọn axis, phải biết mỗi chiều đang mô tả gì.
 
 ```python
 import numpy as np
-print(np.array([[1,2],[3,4]]).mean(axis=0))
-```
 
-**Kết quả khi chạy:**
-
-```text
-[2. 3.]
-```
-
-### 4.3. Broadcasting
-
-**Từ vựng trong mục:** **Broadcasting** — quảng bá mảng.
-
-Broadcasting cho phép cộng hoặc nhân một số với từng phần tử của mảng mà không viết vòng lặp.
-
-```python
-import numpy as np
-print(np.array([1,2])+3)
-```
-
-**Kết quả khi chạy:**
-
-```text
-[4 5]
-```
-
-### 4.4. Vectorization
-
-**Từ vựng trong mục:** **Vectorization** — vector hóa.
-
-Vectorization tính trực tiếp nhiều phần tử bằng phép toán trên mảng NumPy.
-
-```python
-import numpy as np
-print(np.array([1,2,3])*2)
-```
-
-**Kết quả khi chạy:**
-
-```text
-[2 4 6]
-```
-
-## 5. Năm tình huống thực tế
-
-### Tình huống 1 — Tổng doanh thu mỗi cửa hàng
-
-**Từ vựng trong mục:** **Aggregate** — phép tổng hợp.
-
-**Tình huống thực tế:** Hai cửa hàng có doanh thu ba ngày là `[10,20,30]` và `[8,12,16]` triệu đồng. Tính doanh thu mỗi cửa hàng.
-
-**Vì sao chọn cách giải này?** `sum(axis=1)` cộng các ngày trong từng hàng.
-
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
-
-```python
-import numpy as np
-sales=np.array([[10,20,30],[8,12,16]])
+sales = np.array([[10, 20, 30], [8, 12, 16]])
 print(sales.sum(axis=1))
 ```
 
@@ -124,42 +74,19 @@ print(sales.sum(axis=1))
 [60 36]
 ```
 
-### Tình huống 2 — Điểm trung bình từng môn
+Kết quả có hai phần tử vì mảng có hai hàng: cửa hàng A tổng 60 và B tổng 36 triệu đồng.
 
-**Từ vựng trong mục:** **Axis** — trục tính.
+### 4.3. Broadcasting — Áp dụng phép toán theo chiều tương thích
 
-**Tình huống thực tế:** Ba học viên có điểm hai môn lần lượt là `(8,9)`, `(6,7)`, `(9,8)`. Tính trung bình của từng môn.
+**Từ vựng trong mục:** **Broadcasting** — quảng bá mảng; **Shape** — kích thước.
 
-**Vì sao chọn cách giải này?** `mean(axis=0)` gom các điểm cùng cột môn học.
-
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Broadcasting** cho phép NumPy thực hiện phép toán giữa các đối tượng khác kích thước **nếu các chiều tương thích**. Ví dụ một trường cộng 1 điểm chuyên cần cho từng điểm trong bảng hai học viên × ba môn: phép `scores + 1` tự áp dụng 1 vào mọi ô, không cần vòng `for`. Khi một chiều có kích thước 1 hoặc bằng chiều tương ứng, NumPy thường mở rộng được; các chiều không tương thích sẽ báo `ValueError`.
 
 ```python
 import numpy as np
-X=np.array([[8,9],[6,7],[9,8]],dtype=float)
-print(X.mean(axis=0))
-```
 
-**Kết quả khi chạy:**
-
-```text
-[7.66666667 8.        ]
-```
-
-### Tình huống 3 — Cộng điểm chuyên cần
-
-**Từ vựng trong mục:** **Broadcasting** — quảng bá mảng.
-
-**Tình huống thực tế:** Hai học viên có điểm ba môn `(7,8,9)` và `(6,7,8)`, được cộng 1 điểm chuyên cần nhưng không vượt 10. In bảng điểm sau cộng.
-
-**Vì sao chọn cách giải này?** Broadcasting cộng 1 vào mọi ô; `minimum(...,10)` chặn điểm tối đa.
-
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
-
-```python
-import numpy as np
-X=np.array([[7,8,9],[6,7,8]])
-print(np.minimum(X+1,10))
+scores = np.array([[7, 8, 9], [6, 7, 8]])
+print(scores + 1)
 ```
 
 **Kết quả khi chạy:**
@@ -169,21 +96,20 @@ print(np.minimum(X+1,10))
  [ 7  8  9]]
 ```
 
-### Tình huống 4 — Nhân các kênh cảm biến
+Số 1 được cộng vào cả sáu ô, nhưng shape vẫn là 2 hàng × 3 cột.
 
-**Từ vựng trong mục:** **Vectorization** — vector hóa.
+### 4.4. Vectorization — Tính trực tiếp trên mảng
 
-**Tình huống thực tế:** Ba kênh cảm biến có tín hiệu `[10,20,30]` và hệ số hiệu chỉnh `[1.0,0.5,2.0]`. Tính tín hiệu sau hiệu chỉnh theo từng kênh.
+**Từ vựng trong mục:** **Vectorization** — vector hóa; **Element-wise** — theo từng phần tử.
 
-**Vì sao chọn cách giải này?** Nhân hai mảng cùng chiều để nhân từng cặp phần tử tương ứng.
-
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Vectorization** là viết phép tính trực tiếp trên toàn mảng thay vì tự lặp từng ô bằng Python. Khi ba kênh cảm biến có giá trị `[10,20,30]` và hệ số hiệu chỉnh `[1.0,0.5,2.0]`, phép `signals * factors` nhân các phần tử **cùng vị trí**: 10×1, 20×0,5 và 30×2. Đây là phép **nhân từng phần tử**, khác phép nhân ma trận `@`.
 
 ```python
 import numpy as np
-signals=np.array([10,20,30])
-factors=np.array([1.0,0.5,2.0])
-print(signals*factors)
+
+signals = np.array([10, 20, 30])
+factors = np.array([1.0, 0.5, 2.0])
+print(signals * factors)
 ```
 
 **Kết quả khi chạy:**
@@ -192,20 +118,147 @@ print(signals*factors)
 [10. 10. 60.]
 ```
 
-### Tình huống 5 — Tìm giá trị cao nhất theo cột
+Ba số là tín hiệu sau khi áp dụng hệ số riêng cho từng kênh; NumPy không cộng các kênh lại.
 
-**Từ vựng trong mục:** **Aggregate** — phép tổng hợp.
+## 5. Năm tình huống lập trình thực tế
 
-**Tình huống thực tế:** Bảng hai cột số đo có ba hàng `(2,4)`, `(5,1)`, `(3,6)`. Lấy giá trị cao nhất của mỗi cột.
+### Tình huống 1 — Tổng doanh thu từng cửa hàng
 
-**Vì sao chọn cách giải này?** `max(axis=0)` lấy cực đại theo cột.
+**Từ vựng trong mục:** **Aggregation** — tổng hợp; **Axis** — trục tính.
 
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Tình huống thực tế:** Hai cửa hàng A và B có doanh thu ba ngày lần lượt là `[10,20,30]` và `[8,12,16]`, đơn vị triệu đồng. Hãy tính tổng cho **mỗi cửa hàng** để so sánh.
+
+**Vì sao chọn cách giải này?** Hai cửa hàng ở hai hàng, còn ba ngày ở các cột; `sum(axis=1)` tổng hợp ba ngày của mỗi hàng.
+
+**Quy trình giải:**
+
+1. Tạo mảng 2 hàng × 3 cột, hàng đầu là A, hàng sau là B.
+2. Dùng `sum(axis=1)` cộng qua ba cột ngày.
+3. In hai tổng theo thứ tự A rồi B.
 
 ```python
 import numpy as np
-X=np.array([[2,4],[5,1],[3,6]])
-print(X.max(axis=0))
+
+sales = np.array([[10, 20, 30], [8, 12, 16]])
+print(sales.sum(axis=1))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[60 36]
+```
+
+Doanh thu ba ngày của A là 60 triệu, B là 36 triệu đồng.
+
+### Tình huống 2 — Trung bình theo từng môn
+
+**Từ vựng trong mục:** **Mean** — trung bình; **Axis** — trục.
+
+**Tình huống thực tế:** Ba học viên An, Bình, Lan có điểm Toán/Python lần lượt (8,9), (6,7), (9,8) trên thang 10. Hãy tính trung bình **theo từng môn**, không phải từng học viên.
+
+**Vì sao chọn cách giải này?** Môn học ở các cột nên `mean(axis=0)` tổng hợp các hàng học viên cho từng cột môn.
+
+**Quy trình giải:**
+
+1. Tạo mảng 3 hàng học viên × 2 cột môn Toán, Python.
+2. Chọn `axis=0` để lấy trung bình từng cột.
+3. In hai điểm trung bình.
+
+```python
+import numpy as np
+
+scores = np.array([[8, 9], [6, 7], [9, 8]], dtype=float)
+print(scores.mean(axis=0))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[7.66666667 8.        ]
+```
+
+Điểm trung bình Toán ≈ 7,67; Python là 8,0.
+
+### Tình huống 3 — Cộng điểm chuyên cần có giới hạn
+
+**Từ vựng trong mục:** **Broadcasting** — quảng bá; **Clip** — giới hạn giá trị.
+
+**Tình huống thực tế:** Trường có hai học viên, ba môn; điểm hiện tại lần lượt `[7,8,9]`, `[6,7,8]`. Mỗi điểm được cộng 1 điểm chuyên cần nhưng không được vượt 10. Hãy in bảng sau cộng.
+
+**Vì sao chọn cách giải này?** Broadcasting cộng 1 vào mọi ô; `np.minimum(...,10)` bảo đảm mỗi ô không vượt điểm tối đa.
+
+**Quy trình giải:**
+
+1. Lưu điểm trong mảng 2 hàng × 3 cột.
+2. Cộng 1 cho toàn bộ mảng theo broadcasting.
+3. Áp dụng `np.minimum` giới hạn điểm 10 rồi in kết quả.
+
+```python
+import numpy as np
+
+scores = np.array([[7, 8, 9], [6, 7, 8]])
+print(np.minimum(scores + 1, 10))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[[ 8  9 10]
+ [ 7  8  9]]
+```
+
+Mỗi ô tăng một điểm; điểm 9 chỉ lên 10, không vượt giới hạn.
+
+### Tình huống 4 — Hiệu chỉnh ba kênh cảm biến
+
+**Từ vựng trong mục:** **Vectorization** — vector hóa; **Element-wise** — theo phần tử.
+
+**Tình huống thực tế:** Ba kênh cảm biến có giá trị `[10,20,30]` và hệ số hiệu chỉnh tương ứng `[1.0,0.5,2.0]`. Hãy tính tín hiệu sau hiệu chỉnh của từng kênh.
+
+**Vì sao chọn cách giải này?** Nhân hai mảng cùng shape sẽ nhân từng vị trí tương ứng, đơn giản hơn viết ba phép nhân riêng.
+
+**Quy trình giải:**
+
+1. Tạo mảng tín hiệu và mảng hệ số theo cùng thứ tự kênh.
+2. Nhân hai mảng trực tiếp bằng `*`.
+3. In ba giá trị sau hiệu chỉnh.
+
+```python
+import numpy as np
+
+signals = np.array([10, 20, 30])
+factors = np.array([1.0, 0.5, 2.0])
+print(signals * factors)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[10. 10. 60.]
+```
+
+Tín hiệu lần lượt là 10, 10 và 60 theo đơn vị của từng kênh.
+
+### Tình huống 5 — Tìm giá trị cao nhất theo cột
+
+**Từ vựng trong mục:** **Aggregation** — tổng hợp; **Max** — cực đại.
+
+**Tình huống thực tế:** Bảng có ba ngày đo và hai kênh cảm biến: các hàng là `(2,4)`, `(5,1)`, `(3,6)` theo cùng đơn vị đo trên từng kênh. Hãy tìm mức lớn nhất của **mỗi kênh**, không phải mỗi ngày.
+
+**Vì sao chọn cách giải này?** Kênh nằm theo cột, nên `max(axis=0)` lấy giá trị lớn nhất trong các hàng cho mỗi cột.
+
+**Quy trình giải:**
+
+1. Tạo bảng ba hàng ngày × hai cột kênh.
+2. Dùng `max(axis=0)` lấy cực đại từng cột.
+3. In hai số cực đại theo thứ tự kênh.
+
+```python
+import numpy as np
+
+values = np.array([[2, 4], [5, 1], [3, 6]])
+print(values.max(axis=0))
 ```
 
 **Kết quả khi chạy:**
@@ -214,9 +267,15 @@ print(X.max(axis=0))
 [5 6]
 ```
 
+Kênh thứ nhất có giá trị tối đa 5, kênh thứ hai tối đa 6.
+
 ## 6. Sai lầm thường gặp
 
-Các tham số như axis, shape, dtype hoặc cách xử lý giá trị thiếu có thể thay đổi kết quả. Trước khi xử lý phải biết số hàng, số cột, đơn vị và mục đích của từng phép biến đổi.
+- Với mảng hai chiều, `axis=0` tổng hợp **theo cột** (gom các hàng), còn `axis=1` tổng hợp **theo hàng** (gom các cột). Không đoán axis chỉ từ tên hàm.
+- `sum`, `mean`, `max` có ý nghĩa khác nhau: tổng, trung bình và cực đại, không thể thay thế tùy tiện.
+- Broadcasting chỉ hoạt động khi **shape tương thích**. Hai mảng có chiều không tương thích có thể phát sinh `ValueError`.
+- Dấu `*` của NumPy nhân **từng phần tử**, không phải phép nhân ma trận `@`.
+- Khi cộng điểm, phải áp dụng giới hạn tối đa nếu quy định yêu cầu, ví dụ `np.minimum(scores + 1, 10)`.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
