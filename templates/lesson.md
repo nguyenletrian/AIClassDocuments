@@ -74,15 +74,17 @@ import numpy as np
 
 **Từ vựng trong mục:** **Feature** — đặc trưng; **Dataset** — tập dữ liệu. [Thay theo nội dung mỗi tình huống.]
 
-**Tình huống thực tế:** [Viết một đoạn độc lập: nhân vật/đơn vị có nhu cầu gì + dữ liệu đầu vào có giá trị, ý nghĩa cột/hàng/đơn vị + kết quả cần giải quyết. Ví dụ: Cửa hàng xếp VIP cho khách gắn bó từ 5 năm và chi tiêu từ 1.000.000 đồng. Khách An đã mua hàng 5 năm, chi 1.200.000 đồng. Hãy xác định khách An đủ VIP không.]
+**Vấn đề thực tế:** [Viết một đoạn độc lập: nhân vật/đơn vị có nhu cầu gì + dữ liệu đầu vào có giá trị, ý nghĩa cột/hàng/đơn vị + kết quả cần giải quyết. Ví dụ: Cửa hàng xếp VIP cho khách gắn bó từ 5 năm và chi tiêu từ 1.000.000 đồng. Khách An đã mua hàng 5 năm, chi 1.200.000 đồng. Hãy xác định khách An đủ VIP không.]
+
+**Yêu cầu:** [Nêu cụ thể chương trình phải tính/kiểm tra/in ra điều gì; có thể gộp vào câu cuối của vấn đề thực tế nếu đã rõ.]
 
 **Chọn khái niệm:** [Liệt kê các khái niệm phù hợp.]
 
-**Vì sao chọn cách này?** [Một đoạn giải thích rõ vấn đề đòi hỏi gì, tại sao phương pháp/hàm này phù hợp hơn phương án dễ nhầm khác, giả định và khi nào cách này không còn phù hợp. Chỉ liệt kê API không đủ.]
+**Vì sao chọn cách giải này?** [Một đoạn giải thích rõ vấn đề đòi hỏi gì, tại sao phương pháp/hàm này phù hợp hơn phương án dễ nhầm khác, giả định và khi nào cách này không còn phù hợp. Chỉ liệt kê API không đủ.]
 
-**Quy trình:** [Các bước cụ thể theo đúng thứ tự.]
+**Quy trình giải:** [Các bước thực hiện có ý nghĩa riêng với tình huống, đối chiếu đúng phép tính và các biến trong code.]
 
-**Bộ dữ liệu:** [Mỗi hàng là ai/vật gì? Mỗi cột là feature nào, đo bằng đơn vị gì? Có bao nhiêu mẫu? Là dữ liệu thật, mẫu công khai hay ví dụ giả lập?]
+[Không lặp thêm mục Dữ liệu riêng: giải thích số hàng/cột, đơn vị, nguồn dữ liệu ngay trong vấn đề thực tế khi cần.]
 
 ```python
 # BƯỚC 1 — Chú thích dữ liệu: mỗi HÀNG và từng CỘT/đơn vị.
@@ -92,7 +94,7 @@ import numpy as np
 # BƯỚC 4 — Kiểm tra shape và ý nghĩa kết quả.
 ```
 
-**Kiểm tra:** [Kết quả thực tế, shape, giới hạn, điều kiện cần thận trọng.]
+**Kết quả:** [Diễn giải giá trị code in ra và ý nghĩa, giới hạn hoặc điều kiện quan trọng.]
 
 [Lặp lại đến tình huống 5. Chuyển hóa những bài tập đã ghi nhận trong nguồn nội bộ thành tình huống thực tiễn, không sao chép mô tả hàn lâm.]
 
