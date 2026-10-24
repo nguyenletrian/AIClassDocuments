@@ -35,7 +35,7 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 **Từ vựng trong mục:** **Partial derivative** — đạo hàm riêng.
 
-Đạo hàm theo một biến khi các biến khác giữ cố định. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Đạo hàm theo một biến khi các biến khác giữ cố định.
 
 ```python
 import sympy as sp
@@ -48,7 +48,7 @@ x,y=sp.symbols('x y');print(sp.diff(x*x+3*x*y,x))
 
 **Từ vựng trong mục:** **Gradient** — vector gradient.
 
-Vector gồm các đạo hàm riêng của hàm nhiều biến. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Vector gồm các đạo hàm riêng của hàm nhiều biến.
 
 ```python
 import numpy as np
@@ -61,7 +61,7 @@ print(np.array([2*3.,2*4.]))
 
 **Từ vựng trong mục:** **Learning rate** — tốc độ học.
 
-Bước nhân gradient khi cập nhật tham số. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Bước nhân gradient khi cập nhật tham số.
 
 ```python
 lr=.1;w=3.;print(w-lr*2*w)
@@ -73,7 +73,7 @@ lr=.1;w=3.;print(w-lr*2*w)
 
 **Từ vựng trong mục:** **Epoch** — vòng huấn luyện.
 
-Một lượt sử dụng hết dữ liệu train để cập nhật mô hình. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Một lượt sử dụng hết dữ liệu train để cập nhật mô hình.
 
 ```python
 for epoch in range(3): print(epoch)
@@ -89,9 +89,9 @@ for epoch in range(3): print(epoch)
 
 **Vấn đề:** Giảm chi phí một biến.
 
-**Vì sao chọn phương án?** Cập nhật w theo độ dốc của hàm w²; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Cập nhật w theo độ dốc của hàm w²
 
-**Dữ liệu:** Bắt đầu w=4, lr=0.1, 10 bước. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Bắt đầu w=4, lr=0.1, 10 bước.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -102,7 +102,6 @@ for step in range(10):
 print(round(w,4))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 2 — Đạo hàm riêng chi phí
 
@@ -110,9 +109,9 @@ print(round(w,4))
 
 **Vấn đề:** Đạo hàm riêng chi phí.
 
-**Vì sao chọn phương án?** Hàm hai biến f=x²+3xy+y² cần đạo hàm từng biến; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Hàm hai biến f=x²+3xy+y² cần đạo hàm từng biến
 
-**Dữ liệu:** Hàm tại x=1,y=2. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Hàm tại x=1,y=2.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -122,7 +121,6 @@ x,y=sp.symbols('x y');f=x*x+3*x*y+y*y
 print(sp.diff(f,x).subs({x:1,y:2}))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 3 — Theo dõi lịch sử loss
 
@@ -130,9 +128,9 @@ print(sp.diff(f,x).subs({x:1,y:2}))
 
 **Vấn đề:** Theo dõi lịch sử loss.
 
-**Vì sao chọn phương án?** Lưu loss sau từng bước để xem có giảm; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Lưu loss sau từng bước để xem có giảm
 
-**Dữ liệu:** Hàm loss w² với w=3. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Hàm loss w² với w=3.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -144,7 +142,6 @@ for step in range(5):
 print(history)
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 4 — So tốc độ học
 
@@ -152,9 +149,9 @@ print(history)
 
 **Vấn đề:** So tốc độ học.
 
-**Vì sao chọn phương án?** Learning rate quá cao có thể làm mất ổn định; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Learning rate quá cao có thể làm mất ổn định
 
-**Dữ liệu:** w=4, lr 0.1 và 1.1. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** w=4, lr 0.1 và 1.1.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -165,7 +162,6 @@ for lr in [.1,1.1]:
     print(lr,round(w*w,3))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 5 — Fit giá nhà bằng gradient
 
@@ -173,9 +169,9 @@ for lr in [.1,1.1]:
 
 **Vấn đề:** Fit giá nhà bằng gradient.
 
-**Vì sao chọn phương án?** Tính dMSE/dw rồi cập nhật hệ số hồi quy tuyến tính; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Tính dMSE/dw rồi cập nhật hệ số hồi quy tuyến tính
 
-**Dữ liệu:** X=[1,2,3], y=[2,4,6], 100 bước. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** X=[1,2,3], y=[2,4,6], 100 bước.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -188,7 +184,6 @@ for _ in range(100):
 print(round(w,3))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ## 6. Các lỗi dễ gặp
 
