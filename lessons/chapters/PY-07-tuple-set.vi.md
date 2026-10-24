@@ -110,6 +110,26 @@ print(a & b)
 ```
 
 Chỉ có AI xuất hiện trong cả hai nhóm; tập chỉ có một phần tử nên thứ tự hiển thị không gây nhầm lẫn.
+### 4.5. Difference — Phần tử còn thiếu trong Set
+
+**Từ vựng trong mục:** **Difference** — hiệu tập hợp; **Set** — tập hợp.
+
+Ngoài phép hợp và phép giao, ta còn cần biết **phần tử chỉ có ở nhóm A nhưng chưa có ở nhóm B**. Ví dụ khóa học yêu cầu `Python`, `SQL`, `AI`, còn học viên đã hoàn thành `Python`; hiệu `required - done` giữ `SQL` và `AI`. Dùng `sorted()` nếu muốn in các kỹ năng theo một thứ tự rõ ràng. Hiệu `a - b` khác **hiệu đối xứng** `a ^ b`, vốn lấy các phần tử chỉ thuộc một trong hai nhóm.
+
+```python
+required = {'Python', 'SQL', 'AI'}
+done = {'Python'}
+print(sorted(required - done))
+```
+
+**Kết quả khi chạy:**
+
+```text
+['AI', 'SQL']
+```
+
+Kết quả là một **List đã sắp xếp**, gồm hai kỹ năng cần học tiếp. Set gốc không bị thay đổi.
+
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Khử email trùng
