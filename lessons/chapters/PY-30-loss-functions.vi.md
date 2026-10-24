@@ -502,7 +502,7 @@ D. Predicted probability assigned to the true class — Xác suất dự báo d�
 | Q8 | **D** | Delta separates the two Huber regions. | Delta phân chia hai miền của Huber. |
 | Q9 | **A** | With one-hot labels, only the true-class log term remains. | Với one-hot, chỉ còn hạng log của lớp đúng. |
 | Q10 | **B** | KL is nonnegative by Gibbs' inequality. | KL không âm theo bất đẳng thức Gibbs. |
-| Q11 | **C** | D(P||Q) and D(Q||P) can differ. | D(P||Q) và D(Q||P) có thể khác. |
+| Q11 | **C** | D(P‖Q) and D(Q‖P) can differ. | D(P‖Q) và D(Q‖P) có thể khác. |
 | Q12 | **D** | KL is zero only when distributions agree appropriately. | KL bằng 0 khi các phân phối trùng nhau trong điều kiện phù hợp. |
 | Q13 | **A** | Squaring a meter-valued residual yields m². | Bình phương sai lệch mét cho đơn vị m². |
 | Q14 | **B** | Absolute errors keep the original unit. | Sai lệch tuyệt đối giữ đơn vị gốc. |
