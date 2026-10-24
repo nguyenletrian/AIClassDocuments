@@ -1,6 +1,5 @@
 # PY-46 — Mini project: dữ liệu → làm sạch → mô hình → đánh giá
 
-*DRAFT · Bài tổng hợp dành cho sinh viên; cần kiểm tra code và môi trường cài đặt trước phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
