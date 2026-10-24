@@ -68,7 +68,7 @@ class CurriculumStructureTests(unittest.TestCase):
                 # Earlier authored chapters vary in placement of vocabulary lines.
                 # This gate preserves their original text and checks headings only.
                 for i in range(1, 5):
-                    self.assertRegex(text, rf"(?m)^### 4\\.{i}\\.")
+                    self.assertRegex(text, rf"(?m)^### 4\.{i}\.")
 
 
     def test_python_code_blocks_parse(self):
