@@ -464,7 +464,7 @@ C. A function that discards all free variables — Hàm loại bỏ mọi biến
 
 D. A function forced to return `None` — Hàm bị buộc trả `None`
 
-**Q17. What does a function without explicit `return` produce? — Hàm không có `return` rõ ràng trả về gì?**
+**Q17. When a function reaches its end without executing `return`, what value does it return? — Khi hàm chạy đến cuối mà không thực hiện `return`, nó trả giá trị nào?**
 
 A. `None` — `None`
 
