@@ -7,7 +7,7 @@
 
 `Hàm / Dictionary → OOP → Kế thừa`
 
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
+Sau hàm và Dictionary, ta học cách tạo một kiểu đối tượng có thông tin và hành vi riêng, rồi dùng lại kiểu đó cho nhiều đối tượng.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -32,88 +32,110 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Class
+**Lập trình hướng đối tượng (OOP)** giúp gom **dữ liệu của một đối tượng** và **những thao tác dùng dữ liệu ấy** vào cùng một cấu trúc. Ví dụ một học viên có tên, điểm và cách hiển thị hồ sơ; thay vì đặt các biến rời rạc, ta tạo một lớp `Student`. Từ lớp này, bài học lần lượt giải thích class, object, `__init__`, `self` và cách đóng gói thao tác thay đổi dữ liệu.
 
-**Từ vựng trong mục:** **Class** — lớp.
+### 4.1. Class — Khuôn mẫu đối tượng
 
-Class là khuôn mẫu để tạo các đối tượng có cùng kiểu thông tin và phương thức.
+**Từ vựng trong mục:** **Class** — lớp; **Method** — phương thức.
+
+**Class** giống bản thiết kế: định nghĩa những việc các đối tượng cùng loại có thể thực hiện. Ví dụ lớp `Student` có phương thức `greet()` trả một lời chào. Dòng `class Student:` tạo bản thiết kế, `def greet(self)` định nghĩa hành động; `self` đại diện cho đối tượng cụ thể đang gọi phương thức. Chỉ viết class chưa tạo hồ sơ học viên nào; `Student()` ở cuối mới tạo một đối tượng để gọi `greet()`.
 
 ```python
-class P:
-    pass
-print(P)
+class Student:
+    def greet(self):
+        return 'Xin chào'
+
+student = Student()
+print(student.greet())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-<class '__main__.P'>
+Xin chào
 ```
 
-*Tên module của lớp có thể khác `__main__` khi chạy trong môi trường khác.*
+Đối tượng `student` gọi phương thức được định nghĩa bên trong lớp `Student`.
 
-### 4.2. Object
+### 4.2. Object — Mỗi học viên là một đối tượng
 
-**Từ vựng trong mục:** **Object** — đối tượng.
+**Từ vựng trong mục:** **Object** — đối tượng; **Attribute** — thuộc tính.
 
-Object là một đối tượng cụ thể được tạo từ class; mỗi đối tượng có dữ liệu riêng.
+**Object** là một thể hiện được tạo từ class. Cùng một mẫu `Student`, ta có thể tạo hai học viên An và Lan, mỗi người có tên riêng. Thuộc tính `self.name` lưu tên **trên từng đối tượng**, vì vậy thay tên của An không tự thay tên của Lan. Ta dùng dấu chấm `student.name` để lấy một thuộc tính.
 
 ```python
-class P:
-    pass
-print(type(P()))
+class Student:
+    def __init__(self, name):
+        self.name = name
+
+a = Student('An')
+b = Student('Lan')
+print(a.name, b.name)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-<class '__main__.P'>
+An Lan
 ```
 
-*Tên module của lớp có thể khác `__main__` khi chạy trong môi trường khác.*
+Cả `a` và `b` đều thuộc lớp Student, nhưng chứa dữ liệu tên riêng.
 
-### 4.3. Constructor
+### 4.3. Constructor và self — Khởi tạo trạng thái
 
-**Từ vựng trong mục:** **Constructor** — hàm khởi tạo.
+**Từ vựng trong mục:** **Constructor** — bước khởi tạo; **__init__** — phương thức khởi tạo; **self** — chính đối tượng.
 
-`__init__` chạy khi tạo đối tượng để thiết lập các thuộc tính ban đầu.
+Khi tạo `Student('An', 8)`, Python tạo đối tượng mới rồi tự gọi `__init__` để thiết lập tên và điểm ban đầu. Tham số `self` là đối tượng vừa được tạo; `name` và `score` nhận đối số truyền khi gọi. Lệnh `self.score = score` lưu điểm bên trong học viên, không chỉ trong biến tạm của hàm. Điểm ở đây tính trên thang 10.
 
 ```python
-class P:
-    def __init__(self,x):
-        self.x=x
-print(P(3).x)
+class Student:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+student = Student('An', 8)
+print(student.name, student.score)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-3
+An 8
 ```
 
-### 4.4. Encapsulation
+Phương thức `__init__` đưa dữ liệu đầu vào thành hai thuộc tính của cùng hồ sơ học viên.
 
-**Từ vựng trong mục:** **Encapsulation** — đóng gói.
+### 4.4. Encapsulation — Đóng gói dữ liệu và quy tắc xử lý
 
-Đóng gói đặt dữ liệu và thao tác cùng trong đối tượng, giúp quản lý trạng thái dễ hơn.
+**Từ vựng trong mục:** **Encapsulation** — đóng gói; **Method** — phương thức; **Validation** — kiểm tra hợp lệ.
+
+**Đóng gói** nghĩa là quản lý dữ liệu cùng các thao tác tác động lên nó trong lớp. Ví dụ điểm chỉ được phép trong khoảng 0–10: lớp `Score` lưu số hiện tại tại `self._value` và có phương thức `set_value()` kiểm tra trước khi cập nhật. Dấu `_` là **quy ước** nhắc người lập trình không nên sửa trực tiếp, không phải cơ chế cấm truy cập tuyệt đối. Đọc điểm qua `get_value()` giúp giữ cùng một cách sử dụng.
 
 ```python
-class Counter:
+class Score:
     def __init__(self):
-        self.n=0
-    def add(self):
-        self.n+=1
-c=Counter()
-c.add()
-print(c.n)
+        self._value = 0
+
+    def set_value(self, x):
+        if not 0 <= x <= 10:
+            raise ValueError('Điểm ngoài khoảng 0–10')
+        self._value = x
+
+    def get_value(self):
+        return self._value
+
+score = Score()
+score.set_value(9)
+print(score.get_value())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-1
+9
 ```
 
+Điểm 9 hợp lệ nên được lưu và đọc lại. Với điểm 11, `set_value` sẽ báo `ValueError` thay vì ghi dữ liệu sai.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tạo hồ sơ học viên
@@ -124,14 +146,20 @@ print(c.n)
 
 **Vì sao chọn cách giải này?** Dùng class `Student` để gom tên và điểm của một học viên.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Tạo lớp `Student` với phương thức `__init__` nhận `name` và `score`.
+2. Lưu hai đối số vào thuộc tính của đối tượng bằng `self`.
+3. Tạo hồ sơ An với điểm 8 rồi in tên và điểm.
 
 ```python
 class Student:
-    def __init__(self,name,score):
-        self.name,self.score=name,score
-s=Student("An",8)
-print(s.name,s.score)
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+s = Student('An', 8)
+print(s.name, s.score)
 ```
 
 **Kết quả khi chạy:**
@@ -148,17 +176,24 @@ An 8
 
 **Vì sao chọn cách giải này?** Đối tượng `Cart` giữ list giá và có phương thức `add`, `total`.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Tạo giỏ hàng `Cart` có danh sách `prices` ban đầu rỗng.
+2. Dùng phương thức `add` thêm hai giá 100 và 200.
+3. Dùng phương thức `total` cộng các giá và in 300.
 
 ```python
 class Cart:
     def __init__(self):
-        self.prices=[]
-    def add(self,p):
-        self.prices.append(p)
+        self.prices = []
+
+    def add(self, price):
+        self.prices.append(price)
+
     def total(self):
         return sum(self.prices)
-c=Cart()
+
+c = Cart()
 c.add(100)
 c.add(200)
 print(c.total())
@@ -178,17 +213,23 @@ print(c.total())
 
 **Vì sao chọn cách giải này?** Phương thức `set` kiểm tra giới hạn trước khi cập nhật.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Khởi tạo đối tượng `Score` với giá trị ban đầu bằng 0.
+2. Gọi `set(9)` để kiểm tra điểm thuộc khoảng 0–10 rồi lưu giá trị.
+3. In điểm đã được lưu; nếu truyền 11, phương thức sẽ báo lỗi.
 
 ```python
 class Score:
     def __init__(self):
-        self.value=0
-    def set(self,x):
-        if not 0<=x<=10:
-            raise ValueError("score")
-        self.value=x
-s=Score()
+        self.value = 0
+
+    def set(self, x):
+        if not 0 <= x <= 10:
+            raise ValueError('score')
+        self.value = x
+
+s = Score()
 s.set(9)
 print(s.value)
 ```
@@ -207,15 +248,22 @@ print(s.value)
 
 **Vì sao chọn cách giải này?** `__str__` quy định cách đối tượng hiển thị khi truyền vào `print`.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Lưu mã `O01` và số tiền 150000 trong đối tượng `Order`.
+2. Định nghĩa `__str__` để tạo chuỗi hiển thị mã đơn và số tiền.
+3. Gọi `print(Order(...))` để Python tự dùng `__str__`.
 
 ```python
 class Order:
-    def __init__(self,code,total):
-        self.code,self.total=code,total
+    def __init__(self, code, total):
+        self.code = code
+        self.total = total
+
     def __str__(self):
-        return f"{self.code}: {self.total} VND"
-print(Order("O01",150000))
+        return f'{self.code}: {self.total} VND'
+
+print(Order('O01', 150000))
 ```
 
 **Kết quả khi chạy:**
@@ -232,15 +280,20 @@ O01: 150000 VND
 
 **Vì sao chọn cách giải này?** Mỗi lần gọi `Sensor()` tạo một đối tượng có thuộc tính `value` riêng.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Tạo hai đối tượng `Sensor(20)` và `Sensor(40)` độc lập.
+2. Cập nhật `a.value` thành 25, không sửa `b.value`.
+3. In giá trị của cả hai để thấy `25 40`.
 
 ```python
 class Sensor:
-    def __init__(self,value):
-        self.value=value
-a,b=Sensor(20),Sensor(40)
-a.value=25
-print(a.value,b.value)
+    def __init__(self, value):
+        self.value = value
+
+a, b = Sensor(20), Sensor(40)
+a.value = 25
+print(a.value, b.value)
 ```
 
 **Kết quả khi chạy:**
@@ -251,8 +304,11 @@ print(a.value,b.value)
 
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
-- Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
+- `class` là khuôn mẫu; đối tượng chỉ xuất hiện khi gọi lớp như `Student('An', 8)`.
+- `self.name` là thuộc tính của đối tượng, không phải biến dùng chung giữa mọi học viên. Mỗi đối tượng có trạng thái riêng.
+- `__init__` chuẩn bị dữ liệu ban đầu, còn `__str__` quy định cách hiển thị; hai phương thức có mục đích khác nhau.
+- `self._value` dùng dấu gạch dưới theo quy ước, không tự tạo thuộc tính hoàn toàn riêng tư. Muốn bảo vệ dữ liệu cần kiểm soát cách cập nhật và kiểm tra hợp lệ.
+- Điểm vượt 0–10 sẽ phát sinh `ValueError` trong ví dụ `Score`; không bỏ qua xử lý lỗi ở chương trình thực tế.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
