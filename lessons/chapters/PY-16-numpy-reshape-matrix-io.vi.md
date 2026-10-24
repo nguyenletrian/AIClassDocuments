@@ -30,59 +30,76 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `np.save()/np.load()` | Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy |
 
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Reshape
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng.
 
-Đổi shape nhưng giữ số phần tử. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+`reshape` đổi cách sắp hàng/cột mà không đổi tổng số phần tử.
 
 ```python
 import numpy as np
 print(np.arange(6).reshape(2,3))
 ```
 
-**Tự kiểm tra:** Reshape có nghĩa gì? **Đáp án:** Đổi shape nhưng giữ số phần tử.
+**Kết quả khi chạy:**
+
+```text
+[[0 1 2]
+ [3 4 5]]
+```
 
 ### 4.2. Transpose
 
 **Từ vựng trong mục:** **Transpose** — chuyển vị.
 
-Đổi trục hàng và cột. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Chuyển vị `.T` hoán đổi hàng và cột của mảng hai chiều.
 
 ```python
 import numpy as np
 print(np.ones((2,3)).T.shape)
 ```
 
-**Tự kiểm tra:** Transpose có nghĩa gì? **Đáp án:** Đổi trục hàng và cột.
+**Kết quả khi chạy:**
+
+```text
+(3, 2)
+```
 
 ### 4.3. Matrix multiply
 
 **Từ vựng trong mục:** **Matrix multiply** — nhân ma trận.
 
-Tạo kết quả bằng phép nhân tuyến tính. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Toán tử `@` nhân ma trận hoặc tính tích vô hướng; kích thước hai phía phải phù hợp.
 
 ```python
 import numpy as np
 print(np.eye(2)@np.ones(2))
 ```
 
-**Tự kiểm tra:** Matrix multiply có nghĩa gì? **Đáp án:** Tạo kết quả bằng phép nhân tuyến tính.
+**Kết quả khi chạy:**
+
+```text
+[1. 1.]
+```
 
 ### 4.4. Serialization
 
 **Từ vựng trong mục:** **Serialization** — lưu dữ liệu.
 
-Ghi mảng vào tệp để đọc lại. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+`np.save` lưu mảng thành file `.npy`, `np.load` đọc lại; `tolist()` chỉ chuyển mảng thành List, không ghi file.
 
 ```python
 import numpy as np
 print(np.array([1,2]).tolist())
 ```
 
-**Tự kiểm tra:** Serialization có nghĩa gì? **Đáp án:** Ghi mảng vào tệp để đọc lại.
+**Kết quả khi chạy:**
+
+```text
+[1, 2]
+```
 
 ## 5. Năm tình huống thực tế
 
@@ -90,12 +107,11 @@ print(np.array([1,2]).tolist())
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng.
 
-**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc tổ chức dữ liệu đo theo giờ. Thông tin đầu vào: 6 số đo nhiệt độ giờ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Thiết bị ghi sáu mức nhiệt độ 20, 21, 22, 23, 24, 25 °C theo thứ tự. Sắp dữ liệu thành bảng hai hàng, ba cột.
 
-**Vì sao chọn cách giải này?** reshape đổi 6 giá trị thành 2 ngày × 3 giờ.
+**Vì sao chọn cách giải này?** `reshape(2,3)` giữ nguyên 6 số nhưng đổi hình dạng.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -103,17 +119,24 @@ values=np.array([20,21,22,23,24,25])
 print(values.reshape(2,3))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[20 21 22]
+ [23 24 25]]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 2 — Đổi hàng cột báo cáo
 
 **Từ vựng trong mục:** **Transpose** — chuyển vị.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc đổi hàng cột báo cáo. Thông tin đầu vào: 2 SV × 3 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Trung tâm có bảng điểm hai học viên, ba môn: `(8,7,9)` và `(6,5,8)`. Chuyển hàng thành cột và in kích thước kết quả.
 
-**Vì sao chọn cách giải này?** Transpose làm môn thành hàng, học sinh thành cột.
+**Vì sao chọn cách giải này?** `.T` chuyển từ bảng 2×3 thành 3×2.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -121,17 +144,23 @@ scores=np.array([[8,7,9],[6,5,8]])
 print(scores.T.shape)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+(3, 2)
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 3 — Điểm tổng kết có trọng số
 
 **Từ vựng trong mục:** **Matrix multiply** — nhân ma trận.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc điểm tổng kết có trọng số. Thông tin đầu vào: 3 môn, trọng số cộng bằng 1. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Một học viên có điểm ba thành phần `[8,7,9]`, trọng số tương ứng `[0.2,0.3,0.5]`. Tính điểm tổng kết theo trọng số.
 
-**Vì sao chọn cách giải này?** Nhân vector điểm với vector trọng số.
+**Vì sao chọn cách giải này?** Tích vô hướng `@` nhân từng điểm với trọng số rồi cộng.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -139,17 +168,23 @@ scores=np.array([8,7,9]);w=np.array([.2,.3,.5])
 print(scores@w)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+8.2
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 4 — Tạo đặc trưng tổng hợp
 
 **Từ vựng trong mục:** **Serialization** — lưu dữ liệu.
 
-**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc tạo đặc trưng tổng hợp. Thông tin đầu vào: 2 SV × 3 môn, tạo 2 đặc trưng. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Hai học viên có ba điểm `(8,7,9)` và `(6,5,8)`, cần tạo hai điểm tổng hợp theo ma trận trọng số trong code. In bảng điểm tổng hợp của hai học viên.
 
-**Vì sao chọn cách giải này?** Nhân matrix học sinh × matrix trọng số.
+**Vì sao chọn cách giải này?** Phép `X @ W` nhân mảng dữ liệu 2×3 với trọng số 3×2, cho bảng 2×2.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -158,17 +193,24 @@ W=np.array([[.5,0],[.5,.5],[0,.5]])
 print(X@W)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[7.5 8. ]
+ [5.5 6.5]]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 5 — Lưu và đọc mảng an toàn
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng.
 
-**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc lưu và đọc mảng an toàn. Thông tin đầu vào: Mảng [3,5,7]. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Nhà phân tích có dãy số `[3,5,7]` cần lưu để đọc lại. Ghi vào file tạm `.npy`, tải lại và in đúng các số.
 
-**Vì sao chọn cách giải này?** Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo.
+**Vì sao chọn cách giải này?** `np.save` và `np.load(..., allow_pickle=False)` dùng định dạng mảng NumPy.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -180,6 +222,13 @@ with TemporaryDirectory() as folder:
     print(np.load(p,allow_pickle=False))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[3 5 7]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ## 6. Sai lầm thường gặp
 
