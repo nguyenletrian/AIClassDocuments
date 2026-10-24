@@ -1,6 +1,5 @@
 # PY-10 — Class, Object, constructor và đóng gói
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `self.attribute` | Truy cập thuộc tính thuộc về chính đối tượng |
 | `__str__/set_*/get_*` | Hiển thị và kiểm tra thao tác thay đổi giá trị |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
 
 ## 4. Khái niệm và ví dụ nhỏ
 
