@@ -22,6 +22,32 @@ Mỗi `### Tình huống N` phải có **một dòng/đoạn `**Tình huống th
 
 **Sau đề bài:** `**Vì sao chọn cách này?**` giải thích phép toán/phương pháp phù hợp; `**Quy trình:**` nêu các bước **riêng cho tình huống** (không lặp các bước chung chung kiểu "xác định đầu vào → in kết quả" cho cả 5 bài); tiếp đến code và giải thích đầu ra cụ thể. Không lặp lại dữ liệu ở một nhãn `**Dữ liệu:**` riêng. **Giữ nguyên dữ liệu, ngưỡng và điều kiện thật trong code**, nếu không suy ra được ý nghĩa thì phải rà code, không tự đặt chính sách khác.
 
+### Định dạng code Python dễ đọc — bắt buộc
+
+- Mọi ví dụ Python phải đặt trong khối `python` với **mỗi lệnh trên một dòng riêng**, các khối `class`, `def`, `if/elif/else`, `for`, `while`, `try/except`, `with` xuống dòng và **thụt lề 4 dấu cách** ở thân khối. Không dùng dạng nén `def f(x): return x`, `if ok: print(...)`, hay nhiều câu lệnh ngăn bởi dấu `;` trên cùng dòng; ví dụ:
+
+```python
+class Counter:
+    def __init__(self):
+        self.n = 0
+
+    def add(self):
+        self.n += 1
+
+c = Counter()
+c.add()
+print(c.n)
+```
+
+**Kết quả khi chạy:**
+
+```text
+1
+```
+
+- Chỉ thay đổi **trình bày code**, không tự ý thay đổi tên biến, logic, thứ tự chạy, giá trị in ra, ví dụ, hoặc xóa lời giải có ý nghĩa. Với `lambda`, biểu thức một dòng là cú pháp Python hợp lệ và được giữ nguyên.
+- Xóa các dòng kết luận rập khuôn như `**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.`; thay bằng **kết quả thật ngay dưới code** và lời giải thích cụ thể nếu có ích. Không để dòng Kết quả chung chung lặp với `Kết quả khi chạy`.
+
 ### Hiển thị kết quả ngay sau ví dụ Python
 
 Sau **mọi** khối code minh họa, thêm dòng **`**Kết quả khi chạy:**`** và một khối `text` chứa đúng những gì chương trình in ra. Không yêu cầu người học tự chạy để mới thấy kết quả. Nếu code không in gì, ghi rõ **“Không in ra màn hình”** và nêu trạng thái cuối nếu có ích. Không tự nhận xét một giá trị được in nếu chương trình chưa `print` giá trị đó; không thêm chú thích `#` giả làm output trong code Python.
