@@ -17,7 +17,10 @@
 2. **English vocabulary** liên quan đến toàn bài, đi trước tất cả các API và định nghĩa.
 3. **Thư viện, hàm, API Python**, bảng ngắn giải thích từng tên và cách dùng, ví dụ đầu vào/đầu ra.
 4. **Khái niệm và các khái niệm liên quan**: giải thích bằng lời dễ hiểu, ví dụ gần gũi trước rồi đến công thức tính thể hiện bằng **code Python nhỏ**. Mỗi nhóm Feature / Vector / Matrix, Mean / Variance... đều cần định nghĩa riêng; không dùng tiêu đề “Subconcept”; bỏ chứng minh toán học dài.
+   - Nhắc lại các khái niệm được sử dụng **ngay tại từng tiểu mục** rồi tạo một ví dụ tăng tiến: nhiều đối tượng → mỗi đối tượng một vector → xếp vector thành một matrix → phép tính → đọc shape/kết quả. Không yêu cầu sinh viên tự suy đoán dữ liệu từ một dãy số trần.
+   - Mọi bảng/`np.array`/`DataFrame`/dataset đều phải chú thích **mỗi hàng là mẫu gì, mỗi cột là feature nào, đơn vị đo gì, bao nhiêu hàng/cột, dữ liệu thật hay minh họa**. Với dữ liệu có nhãn, phân biệt nhãn mục tiêu với cột đầu vào. Chú thích bước xử lý `BƯỚC 1/2/3...` và giải thích tại sao code như vậy.
 5. **Khoảng 5 vấn đề thực tiễn**: bối cảnh và nhu cầu → khái niệm phù hợp → **vì sao chọn phương pháp này thay vì phương pháp khác, lợi ích/giới hạn** → quy trình giải → code có chú thích **vì sao viết như vậy** → cách kiểm tra và hạn chế.
+   - Trước code mỗi tình huống, công bố metadata của dataset: đơn vị, ý nghĩa từng cột, ý nghĩa từng hàng, số mẫu và provenance. Trong code khởi tạo nhiều vector rõ ràng khi sinh viên cần hiểu quá trình hình thành matrix.
 6. **20 English multiple-choice questions** với bốn đáp án mỗi câu, đủ bảng đáp án và giải thích bằng tiếng Anh, bao quát thuật ngữ, Python, khái niệm và các quyết định thực tiễn.
 7. **Liên hệ bài tiếp theo**, duy trì sơ đồ logic tiến trình.
 
