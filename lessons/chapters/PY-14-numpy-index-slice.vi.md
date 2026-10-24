@@ -486,26 +486,26 @@ D. To select the intended data without swapping dimensions — Để chọn đú
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | The first array element is indexed by zero.~Phần tử đầu tiên được đánh chỉ số 0. | undefined |
-| Q2 | **B** | NumPy uses zero-based row and column indices in that order.~NumPy dùng chỉ số hàng rồi cột, cả hai bắt đầu từ 0. | undefined |
-| Q3 | **C** | Negative indices count from the end; -1 is last.~Chỉ số âm đếm từ cuối, -1 là phần tử cuối cùng. | undefined |
-| Q4 | **D** | The stop endpoint in Python slicing is exclusive.~Giới hạn kết thúc của slice không được lấy. | undefined |
-| Q5 | **A** | The colon means all entries along the row dimension.~Dấu hai chấm nghĩa là lấy toàn bộ theo chiều hàng. | undefined |
-| Q6 | **B** | The first index chooses a row; the colon retains all columns.~Chỉ số đầu chọn hàng, dấu : giữ mọi cột. | undefined |
-| Q7 | **C** | Conditions create a mask used to filter the array.~Điều kiện tạo mặt nạ để lọc phần tử phù hợp. | undefined |
-| Q8 | **D** | The comparison is applied to values, not to their indices.~Phép so sánh áp dụng trên giá trị phần tử, không phải chỉ số. | undefined |
-| Q9 | **A** | An index list selects the specified positions, even when nonadjacent.~Danh sách chỉ số chọn đúng các vị trí được nêu, dù không liền nhau. | undefined |
-| Q10 | **B** | Index arrays enable arbitrary selections rather than only regular slices.~Mảng chỉ số cho phép chọn vị trí rời rạc thay vì đoạn chỉ số liên tiếp. | undefined |
-| Q11 | **C** | A basic slice generally shares memory, so editing it may affect the source.~Slice cơ bản thường dùng chung bộ nhớ, sửa nó có thể ảnh hưởng mảng gốc. | undefined |
-| Q12 | **D** | Advanced indexing commonly copies selected data, unlike basic slicing.~Indexing nâng cao thường sao chép phần dữ liệu được chọn, khác basic slicing. | undefined |
-| Q13 | **A** | An independent copy prevents edits from changing the original array.~Bản sao độc lập giúp phép sửa không thay đổi mảng gốc. | undefined |
-| Q14 | **B** | All three rows remain while column index 1 selects the second column.~Ba hàng được giữ, còn chỉ số cột 1 chọn cột thứ hai. | undefined |
-| Q15 | **C** | The colon preserves rows and the index list selects nonadjacent columns.~Dấu : giữ mọi hàng, List chỉ số chọn hai cột rời nhau. | undefined |
-| Q16 | **D** | Omitting start means start at zero; stop three is excluded.~Bỏ start nghĩa là bắt đầu từ 0, dừng trước chỉ số 3. | undefined |
-| Q17 | **A** | The column comparison builds a row mask that selects complete rows.~So sánh cột đầu tạo mặt nạ theo hàng để lọc nguyên các hàng. | undefined |
-| Q18 | **B** | A scalar index must refer to a position within the array's dimension.~Chỉ số đơn phải nằm trong giới hạn của chiều dữ liệu tương ứng. | undefined |
-| Q19 | **C** | Boolean arrays encode which positions pass a condition, while index arrays name positions.~Mảng Boolean đánh dấu vị trí thỏa điều kiện, còn mảng chỉ số gọi trực tiếp vị trí. | undefined |
-| Q20 | **D** | The same syntax can represent different information depending on how data is organized.~Cùng một cú pháp có thể lấy sai thông tin nếu hiểu nhầm cách tổ chức bảng. | undefined |
+| Q1 | **A** | The first array element is indexed by zero. | Phần tử đầu tiên được đánh chỉ số 0. |
+| Q2 | **B** | NumPy uses zero-based row and column indices in that order. | NumPy dùng chỉ số hàng rồi cột, cả hai bắt đầu từ 0. |
+| Q3 | **C** | Negative indices count from the end; -1 is last. | Chỉ số âm đếm từ cuối, -1 là phần tử cuối cùng. |
+| Q4 | **D** | The stop endpoint in Python slicing is exclusive. | Giới hạn kết thúc của slice không được lấy. |
+| Q5 | **A** | The colon means all entries along the row dimension. | Dấu hai chấm nghĩa là lấy toàn bộ theo chiều hàng. |
+| Q6 | **B** | The first index chooses a row; the colon retains all columns. | Chỉ số đầu chọn hàng, dấu : giữ mọi cột. |
+| Q7 | **C** | Conditions create a mask used to filter the array. | Điều kiện tạo mặt nạ để lọc phần tử phù hợp. |
+| Q8 | **D** | The comparison is applied to values, not to their indices. | Phép so sánh áp dụng trên giá trị phần tử, không phải chỉ số. |
+| Q9 | **A** | An index list selects the specified positions, even when nonadjacent. | Danh sách chỉ số chọn đúng các vị trí được nêu, dù không liền nhau. |
+| Q10 | **B** | Index arrays enable arbitrary selections rather than only regular slices. | Mảng chỉ số cho phép chọn vị trí rời rạc thay vì đoạn chỉ số liên tiếp. |
+| Q11 | **C** | A basic slice generally shares memory, so editing it may affect the source. | Slice cơ bản thường dùng chung bộ nhớ, sửa nó có thể ảnh hưởng mảng gốc. |
+| Q12 | **D** | Advanced indexing commonly copies selected data, unlike basic slicing. | Indexing nâng cao thường sao chép phần dữ liệu được chọn, khác basic slicing. |
+| Q13 | **A** | An independent copy prevents edits from changing the original array. | Bản sao độc lập giúp phép sửa không thay đổi mảng gốc. |
+| Q14 | **B** | All three rows remain while column index 1 selects the second column. | Ba hàng được giữ, còn chỉ số cột 1 chọn cột thứ hai. |
+| Q15 | **C** | The colon preserves rows and the index list selects nonadjacent columns. | Dấu : giữ mọi hàng, List chỉ số chọn hai cột rời nhau. |
+| Q16 | **D** | Omitting start means start at zero; stop three is excluded. | Bỏ start nghĩa là bắt đầu từ 0, dừng trước chỉ số 3. |
+| Q17 | **A** | The column comparison builds a row mask that selects complete rows. | So sánh cột đầu tạo mặt nạ theo hàng để lọc nguyên các hàng. |
+| Q18 | **B** | A scalar index must refer to a position within the array's dimension. | Chỉ số đơn phải nằm trong giới hạn của chiều dữ liệu tương ứng. |
+| Q19 | **C** | Boolean arrays encode which positions pass a condition, while index arrays name positions. | Mảng Boolean đánh dấu vị trí thỏa điều kiện, còn mảng chỉ số gọi trực tiếp vị trí. |
+| Q20 | **D** | The same syntax can represent different information depending on how data is organized. | Cùng một cú pháp có thể lấy sai thông tin nếu hiểu nhầm cách tổ chức bảng. |
 
 ## 8. Nối bài tiếp theo
 
