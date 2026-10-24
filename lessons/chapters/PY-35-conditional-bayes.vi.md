@@ -7,7 +7,9 @@
 
 `Biến cố → Điều kiện → Bayes → Đánh giá mô hình AI`
 
-Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất, thống kê và các bước học máy.
+**Học xong dùng để làm gì?** Cập nhật xác suất dựa trên kết quả xét nghiệm hoặc tín hiệu mới, phân biệt xác suất tiên nghiệm/hậu nghiệm.
+
+**Kết nối kiến thức tiếp theo:** PY-36 mô tả mọi kết quả có thể xảy ra bằng phân phối xác suất.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -273,6 +275,11 @@ C. A posterior from evidence, likelihood and prior — Xác suất sau bằng ch
 
 D. Overall chance weighted over a partition — Xác suất chung theo trọng số một phân hoạch
 
+**Đáp án: A**
+
+**Giải thích:** Nó thu hẹp mẫu nền về nhóm B.
+
+
 **Q2. What is independence of events? — Độc lập giữa hai biến cố là gì?**
 
 A. Probability of A given B has occurred — Xác suất A khi biết B đã xảy ra
@@ -282,6 +289,11 @@ B. One event does not change the probability of the other — Biến cố này k
 C. A posterior from evidence, likelihood and prior — Xác suất sau bằng chứng từ likelihood và prior
 
 D. Overall chance weighted over a partition — Xác suất chung theo trọng số một phân hoạch
+
+**Đáp án: B**
+
+**Giải thích:** Độc lập nghĩa là biến cố này không đổi xác suất biến cố kia.
+
 
 **Q3. What does Bayes' theorem compute? — Định lý Bayes tính gì?**
 
@@ -293,6 +305,11 @@ C. A posterior from evidence, likelihood and prior — Xác suất sau bằng ch
 
 D. Overall chance weighted over a partition — Xác suất chung theo trọng số một phân hoạch
 
+**Đáp án: C**
+
+**Giải thích:** Bayes cập nhật tỷ lệ nền từ bằng chứng.
+
+
 **Q4. What does total probability calculate? — Xác suất toàn phần tính gì?**
 
 A. Probability of A given B has occurred — Xác suất A khi biết B đã xảy ra
@@ -302,6 +319,11 @@ B. One event does not change the probability of the other — Biến cố này k
 C. A posterior from evidence, likelihood and prior — Xác suất sau bằng chứng từ likelihood và prior
 
 D. Overall chance weighted over a partition — Xác suất chung theo trọng số một phân hoạch
+
+**Đáp án: D**
+
+**Giải thích:** Xác suất toàn phần dùng tỷ trọng của từng nhóm.
+
 
 **Q5. Which formula gives P(A given B)? — Công thức P(A khi biết B) là gì?**
 
@@ -313,6 +335,11 @@ C. `likelihood*prior/evidence` — `likelihood*prior/evidence`
 
 D. Disjoint and exhaustive — Rời nhau và phủ đủ
 
+**Đáp án: A**
+
+**Giải thích:** Lấy xác suất giao chia xác suất biến cố điều kiện.
+
+
 **Q6. Which equation expresses event independence? — Đẳng thức nào mô tả biến cố độc lập?**
 
 A. `P(A and B)/P(B)` when P(B)>0 — `P(A và B)/P(B)` khi P(B)>0
@@ -322,6 +349,11 @@ B. `P(A and B)=P(A)*P(B)` — `P(A và B)=P(A)*P(B)`
 C. `likelihood*prior/evidence` — `likelihood*prior/evidence`
 
 D. Disjoint and exhaustive — Rời nhau và phủ đủ
+
+**Đáp án: B**
+
+**Giải thích:** Độc lập khi xác suất giao bằng tích hai xác suất.
+
 
 **Q7. Which rule gives posterior after a positive signal? — Quy tắc nào tính posterior khi tín hiệu dương?**
 
@@ -333,6 +365,11 @@ C. `likelihood*prior/evidence` — `likelihood*prior/evidence`
 
 D. Disjoint and exhaustive — Rời nhau và phủ đủ
 
+**Đáp án: C**
+
+**Giải thích:** Bayes chuẩn hóa likelihood nhân prior bằng xác suất bằng chứng.
+
+
 **Q8. What condition is required for total probability groups? — Các nhóm dùng xác suất toàn phần phải thế nào?**
 
 A. `P(A and B)/P(B)` when P(B)>0 — `P(A và B)/P(B)` khi P(B)>0
@@ -342,6 +379,11 @@ B. `P(A and B)=P(A)*P(B)` — `P(A và B)=P(A)*P(B)`
 C. `likelihood*prior/evidence` — `likelihood*prior/evidence`
 
 D. Disjoint and exhaustive — Rời nhau và phủ đủ
+
+**Đáp án: D**
+
+**Giải thích:** Nhóm phải không giao nhau và phủ toàn bộ.
+
 
 **Q9. What does prior mean? — Prior có nghĩa gì?**
 
@@ -353,6 +395,11 @@ C. Updated hypothesis probability after evidence — Xác suất giả thuyết 
 
 D. Probability of positive signal when no defect exists — Xác suất báo dương khi thực tế không có lỗi
 
+**Đáp án: A**
+
+**Giải thích:** Prior là xác suất nền.
+
+
 **Q10. What does likelihood mean? — Likelihood biểu thị gì?**
 
 A. Probability before current evidence — Xác suất trước khi có bằng chứng hiện tại
@@ -362,6 +409,11 @@ B. Probability of evidence under a hypothesis — Xác suất bằng chứng khi
 C. Updated hypothesis probability after evidence — Xác suất giả thuyết được cập nhật sau bằng chứng
 
 D. Probability of positive signal when no defect exists — Xác suất báo dương khi thực tế không có lỗi
+
+**Đáp án: B**
+
+**Giải thích:** Likelihood xét bằng chứng khi giả thuyết đúng.
+
 
 **Q11. What does posterior mean? — Posterior là gì?**
 
@@ -373,6 +425,11 @@ C. Updated hypothesis probability after evidence — Xác suất giả thuyết 
 
 D. Probability of positive signal when no defect exists — Xác suất báo dương khi thực tế không có lỗi
 
+**Đáp án: C**
+
+**Giải thích:** Posterior đã tính đến bằng chứng quan sát.
+
+
 **Q12. What is a false-positive rate? — Tỷ lệ dương giả là gì?**
 
 A. Probability before current evidence — Xác suất trước khi có bằng chứng hiện tại
@@ -382,6 +439,11 @@ B. Probability of evidence under a hypothesis — Xác suất bằng chứng khi
 C. Updated hypothesis probability after evidence — Xác suất giả thuyết được cập nhật sau bằng chứng
 
 D. Probability of positive signal when no defect exists — Xác suất báo dương khi thực tế không có lỗi
+
+**Đáp án: D**
+
+**Giải thích:** Dương giả là cảnh báo dương ở trường hợp không lỗi.
+
 
 **Q13. What is P(A given B) if 20 of 100 B cases have A? — P(A khi B) là gì nếu 20 trên 100 ca B có A?**
 
@@ -393,6 +455,11 @@ C. 0.3 — 0.3
 
 D. No; base rate and false positives also matter — Không; còn tỷ lệ nền và dương giả
 
+**Đáp án: A**
+
+**Giải thích:** 20 chia 100 bằng 0.2.
+
+
 **Q14. What is the total with group shares 0.6,0.4 and rates 0.8,0.2? — Tỷ lệ chung từ nhóm 0.6/0.4 với xác suất 0.8/0.2 là gì?**
 
 A. 0.2 — 0.2
@@ -402,6 +469,11 @@ B. 0.56 — 0.56
 C. 0.3 — 0.3
 
 D. No; base rate and false positives also matter — Không; còn tỷ lệ nền và dương giả
+
+**Đáp án: B**
+
+**Giải thích:** 0.6×0.8+0.4×0.2 bằng 0.56.
+
 
 **Q15. If P(A)=0.5 and P(B)=0.6 and they are independent, what is P(A and B)? — Nếu A, B độc lập có xác suất 0.5 và 0.6 thì P(A và B) là gì?**
 
@@ -413,6 +485,11 @@ C. 0.3 — 0.3
 
 D. No; base rate and false positives also matter — Không; còn tỷ lệ nền và dương giả
 
+**Đáp án: C**
+
+**Giải thích:** Với biến cố độc lập, 0.5×0.6=0.3.
+
+
 **Q16. If an alert has 99% sensitivity, does that mean 99% of alerts are true defects? — Độ nhạy 99% có nghĩa 99% cảnh báo là lỗi thật không?**
 
 A. 0.2 — 0.2
@@ -422,6 +499,11 @@ B. 0.56 — 0.56
 C. 0.3 — 0.3
 
 D. No; base rate and false positives also matter — Không; còn tỷ lệ nền và dương giả
+
+**Đáp án: D**
+
+**Giải thích:** Độ nhạy và posterior xét hai nhóm mẫu nền khác nhau.
+
 
 **Q17. Why does Bayes need the base rate? — Vì sao Bayes cần tỷ lệ nền?**
 
@@ -433,6 +515,11 @@ C. That viewing ads caused purchases — Việc xem quảng cáo gây ra hành v
 
 D. They condition on different reference groups — Chúng xét trên hai nhóm điều kiện khác nhau
 
+**Đáp án: A**
+
+**Giải thích:** Sự kiện hiếm có thể khiến phần lớn cảnh báo là dương giả.
+
+
 **Q18. Why must P(B)>0 for P(A given B)? — Vì sao cần P(B)>0 khi tính P(A khi B)?**
 
 A. Rare cases can yield many false alarms among positives — Sự kiện hiếm có thể làm dương giả chiếm nhiều trong cảnh báo
@@ -442,6 +529,11 @@ B. The formula divides by P(B) — Vì công thức chia cho P(B)
 C. That viewing ads caused purchases — Việc xem quảng cáo gây ra hành vi mua
 
 D. They condition on different reference groups — Chúng xét trên hai nhóm điều kiện khác nhau
+
+**Đáp án: B**
+
+**Giải thích:** Chia cho 0 không xác định.
+
 
 **Q19. What does an observational conditional purchase rate not prove? — Tỷ lệ mua có điều kiện trong quan sát không chứng minh gì?**
 
@@ -453,6 +545,11 @@ C. That viewing ads caused purchases — Việc xem quảng cáo gây ra hành v
 
 D. They condition on different reference groups — Chúng xét trên hai nhóm điều kiện khác nhau
 
+**Đáp án: C**
+
+**Giải thích:** Liên hệ quan sát không tự chứng minh nhân quả.
+
+
 **Q20. What distinguishes P(A given B) from P(B given A)? — P(A khi B) khác P(B khi A) ở đâu?**
 
 A. Rare cases can yield many false alarms among positives — Sự kiện hiếm có thể làm dương giả chiếm nhiều trong cảnh báo
@@ -463,30 +560,9 @@ C. That viewing ads caused purchases — Việc xem quảng cáo gây ra hành v
 
 D. They condition on different reference groups — Chúng xét trên hai nhóm điều kiện khác nhau
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | It restricts the reference population to B. | Nó thu hẹp mẫu nền về nhóm B. |
-| Q2 | **B** | Independence prevents one event from changing the other event's chance. | Độc lập nghĩa là biến cố này không đổi xác suất biến cố kia. |
-| Q3 | **C** | Bayes updates a prior using observed evidence. | Bayes cập nhật tỷ lệ nền từ bằng chứng. |
-| Q4 | **D** | Total probability weights rates by group sizes. | Xác suất toàn phần dùng tỷ trọng của từng nhóm. |
-| Q5 | **A** | Joint probability divided by the conditioning probability. | Lấy xác suất giao chia xác suất biến cố điều kiện. |
-| Q6 | **B** | The joint probability equals the product for independence. | Độc lập khi xác suất giao bằng tích hai xác suất. |
-| Q7 | **C** | Bayes normalizes likelihood times prior by the evidence rate. | Bayes chuẩn hóa likelihood nhân prior bằng xác suất bằng chứng. |
-| Q8 | **D** | Groups cannot overlap and must cover the sample space. | Nhóm phải không giao nhau và phủ toàn bộ. |
-| Q9 | **A** | Prior is the baseline probability. | Prior là xác suất nền. |
-| Q10 | **B** | Likelihood conditions evidence on the hypothesis. | Likelihood xét bằng chứng khi giả thuyết đúng. |
-| Q11 | **C** | Posterior accounts for the observed evidence. | Posterior đã tính đến bằng chứng quan sát. |
-| Q12 | **D** | False positive refers to a positive test in a negative case. | Dương giả là cảnh báo dương ở trường hợp không lỗi. |
-| Q13 | **A** | Twenty divided by one hundred equals 0.2. | 20 chia 100 bằng 0.2. |
-| Q14 | **B** | 0.6×0.8+0.4×0.2 equals 0.56. | 0.6×0.8+0.4×0.2 bằng 0.56. |
-| Q15 | **C** | For independent events, 0.5×0.6=0.3. | Với biến cố độc lập, 0.5×0.6=0.3. |
-| Q16 | **D** | Sensitivity and posterior condition on different populations. | Độ nhạy và posterior xét hai nhóm mẫu nền khác nhau. |
-| Q17 | **A** | Rare events can make most alerts false even with strong sensitivity. | Sự kiện hiếm có thể khiến phần lớn cảnh báo là dương giả. |
-| Q18 | **B** | Division by zero would be undefined. | Chia cho 0 không xác định. |
-| Q19 | **C** | Observed association does not establish causation. | Liên hệ quan sát không tự chứng minh nhân quả. |
-| Q20 | **D** | Reversing the condition changes the denominator. | Đảo điều kiện làm thay đổi mẫu số. |
+**Giải thích:** Đảo điều kiện làm thay đổi mẫu số.
 
 ## 8. Liên hệ bài tiếp theo
 
