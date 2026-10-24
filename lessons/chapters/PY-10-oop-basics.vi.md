@@ -324,6 +324,7 @@ C. A concrete instance created from a class — Instance cụ thể được t�
 
 D. A value stored in one object — Giá trị lưu trong một đối tượng
 
+
 **Q2. What is an object or instance? — Object hay instance là gì?**
 
 A. A statement defining a new class — Câu lệnh định nghĩa class mới
@@ -333,6 +334,7 @@ B. A concrete instance of a class — Instance cụ thể của class
 C. An attribute name only — Chỉ tên thuộc tính
 
 D. A block of import statements — Khối lệnh import
+
 
 **Q3. What is an attribute? — Attribute là gì?**
 
@@ -344,6 +346,7 @@ C. A syntax token beginning every class — Token cú pháp bắt đầu mọi c
 
 D. A class declaration — Câu lệnh khai báo class
 
+
 **Q4. What is an instance method? — Phương thức đối tượng là gì?**
 
 A. An object stored in a list — Đối tượng được lưu trong List
@@ -353,6 +356,7 @@ B. A value that cannot be called — Giá trị không thể gọi
 C. A class-defined function operating on an instance — Hàm định nghĩa trong class thao tác trên instance
 
 D. A class with no methods — Class không có phương thức
+
 
 **Q5. Which syntax begins a class definition? — Cú pháp nào mở đầu định nghĩa class?**
 
@@ -364,6 +368,7 @@ C. `class Student:` — `class Student:`
 
 D. `Student()` — `Student()`
 
+
 **Q6. If `Student` requires no constructor arguments, which expression creates a Student instance? — Nếu `Student` không yêu cầu đối số khởi tạo, biểu thức nào tạo một instance Student?**
 
 A. `Student()` — `Student()`
@@ -373,6 +378,7 @@ B. `def Student:` — `def Student:`
 C. `self.Student` — `self.Student`
 
 D. `class Student:` — `class Student:`
+
 
 **Q7. Which special method initializes instance attributes? — Phương thức đặc biệt nào khởi tạo thuộc tính đối tượng?**
 
@@ -384,6 +390,7 @@ C. `__str__` — `__str__`
 
 D. `__init__` — `__init__`
 
+
 **Q8. What does `self` refer to in an instance method? — `self` trong phương thức đối tượng chỉ gì?**
 
 A. The class object, never an instance — Đối tượng class, không bao giờ là instance
@@ -393,6 +400,7 @@ B. The first attribute value — Giá trị thuộc tính đầu tiên
 C. A newly created unrelated object — Đối tượng khác vừa được tạo
 
 D. The instance receiving the method call — Instance nhận lời gọi phương thức
+
 
 **Q9. What does `self.name = name` do? — `self.name = name` làm gì?**
 
@@ -404,6 +412,7 @@ C. Changes the class's name — Đổi tên class
 
 D. Calls a method named `name` — Gọi phương thức tên `name`
 
+
 **Q10. What does `__str__` normally customize? — `__str__` thường tùy chỉnh điều gì?**
 
 A. The readable string representation of an object — Biểu diễn chuỗi dễ đọc của đối tượng
@@ -413,6 +422,7 @@ B. The list of all class attributes — Danh sách mọi thuộc tính class
 C. The class inheritance hierarchy — Hệ phân cấp kế thừa class
 
 D. The instance's constructor arguments — Các đối số khởi tạo instance
+
 
 **Q11. What does `raise ValueError(...)` do? — `raise ValueError(...)` làm gì?**
 
@@ -424,6 +434,7 @@ C. Converts invalid values to `None` — Chuyển giá trị sai thành `None`
 
 D. Silently ignores invalid data — Lặng lẽ bỏ qua dữ liệu sai
 
+
 **Q12. What does the prefix `_value` conventionally mean? — Tiền tố `_value` theo quy ước có nghĩa gì?**
 
 A. A constant that cannot be changed — Hằng không thể thay đổi
@@ -433,6 +444,7 @@ B. An attribute invisible to external code — Thuộc tính mã ngoài không t
 C. An internal-use detail by convention — Chi tiết sử dụng nội bộ theo quy ước
 
 D. An automatically encrypted value — Giá trị được tự động mã hóa
+
 
 **Q13. What is encapsulation? — Đóng gói trong OOP là gì?**
 
@@ -444,15 +456,16 @@ C. Creating a new instance on every access — Tạo instance mới mỗi lần 
 
 D. Grouping related data and methods — Gom dữ liệu và phương thức liên quan
 
+
 **Q14. Why validate values in a setter method? — Vì sao kiểm tra dữ liệu trong setter?**
 
 A. To make every instance share its private data — Buộc mọi instance chia sẻ dữ liệu riêng
 
 B. To prevent all future method calls — Ngăn mọi lời gọi phương thức sau đó
 
-C. To validate inputs and preserve valid object state — Kiểm tra đầu vào và giữ trạng thái hợp lệ
+C. To bypass all input validation — Bỏ qua toàn bộ kiểm tra dữ liệu
 
-D. To bypass all input validation — Bỏ qua toàn bộ kiểm tra dữ liệu
+D. To validate inputs and preserve valid object state — Kiểm tra đầu vào và giữ trạng thái hợp lệ
 
 **Q15. How do two instances of the same class relate? — Hai đối tượng cùng class có quan hệ gì?**
 
@@ -464,6 +477,7 @@ C. They share class behavior but can have different states — Chúng chia sẻ 
 
 D. They are the same object in memory — Chúng là cùng một đối tượng trong bộ nhớ
 
+
 **Q16. What is a class attribute? — Thuộc tính cấp class là gì?**
 
 A. A method's local variable — Biến cục bộ của phương thức
@@ -473,6 +487,7 @@ B. An attribute defined on the class and found by lookup — Thuộc tính đị
 C. An attribute defined on an object instance only — Thuộc tính chỉ định nghĩa trên instance
 
 D. A required parameter of `__init__` — Tham số bắt buộc của `__init__`
+
 
 **Q17. What does `obj.method()` do? — `obj.method()` làm gì?**
 
@@ -484,6 +499,7 @@ C. Always creates a new instance — Luôn tạo instance mới
 
 D. Always deletes an attribute — Luôn xóa thuộc tính
 
+
 **Q18. When the attribute exists, what does `obj.attribute` read? — Khi thuộc tính tồn tại, `obj.attribute` đọc gì?**
 
 A. Creates a new method automatically — Tự tạo phương thức mới
@@ -494,6 +510,7 @@ C. Invokes every method of the object — Gọi mọi phương thức của đ�
 
 D. Returns `True` only for class attributes — Chỉ trả `True` với thuộc tính cấp class
 
+
 **Q19. What does `isinstance(obj, Student)` check? — `isinstance(obj, Student)` kiểm tra gì?**
 
 A. The object's exact class only, excluding subclasses — Chỉ class chính xác, loại class con
@@ -503,6 +520,7 @@ B. Whether the object has a method named `Student` — Đối tượng có phư�
 C. Whether the object is a `Student` or its subclass — Đối tượng thuộc `Student` hay class con không
 
 D. The class name as a string — Tên class ở dạng chuỗi
+
 
 **Q20. What does `type(obj)` return? — `type(obj)` trả về gì?**
 
