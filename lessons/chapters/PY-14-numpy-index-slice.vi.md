@@ -486,16 +486,16 @@ D. To select the intended data without swapping dimensions — Để chọn đú
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | The first array element is indexed by zero. | Phần tử đầu tiên được đánh chỉ số 0. |
-| Q2 | **B** | NumPy uses zero-based row and column indices in that order. | NumPy dùng chỉ số hàng rồi cột, cả hai bắt đầu từ 0. |
-| Q3 | **C** | Negative indices count from the end; -1 is last. | Chỉ số âm đếm từ cuối, -1 là phần tử cuối cùng. |
-| Q4 | **D** | The stop endpoint in Python slicing is exclusive. | Giới hạn kết thúc của slice không được lấy. |
-| Q5 | **A** | The colon means all entries along the row dimension. | Dấu hai chấm nghĩa là lấy toàn bộ theo chiều hàng. |
-| Q6 | **B** | The first index chooses a row; the colon retains all columns. | Chỉ số đầu chọn hàng, dấu : giữ mọi cột. |
-| Q7 | **C** | Conditions create a mask used to filter the array. | Điều kiện tạo mặt nạ để lọc phần tử phù hợp. |
-| Q8 | **D** | The comparison is applied to values, not to their indices. | Phép so sánh áp dụng trên giá trị phần tử, không phải chỉ số. |
-| Q9 | **A** | An index list selects the specified positions, even when nonadjacent. | Danh sách chỉ số chọn đúng các vị trí được nêu, dù không liền nhau. |
-| Q10 | **B** | Index arrays enable arbitrary selections rather than only regular slices. | Mảng chỉ số cho phép chọn vị trí rời rạc thay vì đoạn chỉ số liên tiếp. |
+| Q1 | **A** | Indexes start at zero: the first element is `a[0]`, while `a[1]` is the second. Negative indexes count backward from the end. | Chỉ số bắt đầu từ không: `a[0]` là phần tử đầu, còn `a[1]` là phần tử thứ hai. Chỉ số âm đếm ngược từ cuối. |
+| Q2 | **B** | A 2-D array is addressed as `X[row, column]`, using zero-based positions. Therefore `X[1, 0]` is the second row, first column. | Mảng 2D được truy cập theo `X[hàng, cột]`, với chỉ số bắt đầu từ không. Vì thế `X[1, 0]` là hàng hai, cột một. |
+| Q3 | **C** | For a nonempty array, index `-1` selects its final item; for `[4, 6, 8]` that is `8`. By contrast, `0` selects the first item. | Với mảng không rỗng, chỉ số `-1` lấy phần tử cuối; ở `[4, 6, 8]` đó là `8`. Ngược lại, chỉ số `0` lấy phần tử đầu. |
+| Q4 | **D** | The stop index in a slice is excluded: `a[1:4]` selects positions 1, 2 and 3 if present. Index 4 does not belong to the slice. | Chỉ số dừng của slice không được lấy: `a[1:4]` chọn vị trí 1, 2, 3 nếu có. Vị trí 4 không thuộc lát cắt. |
+| Q5 | **A** | In `X[:, 0]`, the colon selects every row and `0` chooses the first column. This produces column data, unlike `X[0, :]` which reads one row. | Trong `X[:, 0]`, dấu `:` chọn mọi hàng và `0` chọn cột đầu. Kết quả là dữ liệu theo cột, khác `X[0, :]` lấy một hàng. |
+| Q6 | **B** | `X[0, :]` fixes row zero and keeps every column. For a matrix `[[1,2],[3,4]]`, it yields the first row `[1,2]`, not the first column. | `X[0, :]` cố định hàng số không và giữ mọi cột. Với `[[1,2],[3,4]]`, kết quả là hàng đầu `[1,2]`, không phải cột đầu. |
+| Q7 | **C** | A Boolean mask stores `True` and `False` positions, often from a comparison. For values `[4, 8]`, the test `a >= 7` selects only the second item. | Mặt nạ Boolean chứa các vị trí `True` và `False`, thường sinh từ phép so sánh. Với `[4, 8]`, điều kiện `a >= 7` chỉ chọn phần tử thứ hai. |
+| Q8 | **D** | The expression compares values against 7 and retains those meeting the threshold. For `[4, 7, 9]`, it returns `[7, 9]`, not the item at index 7. | Biểu thức so giá trị với ngưỡng 7 rồi giữ phần tử thỏa điều kiện. Với `[4, 7, 9]`, kết quả là `[7, 9]`, không phải phần tử có chỉ số 7. |
+| Q9 | **A** | `a[[0, 2]]` uses an integer index array to select explicit positions. It can pick nonadjacent items such as the first and third, unlike one continuous slice. | `a[[0, 2]]` dùng mảng chỉ số nguyên để chọn các vị trí cụ thể. Nó có thể lấy phần tử đầu và thứ ba không liền nhau, khác với lát cắt liên tục. |
+| Q10 | **B** | A slice defines a regular range such as `a[1:6:2]`; integer fancy indexing names arbitrary positions such as `a[[5, 1, 5]]`. Fancy indexing can repeat or reorder positions. | Slice xác định dãy chỉ số có quy luật như `a[1:6:2]`; fancy indexing nguyên chỉ vị trí tùy ý như `a[[5, 1, 5]]`. Fancy indexing có thể lặp hoặc đổi thứ tự vị trí. |
 | Q11 | **C** | A basic slice generally shares memory, so editing it may affect the source. | Slice cơ bản thường dùng chung bộ nhớ, sửa nó có thể ảnh hưởng mảng gốc. |
 | Q12 | **D** | Advanced indexing commonly copies selected data, unlike basic slicing. | Indexing nâng cao thường sao chép phần dữ liệu được chọn, khác basic slicing. |
 | Q13 | **A** | An independent copy prevents edits from changing the original array. | Bản sao độc lập giúp phép sửa không thay đổi mảng gốc. |
