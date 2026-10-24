@@ -62,6 +62,8 @@ import numpy as np
 
 **Tự kiểm tra nhanh:** [Một câu ngắn kiểm tra ngay khái niệm vừa học, không cần thêm thư viện. Có **đáp án gợi ý** ngay sau đó. Mỗi nhóm kiến thức chính có một câu để người học không phải đợi tới cuối bài.]
 
+**QUAN TRỌNG:** Đọc `docs/CURRICULUM-STYLE-GUIDE.md` khi tạo mỗi bài; tuân thủ ví dụ hỏi/đáp song ngữ cùng một dòng.
+
 **Quy tắc thuật ngữ:** Ở đầu mỗi mục, tiểu mục và tình huống có một dòng **Từ vựng trong mục:** liệt kê English — nghĩa tiếng Việt. Trong phần diễn giải sau đó chỉ dùng thuật ngữ tự nhiên, không gắn lại phần dịch trong ngoặc ở mọi lần nhắc. Tên hàm, tham số và biến trong code/backticks luôn giữ nguyên. Câu hỏi trắc nghiệm ở cuối được viết **song ngữ Anh–Việt** (câu hỏi, cả bốn phương án, đáp án và giải thích).
 
 **Quy tắc:** Trong mỗi mục 4.2, 4.3... phải nhắc lại khái niệm liên quan rồi mới bắt đầu ví dụ nhỏ **từng bước**. Khi có mảng số, phải nói rõ hàng/cột, từng đặc trưng/đơn vị và ví dụ minh họa cách ghép vector thành matrix khi cần. Không dùng chữ “Subconcept” làm tiêu đề. Viết “Khái niệm liên quan” hoặc tên chủ đề bằng tiếng Việt dễ hiểu. Không giải thích bằng cú pháp hay tên hàm trước khi nói rõ bằng văn; người học phải hiểu *feature là gì* rồi mới gặp ví dụ `np.array`. Không tạo phần “Toán học đằng sau” hoặc chứng minh hàn lâm. Mỗi công thức thể hiện bằng Python trong một ví dụ nhỏ ngay dưới đoạn giải thích.
@@ -102,21 +104,15 @@ import numpy as np
 
 ## 7. English–Vietnamese multiple-choice questions
 
-**Q1. [English question]?**
+**Q1. [English question]? — [Bản dịch tiếng Việt]?**
 
-*Tiếng Việt: [Bản dịch của câu hỏi]*
+A. English option — Phương án A tiếng Việt
 
-A. ...  
-*Dịch nghĩa A*  
+B. English option — Phương án B tiếng Việt
 
-B. ...  
-*Dịch nghĩa B*  
+C. English option — Phương án C tiếng Việt
 
-C. ...  
-*Dịch nghĩa C*  
-
-D. ...  
-*Dịch nghĩa D*
+D. English option — Phương án D tiếng Việt
 
 [**Đúng 20 câu**: mỗi câu có **English question + bản dịch tiếng Việt**, **bốn lựa chọn Anh–Việt** và đáp án, giải thích **Anh–Việt**. Giữ nguyên cú pháp code, không dịch tên hàm/biến. Không đánh đố.]
 
