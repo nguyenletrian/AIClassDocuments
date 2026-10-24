@@ -22,6 +22,15 @@ Mỗi `### Tình huống N` phải có **một dòng/đoạn `**Tình huống th
 
 **Sau đề bài:** `**Vì sao chọn cách này?**` giải thích phép toán/phương pháp phù hợp; `**Quy trình:**` nêu các bước **riêng cho tình huống** (không lặp các bước chung chung kiểu "xác định đầu vào → in kết quả" cho cả 5 bài); tiếp đến code và giải thích đầu ra cụ thể. Không lặp lại dữ liệu ở một nhãn `**Dữ liệu:**` riêng. **Giữ nguyên dữ liệu, ngưỡng và điều kiện thật trong code**, nếu không suy ra được ý nghĩa thì phải rà code, không tự đặt chính sách khác.
 
+
+### Tiêu chí kiểm định từng đề bài
+
+Một tình huống đạt chuẩn khi người học chỉ đọc riêng **Vấn đề thực tế** và **Yêu cầu** đã hiểu: (1) ai đang gặp bài toán, (2) dữ liệu cụ thể gồm những gì và đơn vị nào, (3) quy tắc/điều kiện áp dụng, (4) chương trình phải tính, kiểm tra hay hiển thị kết quả nào. Có thể dùng một đoạn liền hoặc tách dòng **Yêu cầu:** để câu hỏi rõ hơn. Không thay đầu vào đang dùng trong code bằng số liệu tưởng tượng, không suy diễn nghiệp vụ ngoài đề bài.
+
+**Vì sao chọn cách giải này?** phải gọi tên phép toán, hàm hoặc nguyên tắc thực sự được sử dụng và liên hệ trực tiếp với yêu cầu; không dùng câu như `Hai điều kiện đều phải đúng` mà không nhắc `and`. **Quy trình giải:** trình bày các bước riêng có thể thực hiện và kiểm tra được, tránh quy trình rập khuôn dùng lại cho mọi bài. **Kết quả:** diễn giải giá trị code in ra và ý nghĩa trong bối cảnh; nếu code chưa in nhãn, không được khẳng định có nhãn. Không tự động chỉnh code bằng công cụ rút gọn văn xuôi.
+
+Rà riêng từng tình huống với code trước khi công bố. Bộ kiểm thử đếm nhãn không thay thế thẩm định chất lượng đề bài, tính đúng đắn của đầu ra và kiểm định chạy thực tế.
+
 ## Kết cấu dành cho sinh viên
 1. **Bài đang ở đâu trong chuỗi kiến thức?** Trình bày các bài trước → bài hiện tại → bài liên quan, dễ theo dõi.
 2. **Từ vựng trong mục:** trước từng mục và tiểu mục, 2–5 thuật ngữ `English — tiếng Việt`; đoạn văn phía sau viết tự nhiên, **không** thêm `(Vietnamese)` sau mỗi lần nhắc. Những bảng thuật ngữ chỉ ghi từ thật sự dùng trong mục.
