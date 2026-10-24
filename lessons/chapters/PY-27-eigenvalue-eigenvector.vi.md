@@ -31,35 +31,41 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Eigenvector
+**Nội dung chính:** ma trận biến đổi có thể giữ nguyên phương của một số vector riêng. Khi ma trận là hiệp phương sai, trị riêng đo phương sai theo hướng đó, tạo cầu nối sang PCA.
 
-**Từ vựng trong mục:** **Eigenvector** — vector riêng.
+### 4.1. Eigenvector — Hướng không bị xoay sau biến đổi
 
-Hướng mà phép biến đổi tuyến tính chỉ co/dãn. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+**Từ vựng trong mục:** **Eigenvector** — vector riêng; **Transformation** — phép biến đổi.
+
+Một **eigenvector** là vector khác không mà khi nhân với ma trận vuông A, nó chỉ đổi **độ lớn hoặc đảo chiều**, không rời khỏi đường phương ban đầu: `A @ v = λ*v`. Ví dụ ma trận `diag(2,3)` nhân vector `[0,1]` cho `[0,3]`, vẫn nằm trên trục tung. Điều kiện là vector khác không và phù hợp số chiều của A; vector riêng không phải bất kỳ vector nào.
 
 ```python
 import numpy as np
-w,v=np.linalg.eigh([[2.,0.],[0.,3.]])
-print(v.shape)
+
+A = np.diag([2.0, 3.0])
+v = np.array([0.0, 1.0])
+print(A @ v)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(2, 2)
+[0. 3.]
 ```
 
-**Tự kiểm tra:** Eigenvector có nghĩa gì? **Đáp án:** Hướng mà phép biến đổi tuyến tính chỉ co/dãn.
+Đầu ra vẫn có hoành độ 0; phương trục tung được giữ, độ dài theo chiều đó nhân ba.
 
-### 4.2. Eigenvalue
+### 4.2. Eigenvalue — Hệ số biến đổi trên hướng riêng
 
-**Từ vựng trong mục:** **Eigenvalue** — giá trị riêng.
+**Từ vựng trong mục:** **Eigenvalue** — trị riêng; **Scale factor** — hệ số co giãn.
 
-Hệ số co/dãn theo một vector riêng. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+**Trị riêng** λ cho biết A phóng đại, thu nhỏ hoặc đảo chiều **vector riêng** bao nhiêu lần. Với `diag(2,3)`, hướng trục x có λ=2 và trục y có λ=3. Đó là tính chất của ma trận A; trị riêng **không** tự động mang nghĩa phương sai trừ khi A đang là **ma trận hiệp phương sai**. `np.linalg.eigvalsh` lấy các trị riêng của ma trận đối xứng theo thứ tự tăng dần.
 
 ```python
 import numpy as np
-print(np.linalg.eigvalsh([[2.,0.],[0.,3.]]))
+
+A = np.diag([2.0, 3.0])
+print(np.linalg.eigvalsh(A))
 ```
 
 **Kết quả khi chạy:**
@@ -68,18 +74,19 @@ print(np.linalg.eigvalsh([[2.,0.],[0.,3.]]))
 [2. 3.]
 ```
 
-**Tự kiểm tra:** Eigenvalue có nghĩa gì? **Đáp án:** Hệ số co/dãn theo một vector riêng.
+Hai trị riêng là 2 và 3, tương ứng mức co giãn của hai trục tọa độ.
 
-### 4.3. Covariance
+### 4.3. Covariance — Hai đặc trưng cùng thay đổi ra sao?
 
-**Từ vựng trong mục:** **Covariance** — hiệp phương sai.
+**Từ vựng trong mục:** **Covariance** — hiệp phương sai; **Feature** — đặc trưng.
 
-Cách hai đặc trưng biến thiên cùng nhau. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+**Hiệp phương sai** đo xu hướng hai đặc trưng tăng/giảm cùng nhau. Dữ liệu có ba **hàng mẫu** `(1,2)`, `(2,4)`, `(3,6)` và hai **cột đặc trưng** x, y, trong đó y=2x. `np.cov(X,rowvar=False)` lấy **cột là biến**, **hàng là quan sát**, trả ma trận 2×2. Các ô đường chéo là phương sai từng biến, hai ô còn lại là hiệp phương sai. Không nhầm covariance với tương quan chuẩn hóa từ −1 đến 1.
 
 ```python
 import numpy as np
-X=np.array([[1,2],[2,4],[3,6]])
-print(np.cov(X,rowvar=False))
+
+X = np.array([[1, 2], [2, 4], [3, 6]])
+print(np.cov(X, rowvar=False))
 ```
 
 **Kết quả khi chạy:**
@@ -89,18 +96,20 @@ print(np.cov(X,rowvar=False))
  [2. 4.]]
 ```
 
-**Tự kiểm tra:** Covariance có nghĩa gì? **Đáp án:** Cách hai đặc trưng biến thiên cùng nhau.
+Biến y có phương sai gấp bốn x và hiệp phương sai dương 2, vì y tăng theo x.
 
-### 4.4. Principal direction
+### 4.4. Principal direction — Hướng biến thiên chính trong PCA
 
-**Từ vựng trong mục:** **Principal direction** — hướng chính.
+**Từ vựng trong mục:** **Principal direction** — hướng chính; **PCA** — phân tích thành phần chính.
 
-Hướng chứa nhiều phương sai nhất trong PCA. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Với **ma trận hiệp phương sai đối xứng**, vector riêng của **trị riêng lớn nhất** biểu diễn hướng có phương sai lớn nhất. Đây là nguyên lý của PCA. Ví dụ hiệp phương sai `diag(2,3)` có phương sai theo x là 2 và theo y là 3, nên hướng chính là trục y. **Dấu của eigenvector không cố định**: `[0,1]` và `[0,-1]` đều mô tả cùng một trục. Lấy `abs` khi chỉ muốn minh họa độ lớn thành phần.
 
 ```python
 import numpy as np
-w,v=np.linalg.eigh([[2.,0.],[0.,3.]])
-print(v[:,-1])
+
+C = np.diag([2.0, 3.0])
+values, vectors = np.linalg.eigh(C)
+print(np.abs(vectors[:, -1]))
 ```
 
 **Kết quả khi chạy:**
@@ -109,26 +118,28 @@ print(v[:,-1])
 [0. 1.]
 ```
 
-**Tự kiểm tra:** Principal direction có nghĩa gì? **Đáp án:** Hướng chứa nhiều phương sai nhất trong PCA.
+Hướng có phương sai lớn nhất nằm trên trục y; đổi dấu vector riêng không đổi hướng trục.
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Chọn hướng đo biến thiên lớn
+### Tình huống 1 — Chọn hướng biến thiên lớn nhất
 
-**Từ vựng trong mục:** **Eigenvector** — vector riêng.
+**Tình huống thực tế:** Một bảng thống kê hai đặc trưng đã được chuẩn hóa ý nghĩa đơn vị và có hiệp phương sai `diag(2,3)`. Cần xác định hướng mang nhiều phương sai hơn.
 
-**Tình huống thực tế:** Ma trận hiệp phương sai đường chéo [2,3] biểu diễn độ biến thiên hai trục. Tìm hướng có phương sai lớn nhất.
+**Vì sao chọn cách giải này?** `eigh` dành cho ma trận đối xứng và trả trị riêng tăng dần; trị riêng cuối lớn nhất cùng vector riêng tương ứng.
 
-**Vì sao chọn phương án?** Chọn eigenvector tương ứng eigenvalue lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Tạo ma trận hiệp phương sai 2×2.
+2. Tìm trị riêng và các vector riêng bằng `eigh`.
+3. In trị riêng lớn nhất và độ lớn các thành phần vector riêng để không phụ thuộc dấu.
 
 ```python
 import numpy as np
-C=np.diag([2.,3.])
-w,v=np.linalg.eigh(C)
-print(w[-1],v[:,-1])
+
+C = np.diag([2.0, 3.0])
+values, vectors = np.linalg.eigh(C)
+print(values[-1], np.abs(vectors[:, -1]))
 ```
 
 **Kết quả khi chạy:**
@@ -137,22 +148,25 @@ print(w[-1],v[:,-1])
 3.0 [0. 1.]
 ```
 
+Trục y là hướng chính với phương sai 3, lớn hơn trục x (2).
 
-### Tình huống 2 — Xem dữ liệu có trùng tuyến tính
+### Tình huống 2 — Phát hiện dữ liệu phụ thuộc tuyến tính
 
-**Từ vựng trong mục:** **Eigenvalue** — giá trị riêng.
+**Tình huống thực tế:** Ba hàng quan sát có hai đặc trưng lần lượt `(1,2)`, `(2,4)`, `(3,6)`; cột hai luôn gấp đôi cột một. Cần xem ma trận hiệp phương sai có hướng hoàn toàn không biến thiên không.
 
-**Tình huống thực tế:** Ba mẫu dữ liệu (1,2), (2,4), (3,6) có cột thứ hai gấp đôi cột đầu. Xác định trị riêng của hiệp phương sai.
+**Vì sao chọn cách giải này?** Khi hai cột phụ thuộc tuyến tính, ma trận hiệp phương sai có ít nhất một trị riêng gần 0.
 
-**Vì sao chọn phương án?** Eigenvalue gần 0 biểu thị hướng rất ít biến thiên; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Lưu ba hàng quan sát và hai cột đặc trưng.
+2. Tính hiệp phương sai theo cột bằng `rowvar=False`.
+3. Dùng `eigvalsh` lấy hai trị riêng.
 
 ```python
 import numpy as np
-X=np.array([[1,2],[2,4],[3,6]],dtype=float)
-print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
+
+X = np.array([[1, 2], [2, 4], [3, 6]], dtype=float)
+print(np.linalg.eigvalsh(np.cov(X, rowvar=False)))
 ```
 
 **Kết quả khi chạy:**
@@ -161,23 +175,26 @@ print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
 [0. 5.]
 ```
 
+Một hướng có phương sai 0 do cột hai phụ thuộc cột đầu; hướng còn lại có phương sai 5.
 
-### Tình huống 3 — Kiểm công thức eigen
+### Tình huống 3 — Kiểm nghiệm phương trình vector riêng
 
-**Từ vựng trong mục:** **Covariance** — hiệp phương sai.
+**Tình huống thực tế:** Cho ma trận A=`diag(2,3)`. Chọn vector riêng ứng với trị riêng lớn nhất và kiểm tra quan hệ `A@v = λ*v`.
 
-**Tình huống thực tế:** Với ma trận diag(2,3), xác nhận vector riêng v thỏa Av=λv.
+**Vì sao chọn cách giải này?** `np.allclose` đối chiếu hai vế trong sai số số thực, tránh so bằng tuyệt đối.
 
-**Vì sao chọn phương án?** A@v gần lambda*v cho cặp riêng chính xác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Tìm cặp trị riêng/vector riêng từ A đối xứng.
+2. Lấy trị riêng lớn nhất và cột vector tương ứng.
+3. So hai vế `A@v` và `λ*v`.
 
 ```python
 import numpy as np
-A=np.diag([2.,3.])
-w,v=np.linalg.eigh(A)
-print(np.allclose(A@v[:,-1],w[-1]*v[:,-1]))
+
+A = np.diag([2.0, 3.0])
+values, vectors = np.linalg.eigh(A)
+print(np.allclose(A @ vectors[:, -1], values[-1] * vectors[:, -1]))
 ```
 
 **Kết quả khi chạy:**
@@ -186,21 +203,24 @@ print(np.allclose(A@v[:,-1],w[-1]*v[:,-1]))
 True
 ```
 
+Cặp trị riêng và vector riêng đáp ứng định nghĩa của eigenvector.
 
-### Tình huống 4 — Sắp thứ tự mức phương sai
+### Tình huống 4 — Sắp hướng theo độ biến thiên
 
-**Từ vựng trong mục:** **Principal direction** — hướng chính.
+**Tình huống thực tế:** Hệ thống thống kê có ba phương sai trên các hướng độc lập lần lượt là `[4,1,3]`. Cần ưu tiên hướng có phương sai cao nhất.
 
-**Tình huống thực tế:** Ba mức phương sai [4,1,3] cần được xếp chỉ số giảm dần để biết trục quan trọng trước.
+**Vì sao chọn cách giải này?** `argsort` trả chỉ số theo giá trị, rồi `[::-1]` đảo sang thứ tự giảm dần.
 
-**Vì sao chọn phương án?** argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Tạo mảng trị riêng `[4,1,3]`.
+2. Tính chỉ số sắp tăng, rồi đảo thứ tự.
+3. In chỉ số của các hướng từ lớn tới nhỏ.
 
 ```python
 import numpy as np
-values=np.array([4,1,3])
+
+values = np.array([4, 1, 3])
 print(np.argsort(values)[::-1])
 ```
 
@@ -210,23 +230,27 @@ print(np.argsort(values)[::-1])
 [0 2 1]
 ```
 
+Ưu tiên hướng ở vị trí 0 (phương sai 4), tiếp đến vị trí 2 (3), cuối vị trí 1 (1).
 
-### Tình huống 5 — So với PCA của sklearn
+### Tình huống 5 — Giảm số cột đặc trưng bằng PCA
 
-**Từ vựng trong mục:** **Eigenvector** — vector riêng.
+**Tình huống thực tế:** Ba quan sát hai chiều `(1,2)`, `(2,3)`, `(3,4)` được lưu thành bảng 3 hàng × 2 cột. Cần chiếu dữ liệu xuống một trục biến thiên chính để minh họa giảm chiều.
 
-**Tình huống thực tế:** Ba điểm hai chiều (1,2), (2,3), (3,4) được giảm về một chiều bằng PCA. Xem kích thước dữ liệu biến đổi.
+**Vì sao chọn cách giải này?** PCA tìm hướng có phương sai lớn; `n_components=1` giữ một trục, không giảm số hàng quan sát.
 
-**Vì sao chọn phương án?** Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Tạo bảng 3×2, hàng là quan sát và cột là đặc trưng.
+2. Khởi tạo `PCA(n_components=1)` từ scikit-learn (thư viện cần cài).
+3. Fit/transform và in shape dữ liệu sau chiếu.
 
 ```python
 import numpy as np
 from sklearn.decomposition import PCA
-X=np.array([[1,2],[2,3],[3,4]],dtype=float)
-print(PCA(n_components=1).fit_transform(X).shape)
+
+X = np.array([[1, 2], [2, 3], [3, 4]], dtype=float)
+projected = PCA(n_components=1).fit_transform(X)
+print(projected.shape)
 ```
 
 **Kết quả khi chạy:**
@@ -235,259 +259,245 @@ print(PCA(n_components=1).fit_transform(X).shape)
 (3, 1)
 ```
 
+Ba mẫu vẫn giữ nguyên; mỗi mẫu còn một giá trị tọa độ trên trục chính.
 
-## 6. Sai lầm cần tránh
+## 6. Sai lầm thường gặp
 
-Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
+- Eigenvector là **hướng**, eigenvalue là **hệ số** nhân theo hướng ấy; không hoán đổi hai khái niệm.
+- Chỉ diễn giải eigenvalue như phương sai khi A là ma trận hiệp phương sai.
+- Với covariance, các hàng là mẫu và cột là đặc trưng khi `rowvar=False`; đảo trục làm thay đổi kết quả.
+- Eigenvector và vector đối dấu biểu diễn cùng trục; không kiểm tra dấu từng phần tử cứng nhắc.
+- `np.linalg.eigh` thích hợp cho ma trận đối xứng. PCA cần xem thang đo và đơn vị từng đặc trưng.
+- scikit-learn là thư viện ngoài; cần cài trước khi chạy ví dụ PCA.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Chỉ kiểm tra kiến thức bài học; không kiểm tra ghi nhớ tình huống đánh số.**
 
+**Q1. What defines an eigenvector v of A? — Điều kiện định nghĩa vector riêng v của A là gì?**
 
-**Q1. What is Eigenvector? — Thuật ngữ Eigenvector có nghĩa gì?**
+A. `A @ v = λ*v` with v nonzero — `A @ v = λ*v` với v khác không
 
-A. It instead means Hệ số co/dãn theo một vector riêng — Hệ số co/dãn theo một vector riêng
+B. Scaling along a corresponding eigenvector — Hệ số co giãn theo vector riêng tương ứng
 
-B. It means Hướng mà phép biến đổi tuyến tính chỉ co/dãn — Hướng mà phép biến đổi tuyến tính chỉ co/dãn
+C. How two variables vary together — Hai biến cùng biến thiên ra sao
 
-C. It instead means Cách hai đặc trưng biến thiên cùng nhau — Cách hai đặc trưng biến thiên cùng nhau
+D. A covariance eigenvector with high eigenvalue — Vector riêng hiệp phương sai có trị riêng lớn
 
-D. It instead means Hướng chứa nhiều phương sai nhất trong PCA — Hướng chứa nhiều phương sai nhất trong PCA
+**Q2. What does an eigenvalue represent? — Trị riêng biểu thị gì?**
 
+A. `A @ v = λ*v` with v nonzero — `A @ v = λ*v` với v khác không
 
-**Q2. What is Eigenvalue? — Thuật ngữ Eigenvalue có nghĩa gì?**
+B. Scaling along a corresponding eigenvector — Hệ số co giãn theo vector riêng tương ứng
 
-A. It means Hệ số co/dãn theo một vector riêng — Hệ số co/dãn theo một vector riêng
+C. How two variables vary together — Hai biến cùng biến thiên ra sao
 
-B. It instead means Cách hai đặc trưng biến thiên cùng nhau — Cách hai đặc trưng biến thiên cùng nhau
+D. A covariance eigenvector with high eigenvalue — Vector riêng hiệp phương sai có trị riêng lớn
 
-C. It instead means Hướng chứa nhiều phương sai nhất trong PCA — Hướng chứa nhiều phương sai nhất trong PCA
+**Q3. What does covariance describe? — Hiệp phương sai mô tả gì?**
 
-D. It instead means Hướng mà phép biến đổi tuyến tính chỉ co/dãn — Hướng mà phép biến đổi tuyến tính chỉ co/dãn
+A. `A @ v = λ*v` with v nonzero — `A @ v = λ*v` với v khác không
 
+B. Scaling along a corresponding eigenvector — Hệ số co giãn theo vector riêng tương ứng
 
-**Q3. What is Covariance? — Thuật ngữ Covariance có nghĩa gì?**
+C. How two variables vary together — Hai biến cùng biến thiên ra sao
 
-A. It instead means Hướng chứa nhiều phương sai nhất trong PCA — Hướng chứa nhiều phương sai nhất trong PCA
+D. A covariance eigenvector with high eigenvalue — Vector riêng hiệp phương sai có trị riêng lớn
 
-B. It instead means Hướng mà phép biến đổi tuyến tính chỉ co/dãn — Hướng mà phép biến đổi tuyến tính chỉ co/dãn
+**Q4. What is a principal direction in PCA? — Hướng chính trong PCA là gì?**
 
-C. It instead means Hệ số co/dãn theo một vector riêng — Hệ số co/dãn theo một vector riêng
+A. `A @ v = λ*v` with v nonzero — `A @ v = λ*v` với v khác không
 
-D. It means Cách hai đặc trưng biến thiên cùng nhau — Cách hai đặc trưng biến thiên cùng nhau
+B. Scaling along a corresponding eigenvector — Hệ số co giãn theo vector riêng tương ứng
 
+C. How two variables vary together — Hai biến cùng biến thiên ra sao
 
-**Q4. What is Principal direction? — Thuật ngữ Principal direction có nghĩa gì?**
+D. A covariance eigenvector with high eigenvalue — Vector riêng hiệp phương sai có trị riêng lớn
 
-A. It instead means Hướng mà phép biến đổi tuyến tính chỉ co/dãn — Hướng mà phép biến đổi tuyến tính chỉ co/dãn
+**Q5. Which function suits a symmetric matrix eigendecomposition? — Hàm nào phù hợp phân rã trị riêng ma trận đối xứng?**
 
-B. It instead means Hệ số co/dãn theo một vector riêng — Hệ số co/dãn theo một vector riêng
+A. `np.linalg.eigh(C)` — `np.linalg.eigh(C)`
 
-C. It means Hướng chứa nhiều phương sai nhất trong PCA — Hướng chứa nhiều phương sai nhất trong PCA
+B. `np.linalg.eigvalsh(C)` — `np.linalg.eigvalsh(C)`
 
-D. It instead means Cách hai đặc trưng biến thiên cùng nhau — Cách hai đặc trưng biến thiên cùng nhau
+C. `np.cov(X,rowvar=False)` — `np.cov(X,rowvar=False)`
 
+D. `np.argsort(values)[::-1]` — `np.argsort(values)[::-1]`
 
-**Q5. What does np.linalg.eigh(C) help with? — Hàm np.linalg.eigh(C) giúp làm gì?**
+**Q6. Which function returns only symmetric eigenvalues? — Hàm nào chỉ trả trị riêng ma trận đối xứng?**
 
-A. Another function helps to Chỉ trả eigenvalues của ma trận đối xứng — Chỉ trả eigenvalues của ma trận đối xứng
+A. `np.linalg.eigh(C)` — `np.linalg.eigh(C)`
 
-B. It helps to Trả eigenvalues/eigenvectors cho ma trận đối xứng — Trả eigenvalues/eigenvectors cho ma trận đối xứng
+B. `np.linalg.eigvalsh(C)` — `np.linalg.eigvalsh(C)`
 
-C. Another function helps to Cột là feature, hàng là mẫu khi tính covariance — Cột là feature, hàng là mẫu khi tính covariance
+C. `np.cov(X,rowvar=False)` — `np.cov(X,rowvar=False)`
 
-D. Another function helps to Sắp eigenvalue giảm dần để chọn hướng lớn — Sắp eigenvalue giảm dần để chọn hướng lớn
+D. `np.argsort(values)[::-1]` — `np.argsort(values)[::-1]`
 
+**Q7. Which call treats DataFrame-like columns as variables? — Lệnh nào coi cột là biến khi tính covariance?**
 
-**Q6. What does np.linalg.eigvalsh(C) help with? — Hàm np.linalg.eigvalsh(C) giúp làm gì?**
+A. `np.linalg.eigh(C)` — `np.linalg.eigh(C)`
 
-A. It helps to Chỉ trả eigenvalues của ma trận đối xứng — Chỉ trả eigenvalues của ma trận đối xứng
+B. `np.linalg.eigvalsh(C)` — `np.linalg.eigvalsh(C)`
 
-B. Another function helps to Cột là feature, hàng là mẫu khi tính covariance — Cột là feature, hàng là mẫu khi tính covariance
+C. `np.cov(X,rowvar=False)` — `np.cov(X,rowvar=False)`
 
-C. Another function helps to Sắp eigenvalue giảm dần để chọn hướng lớn — Sắp eigenvalue giảm dần để chọn hướng lớn
+D. `np.argsort(values)[::-1]` — `np.argsort(values)[::-1]`
 
-D. Another function helps to Trả eigenvalues/eigenvectors cho ma trận đối xứng — Trả eigenvalues/eigenvectors cho ma trận đối xứng
+**Q8. Which expression sorts eigenvalue indices descending? — Biểu thức nào sắp chỉ số trị riêng giảm dần?**
 
+A. `np.linalg.eigh(C)` — `np.linalg.eigh(C)`
 
-**Q7. What does np.cov(X,rowvar=False) help with? — Hàm np.cov(X,rowvar=False) giúp làm gì?**
+B. `np.linalg.eigvalsh(C)` — `np.linalg.eigvalsh(C)`
 
-A. Another function helps to Sắp eigenvalue giảm dần để chọn hướng lớn — Sắp eigenvalue giảm dần để chọn hướng lớn
+C. `np.cov(X,rowvar=False)` — `np.cov(X,rowvar=False)`
 
-B. Another function helps to Trả eigenvalues/eigenvectors cho ma trận đối xứng — Trả eigenvalues/eigenvectors cho ma trận đối xứng
+D. `np.argsort(values)[::-1]` — `np.argsort(values)[::-1]`
 
-C. Another function helps to Chỉ trả eigenvalues của ma trận đối xứng — Chỉ trả eigenvalues của ma trận đối xứng
+**Q9. What is the shape of a covariance matrix for three features? — Ma trận covariance cho ba đặc trưng có shape gì?**
 
-D. It helps to Cột là feature, hàng là mẫu khi tính covariance — Cột là feature, hàng là mẫu khi tính covariance
+A. `(3,3)` — `(3,3)`
 
+B. Columns of the second returned array — Các cột của mảng trả về thứ hai
 
-**Q8. What does np.argsort(values)[::-1] help with? — Hàm np.argsort(values)[::-1] giúp làm gì?**
+C. v and −v describe the same eigendirection — v và −v biểu diễn cùng trục riêng
 
-A. Another function helps to Trả eigenvalues/eigenvectors cho ma trận đối xứng — Trả eigenvalues/eigenvectors cho ma trận đối xứng
+D. No variance along that direction — Không biến thiên theo hướng đó
 
-B. Another function helps to Chỉ trả eigenvalues của ma trận đối xứng — Chỉ trả eigenvalues của ma trận đối xứng
+**Q10. Which object contains eigenvectors returned by `eigh`? — Trong kết quả của `eigh`, vector riêng nằm đâu?**
 
-C. It helps to Sắp eigenvalue giảm dần để chọn hướng lớn — Sắp eigenvalue giảm dần để chọn hướng lớn
+A. `(3,3)` — `(3,3)`
 
-D. Another function helps to Cột là feature, hàng là mẫu khi tính covariance — Cột là feature, hàng là mẫu khi tính covariance
+B. Columns of the second returned array — Các cột của mảng trả về thứ hai
 
+C. v and −v describe the same eigendirection — v và −v biểu diễn cùng trục riêng
 
-**Q9. Why choose this method for scenario 1? — Vì sao chọn cách làm tình huống 1?**
+D. No variance along that direction — Không biến thiên theo hướng đó
 
-A. Eigenvalue gần 0 biểu thị hướng rất ít biến thiên — Eigenvalue gần 0 biểu thị hướng rất ít biến thiên
+**Q11. Why can an eigenvector's sign change? — Vì sao dấu vector riêng có thể đảo?**
 
-B. Chọn eigenvector tương ứng eigenvalue lớn nhất — Chọn eigenvector tương ứng eigenvalue lớn nhất
+A. `(3,3)` — `(3,3)`
 
-C. A@v gần lambda*v cho cặp riêng chính xác — A@v gần lambda*v cho cặp riêng chính xác
+B. Columns of the second returned array — Các cột của mảng trả về thứ hai
 
-D. argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ — argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ
+C. v and −v describe the same eigendirection — v và −v biểu diễn cùng trục riêng
 
+D. No variance along that direction — Không biến thiên theo hướng đó
 
-**Q10. Why choose this method for scenario 2? — Vì sao chọn cách làm tình huống 2?**
+**Q12. What does a zero covariance eigenvalue suggest? — Trị riêng covariance bằng 0 gợi ý gì?**
 
-A. Eigenvalue gần 0 biểu thị hướng rất ít biến thiên — Eigenvalue gần 0 biểu thị hướng rất ít biến thiên
+A. `(3,3)` — `(3,3)`
 
-B. A@v gần lambda*v cho cặp riêng chính xác — A@v gần lambda*v cho cặp riêng chính xác
+B. Columns of the second returned array — Các cột của mảng trả về thứ hai
 
-C. argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ — argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ
+C. v and −v describe the same eigendirection — v và −v biểu diễn cùng trục riêng
 
-D. Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều — Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều
+D. No variance along that direction — Không biến thiên theo hướng đó
 
+**Q13. How does PCA choose its first component? — PCA chọn thành phần đầu ra sao?**
 
-**Q11. Why choose this method for scenario 3? — Vì sao chọn cách làm tình huống 3?**
+A. By largest explained variance — Theo phương sai giải thích lớn nhất
 
-A. argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ — argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ
+B. Variance of one feature — Phương sai của một đặc trưng
 
-B. Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều — Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều
+C. Two — Hai
 
-C. Chọn eigenvector tương ứng eigenvalue lớn nhất — Chọn eigenvector tương ứng eigenvalue lớn nhất
+D. `A @ v` approximately equals `λ*v` — `A @ v` xấp xỉ `λ*v`
 
-D. A@v gần lambda*v cho cặp riêng chính xác — A@v gần lambda*v cho cặp riêng chính xác
+**Q14. What does a covariance diagonal entry represent? — Ô đường chéo covariance biểu thị gì?**
 
+A. By largest explained variance — Theo phương sai giải thích lớn nhất
 
-**Q12. Why choose this method for scenario 4? — Vì sao chọn cách làm tình huống 4?**
+B. Variance of one feature — Phương sai của một đặc trưng
 
-A. Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều — Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều
+C. Two — Hai
 
-B. Chọn eigenvector tương ứng eigenvalue lớn nhất — Chọn eigenvector tương ứng eigenvalue lớn nhất
+D. `A @ v` approximately equals `λ*v` — `A @ v` xấp xỉ `λ*v`
 
-C. argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ — argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ
+**Q15. How many eigenvalues does a 2×2 symmetric matrix have counting multiplicity? — Ma trận đối xứng 2×2 có bao nhiêu trị riêng tính cả bội?**
 
-D. Eigenvalue gần 0 biểu thị hướng rất ít biến thiên — Eigenvalue gần 0 biểu thị hướng rất ít biến thiên
+A. By largest explained variance — Theo phương sai giải thích lớn nhất
 
+B. Variance of one feature — Phương sai của một đặc trưng
 
-**Q13. Why choose this method for scenario 5? — Vì sao chọn cách làm tình huống 5?**
+C. Two — Hai
 
-A. Chọn eigenvector tương ứng eigenvalue lớn nhất — Chọn eigenvector tương ứng eigenvalue lớn nhất
+D. `A @ v` approximately equals `λ*v` — `A @ v` xấp xỉ `λ*v`
 
-B. Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều — Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều
+**Q16. Which relation validates an eigenpair? — Quan hệ nào dùng kiểm tra cặp riêng?**
 
-C. Eigenvalue gần 0 biểu thị hướng rất ít biến thiên — Eigenvalue gần 0 biểu thị hướng rất ít biến thiên
+A. By largest explained variance — Theo phương sai giải thích lớn nhất
 
-D. A@v gần lambda*v cho cặp riêng chính xác — A@v gần lambda*v cho cặp riêng chính xác
+B. Variance of one feature — Phương sai của một đặc trưng
 
+C. Two — Hai
 
-**Q14. What input is relevant to scenario 1? — Dữ liệu nào của tình huống 1?**
+D. `A @ v` approximately equals `λ*v` — `A @ v` xấp xỉ `λ*v`
 
-A. The input is Covariance minh họa chéo [2,3] — Covariance minh họa chéo [2,3]
+**Q17. Which data layout corresponds to `rowvar=False`? — `rowvar=False` tương ứng bố trí nào?**
 
-B. Different data: Ba điểm cùng tăng hai feature — Ba điểm cùng tăng hai feature
+A. Rows are samples and columns are features — Hàng là mẫu và cột là đặc trưng
 
-C. Different data: Ma trận chéo 2×2 — Ma trận chéo 2×2
+B. Only when the matrix is an appropriate covariance matrix — Chỉ khi ma trận là covariance phù hợp
 
-D. Different data: Giá trị riêng [4,1,3] — Giá trị riêng [4,1,3]
+C. One principal-component feature per sample — Một đặc trưng thành phần chính cho mỗi mẫu
 
+D. Feature scales and units — Thang đo và đơn vị các đặc trưng
 
-**Q15. What input is relevant to scenario 2? — Dữ liệu nào của tình huống 2?**
+**Q18. Does an eigenvalue always mean variance? — Trị riêng có luôn mang nghĩa phương sai không?**
 
-A. Different data: Ma trận chéo 2×2 — Ma trận chéo 2×2
+A. Rows are samples and columns are features — Hàng là mẫu và cột là đặc trưng
 
-B. Different data: Giá trị riêng [4,1,3] — Giá trị riêng [4,1,3]
+B. Only when the matrix is an appropriate covariance matrix — Chỉ khi ma trận là covariance phù hợp
 
-C. Different data: 3 khách × 2 feature — 3 khách × 2 feature
+C. One principal-component feature per sample — Một đặc trưng thành phần chính cho mỗi mẫu
 
-D. The input is Ba điểm cùng tăng hai feature — Ba điểm cùng tăng hai feature
+D. Feature scales and units — Thang đo và đơn vị các đặc trưng
 
+**Q19. What does `PCA(n_components=1)` preserve? — `PCA(n_components=1)` giữ lại gì?**
 
-**Q16. What input is relevant to scenario 3? — Dữ liệu nào của tình huống 3?**
+A. Rows are samples and columns are features — Hàng là mẫu và cột là đặc trưng
 
-A. Different data: Giá trị riêng [4,1,3] — Giá trị riêng [4,1,3]
+B. Only when the matrix is an appropriate covariance matrix — Chỉ khi ma trận là covariance phù hợp
 
-B. Different data: 3 khách × 2 feature — 3 khách × 2 feature
+C. One principal-component feature per sample — Một đặc trưng thành phần chính cho mỗi mẫu
 
-C. The input is Ma trận chéo 2×2 — Ma trận chéo 2×2
+D. Feature scales and units — Thang đo và đơn vị các đặc trưng
 
-D. Different data: Covariance minh họa chéo [2,3] — Covariance minh họa chéo [2,3]
+**Q20. What should be considered before comparing PCA variances across features? — Cần lưu ý gì trước khi so phương sai PCA giữa đặc trưng?**
 
+A. Rows are samples and columns are features — Hàng là mẫu và cột là đặc trưng
 
-**Q17. What input is relevant to scenario 4? — Dữ liệu nào của tình huống 4?**
+B. Only when the matrix is an appropriate covariance matrix — Chỉ khi ma trận là covariance phù hợp
 
-A. Different data: 3 khách × 2 feature — 3 khách × 2 feature
+C. One principal-component feature per sample — Một đặc trưng thành phần chính cho mỗi mẫu
 
-B. The input is Giá trị riêng [4,1,3] — Giá trị riêng [4,1,3]
-
-C. Different data: Covariance minh họa chéo [2,3] — Covariance minh họa chéo [2,3]
-
-D. Different data: Ba điểm cùng tăng hai feature — Ba điểm cùng tăng hai feature
-
-
-**Q18. What input is relevant to scenario 5? — Dữ liệu nào của tình huống 5?**
-
-A. The input is 3 khách × 2 feature — 3 khách × 2 feature
-
-B. Different data: Covariance minh họa chéo [2,3] — Covariance minh họa chéo [2,3]
-
-C. Different data: Ba điểm cùng tăng hai feature — Ba điểm cùng tăng hai feature
-
-D. Different data: Ma trận chéo 2×2 — Ma trận chéo 2×2
-
-
-**Q19. What should be checked for matrix operations? — Phép toán ma trận phải kiểm tra gì?**
-
-A. Only line spacing — Chỉ khoảng cách dòng
-
-B. Only file suffix — Chỉ phần mở rộng file
-
-C. Only terminal width — Chỉ độ rộng terminal
-
-D. Shapes and data units — Shape và đơn vị dữ liệu
-
-
-**Q20. Why is one numeric example not enough for AI? — Vì sao một ví dụ số chưa đủ đánh giá AI?**
-
-A. It always proves generalization — Nó luôn chứng minh khả năng tổng quát
-
-B. It removes the need for test data — Nó bỏ được tập kiểm tra
-
-C. It does not establish predictive performance — Nó không đo chất lượng dự đoán
-
-D. It guarantees no leakage — Nó bảo đảm không rò rỉ dữ liệu
+D. Feature scales and units — Thang đo và đơn vị các đặc trưng
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It means Hướng mà phép biến đổi tuyến tính chỉ co/dãn | Hướng mà phép biến đổi tuyến tính chỉ co/dãn |
-| Q2 | **A** | It means Hệ số co/dãn theo một vector riêng | Hệ số co/dãn theo một vector riêng |
-| Q3 | **D** | It means Cách hai đặc trưng biến thiên cùng nhau | Cách hai đặc trưng biến thiên cùng nhau |
-| Q4 | **C** | It means Hướng chứa nhiều phương sai nhất trong PCA | Hướng chứa nhiều phương sai nhất trong PCA |
-| Q5 | **B** | It helps to Trả eigenvalues/eigenvectors cho ma trận đối xứng | Trả eigenvalues/eigenvectors cho ma trận đối xứng |
-| Q6 | **A** | It helps to Chỉ trả eigenvalues của ma trận đối xứng | Chỉ trả eigenvalues của ma trận đối xứng |
-| Q7 | **D** | It helps to Cột là feature, hàng là mẫu khi tính covariance | Cột là feature, hàng là mẫu khi tính covariance |
-| Q8 | **C** | It helps to Sắp eigenvalue giảm dần để chọn hướng lớn | Sắp eigenvalue giảm dần để chọn hướng lớn |
-| Q9 | **B** | Chọn eigenvector tương ứng eigenvalue lớn nhất | Chọn eigenvector tương ứng eigenvalue lớn nhất |
-| Q10 | **A** | Eigenvalue gần 0 biểu thị hướng rất ít biến thiên | Eigenvalue gần 0 biểu thị hướng rất ít biến thiên |
-| Q11 | **D** | A@v gần lambda*v cho cặp riêng chính xác | A@v gần lambda*v cho cặp riêng chính xác |
-| Q12 | **C** | argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ | argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ |
-| Q13 | **B** | Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều | Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều |
-| Q14 | **A** | The input is Covariance minh họa chéo [2,3] | Covariance minh họa chéo [2,3] |
-| Q15 | **D** | The input is Ba điểm cùng tăng hai feature | Ba điểm cùng tăng hai feature |
-| Q16 | **C** | The input is Ma trận chéo 2×2 | Ma trận chéo 2×2 |
-| Q17 | **B** | The input is Giá trị riêng [4,1,3] | Giá trị riêng [4,1,3] |
-| Q18 | **A** | The input is 3 khách × 2 feature | 3 khách × 2 feature |
-| Q19 | **D** | Shapes and data units | Shape và đơn vị dữ liệu |
-| Q20 | **C** | It does not establish predictive performance | Nó không đo chất lượng dự đoán |
+| Q1 | **A** | A nonzero vector retains direction up to scaling. | Vector khác không giữ phương đến hệ số nhân. |
+| Q2 | **B** | The eigenvalue is the factor λ multiplying its eigenvector. | Trị riêng là hệ số λ nhân vector riêng. |
+| Q3 | **C** | Covariance quantifies joint variation. | Hiệp phương sai đo sự biến thiên cùng nhau. |
+| Q4 | **D** | The dominant covariance eigenvector maximizes variance. | Vector riêng hiệp phương sai nổi bật mang phương sai lớn nhất. |
+| Q5 | **A** | eigh is designed for real symmetric/Hermitian matrices. | eigh được thiết kế cho ma trận đối xứng/Hermitian. |
+| Q6 | **B** | eigvalsh omits eigenvectors. | eigvalsh không trả vector riêng. |
+| Q7 | **C** | rowvar=False interprets columns as variables. | rowvar=False coi cột là biến. |
+| Q8 | **D** | argsort returns increasing indices, reversed for descending. | argsort cho chỉ số tăng; đảo để được giảm. |
+| Q9 | **A** | Every feature is paired with every feature. | Mỗi đặc trưng ghép với từng đặc trưng. |
+| Q10 | **B** | eigh stores each vector as a column. | eigh lưu mỗi vector riêng ở một cột. |
+| Q11 | **C** | Negating an eigenvector preserves its eigen-equation. | Đảo dấu vector riêng vẫn thỏa phương trình. |
+| Q12 | **D** | Zero eigenvalue means no covariance variation along that axis. | Trị riêng 0 nghĩa là không có phương sai theo trục đó. |
+| Q13 | **A** | The first component is selected by highest variance. | Thành phần đầu tương ứng phương sai cao nhất. |
+| Q14 | **B** | Covariance of a feature with itself is variance. | Hiệp phương sai của biến với chính nó là phương sai. |
+| Q15 | **C** | A 2×2 matrix has two eigenvalues including multiplicity. | Ma trận 2×2 có hai trị riêng tính bội. |
+| Q16 | **D** | Eigenpairs satisfy Av=λv numerically. | Cặp riêng thỏa Av=λv theo sai số số học. |
+| Q17 | **A** | Observations occupy rows when rowvar is False. | Quan sát nằm theo hàng khi rowvar=False. |
+| Q18 | **B** | Variance interpretation requires a covariance matrix. | Diễn giải phương sai cần ma trận hiệp phương sai. |
+| Q19 | **C** | The transformed data has one column but retains its rows. | Dữ liệu sau chiếu còn một cột, vẫn giữ số hàng. |
+| Q20 | **D** | Large units can dominate PCA without appropriate scaling. | Đặc trưng có thang lớn có thể lấn át PCA nếu chưa chuẩn hóa. |
 
 ## 8. Nối sang bài kế tiếp
 
