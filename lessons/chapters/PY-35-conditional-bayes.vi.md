@@ -1,6 +1,5 @@
 # PY-35 — Xác suất có điều kiện, Bayes và xác suất toàn phần
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
