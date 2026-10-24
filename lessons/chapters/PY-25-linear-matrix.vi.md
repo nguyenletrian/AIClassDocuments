@@ -271,250 +271,230 @@ print((A@B).shape)
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What is a matrix? — Ma trận là gì?**
 
-**Q1. What is Matrix? — Thuật ngữ Matrix có nghĩa gì?**
+A. A two-dimensional array of values — Bảng dữ liệu hai chiều
 
-A. It instead means Đổi vai trò hàng và cột của ma trận — Đổi vai trò hàng và cột của ma trận
+B. A matrix with rows and columns exchanged — Ma trận đổi vai trò hàng và cột
 
-B. It means Bảng hai chiều chứa giá trị theo hàng và cột — Bảng hai chiều chứa giá trị theo hàng và cột
+C. Rows of the left matrix with columns of the right — Hàng ma trận trái với cột ma trận phải
 
-C. It instead means Số của ma trận vuông dùng xét tính khả nghịch — Số của ma trận vuông dùng xét tính khả nghịch
+D. A scalar associated with a square matrix — Một số gắn với ma trận vuông
 
-D. It instead means Ma trận B làm AB=BA=I khi tồn tại — Ma trận B làm AB=BA=I khi tồn tại
+**Q2. What is the transpose of a matrix? — Chuyển vị của ma trận là gì?**
 
+A. A two-dimensional array of values — Bảng dữ liệu hai chiều
 
-**Q2. What is Transpose? — Thuật ngữ Transpose có nghĩa gì?**
+B. A matrix with rows and columns exchanged — Ma trận đổi vai trò hàng và cột
 
-A. It means Đổi vai trò hàng và cột của ma trận — Đổi vai trò hàng và cột của ma trận
+C. Rows of the left matrix with columns of the right — Hàng ma trận trái với cột ma trận phải
 
-B. It instead means Số của ma trận vuông dùng xét tính khả nghịch — Số của ma trận vuông dùng xét tính khả nghịch
+D. A scalar associated with a square matrix — Một số gắn với ma trận vuông
 
-C. It instead means Ma trận B làm AB=BA=I khi tồn tại — Ma trận B làm AB=BA=I khi tồn tại
+**Q3. What does matrix multiplication combine? — Phép nhân ma trận kết hợp gì?**
 
-D. It instead means Bảng hai chiều chứa giá trị theo hàng và cột — Bảng hai chiều chứa giá trị theo hàng và cột
+A. A two-dimensional array of values — Bảng dữ liệu hai chiều
 
+B. A matrix with rows and columns exchanged — Ma trận đổi vai trò hàng và cột
 
-**Q3. What is Determinant? — Thuật ngữ Determinant có nghĩa gì?**
+C. Rows of the left matrix with columns of the right — Hàng ma trận trái với cột ma trận phải
 
-A. It instead means Ma trận B làm AB=BA=I khi tồn tại — Ma trận B làm AB=BA=I khi tồn tại
+D. A scalar associated with a square matrix — Một số gắn với ma trận vuông
 
-B. It instead means Bảng hai chiều chứa giá trị theo hàng và cột — Bảng hai chiều chứa giá trị theo hàng và cột
+**Q4. What is a determinant? — Định thức là gì?**
 
-C. It instead means Đổi vai trò hàng và cột của ma trận — Đổi vai trò hàng và cột của ma trận
+A. A two-dimensional array of values — Bảng dữ liệu hai chiều
 
-D. It means Số của ma trận vuông dùng xét tính khả nghịch — Số của ma trận vuông dùng xét tính khả nghịch
+B. A matrix with rows and columns exchanged — Ma trận đổi vai trò hàng và cột
 
+C. Rows of the left matrix with columns of the right — Hàng ma trận trái với cột ma trận phải
 
-**Q4. What is Inverse? — Thuật ngữ Inverse có nghĩa gì?**
+D. A scalar associated with a square matrix — Một số gắn với ma trận vuông
 
-A. It instead means Bảng hai chiều chứa giá trị theo hàng và cột — Bảng hai chiều chứa giá trị theo hàng và cột
+**Q5. What is the shape of a matrix with two rows and three columns? — Ma trận hai hàng ba cột có shape gì?**
 
-B. It instead means Đổi vai trò hàng và cột của ma trận — Đổi vai trò hàng và cột của ma trận
+A. `(2, 3)` — `(2, 3)`
 
-C. It means Ma trận B làm AB=BA=I khi tồn tại — Ma trận B làm AB=BA=I khi tồn tại
+B. `(3, 2)` — `(3, 2)`
 
-D. It instead means Số của ma trận vuông dùng xét tính khả nghịch — Số của ma trận vuông dùng xét tính khả nghịch
+C. `(2, 1)` — `(2, 1)`
 
+D. `(3, 3)` — `(3, 3)`
 
-**Q5. What does np.eye(n) help with? — Hàm np.eye(n) giúp làm gì?**
+**Q6. What is the transpose shape of a (2,3) matrix? — Chuyển vị ma trận (2,3) có shape gì?**
 
-A. Another function helps to Chuyển vị ma trận — Chuyển vị ma trận
+A. `(2, 3)` — `(2, 3)`
 
-B. It helps to Ma trận đơn vị vuông, nhân vào không đổi vector — Ma trận đơn vị vuông, nhân vào không đổi vector
+B. `(3, 2)` — `(3, 2)`
 
-C. Another function helps to Nhân ma trận khi số cột A bằng số hàng B — Nhân ma trận khi số cột A bằng số hàng B
+C. `(2, 1)` — `(2, 1)`
 
-D. Another function helps to Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve — Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve
+D. `(3, 3)` — `(3, 3)`
 
+**Q7. What shape results from (2,3) @ (3,1)? — Phép (2,3) @ (3,1) cho shape gì?**
 
-**Q6. What does A.T / np.transpose(A) help with? — Hàm A.T / np.transpose(A) giúp làm gì?**
+A. `(2, 3)` — `(2, 3)`
 
-A. It helps to Chuyển vị ma trận — Chuyển vị ma trận
+B. `(3, 2)` — `(3, 2)`
 
-B. Another function helps to Nhân ma trận khi số cột A bằng số hàng B — Nhân ma trận khi số cột A bằng số hàng B
+C. `(2, 1)` — `(2, 1)`
 
-C. Another function helps to Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve — Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve
+D. `(3, 3)` — `(3, 3)`
 
-D. Another function helps to Ma trận đơn vị vuông, nhân vào không đổi vector — Ma trận đơn vị vuông, nhân vào không đổi vector
+**Q8. What is the shape of `np.eye(3)`? — `np.eye(3)` tạo ma trận shape nào?**
 
+A. `(2, 3)` — `(2, 3)`
 
-**Q7. What does A @ B help with? — Hàm A @ B giúp làm gì?**
+B. `(3, 2)` — `(3, 2)`
 
-A. Another function helps to Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve — Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve
+C. `(2, 1)` — `(2, 1)`
 
-B. Another function helps to Ma trận đơn vị vuông, nhân vào không đổi vector — Ma trận đơn vị vuông, nhân vào không đổi vector
+D. `(3, 3)` — `(3, 3)`
 
-C. Another function helps to Chuyển vị ma trận — Chuyển vị ma trận
+**Q9. Which operator performs matrix multiplication? — Toán tử nào thực hiện nhân ma trận?**
 
-D. It helps to Nhân ma trận khi số cột A bằng số hàng B — Nhân ma trận khi số cột A bằng số hàng B
+A. `@` — `@`
 
+B. `.T` — `.T`
 
-**Q8. What does np.linalg.det()/inv() help with? — Hàm np.linalg.det()/inv() giúp làm gì?**
+C. `np.linalg.det(A)` — `np.linalg.det(A)`
 
-A. Another function helps to Ma trận đơn vị vuông, nhân vào không đổi vector — Ma trận đơn vị vuông, nhân vào không đổi vector
+D. `np.linalg.inv(A)` — `np.linalg.inv(A)`
 
-B. Another function helps to Chuyển vị ma trận — Chuyển vị ma trận
+**Q10. Which attribute returns the transpose of a 2-D ndarray? — Thuộc tính nào cho chuyển vị mảng 2-D?**
 
-C. It helps to Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve — Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve
+A. `@` — `@`
 
-D. Another function helps to Nhân ma trận khi số cột A bằng số hàng B — Nhân ma trận khi số cột A bằng số hàng B
+B. `.T` — `.T`
 
+C. `np.linalg.det(A)` — `np.linalg.det(A)`
 
-**Q9. Why choose this method for scenario 1? — Vì sao chọn cách làm tình huống 1?**
+D. `np.linalg.inv(A)` — `np.linalg.inv(A)`
 
-A. Matrix product kết hợp các đặc trưng theo trọng số — Matrix product kết hợp các đặc trưng theo trọng số
+**Q11. Which function computes a square matrix determinant? — Hàm nào tính định thức ma trận vuông?**
 
-B. Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng — Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng
+A. `@` — `@`
 
-C. Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo — Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo
+B. `.T` — `.T`
 
-D. Tích A@inv(A) phải gần đơn vị — Tích A@inv(A) phải gần đơn vị
+C. `np.linalg.det(A)` — `np.linalg.det(A)`
 
+D. `np.linalg.inv(A)` — `np.linalg.inv(A)`
 
-**Q10. Why choose this method for scenario 2? — Vì sao chọn cách làm tình huống 2?**
+**Q12. Which function computes a nonsingular matrix inverse? — Hàm nào tính nghịch đảo ma trận khả nghịch?**
 
-A. Matrix product kết hợp các đặc trưng theo trọng số — Matrix product kết hợp các đặc trưng theo trọng số
+A. `@` — `@`
 
-B. Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo — Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo
+B. `.T` — `.T`
 
-C. Tích A@inv(A) phải gần đơn vị — Tích A@inv(A) phải gần đơn vị
+C. `np.linalg.det(A)` — `np.linalg.det(A)`
 
-D. Shape không phù hợp sẽ báo lỗi nên kiểm trước — Shape không phù hợp sẽ báo lỗi nên kiểm trước
+D. `np.linalg.inv(A)` — `np.linalg.inv(A)`
 
+**Q13. When is a square matrix invertible? — Khi nào ma trận vuông khả nghịch?**
 
-**Q11. Why choose this method for scenario 3? — Vì sao chọn cách làm tình huống 3?**
+A. Its determinant is nonzero — Định thức khác không
 
-A. Tích A@inv(A) phải gần đơn vị — Tích A@inv(A) phải gần đơn vị
+B. 3 — 3
 
-B. Shape không phù hợp sẽ báo lỗi nên kiểm trước — Shape không phù hợp sẽ báo lỗi nên kiểm trước
+C. Identity matrix — Ma trận đơn vị
 
-C. Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng — Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng
+D. `np.allclose(A, B)` — `np.allclose(A, B)`
 
-D. Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo — Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo
+**Q14. What is determinant of [[2,1],[1,2]]? — Định thức [[2,1],[1,2]] bằng gì?**
 
+A. Its determinant is nonzero — Định thức khác không
 
-**Q12. Why choose this method for scenario 4? — Vì sao chọn cách làm tình huống 4?**
+B. 3 — 3
 
-A. Shape không phù hợp sẽ báo lỗi nên kiểm trước — Shape không phù hợp sẽ báo lỗi nên kiểm trước
+C. Identity matrix — Ma trận đơn vị
 
-B. Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng — Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng
+D. `np.allclose(A, B)` — `np.allclose(A, B)`
 
-C. Tích A@inv(A) phải gần đơn vị — Tích A@inv(A) phải gần đơn vị
+**Q15. What does `A @ inv(A)` approximate? — `A @ inv(A)` gần bằng gì?**
 
-D. Matrix product kết hợp các đặc trưng theo trọng số — Matrix product kết hợp các đặc trưng theo trọng số
+A. Its determinant is nonzero — Định thức khác không
 
+B. 3 — 3
 
-**Q13. Why choose this method for scenario 5? — Vì sao chọn cách làm tình huống 5?**
+C. Identity matrix — Ma trận đơn vị
 
-A. Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng — Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng
+D. `np.allclose(A, B)` — `np.allclose(A, B)`
 
-B. Shape không phù hợp sẽ báo lỗi nên kiểm trước — Shape không phù hợp sẽ báo lỗi nên kiểm trước
+**Q16. How do you test approximate equality of float arrays? — Kiểm tra hai mảng float gần bằng nhau bằng gì?**
 
-C. Matrix product kết hợp các đặc trưng theo trọng số — Matrix product kết hợp các đặc trưng theo trọng số
+A. Its determinant is nonzero — Định thức khác không
 
-D. Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo — Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo
+B. 3 — 3
 
+C. Identity matrix — Ma trận đơn vị
 
-**Q14. What input is relevant to scenario 1? — Dữ liệu nào của tình huống 1?**
+D. `np.allclose(A, B)` — `np.allclose(A, B)`
 
-A. The input is 2 cửa hàng × 3 ngày — 2 cửa hàng × 3 ngày
+**Q17. Which dimensions must match for A @ B? — Nhân A @ B cần các chiều nào bằng nhau?**
 
-B. Different data: 2 SV × 3 môn → 2 kết quả — 2 SV × 3 môn → 2 kết quả
+A. Columns of A and rows of B — Số cột A và số hàng B
 
-C. Different data: Ma trận vuông 2×2 — Ma trận vuông 2×2
+B. Element-wise multiplication — Nhân theo từng phần tử
 
-D. Different data: Ma trận chéo 2×2 — Ma trận chéo 2×2
+C. `np.linalg.solve(A, b)` — `np.linalg.solve(A, b)`
 
+D. A linear algebra error — Lỗi đại số tuyến tính
 
-**Q15. What input is relevant to scenario 2? — Dữ liệu nào của tình huống 2?**
+**Q18. What does `A * B` do for compatible NumPy arrays? — `A * B` trên mảng NumPy tương thích làm gì?**
 
-A. Different data: Ma trận vuông 2×2 — Ma trận vuông 2×2
+A. Columns of A and rows of B — Số cột A và số hàng B
 
-B. Different data: Ma trận chéo 2×2 — Ma trận chéo 2×2
+B. Element-wise multiplication — Nhân theo từng phần tử
 
-C. Different data: A (2×3), B (3×2) — A (2×3), B (3×2)
+C. `np.linalg.solve(A, b)` — `np.linalg.solve(A, b)`
 
-D. The input is 2 SV × 3 môn → 2 kết quả — 2 SV × 3 môn → 2 kết quả
+D. A linear algebra error — Lỗi đại số tuyến tính
 
+**Q19. What is preferred to solve Ax=b numerically? — Để giải hệ Ax=b bằng NumPy nên ưu tiên gì?**
 
-**Q16. What input is relevant to scenario 3? — Dữ liệu nào của tình huống 3?**
+A. Columns of A and rows of B — Số cột A và số hàng B
 
-A. Different data: Ma trận chéo 2×2 — Ma trận chéo 2×2
+B. Element-wise multiplication — Nhân theo từng phần tử
 
-B. Different data: A (2×3), B (3×2) — A (2×3), B (3×2)
+C. `np.linalg.solve(A, b)` — `np.linalg.solve(A, b)`
 
-C. The input is Ma trận vuông 2×2 — Ma trận vuông 2×2
+D. A linear algebra error — Lỗi đại số tuyến tính
 
-D. Different data: 2 cửa hàng × 3 ngày — 2 cửa hàng × 3 ngày
+**Q20. What happens to a singular matrix when using `np.linalg.inv`? — Dùng `np.linalg.inv` với ma trận suy biến thường gây gì?**
 
+A. Columns of A and rows of B — Số cột A và số hàng B
 
-**Q17. What input is relevant to scenario 4? — Dữ liệu nào của tình huống 4?**
+B. Element-wise multiplication — Nhân theo từng phần tử
 
-A. Different data: A (2×3), B (3×2) — A (2×3), B (3×2)
+C. `np.linalg.solve(A, b)` — `np.linalg.solve(A, b)`
 
-B. The input is Ma trận chéo 2×2 — Ma trận chéo 2×2
-
-C. Different data: 2 cửa hàng × 3 ngày — 2 cửa hàng × 3 ngày
-
-D. Different data: 2 SV × 3 môn → 2 kết quả — 2 SV × 3 môn → 2 kết quả
-
-
-**Q18. What input is relevant to scenario 5? — Dữ liệu nào của tình huống 5?**
-
-A. The input is A (2×3), B (3×2) — A (2×3), B (3×2)
-
-B. Different data: 2 cửa hàng × 3 ngày — 2 cửa hàng × 3 ngày
-
-C. Different data: 2 SV × 3 môn → 2 kết quả — 2 SV × 3 môn → 2 kết quả
-
-D. Different data: Ma trận vuông 2×2 — Ma trận vuông 2×2
-
-
-**Q19. What should be checked for matrix operations? — Phép toán ma trận phải kiểm tra gì?**
-
-A. Only line spacing — Chỉ khoảng cách dòng
-
-B. Only file suffix — Chỉ phần mở rộng file
-
-C. Only terminal width — Chỉ độ rộng terminal
-
-D. Shapes and data units — Shape và đơn vị dữ liệu
-
-
-**Q20. Why is one numeric example not enough for AI? — Vì sao một ví dụ số chưa đủ đánh giá AI?**
-
-A. It always proves generalization — Nó luôn chứng minh khả năng tổng quát
-
-B. It removes the need for test data — Nó bỏ được tập kiểm tra
-
-C. It does not establish predictive performance — Nó không đo chất lượng dự đoán
-
-D. It guarantees no leakage — Nó bảo đảm không rò rỉ dữ liệu
+D. A linear algebra error — Lỗi đại số tuyến tính
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It means Bảng hai chiều chứa giá trị theo hàng và cột | Bảng hai chiều chứa giá trị theo hàng và cột |
-| Q2 | **A** | It means Đổi vai trò hàng và cột của ma trận | Đổi vai trò hàng và cột của ma trận |
-| Q3 | **D** | It means Số của ma trận vuông dùng xét tính khả nghịch | Số của ma trận vuông dùng xét tính khả nghịch |
-| Q4 | **C** | It means Ma trận B làm AB=BA=I khi tồn tại | Ma trận B làm AB=BA=I khi tồn tại |
-| Q5 | **B** | It helps to Ma trận đơn vị vuông, nhân vào không đổi vector | Ma trận đơn vị vuông, nhân vào không đổi vector |
-| Q6 | **A** | It helps to Chuyển vị ma trận | Chuyển vị ma trận |
-| Q7 | **D** | It helps to Nhân ma trận khi số cột A bằng số hàng B | Nhân ma trận khi số cột A bằng số hàng B |
-| Q8 | **C** | It helps to Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve | Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve |
-| Q9 | **B** | Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng | Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng |
-| Q10 | **A** | Matrix product kết hợp các đặc trưng theo trọng số | Matrix product kết hợp các đặc trưng theo trọng số |
-| Q11 | **D** | Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo | Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo |
-| Q12 | **C** | Tích A@inv(A) phải gần đơn vị | Tích A@inv(A) phải gần đơn vị |
-| Q13 | **B** | Shape không phù hợp sẽ báo lỗi nên kiểm trước | Shape không phù hợp sẽ báo lỗi nên kiểm trước |
-| Q14 | **A** | The input is 2 cửa hàng × 3 ngày | 2 cửa hàng × 3 ngày |
-| Q15 | **D** | The input is 2 SV × 3 môn → 2 kết quả | 2 SV × 3 môn → 2 kết quả |
-| Q16 | **C** | The input is Ma trận vuông 2×2 | Ma trận vuông 2×2 |
-| Q17 | **B** | The input is Ma trận chéo 2×2 | Ma trận chéo 2×2 |
-| Q18 | **A** | The input is A (2×3), B (3×2) | A (2×3), B (3×2) |
-| Q19 | **D** | Shapes and data units | Shape và đơn vị dữ liệu |
-| Q20 | **C** | It does not establish predictive performance | Nó không đo chất lượng dự đoán |
+| Q1 | **A** | A matrix arranges entries by row and column. | Ma trận sắp phần tử theo hàng và cột. |
+| Q2 | **B** | Transposition exchanges the matrix axes. | Chuyển vị hoán đổi các trục ma trận. |
+| Q3 | **C** | Each output is an inner product of a row and a column. | Mỗi ô kết quả là tích vô hướng một hàng với một cột. |
+| Q4 | **D** | The determinant helps determine invertibility. | Định thức hỗ trợ kiểm tra tính khả nghịch. |
+| Q5 | **A** | Shape lists rows before columns. | Shape ghi số hàng trước số cột. |
+| Q6 | **B** | Rows and columns exchange places. | Hàng và cột đổi vai trò. |
+| Q7 | **C** | The inner 3 dimensions match; outer dimensions remain. | Hai chiều trong bằng 3; giữ hai chiều ngoài. |
+| Q8 | **D** | The identity matrix of size 3 is square. | Ma trận đơn vị bậc 3 là ma trận vuông. |
+| Q9 | **A** | @ follows matrix multiplication rules. | @ thực hiện đúng quy tắc nhân ma trận. |
+| Q10 | **B** | T is a convenient transpose attribute. | T là thuộc tính chuyển vị tiện dụng. |
+| Q11 | **C** | det returns a scalar determinant. | det trả định thức dạng số. |
+| Q12 | **D** | inv computes A inverse for invertible matrices. | inv tính nghịch đảo khi ma trận khả nghịch. |
+| Q13 | **A** | Nonzero determinant is equivalent to nonsingularity. | Định thức khác 0 tương đương khả nghịch. |
+| Q14 | **B** | The 2×2 determinant is 2×2−1×1. | Định thức 2×2 bằng 2×2−1×1. |
+| Q15 | **C** | A times its inverse equals I in exact arithmetic. | Nhân ma trận với nghịch đảo bằng I trong tính toán chính xác. |
+| Q16 | **D** | allclose tolerates small floating-point errors. | allclose chấp nhận sai số dấu phẩy động nhỏ. |
+| Q17 | **A** | Matrix multiplication contracts the shared inner dimension. | Nhân ma trận yêu cầu hai chiều trong trùng. |
+| Q18 | **B** | Star multiplies corresponding entries with broadcasting. | Dấu sao nhân phần tử tương ứng có broadcasting. |
+| Q19 | **C** | Solving directly is generally preferable to forming an explicit inverse. | Giải trực tiếp thường tốt hơn tính nghịch đảo rồi nhân. |
+| Q20 | **D** | A singular matrix lacks an inverse. | Ma trận suy biến không có nghịch đảo. |
 
 ## 8. Nối sang bài kế tiếp
 
