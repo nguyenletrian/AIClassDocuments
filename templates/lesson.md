@@ -24,10 +24,12 @@
 
 ## 4. Khái niệm và các kiến thức liên quan
 
-### 4.1. [Khái niệm chính]
+[Lời dẫn mục 4: giải thích nội dung chính của bài bằng ví dụ đời thường, các khái niệm liên hệ với nhau thế nào.]
+
+### 4.1. [Khái niệm chính — phải giải thích đủ nội dung tiêu đề bài]
 
 **Từ vựng trong mục:** **English term** — Nghĩa tiếng Việt; **Another term** — Nghĩa tiếng Việt.
-[Khái niệm, mục đích và khi nào dùng bằng ngôn ngữ sinh viên dễ tự đọc.]
+[Giải thích khái niệm chính theo mạch: là gì → thành phần/cách hoạt động → dùng khi nào → ví dụ nhỏ có dữ liệu cụ thể; học viên không cần mở bài cũ để hiểu. Nếu tên bài có nhiều thành phần, giải thích đầy đủ các thành phần trong mục 4.]
 
 ```python
 # Thể hiện phép tính hay công thức bằng Python, giải thích vì sao dùng cách này.
@@ -60,7 +62,7 @@ import numpy as np
 
 **Trước / sau (khi có phép biến đổi dữ liệu):** [Hiển thị vài hàng của bảng gốc, vài hàng sau biến đổi và **hình kết quả thực được tính từ đúng dữ liệu minh họa** nếu hình giúp hiểu khái niệm. Ghi shape trước/sau, tỷ lệ thông tin giữ lại nếu có, tên hàng/cột, đơn vị; không dùng đồ thị tùy ý không liên quan dữ liệu.]
 
-**Tự kiểm tra nhanh:** [Một câu ngắn kiểm tra ngay khái niệm vừa học, không cần thêm thư viện. Có **đáp án gợi ý** ngay sau đó. Mỗi nhóm kiến thức chính có một câu để người học không phải đợi tới cuối bài.]
+**Giải thích kết quả:** [Đọc giá trị thực in ra ngay bên dưới code, giải thích dữ liệu/đơn vị và liên hệ với khái niệm. Không có mục tự kiểm tra hoặc đáp án chen giữa bài.]
 
 **QUAN TRỌNG:** Đọc `docs/CURRICULUM-STYLE-GUIDE.md` khi tạo mỗi bài; tuân thủ ví dụ hỏi/đáp song ngữ cùng một dòng.
 
