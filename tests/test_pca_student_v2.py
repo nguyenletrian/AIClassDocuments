@@ -24,10 +24,21 @@ class StudentPcaLessonTests(unittest.TestCase):
                          "## 5. Năm tình huống", "## 7. English multiple-choice"):
             self.assertIn(expected, self.text)
         self.assertEqual(len(re.findall(r"^### Tình huống [1-5]", self.text, re.M)), 5)
-        self.assertEqual(len(re.findall(r"^\*\*Q\d+\.", self.text, re.M)), 8)
+        self.assertEqual(len(re.findall(r"^\*\*Q\d+\.", self.text, re.M)), 20)
         for forbidden in ("PythoClass", "PythonClass", "Toán học đằng sau", "Sau bài học"):
             self.assertNotIn(forbidden, self.text)
-        self.assertEqual(len(self.blocks), 10)
+        self.assertEqual(len(self.blocks), 12)
+        # Each of the five cases must justify its choice, not only give steps.
+        self.assertEqual(self.text.count("**Vì sao chọn cách này?**"), 5)
+        self.assertEqual(len(re.findall(r"^\\| Q\\d+ \\|", self.text, re.M)), 20)
+        self.assertNotIn("Subconcept", self.text)
+        # Feature/Vector/Matrix are defined in prose before the first code sample.
+        concepts = self.text.split("### 4.2.", 1)[1].split("### 4.3.", 1)[0]
+        for concept in ("**Feature là gì?**", "**Vector là gì?**", "**Matrix là gì?**"):
+            self.assertIn(concept, concepts)
+        self.assertLess(concepts.index("**Feature là gì?**"), concepts.index("```python"))
+        self.assertLess(concepts.index("**Vector là gì?**"), concepts.index("```python"))
+
 
     def test_all_python_snippets_have_valid_syntax(self):
         for number, block in enumerate(self.blocks, 1):
