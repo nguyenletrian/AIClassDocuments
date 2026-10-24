@@ -272,7 +272,7 @@ Quan sát đầu đúng hoàn toàn; quan sát thứ hai dự báo thấp hơn t
 
 - Một hàng của A là một phương trình; một cột là hệ số của một ẩn. Không được đảo hai chiều khi đọc dữ liệu.
 - b là giá trị đã biết ở vế phải, không phải cột hệ số của một ẩn mới.
-- Hệ phụ thuộc hàng có thể vô nghiệm hoặc vô số nghiệm; xét cả rank(A) và rank([A|b]), không kết luận chỉ từ rank(A).
+- Hệ phụ thuộc hàng có thể vô nghiệm hoặc vô số nghiệm; xét cả rank(A) và rank([A, b]), không kết luận chỉ từ rank(A).
 - `solve` dành cho ma trận vuông khả nghịch; `lstsq` giải gần đúng được cả hệ có nhiều số đo.
 - Residual có dấu; bình phương tối thiểu tối ưu tổng **bình phương** dư chứ không tối ưu tổng dư có dấu.
 - Chỉ dùng `np.allclose` để kiểm nghiệm trong sai số số học, không coi đó là bằng nhau tuyệt đối.
@@ -500,7 +500,7 @@ D. Prediction is lower than actual — Dự báo thấp hơn thực tế
 | Q13 | **A** | Zero residual means Ax equals b. | Sai số dư bằng 0 nghĩa là Ax=b. |
 | Q14 | **B** | Squared deviations penalize larger errors more. | Bình phương sai lệch làm lỗi lớn bị phạt mạnh. |
 | Q15 | **C** | allclose compares numerical results within tolerances. | allclose so kết quả trong ngưỡng sai số số học. |
-| Q16 | **D** | Different ranks of A and [A|b] indicate inconsistency. | Hạng A khác hạng [A|b] cho biết hệ vô nghiệm. |
+| Q16 | **D** | Different ranks of A and [A, b] indicate inconsistency. | Hạng A khác hạng [A, b] cho biết hệ vô nghiệm. |
 | Q17 | **A** | b is specified data, while x is to be found. | b là dữ liệu đã biết, x mới là biến chưa biết. |
 | Q18 | **B** | Proportional rows carry redundant linear information. | Hàng tỷ lệ chỉ lặp thông tin tuyến tính. |
 | Q19 | **C** | Least squares finds the closest fit when exact equations conflict. | Bình phương tối thiểu tìm cách khớp tốt nhất khi hệ không thỏa hết. |
