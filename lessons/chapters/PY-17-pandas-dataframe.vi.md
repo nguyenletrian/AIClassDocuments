@@ -281,250 +281,230 @@ print(X.shape)
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What is a Pandas Series? — Pandas Series là gì?**
 
-**Q1. What does Series mean? — Ý nghĩa của Series là gì?**
+A. A one-dimensional labeled data structure — Cấu trúc dữ liệu một chiều có nhãn
 
-A. It instead describes Bảng có hàng và cột đặt tên — Bảng có hàng và cột đặt tên
+B. A two-dimensional labeled table — Bảng dữ liệu hai chiều có nhãn
 
-B. The concept is Dữ liệu một chiều có nhãn chỉ mục — Dữ liệu một chiều có nhãn chỉ mục
+C. One field across multiple records — Một thuộc tính qua nhiều bản ghi
 
-C. It instead describes Một feature mang ý nghĩa xác định — Một feature mang ý nghĩa xác định
+D. Parse tabular CSV data into a DataFrame — Đọc dữ liệu CSV thành DataFrame
 
-D. It instead describes Định dạng văn bản cho bảng có header — Định dạng văn bản cho bảng có header
+**Q2. What is a Pandas DataFrame? — Pandas DataFrame là gì?**
 
+A. A one-dimensional labeled data structure — Cấu trúc dữ liệu một chiều có nhãn
 
-**Q2. What does DataFrame mean? — Ý nghĩa của DataFrame là gì?**
+B. A two-dimensional labeled table — Bảng dữ liệu hai chiều có nhãn
 
-A. The concept is Bảng có hàng và cột đặt tên — Bảng có hàng và cột đặt tên
+C. One field across multiple records — Một thuộc tính qua nhiều bản ghi
 
-B. It instead describes Một feature mang ý nghĩa xác định — Một feature mang ý nghĩa xác định
+D. Parse tabular CSV data into a DataFrame — Đọc dữ liệu CSV thành DataFrame
 
-C. It instead describes Định dạng văn bản cho bảng có header — Định dạng văn bản cho bảng có header
+**Q3. What does a column represent? — Một cột trong bảng thể hiện gì?**
 
-D. It instead describes Dữ liệu một chiều có nhãn chỉ mục — Dữ liệu một chiều có nhãn chỉ mục
+A. A one-dimensional labeled data structure — Cấu trúc dữ liệu một chiều có nhãn
 
+B. A two-dimensional labeled table — Bảng dữ liệu hai chiều có nhãn
 
-**Q3. What does Column mean? — Ý nghĩa của Column là gì?**
+C. One field across multiple records — Một thuộc tính qua nhiều bản ghi
 
-A. It instead describes Định dạng văn bản cho bảng có header — Định dạng văn bản cho bảng có header
+D. Parse tabular CSV data into a DataFrame — Đọc dữ liệu CSV thành DataFrame
 
-B. It instead describes Dữ liệu một chiều có nhãn chỉ mục — Dữ liệu một chiều có nhãn chỉ mục
+**Q4. What is the purpose of `pd.read_csv()`? — `pd.read_csv()` dùng để làm gì?**
 
-C. It instead describes Bảng có hàng và cột đặt tên — Bảng có hàng và cột đặt tên
+A. A one-dimensional labeled data structure — Cấu trúc dữ liệu một chiều có nhãn
 
-D. The concept is Một feature mang ý nghĩa xác định — Một feature mang ý nghĩa xác định
+B. A two-dimensional labeled table — Bảng dữ liệu hai chiều có nhãn
 
+C. One field across multiple records — Một thuộc tính qua nhiều bản ghi
 
-**Q4. What does CSV mean? — Ý nghĩa của CSV là gì?**
+D. Parse tabular CSV data into a DataFrame — Đọc dữ liệu CSV thành DataFrame
 
-A. It instead describes Dữ liệu một chiều có nhãn chỉ mục — Dữ liệu một chiều có nhãn chỉ mục
+**Q5. What does `pd.Series([1,2])` return? — `pd.Series([1,2])` trả về gì?**
 
-B. It instead describes Bảng có hàng và cột đặt tên — Bảng có hàng và cột đặt tên
+A. A Series with default index 0,1 — Series có index mặc định 0,1
 
-C. The concept is Định dạng văn bản cho bảng có header — Định dạng văn bản cho bảng có header
+B. A DataFrame containing one column — DataFrame có một cột
 
-D. It instead describes Một feature mang ý nghĩa xác định — Một feature mang ý nghĩa xác định
+C. A Series containing column x — Series chứa cột x
 
+D. A tuple with row and column counts — Tuple gồm số hàng và số cột
 
-**Q5. What is the role of pd.Series(values)? — Vai trò của pd.Series(values) là gì?**
+**Q6. What does `df[['x']]` return? — `df[['x']]` trả về gì?**
 
-A. Another operation would Tạo bảng từ dictionary/list record — Tạo bảng từ dictionary/list record
+A. A Series with default index 0,1 — Series có index mặc định 0,1
 
-B. It is used to Tạo dãy có chỉ mục — Tạo dãy có chỉ mục
+B. A DataFrame containing one column — DataFrame có một cột
 
-C. Another operation would Đọc CSV có tiêu đề, quy định đường dẫn/encoding — Đọc CSV có tiêu đề, quy định đường dẫn/encoding
+C. A Series containing column x — Series chứa cột x
 
-D. Another operation would Xem nhanh bản ghi, schema, thống kê — Xem nhanh bản ghi, schema, thống kê
+D. A tuple with row and column counts — Tuple gồm số hàng và số cột
 
+**Q7. What does `df['x']` return in a normal DataFrame? — `df['x']` thường trả về gì?**
 
-**Q6. What is the role of pd.DataFrame(data)? — Vai trò của pd.DataFrame(data) là gì?**
+A. A Series with default index 0,1 — Series có index mặc định 0,1
 
-A. It is used to Tạo bảng từ dictionary/list record — Tạo bảng từ dictionary/list record
+B. A DataFrame containing one column — DataFrame có một cột
 
-B. Another operation would Đọc CSV có tiêu đề, quy định đường dẫn/encoding — Đọc CSV có tiêu đề, quy định đường dẫn/encoding
+C. A Series containing column x — Series chứa cột x
 
-C. Another operation would Xem nhanh bản ghi, schema, thống kê — Xem nhanh bản ghi, schema, thống kê
+D. A tuple with row and column counts — Tuple gồm số hàng và số cột
 
-D. Another operation would Tạo dãy có chỉ mục — Tạo dãy có chỉ mục
+**Q8. What does `df.shape` return? — `df.shape` trả về gì?**
 
+A. A Series with default index 0,1 — Series có index mặc định 0,1
 
-**Q7. What is the role of pd.read_csv(path)? — Vai trò của pd.read_csv(path) là gì?**
+B. A DataFrame containing one column — DataFrame có một cột
 
-A. Another operation would Xem nhanh bản ghi, schema, thống kê — Xem nhanh bản ghi, schema, thống kê
+C. A Series containing column x — Series chứa cột x
 
-B. Another operation would Tạo dãy có chỉ mục — Tạo dãy có chỉ mục
+D. A tuple with row and column counts — Tuple gồm số hàng và số cột
 
-C. Another operation would Tạo bảng từ dictionary/list record — Tạo bảng từ dictionary/list record
+**Q9. What does `df.head(3)` show? — `df.head(3)` hiển thị gì?**
 
-D. It is used to Đọc CSV có tiêu đề, quy định đường dẫn/encoding — Đọc CSV có tiêu đề, quy định đường dẫn/encoding
+A. The first three rows — Ba hàng đầu
 
+B. Data types of columns — Kiểu dữ liệu của các cột
 
-**Q8. What is the role of df.head()/df.info()/df.describe()? — Vai trò của df.head()/df.info()/df.describe() là gì?**
+C. Columns, non-null counts and data types — Các cột, số ô không thiếu và kiểu dữ liệu
 
-A. Another operation would Tạo dãy có chỉ mục — Tạo dãy có chỉ mục
+D. Descriptive statistics such as mean and quartiles — Thống kê mô tả như trung bình và các tứ phân vị
 
-B. Another operation would Tạo bảng từ dictionary/list record — Tạo bảng từ dictionary/list record
+**Q10. What does `df.dtypes` describe? — `df.dtypes` mô tả gì?**
 
-C. It is used to Xem nhanh bản ghi, schema, thống kê — Xem nhanh bản ghi, schema, thống kê
+A. The first three rows — Ba hàng đầu
 
-D. Another operation would Đọc CSV có tiêu đề, quy định đường dẫn/encoding — Đọc CSV có tiêu đề, quy định đường dẫn/encoding
+B. Data types of columns — Kiểu dữ liệu của các cột
 
+C. Columns, non-null counts and data types — Các cột, số ô không thiếu và kiểu dữ liệu
 
-**Q9. Which reason fits example 1? — Lý do nào phù hợp ví dụ 1?**
+D. Descriptive statistics such as mean and quartiles — Thống kê mô tả như trung bình và các tứ phân vị
 
-A. Dùng StringIO tạo CSV không phụ thuộc file máy — Dùng StringIO tạo CSV không phụ thuộc file máy
+**Q11. What does `df.info()` primarily summarize? — `df.info()` chủ yếu tóm tắt gì?**
 
-B. DataFrame tên cột giúp tránh nhầm giá với số lượng — DataFrame tên cột giúp tránh nhầm giá với số lượng
+A. The first three rows — Ba hàng đầu
 
-C. Một cột mới tính Price × Quantity — Một cột mới tính Price × Quantity
+B. Data types of columns — Kiểu dữ liệu của các cột
 
-D. dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi — dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi
+C. Columns, non-null counts and data types — Các cột, số ô không thiếu và kiểu dữ liệu
 
+D. Descriptive statistics such as mean and quartiles — Thống kê mô tả như trung bình và các tứ phân vị
 
-**Q10. Which reason fits example 2? — Lý do nào phù hợp ví dụ 2?**
+**Q12. What does `df.describe()` commonly provide for numeric columns? — `df.describe()` thường cung cấp gì cho cột số?**
 
-A. Dùng StringIO tạo CSV không phụ thuộc file máy — Dùng StringIO tạo CSV không phụ thuộc file máy
+A. The first three rows — Ba hàng đầu
 
-B. Một cột mới tính Price × Quantity — Một cột mới tính Price × Quantity
+B. Data types of columns — Kiểu dữ liệu của các cột
 
-C. dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi — dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi
+C. Columns, non-null counts and data types — Các cột, số ô không thiếu và kiểu dữ liệu
 
-D. Chỉ giữ các cột feature phù hợp để tạo X — Chỉ giữ các cột feature phù hợp để tạo X
+D. Descriptive statistics such as mean and quartiles — Thống kê mô tả như trung bình và các tứ phân vị
 
+**Q13. What is an index in a DataFrame? — Index của DataFrame là gì?**
 
-**Q11. Which reason fits example 3? — Lý do nào phù hợp ví dụ 3?**
+A. Labels identifying rows — Các nhãn xác định hàng
 
-A. dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi — dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi
+B. Index labels — Nhãn index
 
-B. Chỉ giữ các cột feature phù hợp để tạo X — Chỉ giữ các cột feature phù hợp để tạo X
+C. Column labels — Các tên cột
 
-C. DataFrame tên cột giúp tránh nhầm giá với số lượng — DataFrame tên cột giúp tránh nhầm giá với số lượng
+D. One observation or record — Một quan sát hoặc bản ghi
 
-D. Một cột mới tính Price × Quantity — Một cột mới tính Price × Quantity
+**Q14. How are Series values aligned during arithmetic? — Pandas căn các giá trị Series khi tính toán bằng gì?**
 
+A. Labels identifying rows — Các nhãn xác định hàng
 
-**Q12. Which reason fits example 4? — Lý do nào phù hợp ví dụ 4?**
+B. Index labels — Nhãn index
 
-A. Chỉ giữ các cột feature phù hợp để tạo X — Chỉ giữ các cột feature phù hợp để tạo X
+C. Column labels — Các tên cột
 
-B. DataFrame tên cột giúp tránh nhầm giá với số lượng — DataFrame tên cột giúp tránh nhầm giá với số lượng
+D. One observation or record — Một quan sát hoặc bản ghi
 
-C. dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi — dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi
+**Q15. What does `df.columns` contain? — `df.columns` chứa gì?**
 
-D. Dùng StringIO tạo CSV không phụ thuộc file máy — Dùng StringIO tạo CSV không phụ thuộc file máy
+A. Labels identifying rows — Các nhãn xác định hàng
 
+B. Index labels — Nhãn index
 
-**Q13. Which reason fits example 5? — Lý do nào phù hợp ví dụ 5?**
+C. Column labels — Các tên cột
 
-A. DataFrame tên cột giúp tránh nhầm giá với số lượng — DataFrame tên cột giúp tránh nhầm giá với số lượng
+D. One observation or record — Một quan sát hoặc bản ghi
 
-B. Chỉ giữ các cột feature phù hợp để tạo X — Chỉ giữ các cột feature phù hợp để tạo X
+**Q16. What is a DataFrame row usually intended to represent? — Mỗi hàng DataFrame thường nên biểu diễn gì?**
 
-C. Dùng StringIO tạo CSV không phụ thuộc file máy — Dùng StringIO tạo CSV không phụ thuộc file máy
+A. Labels identifying rows — Các nhãn xác định hàng
 
-D. Một cột mới tính Price × Quantity — Một cột mới tính Price × Quantity
+B. Index labels — Nhãn index
 
+C. Column labels — Các tên cột
 
-**Q14. Which input matches example 1? — Dữ liệu nào phù hợp ví dụ 1?**
+D. One observation or record — Một quan sát hoặc bản ghi
 
-A. The stated data are 2 sản phẩm với Price đồng, Qty cái — 2 sản phẩm với Price đồng, Qty cái
+**Q17. What does `df['price'] * df['qty']` calculate? — `df['price'] * df['qty']` tính gì?**
 
-B. Other data: 2 dòng đơn, cột id,amount (đồng) — 2 dòng đơn, cột id,amount (đồng)
+A. An element-wise product aligned by index — Tích từng phần tử được căn theo index
 
-C. Other data: 2 sản phẩm — 2 sản phẩm
+B. Two named columns — Hai cột được nêu tên
 
-D. Other data: Một cột số lượng, một cột tên — Một cột số lượng, một cột tên
+C. A numeric column may be parsed as text — Cột số có thể bị đọc thành chữ
 
+D. To interpret the data and calculations correctly — Để hiểu đúng dữ liệu và phép tính
 
-**Q15. Which input matches example 2? — Dữ liệu nào phù hợp ví dụ 2?**
+**Q18. What does `df[['a','b']]` select? — `df[['a','b']]` chọn gì?**
 
-A. Other data: 2 sản phẩm — 2 sản phẩm
+A. An element-wise product aligned by index — Tích từng phần tử được căn theo index
 
-B. Other data: Một cột số lượng, một cột tên — Một cột số lượng, một cột tên
+B. Two named columns — Hai cột được nêu tên
 
-C. Other data: 2 khách, 3 thuộc tính — 2 khách, 3 thuộc tính
+C. A numeric column may be parsed as text — Cột số có thể bị đọc thành chữ
 
-D. The stated data are 2 dòng đơn, cột id,amount (đồng) — 2 dòng đơn, cột id,amount (đồng)
+D. To interpret the data and calculations correctly — Để hiểu đúng dữ liệu và phép tính
 
+**Q19. What is a frequent risk when loading CSV numeric data? — Nguy cơ thường gặp khi đọc số từ CSV là gì?**
 
-**Q16. Which input matches example 3? — Dữ liệu nào phù hợp ví dụ 3?**
+A. An element-wise product aligned by index — Tích từng phần tử được căn theo index
 
-A. Other data: Một cột số lượng, một cột tên — Một cột số lượng, một cột tên
+B. Two named columns — Hai cột được nêu tên
 
-B. Other data: 2 khách, 3 thuộc tính — 2 khách, 3 thuộc tính
+C. A numeric column may be parsed as text — Cột số có thể bị đọc thành chữ
 
-C. The stated data are 2 sản phẩm — 2 sản phẩm
+D. To interpret the data and calculations correctly — Để hiểu đúng dữ liệu và phép tính
 
-D. Other data: 2 sản phẩm với Price đồng, Qty cái — 2 sản phẩm với Price đồng, Qty cái
+**Q20. Why define what each row and column means? — Vì sao cần nêu ý nghĩa từng hàng và cột?**
 
+A. An element-wise product aligned by index — Tích từng phần tử được căn theo index
 
-**Q17. Which input matches example 4? — Dữ liệu nào phù hợp ví dụ 4?**
+B. Two named columns — Hai cột được nêu tên
 
-A. Other data: 2 khách, 3 thuộc tính — 2 khách, 3 thuộc tính
+C. A numeric column may be parsed as text — Cột số có thể bị đọc thành chữ
 
-B. The stated data are Một cột số lượng, một cột tên — Một cột số lượng, một cột tên
-
-C. Other data: 2 sản phẩm với Price đồng, Qty cái — 2 sản phẩm với Price đồng, Qty cái
-
-D. Other data: 2 dòng đơn, cột id,amount (đồng) — 2 dòng đơn, cột id,amount (đồng)
-
-
-**Q18. Which input matches example 5? — Dữ liệu nào phù hợp ví dụ 5?**
-
-A. The stated data are 2 khách, 3 thuộc tính — 2 khách, 3 thuộc tính
-
-B. Other data: 2 sản phẩm với Price đồng, Qty cái — 2 sản phẩm với Price đồng, Qty cái
-
-C. Other data: 2 dòng đơn, cột id,amount (đồng) — 2 dòng đơn, cột id,amount (đồng)
-
-D. Other data: 2 sản phẩm — 2 sản phẩm
-
-
-**Q19. What must every table clarify? — Bảng dữ liệu cần nêu rõ gì?**
-
-A. Only editor color — Chỉ màu trình soạn
-
-B. Only variable length — Chỉ độ dài tên biến
-
-C. Only number of blank lines — Chỉ số dòng trống
-
-D. Rows, columns and units — Hàng, cột và đơn vị
-
-
-**Q20. Why test with different inputs? — Tại sao cần thử đầu vào khác?**
-
-A. To guarantee machine learning accuracy — Để bảo đảm AI luôn đúng
-
-B. To remove input validation — Để bỏ kiểm tra dữ liệu
-
-C. To check limitations and edge cases — Để thấy giới hạn và trường hợp biên
-
-D. To change column meanings — Để thay đổi nghĩa các cột
+D. To interpret the data and calculations correctly — Để hiểu đúng dữ liệu và phép tính
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | The concept is Dữ liệu một chiều có nhãn chỉ mục | Dữ liệu một chiều có nhãn chỉ mục |
-| Q2 | **A** | The concept is Bảng có hàng và cột đặt tên | Bảng có hàng và cột đặt tên |
-| Q3 | **D** | The concept is Một feature mang ý nghĩa xác định | Một feature mang ý nghĩa xác định |
-| Q4 | **C** | The concept is Định dạng văn bản cho bảng có header | Định dạng văn bản cho bảng có header |
-| Q5 | **B** | It is used to Tạo dãy có chỉ mục | Tạo dãy có chỉ mục |
-| Q6 | **A** | It is used to Tạo bảng từ dictionary/list record | Tạo bảng từ dictionary/list record |
-| Q7 | **D** | It is used to Đọc CSV có tiêu đề, quy định đường dẫn/encoding | Đọc CSV có tiêu đề, quy định đường dẫn/encoding |
-| Q8 | **C** | It is used to Xem nhanh bản ghi, schema, thống kê | Xem nhanh bản ghi, schema, thống kê |
-| Q9 | **B** | DataFrame tên cột giúp tránh nhầm giá với số lượng | DataFrame tên cột giúp tránh nhầm giá với số lượng |
-| Q10 | **A** | Dùng StringIO tạo CSV không phụ thuộc file máy | Dùng StringIO tạo CSV không phụ thuộc file máy |
-| Q11 | **D** | Một cột mới tính Price × Quantity | Một cột mới tính Price × Quantity |
-| Q12 | **C** | dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi | dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi |
-| Q13 | **B** | Chỉ giữ các cột feature phù hợp để tạo X | Chỉ giữ các cột feature phù hợp để tạo X |
-| Q14 | **A** | The stated data are 2 sản phẩm với Price đồng, Qty cái | 2 sản phẩm với Price đồng, Qty cái |
-| Q15 | **D** | The stated data are 2 dòng đơn, cột id,amount (đồng) | 2 dòng đơn, cột id,amount (đồng) |
-| Q16 | **C** | The stated data are 2 sản phẩm | 2 sản phẩm |
-| Q17 | **B** | The stated data are Một cột số lượng, một cột tên | Một cột số lượng, một cột tên |
-| Q18 | **A** | The stated data are 2 khách, 3 thuộc tính | 2 khách, 3 thuộc tính |
-| Q19 | **D** | Rows, columns and units | Hàng, cột và đơn vị |
-| Q20 | **C** | To check limitations and edge cases | Để thấy giới hạn và trường hợp biên |
+| Q1 | **A** | Series associates values with an index. | Series liên kết từng giá trị với một nhãn index. |
+| Q2 | **B** | A DataFrame organizes records in rows and fields in columns. | DataFrame tổ chức bản ghi thành hàng và trường thành cột. |
+| Q3 | **C** | A column holds the same kind of attribute for each row. | Cột lưu cùng một thuộc tính ở các hàng. |
+| Q4 | **D** | read_csv interprets separated fields and header names. | read_csv đọc các trường được phân cách cùng hàng tên cột. |
+| Q5 | **A** | Default integer labels are assigned when none are given. | Không chỉ định nhãn thì Pandas tự gán chỉ số nguyên. |
+| Q6 | **B** | Double brackets select a list of columns and preserve tabular form. | Hai lớp ngoặc vuông chọn danh sách cột và giữ dạng bảng. |
+| Q7 | **C** | Single-bracket column lookup returns a Series. | Tra cứu một cột bằng ngoặc đơn trả Series. |
+| Q8 | **D** | Shape gives the two dimensions of a DataFrame. | Shape cho biết hai kích thước của DataFrame. |
+| Q9 | **A** | head returns the requested number of top rows. | head lấy số hàng đầu theo đối số. |
+| Q10 | **B** | Each column can have its own dtype. | Mỗi cột có thể mang dtype riêng. |
+| Q11 | **C** | info reports the table structure and completeness. | info cho biết cấu trúc và mức độ đầy đủ của bảng. |
+| Q12 | **D** | describe computes basic summaries for numeric fields. | describe tính những thống kê cơ bản cho cột số. |
+| Q13 | **A** | The index is separate from ordinary columns unless explicitly converted. | Index tách với các cột thông thường trừ khi được chuyển đổi. |
+| Q14 | **B** | Pandas aligns data by matching index labels. | Pandas ghép giá trị theo các nhãn index tương ứng. |
+| Q15 | **C** | The columns index lists field names. | Thuộc tính columns liệt kê tên trường. |
+| Q16 | **D** | A consistent row meaning makes aggregations interpretable. | Ý nghĩa hàng nhất quán giúp hiểu đúng các phép tổng hợp. |
+| Q17 | **A** | Aligned price and quantity values are multiplied for each record. | Giá và lượng tương ứng được nhân ở từng bản ghi. |
+| Q18 | **B** | A list of names selects multiple columns. | Danh sách tên cho phép lấy nhiều cột. |
+| Q19 | **C** | Malformed values can prevent numeric type inference. | Giá trị không hợp lệ có thể khiến Pandas không nhận kiểu số. |
+| Q20 | **D** | Row and column semantics determine what a result means. | Ý nghĩa hàng và cột quyết định cách diễn giải kết quả. |
 
 ## 8. Nối bài tiếp theo
 
