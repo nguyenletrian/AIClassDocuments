@@ -1,6 +1,5 @@
 # PY-45 — Matplotlib: biểu đồ line, scatter và histogram
 
-*DRAFT · Bài tổng hợp dành cho sinh viên; cần kiểm tra code và môi trường cài đặt trước phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
