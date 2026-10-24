@@ -1,6 +1,5 @@
 # PY-33 — Jacobian, Hessian và điểm cực trị
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
