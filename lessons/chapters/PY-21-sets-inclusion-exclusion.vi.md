@@ -31,48 +31,58 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Union
+**Tập hợp** giúp lưu các đối tượng **khác nhau** rồi so sánh thành viên giữa các nhóm. Ta dùng hai lớp học Python và AI làm ví dụ xuyên suốt: phép hợp tìm tất cả học viên, phép giao tìm người học cả hai, quy tắc bao hàm–loại trừ giúp đếm không trùng, còn phân hoạch giúp chia bộ dữ liệu thành các phần rời nhau.
 
-**Từ vựng trong mục:** **Union** — phép hợp.
+### 4.1. Set và phép hợp — Ai tham gia ít nhất một nhóm?
 
-Lấy tất cả phần tử thuộc ít nhất một tập. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Set** — tập hợp; **Union** — phép hợp.
+
+Set không giữ phần tử trùng. Lớp Python gồm SV1, SV2; lớp AI gồm SV2, SV3. Phép **hợp** `python | ai` chứa tất cả người có mặt trong **ít nhất một** lớp. SV2 nằm ở cả hai nhưng chỉ xuất hiện một lần. Khi cần đầu ra ổn định, dùng `sorted()` vì Set không bảo đảm thứ tự hiển thị.
 
 ```python
-print({1,2}|{2,3})
+python = {'SV1', 'SV2'}
+ai = {'SV2', 'SV3'}
+print(sorted(python | ai))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{1, 2, 3}
+['SV1', 'SV2', 'SV3']
 ```
 
-### 4.2. Intersection
+Ba mã học viên khác nhau thuộc ít nhất một lớp; `sorted` tạo List để hiển thị theo thứ tự rõ ràng.
 
-**Từ vựng trong mục:** **Intersection** — phép giao.
+### 4.2. Intersection và Difference — Phần chung và phần riêng
 
-Lấy phần tử có trong cả hai tập. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Intersection** — phép giao; **Difference** — hiệu tập hợp.
+
+**Giao** `a & b` chỉ lấy phần tử thuộc cả hai nhóm; với lớp Python {SV1,SV2} và AI {SV2,SV3}, phần chung là SV2. **Hiệu** `a - b` chỉ lấy phần tử thuộc a nhưng không thuộc b, tức SV1 trong ví dụ. Hiệu khác hiệu đối xứng `a ^ b`, vốn chứa các phần tử chỉ có ở đúng một nhóm.
 
 ```python
-print({1,2}&{2,3})
+a = {'SV1', 'SV2'}
+b = {'SV2', 'SV3'}
+print(sorted(a & b), sorted(a - b))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{2}
+['SV2'] ['SV1']
 ```
 
-### 4.3. Inclusion–exclusion
+SV2 học cả hai lớp, còn SV1 chỉ học Python. Hai phép toán trả lời hai câu hỏi khác nhau.
 
-**Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ.
+### 4.3. Inclusion–exclusion — Đếm không lặp người
 
-Cộng từng tập rồi trừ phần giao bị đếm hai lần. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ; **Cardinality** — số phần tử.
+
+Nếu cộng số học viên hai lớp trực tiếp, người học cả hai bị đếm **hai lần**. Ví dụ lớp Python có 2 người, lớp AI có 2 người, một người chung: số người khác nhau bằng `2 + 2 - 1 = 3`. Công thức `|A ∪ B| = |A| + |B| - |A ∩ B|` trừ phần bị đếm lặp. Với hơn hai tập, cần tính thêm các giao nhiều tập.
 
 ```python
-a={1,2}
-b={2,3}
-print(len(a)+len(b)-len(a&b))
+a = {'SV1', 'SV2'}
+b = {'SV2', 'SV3'}
+print(len(a) + len(b) - len(a & b))
 ```
 
 **Kết quả khi chạy:**
@@ -81,16 +91,19 @@ print(len(a)+len(b)-len(a&b))
 3
 ```
 
-### 4.4. Partition
+Kết quả đếm ba học viên duy nhất, không coi SV2 là hai người khác nhau.
 
-**Từ vựng trong mục:** **Partition** — phân hoạch.
+### 4.4. Partition — Chia đủ dữ liệu thành phần rời
 
-Chia thành các nhóm rời nhau phủ đủ tập gốc. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Partition** — phân hoạch; **Disjoint** — không giao nhau.
+
+**Phân hoạch** tập dữ liệu gốc thành các nhóm **không rỗng**, **không giao nhau**, và **hợp lại bằng đúng tập gốc**. Ví dụ toàn bộ mã `{1,2,3,4,5}`, train `{1,2,3}`, test `{4,5}`. `isdisjoint` chỉ kiểm tra không trùng; để chứng minh phân hoạch còn phải kiểm tra hợp của chúng có phủ đủ dữ liệu gốc. Với Machine Learning, không trùng ID **chưa chắc** loại bỏ mọi hình thức rò rỉ dữ liệu.
 
 ```python
-train={1,2}
-test={3}
-print(train.isdisjoint(test))
+all_ids = {1, 2, 3, 4, 5}
+train = {1, 2, 3}
+test = {4, 5}
+print(bool(train) and bool(test) and train.isdisjoint(test) and train | test == all_ids)
 ```
 
 **Kết quả khi chạy:**
@@ -99,6 +112,7 @@ print(train.isdisjoint(test))
 True
 ```
 
+Hai tập đều có dữ liệu, không trùng và phủ đủ toàn bộ năm mã, nên tạo một phân hoạch hợp lệ.
 ## 5. Năm vấn đề thực tế
 
 ### Tình huống 1 — Đếm người học ít nhất một môn
@@ -107,10 +121,14 @@ True
 
 **Tình huống thực tế:** Một lớp có học viên SV1, SV2, SV3 đăng ký môn Python và SV2, SV4 đăng ký AI. Đếm số học viên học ít nhất một trong hai môn.
 
-**Vì sao chọn phương án này?** Phép hợp tránh đếm người học cả hai môn hai lần. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Phép hợp chỉ giữ mỗi mã học viên một lần, đúng yêu cầu đếm người học ít nhất một môn.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo Set mã người đăng ký Python và Set mã người đăng ký AI.
+2. Dùng phép hợp để loại mã xuất hiện trong cả hai nhóm.
+3. Dùng `len` đếm số học viên duy nhất.
 
 ```python
 a={"SV1","SV2","SV3"}
@@ -130,21 +148,25 @@ print(len(a|b))
 
 **Tình huống thực tế:** Hai nhóm học viên A gồm SV1, SV2; B gồm SV2, SV3. Tìm mã học viên có mặt ở cả hai nhóm.
 
-**Vì sao chọn phương án này?** Phép giao lấy đúng người thuộc hai nhóm. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Phép giao trả đúng thành viên có ở cả hai nhóm, không cần duyệt từng mã bằng vòng lặp.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Lưu danh sách mã của hai nhóm thành Set.
+2. Dùng phép giao `&` tìm người có mặt ở cả hai.
+3. In kết quả dưới dạng danh sách có thứ tự để dễ đối chiếu.
 
 ```python
 a={"SV1","SV2"}
 b={"SV2","SV3"}
-print(a&b)
+print(sorted(a & b))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'SV2'}
+['SV2']
 ```
 
 ### Tình huống 3 — Kiểm công thức đếm
@@ -153,10 +175,14 @@ print(a&b)
 
 **Tình huống thực tế:** Hai nhóm mã ID {1,2,3} và {3,4} trùng mã 3. Tính tổng số mã khác nhau và đối chiếu với phép hợp.
 
-**Vì sao chọn phương án này?** Bao hàm–loại trừ cho kết quả như hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Bao hàm–loại trừ trừ đi phần đã bị tính hai lần và đối chiếu được với phép hợp.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Xác định số mã trong A, B và phần giao.
+2. Tính `len(a) + len(b) - len(a & b)`.
+3. So sánh với `len(a | b)` để kiểm chứng hai cách tính.
 
 ```python
 a={1,2,3}
@@ -176,16 +202,20 @@ print(len(a)+len(b)-len(a&b),len(a|b))
 
 **Tình huống thực tế:** Đội AI dùng mã dữ liệu {1,2,3} làm tập huấn luyện, {4,5} làm tập kiểm tra. Kiểm tra hai tập có trùng ID không.
 
-**Vì sao chọn phương án này?** Hai nhóm ID đánh giá không trùng nhau. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Phân hoạch không chỉ cần hai nhóm không trùng mà còn phải phủ đúng toàn bộ ID nguồn.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Lưu ID train, ID test và tập ID toàn bộ.
+2. Kiểm tra hai nhóm không giao nhau bằng `isdisjoint`.
+3. Kiểm tra các ID của train và test gộp lại có đúng tập gốc và không rỗng.
 
 ```python
 train={1,2,3}
 test={4,5}
 assert train.isdisjoint(test)
-print(train|test)
+print(train.isdisjoint(test) and train | test == True)
 ```
 
 **Kết quả khi chạy:**
@@ -200,26 +230,34 @@ print(train|test)
 
 **Tình huống thực tế:** Nhóm học Web gồm An, Bình; nhóm học AI gồm Bình, Lan. Tìm học viên chỉ tham gia đúng một trong hai nhóm.
 
-**Vì sao chọn phương án này?** Hiệu đối xứng lấy người chỉ thuộc một nhóm. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Hiệu đối xứng trả thành viên chỉ nằm ở một trong hai nhóm; người có mặt cả hai bị loại.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Lưu danh sách học viên của lớp Web và lớp AI thành hai Set.
+2. Lấy hiệu đối xứng `web ^ ai` để bỏ người tham gia cả hai.
+3. Sắp xếp và in những người chỉ ở một lớp.
 
 ```python
 web={"An","Binh"}
 ai={"Binh","Lan"}
-print(web^ai)
+print(sorted(web ^ ai))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'An', 'Lan'}
+['An', 'Lan']
 ```
 
-## 6. Các lỗi dễ mắc
+## 6. Sai lầm thường gặp
 
-Cần phân biệt khi nào thứ tự quan trọng, khi nào phần tử trùng được tính lại, và khi nào dữ liệu thật không có đủ điều kiện như ví dụ. Xem kỹ kiểu dữ liệu và đầu vào trống.
+- Set không giữ thứ tự; dùng `sorted()` khi muốn kết quả mẫu có thứ tự ổn định.
+- Phép hợp `|` khác phép giao `&`: hợp lấy ít nhất một nhóm, giao lấy cả hai nhóm.
+- Hiệu `A - B` khác hiệu đối xứng `A ^ B`: một chiều so với chỉ xuất hiện ở đúng một trong hai tập.
+- Bao hàm–loại trừ tránh đếm trùng. Nếu có ba tập trở lên, công thức cần cộng/trừ thêm các giao nhiều tập.
+- `isdisjoint()` chỉ chứng minh hai tập không trùng, chưa chứng minh chúng phủ toàn bộ tập gốc.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
