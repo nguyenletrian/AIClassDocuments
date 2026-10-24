@@ -488,7 +488,7 @@ C. `intersection()` — `intersection()`
 
 D. `issubset()` — `issubset()`
 
-**Q20. Which function creates a sorted list from a set? — Hàm nào tạo List đã sắp từ một Set?**
+**Q20. Which function creates a sorted list from a set of comparable numbers? — Hàm nào tạo List đã sắp từ một Set chứa các số có thể so sánh?**
 
 A. `list(s)` without ordering — `list(s)` không sắp xếp
 
