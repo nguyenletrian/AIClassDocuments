@@ -311,79 +311,79 @@ Tệp chưa tồn tại nên khối `except` xử lý lỗi một cách có ki�
 
 A. Reading data from or writing data to files — Đọc dữ liệu từ hoặc ghi dữ liệu vào tệp
 
-B. Sorting a list in memory — Sắp xếp List trong bộ nhớ
+B. Reading only console input — Chỉ đọc đầu vào từ bàn phím
 
-C. Drawing a plot — Vẽ một biểu đồ
+C. Modifying only in-memory lists — Chỉ sửa List trong bộ nhớ
 
-D. Training a model — Huấn luyện mô hình
+D. Printing variables without saving files — In biến mà không lưu tệp
 
 **Q2. What is the purpose of a file path? — Đường dẫn file dùng để làm gì?**
 
-A. Compute a matrix rank — Tính hạng ma trận
+A. Storing the file's full contents — Lưu toàn bộ nội dung tệp
 
-B. Identify a file location — Xác định vị trí một tệp
+B. Guaranteeing the file can be opened — Bảo đảm có thể mở tệp
 
-C. Store a Boolean value — Lưu giá trị Boolean
+C. Specifying the encoding of every field — Chỉ định encoding cho mỗi trường
 
-D. Sort rows automatically — Tự sắp xếp các hàng
+D. Identify a file location — Xác định vị trí một tệp
 
 **Q3. What does `Path.read_text()` do? — `Path.read_text()` làm gì?**
 
-A. Sort CSV by price — Sắp CSV theo giá
+A. Writing a text file — Ghi một tệp văn bản
 
-B. Convert the path into a function — Chuyển đường dẫn thành hàm
+B. Returning only the path's name — Chỉ trả tên đường dẫn
 
-C. Read text content from a file — Đọc nội dung văn bản từ tệp
+C. Parsing the file into CSV dictionaries — Phân tích tệp thành các Dictionary CSV
 
-D. Create a pandas index — Tạo chỉ số Pandas
+D. Read text content from a file — Đọc nội dung văn bản từ tệp
 
 **Q4. What does `Path.write_text()` do? — `Path.write_text()` dùng để làm gì?**
 
-A. Read and sort all CSV rows — Đọc và sắp mọi hàng CSV
+A. Appending without changing old contents by default — Mặc định nối thêm và không sửa nội dung cũ
 
-B. Count class methods — Đếm phương thức lớp
+B. Only changing a file's name — Chỉ đổi tên tệp
 
-C. Only check whether a file exists — Chỉ kiểm tra tệp tồn tại
+C. Write text to a file — Ghi văn bản vào tệp
 
-D. Write text to a file — Ghi văn bản vào tệp
+D. Reading text without changing the file — Đọc văn bản mà không đổi tệp
 
 **Q5. Why specify `encoding='utf-8'` for text? — Vì sao dùng `encoding='utf-8'` với văn bản?**
 
-A. To encode Unicode text consistently — Để mã hóa chữ Unicode nhất quán
+A. Preventing all file read errors — Ngăn mọi lỗi đọc tệp
 
-B. To make all values integers — Để mọi giá trị thành số nguyên
+B. To encode Unicode text consistently — Để mã hóa chữ Unicode nhất quán
 
-C. To create three CSV columns — Để tạo ba cột CSV
+C. Automatically converting text to integer values — Tự chuyển văn bản sang số nguyên
 
-D. To guarantee a file is secret — Để bảo đảm tệp bí mật
+D. Encrypting the file contents for privacy — Mã hóa bảo mật nội dung tệp
 
 **Q6. How does a CSV file normally organize data? — CSV thông thường tổ chức dữ liệu ra sao?**
 
-A. A database server connection — Kết nối máy chủ cơ sở dữ liệu
+A. Only a list of Python dictionaries in memory — Chỉ danh sách Dictionary Python trong bộ nhớ
 
-B. Rows of text with separated fields — Các dòng văn bản chứa trường dữ liệu được phân cách
+B. A fixed-width binary record format — Định dạng bản ghi nhị phân có độ dài cố định
 
-C. Binary images with pixels — Ảnh nhị phân gồm điểm ảnh
+C. A file that guarantees numerical columns — Tệp bảo đảm mọi cột đều là số
 
-D. Python classes only — Chỉ chứa lớp Python
+D. Rows of text with separated fields — Các dòng văn bản chứa trường dữ liệu được phân cách
 
 **Q7. What does `csv.DictReader` use as dictionary keys? — `csv.DictReader` dùng gì làm khóa Dictionary?**
 
-A. Names of Python packages — Tên gói Python
+A. Values from the final CSV row — Giá trị hàng CSV cuối cùng
 
-B. The current file size — Kích thước tệp hiện tại
+B. The full file path as every key — Toàn bộ đường dẫn tệp làm mọi khóa
 
 C. CSV column names — Tên cột trong CSV
 
-D. Always numbers 0, 1, 2 — Luôn là số 0, 1, 2
+D. Numeric column indexes starting at zero — Chỉ số cột bằng số bắt đầu từ 0
 
 **Q8. What type are values read by `csv.DictReader` by default? — Mặc định giá trị do `csv.DictReader` đọc có kiểu gì?**
 
-A. Integer — Số nguyên
+A. Integers for fields containing digits — Số nguyên cho trường chứa chữ số
 
-B. Float — Số thực
+B. Floating-point values for decimals — Số thực cho trường chứa dấu thập phân
 
-C. Boolean — Giá trị logic
+C. Booleans for empty and nonempty fields — Boolean cho trường rỗng và không rỗng
 
 D. String — Chuỗi
 
@@ -391,146 +391,146 @@ D. String — Chuỗi
 
 A. The column-name header row — Hàng tiêu đề chứa tên các cột
 
-B. The final record twice — Nhân đôi bản ghi cuối
+B. All data rows in the file — Mọi hàng dữ liệu trong tệp
 
-C. An exception message — Thông báo ngoại lệ
+C. Only the first data record — Chỉ bản ghi dữ liệu đầu
 
-D. A Python class definition — Định nghĩa lớp Python
+D. A list of Python parameter names — Danh sách tên tham số Python
 
 **Q10. Why prefer the CSV module over simply splitting every line by comma? — Vì sao nên dùng module CSV thay vì luôn tách chuỗi theo dấu phẩy?**
 
-A. It encrypts each file — Nó mã hóa bảo mật mọi tệp
+A. Guaranteed removal of empty fields — Bảo đảm xóa mọi trường rỗng
 
-B. It handles quoted fields and delimiters correctly — Nó xử lý đúng trường được đặt trong dấu nháy và dấu phân cách
+B. Automatic detection of missing files — Tự phát hiện tệp bị thiếu
 
-C. It converts every field to a float — Nó đổi mọi trường thành số thực
+C. It handles quoted fields and delimiters correctly — Nó xử lý đúng trường được đặt trong dấu nháy và dấu phân cách
 
-D. It removes all empty rows automatically — Nó tự bỏ mọi dòng rỗng
+D. Automatic type conversion for numeric fields — Tự chuyển kiểu các trường số
 
 **Q11. What is an exception in Python? — Ngoại lệ trong Python là gì?**
 
-A. A CSV row header — Hàng tiêu đề CSV
+A. A valid program's printed result — Kết quả in của chương trình hợp lệ
 
-B. A list slicing operator — Toán tử cắt List
+B. A Python List indexing rule — Quy tắc chỉ số List Python
 
 C. An error or abnormal condition raised during execution — Lỗi hoặc tình huống bất thường phát sinh khi chạy
 
-D. A guaranteed successful result — Một kết quả chắc chắn thành công
+D. A normal CSV header — Hàng tiêu đề CSV bình thường
 
 **Q12. What does `int('abc')` raise? — `int('abc')` phát sinh lỗi gì?**
 
-A. `FileNotFoundError` — `FileNotFoundError`
+A. Returns integer zero without error — Trả số nguyên 0 mà không lỗi
 
-B. `ZeroDivisionError` — `ZeroDivisionError`
+B. `ValueError` — `ValueError`
 
-C. No error; returns zero — Không lỗi và trả về 0
+C. `TypeError` for every string input — `TypeError` cho mọi đầu vào chuỗi
 
-D. `ValueError` — `ValueError`
+D. `FileNotFoundError` from integer parsing — `FileNotFoundError` do phân tích số nguyên
 
 **Q13. What does `except ValueError` catch? — `except ValueError` xử lý loại lỗi nào?**
 
-A. Value conversion errors — Lỗi chuyển giá trị không hợp lệ
+A. Only successful integer conversion events — Chỉ sự kiện chuyển số nguyên thành công
 
-B. All file permission failures — Mọi lỗi quyền truy cập tệp
+B. Value conversion errors — Lỗi chuyển giá trị không hợp lệ
 
-C. Every possible error — Mọi lỗi có thể xảy ra
+C. Every exception raised anywhere in the program — Mọi ngoại lệ ở bất kỳ đâu trong chương trình
 
-D. Only successful conversions — Chỉ khi chuyển kiểu thành công
+D. Only file access permission errors — Chỉ lỗi quyền truy cập tệp
 
 **Q14. Which exception commonly indicates a missing file? — Ngoại lệ nào thường báo tệp không tồn tại?**
 
-A. `TypeError` always — Luôn `TypeError`
+A. `FileNotFoundError` — `FileNotFoundError`
 
-B. `FileNotFoundError` — `FileNotFoundError`
+B. `KeyError` — `KeyError`
 
-C. `ValueError` only — Chỉ `ValueError`
+C. `ValueError` — `ValueError`
 
-D. `KeyError` only — Chỉ `KeyError`
+D. `ZeroDivisionError` — `ZeroDivisionError`
 
 **Q15. What does a `with` block provide for a file? — Khối `with` hỗ trợ việc gì khi dùng file?**
 
-A. Automatic sorting — Tự sắp xếp
+A. Automatic creation of missing file parents — Tự tạo thư mục cha còn thiếu
 
-B. Automatic internet download — Tự tải từ Internet
+B. Automatic resource cleanup on exit — Tự dọn dẹp và đóng tài nguyên khi ra khỏi khối
 
-C. Automatic resource cleanup on exit — Tự dọn dẹp và đóng tài nguyên khi ra khỏi khối
+C. Automatic CSV sorting on block exit — Tự sắp CSV khi thoát khối
 
-D. Automatic numeric conversion — Tự chuyển toàn bộ số
+D. Automatic numeric conversion of read values — Tự chuyển giá trị đã đọc thành số
 
 **Q16. What is `StringIO` useful for? — `StringIO` hữu ích cho việc gì?**
 
-A. Operating a camera sensor — Điều khiển cảm biến camera
+A. File-like text operations in memory — Đọc ghi văn bản như file ngay trong bộ nhớ
 
-B. Reading only images — Chỉ đọc ảnh
+B. A binary-only byte buffer — Bộ đệm chỉ có byte nhị phân
 
-C. Turning a set into a tuple — Biến Set thành Tuple
+C. Permanent storage that survives process exit — Nơi lưu bền vững sau khi tiến trình kết thúc
 
-D. File-like text operations in memory — Đọc ghi văn bản như file ngay trong bộ nhớ
+D. An API that parses only PNG files — API chỉ phân tích ảnh PNG
 
 **Q17. What is the difference between `write` mode and append mode? — Chế độ ghi `w` và nối thêm `a` khác nhau thế nào?**
 
-A. `w` replaces contents; `a` adds to the end — `w` thay nội dung; `a` nối thêm cuối tệp
+A. Both modes always reject nonexistent files — Cả hai luôn từ chối tệp không tồn tại
 
-B. Both only read existing content — Cả hai chỉ đọc nội dung
+B. `w` replaces contents; `a` adds to the end — `w` thay nội dung; `a` nối thêm cuối tệp
 
-C. `a` always deletes files — `a` luôn xóa tệp
+C. `w` appends and `a` overwrites — `w` nối thêm còn `a` ghi đè
 
-D. `w` only opens network sockets — `w` chỉ mở socket mạng
+D. Both modes are read-only — Cả hai chế độ chỉ đọc
 
 **Q18. Why is a bare `except:` often a poor choice? — Vì sao thường không nên dùng `except:` không chỉ rõ lỗi?**
 
-A. It converts errors into CSV — Nó chuyển lỗi thành CSV
+A. It guarantees a readable error trace — Bảo đảm cung cấp traceback dễ đọc
 
-B. It can hide unexpected programming errors — Nó có thể che các lỗi lập trình không lường trước
+B. It automatically retries the failing operation — Tự thử lại thao tác bị lỗi
 
-C. It never catches any error — Nó không bắt được lỗi nào
+C. It can hide unexpected programming errors — Nó có thể che các lỗi lập trình không lường trước
 
-D. It prevents file creation — Nó ngăn tạo file
+D. It catches no exceptions at all — Không bắt bất kỳ ngoại lệ nào
 
 **Q19. What does `print(text, end='')` change? — `print(text, end='')` thay đổi điều gì?**
 
-A. It closes every open file — Nó đóng mọi file đang mở
+A. Deletes newlines inside the input string — Xóa dấu xuống dòng trong chuỗi đầu vào
 
-B. It converts text to numbers — Nó chuyển chữ thành số
+B. Stops all output after the first character — Dừng in sau ký tự đầu
 
-C. It avoids adding the default newline — Nó không tự thêm dấu xuống dòng mặc định
+C. Changes the value into an integer — Đổi giá trị thành số nguyên
 
-D. It removes existing newlines from text — Nó xóa mọi dấu xuống dòng có sẵn trong text
+D. It avoids adding the default newline — Nó không tự thêm dấu xuống dòng mặc định
 
 **Q20. Which distinction between `csv.reader` and `csv.DictReader` is correct? — `csv.reader` khác `csv.DictReader` ở điểm nào?**
 
-A. Both always return float arrays — Cả hai luôn trả mảng số thực
+A. reader yields field lists; DictReader uses column keys — reader trả danh sách trường; DictReader dùng khóa theo tên cột
 
-B. DictReader writes files but cannot read — DictReader chỉ ghi mà không đọc
+B. `reader` returns dictionary mappings, while `DictReader` yields lists — `reader` trả Dictionary còn `DictReader` trả List
 
-C. reader always validates all values — reader luôn kiểm tra mọi giá trị
+C. `reader` always infers numeric types — `reader` luôn suy luận kiểu số
 
-D. reader yields field lists; DictReader uses column keys — reader trả danh sách trường; DictReader dùng khóa theo tên cột
+D. `DictReader` discards the header and cannot use names — `DictReader` bỏ tiêu đề và không dùng được tên
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
 | Q1 | **A** | File I/O transfers data between a running program and files. Reading loads saved information; writing persists new information beyond the current process. | File I/O trao đổi dữ liệu giữa chương trình và tệp. Đọc lấy thông tin đã lưu, còn ghi giúp lưu kết quả sau khi tiến trình kết thúc. |
-| Q2 | **B** | A path identifies where a file or directory can be found, such as `data/scores.csv`. A path is a location reference, not the file's contents or proof that it exists. | Đường dẫn chỉ nơi tìm tệp hoặc thư mục, ví dụ `data/scores.csv`. Đường dẫn không phải nội dung và cũng không bảo đảm tệp tồn tại. |
-| Q3 | **C** | `Path.read_text()` decodes file bytes and returns a text string. It needs a readable file and appropriate encoding; it does not parse CSV records automatically. | `Path.read_text()` giải mã byte của tệp và trả về chuỗi văn bản. Cần tệp đọc được cùng encoding phù hợp; hàm không tự phân tích các bản ghi CSV. |
-| Q4 | **D** | `Path.write_text(text)` writes text and replaces existing file contents by default. Adding to an existing report instead requires an append operation. | `Path.write_text(text)` ghi văn bản và mặc định thay nội dung tệp đang có. Muốn nối thêm vào báo cáo cũ cần dùng thao tác ghi nối. |
-| Q5 | **A** | Explicit UTF-8 consistently represents Unicode characters, including Vietnamese diacritics, across systems. An encoding is a text representation, not encryption or access control. | UTF-8 tường minh giúp biểu diễn nhất quán ký tự Unicode và dấu tiếng Việt giữa các hệ thống. Encoding là cách biểu diễn văn bản, không phải cơ chế mã hóa bảo mật hoặc phân quyền. |
-| Q6 | **B** | CSV contains records in rows with fields separated by delimiters, often including a header. Quoted fields may contain commas, which a CSV parser handles correctly. | CSV lưu bản ghi theo hàng với các trường ngăn bằng dấu phân cách, thường có hàng tiêu đề. Trường có dấu nháy có thể chứa dấu phẩy và bộ phân tích CSV xử lý đúng trường hợp đó. |
+| Q2 | **D** | A path identifies where a file or directory can be found, such as `data/scores.csv`. A path is a location reference, not the file's contents or proof that it exists. | Đường dẫn chỉ nơi tìm tệp hoặc thư mục, ví dụ `data/scores.csv`. Đường dẫn không phải nội dung và cũng không bảo đảm tệp tồn tại. |
+| Q3 | **D** | `Path.read_text()` decodes file bytes and returns a text string. It needs a readable file and appropriate encoding; it does not parse CSV records automatically. | `Path.read_text()` giải mã byte của tệp và trả về chuỗi văn bản. Cần tệp đọc được cùng encoding phù hợp; hàm không tự phân tích các bản ghi CSV. |
+| Q4 | **C** | `Path.write_text(text)` writes text and replaces existing file contents by default. Adding to an existing report instead requires an append operation. | `Path.write_text(text)` ghi văn bản và mặc định thay nội dung tệp đang có. Muốn nối thêm vào báo cáo cũ cần dùng thao tác ghi nối. |
+| Q5 | **B** | Explicit UTF-8 consistently represents Unicode characters, including Vietnamese diacritics, across systems. An encoding is a text representation, not encryption or access control. | UTF-8 tường minh giúp biểu diễn nhất quán ký tự Unicode và dấu tiếng Việt giữa các hệ thống. Encoding là cách biểu diễn văn bản, không phải cơ chế mã hóa bảo mật hoặc phân quyền. |
+| Q6 | **D** | CSV contains records in rows with fields separated by delimiters, often including a header. Quoted fields may contain commas, which a CSV parser handles correctly. | CSV lưu bản ghi theo hàng với các trường ngăn bằng dấu phân cách, thường có hàng tiêu đề. Trường có dấu nháy có thể chứa dấu phẩy và bộ phân tích CSV xử lý đúng trường hợp đó. |
 | Q7 | **C** | By default, `csv.DictReader` uses the header field names as dictionary keys for each subsequent row. For `name,score`, row dictionaries have keys `name` and `score`, not automatic numeric indexes. | Mặc định `csv.DictReader` dùng tên trường của hàng tiêu đề làm khóa cho Dictionary ở các hàng sau. Với `name,score`, khóa là `name` và `score`, không phải chỉ số số tự sinh. |
 | Q8 | **D** | Ordinary CSV fields are read as text by `DictReader`, even when they contain digits. A `score` cell containing 9 becomes `'9'`, so calculations require `int()` or `float()` as appropriate. | Các trường CSV thông thường được `DictReader` đọc thành văn bản, kể cả khi chứa chữ số. Ô `score` là 9 sẽ thành `'9'`, nên tính toán cần chuyển bằng `int()` hoặc `float()` khi thích hợp. |
 | Q9 | **A** | `DictWriter.writeheader()` writes the configured field names as a CSV header row. Actual records must be written separately using `writerow()` or `writerows()`. | `DictWriter.writeheader()` ghi tên các trường đã cấu hình thành hàng tiêu đề CSV. Các bản ghi dữ liệu cần được ghi riêng bằng `writerow()` hoặc `writerows()`. |
-| Q10 | **B** | The CSV parser respects quoted delimiters: `"An, Binh",9` contains two fields, not three. Naively calling `.split(',')` would incorrectly separate the name field. | Bộ phân tích CSV tôn trọng dấu phân cách trong dấu nháy: `"An, Binh",9` chỉ có hai trường, không phải ba. Gọi `.split(',')` đơn giản sẽ tách sai tên. |
+| Q10 | **C** | The CSV parser respects quoted delimiters: `"An, Binh",9` contains two fields, not three. Naively calling `.split(',')` would incorrectly separate the name field. | Bộ phân tích CSV tôn trọng dấu phân cách trong dấu nháy: `"An, Binh",9` chỉ có hai trường, không phải ba. Gọi `.split(',')` đơn giản sẽ tách sai tên. |
 | Q11 | **C** | An exception signals an abnormal condition during execution, such as invalid conversion or a missing file. A matching `try/except` can handle it; otherwise execution may be interrupted. | Ngoại lệ báo điều kiện bất thường trong lúc chạy, như chuyển kiểu sai hoặc thiếu tệp. Khối `try/except` phù hợp có thể xử lý; nếu không, chương trình có thể bị ngắt. |
-| Q12 | **D** | `int('abc')` raises `ValueError` because the letters cannot represent a decimal integer. The function exists and the argument is a string, so this is not a missing-name error. | `int('abc')` gây `ValueError` vì chữ cái không biểu diễn số nguyên thập phân. Hàm có tồn tại và đối số là chuỗi, nên đây không phải lỗi thiếu tên. |
-| Q13 | **A** | `except ValueError` catches `ValueError` and its subclasses from the associated `try` block. It is suitable for invalid numeric conversion, but not automatically for every missing-file failure. | `except ValueError` bắt `ValueError` và ngoại lệ con từ khối `try` tương ứng. Nó hợp với chuyển số sai, nhưng không tự bắt mọi lỗi thiếu tệp. |
-| Q14 | **B** | `FileNotFoundError` commonly signals that the requested path does not refer to an existing file. This differs from `PermissionError`, where access may be denied even though the file exists. | `FileNotFoundError` thường báo không có tệp tại đường dẫn yêu cầu. Nó khác `PermissionError`, khi tệp có thể tồn tại nhưng chương trình không được truy cập. |
-| Q15 | **C** | `with` manages a file resource and closes it on exit, including when an exception occurs inside the block. It does not automatically convert CSV text to integers or sort records. | `with` quản lý tài nguyên tệp và đóng khi thoát khối, kể cả khi thân khối phát sinh ngoại lệ. Nó không tự đổi dữ liệu CSV thành số hay sắp xếp bản ghi. |
-| Q16 | **D** | `StringIO` supplies a file-like text stream in memory, useful for CSV tests without creating a disk file. It is separate from binary streams such as `BytesIO`. | `StringIO` cung cấp luồng văn bản giống tệp trong bộ nhớ, hữu ích để thử CSV không cần tạo tệp trên đĩa. Nó khác luồng byte nhị phân như `BytesIO`. |
-| Q17 | **A** | Opening in mode `'w'` truncates existing content, while mode `'a'` adds data at the end. Use append for a growing log so previous entries remain intact. | Mở bằng chế độ `'w'` sẽ cắt nội dung cũ, còn `'a'` thêm dữ liệu vào cuối. Dùng nối thêm cho nhật ký tăng dần để giữ bản ghi trước đó. |
-| Q18 | **B** | Bare `except:` catches too broadly, potentially hiding programming mistakes and intercepting interrupts. Prefer named exception classes when the program has a meaningful recovery strategy. | `except:` không nêu loại lỗi bắt quá rộng, có thể che lỗi lập trình và cả thao tác ngắt. Nên bắt lớp ngoại lệ cụ thể khi chương trình có cách phục hồi phù hợp. |
-| Q19 | **C** | `print(text, end='')` suppresses the newline normally appended by `print`. Newlines already contained inside `text` remain unchanged. | `print(text, end='')` bỏ ký tự xuống dòng mà `print` mặc định thêm vào cuối. Dấu xuống dòng vốn có trong `text` vẫn giữ nguyên. |
-| Q20 | **D** | `csv.reader` yields each record as a list of strings; `DictReader` maps column names to values. Column names help distinguish fields even if their order changes. | `csv.reader` trả mỗi bản ghi dưới dạng List các chuỗi; `DictReader` ánh xạ tên cột đến giá trị. Tra theo tên cột giúp phân biệt trường ngay cả khi thứ tự cột thay đổi. |
+| Q12 | **B** | `int('abc')` raises `ValueError` because the letters cannot represent a decimal integer. The function exists and the argument is a string, so this is not a missing-name error. | `int('abc')` gây `ValueError` vì chữ cái không biểu diễn số nguyên thập phân. Hàm có tồn tại và đối số là chuỗi, nên đây không phải lỗi thiếu tên. |
+| Q13 | **B** | `except ValueError` catches `ValueError` and its subclasses from the associated `try` block. It is suitable for invalid numeric conversion, but not automatically for every missing-file failure. | `except ValueError` bắt `ValueError` và ngoại lệ con từ khối `try` tương ứng. Nó hợp với chuyển số sai, nhưng không tự bắt mọi lỗi thiếu tệp. |
+| Q14 | **A** | `FileNotFoundError` commonly signals that the requested path does not refer to an existing file. This differs from `PermissionError`, where access may be denied even though the file exists. | `FileNotFoundError` thường báo không có tệp tại đường dẫn yêu cầu. Nó khác `PermissionError`, khi tệp có thể tồn tại nhưng chương trình không được truy cập. |
+| Q15 | **B** | `with` manages a file resource and closes it on exit, including when an exception occurs inside the block. It does not automatically convert CSV text to integers or sort records. | `with` quản lý tài nguyên tệp và đóng khi thoát khối, kể cả khi thân khối phát sinh ngoại lệ. Nó không tự đổi dữ liệu CSV thành số hay sắp xếp bản ghi. |
+| Q16 | **A** | `StringIO` supplies a file-like text stream in memory, useful for CSV tests without creating a disk file. It is separate from binary streams such as `BytesIO`. | `StringIO` cung cấp luồng văn bản giống tệp trong bộ nhớ, hữu ích để thử CSV không cần tạo tệp trên đĩa. Nó khác luồng byte nhị phân như `BytesIO`. |
+| Q17 | **B** | Opening in mode `'w'` truncates existing content, while mode `'a'` adds data at the end. Use append for a growing log so previous entries remain intact. | Mở bằng chế độ `'w'` sẽ cắt nội dung cũ, còn `'a'` thêm dữ liệu vào cuối. Dùng nối thêm cho nhật ký tăng dần để giữ bản ghi trước đó. |
+| Q18 | **C** | Bare `except:` catches too broadly, potentially hiding programming mistakes and intercepting interrupts. Prefer named exception classes when the program has a meaningful recovery strategy. | `except:` không nêu loại lỗi bắt quá rộng, có thể che lỗi lập trình và cả thao tác ngắt. Nên bắt lớp ngoại lệ cụ thể khi chương trình có cách phục hồi phù hợp. |
+| Q19 | **D** | `print(text, end='')` suppresses the newline normally appended by `print`. Newlines already contained inside `text` remain unchanged. | `print(text, end='')` bỏ ký tự xuống dòng mà `print` mặc định thêm vào cuối. Dấu xuống dòng vốn có trong `text` vẫn giữ nguyên. |
+| Q20 | **A** | `csv.reader` yields each record as a list of strings; `DictReader` maps column names to values. Column names help distinguish fields even if their order changes. | `csv.reader` trả mỗi bản ghi dưới dạng List các chuỗi; `DictReader` ánh xạ tên cột đến giá trị. Tra theo tên cột giúp phân biệt trường ngay cả khi thứ tự cột thay đổi. |
 
 ## 8. Nối sang bài tiếp theo
 
