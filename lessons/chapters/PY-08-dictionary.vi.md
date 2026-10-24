@@ -41,6 +41,12 @@ Dictionary lưu thông tin thành từng cặp khóa và giá trị. Ví dụ `{
 print({'id':'O1'})
 ```
 
+**Kết quả khi chạy:**
+
+```text
+{'id': 'O1'}
+```
+
 ### 4.2. Key
 
 **Từ vựng trong mục:** **Key** — khóa.
@@ -49,6 +55,12 @@ Khóa là tên dùng để lấy dữ liệu, ví dụ `'id'`. `{'id': 'O1'}['id
 
 ```python
 print({'id':'O1'}['id'])
+```
+
+**Kết quả khi chạy:**
+
+```text
+O1
 ```
 
 ### 4.3. Value
@@ -61,6 +73,12 @@ Giá trị là thông tin nằm sau khóa, có thể là chữ, số hoặc mộ
 print({'x':5}.get('x'))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+5
+```
+
 ### 4.4. Nested dict
 
 **Từ vựng trong mục:** **Nested dict** — từ điển lồng.
@@ -69,6 +87,12 @@ Dictionary lồng nhau là Dictionary chứa Dictionary khác. Ví dụ mã họ
 
 ```python
 print({'A':{'score':8}}['A']['score'])
+```
+
+**Kết quả khi chạy:**
+
+```text
+8
 ```
 
 ## 5. Năm tình huống lập trình thực tế
@@ -94,6 +118,12 @@ orders={"O1":"paid","O2":"pending"}
 print(orders.get("O3","Not found"))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+Not found
+```
+
 **Kết quả:** `Not found` — không có mã đơn `O3` trong dữ liệu.
 
 ### Tình huống 2 — Cập nhật tồn kho
@@ -116,6 +146,12 @@ print(orders.get("O3","Not found"))
 stock={"SKU01":5}
 stock["SKU01"]-=2
 print(stock)
+```
+
+**Kết quả khi chạy:**
+
+```text
+{'SKU01': 3}
 ```
 
 **Kết quả:** `{'SKU01': 3}` — sản phẩm còn 3 món.
@@ -143,6 +179,12 @@ for x in labels: count[x]=count.get(x,0)+1
 print(count)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+{'AI': 2, 'Math': 1}
+```
+
 **Kết quả:** `{'AI': 2, 'Math': 1}` — AI xuất hiện hai lần, Math một lần.
 
 ### Tình huống 4 — Hồ sơ lồng nhau
@@ -164,6 +206,12 @@ print(count)
 ```python
 students={"SV1":{"name":"An","score":8},"SV2":{"name":"Lan","score":9}}
 print(students["SV2"]["score"])
+```
+
+**Kết quả khi chạy:**
+
+```text
+9
 ```
 
 **Kết quả:** `9` — điểm của học viên Lan (`SV2`).
@@ -188,6 +236,12 @@ print(students["SV2"]["score"])
 items={"P01":10}
 removed=items.pop("P02",None)
 print(removed)
+```
+
+**Kết quả khi chạy:**
+
+```text
+None
 ```
 
 **Kết quả:** `None` — không có mã `P02` để xóa; `P01` vẫn còn trong Dictionary.
