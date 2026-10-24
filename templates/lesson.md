@@ -74,7 +74,7 @@ import numpy as np
 
 **Từ vựng trong mục:** **Feature** — đặc trưng; **Dataset** — tập dữ liệu. [Thay theo nội dung mỗi tình huống.]
 
-**Vấn đề:** [Ai đang gặp khó khăn gì, cần kết quả nào?]
+**Tình huống thực tế:** [Viết một đoạn độc lập: nhân vật/đơn vị có nhu cầu gì + dữ liệu đầu vào có giá trị, ý nghĩa cột/hàng/đơn vị + kết quả cần giải quyết. Ví dụ: Cửa hàng xếp VIP cho khách gắn bó từ 5 năm và chi tiêu từ 1.000.000 đồng. Khách An đã mua hàng 5 năm, chi 1.200.000 đồng. Hãy xác định khách An đủ VIP không.]
 
 **Chọn khái niệm:** [Liệt kê các khái niệm phù hợp.]
 
