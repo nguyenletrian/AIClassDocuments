@@ -471,7 +471,7 @@ D. Related records or future information may cross splits — Bản ghi liên qu
 | Q2 | **B** | Intersection keeps elements shared by both sets. | Giao chỉ giữ phần tử chung của hai tập. |
 | Q3 | **C** | Set difference excludes B's members from A. | Hiệu A−B loại phần tử của B ra khỏi A. |
 | Q4 | **D** | All parts must be disjoint and their union the original set. | Mọi phần không giao nhau và hợp bằng tập gốc. |
-| Q5 | **A** | The vertical bar denotes set union. | Dấu | là phép hợp tập hợp. |
+| Q5 | **A** | The vertical bar denotes set union. | Dấu `&#124;` biểu diễn phép hợp tập hợp. |
 | Q6 | **B** | The ampersand keeps shared elements. | Dấu & giữ các phần tử chung. |
 | Q7 | **C** | Symmetric difference keeps elements exclusive to either side. | Hiệu đối xứng giữ phần tử chỉ ở một bên. |
 | Q8 | **D** | isdisjoint is true when the intersection is empty. | isdisjoint đúng khi phần giao rỗng. |
