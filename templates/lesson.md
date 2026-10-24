@@ -20,9 +20,7 @@
 
 ## 3. Python libraries & functions — Thư viện, API và hàm
 
-[Cách cài thư viện (nếu có), bảng hàm với công dụng và tham số quan trọng, ví dụ ngắn có thể chạy. Giải thích `fit`, `transform`, `axis`, `shape`... trước khi bài dùng chúng.]
- 
-**3.x. Các tham số / keyword arguments:** [Giải thích ngay từ phần thư viện: mỗi tham số là gì, tại sao chọn giá trị này và sẽ thay đổi gì nếu đổi/bỏ. Ví dụ `dtype=float` lưu số thực, `axis=0` tính theo từng cột, `rowvar=False`, `n_components=2`, `random_state=42`... Không chỉ liệt kê tên hàm.]
+[Cách cài thư viện (nếu có), **bảng nhóm theo từng hàm**: tên hàm/cú pháp → mục đích → các tham số và ý nghĩa/lý do chọn giá trị, ví dụ ngắn có thể chạy. GỘP `dtype=float` vào `np.array`, `axis=0` vào `mean`/`var`, `rowvar=False` vào `cov`, `n_components` vào `PCA`... **Không tạo chương tham số/flags riêng**. Giải thích `fit`, `transform`, `shape` trước khi sử dụng.]
 
 ## 4. Khái niệm và các kiến thức liên quan
 
@@ -49,8 +47,8 @@ import numpy as np
 # Mỗi HÀNG = một đối tượng; các CỘT = feature kèm đơn vị đo.
 # BƯỚC 2 — Tạo từng vector của đối tượng, chỉ rõ thứ tự feature.
 # BƯỚC 3 — Ghép vector thành matrix (nếu phù hợp).
-# BƯỚC 4 — Áp dụng hàm/khái niệm; giải thích NGAY TRÊN DÒNG GỌI HÀM
-# mỗi lựa chọn như dtype=float, axis=0, n_components=2 có tác dụng gì.
+# BƯỚC 4 — Áp dụng hàm đã được giới thiệu ở bảng hàm trước đó.
+# Chỉ chú thích vì sao cần bước xử lý này; không lặp lại phần giải nghĩa flags.
 # BƯỚC 5 — In shape / kết quả để kiểm tra ý nghĩa.
 ```
 
@@ -59,6 +57,8 @@ import numpy as np
 **Trước / sau (khi có phép biến đổi dữ liệu):** [Hiển thị vài hàng của bảng gốc, vài hàng sau biến đổi và **hình kết quả thực được tính từ đúng dữ liệu minh họa** nếu hình giúp hiểu khái niệm. Ghi shape trước/sau, tỷ lệ thông tin giữ lại nếu có, tên hàng/cột, đơn vị; không dùng đồ thị tùy ý không liên quan dữ liệu.]
 
 **Tự kiểm tra nhanh:** [Một câu ngắn kiểm tra ngay khái niệm vừa học, không cần thêm thư viện. Có **đáp án gợi ý** ngay sau đó. Mỗi nhóm kiến thức chính có một câu để người học không phải đợi tới cuối bài.]
+
+**Quy tắc thuật ngữ:** Trong câu tiếng Việt, khi nhắc một thuật ngữ tiếng Anh, **luôn gắn nghĩa tiếng Việt trong ngoặc ngay sau**: `eigenvector` (vector riêng), `eigenvalue` (giá trị riêng), feature (đặc trưng), matrix (ma trận), PCA (phân tích thành phần chính). Cũng áp dụng cho lần nhắc lại ở phần nội dung và tiêu đề. Ngoại lệ: tên hàm, tham số và biến trong code/backticks, cột English của bảng từ vựng vốn đã có cột dịch, và 20 câu trắc nghiệm cần giữ hoàn toàn tiếng Anh.
 
 **Quy tắc:** Trong mỗi mục 4.2, 4.3... phải nhắc lại khái niệm liên quan rồi mới bắt đầu ví dụ nhỏ **từng bước**. Khi có mảng số, phải nói rõ hàng/cột, từng đặc trưng/đơn vị và ví dụ minh họa cách ghép vector thành matrix khi cần. Không dùng chữ “Subconcept” làm tiêu đề. Viết “Khái niệm liên quan” hoặc tên chủ đề bằng tiếng Việt dễ hiểu. Không giải thích bằng cú pháp hay tên hàm trước khi nói rõ bằng văn; người học phải hiểu *feature là gì* rồi mới gặp ví dụ `np.array`. Không tạo phần “Toán học đằng sau” hoặc chứng minh hàn lâm. Mỗi công thức thể hiện bằng Python trong một ví dụ nhỏ ngay dưới đoạn giải thích.
 
@@ -79,9 +79,8 @@ import numpy as np
 ```python
 # BƯỚC 1 — Chú thích dữ liệu: mỗi HÀNG và từng CỘT/đơn vị.
 # BƯỚC 2 — Xây dựng các vector và matrix đầu vào theo thứ tự hợp lý.
-# BƯỚC 3 — Chọn API, diễn giải cả các đối số (flags/options)
-# chẳng hạn dtype=float (số thực), n_components=2 (hai PC)
-# và nêu lý do không dùng giá trị khác.
+# BƯỚC 3 — Dùng API đã được giải thích kèm tham số ở phần thư viện.
+# Chỉ giải thích quyết định xử lý dữ liệu, không thuyết minh lại flags.
 # BƯỚC 4 — Kiểm tra shape và ý nghĩa kết quả.
 ```
 
