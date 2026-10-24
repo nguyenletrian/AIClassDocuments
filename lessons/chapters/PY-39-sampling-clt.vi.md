@@ -7,7 +7,9 @@
 
 `Thống kê → Sampling → Central Limit Theorem → Confidence Interval`
 
-Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh giá độ bất định và chuẩn bị dữ liệu cho AI.
+**Học xong dùng để làm gì?** Ước lượng đặc trưng tổng thể từ mẫu, nhận biết sai số lấy mẫu và quy luật của trung bình mẫu.
+
+**Kết nối kiến thức tiếp theo:** PY-40 dùng sai số đó để xây khoảng tin cậy và kiểm định giả thuyết.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -282,6 +284,11 @@ C. Approximate sampling distribution of sample means — Phân phối gần đú
 
 D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
 
+**Đáp án: A**
+
+**Giải thích:** Kết luận dự kiến hướng đến tổng thể.
+
+
 **Q2. What is a sample? — Mẫu là gì?**
 
 A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
@@ -291,6 +298,11 @@ B. A selected subset of the population — Một nhóm con được chọn từ 
 C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
 
 D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
+
+**Đáp án: B**
+
+**Giải thích:** Mẫu chứa một phần quan sát.
+
 
 **Q3. What does CLT describe? — CLT mô tả gì?**
 
@@ -302,6 +314,11 @@ C. Approximate sampling distribution of sample means — Phân phối gần đú
 
 D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
 
+**Đáp án: C**
+
+**Giải thích:** CLT nói về mean qua nhiều mẫu, không nói mọi giá trị gốc thành chuẩn.
+
+
 **Q4. What is standard error? — SE là gì?**
 
 A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
@@ -311,6 +328,11 @@ B. A selected subset of the population — Một nhóm con được chọn từ 
 C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
 
 D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
+
+**Đáp án: D**
+
+**Giải thích:** SE mô tả độ bất định của thống kê.
+
 
 **Q5. What does `replace=False` mean when sampling? — `replace=False` khi lấy mẫu nghĩa là gì?**
 
@@ -322,6 +344,11 @@ C. Computes one mean per row — Tính một trung bình cho mỗi hàng
 
 D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
 
+**Đáp án: A**
+
+**Giải thích:** Lấy mẫu không hoàn lại.
+
+
 **Q6. What does a random seed enable? — Seed ngẫu nhiên cho phép gì?**
 
 A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
@@ -331,6 +358,11 @@ B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể 
 C. Computes one mean per row — Tính một trung bình cho mỗi hàng
 
 D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
+
+**Đáp án: B**
+
+**Giải thích:** Nó kiểm soát chuỗi có thể tái tạo.
+
 
 **Q7. What does `mean(axis=1)` do on a 2-D sample table? — `mean(axis=1)` trên bảng mẫu 2-D làm gì?**
 
@@ -342,6 +374,11 @@ C. Computes one mean per row — Tính một trung bình cho mỗi hàng
 
 D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
 
+**Đáp án: C**
+
+**Giải thích:** Mỗi hàng có thể là một lần lấy mẫu.
+
+
 **Q8. What does `df.sample(n=3)` select? — `df.sample(n=3)` chọn gì?**
 
 A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
@@ -351,6 +388,11 @@ B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể 
 C. Computes one mean per row — Tính một trung bình cho mỗi hàng
 
 D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
+
+**Đáp án: D**
+
+**Giải thích:** Mặc định hàm lấy hàng của DataFrame.
+
 
 **Q9. What does sample SD measure? — SD mẫu đo gì?**
 
@@ -362,6 +404,11 @@ C. s/sqrt(n) — s/sqrt(n)
 
 D. It halves — Giảm một nửa
 
+**Đáp án: A**
+
+**Giải thích:** SD khác bất định của mean mẫu.
+
+
 **Q10. What does the SE of a mean measure? — SE của mean đo gì?**
 
 A. Spread of individual values — Độ phân tán giá trị từng quan sát
@@ -371,6 +418,11 @@ B. Spread among hypothetical sample means — Độ phân tán giữa các mean 
 C. s/sqrt(n) — s/sqrt(n)
 
 D. It halves — Giảm một nửa
+
+**Đáp án: B**
+
+**Giải thích:** Lấy mẫu lặp gây biến thiên trung bình.
+
 
 **Q11. What is a common estimated SE formula? — Công thức ước lượng SE thường dùng?**
 
@@ -382,6 +434,11 @@ C. s/sqrt(n) — s/sqrt(n)
 
 D. It halves — Giảm một nửa
 
+**Đáp án: C**
+
+**Giải thích:** Công thức phù hợp trong các giả định lấy mẫu độc lập thường gặp.
+
+
 **Q12. How does SE change when n quadruples and sigma is fixed? — SE đổi sao khi n gấp bốn, sigma giữ nguyên?**
 
 A. Spread of individual values — Độ phân tán giá trị từng quan sát
@@ -391,6 +448,11 @@ B. Spread among hypothetical sample means — Độ phân tán giữa các mean 
 C. s/sqrt(n) — s/sqrt(n)
 
 D. It halves — Giảm một nửa
+
+**Đáp án: D**
+
+**Giải thích:** Căn bậc hai của bốn là hai.
+
 
 **Q13. Does CLT assert that raw data become normally distributed? — CLT có nói dữ liệu gốc thành phân phối chuẩn không?**
 
@@ -402,6 +464,11 @@ C. It decreases for the sample mean under assumptions — Giảm đối với me
 
 D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
 
+**Đáp án: A**
+
+**Giải thích:** Tổng thể lệch vẫn có thể lệch.
+
+
 **Q14. Is a sample necessarily representative because a seed is fixed? — Có seed cố định thì mẫu chắc chắn đại diện không?**
 
 A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
@@ -411,6 +478,11 @@ B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan t
 C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
 
 D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
+
+**Đáp án: B**
+
+**Giải thích:** Seed chỉ lặp cách chọn.
+
 
 **Q15. What often happens to sampling variability as n grows? — n tăng thì dao động lấy mẫu thường thế nào?**
 
@@ -422,6 +494,11 @@ C. It decreases for the sample mean under assumptions — Giảm đối với me
 
 D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
 
+**Đáp án: C**
+
+**Giải thích:** SE thường tỷ lệ nghịch căn n.
+
+
 **Q16. What is the impact of selection bias? — Thiên lệch chọn mẫu gây gì?**
 
 A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
@@ -431,6 +508,11 @@ B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan t
 C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
 
 D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
+
+**Đáp án: D**
+
+**Giải thích:** Tăng mẫu không tự sửa cách chọn sai.
+
 
 **Q17. Does n=40 guarantee a good normal approximation in every problem? — n=40 có bảo đảm xấp xỉ chuẩn tốt ở mọi bài toán không?**
 
@@ -442,6 +524,11 @@ C. Standard deviation — Độ lệch chuẩn
 
 D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
 
+**Đáp án: A**
+
+**Giải thích:** Không có ngưỡng cỡ mẫu đúng cho mọi trường hợp.
+
+
 **Q18. What does `ddof=1` change in SD? — `ddof=1` đổi gì trong SD?**
 
 A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
@@ -451,6 +538,11 @@ B. Uses n−1 in variance denominator — Dùng n−1 ở mẫu số phương sa
 C. Standard deviation — Độ lệch chuẩn
 
 D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
+
+**Đáp án: B**
+
+**Giải thích:** Đây là quy ước cho ước lượng phương sai mẫu.
+
 
 **Q19. Which quantity stays in original units, SD or variance? — Đại lượng nào giữ đơn vị gốc, SD hay variance?**
 
@@ -462,6 +554,11 @@ C. Standard deviation — Độ lệch chuẩn
 
 D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
 
+**Đáp án: C**
+
+**Giải thích:** Phương sai có đơn vị bình phương.
+
+
 **Q20. What is a prerequisite for repeated-sampling inference? — Điều kiện quan trọng của suy luận từ lấy mẫu lặp?**
 
 A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
@@ -472,30 +569,9 @@ C. Standard deviation — Độ lệch chuẩn
 
 D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | The intended inference concerns the population. | Kết luận dự kiến hướng đến tổng thể. |
-| Q2 | **B** | A sample provides partial observations. | Mẫu chứa một phần quan sát. |
-| Q3 | **C** | It concerns repeated means, not raw observations. | CLT nói về mean qua nhiều mẫu, không nói mọi giá trị gốc thành chuẩn. |
-| Q4 | **D** | SE quantifies uncertainty in the statistic. | SE mô tả độ bất định của thống kê. |
-| Q5 | **A** | Sampling is without replacement. | Lấy mẫu không hoàn lại. |
-| Q6 | **B** | It controls a repeatable sequence. | Nó kiểm soát chuỗi có thể tái tạo. |
-| Q7 | **C** | Each row can represent a separate sample. | Mỗi hàng có thể là một lần lấy mẫu. |
-| Q8 | **D** | It operates on DataFrame rows by default. | Mặc định hàm lấy hàng của DataFrame. |
-| Q9 | **A** | SD differs from uncertainty of sample mean. | SD khác bất định của mean mẫu. |
-| Q10 | **B** | Repeated sampling creates variation of means. | Lấy mẫu lặp gây biến thiên trung bình. |
-| Q11 | **C** | This is appropriate under common independent-sampling conditions. | Công thức phù hợp trong các giả định lấy mẫu độc lập thường gặp. |
-| Q12 | **D** | Square root of four equals two. | Căn bậc hai của bốn là hai. |
-| Q13 | **A** | A skewed population can remain skewed. | Tổng thể lệch vẫn có thể lệch. |
-| Q14 | **B** | A seed only repeats the selection. | Seed chỉ lặp cách chọn. |
-| Q15 | **C** | SE typically scales with inverse sqrt(n). | SE thường tỷ lệ nghịch căn n. |
-| Q16 | **D** | More samples do not automatically cure bad selection. | Tăng mẫu không tự sửa cách chọn sai. |
-| Q17 | **A** | There is no universal sample-size threshold. | Không có ngưỡng cỡ mẫu đúng cho mọi trường hợp. |
-| Q18 | **B** | It follows the sample convention. | Đây là quy ước cho ước lượng phương sai mẫu. |
-| Q19 | **C** | Variance squares the units. | Phương sai có đơn vị bình phương. |
-| Q20 | **D** | Dependence and sampling design affect SE. | Sự phụ thuộc và cách chọn mẫu ảnh hưởng SE. |
+**Giải thích:** Sự phụ thuộc và cách chọn mẫu ảnh hưởng SE.
 
 ## 8. Liên hệ bài kế tiếp
 
