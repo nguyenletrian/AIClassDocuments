@@ -71,7 +71,7 @@ Các tham số viết dạng `tên=giá_trị` (*keyword arguments — đối s�
 | `X.var(axis=0)` | `axis=0`: tính variance (phương sai) cho từng cột. | Xem độ phân tán của từng feature (đặc trưng) |
 | `np.cov(X, rowvar=False)` | `rowvar=False`: xem **mỗi cột là một biến**, mỗi hàng là một mẫu. Mặc định `rowvar=True` hiểu hàng là biến. | Lập matrix (ma trận) covariance (hiệp phương sai) |
 | `np.corrcoef(X, rowvar=False)` | Tương tự `rowvar=False`, tính correlation (tương quan) giữa các cột. | Kiểm tra hai kênh có xu hướng biến thiên cùng nhau |
-| `np.linalg.eigh(C)` | Lấy eigenvalues (giá trị riêng) và eigenvectors (vector (véc-tơ) riêng) của matrix (ma trận) đối xứng như covariance (hiệp phương sai). | Hiểu hướng biến thiên của dữ liệu |
+| `np.linalg.eigh(C)` | Lấy eigenvalues (giá trị riêng) và eigenvectors (vector riêng) của matrix (ma trận) đối xứng như covariance (hiệp phương sai). | Hiểu hướng biến thiên của dữ liệu |
 | `np.round(values, 2)` | Làm tròn đến hai chữ số thập phân để dễ đọc. | Hiển thị kết quả, không thay đổi dữ liệu gốc nếu chỉ in |
 
 **Ví dụ nhỏ — hai khách hàng, hai feature (đặc trưng):**
@@ -222,23 +222,23 @@ print("Scaled variance:", np.round(scaled.var(axis=0), 5))  # [1. 1.]
 
 **Đáp án gợi ý:** Cột chi tiêu có thể có phương sai số học lớn hơn **chỉ vì thang đo**, khiến PCA (phân tích thành phần chính) chú trọng cột đó quá mức. Ta cân nhắc `StandardScaler` để so sánh đặc trưng hợp lý hơn.
 
-### 4.4. Covariance (hiệp phương sai), Eigenvector (vector (véc-tơ) riêng), Eigenvalue (giá trị riêng)
+### 4.4. Covariance (hiệp phương sai), Eigenvector (vector riêng), Eigenvalue (giá trị riêng)
 
-**Nhắc lại kiến thức liên quan:** Một **matrix (ma trận)** lưu nhiều mẫu theo hàng và feature (đặc trưng) theo cột. **Variance (phương sai)** đo sự phân tán của *một* cột; **Covariance (hiệp phương sai)** giúp xem *hai* cột thay đổi cùng nhau ra sao. Từ matrix (ma trận) hiệp phương sai, ta tìm các **hướng biến thiên** (Eigenvector (vector (véc-tơ) riêng)) và mức biến thiên theo mỗi hướng (Eigenvalue (giá trị riêng)) — đây là những gì PCA (phân tích thành phần chính) sử dụng khi tạo đặc trưng mới.
+**Nhắc lại kiến thức liên quan:** Một **matrix (ma trận)** lưu nhiều mẫu theo hàng và feature (đặc trưng) theo cột. **Variance (phương sai)** đo sự phân tán của *một* cột; **Covariance (hiệp phương sai)** giúp xem *hai* cột thay đổi cùng nhau ra sao. Từ matrix (ma trận) hiệp phương sai, ta tìm các **hướng biến thiên** (Eigenvector (vector riêng)) và mức biến thiên theo mỗi hướng (Eigenvalue (giá trị riêng)) — đây là những gì PCA (phân tích thành phần chính) sử dụng khi tạo đặc trưng mới.
 
 **Covariance (hiệp phương sai)** giúp mô tả *hai feature (đặc trưng) có xu hướng thay đổi cùng nhau hay không*. Ví dụ, nếu khách ghé cửa hàng nhiều hơn và số đơn hàng cũng thường tăng, hai cột có thể có hiệp phương sai dương. Khi một cột tăng mà cột kia thường giảm, hiệp phương sai có thể âm. Gần 0 có nghĩa ít biến thiên **tuyến tính cùng nhau**, không khẳng định các biến hoàn toàn không liên quan.
 
-**Eigenvector (vector (véc-tơ) riêng)** trong bối cảnh PCA (phân tích thành phần chính) có thể hình dung là một **hướng mới** mà dữ liệu trải dài theo đó. **Eigenvalue (giá trị riêng)** cho biết **mức phương sai** của dữ liệu theo hướng riêng tương ứng. PCA (phân tích thành phần chính) ưu tiên hướng có eigenvalue (giá trị riêng) lớn để giữ lại mức biến thiên đáng kể. Không cần tự giải phương trình ma trận trong bài này vì NumPy có hàm tính sẵn.
+**Eigenvector (vector riêng)** trong bối cảnh PCA (phân tích thành phần chính) có thể hình dung là một **hướng mới** mà dữ liệu trải dài theo đó. **Eigenvalue (giá trị riêng)** cho biết **mức phương sai** của dữ liệu theo hướng riêng tương ứng. PCA (phân tích thành phần chính) ưu tiên hướng có eigenvalue (giá trị riêng) lớn để giữ lại mức biến thiên đáng kể. Không cần tự giải phương trình ma trận trong bài này vì NumPy có hàm tính sẵn.
 
 **Hình dung đời thường:** Tưởng tượng chấm mỗi khách hàng lên một biểu đồ: trục ngang là **số lần ghé**, trục dọc là **số đơn hàng**. Nếu người ghé nhiều thường mua nhiều, các điểm sẽ tạo thành một đám kéo dài theo hướng chéo lên. Khi đó:
 
 - **Hướng dài của đám điểm** giống trực giác về `PC1`: hướng giữ nhiều sự thay đổi nhất.
 - **Hướng vuông góc** là `PC2`: nếu ba điểm nằm đúng trên một đường thẳng, theo hướng này gần như không có sự khác nhau.
-- Với ma trận hiệp phương sai, **eigenvector (vector (véc-tơ) riêng)** mô tả các hướng đó; **eigenvalue (giá trị riêng)** mô tả lượng phương sai theo từng hướng. Không cần chứng minh công thức để biết chúng đang giúp PCA (phân tích thành phần chính) làm gì.
+- Với ma trận hiệp phương sai, **eigenvector (vector riêng)** mô tả các hướng đó; **eigenvalue (giá trị riêng)** mô tả lượng phương sai theo từng hướng. Không cần chứng minh công thức để biết chúng đang giúp PCA (phân tích thành phần chính) làm gì.
 
 ![Ba khách hàng tạo thành một xu hướng; minh họa PC1 và PC2](assets/pca (phân tích thành phần chính)-direction-intuition.svg)
 
-*Đây là sơ đồ trực giác từ ba khách giả lập, không phải hình vẽ tự động lấy từ dữ liệu sinh viên ở phần sau. Hướng của vector (véc-tơ) riêng có thể đổi dấu mà vẫn biểu diễn cùng một trục.*
+*Đây là sơ đồ trực giác từ ba khách giả lập, không phải hình vẽ tự động lấy từ dữ liệu sinh viên ở phần sau. Hướng của vector riêng có thể đổi dấu mà vẫn biểu diễn cùng một trục.*
 
 **Ví dụ nhỏ — lượt ghé và đơn hàng tăng cùng nhau:**
 
@@ -269,11 +269,11 @@ print("Direction count:", eigenvectors.shape[1])  # 2
 
 **Tự kiểm tra nhanh — 4.4:** Nếu hai feature (đặc trưng) luôn tăng cùng nhau, PCA (phân tích thành phần chính) thường cần hướng nào để giữ phần lớn phương sai? `np.linalg.eigh` trả về thông tin gì?
 
-**Đáp án gợi ý:** Hướng đi **dọc theo đám điểm** thường giữ nhiều phương sai. `np.linalg.eigh` trả về **eigenvalues (các giá trị riêng)** (mức phương sai theo hướng) và **eigenvectors (các vector (véc-tơ) riêng)** (các hướng) của ma trận đối xứng đầu vào.
+**Đáp án gợi ý:** Hướng đi **dọc theo đám điểm** thường giữ nhiều phương sai. `np.linalg.eigh` trả về **eigenvalues (các giá trị riêng)** (mức phương sai theo hướng) và **eigenvectors (các vector riêng)** (các hướng) của ma trận đối xứng đầu vào.
 
 ### 4.5. Principal Component (PC1, PC2) và tỷ lệ phương sai giữ lại
 
-**Nhắc lại kiến thức liên quan:** Ta đã có dữ liệu dạng **matrix (ma trận)**, mỗi hàng là một mẫu, mỗi cột là một **feature (đặc trưng)**; thường dùng **StandardScaler (bộ chuẩn hóa dữ liệu)** nếu các cột khác thang đo. **Eigenvector (vector (véc-tơ) riêng)** cho một hướng mới, còn **Eigenvalue (giá trị riêng)** gắn với phương sai dọc hướng ấy. PCA (phân tích thành phần chính) tạo các **Principal Component (thành phần chính)** từ các hướng này; nhờ đó có thể giảm số cột của matrix (ma trận) mà vẫn giữ nhiều biến thiên.
+**Nhắc lại kiến thức liên quan:** Ta đã có dữ liệu dạng **matrix (ma trận)**, mỗi hàng là một mẫu, mỗi cột là một **feature (đặc trưng)**; thường dùng **StandardScaler (bộ chuẩn hóa dữ liệu)** nếu các cột khác thang đo. **Eigenvector (vector riêng)** cho một hướng mới, còn **Eigenvalue (giá trị riêng)** gắn với phương sai dọc hướng ấy. PCA (phân tích thành phần chính) tạo các **Principal Component (thành phần chính)** từ các hướng này; nhờ đó có thể giảm số cột của matrix (ma trận) mà vẫn giữ nhiều biến thiên.
 
 **Principal Component (PC)** là **đặc trưng mới** do PCA (phân tích thành phần chính) tạo từ các đặc trưng cũ. **PC1** giữ lượng phương sai lớn nhất, **PC2** giữ lượng phương sai lớn nhất còn lại theo hướng vuông góc với PC1. Hai cột `PC1`, `PC2` không trùng với hai cột gốc.
 
@@ -390,7 +390,7 @@ Mỗi tình huống đều gồm: **vấn đề → nhắc lại các khái ni�
 
 **Vấn đề:** Bộ phận hỗ trợ sinh viên lưu 5 thông tin cho mỗi người: điểm Toán, Vật lý, tiếng Anh, giờ tự học, chuyên cần. Năm cột làm biểu đồ khó nhìn. Cần một sơ đồ 2D để khám phá các nhóm hồ sơ tương tự, **không tự động chấm điểm hay quyết định ai học yếu**.
 
-**Chọn khái niệm:** Matrix (ma trận), StandardScaler (bộ chuẩn hóa dữ liệu), PCA (phân tích thành phần chính), explained variance (phương sai), scatter plot.
+**Chọn khái niệm:** Matrix (ma trận), StandardScaler (bộ chuẩn hóa dữ liệu), PCA (phân tích thành phần chính), explained variance (phương sai được giải thích), scatter plot (biểu đồ phân tán).
 
 **Vì sao chọn cách này?** Mục tiêu của phòng đào tạo là **nhìn** sự phân bố hồ sơ trên một biểu đồ, chưa phải dự đoán kết quả học tập. Vì có 5 thông tin nên không thể đặt trực tiếp tất cả trên hai trục; PCA (phân tích thành phần chính) phù hợp để tạo hai tọa độ tổng hợp. Chọn `StandardScaler` vì giờ học và điểm số có đơn vị khác nhau. Ta **kiểm tra phương sai giữ lại trước khi diễn giải hình vẽ**, bởi bản đồ 2D có thể bỏ mất khác biệt quan trọng. Nếu cần đánh giá kết quả học tập thật, phải xây dựng và kiểm định một mô hình khác, không dựa riêng vào PCA (phân tích thành phần chính).
 
@@ -740,7 +740,7 @@ D. Both always return the same labels
 
 **Q8. What is data leakage in the PCA workflow?**
 
-A. Drawing a scatter plot from training data  
+A. Drawing a scatter plot (biểu đồ phân tán) from training data  
 B. Selecting two principal components  
 C. Fitting preprocessing steps on test data before evaluating the model  
 D. Calling `transform()` on new data
@@ -826,7 +826,7 @@ D. Enough components to retain at least 95% of fitted data variance
 
 A. Use one train/test split and compare matched pipelines with and without PCA  
 B. Test PCA on training data and the other model on different test data  
-C. Keep PCA only when it produces a prettier scatter plot  
+C. Keep PCA only when it produces a prettier scatter plot (biểu đồ phân tán)  
 D. Fit preprocessing on the full dataset before creating a test set
 
 ### Answer key & short explanations
