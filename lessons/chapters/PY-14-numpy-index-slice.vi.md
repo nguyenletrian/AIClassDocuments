@@ -282,250 +282,230 @@ Bản gốc giữ `-1`; bản sao đổi mã lỗi thành 0. Trong dữ liệu t
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. Where does Python/NumPy indexing begin? — Chỉ số Python/NumPy bắt đầu từ đâu?**
 
-**Q1. What does Index mean? — Ý nghĩa của Index là gì?**
+A. 0 — 0
 
-A. It instead describes Lấy một đoạn theo start:stop — Lấy một đoạn theo start:stop
+B. 1 — 1
 
-B. The concept is Địa chỉ phần tử của mảng — Địa chỉ phần tử của mảng
+C. -2 — -2
 
-C. It instead describes Mảng True/False để lọc phần tử — Mảng True/False để lọc phần tử
+D. The number of dimensions — Số chiều của mảng
 
-D. It instead describes Chọn nhiều vị trí theo danh sách chỉ số — Chọn nhiều vị trí theo danh sách chỉ số
+**Q2. For a 2-D array, what does `X[1, 0]` select? — Trong mảng hai chiều, `X[1, 0]` chọn gì?**
 
+A. All columns of the first row — Mọi cột của hàng đầu
 
-**Q2. What does Slice mean? — Ý nghĩa của Slice là gì?**
+B. Row 2, column 1 — Hàng thứ hai, cột đầu tiên
 
-A. The concept is Lấy một đoạn theo start:stop — Lấy một đoạn theo start:stop
+C. Row 1, column 2 — Hàng đầu, cột thứ hai
 
-B. It instead describes Mảng True/False để lọc phần tử — Mảng True/False để lọc phần tử
+D. Every row, first column — Mọi hàng, cột đầu
 
-C. It instead describes Chọn nhiều vị trí theo danh sách chỉ số — Chọn nhiều vị trí theo danh sách chỉ số
+**Q3. What does `a[-1]` mean for a nonempty 1-D array? — `a[-1]` nghĩa là gì với mảng một chiều không rỗng?**
 
-D. It instead describes Địa chỉ phần tử của mảng — Địa chỉ phần tử của mảng
+A. An invalid index in all cases — Chỉ số luôn không hợp lệ
 
+B. All negative values — Mọi giá trị âm
 
-**Q3. What does Boolean mask mean? — Ý nghĩa của Boolean mask là gì?**
+C. The last element — Phần tử cuối
 
-A. It instead describes Chọn nhiều vị trí theo danh sách chỉ số — Chọn nhiều vị trí theo danh sách chỉ số
+D. The first element — Phần tử đầu
 
-B. It instead describes Địa chỉ phần tử của mảng — Địa chỉ phần tử của mảng
+**Q4. Which endpoint does a slice `a[1:4]` exclude? — Slice `a[1:4]` không lấy vị trí nào?**
 
-C. It instead describes Lấy một đoạn theo start:stop — Lấy một đoạn theo start:stop
+A. Index 1 — Chỉ số 1
 
-D. The concept is Mảng True/False để lọc phần tử — Mảng True/False để lọc phần tử
+B. Index 2 — Chỉ số 2
 
+C. Index 3 — Chỉ số 3
 
-**Q4. What does Fancy indexing mean? — Ý nghĩa của Fancy indexing là gì?**
+D. Index 4 — Chỉ số 4
 
-A. It instead describes Địa chỉ phần tử của mảng — Địa chỉ phần tử của mảng
+**Q5. What does `X[:, 0]` select? — `X[:, 0]` lấy gì?**
 
-B. It instead describes Lấy một đoạn theo start:stop — Lấy một đoạn theo start:stop
+A. All rows in the first column — Mọi hàng ở cột đầu
 
-C. The concept is Chọn nhiều vị trí theo danh sách chỉ số — Chọn nhiều vị trí theo danh sách chỉ số
+B. All columns in the first row — Mọi cột ở hàng đầu
 
-D. It instead describes Mảng True/False để lọc phần tử — Mảng True/False để lọc phần tử
+C. Only the top-left value always — Luôn chỉ ô góc trên trái
 
+D. Only rows with value zero — Chỉ hàng có giá trị 0
 
-**Q5. What is the role of X[row,col]? — Vai trò của X[row,col] là gì?**
+**Q6. What does `X[0, :]` select? — `X[0, :]` lấy gì?**
 
-A. Another operation would Lấy cả cột j hoặc hàng i — Lấy cả cột j hoặc hàng i
+A. The last row — Hàng cuối
 
-B. It is used to Chọn một ô theo hàng/cột, đếm từ 0 — Chọn một ô theo hàng/cột, đếm từ 0
+B. All columns of the first row — Mọi cột của hàng đầu
 
-C. Another operation would Giữ các phần tử thỏa điều kiện logic — Giữ các phần tử thỏa điều kiện logic
+C. All rows of the first column — Mọi hàng của cột đầu
 
-D. Another operation would Chọn các cột không liền nhau — Chọn các cột không liền nhau
+D. The diagonal — Đường chéo
 
+**Q7. What does a Boolean mask contain? — Mặt nạ Boolean chứa gì?**
 
-**Q6. What is the role of X[:,j] / X[i,:]? — Vai trò của X[:,j] / X[i,:] là gì?**
+A. Only column names — Chỉ tên cột
 
-A. It is used to Lấy cả cột j hoặc hàng i — Lấy cả cột j hoặc hàng i
+B. Random floating-point numbers — Số thực ngẫu nhiên
 
-B. Another operation would Giữ các phần tử thỏa điều kiện logic — Giữ các phần tử thỏa điều kiện logic
+C. True/False values indicating which entries to keep — Giá trị True/False cho biết phần tử nào được giữ
 
-C. Another operation would Chọn các cột không liền nhau — Chọn các cột không liền nhau
+D. Only positive integers — Chỉ số nguyên dương
 
-D. Another operation would Chọn một ô theo hàng/cột, đếm từ 0 — Chọn một ô theo hàng/cột, đếm từ 0
+**Q8. What is selected by `a[a >= 7]`? — `a[a >= 7]` chọn gì?**
 
+A. Only the element at index 7 — Chỉ phần tử chỉ số 7
 
-**Q7. What is the role of X[condition]? — Vai trò của X[condition] là gì?**
+B. The first seven entries — Bảy phần tử đầu
 
-A. Another operation would Chọn các cột không liền nhau — Chọn các cột không liền nhau
+C. All entries smaller than 7 — Mọi phần tử nhỏ hơn 7
 
-B. Another operation would Chọn một ô theo hàng/cột, đếm từ 0 — Chọn một ô theo hàng/cột, đếm từ 0
+D. Elements at least 7 — Các phần tử từ 7 trở lên
 
-C. Another operation would Lấy cả cột j hoặc hàng i — Lấy cả cột j hoặc hàng i
+**Q9. What does `a[[0, 2]]` illustrate? — `a[[0, 2]]` minh họa điều gì?**
 
-D. It is used to Giữ các phần tử thỏa điều kiện logic — Giữ các phần tử thỏa điều kiện logic
+A. Fancy indexing with selected positions — Fancy indexing chọn các vị trí cụ thể
 
+B. Slicing one continuous range — Cắt một đoạn liên tục
 
-**Q8. What is the role of X[:,[0,2]]? — Vai trò của X[:,[0,2]] là gì?**
+C. A logical AND operation — Phép AND logic
 
-A. Another operation would Chọn một ô theo hàng/cột, đếm từ 0 — Chọn một ô theo hàng/cột, đếm từ 0
+D. A matrix transpose — Chuyển vị ma trận
 
-B. Another operation would Lấy cả cột j hoặc hàng i — Lấy cả cột j hoặc hàng i
+**Q10. What is the difference between slicing and fancy indexing? — Slicing khác fancy indexing ở điểm nào?**
 
-C. It is used to Chọn các cột không liền nhau — Chọn các cột không liền nhau
+A. Slicing requires Boolean values only — Slicing chỉ dùng Boolean
 
-D. Another operation would Giữ các phần tử thỏa điều kiện logic — Giữ các phần tử thỏa điều kiện logic
+B. Slices describe ranges; fancy indexing specifies index arrays — Slice chỉ đoạn, fancy indexing chỉ mảng vị trí
 
+C. Both always select entire matrices — Cả hai luôn lấy cả ma trận
 
-**Q9. Which reason fits example 1? — Lý do nào phù hợp ví dụ 1?**
+D. Fancy indexing never uses integers — Fancy indexing không dùng số nguyên
 
-A. Mask lọc hàng điểm Python>=8 — Mask lọc hàng điểm Python>=8
+**Q11. In NumPy, basic slicing generally returns what? — Basic slicing của NumPy thường trả về gì?**
 
-B. Lấy đúng hàng sinh viên và cột môn học — Lấy đúng hàng sinh viên và cột môn học
+A. A guaranteed independent copy — Luôn là bản sao độc lập
 
-C. Fancy indexing chọn cột không cần liền nhau — Fancy indexing chọn cột không cần liền nhau
+B. A plain Python set — Một Set Python
 
-D. Slice theo chiều hàng để xem mẫu báo cáo — Slice theo chiều hàng để xem mẫu báo cáo
+C. A view of the original data — View chia sẻ dữ liệu với mảng gốc
 
+D. A new CSV file — File CSV mới
 
-**Q10. Which reason fits example 2? — Lý do nào phù hợp ví dụ 2?**
+**Q12. Does advanced integer-array indexing generally return a view? — Indexing bằng mảng số nguyên nâng cao thường tạo view không?**
 
-A. Mask lọc hàng điểm Python>=8 — Mask lọc hàng điểm Python>=8
+A. Yes, it always shares memory — Có, luôn chia sẻ bộ nhớ
 
-B. Fancy indexing chọn cột không cần liền nhau — Fancy indexing chọn cột không cần liền nhau
+B. It only returns None — Nó chỉ trả None
 
-C. Slice theo chiều hàng để xem mẫu báo cáo — Slice theo chiều hàng để xem mẫu báo cáo
+C. It converts the source to strings — Nó chuyển nguồn thành chuỗi
 
-D. Thao tác mask trên bản sao để không đổi mảng gốc — Thao tác mask trên bản sao để không đổi mảng gốc
+D. No, it generally returns a copy — Không, thường trả bản sao
 
+**Q13. How do you keep source data unchanged before assignment? — Làm sao giữ mảng gốc không đổi trước khi gán?**
 
-**Q11. Which reason fits example 3? — Lý do nào phù hợp ví dụ 3?**
+A. Make an explicit `copy()` — Tạo bản sao bằng `copy()`
 
-A. Slice theo chiều hàng để xem mẫu báo cáo — Slice theo chiều hàng để xem mẫu báo cáo
+B. Always modify a slice directly — Luôn sửa trực tiếp slice
 
-B. Thao tác mask trên bản sao để không đổi mảng gốc — Thao tác mask trên bản sao để không đổi mảng gốc
+C. Use `del X` first — Xóa X trước
 
-C. Lấy đúng hàng sinh viên và cột môn học — Lấy đúng hàng sinh viên và cột môn học
+D. Replace every value with zero — Thay mọi giá trị bằng 0
 
-D. Fancy indexing chọn cột không cần liền nhau — Fancy indexing chọn cột không cần liền nhau
+**Q14. For shape (3,2), what does `X[:, 1]` return? — Nếu shape là (3,2), `X[:, 1]` trả về gì?**
 
+A. An array with five values — Mảng năm giá trị
 
-**Q12. Which reason fits example 4? — Lý do nào phù hợp ví dụ 4?**
+B. Three values from the second column — Ba giá trị ở cột thứ hai
 
-A. Thao tác mask trên bản sao để không đổi mảng gốc — Thao tác mask trên bản sao để không đổi mảng gốc
+C. Two values from the first row — Hai giá trị của hàng đầu
 
-B. Lấy đúng hàng sinh viên và cột môn học — Lấy đúng hàng sinh viên và cột môn học
+D. One value in the center — Một giá trị giữa bảng
 
-C. Slice theo chiều hàng để xem mẫu báo cáo — Slice theo chiều hàng để xem mẫu báo cáo
+**Q15. What does `X[:, [0, 2]]` mean when X has three columns? — `X[:, [0, 2]]` nghĩa là gì nếu X có ba cột?**
 
-D. Mask lọc hàng điểm Python>=8 — Mask lọc hàng điểm Python>=8
+A. First two rows, all columns — Hai hàng đầu, mọi cột
 
+B. The sum of columns zero and two — Tổng hai cột 0 và 2
 
-**Q13. Which reason fits example 5? — Lý do nào phù hợp ví dụ 5?**
+C. All rows and the first and third columns — Mọi hàng, cột thứ nhất và thứ ba
 
-A. Lấy đúng hàng sinh viên và cột môn học — Lấy đúng hàng sinh viên và cột môn học
+D. Only the second column — Chỉ cột thứ hai
 
-B. Thao tác mask trên bản sao để không đổi mảng gốc — Thao tác mask trên bản sao để không đổi mảng gốc
+**Q16. What is the effect of `a[:3]`? — `a[:3]` có tác dụng gì?**
 
-C. Mask lọc hàng điểm Python>=8 — Mask lọc hàng điểm Python>=8
+A. Remove the first three entries — Xóa ba phần tử đầu
 
-D. Fancy indexing chọn cột không cần liền nhau — Fancy indexing chọn cột không cần liền nhau
+B. Take index 3 alone — Chỉ lấy phần tử số 3
 
+C. Sort entries descending — Sắp phần tử giảm dần
 
-**Q14. Which input matches example 1? — Dữ liệu nào phù hợp ví dụ 1?**
+D. Take up to the first three entries — Lấy tối đa ba phần tử đầu
 
-A. The stated data are 3 học sinh × 2 môn, điểm thang 10 — 3 học sinh × 2 môn, điểm thang 10
+**Q17. Which operation filters entire rows based on the first column? — Lệnh nào lọc cả hàng theo điều kiện ở cột đầu?**
 
-B. Other data: 3 học sinh × 2 môn — 3 học sinh × 2 môn
+A. `X[X[:, 0] >= 8]` — `X[X[:, 0] >= 8]`
 
-C. Other data: 2 sinh viên × 3 môn — 2 sinh viên × 3 môn
+B. `X[0, 0]` — `X[0, 0]`
 
-D. Other data: 5 khách với điểm chi tiêu — 5 khách với điểm chi tiêu
+C. `X[:, 0]` alone — Chỉ `X[:, 0]`
 
+D. `X.shape` — `X.shape`
 
-**Q15. Which input matches example 2? — Dữ liệu nào phù hợp ví dụ 2?**
+**Q18. What happens when a scalar index is beyond array bounds? — Khi chỉ số phần tử vượt giới hạn mảng thì sao?**
 
-A. Other data: 2 sinh viên × 3 môn — 2 sinh viên × 3 môn
+A. It converts the array to a dictionary — Nó chuyển mảng thành Dictionary
 
-B. Other data: 5 khách với điểm chi tiêu — 5 khách với điểm chi tiêu
+B. NumPy raises IndexError — NumPy báo IndexError
 
-C. Other data: 4 nhiệt độ có một giá trị âm lỗi — 4 nhiệt độ có một giá trị âm lỗi
+C. It always returns zero — Nó luôn trả 0
 
-D. The stated data are 3 học sinh × 2 môn — 3 học sinh × 2 môn
+D. It silently creates a new row — Nó âm thầm tạo hàng mới
 
+**Q19. How does `X[mask]` differ from `X[[0,2]]`? — `X[mask]` khác `X[[0,2]]` ra sao?**
 
-**Q16. Which input matches example 3? — Dữ liệu nào phù hợp ví dụ 3?**
+A. A mask automatically sorts values — Mask tự sắp xếp giá trị
 
-A. Other data: 5 khách với điểm chi tiêu — 5 khách với điểm chi tiêu
+B. Indices always compare values to a threshold — Chỉ số luôn so giá trị với ngưỡng
 
-B. Other data: 4 nhiệt độ có một giá trị âm lỗi — 4 nhiệt độ có một giá trị âm lỗi
+C. A mask selects by condition; indices select by position — Mask chọn theo điều kiện; chỉ số chọn theo vị trí
 
-C. The stated data are 2 sinh viên × 3 môn — 2 sinh viên × 3 môn
+D. Both necessarily select the same rows — Cả hai luôn lấy cùng hàng
 
-D. Other data: 3 học sinh × 2 môn, điểm thang 10 — 3 học sinh × 2 môn, điểm thang 10
+**Q20. Why state what rows and columns represent? — Vì sao cần nêu rõ ý nghĩa hàng và cột?**
 
+A. To force arrays into 1-D — Để buộc mảng thành một chiều
 
-**Q17. Which input matches example 4? — Dữ liệu nào phù hợp ví dụ 4?**
+B. To avoid using dtype — Để tránh dtype
 
-A. Other data: 4 nhiệt độ có một giá trị âm lỗi — 4 nhiệt độ có một giá trị âm lỗi
+C. To make all arrays immutable — Để mọi mảng bất biến
 
-B. The stated data are 5 khách với điểm chi tiêu — 5 khách với điểm chi tiêu
-
-C. Other data: 3 học sinh × 2 môn, điểm thang 10 — 3 học sinh × 2 môn, điểm thang 10
-
-D. Other data: 3 học sinh × 2 môn — 3 học sinh × 2 môn
-
-
-**Q18. Which input matches example 5? — Dữ liệu nào phù hợp ví dụ 5?**
-
-A. The stated data are 4 nhiệt độ có một giá trị âm lỗi — 4 nhiệt độ có một giá trị âm lỗi
-
-B. Other data: 3 học sinh × 2 môn, điểm thang 10 — 3 học sinh × 2 môn, điểm thang 10
-
-C. Other data: 3 học sinh × 2 môn — 3 học sinh × 2 môn
-
-D. Other data: 2 sinh viên × 3 môn — 2 sinh viên × 3 môn
-
-
-**Q19. What must every table clarify? — Bảng dữ liệu cần nêu rõ gì?**
-
-A. Only editor color — Chỉ màu trình soạn
-
-B. Only variable length — Chỉ độ dài tên biến
-
-C. Only number of blank lines — Chỉ số dòng trống
-
-D. Rows, columns and units — Hàng, cột và đơn vị
-
-
-**Q20. Why test with different inputs? — Tại sao cần thử đầu vào khác?**
-
-A. To guarantee machine learning accuracy — Để bảo đảm AI luôn đúng
-
-B. To remove input validation — Để bỏ kiểm tra dữ liệu
-
-C. To check limitations and edge cases — Để thấy giới hạn và trường hợp biên
-
-D. To change column meanings — Để thay đổi nghĩa các cột
+D. To select the intended data without swapping dimensions — Để chọn đúng dữ liệu và không đảo chiều
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | The concept is Địa chỉ phần tử của mảng | Địa chỉ phần tử của mảng |
-| Q2 | **A** | The concept is Lấy một đoạn theo start:stop | Lấy một đoạn theo start:stop |
-| Q3 | **D** | The concept is Mảng True/False để lọc phần tử | Mảng True/False để lọc phần tử |
-| Q4 | **C** | The concept is Chọn nhiều vị trí theo danh sách chỉ số | Chọn nhiều vị trí theo danh sách chỉ số |
-| Q5 | **B** | It is used to Chọn một ô theo hàng/cột, đếm từ 0 | Chọn một ô theo hàng/cột, đếm từ 0 |
-| Q6 | **A** | It is used to Lấy cả cột j hoặc hàng i | Lấy cả cột j hoặc hàng i |
-| Q7 | **D** | It is used to Giữ các phần tử thỏa điều kiện logic | Giữ các phần tử thỏa điều kiện logic |
-| Q8 | **C** | It is used to Chọn các cột không liền nhau | Chọn các cột không liền nhau |
-| Q9 | **B** | Lấy đúng hàng sinh viên và cột môn học | Lấy đúng hàng sinh viên và cột môn học |
-| Q10 | **A** | Mask lọc hàng điểm Python>=8 | Mask lọc hàng điểm Python>=8 |
-| Q11 | **D** | Fancy indexing chọn cột không cần liền nhau | Fancy indexing chọn cột không cần liền nhau |
-| Q12 | **C** | Slice theo chiều hàng để xem mẫu báo cáo | Slice theo chiều hàng để xem mẫu báo cáo |
-| Q13 | **B** | Thao tác mask trên bản sao để không đổi mảng gốc | Thao tác mask trên bản sao để không đổi mảng gốc |
-| Q14 | **A** | The stated data are 3 học sinh × 2 môn, điểm thang 10 | 3 học sinh × 2 môn, điểm thang 10 |
-| Q15 | **D** | The stated data are 3 học sinh × 2 môn | 3 học sinh × 2 môn |
-| Q16 | **C** | The stated data are 2 sinh viên × 3 môn | 2 sinh viên × 3 môn |
-| Q17 | **B** | The stated data are 5 khách với điểm chi tiêu | 5 khách với điểm chi tiêu |
-| Q18 | **A** | The stated data are 4 nhiệt độ có một giá trị âm lỗi | 4 nhiệt độ có một giá trị âm lỗi |
-| Q19 | **D** | Rows, columns and units | Hàng, cột và đơn vị |
-| Q20 | **C** | To check limitations and edge cases | Để thấy giới hạn và trường hợp biên |
+| Q1 | **A** | The first array element is indexed by zero.~Phần tử đầu tiên được đánh chỉ số 0. | undefined |
+| Q2 | **B** | NumPy uses zero-based row and column indices in that order.~NumPy dùng chỉ số hàng rồi cột, cả hai bắt đầu từ 0. | undefined |
+| Q3 | **C** | Negative indices count from the end; -1 is last.~Chỉ số âm đếm từ cuối, -1 là phần tử cuối cùng. | undefined |
+| Q4 | **D** | The stop endpoint in Python slicing is exclusive.~Giới hạn kết thúc của slice không được lấy. | undefined |
+| Q5 | **A** | The colon means all entries along the row dimension.~Dấu hai chấm nghĩa là lấy toàn bộ theo chiều hàng. | undefined |
+| Q6 | **B** | The first index chooses a row; the colon retains all columns.~Chỉ số đầu chọn hàng, dấu : giữ mọi cột. | undefined |
+| Q7 | **C** | Conditions create a mask used to filter the array.~Điều kiện tạo mặt nạ để lọc phần tử phù hợp. | undefined |
+| Q8 | **D** | The comparison is applied to values, not to their indices.~Phép so sánh áp dụng trên giá trị phần tử, không phải chỉ số. | undefined |
+| Q9 | **A** | An index list selects the specified positions, even when nonadjacent.~Danh sách chỉ số chọn đúng các vị trí được nêu, dù không liền nhau. | undefined |
+| Q10 | **B** | Index arrays enable arbitrary selections rather than only regular slices.~Mảng chỉ số cho phép chọn vị trí rời rạc thay vì đoạn chỉ số liên tiếp. | undefined |
+| Q11 | **C** | A basic slice generally shares memory, so editing it may affect the source.~Slice cơ bản thường dùng chung bộ nhớ, sửa nó có thể ảnh hưởng mảng gốc. | undefined |
+| Q12 | **D** | Advanced indexing commonly copies selected data, unlike basic slicing.~Indexing nâng cao thường sao chép phần dữ liệu được chọn, khác basic slicing. | undefined |
+| Q13 | **A** | An independent copy prevents edits from changing the original array.~Bản sao độc lập giúp phép sửa không thay đổi mảng gốc. | undefined |
+| Q14 | **B** | All three rows remain while column index 1 selects the second column.~Ba hàng được giữ, còn chỉ số cột 1 chọn cột thứ hai. | undefined |
+| Q15 | **C** | The colon preserves rows and the index list selects nonadjacent columns.~Dấu : giữ mọi hàng, List chỉ số chọn hai cột rời nhau. | undefined |
+| Q16 | **D** | Omitting start means start at zero; stop three is excluded.~Bỏ start nghĩa là bắt đầu từ 0, dừng trước chỉ số 3. | undefined |
+| Q17 | **A** | The column comparison builds a row mask that selects complete rows.~So sánh cột đầu tạo mặt nạ theo hàng để lọc nguyên các hàng. | undefined |
+| Q18 | **B** | A scalar index must refer to a position within the array's dimension.~Chỉ số đơn phải nằm trong giới hạn của chiều dữ liệu tương ứng. | undefined |
+| Q19 | **C** | Boolean arrays encode which positions pass a condition, while index arrays name positions.~Mảng Boolean đánh dấu vị trí thỏa điều kiện, còn mảng chỉ số gọi trực tiếp vị trí. | undefined |
+| Q20 | **D** | The same syntax can represent different information depending on how data is organized.~Cùng một cú pháp có thể lấy sai thông tin nếu hiểu nhầm cách tổ chức bảng. | undefined |
 
 ## 8. Nối bài tiếp theo
 
