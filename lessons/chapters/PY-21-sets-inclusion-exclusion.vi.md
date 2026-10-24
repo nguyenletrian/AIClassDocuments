@@ -131,8 +131,8 @@ Hai tập đều có dữ liệu, không trùng và phủ đủ toàn bộ năm 
 3. Dùng `len` đếm số học viên duy nhất.
 
 ```python
-a={"SV1","SV2","SV3"}
-b={"SV2","SV4"}
+a = {"SV1", "SV2", "SV3"}
+b = {"SV2", "SV4"}
 print(len(a|b))
 ```
 
@@ -158,8 +158,8 @@ print(len(a|b))
 3. In kết quả dưới dạng danh sách có thứ tự để dễ đối chiếu.
 
 ```python
-a={"SV1","SV2"}
-b={"SV2","SV3"}
+a = {"SV1", "SV2"}
+b = {"SV2", "SV3"}
 print(sorted(a & b))
 ```
 
@@ -185,9 +185,9 @@ print(sorted(a & b))
 3. So sánh với `len(a | b)` để kiểm chứng hai cách tính.
 
 ```python
-a={1,2,3}
-b={3,4}
-print(len(a)+len(b)-len(a&b),len(a|b))
+a = {1, 2, 3}
+b = {3, 4}
+print(len(a)+len(b)-len(a&b), len(a|b))
 ```
 
 **Kết quả khi chạy:**
@@ -212,8 +212,8 @@ print(len(a)+len(b)-len(a&b),len(a|b))
 3. Kiểm tra các ID của train và test gộp lại có đúng tập gốc và không rỗng.
 
 ```python
-train={1,2,3}
-test={4,5}
+train = {1, 2, 3}
+test = {4, 5}
 assert train.isdisjoint(test)
 print(train.isdisjoint(test) and train | test == True)
 ```
@@ -240,8 +240,8 @@ print(train.isdisjoint(test) and train | test == True)
 3. Sắp xếp và in những người chỉ ở một lớp.
 
 ```python
-web={"An","Binh"}
-ai={"Binh","Lan"}
+web = {"An", "Binh"}
+ai = {"Binh", "Lan"}
 print(sorted(web ^ ai))
 ```
 
