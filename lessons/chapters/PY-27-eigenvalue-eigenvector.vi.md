@@ -117,12 +117,12 @@ print(v[:,-1])
 
 **Từ vựng trong mục:** **Eigenvector** — vector riêng.
 
-**Tình huống thực tế:** Một hệ thống giám sát muốn chọn hướng đo biến thiên lớn. Bộ dữ liệu đang có: Covariance minh họa chéo [2,3]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Ma trận hiệp phương sai đường chéo [2,3] biểu diễn độ biến thiên hai trục. Tìm hướng có phương sai lớn nhất.
 
 **Vì sao chọn phương án?** Chọn eigenvector tương ứng eigenvalue lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -142,12 +142,12 @@ print(w[-1],v[:,-1])
 
 **Từ vựng trong mục:** **Eigenvalue** — giá trị riêng.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn xem dữ liệu có trùng tuyến tính. Bộ dữ liệu đang có: Ba điểm cùng tăng hai feature. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Ba mẫu dữ liệu (1,2), (2,4), (3,6) có cột thứ hai gấp đôi cột đầu. Xác định trị riêng của hiệp phương sai.
 
 **Vì sao chọn phương án?** Eigenvalue gần 0 biểu thị hướng rất ít biến thiên; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -166,12 +166,12 @@ print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
 
 **Từ vựng trong mục:** **Covariance** — hiệp phương sai.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm công thức eigen. Bộ dữ liệu đang có: Ma trận chéo 2×2. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Với ma trận diag(2,3), xác nhận vector riêng v thỏa Av=λv.
 
 **Vì sao chọn phương án?** A@v gần lambda*v cho cặp riêng chính xác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -191,12 +191,12 @@ True
 
 **Từ vựng trong mục:** **Principal direction** — hướng chính.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn sắp thứ tự mức phương sai. Bộ dữ liệu đang có: Giá trị riêng [4,1,3]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Ba mức phương sai [4,1,3] cần được xếp chỉ số giảm dần để biết trục quan trọng trước.
 
 **Vì sao chọn phương án?** argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -215,12 +215,12 @@ print(np.argsort(values)[::-1])
 
 **Từ vựng trong mục:** **Eigenvector** — vector riêng.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn so với PCA của sklearn. Bộ dữ liệu đang có: 3 khách × 2 feature. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Ba điểm hai chiều (1,2), (2,3), (3,4) được giảm về một chiều bằng PCA. Xem kích thước dữ liệu biến đổi.
 
 **Vì sao chọn phương án?** Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
