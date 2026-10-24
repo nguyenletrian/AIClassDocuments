@@ -90,11 +90,10 @@ print(pd.to_numeric(pd.Series(['2']),errors='coerce'))
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu.
 
-**Vấn đề:** Báo số khách thiếu tuổi.
+**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn báo số khách thiếu tuổi. Bộ dữ liệu đang có: 3 khách, cột age có một None. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn cách giải này?** isna().sum() giúp biết cột nào cần xử lý.
 
-**Dữ liệu:** 3 khách, cột age có một None.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -109,11 +108,10 @@ print(df.isna().sum())
 
 **Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
 
-**Vấn đề:** Điền giá trị trung vị.
+**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn điền giá trị trung vị. Bộ dữ liệu đang có: Cột chi tiêu 3 khách có 1 None. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn cách giải này?** Median đỡ bị ảnh hưởng bởi một giá trị quá lớn.
 
-**Dữ liệu:** Cột chi tiêu 3 khách có 1 None.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -129,11 +127,10 @@ print(df)
 
 **Từ vựng trong mục:** **Imputation** — điền khuyết.
 
-**Vấn đề:** Loại trùng mã đơn.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn loại trùng mã đơn. Bộ dữ liệu đang có: 3 dòng mã O1 O1 O2. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn cách giải này?** Loại dòng trùng sau khi xác nhận cùng bản ghi.
 
-**Dữ liệu:** 3 dòng mã O1 O1 O2.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -148,11 +145,10 @@ print(df.drop_duplicates())
 
 **Từ vựng trong mục:** **Data validation** — kiểm tra dữ liệu.
 
-**Vấn đề:** Đổi chuỗi giá sang số.
+**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn đổi chuỗi giá sang số. Bộ dữ liệu đang có: Giá ['100','bad','250'] đồng. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn cách giải này?** coerce đánh dấu đầu vào lỗi để không tính nhầm.
 
-**Dữ liệu:** Giá ['100','bad','250'] đồng.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -167,11 +163,10 @@ print(pd.to_numeric(s,errors="coerce"))
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu.
 
-**Vấn đề:** Chuẩn bị train/test tránh leakage.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chuẩn bị train/test tránh leakage. Bộ dữ liệu đang có: Train [10,None,20], test [None,30]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn cách giải này?** Median phải học từ train và dùng lại cho test.
 
-**Dữ liệu:** Train [10,None,20], test [None,30].
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 

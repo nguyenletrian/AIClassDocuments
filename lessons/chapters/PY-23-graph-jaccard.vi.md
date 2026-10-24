@@ -89,11 +89,10 @@ print(len(a&b)/len(a
 
 **Từ vựng trong mục:** **Graph** — đồ thị.
 
-**Vấn đề:** Bạn bè trực tiếp.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn bạn bè trực tiếp. Bộ dữ liệu đang có: Đồ thị An Binh Lan. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Danh sách kề cho phép tra bạn của người đang xét; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Đồ thị An Binh Lan. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -108,11 +107,10 @@ print(graph["An"])
 
 **Từ vựng trong mục:** **Vertex** — đỉnh.
 
-**Vấn đề:** So trùng sở thích.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn so trùng sở thích. Bộ dữ liệu đang có: Hai người với sở thích Python AI SQL. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Jaccard so phần giao với toàn bộ nhãn sở thích; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Hai người với sở thích Python AI SQL. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -127,11 +125,10 @@ print(len(a&b)/len(a|b))
 
 **Từ vựng trong mục:** **Edge** — cạnh.
 
-**Vấn đề:** Gợi ý đối tác học.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn gợi ý đối tác học. Bộ dữ liệu đang có: Nhóm kỹ năng giả lập. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Chọn người có Jaccard lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Nhóm kỹ năng giả lập. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -148,11 +145,10 @@ print(max(scores,key=scores.get))
 
 **Từ vựng trong mục:** **Jaccard** — độ tương đồng.
 
-**Vấn đề:** Quan hệ có hướng.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn quan hệ có hướng. Bộ dữ liệu đang có: A→B và B→C. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Cạnh A tới B không nhất thiết có B tới A; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** A→B và B→C. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -167,11 +163,10 @@ print("B" in graph["A"],"A" in graph["B"])
 
 **Từ vựng trong mục:** **Graph** — đồ thị.
 
-**Vấn đề:** Tìm đường trong mạng.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tìm đường trong mạng. Bộ dữ liệu đang có: Ba đỉnh A-B-C. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Dùng networkx khi đồ thị cần tìm đường thay vì code vòng thủ công; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ba đỉnh A-B-C. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 

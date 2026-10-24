@@ -89,11 +89,10 @@ A=np.eye(2);x=np.array([2,3]);b=np.array([2,3]);print(A@x-b)
 
 **Từ vựng trong mục:** **Linear system** — hệ tuyến tính.
 
-**Vấn đề:** Tính giá hai loại hàng.
+**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn tính giá hai loại hàng. Bộ dữ liệu đang có: x+y=5, 2x+y=8 (nghìn đồng). Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Solve tìm giá mỗi loại từ hai hóa đơn độc lập; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** x+y=5, 2x+y=8 (nghìn đồng).
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -108,11 +107,10 @@ print(np.linalg.solve(A,b))
 
 **Từ vựng trong mục:** **Rank** — hạng ma trận.
 
-**Vấn đề:** Xem cột dữ liệu trùng.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn xem cột dữ liệu trùng. Bộ dữ liệu đang có: Ma trận [1,2];[2,4]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Rank thấp phát hiện một feature tuyến tính phụ thuộc feature khác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ma trận [1,2];[2,4].
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -127,11 +125,10 @@ print(np.linalg.matrix_rank(A))
 
 **Từ vựng trong mục:** **Coefficient matrix** — ma trận hệ số.
 
-**Vấn đề:** Kiểm chứng nghiệm.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm chứng nghiệm. Bộ dữ liệu đang có: Hệ x+y=5, 2x+y=8. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Nhân A@x rồi so b để phát hiện sai phép giải; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Hệ x+y=5, 2x+y=8.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -146,11 +143,10 @@ print(np.allclose(A@x,b))
 
 **Từ vựng trong mục:** **Residual** — sai số dư.
 
-**Vấn đề:** Ước lượng từ số đo nhiễu.
+**Tình huống thực tế:** Một hệ thống giám sát muốn ước lượng từ số đo nhiễu. Bộ dữ liệu đang có: Ba điểm để fit đường y=ax+b. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** lstsq phù hợp khi số phương trình lớn hơn số ẩn; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ba điểm để fit đường y=ax+b.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -166,11 +162,10 @@ print(np.linalg.lstsq(A,y,rcond=None)[0])
 
 **Từ vựng trong mục:** **Linear system** — hệ tuyến tính.
 
-**Vấn đề:** Tìm sai số dư.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tìm sai số dư. Bộ dữ liệu đang có: A=I, x=[2,3], b=[2,4]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Residual cho biết hệ có tái tạo đúng mục tiêu không; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** A=I, x=[2,3], b=[2,4].
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 

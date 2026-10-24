@@ -87,11 +87,10 @@ print(3*4)
 
 **Từ vựng trong mục:** **Proposition** — mệnh đề.
 
-**Vấn đề:** Điều kiện đăng nhập.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn điều kiện đăng nhập. Bộ dữ liệu đang có: Hai cờ Boolean. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Dùng and để đòi cả đăng nhập và xác minh. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** Hai cờ Boolean. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -106,11 +105,10 @@ print(logged_in and verified)
 
 **Từ vựng trong mục:** **Truth table** — bảng chân trị.
 
-**Vấn đề:** Bảng chân trị.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn bảng chân trị. Bộ dữ liệu đang có: P và Q nhận True/False. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Quét bốn tổ hợp của hai mệnh đề. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** P và Q nhận True/False. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -126,11 +124,10 @@ for p in [True,False]:
 
 **Từ vựng trong mục:** **Implication** — kéo theo.
 
-**Vấn đề:** Kiểm quy tắc kéo theo.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm quy tắc kéo theo. Bộ dữ liệu đang có: P đúng, Q sai. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Phép kéo theo chỉ sai khi P đúng nhưng Q sai. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** P đúng, Q sai. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -145,11 +142,10 @@ print((not p) or q)
 
 **Từ vựng trong mục:** **Counting** — nguyên lý đếm.
 
-**Vấn đề:** Cấu hình áo.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn cấu hình áo. Bộ dữ liệu đang có: 3 màu và 4 cỡ áo. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Nguyên lý nhân đếm số tổ hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** 3 màu và 4 cỡ áo. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -163,11 +159,10 @@ print(3*4)
 
 **Từ vựng trong mục:** **Proposition** — mệnh đề.
 
-**Vấn đề:** Ghép các tùy chọn.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn ghép các tùy chọn. Bộ dữ liệu đang có: 2 màu và 2 size. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** product liệt kê từng cặp màu và size. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** 2 màu và 2 size. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 

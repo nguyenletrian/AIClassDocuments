@@ -92,11 +92,10 @@ print(v[:,-1])
 
 **Từ vựng trong mục:** **Eigenvector** — vector riêng.
 
-**Vấn đề:** Chọn hướng đo biến thiên lớn.
+**Tình huống thực tế:** Một hệ thống giám sát muốn chọn hướng đo biến thiên lớn. Bộ dữ liệu đang có: Covariance minh họa chéo [2,3]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Chọn eigenvector tương ứng eigenvalue lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Covariance minh họa chéo [2,3].
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -111,11 +110,10 @@ print(w[-1],v[:,-1])
 
 **Từ vựng trong mục:** **Eigenvalue** — giá trị riêng.
 
-**Vấn đề:** Xem dữ liệu có trùng tuyến tính.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn xem dữ liệu có trùng tuyến tính. Bộ dữ liệu đang có: Ba điểm cùng tăng hai feature. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Eigenvalue gần 0 biểu thị hướng rất ít biến thiên; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ba điểm cùng tăng hai feature.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -130,11 +128,10 @@ print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
 
 **Từ vựng trong mục:** **Covariance** — hiệp phương sai.
 
-**Vấn đề:** Kiểm công thức eigen.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm công thức eigen. Bộ dữ liệu đang có: Ma trận chéo 2×2. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** A@v gần lambda*v cho cặp riêng chính xác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Ma trận chéo 2×2.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -149,11 +146,10 @@ print(np.allclose(A@v[:,-1],w[-1]*v[:,-1]))
 
 **Từ vựng trong mục:** **Principal direction** — hướng chính.
 
-**Vấn đề:** Sắp thứ tự mức phương sai.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn sắp thứ tự mức phương sai. Bộ dữ liệu đang có: Giá trị riêng [4,1,3]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** argsort chọn eigenvalue lớn trước thay vì mặc định nhỏ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Giá trị riêng [4,1,3].
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -168,11 +164,10 @@ print(np.argsort(values)[::-1])
 
 **Từ vựng trong mục:** **Eigenvector** — vector riêng.
 
-**Vấn đề:** So với PCA của sklearn.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn so với PCA của sklearn. Bộ dữ liệu đang có: 3 khách × 2 feature. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Hai PC giảm dữ liệu ba hàng và hai cột thành một chiều; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** 3 khách × 2 feature.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 

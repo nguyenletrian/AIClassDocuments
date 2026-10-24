@@ -89,11 +89,10 @@ print(np.dot([1,2],[3,4]))
 
 **Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
 
-**Vấn đề:** Tính khoảng cách 2D.
+**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn tính khoảng cách 2D. Bộ dữ liệu đang có: Vị trí điểm [3,4] mét. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Norm từ véc-tơ độ lệch giúp tính khoảng cách đến gốc; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Vị trí điểm [3,4] mét.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -108,11 +107,10 @@ print(np.linalg.norm(v))
 
 **Từ vựng trong mục:** **Vector** — véc-tơ.
 
-**Vấn đề:** Chuẩn hóa hướng di chuyển.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chuẩn hóa hướng di chuyển. Bộ dữ liệu đang có: Véc-tơ [3,4] mét. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Chia norm giúp hướng có độ dài 1 trước điều khiển tốc độ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Véc-tơ [3,4] mét.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -128,11 +126,10 @@ print(u)
 
 **Từ vựng trong mục:** **Norm** — độ lớn véc-tơ.
 
-**Vấn đề:** Điểm tổng kết có trọng số.
+**Tình huống thực tế:** Một trường học muốn điểm tổng kết có trọng số. Bộ dữ liệu đang có: Điểm 8 7 9; trọng số 0.2,0.3,0.5. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Dot product của điểm và trọng số tạo điểm tổng; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Điểm 8 7 9; trọng số 0.2,0.3,0.5.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -147,11 +144,10 @@ print(scores@weights)
 
 **Từ vựng trong mục:** **Dot product** — tích vô hướng.
 
-**Vấn đề:** Tìm hai hướng vuông góc.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tìm hai hướng vuông góc. Bộ dữ liệu đang có: a=[1,0], b=[0,1]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Dot bằng 0 cho hai vector khác 0 biểu thị trực giao; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** a=[1,0], b=[0,1].
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 
@@ -166,11 +162,10 @@ print(a@b)
 
 **Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
 
-**Vấn đề:** Tính sai khác cảm biến.
+**Tình huống thực tế:** Một hệ thống giám sát muốn tính sai khác cảm biến. Bộ dữ liệu đang có: Hai kênh cảm biến trên cùng đơn vị. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án?** Norm của hiệu vector đo mức sai khác tổng hợp; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
-**Dữ liệu:** Hai kênh cảm biến trên cùng đơn vị.
 
 **Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
 

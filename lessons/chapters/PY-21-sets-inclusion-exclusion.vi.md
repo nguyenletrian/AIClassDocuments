@@ -87,11 +87,10 @@ print(train.isdisjoint(test))
 
 **Từ vựng trong mục:** **Union** — phép hợp.
 
-**Vấn đề:** Đếm người học ít nhất một môn.
+**Tình huống thực tế:** Một trường học muốn đếm người học ít nhất một môn. Bộ dữ liệu đang có: Nhóm học Python và AI. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Phép hợp tránh đếm người học cả hai môn hai lần. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** Nhóm học Python và AI. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -106,11 +105,10 @@ print(len(a|b))
 
 **Từ vựng trong mục:** **Intersection** — phép giao.
 
-**Vấn đề:** Người học cả hai môn.
+**Tình huống thực tế:** Một trường học muốn người học cả hai môn. Bộ dữ liệu đang có: Nhóm sinh viên hai môn. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Phép giao lấy đúng người thuộc hai nhóm. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** Nhóm sinh viên hai môn. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -125,11 +123,10 @@ print(a&b)
 
 **Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ.
 
-**Vấn đề:** Kiểm công thức đếm.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm công thức đếm. Bộ dữ liệu đang có: Hai tập ID có giao. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Bao hàm–loại trừ cho kết quả như hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** Hai tập ID có giao. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -144,11 +141,10 @@ print(len(a)+len(b)-len(a&b),len(a|b))
 
 **Từ vựng trong mục:** **Partition** — phân hoạch.
 
-**Vấn đề:** Chia tập train/test.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chia tập train/test. Bộ dữ liệu đang có: train={1,2,3}, test={4,5}. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Hai nhóm ID đánh giá không trùng nhau. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** train={1,2,3}, test={4,5}. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
@@ -164,11 +160,10 @@ print(train|test)
 
 **Từ vựng trong mục:** **Union** — phép hợp.
 
-**Vấn đề:** Tìm sở thích riêng.
+**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tìm sở thích riêng. Bộ dữ liệu đang có: Hai nhóm Web và AI. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
 
 **Vì sao chọn phương án này?** Hiệu đối xứng lấy người chỉ thuộc một nhóm. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
-**Dữ liệu:** Hai nhóm Web và AI. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
