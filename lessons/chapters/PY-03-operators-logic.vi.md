@@ -431,10 +431,10 @@ D. Ignore input errors — Bỏ qua lỗi nhập liệu
 | Q2 | **A** | A true-or-false comparison | So sánh hai giá trị |
 | Q3 | **D** | Combining boolean conditions | Kết hợp các điều kiện |
 | Q4 | **C** | Operations on binary digits | Phép tính trên các bit của số nguyên |
-| Q5 | **B** | This Python operation supports the described task | Tính số học và tỷ lệ |
-| Q6 | **A** | This Python operation supports the described task | Chia nguyên, lấy dư, lũy thừa |
-| Q7 | **D** | This Python operation supports the described task | So sánh và kết hợp điều kiện |
-| Q8 | **C** | This Python operation supports the described task | Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ |
+| Q5 | **B** | These operators perform arithmetic calculations | Tính số học và tỷ lệ |
+| Q6 | **A** | These operators calculate floor division, remainder and powers | Chia nguyên, lấy dư, lũy thừa |
+| Q7 | **D** | These operators compare values and combine conditions | So sánh và kết hợp điều kiện |
+| Q8 | **C** | These operators work on individual bits of integers | Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ |
 | Q9 | **B** | Compute discount proportion | Nhân tỷ lệ giảm với giá để tính tiền còn lại |
 | Q10 | **A** | Require both VIP conditions | Hai điều kiện đều phải đúng |
 | Q11 | **D** | Use division and remainder | Chia nguyên đếm thùng đủ và dư đếm món lẻ |
