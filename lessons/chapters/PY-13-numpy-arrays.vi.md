@@ -31,59 +31,75 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 
 Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
 
-## 4. Khái niệm và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. ndarray
 
 **Từ vựng trong mục:** **ndarray** — mảng NumPy.
 
-Một mảng đồng nhất về kiểu phần tử. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+`ndarray` là mảng NumPy để lưu dữ liệu có kiểu nhất quán và tính trên nhiều phần tử.
 
 ```python
 import numpy as np
 print(np.array([1,2]))
 ```
 
-**Tự kiểm tra:** ndarray là gì? **Đáp án:** Một mảng đồng nhất về kiểu phần tử.
+**Kết quả khi chạy:**
+
+```text
+[1 2]
+```
 
 ### 4.2. Shape
 
 **Từ vựng trong mục:** **Shape** — kích thước mảng.
 
-Số phần tử trên từng chiều. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+`shape` cho biết mảng có bao nhiêu phần tử ở mỗi chiều; `(2, 3)` là hai hàng, ba cột.
 
 ```python
 import numpy as np
 print(np.zeros((2,3)).shape)
 ```
 
-**Tự kiểm tra:** Shape là gì? **Đáp án:** Số phần tử trên từng chiều.
+**Kết quả khi chạy:**
+
+```text
+(2, 3)
+```
 
 ### 4.3. dtype
 
 **Từ vựng trong mục:** **dtype** — kiểu phần tử.
 
-Kiểu dữ liệu của giá trị trong mảng. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+`dtype` cho biết kiểu dữ liệu của các phần tử, ví dụ `float64` thường dùng cho số thập phân.
 
 ```python
 import numpy as np
 print(np.array([1.5]).dtype)
 ```
 
-**Tự kiểm tra:** dtype là gì? **Đáp án:** Kiểu dữ liệu của giá trị trong mảng.
+**Kết quả khi chạy:**
+
+```text
+float64
+```
 
 ### 4.4. Axis
 
 **Từ vựng trong mục:** **Axis** — trục tính toán.
 
-Chiều dọc theo phép tổng hợp. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+`axis=0` thường tính theo cột trong mảng hai chiều, `axis=1` thường tính theo từng hàng.
 
 ```python
 import numpy as np
 print(np.array([[1,2],[3,4]]).sum(axis=0))
 ```
 
-**Tự kiểm tra:** Axis là gì? **Đáp án:** Chiều dọc theo phép tổng hợp.
+**Kết quả khi chạy:**
+
+```text
+[4 6]
+```
 
 ## 5. Năm tình huống lập trình thực tế
 
@@ -91,12 +107,11 @@ print(np.array([[1,2],[3,4]]).sum(axis=0))
 
 **Từ vựng trong mục:** **ndarray** — mảng NumPy.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc gom điểm học sinh. Thông tin đầu vào: 3 học sinh × 2 môn, điểm thang 10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Trung tâm có điểm hai môn của ba học viên lần lượt là (8,9), (6,7), (9,8). Xác định bảng có bao nhiêu hàng và cột.
 
-**Vì sao chọn cách giải?** Dùng ma trận một hàng mỗi SV và cột mỗi môn. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** `np.array` ghép mỗi học viên thành một hàng, hai môn là hai cột.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -104,18 +119,23 @@ scores=np.array([[8,9],[6,7],[9,8]],dtype=float)
 print(scores.shape)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+(3, 2)
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 2 — Trung bình từng môn
 
 **Từ vựng trong mục:** **Shape** — kích thước mảng.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc trung bình từng môn. Thông tin đầu vào: 3 học sinh, 2 môn. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Với bảng điểm ba học viên hai môn (8,9), (6,7), (9,8), trung tâm cần trung bình mỗi môn. Tính hai điểm trung bình theo cột.
 
-**Vì sao chọn cách giải?** axis=0 cho phép tính trung bình theo cột môn học. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** `mean(axis=0)` lấy trung bình của từng môn qua các học viên.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -123,18 +143,23 @@ scores=np.array([[8,9],[6,7],[9,8]],dtype=float)
 print(scores.mean(axis=0))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+[7.66666667 8.        ]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 3 — Tính tổng doanh thu theo cửa hàng
 
 **Từ vựng trong mục:** **dtype** — kiểu phần tử.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tính tổng doanh thu theo cửa hàng. Thông tin đầu vào: 2 cửa hàng × 3 ngày, đơn vị nghìn đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Hai cửa hàng có doanh thu ba ngày: cửa hàng A `[10,20,30]`, cửa hàng B `[8,12,16]` (triệu đồng). Tính tổng doanh thu của mỗi cửa hàng.
 
-**Vì sao chọn cách giải?** axis=1 gom giá trị theo từng HÀNG/cửa hàng. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** Mỗi hàng là một cửa hàng nên `sum(axis=1)` tính theo hàng.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -142,18 +167,23 @@ sales=np.array([[10,20,30],[8,12,16]])
 print(sales.sum(axis=1))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+[60 36]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 4 — Tạo bảng dự báo ban đầu
 
 **Từ vựng trong mục:** **Axis** — trục tính toán.
 
-**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc tạo bảng dự báo ban đầu. Thông tin đầu vào: 2 ngày × 3 kênh cảm biến. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Đội phân tích cần khởi tạo bảng dự báo rỗng cho hai cửa hàng, mỗi cửa hàng có ba ngày. Tạo bảng ban đầu toàn số 0 và in số hàng/cột.
 
-**Vì sao chọn cách giải?** zeros cấp đúng kích thước chờ ghi kết quả. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** `zeros((2,3))` tạo mảng hai hàng ba cột với giá trị khởi tạo bằng 0.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -161,18 +191,23 @@ forecast=np.zeros((2,3))
 print(forecast.shape)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+(2, 3)
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 5 — Kiểm kiểu điểm đầu vào
 
 **Từ vựng trong mục:** **ndarray** — mảng NumPy.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc kiểm kiểu điểm đầu vào. Thông tin đầu vào: Điểm 7.5, 8.0. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Trung tâm có hai điểm kiểm tra 7.5 và 8.0 trên thang 10. Kiểm tra kiểu dữ liệu và số lượng điểm.
 
-**Vì sao chọn cách giải?** Mảng float giữ điểm có phần thập phân. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** Đặt `dtype=float` giữ điểm thập phân; `size` đếm số phần tử.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -180,7 +215,13 @@ scores=np.array([7.5,8],dtype=float)
 print(scores.dtype,scores.size)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+float64 2
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ## 6. Sai lầm thường gặp
 
