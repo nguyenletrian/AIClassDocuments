@@ -7,7 +7,9 @@
 
 `Dictionary/Function → CRUD → CLI → File/CSV → Data App`
 
-Bài này hệ thống hóa kiến thức đã học thành các thao tác thực hành có đầu vào và đầu ra rõ ràng.
+**Học xong dùng để làm gì?** Tạo công cụ thêm/đọc/sửa/xóa dữ liệu từ terminal, từ chối đầu vào sai và báo lỗi rõ ràng.
+
+**Kết nối kiến thức tiếp theo:** PY-45 trực quan hóa dữ liệu đầu vào và kết quả để người dùng kiểm tra.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -278,6 +280,11 @@ C. A field identifying the desired record — Trường xác định bản ghi c
 
 D. Computing summaries from multiple records — Tính chỉ số tổng hợp từ nhiều bản ghi
 
+**Đáp án: A**
+
+**Giải thích:** CRUD mô tả vòng đời bản ghi, không phải một lệnh cơ sở dữ liệu. Nếu coi thêm mới như ghi đè mà không có chính sách, dữ liệu sinh viên cũ có thể bị mất.
+
+
 **Q2. What is input validation? — Kiểm tra dữ liệu đầu vào là gì?**
 
 A. Create, Read, Update, Delete — Tạo, đọc, sửa, xóa
@@ -287,6 +294,11 @@ B. Checking constraints before processing or storing — Kiểm ràng buộc tr�
 C. A field identifying the desired record — Trường xác định bản ghi cần tìm
 
 D. Computing summaries from multiple records — Tính chỉ số tổng hợp từ nhiều bản ghi
+
+**Đáp án: B**
+
+**Giải thích:** Validation chặn điểm sai hoặc mã trùng trước khi ghi. Validation kiểm cả kiểu dữ liệu và giới hạn nghiệp vụ, không chỉ kiểm code chạy được.
+
 
 **Q3. What is a lookup key? — Khóa tra cứu là gì?**
 
@@ -298,6 +310,11 @@ C. A field identifying the desired record — Trường xác định bản ghi c
 
 D. Computing summaries from multiple records — Tính chỉ số tổng hợp từ nhiều bản ghi
 
+**Đáp án: C**
+
+**Giải thích:** Mã sinh viên dùng làm khóa duy nhất, còn điểm là giá trị bản ghi. Nên dùng mã sinh viên duy nhất và ổn định làm khóa, không dùng điểm có thể thay đổi.
+
+
 **Q4. What is aggregation? — Aggregate là gì?**
 
 A. Create, Read, Update, Delete — Tạo, đọc, sửa, xóa
@@ -307,6 +324,11 @@ B. Checking constraints before processing or storing — Kiểm ràng buộc tr�
 C. A field identifying the desired record — Trường xác định bản ghi cần tìm
 
 D. Computing summaries from multiple records — Tính chỉ số tổng hợp từ nhiều bản ghi
+
+**Đáp án: D**
+
+**Giải thích:** Trung bình và cực đại tổng hợp trường số qua nhiều học viên. Với lớp rỗng, cần quy định kết quả 'không có dữ liệu' trước khi tính thống kê số.
+
 
 **Q5. What does `db.get('S1')` do? — `db.get('S1')` làm gì?**
 
@@ -318,6 +340,11 @@ C. Removes S2 or returns None if absent — Xóa S2 hoặc trả None nếu thi�
 
 D. Number of scores in the list — Số điểm trong danh sách
 
+**Đáp án: A**
+
+**Giải thích:** get cho phép tra thiếu khóa mà không ném KeyError. `get` chỉ đọc; việc nhận giá trị mặc định không làm tạo hồ sơ còn thiếu.
+
+
 **Q6. What does `db['S1']=record` do? — `db['S1']=record` làm gì?**
 
 A. Returns S1 value or None if missing — Trả giá trị S1 hoặc None nếu thiếu
@@ -327,6 +354,11 @@ B. Inserts or overwrites the key's value — Thêm hoặc ghi đè giá trị c�
 C. Removes S2 or returns None if absent — Xóa S2 hoặc trả None nếu thiếu
 
 D. Number of scores in the list — Số điểm trong danh sách
+
+**Đáp án: B**
+
+**Giải thích:** Không kiểm khóa tồn tại, phép gán có thể ghi đè hồ sơ. Hàm thêm mới nên từ chối mã đã tồn tại, không chỉ dùng phép gán.
+
 
 **Q7. What does `db.pop('S2',None)` do? — `db.pop('S2',None)` làm gì?**
 
@@ -338,6 +370,11 @@ C. Removes S2 or returns None if absent — Xóa S2 hoặc trả None nếu thi�
 
 D. Number of scores in the list — Số điểm trong danh sách
 
+**Đáp án: C**
+
+**Giải thích:** Giá trị mặc định tránh lỗi KeyError khi khóa vắng mặt. Nếu không có giá trị mặc định, pop khóa S2 còn thiếu sẽ ném KeyError.
+
+
 **Q8. What does `len(scores)` provide? — `len(scores)` cung cấp gì?**
 
 A. Returns S1 value or None if missing — Trả giá trị S1 hoặc None nếu thiếu
@@ -347,6 +384,11 @@ B. Inserts or overwrites the key's value — Thêm hoặc ghi đè giá trị c�
 C. Removes S2 or returns None if absent — Xóa S2 hoặc trả None nếu thiếu
 
 D. Number of scores in the list — Số điểm trong danh sách
+
+**Đáp án: D**
+
+**Giải thích:** Mean chia tổng cho số phần tử khi số lượng lớn hơn 0. Số lượng bằng 0 là ca biên, cần kiểm trước khi chia tổng.
+
 
 **Q9. What is a safe score validation for integer score 8? — Kiểm tra điểm 8 hợp lệ trên thang 0–10 thế nào?**
 
@@ -358,6 +400,11 @@ C. Confirm the key exists and new values are valid — Xác nhận khóa có và
 
 D. KeyError — Lỗi KeyError
 
+**Đáp án: A**
+
+**Giải thích:** Cần kiểm cả cận dưới và cận trên. Nếu điểm đến từ chuỗi CLI bất kỳ, cần xác minh/đổi kiểu trước khi so sánh.
+
+
 **Q10. What is required before adding a unique student ID? — Trước khi thêm mã sinh viên duy nhất cần gì?**
 
 A. `0 <= score <= 10` — `0 <= score <= 10`
@@ -367,6 +414,11 @@ B. Confirm the key does not exist — Xác nhận khóa chưa tồn tại
 C. Confirm the key exists and new values are valid — Xác nhận khóa có và giá trị mới hợp lệ
 
 D. KeyError — Lỗi KeyError
+
+**Đáp án: B**
+
+**Giải thích:** Nhờ đó tránh ghi đè âm thầm hồ sơ khác. Kiểm khóa trước khi ghi; ghi đè rồi mới phát hiện có thể không khôi phục tự động được.
+
 
 **Q11. What is required before updating a student record? — Trước khi sửa hồ sơ cần gì?**
 
@@ -378,6 +430,11 @@ C. Confirm the key exists and new values are valid — Xác nhận khóa có và
 
 D. KeyError — Lỗi KeyError
 
+**Đáp án: C**
+
+**Giải thích:** Sửa không nên vô tình tạo khóa mới. Nhờ đó vừa cập nhật đúng người vừa giữ điểm trong thang hợp lệ.
+
+
 **Q12. What happens with `db['missing']` for an absent key? — Truy cập `db['missing']` khi thiếu khóa sẽ sao?**
 
 A. `0 <= score <= 10` — `0 <= score <= 10`
@@ -387,6 +444,11 @@ B. Confirm the key does not exist — Xác nhận khóa chưa tồn tại
 C. Confirm the key exists and new values are valid — Xác nhận khóa có và giá trị mới hợp lệ
 
 D. KeyError — Lỗi KeyError
+
+**Đáp án: D**
+
+**Giải thích:** Truy cập trực tiếp gây lỗi khi khóa không tồn tại. Cần phân biệt khóa không tồn tại với học viên tồn tại nhưng điểm bằng 0.
+
 
 **Q13. What does `sum([7,8,9])/3` equal? — `sum([7,8,9])/3` bằng gì?**
 
@@ -398,6 +460,11 @@ C. Check length before dividing — Kiểm số phần tử trước khi chia
 
 D. No, not across process restarts by itself — Không, tự nó không giữ qua lúc khởi động lại
 
+**Đáp án: A**
+
+**Giải thích:** Tổng bằng 24 chia ba bằng 8. Cả ba điểm có trọng số bằng nhau; kết quả không phải điểm cao nhất hay tổng điểm.
+
+
 **Q14. What does `max([7,8,9])` return? — `max([7,8,9])` trả gì?**
 
 A. 8.0 — 8.0
@@ -407,6 +474,11 @@ B. 9 — 9
 C. Check length before dividing — Kiểm số phần tử trước khi chia
 
 D. No, not across process restarts by itself — Không, tự nó không giữ qua lúc khởi động lại
+
+**Đáp án: B**
+
+**Giải thích:** max chọn điểm lớn nhất. Phép này chọn điểm cao nhất, chưa tự xác định mã sinh viên nếu không giữ liên hệ bản ghi.
+
 
 **Q15. How should an empty score list be handled before mean? — Trước khi tính mean với List điểm rỗng cần gì?**
 
@@ -418,6 +490,11 @@ C. Check length before dividing — Kiểm số phần tử trước khi chia
 
 D. No, not across process restarts by itself — Không, tự nó không giữ qua lúc khởi động lại
 
+**Đáp án: C**
+
+**Giải thích:** Nếu không kiểm, chia cho len=0 sẽ gây lỗi. Chương trình cần nêu cách xử lý lớp rỗng, không bịa ra một điểm trung bình.
+
+
 **Q16. What does a Python Dictionary persist automatically? — Dictionary Python tự lưu bền dữ liệu không?**
 
 A. 8.0 — 8.0
@@ -427,6 +504,11 @@ B. 9 — 9
 C. Check length before dividing — Kiểm số phần tử trước khi chia
 
 D. No, not across process restarts by itself — Không, tự nó không giữ qua lúc khởi động lại
+
+**Đáp án: D**
+
+**Giải thích:** Hồ sơ trong RAM cần lưu ra file hoặc database để tồn tại lâu dài. Muốn dữ liệu còn sau khi mở lại, phải lưu bằng JSON, SQLite hoặc cơ chế lưu bền khác.
+
 
 **Q17. What is a duplicate ID risk in CRUD? — Nguy cơ mã trùng trong CRUD là gì?**
 
@@ -438,6 +520,11 @@ C. When missing keys are expected and handled — Khi dự kiến thiếu khóa 
 
 D. Numeric score values — Các giá trị điểm dạng số
 
+**Đáp án: A**
+
+**Giải thích:** Kiểm tra khóa duy nhất tránh thay nhầm. Nên từ chối mã trùng hoặc dùng lệnh Update riêng nếu chủ ý sửa.
+
+
 **Q18. What should CLI do with a non-numeric score input? — CLI nên làm gì với điểm nhập chữ thay vì số?**
 
 A. Existing data may be overwritten — Dữ liệu cũ có thể bị ghi đè
@@ -447,6 +534,11 @@ B. Reject or safely parse with error handling — Từ chối hoặc đổi ki�
 C. When missing keys are expected and handled — Khi dự kiến thiếu khóa và cần xử lý
 
 D. Numeric score values — Các giá trị điểm dạng số
+
+**Đáp án: B**
+
+**Giải thích:** Chuỗi nhập từ terminal cần đổi số trước khi so ngưỡng. Hãy đổi kiểu an toàn, xử lý ValueError rồi mới kiểm tra thang điểm.
+
 
 **Q19. When is `dict.get` preferable to square indexing? — Khi nào dùng `dict.get` thay `dict[key]`?**
 
@@ -458,6 +550,11 @@ C. When missing keys are expected and handled — Khi dự kiến thiếu khóa 
 
 D. Numeric score values — Các giá trị điểm dạng số
 
+**Đáp án: C**
+
+**Giải thích:** get trả mặc định thay cho ném KeyError. Khi chắc chắn mọi khóa đều có, truy cập [] phù hợp; nếu có thể thiếu thì `get` an toàn hơn.
+
+
 **Q20. Which fields should an average score computation use? — Tính điểm trung bình nên dùng trường nào?**
 
 A. Existing data may be overwritten — Dữ liệu cũ có thể bị ghi đè
@@ -468,30 +565,9 @@ C. When missing keys are expected and handled — Khi dự kiến thiếu khóa 
 
 D. Numeric score values — Các giá trị điểm dạng số
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | CRUD covers the record lifecycle; it is not a single database command. Treating create as overwrite without a policy can destroy previous student data. | CRUD mô tả vòng đời bản ghi, không phải một lệnh cơ sở dữ liệu. Nếu coi thêm mới như ghi đè mà không có chính sách, dữ liệu sinh viên cũ có thể bị mất. |
-| Q2 | **B** | Validation prevents invalid scores or duplicate identifiers entering storage. Validation checks both the input type and the business range, not only whether code runs. | Validation chặn điểm sai hoặc mã trùng trước khi ghi. Validation kiểm cả kiểu dữ liệu và giới hạn nghiệp vụ, không chỉ kiểm code chạy được. |
-| Q3 | **C** | Student ID can be a unique key while scores are record values. Use a stable unique student ID instead of the student's changing score as key. | Mã sinh viên dùng làm khóa duy nhất, còn điểm là giá trị bản ghi. Nên dùng mã sinh viên duy nhất và ổn định làm khóa, không dùng điểm có thể thay đổi. |
-| Q4 | **D** | Average and maximum summarize numeric fields across students. For an empty class, define a no-data result before computing numeric summaries. | Trung bình và cực đại tổng hợp trường số qua nhiều học viên. Với lớp rỗng, cần quy định kết quả 'không có dữ liệu' trước khi tính thống kê số. |
-| Q5 | **A** | get reads safely without KeyError for a missing key. `get` only reads; assigning a default to the return value does not create the missing record. | get cho phép tra thiếu khóa mà không ném KeyError. `get` chỉ đọc; việc nhận giá trị mặc định không làm tạo hồ sơ còn thiếu. |
-| Q6 | **B** | Without an existence check, assignment can replace an old record. A create function should explicitly reject existing IDs rather than relying on assignment alone. | Không kiểm khóa tồn tại, phép gán có thể ghi đè hồ sơ. Hàm thêm mới nên từ chối mã đã tồn tại, không chỉ dùng phép gán. |
-| Q7 | **C** | The default suppresses KeyError for a missing key. Without a default, `pop` would raise KeyError for the missing S2. | Giá trị mặc định tránh lỗi KeyError khi khóa vắng mặt. Nếu không có giá trị mặc định, pop khóa S2 còn thiếu sẽ ném KeyError. |
-| Q8 | **D** | A mean divides the sum by this count when it is positive. A zero count is a boundary case; guard it before dividing the total. | Mean chia tổng cho số phần tử khi số lượng lớn hơn 0. Số lượng bằng 0 là ca biên, cần kiểm trước khi chia tổng. |
-| Q9 | **A** | Both lower and upper bounds must hold. A check of type is needed before comparison if score came from arbitrary CLI input. | Cần kiểm cả cận dưới và cận trên. Nếu điểm đến từ chuỗi CLI bất kỳ, cần xác minh/đổi kiểu trước khi so sánh. |
-| Q10 | **B** | This prevents silently overwriting another student's record. Check the key before the write; after overwriting it is too late to recover previous content automatically. | Nhờ đó tránh ghi đè âm thầm hồ sơ khác. Kiểm khóa trước khi ghi; ghi đè rồi mới phát hiện có thể không khôi phục tự động được. |
-| Q11 | **C** | Update should not accidentally create missing records. This protects both referential correctness and the score's range. | Sửa không nên vô tình tạo khóa mới. Nhờ đó vừa cập nhật đúng người vừa giữ điểm trong thang hợp lệ. |
-| Q12 | **D** | Direct indexed lookup raises unless the key exists. A missing key should be distinguished from a present student whose score happens to be zero. | Truy cập trực tiếp gây lỗi khi khóa không tồn tại. Cần phân biệt khóa không tồn tại với học viên tồn tại nhưng điểm bằng 0. |
-| Q13 | **A** | The total is 24 and there are three scores. All three scores contribute equally; the result is not the maximum or the sum. | Tổng bằng 24 chia ba bằng 8. Cả ba điểm có trọng số bằng nhau; kết quả không phải điểm cao nhất hay tổng điểm. |
-| Q14 | **B** | max chooses the largest numerical score. This chooses the highest score, not the ID of the best student unless you retain the mapping. | max chọn điểm lớn nhất. Phép này chọn điểm cao nhất, chưa tự xác định mã sinh viên nếu không giữ liên hệ bản ghi. |
-| Q15 | **C** | Without this guard, dividing by len=0 raises an exception. The program should state how it handles an empty class instead of returning a fabricated average. | Nếu không kiểm, chia cho len=0 sẽ gây lỗi. Chương trình cần nêu cách xử lý lớp rỗng, không bịa ra một điểm trung bình. |
-| Q16 | **D** | In-memory records need explicit file or database persistence. Use JSON, SQLite or another explicit persistence layer when records must survive restarting. | Hồ sơ trong RAM cần lưu ra file hoặc database để tồn tại lâu dài. Muốn dữ liệu còn sau khi mở lại, phải lưu bằng JSON, SQLite hoặc cơ chế lưu bền khác. |
-| Q17 | **A** | Unique-key checks prevent accidental replacement. Reject duplicate IDs or define an explicit update command for intentional changes. | Kiểm tra khóa duy nhất tránh thay nhầm. Nên từ chối mã trùng hoặc dùng lệnh Update riêng nếu chủ ý sửa. |
-| Q18 | **B** | A terminal input string cannot be compared with numbers without parsing. Parse safely, handle ValueError, and then check the valid score range. | Chuỗi nhập từ terminal cần đổi số trước khi so ngưỡng. Hãy đổi kiểu an toàn, xử lý ValueError rồi mới kiểm tra thang điểm. |
-| Q19 | **C** | get supports an explicit default instead of raising KeyError. When every key is guaranteed present, square-bracket access may be suitable; otherwise `get` is safer. | get trả mặc định thay cho ném KeyError. Khi chắc chắn mọi khóa đều có, truy cập [] phù hợp; nếu có thể thiếu thì `get` an toàn hơn. |
-| Q20 | **D** | IDs and names identify records but should not enter the numeric average. Aggregate only the numeric score field, with consistent scale and missing-data handling. | ID và tên để nhận diện, không đưa vào phép trung bình. Chỉ tổng hợp trường điểm dạng số, thống nhất thang đo và cách xử lý ô thiếu. |
+**Giải thích:** ID và tên để nhận diện, không đưa vào phép trung bình. Chỉ tổng hợp trường điểm dạng số, thống nhất thang đo và cách xử lý ô thiếu.
 
 ## 8. Nối sang bài tiếp
 
