@@ -29,411 +29,478 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 | `sympy.solve(equations,vars)` | Tìm điểm thỏa hệ điều kiện |
 | `np.linalg.eigvalsh(H)` | Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị |
 
-## 4. Khái niệm liên quan, ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Jacobian
+**Mạch kiến thức:** Với hàm có nhiều đầu ra, Jacobian ghi độ nhạy từng đầu ra theo các biến đầu vào. Với hàm loss một đầu ra, Hessian ghi độ cong theo cặp tham số; kết hợp gradient bằng 0 và dấu trị riêng Hessian mới giúp phân biệt cực trị với yên ngựa.
 
-**Từ vựng trong mục:** **Jacobian** — ma trận Jacobian.
+### 4.1. Jacobian — Đầu ra thay đổi theo từng đầu vào
 
-Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+**Từ vựng:** **Jacobian** — ma trận Jacobian; **Partial derivative** — đạo hàm riêng.
 
-```python
-import sympy as sp
-x,y=sp.symbols('x y');F=sp.Matrix([x+y,x*y]);print(F.jacobian([x,y]))
-```
-
-**Tự kiểm tra:** Jacobian là gì? **Đáp án:** Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra.
-
-### 4.2. Hessian
-
-**Từ vựng trong mục:** **Hessian** — ma trận Hessian.
-
-Bảng đạo hàm riêng bậc hai của hàm vô hướng. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Khi một hàm có **n đầu vào và m đầu ra**, Jacobian là bảng kích thước **m hàng đầu ra × n cột đầu vào**, tại mỗi ô là đạo hàm riêng của đầu ra hàng đó theo đầu vào cột đó. Với `F1=x+y`, `F2=xy`, các hàng lần lượt đại diện F1, F2; các cột theo x,y. Tại `(x,y)=(3,2)`, Jacobian bằng `[[1,1],[2,3]]`. Đây là độ nhạy cục bộ, không phải ma trận số liệu gốc.
 
 ```python
 import sympy as sp
-x,y=sp.symbols('x y');print(sp.hessian(x*x+y*y,[x,y]))
+
+x, y = sp.symbols('x y')
+F = sp.Matrix([x + y, x * y])
+J = F.jacobian([x, y])
+print(J.subs({x: 3, y: 2}).tolist())
 ```
 
-**Tự kiểm tra:** Hessian là gì? **Đáp án:** Bảng đạo hàm riêng bậc hai của hàm vô hướng.
+**Kết quả khi chạy:**
 
-### 4.3. Critical point
+```text
+[[1, 1], [2, 3]]
+```
 
-**Từ vựng trong mục:** **Critical point** — điểm tới hạn.
+Hàng 1 là độ nhạy của F1 theo x,y; hàng 2 là độ nhạy của F2 theo x,y.
 
-Điểm có gradient bằng 0 hoặc không xác định. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+### 4.2. Hessian — Độ thay đổi của gradient
+
+**Từ vựng:** **Hessian** — ma trận Hessian; **Second derivative** — đạo hàm bậc hai.
+
+**Hessian** là ma trận các đạo hàm riêng **bậc hai** của một hàm **đầu ra vô hướng**. Hàm loss `L(x,y)=x²+2y²` có Hessian `[[2,0],[0,4]]`. Hàng/cột đều tương ứng thứ tự **tham số x, y**; số 4 theo y lớn hơn 2 theo x nghĩa là độ cong theo y lớn hơn trong mô hình này. Khác Jacobian cho hàm nhiều đầu ra, Hessian giúp xem gradient đổi nhanh thế nào.
 
 ```python
 import sympy as sp
-x=sp.symbols('x');print(sp.solve(sp.diff(x*x,x),x))
+
+x, y = sp.symbols('x y')
+loss = x ** 2 + 2 * y ** 2
+print(sp.hessian(loss, [x, y]).tolist())
 ```
 
-**Tự kiểm tra:** Critical point là gì? **Đáp án:** Điểm có gradient bằng 0 hoặc không xác định.
+**Kết quả khi chạy:**
 
-### 4.4. Curvature
+```text
+[[2, 0], [0, 4]]
+```
 
-**Từ vựng trong mục:** **Curvature** — độ cong.
+Hàm cong mạnh hơn theo y; hai đạo hàm chéo bằng 0.
 
-Cách độ dốc biến thiên quanh vị trí đang xét. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+### 4.3. Critical point — Điểm cần kiểm tra cực trị
+
+**Từ vựng:** **Critical point** — điểm tới hạn; **Stationary point** — điểm dừng.
+
+**Điểm dừng** của hàm khả vi có gradient bằng vector 0, tức không còn hướng tăng tuyến tính ngay tại điểm. Với `L(x,y)=(x−3)²+(y−2)²`, các đạo hàm `2(x−3)`, `2(y−2)` đều bằng 0 khi `(3,2)`. Đây là **ứng viên cực trị**, chưa đủ để nói là cực tiểu: hàm hình yên ngựa cũng có thể có gradient 0. Khái niệm critical point rộng hơn còn có điểm không khả vi ở miền trong.
 
 ```python
 import sympy as sp
-x=sp.symbols('x');print(sp.diff(x*x,x,2))
+
+x, y = sp.symbols('x y')
+loss = (x - 3) ** 2 + (y - 2) ** 2
+solution = sp.solve([sp.diff(loss, x), sp.diff(loss, y)], [x, y])
+print(solution[x], solution[y])
 ```
 
-**Tự kiểm tra:** Curvature là gì? **Đáp án:** Cách độ dốc biến thiên quanh vị trí đang xét.
+**Kết quả khi chạy:**
 
-## 5. Năm tình huống thực tế
+```text
+3 2
+```
 
-### Tình huống 1 — Độ nhạy hai đầu ra cảm biến
+Gradient bằng 0 tại (3,2); cần xét độ cong để phân loại điểm này.
 
-**Từ vựng trong mục:** **Jacobian** — ma trận Jacobian.
+### 4.4. Curvature — Phân biệt cực tiểu, cực đại, yên ngựa
 
-**Tình huống thực tế:** Một hệ thống giám sát cần độ nhạy hai đầu ra cảm biến để phục vụ một công việc cụ thể. Đầu vào được cung cấp: F1=x+y, F2=x*y. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Từ vựng:** **Curvature** — độ cong; **Eigenvalue** — trị riêng.
 
-**Vì sao chọn phương pháp này?** Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+Tại một **điểm dừng** của hàm đủ trơn, dấu trị riêng Hessian giúp phân loại: **tất cả dương** → cực tiểu địa phương nghiêm ngặt; **tất cả âm** → cực đại địa phương nghiêm ngặt; **vừa dương vừa âm** → điểm yên ngựa. Ví dụ `x²−y²` có Hessian `diag(2,−2)`, nên tại (0,0) đi theo x hàm tăng nhưng đi theo y hàm giảm. Nếu có trị riêng bằng 0, phép thử Hessian đơn giản **chưa kết luận**.
 
+```python
+import numpy as np
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+H = np.array([[2.0, 0.0], [0.0, -2.0]])
+print(np.linalg.eigvalsh(H))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[-2.  2.]
+```
+
+Một trị riêng âm, một dương nên Hessian bất định; (0,0) là điểm yên ngựa của x²−y².
+
+## 5. Năm tình huống ứng dụng
+
+### Tình huống 1 — Độ nhạy của hai đầu ra cảm biến
+
+**Tình huống thực tế:** Hai chỉ số đầu ra của mô hình cảm biến là `F1=x+y`, `F2=xy`; x và y là hai đầu vào đã được chuẩn hóa cùng thang. Tại x=3,y=2, cần biết mỗi đầu ra nhạy ra sao khi một đầu vào thay đổi nhỏ.
+
+**Vì sao chọn cách giải này?** Jacobian đo đạo hàm riêng của từng đầu ra theo từng đầu vào ở điểm đang xét.
+
+**Quy trình giải:**
+
+1. Khai báo hai đầu vào và hai biểu thức đầu ra.
+2. Tạo Jacobian với cột theo [x,y].
+3. Thay x=3,y=2 và in các hệ số độ nhạy.
 
 ```python
 import sympy as sp
-x,y=sp.symbols("x y")
-F=sp.Matrix([x+y,x*y])
-print(F.jacobian([x,y]).subs({x:3,y:2}))
+
+x, y = sp.symbols('x y')
+F = sp.Matrix([x + y, x * y])
+J = F.jacobian([x, y])
+print(J.subs({x: 3, y: 2}).tolist())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
+**Kết quả khi chạy:**
 
-### Tình huống 2 — Độ cong hàm lỗi
+```text
+[[1, 1], [2, 3]]
+```
 
-**Từ vựng trong mục:** **Hessian** — ma trận Hessian.
+Đầu ra F2 nhạy 2 theo x và 3 theo y tại điểm xét, khác F1 luôn nhạy 1 theo mỗi biến.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần độ cong hàm lỗi để phục vụ một công việc cụ thể. Đầu vào được cung cấp: f=x²+2y². Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 2 — Độ cong của loss hai tham số
 
-**Vì sao chọn phương pháp này?** Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Tình huống thực tế:** Loss mô hình là `L=x²+2y²` với x,y không đơn vị; đội phát triển muốn so độ cong hai hướng thay đổi tham số để chọn cách tối ưu.
 
+**Vì sao chọn cách giải này?** Hessian chứa đạo hàm riêng bậc hai, so được mức cong theo hai tham số.
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Quy trình giải:**
+
+1. Định nghĩa hàm loss hai biến.
+2. Lấy Hessian theo thứ tự [x,y].
+3. In ma trận 2×2, so các ô đường chéo.
 
 ```python
 import sympy as sp
-x,y=sp.symbols("x y")
-print(sp.hessian(x*x+2*y*y,[x,y]))
+
+x, y = sp.symbols('x y')
+loss = x ** 2 + 2 * y ** 2
+print(sp.hessian(loss, [x, y]).tolist())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
+**Kết quả khi chạy:**
 
-### Tình huống 3 — Tìm tối ưu chi phí
+```text
+[[2, 0], [0, 4]]
+```
 
-**Từ vựng trong mục:** **Critical point** — điểm tới hạn.
+Mức cong theo y bằng 4, lớn hơn mức cong theo x bằng 2.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần tìm tối ưu chi phí để phục vụ một công việc cụ thể. Đầu vào được cung cấp: f=(x-3)²+(y-2)². Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 3 — Tìm bộ tham số làm loss nhỏ nhất
 
-**Vì sao chọn phương pháp này?** Giải gradient=0 cho hàm bậc hai. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Tình huống thực tế:** Một mô hình có hàm loss `L=(x−3)²+(y−2)²`. Cần tìm hai tham số tại đó loss không còn giảm theo đạo hàm riêng bậc nhất.
 
+**Vì sao chọn cách giải này?** Giải hệ gradient bằng 0 cho ứng viên tối ưu, rồi dùng dạng tổng bình phương để xác nhận cực tiểu.
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Quy trình giải:**
+
+1. Lấy đạo hàm L theo x và y.
+2. Giải đồng thời hai phương trình bằng 0.
+3. In tọa độ bộ tham số nghiệm.
 
 ```python
 import sympy as sp
-x,y=sp.symbols("x y");f=(x-3)**2+(y-2)**2
-print(sp.solve([sp.diff(f,x),sp.diff(f,y)],[x,y]))
+
+x, y = sp.symbols('x y')
+loss = (x - 3) ** 2 + (y - 2) ** 2
+solution = sp.solve([sp.diff(loss, x), sp.diff(loss, y)], [x, y])
+print(solution[x], solution[y])
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
+**Kết quả khi chạy:**
 
-### Tình huống 4 — Phân biệt cực tiểu và cực đại
+```text
+3 2
+```
 
-**Từ vựng trong mục:** **Curvature** — độ cong.
+Điểm (3,2) là cực tiểu toàn cục của tổng hai bình phương không âm.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần phân biệt cực tiểu và cực đại để phục vụ một công việc cụ thể. Đầu vào được cung cấp: f=x²+y² tại (0,0). Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 4 — Phân biệt điểm yên ngựa với cực tiểu
 
-**Vì sao chọn phương pháp này?** Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Tình huống thực tế:** Loss thử nghiệm `L=x²−y²` có điểm dừng tại (0,0). Tuy nhiên theo trục x hàm tăng, theo trục y hàm giảm; nhóm kỹ thuật cần biết có phải cực tiểu không.
 
+**Vì sao chọn cách giải này?** Trị riêng Hessian trái dấu là bằng chứng điểm dừng dạng yên ngựa.
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Quy trình giải:**
+
+1. Tạo Hessian `[[2,0],[0,-2]]` tại điểm (0,0).
+2. Tính trị riêng đối xứng bằng `eigvalsh`.
+3. Kiểm tra có cả trị riêng âm và dương, in kết luận.
 
 ```python
-import sympy as sp,numpy as np
-x,y=sp.symbols("x y");H=sp.hessian(x*x+y*y,[x,y])
-print(np.linalg.eigvalsh(np.array(H,dtype=float)))
+import numpy as np
+
+H = np.array([[2.0, 0.0], [0.0, -2.0]])
+values = np.linalg.eigvalsh(H)
+print(bool((values < 0).any() and (values > 0).any()))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
+**Kết quả khi chạy:**
 
-### Tình huống 5 — Độ nhạy hàm nhiều đầu ra
+```text
+True
+```
 
-**Từ vựng trong mục:** **Jacobian** — ma trận Jacobian.
+Hessian bất định; điểm dừng này là yên ngựa, không phải cực tiểu.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần độ nhạy hàm nhiều đầu ra để phục vụ một công việc cụ thể. Đầu vào được cung cấp: F gồm hai hàm của 2 biến. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+### Tình huống 5 — Kiểm tra kích thước Jacobian
 
-**Vì sao chọn phương pháp này?** Kiểm Jacobian đầu ra có shape đúng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Tình huống thực tế:** Mô hình có ba đầu vào x,y,z và hai đầu ra `F1=x+y+z`, `F2=x*y`. Cần biết ma trận độ nhạy của mô hình có bao nhiêu hàng và cột.
 
+**Vì sao chọn cách giải này?** Jacobian có một hàng cho mỗi đầu ra và một cột cho mỗi đầu vào; với 2 đầu ra, 3 đầu vào có shape (2,3).
 
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Quy trình giải:**
+
+1. Khai báo ba đầu vào x,y,z.
+2. Tạo hai đầu ra thành SymPy Matrix.
+3. Tính Jacobian theo [x,y,z], in shape.
 
 ```python
 import sympy as sp
-x,y=sp.symbols("x y")
-J=sp.Matrix([x*x+y,x+y*y]).jacobian([x,y])
-print(J.shape)
+
+x, y, z = sp.symbols('x y z')
+F = sp.Matrix([x + y + z, x * y])
+print(F.jacobian([x, y, z]).shape)
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
+**Kết quả khi chạy:**
 
-## 6. Những nhầm lẫn thường gặp
+```text
+(2, 3)
+```
 
-Xác suất có điều kiện cần mẫu nền; xác suất của phân phối liên tục tại một điểm không phải PDF; thống kê từ một nhóm nhỏ không tự chứng minh kết quả cho quần thể. Chú ý định nghĩa mean/std và giả định độc lập.
+Jacobian có hai hàng đầu ra và ba cột đầu vào, không nhất thiết là ma trận vuông.
+
+## 6. Sai lầm thường gặp
+
+- Jacobian có số hàng bằng số đầu ra và số cột bằng số đầu vào; không luôn là ma trận vuông.
+- Hessian dùng cho hàm vô hướng đủ khả vi hai lần; hàng/cột là các tham số, không phải hai đầu ra.
+- Gradient bằng 0 mới chỉ chỉ ra điểm dừng, chưa đủ nói là cực tiểu.
+- Hessian có trị riêng vừa âm vừa dương ở điểm dừng chỉ ra yên ngựa; nếu có trị riêng 0, bài kiểm bậc hai đơn giản chưa đủ.
+- Khi dùng `eigvalsh`, ma trận đầu vào phải đối xứng theo phép toán đang xét.
+- SymPy là thư viện ngoài; các ví dụ ký hiệu cần cài đặt.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Q1. What does a Jacobian contain? — Jacobian chứa gì?**
 
+A. First partial derivatives of vector outputs — Các đạo hàm riêng bậc một của đầu ra vector
 
-**Q1. What is Jacobian? — Thuật ngữ Jacobian là gì?**
+B. Second partial derivatives of a scalar output — Các đạo hàm riêng bậc hai của đầu ra vô hướng
 
-A. Another concept means Bảng đạo hàm riêng bậc hai của hàm vô hướng — Bảng đạo hàm riêng bậc hai của hàm vô hướng
+C. A differentiable point where the gradient is zero — Điểm khả vi có gradient bằng 0
 
-B. It means Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra — Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra
+D. Classifying local behavior near stationary points — Phân loại hành vi cục bộ gần điểm dừng
 
-C. Another concept means Điểm có gradient bằng 0 hoặc không xác định — Điểm có gradient bằng 0 hoặc không xác định
+**Q2. What does a Hessian contain? — Hessian chứa gì?**
 
-D. Another concept means Cách độ dốc biến thiên quanh vị trí đang xét — Cách độ dốc biến thiên quanh vị trí đang xét
+A. First partial derivatives of vector outputs — Các đạo hàm riêng bậc một của đầu ra vector
 
+B. Second partial derivatives of a scalar output — Các đạo hàm riêng bậc hai của đầu ra vô hướng
 
-**Q2. What is Hessian? — Thuật ngữ Hessian là gì?**
+C. A differentiable point where the gradient is zero — Điểm khả vi có gradient bằng 0
 
-A. It means Bảng đạo hàm riêng bậc hai của hàm vô hướng — Bảng đạo hàm riêng bậc hai của hàm vô hướng
+D. Classifying local behavior near stationary points — Phân loại hành vi cục bộ gần điểm dừng
 
-B. Another concept means Điểm có gradient bằng 0 hoặc không xác định — Điểm có gradient bằng 0 hoặc không xác định
+**Q3. What is a stationary point? — Điểm dừng là gì?**
 
-C. Another concept means Cách độ dốc biến thiên quanh vị trí đang xét — Cách độ dốc biến thiên quanh vị trí đang xét
+A. First partial derivatives of vector outputs — Các đạo hàm riêng bậc một của đầu ra vector
 
-D. Another concept means Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra — Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra
+B. Second partial derivatives of a scalar output — Các đạo hàm riêng bậc hai của đầu ra vô hướng
 
+C. A differentiable point where the gradient is zero — Điểm khả vi có gradient bằng 0
 
-**Q3. What is Critical point? — Thuật ngữ Critical point là gì?**
+D. Classifying local behavior near stationary points — Phân loại hành vi cục bộ gần điểm dừng
 
-A. Another concept means Cách độ dốc biến thiên quanh vị trí đang xét — Cách độ dốc biến thiên quanh vị trí đang xét
+**Q4. What is curvature information used for? — Thông tin độ cong dùng để làm gì?**
 
-B. Another concept means Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra — Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra
+A. First partial derivatives of vector outputs — Các đạo hàm riêng bậc một của đầu ra vector
 
-C. Another concept means Bảng đạo hàm riêng bậc hai của hàm vô hướng — Bảng đạo hàm riêng bậc hai của hàm vô hướng
+B. Second partial derivatives of a scalar output — Các đạo hàm riêng bậc hai của đầu ra vô hướng
 
-D. It means Điểm có gradient bằng 0 hoặc không xác định — Điểm có gradient bằng 0 hoặc không xác định
+C. A differentiable point where the gradient is zero — Điểm khả vi có gradient bằng 0
 
+D. Classifying local behavior near stationary points — Phân loại hành vi cục bộ gần điểm dừng
 
-**Q4. What is Curvature? — Thuật ngữ Curvature là gì?**
+**Q5. What is Jacobian shape for m outputs and n inputs? — Jacobian m đầu ra và n đầu vào có shape nào?**
 
-A. Another concept means Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra — Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra
+A. `(m,n)` — `(m,n)`
 
-B. Another concept means Bảng đạo hàm riêng bậc hai của hàm vô hướng — Bảng đạo hàm riêng bậc hai của hàm vô hướng
+B. `.jacobian(variables)` — `.jacobian(variables)`
 
-C. It means Cách độ dốc biến thiên quanh vị trí đang xét — Cách độ dốc biến thiên quanh vị trí đang xét
+C. `sp.hessian(f, variables)` — `sp.hessian(f, variables)`
 
-D. Another concept means Điểm có gradient bằng 0 hoặc không xác định — Điểm có gradient bằng 0 hoặc không xác định
+D. `np.linalg.eigvalsh(H)` — `np.linalg.eigvalsh(H)`
 
+**Q6. Which SymPy method builds a Jacobian? — Hàm SymPy nào tạo Jacobian?**
 
-**Q5. What does sympy.Matrix([...]).jacobian(vars) calculate? — Hàm sympy.Matrix([...]).jacobian(vars) tính gì?**
+A. `(m,n)` — `(m,n)`
 
-A. Another calculation is Đạo hàm bậc hai của hàm vô hướng — Đạo hàm bậc hai của hàm vô hướng
+B. `.jacobian(variables)` — `.jacobian(variables)`
 
-B. It calculates Đạo hàm riêng hàm vector theo biến — Đạo hàm riêng hàm vector theo biến
+C. `sp.hessian(f, variables)` — `sp.hessian(f, variables)`
 
-C. Another calculation is Tìm điểm thỏa hệ điều kiện — Tìm điểm thỏa hệ điều kiện
+D. `np.linalg.eigvalsh(H)` — `np.linalg.eigvalsh(H)`
 
-D. Another calculation is Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị — Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị
+**Q7. Which SymPy function builds a Hessian? — Hàm SymPy nào tạo Hessian?**
 
+A. `(m,n)` — `(m,n)`
 
-**Q6. What does sympy.hessian(f,vars) calculate? — Hàm sympy.hessian(f,vars) tính gì?**
+B. `.jacobian(variables)` — `.jacobian(variables)`
 
-A. It calculates Đạo hàm bậc hai của hàm vô hướng — Đạo hàm bậc hai của hàm vô hướng
+C. `sp.hessian(f, variables)` — `sp.hessian(f, variables)`
 
-B. Another calculation is Tìm điểm thỏa hệ điều kiện — Tìm điểm thỏa hệ điều kiện
+D. `np.linalg.eigvalsh(H)` — `np.linalg.eigvalsh(H)`
 
-C. Another calculation is Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị — Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị
+**Q8. Which tool computes symmetric Hessian eigenvalues? — Hàm nào tính trị riêng Hessian đối xứng?**
 
-D. Another calculation is Đạo hàm riêng hàm vector theo biến — Đạo hàm riêng hàm vector theo biến
+A. `(m,n)` — `(m,n)`
 
+B. `.jacobian(variables)` — `.jacobian(variables)`
 
-**Q7. What does sympy.solve(equations,vars) calculate? — Hàm sympy.solve(equations,vars) tính gì?**
+C. `sp.hessian(f, variables)` — `sp.hessian(f, variables)`
 
-A. Another calculation is Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị — Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị
+D. `np.linalg.eigvalsh(H)` — `np.linalg.eigvalsh(H)`
 
-B. Another calculation is Đạo hàm riêng hàm vector theo biến — Đạo hàm riêng hàm vector theo biến
+**Q9. What is Hessian of x²+y²? — Hessian của x²+y² là gì?**
 
-C. Another calculation is Đạo hàm bậc hai của hàm vô hướng — Đạo hàm bậc hai của hàm vô hướng
+A. `[[2,0],[0,2]]` — `[[2,0],[0,2]]`
 
-D. It calculates Tìm điểm thỏa hệ điều kiện — Tìm điểm thỏa hệ điều kiện
+B. `[[2,0],[0,-2]]` — `[[2,0],[0,-2]]`
 
+C. `(3,2)` — `(3,2)`
 
-**Q8. What does np.linalg.eigvalsh(H) calculate? — Hàm np.linalg.eigvalsh(H) tính gì?**
+D. `[[1,1],[y,x]]` — `[[1,1],[y,x]]`
 
-A. Another calculation is Đạo hàm riêng hàm vector theo biến — Đạo hàm riêng hàm vector theo biến
+**Q10. What is Hessian of x²−y²? — Hessian của x²−y² là gì?**
 
-B. Another calculation is Đạo hàm bậc hai của hàm vô hướng — Đạo hàm bậc hai của hàm vô hướng
+A. `[[2,0],[0,2]]` — `[[2,0],[0,2]]`
 
-C. It calculates Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị — Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị
+B. `[[2,0],[0,-2]]` — `[[2,0],[0,-2]]`
 
-D. Another calculation is Tìm điểm thỏa hệ điều kiện — Tìm điểm thỏa hệ điều kiện
+C. `(3,2)` — `(3,2)`
 
+D. `[[1,1],[y,x]]` — `[[1,1],[y,x]]`
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn phương pháp trong tình huống 1?**
+**Q11. What are stationary coordinates for (x−3)²+(y−2)²? — Tọa độ dừng của (x−3)²+(y−2)² là gì?**
 
-A. Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau — Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau
+A. `[[2,0],[0,2]]` — `[[2,0],[0,2]]`
 
-B. Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất — Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất
+B. `[[2,0],[0,-2]]` — `[[2,0],[0,-2]]`
 
-C. Giải gradient=0 cho hàm bậc hai — Giải gradient=0 cho hàm bậc hai
+C. `(3,2)` — `(3,2)`
 
-D. Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương — Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương
+D. `[[1,1],[y,x]]` — `[[1,1],[y,x]]`
 
+**Q12. What is Jacobian of outputs x+y and xy? — Jacobian của đầu ra x+y và xy là gì?**
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn phương pháp trong tình huống 2?**
+A. `[[2,0],[0,2]]` — `[[2,0],[0,2]]`
 
-A. Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau — Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau
+B. `[[2,0],[0,-2]]` — `[[2,0],[0,-2]]`
 
-B. Giải gradient=0 cho hàm bậc hai — Giải gradient=0 cho hàm bậc hai
+C. `(3,2)` — `(3,2)`
 
-C. Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương — Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương
+D. `[[1,1],[y,x]]` — `[[1,1],[y,x]]`
 
-D. Kiểm Jacobian đầu ra có shape đúng — Kiểm Jacobian đầu ra có shape đúng
+**Q13. What does a positive-definite Hessian at a stationary point indicate? — Hessian xác định dương tại điểm dừng biểu thị gì?**
 
+A. A strict local minimum — Cực tiểu địa phương nghiêm ngặt
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn phương pháp trong tình huống 3?**
+B. A strict local maximum — Cực đại địa phương nghiêm ngặt
 
-A. Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương — Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương
+C. A saddle point — Điểm yên ngựa
 
-B. Kiểm Jacobian đầu ra có shape đúng — Kiểm Jacobian đầu ra có shape đúng
+D. The simple second-derivative test is inconclusive — Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-C. Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất — Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất
+**Q14. What does a negative-definite Hessian at a stationary point indicate? — Hessian xác định âm tại điểm dừng biểu thị gì?**
 
-D. Giải gradient=0 cho hàm bậc hai — Giải gradient=0 cho hàm bậc hai
+A. A strict local minimum — Cực tiểu địa phương nghiêm ngặt
 
+B. A strict local maximum — Cực đại địa phương nghiêm ngặt
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn phương pháp trong tình huống 4?**
+C. A saddle point — Điểm yên ngựa
 
-A. Kiểm Jacobian đầu ra có shape đúng — Kiểm Jacobian đầu ra có shape đúng
+D. The simple second-derivative test is inconclusive — Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-B. Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất — Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất
+**Q15. What do mixed-sign Hessian eigenvalues indicate at a stationary point? — Trị riêng Hessian trái dấu ở điểm dừng biểu thị gì?**
 
-C. Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương — Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương
+A. A strict local minimum — Cực tiểu địa phương nghiêm ngặt
 
-D. Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau — Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau
+B. A strict local maximum — Cực đại địa phương nghiêm ngặt
 
+C. A saddle point — Điểm yên ngựa
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn phương pháp trong tình huống 5?**
+D. The simple second-derivative test is inconclusive — Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-A. Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất — Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất
+**Q16. What if a Hessian has a zero eigenvalue at a stationary point? — Nếu Hessian có trị riêng 0 tại điểm dừng thì sao?**
 
-B. Kiểm Jacobian đầu ra có shape đúng — Kiểm Jacobian đầu ra có shape đúng
+A. A strict local minimum — Cực tiểu địa phương nghiêm ngặt
 
-C. Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau — Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau
+B. A strict local maximum — Cực đại địa phương nghiêm ngặt
 
-D. Giải gradient=0 cho hàm bậc hai — Giải gradient=0 cho hàm bậc hai
+C. A saddle point — Điểm yên ngựa
 
+D. The simple second-derivative test is inconclusive — Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-**Q14. Which input is from scenario 1? — Dữ liệu nào thuộc tình huống 1?**
+**Q17. What is Hessian shape for a scalar function of three inputs? — Hessian hàm vô hướng ba biến có shape nào?**
 
-A. The input is F1=x+y, F2=x*y — F1=x+y, F2=x*y
+A. `(3,3)` — `(3,3)`
 
-B. Another input is f=x²+2y² — f=x²+2y²
+B. Sensitivities of one output to each input — Độ nhạy của một đầu ra theo từng đầu vào
 
-C. Another input is f=(x-3)²+(y-2)² — f=(x-3)²+(y-2)²
+C. How each output responds to one input — Các đầu ra đáp ứng với một đầu vào
 
-D. Another input is f=x²+y² tại (0,0) — f=x²+y² tại (0,0)
+D. It can also occur at a maximum or saddle — Nó còn xuất hiện ở cực đại hoặc yên ngựa
 
+**Q18. What does one Jacobian row represent? — Một hàng Jacobian biểu thị gì?**
 
-**Q15. Which input is from scenario 2? — Dữ liệu nào thuộc tình huống 2?**
+A. `(3,3)` — `(3,3)`
 
-A. Another input is f=(x-3)²+(y-2)² — f=(x-3)²+(y-2)²
+B. Sensitivities of one output to each input — Độ nhạy của một đầu ra theo từng đầu vào
 
-B. Another input is f=x²+y² tại (0,0) — f=x²+y² tại (0,0)
+C. How each output responds to one input — Các đầu ra đáp ứng với một đầu vào
 
-C. Another input is F gồm hai hàm của 2 biến — F gồm hai hàm của 2 biến
+D. It can also occur at a maximum or saddle — Nó còn xuất hiện ở cực đại hoặc yên ngựa
 
-D. The input is f=x²+2y² — f=x²+2y²
+**Q19. What does one Jacobian column represent? — Một cột Jacobian biểu thị gì?**
 
+A. `(3,3)` — `(3,3)`
 
-**Q16. Which input is from scenario 3? — Dữ liệu nào thuộc tình huống 3?**
+B. Sensitivities of one output to each input — Độ nhạy của một đầu ra theo từng đầu vào
 
-A. Another input is f=x²+y² tại (0,0) — f=x²+y² tại (0,0)
+C. How each output responds to one input — Các đầu ra đáp ứng với một đầu vào
 
-B. Another input is F gồm hai hàm của 2 biến — F gồm hai hàm của 2 biến
+D. It can also occur at a maximum or saddle — Nó còn xuất hiện ở cực đại hoặc yên ngựa
 
-C. The input is f=(x-3)²+(y-2)² — f=(x-3)²+(y-2)²
+**Q20. Why isn't zero gradient alone sufficient to prove a minimum? — Vì sao gradient 0 chưa đủ chứng minh cực tiểu?**
 
-D. Another input is F1=x+y, F2=x*y — F1=x+y, F2=x*y
+A. `(3,3)` — `(3,3)`
 
+B. Sensitivities of one output to each input — Độ nhạy của một đầu ra theo từng đầu vào
 
-**Q17. Which input is from scenario 4? — Dữ liệu nào thuộc tình huống 4?**
+C. How each output responds to one input — Các đầu ra đáp ứng với một đầu vào
 
-A. Another input is F gồm hai hàm của 2 biến — F gồm hai hàm của 2 biến
-
-B. The input is f=x²+y² tại (0,0) — f=x²+y² tại (0,0)
-
-C. Another input is F1=x+y, F2=x*y — F1=x+y, F2=x*y
-
-D. Another input is f=x²+2y² — f=x²+2y²
-
-
-**Q18. Which input is from scenario 5? — Dữ liệu nào thuộc tình huống 5?**
-
-A. The input is F gồm hai hàm của 2 biến — F gồm hai hàm của 2 biến
-
-B. Another input is F1=x+y, F2=x*y — F1=x+y, F2=x*y
-
-C. Another input is f=x²+2y² — f=x²+2y²
-
-D. Another input is f=(x-3)²+(y-2)² — f=(x-3)²+(y-2)²
-
-
-**Q19. What must a statistical report mention? — Báo cáo thống kê cần nêu gì?**
-
-A. Only plot colors — Chỉ màu biểu đồ
-
-B. Only a filename — Chỉ tên tệp
-
-C. Only code line count — Chỉ số dòng code
-
-D. Assumptions, units and sample size — Giả định, đơn vị và kích thước mẫu
-
-
-**Q20. What makes a numerical result reliable? — Điều gì làm kết quả số đáng tin?**
-
-A. Assuming all data independent — Cho rằng mọi dữ liệu độc lập
-
-B. Deleting verification — Xóa bước xác minh
-
-C. Checking assumptions and edge cases — Kiểm tra giả định và trường hợp biên
-
-D. Ignoring missing inputs — Bỏ dữ liệu thiếu mà không đánh giá
+D. It can also occur at a maximum or saddle — Nó còn xuất hiện ở cực đại hoặc yên ngựa
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It means Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra | Bảng đạo hàm riêng bậc 1 của hàm nhiều đầu ra |
-| Q2 | **A** | It means Bảng đạo hàm riêng bậc hai của hàm vô hướng | Bảng đạo hàm riêng bậc hai của hàm vô hướng |
-| Q3 | **D** | It means Điểm có gradient bằng 0 hoặc không xác định | Điểm có gradient bằng 0 hoặc không xác định |
-| Q4 | **C** | It means Cách độ dốc biến thiên quanh vị trí đang xét | Cách độ dốc biến thiên quanh vị trí đang xét |
-| Q5 | **B** | It calculates Đạo hàm riêng hàm vector theo biến | Đạo hàm riêng hàm vector theo biến |
-| Q6 | **A** | It calculates Đạo hàm bậc hai của hàm vô hướng | Đạo hàm bậc hai của hàm vô hướng |
-| Q7 | **D** | It calculates Tìm điểm thỏa hệ điều kiện | Tìm điểm thỏa hệ điều kiện |
-| Q8 | **C** | It calculates Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị | Xét dấu eigenvalue Hessian đối xứng tại điểm cực trị |
-| Q9 | **B** | Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất | Jacobian diễn tả hai đầu ra thay đổi theo nhiệt độ và áp suất |
-| Q10 | **A** | Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau | Hessian giúp thấy loss tăng nhanh theo các hướng khác nhau |
-| Q11 | **D** | Giải gradient=0 cho hàm bậc hai | Giải gradient=0 cho hàm bậc hai |
-| Q12 | **C** | Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương | Eigenvalue Hessian dương ở điểm tới hạn gợi ý cực tiểu địa phương |
-| Q13 | **B** | Kiểm Jacobian đầu ra có shape đúng | Kiểm Jacobian đầu ra có shape đúng |
-| Q14 | **A** | The input is F1=x+y, F2=x*y | F1=x+y, F2=x*y |
-| Q15 | **D** | The input is f=x²+2y² | f=x²+2y² |
-| Q16 | **C** | The input is f=(x-3)²+(y-2)² | f=(x-3)²+(y-2)² |
-| Q17 | **B** | The input is f=x²+y² tại (0,0) | f=x²+y² tại (0,0) |
-| Q18 | **A** | The input is F gồm hai hàm của 2 biến | F gồm hai hàm của 2 biến |
-| Q19 | **D** | Assumptions, units and sample size | Giả định, đơn vị và kích thước mẫu |
-| Q20 | **C** | Checking assumptions and edge cases | Kiểm tra giả định và trường hợp biên |
+| Q1 | **A** | Each row describes an output's first derivatives. | Mỗi hàng chứa đạo hàm bậc một của một đầu ra. |
+| Q2 | **B** | Hessian differentiates the gradient once more. | Hessian lấy đạo hàm tiếp của gradient. |
+| Q3 | **C** | Stationarity means first-order derivatives vanish. | Điểm dừng có các đạo hàm riêng bậc một bằng 0. |
+| Q4 | **D** | Curvature distinguishes types of stationary points. | Độ cong giúp phân loại điểm dừng. |
+| Q5 | **A** | Each output is one row and each input one column. | Mỗi đầu ra là một hàng, mỗi đầu vào là một cột. |
+| Q6 | **B** | The method calculates all first partial derivatives. | Phương thức lấy mọi đạo hàm riêng bậc một. |
+| Q7 | **C** | hessian computes second-order partial derivatives. | hessian tính các đạo hàm riêng bậc hai. |
+| Q8 | **D** | eigvalsh handles symmetric matrices. | eigvalsh tính trị riêng ma trận đối xứng. |
+| Q9 | **A** | The second derivative of each squared term is two. | Đạo hàm bậc hai của mỗi hạng bình phương bằng 2. |
+| Q10 | **B** | The y curvature is negative two. | Độ cong theo y bằng âm 2. |
+| Q11 | **C** | Both squared terms minimize when their differences vanish. | Cả hai bình phương nhỏ nhất khi sai khác bằng 0. |
+| Q12 | **D** | Differentiate each output with respect to x and y. | Lấy đạo hàm mỗi đầu ra theo x và y. |
+| Q13 | **A** | Positive curvature in all directions establishes a strict local minimum. | Độ cong dương mọi hướng cho cực tiểu địa phương nghiêm ngặt. |
+| Q14 | **B** | Negative curvature in all directions establishes a strict local maximum. | Độ cong âm mọi hướng cho cực đại địa phương nghiêm ngặt. |
+| Q15 | **C** | Some directions rise and others fall. | Một số hướng tăng và hướng khác giảm. |
+| Q16 | **D** | A zero curvature eigenvalue needs a higher-order test. | Trị riêng 0 cần kiểm tra sâu hơn. |
+| Q17 | **A** | Second partial derivatives pair each input with another. | Các đạo hàm riêng bậc hai ghép từng biến với biến khác. |
+| Q18 | **B** | The row fixes the output and varies the input column. | Hàng cố định đầu ra, cột đổi đầu vào. |
+| Q19 | **C** | The column fixes one input across all outputs. | Cột cố định một đầu vào qua mọi đầu ra. |
+| Q20 | **D** | Stationary maxima and saddles also have zero gradient. | Cực đại và yên ngựa cũng có thể có gradient 0. |
 
 ## 8. Liên hệ bài tiếp theo
 
