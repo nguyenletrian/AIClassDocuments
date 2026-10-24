@@ -91,7 +91,7 @@ print(KMeans(n_clusters=2,random_state=1,n_init=10))
 
 **Vì sao chọn cách này?** Kiểm ID train và test không trùng; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** train={1,2,3}, test={4,5}. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** train={1,2,3}, test={4,5}.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -100,7 +100,6 @@ train={1,2,3};test={4,5}
 print(train.isdisjoint(test))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 2 — Chia Iris có phân tầng
 
@@ -110,7 +109,7 @@ print(train.isdisjoint(test))
 
 **Vì sao chọn cách này?** stratify giúp tỷ lệ các loài tương tự nhau; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 150 hoa, 4 cột số đo cm và 1 nhãn loài. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 150 hoa, 4 cột số đo cm và 1 nhãn loài.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -121,7 +120,6 @@ D=load_iris();Xtr,Xte,ytr,yte=train_test_split(D.data,D.target,test_size=.25,str
 print(Xtr.shape,Xte.shape)
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 3 — Phân loại trong pipeline
 
@@ -131,7 +129,7 @@ print(Xtr.shape,Xte.shape)
 
 **Vì sao chọn cách này?** Scaler và mô hình chỉ fit trên train, không rò rỉ test; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Iris: số đo đài hoa/cánh hoa cm. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Iris: số đo đài hoa/cánh hoa cm.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -146,7 +144,6 @@ model=make_pipeline(StandardScaler(),LogisticRegression(max_iter=1000));model.fi
 print(model.score(b,d))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 4 — Gom nhóm điểm 2D
 
@@ -156,7 +153,7 @@ print(model.score(b,d))
 
 **Vì sao chọn cách này?** KMeans chỉ thử nhóm chứ không biết nhãn thật; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 4 điểm [0,0], [0,1], [10,10], [10,11]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** 4 điểm [0,0], [0,1], [10,10], [10,11].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -167,7 +164,6 @@ X=np.array([[0,0],[0,1],[10,10],[10,11]])
 print(KMeans(n_clusters=2,random_state=42,n_init=10).fit_predict(X))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 5 — So clustering với classification
 
@@ -177,7 +173,7 @@ print(KMeans(n_clusters=2,random_state=42,n_init=10).fit_predict(X))
 
 **Vì sao chọn cách này?** Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Iris data với target và đặc trưng riêng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Iris data với target và đặc trưng riêng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -188,7 +184,6 @@ print(D.data.shape,D.target.shape)
 print(set(D.target.tolist()))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 
