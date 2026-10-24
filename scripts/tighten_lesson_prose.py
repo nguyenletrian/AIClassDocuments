@@ -13,15 +13,15 @@ ROOT = Path(__file__).resolve().parents[1]
 LESSONS = sorted((ROOT / "lessons" / "chapters").glob("PY-*.vi.md"))
 LESSONS += [ROOT / "lessons" / "pilot" / "AI-MATH-01-pca.vi.md"]
 
-METADATA = re.compile(r"^\\*(?:Trạng thái:|Trạng thái biên soạn:|DRAFT(?: ·| \\b))[^\\n]*\\*\\s*$")
+METADATA = re.compile(r"^\*(?:Trạng thái:|Trạng thái biên soạn:|DRAFT(?: ·| \b))[^\n]*\*\s*$")
 DROP_LINES = [
-    re.compile(r"^Các tham số được giải thích ngay cạnh hàm[^\\n]*\\.$"),
-    re.compile(r"^Các tham số được giải thích cùng hàm[^\\n]*\\.$"),
-    re.compile(r"^Các lựa chọn được giải thích cùng hàm[^\\n]*\\.$"),
-    re.compile(r"^Trong code demo, chú thích dữ liệu[^\\n]*\\.$"),
-    re.compile(r"^Các flags đã được giải thích[^\\n]*\\.$"),
-    re.compile(r"^Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ\\.$"),
-    re.compile(r"^Mỗi giá trị mang ý nghĩa và đơn vị đã nêu\\.$"),
+    re.compile(r"^Các tham số được giải thích ngay cạnh hàm[^\n]*\.$"),
+    re.compile(r"^Các tham số được giải thích cùng hàm[^\n]*\.$"),
+    re.compile(r"^Các lựa chọn được giải thích cùng hàm[^\n]*\.$"),
+    re.compile(r"^Trong code demo, chú thích dữ liệu[^\n]*\.$"),
+    re.compile(r"^Các flags đã được giải thích[^\n]*\.$"),
+    re.compile(r"^Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ\.$"),
+    re.compile(r"^Mỗi giá trị mang ý nghĩa và đơn vị đã nêu\.$"),
 ]
 PHRASES = [
     ("Trước khi chạy ví dụ, ", ""),
@@ -34,10 +34,10 @@ PHRASES = [
 ]
 # Some generated chapters use equivalent phrasing; strip only when isolated.
 MORE_DROP = [
-    re.compile(r"^Các tham số như .*được giải thích ngay tại bảng hàm này\\.$"),
-    re.compile(r"^Các tham số được giải thích ngay cùng hàm liên quan;.*\\.$"),
-    re.compile(r"^Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn\\.$"),
-    re.compile(r"^Các số là dữ liệu minh họa\\.$"),
+    re.compile(r"^Các tham số như .*được giải thích ngay tại bảng hàm này\.$"),
+    re.compile(r"^Các tham số được giải thích ngay cùng hàm liên quan;.*\.$"),
+    re.compile(r"^Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn\.$"),
+    re.compile(r"^Các số là dữ liệu minh họa\.$"),
 ]
 # These statements are redundant in the lesson body, but real data provenance
 # and actual sampling caveats must remain when they affect interpretation.
@@ -65,8 +65,8 @@ def tighten(original: str) -> str:
         if METADATA.fullmatch(stripped) or any(rx.fullmatch(stripped) for rx in DROP_LINES + MORE_DROP):
             continue
         # Ignore bilingual quiz and code-like markdown, preserving their content.
-        if not (re.match(r"^\\*\\*Q\\d+\\.", stripped) or
-                re.match(r"^[A-D]\\. ", stripped) or
+        if not (re.match(r"^\*\*Q\d+\.", stripped) or
+                re.match(r"^[A-D]\. ", stripped) or
                 stripped.startswith("|") or stripped.startswith("`")):
             for old, new in PHRASES:
                 line = line.replace(old, new)
@@ -74,8 +74,8 @@ def tighten(original: str) -> str:
                 line = line.replace(phrase, "." if phrase.startswith(";") else "")
             line = line.replace(". .", ".")
         out.append(line)
-    result = "\\n".join(out).replace("\\n\\n\\n\\n", "\\n\\n\\n")
-    return result + ("\\n" if original.endswith("\\n") else "")
+    result = "\n".join(out).replace("\n\n\n\n", "\n\n\n")
+    return result + ("\n" if original.endswith("\n") else "")
 
 def main():
     parser = argparse.ArgumentParser()
