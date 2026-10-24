@@ -29,7 +29,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 | `A @ B` | Nhân ma trận khi số cột A bằng số hàng B |
 | `np.linalg.det()/inv()` | Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve |
 
-## 4. Khái niệm kèm ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Matrix
 
@@ -40,6 +40,12 @@ Bảng hai chiều chứa giá trị theo hàng và cột. Trước khi sử d�
 ```python
 import numpy as np
 print(np.array([[1,2],[3,4]]).shape)
+```
+
+**Kết quả khi chạy:**
+
+```text
+(2, 2)
 ```
 
 **Tự kiểm tra:** Matrix có nghĩa gì? **Đáp án:** Bảng hai chiều chứa giá trị theo hàng và cột.
@@ -55,6 +61,13 @@ import numpy as np
 print(np.array([[1,2],[3,4]]).T)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[1 3]
+ [2 4]]
+```
+
 **Tự kiểm tra:** Transpose có nghĩa gì? **Đáp án:** Đổi vai trò hàng và cột của ma trận.
 
 ### 4.3. Determinant
@@ -66,6 +79,12 @@ Số của ma trận vuông dùng xét tính khả nghịch. Trước khi sử d
 ```python
 import numpy as np
 print(np.linalg.det([[1,2],[3,4]]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+-2.0000000000000004
 ```
 
 **Tự kiểm tra:** Determinant có nghĩa gì? **Đáp án:** Số của ma trận vuông dùng xét tính khả nghịch.
@@ -81,6 +100,13 @@ import numpy as np
 print(np.linalg.inv([[2.,0.],[0.,3.]]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[0.5        0.        ]
+ [0.         0.33333333]]
+```
+
 **Tự kiểm tra:** Inverse có nghĩa gì? **Đáp án:** Ma trận B làm AB=BA=I khi tồn tại.
 
 ## 5. Năm tình huống ứng dụng
@@ -89,12 +115,12 @@ print(np.linalg.inv([[2.,0.],[0.,3.]]))
 
 **Từ vựng trong mục:** **Matrix** — ma trận.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn đổi bố cục dữ liệu báo cáo. Bộ dữ liệu đang có: 2 cửa hàng × 3 ngày. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Báo cáo bán hàng có 2 cửa hàng và 3 ngày, mỗi hàng là một cửa hàng. Đổi thành 3 hàng ngày và 2 cột cửa hàng.
 
 **Vì sao chọn phương án?** Chuyển vị giúp đổi hàng cửa hàng thành cột cửa hàng; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
@@ -102,17 +128,23 @@ X=np.array([[10,20,30],[12,8,5]])
 print(X.T.shape)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+(3, 2)
+```
+
 
 ### Tình huống 2 — Nhân bảng điểm và trọng số
 
 **Từ vựng trong mục:** **Transpose** — chuyển vị.
 
-**Tình huống thực tế:** Một trường học muốn nhân bảng điểm và trọng số. Bộ dữ liệu đang có: 2 SV × 3 môn → 2 kết quả. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Hai học viên có điểm theo ba môn lần lượt (8,7,9) và (6,5,8); hệ số là (0.2,0.3,0.5). Tính điểm có trọng số.
 
 **Vì sao chọn phương án?** Matrix product kết hợp các đặc trưng theo trọng số; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
@@ -121,17 +153,24 @@ W=np.array([[.2],[.3],[.5]])
 print(X@W)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[8.2]
+ [6.7]]
+```
+
 
 ### Tình huống 3 — Kiểm tra ma trận khả nghịch
 
 **Từ vựng trong mục:** **Determinant** — định thức.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu muốn kiểm tra ma trận khả nghịch. Bộ dữ liệu đang có: Ma trận vuông 2×2. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Ma trận hệ số [[2,1],[1,2]] có thể khả nghịch nếu định thức khác 0. Tính định thức để kiểm tra.
 
 **Vì sao chọn phương án?** Det khác 0 chỉ đối với ma trận vuông mới có nghịch đảo; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
@@ -139,17 +178,23 @@ A=np.array([[2,1],[1,2]],dtype=float)
 print(round(np.linalg.det(A),6))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+3.0
+```
+
 
 ### Tình huống 4 — Kiểm tra nghịch đảo
 
 **Từ vựng trong mục:** **Inverse** — ma trận nghịch đảo.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm tra nghịch đảo. Bộ dữ liệu đang có: Ma trận chéo 2×2. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Với ma trận đường chéo diag(2,4), kiểm tra tích ma trận và nghịch đảo có gần ma trận đơn vị không.
 
 **Vì sao chọn phương án?** Tích A@inv(A) phải gần đơn vị; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
@@ -157,23 +202,36 @@ A=np.diag([2.,4.])
 print(np.allclose(A@np.linalg.inv(A),np.eye(2)))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+True
+```
+
 
 ### Tình huống 5 — Kiểm tra shape trước nhân
 
 **Từ vựng trong mục:** **Matrix** — ma trận.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm tra shape trước nhân. Bộ dữ liệu đang có: A (2×3), B (3×2). Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Một ma trận 2×3 nhân một ma trận 3×2. Kiểm tra kích thước tích kết quả.
 
 **Vì sao chọn phương án?** Shape không phù hợp sẽ báo lỗi nên kiểm trước; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
-A=np.ones((2,3));B=np.ones((3,2))
+A=np.ones((2,3))
+B=np.ones((3,2))
 assert A.shape[1]==B.shape[0]
 print((A@B).shape)
+```
+
+**Kết quả khi chạy:**
+
+```text
+(2, 2)
 ```
 
 
