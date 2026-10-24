@@ -1,6 +1,5 @@
 # PY-28 — Hàm tuyến tính, bậc hai, đa thức và hàm mũ
 
-*DRAFT · Học qua Python · Cần kiểm tra kết quả và môi trường trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
