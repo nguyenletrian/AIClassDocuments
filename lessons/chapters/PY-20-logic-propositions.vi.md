@@ -376,11 +376,11 @@ C. `False` — `False`
 
 D. `True` — `True`
 
-**Q14. What is `False ⇒ False`? — `False ⇒ False` bằng gì?**
+**Q14. Which input pair makes `p ⇒ q` false? — Cặp p, q nào làm `p ⇒ q` sai?**
 
 A. `(not p) or q` — `(not p) or q`
 
-B. `True` — `True`
+B. `(True, False)` — `(True, False)`
 
 C. `False` — `False`
 
@@ -463,7 +463,7 @@ D. When some outcomes belong to more than one counted group — Khi một kết 
 | Q11 | **C** | One Boolean has True and False. | Một biến Boolean có True và False. |
 | Q12 | **D** | Four Boolean variables give 2⁴ possibilities. | Bốn biến Boolean tạo 2⁴ khả năng. |
 | Q13 | **A** | The expression is false exactly for p=True, q=False. | Biểu thức chỉ sai khi p=True, q=False. |
-| Q14 | **B** | Implication is true whenever its premise is false. | Kéo theo đúng khi tiền đề sai. |
+| Q14 | **B** | A true premise with a false conclusion is the only false implication case. | Tiền đề đúng và kết luận sai là trường hợp duy nhất làm phép kéo theo sai. |
 | Q15 | **C** | AND is false if any operand is false. | AND sai nếu có một vế sai. |
 | Q16 | **D** | OR is true when one operand is true. | OR đúng khi có một vế đúng. |
 | Q17 | **A** | Disjoint alternatives are added without double counting. | Các nhóm không trùng có thể cộng mà không đếm lặp. |
