@@ -1,14 +1,8 @@
 # PY-34 — Xác suất, không gian mẫu và biến cố
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Experiment** — phép thử; **Sample space** — không gian mẫu.
-
 `Logic/Tập hợp → Xác suất → Bayes → Dự đoán bất định`
-
-Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất, thống kê và các bước học máy.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 
 ## 3. Hàm Python và tham số quan trọng
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / cú pháp | Cách sử dụng |
 |---|---|
 | `len(event)/len(space)` | Xác suất cổ điển khi kết quả đồng khả năng |
@@ -34,85 +26,59 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 
 ### 4.1. Experiment
 
-**Từ vựng trong mục:** **Experiment** — phép thử.
-
-Thao tác có kết quả quan sát được. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Thao tác có kết quả quan sát được.
 
 ```python
 import random
 print(random.choice([0,1]))
 ```
 
-**Tự kiểm tra:** Experiment là gì? **Đáp án:** Thao tác có kết quả quan sát được.
-
 ### 4.2. Sample space
 
-**Từ vựng trong mục:** **Sample space** — không gian mẫu.
-
-Tập mọi kết quả khả dĩ. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Tập mọi kết quả khả dĩ.
 
 ```python
 print(set(range(1,7)))
 ```
 
-**Tự kiểm tra:** Sample space là gì? **Đáp án:** Tập mọi kết quả khả dĩ.
-
 ### 4.3. Event
 
-**Từ vựng trong mục:** **Event** — biến cố.
-
-Nhóm kết quả được quan tâm. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Nhóm kết quả được quan tâm.
 
 ```python
 print({2,4,6})
 ```
 
-**Tự kiểm tra:** Event là gì? **Đáp án:** Nhóm kết quả được quan tâm.
-
 ### 4.4. Probability
 
-**Từ vựng trong mục:** **Probability** — xác suất.
-
-Mức khả năng xảy ra một biến cố, từ 0 tới 1. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Mức khả năng xảy ra một biến cố, từ 0 tới 1.
 
 ```python
 print(3/6)
 ```
 
-**Tự kiểm tra:** Probability là gì? **Đáp án:** Mức khả năng xảy ra một biến cố, từ 0 tới 1.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Xác suất xúc xắc chẵn
 
-**Từ vựng trong mục:** **Experiment** — phép thử.
-
 **Vấn đề:** Xác suất xúc xắc chẵn.
 
-**Vì sao chọn phương pháp này?** Ba mặt chẵn trong sáu mặt đồng khả năng. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Ba mặt chẵn trong sáu mặt đồng khả năng.
 
-**Dữ liệu:** Xúc xắc công bằng có mặt 1..6. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** Xúc xắc công bằng có mặt 1..6.
 
 ```python
 space=set(range(1,7));even={2,4,6}
 print(len(even)/len(space))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 2 — Mô phỏng tung đồng xu
-
-**Từ vựng trong mục:** **Sample space** — không gian mẫu.
 
 **Vấn đề:** Mô phỏng tung đồng xu.
 
-**Vì sao chọn phương pháp này?** Đếm tỷ lệ mặt sấp khi có nhiều lần thử. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Đếm tỷ lệ mặt sấp khi có nhiều lần thử.
 
-**Dữ liệu:** 1000 lần tung giả lập. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** 1000 lần tung giả lập.
 
 ```python
 import numpy as np
@@ -121,38 +87,26 @@ tosses=rng.integers(0,2,size=1000)
 print(tosses.mean())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 3 — Hai xúc xắc tổng bằng 9
-
-**Từ vựng trong mục:** **Event** — biến cố.
 
 **Vấn đề:** Hai xúc xắc tổng bằng 9.
 
-**Vì sao chọn phương pháp này?** Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Đếm cặp kết quả thỏa tổng 9 trên 36 kết quả.
 
-**Dữ liệu:** Hai xúc xắc công bằng độc lập. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** Hai xúc xắc công bằng độc lập.
 
 ```python
 pairs=[(a,b) for a in range(1,7) for b in range(1,7)]
 print(sum(a+b==9 for a,b in pairs)/len(pairs))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 4 — Ước lượng tỷ lệ sự kiện
-
-**Từ vựng trong mục:** **Probability** — xác suất.
 
 **Vấn đề:** Ước lượng tỷ lệ sự kiện.
 
-**Vì sao chọn phương pháp này?** Mô phỏng rút ngẫu nhiên với seed để lặp lại. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Mô phỏng rút ngẫu nhiên với seed để lặp lại.
 
-**Dữ liệu:** 10000 lần với xác suất 0.2. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** 10000 lần với xác suất 0.2.
 
 ```python
 import numpy as np
@@ -160,19 +114,13 @@ r=np.random.default_rng(1)
 print(np.mean(r.random(10000)<.2))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 5 — So lý thuyết với thực nghiệm
-
-**Từ vựng trong mục:** **Experiment** — phép thử.
 
 **Vấn đề:** So lý thuyết với thực nghiệm.
 
-**Vì sao chọn phương pháp này?** Số lượt thử tăng khiến ước lượng thường ổn định hơn. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Số lượt thử tăng khiến ước lượng thường ổn định hơn.
 
-**Dữ liệu:** Đồng xu công bằng, 100 và 10000 lần. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** Đồng xu công bằng, 100 và 10000 lần.
 
 ```python
 import numpy as np
@@ -181,15 +129,11 @@ for n in [100,10000]:
     print(n,(r.integers(0,2,n)==1).mean())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ## 6. Những nhầm lẫn thường gặp
 
 Xác suất có điều kiện cần mẫu nền; xác suất của phân phối liên tục tại một điểm không phải PDF; thống kê từ một nhóm nhỏ không tự chứng minh kết quả cho quần thể. Chú ý định nghĩa mean/std và giả định độc lập.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Experiment? — Thuật ngữ Experiment là gì?**
@@ -435,7 +379,3 @@ D. Ignoring missing inputs — Bỏ dữ liệu thiếu mà không đánh giá
 | Q18 | **A** | The input is Đồng xu công bằng, 100 và 10000 lần | Đồng xu công bằng, 100 và 10000 lần |
 | Q19 | **D** | Assumptions, units and sample size | Giả định, đơn vị và kích thước mẫu |
 | Q20 | **C** | Checking assumptions and edge cases | Kiểm tra giả định và trường hợp biên |
-
-## 8. Liên hệ bài tiếp theo
-
-`Logic/Tập hợp → Xác suất → Bayes → Dự đoán bất định`.
