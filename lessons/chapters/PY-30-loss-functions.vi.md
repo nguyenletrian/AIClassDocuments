@@ -115,12 +115,12 @@ print(np.sum(p*np.log(p/q)))
 
 **Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần đánh giá sai giá nhà để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Giá thật [100,200], dự đoán [110,170], triệu đồng. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Hai giá nhà thật [100,200] và giá dự báo [110,170] cùng đơn vị tiền. Tính MSE để đo mức sai lệch.
 
 **Vì sao chọn phương án?** MSE phạt dự đoán sai lớn hơn nhiều
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -140,12 +140,12 @@ print(np.mean((y-pred)**2))
 
 **Từ vựng trong mục:** **MAE** — sai số tuyệt đối trung bình.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần đánh giá dự báo có outlier để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Doanh thu [10,20,30], dự đoán [9,19,50]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Ba giá trị thật [10,20,30] và dự báo [9,19,50]; giá cuối lệch lớn. Tính MAE.
 
 **Vì sao chọn phương án?** MAE giúp so mức sai số tuyệt đối dễ hiểu
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -163,12 +163,12 @@ print(np.mean(np.abs(np.array([10,20,30])-np.array([9,19,50]))))
 
 **Từ vựng trong mục:** **Cross-entropy** — entropy chéo.
 
-**Tình huống thực tế:** Một hệ thống giám sát cần tính huber cho lỗi đo để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Sai số [-1,2,5], delta=1. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Thiết bị có ba sai số [-1,2,5] với ngưỡng Huber δ=1. Tính tổn thất trung bình.
 
 **Vì sao chọn phương án?** Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -189,12 +189,12 @@ print(loss.mean())
 
 **Từ vựng trong mục:** **KL divergence** — độ lệch KL.
 
-**Tình huống thực tế:** Một hệ thống giám sát cần phạt nhãn dự đoán sai để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Xác suất đúng nhãn 0.8. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Một bộ phân loại dự báo xác suất 0.8 cho nhãn đúng. Tính cross-entropy của nhãn đúng.
 
 **Vì sao chọn phương án?** Cross-entropy dùng xác suất của đúng nhãn
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import math
@@ -213,12 +213,12 @@ print(-math.log(prob_true))
 
 **Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần so phân phối dự báo để phục vụ một công việc cụ thể. Đầu vào được cung cấp: p=[.5,.5], q=[.6,.4]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Hai phân phối dự báo p=[0.5,0.5] và q=[0.6,0.4]. Tính độ lệch KL D(p||q).
 
 **Vì sao chọn phương án?** KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
