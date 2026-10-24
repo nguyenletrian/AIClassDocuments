@@ -1,14 +1,8 @@
 # PY-46 — Mini project: dữ liệu → làm sạch → mô hình → đánh giá
 
-*DRAFT · Bài tổng hợp dành cho sinh viên; cần kiểm tra code và môi trường cài đặt trước phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Feature** — đặc trưng; **Label** — nhãn.
-
 `Python → NumPy/Pandas → Train/Test → Pipeline → Report`
-
-Bài này hệ thống hóa kiến thức đã học thành các thao tác thực hành có đầu vào và đầu ra rõ ràng.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 ## 3. Hàm và cách sử dụng
 
-**Từ vựng trong mục:** **Function** — hàm; **Option** — tùy chọn.
-
 | Cú pháp | Mục đích và lựa chọn |
 |---|---|
 | `pd.DataFrame()/dropna()` | Tạo bảng và đánh giá xử lý giá trị thiếu |
@@ -34,68 +26,48 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 ### 4.1. Feature
 
-**Từ vựng trong mục:** **Feature** — đặc trưng.
-
-Cột đầu vào cho mô hình. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Cột đầu vào cho mô hình.
 
 ```python
 x=[[1,2],[3,4]]
 print(len(x[0]))
 ```
 
-**Tự kiểm tra:** Feature nghĩa là gì? **Đáp án:** Cột đầu vào cho mô hình.
-
 ### 4.2. Label
 
-**Từ vựng trong mục:** **Label** — nhãn.
-
-Giá trị mục tiêu cần dự đoán. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Giá trị mục tiêu cần dự đoán.
 
 ```python
 y=[0,1]
 print(y)
 ```
 
-**Tự kiểm tra:** Label nghĩa là gì? **Đáp án:** Giá trị mục tiêu cần dự đoán.
-
 ### 4.3. Pipeline
 
-**Từ vựng trong mục:** **Pipeline** — chuỗi xử lý.
-
-Gom tiền xử lý và mô hình thành các bước. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Gom tiền xử lý và mô hình thành các bước.
 
 ```python
 from sklearn.pipeline import Pipeline
 print(Pipeline)
 ```
 
-**Tự kiểm tra:** Pipeline nghĩa là gì? **Đáp án:** Gom tiền xử lý và mô hình thành các bước.
-
 ### 4.4. Evaluation
 
-**Từ vựng trong mục:** **Evaluation** — đánh giá.
-
-Đo kết quả trên dữ liệu chưa dùng để fit. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Đo kết quả trên dữ liệu chưa dùng để fit.
 
 ```python
 print(8/10)
 ```
 
-**Tự kiểm tra:** Evaluation nghĩa là gì? **Đáp án:** Đo kết quả trên dữ liệu chưa dùng để fit.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Kiểm schema dữ liệu
 
-**Từ vựng trong mục:** **Feature** — đặc trưng.
-
 **Bài toán:** Kiểm schema dữ liệu.
 
-**Vì sao chọn cách này?** Nêu rõ đầu vào và nhãn trước khi huấn luyện; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Nêu rõ đầu vào và nhãn trước khi huấn luyện
 
-**Dữ liệu:** Iris có 150 hoa × 4 số đo cm và một nhãn loài. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Iris có 150 hoa × 4 số đo cm và một nhãn loài.
 
 ```python
 from sklearn.datasets import load_iris
@@ -103,19 +75,13 @@ D=load_iris()
 print(D.data.shape,D.target.shape)
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 2 — Chia tập có phân tầng
-
-**Từ vựng trong mục:** **Label** — nhãn.
 
 **Bài toán:** Chia tập có phân tầng.
 
-**Vì sao chọn cách này?** stratify giúp tỷ lệ nhãn ba loài ổn định; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** stratify giúp tỷ lệ nhãn ba loài ổn định
 
-**Dữ liệu:** Iris có 3 loài. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Iris có 3 loài.
 
 ```python
 from sklearn.datasets import load_iris
@@ -124,19 +90,13 @@ D=load_iris();a,b,c,d=train_test_split(D.data,D.target,stratify=D.target,random_
 print(a.shape,b.shape)
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 3 — Huấn luyện pipeline
-
-**Từ vựng trong mục:** **Pipeline** — chuỗi xử lý.
 
 **Bài toán:** Huấn luyện pipeline.
 
-**Vì sao chọn cách này?** Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test
 
-**Dữ liệu:** Iris với 4 đặc trưng cm. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Iris với 4 đặc trưng cm.
 
 ```python
 from sklearn.datasets import load_iris
@@ -149,38 +109,26 @@ m=make_pipeline(StandardScaler(),LogisticRegression(max_iter=1000));m.fit(a,c)
 print(m.score(b,d))
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 4 — Dùng confusion matrix
-
-**Từ vựng trong mục:** **Evaluation** — đánh giá.
 
 **Bài toán:** Dùng confusion matrix.
 
-**Vì sao chọn cách này?** Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm
 
-**Dữ liệu:** Các nhãn thật và dự đoán mô phỏng. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Các nhãn thật và dự đoán mô phỏng.
 
 ```python
 from sklearn.metrics import confusion_matrix
 print(confusion_matrix([0,1,1,0],[0,1,0,0]))
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 5 — So baseline không PCA
-
-**Từ vựng trong mục:** **Feature** — đặc trưng.
 
 **Bài toán:** So baseline không PCA.
 
-**Vì sao chọn cách này?** Phải so trên cùng tập train/test mới kết luận được; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Phải so trên cùng tập train/test mới kết luận được
 
-**Dữ liệu:** Iris 150 hoa, 4 đặc trưng số. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Iris 150 hoa, 4 đặc trưng số.
 
 ```python
 from sklearn.datasets import load_iris
@@ -191,15 +139,11 @@ print(PCA(n_components=2).fit_transform(X).shape)
 # Đây chỉ là biểu diễn, chưa phải kết quả đánh giá mô hình.
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ## 6. Nhầm lẫn cần tránh
 
 Đừng sao chép lệnh khi chưa hiểu dữ liệu hoặc trạng thái môi trường; kết quả thử nghiệm không chứng minh rằng mọi máy và mọi bộ dữ liệu đều giống nhau.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer key** — bảng đáp án.
 
 
 **Q1. What is Feature? — Thuật ngữ Feature là gì?**
@@ -445,7 +389,3 @@ D. No evidence — Không cần bằng chứng
 | Q18 | **A** | Iris 150 hoa, 4 đặc trưng số | Iris 150 hoa, 4 đặc trưng số |
 | Q19 | **D** | Understand source, parameters and permissions | Hiểu nguồn, tham số và quyền hạn |
 | Q20 | **C** | Observed output, failures and limits | Đầu ra thật, lỗi và giới hạn |
-
-## 8. Nối sang bài tiếp
-
-`Python → NumPy/Pandas → Train/Test → Pipeline → Report`.
