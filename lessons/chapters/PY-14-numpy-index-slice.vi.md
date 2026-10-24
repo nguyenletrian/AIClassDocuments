@@ -7,7 +7,7 @@
 
 `NumPy ndarray → Chọn hàng/cột → DataFrame/PCA`
 
-Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều đối tượng và đặc trưng trước khi dùng trong AI.
+Sau NumPy ndarray và shape, ta học cách lấy đúng phần tử, cột, hàng hoặc nhóm thỏa điều kiện. Chỉ số, lát cắt, mặt nạ Boolean và fancy indexing có mục đích khác nhau.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -32,92 +32,19 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Index
+Trong bảng điểm NumPy, **hàng là học viên**, **cột là môn học**, **ô là điểm một học viên ở một môn**. Bài này đi từ chọn một ô bằng chỉ số đến chọn nhiều ô/hàng/cột bằng slice, mặt nạ Boolean và fancy indexing. Mỗi cách trả lời một câu hỏi khác nhau khi làm việc với dữ liệu.
 
-**Từ vựng trong mục:** **Index** — chỉ số.
+### 4.1. Indexing — Đọc một vị trí
 
-Chỉ số NumPy bắt đầu từ 0; với bảng hai chiều, `a[row, col]` lấy ô theo hàng và cột.
+**Từ vựng trong mục:** **Index** — chỉ số; **Row/column** — hàng/cột.
 
-```python
-import numpy as np
-print(np.array([8,9])[0])
-```
-
-**Kết quả khi chạy:**
-
-```text
-8
-```
-
-### 4.2. Slice
-
-**Từ vựng trong mục:** **Slice** — cắt lát.
-
-Cắt mảng bằng `[start:stop]` lấy các vị trí từ start tới trước stop.
+Mảng hai chiều giống một bảng có hàng và cột. Giả sử `scores` có **hai hàng học viên** An, Bình và **hai cột môn** Toán, Python, lần lượt là `[[8,9],[6,7]]`. **Chỉ số bắt đầu từ 0**; `scores[1,0]` lấy hàng thứ hai (Bình), cột đầu (Toán), cho điểm 6. Dấu phẩy trong `[row, col]` phân biệt vị trí hàng và cột.
 
 ```python
 import numpy as np
-print(np.arange(5)[1:3])
-```
 
-**Kết quả khi chạy:**
-
-```text
-[1 2]
-```
-
-### 4.3. Boolean mask
-
-**Từ vựng trong mục:** **Boolean mask** — mặt nạ logic.
-
-Mặt nạ Boolean lọc những phần tử hoặc hàng thỏa điều kiện so sánh.
-
-```python
-import numpy as np
-x=np.array([4,7,9])
-print(x[x>=7])
-```
-
-**Kết quả khi chạy:**
-
-```text
-[7 9]
-```
-
-### 4.4. Fancy indexing
-
-**Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao.
-
-Fancy indexing dùng danh sách chỉ số để chọn nhiều vị trí không liền nhau.
-
-```python
-import numpy as np
-x=np.array([3,5,7])
-print(x[[0,2]])
-```
-
-**Kết quả khi chạy:**
-
-```text
-[3 7]
-```
-
-## 5. Năm tình huống thực tế
-
-### Tình huống 1 — Tra điểm một sinh viên
-
-**Từ vựng trong mục:** **Index** — chỉ số.
-
-**Tình huống thực tế:** Trung tâm lưu điểm ba học viên, hai môn: `(8,9)`, `(6,7)`, `(9,8)` trên thang 10. Lấy điểm môn thứ nhất của học viên thứ hai.
-
-**Vì sao chọn cách giải này?** Chỉ số hàng 1, cột 0 trỏ vào giá trị 6.
-
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
-
-```python
-import numpy as np
-scores=np.array([[8,9],[6,7],[9,8]])
-print(scores[1,0])
+scores = np.array([[8, 9], [6, 7]])
+print(scores[1, 0])
 ```
 
 **Kết quả khi chạy:**
@@ -126,20 +53,122 @@ print(scores[1,0])
 6
 ```
 
-### Tình huống 2 — Báo danh sách điểm cao
+Chỉ số hàng 1 và cột 0 lấy điểm Toán của học viên thứ hai, không phải điểm học viên đầu.
 
-**Từ vựng trong mục:** **Slice** — cắt lát.
+### 4.2. Slicing — Cắt một đoạn liên tiếp
 
-**Tình huống thực tế:** Trung tâm có bảng điểm ba học viên như trên và muốn xem người đạt ít nhất 8 điểm ở môn thứ nhất. In những hàng có điểm môn thứ nhất từ 8 trở lên.
+**Từ vựng trong mục:** **Slice** — lát cắt; **Start/stop** — đầu/cuối.
 
-**Vì sao chọn cách giải này?** `X[:,0] >= 8` tạo mặt nạ theo cột đầu, sau đó lọc cả hàng.
-
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Slicing** chọn một đoạn theo chỉ số, cú pháp `[start:stop]` lấy từ start **đến trước stop**. Với điểm `[5,6,7,8]`, `scores[1:3]` lấy vị trí 1 và 2, nghĩa là hai điểm 6, 7. Trên bảng hai chiều, `scores[:,0]` lấy tất cả hàng nhưng chỉ cột đầu; dấu `:` đứng riêng nghĩa là lấy toàn bộ chiều đó. Lát cắt NumPy cơ bản có thể là **view** dùng chung bộ nhớ với mảng gốc.
 
 ```python
 import numpy as np
-X=np.array([[8,9],[6,7],[9,8]])
-print(X[X[:,0]>=8])
+
+scores = np.array([5, 6, 7, 8])
+print(scores[1:3])
+```
+
+**Kết quả khi chạy:**
+
+```text
+[6 7]
+```
+
+Giá trị 8 ở vị trí 3 không được lấy vì điểm stop bị loại khỏi lát cắt.
+
+### 4.3. Boolean mask — Lọc theo điều kiện
+
+**Từ vựng trong mục:** **Boolean mask** — mặt nạ logic; **Condition** — điều kiện.
+
+Nếu các điểm là `[4,7,9]` và yêu cầu giữ điểm từ 7 trở lên, phép `scores >= 7` tạo mặt nạ `[False, True, True]`. Dùng `scores[mask]` chỉ lấy phần tử ứng với `True`. Với bảng hai chiều, `X[X[:,0] >= 8]` giữ **các hàng có điểm ở cột đầu đạt 8**, chứ không chỉ lấy các ô điểm cao.
+
+```python
+import numpy as np
+
+scores = np.array([4, 7, 9])
+mask = scores >= 7
+print(scores[mask])
+```
+
+**Kết quả khi chạy:**
+
+```text
+[7 9]
+```
+
+Hai giá trị 7 và 9 vượt hoặc bằng ngưỡng, còn 4 bị loại.
+
+### 4.4. Fancy indexing — Chọn vị trí rời rạc
+
+**Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao; **Index array** — mảng chỉ số.
+
+Khác với **Slice** lấy đoạn liên tiếp, **Fancy indexing** cho phép chỉ định nhiều vị trí không liền nhau. Với `[3,5,7]`, `scores[[0,2]]` lấy phần tử đầu và cuối, bỏ phần tử giữa. Trên bảng hai chiều, `X[:, [0,2]]` lấy cột thứ nhất và thứ ba. Fancy indexing bằng mảng chỉ số thường tạo **bản sao** thay vì view của dữ liệu gốc.
+
+```python
+import numpy as np
+
+scores = np.array([3, 5, 7])
+print(scores[[0, 2]])
+```
+
+**Kết quả khi chạy:**
+
+```text
+[3 7]
+```
+
+Chương trình lấy vị trí 0 và 2 mà không phải lấy cả đoạn 0–2.
+
+## 5. Năm tình huống lập trình thực tế
+
+### Tình huống 1 — Tra điểm một học viên
+
+**Từ vựng trong mục:** **Index** — chỉ số; **Shape** — kích thước.
+
+**Tình huống thực tế:** Trung tâm có điểm Toán và Python của ba học viên An (8,9), Bình (6,7), Lan (9,8), thang 10. Hãy in **điểm Toán của Bình** bằng chỉ số hàng và cột.
+
+**Vì sao chọn cách giải này?** `scores[1,0]` định vị chính xác hàng Bình và cột Toán, vì Python đếm từ 0.
+
+**Quy trình giải:**
+
+1. Lưu ba học viên theo hàng An, Bình, Lan.
+2. Lưu môn Toán ở cột 0, Python ở cột 1.
+3. Lấy ô `[1,0]` và in giá trị.
+
+```python
+import numpy as np
+
+scores = np.array([[8, 9], [6, 7], [9, 8]])
+print(scores[1, 0])
+```
+
+**Kết quả khi chạy:**
+
+```text
+6
+```
+
+Học viên Bình có điểm Toán 6 trên thang 10.
+
+### Tình huống 2 — Lọc học viên có điểm cao
+
+**Từ vựng trong mục:** **Boolean mask** — mặt nạ Boolean; **Threshold** — ngưỡng.
+
+**Tình huống thực tế:** Vẫn bảng ba học viên, hai môn Toán và Python như trên. Trung tâm chỉ muốn giữ những học viên có **điểm Toán từ 8 trở lên**. Hãy in nguyên hàng điểm của những học viên đạt ngưỡng.
+
+**Vì sao chọn cách giải này?** Mặt nạ `scores[:,0] >= 8` được tạo từ cột Toán, sau đó áp vào toàn bộ hàng.
+
+**Quy trình giải:**
+
+1. Lấy cột Toán của cả ba học viên bằng `scores[:, 0]`.
+2. So sánh với 8 để tạo mặt nạ Boolean.
+3. Lấy các hàng thỏa ngưỡng và in bảng.
+
+```python
+import numpy as np
+
+scores = np.array([[8, 9], [6, 7], [9, 8]])
+print(scores[scores[:, 0] >= 8])
 ```
 
 **Kết quả khi chạy:**
@@ -149,20 +178,27 @@ print(X[X[:,0]>=8])
  [9 8]]
 ```
 
-### Tình huống 3 — Lấy hai môn cần kiểm
+An và Lan có điểm Toán từ 8 trở lên; Bình không đạt.
 
-**Từ vựng trong mục:** **Boolean mask** — mặt nạ logic.
+### Tình huống 3 — Chọn hai môn không liền nhau
 
-**Tình huống thực tế:** Bảng điểm hai học viên gồm ba môn: `(8,7,9)` và `(6,5,8)`. Chỉ cần kiểm tra môn thứ nhất và thứ ba. In hai cột môn được chọn.
+**Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao; **Column** — cột.
 
-**Vì sao chọn cách giải này?** `X[:,[0,2]]` lấy mọi hàng và hai cột ở chỉ số 0, 2.
+**Tình huống thực tế:** Hai học viên có điểm của ba môn Toán, Văn, Python lần lượt là `[8,7,9]` và `[6,5,8]`. Giáo viên chỉ muốn xem **Toán và Python**, bỏ cột Văn ở giữa.
 
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Vì sao chọn cách giải này?** Fancy indexing `[:, [0, 2]]` chọn hai cột rời nhau mà vẫn giữ mọi hàng học viên.
+
+**Quy trình giải:**
+
+1. Lưu hai hàng học viên và ba cột theo thứ tự Toán, Văn, Python.
+2. Chọn tất cả hàng với `:` và cột 0, 2 bằng danh sách chỉ số.
+3. In bảng hai cột kết quả.
 
 ```python
 import numpy as np
-X=np.array([[8,7,9],[6,5,8]])
-print(X[:,[0,2]])
+
+scores = np.array([[8, 7, 9], [6, 5, 8]])
+print(scores[:, [0, 2]])
 ```
 
 **Kết quả khi chạy:**
@@ -172,20 +208,27 @@ print(X[:,[0,2]])
  [6 8]]
 ```
 
-### Tình huống 4 — Lấy ba khách đầu tiên
+Bảng còn lại hai môn Toán và Python, giữ nguyên hai hàng học viên.
 
-**Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao.
+### Tình huống 4 — Lấy ba khách hàng đầu
 
-**Tình huống thực tế:** Năm khách có mức chi tiêu lần lượt 100, 200, 50, 300, 120 nghìn đồng. In ba mức chi tiêu đầu tiên.
+**Từ vựng trong mục:** **Slice** — lát cắt; **Array** — mảng.
 
-**Vì sao chọn cách giải này?** `[:3]` cắt ba phần tử đầu, không lấy phần tử thứ tư.
+**Tình huống thực tế:** Cửa hàng có năm khoản chi tiêu khách hàng là `[100,200,50,300,120]` nghìn đồng, lưu theo thứ tự thời gian. Hãy lấy **ba khoản đầu tiên** để kiểm tra nhanh.
 
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Vì sao chọn cách giải này?** `[:3]` lấy các chỉ số 0, 1, 2 mà không lấy chỉ số 3.
+
+**Quy trình giải:**
+
+1. Tạo mảng gồm năm khoản chi tiêu theo thứ tự.
+2. Dùng lát cắt `[:3]` lấy ba vị trí đầu.
+3. In ba số tiền (nghìn đồng).
 
 ```python
 import numpy as np
-spend=np.array([100,200,50,300,120])
-print(spend[:3])
+
+spending = np.array([100, 200, 50, 300, 120])
+print(spending[:3])
 ```
 
 **Kết quả khi chạy:**
@@ -194,22 +237,29 @@ print(spend[:3])
 [100 200  50]
 ```
 
-### Tình huống 5 — Sửa số đo bất thường
+Ba khoản đầu là 100, 200 và 50 nghìn đồng.
 
-**Từ vựng trong mục:** **Index** — chỉ số.
+### Tình huống 5 — Thay mã số đo lỗi trên bản sao
 
-**Tình huống thực tế:** Cảm biến ghi các số đo `[20,-1,23,24]` °C, trong đó -1 là mã báo lỗi. Tạo bản sao và thay mã lỗi âm bằng 0 nhưng giữ nguyên dữ liệu ban đầu.
+**Từ vựng trong mục:** **Boolean mask** — mặt nạ Boolean; **Copy** — bản sao.
 
-**Vì sao chọn cách giải này?** `copy()` tránh sửa mảng gốc; điều kiện `<0` chỉ chọn giá trị âm.
+**Tình huống thực tế:** Cảm biến lưu nhiệt độ `[20,-1,23,24]` °C; `-1` là mã lỗi, **không phải nhiệt độ thật**. Hãy tạo bản sao, thay mã lỗi bằng 0 để minh họa phép gán có điều kiện, đồng thời giữ nguyên mảng gốc.
 
-**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
+**Vì sao chọn cách giải này?** `copy()` tránh sửa đầu vào; mặt nạ `<0` chọn mã âm cần thay. Giá trị 0 ở bản xử lý chỉ là **giá trị tạm**, không được suy diễn là số đo thật.
+
+**Quy trình giải:**
+
+1. Lưu mảng gốc và tạo `clean = values.copy()`.
+2. Chọn phần tử âm bằng `clean < 0`.
+3. Gán 0 ở vị trí đó, in cả hai mảng để so sánh.
 
 ```python
 import numpy as np
-values=np.array([20,-1,23,24])
-clean=values.copy()
-clean[clean<0]=0
-print(values,clean)
+
+values = np.array([20, -1, 23, 24])
+clean = values.copy()
+clean[clean < 0] = 0
+print(values, clean)
 ```
 
 **Kết quả khi chạy:**
@@ -218,9 +268,15 @@ print(values,clean)
 [20 -1 23 24] [20  0 23 24]
 ```
 
+Bản gốc giữ `-1`; bản sao đổi mã lỗi thành 0. Trong dữ liệu thực tế cần đánh dấu thiếu thay vì coi 0 °C là số đo hợp lệ.
+
 ## 6. Sai lầm thường gặp
 
-Các tham số như axis, shape, dtype hoặc cách xử lý giá trị thiếu có thể thay đổi kết quả. Trước khi xử lý phải biết số hàng, số cột, đơn vị và mục đích của từng phép biến đổi.
+- Chỉ số bắt đầu từ **0**. Mảng có ba hàng thì hàng thứ ba là chỉ số 2, không phải 3.
+- `a[1:3]` lấy phần tử 1, 2 và **không** lấy 3. Lát cắt NumPy cơ bản thường là view: sửa view có thể sửa mảng gốc.
+- Mặt nạ Boolean chọn phần tử/hàng thỏa điều kiện, còn Fancy indexing chọn vị trí theo danh sách chỉ số và thường tạo bản sao.
+- Trong mảng 2-D, `X[:, 0]` là cột đầu, `X[0, :]` là hàng đầu: không đảo ý nghĩa hàng/cột.
+- Không coi mã lỗi cảm biến `-1` hay giá trị tạm `0` là số đo hợp lệ khi phân tích dữ liệu thật.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
