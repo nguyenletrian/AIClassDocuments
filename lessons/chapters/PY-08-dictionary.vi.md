@@ -279,230 +279,230 @@ None
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What does a dictionary store? — Dictionary lưu thông tin như thế nào?**
+**Q1. What is a dictionary? — Dictionary là gì?**
 
-A. Key–value pairs — Các cặp khóa và giá trị
+A. A mapping from keys to values — Ánh xạ từ khóa sang giá trị
 
-B. Only numbers — Chỉ số
+B. Identifies a value for lookup — Xác định giá trị để tra cứu
 
-C. Only list indexes — Chỉ chỉ số list
+C. Data associated with a key — Dữ liệu gắn với một khóa
 
-D. Only unique words — Chỉ từ không trùng
+D. A dictionary holding another dictionary — Dictionary chứa một Dictionary khác
 
-**Q2. What is a key in a dictionary? — Khóa trong Dictionary là gì?**
+**Q2. What does a dictionary key do? — Khóa Dictionary có vai trò gì?**
 
-A. The largest number — Số lớn nhất
+A. A mapping from keys to values — Ánh xạ từ khóa sang giá trị
 
-B. An identifier used to look up a value — Tên hoặc mã để tìm giá trị
+B. Identifies a value for lookup — Xác định giá trị để tra cứu
 
-C. An automatic sort rule — Quy tắc sắp xếp
+C. Data associated with a key — Dữ liệu gắn với một khóa
 
-D. Always a list — Luôn là list
+D. A dictionary holding another dictionary — Dictionary chứa một Dictionary khác
 
-**Q3. What is a dictionary value? — Giá trị của Dictionary là gì?**
+**Q3. What is a dictionary value? — Giá trị Dictionary là gì?**
 
-A. Always a filename — Luôn là tên file
+A. A mapping from keys to values — Ánh xạ từ khóa sang giá trị
 
-B. Always a Boolean — Luôn là đúng sai
+B. Identifies a value for lookup — Xác định giá trị để tra cứu
 
-C. Information stored under a key — Thông tin được lưu theo một khóa
+C. Data associated with a key — Dữ liệu gắn với một khóa
 
-D. The number of keys — Số lượng khóa
+D. A dictionary holding another dictionary — Dictionary chứa một Dictionary khác
 
 **Q4. What is a nested dictionary? — Dictionary lồng nhau là gì?**
 
-A. A sorted list — List đã sắp xếp
+A. A mapping from keys to values — Ánh xạ từ khóa sang giá trị
 
-B. A set of numbers — Tập hợp số
+B. Identifies a value for lookup — Xác định giá trị để tra cứu
 
-C. A text file — File văn bản
+C. Data associated with a key — Dữ liệu gắn với một khóa
 
-D. A dictionary containing another dictionary — Dictionary chứa Dictionary con
+D. A dictionary holding another dictionary — Dictionary chứa một Dictionary khác
 
-**Q5. What does obj.get('x') return if x is absent? — get('x') trả về gì nếu thiếu khóa x?**
+**Q5. What does `d['x']` do when x exists? — `d['x']` làm gì khi khóa x tồn tại?**
 
-A. None by default — Mặc định là None
+A. Retrieves the value of x — Lấy giá trị gắn với x
 
-B. Always 0 — Luôn là 0
+B. `None` by default — Mặc định là `None`
 
-C. A KeyError — Lỗi KeyError
+C. `0` — `0`
 
-D. The first value — Giá trị đầu
+D. `KeyError` — `KeyError`
 
-**Q6. What does obj.items() provide? — obj.items() cung cấp gì?**
+**Q6. What does `d.get('x')` return if x is absent? — `d.get('x')` trả về gì nếu thiếu khóa x?**
 
-A. Only keys — Chỉ khóa
+A. Retrieves the value of x — Lấy giá trị gắn với x
 
-B. Key–value pairs — Các cặp khóa và giá trị
+B. `None` by default — Mặc định là `None`
 
-C. Only values — Chỉ giá trị
+C. `0` — `0`
 
-D. The last item — Phần tử cuối
+D. `KeyError` — `KeyError`
 
-**Q7. What does obj['x'] = 5 do? — obj['x'] = 5 làm gì?**
+**Q7. What does `d.get('x', 0)` return if x is absent? — `d.get('x', 0)` trả về gì nếu thiếu x?**
 
-A. Deletes x — Xóa khóa x
+A. Retrieves the value of x — Lấy giá trị gắn với x
 
-B. Sorts all keys — Sắp xếp mọi khóa
+B. `None` by default — Mặc định là `None`
 
-C. Adds or updates x — Thêm hoặc cập nhật khóa x
+C. `0` — `0`
 
-D. Returns a list — Trả về list
+D. `KeyError` — `KeyError`
 
-**Q8. What does obj.pop('x', None) do when x is missing? — pop('x', None) làm gì khi thiếu x?**
+**Q8. What does `d['missing']` raise? — `d['missing']` phát sinh gì khi thiếu khóa?**
 
-A. Creates x — Tạo khóa x
+A. Retrieves the value of x — Lấy giá trị gắn với x
 
-B. Deletes every key — Xóa mọi khóa
+B. `None` by default — Mặc định là `None`
 
-C. Always raises KeyError — Luôn báo KeyError
+C. `0` — `0`
 
-D. Returns None — Trả về None
+D. `KeyError` — `KeyError`
 
-**Q9. What is returned for unknown order O3? — Tra cứu đơn O3 chưa có trả về gì?**
+**Q9. What does `d.items()` provide? — `d.items()` cung cấp gì?**
 
-A. Not found — Not found
+A. Key-value pairs — Các cặp khóa và giá trị
 
-B. paid — paid
+B. Dictionary keys — Các khóa Dictionary
 
-C. pending — pending
+C. Dictionary values — Các giá trị Dictionary
 
-D. O1 — O1
+D. Removes x and returns its value — Xóa khóa x và trả giá trị của nó
 
-**Q10. How many SKU01 items remain after selling two? — SKU01 còn bao nhiêu món sau khi bán hai?**
+**Q10. What does `d.keys()` provide? — `d.keys()` cung cấp gì?**
 
-A. 5 — 5
+A. Key-value pairs — Các cặp khóa và giá trị
 
-B. 3 — 3
+B. Dictionary keys — Các khóa Dictionary
 
-C. 2 — 2
+C. Dictionary values — Các giá trị Dictionary
 
-D. 7 — 7
+D. Removes x and returns its value — Xóa khóa x và trả giá trị của nó
 
-**Q11. How many AI labels are counted? — Nhãn AI xuất hiện bao nhiêu lần?**
+**Q11. What does `d.values()` provide? — `d.values()` cung cấp gì?**
 
-A. 1 — 1
+A. Key-value pairs — Các cặp khóa và giá trị
 
-B. 3 — 3
+B. Dictionary keys — Các khóa Dictionary
 
-C. 2 — 2
+C. Dictionary values — Các giá trị Dictionary
 
-D. 0 — 0
+D. Removes x and returns its value — Xóa khóa x và trả giá trị của nó
 
-**Q12. What score belongs to SV2? — Điểm của SV2 là bao nhiêu?**
+**Q12. What does `d.pop('x', None)` do if x is present? — `d.pop('x', None)` làm gì nếu x tồn tại?**
 
-A. 8 — 8
+A. Key-value pairs — Các cặp khóa và giá trị
 
-B. 10 — 10
+B. Dictionary keys — Các khóa Dictionary
 
-C. 0 — 0
+C. Dictionary values — Các giá trị Dictionary
 
-D. 9 — 9
+D. Removes x and returns its value — Xóa khóa x và trả giá trị của nó
 
-**Q13. What is printed when P02 is not present? — In gì khi không có P02?**
+**Q13. What does `d['x'] = 5` do if x already exists? — `d['x'] = 5` làm gì khi x đã tồn tại?**
 
-A. None — None
+A. Replaces the value mapped to x — Thay giá trị của khóa x
 
-B. P01 — P01
+B. Adds a new key-value pair — Thêm một cặp khóa–giá trị mới
 
-C. 10 — 10
+C. Deletes the entry — Xóa mục dữ liệu
 
-D. KeyError — KeyError
+D. Whether x is a key — x có phải khóa của Dictionary không
 
-**Q14. Which expression safely looks up an optional key? — Cách nào tra khóa có thể không tồn tại?**
+**Q14. What does `d['new'] = 5` do if new is absent? — `d['new'] = 5` làm gì khi khóa new chưa có?**
 
-A. obj['x'] always — Luôn dùng obj['x']
+A. Replaces the value mapped to x — Thay giá trị của khóa x
 
-B. obj.get('x') — obj.get('x')
+B. Adds a new key-value pair — Thêm một cặp khóa–giá trị mới
 
-C. obj.remove('x') — obj.remove('x')
+C. Deletes the entry — Xóa mục dữ liệu
 
-D. obj.sort() — obj.sort()
+D. Whether x is a key — x có phải khóa của Dictionary không
 
-**Q15. What does count.get(x, 0) provide for a new label? — count.get(x, 0) cho gì khi gặp nhãn mới?**
+**Q15. What does `del d['x']` do for an existing key? — `del d['x']` làm gì với khóa đang tồn tại?**
 
-A. A string — Một chuỗi
+A. Replaces the value mapped to x — Thay giá trị của khóa x
 
-B. A list — Một list
+B. Adds a new key-value pair — Thêm một cặp khóa–giá trị mới
 
-C. 0 — 0
+C. Deletes the entry — Xóa mục dữ liệu
 
-D. An exception — Một lỗi
+D. Whether x is a key — x có phải khóa của Dictionary không
 
-**Q16. What happens when you assign an existing key? — Gán vào khóa đã tồn tại sẽ thế nào?**
+**Q16. What does `'x' in d` test? — `'x' in d` kiểm tra gì?**
 
-A. Nothing changes — Không thay đổi
+A. Replaces the value mapped to x — Thay giá trị của khóa x
 
-B. It creates a duplicate key — Tạo khóa trùng
+B. Adds a new key-value pair — Thêm một cặp khóa–giá trị mới
 
-C. It always fails — Luôn lỗi
+C. Deletes the entry — Xóa mục dữ liệu
 
-D. Its value is replaced — Giá trị được thay thế
+D. Whether x is a key — x có phải khóa của Dictionary không
 
-**Q17. How do you access a score inside students['SV2']? — Lấy điểm trong students['SV2'] bằng cách nào?**
+**Q17. May a List be a normal dictionary key? — Có thể dùng List làm khóa Dictionary thông thường không?**
 
-A. students['SV2']['score'] — students['SV2']['score']
+A. No, Lists are unhashable — Không, List không hash được
 
-B. students[2] — students[2]
+B. Yes, it is hashable — Có, Tuple này hash được
 
-C. students.score only — Chỉ students.score
+C. `d['A']['score']` — `d['A']['score']`
 
-D. students.pop() — students.pop()
+D. Keys — Các khóa
 
-**Q18. What does obj.values() give? — obj.values() cho kết quả gì?**
+**Q18. Can a tuple of integers be a dictionary key? — Tuple chứa số nguyên có thể làm khóa Dictionary không?**
 
-A. Only keys — Chỉ khóa
+A. No, Lists are unhashable — Không, List không hash được
 
-B. The stored values — Các giá trị đã lưu
+B. Yes, it is hashable — Có, Tuple này hash được
 
-C. Key/value pairs — Các cặp khóa và giá trị
+C. `d['A']['score']` — `d['A']['score']`
 
-D. Sorted keys — Khóa đã sắp
+D. Keys — Các khóa
 
-**Q19. Can a list normally be used as a dictionary key? — Có thể dùng List làm khóa Dictionary không?**
+**Q19. How do you access the score in `d['A']` when it is a nested dictionary? — Lấy điểm trong Dictionary con `d['A']` thế nào?**
 
-A. Yes, always — Có, luôn được
+A. No, Lists are unhashable — Không, List không hash được
 
-B. Only if empty — Chỉ khi rỗng
+B. Yes, it is hashable — Có, Tuple này hash được
 
-C. No, lists are unhashable — Không, List không thể băm
+C. `d['A']['score']` — `d['A']['score']`
 
-D. Only with pop — Chỉ khi dùng pop
+D. Keys — Các khóa
 
-**Q20. Which object is best for looking up stock by SKU? — Nên dùng gì để tìm tồn kho theo mã SKU?**
+**Q20. What must be unique within one dictionary? — Điều gì phải duy nhất trong một Dictionary?**
 
-A. A single float — Một số thực
+A. No, Lists are unhashable — Không, List không hash được
 
-B. A bare Boolean — Một giá trị đúng sai
+B. Yes, it is hashable — Có, Tuple này hash được
 
-C. An unrelated tuple — Tuple không liên quan
+C. `d['A']['score']` — `d['A']['score']`
 
-D. A dictionary mapping SKU to quantity — Dictionary nối mã SKU với số lượng
+D. Keys — Các khóa
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A dictionary maps keys to values. | Dictionary nối mỗi khóa với một giá trị. |
-| Q2 | **B** | Keys identify stored values. | Khóa dùng để tìm thông tin đã lưu. |
-| Q3 | **C** | Values are associated with keys. | Mỗi giá trị gắn với một khóa. |
-| Q4 | **D** | Nested dictionaries group related details. | Dictionary lồng giúp gom thông tin liên quan. |
-| Q5 | **A** | get returns None when no default is specified. | get trả về None nếu không truyền giá trị mặc định. |
-| Q6 | **B** | items yields pairs for iteration. | items cung cấp các cặp khi duyệt. |
-| Q7 | **C** | Assignment creates or replaces the value. | Phép gán tạo hoặc sửa giá trị. |
-| Q8 | **D** | The default prevents KeyError for a missing key. | Giá trị mặc định giúp tránh KeyError. |
-| Q9 | **A** | O3 is absent, so get returns the default. | O3 không tồn tại nên get trả về câu mặc định. |
-| Q10 | **B** | Five minus two equals three. | Năm trừ hai còn ba. |
-| Q11 | **C** | AI appears twice in the input list. | AI xuất hiện hai lần trong list. |
-| Q12 | **D** | SV2 has score 9. | SV2 có điểm 9. |
-| Q13 | **A** | pop uses None as the fallback. | pop trả về None khi không có khóa. |
-| Q14 | **B** | get can handle a missing key. | get xử lý được khóa không tồn tại. |
-| Q15 | **C** | The fallback starts counting at zero. | Giá trị mặc định giúp bắt đầu đếm từ 0. |
-| Q16 | **D** | Dictionary keys are unique. | Các khóa của Dictionary là duy nhất. |
-| Q17 | **A** | Two key lookups reach the nested value. | Hai lần tra khóa lấy được giá trị bên trong. |
-| Q18 | **B** | values exposes the dictionary's values. | values cho phép duyệt các giá trị. |
-| Q19 | **C** | Mutable lists are unhashable. | List có thể thay đổi nên không dùng làm khóa. |
-| Q20 | **D** | Dictionary keys enable SKU-based lookups. | Khóa Dictionary giúp tra mã SKU. |
+| Q1 | **A** | A dictionary associates each unique key with one value. | Dictionary liên kết mỗi khóa duy nhất với một giá trị. |
+| Q2 | **B** | Keys identify entries to read, update, or remove. | Khóa chỉ ra mục dữ liệu cần đọc, sửa hoặc xóa. |
+| Q3 | **C** | Values can be text, numbers, lists or nested dictionaries. | Giá trị có thể là chuỗi, số, List hoặc Dictionary con. |
+| Q4 | **D** | Nested mappings group related subfields under a parent key. | Dictionary lồng gom các trường con theo khóa cha. |
+| Q5 | **A** | Bracket lookup accesses the mapped value directly. | Tra cứu bằng ngoặc vuông lấy trực tiếp giá trị của khóa. |
+| Q6 | **B** | get avoids KeyError for absent keys unless different behavior is requested. | get trả None khi thiếu khóa nếu không đặt giá trị mặc định khác. |
+| Q7 | **C** | The second argument supplies the fallback value. | Đối số thứ hai là giá trị thay thế khi thiếu khóa. |
+| Q8 | **D** | Direct bracket access to a missing key raises KeyError. | Truy cập ngoặc vuông với khóa không tồn tại gây KeyError. |
+| Q9 | **A** | items supports iterating over keys together with their values. | items cho phép duyệt đồng thời khóa và giá trị. |
+| Q10 | **B** | keys exposes the keys for iteration or membership checks. | keys cho phép duyệt hoặc kiểm tra các khóa. |
+| Q11 | **C** | values exposes the stored values without their keys. | values cho phép duyệt các giá trị mà không kèm khóa. |
+| Q12 | **D** | pop removes an entry while returning the removed value. | pop vừa xóa mục dữ liệu vừa trả lại giá trị đã xóa. |
+| Q13 | **A** | Assigning an existing key updates its value. | Gán khóa đã có sẽ cập nhật giá trị. |
+| Q14 | **B** | Assignment to an absent key inserts a new entry. | Gán vào khóa chưa có sẽ thêm mục dữ liệu mới. |
+| Q15 | **C** | del removes the key and its associated value. | del xóa khóa và giá trị gắn với nó. |
+| Q16 | **D** | Membership tests dictionary keys rather than values by default. | Toán tử in trên Dictionary mặc định kiểm tra khóa. |
+| Q17 | **A** | Mutable Lists cannot be hashed for dictionary keys. | List có thể thay đổi nên không dùng trực tiếp làm khóa. |
+| Q18 | **B** | A tuple of hashable elements can act as a key. | Tuple gồm phần tử hash được có thể làm khóa. |
+| Q19 | **C** | The first lookup retrieves the nested mapping and the second retrieves a field. | Lần tra đầu lấy Dictionary con, lần tra sau lấy trường điểm. |
+| Q20 | **D** | A dictionary cannot contain duplicate keys as separate entries. | Một Dictionary không thể giữ các khóa trùng thành các mục độc lập. |
 
 ## 8. Nối sang bài tiếp theo
 
