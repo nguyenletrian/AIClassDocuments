@@ -267,249 +267,230 @@ assert order_id.startswith("00")
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is Variable? — Thuật ngữ Variable có nghĩa gì?**
+**Q1. What is a variable in Python? — Biến trong Python là gì?**
 
-A. Data given to a program — Thông tin đưa vào chương trình
+A. A name referring to a value — Tên tham chiếu đến một giá trị
 
-B. A named reference to a value — Tên dùng để tham chiếu một giá trị
+B. Data received for processing — Dữ liệu được nhận để xử lý
 
-C. Result produced by a program — Thông tin chương trình tạo ra
+C. Information produced by a program — Thông tin do chương trình tạo ra
 
-D. Category of a value — Nhóm giá trị như str, int, float
+D. How a value is represented and used — Cách biểu diễn và sử dụng một giá trị
 
+**Q2. What is program input? — Đầu vào chương trình là gì?**
 
-**Q2. What is Input? — Thuật ngữ Input có nghĩa gì?**
+A. A name referring to a value — Tên tham chiếu đến một giá trị
 
-A. Data given to a program — Thông tin đưa vào chương trình
+B. Data received for processing — Dữ liệu được nhận để xử lý
 
-B. Result produced by a program — Thông tin chương trình tạo ra
+C. Information produced by a program — Thông tin do chương trình tạo ra
 
-C. Category of a value — Nhóm giá trị như str, int, float
+D. How a value is represented and used — Cách biểu diễn và sử dụng một giá trị
 
-D. A named reference to a value — Tên dùng để tham chiếu một giá trị
+**Q3. What is program output? — Đầu ra chương trình là gì?**
 
+A. A name referring to a value — Tên tham chiếu đến một giá trị
 
-**Q3. What is Output? — Thuật ngữ Output có nghĩa gì?**
+B. Data received for processing — Dữ liệu được nhận để xử lý
 
-A. Category of a value — Nhóm giá trị như str, int, float
+C. Information produced by a program — Thông tin do chương trình tạo ra
 
-B. A named reference to a value — Tên dùng để tham chiếu một giá trị
+D. How a value is represented and used — Cách biểu diễn và sử dụng một giá trị
 
-C. Data given to a program — Thông tin đưa vào chương trình
+**Q4. What does a data type describe? — Kiểu dữ liệu mô tả điều gì?**
 
-D. Result produced by a program — Thông tin chương trình tạo ra
+A. A name referring to a value — Tên tham chiếu đến một giá trị
 
+B. Data received for processing — Dữ liệu được nhận để xử lý
 
-**Q4. What is Type? — Thuật ngữ Type có nghĩa gì?**
+C. Information produced by a program — Thông tin do chương trình tạo ra
 
-A. A named reference to a value — Tên dùng để tham chiếu một giá trị
+D. How a value is represented and used — Cách biểu diễn và sử dụng một giá trị
 
-B. Data given to a program — Thông tin đưa vào chương trình
+**Q5. Which function prints a value? — Hàm nào in một giá trị?**
 
-C. Category of a value — Nhóm giá trị như str, int, float
+A. `print()` — `print()`
 
-D. Result produced by a program — Thông tin chương trình tạo ra
+B. `input()` — `input()`
 
+C. `type()` — `type()`
 
-**Q5. Which use matches print()? — Công dụng nào đúng với print()?**
+D. `int()` — `int()`
 
-A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+**Q6. Which function reads keyboard input? — Hàm nào đọc dữ liệu bàn phím?**
 
-B. It displays values on the screen — Hiển thị các giá trị trên màn hình
+A. `print()` — `print()`
 
-C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+B. `input()` — `input()`
 
-D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+C. `type()` — `type()`
 
+D. `int()` — `int()`
 
-**Q6. Which use matches input()? — Công dụng nào đúng với input()?**
+**Q7. Which function finds a value's type? — Hàm nào kiểm tra kiểu giá trị?**
 
-A. It reads keyboard input as text — Nhận chữ nhập từ bàn phím
+A. `print()` — `print()`
 
-B. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+B. `input()` — `input()`
 
-C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+C. `type()` — `type()`
 
-D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+D. `int()` — `int()`
 
+**Q8. Which function converts valid decimal digits to an integer? — Hàm nào đổi chuỗi chữ số hợp lệ thành số nguyên?**
 
-**Q7. Which use matches int()/float()? — Công dụng nào đúng với int()/float()?**
+A. `print()` — `print()`
 
-A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+B. `input()` — `input()`
 
-B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+C. `type()` — `type()`
 
-C. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+D. `int()` — `int()`
 
-D. They convert numeric text into numbers — Đổi chuỗi chứa số thành số để tính toán
+**Q9. Which type represents a count of whole items? — Kiểu nào biểu diễn số lượng món nguyên?**
 
+A. `int` — `int`
 
-**Q8. Which use matches type()? — Công dụng nào đúng với type()?**
+B. `float` — `float`
 
-A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+C. `str` — `str`
 
-B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+D. `bool` — `bool`
 
-C. It tells us the type of a value — Cho biết kiểu dữ liệu của một giá trị
+**Q10. Which type suits a measurement with fractions? — Kiểu nào phù hợp với số đo có phần lẻ?**
 
-D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+A. `int` — `int`
 
+B. `float` — `float`
 
-**Q9. Which reason fits 'Customer greeting'? — Lý do nào phù hợp với 'Chào khách mới'?**
+C. `str` — `str`
 
-A. Convert numeric text before multiplying — Đổi số từ văn bản thành số trước khi nhân
+D. `bool` — `bool`
 
-B. Store a name once for reuse — Lưu tên trong biến để dùng lại trong nhiều thông báo
+**Q11. Which type preserves a leading zero in an identifier? — Kiểu nào giữ số 0 đầu mã định danh?**
 
-C. Format a name and score — Format tên và điểm để xuất ra một dòng dễ đọc
+A. `int` — `int`
 
-D. Store a decimal reading — Giữ kiểu số thực để không mất phần thập phân
+B. `float` — `float`
 
+C. `str` — `str`
 
-**Q10. Which reason fits 'Invoice total'? — Lý do nào phù hợp với 'Tính tiền hóa đơn'?**
+D. `bool` — `bool`
 
-A. Convert numeric text before multiplying — Đổi số từ văn bản thành số trước khi nhân
+**Q12. Which type stores a true/false state? — Kiểu nào lưu trạng thái đúng/sai?**
 
-B. Format a name and score — Format tên và điểm để xuất ra một dòng dễ đọc
+A. `int` — `int`
 
-C. Store a decimal reading — Giữ kiểu số thực để không mất phần thập phân
+B. `float` — `float`
 
-D. Keep an ID as text — Mã đơn không phải đại lượng nên giữ dạng chuỗi
+C. `str` — `str`
 
+D. `bool` — `bool`
 
-**Q11. Which reason fits 'Score report'? — Lý do nào phù hợp với 'Hiển thị điểm'?**
+**Q13. What does `x = 5` do? — `x = 5` thực hiện điều gì?**
 
-A. Store a decimal reading — Giữ kiểu số thực để không mất phần thập phân
+A. Assigns the value 5 to x — Gán giá trị 5 cho x
 
-B. Keep an ID as text — Mã đơn không phải đại lượng nên giữ dạng chuỗi
+B. A string — Một chuỗi
 
-C. Store a name once for reuse — Lưu tên trong biến để dùng lại trong nhiều thông báo
+C. The number 2.5 — Số thực 2.5
 
-D. Format a name and score — Format tên và điểm để xuất ra một dòng dễ đọc
+D. `ValueError` — `ValueError`
 
+**Q14. What is the type of `input()`'s return value? — Giá trị trả về của `input()` có kiểu nào?**
 
-**Q12. Which reason fits 'Sensor reading'? — Lý do nào phù hợp với 'Ghi nhiệt độ'?**
+A. Assigns the value 5 to x — Gán giá trị 5 cho x
 
-A. Keep an ID as text — Mã đơn không phải đại lượng nên giữ dạng chuỗi
+B. A string — Một chuỗi
 
-B. Store a name once for reuse — Lưu tên trong biến để dùng lại trong nhiều thông báo
+C. The number 2.5 — Số thực 2.5
 
-C. Store a decimal reading — Giữ kiểu số thực để không mất phần thập phân
+D. `ValueError` — `ValueError`
 
-D. Convert numeric text before multiplying — Đổi số từ văn bản thành số trước khi nhân
+**Q15. What does `float('2.5')` produce? — `float('2.5')` tạo ra gì?**
 
+A. Assigns the value 5 to x — Gán giá trị 5 cho x
 
-**Q13. Which reason fits 'Preserve order ID'? — Lý do nào phù hợp với 'Giữ mã đơn'?**
+B. A string — Một chuỗi
 
-A. Store a name once for reuse — Lưu tên trong biến để dùng lại trong nhiều thông báo
+C. The number 2.5 — Số thực 2.5
 
-B. Keep an ID as text — Mã đơn không phải đại lượng nên giữ dạng chuỗi
+D. `ValueError` — `ValueError`
 
-C. Convert numeric text before multiplying — Đổi số từ văn bản thành số trước khi nhân
+**Q16. What does `int('abc')` raise? — `int('abc')` phát sinh gì?**
 
-D. Format a name and score — Format tên và điểm để xuất ra một dòng dễ đọc
+A. Assigns the value 5 to x — Gán giá trị 5 cho x
 
+B. A string — Một chuỗi
 
-**Q14. Which input fits 'Customer greeting'? — Dữ liệu nào được dùng cho 'Chào khách mới'?**
+C. The number 2.5 — Số thực 2.5
 
-A. The sample described for Customer greeting — Một chuỗi là tên khách
+D. `ValueError` — `ValueError`
 
-B. Input from Invoice total — Giá 120000 đồng, số lượng 3
+**Q17. What does `print(2, 3)` display by default? — `print(2, 3)` mặc định hiển thị gì?**
 
-C. Input from Score report — Tên An, điểm 8.5/10
+A. `2 3` — `2 3`
 
-D. Input from Sensor reading — Nhiệt độ 36.5 độ C
+B. `4` — `4`
 
+C. `float` — `float`
 
-**Q15. Which input fits 'Invoice total'? — Dữ liệu nào được dùng cho 'Tính tiền hóa đơn'?**
+D. `Hi` — `Hi`
 
-A. Input from Score report — Tên An, điểm 8.5/10
+**Q18. What does `x = 2; x = 4` leave in x? — Hai phép gán `x = 2; x = 4` khiến x có giá trị gì?**
 
-B. Input from Sensor reading — Nhiệt độ 36.5 độ C
+A. `2 3` — `2 3`
 
-C. Input from Preserve order ID — Mã 0007
+B. `4` — `4`
 
-D. The sample described for Invoice total — Giá 120000 đồng, số lượng 3
+C. `float` — `float`
 
+D. `Hi` — `Hi`
 
-**Q16. Which input fits 'Score report'? — Dữ liệu nào được dùng cho 'Hiển thị điểm'?**
+**Q19. What does `type(2.0)` return? — `type(2.0)` trả về kiểu nào?**
 
-A. Input from Sensor reading — Nhiệt độ 36.5 độ C
+A. `2 3` — `2 3`
 
-B. Input from Preserve order ID — Mã 0007
+B. `4` — `4`
 
-C. The sample described for Score report — Tên An, điểm 8.5/10
+C. `float` — `float`
 
-D. Input from Customer greeting — Một chuỗi là tên khách
+D. `Hi` — `Hi`
 
+**Q20. What does `print('Hi')` display? — `print('Hi')` hiển thị gì?**
 
-**Q17. Which input fits 'Sensor reading'? — Dữ liệu nào được dùng cho 'Ghi nhiệt độ'?**
+A. `2 3` — `2 3`
 
-A. Input from Preserve order ID — Mã 0007
+B. `4` — `4`
 
-B. The sample described for Sensor reading — Nhiệt độ 36.5 độ C
+C. `float` — `float`
 
-C. Input from Customer greeting — Một chuỗi là tên khách
-
-D. Input from Invoice total — Giá 120000 đồng, số lượng 3
-
-
-**Q18. Which input fits 'Preserve order ID'? — Dữ liệu nào được dùng cho 'Giữ mã đơn'?**
-
-A. The sample described for Preserve order ID — Mã 0007
-
-B. Input from Customer greeting — Một chuỗi là tên khách
-
-C. Input from Invoice total — Giá 120000 đồng, số lượng 3
-
-D. Input from Score report — Tên An, điểm 8.5/10
-
-
-**Q19. What must be checked before processing input? — Cần xác định gì trước xử lý?**
-
-A. Only text size — Chỉ kích thước chữ
-
-B. Only the file name length — Chỉ độ dài tên file
-
-C. Only program comments — Chỉ phần comment
-
-D. Input meaning, type and units — Ý nghĩa, kiểu và đơn vị đầu vào
-
-
-**Q20. What should follow a successful example? — Sau khi ví dụ chạy đúng nên làm gì?**
-
-A. Assume all datasets work identically — Cho rằng mọi bộ dữ liệu giống nhau
-
-B. Delete all tests — Xóa toàn bộ kiểm thử
-
-C. Validate output and edge cases — Kiểm tra kết quả và trường hợp biên
-
-D. Ignore input errors — Bỏ qua lỗi nhập liệu
+D. `Hi` — `Hi`
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | A named reference to a value | Tên dùng để tham chiếu một giá trị |
-| Q2 | **A** | Data given to a program | Thông tin đưa vào chương trình |
-| Q3 | **D** | Result produced by a program | Thông tin chương trình tạo ra |
-| Q4 | **C** | Category of a value | Nhóm giá trị như str, int, float |
-| Q5 | **B** | This Python operation supports the described task | Hiển thị kết quả, nhận nhiều giá trị phân cách bằng dấu phẩy |
-| Q6 | **A** | This Python operation supports the described task | Nhận văn bản từ bàn phím; kết quả luôn là chuỗi |
-| Q7 | **D** | This Python operation supports the described task | Đổi chuỗi hợp lệ sang số trước khi tính toán |
-| Q8 | **C** | This Python operation supports the described task | Kiểm tra kiểu dữ liệu khi chưa rõ đầu vào |
-| Q9 | **B** | Store a name once for reuse | Lưu tên trong biến để dùng lại trong nhiều thông báo |
-| Q10 | **A** | Convert numeric text before multiplying | Đổi số từ văn bản thành số trước khi nhân |
-| Q11 | **D** | Format a name and score | Format tên và điểm để xuất ra một dòng dễ đọc |
-| Q12 | **C** | Store a decimal reading | Giữ kiểu số thực để không mất phần thập phân |
-| Q13 | **B** | Keep an ID as text | Mã đơn không phải đại lượng nên giữ dạng chuỗi |
-| Q14 | **A** | The sample described for Customer greeting | Một chuỗi là tên khách |
-| Q15 | **D** | The sample described for Invoice total | Giá 120000 đồng, số lượng 3 |
-| Q16 | **C** | The sample described for Score report | Tên An, điểm 8.5/10 |
-| Q17 | **B** | The sample described for Sensor reading | Nhiệt độ 36.5 độ C |
-| Q18 | **A** | The sample described for Preserve order ID | Mã 0007 |
-| Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
-| Q20 | **C** | Validate output and edge cases | Kiểm tra kết quả và trường hợp biên |
+| Q1 | **A** | A variable lets later code reuse its associated value. | Biến giúp code phía sau dùng lại giá trị đã gán. |
+| Q2 | **B** | Input is supplied to a program before or during processing. | Đầu vào là thông tin được cung cấp để chương trình xử lý. |
+| Q3 | **C** | Output is what a program sends out or displays. | Đầu ra là thông tin chương trình xuất ra hoặc hiển thị. |
+| Q4 | **D** | A type determines valid operations and representation. | Kiểu dữ liệu quyết định phép toán phù hợp và cách biểu diễn. |
+| Q5 | **A** | print displays values in the output stream. | print hiển thị giá trị ra đầu ra. |
+| Q6 | **B** | input reads a line of text from the user. | input nhận một dòng văn bản từ người dùng. |
+| Q7 | **C** | type reveals the Python type of an object. | type cho biết kiểu Python của đối tượng. |
+| Q8 | **D** | int parses a valid integer representation. | int chuyển biểu diễn số nguyên hợp lệ thành số nguyên. |
+| Q9 | **A** | int represents integer quantities without fractional parts. | int biểu diễn lượng nguyên không có phần thập phân. |
+| Q10 | **B** | float represents fractional numerical values. | float lưu số có phần thập phân. |
+| Q11 | **C** | An identifier is text, not a quantity to calculate. | Mã định danh là chuỗi, không phải lượng để tính toán. |
+| Q12 | **D** | bool represents True or False. | bool biểu diễn True hoặc False. |
+| Q13 | **A** | Assignment associates the name x with the number 5. | Phép gán liên kết tên x với số 5. |
+| Q14 | **B** | input returns text even when it looks numeric. | input trả về văn bản kể cả khi người dùng gõ chữ số. |
+| Q15 | **C** | float converts valid numeric text to a floating-point value. | float chuyển chuỗi số hợp lệ thành số thực. |
+| Q16 | **D** | Letters abc are not a valid integer literal. | abc không phải biểu diễn số nguyên hợp lệ. |
+| Q17 | **A** | print separates multiple arguments with a space by default. | print mặc định đặt một dấu cách giữa các đối số. |
+| Q18 | **B** | The later assignment replaces the earlier binding. | Phép gán sau thay giá trị được gán trước đó. |
+| Q19 | **C** | The decimal point makes 2.0 a floating-point literal. | Dấu thập phân khiến 2.0 là số thực. |
+| Q20 | **D** | Quotation marks mark a string literal and are not printed. | Dấu nháy là cú pháp chuỗi, không được in ra. |
 
 ## 8. Nối sang bài kế tiếp
 
