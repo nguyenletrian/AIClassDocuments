@@ -518,26 +518,26 @@ D. No, held-out evaluation is needed — Không, phải đánh giá dữ liệu 
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | In Iris, four centimeter measurements become X columns, not y labels. | Trong Iris, bốn số đo cm nằm ở X, không phải nhãn y. |
-| Q2 | **B** | A supervised classifier learns from the true labels paired with training rows. | Classifier có giám sát học từ nhãn thật ghép với từng hàng train. |
-| Q3 | **C** | It fits each transformer on train then reuses it on later data. | Nó fit bộ biến đổi trên train rồi tái sử dụng cho dữ liệu sau. |
-| Q4 | **D** | The final test assesses unseen data rather than reused fitting samples. | Test cuối đánh giá dữ liệu chưa fit, không dùng lại mẫu học. |
-| Q5 | **A** | A row is a sample; columns refer to measurements such as petal length. | Hàng là một mẫu hoa, cột là số đo như chiều dài cánh. |
-| Q6 | **B** | Targets should align one-to-one with X rows. | Nhãn y phải ghép một-một với các hàng X. |
-| Q7 | **C** | Fitting preprocessors on test or using future outcomes inflates estimated performance. | Fit tiền xử lý trên test hoặc dùng kết quả tương lai có thể làm chỉ số ảo. |
-| Q8 | **D** | A mismatched number of rows and labels invalidates supervised fitting. | Số hàng X lệch số nhãn y khiến việc fit sai. |
-| Q9 | **A** | It does not itself fit a classifier or score accuracy. | Hàm chia dữ liệu, không tự học mô hình hay đo accuracy. |
-| Q10 | **B** | It reduces accidental imbalance when enough cases exist in each class. | Giúp giảm lệch lớp khi mỗi lớp có đủ mẫu. |
-| Q11 | **C** | Median imputation learned from all data would leak test statistics. | Median tính từ toàn bộ dữ liệu làm lộ thống kê test. |
-| Q12 | **D** | Transform test with training mean/std rather than fitting on test. | Biến đổi test bằng mean/std train, không fit từ test. |
-| Q13 | **A** | Despite its name, LogisticRegression is used for classification. | Dù có chữ Regression, LogisticRegression dùng để phân loại. |
-| Q14 | **B** | It is useful but can hide minority-class failures. | Accuracy hữu ích nhưng có thể che lỗi lớp hiếm. |
-| Q15 | **C** | Each row counts samples from a given true class. | Mỗi hàng đếm mẫu thuộc lớp thật tương ứng. |
-| Q16 | **D** | An off-diagonal entry is a misclassification to another class. | Ô ngoài đường chéo là trường hợp dự đoán sang lớp khác. |
-| Q17 | **A** | PCA components are transformed axes, not target class labels. | Thành phần PCA là trục đặc trưng mới, không phải nhãn. |
-| Q18 | **B** | Test data should only be transformed by fitted training PCA. | Test chỉ được transform bằng PCA đã fit từ train. |
-| Q19 | **C** | Different splits or metrics cannot isolate PCA's effect. | Khác split hoặc metric không tách được ảnh hưởng của PCA. |
-| Q20 | **D** | A model can memorize training data yet perform poorly on new cases. | Mô hình có thể nhớ train nhưng dự đoán kém trên mẫu mới. |
+| Q1 | **A** | In Iris, four centimeter measurements become X columns, not y labels. A future target or class indicator included in X would make evaluation unrealistically easy. | Trong Iris, bốn số đo cm nằm ở X, không phải nhãn y. Nếu đưa kết quả tương lai hoặc mã lớp vào X, đánh giá sẽ dễ giả tạo do rò rỉ. |
+| Q2 | **B** | A supervised classifier learns from the true labels paired with training rows. For each of 150 feature rows, a corresponding class label must be present during training. | Classifier có giám sát học từ nhãn thật ghép với từng hàng train. Mỗi trong 150 hàng đặc trưng cần có nhãn tương ứng khi train. |
+| Q3 | **C** | It fits each transformer on train then reuses it on later data. The order matters: imputation and scaling must precede prediction but learn parameters from train only. | Nó fit bộ biến đổi trên train rồi tái sử dụng cho dữ liệu sau. Thứ tự rất quan trọng: điền thiếu và chuẩn hóa trước dự đoán, nhưng tham số chỉ học từ train. |
+| Q4 | **D** | The final test assesses unseen data rather than reused fitting samples. Use an unchanged held-out test split; an excellent training score may reflect memorization. | Test cuối đánh giá dữ liệu chưa fit, không dùng lại mẫu học. Hãy dùng test giữ riêng không thay đổi; điểm train cao có thể chỉ là ghi nhớ dữ liệu. |
+| Q5 | **A** | A row is a sample; columns refer to measurements such as petal length. With shape (150,4), 150 are samples and four are measured variables in cm. | Hàng là một mẫu hoa, cột là số đo như chiều dài cánh. Với shape (150,4), 150 là mẫu, bốn là biến đo theo cm. |
+| Q6 | **B** | Targets should align one-to-one with X rows. If X and y are differently ordered, even a correct algorithm learns incorrect correspondences. | Nhãn y phải ghép một-một với các hàng X. Nếu X và y sai thứ tự, thuật toán đúng vẫn học sai mối quan hệ dữ liệu–nhãn. |
+| Q7 | **C** | Fitting preprocessors on test or using future outcomes inflates estimated performance. Leakage may also occur when selecting features using the full dataset before splitting. | Fit tiền xử lý trên test hoặc dùng kết quả tương lai có thể làm chỉ số ảo. Rò rỉ còn xảy ra nếu chọn đặc trưng từ toàn bộ dữ liệu trước khi chia. |
+| Q8 | **D** | A mismatched number of rows and labels invalidates supervised fitting. Misaligned rows and labels must be fixed before any model fitting or scoring. | Số hàng X lệch số nhãn y khiến việc fit sai. Hàng và nhãn lệch nhau phải được sửa trước khi fit hoặc tính điểm. |
+| Q9 | **A** | It does not itself fit a classifier or score accuracy. Keep track of the returned train/test features **and** labels; splitting alone is not fitting. | Hàm chia dữ liệu, không tự học mô hình hay đo accuracy. Phải giữ cả X và y train/test; chia dữ liệu không tự tương đương huấn luyện. |
+| Q10 | **B** | It reduces accidental imbalance when enough cases exist in each class. Stratification is particularly useful when a minority class might otherwise disappear from test. | Giúp giảm lệch lớp khi mỗi lớp có đủ mẫu. Phân tầng hữu ích khi lớp ít mẫu có nguy cơ vắng khỏi tập test. |
+| Q11 | **C** | Median imputation learned from all data would leak test statistics. A test row must not influence the learned fill value, even if that row has missing data. | Median tính từ toàn bộ dữ liệu làm lộ thống kê test. Hàng test không được tác động đến giá trị điền học được, kể cả khi hàng ấy thiếu dữ liệu. |
+| Q12 | **D** | Transform test with training mean/std rather than fitting on test. The same training mean and variance must transform every unseen sample consistently. | Biến đổi test bằng mean/std train, không fit từ test. Mean và variance từ train phải được áp nhất quán lên mọi mẫu mới. |
+| Q13 | **A** | Despite its name, LogisticRegression is used for classification. Class probabilities may also be produced, but the stated prediction task chooses a discrete label. | Dù có chữ Regression, LogisticRegression dùng để phân loại. Mô hình có thể xuất xác suất lớp, nhưng nhiệm vụ đang xét chọn một nhãn rời rạc. |
+| Q14 | **B** | It is useful but can hide minority-class failures. On imbalanced datasets a high accuracy can result from always predicting the majority class. | Accuracy hữu ích nhưng có thể che lỗi lớp hiếm. Với tập lệch lớp, accuracy cao có thể đến từ việc chỉ đoán lớp đông nhất. |
+| Q15 | **C** | Each row counts samples from a given true class. Rows are indexed by truth, so an off-diagonal count is a mistake originating in that true class. | Mỗi hàng đếm mẫu thuộc lớp thật tương ứng. Hàng đại diện nhãn thật; ô ngoài đường chéo là lỗi xuất phát từ lớp thật ở hàng đó. |
+| Q16 | **D** | An off-diagonal entry is a misclassification to another class. Columns let us see which predicted class receives the wrongly assigned samples. | Ô ngoài đường chéo là trường hợp dự đoán sang lớp khác. Cột cho biết lớp dự đoán nào nhận các mẫu bị gán nhầm. |
+| Q17 | **A** | PCA components are transformed axes, not target class labels. PCA axes are learned combinations of original features; it does not change the number of samples. | Thành phần PCA là trục đặc trưng mới, không phải nhãn. Trục PCA là tổ hợp đặc trưng ban đầu được học, không làm đổi số mẫu. |
+| Q18 | **B** | Test data should only be transformed by fitted training PCA. Otherwise information about the test distribution enters the feature representation. | Test chỉ được transform bằng PCA đã fit từ train. Nếu không, thông tin phân phối test đã lọt vào biểu diễn đặc trưng. |
+| Q19 | **C** | Different splits or metrics cannot isolate PCA's effect. Train and test must match between methods so the metric difference is attributable to modeling choices. | Khác split hoặc metric không tách được ảnh hưởng của PCA. Train/test phải giống nhau giữa hai cách để chênh lệch metric phản ánh thay đổi mô hình. |
+| Q20 | **D** | A model can memorize training data yet perform poorly on new cases. Report held-out metrics and classwise errors before judging real-world readiness. | Mô hình có thể nhớ train nhưng dự đoán kém trên mẫu mới. Cần báo metric test và lỗi theo lớp trước khi đánh giá khả năng ứng dụng thực tế. |
 
 ## 8. Nối sang bài tiếp
 
