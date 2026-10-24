@@ -1,4 +1,4 @@
-# 05 — Vòng lặp for/while, break/continue
+# PY-05 — Vòng lặp for, while, break và continue
 
 
 ## 1. Vị trí trong chuỗi kiến thức
@@ -7,7 +7,7 @@
 
 `Điều kiện → Vòng lặp → Xử lý hàng loạt`
 
-Từ kiến thức trước, phần này giúp sinh viên quyết định nên tổ chức và xử lý dữ liệu bằng cấu trúc nào, rồi mới tiến tới các bài xử lý dữ liệu cho AI.
+Bài trước dùng `if` để chọn việc cần làm. Bài này dùng vòng lặp để xử lý nhiều dữ liệu mà không phải viết đi viết lại cùng một lệnh.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -29,37 +29,33 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 | `break` | Dừng sớm khi đã tìm thấy |
 | `continue` | Bỏ qua dữ liệu của một lượt lặp |
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Iteration
 
 **Từ vựng trong mục:** **Iteration** — lần lặp.
 
-Một lượt thực hiện trong quá trình lặp. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Mỗi lần vòng lặp chạy một lượt gọi là một lần lặp. `range(2)` cho hai giá trị `0` và `1`, nên ví dụ in hai dòng tương ứng.
 
 ```python
 for i in range(2): print(i)
 ```
 
-**Tự kiểm tra:** Iteration có nghĩa gì? **Đáp án:** Một lượt thực hiện trong quá trình lặp.
-
 ### 4.2. For loop
 
 **Từ vựng trong mục:** **For loop** — vòng for.
 
-Lặp qua từng phần tử trong một nhóm. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Dùng `for` khi muốn lần lượt xử lý các giá trị trong một danh sách hoặc `range`. Ví dụ với `[1, 2]`, Python lần lượt in `1` rồi `2`.
 
 ```python
 for x in [1,2]: print(x)
 ```
 
-**Tự kiểm tra:** For loop có nghĩa gì? **Đáp án:** Lặp qua từng phần tử trong một nhóm.
-
 ### 4.3. While loop
 
 **Từ vựng trong mục:** **While loop** — vòng while.
 
-Lặp khi một điều kiện còn đúng. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+`while` tiếp tục chạy khi điều kiện còn đúng. Trong ví dụ `n` bắt đầu bằng 2, sau mỗi lượt giảm 1 nên vòng lặp kết thúc khi `n = 0`. Phải đảm bảo điều kiện có thể chuyển thành sai để tránh lặp mãi.
 
 ```python
 n=2
@@ -67,13 +63,11 @@ while n>0:
     n-=1
 ```
 
-**Tự kiểm tra:** While loop có nghĩa gì? **Đáp án:** Lặp khi một điều kiện còn đúng.
-
 ### 4.4. Break/continue
 
 **Từ vựng trong mục:** **Break/continue** — dừng/bỏ qua.
 
-Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+`break` thoát hẳn vòng lặp, còn `continue` bỏ phần còn lại của lượt đang chạy rồi sang lượt sau. Ví dụ bỏ qua số `0` và in `1`, `2`.
 
 ```python
 for x in [0,1,2]:
@@ -81,20 +75,23 @@ for x in [0,1,2]:
     print(x)
 ```
 
-**Tự kiểm tra:** Break/continue có nghĩa gì? **Đáp án:** Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tổng hợp doanh thu
 
 **Từ vựng trong mục:** **Iteration** — lần lặp.
 
-**Tình huống thực tế:** Một cửa hàng cần tổng hợp doanh thu. Dữ liệu hiện có: 3 đơn vị nghìn đồng: 120, 80, 200; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một cửa hàng ghi ba khoản tiền bán hàng trong ngày là 120, 80 và 200 nghìn đồng.
 
-**Vì sao chọn cách này?** Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng.
+**Yêu cầu:** Dùng vòng lặp tính tổng doanh thu trong ngày (đơn vị: nghìn đồng).
 
+**Vì sao chọn cách giải này?** Vòng `for` lấy từng khoản tiền và cộng dồn vào `total`, giúp dùng lại cách tính khi số đơn hàng tăng.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu ba khoản tiền trong `orders`.
+2. Đặt `total = 0`.
+3. Dùng `for` cộng từng khoản vào `total` và in tổng.
 
 ```python
 orders=[120,80,200]
@@ -103,18 +100,24 @@ for value in orders: total+=value
 print(total)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `400` nghìn đồng, tương đương 400.000 đồng.
 
 ### Tình huống 2 — Loại dòng trống
 
 **Từ vựng trong mục:** **For loop** — vòng for.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần loại dòng trống. Dữ liệu hiện có: Bốn giá trị nhiệt độ, một None; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một trạm đo nhiệt độ nhận bốn lần đọc `[30, None, 35, 33]` °C. `None` nghĩa là lần đo không có số liệu, không phải 0 °C.
 
-**Vì sao chọn cách này?** Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác.
+**Yêu cầu:** Dùng vòng lặp tạo danh sách chỉ chứa các nhiệt độ đo được.
 
+**Vì sao chọn cách giải này?** Dùng `continue` để bỏ qua phần tử `None`, còn các giá trị số được đưa vào danh sách `valid`.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Tạo danh sách dữ liệu và danh sách `valid` rỗng.
+2. Duyệt từng giá trị bằng `for`.
+3. Gặp `None` thì bỏ qua lượt này; còn lại thêm vào `valid`.
+4. In danh sách kết quả.
 
 ```python
 data=[30,None,35,33]
@@ -125,18 +128,23 @@ for x in data:
 print(valid)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `[30, 35, 33]` — chỉ còn ba lần đo có số liệu.
 
 ### Tình huống 3 — Tìm hàng hết tồn
 
 **Từ vựng trong mục:** **While loop** — vòng while.
 
-**Tình huống thực tế:** Một cửa hàng cần tìm hàng hết tồn. Dữ liệu hiện có: Bốn mã hàng có số lượng [5,3,0,4]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Kho có bốn vị trí hàng, số lượng theo thứ tự là `[5, 3, 0, 4]`. Vị trí đầu tiên được đánh số `0`. Nhân viên muốn tìm vị trí đầu tiên đã hết hàng.
 
-**Vì sao chọn cách này?** Dừng ngay khi thấy số lượng bằng 0.
+**Yêu cầu:** In vị trí đầu tiên có số lượng bằng `0`, rồi dừng tìm kiếm.
 
+**Vì sao chọn cách giải này?** `enumerate()` cung cấp cả vị trí và số lượng; `break` dừng vòng lặp ngay khi tìm thấy vị trí hết hàng đầu tiên.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Duyệt danh sách bằng `enumerate(stocks)`.
+2. Kiểm tra số lượng tại từng vị trí.
+3. Khi gặp `0`, in vị trí và dùng `break` để dừng.
 
 ```python
 stocks=[5,3,0,4]
@@ -146,18 +154,24 @@ for i,x in enumerate(stocks):
         break
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `Hết hàng: 2` — vị trí thứ ba trong danh sách (chỉ số 2) đã hết hàng.
 
 ### Tình huống 4 — Giới hạn kết nối
 
 **Từ vựng trong mục:** **Break/continue** — dừng/bỏ qua.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần giới hạn kết nối. Dữ liệu hiện có: Tối đa ba lần thử kết nối mô phỏng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Ứng dụng thử kết nối máy chủ tối đa ba lần. Trong ví dụ mô phỏng, lần thử thứ nhất thất bại và lần thứ hai kết nối thành công.
 
-**Vì sao chọn cách này?** While có giới hạn số lượt tránh chạy vô hạn.
+**Yêu cầu:** Viết vòng lặp dừng khi kết nối thành công hoặc đã thử đủ ba lần, rồi in số lần thử và trạng thái kết nối.
 
+**Vì sao chọn cách giải này?** `while` phù hợp vì chưa biết cần thử bao nhiêu lượt. Điều kiện `attempts < 3 and not connected` ngăn vòng lặp chạy mãi và dừng sớm khi kết nối được.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Đặt số lần thử bằng 0, trạng thái kết nối là `False`.
+2. Trong khi chưa đạt giới hạn và chưa kết nối, tăng số lần thử.
+3. Mô phỏng kết nối thành công ở lần thứ hai.
+4. In số lần đã thử và trạng thái.
 
 ```python
 attempts,connected=0,False
@@ -167,18 +181,24 @@ while attempts<3 and not connected:
 print(attempts,connected)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `2 True` — chương trình thử hai lần rồi dừng vì đã kết nối. Đây là mô phỏng, không tạo kết nối mạng thật.
 
 ### Tình huống 5 — Lập bảng lịch học
 
 **Từ vựng trong mục:** **Iteration** — lần lặp.
 
-**Tình huống thực tế:** Một trung tâm đào tạo cần lập bảng lịch học. Dữ liệu hiện có: 2 sinh viên, 3 ngày; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Trung tâm đào tạo có hai học viên `An`, `Lan`; mỗi người cần lịch học cho ngày 1, 2 và 3.
 
-**Vì sao chọn cách này?** Lặp lồng khi có hai chiều sinh viên và ngày.
+**Yêu cầu:** In từng cặp tên học viên và ngày học, tổng cộng sáu dòng.
 
+**Vì sao chọn cách giải này?** Dùng hai vòng `for` lồng nhau: vòng ngoài chọn học viên, vòng trong chọn từng ngày cho học viên đó.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Tạo danh sách hai học viên.
+2. Duyệt từng học viên bằng vòng `for` ngoài.
+3. Với mỗi học viên, lặp `range(1, 4)` để lấy ngày 1, 2, 3.
+4. In tên và ngày.
 
 ```python
 students=["An","Lan"]
@@ -187,260 +207,244 @@ for student in students:
         print(student,day)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** Sáu dòng: `An 1`, `An 2`, `An 3`, `Lan 1`, `Lan 2`, `Lan 3`.
 
 ## 6. Nhầm lẫn dễ gặp
 
-Không sử dụng cấu trúc dữ liệu sai với mục đích: ví dụ tập hợp không hỗ trợ truy cập theo chỉ số như list; tuple không sửa từng phần tử. Mọi dữ liệu thật cần xác minh kiểu, đơn vị và tính hợp lệ.
+- `range(1, 4)` tạo `1, 2, 3`, không chứa `4`.
+- `break` dừng toàn bộ vòng lặp hiện tại, còn `continue` chỉ bỏ qua phần còn lại của một lượt.
+- Với `while`, phải thay đổi biến hoặc trạng thái để vòng lặp có thể kết thúc.
+- `enumerate()` mặc định đếm vị trí từ 0; dùng `start=1` nếu muốn đếm từ 1.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is Iteration? — Thuật ngữ Iteration có nghĩa gì?**
+**Q1. What is an iteration? — Một lần lặp là gì?**
 
-A. A different concept: Lặp qua từng phần tử trong một nhóm — Lặp qua từng phần tử trong một nhóm
+A. One pass through a loop — Một lượt chạy của vòng lặp
 
-B. A concept described as: Một lượt thực hiện trong quá trình lặp — Một lượt thực hiện trong quá trình lặp
+B. A complete Python file — Một file Python hoàn chỉnh
 
-C. A different concept: Lặp khi một điều kiện còn đúng — Lặp khi một điều kiện còn đúng
+C. A string comparison — Phép so sánh chuỗi
 
-D. A different concept: Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại — Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại
+D. A stored password — Mật khẩu đã lưu
 
+**Q2. When is a for loop useful? — Khi nào nên dùng vòng for?**
 
-**Q2. What is For loop? — Thuật ngữ For loop có nghĩa gì?**
+A. When iterating over items — Khi duyệt lần lượt các phần tử
 
-A. A concept described as: Lặp qua từng phần tử trong một nhóm — Lặp qua từng phần tử trong một nhóm
+B. Only when connecting to the internet — Chỉ khi kết nối mạng
 
-B. A different concept: Lặp khi một điều kiện còn đúng — Lặp khi một điều kiện còn đúng
+C. To replace every if statement — Để thay mọi câu if
 
-C. A different concept: Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại — Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại
+D. To delete a list — Để xóa danh sách
 
-D. A different concept: Một lượt thực hiện trong quá trình lặp — Một lượt thực hiện trong quá trình lặp
+**Q3. When does a while loop continue? — Khi nào vòng while tiếp tục chạy?**
 
+A. While its condition is true — Khi điều kiện còn đúng
 
-**Q3. What is While loop? — Thuật ngữ While loop có nghĩa gì?**
+B. Only on the first iteration — Chỉ trong lượt đầu
 
-A. A different concept: Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại — Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại
+C. After break executes — Sau khi break chạy
 
-B. A different concept: Một lượt thực hiện trong quá trình lặp — Một lượt thực hiện trong quá trình lặp
+D. Only if a list is empty — Chỉ khi danh sách rỗng
 
-C. A different concept: Lặp qua từng phần tử trong một nhóm — Lặp qua từng phần tử trong một nhóm
+**Q4. How do break and continue differ? — break khác continue thế nào?**
 
-D. A concept described as: Lặp khi một điều kiện còn đúng — Lặp khi một điều kiện còn đúng
+A. Both end the program — Cả hai kết thúc chương trình
 
+B. break exits the loop; continue skips to the next iteration — break thoát vòng lặp; continue sang lượt kế tiếp
 
-**Q4. What is Break/continue? — Thuật ngữ Break/continue có nghĩa gì?**
+C. Both skip only one line — Cả hai chỉ bỏ qua một dòng
 
-A. A different concept: Một lượt thực hiện trong quá trình lặp — Một lượt thực hiện trong quá trình lặp
+D. continue exits Python — continue thoát Python
 
-B. A different concept: Lặp qua từng phần tử trong một nhóm — Lặp qua từng phần tử trong một nhóm
+**Q5. What does range(1, 4) produce? — range(1, 4) tạo những số nào?**
 
-C. A concept described as: Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại — Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại
+A. 1, 2, 3, 4 — 1, 2, 3, 4
 
-D. A different concept: Lặp khi một điều kiện còn đúng — Lặp khi một điều kiện còn đúng
+B. 0, 1, 2, 3 — 0, 1, 2, 3
 
+C. 1, 2, 3 — 1, 2, 3
 
-**Q5. Which statement fits 'range(start,stop)'? — Mô tả nào đúng với 'range(start,stop)'?**
+D. 4 only — Chỉ số 4
 
-A. It is used for: Lấy đồng thời vị trí và giá trị — Lấy đồng thời vị trí và giá trị
+**Q6. What does enumerate(items) provide? — enumerate(items) cung cấp gì?**
 
-B. This syntax is used for: Tạo chỉ số nguyên, không bao gồm stop — Tạo chỉ số nguyên, không bao gồm stop
+A. Only item names — Chỉ tên phần tử
 
-C. It is used for: Dừng sớm khi đã tìm thấy — Dừng sớm khi đã tìm thấy
+B. Index and value — Vị trí và giá trị
 
-D. It is used for: Bỏ qua dữ liệu của một lượt lặp — Bỏ qua dữ liệu của một lượt lặp
+C. Sorted values — Các giá trị đã sắp xếp
 
+D. Only the last item — Chỉ phần tử cuối
 
-**Q6. Which statement fits 'enumerate(iterable)'? — Mô tả nào đúng với 'enumerate(iterable)'?**
+**Q7. Which statement exits a loop early? — Lệnh nào dừng vòng lặp sớm?**
 
-A. This syntax is used for: Lấy đồng thời vị trí và giá trị — Lấy đồng thời vị trí và giá trị
+A. continue — continue
 
-B. It is used for: Dừng sớm khi đã tìm thấy — Dừng sớm khi đã tìm thấy
+B. pass — pass
 
-C. It is used for: Bỏ qua dữ liệu của một lượt lặp — Bỏ qua dữ liệu của một lượt lặp
+C. break — break
 
-D. It is used for: Tạo chỉ số nguyên, không bao gồm stop — Tạo chỉ số nguyên, không bao gồm stop
+D. print — print
 
+**Q8. Which statement skips the current item? — Lệnh nào bỏ qua phần còn lại của lượt hiện tại?**
 
-**Q7. Which statement fits 'break'? — Mô tả nào đúng với 'break'?**
+A. continue — continue
 
-A. It is used for: Bỏ qua dữ liệu của một lượt lặp — Bỏ qua dữ liệu của một lượt lặp
+B. break — break
 
-B. It is used for: Tạo chỉ số nguyên, không bao gồm stop — Tạo chỉ số nguyên, không bao gồm stop
+C. return — return
 
-C. It is used for: Lấy đồng thời vị trí và giá trị — Lấy đồng thời vị trí và giá trị
+D. input — input
 
-D. This syntax is used for: Dừng sớm khi đã tìm thấy — Dừng sớm khi đã tìm thấy
+**Q9. Why use a loop to sum three sales? — Vì sao dùng vòng lặp cộng doanh thu?**
 
+A. To repeat accumulation for each sale — Để cộng dồn từng khoản bán
 
-**Q8. Which statement fits 'continue'? — Mô tả nào đúng với 'continue'?**
+B. To erase sales data — Để xóa doanh thu
 
-A. It is used for: Tạo chỉ số nguyên, không bao gồm stop — Tạo chỉ số nguyên, không bao gồm stop
+C. To round all amounts — Để làm tròn mọi khoản tiền
 
-B. It is used for: Lấy đồng thời vị trí và giá trị — Lấy đồng thời vị trí và giá trị
+D. To hide the total — Để giấu tổng tiền
 
-C. This syntax is used for: Bỏ qua dữ liệu của một lượt lặp — Bỏ qua dữ liệu của một lượt lặp
+**Q10. Why skip None in temperature readings? — Vì sao bỏ qua None trong số đo nhiệt độ?**
 
-D. It is used for: Dừng sớm khi đã tìm thấy — Dừng sớm khi đã tìm thấy
+A. None always means zero degrees — None luôn là 0 độ
 
+B. None is a missing reading — None là lần đo thiếu dữ liệu
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn cách này ở tình huống 1?**
+C. None is the highest temperature — None là nhiệt độ cao nhất
 
-A. Because Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác — Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác
+D. None must be converted to 100 — Phải đổi None thành 100
 
-B. Because Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng — Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng
+**Q11. Why use break after finding zero stock? — Vì sao dùng break sau khi tìm thấy hàng hết tồn?**
 
-C. Because Dừng ngay khi thấy số lượng bằng 0 — Dừng ngay khi thấy số lượng bằng 0
+A. To stop once the first match is found — Để dừng khi gặp vị trí đầu tiên
 
-D. Because While có giới hạn số lượt tránh chạy vô hạn — While có giới hạn số lượt tránh chạy vô hạn
+B. To count all products — Để đếm mọi sản phẩm
 
+C. To sort stock values — Để sắp xếp số lượng
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn cách này ở tình huống 2?**
+D. To restart the search — Để tìm lại từ đầu
 
-A. Because Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác — Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác
+**Q12. Why limit the while connection attempts? — Vì sao giới hạn số lần thử kết nối?**
 
-B. Because Dừng ngay khi thấy số lượng bằng 0 — Dừng ngay khi thấy số lượng bằng 0
+A. To ensure the loop terminates — Để vòng lặp có thể kết thúc
 
-C. Because While có giới hạn số lượt tránh chạy vô hạn — While có giới hạn số lượt tránh chạy vô hạn
+B. To make every attempt succeed — Để mọi lần thử đều thành công
 
-D. Because Lặp lồng khi có hai chiều sinh viên và ngày — Lặp lồng khi có hai chiều sinh viên và ngày
+C. To remove the need for a condition — Để bỏ điều kiện
 
+D. To hide connection status — Để giấu trạng thái kết nối
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn cách này ở tình huống 3?**
+**Q13. Why use nested loops for student schedules? — Vì sao dùng vòng lặp lồng nhau cho lịch học?**
 
-A. Because While có giới hạn số lượt tránh chạy vô hạn — While có giới hạn số lượt tránh chạy vô hạn
+A. To combine each student with each day — Để ghép từng học viên với từng ngày
 
-B. Because Lặp lồng khi có hai chiều sinh viên và ngày — Lặp lồng khi có hai chiều sinh viên và ngày
+B. To print only the last student — Để chỉ in người cuối
 
-C. Because Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng — Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng
+C. To delete the days — Để xóa các ngày
 
-D. Because Dừng ngay khi thấy số lượng bằng 0 — Dừng ngay khi thấy số lượng bằng 0
+D. To stop after one pair — Để dừng sau một cặp
 
+**Q14. What is the sales total for [120, 80, 200]? — Tổng [120, 80, 200] là bao nhiêu?**
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn cách này ở tình huống 4?**
+A. 200 — 200
 
-A. Because Lặp lồng khi có hai chiều sinh viên và ngày — Lặp lồng khi có hai chiều sinh viên và ngày
+B. 300 — 300
 
-B. Because Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng — Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng
+C. 400 — 400
 
-C. Because While có giới hạn số lượt tránh chạy vô hạn — While có giới hạn số lượt tránh chạy vô hạn
+D. 480 — 480
 
-D. Because Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác — Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác
+**Q15. What remains after skipping None? — Còn gì sau khi bỏ qua None?**
 
+A. [30, 35, 33] — [30, 35, 33]
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn cách này ở tình huống 5?**
+B. [30, None, 35, 33] — [30, None, 35, 33]
 
-A. Because Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng — Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng
+C. [None] — [None]
 
-B. Because Lặp lồng khi có hai chiều sinh viên và ngày — Lặp lồng khi có hai chiều sinh viên và ngày
+D. [] — []
 
-C. Because Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác — Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác
+**Q16. What is the index of the first zero in [5, 3, 0, 4]? — Vị trí đầu tiên có số 0 là chỉ số nào?**
 
-D. Because Dừng ngay khi thấy số lượng bằng 0 — Dừng ngay khi thấy số lượng bằng 0
+A. 0 — 0
 
+B. 1 — 1
 
-**Q14. What input belongs to scenario 1? — Tình huống 1 sử dụng dữ liệu gì?**
+C. 2 — 2
 
-A. The stated input: 3 đơn vị nghìn đồng: 120, 80, 200 — 3 đơn vị nghìn đồng: 120, 80, 200
+D. 3 — 3
 
-B. The input is Bốn giá trị nhiệt độ, một None — Bốn giá trị nhiệt độ, một None
+**Q17. How many attempts occur in the connection simulation? — Mô phỏng kết nối thử bao nhiêu lần?**
 
-C. The input is Bốn mã hàng có số lượng [5,3,0,4] — Bốn mã hàng có số lượng [5,3,0,4]
+A. 1 — 1
 
-D. The input is Tối đa ba lần thử kết nối mô phỏng — Tối đa ba lần thử kết nối mô phỏng
+B. 2 — 2
 
+C. 3 — 3
 
-**Q15. What input belongs to scenario 2? — Tình huống 2 sử dụng dữ liệu gì?**
+D. Unlimited — Không giới hạn
 
-A. The input is Bốn mã hàng có số lượng [5,3,0,4] — Bốn mã hàng có số lượng [5,3,0,4]
+**Q18. How many schedule lines are printed? — Lịch học in ra bao nhiêu dòng?**
 
-B. The input is Tối đa ba lần thử kết nối mô phỏng — Tối đa ba lần thử kết nối mô phỏng
+A. 2 — 2
 
-C. The input is 2 sinh viên, 3 ngày — 2 sinh viên, 3 ngày
+B. 3 — 3
 
-D. The stated input: Bốn giá trị nhiệt độ, một None — Bốn giá trị nhiệt độ, một None
+C. 5 — 5
 
+D. 6 — 6
 
-**Q16. What input belongs to scenario 3? — Tình huống 3 sử dụng dữ liệu gì?**
+**Q19. What can cause an infinite while loop? — Điều gì có thể khiến while lặp mãi?**
 
-A. The input is Tối đa ba lần thử kết nối mô phỏng — Tối đa ba lần thử kết nối mô phỏng
+A. A condition that never becomes false — Điều kiện không bao giờ sai
 
-B. The input is 2 sinh viên, 3 ngày — 2 sinh viên, 3 ngày
+B. A list with two items — Danh sách có hai phần tử
 
-C. The stated input: Bốn mã hàng có số lượng [5,3,0,4] — Bốn mã hàng có số lượng [5,3,0,4]
+C. Using print — Dùng print
 
-D. The input is 3 đơn vị nghìn đồng: 120, 80, 200 — 3 đơn vị nghìn đồng: 120, 80, 200
+D. Using range(2) — Dùng range(2)
 
+**Q20. What does continue do inside a for loop? — continue làm gì trong vòng for?**
 
-**Q17. What input belongs to scenario 4? — Tình huống 4 sử dụng dữ liệu gì?**
+A. Stops the Python process — Dừng chương trình Python
 
-A. The input is 2 sinh viên, 3 ngày — 2 sinh viên, 3 ngày
+B. Restarts the entire program — Khởi động lại toàn bộ chương trình
 
-B. The stated input: Tối đa ba lần thử kết nối mô phỏng — Tối đa ba lần thử kết nối mô phỏng
+C. Skips to the next iteration — Chuyển sang lượt lặp sau
 
-C. The input is 3 đơn vị nghìn đồng: 120, 80, 200 — 3 đơn vị nghìn đồng: 120, 80, 200
-
-D. The input is Bốn giá trị nhiệt độ, một None — Bốn giá trị nhiệt độ, một None
-
-
-**Q18. What input belongs to scenario 5? — Tình huống 5 sử dụng dữ liệu gì?**
-
-A. The stated input: 2 sinh viên, 3 ngày — 2 sinh viên, 3 ngày
-
-B. The input is 3 đơn vị nghìn đồng: 120, 80, 200 — 3 đơn vị nghìn đồng: 120, 80, 200
-
-C. The input is Bốn giá trị nhiệt độ, một None — Bốn giá trị nhiệt độ, một None
-
-D. The input is Bốn mã hàng có số lượng [5,3,0,4] — Bốn mã hàng có số lượng [5,3,0,4]
-
-
-**Q19. What must be known before processing data? — Cần biết gì trước khi xử lý dữ liệu?**
-
-A. Only file name — Chỉ tên file
-
-B. Only editor theme — Chỉ màu giao diện
-
-C. Only line count — Chỉ số dòng
-
-D. Input meaning, type and units — Ý nghĩa, kiểu và đơn vị đầu vào
-
-
-**Q20. How should a student check an example? — Nên kiểm tra ví dụ như thế nào?**
-
-A. Assume all inputs work — Cho rằng dữ liệu nào cũng đúng
-
-B. Ignore errors — Bỏ qua lỗi
-
-C. Verify output and edge cases — Đối chiếu kết quả và thử trường hợp biên
-
-D. Delete comments — Xóa chú thích
+D. Deletes the iterable — Xóa tập phần tử
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | A concept described as: Một lượt thực hiện trong quá trình lặp | Một lượt thực hiện trong quá trình lặp |
-| Q2 | **A** | A concept described as: Lặp qua từng phần tử trong một nhóm | Lặp qua từng phần tử trong một nhóm |
-| Q3 | **D** | A concept described as: Lặp khi một điều kiện còn đúng | Lặp khi một điều kiện còn đúng |
-| Q4 | **C** | A concept described as: Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại | Dừng hẳn vòng lặp hoặc bỏ qua lượt hiện tại |
-| Q5 | **B** | This syntax is used for: Tạo chỉ số nguyên, không bao gồm stop | Tạo chỉ số nguyên, không bao gồm stop |
-| Q6 | **A** | This syntax is used for: Lấy đồng thời vị trí và giá trị | Lấy đồng thời vị trí và giá trị |
-| Q7 | **D** | This syntax is used for: Dừng sớm khi đã tìm thấy | Dừng sớm khi đã tìm thấy |
-| Q8 | **C** | This syntax is used for: Bỏ qua dữ liệu của một lượt lặp | Bỏ qua dữ liệu của một lượt lặp |
-| Q9 | **B** | Because Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng | Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng |
-| Q10 | **A** | Because Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác | Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác |
-| Q11 | **D** | Because Dừng ngay khi thấy số lượng bằng 0 | Dừng ngay khi thấy số lượng bằng 0 |
-| Q12 | **C** | Because While có giới hạn số lượt tránh chạy vô hạn | While có giới hạn số lượt tránh chạy vô hạn |
-| Q13 | **B** | Because Lặp lồng khi có hai chiều sinh viên và ngày | Lặp lồng khi có hai chiều sinh viên và ngày |
-| Q14 | **A** | The stated input: 3 đơn vị nghìn đồng: 120, 80, 200 | 3 đơn vị nghìn đồng: 120, 80, 200 |
-| Q15 | **D** | The stated input: Bốn giá trị nhiệt độ, một None | Bốn giá trị nhiệt độ, một None |
-| Q16 | **C** | The stated input: Bốn mã hàng có số lượng [5,3,0,4] | Bốn mã hàng có số lượng [5,3,0,4] |
-| Q17 | **B** | The stated input: Tối đa ba lần thử kết nối mô phỏng | Tối đa ba lần thử kết nối mô phỏng |
-| Q18 | **A** | The stated input: 2 sinh viên, 3 ngày | 2 sinh viên, 3 ngày |
-| Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
-| Q20 | **C** | Verify output and edge cases | Đối chiếu kết quả và thử trường hợp biên |
+| Q1 | **A** | A loop can execute several iterations. | Một vòng lặp có thể chạy nhiều lượt. |
+| Q2 | **A** | for processes items from an iterable. | for dùng để duyệt các phần tử. |
+| Q3 | **A** | while checks its condition before each iteration. | while kiểm tra điều kiện trước mỗi lượt. |
+| Q4 | **B** | break stops the loop, while continue advances to the next iteration. | break dừng vòng lặp, continue chuyển sang lượt tiếp theo. |
+| Q5 | **C** | The stop value 4 is excluded. | Giá trị dừng 4 không được lấy. |
+| Q6 | **B** | enumerate yields an index alongside each item. | enumerate trả về vị trí và giá trị mỗi phần tử. |
+| Q7 | **C** | break exits the innermost enclosing loop. | break thoát vòng lặp gần nhất chứa nó. |
+| Q8 | **A** | continue moves to the next loop iteration. | continue chuyển sang lượt lặp tiếp theo. |
+| Q9 | **A** | The same addition works for any number of sales. | Cùng một phép cộng dùng được cho nhiều khoản bán. |
+| Q10 | **B** | Missing readings should not be treated as measured temperatures. | Không nên coi số liệu thiếu là nhiệt độ đo được. |
+| Q11 | **A** | The task asks only for the first empty position. | Bài yêu cầu tìm vị trí hết hàng đầu tiên. |
+| Q12 | **A** | A retry limit prevents indefinite attempts. | Giới hạn lượt thử tránh lặp mãi. |
+| Q13 | **A** | The inner loop visits every day for each student. | Vòng trong duyệt từng ngày cho mỗi học viên. |
+| Q14 | **C** | 120 + 80 + 200 = 400. | 120 + 80 + 200 = 400. |
+| Q15 | **A** | continue skips the None item. | continue bỏ qua phần tử None. |
+| Q16 | **C** | Python indexes start at zero. | Chỉ số Python bắt đầu từ 0. |
+| Q17 | **B** | The simulated connection succeeds on attempt 2. | Mô phỏng kết nối thành công ở lần thứ hai. |
+| Q18 | **D** | Two students times three days gives six lines. | Hai học viên nhân ba ngày tạo sáu dòng. |
+| Q19 | **A** | A while loop needs a way to stop. | Vòng while cần có điều kiện dừng. |
+| Q20 | **C** | continue does not exit the loop. | continue không thoát cả vòng lặp. |
 
-## 8. Kết nối bài tiếp theo
+## 8. Nối sang bài tiếp theo
 
 `Điều kiện → Vòng lặp → Xử lý hàng loạt`.
