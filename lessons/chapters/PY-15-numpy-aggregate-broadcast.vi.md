@@ -124,8 +124,6 @@ print(sales.sum(axis=1))
 [60 36]
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 2 — Điểm trung bình từng môn
 
 **Từ vựng trong mục:** **Axis** — trục tính.
@@ -147,8 +145,6 @@ print(X.mean(axis=0))
 ```text
 [7.66666667 8.        ]
 ```
-
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 3 — Cộng điểm chuyên cần
 
@@ -173,8 +169,6 @@ print(np.minimum(X+1,10))
  [ 7  8  9]]
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 4 — Nhân các kênh cảm biến
 
 **Từ vựng trong mục:** **Vectorization** — vector hóa.
@@ -198,8 +192,6 @@ print(signals*factors)
 [10. 10. 60.]
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 5 — Tìm giá trị cao nhất theo cột
 
 **Từ vựng trong mục:** **Aggregate** — phép tổng hợp.
@@ -221,8 +213,6 @@ print(X.max(axis=0))
 ```text
 [5 6]
 ```
-
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ## 6. Sai lầm thường gặp
 
