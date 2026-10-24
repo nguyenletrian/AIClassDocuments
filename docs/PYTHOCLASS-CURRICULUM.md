@@ -16,11 +16,11 @@
 
 ## Cấu trúc bắt buộc cho mỗi bài (bản đọc của sinh viên)
 1. Bản đồ **vị trí trong chuỗi kiến thức**, cho thấy kiến thức trước/sau và quan hệ giữa các khái niệm.
-2. **English vocabulary** tổng quan và **bảng từ vựng ngắn ở đầu từng mục/tiểu mục/tình huống**, đi trước giải thích và ví dụ; không gắn bản dịch trực tiếp mỗi lần nhắc thuật ngữ trong câu.
+2. **English vocabulary** tổng quan và **giải nghĩa một lần tại bảng từ vựng, chỉ bổ sung tại mục con nếu xuất hiện thuật ngữ hoặc nghĩa mới**, đi trước giải thích và ví dụ; không gắn bản dịch trực tiếp mỗi lần nhắc thuật ngữ trong câu.
 3. **Thư viện, hàm, API Python**, bảng ngắn giải thích từng tên và cách dùng, ví dụ đầu vào/đầu ra.
    - **Gộp giải thích đối số (keyword arguments/flags) vào đúng hàm trong bảng thư viện/API**: ví dụ `np.array(...,dtype=float)` giải thích số thực; `X.mean(axis=0)` giải thích tính theo cột; `np.cov(X,rowvar=False)` giải thích cột là biến; `PCA(n_components=2)` giải thích số thành phần. Mỗi hàm ghi mục đích, ý nghĩa/lý do chọn tham số, ảnh hưởng khi thay giá trị. **Không lập một chương/bảng flags riêng** và không lặp lại lời giải thích flags ở mọi code demo. Comment trong code ưu tiên bối cảnh dữ liệu, lý do xử lý, đọc kết quả.
-3a. **Từ vựng theo từng mục:** Mỗi mục/tiểu mục/tình huống bắt đầu bằng một dòng ngắn `Từ vựng trong mục: English — Tiếng Việt; ...`, chọn 2–5 thuật ngữ xuất hiện thật trong mục. Trong câu văn phía dưới dùng tiếng Anh như bình thường, **không nối bản dịch trong ngoặc ở từng lần nhắc lại**. Tuyệt đối không biến đổi tên file ảnh, đường dẫn Markdown, tên biến/hàm hay đối số trong code. Trắc nghiệm cuối bài được biên soạn **song ngữ Anh–Việt** cho từng câu, từng lựa chọn và lời giải.
-4. **Khái niệm và các khái niệm liên quan**: giải thích bằng lời dễ hiểu, ví dụ gần gũi trước rồi đến công thức tính thể hiện bằng **code Python nhỏ**. Mỗi nhóm Feature / Vector / Matrix, Mean / Variance... đều cần định nghĩa riêng; không dùng tiêu đề “Subconcept”; bỏ chứng minh toán học dài.
+3a. **Thuật ngữ không lặp:** bảng đầu bài giải thích Anh–Việt; mục con chỉ thêm từ chưa được giải thích hoặc cần phân biệt ngữ cảnh. Không sao chép cùng một dòng glossary vào mọi tiểu mục hay tình huống.
+4. **Khái niệm và các khái niệm liên quan**: giải thích bằng lời dễ hiểu, ví dụ gần gũi trước rồi đến công thức tính thể hiện bằng **code Python nhỏ**. Các nhóm Feature / Vector / Matrix, Mean / Variance cần định nghĩa rõ ràng; không dùng tiêu đề “Subconcept”; bỏ chứng minh toán học dài.
    - Nhắc lại các khái niệm được sử dụng **ngay tại từng tiểu mục** rồi tạo một ví dụ tăng tiến: nhiều đối tượng → mỗi đối tượng một vector → xếp vector thành một matrix → phép tính → đọc shape/kết quả. Không yêu cầu sinh viên tự suy đoán dữ liệu từ một dãy số trần.
    - Mọi bảng/`np.array`/`DataFrame`/dataset đều phải chú thích **mỗi hàng là mẫu gì, mỗi cột là feature nào, đơn vị đo gì, bao nhiêu hàng/cột, dữ liệu thật hay minh họa**. Với dữ liệu có nhãn, phân biệt nhãn mục tiêu với cột đầu vào. Chú thích bước xử lý `BƯỚC 1/2/3...` và giải thích tại sao code như vậy.
 4a. **Kiểm tra hiểu ngay tại mỗi khái niệm:** một câu ngắn và đáp án gợi ý ngay sau đoạn ví dụ. Với khái niệm trừu tượng, ưu tiên **tình huống đời thường và hình trực giác** trước số liệu/công thức. Với các phép biến đổi dữ liệu, phải có bảng **trước / sau** (ít nhất vài hàng) và hình được tạo từ **kết quả chạy thật** khi trực quan hóa giúp ích; kiểm tra tương ứng với chương trình tạo hình. Hình minh họa giả lập phải ghi nguồn và giới hạn; không dùng tranh trang trí thay cho dữ liệu đúng.
@@ -28,9 +28,11 @@
    - Trước code mỗi tình huống, công bố metadata của dataset: đơn vị, ý nghĩa từng cột, ý nghĩa từng hàng, số mẫu và provenance. Trong code khởi tạo nhiều vector rõ ràng khi sinh viên cần hiểu quá trình hình thành matrix.
 5a. **Tải nhận thức:** các bài thực tiễn kết hợp thuật toán chưa được học (như clustering/classification khi bài chính là PCA) phải mang nhãn **Phần mở rộng — có thể đọc sau** và giải thích ngắn vai trò của thuật toán, không ép sinh viên phải hiểu toàn bộ trước khi nắm bài chính.
 6. **20 câu trắc nghiệm Anh–Việt**: mỗi câu hiển thị English + bản dịch tiếng Việt; cả A/B/C/D có bản dịch; bảng đáp án có giải thích ở cả hai ngôn ngữ. Giữ nguyên cú pháp code và nội dung kỹ thuật.
-7. **Liên hệ bài tiếp theo**, duy trì sơ đồ logic tiến trình.
+7. **Chỉ thêm liên hệ bài tiếp theo nếu cung cấp kiến thức mới**. Nếu trùng sơ đồ ở đầu bài thì bỏ mục này.
 
 Không dùng mục "mục tiêu học tập", "sau bài học bạn sẽ làm được gì", không xưng hô như giảng viên, không yêu cầu học sinh chứng minh công thức toán. Sinh viên phải có thể tự đọc để hệ thống hóa những gì từng học. Không chỉ biến bài toán thuần túy thành một câu chuyện giả: tình huống cần có quyết định, dữ liệu và thao tác Python hợp lý.
+
+**Biên tập tinh gọn (bắt buộc):** bỏ metadata DRAFT/Trạng thái/phiên bản góp ý khỏi bài dành cho sinh viên; cắt câu dẫn có thể bỏ mà nghĩa không đổi; không viết lại nhan đề thành “Vấn đề”; không chép lặp glossary hay tự kiểm tra chỉ hỏi lại định nghĩa; không thêm câu quy trình/kiểm tra giống nhau cho 5 tình huống. Giữ mọi thông số, dữ liệu, đơn vị, code, đầu ra và cảnh báo cụ thể có giá trị học thuật. Xem `docs/CURRICULUM-STYLE-GUIDE.md` v2.
 
 ## Truy nguyên nguồn
 - Có ít nhất một dẫn nguồn repo gốc từ đường dẫn file cụ thể trong **hồ sơ nội bộ** `sources/`/docs, khuyến khích kèm commit SHA và cell hoặc đoạn code.
