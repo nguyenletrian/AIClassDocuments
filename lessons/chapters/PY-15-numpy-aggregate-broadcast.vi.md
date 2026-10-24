@@ -307,7 +307,7 @@ A. The number of columns only — Chỉ số cột
 
 B. The sum of every negative value — Tổng các số âm
 
-C. The largest value along the chosen axis — Giá trị lớn nhất theo trục đã chọn
+C. The largest value overall or along a specified axis — Giá trị lớn nhất toàn mảng hoặc theo trục được chỉ định
 
 D. The arithmetic average — Trung bình cộng
 
@@ -485,16 +485,16 @@ D. It determines whether rows or columns answer the question — Nó quyết đ�
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | Functions such as sum and mean summarize a group of numbers. | Hàm như sum và mean tóm tắt một nhóm giá trị số. |
-| Q2 | **B** | A mean divides the sum by the number of included values. | Trung bình được tính bằng tổng chia số giá trị được tính. |
-| Q3 | **C** | Maximum selects an extreme value, not a sum or mean. | Phép cực đại chọn giá trị lớn nhất, không phải tổng hay trung bình. |
-| Q4 | **D** | Axis 0 reduces over rows, preserving the column dimension. | Axis 0 tổng hợp qua các hàng và giữ kết quả theo cột. |
-| Q5 | **A** | Axis 1 reduces across columns of each row. | Axis 1 cộng các cột trên từng hàng. |
-| Q6 | **B** | NumPy can virtually expand compatible dimensions during element-wise operations. | NumPy có thể mở rộng chiều tương thích khi tính theo phần tử. |
-| Q7 | **C** | A scalar can be applied element-wise without a Python loop. | Số đơn được áp vào từng phần tử mà không cần vòng for Python. |
-| Q8 | **D** | Broadcasting compares shapes from the right; dimensions are compatible if equal or one is 1. | Broadcasting xét các chiều từ phải sang trái; chiều tương thích khi bằng nhau hoặc một bên là 1. |
-| Q9 | **A** | Element-wise operations need compatible dimensions to align values. | Tính theo phần tử cần các chiều có thể ghép tương thích. |
-| Q10 | **B** | Array operations replace explicit per-element loops in user code. | Phép toán mảng thay cho vòng lặp Python phải viết cho từng phần tử. |
+| Q1 | **A** | Aggregation summarizes several numeric values into a statistic, such as `sum`, `mean`, or `max`. For `[2, 4, 6]`, a mean of `4` summarizes three values rather than preserving every entry. | Tổng hợp gộp nhiều giá trị số thành thống kê như `sum`, `mean` hoặc `max`. Với `[2, 4, 6]`, trung bình `4` tóm tắt ba giá trị thay vì giữ từng ô. |
+| Q2 | **B** | `sum` adds all selected values, whereas `mean` divides that sum by the number of values. For `[2, 4, 6]`, the sum is `12` but the mean is `4`; they are not generally equal. | `sum` cộng tất cả giá trị được chọn, còn `mean` lấy tổng chia cho số giá trị. Với `[2, 4, 6]`, tổng bằng `12` nhưng trung bình bằng `4`; hai phép không thường bằng nhau. |
+| Q3 | **C** | `max` selects the greatest value from an array, or separately along an axis if one is provided. For `[[1, 7], [5, 3]]`, the overall maximum is `7`, unlike `mean`, which computes an average. | `max` chọn giá trị lớn nhất của mảng hoặc riêng theo trục được chỉ định. Với `[[1, 7], [5, 3]]`, cực đại toàn mảng là `7`, khác `mean` dùng để tính trung bình. |
+| Q4 | **D** | For a 2-D array, `axis=0` collapses rows while retaining one result per column. With `[[1, 2], [3, 4]]`, the column sums are `[4, 6]`, not row sums `[3, 7]`. | Với mảng 2D, `axis=0` gộp theo chiều hàng và để lại mỗi cột một kết quả. Với `[[1, 2], [3, 4]]`, tổng cột là `[4, 6]`, không phải tổng hàng `[3, 7]`. |
+| Q5 | **A** | `axis=1` combines columns within each row. For `[[1, 2], [3, 4]]`, `sum(axis=1)` gives row totals `[3, 7]`; `axis=0` instead produces one total per column. | `axis=1` gộp các cột trong từng hàng. Với `[[1, 2], [3, 4]]`, `sum(axis=1)` cho tổng hàng `[3, 7]`; `axis=0` lại cho tổng theo cột. |
+| Q6 | **B** | Broadcasting aligns dimensions of compatible shapes for element-wise operations without requiring explicit Python loops. For instance, a `(2,3)` matrix can add a `(3,)` vector across its rows, but a `(2,)` vector is incompatible with its trailing dimension 3. | Broadcasting ghép các chiều có kích thước tương thích để tính theo phần tử mà không phải viết vòng lặp Python. Ví dụ ma trận `(2,3)` cộng được vector `(3,)` trên các hàng, nhưng vector `(2,)` không khớp chiều cuối bằng 3. |
+| Q7 | **C** | A scalar has no array axes to conflict with the numeric array, so NumPy broadcasts its value across all elements. For `a=[2,4]`, `a + 1` produces `[3,5]`, not matrix multiplication or a change to only the first item. | Số đơn không có trục mảng gây xung đột nên NumPy broadcast nó tới mọi phần tử. Với `a=[2,4]`, `a + 1` cho `[3,5]`, không phải nhân ma trận hay chỉ sửa phần tử đầu. |
+| Q8 | **D** | NumPy compares aligned dimensions from right to left: each pair must match or one size must be `1`. Thus sizes `3` and `1` can broadcast, while `3` and `2` on the same axis generally cannot. | NumPy đối chiếu các chiều từ phải sang trái: mỗi cặp phải bằng nhau hoặc một bên có kích thước `1`. Vì vậy chiều `3` và `1` tương thích, còn `3` và `2` trên cùng trục thường không tương thích. |
+| Q9 | **A** | Incompatible shapes cannot be aligned for an element-wise operation, so NumPy normally raises `ValueError`. For example, adding shape `(2,3)` to `(2,)` fails because the trailing dimensions 3 and 2 differ. | Shape không tương thích không thể ghép cho phép toán theo phần tử, nên NumPy thường gây `ValueError`. Ví dụ cộng `(2,3)` với `(2,)` lỗi vì hai chiều cuối 3 và 2 không khớp. |
+| Q10 | **B** | Vectorization applies operations directly to NumPy arrays rather than writing a Python loop over every element. For instance, `a * 2` multiplies all numeric elements, while aggregation such as `a.sum()` reduces them to a summary. | Vector hóa áp dụng phép toán trực tiếp trên mảng NumPy thay vì viết vòng lặp Python qua từng phần tử. Ví dụ `a * 2` nhân mọi ô số, còn tổng hợp như `a.sum()` gộp chúng thành một thống kê. |
 | Q11 | **C** | The star operator is element-wise multiplication for ndarrays. | Toán tử sao `*` nhân theo từng phần tử của ndarray. |
 | Q12 | **D** | The @ operator follows matrix multiplication rules rather than element-wise multiplication. | Toán tử @ tuân theo quy tắc nhân ma trận, không phải nhân theo từng phần tử. |
 | Q13 | **A** | It returns the smaller of each array value and the given scalar. | Hàm chọn số nhỏ hơn giữa từng phần tử và ngưỡng 10. |
