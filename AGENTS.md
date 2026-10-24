@@ -3,7 +3,7 @@
 ## Mục đích được chủ dự án đổi ngày 2026-10-24
 Tài liệu tham chiếu **chính** là repository [nguyenletrian/PythoClass](https://github.com/nguyenletrian/PythoClass), chứa bài ghi chép, lab, scripts và notebooks của chủ dự án. Nhiệm vụ mới là **biên soạn lại thành giáo trình Python ứng dụng AI chuẩn xác và có thể thực hành**, không phải chép lại nguyên văn hay dịch khóa Jetking. Các ghi nhận Jetking cũ chỉ còn là hồ sơ lịch sử, không được tự ý tái kích hoạt.
 
-Mọi công việc biên soạn tuân thủ [docs/PYTHOCLASS-CURRICULUM.md](docs/PYTHOCLASS-CURRICULUM.md).
+Mọi công việc biên soạn **PHẢI đọc** [docs/CURRICULUM-STYLE-GUIDE.md](docs/CURRICULUM-STYLE-GUIDE.md) và [templates/lesson.md](templates/lesson.md) **trước khi viết bất kỳ bài nào**. Quy trình nguồn chi tiết ở [docs/PYTHOCLASS-CURRICULUM.md](docs/PYTHOCLASS-CURRICULUM.md).
 
 ## Nguyên tắc biên soạn
 1. Quét đủ file trong `sources/pythoclass-file-inventory.csv`; bóc tách mọi khái niệm **dù chỉ xuất hiện ngắn** và lưu trong bản đồ chủ đề. Không công bố "đã xử lý toàn bộ" khi chưa duyệt 65/65 file.
@@ -16,7 +16,7 @@ Mọi công việc biên soạn tuân thủ [docs/PYTHOCLASS-CURRICULUM.md](docs
 4. Truy nguyên `GHI CHÉP GỐC`, `ĐÃ HIỆU ĐÍNH`, `AI MỞ RỘNG` **chỉ ở hồ sơ nội bộ** `sources/`/docs, KHÔNG trong bài dành cho sinh viên. Không nhắc tên repo PythoClass/PythonClass, đường dẫn ghi chép hoặc quá trình biên soạn trong `lessons/`. Không truyền lại công thức hoặc code sai; thử cú pháp, test giá trị, tránh dữ liệu rò rỉ trong ML.
 5. Không sửa repository PythoClass. Không lưu secret, output chứa thông tin cá nhân hoặc nguồn bị hạn chế quyền sử dụng lên GitHub.
 6. Không yêu cầu chủ dự án thủ công gửi ảnh/chép notes khi nguồn đã có thể đọc qua GitHub và công cụ được phép. Tự kiểm tra file binary bằng công cụ phù hợp, báo cáo chính xác blocker nếu không đọc được.
-7. **Chỉ triển khai một bài mẫu PCA** dưới `lessons/pilot/`. Giữ `goal_review.enabled=false` và không tạo task viết hàng loạt cho đến khi chủ dự án xem và góp ý mẫu.
+7. **Đã có lệnh chủ dự án 2026-10-24 triển khai toàn bộ chương trình**. Cho phép soạn các bài còn lại theo style guide. Vẫn giữ `goal_review.enabled=false` để tránh spam heartbeat; không đổi ACK/tác vụ cũ. Bài mới mang trạng thái `DRAFT` tới khi test thật.
 
 ## Tiêu chí sẵn sàng
 Bài mẫu chỉ ở `PILOT_REVIEW` khi đã có nguồn cụ thể, đủ cấu trúc yêu cầu, kết quả bài tập đã đối chiếu và các giới hạn được ghi rõ. Chuyển sang `OWNER_APPROVED` khi chủ dự án đánh giá bố cục và nội dung. Các lô bài tiếp theo chỉ mở sau đó.
