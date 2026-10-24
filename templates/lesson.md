@@ -24,7 +24,7 @@
  
 **3.x. Các tham số / keyword arguments:** [Giải thích ngay từ phần thư viện: mỗi tham số là gì, tại sao chọn giá trị này và sẽ thay đổi gì nếu đổi/bỏ. Ví dụ `dtype=float` lưu số thực, `axis=0` tính theo từng cột, `rowvar=False`, `n_components=2`, `random_state=42`... Không chỉ liệt kê tên hàm.]
 
-## 4. Concepts & subconcepts — Khái niệm và khái niệm con
+## 4. Khái niệm và các kiến thức liên quan
 
 ### 4.1. [Khái niệm chính]
 [Khái niệm, mục đích và khi nào dùng bằng ngôn ngữ sinh viên dễ tự đọc.]
