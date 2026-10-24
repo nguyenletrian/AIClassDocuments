@@ -1,14 +1,8 @@
 # PY-26 — Hệ phương trình tuyến tính, rank và nghiệm
 
-*DRAFT · Dữ liệu số mô phỏng; chưa xác nhận kiểm thử trên Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Linear system** — hệ tuyến tính; **Rank** — hạng ma trận.
-
 `Ma trận → Rank/Solve → Regression → AI`
-
-Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python trước khi sử dụng vào học máy.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 3. NumPy và các hàm liên quan
 
-**Từ vựng trong mục:** **Function** — hàm; **Shape** — kích thước mảng.
-
 | Hàm / tham số | Dùng làm gì |
 |---|---|
 | `np.linalg.solve(A,b)` | Giải Ax=b khi ma trận A vuông không suy biến |
@@ -34,69 +26,49 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ### 4.1. Linear system
 
-**Từ vựng trong mục:** **Linear system** — hệ tuyến tính.
-
-Nhiều phương trình chứa cùng các ẩn số. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Nhiều phương trình chứa cùng các ẩn số.
 
 ```python
 import numpy as np
 print(np.linalg.solve([[1,1],[2,1]],[5,8]))
 ```
 
-**Tự kiểm tra:** Linear system có nghĩa gì? **Đáp án:** Nhiều phương trình chứa cùng các ẩn số.
-
 ### 4.2. Rank
 
-**Từ vựng trong mục:** **Rank** — hạng ma trận.
-
-Số hàng/cột độc lập tuyến tính. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Số hàng/cột độc lập tuyến tính.
 
 ```python
 import numpy as np
 print(np.linalg.matrix_rank([[1,2],[2,4]]))
 ```
 
-**Tự kiểm tra:** Rank có nghĩa gì? **Đáp án:** Số hàng/cột độc lập tuyến tính.
-
 ### 4.3. Coefficient matrix
 
-**Từ vựng trong mục:** **Coefficient matrix** — ma trận hệ số.
-
-Các hệ số của ẩn trong Ax=b. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Các hệ số của ẩn trong Ax=b.
 
 ```python
 import numpy as np
 print(np.array([[1,1],[2,1]]))
 ```
 
-**Tự kiểm tra:** Coefficient matrix có nghĩa gì? **Đáp án:** Các hệ số của ẩn trong Ax=b.
-
 ### 4.4. Residual
 
-**Từ vựng trong mục:** **Residual** — sai số dư.
-
-Độ sai khác giữa dự đoán Ax và b. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Độ sai khác giữa dự đoán Ax và b.
 
 ```python
 import numpy as np
 A=np.eye(2);x=np.array([2,3]);b=np.array([2,3]);print(A@x-b)
 ```
 
-**Tự kiểm tra:** Residual có nghĩa gì? **Đáp án:** Độ sai khác giữa dự đoán Ax và b.
-
 ## 5. Năm tình huống ứng dụng
 
 ### Tình huống 1 — Tính giá hai loại hàng
 
-**Từ vựng trong mục:** **Linear system** — hệ tuyến tính.
-
 **Vấn đề:** Tính giá hai loại hàng.
 
-**Vì sao chọn phương án?** Solve tìm giá mỗi loại từ hai hóa đơn độc lập; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Solve tìm giá mỗi loại từ hai hóa đơn độc lập
 
-**Dữ liệu:** x+y=5, 2x+y=8 (nghìn đồng). Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** x+y=5, 2x+y=8 (nghìn đồng).
 
 ```python
 import numpy as np
@@ -104,19 +76,13 @@ A=np.array([[1,1],[2,1]],dtype=float);b=np.array([5,8])
 print(np.linalg.solve(A,b))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 2 — Xem cột dữ liệu trùng
-
-**Từ vựng trong mục:** **Rank** — hạng ma trận.
 
 **Vấn đề:** Xem cột dữ liệu trùng.
 
-**Vì sao chọn phương án?** Rank thấp phát hiện một feature tuyến tính phụ thuộc feature khác; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Rank thấp phát hiện một feature tuyến tính phụ thuộc feature khác
 
-**Dữ liệu:** Ma trận [1,2];[2,4]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Ma trận [1,2];[2,4].
 
 ```python
 import numpy as np
@@ -124,19 +90,13 @@ A=np.array([[1,2],[2,4]])
 print(np.linalg.matrix_rank(A))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 3 — Kiểm chứng nghiệm
-
-**Từ vựng trong mục:** **Coefficient matrix** — ma trận hệ số.
 
 **Vấn đề:** Kiểm chứng nghiệm.
 
-**Vì sao chọn phương án?** Nhân A@x rồi so b để phát hiện sai phép giải; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Nhân A@x rồi so b để phát hiện sai phép giải
 
-**Dữ liệu:** Hệ x+y=5, 2x+y=8. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Hệ x+y=5, 2x+y=8.
 
 ```python
 import numpy as np
@@ -144,19 +104,13 @@ A=np.array([[1,1],[2,1]]);b=np.array([5,8]);x=np.array([3,2])
 print(np.allclose(A@x,b))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 4 — Ước lượng từ số đo nhiễu
-
-**Từ vựng trong mục:** **Residual** — sai số dư.
 
 **Vấn đề:** Ước lượng từ số đo nhiễu.
 
-**Vì sao chọn phương án?** lstsq phù hợp khi số phương trình lớn hơn số ẩn; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** lstsq phù hợp khi số phương trình lớn hơn số ẩn
 
-**Dữ liệu:** Ba điểm để fit đường y=ax+b. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Ba điểm để fit đường y=ax+b.
 
 ```python
 import numpy as np
@@ -165,19 +119,13 @@ A=np.column_stack([x,np.ones_like(x)])
 print(np.linalg.lstsq(A,y,rcond=None)[0])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 5 — Tìm sai số dư
-
-**Từ vựng trong mục:** **Linear system** — hệ tuyến tính.
 
 **Vấn đề:** Tìm sai số dư.
 
-**Vì sao chọn phương án?** Residual cho biết hệ có tái tạo đúng mục tiêu không; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Residual cho biết hệ có tái tạo đúng mục tiêu không
 
-**Dữ liệu:** A=I, x=[2,3], b=[2,4]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** A=I, x=[2,3], b=[2,4].
 
 ```python
 import numpy as np
@@ -185,15 +133,11 @@ A=np.eye(2);x=np.array([2,3]);b=np.array([2,4])
 print(A@x-b)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ## 6. Sai lầm cần tránh
 
 Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Linear system? — Thuật ngữ Linear system có nghĩa gì?**
@@ -439,7 +383,3 @@ D. It guarantees no leakage — Nó bảo đảm không rò rỉ dữ liệu
 | Q18 | **A** | The input is A=I, x=[2,3], b=[2,4] | A=I, x=[2,3], b=[2,4] |
 | Q19 | **D** | Shapes and data units | Shape và đơn vị dữ liệu |
 | Q20 | **C** | It does not establish predictive performance | Nó không đo chất lượng dự đoán |
-
-## 8. Nối sang bài kế tiếp
-
-`Ma trận → Rank/Solve → Regression → AI`.
