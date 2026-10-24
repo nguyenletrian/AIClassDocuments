@@ -31,10 +31,19 @@
 # Thể hiện phép tính hay công thức bằng Python, giải thích vì sao dùng cách này.
 ```
 
-### 4.2. [Khái niệm phụ]
-[Giải thích và phép tính ngay trong Python. Lặp lại cho mọi khái niệm phụ cần thiết.]
+### 4.2. [Khái niệm liên quan 1 — tên tiếng Việt và tiếng Anh]
+[Trước hết dùng 1–3 đoạn văn ngắn giải thích **đây là gì**, **xuất hiện ở đâu trong ví dụ đời thường**, **liên hệ với khái niệm chính thế nào**; nếu nhiều thuật ngữ thì giải thích riêng từng thuật ngữ rồi mới đưa code.]
 
-**Lưu ý:** KHÔNG tạo phần "Toán học đằng sau" hoặc chứng minh hàn lâm. Nếu phải biết công thức, đặt biểu thức Python ngay cạnh khái niệm và giải thích ý nghĩa đầu vào/đầu ra.
+**Ví dụ nhỏ trong Python:**
+
+```python
+# Code tối giản để kiểm chứng lời giải thích ở trên.
+# Giải thích vì sao chọn biến, hàm hoặc cách tính.
+```
+
+**Đọc kết quả:** [Nói rõ người học sẽ thấy gì, shape/giá trị nào thay đổi, điều gì không thể suy ra].
+
+**Quy tắc:** Không dùng chữ “Subconcept” làm tiêu đề. Viết “Khái niệm liên quan” hoặc tên chủ đề bằng tiếng Việt dễ hiểu. Không giải thích bằng cú pháp hay tên hàm trước khi nói rõ bằng văn; người học phải hiểu *feature là gì* rồi mới gặp ví dụ `np.array`. Không tạo phần “Toán học đằng sau” hoặc chứng minh hàn lâm. Mỗi công thức thể hiện bằng Python trong một ví dụ nhỏ ngay dưới đoạn giải thích.
 
 ## 5. Real-world programming problems — Khoảng năm tình huống thực tế
 
@@ -42,7 +51,9 @@
 
 **Vấn đề:** [Ai đang gặp khó khăn gì, cần kết quả nào?]
 
-**Chọn khái niệm:** [Vì sao khái niệm và thư viện trong bài giải được vấn đề này?]
+**Chọn khái niệm:** [Liệt kê các khái niệm phù hợp.]
+
+**Vì sao chọn cách này?** [Một đoạn giải thích rõ vấn đề đòi hỏi gì, tại sao phương pháp/hàm này phù hợp hơn phương án dễ nhầm khác, giả định và khi nào cách này không còn phù hợp. Chỉ liệt kê API không đủ.]
 
 **Quy trình:** [Các bước cụ thể theo đúng thứ tự.]
 
@@ -67,7 +78,7 @@ B. ...
 C. ...  
 D. ...
 
-[Khoảng 5–10 câu, phù hợp nội dung vừa học, không đánh đố.]
+[**Đúng 20 câu**: câu hỏi bằng tiếng Anh, 4 đáp án A/B/C/D, gồm khái niệm, tính toán bằng Python và lựa chọn giải pháp thực tiễn. Không đánh đố, câu nào cũng có đáp án đúng và giải thích.]
 
 ### Answer key & short explanations
 
