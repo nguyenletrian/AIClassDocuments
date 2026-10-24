@@ -280,250 +280,230 @@ with TemporaryDirectory() as folder:
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What does `reshape()` change? — `reshape()` thay đổi điều gì?**
 
-**Q1. What does Reshape mean? — Ý nghĩa của Reshape là gì?**
+A. The array's shape without changing its total element count — Hình dạng mảng mà không đổi số phần tử
 
-A. It instead describes Đổi trục hàng và cột — Đổi trục hàng và cột
+B. Swaps rows and columns — Hoán đổi hàng và cột
 
-B. The concept is Đổi shape nhưng giữ số phần tử — Đổi shape nhưng giữ số phần tử
+C. Matrix multiplication — Phép nhân ma trận
 
-C. It instead describes Tạo kết quả bằng phép nhân tuyến tính — Tạo kết quả bằng phép nhân tuyến tính
+D. Writes an array to an NPY file — Ghi mảng vào tệp NPY
 
-D. It instead describes Ghi mảng vào tệp để đọc lại — Ghi mảng vào tệp để đọc lại
+**Q2. What does `.T` do to a 2-D array? — `.T` làm gì với mảng 2-D?**
 
+A. The array's shape without changing its total element count — Hình dạng mảng mà không đổi số phần tử
 
-**Q2. What does Transpose mean? — Ý nghĩa của Transpose là gì?**
+B. Swaps rows and columns — Hoán đổi hàng và cột
 
-A. The concept is Đổi trục hàng và cột — Đổi trục hàng và cột
+C. Matrix multiplication — Phép nhân ma trận
 
-B. It instead describes Tạo kết quả bằng phép nhân tuyến tính — Tạo kết quả bằng phép nhân tuyến tính
+D. Writes an array to an NPY file — Ghi mảng vào tệp NPY
 
-C. It instead describes Ghi mảng vào tệp để đọc lại — Ghi mảng vào tệp để đọc lại
+**Q3. What does `A @ B` mean for compatible matrices? — `A @ B` nghĩa là gì với các ma trận tương thích?**
 
-D. It instead describes Đổi shape nhưng giữ số phần tử — Đổi shape nhưng giữ số phần tử
+A. The array's shape without changing its total element count — Hình dạng mảng mà không đổi số phần tử
 
+B. Swaps rows and columns — Hoán đổi hàng và cột
 
-**Q3. What does Matrix multiply mean? — Ý nghĩa của Matrix multiply là gì?**
+C. Matrix multiplication — Phép nhân ma trận
 
-A. It instead describes Ghi mảng vào tệp để đọc lại — Ghi mảng vào tệp để đọc lại
+D. Writes an array to an NPY file — Ghi mảng vào tệp NPY
 
-B. It instead describes Đổi shape nhưng giữ số phần tử — Đổi shape nhưng giữ số phần tử
+**Q4. What does `np.save()` do? — `np.save()` làm gì?**
 
-C. It instead describes Đổi trục hàng và cột — Đổi trục hàng và cột
+A. The array's shape without changing its total element count — Hình dạng mảng mà không đổi số phần tử
 
-D. The concept is Tạo kết quả bằng phép nhân tuyến tính — Tạo kết quả bằng phép nhân tuyến tính
+B. Swaps rows and columns — Hoán đổi hàng và cột
 
+C. Matrix multiplication — Phép nhân ma trận
 
-**Q4. What does Serialization mean? — Ý nghĩa của Serialization là gì?**
+D. Writes an array to an NPY file — Ghi mảng vào tệp NPY
 
-A. It instead describes Đổi shape nhưng giữ số phần tử — Đổi shape nhưng giữ số phần tử
+**Q5. Which new shape can six elements have? — Sáu phần tử có thể reshape thành dạng nào?**
 
-B. It instead describes Đổi trục hàng và cột — Đổi trục hàng và cột
+A. `(2, 3)` — `(2, 3)`
 
-C. The concept is Ghi mảng vào tệp để đọc lại — Ghi mảng vào tệp để đọc lại
+B. `(3, 2)` — `(3, 2)`
 
-D. It instead describes Tạo kết quả bằng phép nhân tuyến tính — Tạo kết quả bằng phép nhân tuyến tính
+C. `(2, 4)` — `(2, 4)`
 
+D. `(6,)` — `(6,)`
 
-**Q5. What is the role of reshape(rows,cols)? — Vai trò của reshape(rows,cols) là gì?**
+**Q6. What is the transpose shape of a `(2, 3)` matrix? — Chuyển vị ma trận `(2, 3)` có shape nào?**
 
-A. Another operation would Đổi trục từ hàng thành cột — Đổi trục từ hàng thành cột
+A. `(2, 3)` — `(2, 3)`
 
-B. It is used to Số phần tử trước/sau phải bằng nhau — Số phần tử trước/sau phải bằng nhau
+B. `(3, 2)` — `(3, 2)`
 
-C. Another operation would Nhân tuyến tính yêu cầu kích thước tương thích — Nhân tuyến tính yêu cầu kích thước tương thích
+C. `(2, 4)` — `(2, 4)`
 
-D. Another operation would Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy — Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy
+D. `(6,)` — `(6,)`
 
+**Q7. What is the shape of `(2, 3) @ (3, 4)`? — Phép `(2, 3) @ (3, 4)` cho shape gì?**
 
-**Q6. What is the role of X.T / np.transpose(X)? — Vai trò của X.T / np.transpose(X) là gì?**
+A. `(2, 3)` — `(2, 3)`
 
-A. It is used to Đổi trục từ hàng thành cột — Đổi trục từ hàng thành cột
+B. `(3, 2)` — `(3, 2)`
 
-B. Another operation would Nhân tuyến tính yêu cầu kích thước tương thích — Nhân tuyến tính yêu cầu kích thước tương thích
+C. `(2, 4)` — `(2, 4)`
 
-C. Another operation would Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy — Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy
+D. `(6,)` — `(6,)`
 
-D. Another operation would Số phần tử trước/sau phải bằng nhau — Số phần tử trước/sau phải bằng nhau
+**Q8. What shape has a one-dimensional array of six values? — Mảng một chiều có sáu giá trị có shape nào?**
 
+A. `(2, 3)` — `(2, 3)`
 
-**Q7. What is the role of A @ B / np.dot(A,B)? — Vai trò của A @ B / np.dot(A,B) là gì?**
+B. `(3, 2)` — `(3, 2)`
 
-A. Another operation would Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy — Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy
+C. `(2, 4)` — `(2, 4)`
 
-B. Another operation would Số phần tử trước/sau phải bằng nhau — Số phần tử trước/sau phải bằng nhau
+D. `(6,)` — `(6,)`
 
-C. Another operation would Đổi trục từ hàng thành cột — Đổi trục từ hàng thành cột
+**Q9. How does `reshape` differ from transpose? — reshape khác transpose ở đâu?**
 
-D. It is used to Nhân tuyến tính yêu cầu kích thước tương thích — Nhân tuyến tính yêu cầu kích thước tương thích
+A. Reshape regroups positions; transpose exchanges axes — Reshape nhóm lại vị trí; transpose đổi trục
 
+B. `*` multiplies element-wise; `@` performs matrix multiplication — `*` nhân từng phần tử; `@` nhân ma trận
 
-**Q8. What is the role of np.save()/np.load()? — Vai trò của np.save()/np.load() là gì?**
+C. Reads the saved array — Đọc lại mảng đã lưu
 
-A. Another operation would Số phần tử trước/sau phải bằng nhau — Số phần tử trước/sau phải bằng nhau
+D. Converts the array into Python lists or scalars — Chuyển mảng thành List hoặc số Python
 
-B. Another operation would Đổi trục từ hàng thành cột — Đổi trục từ hàng thành cột
+**Q10. How does `*` differ from `@` for numeric ndarrays? — `*` khác `@` thế nào với ndarray số?**
 
-C. It is used to Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy — Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy
+A. Reshape regroups positions; transpose exchanges axes — Reshape nhóm lại vị trí; transpose đổi trục
 
-D. Another operation would Nhân tuyến tính yêu cầu kích thước tương thích — Nhân tuyến tính yêu cầu kích thước tương thích
+B. `*` multiplies element-wise; `@` performs matrix multiplication — `*` nhân từng phần tử; `@` nhân ma trận
 
+C. Reads the saved array — Đọc lại mảng đã lưu
 
-**Q9. Which reason fits example 1? — Lý do nào phù hợp ví dụ 1?**
+D. Converts the array into Python lists or scalars — Chuyển mảng thành List hoặc số Python
 
-A. Transpose làm môn thành hàng, học sinh thành cột — Transpose làm môn thành hàng, học sinh thành cột
+**Q11. What does `np.load()` normally do for an NPY file? — `np.load()` làm gì với tệp NPY?**
 
-B. reshape đổi 6 giá trị thành 2 ngày × 3 giờ — reshape đổi 6 giá trị thành 2 ngày × 3 giờ
+A. Reshape regroups positions; transpose exchanges axes — Reshape nhóm lại vị trí; transpose đổi trục
 
-C. Nhân vector điểm với vector trọng số — Nhân vector điểm với vector trọng số
+B. `*` multiplies element-wise; `@` performs matrix multiplication — `*` nhân từng phần tử; `@` nhân ma trận
 
-D. Nhân matrix học sinh × matrix trọng số — Nhân matrix học sinh × matrix trọng số
+C. Reads the saved array — Đọc lại mảng đã lưu
 
+D. Converts the array into Python lists or scalars — Chuyển mảng thành List hoặc số Python
 
-**Q10. Which reason fits example 2? — Lý do nào phù hợp ví dụ 2?**
+**Q12. What does `array.tolist()` do? — `array.tolist()` làm gì?**
 
-A. Transpose làm môn thành hàng, học sinh thành cột — Transpose làm môn thành hàng, học sinh thành cột
+A. Reshape regroups positions; transpose exchanges axes — Reshape nhóm lại vị trí; transpose đổi trục
 
-B. Nhân vector điểm với vector trọng số — Nhân vector điểm với vector trọng số
+B. `*` multiplies element-wise; `@` performs matrix multiplication — `*` nhân từng phần tử; `@` nhân ma trận
 
-C. Nhân matrix học sinh × matrix trọng số — Nhân matrix học sinh × matrix trọng số
+C. Reads the saved array — Đọc lại mảng đã lưu
 
-D. Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo — Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo
+D. Converts the array into Python lists or scalars — Chuyển mảng thành List hoặc số Python
 
+**Q13. What happens if you reshape six elements to `(4, 2)`? — Điều gì xảy ra nếu reshape sáu phần tử thành `(4, 2)`?**
 
-**Q11. Which reason fits example 3? — Lý do nào phù hợp ví dụ 3?**
+A. A ValueError due to incompatible element counts — Phát sinh ValueError vì số phần tử không khớp
 
-A. Nhân matrix học sinh × matrix trọng số — Nhân matrix học sinh × matrix trọng số
+B. Left columns and right rows — Số cột bên trái và số hàng bên phải
 
-B. Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo — Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo
+C. `allow_pickle=False` — `allow_pickle=False`
 
-C. reshape đổi 6 giá trị thành 2 ngày × 3 giờ — reshape đổi 6 giá trị thành 2 ngày × 3 giờ
+D. Shape and dtype — Shape và dtype
 
-D. Nhân vector điểm với vector trọng số — Nhân vector điểm với vector trọng số
+**Q14. What must match to multiply two matrices with `@`? — Muốn nhân hai ma trận bằng `@`, chiều nào phải khớp?**
 
+A. A ValueError due to incompatible element counts — Phát sinh ValueError vì số phần tử không khớp
 
-**Q12. Which reason fits example 4? — Lý do nào phù hợp ví dụ 4?**
+B. Left columns and right rows — Số cột bên trái và số hàng bên phải
 
-A. Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo — Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo
+C. `allow_pickle=False` — `allow_pickle=False`
 
-B. reshape đổi 6 giá trị thành 2 ngày × 3 giờ — reshape đổi 6 giá trị thành 2 ngày × 3 giờ
+D. Shape and dtype — Shape và dtype
 
-C. Nhân matrix học sinh × matrix trọng số — Nhân matrix học sinh × matrix trọng số
+**Q15. Which option avoids loading pickled objects from an NPY file? — Tùy chọn nào tránh đọc đối tượng pickle trong file NPY?**
 
-D. Transpose làm môn thành hàng, học sinh thành cột — Transpose làm môn thành hàng, học sinh thành cột
+A. A ValueError due to incompatible element counts — Phát sinh ValueError vì số phần tử không khớp
 
+B. Left columns and right rows — Số cột bên trái và số hàng bên phải
 
-**Q13. Which reason fits example 5? — Lý do nào phù hợp ví dụ 5?**
+C. `allow_pickle=False` — `allow_pickle=False`
 
-A. reshape đổi 6 giá trị thành 2 ngày × 3 giờ — reshape đổi 6 giá trị thành 2 ngày × 3 giờ
+D. Shape and dtype — Shape và dtype
 
-B. Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo — Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo
+**Q16. What does NPY preserve in addition to array values? — NPY lưu thêm gì ngoài các giá trị?**
 
-C. Transpose làm môn thành hàng, học sinh thành cột — Transpose làm môn thành hàng, học sinh thành cột
+A. A ValueError due to incompatible element counts — Phát sinh ValueError vì số phần tử không khớp
 
-D. Nhân vector điểm với vector trọng số — Nhân vector điểm với vector trọng số
+B. Left columns and right rows — Số cột bên trái và số hàng bên phải
 
+C. `allow_pickle=False` — `allow_pickle=False`
 
-**Q14. Which input matches example 1? — Dữ liệu nào phù hợp ví dụ 1?**
+D. Shape and dtype — Shape và dtype
 
-A. The stated data are 6 số đo nhiệt độ giờ — 6 số đo nhiệt độ giờ
+**Q17. What is a 1-D dot product of two equal-length numeric vectors? — Tích vô hướng của hai vector một chiều bằng nhau độ dài là gì?**
 
-B. Other data: 2 SV × 3 môn — 2 SV × 3 môn
+A. The sum of pairwise products — Tổng các tích của từng cặp phần tử
 
-C. Other data: 3 môn, trọng số cộng bằng 1 — 3 môn, trọng số cộng bằng 1
+B. A 3-by-3 identity matrix — Ma trận đơn vị 3×3
 
-D. Other data: 2 SV × 3 môn, tạo 2 đặc trưng — 2 SV × 3 môn, tạo 2 đặc trưng
+C. `shape` — `shape`
 
+D. `dtype` — `dtype`
 
-**Q15. Which input matches example 2? — Dữ liệu nào phù hợp ví dụ 2?**
+**Q18. What does `np.eye(3)` create? — `np.eye(3)` tạo gì?**
 
-A. Other data: 3 môn, trọng số cộng bằng 1 — 3 môn, trọng số cộng bằng 1
+A. The sum of pairwise products — Tổng các tích của từng cặp phần tử
 
-B. Other data: 2 SV × 3 môn, tạo 2 đặc trưng — 2 SV × 3 môn, tạo 2 đặc trưng
+B. A 3-by-3 identity matrix — Ma trận đơn vị 3×3
 
-C. Other data: Mảng [3,5,7] — Mảng [3,5,7]
+C. `shape` — `shape`
 
-D. The stated data are 2 SV × 3 môn — 2 SV × 3 môn
+D. `dtype` — `dtype`
 
+**Q19. Which property reports the array dimensions? — Thuộc tính nào cho biết kích thước các chiều?**
 
-**Q16. Which input matches example 3? — Dữ liệu nào phù hợp ví dụ 3?**
+A. The sum of pairwise products — Tổng các tích của từng cặp phần tử
 
-A. Other data: 2 SV × 3 môn, tạo 2 đặc trưng — 2 SV × 3 môn, tạo 2 đặc trưng
+B. A 3-by-3 identity matrix — Ma trận đơn vị 3×3
 
-B. Other data: Mảng [3,5,7] — Mảng [3,5,7]
+C. `shape` — `shape`
 
-C. The stated data are 3 môn, trọng số cộng bằng 1 — 3 môn, trọng số cộng bằng 1
+D. `dtype` — `dtype`
 
-D. Other data: 6 số đo nhiệt độ giờ — 6 số đo nhiệt độ giờ
+**Q20. Which property reports element data type? — Thuộc tính nào cho biết kiểu phần tử?**
 
+A. The sum of pairwise products — Tổng các tích của từng cặp phần tử
 
-**Q17. Which input matches example 4? — Dữ liệu nào phù hợp ví dụ 4?**
+B. A 3-by-3 identity matrix — Ma trận đơn vị 3×3
 
-A. Other data: Mảng [3,5,7] — Mảng [3,5,7]
+C. `shape` — `shape`
 
-B. The stated data are 2 SV × 3 môn, tạo 2 đặc trưng — 2 SV × 3 môn, tạo 2 đặc trưng
-
-C. Other data: 6 số đo nhiệt độ giờ — 6 số đo nhiệt độ giờ
-
-D. Other data: 2 SV × 3 môn — 2 SV × 3 môn
-
-
-**Q18. Which input matches example 5? — Dữ liệu nào phù hợp ví dụ 5?**
-
-A. The stated data are Mảng [3,5,7] — Mảng [3,5,7]
-
-B. Other data: 6 số đo nhiệt độ giờ — 6 số đo nhiệt độ giờ
-
-C. Other data: 2 SV × 3 môn — 2 SV × 3 môn
-
-D. Other data: 3 môn, trọng số cộng bằng 1 — 3 môn, trọng số cộng bằng 1
-
-
-**Q19. What must every table clarify? — Bảng dữ liệu cần nêu rõ gì?**
-
-A. Only editor color — Chỉ màu trình soạn
-
-B. Only variable length — Chỉ độ dài tên biến
-
-C. Only number of blank lines — Chỉ số dòng trống
-
-D. Rows, columns and units — Hàng, cột và đơn vị
-
-
-**Q20. Why test with different inputs? — Tại sao cần thử đầu vào khác?**
-
-A. To guarantee machine learning accuracy — Để bảo đảm AI luôn đúng
-
-B. To remove input validation — Để bỏ kiểm tra dữ liệu
-
-C. To check limitations and edge cases — Để thấy giới hạn và trường hợp biên
-
-D. To change column meanings — Để thay đổi nghĩa các cột
+D. `dtype` — `dtype`
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | The concept is Đổi shape nhưng giữ số phần tử | Đổi shape nhưng giữ số phần tử |
-| Q2 | **A** | The concept is Đổi trục hàng và cột | Đổi trục hàng và cột |
-| Q3 | **D** | The concept is Tạo kết quả bằng phép nhân tuyến tính | Tạo kết quả bằng phép nhân tuyến tính |
-| Q4 | **C** | The concept is Ghi mảng vào tệp để đọc lại | Ghi mảng vào tệp để đọc lại |
-| Q5 | **B** | It is used to Số phần tử trước/sau phải bằng nhau | Số phần tử trước/sau phải bằng nhau |
-| Q6 | **A** | It is used to Đổi trục từ hàng thành cột | Đổi trục từ hàng thành cột |
-| Q7 | **D** | It is used to Nhân tuyến tính yêu cầu kích thước tương thích | Nhân tuyến tính yêu cầu kích thước tương thích |
-| Q8 | **C** | It is used to Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy | Lưu và đọc định dạng NPY, chỉ tải từ nguồn tin cậy |
-| Q9 | **B** | reshape đổi 6 giá trị thành 2 ngày × 3 giờ | reshape đổi 6 giá trị thành 2 ngày × 3 giờ |
-| Q10 | **A** | Transpose làm môn thành hàng, học sinh thành cột | Transpose làm môn thành hàng, học sinh thành cột |
-| Q11 | **D** | Nhân vector điểm với vector trọng số | Nhân vector điểm với vector trọng số |
-| Q12 | **C** | Nhân matrix học sinh × matrix trọng số | Nhân matrix học sinh × matrix trọng số |
-| Q13 | **B** | Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo | Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo |
-| Q14 | **A** | The stated data are 6 số đo nhiệt độ giờ | 6 số đo nhiệt độ giờ |
-| Q15 | **D** | The stated data are 2 SV × 3 môn | 2 SV × 3 môn |
-| Q16 | **C** | The stated data are 3 môn, trọng số cộng bằng 1 | 3 môn, trọng số cộng bằng 1 |
-| Q17 | **B** | The stated data are 2 SV × 3 môn, tạo 2 đặc trưng | 2 SV × 3 môn, tạo 2 đặc trưng |
-| Q18 | **A** | The stated data are Mảng [3,5,7] | Mảng [3,5,7] |
-| Q19 | **D** | Rows, columns and units | Hàng, cột và đơn vị |
-| Q20 | **C** | To check limitations and edge cases | Để thấy giới hạn và trường hợp biên |
+| Q1 | **A** | reshape rearranges the same elements into new dimensions. | reshape bố trí lại cùng các phần tử theo kích thước mới. |
+| Q2 | **B** | A transpose exchanges the two axes of a matrix. | Chuyển vị tráo hai trục của ma trận. |
+| Q3 | **C** | The @ operator follows matrix multiplication rather than per-cell multiplication. | Toán tử @ tuân theo quy tắc nhân ma trận chứ không nhân riêng từng ô. |
+| Q4 | **D** | NumPy saves array values, shape and dtype in NPY format. | NumPy lưu giá trị, shape và dtype ở định dạng NPY. |
+| Q5 | **A** | Two times three equals six, so the reshape is valid. | Hai nhân ba bằng sáu nên hình dạng này hợp lệ. |
+| Q6 | **B** | A transpose swaps row and column dimensions. | Chuyển vị đảo kích thước hàng và cột. |
+| Q7 | **C** | Matching inner dimensions 3 leave outer dimensions 2 and 4. | Hai chiều trong cùng bằng 3, còn hai chiều ngoài là 2 và 4. |
+| Q8 | **D** | A flat six-element array has one dimension of length six. | Mảng phẳng sáu phần tử có một chiều độ dài sáu. |
+| Q9 | **A** | Reshape and transpose can yield the same shape but different values at positions. | reshape và transpose có thể cho cùng shape nhưng giá trị ở vị trí khác. |
+| Q10 | **B** | Star uses broadcasting element-wise, while at follows matrix rules. | Dấu sao nhân theo phần tử, @ tuân quy tắc nhân ma trận. |
+| Q11 | **C** | load restores the stored NumPy array. | load phục hồi mảng NumPy đã ghi. |
+| Q12 | **D** | tolist converts the in-memory representation without saving a file. | tolist chuyển biểu diễn dữ liệu trong bộ nhớ chứ không ghi tệp. |
+| Q13 | **A** | A 4×2 shape needs eight values, not six. | Bảng 4×2 cần tám giá trị, không phải sáu. |
+| Q14 | **B** | Matrix multiplication contracts the common inner dimension. | Nhân ma trận yêu cầu hai chiều trong bằng nhau. |
+| Q15 | **C** | Disabling pickle is safer for untrusted numeric data. | Tắt pickle an toàn hơn khi đọc dữ liệu số chưa tin cậy. |
+| Q16 | **D** | NPY stores NumPy metadata needed to restore the array. | NPY lưu thông tin để khôi phục cấu trúc và kiểu phần tử. |
+| Q17 | **A** | The dot product multiplies matching positions and adds the products. | Tích vô hướng nhân các vị trí tương ứng rồi cộng kết quả. |
+| Q18 | **B** | The identity matrix has ones on its diagonal and zeros elsewhere. | Ma trận đơn vị có 1 ở đường chéo và 0 ở vị trí khác. |
+| Q19 | **C** | shape lists the length of each array axis. | shape liệt kê độ dài của từng trục mảng. |
+| Q20 | **D** | dtype records the stored numeric or other element type. | dtype ghi kiểu số hoặc kiểu dữ liệu khác của phần tử. |
 
 ## 8. Nối bài tiếp theo
 
