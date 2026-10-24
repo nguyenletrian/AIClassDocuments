@@ -35,7 +35,7 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 **Từ vựng trong mục:** **Linear function** — hàm tuyến tính.
 
-Đường thẳng có tốc độ thay đổi hằng số. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Đường thẳng có tốc độ thay đổi hằng số.
 
 ```python
 def f(x):return 2*x+5
@@ -48,7 +48,7 @@ print(f(3))
 
 **Từ vựng trong mục:** **Quadratic** — hàm bậc hai.
 
-Hàm chứa x², đồ thị là parabol khi hệ số bậc hai khác 0. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Hàm chứa x², đồ thị là parabol khi hệ số bậc hai khác 0.
 
 ```python
 print(2**2-3*2+1)
@@ -60,7 +60,7 @@ print(2**2-3*2+1)
 
 **Từ vựng trong mục:** **Polynomial** — hàm đa thức.
 
-Tổng các lũy thừa nguyên không âm của x. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Tổng các lũy thừa nguyên không âm của x.
 
 ```python
 print(3**3-2*3**2+3)
@@ -72,7 +72,7 @@ print(3**3-2*3**2+3)
 
 **Từ vựng trong mục:** **Exponential** — hàm mũ.
 
-Biến nằm trong số mũ, thường mô tả tăng/giảm theo tỷ lệ. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Biến nằm trong số mũ, thường mô tả tăng/giảm theo tỷ lệ.
 
 ```python
 print(2**4)
@@ -88,9 +88,9 @@ print(2**4)
 
 **Vấn đề:** Ước lượng phí giao hàng.
 
-**Vì sao chọn phương án?** Mỗi km tăng một mức phí ổn định nên chọn tuyến tính; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Mỗi km tăng một mức phí ổn định nên chọn tuyến tính
 
-**Dữ liệu:** 3 km, phí nền 10000 đồng, 5000 đồng/km. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** 3 km, phí nền 10000 đồng, 5000 đồng/km.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -99,7 +99,6 @@ km=3;total=10000+5000*km
 print(total)
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 2 — Mô hình chi phí tăng theo tải
 
@@ -107,9 +106,9 @@ print(total)
 
 **Vấn đề:** Mô hình chi phí tăng theo tải.
 
-**Vì sao chọn phương án?** Chi phí có phần tăng bậc hai với tải lớn; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Chi phí có phần tăng bậc hai với tải lớn
 
-**Dữ liệu:** Tải x=4. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Tải x=4.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -119,7 +118,6 @@ cost=2*load**2+3*load+10
 print(cost)
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 3 — Dự báo từ đa thức mô phỏng
 
@@ -127,9 +125,9 @@ print(cost)
 
 **Vấn đề:** Dự báo từ đa thức mô phỏng.
 
-**Vì sao chọn phương án?** polyval giúp biểu diễn đường cong hệ số đã biết; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** polyval giúp biểu diễn đường cong hệ số đã biết
 
-**Dữ liệu:** Ba điểm thời gian [0,1,2], hệ số [1,0,2]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Ba điểm thời gian [0,1,2], hệ số [1,0,2].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -138,7 +136,6 @@ import numpy as np
 print(np.polyval([1,0,2],np.array([0,1,2])))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 4 — Mô phỏng tăng trưởng qua kỳ
 
@@ -146,9 +143,9 @@ print(np.polyval([1,0,2],np.array([0,1,2])))
 
 **Vấn đề:** Mô phỏng tăng trưởng qua kỳ.
 
-**Vì sao chọn phương án?** Lũy thừa mô tả tăng 5% mỗi kỳ, không phải dự đoán chắc chắn; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Lũy thừa mô tả tăng 5% mỗi kỳ, không phải dự đoán chắc chắn
 
-**Dữ liệu:** 1000 đơn vị ban đầu, 3 kỳ. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** 1000 đơn vị ban đầu, 3 kỳ.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -157,7 +154,6 @@ start,rate,periods=1000,0.05,3
 print(round(start*(1+rate)**periods,2))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 5 — Vẽ đường tuyến tính dữ liệu
 
@@ -165,9 +161,9 @@ print(round(start*(1+rate)**periods,2))
 
 **Vấn đề:** Vẽ đường tuyến tính dữ liệu.
 
-**Vì sao chọn phương án?** linspace tạo mẫu x đều để tính y; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** linspace tạo mẫu x đều để tính y
 
-**Dữ liệu:** 5 điểm x từ 0 đến 10. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** 5 điểm x từ 0 đến 10.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -178,7 +174,6 @@ y=2*x+5
 print(list(zip(x,y)))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ## 6. Các lỗi dễ gặp
 
