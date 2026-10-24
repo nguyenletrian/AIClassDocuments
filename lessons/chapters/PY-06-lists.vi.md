@@ -31,73 +31,84 @@ Sau khi học vòng lặp, ta dùng List để lưu nhiều giá trị trong cù
 
 ## 4. Khái niệm liên quan
 
-### 4.1. List
+Một cửa hàng cần ghi các món trong giỏ theo đúng thứ tự khách thêm vào. **List** là cấu trúc Python lưu nhiều giá trị trong một biến, được viết bằng dấu ngoặc vuông `[]`. Từ giỏ hàng này, ta lần lượt học cách tạo danh sách, tìm theo vị trí, lấy một đoạn và thay đổi một món; đó cũng là nền tảng để duyệt dữ liệu bằng vòng `for`.
 
-**Từ vựng trong mục:** **List** — danh sách.
+### 4.1. List — Danh sách
 
-List là danh sách có thứ tự, có thể chứa nhiều giá trị và có thể chỉnh sửa. Ví dụ `[1, 2]` có hai phần tử. Dùng dấu ngoặc vuông `[]` để tạo list.
+**Từ vựng trong mục:** **List** — danh sách; **Element** — phần tử.
+
+List giữ các phần tử theo thứ tự, và mỗi phần tử có thể là tên món hàng, số hoặc một kiểu dữ liệu khác. Giỏ hàng ban đầu gồm `milk` (sữa) và `bread` (bánh mì); ta đặt cả hai vào biến `basket` để xử lý cùng nhau. Dùng dấu `[]` để tạo danh sách, dấu phẩy ngăn cách các phần tử.
 
 ```python
-a=[1,2]
-print(a)
+basket = ['milk', 'bread']
+print(basket)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[1, 2]
+['milk', 'bread']
 ```
 
-### 4.2. Index
+Danh sách có hai phần tử theo thứ tự sữa trước, bánh mì sau. Khác với một chuỗi dài, từng món có thể được truy cập và thay đổi riêng.
 
-**Từ vựng trong mục:** **Index** — chỉ số.
+### 4.2. Index — Vị trí phần tử
 
-Chỉ số cho biết phần tử nằm ở đâu trong list. Python đếm từ `0`, nên `[8, 9][0]` lấy số `8`. Chỉ số `-1` lấy phần tử cuối.
+**Từ vựng trong mục:** **Index** — chỉ số; **Element** — phần tử.
+
+Khi biết món cần lấy nằm ở vị trí nào, ta dùng **chỉ số**. Python bắt đầu đếm từ `0`: với `['milk', 'bread']`, `basket[0]` là `milk`, còn `basket[1]` là `bread`; `basket[-1]` cũng chỉ phần tử cuối. Chỉ số nằm ngoài giới hạn danh sách sẽ gây `IndexError`.
 
 ```python
-print([8,9][0])
+basket = ['milk', 'bread']
+print(basket[0])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-8
+milk
 ```
 
-### 4.3. Slice
+Chỉ số `0` lấy đúng món sữa ở vị trí đầu tiên, không phải phần tử thứ hai.
 
-**Từ vựng trong mục:** **Slice** — cắt lát.
+### 4.3. Slice — Lấy một đoạn danh sách
 
-Cắt danh sách lấy một đoạn mà không thay đổi danh sách gốc. `[1, 2, 3][:2]` lấy từ đầu tới trước chỉ số 2, cho `[1, 2]`.
+**Từ vựng trong mục:** **Slice** — cắt lát; **Start/stop** — vị trí bắt đầu/kết thúc.
+
+Nếu giỏ có ba món `milk`, `bread`, `rice` và chỉ muốn lấy hai món đầu, ta dùng `basket[:2]`. Với lát cắt `[start:stop]`, vị trí `start` được lấy, còn `stop` **không được lấy**. Bỏ trống `start` nghĩa là bắt đầu từ đầu danh sách. Lát cắt tạo list mới, không xóa phần tử khỏi giỏ gốc.
 
 ```python
-print([1,2,3][:2])
+basket = ['milk', 'bread', 'rice']
+print(basket[:2])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[1, 2]
+['milk', 'bread']
 ```
 
-### 4.4. Mutability
+Kết quả gồm sữa và bánh mì; `rice` ở chỉ số `2` nằm ngoài đoạn được lấy.
 
-**Từ vựng trong mục:** **Mutability** — khả năng sửa.
+### 4.4. Mutability — Thay đổi nội dung danh sách
 
-List có thể sửa nội dung sau khi tạo. Với `a = [1, 2]`, câu lệnh `a[1] = 5` đổi phần tử thứ hai; kết quả là `[1, 5]`.
+**Từ vựng trong mục:** **Mutability** — khả năng thay đổi; **Assignment** — phép gán.
+
+Khác với tuple ở bài kế tiếp, **List là kiểu có thể sửa** sau khi tạo. Nếu cửa hàng đổi món thứ hai từ `bread` thành `rice`, ta gán trực tiếp `basket[1] = 'rice'`. Danh sách vẫn có hai phần tử, chỉ giá trị tại vị trí 1 được thay. Muốn thêm món mới vào cuối thì dùng `append()`, không phải phép gán này.
 
 ```python
-a=[1,2]
-a[1]=5
-print(a)
+basket = ['milk', 'bread']
+basket[1] = 'rice'
+print(basket)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[1, 5]
+['milk', 'rice']
 ```
 
+Món thứ hai đổi thành gạo; món sữa đầu tiên vẫn giữ nguyên.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Giỏ hàng
