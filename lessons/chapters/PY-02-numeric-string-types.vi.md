@@ -268,11 +268,11 @@ print("*" * (len(phone)-3) + phone[-3:])
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is an integer? — Số nguyên là gì?**
+**Q1. Which description best defines an integer in Python? — Mô tả nào đúng nhất về số nguyên trong Python?**
 
 A. An ordered sequence of characters — Dãy ký tự có thứ tự
 
-B. A whole number without a fractional part — Số không có phần thập phân
+B. A negative, zero, or positive integer without a fractional part — Số nguyên âm, số 0 hoặc số nguyên dương không có phần lẻ
 
 C. A true/false value — Một giá trị đúng/sai
 
@@ -472,7 +472,7 @@ D. `6` (integer) — `6` (số nguyên)
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | An integer represents a number with no fractional part, such as `-3`, `0`, or `12`. Unlike a floating-point value, the Python `int` type stores an exact integer quantity. | Số nguyên biểu diễn giá trị không có phần lẻ như `-3`, `0`, `12`. Khác kiểu dấu phẩy động, `int` lưu chính xác một lượng nguyên. |
+| Q1 | **B** | A Python `int` stores an exact integer, including negative values, zero, and positive values such as `-3`, `0`, and `12`. The term “whole number” can sometimes mean only nonnegative values, so negative integers must not be excluded. | Kiểu `int` của Python lưu chính xác các số nguyên âm, số 0 và số nguyên dương như `-3`, `0`, `12`. Không loại số âm khỏi kiểu này; khác với `int`, `float` biểu diễn số dấu phẩy động, kể cả `2.0`. |
 | Q2 | **B** | A `float` is Python's floating-point numeric type; examples include `1.5` and `2.0`. Even `2.0`, though mathematically whole, has type `float`, not `int`. | `float` là kiểu số dấu phẩy động trong Python, ví dụ `1.5` và `2.0`. Ngay cả `2.0` dù có giá trị toán học nguyên vẫn là `float` chứ không phải `int`. |
 | Q3 | **A** | A Boolean expresses one of two truth states, `True` or `False`, used for conditions such as `3 > 2`. Its job differs from storing a number or an ordered sequence of characters. | Boolean biểu diễn một trong hai trạng thái `True` hoặc `False`, thường dùng trong điều kiện như `3 > 2`. Vai trò của nó khác việc lưu số hoặc dãy ký tự có thứ tự. |
 | Q4 | **A** | A string (`str`) is an ordered sequence of Unicode characters, such as `'Python'`. A string of digits like `'12'` is still text, so adding it to another string concatenates text instead of doing arithmetic. | Chuỗi (`str`) là dãy ký tự Unicode có thứ tự, chẳng hạn `'Python'`. Chuỗi chữ số như `'12'` vẫn là văn bản nên cộng với chuỗi khác sẽ nối chữ, không phải cộng số. |
