@@ -111,7 +111,6 @@ email = "  Lan@Example.COM "
 print(email.strip().lower())
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 2 — Tách nhãn sản phẩm
 
@@ -130,7 +129,6 @@ labels = "AI,Python,Math"
 print(labels.split(","))
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 3 — Giữ mã đầu 0
 
@@ -149,7 +147,6 @@ order_id = "00045"
 print(order_id[:3])
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 4 — Đổi số từ CSV
 
@@ -169,7 +166,6 @@ qty = int("3")
 print(price * qty)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 5 — Che số liên lạc
 
@@ -188,7 +184,6 @@ phone = "0900123456"
 print("*" * (len(phone)-3) + phone[-3:])
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ## 6. Những nhầm lẫn thường gặp
 
