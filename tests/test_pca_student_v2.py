@@ -103,7 +103,7 @@ class StudentPcaLessonTests(unittest.TestCase):
         )
         for signature, argument in examples:
             with self.subTest(signature=signature):
-                matches = [line for line in library.splitlines() if signature in line]
+                matches = [line for line in library.splitlines() if line.startswith('| ') and signature in line]
                 self.assertEqual(len(matches), 1, signature)
                 self.assertIn(argument, matches[0])
                 self.assertIn(' | ', matches[0])  # Explanation co-located in API table.
