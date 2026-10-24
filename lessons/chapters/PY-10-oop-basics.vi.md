@@ -316,228 +316,228 @@ print(a.value, b.value)
 
 **Q1. What is a class in Python OOP? — Class trong OOP Python là gì?**
 
-A. A template defining objects' data and behavior — Khuôn mẫu mô tả dữ liệu và hành vi đối tượng
+A. Only a built-in Python function — Chỉ một hàm Python có sẵn
 
-B. A concrete value created from a class — Đối tượng cụ thể được tạo từ một class
+B. A template defining object state and behavior — Khuôn mẫu định nghĩa trạng thái và hành vi đối tượng
 
-C. Data stored on an object — Dữ liệu lưu trên đối tượng
+C. A concrete instance created from a class — Instance cụ thể được tạo từ class
 
-D. A function belonging to a class that works with an instance — Hàm thuộc lớp, làm việc với đối tượng
+D. A value stored in one object — Giá trị lưu trong một đối tượng
 
 **Q2. What is an object or instance? — Object hay instance là gì?**
 
-A. A template defining objects' data and behavior — Khuôn mẫu mô tả dữ liệu và hành vi đối tượng
+A. A statement defining a new class — Câu lệnh định nghĩa class mới
 
-B. A concrete value created from a class — Đối tượng cụ thể được tạo từ một class
+B. A concrete instance of a class — Instance cụ thể của class
 
-C. Data stored on an object — Dữ liệu lưu trên đối tượng
+C. An attribute name only — Chỉ tên thuộc tính
 
-D. A function belonging to a class that works with an instance — Hàm thuộc lớp, làm việc với đối tượng
+D. A block of import statements — Khối lệnh import
 
 **Q3. What is an attribute? — Attribute là gì?**
 
-A. A template defining objects' data and behavior — Khuôn mẫu mô tả dữ liệu và hành vi đối tượng
+A. A method invocation — Lời gọi phương thức
 
-B. A concrete value created from a class — Đối tượng cụ thể được tạo từ một class
+B. Data or a value associated with an object — Dữ liệu hoặc giá trị gắn với đối tượng
 
-C. Data stored on an object — Dữ liệu lưu trên đối tượng
+C. A syntax token beginning every class — Token cú pháp bắt đầu mọi class
 
-D. A function belonging to a class that works with an instance — Hàm thuộc lớp, làm việc với đối tượng
+D. A class declaration — Câu lệnh khai báo class
 
 **Q4. What is an instance method? — Phương thức đối tượng là gì?**
 
-A. A template defining objects' data and behavior — Khuôn mẫu mô tả dữ liệu và hành vi đối tượng
+A. An object stored in a list — Đối tượng được lưu trong List
 
-B. A concrete value created from a class — Đối tượng cụ thể được tạo từ một class
+B. A value that cannot be called — Giá trị không thể gọi
 
-C. Data stored on an object — Dữ liệu lưu trên đối tượng
+C. A class-defined function operating on an instance — Hàm định nghĩa trong class thao tác trên instance
 
-D. A function belonging to a class that works with an instance — Hàm thuộc lớp, làm việc với đối tượng
+D. A class with no methods — Class không có phương thức
 
 **Q5. Which syntax begins a class definition? — Cú pháp nào mở đầu định nghĩa class?**
 
-A. `class Student:` — `class Student:`
+A. `__init__` — `__init__`
 
-B. `Student()` — `Student()`
+B. `self` — `self`
 
-C. `__init__` — `__init__`
+C. `class Student:` — `class Student:`
 
-D. The object receiving the method call — Đối tượng đang nhận lời gọi
+D. `Student()` — `Student()`
 
-**Q6. Which syntax creates a Student instance? — Cú pháp nào tạo đối tượng Student?**
+**Q6. If `Student` requires no constructor arguments, which expression creates a Student instance? — Nếu `Student` không yêu cầu đối số khởi tạo, biểu thức nào tạo một instance Student?**
 
-A. `class Student:` — `class Student:`
+A. `Student()` — `Student()`
 
-B. `Student()` — `Student()`
+B. `def Student:` — `def Student:`
 
-C. `__init__` — `__init__`
+C. `self.Student` — `self.Student`
 
-D. The object receiving the method call — Đối tượng đang nhận lời gọi
+D. `class Student:` — `class Student:`
 
 **Q7. Which special method initializes instance attributes? — Phương thức đặc biệt nào khởi tạo thuộc tính đối tượng?**
 
-A. `class Student:` — `class Student:`
+A. `__repr__` — `__repr__`
 
-B. `Student()` — `Student()`
+B. `__newstate__` — `__newstate__`
 
-C. `__init__` — `__init__`
+C. `__str__` — `__str__`
 
-D. The object receiving the method call — Đối tượng đang nhận lời gọi
+D. `__init__` — `__init__`
 
 **Q8. What does `self` refer to in an instance method? — `self` trong phương thức đối tượng chỉ gì?**
 
-A. `class Student:` — `class Student:`
+A. The class object, never an instance — Đối tượng class, không bao giờ là instance
 
-B. `Student()` — `Student()`
+B. The first attribute value — Giá trị thuộc tính đầu tiên
 
-C. `__init__` — `__init__`
+C. A newly created unrelated object — Đối tượng khác vừa được tạo
 
-D. The object receiving the method call — Đối tượng đang nhận lời gọi
+D. The instance receiving the method call — Instance nhận lời gọi phương thức
 
 **Q9. What does `self.name = name` do? — `self.name = name` làm gì?**
 
-A. Stores the name on the current object — Lưu name trên đối tượng hiện tại
+A. Stores `name` on the current instance — Lưu `name` trên instance hiện tại
 
-B. Readable string representation of an object — Chuỗi hiển thị dễ đọc của đối tượng
+B. Sets the same name on all instances — Đặt cùng tên trên mọi instance
 
-C. Signals an invalid value by raising an exception — Báo giá trị không hợp lệ bằng ngoại lệ
+C. Changes the class's name — Đổi tên class
 
-D. A non-public implementation detail by convention — Thành phần nội bộ theo quy ước
+D. Calls a method named `name` — Gọi phương thức tên `name`
 
 **Q10. What does `__str__` normally customize? — `__str__` thường tùy chỉnh điều gì?**
 
-A. Stores the name on the current object — Lưu name trên đối tượng hiện tại
+A. The readable string representation of an object — Biểu diễn chuỗi dễ đọc của đối tượng
 
-B. Readable string representation of an object — Chuỗi hiển thị dễ đọc của đối tượng
+B. The list of all class attributes — Danh sách mọi thuộc tính class
 
-C. Signals an invalid value by raising an exception — Báo giá trị không hợp lệ bằng ngoại lệ
+C. The class inheritance hierarchy — Hệ phân cấp kế thừa class
 
-D. A non-public implementation detail by convention — Thành phần nội bộ theo quy ước
+D. The instance's constructor arguments — Các đối số khởi tạo instance
 
 **Q11. What does `raise ValueError(...)` do? — `raise ValueError(...)` làm gì?**
 
-A. Stores the name on the current object — Lưu name trên đối tượng hiện tại
+A. Raises an exception for an invalid value — Phát sinh ngoại lệ cho giá trị không hợp lệ
 
-B. Readable string representation of an object — Chuỗi hiển thị dễ đọc của đối tượng
+B. Marks an attribute private — Đánh dấu thuộc tính riêng tư
 
-C. Signals an invalid value by raising an exception — Báo giá trị không hợp lệ bằng ngoại lệ
+C. Converts invalid values to `None` — Chuyển giá trị sai thành `None`
 
-D. A non-public implementation detail by convention — Thành phần nội bộ theo quy ước
+D. Silently ignores invalid data — Lặng lẽ bỏ qua dữ liệu sai
 
 **Q12. What does the prefix `_value` conventionally mean? — Tiền tố `_value` theo quy ước có nghĩa gì?**
 
-A. Stores the name on the current object — Lưu name trên đối tượng hiện tại
+A. A constant that cannot be changed — Hằng không thể thay đổi
 
-B. Readable string representation of an object — Chuỗi hiển thị dễ đọc của đối tượng
+B. An attribute invisible to external code — Thuộc tính mã ngoài không thể thấy
 
-C. Signals an invalid value by raising an exception — Báo giá trị không hợp lệ bằng ngoại lệ
+C. An internal-use detail by convention — Chi tiết sử dụng nội bộ theo quy ước
 
-D. A non-public implementation detail by convention — Thành phần nội bộ theo quy ước
+D. An automatically encrypted value — Giá trị được tự động mã hóa
 
 **Q13. What is encapsulation? — Đóng gói trong OOP là gì?**
 
-A. Keeping data and its operations together — Gom dữ liệu và thao tác lên dữ liệu cùng nhau
+A. Copying every attribute into a global variable — Sao chép mọi thuộc tính sang biến toàn cục
 
-B. To enforce valid object state — Để giữ trạng thái đối tượng hợp lệ
+B. Converting methods into strings — Chuyển phương thức thành chuỗi
 
-C. They share class behavior but can hold different state — Cùng hành vi do lớp định nghĩa nhưng có thể khác dữ liệu
+C. Creating a new instance on every access — Tạo instance mới mỗi lần truy cập
 
-D. A value defined on the class and shared in lookup — Giá trị định nghĩa trên lớp và dùng chung khi truy cập
+D. Grouping related data and methods — Gom dữ liệu và phương thức liên quan
 
 **Q14. Why validate values in a setter method? — Vì sao kiểm tra dữ liệu trong setter?**
 
-A. Keeping data and its operations together — Gom dữ liệu và thao tác lên dữ liệu cùng nhau
+A. To make every instance share its private data — Buộc mọi instance chia sẻ dữ liệu riêng
 
-B. To enforce valid object state — Để giữ trạng thái đối tượng hợp lệ
+B. To prevent all future method calls — Ngăn mọi lời gọi phương thức sau đó
 
-C. They share class behavior but can hold different state — Cùng hành vi do lớp định nghĩa nhưng có thể khác dữ liệu
+C. To validate inputs and preserve valid object state — Kiểm tra đầu vào và giữ trạng thái hợp lệ
 
-D. A value defined on the class and shared in lookup — Giá trị định nghĩa trên lớp và dùng chung khi truy cập
+D. To bypass all input validation — Bỏ qua toàn bộ kiểm tra dữ liệu
 
 **Q15. How do two instances of the same class relate? — Hai đối tượng cùng class có quan hệ gì?**
 
-A. Keeping data and its operations together — Gom dữ liệu và thao tác lên dữ liệu cùng nhau
+A. They always share all instance attribute values — Chúng luôn dùng chung mọi giá trị thuộc tính instance
 
-B. To enforce valid object state — Để giữ trạng thái đối tượng hợp lệ
+B. They cannot invoke the same methods — Chúng không thể gọi cùng phương thức
 
-C. They share class behavior but can hold different state — Cùng hành vi do lớp định nghĩa nhưng có thể khác dữ liệu
+C. They share class behavior but can have different states — Chúng chia sẻ hành vi class nhưng có trạng thái khác nhau
 
-D. A value defined on the class and shared in lookup — Giá trị định nghĩa trên lớp và dùng chung khi truy cập
+D. They are the same object in memory — Chúng là cùng một đối tượng trong bộ nhớ
 
 **Q16. What is a class attribute? — Thuộc tính cấp class là gì?**
 
-A. Keeping data and its operations together — Gom dữ liệu và thao tác lên dữ liệu cùng nhau
+A. A method's local variable — Biến cục bộ của phương thức
 
-B. To enforce valid object state — Để giữ trạng thái đối tượng hợp lệ
+B. An attribute defined on the class and found by lookup — Thuộc tính định nghĩa trên class và được tìm bằng tra cứu
 
-C. They share class behavior but can hold different state — Cùng hành vi do lớp định nghĩa nhưng có thể khác dữ liệu
+C. An attribute defined on an object instance only — Thuộc tính chỉ định nghĩa trên instance
 
-D. A value defined on the class and shared in lookup — Giá trị định nghĩa trên lớp và dùng chung khi truy cập
+D. A required parameter of `__init__` — Tham số bắt buộc của `__init__`
 
 **Q17. What does `obj.method()` do? — `obj.method()` làm gì?**
 
-A. Invokes a method on obj — Gọi một phương thức trên obj
+A. Invokes a method on `obj` — Gọi phương thức trên `obj`
 
-B. An attribute associated with obj — Thuộc tính gắn với obj
+B. Returns the object's class without invoking anything — Trả class của đối tượng mà không gọi gì
 
-C. Whether obj is an instance of Student or a subclass — obj có là đối tượng của Student hoặc lớp con không
+C. Always creates a new instance — Luôn tạo instance mới
 
-D. The object's actual class — Class thực tế của đối tượng
+D. Always deletes an attribute — Luôn xóa thuộc tính
 
-**Q18. What does `obj.attribute` read? — `obj.attribute` đọc gì?**
+**Q18. When the attribute exists, what does `obj.attribute` read? — Khi thuộc tính tồn tại, `obj.attribute` đọc gì?**
 
-A. Invokes a method on obj — Gọi một phương thức trên obj
+A. Creates a new method automatically — Tự tạo phương thức mới
 
-B. An attribute associated with obj — Thuộc tính gắn với obj
+B. Reads the named attribute on `obj` — Đọc thuộc tính có tên trên `obj`
 
-C. Whether obj is an instance of Student or a subclass — obj có là đối tượng của Student hoặc lớp con không
+C. Invokes every method of the object — Gọi mọi phương thức của đối tượng
 
-D. The object's actual class — Class thực tế của đối tượng
+D. Returns `True` only for class attributes — Chỉ trả `True` với thuộc tính cấp class
 
 **Q19. What does `isinstance(obj, Student)` check? — `isinstance(obj, Student)` kiểm tra gì?**
 
-A. Invokes a method on obj — Gọi một phương thức trên obj
+A. The object's exact class only, excluding subclasses — Chỉ class chính xác, loại class con
 
-B. An attribute associated with obj — Thuộc tính gắn với obj
+B. Whether the object has a method named `Student` — Đối tượng có phương thức tên `Student` không
 
-C. Whether obj is an instance of Student or a subclass — obj có là đối tượng của Student hoặc lớp con không
+C. Whether the object is a `Student` or its subclass — Đối tượng thuộc `Student` hay class con không
 
-D. The object's actual class — Class thực tế của đối tượng
+D. The class name as a string — Tên class ở dạng chuỗi
 
 **Q20. What does `type(obj)` return? — `type(obj)` trả về gì?**
 
-A. Invokes a method on obj — Gọi một phương thức trên obj
+A. Whether a class membership test is true — Phép kiểm tra thuộc class có đúng không
 
-B. An attribute associated with obj — Thuộc tính gắn với obj
+B. The object itself with unchanged type — Chính đối tượng và kiểu không đổi
 
-C. Whether obj is an instance of Student or a subclass — obj có là đối tượng của Student hoặc lớp con không
+C. A Boolean checking only its attributes — Boolean chỉ kiểm tra thuộc tính
 
-D. The object's actual class — Class thực tế của đối tượng
+D. The object's actual runtime class — Class thực tế của đối tượng khi chạy
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A class groups common attributes and methods for instances. | Class gom thuộc tính và phương thức chung cho đối tượng. |
-| Q2 | **B** | Each instance stores its own state as defined by its class. | Mỗi đối tượng có trạng thái riêng theo lớp của nó. |
-| Q3 | **C** | Instance attributes hold values such as name or score. | Thuộc tính đối tượng lưu giá trị như tên hoặc điểm. |
-| Q4 | **D** | Instance methods access object state via the instance parameter. | Phương thức đối tượng làm việc với trạng thái qua tham số đối tượng. |
-| Q5 | **A** | The class keyword declares a new class. | Từ khóa class khai báo một lớp mới. |
-| Q6 | **B** | Calling the class creates an instance of that class. | Gọi lớp tạo ra một đối tượng của lớp đó. |
-| Q7 | **C** | Python invokes __init__ after creating a new instance. | Python gọi __init__ sau khi tạo đối tượng mới. |
-| Q8 | **D** | self refers to the specific instance whose method is executing. | self chỉ đối tượng cụ thể đang thực thi phương thức. |
-| Q9 | **A** | Each instance can hold its own name attribute. | Mỗi đối tượng có thể lưu thuộc tính name riêng. |
-| Q10 | **B** | str(obj) and print(obj) use __str__ if implemented. | str(obj) và print(obj) dùng __str__ khi có định nghĩa. |
-| Q11 | **C** | raise interrupts normal flow with the specified exception. | raise ngắt luồng bình thường bằng ngoại lệ tương ứng. |
-| Q12 | **D** | A single leading underscore signals intended internal use, not enforced privacy. | Một gạch dưới đầu tên chỉ quy ước dùng nội bộ, không khóa truy cập tuyệt đối. |
-| Q13 | **A** | Encapsulation groups object state with methods that manage it. | Đóng gói kết hợp trạng thái với phương thức quản lý. |
-| Q14 | **B** | Setters can reject invalid values before storing them. | Setter có thể từ chối giá trị sai trước khi lưu. |
-| Q15 | **C** | Each instance has its own attributes unless explicit shared class state is used. | Mỗi đối tượng có thuộc tính riêng, trừ khi cố ý dùng dữ liệu chung cấp lớp. |
-| Q16 | **D** | Class attributes are available through the class and normally through instances. | Thuộc tính cấp lớp có thể truy cập qua lớp và thông thường qua đối tượng. |
-| Q17 | **A** | Dot notation resolves the named method for the instance. | Cú pháp dấu chấm lấy phương thức theo tên trên đối tượng. |
-| Q18 | **B** | Dot access retrieves the selected attribute on the object. | Dấu chấm truy cập thuộc tính đã chỉ định của đối tượng. |
-| Q19 | **C** | isinstance tests the object's class relationship. | isinstance kiểm tra quan hệ lớp của đối tượng. |
-| Q20 | **D** | type reveals the runtime class of an instance. | type cho biết lớp thực tế của đối tượng lúc chạy. |
+| Q1 | **B** | A class defines a reusable structure for objects, including attributes and methods. For example a `Student` class can specify a name field and a `display()` method; individual students are instances of that class. | Class định nghĩa cấu trúc dùng chung cho các đối tượng, gồm thuộc tính và phương thức. Ví dụ class `Student` có thể định nghĩa trường tên và phương thức `display()`; từng sinh viên là một instance của class đó. |
+| Q2 | **B** | An object or instance is a concrete value created from a class. Two `Student` instances may run the same methods while holding different `name` values, so a class is not identical to one object. | Object hay instance là giá trị cụ thể được tạo từ class. Hai instance `Student` có thể chạy cùng các phương thức nhưng có giá trị `name` khác nhau, vì thế class không đồng nghĩa với một đối tượng. |
+| Q3 | **B** | An attribute is data or another value accessed on an object through a name, such as `student.name`. It describes state or associated properties, while a method is called to perform behavior. | Attribute là dữ liệu hoặc giá trị gắn với đối tượng được truy cập qua tên, như `student.name`. Nó biểu diễn trạng thái hay đặc điểm, còn phương thức được gọi để thực hiện hành vi. |
+| Q4 | **C** | An instance method is a function defined in a class that receives the instance as its first argument when called through an object. With `student.show()`, the method can read `self.name`; an attribute like `student.name` is data, not a method call. | Phương thức instance là hàm định nghĩa trong class và nhận đối tượng làm đối số đầu khi gọi qua instance. Với `student.show()`, phương thức có thể đọc `self.name`; thuộc tính như `student.name` là dữ liệu, không phải lời gọi phương thức. |
+| Q5 | **C** | `class Student:` begins a class definition; the indented statements beneath it define the class body. Calling `Student()` is a different operation: it creates an instance once a suitable class has already been defined. | `class Student:` mở đầu định nghĩa class; các lệnh thụt lề bên dưới tạo thân class. Gọi `Student()` là thao tác khác: tạo instance sau khi class phù hợp đã được định nghĩa. |
+| Q6 | **A** | Calling `Student()` creates an instance when the class can be constructed without required arguments. If `__init__` requires other inputs, supply them in the call instead of assuming empty parentheses always work. | Gọi `Student()` tạo instance nếu class có thể khởi tạo mà không cần đối số bắt buộc. Nếu `__init__` yêu cầu đầu vào khác thì phải truyền chúng khi gọi, không được cho rằng ngoặc trống luôn hợp lệ. |
+| Q7 | **D** | `__init__` initializes the newly created instance, commonly assigning attributes such as `self.name = name`. Python creates the object before invoking this initializer; `__init__` itself is not the allocation operation. | `__init__` khởi tạo instance vừa được tạo, thường gán thuộc tính như `self.name = name`. Python tạo đối tượng trước rồi mới gọi hàm khởi tạo; bản thân `__init__` không thực hiện cấp phát đối tượng. |
+| Q8 | **D** | In a conventional instance method, `self` refers to the particular object receiving the method call. Thus `a.show()` and `b.show()` can read different attributes through `self` even when they share one class definition. | Trong phương thức instance thông thường, `self` chỉ đối tượng cụ thể nhận lời gọi. Vì vậy `a.show()` và `b.show()` có thể đọc các thuộc tính khác nhau qua `self` dù cùng định nghĩa class. |
+| Q9 | **A** | `self.name = name` assigns the incoming `name` value to an attribute of the current instance. Each object can therefore hold a different name; this does not create a single shared class attribute. | `self.name = name` gán giá trị tham số `name` cho thuộc tính của instance hiện tại. Vì vậy mỗi đối tượng có thể mang tên khác nhau; lệnh không tạo một thuộc tính cấp class được dùng chung. |
+| Q10 | **A** | `__str__` controls the human-readable string produced by `str(obj)` and usually shown by `print(obj)`. It should return a string rather than print it directly; it is distinct from `__init__` which initializes state. | `__str__` điều khiển chuỗi dễ đọc trả về từ `str(obj)` và thường được `print(obj)` hiển thị. Phương thức này phải trả một chuỗi thay vì tự in trực tiếp; nó khác `__init__` dùng để khởi tạo trạng thái. |
+| Q11 | **A** | `raise ValueError(...)` signals that a supplied value is invalid and interrupts ordinary execution by raising an exception. For example a setter may reject a negative age rather than silently storing inconsistent state. | `raise ValueError(...)` báo giá trị đầu vào không hợp lệ và ngắt luồng bình thường bằng một ngoại lệ. Ví dụ setter có thể từ chối tuổi âm thay vì lặng lẽ lưu trạng thái không hợp lý. |
+| Q12 | **C** | A single leading underscore, as in `_value`, conventionally marks an implementation detail intended for internal use. Python does not enforce access privacy for this spelling, so outside code can still read the attribute if it exists. | Một dấu gạch dưới đầu tên như `_value` theo quy ước đánh dấu chi tiết nội bộ. Python không thực thi tính riêng tư chỉ nhờ cách đặt tên này, nên mã bên ngoài vẫn có thể đọc thuộc tính nếu nó tồn tại. |
+| Q13 | **D** | Encapsulation groups related data and operations inside one class or object interface. For example a `BankAccount` method can update its balance with validation rather than letting every caller directly manipulate unrelated variables. | Đóng gói gom dữ liệu và các thao tác liên quan vào cùng class hoặc giao diện đối tượng. Ví dụ phương thức của `BankAccount` có thể cập nhật số dư kèm kiểm tra thay vì để mọi nơi gọi tự sửa các biến rời rạc. |
+| Q14 | **D** | A setter validates inputs before changing object state, keeping invariants such as age not being negative. Without validation, callers could store an invalid value and later methods might behave incorrectly. | Setter kiểm tra dữ liệu trước khi thay đổi trạng thái đối tượng, giúp giữ các ràng buộc như tuổi không được âm. Nếu thiếu kiểm tra, nơi gọi có thể lưu giá trị sai khiến phương thức khác hoạt động không đúng. |
+| Q15 | **C** | Instances of the same class share the class's method definitions but can hold separate instance attributes. If `a.name='An'` and `b.name='Binh'`, updating `a.name` does not automatically change `b.name`. | Các instance cùng class dùng chung định nghĩa phương thức nhưng có thể chứa các thuộc tính instance riêng. Nếu `a.name='An'` và `b.name='Binh'`, sửa `a.name` không tự thay đổi `b.name`. |
+| Q16 | **B** | A class attribute is defined on the class rather than separately in each instance and is found during attribute lookup through the class or instances. Instances can shadow such an attribute with their own value, so it is not a permanently synchronized field. | Thuộc tính cấp class được khai báo trên class thay vì riêng từng instance và được tìm thấy khi tra cứu qua class hoặc instance. Instance có thể che khuất thuộc tính đó bằng giá trị riêng, nên đây không phải trường luôn đồng bộ vĩnh viễn. |
+| Q17 | **A** | `obj.method()` resolves and calls the named method on `obj`, commonly passing that instance as `self`. Merely reading `obj.attribute` retrieves data without automatically calling a method. | `obj.method()` tìm và gọi phương thức có tên trên `obj`, thông thường truyền instance đó làm `self`. Chỉ đọc `obj.attribute` thì lấy giá trị, không tự gọi phương thức. |
+| Q18 | **B** | `obj.attribute` accesses the named attribute's value if it exists. Unlike `obj.method()`, the expression does not call a function; if the attribute is missing, Python normally raises `AttributeError`. | `obj.attribute` truy cập giá trị của thuộc tính có tên nếu nó tồn tại. Khác `obj.method()`, biểu thức không gọi hàm; nếu thiếu thuộc tính, Python thông thường phát sinh `AttributeError`. |
+| Q19 | **C** | `isinstance(obj, Student)` is true when `obj` belongs to `Student` or a subclass of it. By contrast, `type(obj) is Student` checks the exact runtime class and excludes subclass instances. | `isinstance(obj, Student)` đúng khi `obj` thuộc class `Student` hoặc một class con của nó. Ngược lại, `type(obj) is Student` chỉ kiểm tra class thực tế chính xác và loại các instance của class con. |
+| Q20 | **D** | `type(obj)` returns the object's actual runtime class, such as `Student`. `isinstance(obj, Student)` instead answers a Boolean class-membership question and can accept subclass instances. | `type(obj)` trả về class thực tế của đối tượng lúc chạy, chẳng hạn `Student`. `isinstance(obj, Student)` thì trả Boolean về quan hệ thuộc class và có thể chấp nhận instance của class con. |
 
 ## 8. Nối sang bài tiếp theo
 
