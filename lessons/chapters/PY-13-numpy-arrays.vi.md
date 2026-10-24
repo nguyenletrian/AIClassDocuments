@@ -284,228 +284,228 @@ Dữ liệu gồm hai điểm kiểu `float64`, không phải chuỗi.
 
 **Q1. What is a NumPy `ndarray`? — `ndarray` của NumPy là gì?**
 
-A. An array for data with a common dtype — Mảng dữ liệu có kiểu phần tử chung
+A. A table whose each column has independent NumPy dtypes — Bảng có dtype NumPy riêng cho từng cột
 
-B. A single text file — Một tệp văn bản đơn
+B. An array for data with a common dtype — Mảng dữ liệu có kiểu phần tử chung
 
-C. A Python exception — Một ngoại lệ Python
+C. A standard Python list with separate element types — List Python thông thường với các kiểu phần tử độc lập
 
-D. A class inheritance rule — Quy tắc kế thừa lớp
+D. A scalar with no array axes — Giá trị vô hướng không có trục mảng
 
 **Q2. What does `shape=(3, 2)` mean for a 2-D array? — `shape=(3, 2)` nghĩa là gì với mảng hai chiều?**
 
-A. Only three total elements — Chỉ có ba phần tử
+A. Three dimensions, each of length two — Ba chiều đều có độ dài hai
 
-B. Three rows and two columns — Ba hàng và hai cột
+B. Three elements total, two of them numeric — Tổng ba phần tử, có hai số
 
-C. Two rows and three columns — Hai hàng và ba cột
+C. Three rows and two columns — Ba hàng và hai cột
 
-D. Three dimensions and two values — Ba chiều và hai giá trị
+D. Two rows and three columns — Hai hàng ba cột
 
 **Q3. What is the size of an array with shape `(3, 2)`? — Mảng có shape `(3, 2)` chứa bao nhiêu phần tử?**
 
-A. 2 — 2
+A. Five elements in total — Tổng năm phần tử
 
-B. 5 — 5
+B. 6 — 6
 
-C. 6 — 6
+C. Three elements in total — Tổng ba phần tử
 
-D. 3 — 3
+D. Two elements in total — Tổng hai phần tử
 
 **Q4. What does `ndim` report? — Thuộc tính `ndim` cho biết gì?**
 
-A. The number of rows only — Chỉ số hàng
+A. The dtype of each element — Kiểu dữ liệu mỗi phần tử
 
-B. The data type of an element — Kiểu phần tử
+B. The number of array dimensions — Số chiều của mảng
 
-C. The maximum array value — Giá trị lớn nhất
+C. The number of rows only — Chỉ số hàng
 
-D. The number of array dimensions — Số chiều của mảng
+D. The total number of cells — Tổng số ô
 
 **Q5. What does `dtype` describe? — `dtype` mô tả gì?**
 
 A. The data type of array elements — Kiểu dữ liệu của các phần tử
 
-B. The array's row count — Số hàng
+B. The number of array rows — Số hàng của mảng
 
-C. The file's extension — Phần mở rộng của file
+C. The total number of elements — Tổng số phần tử
 
-D. The mean of all entries — Trung bình các phần tử
+D. The number of dimensions — Số chiều
 
 **Q6. Why specify `dtype=float` when storing decimal scores? — Vì sao dùng `dtype=float` khi lưu điểm có phần lẻ?**
 
-A. To delete missing records — Để xóa bản ghi thiếu
+A. To convert fractions into integer counts — Để đổi phần lẻ thành số đếm nguyên
 
-B. To preserve fractional values — Để giữ giá trị có phần thập phân
+B. To create extra rows for missing scores — Để tạo thêm hàng cho điểm thiếu
 
-C. To force integer truncation — Để ép cắt về số nguyên
+C. To guarantee every decimal is represented exactly — Để bảo đảm mọi số thập phân đều chính xác tuyệt đối
 
-D. To change rows into columns — Để đổi hàng thành cột
+D. To preserve fractional values — Để giữ giá trị có phần thập phân
 
 **Q7. For a 2-D array, what does `mean(axis=0)` return? — Với mảng hai chiều, `mean(axis=0)` trả về gì?**
 
-A. Only the first cell — Chỉ ô đầu tiên
+A. A mean for each row across its columns — Trung bình từng hàng qua các cột
 
-B. The original array unchanged — Mảng gốc không đổi
+B. One mean for the entire 2-D array — Một trung bình cho cả mảng hai chiều
 
-C. One mean per column — Một giá trị trung bình cho mỗi cột
+C. The original array with unchanged values — Mảng gốc với giá trị không đổi
 
-D. One mean per row — Một giá trị trung bình cho mỗi hàng
+D. One mean per column — Một giá trị trung bình cho mỗi cột
 
 **Q8. For a 2-D array, what does `sum(axis=1)` produce? — Với mảng hai chiều, `sum(axis=1)` tạo gì?**
 
-A. One sum per column — Một tổng cho mỗi cột
+A. Only the first row's sum — Chỉ tổng hàng đầu
 
-B. A list of column names — List tên cột
+B. A scalar sum of every element — Một tổng vô hướng của mọi phần tử
 
-C. The shape tuple only — Chỉ tuple shape
+C. One sum per row — Một tổng cho mỗi hàng
 
-D. One sum per row — Một tổng cho mỗi hàng
+D. One sum for each column — Một tổng theo mỗi cột
 
 **Q9. Which statement correctly distinguishes `shape` and `size`? — Đâu là điểm khác nhau giữa `shape` và `size`?**
 
-A. shape lists dimensions; size counts elements — shape ghi kích thước từng chiều; size đếm phần tử
+A. `shape` gives the dtype; `size` gives mean — `shape` cho dtype còn `size` cho trung bình
 
-B. They are always identical numbers — Chúng luôn là cùng một số
+B. `size` returns the shape tuple — `size` trả Tuple shape
 
-C. size gives dtype; shape gives values — size cho kiểu dữ liệu; shape cho giá trị
+C. Both always return the same scalar number — Cả hai luôn là cùng một số vô hướng
 
-D. Both change elements automatically — Cả hai tự đổi phần tử
+D. shape lists dimensions; size counts elements — shape ghi kích thước từng chiều; size đếm phần tử
 
 **Q10. What does `np.array([1, 2, 3])` create? — `np.array([1, 2, 3])` tạo ra gì?**
 
-A. A class named Array — Lớp tên Array
+A. A Python list unchanged — List Python không đổi
 
-B. A one-dimensional NumPy array — Một mảng NumPy một chiều
+B. A two-dimensional array of shape `(1, 3)` — Mảng hai chiều shape `(1, 3)`
 
-C. A two-column table — Bảng hai cột
+C. An array of three separate dimensions — Mảng có ba chiều riêng
 
-D. A CSV file on disk — File CSV trên đĩa
+D. A one-dimensional NumPy array — Một mảng NumPy một chiều
 
 **Q11. What does `np.zeros((2, 3))` create? — `np.zeros((2, 3))` tạo gì?**
 
-A. A 3×2 array of ones — Mảng 3×2 toàn số 1
+A. An array with only two total zeros — Mảng chỉ có tổng hai số 0
 
-B. An empty array with no elements — Mảng rỗng không có phần tử
+B. A two-row, three-column array filled with ones — Mảng hai hàng ba cột toàn số 1
 
 C. A 2×3 array initialized to zeros — Mảng 2×3 được khởi tạo toàn số 0
 
-D. A 2×3 table of missing strings — Bảng 2×3 gồm chuỗi thiếu
+D. A three-row, two-column array — Mảng ba hàng hai cột
 
 **Q12. How is `np.ones((2, 2))` different from `np.zeros((2, 2))`? — `np.ones((2, 2))` khác `np.zeros((2, 2))` thế nào?**
 
-A. It always creates a CSV file — Nó luôn tạo file CSV
+A. It fills the same shape with zero, not one — Nó điền mảng cùng shape bằng 0, không phải 1
 
-B. It has four dimensions — Nó có bốn chiều
+B. It initializes entries to one instead of zero — Nó khởi tạo giá trị 1 thay cho 0
 
-C. It cannot be used in arithmetic — Nó không thể tính toán
+C. It returns only scalar `1` — Chỉ trả vô hướng `1`
 
-D. It initializes entries to one instead of zero — Nó khởi tạo giá trị 1 thay cho 0
+D. It creates an array of a different shape — Tạo mảng có shape khác
 
 **Q13. How do NumPy array and Python List differ in numeric operations? — Mảng NumPy khác List Python về phép toán số như thế nào?**
 
-A. NumPy enables element-wise numerical operations — NumPy hỗ trợ phép toán số theo từng phần tử
+A. NumPy arrays repeat rows when multiplied by 2 — Mảng NumPy lặp các hàng khi nhân 2
 
-B. A List always multiplies elements element-wise — List luôn nhân từng phần tử
+B. Python lists can never contain numeric values — List Python không bao giờ chứa số
 
-C. A NumPy array stores only strings — Mảng NumPy chỉ lưu chuỗi
+C. NumPy enables element-wise numerical operations — NumPy hỗ trợ phép toán số theo từng phần tử
 
-D. A List cannot hold numbers — List không chứa được số
+D. Both Python lists and NumPy arrays multiply elements by 2 — Cả List Python và mảng NumPy đều nhân từng phần tử với 2
 
 **Q14. For an array with rows as learners and columns as subjects, what does axis=0 average? — Nếu hàng là học viên và cột là môn, `axis=0` tính trung bình theo gì?**
 
-A. Only the last subject — Chỉ môn cuối
+A. The average of only the first subject — Chỉ trung bình môn đầu
 
-B. Each subject across learners — Từng môn qua các học viên
+B. The overall mean of every entry — Trung bình chung của mọi ô
 
-C. Each learner across subjects — Từng học viên qua các môn
+C. Each subject across learners — Từng môn qua các học viên
 
-D. Only the first learner — Chỉ học viên đầu
+D. Each learner averaged across all subjects — Trung bình các môn theo từng học viên
 
 **Q15. How many dimensions does a two-dimensional score table have? — Bảng điểm hai chiều có `ndim` bằng bao nhiêu?**
 
-A. 3 — 3
+A. One dimension per individual learner — Mỗi học viên là một chiều
 
-B. The total number of scores — Tổng số điểm
+B. One dimension per numerical score — Mỗi điểm số là một chiều
 
-C. 2 — 2
+C. Three dimensions because the values are numeric — Ba chiều vì dữ liệu là số
 
-D. 1 — 1
+D. 2 — 2
 
 **Q16. Which code accesses array shape without computing new values? — Cú pháp nào lấy shape mà không tính thêm dữ liệu?**
 
-A. `X.sort()` — `X.sort()`
+A. `X.shape` — `X.shape`
 
-B. `X.delete()` — `X.delete()`
+B. `X.size` — `X.size`
 
-C. `X.write()` — `X.write()`
+C. `X.dtype` — `X.dtype`
 
-D. `X.shape` — `X.shape`
+D. `X.ndim` — `X.ndim`
 
 **Q17. Which code counts all array entries? — Cú pháp nào đếm tổng số phần tử mảng?**
 
 A. `X.size` — `X.size`
 
-B. `X.mean()` — `X.mean()`
+B. `X.shape[0]` in every case — `X.shape[0]` trong mọi trường hợp
 
-C. `X.dtype` — `X.dtype`
+C. `X.ndim` — `X.ndim`
 
-D. `X.shape[0]` in every case — Luôn `X.shape[0]`
+D. `X.dtype` — `X.dtype`
 
 **Q18. For finite floating-point values within the target integer range, what does NumPy `.astype(int)` do to their fractional parts? — Với giá trị dấu phẩy động hữu hạn nằm trong phạm vi kiểu số nguyên đích, NumPy `.astype(int)` xử lý phần lẻ thế nào?**
 
-A. It rounds every value to the nearest integer — Làm tròn mọi giá trị về số nguyên gần nhất
+A. It discards fractional parts toward zero — Bỏ phần lẻ theo hướng về số 0
 
-B. It discards fractional parts toward zero — Bỏ phần lẻ theo hướng về số 0
+B. It rounds to the nearest integer — Làm tròn tới số nguyên gần nhất
 
-C. It preserves fractional parts unchanged — Giữ nguyên toàn bộ phần lẻ
+C. It preserves the original fractional values — Giữ nguyên giá trị có phần lẻ
 
-D. It forces the shape to become `(1, 1)` — Buộc shape chuyển thành `(1, 1)`
+D. It converts numbers into strings — Chuyển số thành chuỗi
 
 **Q19. What is the output shape of `X.mean(axis=0)` for `X.shape == (3,2)`? — Nếu `X.shape == (3,2)`, `X.mean(axis=0)` có shape nào?**
 
-A. `(3,2)` — `(3,2)`
+A. `(2,)` — `(2,)`
 
-B. `(1,3)` — `(1,3)`
+B. `(3,)` — `(3,)`
 
-C. `(2,)` — `(2,)`
+C. `(3,2)` — `(3,2)`
 
-D. `(3,)` — `(3,)`
+D. `(1,3)` — `(1,3)`
 
 **Q20. Why label the meaning of each row and column? — Vì sao phải nêu rõ ý nghĩa từng hàng, cột?**
 
-A. To change dtype automatically — Để tự đổi dtype
+A. To avoid checking which axis was reduced — Để không cần xét trục nào được gộp
 
-B. To avoid all numeric calculations — Để tránh mọi phép tính
+B. To interpret aggregated results correctly — Để hiểu đúng kết quả tổng hợp
 
-C. To convert a matrix into text — Để chuyển ma trận thành chữ
+C. To change the array's dtype automatically — Để tự đổi dtype mảng
 
-D. To interpret aggregated results correctly — Để hiểu đúng kết quả tổng hợp
+D. To guarantee all averages are equal — Để bảo đảm mọi trung bình bằng nhau
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A NumPy `ndarray` is a multidimensional array whose elements have one common `dtype`. For example `np.array([1, 2, 3])` has shape `(3,)`, unlike a Python list which may hold unrelated object types. | NumPy `ndarray` là mảng nhiều chiều mà phần tử có chung một `dtype`. Ví dụ `np.array([1, 2, 3])` có shape `(3,)`, khác List Python có thể chứa nhiều kiểu đối tượng khác nhau. |
-| Q2 | **B** | For a two-dimensional array, shape `(3, 2)` means three rows and two columns. In a score table that could represent three learners, each with scores in two subjects; shape gives counts, not their meanings. | Với mảng hai chiều, shape `(3, 2)` nghĩa là ba hàng và hai cột. Bảng điểm có thể gồm ba học viên, mỗi người hai môn; shape chỉ cho số lượng, không tự cho biết ý nghĩa. |
-| Q3 | **C** | Array size is the product of all shape dimensions: `3 * 2 = 6`. This counts the six cells in three rows and two columns, not just the rows or columns separately. | Tổng số phần tử bằng tích các kích thước của shape: `3 * 2 = 6`. Đó là sáu ô trong ba hàng và hai cột, không chỉ số hàng hoặc số cột riêng. |
-| Q4 | **D** | `ndim` reports the number of axes, so an array of shape `(3, 2)` has `ndim == 2`. It does not count all six elements; that is the role of `size`. | `ndim` cho số trục hoặc số chiều nên mảng shape `(3, 2)` có `ndim == 2`. Thuộc tính này không đếm cả sáu phần tử; đó là vai trò của `size`. |
+| Q1 | **B** | A NumPy `ndarray` is a multidimensional array whose elements have one common `dtype`. For example `np.array([1, 2, 3])` has shape `(3,)`, unlike a Python list which may hold unrelated object types. | NumPy `ndarray` là mảng nhiều chiều mà phần tử có chung một `dtype`. Ví dụ `np.array([1, 2, 3])` có shape `(3,)`, khác List Python có thể chứa nhiều kiểu đối tượng khác nhau. |
+| Q2 | **C** | For a two-dimensional array, shape `(3, 2)` means three rows and two columns. In a score table that could represent three learners, each with scores in two subjects; shape gives counts, not their meanings. | Với mảng hai chiều, shape `(3, 2)` nghĩa là ba hàng và hai cột. Bảng điểm có thể gồm ba học viên, mỗi người hai môn; shape chỉ cho số lượng, không tự cho biết ý nghĩa. |
+| Q3 | **B** | Array size is the product of all shape dimensions: `3 * 2 = 6`. This counts the six cells in three rows and two columns, not just the rows or columns separately. | Tổng số phần tử bằng tích các kích thước của shape: `3 * 2 = 6`. Đó là sáu ô trong ba hàng và hai cột, không chỉ số hàng hoặc số cột riêng. |
+| Q4 | **B** | `ndim` reports the number of axes, so an array of shape `(3, 2)` has `ndim == 2`. It does not count all six elements; that is the role of `size`. | `ndim` cho số trục hoặc số chiều nên mảng shape `(3, 2)` có `ndim == 2`. Thuộc tính này không đếm cả sáu phần tử; đó là vai trò của `size`. |
 | Q5 | **A** | `dtype` describes how individual array elements are stored, such as `int64` or `float64`. Shape describes the geometry, whereas dtype controls numerical representation and precision. | `dtype` mô tả cách lưu từng phần tử, như `int64` hoặc `float64`. Shape nói về cấu trúc kích thước, còn dtype quyết định cách biểu diễn số và độ chính xác. |
-| Q6 | **B** | Using `dtype=float` lets an array represent fractional scores such as 8.5 rather than truncating them to integers. Floating-point representations can be approximate, so they are not guaranteed exact decimals. | Dùng `dtype=float` giúp mảng biểu diễn điểm có phần lẻ như 8,5 thay vì cắt thành số nguyên. Số dấu phẩy động có thể chỉ là xấp xỉ, không phải mọi số thập phân đều chính xác tuyệt đối. |
-| Q7 | **C** | `mean(axis=0)` aggregates across rows, producing one mean for each column when the array is 2-D. If rows are learners and columns are subjects, the output summarizes each subject across learners. | `mean(axis=0)` gộp qua các hàng, tạo một trung bình cho mỗi cột của mảng hai chiều. Nếu hàng là học viên và cột là môn, đầu ra là trung bình từng môn qua các học viên. |
-| Q8 | **D** | `sum(axis=1)` adds across columns within each row. For `[[1,2],[3,4]]`, the result is `[3,7]`, one total for each of the two rows rather than each column. | `sum(axis=1)` cộng các cột trong từng hàng. Với `[[1,2],[3,4]]`, kết quả là `[3,7]`, mỗi hàng một tổng thay vì mỗi cột một tổng. |
-| Q9 | **A** | `shape` is a tuple describing dimensions, such as `(3, 2)`, while `size` is the total element count, here 6. Their values can be related by multiplication, but they are not interchangeable. | `shape` là Tuple kích thước từng chiều như `(3, 2)`, còn `size` là tổng số phần tử, ở đây bằng 6. Hai giá trị liên quan qua phép nhân nhưng không thể dùng thay nhau. |
-| Q10 | **B** | `np.array([1, 2, 3])` creates a one-dimensional NumPy array with shape `(3,)`. The argument is a Python list, but the result is an `ndarray`, not a list or a CSV file. | `np.array([1, 2, 3])` tạo mảng NumPy một chiều có shape `(3,)`. Đầu vào là List Python, nhưng kết quả thuộc kiểu `ndarray`, không còn là List hay tệp CSV. |
+| Q6 | **D** | Using `dtype=float` lets an array represent fractional scores such as 8.5 rather than truncating them to integers. Floating-point representations can be approximate, so they are not guaranteed exact decimals. | Dùng `dtype=float` giúp mảng biểu diễn điểm có phần lẻ như 8,5 thay vì cắt thành số nguyên. Số dấu phẩy động có thể chỉ là xấp xỉ, không phải mọi số thập phân đều chính xác tuyệt đối. |
+| Q7 | **D** | `mean(axis=0)` aggregates across rows, producing one mean for each column when the array is 2-D. If rows are learners and columns are subjects, the output summarizes each subject across learners. | `mean(axis=0)` gộp qua các hàng, tạo một trung bình cho mỗi cột của mảng hai chiều. Nếu hàng là học viên và cột là môn, đầu ra là trung bình từng môn qua các học viên. |
+| Q8 | **C** | `sum(axis=1)` adds across columns within each row. For `[[1,2],[3,4]]`, the result is `[3,7]`, one total for each of the two rows rather than each column. | `sum(axis=1)` cộng các cột trong từng hàng. Với `[[1,2],[3,4]]`, kết quả là `[3,7]`, mỗi hàng một tổng thay vì mỗi cột một tổng. |
+| Q9 | **D** | `shape` is a tuple describing dimensions, such as `(3, 2)`, while `size` is the total element count, here 6. Their values can be related by multiplication, but they are not interchangeable. | `shape` là Tuple kích thước từng chiều như `(3, 2)`, còn `size` là tổng số phần tử, ở đây bằng 6. Hai giá trị liên quan qua phép nhân nhưng không thể dùng thay nhau. |
+| Q10 | **D** | `np.array([1, 2, 3])` creates a one-dimensional NumPy array with shape `(3,)`. The argument is a Python list, but the result is an `ndarray`, not a list or a CSV file. | `np.array([1, 2, 3])` tạo mảng NumPy một chiều có shape `(3,)`. Đầu vào là List Python, nhưng kết quả thuộc kiểu `ndarray`, không còn là List hay tệp CSV. |
 | Q11 | **C** | `np.zeros((2, 3))` creates two rows and three columns initialized with numeric zeros, typically floating point by default. The shape `(2, 3)` is not the same as three rows and two columns. | `np.zeros((2, 3))` tạo hai hàng và ba cột chứa số 0, mặc định thường dùng kiểu thực. Shape `(2, 3)` không đồng nghĩa ba hàng và hai cột. |
-| Q12 | **D** | `np.ones((2, 2))` fills a two-by-two array with ones, whereas `np.zeros((2, 2))` fills the same shape with zeros. Both arrays can participate in numerical operations; only the initial values differ. | `np.ones((2, 2))` tạo mảng hai hàng hai cột toàn số 1, còn `np.zeros((2, 2))` tạo cùng shape toàn số 0. Cả hai tính toán được; khác biệt nằm ở giá trị khởi tạo. |
-| Q13 | **A** | For numeric arrays, `a * 2` multiplies each NumPy element by two. In contrast, `[1,2] * 2` repeats the Python list into `[1,2,1,2]`, showing why array arithmetic differs from list repetition. | Với mảng số, `a * 2` nhân từng phần tử NumPy với 2. Ngược lại `[1,2] * 2` lặp List thành `[1,2,1,2]`, cho thấy phép số học mảng khác thao tác lặp List. |
-| Q14 | **B** | When rows are learners and columns are subjects, `mean(axis=0)` reduces learners and leaves one average per subject. `axis=1` would instead average across subjects for each learner. | Khi hàng là học viên và cột là môn, `mean(axis=0)` gộp các học viên và giữ một trung bình cho mỗi môn. `axis=1` thì tính trung bình các môn theo từng học viên. |
-| Q15 | **C** | A score table with rows and columns has two dimensions regardless of how many entries it contains. Its `ndim` is 2, whereas `size` depends on row count times column count. | Bảng điểm có chiều hàng và chiều cột là mảng hai chiều bất kể có bao nhiêu ô. `ndim` bằng 2 còn `size` phụ thuộc tích số hàng với số cột. |
-| Q16 | **D** | `X.shape` is an attribute that reports dimensions directly; no method call is needed. It does not sort or modify the array and should not be confused with `X.size`, which counts elements. | `X.shape` là thuộc tính báo kích thước các chiều, không cần gọi hàm. Nó không sắp xếp hoặc sửa mảng và không nên nhầm với `X.size` dùng đếm phần tử. |
+| Q12 | **B** | `np.ones((2, 2))` fills a two-by-two array with ones, whereas `np.zeros((2, 2))` fills the same shape with zeros. Both arrays can participate in numerical operations; only the initial values differ. | `np.ones((2, 2))` tạo mảng hai hàng hai cột toàn số 1, còn `np.zeros((2, 2))` tạo cùng shape toàn số 0. Cả hai tính toán được; khác biệt nằm ở giá trị khởi tạo. |
+| Q13 | **C** | For numeric arrays, `a * 2` multiplies each NumPy element by two. In contrast, `[1,2] * 2` repeats the Python list into `[1,2,1,2]`, showing why array arithmetic differs from list repetition. | Với mảng số, `a * 2` nhân từng phần tử NumPy với 2. Ngược lại `[1,2] * 2` lặp List thành `[1,2,1,2]`, cho thấy phép số học mảng khác thao tác lặp List. |
+| Q14 | **C** | When rows are learners and columns are subjects, `mean(axis=0)` reduces learners and leaves one average per subject. `axis=1` would instead average across subjects for each learner. | Khi hàng là học viên và cột là môn, `mean(axis=0)` gộp các học viên và giữ một trung bình cho mỗi môn. `axis=1` thì tính trung bình các môn theo từng học viên. |
+| Q15 | **D** | A score table with rows and columns has two dimensions regardless of how many entries it contains. Its `ndim` is 2, whereas `size` depends on row count times column count. | Bảng điểm có chiều hàng và chiều cột là mảng hai chiều bất kể có bao nhiêu ô. `ndim` bằng 2 còn `size` phụ thuộc tích số hàng với số cột. |
+| Q16 | **A** | `X.shape` is an attribute that reports dimensions directly; no method call is needed. It does not sort or modify the array and should not be confused with `X.size`, which counts elements. | `X.shape` là thuộc tính báo kích thước các chiều, không cần gọi hàm. Nó không sắp xếp hoặc sửa mảng và không nên nhầm với `X.size` dùng đếm phần tử. |
 | Q17 | **A** | `X.size` counts every array element across all axes. For shape `(3, 2)`, size is 6, whereas `X.shape[0]` is only the row count 3. | `X.size` đếm mọi phần tử trên tất cả các chiều. Với shape `(3, 2)`, size bằng 6, còn `X.shape[0]` chỉ là số hàng 3. |
-| Q18 | **B** | Casting finite in-range floats to an integer dtype with `.astype(int)` discards fractional parts toward zero. Thus `[2.9, -2.9]` becomes `[2, -2]`; this is truncation, not rounding to the nearest integer. | Ép số thực hữu hạn nằm trong miền kiểu nguyên bằng `.astype(int)` sẽ cắt phần lẻ theo hướng về 0. Vì vậy `[2.9, -2.9]` thành `[2, -2]`; đây là cắt phần lẻ chứ không làm tròn gần nhất. |
-| Q19 | **C** | For shape `(3, 2)`, `mean(axis=0)` reduces the three rows and retains one result per column. The resulting one-dimensional shape is `(2,)`; keeping the reduced dimension would require an explicit `keepdims=True`. | Với shape `(3, 2)`, `mean(axis=0)` tổng hợp ba hàng và giữ một kết quả theo mỗi cột. Shape một chiều nhận được là `(2,)`; muốn giữ chiều đã gộp cần nêu `keepdims=True`. |
-| Q20 | **D** | Rows and columns must be labeled to interpret an aggregate correctly. `mean(axis=0)` gives average by column, but it means average subject score only if columns really represent subjects. | Cần nêu ý nghĩa hàng và cột để diễn giải phép tổng hợp đúng. `mean(axis=0)` tính trung bình từng cột, nhưng chỉ là trung bình theo môn nếu các cột thật sự biểu diễn môn. |
+| Q18 | **A** | Casting finite in-range floats to an integer dtype with `.astype(int)` discards fractional parts toward zero. Thus `[2.9, -2.9]` becomes `[2, -2]`; this is truncation, not rounding to the nearest integer. | Ép số thực hữu hạn nằm trong miền kiểu nguyên bằng `.astype(int)` sẽ cắt phần lẻ theo hướng về 0. Vì vậy `[2.9, -2.9]` thành `[2, -2]`; đây là cắt phần lẻ chứ không làm tròn gần nhất. |
+| Q19 | **A** | For shape `(3, 2)`, `mean(axis=0)` reduces the three rows and retains one result per column. The resulting one-dimensional shape is `(2,)`; keeping the reduced dimension would require an explicit `keepdims=True`. | Với shape `(3, 2)`, `mean(axis=0)` tổng hợp ba hàng và giữ một kết quả theo mỗi cột. Shape một chiều nhận được là `(2,)`; muốn giữ chiều đã gộp cần nêu `keepdims=True`. |
+| Q20 | **B** | Rows and columns must be labeled to interpret an aggregate correctly. `mean(axis=0)` gives average by column, but it means average subject score only if columns really represent subjects. | Cần nêu ý nghĩa hàng và cột để diễn giải phép tổng hợp đúng. `mean(axis=0)` tính trung bình từng cột, nhưng chỉ là trung bình theo môn nếu các cột thật sự biểu diễn môn. |
 
 ## 8. Nối sang bài tiếp theo
 
