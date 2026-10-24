@@ -40,6 +40,7 @@
 **H₀** là phát biểu gốc để đối chiếu dữ liệu, thường là “trung bình μ=50 điểm”, còn H₁ có thể là “μ khác 50 điểm”. Không biết trước giả thuyết nào đúng; ta xem dữ liệu mẫu có **quá bất thường nếu H₀ đúng** hay không. H₀ là một phát biểu về quần thể, không phải câu hỏi liệu mean của bảy điểm đo có đúng bằng 50. Ví dụ in cặp giả thuyết rõ ràng trước khi tính.
 
 ```python
+# Mục đích: Giả thuyết gốc cần kiểm định.
 print('H0: population mean = 50')
 print('H1: population mean != 50')
 ```
@@ -60,6 +61,7 @@ Hai phát biểu về trung bình quần thể khác với giá trị trung bìn
 **p-value** là xác suất (nếu H₀ đúng và mô hình kiểm định phù hợp) thấy một thống kê kiểm định **ít nhất cực đoan như đã quan sát**. Nó **không** phải xác suất H₀ đúng hoặc xác suất kết quả do ngẫu nhiên. Ví dụ bảy điểm `[48,52,55,49,51,47,53]`, kiểm định hai phía so μ=50 bằng t-test cho p≈0.5347. Với α=0.05, chưa đủ bằng chứng để bác bỏ H₀; không có nghĩa chứng minh μ=50.
 
 ```python
+# Mục đích: Độ bất thường dưới giả định H₀.
 from scipy.stats import ttest_1samp
 
 scores = [48, 52, 55, 49, 51, 47, 53]
@@ -82,6 +84,7 @@ p≈0,5347 lớn hơn 0,05; chưa đủ bằng chứng bác bỏ H₀ với ki�
 **T-test một mẫu** xét liệu trung bình của quần thể có thể khác một mốc μ₀ khi chưa biết phương sai quần thể. Thống kê t bằng `(mean_mẫu−μ₀)/SE`, với `SE=s/√n` và `s` là độ lệch chuẩn mẫu. Nếu mẫu `[8,9,10,11,12]` và μ₀=10, mean bằng mốc nên t=0 và p hai phía=1. Cần xét tính độc lập và mức phù hợp của phân phối/độ nhạy với ngoại lệ, nhất là mẫu nhỏ.
 
 ```python
+# Mục đích: So trung bình mẫu với mốc cho trước.
 from scipy.stats import ttest_1samp
 
 values = [8, 9, 10, 11, 12]
@@ -104,6 +107,7 @@ Vì mean mẫu đúng bằng 10, thống kê kiểm định t=0.
 **Khoảng tin cậy 95%** là khoảng được tạo bởi **một quy trình** sao cho trong các lần lấy mẫu lặp phù hợp, khoảng 95% các khoảng chứa tham số thật. Với một khoảng **đã tính**, μ thật là cố định; không diễn giải “xác suất 95% μ ở trong khoảng này” theo nghĩa tần suất. Ví dụ năm thời gian giao `[2,3,3,4,2]` ngày cho mean=2,8 và CI t 95% xấp xỉ `[1.761,3.839]` ngày. Mẫu nhỏ nên khoảng rộng và dựa vào giả định dữ liệu độc lập, phân phối phù hợp.
 
 ```python
+# Mục đích: Khoảng tạo bởi quy trình suy luận.
 import numpy as np
 from scipy.stats import t, sem
 
@@ -135,6 +139,7 @@ Khoảng ước lượng mean theo t từ khoảng 1,761 đến 3,839 ngày; đ�
 3. In p-value làm tròn và so với α.
 
 ```python
+# Mục đích: Kiểm định điểm trung bình so với chuẩn 50.
 from scipy.stats import ttest_1samp
 
 scores = [48, 52, 55, 49, 51, 47, 53]
@@ -163,6 +168,7 @@ Vì p lớn hơn 0,05 nên chưa đủ bằng chứng bác bỏ H₀; không kh�
 3. In hai đầu mút làm tròn ba chữ số.
 
 ```python
+# Mục đích: Tính khoảng tin cậy thời gian giao.
 import numpy as np
 from scipy.stats import t, sem
 
@@ -192,6 +198,7 @@ Khoảng t 95% ước lượng trung bình quần thể từ 1,761 đến 3,839 
 3. Làm tròn ba chữ số, ghi đơn vị ngày.
 
 ```python
+# Mục đích: Tính SE của thời gian giao trung bình.
 from scipy.stats import sem
 
 days = [2, 3, 3, 4, 2]
@@ -219,6 +226,7 @@ SE ước lượng khoảng 0,374 ngày của mean, không phải std của th�
 3. In quyết định bằng câu 'Reject H0' hoặc 'Fail to reject H0'.
 
 ```python
+# Mục đích: Ra quyết định với kiểm định hai phía.
 from scipy.stats import ttest_1samp
 
 values = [5, 6, 7, 8, 9]
@@ -247,6 +255,7 @@ Không bác bỏ H₀ tại α=0.05, chứ không có nghĩa đã chứng minh �
 3. In ngưỡng và Boolean cho việc bác bỏ H₀.
 
 ```python
+# Mục đích: Thấy vai trò của mức ý nghĩa alpha.
 p = 0.04
 for alpha in [0.01, 0.05]:
     print(alpha, p < alpha)
@@ -270,302 +279,302 @@ Với α=0.01 chưa bác bỏ, với α=0.05 thì bác bỏ; không suy ra xác 
 - SE khác SD: SE nói về bất định của mean, SD nói về số đo riêng lẻ.
 - T-test trên mẫu nhỏ nhạy với ngoại lệ/phụ thuộc; cần xem giả định và thiết kế lấy mẫu.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
-**Q1. What is H0? — H₀ là gì?**
+**Q1. What is H0? | H₀ là gì?**
 
-A. A null hypothesis subjected to statistical testing — Giả thuyết không được đem kiểm định
+A. A null hypothesis subjected to statistical testing | Giả thuyết không được đem kiểm định
 
-B. Probability of equally or more extreme test results under H0 — Xác suất thống kê cực đoan bằng hoặc hơn khi H₀ đúng
+B. Probability of equally or more extreme test results under H0 | Xác suất thống kê cực đoan bằng hoặc hơn khi H₀ đúng
 
-C. Test a population mean against a specified value — Kiểm định trung bình quần thể với một mốc
+C. Test a population mean against a specified value | Kiểm định trung bình quần thể với một mốc
 
-D. An interval from a procedure with 95% long-run coverage — Khoảng từ quy trình có mức bao phủ dài hạn 95%
+D. An interval from a procedure with 95% long-run coverage | Khoảng từ quy trình có mức bao phủ dài hạn 95%
 
 **Đáp án: A**
 
 **Giải thích:** Đó là giả định gốc của kiểm định. Ví dụ H₀: μ=50 nói về mean quần thể; không đòi mean mẫu quan sát phải đúng 50.
 
 
-**Q2. What does p-value mean? — p-value nghĩa là gì?**
+**Q2. What does p-value mean? | p-value nghĩa là gì?**
 
-A. A null hypothesis subjected to statistical testing — Giả thuyết không được đem kiểm định
+A. A null hypothesis subjected to statistical testing | Giả thuyết không được đem kiểm định
 
-B. Probability of equally or more extreme test results under H0 — Xác suất thống kê cực đoan bằng hoặc hơn khi H₀ đúng
+B. Probability of equally or more extreme test results under H0 | Xác suất thống kê cực đoan bằng hoặc hơn khi H₀ đúng
 
-C. Test a population mean against a specified value — Kiểm định trung bình quần thể với một mốc
+C. Test a population mean against a specified value | Kiểm định trung bình quần thể với một mốc
 
-D. An interval from a procedure with 95% long-run coverage — Khoảng từ quy trình có mức bao phủ dài hạn 95%
+D. An interval from a procedure with 95% long-run coverage | Khoảng từ quy trình có mức bao phủ dài hạn 95%
 
 **Đáp án: B**
 
 **Giải thích:** Nó được tính với điều kiện mô hình H₀ đúng. p-value được tính từ thống kê kiểm định và phân phối dưới H₀, chứ không trực tiếp gán xác suất cho H₀.
 
 
-**Q3. What is a one-sample t-test for? — T-test một mẫu dùng để làm gì?**
+**Q3. What is a one-sample t-test for? | T-test một mẫu dùng để làm gì?**
 
-A. A null hypothesis subjected to statistical testing — Giả thuyết không được đem kiểm định
+A. A null hypothesis subjected to statistical testing | Giả thuyết không được đem kiểm định
 
-B. Probability of equally or more extreme test results under H0 — Xác suất thống kê cực đoan bằng hoặc hơn khi H₀ đúng
+B. Probability of equally or more extreme test results under H0 | Xác suất thống kê cực đoan bằng hoặc hơn khi H₀ đúng
 
-C. Test a population mean against a specified value — Kiểm định trung bình quần thể với một mốc
+C. Test a population mean against a specified value | Kiểm định trung bình quần thể với một mốc
 
-D. An interval from a procedure with 95% long-run coverage — Khoảng từ quy trình có mức bao phủ dài hạn 95%
+D. An interval from a procedure with 95% long-run coverage | Khoảng từ quy trình có mức bao phủ dài hạn 95%
 
 **Đáp án: C**
 
 **Giải thích:** Nó dùng trung bình và ước lượng phương sai mẫu. Khác kiểm định hai mẫu, t-test một mẫu so trung bình một mẫu với mốc cố định.
 
 
-**Q4. What is a 95% confidence interval? — Khoảng tin cậy 95% là gì?**
+**Q4. What is a 95% confidence interval? | Khoảng tin cậy 95% là gì?**
 
-A. A null hypothesis subjected to statistical testing — Giả thuyết không được đem kiểm định
+A. A null hypothesis subjected to statistical testing | Giả thuyết không được đem kiểm định
 
-B. Probability of equally or more extreme test results under H0 — Xác suất thống kê cực đoan bằng hoặc hơn khi H₀ đúng
+B. Probability of equally or more extreme test results under H0 | Xác suất thống kê cực đoan bằng hoặc hơn khi H₀ đúng
 
-C. Test a population mean against a specified value — Kiểm định trung bình quần thể với một mốc
+C. Test a population mean against a specified value | Kiểm định trung bình quần thể với một mốc
 
-D. An interval from a procedure with 95% long-run coverage — Khoảng từ quy trình có mức bao phủ dài hạn 95%
+D. An interval from a procedure with 95% long-run coverage | Khoảng từ quy trình có mức bao phủ dài hạn 95%
 
 **Đáp án: D**
 
 **Giải thích:** Bao phủ được hiểu qua những lần lấy mẫu lặp. Mức bao phủ 95% thuộc quy trình qua nhiều mẫu; một CI đã tính cần báo hai đầu mút và giả định đi kèm.
 
 
-**Q5. What does alpha represent? — α đại diện cho gì?**
+**Q5. What does alpha represent? | α đại diện cho gì?**
 
-A. A preselected significance threshold — Ngưỡng mức ý nghĩa được chọn trước
+A. A preselected significance threshold | Ngưỡng mức ý nghĩa được chọn trước
 
-B. Reject H0 at that significance level — Bác bỏ H₀ ở mức ý nghĩa đó
+B. Reject H0 at that significance level | Bác bỏ H₀ ở mức ý nghĩa đó
 
-C. Fail to reject H0 — Chưa đủ bằng chứng bác bỏ H₀
+C. Fail to reject H0 | Chưa đủ bằng chứng bác bỏ H₀
 
-D. Compare one sample mean with mu0 — So mean một mẫu với mốc mu0
+D. Compare one sample mean with mu0 | So mean một mẫu với mốc mu0
 
 **Đáp án: A**
 
 **Giải thích:** α điều khiển quy tắc bác bỏ. Chọn alpha sau khi nhìn p-value có thể làm sai ý nghĩa kiểm soát báo động nhầm dự kiến.
 
 
-**Q6. What does p<alpha typically imply? — p<α thường dẫn tới gì?**
+**Q6. What does p<alpha typically imply? | p<α thường dẫn tới gì?**
 
-A. A preselected significance threshold — Ngưỡng mức ý nghĩa được chọn trước
+A. A preselected significance threshold | Ngưỡng mức ý nghĩa được chọn trước
 
-B. Reject H0 at that significance level — Bác bỏ H₀ ở mức ý nghĩa đó
+B. Reject H0 at that significance level | Bác bỏ H₀ ở mức ý nghĩa đó
 
-C. Fail to reject H0 — Chưa đủ bằng chứng bác bỏ H₀
+C. Fail to reject H0 | Chưa đủ bằng chứng bác bỏ H₀
 
-D. Compare one sample mean with mu0 — So mean một mẫu với mốc mu0
+D. Compare one sample mean with mu0 | So mean một mẫu với mốc mu0
 
 **Đáp án: B**
 
 **Giải thích:** Kết quả bất thường dưới giả thuyết gốc. Bác bỏ cung cấp bằng chứng chống H₀ dưới mô hình, không đo xác suất H₀ sai.
 
 
-**Q7. What does p≥alpha imply? — p≥α thường kết luận gì?**
+**Q7. What does p≥alpha imply? | p≥α thường kết luận gì?**
 
-A. A preselected significance threshold — Ngưỡng mức ý nghĩa được chọn trước
+A. A preselected significance threshold | Ngưỡng mức ý nghĩa được chọn trước
 
-B. Reject H0 at that significance level — Bác bỏ H₀ ở mức ý nghĩa đó
+B. Reject H0 at that significance level | Bác bỏ H₀ ở mức ý nghĩa đó
 
-C. Fail to reject H0 — Chưa đủ bằng chứng bác bỏ H₀
+C. Fail to reject H0 | Chưa đủ bằng chứng bác bỏ H₀
 
-D. Compare one sample mean with mu0 — So mean một mẫu với mốc mu0
+D. Compare one sample mean with mu0 | So mean một mẫu với mốc mu0
 
 **Đáp án: C**
 
 **Giải thích:** Không bác bỏ không phải chứng minh H₀. Mẫu nhỏ có thể bỏ sót tác động thật; 'không bác bỏ' khác với 'đã xác nhận bằng nhau'.
 
 
-**Q8. What is `ttest_1samp(x,popmean=mu0)` for? — `ttest_1samp(x,popmean=mu0)` dùng làm gì?**
+**Q8. What is `ttest_1samp(x,popmean=mu0)` for? | `ttest_1samp(x,popmean=mu0)` dùng làm gì?**
 
-A. A preselected significance threshold — Ngưỡng mức ý nghĩa được chọn trước
+A. A preselected significance threshold | Ngưỡng mức ý nghĩa được chọn trước
 
-B. Reject H0 at that significance level — Bác bỏ H₀ ở mức ý nghĩa đó
+B. Reject H0 at that significance level | Bác bỏ H₀ ở mức ý nghĩa đó
 
-C. Fail to reject H0 — Chưa đủ bằng chứng bác bỏ H₀
+C. Fail to reject H0 | Chưa đủ bằng chứng bác bỏ H₀
 
-D. Compare one sample mean with mu0 — So mean một mẫu với mốc mu0
+D. Compare one sample mean with mu0 | So mean một mẫu với mốc mu0
 
 **Đáp án: D**
 
 **Giải thích:** Nó chạy kiểm định t một mẫu. Đối tượng trả về có thống kê kiểm định và p-value; lấy `.pvalue` khi cần quyết định.
 
 
-**Q9. How is a one-sample t statistic formed? — Thống kê t một mẫu có dạng gì?**
+**Q9. How is a one-sample t statistic formed? | Thống kê t một mẫu có dạng gì?**
 
-A. (sample mean−mu0)/SE — (mean mẫu−mu0)/SE
+A. (sample mean−mu0)/SE | (mean mẫu−mu0)/SE
 
-B. Standard error of the mean — Sai số chuẩn của trung bình
+B. Standard error of the mean | Sai số chuẩn của trung bình
 
-C. Lower and upper endpoints of a t interval — Hai đầu dưới/trên của khoảng t
+C. Lower and upper endpoints of a t interval | Hai đầu dưới/trên của khoảng t
 
-D. n−1 — n−1
+D. n−1 | n−1
 
 **Đáp án: A**
 
 **Giải thích:** Nó chuẩn hóa độ lệch của mean so với mốc. Chênh hai điểm chỉ có ý nghĩa kiểm định khi so với độ bất định lấy mẫu của mean.
 
 
-**Q10. What does `scipy.stats.sem` estimate? — `scipy.stats.sem` ước lượng gì?**
+**Q10. What does `scipy.stats.sem` estimate? | `scipy.stats.sem` ước lượng gì?**
 
-A. (sample mean−mu0)/SE — (mean mẫu−mu0)/SE
+A. (sample mean−mu0)/SE | (mean mẫu−mu0)/SE
 
-B. Standard error of the mean — Sai số chuẩn của trung bình
+B. Standard error of the mean | Sai số chuẩn của trung bình
 
-C. Lower and upper endpoints of a t interval — Hai đầu dưới/trên của khoảng t
+C. Lower and upper endpoints of a t interval | Hai đầu dưới/trên của khoảng t
 
-D. n−1 — n−1
+D. n−1 | n−1
 
 **Đáp án: B**
 
 **Giải thích:** Nó ước lượng độ dao động của mean mẫu. SE có xu hướng giảm khi n tăng dưới giả định phù hợp, còn SD của từng điểm không nhất thiết giảm.
 
 
-**Q11. What does t.interval return? — t.interval trả gì?**
+**Q11. What does t.interval return? | t.interval trả gì?**
 
-A. (sample mean−mu0)/SE — (mean mẫu−mu0)/SE
+A. (sample mean−mu0)/SE | (mean mẫu−mu0)/SE
 
-B. Standard error of the mean — Sai số chuẩn của trung bình
+B. Standard error of the mean | Sai số chuẩn của trung bình
 
-C. Lower and upper endpoints of a t interval — Hai đầu dưới/trên của khoảng t
+C. Lower and upper endpoints of a t interval | Hai đầu dưới/trên của khoảng t
 
-D. n−1 — n−1
+D. n−1 | n−1
 
 **Đáp án: C**
 
 **Giải thích:** Khoảng phụ thuộc mức tin cậy, df, vị trí và độ rộng. Scale lớn làm khoảng rộng; loc là ước lượng trung tâm chứ không phải phần trăm tin cậy.
 
 
-**Q12. What degrees of freedom are usual for one-sample t inference? — Bậc tự do thông dụng của t một mẫu là gì?**
+**Q12. What degrees of freedom are usual for one-sample t inference? | Bậc tự do thông dụng của t một mẫu là gì?**
 
-A. (sample mean−mu0)/SE — (mean mẫu−mu0)/SE
+A. (sample mean−mu0)/SE | (mean mẫu−mu0)/SE
 
-B. Standard error of the mean — Sai số chuẩn của trung bình
+B. Standard error of the mean | Sai số chuẩn của trung bình
 
-C. Lower and upper endpoints of a t interval — Hai đầu dưới/trên của khoảng t
+C. Lower and upper endpoints of a t interval | Hai đầu dưới/trên của khoảng t
 
-D. n−1 — n−1
+D. n−1 | n−1
 
 **Đáp án: D**
 
 **Giải thích:** Ước lượng phương sai mẫu làm mất một bậc tự do. Thống kê t ước lượng phương sai từ mẫu nên thường còn n−1 bậc tự do.
 
 
-**Q13. Is p-value equal to P(H0 is true)? — p-value có bằng P(H₀ đúng) không?**
+**Q13. Is p-value equal to P(H0 is true)? | p-value có bằng P(H₀ đúng) không?**
 
-A. No; p is conditional on H0 — Không; p được tính khi giả định H₀ đúng
+A. No; p is conditional on H0 | Không; p được tính khi giả định H₀ đúng
 
-B. It does not reject at the matching alpha — Không bác bỏ với alpha tương ứng
+B. It does not reject at the matching alpha | Không bác bỏ với alpha tương ứng
 
-C. Rejecting a true null hypothesis — Bác bỏ H₀ khi H₀ thực sự đúng
+C. Rejecting a true null hypothesis | Bác bỏ H₀ khi H₀ thực sự đúng
 
-D. Failing to reject a false H0 — Không bác bỏ H₀ khi H₀ sai
+D. Failing to reject a false H0 | Không bác bỏ H₀ khi H₀ sai
 
 **Đáp án: A**
 
 **Giải thích:** p theo tần suất không phải posterior. Nhầm p với P(H₀&#124;dữ liệu) là đảo chiều điều kiện; kiểm định tần suất xét mức cực đoan của dữ liệu khi H₀ đúng.
 
 
-**Q14. If a confidence interval covers a null value, what often happens in a matching two-sided test? — Nếu CI chứa mốc H₀ thì kiểm định hai phía tương ứng thường thế nào?**
+**Q14. If a confidence interval covers a null value, what often happens in a matching two-sided test? | Nếu CI chứa mốc H₀ thì kiểm định hai phía tương ứng thường thế nào?**
 
-A. No; p is conditional on H0 — Không; p được tính khi giả định H₀ đúng
+A. No; p is conditional on H0 | Không; p được tính khi giả định H₀ đúng
 
-B. It does not reject at the matching alpha — Không bác bỏ với alpha tương ứng
+B. It does not reject at the matching alpha | Không bác bỏ với alpha tương ứng
 
-C. Rejecting a true null hypothesis — Bác bỏ H₀ khi H₀ thực sự đúng
+C. Rejecting a true null hypothesis | Bác bỏ H₀ khi H₀ thực sự đúng
 
-D. Failing to reject a false H0 — Không bác bỏ H₀ khi H₀ sai
+D. Failing to reject a false H0 | Không bác bỏ H₀ khi H₀ sai
 
 **Đáp án: B**
 
 **Giải thích:** Các quy trình tương ứng thường thống nhất dưới cùng giả định. Sự tương ứng cần kiểm định hai phía, mức tin cậy và giả định phù hợp; không đúng với mọi loại kiểm định và khoảng.
 
 
-**Q15. What is a type I error? — Sai lầm loại I là gì?**
+**Q15. What is a type I error? | Sai lầm loại I là gì?**
 
-A. No; p is conditional on H0 — Không; p được tính khi giả định H₀ đúng
+A. No; p is conditional on H0 | Không; p được tính khi giả định H₀ đúng
 
-B. It does not reject at the matching alpha — Không bác bỏ với alpha tương ứng
+B. It does not reject at the matching alpha | Không bác bỏ với alpha tương ứng
 
-C. Rejecting a true null hypothesis — Bác bỏ H₀ khi H₀ thực sự đúng
+C. Rejecting a true null hypothesis | Bác bỏ H₀ khi H₀ thực sự đúng
 
-D. Failing to reject a false H0 — Không bác bỏ H₀ khi H₀ sai
+D. Failing to reject a false H0 | Không bác bỏ H₀ khi H₀ sai
 
 **Đáp án: C**
 
 **Giải thích:** Alpha kiểm soát lỗi loại I dưới giả định kiểm định. Sai lầm loại I là báo dương sai; alpha được chọn trước để kiểm soát xác suất lỗi này dưới giả định H₀.
 
 
-**Q16. What is a type II error? — Sai lầm loại II là gì?**
+**Q16. What is a type II error? | Sai lầm loại II là gì?**
 
-A. No; p is conditional on H0 — Không; p được tính khi giả định H₀ đúng
+A. No; p is conditional on H0 | Không; p được tính khi giả định H₀ đúng
 
-B. It does not reject at the matching alpha — Không bác bỏ với alpha tương ứng
+B. It does not reject at the matching alpha | Không bác bỏ với alpha tương ứng
 
-C. Rejecting a true null hypothesis — Bác bỏ H₀ khi H₀ thực sự đúng
+C. Rejecting a true null hypothesis | Bác bỏ H₀ khi H₀ thực sự đúng
 
-D. Failing to reject a false H0 — Không bác bỏ H₀ khi H₀ sai
+D. Failing to reject a false H0 | Không bác bỏ H₀ khi H₀ sai
 
 **Đáp án: D**
 
 **Giải thích:** Nó khác lỗi bác bỏ H₀ đúng. Power bằng một trừ xác suất sai lầm loại II dưới giả thuyết đối cụ thể, liên quan đến thiết kế cỡ mẫu.
 
 
-**Q17. Does a 95% CI say the fixed parameter has 95% probability of lying in this realized interval? — CI 95% có nghĩa xác suất tham số cố định trong khoảng đã tính là 95%?**
+**Q17. Does a 95% CI say the fixed parameter has 95% probability of lying in this realized interval? | CI 95% có nghĩa xác suất tham số cố định trong khoảng đã tính là 95%?**
 
-A. No; 95% describes repeated-interval coverage — Không; 95% mô tả tỷ lệ bao phủ khi lặp
+A. No; 95% describes repeated-interval coverage | Không; 95% mô tả tỷ lệ bao phủ khi lặp
 
-B. Strong dependence or problematic extreme data in small samples — Phụ thuộc mạnh hoặc dữ liệu cực đoan trong mẫu nhỏ
+B. Strong dependence or problematic extreme data in small samples | Phụ thuộc mạnh hoặc dữ liệu cực đoan trong mẫu nhỏ
 
-C. It becomes wider — Trở nên rộng hơn
+C. It becomes wider | Trở nên rộng hơn
 
-D. No; effect size and context still matter — Không; còn kích thước tác động và bối cảnh
+D. No; effect size and context still matter | Không; còn kích thước tác động và bối cảnh
 
 **Đáp án: A**
 
 **Giải thích:** Trong diễn giải tần suất, tham số cố định và khoảng thay đổi theo mẫu. Phát biểu xác suất áp dụng cho quy trình tạo khoảng ngẫu nhiên trước lấy mẫu, không phải μ cố định sau khi quan sát một CI.
 
 
-**Q18. What can violate simple t-test assumptions? — Điều gì có thể vi phạm giả định t-test đơn giản?**
+**Q18. What can violate simple t-test assumptions? | Điều gì có thể vi phạm giả định t-test đơn giản?**
 
-A. No; 95% describes repeated-interval coverage — Không; 95% mô tả tỷ lệ bao phủ khi lặp
+A. No; 95% describes repeated-interval coverage | Không; 95% mô tả tỷ lệ bao phủ khi lặp
 
-B. Strong dependence or problematic extreme data in small samples — Phụ thuộc mạnh hoặc dữ liệu cực đoan trong mẫu nhỏ
+B. Strong dependence or problematic extreme data in small samples | Phụ thuộc mạnh hoặc dữ liệu cực đoan trong mẫu nhỏ
 
-C. It becomes wider — Trở nên rộng hơn
+C. It becomes wider | Trở nên rộng hơn
 
-D. No; effect size and context still matter — Không; còn kích thước tác động và bối cảnh
+D. No; effect size and context still matter | Không; còn kích thước tác động và bối cảnh
 
 **Đáp án: B**
 
 **Giải thích:** Suy luận cần mô hình lấy mẫu phù hợp. Mẫu rất nhỏ, ngoại lệ nặng hoặc phụ thuộc có thể khiến p-value và CI báo ra thiếu tin cậy.
 
 
-**Q19. What happens to CI width if SE grows with other inputs fixed? — SE tăng khi yếu tố khác giữ nguyên thì CI rộng ra sao?**
+**Q19. What happens to CI width if SE grows with other inputs fixed? | SE tăng khi yếu tố khác giữ nguyên thì CI rộng ra sao?**
 
-A. No; 95% describes repeated-interval coverage — Không; 95% mô tả tỷ lệ bao phủ khi lặp
+A. No; 95% describes repeated-interval coverage | Không; 95% mô tả tỷ lệ bao phủ khi lặp
 
-B. Strong dependence or problematic extreme data in small samples — Phụ thuộc mạnh hoặc dữ liệu cực đoan trong mẫu nhỏ
+B. Strong dependence or problematic extreme data in small samples | Phụ thuộc mạnh hoặc dữ liệu cực đoan trong mẫu nhỏ
 
-C. It becomes wider — Trở nên rộng hơn
+C. It becomes wider | Trở nên rộng hơn
 
-D. No; effect size and context still matter — Không; còn kích thước tác động và bối cảnh
+D. No; effect size and context still matter | Không; còn kích thước tác động và bối cảnh
 
 **Đáp án: C**
 
 **Giải thích:** Bất định cao làm khoảng rộng hơn. Trong khoảng t, SE tăng làm biên `t_critical × SE` tăng, khiến hai đầu mút cách mean xa hơn.
 
 
-**Q20. Is statistical significance identical to practical importance? — Ý nghĩa thống kê có giống giá trị thực tiễn không?**
+**Q20. Is statistical significance identical to practical importance? | Ý nghĩa thống kê có giống giá trị thực tiễn không?**
 
-A. No; 95% describes repeated-interval coverage — Không; 95% mô tả tỷ lệ bao phủ khi lặp
+A. No; 95% describes repeated-interval coverage | Không; 95% mô tả tỷ lệ bao phủ khi lặp
 
-B. Strong dependence or problematic extreme data in small samples — Phụ thuộc mạnh hoặc dữ liệu cực đoan trong mẫu nhỏ
+B. Strong dependence or problematic extreme data in small samples | Phụ thuộc mạnh hoặc dữ liệu cực đoan trong mẫu nhỏ
 
-C. It becomes wider — Trở nên rộng hơn
+C. It becomes wider | Trở nên rộng hơn
 
-D. No; effect size and context still matter — Không; còn kích thước tác động và bối cảnh
+D. No; effect size and context still matter | Không; còn kích thước tác động và bối cảnh
 
 **Đáp án: D**
 

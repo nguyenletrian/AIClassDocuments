@@ -42,6 +42,7 @@
 Set không giữ phần tử trùng. Lớp Python gồm SV1, SV2; lớp AI gồm SV2, SV3. Phép **hợp** `python | ai` chứa tất cả người có mặt trong **ít nhất một** lớp. SV2 nằm ở cả hai nhưng chỉ xuất hiện một lần. Khi cần đầu ra ổn định, dùng `sorted()` vì Set không bảo đảm thứ tự hiển thị.
 
 ```python
+# Mục đích: Ai tham gia ít nhất một nhóm?.
 python = {'SV1', 'SV2'}
 ai = {'SV2', 'SV3'}
 print(sorted(python | ai))
@@ -62,6 +63,7 @@ Ba mã học viên khác nhau thuộc ít nhất một lớp; `sorted` tạo Lis
 **Giao** `a & b` chỉ lấy phần tử thuộc cả hai nhóm; với lớp Python {SV1,SV2} và AI {SV2,SV3}, phần chung là SV2. **Hiệu** `a - b` chỉ lấy phần tử thuộc a nhưng không thuộc b, tức SV1 trong ví dụ. Hiệu khác hiệu đối xứng `a ^ b`, vốn chứa các phần tử chỉ có ở đúng một nhóm.
 
 ```python
+# Mục đích: Phần chung và phần riêng.
 a = {'SV1', 'SV2'}
 b = {'SV2', 'SV3'}
 print(sorted(a & b), sorted(a - b))
@@ -82,6 +84,7 @@ SV2 học cả hai lớp, còn SV1 chỉ học Python. Hai phép toán trả l�
 Nếu cộng số học viên hai lớp trực tiếp, người học cả hai bị đếm **hai lần**. Ví dụ lớp Python có 2 người, lớp AI có 2 người, một người chung: số người khác nhau bằng `2 + 2 - 1 = 3`. Công thức `|A ∪ B| = |A| + |B| - |A ∩ B|` trừ phần bị đếm lặp. Với hơn hai tập, cần tính thêm các giao nhiều tập.
 
 ```python
+# Mục đích: Đếm không lặp người.
 a = {'SV1', 'SV2'}
 b = {'SV2', 'SV3'}
 print(len(a) + len(b) - len(a & b))
@@ -102,6 +105,7 @@ Kết quả đếm ba học viên duy nhất, không coi SV2 là hai người kh
 **Phân hoạch** tập dữ liệu gốc thành các nhóm **không rỗng**, **không giao nhau**, và **hợp lại bằng đúng tập gốc**. Ví dụ toàn bộ mã `{1,2,3,4,5}`, train `{1,2,3}`, test `{4,5}`. `isdisjoint` chỉ kiểm tra không trùng; để chứng minh phân hoạch còn phải kiểm tra hợp của chúng có phủ đủ dữ liệu gốc. Với Machine Learning, không trùng ID **chưa chắc** loại bỏ mọi hình thức rò rỉ dữ liệu.
 
 ```python
+# Mục đích: Chia đủ dữ liệu thành phần rời.
 all_ids = {1, 2, 3, 4, 5}
 train = {1, 2, 3}
 test = {4, 5}
@@ -133,6 +137,7 @@ Hai tập đều có dữ liệu, không trùng và phủ đủ toàn bộ năm 
 3. Dùng `len` đếm số học viên duy nhất.
 
 ```python
+# Mục đích: Đếm người học ít nhất một môn.
 a = {"SV1", "SV2", "SV3"}
 b = {"SV2", "SV4"}
 print(len(a|b))
@@ -160,6 +165,7 @@ print(len(a|b))
 3. In kết quả dưới dạng danh sách có thứ tự để dễ đối chiếu.
 
 ```python
+# Mục đích: Người học cả hai môn.
 a = {"SV1", "SV2"}
 b = {"SV2", "SV3"}
 print(sorted(a & b))
@@ -187,6 +193,7 @@ print(sorted(a & b))
 3. So sánh với `len(a | b)` để kiểm chứng hai cách tính.
 
 ```python
+# Mục đích: Kiểm công thức đếm.
 a = {1, 2, 3}
 b = {3, 4}
 print(len(a)+len(b)-len(a&b), len(a|b))
@@ -214,6 +221,7 @@ print(len(a)+len(b)-len(a&b), len(a|b))
 3. Kiểm tra các ID của train và test gộp lại có đúng tập gốc và không rỗng.
 
 ```python
+# Mục đích: Chia tập train/test.
 train = {1, 2, 3}
 test = {4, 5}
 assert train.isdisjoint(test)
@@ -242,6 +250,7 @@ print(train.isdisjoint(test) and train | test == True)
 3. Sắp xếp và in những người chỉ ở một lớp.
 
 ```python
+# Mục đích: Tìm sở thích riêng.
 web = {"An", "Binh"}
 ai = {"Binh", "Lan"}
 print(sorted(web ^ ai))
@@ -261,304 +270,304 @@ print(sorted(web ^ ai))
 - Bao hàm–loại trừ tránh đếm trùng. Nếu có ba tập trở lên, công thức cần cộng/trừ thêm các giao nhiều tập.
 - `isdisjoint()` chỉ chứng minh hai tập không trùng, chưa chứng minh chúng phủ toàn bộ tập gốc.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What does a union contain? — Phép hợp chứa gì?**
+**Q1. What does a union contain? | Phép hợp chứa gì?**
 
-A. Elements in at least one set — Phần tử thuộc ít nhất một tập
+A. Elements in at least one set | Phần tử thuộc ít nhất một tập
 
-B. Elements common to both sets — Phần tử có ở cả hai tập
+B. Elements common to both sets | Phần tử có ở cả hai tập
 
-C. Elements in A but not in B — Phần tử thuộc A nhưng không thuộc B
+C. Elements in A but not in B | Phần tử thuộc A nhưng không thuộc B
 
-D. Nonempty disjoint parts covering the original set — Các phần không rỗng, rời nhau và phủ đủ tập gốc
+D. Nonempty disjoint parts covering the original set | Các phần không rỗng, rời nhau và phủ đủ tập gốc
 
 **Đáp án: A**
 
 **Giải thích:** Hợp chứa các phần tử khác nhau của hai tập.
 
 
-**Q2. What does an intersection contain? — Phép giao chứa gì?**
+**Q2. What does an intersection contain? | Phép giao chứa gì?**
 
-A. Elements in at least one set — Phần tử thuộc ít nhất một tập
+A. Elements in at least one set | Phần tử thuộc ít nhất một tập
 
-B. Elements common to both sets — Phần tử có ở cả hai tập
+B. Elements common to both sets | Phần tử có ở cả hai tập
 
-C. Elements in A but not in B — Phần tử thuộc A nhưng không thuộc B
+C. Elements in A but not in B | Phần tử thuộc A nhưng không thuộc B
 
-D. Nonempty disjoint parts covering the original set — Các phần không rỗng, rời nhau và phủ đủ tập gốc
+D. Nonempty disjoint parts covering the original set | Các phần không rỗng, rời nhau và phủ đủ tập gốc
 
 **Đáp án: B**
 
 **Giải thích:** Giao chỉ giữ phần tử chung của hai tập.
 
 
-**Q3. What is set difference A−B? — Hiệu tập hợp A−B là gì?**
+**Q3. What is set difference A−B? | Hiệu tập hợp A−B là gì?**
 
-A. Elements in at least one set — Phần tử thuộc ít nhất một tập
+A. Elements in at least one set | Phần tử thuộc ít nhất một tập
 
-B. Elements common to both sets — Phần tử có ở cả hai tập
+B. Elements common to both sets | Phần tử có ở cả hai tập
 
-C. Elements in A but not in B — Phần tử thuộc A nhưng không thuộc B
+C. Elements in A but not in B | Phần tử thuộc A nhưng không thuộc B
 
-D. Nonempty disjoint parts covering the original set — Các phần không rỗng, rời nhau và phủ đủ tập gốc
+D. Nonempty disjoint parts covering the original set | Các phần không rỗng, rời nhau và phủ đủ tập gốc
 
 **Đáp án: C**
 
 **Giải thích:** Hiệu A−B loại phần tử của B ra khỏi A.
 
 
-**Q4. What defines a partition of a set? — Điều gì xác định một phân hoạch?**
+**Q4. What defines a partition of a set? | Điều gì xác định một phân hoạch?**
 
-A. Elements in at least one set — Phần tử thuộc ít nhất một tập
+A. Elements in at least one set | Phần tử thuộc ít nhất một tập
 
-B. Elements common to both sets — Phần tử có ở cả hai tập
+B. Elements common to both sets | Phần tử có ở cả hai tập
 
-C. Elements in A but not in B — Phần tử thuộc A nhưng không thuộc B
+C. Elements in A but not in B | Phần tử thuộc A nhưng không thuộc B
 
-D. Nonempty disjoint parts covering the original set — Các phần không rỗng, rời nhau và phủ đủ tập gốc
+D. Nonempty disjoint parts covering the original set | Các phần không rỗng, rời nhau và phủ đủ tập gốc
 
 **Đáp án: D**
 
 **Giải thích:** Mọi phần không giao nhau và hợp bằng tập gốc.
 
 
-**Q5. Which operator computes union for sets? — Toán tử nào tính phép hợp Set?**
+**Q5. Which operator computes union for sets? | Toán tử nào tính phép hợp Set?**
 
-A. `a | b` — `a | b`
+A. `a | b` | `a | b`
 
-B. `a & b` — `a & b`
+B. `a & b` | `a & b`
 
-C. `a ^ b` — `a ^ b`
+C. `a ^ b` | `a ^ b`
 
-D. `a.isdisjoint(b)` — `a.isdisjoint(b)`
+D. `a.isdisjoint(b)` | `a.isdisjoint(b)`
 
 **Đáp án: A**
 
 **Giải thích:** Dấu `&#124;` biểu diễn phép hợp tập hợp.
 
 
-**Q6. Which operator computes intersection? — Toán tử nào tính phép giao?**
+**Q6. Which operator computes intersection? | Toán tử nào tính phép giao?**
 
-A. `a | b` — `a | b`
+A. `a | b` | `a | b`
 
-B. `a & b` — `a & b`
+B. `a & b` | `a & b`
 
-C. `a ^ b` — `a ^ b`
+C. `a ^ b` | `a ^ b`
 
-D. `a.isdisjoint(b)` — `a.isdisjoint(b)`
+D. `a.isdisjoint(b)` | `a.isdisjoint(b)`
 
 **Đáp án: B**
 
 **Giải thích:** Dấu & giữ các phần tử chung.
 
 
-**Q7. Which operator computes symmetric difference? — Toán tử nào tính hiệu đối xứng?**
+**Q7. Which operator computes symmetric difference? | Toán tử nào tính hiệu đối xứng?**
 
-A. `a | b` — `a | b`
+A. `a | b` | `a | b`
 
-B. `a & b` — `a & b`
+B. `a & b` | `a & b`
 
-C. `a ^ b` — `a ^ b`
+C. `a ^ b` | `a ^ b`
 
-D. `a.isdisjoint(b)` — `a.isdisjoint(b)`
+D. `a.isdisjoint(b)` | `a.isdisjoint(b)`
 
 **Đáp án: C**
 
 **Giải thích:** Hiệu đối xứng giữ phần tử chỉ ở một bên.
 
 
-**Q8. Which method checks that two sets do not overlap? — Phương thức nào kiểm tra hai Set không trùng nhau?**
+**Q8. Which method checks that two sets do not overlap? | Phương thức nào kiểm tra hai Set không trùng nhau?**
 
-A. `a | b` — `a | b`
+A. `a | b` | `a | b`
 
-B. `a & b` — `a & b`
+B. `a & b` | `a & b`
 
-C. `a ^ b` — `a ^ b`
+C. `a ^ b` | `a ^ b`
 
-D. `a.isdisjoint(b)` — `a.isdisjoint(b)`
+D. `a.isdisjoint(b)` | `a.isdisjoint(b)`
 
 **Đáp án: D**
 
 **Giải thích:** isdisjoint đúng khi phần giao rỗng.
 
 
-**Q9. Why does inclusion–exclusion subtract an intersection? — Vì sao bao hàm–loại trừ phải trừ phần giao?**
+**Q9. Why does inclusion–exclusion subtract an intersection? | Vì sao bao hàm–loại trừ phải trừ phần giao?**
 
-A. To correct double counting — Để sửa việc đếm trùng
+A. To correct double counting | Để sửa việc đếm trùng
 
-B. Distinct elements in either set — Số phần tử khác nhau ở ít nhất một tập
+B. Distinct elements in either set | Số phần tử khác nhau ở ít nhất một tập
 
-C. When the sets share no members — Khi hai tập không có phần tử chung
+C. When the sets share no members | Khi hai tập không có phần tử chung
 
-D. An ordered List of its elements — List chứa các phần tử được sắp thứ tự
+D. An ordered List of its elements | List chứa các phần tử được sắp thứ tự
 
 **Đáp án: A**
 
 **Giải thích:** Phần tử giao đã được tính trong cả hai số đếm.
 
 
-**Q10. What does `len(a | b)` count? — `len(a | b)` đếm gì?**
+**Q10. What does `len(a | b)` count? | `len(a | b)` đếm gì?**
 
-A. To correct double counting — Để sửa việc đếm trùng
+A. To correct double counting | Để sửa việc đếm trùng
 
-B. Distinct elements in either set — Số phần tử khác nhau ở ít nhất một tập
+B. Distinct elements in either set | Số phần tử khác nhau ở ít nhất một tập
 
-C. When the sets share no members — Khi hai tập không có phần tử chung
+C. When the sets share no members | Khi hai tập không có phần tử chung
 
-D. An ordered List of its elements — List chứa các phần tử được sắp thứ tự
+D. An ordered List of its elements | List chứa các phần tử được sắp thứ tự
 
 **Đáp án: B**
 
 **Giải thích:** Hợp tự loại phần trùng của các nhóm.
 
 
-**Q11. When is `a.isdisjoint(b)` True? — Khi nào `a.isdisjoint(b)` bằng True?**
+**Q11. When is `a.isdisjoint(b)` True? | Khi nào `a.isdisjoint(b)` bằng True?**
 
-A. To correct double counting — Để sửa việc đếm trùng
+A. To correct double counting | Để sửa việc đếm trùng
 
-B. Distinct elements in either set — Số phần tử khác nhau ở ít nhất một tập
+B. Distinct elements in either set | Số phần tử khác nhau ở ít nhất một tập
 
-C. When the sets share no members — Khi hai tập không có phần tử chung
+C. When the sets share no members | Khi hai tập không có phần tử chung
 
-D. An ordered List of its elements — List chứa các phần tử được sắp thứ tự
+D. An ordered List of its elements | List chứa các phần tử được sắp thứ tự
 
 **Đáp án: C**
 
 **Giải thích:** Hai tập rời có phần giao rỗng.
 
 
-**Q12. What does `sorted(my_set)` produce? — `sorted(my_set)` tạo gì?**
+**Q12. What does `sorted(my_set)` produce? | `sorted(my_set)` tạo gì?**
 
-A. To correct double counting — Để sửa việc đếm trùng
+A. To correct double counting | Để sửa việc đếm trùng
 
-B. Distinct elements in either set — Số phần tử khác nhau ở ít nhất một tập
+B. Distinct elements in either set | Số phần tử khác nhau ở ít nhất một tập
 
-C. When the sets share no members — Khi hai tập không có phần tử chung
+C. When the sets share no members | Khi hai tập không có phần tử chung
 
-D. An ordered List of its elements — List chứa các phần tử được sắp thứ tự
+D. An ordered List of its elements | List chứa các phần tử được sắp thứ tự
 
 **Đáp án: D**
 
 **Giải thích:** sorted tạo List và không sửa Set gốc.
 
 
-**Q13. How many distinct values are in `{1,1,2}`? — `{1,1,2}` có mấy phần tử khác nhau?**
+**Q13. How many distinct values are in `{1,1,2}`? | `{1,1,2}` có mấy phần tử khác nhau?**
 
-A. 2 — 2
+A. 2 | 2
 
-B. 4 — 4
+B. 4 | 4
 
-C. Every part is nonempty and the union covers the original set — Mỗi phần không rỗng và hợp phủ đủ tập gốc
+C. Every part is nonempty and the union covers the original set | Mỗi phần không rỗng và hợp phủ đủ tập gốc
 
-D. No element is shared — Không có phần tử chung
+D. No element is shared | Không có phần tử chung
 
 **Đáp án: A**
 
 **Giải thích:** Giá trị trùng chỉ xuất hiện một lần trong Set.
 
 
-**Q14. If |A|=3, |B|=2, |A∩B|=1, what is |A∪B|? — Nếu |A|=3, |B|=2, |A∩B|=1 thì |A∪B| bằng bao nhiêu?**
+**Q14. If |A|=3, |B|=2, |A∩B|=1, what is |A∪B|? | Nếu |A|=3, |B|=2, |A∩B|=1 thì |A∪B| bằng bao nhiêu?**
 
-A. 2 — 2
+A. 2 | 2
 
-B. 4 — 4
+B. 4 | 4
 
-C. Every part is nonempty and the union covers the original set — Mỗi phần không rỗng và hợp phủ đủ tập gốc
+C. Every part is nonempty and the union covers the original set | Mỗi phần không rỗng và hợp phủ đủ tập gốc
 
-D. No element is shared — Không có phần tử chung
+D. No element is shared | Không có phần tử chung
 
 **Đáp án: B**
 
 **Giải thích:** Dùng công thức 3+2−1=4.
 
 
-**Q15. Which two conditions besides disjointness are needed to verify a nonempty partition? — Ngoài rời nhau, cần kiểm tra gì để xác nhận các phần không rỗng là phân hoạch?**
+**Q15. Which two conditions besides disjointness are needed to verify a nonempty partition? | Ngoài rời nhau, cần kiểm tra gì để xác nhận các phần không rỗng là phân hoạch?**
 
-A. 2 — 2
+A. 2 | 2
 
-B. 4 — 4
+B. 4 | 4
 
-C. Every part is nonempty and the union covers the original set — Mỗi phần không rỗng và hợp phủ đủ tập gốc
+C. Every part is nonempty and the union covers the original set | Mỗi phần không rỗng và hợp phủ đủ tập gốc
 
-D. No element is shared — Không có phần tử chung
+D. No element is shared | Không có phần tử chung
 
 **Đáp án: C**
 
 **Giải thích:** Phân hoạch phải phủ đủ phần tử gốc và không có phần rỗng.
 
 
-**Q16. What does the empty intersection mean? — Phần giao rỗng nghĩa là gì?**
+**Q16. What does the empty intersection mean? | Phần giao rỗng nghĩa là gì?**
 
-A. 2 — 2
+A. 2 | 2
 
-B. 4 — 4
+B. 4 | 4
 
-C. Every part is nonempty and the union covers the original set — Mỗi phần không rỗng và hợp phủ đủ tập gốc
+C. Every part is nonempty and the union covers the original set | Mỗi phần không rỗng và hợp phủ đủ tập gốc
 
-D. No element is shared — Không có phần tử chung
+D. No element is shared | Không có phần tử chung
 
 **Đáp án: D**
 
 **Giải thích:** Giao rỗng biểu thị hai tập rời nhau.
 
 
-**Q17. What does A∪A equal? — A∪A bằng gì?**
+**Q17. What does A∪A equal? | A∪A bằng gì?**
 
-A. A — A
+A. A | A
 
-B. Empty set — Tập rỗng
+B. Empty set | Tập rỗng
 
-C. No fixed order is promised — Không bảo đảm thứ tự cố định
+C. No fixed order is promised | Không bảo đảm thứ tự cố định
 
-D. Related records or future information may cross splits — Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
+D. Related records or future information may cross splits | Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
 
 **Đáp án: A**
 
 **Giải thích:** Hợp một tập với chính nó không thêm phần tử.
 
 
-**Q18. What does A∩∅ equal? — A∩∅ bằng gì?**
+**Q18. What does A∩∅ equal? | A∩∅ bằng gì?**
 
-A. A — A
+A. A | A
 
-B. Empty set — Tập rỗng
+B. Empty set | Tập rỗng
 
-C. No fixed order is promised — Không bảo đảm thứ tự cố định
+C. No fixed order is promised | Không bảo đảm thứ tự cố định
 
-D. Related records or future information may cross splits — Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
+D. Related records or future information may cross splits | Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
 
 **Đáp án: B**
 
 **Giải thích:** Tập rỗng không có phần tử nào chung với A nên phép giao rỗng.
 
 
-**Q19. Is set iteration order guaranteed? — Thứ tự duyệt Set có được đảm bảo không?**
+**Q19. Is set iteration order guaranteed? | Thứ tự duyệt Set có được đảm bảo không?**
 
-A. A — A
+A. A | A
 
-B. Empty set — Tập rỗng
+B. Empty set | Tập rỗng
 
-C. No fixed order is promised — Không bảo đảm thứ tự cố định
+C. No fixed order is promised | Không bảo đảm thứ tự cố định
 
-D. Related records or future information may cross splits — Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
+D. Related records or future information may cross splits | Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
 
 **Đáp án: C**
 
 **Giải thích:** Set Python không phải dãy có thứ tự.
 
 
-**Q20. Why can two data splits with disjoint IDs still leak information? — Vì sao hai tập dữ liệu không trùng ID vẫn có thể rò rỉ thông tin?**
+**Q20. Why can two data splits with disjoint IDs still leak information? | Vì sao hai tập dữ liệu không trùng ID vẫn có thể rò rỉ thông tin?**
 
-A. A — A
+A. A | A
 
-B. A itself — Chính tập A
+B. A itself | Chính tập A
 
-C. No fixed order is promised — Không bảo đảm thứ tự cố định
+C. No fixed order is promised | Không bảo đảm thứ tự cố định
 
-D. Related records or future information may cross splits — Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
+D. Related records or future information may cross splits | Bản ghi liên quan hoặc thông tin tương lai có thể lọt qua hai tập
 
 **Đáp án: D**
 

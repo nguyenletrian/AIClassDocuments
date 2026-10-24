@@ -43,6 +43,7 @@
 **Giá trị thiếu** là ô chưa có dữ liệu hợp lệ, chẳng hạn ba khách hàng có tuổi `[20, None, 25]` và khách thứ hai chưa khai báo. Trong DataFrame, **mỗi hàng là một khách**, cột `age` là tuổi (năm). Pandas thường biểu diễn số thiếu là `NaN`; `isna()` tạo giá trị Boolean đánh dấu ô thiếu, rồi `sum()` đếm số trường hợp `True`. Thiếu khác với tuổi 0: không được tùy tiện coi khách chưa nhập tuổi là trẻ sơ sinh.
 
 ```python
+# Mục đích: Phát hiện dữ liệu thiếu.
 import pandas as pd
 
 customers = pd.DataFrame({'age': [20, None, 25]})
@@ -64,6 +65,7 @@ Có một khách chưa có tuổi. Kết quả là **số ô thiếu**, không p
 Dữ liệu có thể chứa một giao dịch được ghi hai lần. Ví dụ bảng gồm các dòng `(O1, 10)`, `(O1, 10)`, `(O2, 20)`: **mỗi hàng là một giao dịch**, cột `id` là mã đơn, `amount` là tiền. `duplicated()` đánh dấu dòng lặp giống hệt **sau dòng đầu tiên**; `drop_duplicates()` giữ một bản. Tuy nhiên hai giao dịch cùng mã chưa chắc trùng hoàn toàn nếu số tiền hoặc chi tiết khác nhau — phải xác định quy tắc nhận diện trùng trước khi xóa.
 
 ```python
+# Mục đích: Nhận diện dòng trùng.
 import pandas as pd
 
 orders = pd.DataFrame({'id': ['O1', 'O1', 'O2'], 'amount': [10, 10, 20]})
@@ -85,6 +87,7 @@ Dòng thứ hai lặp đúng mọi cột của dòng đầu, nên chỉ dòng �
 **Điền khuyết** thay giá trị thiếu bằng một giá trị được lựa chọn theo ý nghĩa dữ liệu. Giả sử ba mức chi tiêu là `[100, None, 200]` nghìn đồng. Trung vị của hai số có thật là `(100+200)/2 = 150`; `fillna(median)` điền 150 vào ô thiếu. Không có một cách điền đúng cho mọi bài toán: với mã đơn thiếu nên xác minh nguồn, không tự thay bằng số trung vị. Nếu có tập train/test, thống kê dùng để điền phải học từ **train** để tránh rò rỉ dữ liệu.
 
 ```python
+# Mục đích: Điền dữ liệu thiếu hợp lý.
 import pandas as pd
 
 spent = pd.Series([100, None, 200], dtype=float)
@@ -107,6 +110,7 @@ print(spent.fillna(median).tolist())
 **Kiểm tra dữ liệu** bảo đảm kiểu và phạm vi phù hợp trước khi tính. Một bảng giá nhận ba chuỗi `'100'`, `'bad'`, `'250'`. `pd.to_numeric(errors='coerce')` chuyển chuỗi số thành số thực, còn chữ `bad` không đổi được thành `NaN`. Sau đó mới quyết định bỏ hàng, điền khuyết hay yêu cầu sửa ở nguồn. Nếu dùng `errors='raise'`, trường hợp không hợp lệ sẽ phát sinh lỗi để chương trình xử lý.
 
 ```python
+# Mục đích: Kiểm tra giá trị và kiểu.
 import pandas as pd
 
 raw = pd.Series(['100', 'bad', '250'])
@@ -139,6 +143,7 @@ Có đúng một giá trị giá không hợp lệ. Chuyển thành NaN giúp ph
 3. Dùng `sum()` đếm và in số trường hợp cần rà soát.
 
 ```python
+# Mục đích: Báo số khách thiếu tuổi.
 import pandas as pd
 df = pd.DataFrame({"age":[20, None, 25]})
 print(df.isna().sum())
@@ -166,6 +171,7 @@ dtype: int64
 3. Gọi `fillna` trên cột chi tiêu và in bảng đã điền.
 
 ```python
+# Mục đích: Điền giá trị trung vị.
 import pandas as pd
 df = pd.DataFrame({"spent":[100, None, 200]})
 df["spent"] = df["spent"].fillna(df["spent"].median())
@@ -196,6 +202,7 @@ print(df)
 3. In bảng còn hai bản ghi; giữ nguyên index cũ nếu không reset.
 
 ```python
+# Mục đích: Loại dòng trùng hoàn toàn.
 import pandas as pd
 df = pd.DataFrame({"id":["O1", "O1", "O2"], "amount":[10, 10, 20]})
 print(df.drop_duplicates())
@@ -224,6 +231,7 @@ print(df.drop_duplicates())
 3. In Series và xác định vị trí giá chưa hợp lệ.
 
 ```python
+# Mục đích: Đổi chuỗi giá sang số.
 import pandas as pd
 s = pd.Series(["100", "bad", "250"])
 print(pd.to_numeric(s, errors="coerce"))
@@ -253,6 +261,7 @@ dtype: float64
 3. Dùng 15 điền vào ô thiếu của cả train và test, không học từ test.
 
 ```python
+# Mục đích: Chuẩn bị train/test tránh leakage.
 import pandas as pd
 train = pd.Series([10, None, 20])
 test = pd.Series([None, 30])
@@ -279,304 +288,304 @@ dtype: float64
 - `to_numeric(errors='coerce')` đổi dữ liệu sai thành NaN, **không tự đoán** giá trị thật.
 - Với Machine Learning, chỉ tính trung vị/trung bình để điền từ **tập train**, sau đó áp dụng cho test để tránh data leakage.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is a missing value? — Giá trị thiếu là gì?**
+**Q1. What is a missing value? | Giá trị thiếu là gì?**
 
-A. Replacing missing entries with chosen estimates — Thay ô thiếu bằng giá trị ước lượng đã chọn
+A. Replacing missing entries with chosen estimates | Thay ô thiếu bằng giá trị ước lượng đã chọn
 
-B. Checking types and rules before analysis — Kiểm tra kiểu và quy tắc trước khi phân tích
+B. Checking types and rules before analysis | Kiểm tra kiểu và quy tắc trước khi phân tích
 
-C. An absent or unknown data entry — Ô dữ liệu chưa có giá trị xác định
+C. An absent or unknown data entry | Ô dữ liệu chưa có giá trị xác định
 
-D. A record repeated under a defined matching rule — Bản ghi lặp theo tiêu chí đối chiếu xác định
+D. A record repeated under a defined matching rule | Bản ghi lặp theo tiêu chí đối chiếu xác định
 
 **Đáp án: C**
 
 **Giải thích:** Thiếu nghĩa là chưa có giá trị quan sát hợp lệ ở ô đó. Trong Pandas, `NaN` và `None` có thể biểu thị ô thiếu; giá trị thiếu khác một số 0 đã được đo thật.
 
 
-**Q2. What is a duplicate record? — Bản ghi trùng là gì?**
+**Q2. What is a duplicate record? | Bản ghi trùng là gì?**
 
-A. A record repeated under a defined matching rule — Bản ghi lặp theo tiêu chí đối chiếu xác định
+A. A record repeated under a defined matching rule | Bản ghi lặp theo tiêu chí đối chiếu xác định
 
-B. Checking types and rules before analysis — Kiểm tra kiểu và quy tắc trước khi phân tích
+B. Checking types and rules before analysis | Kiểm tra kiểu và quy tắc trước khi phân tích
 
-C. An absent or unknown data entry — Ô dữ liệu chưa có giá trị xác định
+C. An absent or unknown data entry | Ô dữ liệu chưa có giá trị xác định
 
-D. Replacing missing entries with chosen estimates — Thay ô thiếu bằng giá trị ước lượng đã chọn
+D. Replacing missing entries with chosen estimates | Thay ô thiếu bằng giá trị ước lượng đã chọn
 
 **Đáp án: A**
 
 **Giải thích:** Nhận diện trùng phụ thuộc các trường dùng làm tiêu chí. Hai hàng cùng mã khách có thể là hai đơn riêng, nên phải xác định tiêu chí trùng trước khi xóa dữ liệu.
 
 
-**Q3. What is imputation? — Điền khuyết là gì?**
+**Q3. What is imputation? | Điền khuyết là gì?**
 
-A. An absent or unknown data entry — Ô dữ liệu chưa có giá trị xác định
+A. An absent or unknown data entry | Ô dữ liệu chưa có giá trị xác định
 
-B. Checking types and rules before analysis — Kiểm tra kiểu và quy tắc trước khi phân tích
+B. Checking types and rules before analysis | Kiểm tra kiểu và quy tắc trước khi phân tích
 
-C. Replacing missing entries with chosen estimates — Thay ô thiếu bằng giá trị ước lượng đã chọn
+C. Replacing missing entries with chosen estimates | Thay ô thiếu bằng giá trị ước lượng đã chọn
 
-D. A record repeated under a defined matching rule — Bản ghi lặp theo tiêu chí đối chiếu xác định
+D. A record repeated under a defined matching rule | Bản ghi lặp theo tiêu chí đối chiếu xác định
 
 **Đáp án: C**
 
 **Giải thích:** Điền khuyết dùng giá trị lựa chọn chứ không coi đó là dữ liệu đã đo thật. Điền tuổi thiếu bằng trung vị của tập train là phép ước lượng, không chứng minh tuổi thật bằng trung vị đó.
 
 
-**Q4. What is data validation? — Kiểm tra dữ liệu hợp lệ là gì?**
+**Q4. What is data validation? | Kiểm tra dữ liệu hợp lệ là gì?**
 
-A. A record repeated under a defined matching rule — Bản ghi lặp theo tiêu chí đối chiếu xác định
+A. A record repeated under a defined matching rule | Bản ghi lặp theo tiêu chí đối chiếu xác định
 
-B. An absent or unknown data entry — Ô dữ liệu chưa có giá trị xác định
+B. An absent or unknown data entry | Ô dữ liệu chưa có giá trị xác định
 
-C. Checking types and rules before analysis — Kiểm tra kiểu và quy tắc trước khi phân tích
+C. Checking types and rules before analysis | Kiểm tra kiểu và quy tắc trước khi phân tích
 
-D. Replacing missing entries with chosen estimates — Thay ô thiếu bằng giá trị ước lượng đã chọn
+D. Replacing missing entries with chosen estimates | Thay ô thiếu bằng giá trị ước lượng đã chọn
 
 **Đáp án: C**
 
 **Giải thích:** Kiểm tra hợp lệ phát hiện sai kiểu và giá trị vượt phạm vi. Với trường tuổi, bước kiểm tra có thể yêu cầu giá trị số không âm và loại chuỗi không hợp lệ.
 
 
-**Q5. What does `isna()` identify? — `isna()` phát hiện gì?**
+**Q5. What does `isna()` identify? | `isna()` phát hiện gì?**
 
-A. Missing entries — Các ô thiếu
+A. Missing entries | Các ô thiếu
 
-B. Turns invalid numeric text into NaN — Chuyển chữ không đổi được sang số thành NaN
+B. Turns invalid numeric text into NaN | Chuyển chữ không đổi được sang số thành NaN
 
-C. Repeated rows after the first occurrence — Các hàng lặp sau lần xuất hiện đầu
+C. Repeated rows after the first occurrence | Các hàng lặp sau lần xuất hiện đầu
 
-D. Replaces missing entries with a value — Thay ô thiếu bằng giá trị cho trước
+D. Replaces missing entries with a value | Thay ô thiếu bằng giá trị cho trước
 
 **Đáp án: A**
 
 **Giải thích:** isna trả mặt nạ Boolean đánh dấu giá trị thiếu. Với `[2, NaN]`, `isna()` đánh dấu `[False, True]`; hàm xác định chỗ thiếu mà không xóa dữ liệu.
 
 
-**Q6. What does `duplicated()` mark by default? — `duplicated()` mặc định đánh dấu gì?**
+**Q6. What does `duplicated()` mark by default? | `duplicated()` mặc định đánh dấu gì?**
 
-A. Turns invalid numeric text into NaN — Chuyển chữ không đổi được sang số thành NaN
+A. Turns invalid numeric text into NaN | Chuyển chữ không đổi được sang số thành NaN
 
-B. Repeated rows after the first occurrence — Các hàng lặp sau lần xuất hiện đầu
+B. Repeated rows after the first occurrence | Các hàng lặp sau lần xuất hiện đầu
 
-C. Replaces missing entries with a value — Thay ô thiếu bằng giá trị cho trước
+C. Replaces missing entries with a value | Thay ô thiếu bằng giá trị cho trước
 
-D. Missing entries — Các ô thiếu
+D. Missing entries | Các ô thiếu
 
 **Đáp án: B**
 
 **Giải thích:** duplicated xét toàn hàng nếu không chỉ định subset. Với hai hàng giống nhau, hàng đầu thường nhận `False`, hàng sau nhận `True`; `subset=` thay đổi các cột dùng để xét trùng.
 
 
-**Q7. What does `fillna(value)` do? — `fillna(value)` làm gì?**
+**Q7. What does `fillna(value)` do? | `fillna(value)` làm gì?**
 
-A. Turns invalid numeric text into NaN — Chuyển chữ không đổi được sang số thành NaN
+A. Turns invalid numeric text into NaN | Chuyển chữ không đổi được sang số thành NaN
 
-B. Missing entries — Các ô thiếu
+B. Missing entries | Các ô thiếu
 
-C. Repeated rows after the first occurrence — Các hàng lặp sau lần xuất hiện đầu
+C. Repeated rows after the first occurrence | Các hàng lặp sau lần xuất hiện đầu
 
-D. Replaces missing entries with a value — Thay ô thiếu bằng giá trị cho trước
+D. Replaces missing entries with a value | Thay ô thiếu bằng giá trị cho trước
 
 **Đáp án: D**
 
 **Giải thích:** fillna thay ô thiếu mà giữ các giá trị hợp lệ. Với điểm thiếu, `df.fillna(0)` mặc định trả DataFrame đã điền mà không đổi `df` nếu chưa gán kết quả hoặc yêu cầu sửa tại chỗ.
 
 
-**Q8. What does `pd.to_numeric(..., errors='coerce')` do with invalid text? — `to_numeric(..., errors='coerce')` xử lý chuỗi không phải số thế nào?**
+**Q8. What does `pd.to_numeric(..., errors='coerce')` do with invalid text? | `to_numeric(..., errors='coerce')` xử lý chuỗi không phải số thế nào?**
 
-A. Replaces missing entries with a value — Thay ô thiếu bằng giá trị cho trước
+A. Replaces missing entries with a value | Thay ô thiếu bằng giá trị cho trước
 
-B. Turns invalid numeric text into NaN — Chuyển chữ không đổi được sang số thành NaN
+B. Turns invalid numeric text into NaN | Chuyển chữ không đổi được sang số thành NaN
 
-C. Repeated rows after the first occurrence — Các hàng lặp sau lần xuất hiện đầu
+C. Repeated rows after the first occurrence | Các hàng lặp sau lần xuất hiện đầu
 
-D. Missing entries — Các ô thiếu
+D. Missing entries | Các ô thiếu
 
 **Đáp án: B**
 
 **Giải thích:** Cơ chế coerce đánh dấu lỗi chuyển kiểu là thiếu chứ không đoán số. Khi đổi kiểu số, chuỗi `'bad'` trở thành dấu thiếu, còn chuỗi hợp lệ như `'12'` được chuyển thành số 12.
 
 
-**Q9. What does `dropna()` normally remove? — `dropna()` mặc định xóa gì?**
+**Q9. What does `dropna()` normally remove? | `dropna()` mặc định xóa gì?**
 
-A. Rows containing missing data — Các hàng chứa dữ liệu thiếu
+A. Rows containing missing data | Các hàng chứa dữ liệu thiếu
 
-B. The middle value after sorting, or mean of the two middle values — Giá trị giữa khi sắp, hoặc trung bình hai giá trị giữa
+B. The middle value after sorting, or mean of the two middle values | Giá trị giữa khi sắp, hoặc trung bình hai giá trị giữa
 
-C. Raise an exception on invalid input — Báo ngoại lệ khi đầu vào không hợp lệ
+C. Raise an exception on invalid input | Báo ngoại lệ khi đầu vào không hợp lệ
 
-D. The first occurrence of each distinct row — Lần xuất hiện đầu của từng hàng khác nhau
+D. The first occurrence of each distinct row | Lần xuất hiện đầu của từng hàng khác nhau
 
 **Đáp án: A**
 
 **Giải thích:** DataFrame.dropna mặc định bỏ hàng có ít nhất một ô thiếu. Với DataFrame có ô thiếu, `dropna()` mặc định bỏ hàng chứa ít nhất một ô thiếu; nó không tự điền các ô đó.
 
 
-**Q10. What does `drop_duplicates()` normally keep? — `drop_duplicates()` thường giữ gì?**
+**Q10. What does `drop_duplicates()` normally keep? | `drop_duplicates()` thường giữ gì?**
 
-A. The middle value after sorting, or mean of the two middle values — Giá trị giữa khi sắp, hoặc trung bình hai giá trị giữa
+A. The middle value after sorting, or mean of the two middle values | Giá trị giữa khi sắp, hoặc trung bình hai giá trị giữa
 
-B. The first occurrence of each distinct row — Lần xuất hiện đầu của từng hàng khác nhau
+B. The first occurrence of each distinct row | Lần xuất hiện đầu của từng hàng khác nhau
 
-C. Rows containing missing data — Các hàng chứa dữ liệu thiếu
+C. Rows containing missing data | Các hàng chứa dữ liệu thiếu
 
-D. Raise an exception on invalid input — Báo ngoại lệ khi đầu vào không hợp lệ
+D. Raise an exception on invalid input | Báo ngoại lệ khi đầu vào không hợp lệ
 
 **Đáp án: B**
 
 **Giải thích:** Mặc định các lần lặp sau của cùng hàng sẽ bị bỏ. Với các hàng A, A, B, mặc định giữ A đầu và B, không giữ A cuối trừ khi đặt `keep='last'`.
 
 
-**Q11. What is the median? — Trung vị là gì?**
+**Q11. What is the median? | Trung vị là gì?**
 
-A. Raise an exception on invalid input — Báo ngoại lệ khi đầu vào không hợp lệ
+A. Raise an exception on invalid input | Báo ngoại lệ khi đầu vào không hợp lệ
 
-B. The first occurrence of each distinct row — Lần xuất hiện đầu của từng hàng khác nhau
+B. The first occurrence of each distinct row | Lần xuất hiện đầu của từng hàng khác nhau
 
-C. Rows containing missing data — Các hàng chứa dữ liệu thiếu
+C. Rows containing missing data | Các hàng chứa dữ liệu thiếu
 
-D. The middle value after sorting, or mean of the two middle values — Giá trị giữa khi sắp, hoặc trung bình hai giá trị giữa
+D. The middle value after sorting, or mean of the two middle values | Giá trị giữa khi sắp, hoặc trung bình hai giá trị giữa
 
 **Đáp án: D**
 
 **Giải thích:** Trung vị ít nhạy với giá trị cực đoan hơn trung bình cộng. Với dãy đã sắp `[1,2,100]`, trung vị là 2 còn trung bình lớn hơn 34; nếu số phần tử chẵn thì lấy trung bình hai số ở giữa.
 
 
-**Q12. What is the meaning of `errors='raise'` in numeric conversion? — `errors='raise'` khi đổi sang số có nghĩa gì?**
+**Q12. What is the meaning of `errors='raise'` in numeric conversion? | `errors='raise'` khi đổi sang số có nghĩa gì?**
 
-A. Rows containing missing data — Các hàng chứa dữ liệu thiếu
+A. Rows containing missing data | Các hàng chứa dữ liệu thiếu
 
-B. The middle value after sorting, or mean of the two middle values — Giá trị giữa khi sắp, hoặc trung bình hai giá trị giữa
+B. The middle value after sorting, or mean of the two middle values | Giá trị giữa khi sắp, hoặc trung bình hai giá trị giữa
 
-C. The first occurrence of each distinct row — Lần xuất hiện đầu của từng hàng khác nhau
+C. The first occurrence of each distinct row | Lần xuất hiện đầu của từng hàng khác nhau
 
-D. Raise an exception on invalid input — Báo ngoại lệ khi đầu vào không hợp lệ
+D. Raise an exception on invalid input | Báo ngoại lệ khi đầu vào không hợp lệ
 
 **Đáp án: D**
 
 **Giải thích:** Raise làm lỗi lộ rõ thay vì chuyển âm thầm thành thiếu. Dùng `pd.to_numeric(['bad'], errors='raise')` báo lỗi, còn `errors='coerce'` trả dấu giá trị số bị thiếu.
 
 
-**Q13. What is data leakage in train/test preprocessing? — Data leakage khi chuẩn bị train/test là gì?**
+**Q13. What is data leakage in train/test preprocessing? | Data leakage khi chuẩn bị train/test là gì?**
 
-A. Zero may have a different real-world meaning — Số 0 có thể mang ý nghĩa thực tế khác
+A. Zero may have a different real-world meaning | Số 0 có thể mang ý nghĩa thực tế khác
 
-B. To audit and reverse cleaning decisions — Để đối chiếu và phục hồi quyết định xử lý
+B. To audit and reverse cleaning decisions | Để đối chiếu và phục hồi quyết định xử lý
 
-C. Records with shared IDs may still represent distinct events — Hai dòng cùng ID vẫn có thể là sự kiện khác nhau
+C. Records with shared IDs may still represent distinct events | Hai dòng cùng ID vẫn có thể là sự kiện khác nhau
 
-D. Using information from test data while fitting preprocessing — Dùng thông tin của test khi học tham số tiền xử lý
+D. Using information from test data while fitting preprocessing | Dùng thông tin của test khi học tham số tiền xử lý
 
 **Đáp án: D**
 
 **Giải thích:** Thống kê tiền xử lý phải học chỉ từ tập train. Tính trung vị điền khuyết trên cả train và test làm thông tin của tập đánh giá lọt vào giai đoạn chuẩn bị mô hình.
 
 
-**Q14. Why is replacing every missing value with zero risky? — Vì sao thay mọi ô thiếu bằng 0 là rủi ro?**
+**Q14. Why is replacing every missing value with zero risky? | Vì sao thay mọi ô thiếu bằng 0 là rủi ro?**
 
-A. To audit and reverse cleaning decisions — Để đối chiếu và phục hồi quyết định xử lý
+A. To audit and reverse cleaning decisions | Để đối chiếu và phục hồi quyết định xử lý
 
-B. Using information from test data while fitting preprocessing — Dùng thông tin của test khi học tham số tiền xử lý
+B. Using information from test data while fitting preprocessing | Dùng thông tin của test khi học tham số tiền xử lý
 
-C. Zero may have a different real-world meaning — Số 0 có thể mang ý nghĩa thực tế khác
+C. Zero may have a different real-world meaning | Số 0 có thể mang ý nghĩa thực tế khác
 
-D. Records with shared IDs may still represent distinct events — Hai dòng cùng ID vẫn có thể là sự kiện khác nhau
+D. Records with shared IDs may still represent distinct events | Hai dòng cùng ID vẫn có thể là sự kiện khác nhau
 
 **Đáp án: C**
 
 **Giải thích:** Tuổi chưa nhập không tự đồng nghĩa tuổi bằng 0. Số lượng hàng thiếu nghĩa là chưa biết, còn số lượng 0 nói rõ không có món nào; thay hai trường hợp cho nhau sẽ đổi ý nghĩa.
 
 
-**Q15. Why check key columns before removing duplicates? — Vì sao phải xem cột khóa trước khi xóa trùng?**
+**Q15. Why check key columns before removing duplicates? | Vì sao phải xem cột khóa trước khi xóa trùng?**
 
-A. Records with shared IDs may still represent distinct events — Hai dòng cùng ID vẫn có thể là sự kiện khác nhau
+A. Records with shared IDs may still represent distinct events | Hai dòng cùng ID vẫn có thể là sự kiện khác nhau
 
-B. Using information from test data while fitting preprocessing — Dùng thông tin của test khi học tham số tiền xử lý
+B. Using information from test data while fitting preprocessing | Dùng thông tin của test khi học tham số tiền xử lý
 
-C. Zero may have a different real-world meaning — Số 0 có thể mang ý nghĩa thực tế khác
+C. Zero may have a different real-world meaning | Số 0 có thể mang ý nghĩa thực tế khác
 
-D. To audit and reverse cleaning decisions — Để đối chiếu và phục hồi quyết định xử lý
+D. To audit and reverse cleaning decisions | Để đối chiếu và phục hồi quyết định xử lý
 
 **Đáp án: A**
 
 **Giải thích:** Quy tắc nghiệp vụ xác định hai dòng có thực sự trùng không. Hai giao dịch của cùng khách hàng có thể là hai sự kiện hợp lệ khác nhau dù trùng một mã định danh.
 
 
-**Q16. Why preserve the original raw data while cleaning? — Vì sao nên giữ dữ liệu gốc khi làm sạch?**
+**Q16. Why preserve the original raw data while cleaning? | Vì sao nên giữ dữ liệu gốc khi làm sạch?**
 
-A. Zero may have a different real-world meaning — Số 0 có thể mang ý nghĩa thực tế khác
+A. Zero may have a different real-world meaning | Số 0 có thể mang ý nghĩa thực tế khác
 
-B. To audit and reverse cleaning decisions — Để đối chiếu và phục hồi quyết định xử lý
+B. To audit and reverse cleaning decisions | Để đối chiếu và phục hồi quyết định xử lý
 
-C. Records with shared IDs may still represent distinct events — Hai dòng cùng ID vẫn có thể là sự kiện khác nhau
+C. Records with shared IDs may still represent distinct events | Hai dòng cùng ID vẫn có thể là sự kiện khác nhau
 
-D. Using information from test data while fitting preprocessing — Dùng thông tin của test khi học tham số tiền xử lý
+D. Using information from test data while fitting preprocessing | Dùng thông tin của test khi học tham số tiền xử lý
 
 **Đáp án: B**
 
 **Giải thích:** Bản gốc giúp kiểm tra từng phép biến đổi. Giữ bản nguồn không đổi giúp so sánh trước/sau và xem xét lại các quyết định làm sạch chưa đúng.
 
 
-**Q17. What does a Boolean missing-value mask contain? — Mặt nạ dữ liệu thiếu chứa gì?**
+**Q17. What does a Boolean missing-value mask contain? | Mặt nạ dữ liệu thiếu chứa gì?**
 
-A. True and False values — Các giá trị True và False
+A. True and False values | Các giá trị True và False
 
-B. Original retained-row labels remain — Nhãn index của hàng được giữ vẫn còn
+B. Original retained-row labels remain | Nhãn index của hàng được giữ vẫn còn
 
-C. Choose a justified missing-data treatment — Chọn cách xử lý dữ liệu thiếu có cơ sở
+C. Choose a justified missing-data treatment | Chọn cách xử lý dữ liệu thiếu có cơ sở
 
-D. Rebuilds sequential indices without retaining old index as a column — Đánh lại index tuần tự, không giữ index cũ thành cột
+D. Rebuilds sequential indices without retaining old index as a column | Đánh lại index tuần tự, không giữ index cũ thành cột
 
 **Đáp án: A**
 
 **Giải thích:** Mỗi vị trí cho biết ô dữ liệu có thiếu hay không. Một ô mask là `True` nếu đầu vào tương ứng bị thiếu và `False` nếu không; mask không phải danh sách giá trị thay thế.
 
 
-**Q18. What happens to index labels after `drop_duplicates()` by default? — Sau `drop_duplicates()`, index mặc định thay đổi thế nào?**
+**Q18. What happens to index labels after `drop_duplicates()` by default? | Sau `drop_duplicates()`, index mặc định thay đổi thế nào?**
 
-A. True and False values — Các giá trị True và False
+A. True and False values | Các giá trị True và False
 
-B. Choose a justified missing-data treatment — Chọn cách xử lý dữ liệu thiếu có cơ sở
+B. Choose a justified missing-data treatment | Chọn cách xử lý dữ liệu thiếu có cơ sở
 
-C. Rebuilds sequential indices without retaining old index as a column — Đánh lại index tuần tự, không giữ index cũ thành cột
+C. Rebuilds sequential indices without retaining old index as a column | Đánh lại index tuần tự, không giữ index cũ thành cột
 
-D. Original retained-row labels remain — Nhãn index của hàng được giữ vẫn còn
+D. Original retained-row labels remain | Nhãn index của hàng được giữ vẫn còn
 
 **Đáp án: D**
 
 **Giải thích:** Xóa hàng trùng không tự đánh lại index cho hàng còn lại. Xóa các hàng mang nhãn 1 và 3 không tự đánh lại nhãn còn lại; phải reset index riêng nếu muốn nhãn liên tiếp.
 
 
-**Q19. What does `reset_index(drop=True)` do? — `reset_index(drop=True)` làm gì?**
+**Q19. What does `reset_index(drop=True)` do? | `reset_index(drop=True)` làm gì?**
 
-A. Original retained-row labels remain — Nhãn index của hàng được giữ vẫn còn
+A. Original retained-row labels remain | Nhãn index của hàng được giữ vẫn còn
 
-B. Choose a justified missing-data treatment — Chọn cách xử lý dữ liệu thiếu có cơ sở
+B. Choose a justified missing-data treatment | Chọn cách xử lý dữ liệu thiếu có cơ sở
 
-C. Rebuilds sequential indices without retaining old index as a column — Đánh lại index tuần tự, không giữ index cũ thành cột
+C. Rebuilds sequential indices without retaining old index as a column | Đánh lại index tuần tự, không giữ index cũ thành cột
 
-D. True and False values — Các giá trị True và False
+D. True and False values | Các giá trị True và False
 
 **Đáp án: C**
 
 **Giải thích:** Đánh lại nhãn hàng giúp bảng đã xử lý dễ đọc hơn. Sau khi bỏ hàng, `reset_index(drop=True)` tạo nhãn `0,1,2,...` mà không đưa index cũ thành cột mới.
 
 
-**Q20. What should happen after coercing invalid numeric text to NaN? — Sau khi chuyển chuỗi số sai thành NaN cần làm gì?**
+**Q20. What should happen after coercing invalid numeric text to NaN? | Sau khi chuyển chuỗi số sai thành NaN cần làm gì?**
 
-A. Rebuilds sequential indices without retaining old index as a column — Đánh lại index tuần tự, không giữ index cũ thành cột
+A. Rebuilds sequential indices without retaining old index as a column | Đánh lại index tuần tự, không giữ index cũ thành cột
 
-B. Choose a justified missing-data treatment — Chọn cách xử lý dữ liệu thiếu có cơ sở
+B. Choose a justified missing-data treatment | Chọn cách xử lý dữ liệu thiếu có cơ sở
 
-C. Original retained-row labels remain — Nhãn index của hàng được giữ vẫn còn
+C. Original retained-row labels remain | Nhãn index của hàng được giữ vẫn còn
 
-D. True and False values — Các giá trị True và False
+D. True and False values | Các giá trị True và False
 
 **Đáp án: B**
 

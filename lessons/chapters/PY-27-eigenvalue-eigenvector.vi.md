@@ -42,6 +42,7 @@
 Một **eigenvector** là vector khác không mà khi nhân với ma trận vuông A, nó chỉ đổi **độ lớn hoặc đảo chiều**, không rời khỏi đường phương ban đầu: `A @ v = λ*v`. Ví dụ ma trận `diag(2,3)` nhân vector `[0,1]` cho `[0,3]`, vẫn nằm trên trục tung. Điều kiện là vector khác không và phù hợp số chiều của A; vector riêng không phải bất kỳ vector nào.
 
 ```python
+# Mục đích: Hướng không bị xoay sau biến đổi.
 import numpy as np
 
 A = np.diag([2.0, 3.0])
@@ -64,6 +65,7 @@ print(A @ v)
 **Trị riêng** λ cho biết A phóng đại, thu nhỏ hoặc đảo chiều **vector riêng** bao nhiêu lần. Với `diag(2,3)`, hướng trục x có λ=2 và trục y có λ=3. Đó là tính chất của ma trận A; trị riêng **không** tự động mang nghĩa phương sai trừ khi A đang là **ma trận hiệp phương sai**. `np.linalg.eigvalsh` lấy các trị riêng của ma trận đối xứng theo thứ tự tăng dần.
 
 ```python
+# Mục đích: Hệ số biến đổi trên hướng riêng.
 import numpy as np
 
 A = np.diag([2.0, 3.0])
@@ -85,6 +87,7 @@ Hai trị riêng là 2 và 3, tương ứng mức co giãn của hai trục tọ
 **Hiệp phương sai** đo xu hướng hai đặc trưng tăng/giảm cùng nhau. Dữ liệu có ba **hàng mẫu** `(1,2)`, `(2,4)`, `(3,6)` và hai **cột đặc trưng** x, y, trong đó y=2x. `np.cov(X,rowvar=False)` lấy **cột là biến**, **hàng là quan sát**, trả ma trận 2×2. Các ô đường chéo là phương sai từng biến, hai ô còn lại là hiệp phương sai. Không nhầm covariance với tương quan chuẩn hóa từ −1 đến 1.
 
 ```python
+# Mục đích: Hai đặc trưng cùng thay đổi ra sao?.
 import numpy as np
 
 X = np.array([[1, 2], [2, 4], [3, 6]])
@@ -107,6 +110,7 @@ Biến y có phương sai gấp bốn x và hiệp phương sai dương 2, vì y
 Với **ma trận hiệp phương sai đối xứng**, vector riêng của **trị riêng lớn nhất** biểu diễn hướng có phương sai lớn nhất. Đây là nguyên lý của PCA. Ví dụ hiệp phương sai `diag(2,3)` có phương sai theo x là 2 và theo y là 3, nên hướng chính là trục y. **Dấu của eigenvector không cố định**: `[0,1]` và `[0,-1]` đều mô tả cùng một trục. Lấy `abs` khi chỉ muốn minh họa độ lớn thành phần.
 
 ```python
+# Mục đích: Hướng biến thiên chính trong PCA.
 import numpy as np
 
 C = np.diag([2.0, 3.0])
@@ -137,6 +141,7 @@ Hướng có phương sai lớn nhất nằm trên trục y; đổi dấu vector
 3. In trị riêng lớn nhất và độ lớn các thành phần vector riêng để không phụ thuộc dấu.
 
 ```python
+# Mục đích: Chọn hướng biến thiên lớn nhất.
 import numpy as np
 
 C = np.diag([2.0, 3.0])
@@ -165,6 +170,7 @@ Trục y là hướng chính với phương sai 3, lớn hơn trục x (2).
 3. Dùng `eigvalsh` lấy hai trị riêng.
 
 ```python
+# Mục đích: Phát hiện dữ liệu phụ thuộc tuyến tính.
 import numpy as np
 
 X = np.array([[1, 2], [2, 4], [3, 6]], dtype=float)
@@ -192,6 +198,7 @@ Một hướng có phương sai 0 do cột hai phụ thuộc cột đầu; hư�
 3. So hai vế `A@v` và `λ*v`.
 
 ```python
+# Mục đích: Kiểm nghiệm phương trình vector riêng.
 import numpy as np
 
 A = np.diag([2.0, 3.0])
@@ -220,6 +227,7 @@ Cặp trị riêng và vector riêng đáp ứng định nghĩa của eigenvecto
 3. In chỉ số của các hướng từ lớn tới nhỏ.
 
 ```python
+# Mục đích: Sắp hướng theo độ biến thiên.
 import numpy as np
 
 values = np.array([4, 1, 3])
@@ -247,6 +255,7 @@ print(np.argsort(values)[::-1])
 3. Fit/transform và in shape dữ liệu sau chiếu.
 
 ```python
+# Mục đích: Giảm số cột đặc trưng bằng PCA.
 import numpy as np
 from sklearn.decomposition import PCA
 
@@ -272,304 +281,304 @@ Ba mẫu vẫn giữ nguyên; mỗi mẫu còn một giá trị tọa độ trê
 - `np.linalg.eigh` thích hợp cho ma trận đối xứng. PCA cần xem thang đo và đơn vị từng đặc trưng.
 - scikit-learn là thư viện ngoài; cần cài trước khi chạy ví dụ PCA.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
 **Chỉ kiểm tra kiến thức bài học; không kiểm tra ghi nhớ tình huống đánh số.**
 
-**Q1. What defines an eigenvector v of A? — Điều kiện định nghĩa vector riêng v của A là gì?**
+**Q1. What defines an eigenvector v of A? | Điều kiện định nghĩa vector riêng v của A là gì?**
 
-A. `A @ v = λ*v` with v nonzero — `A @ v = λ*v` với v khác không
+A. `A @ v = λ*v` with v nonzero | `A @ v = λ*v` với v khác không
 
-B. Scaling along a corresponding eigenvector — Hệ số co giãn theo vector riêng tương ứng
+B. Scaling along a corresponding eigenvector | Hệ số co giãn theo vector riêng tương ứng
 
-C. How two variables vary together — Hai biến cùng biến thiên ra sao
+C. How two variables vary together | Hai biến cùng biến thiên ra sao
 
-D. A covariance eigenvector with high eigenvalue — Vector riêng hiệp phương sai có trị riêng lớn
+D. A covariance eigenvector with high eigenvalue | Vector riêng hiệp phương sai có trị riêng lớn
 
 **Đáp án: A**
 
 **Giải thích:** Vector khác không giữ phương đến hệ số nhân.
 
 
-**Q2. What does an eigenvalue represent? — Trị riêng biểu thị gì?**
+**Q2. What does an eigenvalue represent? | Trị riêng biểu thị gì?**
 
-A. `A @ v = λ*v` with v nonzero — `A @ v = λ*v` với v khác không
+A. `A @ v = λ*v` with v nonzero | `A @ v = λ*v` với v khác không
 
-B. Scaling along a corresponding eigenvector — Hệ số co giãn theo vector riêng tương ứng
+B. Scaling along a corresponding eigenvector | Hệ số co giãn theo vector riêng tương ứng
 
-C. How two variables vary together — Hai biến cùng biến thiên ra sao
+C. How two variables vary together | Hai biến cùng biến thiên ra sao
 
-D. A covariance eigenvector with high eigenvalue — Vector riêng hiệp phương sai có trị riêng lớn
+D. A covariance eigenvector with high eigenvalue | Vector riêng hiệp phương sai có trị riêng lớn
 
 **Đáp án: B**
 
 **Giải thích:** Trị riêng là hệ số λ nhân vector riêng.
 
 
-**Q3. What does covariance describe? — Hiệp phương sai mô tả gì?**
+**Q3. What does covariance describe? | Hiệp phương sai mô tả gì?**
 
-A. `A @ v = λ*v` with v nonzero — `A @ v = λ*v` với v khác không
+A. `A @ v = λ*v` with v nonzero | `A @ v = λ*v` với v khác không
 
-B. Scaling along a corresponding eigenvector — Hệ số co giãn theo vector riêng tương ứng
+B. Scaling along a corresponding eigenvector | Hệ số co giãn theo vector riêng tương ứng
 
-C. How two variables vary together — Hai biến cùng biến thiên ra sao
+C. How two variables vary together | Hai biến cùng biến thiên ra sao
 
-D. A covariance eigenvector with high eigenvalue — Vector riêng hiệp phương sai có trị riêng lớn
+D. A covariance eigenvector with high eigenvalue | Vector riêng hiệp phương sai có trị riêng lớn
 
 **Đáp án: C**
 
 **Giải thích:** Hiệp phương sai đo sự biến thiên cùng nhau.
 
 
-**Q4. What is a principal direction in PCA? — Hướng chính trong PCA là gì?**
+**Q4. What is a principal direction in PCA? | Hướng chính trong PCA là gì?**
 
-A. `A @ v = λ*v` with v nonzero — `A @ v = λ*v` với v khác không
+A. `A @ v = λ*v` with v nonzero | `A @ v = λ*v` với v khác không
 
-B. Scaling along a corresponding eigenvector — Hệ số co giãn theo vector riêng tương ứng
+B. Scaling along a corresponding eigenvector | Hệ số co giãn theo vector riêng tương ứng
 
-C. How two variables vary together — Hai biến cùng biến thiên ra sao
+C. How two variables vary together | Hai biến cùng biến thiên ra sao
 
-D. A covariance eigenvector with high eigenvalue — Vector riêng hiệp phương sai có trị riêng lớn
+D. A covariance eigenvector with high eigenvalue | Vector riêng hiệp phương sai có trị riêng lớn
 
 **Đáp án: D**
 
 **Giải thích:** Vector riêng hiệp phương sai nổi bật mang phương sai lớn nhất.
 
 
-**Q5. Which function suits a symmetric matrix eigendecomposition? — Hàm nào phù hợp phân rã trị riêng ma trận đối xứng?**
+**Q5. Which function suits a symmetric matrix eigendecomposition? | Hàm nào phù hợp phân rã trị riêng ma trận đối xứng?**
 
-A. `np.linalg.eigh(C)` — `np.linalg.eigh(C)`
+A. `np.linalg.eigh(C)` | `np.linalg.eigh(C)`
 
-B. `np.linalg.eigvalsh(C)` — `np.linalg.eigvalsh(C)`
+B. `np.linalg.eigvalsh(C)` | `np.linalg.eigvalsh(C)`
 
-C. `np.cov(X,rowvar=False)` — `np.cov(X,rowvar=False)`
+C. `np.cov(X,rowvar=False)` | `np.cov(X,rowvar=False)`
 
-D. `np.argsort(values)[::-1]` — `np.argsort(values)[::-1]`
+D. `np.argsort(values)[::-1]` | `np.argsort(values)[::-1]`
 
 **Đáp án: A**
 
 **Giải thích:** eigh được thiết kế cho ma trận đối xứng/Hermitian.
 
 
-**Q6. Which function returns only symmetric eigenvalues? — Hàm nào chỉ trả trị riêng ma trận đối xứng?**
+**Q6. Which function returns only symmetric eigenvalues? | Hàm nào chỉ trả trị riêng ma trận đối xứng?**
 
-A. `np.linalg.eigh(C)` — `np.linalg.eigh(C)`
+A. `np.linalg.eigh(C)` | `np.linalg.eigh(C)`
 
-B. `np.linalg.eigvalsh(C)` — `np.linalg.eigvalsh(C)`
+B. `np.linalg.eigvalsh(C)` | `np.linalg.eigvalsh(C)`
 
-C. `np.cov(X,rowvar=False)` — `np.cov(X,rowvar=False)`
+C. `np.cov(X,rowvar=False)` | `np.cov(X,rowvar=False)`
 
-D. `np.argsort(values)[::-1]` — `np.argsort(values)[::-1]`
+D. `np.argsort(values)[::-1]` | `np.argsort(values)[::-1]`
 
 **Đáp án: B**
 
 **Giải thích:** eigvalsh không trả vector riêng.
 
 
-**Q7. Which call treats DataFrame-like columns as variables? — Lệnh nào coi cột là biến khi tính covariance?**
+**Q7. Which call treats DataFrame-like columns as variables? | Lệnh nào coi cột là biến khi tính covariance?**
 
-A. `np.linalg.eigh(C)` — `np.linalg.eigh(C)`
+A. `np.linalg.eigh(C)` | `np.linalg.eigh(C)`
 
-B. `np.linalg.eigvalsh(C)` — `np.linalg.eigvalsh(C)`
+B. `np.linalg.eigvalsh(C)` | `np.linalg.eigvalsh(C)`
 
-C. `np.cov(X,rowvar=False)` — `np.cov(X,rowvar=False)`
+C. `np.cov(X,rowvar=False)` | `np.cov(X,rowvar=False)`
 
-D. `np.argsort(values)[::-1]` — `np.argsort(values)[::-1]`
+D. `np.argsort(values)[::-1]` | `np.argsort(values)[::-1]`
 
 **Đáp án: C**
 
 **Giải thích:** rowvar=False coi cột là biến.
 
 
-**Q8. Which expression sorts eigenvalue indices descending? — Biểu thức nào sắp chỉ số trị riêng giảm dần?**
+**Q8. Which expression sorts eigenvalue indices descending? | Biểu thức nào sắp chỉ số trị riêng giảm dần?**
 
-A. `np.linalg.eigh(C)` — `np.linalg.eigh(C)`
+A. `np.linalg.eigh(C)` | `np.linalg.eigh(C)`
 
-B. `np.linalg.eigvalsh(C)` — `np.linalg.eigvalsh(C)`
+B. `np.linalg.eigvalsh(C)` | `np.linalg.eigvalsh(C)`
 
-C. `np.cov(X,rowvar=False)` — `np.cov(X,rowvar=False)`
+C. `np.cov(X,rowvar=False)` | `np.cov(X,rowvar=False)`
 
-D. `np.argsort(values)[::-1]` — `np.argsort(values)[::-1]`
+D. `np.argsort(values)[::-1]` | `np.argsort(values)[::-1]`
 
 **Đáp án: D**
 
 **Giải thích:** argsort cho chỉ số tăng; đảo để được giảm.
 
 
-**Q9. What is the shape of a covariance matrix for three features? — Ma trận covariance cho ba đặc trưng có shape gì?**
+**Q9. What is the shape of a covariance matrix for three features? | Ma trận covariance cho ba đặc trưng có shape gì?**
 
-A. `(3,3)` — `(3,3)`
+A. `(3,3)` | `(3,3)`
 
-B. Columns of the second returned array — Các cột của mảng trả về thứ hai
+B. Columns of the second returned array | Các cột của mảng trả về thứ hai
 
-C. v and −v describe the same eigendirection — v và −v biểu diễn cùng trục riêng
+C. v and −v describe the same eigendirection | v và −v biểu diễn cùng trục riêng
 
-D. No variance along that direction — Không biến thiên theo hướng đó
+D. No variance along that direction | Không biến thiên theo hướng đó
 
 **Đáp án: A**
 
 **Giải thích:** Mỗi đặc trưng ghép với từng đặc trưng.
 
 
-**Q10. Which object contains eigenvectors returned by `eigh`? — Trong kết quả của `eigh`, vector riêng nằm đâu?**
+**Q10. Which object contains eigenvectors returned by `eigh`? | Trong kết quả của `eigh`, vector riêng nằm đâu?**
 
-A. `(3,3)` — `(3,3)`
+A. `(3,3)` | `(3,3)`
 
-B. Columns of the second returned array — Các cột của mảng trả về thứ hai
+B. Columns of the second returned array | Các cột của mảng trả về thứ hai
 
-C. v and −v describe the same eigendirection — v và −v biểu diễn cùng trục riêng
+C. v and −v describe the same eigendirection | v và −v biểu diễn cùng trục riêng
 
-D. No variance along that direction — Không biến thiên theo hướng đó
+D. No variance along that direction | Không biến thiên theo hướng đó
 
 **Đáp án: B**
 
 **Giải thích:** eigh lưu mỗi vector riêng ở một cột.
 
 
-**Q11. Why can an eigenvector's sign change? — Vì sao dấu vector riêng có thể đảo?**
+**Q11. Why can an eigenvector's sign change? | Vì sao dấu vector riêng có thể đảo?**
 
-A. `(3,3)` — `(3,3)`
+A. `(3,3)` | `(3,3)`
 
-B. Columns of the second returned array — Các cột của mảng trả về thứ hai
+B. Columns of the second returned array | Các cột của mảng trả về thứ hai
 
-C. v and −v describe the same eigendirection — v và −v biểu diễn cùng trục riêng
+C. v and −v describe the same eigendirection | v và −v biểu diễn cùng trục riêng
 
-D. No variance along that direction — Không biến thiên theo hướng đó
+D. No variance along that direction | Không biến thiên theo hướng đó
 
 **Đáp án: C**
 
 **Giải thích:** Đảo dấu vector riêng vẫn thỏa phương trình.
 
 
-**Q12. What does a zero covariance eigenvalue suggest? — Trị riêng covariance bằng 0 gợi ý gì?**
+**Q12. What does a zero covariance eigenvalue suggest? | Trị riêng covariance bằng 0 gợi ý gì?**
 
-A. `(3,3)` — `(3,3)`
+A. `(3,3)` | `(3,3)`
 
-B. Columns of the second returned array — Các cột của mảng trả về thứ hai
+B. Columns of the second returned array | Các cột của mảng trả về thứ hai
 
-C. v and −v describe the same eigendirection — v và −v biểu diễn cùng trục riêng
+C. v and −v describe the same eigendirection | v và −v biểu diễn cùng trục riêng
 
-D. No variance along that direction — Không biến thiên theo hướng đó
+D. No variance along that direction | Không biến thiên theo hướng đó
 
 **Đáp án: D**
 
 **Giải thích:** Trị riêng 0 nghĩa là không có phương sai theo trục đó.
 
 
-**Q13. How does PCA choose its first component? — PCA chọn thành phần đầu ra sao?**
+**Q13. How does PCA choose its first component? | PCA chọn thành phần đầu ra sao?**
 
-A. By largest explained variance — Theo phương sai giải thích lớn nhất
+A. By largest explained variance | Theo phương sai giải thích lớn nhất
 
-B. Variance of one feature — Phương sai của một đặc trưng
+B. Variance of one feature | Phương sai của một đặc trưng
 
-C. Two — Hai
+C. Two | Hai
 
-D. `A @ v` approximately equals `λ*v` — `A @ v` xấp xỉ `λ*v`
+D. `A @ v` approximately equals `λ*v` | `A @ v` xấp xỉ `λ*v`
 
 **Đáp án: A**
 
 **Giải thích:** Thành phần đầu tương ứng phương sai cao nhất.
 
 
-**Q14. What does a covariance diagonal entry represent? — Ô đường chéo covariance biểu thị gì?**
+**Q14. What does a covariance diagonal entry represent? | Ô đường chéo covariance biểu thị gì?**
 
-A. By largest explained variance — Theo phương sai giải thích lớn nhất
+A. By largest explained variance | Theo phương sai giải thích lớn nhất
 
-B. Variance of one feature — Phương sai của một đặc trưng
+B. Variance of one feature | Phương sai của một đặc trưng
 
-C. Two — Hai
+C. Two | Hai
 
-D. `A @ v` approximately equals `λ*v` — `A @ v` xấp xỉ `λ*v`
+D. `A @ v` approximately equals `λ*v` | `A @ v` xấp xỉ `λ*v`
 
 **Đáp án: B**
 
 **Giải thích:** Hiệp phương sai của biến với chính nó là phương sai.
 
 
-**Q15. How many eigenvalues does a 2×2 symmetric matrix have counting multiplicity? — Ma trận đối xứng 2×2 có bao nhiêu trị riêng tính cả bội?**
+**Q15. How many eigenvalues does a 2×2 symmetric matrix have counting multiplicity? | Ma trận đối xứng 2×2 có bao nhiêu trị riêng tính cả bội?**
 
-A. By largest explained variance — Theo phương sai giải thích lớn nhất
+A. By largest explained variance | Theo phương sai giải thích lớn nhất
 
-B. Variance of one feature — Phương sai của một đặc trưng
+B. Variance of one feature | Phương sai của một đặc trưng
 
-C. Two — Hai
+C. Two | Hai
 
-D. `A @ v` approximately equals `λ*v` — `A @ v` xấp xỉ `λ*v`
+D. `A @ v` approximately equals `λ*v` | `A @ v` xấp xỉ `λ*v`
 
 **Đáp án: C**
 
 **Giải thích:** Ma trận 2×2 có hai trị riêng tính bội.
 
 
-**Q16. Which relation validates an eigenpair? — Quan hệ nào dùng kiểm tra cặp riêng?**
+**Q16. Which relation validates an eigenpair? | Quan hệ nào dùng kiểm tra cặp riêng?**
 
-A. By largest explained variance — Theo phương sai giải thích lớn nhất
+A. By largest explained variance | Theo phương sai giải thích lớn nhất
 
-B. Variance of one feature — Phương sai của một đặc trưng
+B. Variance of one feature | Phương sai của một đặc trưng
 
-C. Two — Hai
+C. Two | Hai
 
-D. `A @ v` approximately equals `λ*v` — `A @ v` xấp xỉ `λ*v`
+D. `A @ v` approximately equals `λ*v` | `A @ v` xấp xỉ `λ*v`
 
 **Đáp án: D**
 
 **Giải thích:** Cặp riêng thỏa Av=λv theo sai số số học.
 
 
-**Q17. Which data layout corresponds to `rowvar=False`? — `rowvar=False` tương ứng bố trí nào?**
+**Q17. Which data layout corresponds to `rowvar=False`? | `rowvar=False` tương ứng bố trí nào?**
 
-A. Rows are samples and columns are features — Hàng là mẫu và cột là đặc trưng
+A. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
 
-B. Only when the matrix is an appropriate covariance matrix — Chỉ khi ma trận là covariance phù hợp
+B. Only when the matrix is an appropriate covariance matrix | Chỉ khi ma trận là covariance phù hợp
 
-C. One principal-component feature per sample — Một đặc trưng thành phần chính cho mỗi mẫu
+C. One principal-component feature per sample | Một đặc trưng thành phần chính cho mỗi mẫu
 
-D. Feature scales and units — Thang đo và đơn vị các đặc trưng
+D. Feature scales and units | Thang đo và đơn vị các đặc trưng
 
 **Đáp án: A**
 
 **Giải thích:** Quan sát nằm theo hàng khi rowvar=False.
 
 
-**Q18. Does an eigenvalue always mean variance? — Trị riêng có luôn mang nghĩa phương sai không?**
+**Q18. Does an eigenvalue always mean variance? | Trị riêng có luôn mang nghĩa phương sai không?**
 
-A. Rows are samples and columns are features — Hàng là mẫu và cột là đặc trưng
+A. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
 
-B. Only when the matrix is an appropriate covariance matrix — Chỉ khi ma trận là covariance phù hợp
+B. Only when the matrix is an appropriate covariance matrix | Chỉ khi ma trận là covariance phù hợp
 
-C. One principal-component feature per sample — Một đặc trưng thành phần chính cho mỗi mẫu
+C. One principal-component feature per sample | Một đặc trưng thành phần chính cho mỗi mẫu
 
-D. Feature scales and units — Thang đo và đơn vị các đặc trưng
+D. Feature scales and units | Thang đo và đơn vị các đặc trưng
 
 **Đáp án: B**
 
 **Giải thích:** Diễn giải phương sai cần ma trận hiệp phương sai.
 
 
-**Q19. What does `PCA(n_components=1)` preserve? — `PCA(n_components=1)` giữ lại gì?**
+**Q19. What does `PCA(n_components=1)` preserve? | `PCA(n_components=1)` giữ lại gì?**
 
-A. Rows are samples and columns are features — Hàng là mẫu và cột là đặc trưng
+A. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
 
-B. Only when the matrix is an appropriate covariance matrix — Chỉ khi ma trận là covariance phù hợp
+B. Only when the matrix is an appropriate covariance matrix | Chỉ khi ma trận là covariance phù hợp
 
-C. One principal-component feature per sample — Một đặc trưng thành phần chính cho mỗi mẫu
+C. One principal-component feature per sample | Một đặc trưng thành phần chính cho mỗi mẫu
 
-D. Feature scales and units — Thang đo và đơn vị các đặc trưng
+D. Feature scales and units | Thang đo và đơn vị các đặc trưng
 
 **Đáp án: C**
 
 **Giải thích:** Dữ liệu sau chiếu còn một cột, vẫn giữ số hàng.
 
 
-**Q20. What should be considered before comparing PCA variances across features? — Cần lưu ý gì trước khi so phương sai PCA giữa đặc trưng?**
+**Q20. What should be considered before comparing PCA variances across features? | Cần lưu ý gì trước khi so phương sai PCA giữa đặc trưng?**
 
-A. Rows are samples and columns are features — Hàng là mẫu và cột là đặc trưng
+A. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
 
-B. Only when the matrix is an appropriate covariance matrix — Chỉ khi ma trận là covariance phù hợp
+B. Only when the matrix is an appropriate covariance matrix | Chỉ khi ma trận là covariance phù hợp
 
-C. One principal-component feature per sample — Một đặc trưng thành phần chính cho mỗi mẫu
+C. One principal-component feature per sample | Một đặc trưng thành phần chính cho mỗi mẫu
 
-D. Feature scales and units — Thang đo và đơn vị các đặc trưng
+D. Feature scales and units | Thang đo và đơn vị các đặc trưng
 
 **Đáp án: D**
 

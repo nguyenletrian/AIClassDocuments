@@ -42,6 +42,7 @@
 **Tổng thể** là toàn bộ các đối tượng mà ta muốn kết luận, như 100 hóa đơn của một cửa hàng trong một ngày. Mỗi hóa đơn là **một đơn vị quan sát**; các cột có thể là giá trị, thời gian, trạng thái giao. Nếu chỉ đo 5 hóa đơn, kết luận không tự mở rộng thành 100 hóa đơn mà không xem cách chọn mẫu. Trong ví dụ, tổng thể gồm đúng 100 mã 0–99, nên `len` bằng 100.
 
 ```python
+# Mục đích: Toàn bộ nhóm cần nghiên cứu.
 population = list(range(100))
 print(len(population))
 ```
@@ -61,6 +62,7 @@ Tổng thể có 100 mã hóa đơn; số lượng tổng thể là N=100.
 **Mẫu** là một phần các đối tượng được chọn từ tổng thể. Ví dụ từ 5 mã hóa đơn `[1,2,3,4,5]`, chọn 3 mã **không hoàn lại** nghĩa là mỗi mã xuất hiện tối đa một lần trong mẫu. `rng.choice(...,replace=False)` cho chọn mẫu giả ngẫu nhiên, seed giúp tái lập. Chọn ngẫu nhiên hợp lý hỗ trợ giảm thiên lệch chọn mẫu, nhưng nếu dữ liệu nguồn đã thiếu nhóm quan trọng thì seed không thể khắc phục.
 
 ```python
+# Mục đích: Nhóm con lấy theo cách xác định.
 import numpy as np
 
 rng = np.random.default_rng(1)
@@ -83,6 +85,7 @@ Mẫu có ba mã khác nhau vì lấy không hoàn lại; đây là một kết 
 **CLT** nói rằng dưới các điều kiện phù hợp như quan sát độc lập, cùng phân phối, phương sai hữu hạn, khi **cỡ mẫu n lớn**, phân phối của **trung bình mẫu** sau chuẩn hóa thường tiến gần dạng chuẩn, ngay cả khi dữ liệu gốc không chuẩn. Nó **không** nói dữ liệu gốc trở thành chuẩn hay từng mẫu đều có mean giống nhau. Mô phỏng 200 nhóm, mỗi nhóm 40 giá trị từ phân phối mũ mean lý thuyết 2, cho trung bình các mean gần 2.
 
 ```python
+# Mục đích: Phân phối trung bình của các mẫu.
 import numpy as np
 
 rng = np.random.default_rng(1)
@@ -106,6 +109,7 @@ print(round(float(means.mean()), 3))
 **SD** mô tả độ phân tán của **quan sát riêng lẻ**, còn **SE của mean** mô tả mức dao động **giữa các trung bình mẫu** nếu lặp lấy mẫu cùng cách. Với n quan sát độc lập và ước lượng SD mẫu s, SE(mean) thường ước tính bằng `s/sqrt(n)` (trường hợp thích hợp). Năm điểm `[6,7,8,9,10]` có s≈1,581 điểm, nên SE≈0,707 điểm. Cỡ mẫu gấp 4 làm SE còn một nửa nếu độ phân tán giữ nguyên.
 
 ```python
+# Mục đích: Độ biến thiên của một ước lượng.
 import numpy as np
 
 scores = np.array([6, 7, 8, 9, 10], dtype=float)
@@ -136,6 +140,7 @@ SE của trung bình mẫu xấp xỉ 0,707 điểm; nó không phải SD của 
 3. In danh sách mã được chọn.
 
 ```python
+# Mục đích: Rút năm đơn trong hai mươi đơn để kiểm kê.
 import random
 
 ids = list(range(1, 21))
@@ -163,6 +168,7 @@ Năm đơn được chọn không trùng nhau, nhưng kết quả không thay th
 3. In trung bình và SD giữa các mean sau làm tròn.
 
 ```python
+# Mục đích: Thử biến thiên trung bình với nguồn lệch phải.
 import numpy as np
 
 rng = np.random.default_rng(1)
@@ -192,6 +198,7 @@ Các mean dao động quanh 2 phút; độ phân tán thực nghiệm giữa ch�
 3. In SE sau làm tròn ba chữ số.
 
 ```python
+# Mục đích: Ước lượng sai số chuẩn của điểm trung bình.
 import numpy as np
 
 scores = np.array([6, 7, 8, 9, 10], dtype=float)
@@ -219,6 +226,7 @@ SE ước lượng khoảng 0,707 điểm. Mẫu chỉ có năm người nên c�
 3. In từng cỡ mẫu cùng SE, giữ đơn vị điểm.
 
 ```python
+# Mục đích: Xem tác động của số người đo lên SE.
 import numpy as np
 
 sigma = 10
@@ -248,6 +256,7 @@ Cỡ mẫu 100 cho SE 1 điểm, một nửa của SE khi n=25.
 3. Chỉ lấy ID, sắp tăng để đầu ra dễ đối chiếu.
 
 ```python
+# Mục đích: Chọn khách từ bảng dữ liệu để khảo sát.
 import pandas as pd
 
 customers = pd.DataFrame({'id': list(range(10))})
@@ -272,302 +281,302 @@ Mẫu gồm ba ID khác nhau; cố định seed làm ví dụ tái lập, không
 - Cỡ mẫu lớn thường giảm SE, nhưng không sửa được sai lệch có hệ thống.
 - Không kết luận mọi mẫu sẽ gần trung bình thật hay một ngưỡng n cố định đúng cho mọi phân phối.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
-**Q1. What is a population? — Tổng thể là gì?**
+**Q1. What is a population? | Tổng thể là gì?**
 
-A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
+A. All units in the target group | Toàn bộ đơn vị của nhóm cần nghiên cứu
 
-B. A selected subset of the population — Một nhóm con được chọn từ tổng thể
+B. A selected subset of the population | Một nhóm con được chọn từ tổng thể
 
-C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
+C. Approximate sampling distribution of sample means | Phân phối gần đúng của các trung bình mẫu
 
-D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
+D. Sampling variability of an estimator | Độ biến thiên của thống kê ước lượng qua các mẫu
 
 **Đáp án: A**
 
 **Giải thích:** Kết luận dự kiến hướng đến tổng thể.
 
 
-**Q2. What is a sample? — Mẫu là gì?**
+**Q2. What is a sample? | Mẫu là gì?**
 
-A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
+A. All units in the target group | Toàn bộ đơn vị của nhóm cần nghiên cứu
 
-B. A selected subset of the population — Một nhóm con được chọn từ tổng thể
+B. A selected subset of the population | Một nhóm con được chọn từ tổng thể
 
-C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
+C. Approximate sampling distribution of sample means | Phân phối gần đúng của các trung bình mẫu
 
-D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
+D. Sampling variability of an estimator | Độ biến thiên của thống kê ước lượng qua các mẫu
 
 **Đáp án: B**
 
 **Giải thích:** Mẫu chứa một phần quan sát.
 
 
-**Q3. What does CLT describe? — CLT mô tả gì?**
+**Q3. What does CLT describe? | CLT mô tả gì?**
 
-A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
+A. All units in the target group | Toàn bộ đơn vị của nhóm cần nghiên cứu
 
-B. A selected subset of the population — Một nhóm con được chọn từ tổng thể
+B. A selected subset of the population | Một nhóm con được chọn từ tổng thể
 
-C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
+C. Approximate sampling distribution of sample means | Phân phối gần đúng của các trung bình mẫu
 
-D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
+D. Sampling variability of an estimator | Độ biến thiên của thống kê ước lượng qua các mẫu
 
 **Đáp án: C**
 
 **Giải thích:** CLT nói về mean qua nhiều mẫu, không nói mọi giá trị gốc thành chuẩn.
 
 
-**Q4. What is standard error? — SE là gì?**
+**Q4. What is standard error? | SE là gì?**
 
-A. All units in the target group — Toàn bộ đơn vị của nhóm cần nghiên cứu
+A. All units in the target group | Toàn bộ đơn vị của nhóm cần nghiên cứu
 
-B. A selected subset of the population — Một nhóm con được chọn từ tổng thể
+B. A selected subset of the population | Một nhóm con được chọn từ tổng thể
 
-C. Approximate sampling distribution of sample means — Phân phối gần đúng của các trung bình mẫu
+C. Approximate sampling distribution of sample means | Phân phối gần đúng của các trung bình mẫu
 
-D. Sampling variability of an estimator — Độ biến thiên của thống kê ước lượng qua các mẫu
+D. Sampling variability of an estimator | Độ biến thiên của thống kê ước lượng qua các mẫu
 
 **Đáp án: D**
 
 **Giải thích:** SE mô tả độ bất định của thống kê.
 
 
-**Q5. What does `replace=False` mean when sampling? — `replace=False` khi lấy mẫu nghĩa là gì?**
+**Q5. What does `replace=False` mean when sampling? | `replace=False` khi lấy mẫu nghĩa là gì?**
 
-A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
+A. Items cannot be selected twice in one sample | Không chọn lặp một phần tử trong cùng mẫu
 
-B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể lặp
+B. Reproducible pseudorandom selection | Chọn giả ngẫu nhiên có thể lặp
 
-C. Computes one mean per row — Tính một trung bình cho mỗi hàng
+C. Computes one mean per row | Tính một trung bình cho mỗi hàng
 
-D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
+D. Three randomly sampled rows | Ba hàng được chọn ngẫu nhiên
 
 **Đáp án: A**
 
 **Giải thích:** Lấy mẫu không hoàn lại.
 
 
-**Q6. What does a random seed enable? — Seed ngẫu nhiên cho phép gì?**
+**Q6. What does a random seed enable? | Seed ngẫu nhiên cho phép gì?**
 
-A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
+A. Items cannot be selected twice in one sample | Không chọn lặp một phần tử trong cùng mẫu
 
-B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể lặp
+B. Reproducible pseudorandom selection | Chọn giả ngẫu nhiên có thể lặp
 
-C. Computes one mean per row — Tính một trung bình cho mỗi hàng
+C. Computes one mean per row | Tính một trung bình cho mỗi hàng
 
-D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
+D. Three randomly sampled rows | Ba hàng được chọn ngẫu nhiên
 
 **Đáp án: B**
 
 **Giải thích:** Nó kiểm soát chuỗi có thể tái tạo.
 
 
-**Q7. What does `mean(axis=1)` do on a 2-D sample table? — `mean(axis=1)` trên bảng mẫu 2-D làm gì?**
+**Q7. What does `mean(axis=1)` do on a 2-D sample table? | `mean(axis=1)` trên bảng mẫu 2-D làm gì?**
 
-A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
+A. Items cannot be selected twice in one sample | Không chọn lặp một phần tử trong cùng mẫu
 
-B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể lặp
+B. Reproducible pseudorandom selection | Chọn giả ngẫu nhiên có thể lặp
 
-C. Computes one mean per row — Tính một trung bình cho mỗi hàng
+C. Computes one mean per row | Tính một trung bình cho mỗi hàng
 
-D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
+D. Three randomly sampled rows | Ba hàng được chọn ngẫu nhiên
 
 **Đáp án: C**
 
 **Giải thích:** Mỗi hàng có thể là một lần lấy mẫu.
 
 
-**Q8. What does `df.sample(n=3)` select? — `df.sample(n=3)` chọn gì?**
+**Q8. What does `df.sample(n=3)` select? | `df.sample(n=3)` chọn gì?**
 
-A. Items cannot be selected twice in one sample — Không chọn lặp một phần tử trong cùng mẫu
+A. Items cannot be selected twice in one sample | Không chọn lặp một phần tử trong cùng mẫu
 
-B. Reproducible pseudorandom selection — Chọn giả ngẫu nhiên có thể lặp
+B. Reproducible pseudorandom selection | Chọn giả ngẫu nhiên có thể lặp
 
-C. Computes one mean per row — Tính một trung bình cho mỗi hàng
+C. Computes one mean per row | Tính một trung bình cho mỗi hàng
 
-D. Three randomly sampled rows — Ba hàng được chọn ngẫu nhiên
+D. Three randomly sampled rows | Ba hàng được chọn ngẫu nhiên
 
 **Đáp án: D**
 
 **Giải thích:** Mặc định hàm lấy hàng của DataFrame.
 
 
-**Q9. What does sample SD measure? — SD mẫu đo gì?**
+**Q9. What does sample SD measure? | SD mẫu đo gì?**
 
-A. Spread of individual values — Độ phân tán giá trị từng quan sát
+A. Spread of individual values | Độ phân tán giá trị từng quan sát
 
-B. Spread among hypothetical sample means — Độ phân tán giữa các mean mẫu giả định
+B. Spread among hypothetical sample means | Độ phân tán giữa các mean mẫu giả định
 
-C. s/sqrt(n) — s/sqrt(n)
+C. s/sqrt(n) | s/sqrt(n)
 
-D. It halves — Giảm một nửa
+D. It halves | Giảm một nửa
 
 **Đáp án: A**
 
 **Giải thích:** SD khác bất định của mean mẫu.
 
 
-**Q10. What does the SE of a mean measure? — SE của mean đo gì?**
+**Q10. What does the SE of a mean measure? | SE của mean đo gì?**
 
-A. Spread of individual values — Độ phân tán giá trị từng quan sát
+A. Spread of individual values | Độ phân tán giá trị từng quan sát
 
-B. Spread among hypothetical sample means — Độ phân tán giữa các mean mẫu giả định
+B. Spread among hypothetical sample means | Độ phân tán giữa các mean mẫu giả định
 
-C. s/sqrt(n) — s/sqrt(n)
+C. s/sqrt(n) | s/sqrt(n)
 
-D. It halves — Giảm một nửa
+D. It halves | Giảm một nửa
 
 **Đáp án: B**
 
 **Giải thích:** Lấy mẫu lặp gây biến thiên trung bình.
 
 
-**Q11. What is a common estimated SE formula? — Công thức ước lượng SE thường dùng?**
+**Q11. What is a common estimated SE formula? | Công thức ước lượng SE thường dùng?**
 
-A. Spread of individual values — Độ phân tán giá trị từng quan sát
+A. Spread of individual values | Độ phân tán giá trị từng quan sát
 
-B. Spread among hypothetical sample means — Độ phân tán giữa các mean mẫu giả định
+B. Spread among hypothetical sample means | Độ phân tán giữa các mean mẫu giả định
 
-C. s/sqrt(n) — s/sqrt(n)
+C. s/sqrt(n) | s/sqrt(n)
 
-D. It halves — Giảm một nửa
+D. It halves | Giảm một nửa
 
 **Đáp án: C**
 
 **Giải thích:** Công thức phù hợp trong các giả định lấy mẫu độc lập thường gặp.
 
 
-**Q12. How does SE change when n quadruples and sigma is fixed? — SE đổi sao khi n gấp bốn, sigma giữ nguyên?**
+**Q12. How does SE change when n quadruples and sigma is fixed? | SE đổi sao khi n gấp bốn, sigma giữ nguyên?**
 
-A. Spread of individual values — Độ phân tán giá trị từng quan sát
+A. Spread of individual values | Độ phân tán giá trị từng quan sát
 
-B. Spread among hypothetical sample means — Độ phân tán giữa các mean mẫu giả định
+B. Spread among hypothetical sample means | Độ phân tán giữa các mean mẫu giả định
 
-C. s/sqrt(n) — s/sqrt(n)
+C. s/sqrt(n) | s/sqrt(n)
 
-D. It halves — Giảm một nửa
+D. It halves | Giảm một nửa
 
 **Đáp án: D**
 
 **Giải thích:** Căn bậc hai của bốn là hai.
 
 
-**Q13. Does CLT assert that raw data become normally distributed? — CLT có nói dữ liệu gốc thành phân phối chuẩn không?**
+**Q13. Does CLT assert that raw data become normally distributed? | CLT có nói dữ liệu gốc thành phân phối chuẩn không?**
 
-A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
+A. No, it concerns standardized sample means | Không, nói về mean mẫu được chuẩn hóa
 
-B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan trọng
+B. No; sampling design matters | Không; thiết kế lấy mẫu mới quan trọng
 
-C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
+C. It decreases for the sample mean under assumptions | Giảm đối với mean mẫu nếu giả định phù hợp
 
-D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
+D. A systematically unrepresentative sample | Mẫu không đại diện một cách có hệ thống
 
 **Đáp án: A**
 
 **Giải thích:** Tổng thể lệch vẫn có thể lệch.
 
 
-**Q14. Is a sample necessarily representative because a seed is fixed? — Có seed cố định thì mẫu chắc chắn đại diện không?**
+**Q14. Is a sample necessarily representative because a seed is fixed? | Có seed cố định thì mẫu chắc chắn đại diện không?**
 
-A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
+A. No, it concerns standardized sample means | Không, nói về mean mẫu được chuẩn hóa
 
-B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan trọng
+B. No; sampling design matters | Không; thiết kế lấy mẫu mới quan trọng
 
-C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
+C. It decreases for the sample mean under assumptions | Giảm đối với mean mẫu nếu giả định phù hợp
 
-D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
+D. A systematically unrepresentative sample | Mẫu không đại diện một cách có hệ thống
 
 **Đáp án: B**
 
 **Giải thích:** Seed chỉ lặp cách chọn.
 
 
-**Q15. What often happens to sampling variability as n grows? — n tăng thì dao động lấy mẫu thường thế nào?**
+**Q15. What often happens to sampling variability as n grows? | n tăng thì dao động lấy mẫu thường thế nào?**
 
-A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
+A. No, it concerns standardized sample means | Không, nói về mean mẫu được chuẩn hóa
 
-B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan trọng
+B. No; sampling design matters | Không; thiết kế lấy mẫu mới quan trọng
 
-C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
+C. It decreases for the sample mean under assumptions | Giảm đối với mean mẫu nếu giả định phù hợp
 
-D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
+D. A systematically unrepresentative sample | Mẫu không đại diện một cách có hệ thống
 
 **Đáp án: C**
 
 **Giải thích:** SE thường tỷ lệ nghịch căn n.
 
 
-**Q16. What is the impact of selection bias? — Thiên lệch chọn mẫu gây gì?**
+**Q16. What is the impact of selection bias? | Thiên lệch chọn mẫu gây gì?**
 
-A. No, it concerns standardized sample means — Không, nói về mean mẫu được chuẩn hóa
+A. No, it concerns standardized sample means | Không, nói về mean mẫu được chuẩn hóa
 
-B. No; sampling design matters — Không; thiết kế lấy mẫu mới quan trọng
+B. No; sampling design matters | Không; thiết kế lấy mẫu mới quan trọng
 
-C. It decreases for the sample mean under assumptions — Giảm đối với mean mẫu nếu giả định phù hợp
+C. It decreases for the sample mean under assumptions | Giảm đối với mean mẫu nếu giả định phù hợp
 
-D. A systematically unrepresentative sample — Mẫu không đại diện một cách có hệ thống
+D. A systematically unrepresentative sample | Mẫu không đại diện một cách có hệ thống
 
 **Đáp án: D**
 
 **Giải thích:** Tăng mẫu không tự sửa cách chọn sai.
 
 
-**Q17. Does n=40 guarantee a good normal approximation in every problem? — n=40 có bảo đảm xấp xỉ chuẩn tốt ở mọi bài toán không?**
+**Q17. Does n=40 guarantee a good normal approximation in every problem? | n=40 có bảo đảm xấp xỉ chuẩn tốt ở mọi bài toán không?**
 
-A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
+A. No, underlying assumptions and tails matter | Không, còn phụ thuộc giả định và đuôi phân phối
 
-B. Uses n−1 in variance denominator — Dùng n−1 ở mẫu số phương sai
+B. Uses n−1 in variance denominator | Dùng n−1 ở mẫu số phương sai
 
-C. Standard deviation — Độ lệch chuẩn
+C. Standard deviation | Độ lệch chuẩn
 
-D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
+D. Clearly defined sampling assumptions | Giả định lấy mẫu được xác định rõ
 
 **Đáp án: A**
 
 **Giải thích:** Không có ngưỡng cỡ mẫu đúng cho mọi trường hợp.
 
 
-**Q18. What does `ddof=1` change in SD? — `ddof=1` đổi gì trong SD?**
+**Q18. What does `ddof=1` change in SD? | `ddof=1` đổi gì trong SD?**
 
-A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
+A. No, underlying assumptions and tails matter | Không, còn phụ thuộc giả định và đuôi phân phối
 
-B. Uses n−1 in variance denominator — Dùng n−1 ở mẫu số phương sai
+B. Uses n−1 in variance denominator | Dùng n−1 ở mẫu số phương sai
 
-C. Standard deviation — Độ lệch chuẩn
+C. Standard deviation | Độ lệch chuẩn
 
-D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
+D. Clearly defined sampling assumptions | Giả định lấy mẫu được xác định rõ
 
 **Đáp án: B**
 
 **Giải thích:** Đây là quy ước cho ước lượng phương sai mẫu.
 
 
-**Q19. Which quantity stays in original units, SD or variance? — Đại lượng nào giữ đơn vị gốc, SD hay variance?**
+**Q19. Which quantity stays in original units, SD or variance? | Đại lượng nào giữ đơn vị gốc, SD hay variance?**
 
-A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
+A. No, underlying assumptions and tails matter | Không, còn phụ thuộc giả định và đuôi phân phối
 
-B. Uses n−1 in variance denominator — Dùng n−1 ở mẫu số phương sai
+B. Uses n−1 in variance denominator | Dùng n−1 ở mẫu số phương sai
 
-C. Standard deviation — Độ lệch chuẩn
+C. Standard deviation | Độ lệch chuẩn
 
-D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
+D. Clearly defined sampling assumptions | Giả định lấy mẫu được xác định rõ
 
 **Đáp án: C**
 
 **Giải thích:** Phương sai có đơn vị bình phương.
 
 
-**Q20. What is a prerequisite for repeated-sampling inference? — Điều kiện quan trọng của suy luận từ lấy mẫu lặp?**
+**Q20. What is a prerequisite for repeated-sampling inference? | Điều kiện quan trọng của suy luận từ lấy mẫu lặp?**
 
-A. No, underlying assumptions and tails matter — Không, còn phụ thuộc giả định và đuôi phân phối
+A. No, underlying assumptions and tails matter | Không, còn phụ thuộc giả định và đuôi phân phối
 
-B. Uses n−1 in variance denominator — Dùng n−1 ở mẫu số phương sai
+B. Uses n−1 in variance denominator | Dùng n−1 ở mẫu số phương sai
 
-C. Standard deviation — Độ lệch chuẩn
+C. Standard deviation | Độ lệch chuẩn
 
-D. Clearly defined sampling assumptions — Giả định lấy mẫu được xác định rõ
+D. Clearly defined sampling assumptions | Giả định lấy mẫu được xác định rõ
 
 **Đáp án: D**
 

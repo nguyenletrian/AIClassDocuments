@@ -43,6 +43,7 @@
 **Series** là dãy một chiều của Pandas, trong đó mỗi giá trị gắn với một **index** (nhãn). Ví dụ theo dõi điểm hai học viên An, Bình: nhãn `An`, `Binh` xác định ai sở hữu giá trị 8 hay 6. Khác List thuần túy thường truy cập bằng vị trí, Series còn truy cập theo **nhãn** bằng `.loc`. Khi không tự đặt nhãn, Pandas thường tạo chỉ số 0, 1, 2...
 
 ```python
+# Mục đích: Dữ liệu một chiều có nhãn.
 import pandas as pd
 
 scores = pd.Series([8, 6], index=['An', 'Binh'])
@@ -64,6 +65,7 @@ Nhãn `Binh` trỏ tới giá trị điểm 6; nhãn là chỉ số hàng, khôn
 **DataFrame** là bảng hai chiều. Cửa hàng có hai sản phẩm: Pen giá 10.000 đồng và Book giá 35.000 đồng. **Mỗi hàng** là một sản phẩm, **mỗi cột** là một thuộc tính (`Product` tên hàng; `Price` giá đơn vị đồng). Chỉ số 0, 1 bên trái là **index**, không phải một cột dữ liệu mặc định. Mỗi cột tương tự một Series có chung nhãn hàng.
 
 ```python
+# Mục đích: Bảng hàng và cột.
 import pandas as pd
 
 products = pd.DataFrame({
@@ -90,6 +92,7 @@ Bảng có 2 hàng sản phẩm × 2 cột thuộc tính; số 0 và 1 là nhãn
 Cột là tập các giá trị của **một thuộc tính** trên nhiều hàng. Với đơn giá `[10,20]` nghìn đồng và số lượng `[2,3]` cái, ta tạo hai cột `price` và `qty` rồi thêm `revenue = price * qty`. Pandas thực hiện phép nhân **theo hàng có cùng index**. Đơn giá nhân số lượng tạo doanh thu 20 và 60 nghìn đồng. `df['price']` chọn một cột, còn `df[['price','qty']]` chọn bảng hai cột.
 
 ```python
+# Mục đích: Đọc và tính trên thuộc tính.
 import pandas as pd
 
 sales = pd.DataFrame({'price': [10, 20], 'qty': [2, 3]})
@@ -112,6 +115,7 @@ Hai số là doanh thu của hàng thứ nhất và thứ hai. Nhân cột có �
 **CSV** lưu dữ liệu theo các dòng văn bản, thường dòng đầu chứa tên cột. `pd.read_csv()` chuyển nội dung thành DataFrame, có thể từ đường dẫn file hoặc bộ đệm `StringIO`. Ví dụ hai đơn hàng O1, O2 với `amount` 100 và 200 đồng; **mỗi hàng là một đơn**, cột `id` là mã đơn, cột `amount` là số tiền. Pandas thường tự nhận dạng cột số, nhưng dữ liệu phức tạp có thể cần chỉ định kiểu hoặc làm sạch trước khi tính.
 
 ```python
+# Mục đích: Đọc bảng từ văn bản CSV.
 import pandas as pd
 from io import StringIO
 
@@ -145,6 +149,7 @@ Tổng số tiền hai đơn là 300 đồng. `read_csv` đọc bảng từ văn
 3. In DataFrame, kiểm tra Pen và Book nằm ở hai hàng.
 
 ```python
+# Mục đích: Tạo bảng giá sản phẩm.
 import pandas as pd
 df = pd.DataFrame({"Product":["Pen", "Book"], "Price":[10000, 35000], "Qty":[2, 1]})
 print(df)
@@ -173,6 +178,7 @@ print(df)
 3. In `head()` để kiểm tra cột mã đơn và số tiền.
 
 ```python
+# Mục đích: Đọc đơn từ CSV văn bản.
 import pandas as pd
 import io
 csv_text = "id,amount\nO1,10000\nO2,30000\n"
@@ -203,6 +209,7 @@ print(df.head())
 3. In bảng, kiểm tra doanh thu 20 và 60 theo đơn vị tiền đã chọn.
 
 ```python
+# Mục đích: Tạo doanh thu mỗi dòng.
 import pandas as pd
 df = pd.DataFrame({"Price":[10, 20], "Qty":[2, 3]})
 df["Revenue"] = df.Price*df.Qty
@@ -232,6 +239,7 @@ print(df)
 3. Đối chiếu `name` dạng chuỗi và `qty` dạng số nguyên.
 
 ```python
+# Mục đích: Xem kiểu dữ liệu đầu vào.
 import pandas as pd
 df = pd.DataFrame({"name":["A", "B"], "qty":[2, 3]})
 print(df.dtypes)
@@ -260,6 +268,7 @@ dtype: object
 3. In `shape` của bảng chọn để thấy hai hàng × hai đặc trưng.
 
 ```python
+# Mục đích: Chọn dữ liệu tập huấn luyện.
 import pandas as pd
 df = pd.DataFrame({"visits":[2, 5], "spent":[100, 200], "city":["A", "B"]})
 X = df[["visits", "spent"]]
@@ -280,304 +289,304 @@ print(X.shape)
 - CSV vốn là văn bản; cần xem lại `dtype` vì dữ liệu bẩn có thể khiến cột số bị đọc thành chuỗi.
 - Không đưa mã định danh hoặc nhãn `city` vào mô hình dự đoán chỉ vì chúng có mặt trong bảng; phải chọn đặc trưng theo mục tiêu.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is a Pandas Series? — Pandas Series là gì?**
+**Q1. What is a Pandas Series? | Pandas Series là gì?**
 
-A. Parse tabular CSV data into a DataFrame — Đọc dữ liệu CSV thành DataFrame
+A. Parse tabular CSV data into a DataFrame | Đọc dữ liệu CSV thành DataFrame
 
-B. One field across multiple records — Một thuộc tính qua nhiều bản ghi
+B. One field across multiple records | Một thuộc tính qua nhiều bản ghi
 
-C. A two-dimensional labeled table — Bảng dữ liệu hai chiều có nhãn
+C. A two-dimensional labeled table | Bảng dữ liệu hai chiều có nhãn
 
-D. A one-dimensional labeled data structure — Cấu trúc dữ liệu một chiều có nhãn
+D. A one-dimensional labeled data structure | Cấu trúc dữ liệu một chiều có nhãn
 
 **Đáp án: D**
 
 **Giải thích:** Series liên kết từng giá trị với một nhãn index. Ví dụ `pd.Series([5,6], index=['a','b'])` gắn nhãn `'a'`, `'b'` cho các giá trị, khác với List không có hệ nhãn riêng.
 
 
-**Q2. What is a Pandas DataFrame? — Pandas DataFrame là gì?**
+**Q2. What is a Pandas DataFrame? | Pandas DataFrame là gì?**
 
-A. A one-dimensional labeled data structure — Cấu trúc dữ liệu một chiều có nhãn
+A. A one-dimensional labeled data structure | Cấu trúc dữ liệu một chiều có nhãn
 
-B. A two-dimensional labeled table — Bảng dữ liệu hai chiều có nhãn
+B. A two-dimensional labeled table | Bảng dữ liệu hai chiều có nhãn
 
-C. Parse tabular CSV data into a DataFrame — Đọc dữ liệu CSV thành DataFrame
+C. Parse tabular CSV data into a DataFrame | Đọc dữ liệu CSV thành DataFrame
 
-D. One field across multiple records — Một thuộc tính qua nhiều bản ghi
+D. One field across multiple records | Một thuộc tính qua nhiều bản ghi
 
 **Đáp án: B**
 
 **Giải thích:** DataFrame tổ chức bản ghi thành hàng và trường thành cột. Bảng gồm ba quan sát và hai trường có shape `(3,2)`; Series lại là cấu trúc một chiều có nhãn.
 
 
-**Q3. What does a column represent? — Một cột trong bảng thể hiện gì?**
+**Q3. What does a column represent? | Một cột trong bảng thể hiện gì?**
 
-A. A one-dimensional labeled data structure — Cấu trúc dữ liệu một chiều có nhãn
+A. A one-dimensional labeled data structure | Cấu trúc dữ liệu một chiều có nhãn
 
-B. One field across multiple records — Một thuộc tính qua nhiều bản ghi
+B. One field across multiple records | Một thuộc tính qua nhiều bản ghi
 
-C. A two-dimensional labeled table — Bảng dữ liệu hai chiều có nhãn
+C. A two-dimensional labeled table | Bảng dữ liệu hai chiều có nhãn
 
-D. Parse tabular CSV data into a DataFrame — Đọc dữ liệu CSV thành DataFrame
+D. Parse tabular CSV data into a DataFrame | Đọc dữ liệu CSV thành DataFrame
 
 **Đáp án: B**
 
 **Giải thích:** Cột lưu cùng một thuộc tính ở các hàng. Nếu các hàng là đơn hàng, cột `price` ghi giá của từng đơn và cần xác định rõ đơn vị tiền tệ.
 
 
-**Q4. What is the purpose of `pd.read_csv()`? — `pd.read_csv()` dùng để làm gì?**
+**Q4. What is the purpose of `pd.read_csv()`? | `pd.read_csv()` dùng để làm gì?**
 
-A. A one-dimensional labeled data structure — Cấu trúc dữ liệu một chiều có nhãn
+A. A one-dimensional labeled data structure | Cấu trúc dữ liệu một chiều có nhãn
 
-B. One field across multiple records — Một thuộc tính qua nhiều bản ghi
+B. One field across multiple records | Một thuộc tính qua nhiều bản ghi
 
-C. A two-dimensional labeled table — Bảng dữ liệu hai chiều có nhãn
+C. A two-dimensional labeled table | Bảng dữ liệu hai chiều có nhãn
 
-D. Parse tabular CSV data into a DataFrame — Đọc dữ liệu CSV thành DataFrame
+D. Parse tabular CSV data into a DataFrame | Đọc dữ liệu CSV thành DataFrame
 
 **Đáp án: D**
 
 **Giải thích:** read_csv đọc các trường được phân cách cùng hàng tên cột. Ví dụ hàng tiêu đề CSV `name,score` tạo tên cột tương ứng, nhưng các ô số sai định dạng vẫn có thể cần làm sạch sau khi đọc.
 
 
-**Q5. What does `pd.Series([1,2])` return? — `pd.Series([1,2])` trả về gì?**
+**Q5. What does `pd.Series([1,2])` return? | `pd.Series([1,2])` trả về gì?**
 
-A. A Series containing column x — Series chứa cột x
+A. A Series containing column x | Series chứa cột x
 
-B. A Series with default index 0,1 — Series có index mặc định 0,1
+B. A Series with default index 0,1 | Series có index mặc định 0,1
 
-C. A DataFrame containing one column — DataFrame có một cột
+C. A DataFrame containing one column | DataFrame có một cột
 
-D. A tuple with row and column counts — Tuple gồm số hàng và số cột
+D. A tuple with row and column counts | Tuple gồm số hàng và số cột
 
 **Đáp án: B**
 
 **Giải thích:** Không chỉ định nhãn thì Pandas tự gán chỉ số nguyên. Không truyền index, hai giá trị nhận nhãn `0` và `1`; kết quả là Series chứ không phải DataFrame một cột.
 
 
-**Q6. What does `df[['x']]` return? — `df[['x']]` trả về gì?**
+**Q6. What does `df[['x']]` return? | `df[['x']]` trả về gì?**
 
-A. A DataFrame containing one column — DataFrame có một cột
+A. A DataFrame containing one column | DataFrame có một cột
 
-B. A tuple with row and column counts — Tuple gồm số hàng và số cột
+B. A tuple with row and column counts | Tuple gồm số hàng và số cột
 
-C. A Series containing column x — Series chứa cột x
+C. A Series containing column x | Series chứa cột x
 
-D. A Series with default index 0,1 — Series có index mặc định 0,1
+D. A Series with default index 0,1 | Series có index mặc định 0,1
 
 **Đáp án: A**
 
 **Giải thích:** Hai lớp ngoặc vuông chọn danh sách cột và giữ dạng bảng. Nếu `df` có năm hàng, `df[['x']]` giữ kết quả hai chiều với shape `(5,1)`, khác `df['x']`.
 
 
-**Q7. When DataFrame column labels are unique, what does `df['x']` return? — Khi tên cột DataFrame không trùng nhau, `df['x']` trả về gì?**
+**Q7. When DataFrame column labels are unique, what does `df['x']` return? | Khi tên cột DataFrame không trùng nhau, `df['x']` trả về gì?**
 
-A. A tuple with row and column counts — Tuple gồm số hàng và số cột
+A. A tuple with row and column counts | Tuple gồm số hàng và số cột
 
-B. A Series containing column x — Series chứa cột x
+B. A Series containing column x | Series chứa cột x
 
-C. A DataFrame containing one column — DataFrame có một cột
+C. A DataFrame containing one column | DataFrame có một cột
 
-D. A Series with default index 0,1 — Series có index mặc định 0,1
+D. A Series with default index 0,1 | Series có index mặc định 0,1
 
 **Đáp án: B**
 
 **Giải thích:** Tra cứu một cột bằng ngoặc đơn trả Series. Với tên cột không trùng, `df['x']` là Series một chiều; hai lớp ngoặc vuông thì trả DataFrame.
 
 
-**Q8. What does `df.shape` return? — `df.shape` trả về gì?**
+**Q8. What does `df.shape` return? | `df.shape` trả về gì?**
 
-A. A Series with default index 0,1 — Series có index mặc định 0,1
+A. A Series with default index 0,1 | Series có index mặc định 0,1
 
-B. A DataFrame containing one column — DataFrame có một cột
+B. A DataFrame containing one column | DataFrame có một cột
 
-C. A Series containing column x — Series chứa cột x
+C. A Series containing column x | Series chứa cột x
 
-D. A tuple with row and column counts — Tuple gồm số hàng và số cột
+D. A tuple with row and column counts | Tuple gồm số hàng và số cột
 
 **Đáp án: D**
 
 **Giải thích:** Shape cho biết hai kích thước của DataFrame. Với DataFrame bốn bản ghi và ba trường, `df.shape` là `(4,3)`, không phải số ô không thiếu.
 
 
-**Q9. What does `df.head(3)` show? — `df.head(3)` hiển thị gì?**
+**Q9. What does `df.head(3)` show? | `df.head(3)` hiển thị gì?**
 
-A. Columns, non-null counts and data types — Các cột, số ô không thiếu và kiểu dữ liệu
+A. Columns, non-null counts and data types | Các cột, số ô không thiếu và kiểu dữ liệu
 
-B. Data types of columns — Kiểu dữ liệu của các cột
+B. Data types of columns | Kiểu dữ liệu của các cột
 
-C. The first three rows — Ba hàng đầu
+C. The first three rows | Ba hàng đầu
 
-D. Descriptive statistics such as mean and quartiles — Thống kê mô tả như trung bình và các tứ phân vị
+D. Descriptive statistics such as mean and quartiles | Thống kê mô tả như trung bình và các tứ phân vị
 
 **Đáp án: C**
 
 **Giải thích:** head lấy số hàng đầu theo đối số. Nếu DataFrame chỉ có hai hàng, `head(3)` trả hai hàng đó chứ không tạo thêm hàng giả.
 
 
-**Q10. What does `df.dtypes` describe? — `df.dtypes` mô tả gì?**
+**Q10. What does `df.dtypes` describe? | `df.dtypes` mô tả gì?**
 
-A. Descriptive statistics such as mean and quartiles — Thống kê mô tả như trung bình và các tứ phân vị
+A. Descriptive statistics such as mean and quartiles | Thống kê mô tả như trung bình và các tứ phân vị
 
-B. The first three rows — Ba hàng đầu
+B. The first three rows | Ba hàng đầu
 
-C. Data types of columns — Kiểu dữ liệu của các cột
+C. Data types of columns | Kiểu dữ liệu của các cột
 
-D. Columns, non-null counts and data types — Các cột, số ô không thiếu và kiểu dữ liệu
+D. Columns, non-null counts and data types | Các cột, số ô không thiếu và kiểu dữ liệu
 
 **Đáp án: C**
 
 **Giải thích:** Mỗi cột có thể mang dtype riêng. Cột `price` có thể có dtype thực, còn `name` mang kiểu văn bản; `dtypes` không tính thống kê mô tả.
 
 
-**Q11. What does `df.info()` primarily summarize? — `df.info()` chủ yếu tóm tắt gì?**
+**Q11. What does `df.info()` primarily summarize? | `df.info()` chủ yếu tóm tắt gì?**
 
-A. The first three rows — Ba hàng đầu
+A. The first three rows | Ba hàng đầu
 
-B. Data types of columns — Kiểu dữ liệu của các cột
+B. Data types of columns | Kiểu dữ liệu của các cột
 
-C. Descriptive statistics such as mean and quartiles — Thống kê mô tả như trung bình và các tứ phân vị
+C. Descriptive statistics such as mean and quartiles | Thống kê mô tả như trung bình và các tứ phân vị
 
-D. Columns, non-null counts and data types — Các cột, số ô không thiếu và kiểu dữ liệu
+D. Columns, non-null counts and data types | Các cột, số ô không thiếu và kiểu dữ liệu
 
 **Đáp án: D**
 
 **Giải thích:** info cho biết cấu trúc và mức độ đầy đủ của bảng. Nó hiển thị tên cột, số giá trị không thiếu, dtype và bộ nhớ; khác thao tác xem trước hàng dữ liệu bằng `head()`.
 
 
-**Q12. What does `df.describe()` commonly provide for numeric columns? — `df.describe()` thường cung cấp gì cho cột số?**
+**Q12. What does `df.describe()` commonly provide for numeric columns? | `df.describe()` thường cung cấp gì cho cột số?**
 
-A. Descriptive statistics such as mean and quartiles — Thống kê mô tả như trung bình và các tứ phân vị
+A. Descriptive statistics such as mean and quartiles | Thống kê mô tả như trung bình và các tứ phân vị
 
-B. The first three rows — Ba hàng đầu
+B. The first three rows | Ba hàng đầu
 
-C. Columns, non-null counts and data types — Các cột, số ô không thiếu và kiểu dữ liệu
+C. Columns, non-null counts and data types | Các cột, số ô không thiếu và kiểu dữ liệu
 
-D. Data types of columns — Kiểu dữ liệu của các cột
+D. Data types of columns | Kiểu dữ liệu của các cột
 
 **Đáp án: A**
 
 **Giải thích:** describe tính những thống kê cơ bản cho cột số. Với số `[2,4,6]`, trung bình bằng 4 và các tứ phân vị cho biết mức phân tán; `head()` chỉ hiển thị hàng dữ liệu gốc.
 
 
-**Q13. What is an index in a DataFrame? — Index của DataFrame là gì?**
+**Q13. What is an index in a DataFrame? | Index của DataFrame là gì?**
 
-A. Column labels — Các tên cột
+A. Column labels | Các tên cột
 
-B. One observation or record — Một quan sát hoặc bản ghi
+B. One observation or record | Một quan sát hoặc bản ghi
 
-C. Labels identifying rows — Các nhãn xác định hàng
+C. Labels identifying rows | Các nhãn xác định hàng
 
-D. Index labels — Nhãn index
+D. Index labels | Nhãn index
 
 **Đáp án: C**
 
 **Giải thích:** Index tách với các cột thông thường trừ khi được chuyển đổi. Index có thể là nhãn như mã học viên và tách khỏi các cột dữ liệu thường, trừ khi được đưa trở lại thành cột.
 
 
-**Q14. How are Series values aligned during arithmetic? — Pandas căn các giá trị Series khi tính toán bằng gì?**
+**Q14. How are Series values aligned during arithmetic? | Pandas căn các giá trị Series khi tính toán bằng gì?**
 
-A. Labels identifying rows — Các nhãn xác định hàng
+A. Labels identifying rows | Các nhãn xác định hàng
 
-B. One observation or record — Một quan sát hoặc bản ghi
+B. One observation or record | Một quan sát hoặc bản ghi
 
-C. Index labels — Nhãn index
+C. Index labels | Nhãn index
 
-D. Column labels — Các tên cột
+D. Column labels | Các tên cột
 
 **Đáp án: C**
 
 **Giải thích:** Pandas ghép giá trị theo các nhãn index tương ứng. Nếu hai Series sắp nhãn theo thứ tự khác nhau, Pandas ghép giá trị cùng nhãn trước khi cộng chứ không cộng máy móc theo vị trí.
 
 
-**Q15. What does `df.columns` contain? — `df.columns` chứa gì?**
+**Q15. What does `df.columns` contain? | `df.columns` chứa gì?**
 
-A. One observation or record — Một quan sát hoặc bản ghi
+A. One observation or record | Một quan sát hoặc bản ghi
 
-B. Index labels — Nhãn index
+B. Index labels | Nhãn index
 
-C. Column labels — Các tên cột
+C. Column labels | Các tên cột
 
-D. Labels identifying rows — Các nhãn xác định hàng
+D. Labels identifying rows | Các nhãn xác định hàng
 
 **Đáp án: C**
 
 **Giải thích:** Thuộc tính columns liệt kê tên trường. Với các cột `name` và `age`, `list(df.columns)` trả danh sách tên cột, không phải nhãn hàng.
 
 
-**Q16. What is a DataFrame row usually intended to represent? — Mỗi hàng DataFrame thường nên biểu diễn gì?**
+**Q16. What is a DataFrame row usually intended to represent? | Mỗi hàng DataFrame thường nên biểu diễn gì?**
 
-A. One observation or record — Một quan sát hoặc bản ghi
+A. One observation or record | Một quan sát hoặc bản ghi
 
-B. Column labels — Các tên cột
+B. Column labels | Các tên cột
 
-C. Index labels — Nhãn index
+C. Index labels | Nhãn index
 
-D. Labels identifying rows — Các nhãn xác định hàng
+D. Labels identifying rows | Các nhãn xác định hàng
 
 **Đáp án: A**
 
 **Giải thích:** Ý nghĩa hàng nhất quán giúp hiểu đúng các phép tổng hợp. Một hàng có thể là một học viên, giao dịch hoặc lần đo, nhưng cần định nghĩa nhất quán để hiểu đúng thống kê.
 
 
-**Q17. What does `df['price'] * df['qty']` calculate? — `df['price'] * df['qty']` tính gì?**
+**Q17. What does `df['price'] * df['qty']` calculate? | `df['price'] * df['qty']` tính gì?**
 
-A. An element-wise product aligned by index — Tích từng phần tử được căn theo index
+A. An element-wise product aligned by index | Tích từng phần tử được căn theo index
 
-B. To interpret the data and calculations correctly — Để hiểu đúng dữ liệu và phép tính
+B. To interpret the data and calculations correctly | Để hiểu đúng dữ liệu và phép tính
 
-C. A numeric column may be parsed as text — Cột số có thể bị đọc thành chữ
+C. A numeric column may be parsed as text | Cột số có thể bị đọc thành chữ
 
-D. Two named columns — Hai cột được nêu tên
+D. Two named columns | Hai cột được nêu tên
 
 **Đáp án: A**
 
 **Giải thích:** Giá và lượng tương ứng được nhân ở từng bản ghi. Nếu cùng một hàng có giá 10 đô la và số lượng 3 món, tích là 30 đô la, không phải tổng của nhiều hàng.
 
 
-**Q18. What does `df[['a','b']]` select? — `df[['a','b']]` chọn gì?**
+**Q18. What does `df[['a','b']]` select? | `df[['a','b']]` chọn gì?**
 
-A. A numeric column may be parsed as text — Cột số có thể bị đọc thành chữ
+A. A numeric column may be parsed as text | Cột số có thể bị đọc thành chữ
 
-B. An element-wise product aligned by index — Tích từng phần tử được căn theo index
+B. An element-wise product aligned by index | Tích từng phần tử được căn theo index
 
-C. To interpret the data and calculations correctly — Để hiểu đúng dữ liệu và phép tính
+C. To interpret the data and calculations correctly | Để hiểu đúng dữ liệu và phép tính
 
-D. Two named columns — Hai cột được nêu tên
+D. Two named columns | Hai cột được nêu tên
 
 **Đáp án: D**
 
 **Giải thích:** Danh sách tên cho phép lấy nhiều cột. Kết quả vẫn là DataFrame chứa `a` và `b` theo thứ tự đã nêu, còn `df['a']` thường trả Series.
 
 
-**Q19. What is a frequent risk when loading CSV numeric data? — Nguy cơ thường gặp khi đọc số từ CSV là gì?**
+**Q19. What is a frequent risk when loading CSV numeric data? | Nguy cơ thường gặp khi đọc số từ CSV là gì?**
 
-A. A numeric column may be parsed as text — Cột số có thể bị đọc thành chữ
+A. A numeric column may be parsed as text | Cột số có thể bị đọc thành chữ
 
-B. Two named columns — Hai cột được nêu tên
+B. Two named columns | Hai cột được nêu tên
 
-C. An element-wise product aligned by index — Tích từng phần tử được căn theo index
+C. An element-wise product aligned by index | Tích từng phần tử được căn theo index
 
-D. To interpret the data and calculations correctly — Để hiểu đúng dữ liệu và phép tính
+D. To interpret the data and calculations correctly | Để hiểu đúng dữ liệu và phép tính
 
 **Đáp án: A**
 
 **Giải thích:** Giá trị không hợp lệ có thể khiến Pandas không nhận kiểu số. Ô như `'unknown'` nằm trong cột số có thể khiến kiểu bị suy ra thành văn bản/object, nên phải kiểm tra và đổi kiểu trước khi tính.
 
 
-**Q20. Why define what each row and column means? — Vì sao cần nêu ý nghĩa từng hàng và cột?**
+**Q20. Why define what each row and column means? | Vì sao cần nêu ý nghĩa từng hàng và cột?**
 
-A. A numeric column may be parsed as text — Cột số có thể bị đọc thành chữ
+A. A numeric column may be parsed as text | Cột số có thể bị đọc thành chữ
 
-B. To interpret the data and calculations correctly — Để hiểu đúng dữ liệu và phép tính
+B. To interpret the data and calculations correctly | Để hiểu đúng dữ liệu và phép tính
 
-C. An element-wise product aligned by index — Tích từng phần tử được căn theo index
+C. An element-wise product aligned by index | Tích từng phần tử được căn theo index
 
-D. Two named columns — Hai cột được nêu tên
+D. Two named columns | Hai cột được nêu tên
 
 **Đáp án: B**
 

@@ -42,6 +42,7 @@
 **Phép thử ngẫu nhiên** là thao tác có những kết quả khả dĩ biết trước, nhưng không biết chắc kết quả của **một lần thử**. Tung một đồng xu công bằng là ví dụ: kết quả có thể là ngửa hoặc sấp; mỗi lần chỉ xuất hiện một mặt. Để minh họa mà không in kết quả thất thường, tạo số ngẫu nhiên bằng `np.random.default_rng(seed)` giúp **tái lập cùng chuỗi giả ngẫu nhiên**, nhưng seed không biến thử nghiệm thành không ngẫu nhiên trong lý thuyết.
 
 ```python
+# Mục đích: Phép thử và kết quả ngẫu nhiên.
 import numpy as np
 
 rng = np.random.default_rng(42)
@@ -63,6 +64,7 @@ Năm kết quả mô phỏng 0/1 với seed 42 tái lập được trong phiên 
 **Không gian mẫu** Ω chứa toàn bộ kết quả có thể của phép thử. Với xúc xắc sáu mặt chuẩn, Ω=`{1,2,3,4,5,6}`; mỗi số chỉ là **một kết quả**, chưa phải xác suất. Đếm `len(Ω)=6` cho biết số trường hợp khả dĩ. Chỉ khi xúc xắc **công bằng** ta mới giả định cả sáu mặt đồng xác suất `1/6`. Set không bảo đảm thứ tự hiển thị nên in qua `sorted()`.
 
 ```python
+# Mục đích: Liệt kê toàn bộ kết quả có thể.
 space = set(range(1, 7))
 print(sorted(space))
 ```
@@ -82,6 +84,7 @@ Không gian mẫu của một lần gieo có sáu mặt, được sắp thứ t�
 **Biến cố** là một tập con của không gian mẫu. Khi gieo xúc xắc, biến cố `E = ra số chẵn` gồm `{2,4,6}`. Nó không phải một kết quả duy nhất: trong một lần gieo, E xảy ra nếu số được gieo **thuộc** Set E. Gọi `sorted(E)` để hiển thị rõ ba trường hợp; phép kiểm tra `4 in E` cho True.
 
 ```python
+# Mục đích: Một nhóm kết quả quan tâm.
 even = {2, 4, 6}
 print(sorted(even))
 ```
@@ -101,6 +104,7 @@ Biến cố ra số chẵn có ba kết quả thuận lợi trong sáu mặt xú
 **Xác suất** P(E) là số trong `[0,1]` đo khả năng của biến cố E. Khi các phần tử không gian mẫu **đồng khả năng**, `P(E)=số kết quả thuận lợi / số kết quả có thể`. Với xúc xắc công bằng, E là các mặt chẵn `{2,4,6}` nên `P(E)=3/6=0.5`. Nếu xúc xắc lệch, không thể dùng số mặt thuận lợi chia số mặt một cách máy móc: cần xác suất của từng mặt.
 
 ```python
+# Mục đích: Tỷ lệ khả năng dưới giả định.
 space = set(range(1, 7))
 even = {2, 4, 6}
 print(len(even) / len(space))
@@ -129,6 +133,7 @@ Một lần gieo xúc xắc công bằng có xác suất 50% ra mặt chẵn.
 3. Chia hai số và in xác suất.
 
 ```python
+# Mục đích: Xác suất ra mặt chẵn của xúc xắc.
 space = set(range(1, 7))
 even = {2, 4, 6}
 print(len(even) / len(space))
@@ -155,6 +160,7 @@ Xác suất thắng bằng 0.5 (50%) theo giả định xúc xắc công bằng.
 3. Tính tỷ lệ số 1 và làm tròn ba chữ số.
 
 ```python
+# Mục đích: Mô phỏng 1.000 lần tung đồng xu.
 import numpy as np
 
 rng = np.random.default_rng(42)
@@ -183,6 +189,7 @@ Tỷ lệ mô phỏng khoảng 50.9%, không bắt buộc bằng xác suất lý
 3. Chia cho 36 và làm tròn ba chữ số.
 
 ```python
+# Mục đích: Xác suất tổng hai xúc xắc bằng chín.
 pairs = [(a, b) for a in range(1, 7) for b in range(1, 7)]
 valid = sum(a + b == 9 for a, b in pairs)
 print(round(valid / len(pairs), 3))
@@ -209,6 +216,7 @@ Có bốn cặp thắng trên 36 cặp, xác suất bằng khoảng 11.1%.
 3. Lấy trung bình và làm tròn ba chữ số.
 
 ```python
+# Mục đích: Ước lượng tỷ lệ sự kiện hiếm.
 import numpy as np
 
 rng = np.random.default_rng(1)
@@ -237,6 +245,7 @@ Tỷ lệ mô phỏng gần 20% theo giả định; seed cho kết quả có th�
 3. In kích thước và tỷ lệ làm tròn ba chữ số.
 
 ```python
+# Mục đích: So mô phỏng ít lượt và nhiều lượt.
 import numpy as np
 
 rng = np.random.default_rng(7)
@@ -263,302 +272,302 @@ Mẫu lớn ở lần chạy này gần 0.5 hơn, nhưng đó là quan sát mô 
 - Set không có thứ tự cố định, nên in bằng `sorted` nếu cần đối chiếu đầu ra.
 - Khi số mẫu tăng, độ dao động của ước lượng thường giảm, không bắt buộc mỗi lần chạy đều gần hơn.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
-**Q1. What is a random experiment? — Phép thử ngẫu nhiên là gì?**
+**Q1. What is a random experiment? | Phép thử ngẫu nhiên là gì?**
 
-A. A repeatable procedure with uncertain individual outcome — Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-B. Set of all possible outcomes — Tập tất cả kết quả có thể
+B. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-C. A subset of the sample space — Một tập con của không gian mẫu
+C. A subset of the sample space | Một tập con của không gian mẫu
 
-D. A measure between zero and one of an event's chance — Thước đo từ 0 đến 1 cho khả năng biến cố
+D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
 **Đáp án: A**
 
 **Giải thích:** Phép thử có thể sinh kết quả khác nhau.
 
 
-**Q2. What is a sample space? — Không gian mẫu là gì?**
+**Q2. What is a sample space? | Không gian mẫu là gì?**
 
-A. A repeatable procedure with uncertain individual outcome — Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-B. Set of all possible outcomes — Tập tất cả kết quả có thể
+B. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-C. A subset of the sample space — Một tập con của không gian mẫu
+C. A subset of the sample space | Một tập con của không gian mẫu
 
-D. A measure between zero and one of an event's chance — Thước đo từ 0 đến 1 cho khả năng biến cố
+D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
 **Đáp án: B**
 
 **Giải thích:** Không gian mẫu chứa mọi kết quả khả dĩ.
 
 
-**Q3. What is an event? — Biến cố là gì?**
+**Q3. What is an event? | Biến cố là gì?**
 
-A. A repeatable procedure with uncertain individual outcome — Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-B. Set of all possible outcomes — Tập tất cả kết quả có thể
+B. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-C. A subset of the sample space — Một tập con của không gian mẫu
+C. A subset of the sample space | Một tập con của không gian mẫu
 
-D. A measure between zero and one of an event's chance — Thước đo từ 0 đến 1 cho khả năng biến cố
+D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
 **Đáp án: C**
 
 **Giải thích:** Biến cố là một nhóm kết quả.
 
 
-**Q4. What is probability? — Xác suất là gì?**
+**Q4. What is probability? | Xác suất là gì?**
 
-A. A repeatable procedure with uncertain individual outcome — Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-B. Set of all possible outcomes — Tập tất cả kết quả có thể
+B. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-C. A subset of the sample space — Một tập con của không gian mẫu
+C. A subset of the sample space | Một tập con của không gian mẫu
 
-D. A measure between zero and one of an event's chance — Thước đo từ 0 đến 1 cho khả năng biến cố
+D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
 **Đáp án: D**
 
 **Giải thích:** Xác suất trong đoạn 0 đến 1.
 
 
-**Q5. When does counting favorable outcomes over total outcomes work? — Khi nào chia số trường hợp thuận lợi cho tổng số trường hợp là đúng?**
+**Q5. When does counting favorable outcomes over total outcomes work? | Khi nào chia số trường hợp thuận lợi cho tổng số trường hợp là đúng?**
 
-A. When outcomes are equally likely — Khi các kết quả đồng khả năng
+A. When outcomes are equally likely | Khi các kết quả đồng khả năng
 
-B. n values of zero or one — n giá trị 0 hoặc 1
+B. n values of zero or one | n giá trị 0 hoặc 1
 
-C. Reproducible pseudorandom sequences — Chuỗi giả ngẫu nhiên tái lập
+C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
 
-D. Fraction of True values — Tỷ lệ các phần tử True
+D. Fraction of True values | Tỷ lệ các phần tử True
 
 **Đáp án: A**
 
 **Giải thích:** Đếm cổ điển đòi hỏi các kết quả đồng khả năng.
 
 
-**Q6. What does `rng.integers(0,2,size=n)` generate? — `rng.integers(0,2,size=n)` tạo gì?**
+**Q6. What does `rng.integers(0,2,size=n)` generate? | `rng.integers(0,2,size=n)` tạo gì?**
 
-A. When outcomes are equally likely — Khi các kết quả đồng khả năng
+A. When outcomes are equally likely | Khi các kết quả đồng khả năng
 
-B. n values of zero or one — n giá trị 0 hoặc 1
+B. n values of zero or one | n giá trị 0 hoặc 1
 
-C. Reproducible pseudorandom sequences — Chuỗi giả ngẫu nhiên tái lập
+C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
 
-D. Fraction of True values — Tỷ lệ các phần tử True
+D. Fraction of True values | Tỷ lệ các phần tử True
 
 **Đáp án: B**
 
 **Giải thích:** Cận trên 2 không lấy 2, chỉ còn 0 và 1.
 
 
-**Q7. What does `default_rng(seed)` provide? — `default_rng(seed)` cung cấp gì?**
+**Q7. What does `default_rng(seed)` provide? | `default_rng(seed)` cung cấp gì?**
 
-A. When outcomes are equally likely — Khi các kết quả đồng khả năng
+A. When outcomes are equally likely | Khi các kết quả đồng khả năng
 
-B. n values of zero or one — n giá trị 0 hoặc 1
+B. n values of zero or one | n giá trị 0 hoặc 1
 
-C. Reproducible pseudorandom sequences — Chuỗi giả ngẫu nhiên tái lập
+C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
 
-D. Fraction of True values — Tỷ lệ các phần tử True
+D. Fraction of True values | Tỷ lệ các phần tử True
 
 **Đáp án: C**
 
 **Giải thích:** Seed điều khiển chuỗi giả ngẫu nhiên tái lập.
 
 
-**Q8. What does `np.mean(mask)` compute for Boolean mask? — `np.mean(mask)` tính gì với mặt nạ Boolean?**
+**Q8. What does `np.mean(mask)` compute for Boolean mask? | `np.mean(mask)` tính gì với mặt nạ Boolean?**
 
-A. When outcomes are equally likely — Khi các kết quả đồng khả năng
+A. When outcomes are equally likely | Khi các kết quả đồng khả năng
 
-B. n values of zero or one — n giá trị 0 hoặc 1
+B. n values of zero or one | n giá trị 0 hoặc 1
 
-C. Reproducible pseudorandom sequences — Chuỗi giả ngẫu nhiên tái lập
+C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
 
-D. Fraction of True values — Tỷ lệ các phần tử True
+D. Fraction of True values | Tỷ lệ các phần tử True
 
 **Đáp án: D**
 
 **Giải thích:** True tính như 1, False tính như 0.
 
 
-**Q9. What is P(even) for a fair six-sided die? — Xác suất mặt chẵn của xúc xắc công bằng sáu mặt?**
+**Q9. What is P(even) for a fair six-sided die? | Xác suất mặt chẵn của xúc xắc công bằng sáu mặt?**
 
-A. `1/2` — `1/2`
+A. `1/2` | `1/2`
 
-B. 36 — 36
+B. 36 | 36
 
-C. 4 — 4
+C. 4 | 4
 
-D. Zero — Bằng 0
+D. Zero | Bằng 0
 
 **Đáp án: A**
 
 **Giải thích:** Ba trong sáu mặt là số chẵn.
 
 
-**Q10. How many outcomes are possible with two ordered six-sided dice? — Hai xúc xắc sáu mặt theo cặp có thứ tự có bao nhiêu kết quả?**
+**Q10. How many outcomes are possible with two ordered six-sided dice? | Hai xúc xắc sáu mặt theo cặp có thứ tự có bao nhiêu kết quả?**
 
-A. `1/2` — `1/2`
+A. `1/2` | `1/2`
 
-B. 36 — 36
+B. 36 | 36
 
-C. 4 — 4
+C. 4 | 4
 
-D. Zero — Bằng 0
+D. Zero | Bằng 0
 
 **Đáp án: B**
 
 **Giải thích:** Hai xúc xắc có 6×6 cặp có thứ tự.
 
 
-**Q11. How many ordered pairs of dice sum to nine? — Bao nhiêu cặp có thứ tự của hai xúc xắc có tổng 9?**
+**Q11. How many ordered pairs of dice sum to nine? | Bao nhiêu cặp có thứ tự của hai xúc xắc có tổng 9?**
 
-A. `1/2` — `1/2`
+A. `1/2` | `1/2`
 
-B. 36 — 36
+B. 36 | 36
 
-C. 4 — 4
+C. 4 | 4
 
-D. Zero — Bằng 0
+D. Zero | Bằng 0
 
 **Đáp án: C**
 
 **Giải thích:** Bốn cặp là (3,6), (4,5), (5,4), (6,3).
 
 
-**Q12. What is the probability of the empty event? — Xác suất biến cố rỗng là gì?**
+**Q12. What is the probability of the empty event? | Xác suất biến cố rỗng là gì?**
 
-A. `1/2` — `1/2`
+A. `1/2` | `1/2`
 
-B. 36 — 36
+B. 36 | 36
 
-C. 4 — 4
+C. 4 | 4
 
-D. Zero — Bằng 0
+D. Zero | Bằng 0
 
 **Đáp án: D**
 
 **Giải thích:** Biến cố không thể có xác suất 0.
 
 
-**Q13. What is the probability of the entire sample space? — Xác suất của cả không gian mẫu là gì?**
+**Q13. What is the probability of the entire sample space? | Xác suất của cả không gian mẫu là gì?**
 
-A. One — Bằng 1
+A. One | Bằng 1
 
-B. `1-P(A)` — `1-P(A)`
+B. `1-P(A)` | `1-P(A)`
 
-C. No, sampling variation occurs — Không, có dao động do lấy mẫu
+C. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
-D. One die's result does not change probabilities of the other — Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
+D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
 **Đáp án: A**
 
 **Giải thích:** Biến cố chắc chắn có xác suất 1.
 
 
-**Q14. What is P(not A) in terms of P(A)? — P(không A) theo P(A) là gì?**
+**Q14. What is P(not A) in terms of P(A)? | P(không A) theo P(A) là gì?**
 
-A. One — Bằng 1
+A. One | Bằng 1
 
-B. `1-P(A)` — `1-P(A)`
+B. `1-P(A)` | `1-P(A)`
 
-C. No, sampling variation occurs — Không, có dao động do lấy mẫu
+C. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
-D. One die's result does not change probabilities of the other — Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
+D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
 **Đáp án: B**
 
 **Giải thích:** Biến cố và biến cố đối có tổng xác suất 1.
 
 
-**Q15. Does a simulation always equal the true probability exactly? — Tỷ lệ mô phỏng có luôn bằng xác suất thật?**
+**Q15. Does a simulation always equal the true probability exactly? | Tỷ lệ mô phỏng có luôn bằng xác suất thật?**
 
-A. One — Bằng 1
+A. One | Bằng 1
 
-B. `1-P(A)` — `1-P(A)`
+B. `1-P(A)` | `1-P(A)`
 
-C. No, sampling variation occurs — Không, có dao động do lấy mẫu
+C. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
-D. One die's result does not change probabilities of the other — Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
+D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
 **Đáp án: C**
 
 **Giải thích:** Mẫu hữu hạn dao động quanh xác suất nền.
 
 
-**Q16. What does independence of two dice mean? — Hai xúc xắc độc lập nghĩa là gì?**
+**Q16. What does independence of two dice mean? | Hai xúc xắc độc lập nghĩa là gì?**
 
-A. One — Bằng 1
+A. One | Bằng 1
 
-B. `1-P(A)` — `1-P(A)`
+B. `1-P(A)` | `1-P(A)`
 
-C. No, sampling variation occurs — Không, có dao động do lấy mẫu
+C. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
-D. One die's result does not change probabilities of the other — Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
+D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
 **Đáp án: D**
 
 **Giải thích:** Độc lập nghĩa là một kết quả không đổi xác suất của biến cố còn lại.
 
 
-**Q17. Why is printing a Set directly fragile for sample output? — Vì sao in trực tiếp Set khó đối chiếu đầu ra mẫu?**
+**Q17. Why is printing a Set directly fragile for sample output? | Vì sao in trực tiếp Set khó đối chiếu đầu ra mẫu?**
 
-A. Display order is not promised — Thứ tự hiển thị không được đảm bảo
+A. Display order is not promised | Thứ tự hiển thị không được đảm bảo
 
-B. That empirical frequency equals theoretical probability — Tần suất thực nghiệm đúng bằng xác suất lý thuyết
+B. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-C. It tends to reduce sampling variability — Thường làm giảm dao động lấy mẫu
+C. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
 
-D. Its faces do not have equal probabilities — Các mặt không đồng xác suất
+D. Its faces do not have equal probabilities | Các mặt không đồng xác suất
 
 **Đáp án: A**
 
 **Giải thích:** Set không bảo đảm thứ tự in.
 
 
-**Q18. What does a fixed RNG seed not guarantee? — Seed RNG cố định không bảo đảm điều gì?**
+**Q18. What does a fixed RNG seed not guarantee? | Seed RNG cố định không bảo đảm điều gì?**
 
-A. Display order is not promised — Thứ tự hiển thị không được đảm bảo
+A. Display order is not promised | Thứ tự hiển thị không được đảm bảo
 
-B. That empirical frequency equals theoretical probability — Tần suất thực nghiệm đúng bằng xác suất lý thuyết
+B. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-C. It tends to reduce sampling variability — Thường làm giảm dao động lấy mẫu
+C. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
 
-D. Its faces do not have equal probabilities — Các mặt không đồng xác suất
+D. Its faces do not have equal probabilities | Các mặt không đồng xác suất
 
 **Đáp án: B**
 
 **Giải thích:** Seed giúp lặp lại mô phỏng nhưng không loại dao động.
 
 
-**Q19. How does larger sample size generally affect estimate variability? — Tăng số mẫu thường ảnh hưởng độ dao động ước lượng thế nào?**
+**Q19. How does larger sample size generally affect estimate variability? | Tăng số mẫu thường ảnh hưởng độ dao động ước lượng thế nào?**
 
-A. Display order is not promised — Thứ tự hiển thị không được đảm bảo
+A. Display order is not promised | Thứ tự hiển thị không được đảm bảo
 
-B. That empirical frequency equals theoretical probability — Tần suất thực nghiệm đúng bằng xác suất lý thuyết
+B. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-C. It tends to reduce sampling variability — Thường làm giảm dao động lấy mẫu
+C. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
 
-D. Its faces do not have equal probabilities — Các mặt không đồng xác suất
+D. Its faces do not have equal probabilities | Các mặt không đồng xác suất
 
 **Đáp án: C**
 
 **Giải thích:** Mẫu lớn thường ổn định tần suất tương đối hơn.
 
 
-**Q20. Why can't a biased die use simple favorable-count ratios? — Vì sao xúc xắc lệch không dùng phép đếm mặt đơn giản?**
+**Q20. Why can't a biased die use simple favorable-count ratios? | Vì sao xúc xắc lệch không dùng phép đếm mặt đơn giản?**
 
-A. Display order is not promised — Thứ tự hiển thị không được đảm bảo
+A. Display order is not promised | Thứ tự hiển thị không được đảm bảo
 
-B. That empirical frequency equals theoretical probability — Tần suất thực nghiệm đúng bằng xác suất lý thuyết
+B. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-C. It tends to reduce sampling variability — Thường làm giảm dao động lấy mẫu
+C. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
 
-D. Its faces do not have equal probabilities — Các mặt không đồng xác suất
+D. Its faces do not have equal probabilities | Các mặt không đồng xác suất
 
 **Đáp án: D**
 

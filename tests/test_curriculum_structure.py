@@ -42,11 +42,12 @@ class CurriculumStructureTests(unittest.TestCase):
                 cases = re.findall(r"^### Tình huống ([1-5])", text, re.M)
                 self.assertEqual(cases, list("12345"))
                 qs = [int(x) for x in re.findall(
-                    r"^\*\*Q(\d+)\..+ — .+\*\*$", text, re.M)]
+                    r"^\*\*Q(\d+)\..+ \| .+\*\*$", text, re.M)]
                 self.assertEqual(qs, list(range(1, 21)))
-                options = re.findall(r"^([A-D])\. .+ — .+$", text, re.M)
+                options = re.findall(r"^([A-D])\. .+ \| .+$", text, re.M)
                 self.assertEqual(options, list("ABCD") * 20)
                 qa_text = text.split("## 7.", 1)[1].split("## 8.", 1)[0]
+                self.assertTrue(qa_text.startswith(" Trắc nghiệm\\n"))
                 blocks = re.findall(
                     r"(?ms)^\*\*Q(\d+)\..*?\*\*$"
                     r"(.*?)(?=^\*\*Q\d+\.|\Z)", qa_text)
