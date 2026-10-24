@@ -29,7 +29,7 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 | `math.comb(n,k)` | Đếm cách chọn không thứ tự |
 | `itertools.combinations/permutations` | Liệt kê kết quả khi n nhỏ |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. Permutation
 
@@ -42,7 +42,11 @@ import math
 print(math.perm(5,2))
 ```
 
-**Tự kiểm tra nhanh:** Permutation là gì? **Đáp án:** Chọn có phân biệt thứ tự.
+**Kết quả khi chạy:**
+
+```text
+20
+```
 
 ### 4.2. Combination
 
@@ -55,7 +59,11 @@ import math
 print(math.comb(5,2))
 ```
 
-**Tự kiểm tra nhanh:** Combination là gì? **Đáp án:** Chọn nhóm không xét thứ tự.
+**Kết quả khi chạy:**
+
+```text
+10
+```
 
 ### 4.3. Factorial
 
@@ -68,7 +76,11 @@ import math
 print(math.factorial(4))
 ```
 
-**Tự kiểm tra nhanh:** Factorial là gì? **Đáp án:** Tích các số từ 1 đến n.
+**Kết quả khi chạy:**
+
+```text
+24
+```
 
 ### 4.4. Binomial coefficient
 
@@ -81,7 +93,11 @@ import math
 print(math.comb(6,3))
 ```
 
-**Tự kiểm tra nhanh:** Binomial coefficient là gì? **Đáp án:** Số cách chọn k từ n.
+**Kết quả khi chạy:**
+
+```text
+20
+```
 
 ## 5. Năm vấn đề thực tế
 
@@ -89,91 +105,111 @@ print(math.comb(6,3))
 
 **Từ vựng trong mục:** **Permutation** — hoán vị.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chọn trưởng và phó nhóm. Bộ dữ liệu đang có: 5 ứng viên, 2 vai trò. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Ban tổ chức có 5 ứng viên và cần chọn một trưởng nhóm, một phó nhóm, hai vị trí khác nhau. Có bao nhiêu cách chọn?
 
 **Vì sao chọn phương án này?** Vị trí trưởng và phó khác nhau nên dùng hoán vị. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import math
 print(math.perm(5,2))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+20
+```
 
 ### Tình huống 2 — Chọn đội thi
 
 **Từ vựng trong mục:** **Combination** — tổ hợp.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chọn đội thi. Bộ dữ liệu đang có: 12 người, chọn 5. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Một đội thi cần chọn 5 người từ 12 ứng viên; vai trò của người được chọn không phân biệt. Có bao nhiêu đội?
 
 **Vì sao chọn phương án này?** Các thành viên không phân vai trò nên dùng tổ hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import math
 print(math.comb(12,5))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+792
+```
 
 ### Tình huống 3 — Sắp thứ tự kiểm thử
 
 **Từ vựng trong mục:** **Factorial** — giai thừa.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn sắp thứ tự kiểm thử. Bộ dữ liệu đang có: 3 bài test A B C. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Bộ kiểm thử có ba tác vụ A, B, C; cần thử mọi thứ tự thực hiện. Liệt kê các thứ tự.
 
 **Vì sao chọn phương án này?** Thứ tự thực hiện làm kết quả khác nhau. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 from itertools import permutations
 print(list(permutations(["A","B","C"])))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+[('A', 'B'), ('A', 'C'), ('B', 'A'), ('B', 'C'), ('C', 'A'), ('C', 'B')]
+```
 
 ### Tình huống 4 — Đề xuất cặp môn học
 
 **Từ vựng trong mục:** **Binomial coefficient** — hệ số nhị thức.
 
-**Tình huống thực tế:** Một trường học muốn đề xuất cặp môn học. Bộ dữ liệu đang có: Ba môn Python AI SQL. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Nhóm học chọn hai môn trong ba môn Python, AI, SQL; thứ tự không quan trọng. Liệt kê các cặp môn.
 
 **Vì sao chọn phương án này?** Mỗi cặp môn học không cần phân biệt thứ tự. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 from itertools import combinations
 print(list(combinations(["Python","AI","SQL"],2)))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+[('Python', 'AI'), ('Python', 'SQL'), ('AI', 'SQL')]
+```
 
 ### Tình huống 5 — Tính hàng Pascal
 
 **Từ vựng trong mục:** **Permutation** — hoán vị.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tính hàng Pascal. Bộ dữ liệu đang có: Hàng n=4. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Giáo viên cần viết hàng n=4 của tam giác Pascal bằng C(4,k), k từ 0 đến 4.
 
 **Vì sao chọn phương án này?** Hệ số comb cho từng vị trí hàng n. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import math
 print([math.comb(4,k) for k in range(5)])
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+[1, 4, 6, 4, 1]
+```
 
 ## 6. Các lỗi dễ mắc
 
