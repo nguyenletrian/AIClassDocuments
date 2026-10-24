@@ -16,9 +16,9 @@
 1. Bản đồ **vị trí trong chuỗi kiến thức**, cho thấy kiến thức trước/sau và quan hệ giữa các khái niệm.
 2. **English vocabulary** liên quan đến toàn bài, đi trước tất cả các API và định nghĩa.
 3. **Thư viện, hàm, API Python**, bảng ngắn giải thích từng tên và cách dùng, ví dụ đầu vào/đầu ra.
-4. **Khái niệm và khái niệm con**, luôn đi cùng mã Python thể hiện cách tính hoặc biểu thức tương đương; bỏ phần "toán học đằng sau"/chứng minh dài.
-5. **Khoảng 5 vấn đề thực tiễn**: bối cảnh công việc → kiến thức phù hợp → quy trình giải → code có chú thích **vì sao viết như vậy** → cách kiểm tra và hạn chế.
-6. **English multiple-choice questions** (khoảng 5–10 câu), đủ đáp án và giải thích bằng tiếng Anh.
+4. **Khái niệm và các khái niệm liên quan**: giải thích bằng lời dễ hiểu, ví dụ gần gũi trước rồi đến công thức tính thể hiện bằng **code Python nhỏ**. Mỗi nhóm Feature / Vector / Matrix, Mean / Variance... đều cần định nghĩa riêng; không dùng tiêu đề “Subconcept”; bỏ chứng minh toán học dài.
+5. **Khoảng 5 vấn đề thực tiễn**: bối cảnh và nhu cầu → khái niệm phù hợp → **vì sao chọn phương pháp này thay vì phương pháp khác, lợi ích/giới hạn** → quy trình giải → code có chú thích **vì sao viết như vậy** → cách kiểm tra và hạn chế.
+6. **20 English multiple-choice questions** với bốn đáp án mỗi câu, đủ bảng đáp án và giải thích bằng tiếng Anh, bao quát thuật ngữ, Python, khái niệm và các quyết định thực tiễn.
 7. **Liên hệ bài tiếp theo**, duy trì sơ đồ logic tiến trình.
 
 Không dùng mục "mục tiêu học tập", "sau bài học bạn sẽ làm được gì", không xưng hô như giảng viên, không yêu cầu học sinh chứng minh công thức toán. Sinh viên phải có thể tự đọc để hệ thống hóa những gì từng học. Không chỉ biến bài toán thuần túy thành một câu chuyện giả: tình huống cần có quyết định, dữ liệu và thao tác Python hợp lý.
