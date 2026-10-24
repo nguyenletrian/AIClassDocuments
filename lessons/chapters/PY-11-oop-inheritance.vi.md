@@ -335,250 +335,230 @@ print(HtmlReport().render())
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What does class inheritance primarily enable? — Kế thừa lớp chủ yếu giúp gì?**
 
-**Q1. Which description matches Inheritance? — Mô tả nào đúng với Inheritance?**
+A. Reuse and extend behavior of a parent class — Dùng lại và mở rộng hành vi của lớp cha
 
-A. A different concept described as Cùng lời gọi nhưng các lớp có cách đáp khác nhau — Cùng lời gọi nhưng các lớp có cách đáp khác nhau
+B. Copy every object in memory — Sao chép mọi đối tượng trong bộ nhớ
 
-B. The concept described as Lớp con dùng lại các đặc điểm lớp cha — Lớp con dùng lại các đặc điểm lớp cha
+C. Convert a class into a file — Chuyển lớp thành tệp
 
-C. A different concept described as Khung lớp ràng buộc phương thức cần cài đặt — Khung lớp ràng buộc phương thức cần cài đặt
+D. Prevent all method calls — Ngăn mọi lời gọi phương thức
 
-D. A different concept described as Lớp con cài lại phương thức của lớp cha — Lớp con cài lại phương thức của lớp cha
+**Q2. What does `class Dog(Animal):` express? — `class Dog(Animal):` thể hiện điều gì?**
 
+A. Dog is a function inside Animal — Dog là hàm trong Animal
 
-**Q2. Which description matches Polymorphism? — Mô tả nào đúng với Polymorphism?**
+B. Dog inherits from Animal — Dog kế thừa Animal
 
-A. The concept described as Cùng lời gọi nhưng các lớp có cách đáp khác nhau — Cùng lời gọi nhưng các lớp có cách đáp khác nhau
+C. Animal inherits from Dog — Animal kế thừa Dog
 
-B. A different concept described as Khung lớp ràng buộc phương thức cần cài đặt — Khung lớp ràng buộc phương thức cần cài đặt
+D. Dog is an instance of Animal — Dog là đối tượng tạo từ Animal
 
-C. A different concept described as Lớp con cài lại phương thức của lớp cha — Lớp con cài lại phương thức của lớp cha
+**Q3. Why call `super().__init__(name)` in a subclass? — Vì sao lớp con gọi `super().__init__(name)`?**
 
-D. A different concept described as Lớp con dùng lại các đặc điểm lớp cha — Lớp con dùng lại các đặc điểm lớp cha
+A. To replace every attribute with None — Để thay mọi thuộc tính bằng None
 
+B. To make the child an abstract class — Để biến lớp con thành lớp trừu tượng
 
-**Q3. Which description matches Abstract class? — Mô tả nào đúng với Abstract class?**
+C. To initialize inherited parent state — Để khởi tạo dữ liệu chung từ lớp cha
 
-A. A different concept described as Lớp con cài lại phương thức của lớp cha — Lớp con cài lại phương thức của lớp cha
+D. To delete the parent class — Để xóa lớp cha
 
-B. A different concept described as Lớp con dùng lại các đặc điểm lớp cha — Lớp con dùng lại các đặc điểm lớp cha
+**Q4. Which statement best describes polymorphism? — Câu nào mô tả đúng đa hình?**
 
-C. A different concept described as Cùng lời gọi nhưng các lớp có cách đáp khác nhau — Cùng lời gọi nhưng các lớp có cách đáp khác nhau
+A. All objects must store identical values — Mọi đối tượng phải có giá trị giống nhau
 
-D. The concept described as Khung lớp ràng buộc phương thức cần cài đặt — Khung lớp ràng buộc phương thức cần cài đặt
+B. All methods must have different names — Mọi phương thức phải có tên khác nhau
 
+C. A child class cannot override methods — Lớp con không thể ghi đè phương thức
 
-**Q4. Which description matches Override? — Mô tả nào đúng với Override?**
+D. Different objects respond to the same method call — Các đối tượng khác nhau xử lý cùng một lời gọi phương thức
 
-A. A different concept described as Lớp con dùng lại các đặc điểm lớp cha — Lớp con dùng lại các đặc điểm lớp cha
+**Q5. What is method overriding? — Ghi đè phương thức là gì?**
 
-B. A different concept described as Cùng lời gọi nhưng các lớp có cách đáp khác nhau — Cùng lời gọi nhưng các lớp có cách đáp khác nhau
+A. Defining a same-named method in a subclass — Định nghĩa lại phương thức cùng tên ở lớp con
 
-C. The concept described as Lớp con cài lại phương thức của lớp cha — Lớp con cài lại phương thức của lớp cha
+B. Removing every inherited attribute — Xóa mọi thuộc tính kế thừa
 
-D. A different concept described as Khung lớp ràng buộc phương thức cần cài đặt — Khung lớp ràng buộc phương thức cần cài đặt
+C. Changing a local variable only — Chỉ thay đổi một biến cục bộ
 
+D. Calling the parent method unchanged — Gọi nguyên phương thức lớp cha
 
-**Q5. Which use matches class Child(Parent)? — Công dụng nào đúng với class Child(Parent)?**
+**Q6. What does `@abstractmethod` mark? — `@abstractmethod` đánh dấu điều gì?**
 
-A. Use a different operation to Gọi khởi tạo lớp cha để không lặp code — Gọi khởi tạo lớp cha để không lặp code
+A. A property unique to integers — Thuộc tính riêng của số nguyên
 
-B. Use this syntax to Kế thừa thông tin chung — Kế thừa thông tin chung
+B. A method subclasses must implement to become concrete — Phương thức lớp con phải triển khai để có thể khởi tạo
 
-C. Use a different operation to Bắt lớp con định nghĩa giao diện bắt buộc — Bắt lớp con định nghĩa giao diện bắt buộc
+C. A method that can never be called — Phương thức không bao giờ được gọi
 
-D. Use a different operation to Xác minh đối tượng thuộc lớp khi cần — Xác minh đối tượng thuộc lớp khi cần
+D. A method that prints automatically — Phương thức tự động in
 
+**Q7. Is inheriting from `ABC` alone enough to require an override? — Chỉ kế thừa `ABC` có buộc ghi đè phương thức không?**
 
-**Q6. Which use matches super().__init__(...)? — Công dụng nào đúng với super().__init__(...)?**
+A. Yes, all subclass methods are deleted — Có, mọi phương thức lớp con bị xóa
 
-A. Use this syntax to Gọi khởi tạo lớp cha để không lặp code — Gọi khởi tạo lớp cha để không lặp code
+B. No, ABC forbids inheritance — Không, ABC cấm kế thừa
 
-B. Use a different operation to Bắt lớp con định nghĩa giao diện bắt buộc — Bắt lớp con định nghĩa giao diện bắt buộc
+C. No, an abstract method must be declared — Không, cần khai báo phương thức trừu tượng
 
-C. Use a different operation to Xác minh đối tượng thuộc lớp khi cần — Xác minh đối tượng thuộc lớp khi cần
+D. Yes, every method becomes abstract — Có, mọi phương thức đều trừu tượng
 
-D. Use a different operation to Kế thừa thông tin chung — Kế thừa thông tin chung
+**Q8. What happens if an abstract method is left unimplemented? — Điều gì xảy ra nếu phương thức trừu tượng chưa được cài đặt?**
 
+A. Python silently returns zero — Python âm thầm trả về 0
 
-**Q7. Which use matches ABC/@abstractmethod? — Công dụng nào đúng với ABC/@abstractmethod?**
+B. The method automatically sends an email — Phương thức tự gửi email
 
-A. Use a different operation to Xác minh đối tượng thuộc lớp khi cần — Xác minh đối tượng thuộc lớp khi cần
+C. The base class is erased — Lớp cha bị xóa
 
-B. Use a different operation to Kế thừa thông tin chung — Kế thừa thông tin chung
+D. The concrete instance cannot be created — Không thể tạo đối tượng từ lớp còn phương thức trừu tượng
 
-C. Use a different operation to Gọi khởi tạo lớp cha để không lặp code — Gọi khởi tạo lớp cha để không lặp code
+**Q9. What does `isinstance(obj, Parent)` check? — `isinstance(obj, Parent)` kiểm tra gì?**
 
-D. Use this syntax to Bắt lớp con định nghĩa giao diện bắt buộc — Bắt lớp con định nghĩa giao diện bắt buộc
+A. Whether obj is an instance of Parent or its subclasses — obj có thuộc Parent hoặc lớp con hay không
 
+B. Whether obj has been printed — obj đã được in hay chưa
 
-**Q8. Which use matches isinstance(obj,Class)? — Công dụng nào đúng với isinstance(obj,Class)?**
+C. Whether Parent has no methods — Parent có rỗng phương thức không
 
-A. Use a different operation to Kế thừa thông tin chung — Kế thừa thông tin chung
+D. Whether obj is a string — obj có phải chuỗi không
 
-B. Use a different operation to Gọi khởi tạo lớp cha để không lặp code — Gọi khởi tạo lớp cha để không lặp code
+**Q10. If a child overrides `fee()`, which version runs on `Child().fee()`? — Nếu lớp con ghi đè `fee()`, `Child().fee()` chạy bản nào?**
 
-C. Use this syntax to Xác minh đối tượng thuộc lớp khi cần — Xác minh đối tượng thuộc lớp khi cần
+A. Neither version — Không chạy bản nào
 
-D. Use a different operation to Bắt lớp con định nghĩa giao diện bắt buộc — Bắt lớp con định nghĩa giao diện bắt buộc
+B. The child's version — Bản của lớp con
 
+C. The parent's version in every case — Luôn bản của lớp cha
 
-**Q9. What solves scenario 1? — Cách nào giải quyết tình huống 1?**
+D. Both versions automatically — Tự động chạy cả hai bản
 
-A. Another method is chosen because ABC bắt buộc các cách gửi cùng có send — ABC bắt buộc các cách gửi cùng có send
+**Q11. Can a child access an inherited attribute set in the parent initializer? — Lớp con có thể dùng thuộc tính khởi tạo ở lớp cha không?**
 
-B. Choose the method because Điểm chung được đặt ở lớp cha, khác biệt ở lớp con — Điểm chung được đặt ở lớp cha, khác biệt ở lớp con
+A. Only if the attribute is named `class` — Chỉ khi tên thuộc tính là class
 
-C. Another method is chosen because Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất — Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất
+B. Only for integer attributes — Chỉ với thuộc tính số nguyên
 
-D. Another method is chosen because Các cảm biến dùng chung read nhưng trả số đo khác nhau — Các cảm biến dùng chung read nhưng trả số đo khác nhau
+C. Yes, if the parent initialization is performed — Có, nếu đã thực hiện khởi tạo lớp cha
 
+D. No, inherited fields are always hidden — Không, thuộc tính kế thừa luôn bị ẩn
 
-**Q10. What solves scenario 2? — Cách nào giải quyết tình huống 2?**
+**Q12. Must polymorphic objects share exactly the same class? — Đối tượng đa hình có bắt buộc cùng một class không?**
 
-A. Choose the method because ABC bắt buộc các cách gửi cùng có send — ABC bắt buộc các cách gửi cùng có send
+A. Yes, they must be identical objects — Có, phải là cùng một đối tượng
 
-B. Another method is chosen because Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất — Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất
+B. Yes, inheritance is forbidden — Có, không được kế thừa
 
-C. Another method is chosen because Các cảm biến dùng chung read nhưng trả số đo khác nhau — Các cảm biến dùng chung read nhưng trả số đo khác nhau
+C. No, methods must all be absent — Không, không được có phương thức
 
-D. Another method is chosen because Ghi đè render giúp thêm loại xuất mà không sửa lời gọi — Ghi đè render giúp thêm loại xuất mà không sửa lời gọi
+D. No, they can provide the same expected method — Không, có thể thuộc các lớp khác nhau nhưng cùng phương thức
 
+**Q13. What does `self` refer to inside an instance method? — `self` trong phương thức đối tượng chỉ gì?**
 
-**Q11. What solves scenario 3? — Cách nào giải quyết tình huống 3?**
+A. The current object receiving the call — Đối tượng hiện tại đang nhận lời gọi
 
-A. Another method is chosen because Các cảm biến dùng chung read nhưng trả số đo khác nhau — Các cảm biến dùng chung read nhưng trả số đo khác nhau
+B. The name of the Python module — Tên module Python
 
-B. Another method is chosen because Ghi đè render giúp thêm loại xuất mà không sửa lời gọi — Ghi đè render giúp thêm loại xuất mà không sửa lời gọi
+C. Every object in the program — Toàn bộ đối tượng của chương trình
 
-C. Another method is chosen because Điểm chung được đặt ở lớp cha, khác biệt ở lớp con — Điểm chung được đặt ở lớp cha, khác biệt ở lớp con
+D. Only the parent class definition — Chỉ phần định nghĩa lớp cha
 
-D. Choose the method because Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất — Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất
+**Q14. Does overriding a method erase it from the parent class? — Ghi đè phương thức có xóa bản lớp cha không?**
 
+A. Only when `print()` is used — Chỉ khi dùng print
 
-**Q12. What solves scenario 4? — Cách nào giải quyết tình huống 4?**
+B. No, the parent method still exists — Không, phương thức của lớp cha vẫn tồn tại
 
-A. Another method is chosen because Ghi đè render giúp thêm loại xuất mà không sửa lời gọi — Ghi đè render giúp thêm loại xuất mà không sửa lời gọi
+C. Yes, it deletes all parent code — Có, xóa toàn bộ code lớp cha
 
-B. Another method is chosen because Điểm chung được đặt ở lớp cha, khác biệt ở lớp con — Điểm chung được đặt ở lớp cha, khác biệt ở lớp con
+D. Yes, it deletes the class name — Có, xóa tên lớp
 
-C. Choose the method because Các cảm biến dùng chung read nhưng trả số đo khác nhau — Các cảm biến dùng chung read nhưng trả số đo khác nhau
+**Q15. How can an override call the parent's implementation? — Phương thức ghi đè gọi bản của lớp cha bằng gì?**
 
-D. Another method is chosen because ABC bắt buộc các cách gửi cùng có send — ABC bắt buộc các cách gửi cùng có send
+A. `print(super)` only — Chỉ `print(super)`
 
+B. `None.method()` — `None.method()`
 
-**Q13. What solves scenario 5? — Cách nào giải quyết tình huống 5?**
+C. `super().method()` — `super().method()`
 
-A. Another method is chosen because Điểm chung được đặt ở lớp cha, khác biệt ở lớp con — Điểm chung được đặt ở lớp cha, khác biệt ở lớp con
+D. `del Parent` — `del Parent`
 
-B. Choose the method because Ghi đè render giúp thêm loại xuất mà không sửa lời gọi — Ghi đè render giúp thêm loại xuất mà không sửa lời gọi
+**Q16. Can an abstract class define ordinary implemented methods? — Lớp trừu tượng có thể có phương thức thông thường đã triển khai không?**
 
-C. Another method is chosen because ABC bắt buộc các cách gửi cùng có send — ABC bắt buộc các cách gửi cùng có send
+A. No, it must only contain pass — Không, chỉ được chứa pass
 
-D. Another method is chosen because Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất — Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất
+B. No, it cannot define attributes — Không, không thể có thuộc tính
 
+C. Only when it has no subclasses — Chỉ khi không có lớp con
 
-**Q14. Which data is used in scenario 1? — Tình huống 1 dùng dữ liệu nào?**
+D. Yes, it can provide reusable behavior too — Có, nó vẫn có thể cung cấp hành vi dùng chung
 
-A. The described input Một sản phẩm điện tử giả lập — Một sản phẩm điện tử giả lập
+**Q17. What is the relation between overriding and polymorphism? — Ghi đè liên quan gì đến đa hình?**
 
-B. Another input Tin nhắn Hello — Tin nhắn Hello
+A. Overriding can provide distinct behavior for a common call — Ghi đè tạo hành vi khác nhau cho cùng lời gọi
 
-C. Another input Dịch vụ Express phí 35000 đồng — Dịch vụ Express phí 35000 đồng
+B. Overriding prevents polymorphism — Ghi đè ngăn đa hình
 
-D. Another input Nhiệt độ 26.5 °C, độ ẩm 62% — Nhiệt độ 26.5 °C, độ ẩm 62%
+C. They both mean deleting attributes — Cả hai đều là xóa thuộc tính
 
+D. They only apply to CSV files — Chúng chỉ áp dụng cho CSV
 
-**Q15. Which data is used in scenario 2? — Tình huống 2 dùng dữ liệu nào?**
+**Q18. Which part of `class Child(Parent):` names the superclass? — Trong `class Child(Parent):`, đâu là tên lớp cha?**
 
-A. Another input Dịch vụ Express phí 35000 đồng — Dịch vụ Express phí 35000 đồng
+A. `:` — `:`
 
-B. Another input Nhiệt độ 26.5 °C, độ ẩm 62% — Nhiệt độ 26.5 °C, độ ẩm 62%
+B. `Parent` — `Parent`
 
-C. Another input Báo cáo plain và HTML — Báo cáo plain và HTML
+C. `Child` — `Child`
 
-D. The described input Tin nhắn Hello — Tin nhắn Hello
+D. `class` — `class`
 
+**Q19. What is a good reason to create a shared base class? — Khi nào nên tạo lớp cha chung?**
 
-**Q16. Which data is used in scenario 3? — Tình huống 3 dùng dữ liệu nào?**
+A. To avoid using any methods — Để không cần phương thức
 
-A. Another input Nhiệt độ 26.5 °C, độ ẩm 62% — Nhiệt độ 26.5 °C, độ ẩm 62%
+B. To make all values constant — Để mọi giá trị là hằng số
 
-B. Another input Báo cáo plain và HTML — Báo cáo plain và HTML
+C. Several subclasses share data or behavior — Nhiều lớp con có chung dữ liệu hoặc hành vi
 
-C. The described input Dịch vụ Express phí 35000 đồng — Dịch vụ Express phí 35000 đồng
+D. Every object is unrelated — Mọi đối tượng hoàn toàn không liên quan
 
-D. Another input Một sản phẩm điện tử giả lập — Một sản phẩm điện tử giả lập
+**Q20. Which error may follow if a child skips necessary parent initialization? — Nếu lớp con bỏ khởi tạo lớp cha cần thiết, điều gì có thể xảy ra?**
 
+A. All integers turn into strings — Mọi số nguyên biến thành chuỗi
 
-**Q17. Which data is used in scenario 4? — Tình huống 4 dùng dữ liệu nào?**
+B. Python automatically runs CSV conversion — Python tự chuyển CSV
 
-A. Another input Báo cáo plain và HTML — Báo cáo plain và HTML
+C. Every method prints twice — Mọi phương thức in hai lần
 
-B. The described input Nhiệt độ 26.5 °C, độ ẩm 62% — Nhiệt độ 26.5 °C, độ ẩm 62%
-
-C. Another input Một sản phẩm điện tử giả lập — Một sản phẩm điện tử giả lập
-
-D. Another input Tin nhắn Hello — Tin nhắn Hello
-
-
-**Q18. Which data is used in scenario 5? — Tình huống 5 dùng dữ liệu nào?**
-
-A. The described input Báo cáo plain và HTML — Báo cáo plain và HTML
-
-B. Another input Một sản phẩm điện tử giả lập — Một sản phẩm điện tử giả lập
-
-C. Another input Tin nhắn Hello — Tin nhắn Hello
-
-D. Another input Dịch vụ Express phí 35000 đồng — Dịch vụ Express phí 35000 đồng
-
-
-**Q19. What must be clear before computing? — Cần hiểu gì trước khi tính?**
-
-A. Only font color — Chỉ màu chữ
-
-B. Only filename length — Chỉ độ dài tên file
-
-C. Only number of comments — Chỉ số comment
-
-D. Input meaning and units — Ý nghĩa và đơn vị dữ liệu
-
-
-**Q20. What should follow a successful demo? — Sau khi demo chạy đúng nên làm gì?**
-
-A. Assume it works for all data — Cho rằng luôn đúng với mọi dữ liệu
-
-B. Remove input validation — Xóa kiểm tra đầu vào
-
-C. Verify output and unusual inputs — Kiểm tra đầu ra và giá trị biên
-
-D. Ignore unexpected results — Bỏ qua kết quả bất thường
+D. An expected inherited instance attribute may be missing — Một thuộc tính đối tượng cần thiết có thể chưa được tạo
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | The concept described as Lớp con dùng lại các đặc điểm lớp cha | Lớp con dùng lại các đặc điểm lớp cha |
-| Q2 | **A** | The concept described as Cùng lời gọi nhưng các lớp có cách đáp khác nhau | Cùng lời gọi nhưng các lớp có cách đáp khác nhau |
-| Q3 | **D** | The concept described as Khung lớp ràng buộc phương thức cần cài đặt | Khung lớp ràng buộc phương thức cần cài đặt |
-| Q4 | **C** | The concept described as Lớp con cài lại phương thức của lớp cha | Lớp con cài lại phương thức của lớp cha |
-| Q5 | **B** | Use this syntax to Kế thừa thông tin chung | Kế thừa thông tin chung |
-| Q6 | **A** | Use this syntax to Gọi khởi tạo lớp cha để không lặp code | Gọi khởi tạo lớp cha để không lặp code |
-| Q7 | **D** | Use this syntax to Bắt lớp con định nghĩa giao diện bắt buộc | Bắt lớp con định nghĩa giao diện bắt buộc |
-| Q8 | **C** | Use this syntax to Xác minh đối tượng thuộc lớp khi cần | Xác minh đối tượng thuộc lớp khi cần |
-| Q9 | **B** | Choose the method because Điểm chung được đặt ở lớp cha, khác biệt ở lớp con | Điểm chung được đặt ở lớp cha, khác biệt ở lớp con |
-| Q10 | **A** | Choose the method because ABC bắt buộc các cách gửi cùng có send | ABC bắt buộc các cách gửi cùng có send |
-| Q11 | **D** | Choose the method because Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất | Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất |
-| Q12 | **C** | Choose the method because Các cảm biến dùng chung read nhưng trả số đo khác nhau | Các cảm biến dùng chung read nhưng trả số đo khác nhau |
-| Q13 | **B** | Choose the method because Ghi đè render giúp thêm loại xuất mà không sửa lời gọi | Ghi đè render giúp thêm loại xuất mà không sửa lời gọi |
-| Q14 | **A** | The described input Một sản phẩm điện tử giả lập | Một sản phẩm điện tử giả lập |
-| Q15 | **D** | The described input Tin nhắn Hello | Tin nhắn Hello |
-| Q16 | **C** | The described input Dịch vụ Express phí 35000 đồng | Dịch vụ Express phí 35000 đồng |
-| Q17 | **B** | The described input Nhiệt độ 26.5 °C, độ ẩm 62% | Nhiệt độ 26.5 °C, độ ẩm 62% |
-| Q18 | **A** | The described input Báo cáo plain và HTML | Báo cáo plain và HTML |
-| Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị dữ liệu |
-| Q20 | **C** | Verify output and unusual inputs | Kiểm tra đầu ra và giá trị biên |
+| Q1 | **A** | A subclass can build on code defined by its parent.~Lớp con có thể kế thừa và mở rộng phần đã được lớp cha định nghĩa. | undefined |
+| Q2 | **B** | The parentheses name the parent class of Dog.~Trong khai báo lớp, ngoặc chỉ lớp cha của Dog. | undefined |
+| Q3 | **C** | The parent's initializer can set attributes shared across subclasses.~Phương thức khởi tạo lớp cha giúp thiết lập các thuộc tính dùng chung. | undefined |
+| Q4 | **D** | Polymorphism lets callers use a common operation without checking concrete types.~Đa hình cho phép dùng một thao tác chung mà không cần phân nhánh theo từng kiểu đối tượng. | undefined |
+| Q5 | **A** | For a child instance, its overriding method is selected in place of the inherited one.~Khi lớp con ghi đè, đối tượng lớp con dùng cách triển khai mới. | undefined |
+| Q6 | **B** | With ABC, an unimplemented abstract method prevents instantiating the abstract class.~Trong ABC, phương thức trừu tượng chưa triển khai khiến lớp không được khởi tạo trực tiếp. | undefined |
+| Q7 | **C** | ABC provides infrastructure; `@abstractmethod` identifies required methods.~ABC cung cấp cơ chế, còn `@abstractmethod` chỉ ra phương thức bắt buộc. | undefined |
+| Q8 | **D** | The subclass remains abstract until required methods are implemented.~Lớp con vẫn trừu tượng nếu chưa cài đặt đầy đủ các phương thức yêu cầu. | undefined |
+| Q9 | **A** | Inheritance relationships are included in an isinstance check.~Kiểm tra isinstance cũng tính quan hệ kế thừa, không chỉ đúng lớp trực tiếp. | undefined |
+| Q10 | **B** | Python resolves the method on the actual child object first.~Python ưu tiên phương thức phù hợp trên đối tượng lớp con. | undefined |
+| Q11 | **C** | Calling the parent initializer makes shared instance data available to the child.~Gọi khởi tạo lớp cha sẽ tạo dữ liệu chung để lớp con dùng. | undefined |
+| Q12 | **D** | What matters is that callers can use the expected operation.~Điểm cốt lõi là các đối tượng đáp ứng thao tác mà nơi gọi cần. | undefined |
+| Q13 | **A** | Instance attributes such as `self.name` belong to that specific object.~Thuộc tính như `self.name` thuộc về đối tượng đang thực hiện phương thức. | undefined |
+| Q14 | **B** | The child selects its implementation, while parent instances retain their method.~Lớp con dùng bản mới, còn đối tượng lớp cha vẫn giữ phương thức của nó. | undefined |
+| Q15 | **C** | super can delegate to the next method in the inheritance resolution order.~super cho phép gọi phương thức kế tiếp trong thứ tự phân giải kế thừa. | undefined |
+| Q16 | **D** | Abstract classes can combine shared logic with required abstract operations.~Lớp trừu tượng có thể vừa chứa logic chung vừa quy định thao tác bắt buộc. | undefined |
+| Q17 | **A** | The common method name can execute differently on different subclasses.~Tên phương thức chung có thể chạy khác nhau trên các lớp con. | undefined |
+| Q18 | **B** | Parent in parentheses is the class being inherited.~Tên trong dấu ngoặc là lớp được kế thừa. | undefined |
+| Q19 | **C** | A base class reduces repeated definitions across related subclasses.~Lớp cha giúp tránh viết lặp những thành phần chung của các lớp có liên quan. | undefined |
+| Q20 | **D** | Without initialization, an attribute such as `name` might not be set.~Không gọi phần khởi tạo cần thiết có thể khiến thuộc tính như `name` chưa tồn tại. | undefined |
 
 ## 8. Nối sang bài tiếp theo
 
