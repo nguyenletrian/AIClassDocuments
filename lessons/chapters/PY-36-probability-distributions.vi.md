@@ -1,6 +1,5 @@
 # PY-36 — Phân phối nhị thức và phân phối chuẩn
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
