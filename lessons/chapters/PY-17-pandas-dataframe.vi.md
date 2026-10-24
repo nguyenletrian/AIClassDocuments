@@ -144,7 +144,7 @@ Tổng số tiền hai đơn là 300 đồng. `read_csv` đọc bảng từ văn
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"Product":["Pen","Book"],"Price":[10000,35000],"Qty":[2,1]})
+df = pd.DataFrame({"Product":["Pen", "Book"], "Price":[10000, 35000], "Qty":[2, 1]})
 print(df)
 ```
 
@@ -171,9 +171,10 @@ print(df)
 3. In `head()` để kiểm tra cột mã đơn và số tiền.
 
 ```python
-import pandas as pd,io
-csv_text="id,amount\nO1,10000\nO2,30000\n"
-df=pd.read_csv(io.StringIO(csv_text))
+import pandas as pd
+import io
+csv_text = "id,amount\nO1,10000\nO2,30000\n"
+df = pd.read_csv(io.StringIO(csv_text))
 print(df.head())
 ```
 
@@ -201,8 +202,8 @@ print(df.head())
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"Price":[10,20],"Qty":[2,3]})
-df["Revenue"]=df.Price*df.Qty
+df = pd.DataFrame({"Price":[10, 20], "Qty":[2, 3]})
+df["Revenue"] = df.Price*df.Qty
 print(df)
 ```
 
@@ -230,7 +231,7 @@ print(df)
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"name":["A","B"],"qty":[2,3]})
+df = pd.DataFrame({"name":["A", "B"], "qty":[2, 3]})
 print(df.dtypes)
 ```
 
@@ -258,8 +259,8 @@ dtype: object
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"visits":[2,5],"spent":[100,200],"city":["A","B"]})
-X=df[["visits","spent"]]
+df = pd.DataFrame({"visits":[2, 5], "spent":[100, 200], "city":["A", "B"]})
+X = df[["visits", "spent"]]
 print(X.shape)
 ```
 
