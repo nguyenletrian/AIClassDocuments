@@ -510,7 +510,7 @@ D. `sorted()` — `sorted()`
 | Q6 | **B** | Curly braces around plain distinct values form a set. | Ngoặc nhọn bao các giá trị riêng lẻ tạo Set. |
 | Q7 | **C** | Empty braces create a dictionary, not a set. | Ngoặc nhọn rỗng tạo Dictionary, không phải Set. |
 | Q8 | **D** | Empty curly braces denote a dictionary. | Cặp ngoặc nhọn rỗng biểu thị Dictionary. |
-| Q9 | **A** | The | operator includes elements present in either set. | Toán tử | lấy các phần tử thuộc ít nhất một tập. |
+| Q9 | **A** | The set-union operator `&#124;` keeps every element appearing in at least one of the two sets. Unlike intersection, it does not require an element to occur in both sets. | Toán tử hợp `&#124;` lấy mỗi phần tử xuất hiện ở ít nhất một trong hai tập. Khác phép giao, phần tử không cần có mặt đồng thời ở cả hai tập. |
 | Q10 | **B** | The & operator keeps elements present in both sets. | Toán tử & chỉ lấy phần tử chung. |
 | Q11 | **C** | Set difference subtracts members of b from a. | Hiệu tập hợp loại khỏi a những phần tử đã có trong b. |
 | Q12 | **D** | Symmetric difference keeps values present in exactly one set. | Hiệu đối xứng lấy phần tử chỉ có ở đúng một tập. |
