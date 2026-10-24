@@ -1,6 +1,5 @@
 # PY-38 — Quantile, IQR, outlier, skewness và kurtosis
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
