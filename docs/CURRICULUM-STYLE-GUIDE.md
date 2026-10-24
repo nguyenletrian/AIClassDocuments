@@ -2,6 +2,18 @@
 
 **Áp dụng cho mọi bài mới và khi chỉnh bài cũ.** Mỗi lần tạo bài, agent **phải đọc tệp này và `templates/lesson.md` trước khi viết**, sau đó chạy checklist bên dưới. Không chỉ suy từ một ví dụ PCA hoặc tin rằng ghi nhớ lịch sử là đủ.
 
+## Quy tắc biên tập tinh gọn — bắt buộc cho tất cả bài
+
+**Nội dung dành cho sinh viên phải là kiến thức, không phải ghi chú về quy trình biên soạn.** Bỏ khỏi phần thân bài các dòng `Trạng thái: DRAFT`, `Chưa xác nhận chạy Windows`, `Dữ liệu minh họa giả lập` mang tính metadata. Trạng thái kiểm duyệt vẫn **phải tồn tại trong hồ sơ nội bộ** `sources/`, `docs/CURRICULUM-QA-STATUS.md` và kiểm thử; không được giả vờ bài đã được duyệt.
+
+Cắt các câu hướng dẫn người viết hoặc đệm vô ích: `Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiều comment vào ví dụ.`; `Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.`; `Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.`; `không phải hồ sơ thật.` nếu chỉ lặp trạng thái giả lập. Dữ liệu thực tế/giả lập cần làm rõ **một lần ở nơi có thể gây hiểu nhầm**, không lặp sau mỗi tình huống.
+
+Cắt trạng ngữ và mở đầu nếu bỏ đi không làm thay đổi nghĩa: `Trước khi chạy ví dụ,`, `Ở bước này,`, `Như đã đề cập,`, `Chúng ta có thể thấy rằng`. Rút `Trước khi chạy ví dụ, xác định kiểu dữ liệu đầu vào` thành `Xác định kiểu dữ liệu đầu vào` **nếu phần còn lại vẫn có ích**; không xóa nguyên câu nếu nó chứa điều kiện kỹ thuật quan trọng.
+
+Giữ bằng mọi giá: **định nghĩa, thông số kỹ thuật, điều kiện áp dụng, ý nghĩa hàng/cột/đơn vị, công thức, giải thích tại sao chọn giải pháp khi mang thông tin, kết quả thực tế, cảnh báo an toàn/bảo mật, lỗi biên, hướng dẫn kiểm chứng có tính bài học, code, câu hỏi, phương án và đáp án**. Không biến bài thành quá ngắn hoặc làm mất mạch lập luận. Ưu tiên ví dụ số cụ thể thay vì lời khuyên chung chung; gộp câu lặp nhưng không bỏ chi tiết có giá trị học tập.
+
+Sau mỗi lần biên tập, đối chiếu số ví dụ, code, 5 tình huống, 20 câu hỏi và 80 lựa chọn trắc nghiệm Anh–Việt cùng dòng và bảng đáp án. Soát lại Markdown, liên kết hình và code block. **Không sửa nội dung trong code fence bằng quy tắc cắt chữ.**
+
 ## Kết cấu dành cho sinh viên
 1. **Bài đang ở đâu trong chuỗi kiến thức?** Trình bày các bài trước → bài hiện tại → bài liên quan, dễ theo dõi.
 2. **Từ vựng trong mục:** trước từng mục và tiểu mục, 2–5 thuật ngữ `English — tiếng Việt`; đoạn văn phía sau viết tự nhiên, **không** thêm `(Vietnamese)` sau mỗi lần nhắc. Những bảng thuật ngữ chỉ ghi từ thật sự dùng trong mục.
