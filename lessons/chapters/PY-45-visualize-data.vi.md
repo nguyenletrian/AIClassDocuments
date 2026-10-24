@@ -42,6 +42,7 @@
 Biểu đồ đường nối những điểm theo **thứ tự x**, thích hợp quan sát biến thiên doanh thu theo ngày. Ví dụ ba ngày 1,2,3 có doanh thu 10,15,12 nghìn đồng: trục x là ngày, trục y là nghìn đồng. Nối điểm cho thấy tăng rồi giảm; không có nghĩa tồn tại dữ liệu ở mọi thời điểm giữa hai ngày. `plt.plot(x,y)` yêu cầu hai dãy có cùng số phần tử.
 
 ```python
+# Mục đích: Nối các mốc có thứ tự.
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -66,6 +67,7 @@ Biểu đồ đã nhận ba điểm, rồi đóng Figure; số 3 là số mốc,
 Biểu đồ scatter đặt **mỗi mẫu thành một điểm (x,y)**. Ví dụ ba sinh viên học 2,4,6 giờ/tuần, có điểm 5,7,9: mỗi vị trí x ghép đúng điểm y của cùng học viên. Scatter giúp thấy liên hệ, nhưng không tự chứng minh học nhiều gây điểm cao. `plt.scatter` tạo các điểm riêng không nối đường như line chart.
 
 ```python
+# Mục đích: Mỗi hàng là một cặp quan sát.
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -90,6 +92,7 @@ plt.close()
 Histogram dùng **một dãy số** và chia trục giá trị thành các **bins**, rồi đếm số quan sát trong mỗi khoảng. Sáu điểm `[5,6,6,7,8,9]` chia bốn bins đều từ 5 đến 9 tạo tần suất `[1,2,1,2]`. Khác biểu đồ cột cho các loại (A,B,C), histogram phù hợp biến số liên tục hoặc có thứ tự giá trị và phụ thuộc độ rộng bins.
 
 ```python
+# Mục đích: Đếm số đo rơi vào các khoảng.
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -114,6 +117,7 @@ Bốn khoảng chứa lần lượt 1, 2, 1, 2 quan sát; khoảng cuối bao g�
 **Nhãn trục** cho biết đang đo gì: `Time (hours)` ở trục ngang và `Temperature (°C)` ở trục dọc. Không ghi đơn vị, người xem dễ nhầm giờ với phút hoặc độ C với độ F. `xlabel`/`ylabel` chỉ đổi chữ trên Figure, không tự đổi dữ liệu. Có thể lưu hình bằng `savefig` rồi đóng `close` để không giữ Figure trong bộ nhớ.
 
 ```python
+# Mục đích: Ghi rõ biến và đơn vị.
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -150,6 +154,7 @@ Trục x được gắn đúng ý nghĩa thời gian; phải đặt cả y và �
 3. In số điểm dữ liệu rồi đóng Figure.
 
 ```python
+# Mục đích: Theo dõi doanh thu ba ngày.
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -186,6 +191,7 @@ Biểu đồ có ba mốc; doanh thu tăng ngày 2 rồi giảm ngày 3.
 3. In số điểm, đóng hình để giải phóng bộ nhớ.
 
 ```python
+# Mục đích: So số giờ học và điểm kiểm tra.
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -222,6 +228,7 @@ Ba điểm mô tả ba học viên; không thể suy ra quan hệ nhân quả t�
 3. In tần suất rồi đóng Figure.
 
 ```python
+# Mục đích: Đếm phân bố điểm theo khoảng.
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -255,6 +262,7 @@ Bốn dải điểm lần lượt có 1, 2, 1, 2 học viên.
 3. Kiểm tệp tồn tại và đóng hình.
 
 ```python
+# Mục đích: Lưu biểu đồ thành PNG.
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -292,6 +300,7 @@ File chart.png đã được tạo trong thư mục tạm và sẽ được xóa
 3. In hai nhãn để đối chiếu rồi đóng hình.
 
 ```python
+# Mục đích: Kiểm nhãn trên biểu đồ nhiệt độ.
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -320,302 +329,302 @@ Hai trục có tên và đơn vị nhất quán với dữ liệu đầu vào.
 - Lưu PNG không thay thế việc lưu bảng dữ liệu gốc và script tạo hình.
 - `matplotlib` là thư viện ngoài; với máy không có màn hình có thể dùng backend Agg và `close()` sau khi vẽ.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
-**Q1. What is a line chart best suited for? — Biểu đồ đường phù hợp gì?**
+**Q1. What is a line chart best suited for? | Biểu đồ đường phù hợp gì?**
 
-A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
+A. Showing changes across ordered positions | Thể hiện thay đổi theo các mốc có thứ tự
 
-B. Individual paired x-y observations — Từng quan sát theo cặp x-y
+B. Individual paired x-y observations | Từng quan sát theo cặp x-y
 
-C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
+C. Counts of numeric values within bins | Số quan sát số học trong từng khoảng
 
-D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
+D. Naming variables and their units | Đặt tên đại lượng và đơn vị đo
 
 **Đáp án: A**
 
 **Giải thích:** Nối các mốc cho xu hướng, không đảm bảo có số đo giữa các mốc. Nếu dữ liệu là các loại không có thứ tự, biểu đồ cột phù hợp hơn việc nối đường.
 
 
-**Q2. What does a scatter plot represent? — Scatter plot biểu diễn gì?**
+**Q2. What does a scatter plot represent? | Scatter plot biểu diễn gì?**
 
-A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
+A. Showing changes across ordered positions | Thể hiện thay đổi theo các mốc có thứ tự
 
-B. Individual paired x-y observations — Từng quan sát theo cặp x-y
+B. Individual paired x-y observations | Từng quan sát theo cặp x-y
 
-C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
+C. Counts of numeric values within bins | Số quan sát số học trong từng khoảng
 
-D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
+D. Naming variables and their units | Đặt tên đại lượng và đơn vị đo
 
 **Đáp án: B**
 
 **Giải thích:** Mỗi điểm là x và y của cùng một bản ghi. Mảng x và y phải cùng thứ tự bản ghi, nếu không các điểm ghép sẽ sai.
 
 
-**Q3. What does a histogram represent? — Histogram biểu diễn gì?**
+**Q3. What does a histogram represent? | Histogram biểu diễn gì?**
 
-A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
+A. Showing changes across ordered positions | Thể hiện thay đổi theo các mốc có thứ tự
 
-B. Individual paired x-y observations — Từng quan sát theo cặp x-y
+B. Individual paired x-y observations | Từng quan sát theo cặp x-y
 
-C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
+C. Counts of numeric values within bins | Số quan sát số học trong từng khoảng
 
-D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
+D. Naming variables and their units | Đặt tên đại lượng và đơn vị đo
 
 **Đáp án: C**
 
 **Giải thích:** Histogram chia khoảng giá trị số, không giống biểu đồ cột loại. Đổi biên bins sẽ đổi số đếm; khi so histogram cần nêu rõ khoảng chia.
 
 
-**Q4. What are axis labels for? — Nhãn trục để làm gì?**
+**Q4. What are axis labels for? | Nhãn trục để làm gì?**
 
-A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
+A. Showing changes across ordered positions | Thể hiện thay đổi theo các mốc có thứ tự
 
-B. Individual paired x-y observations — Từng quan sát theo cặp x-y
+B. Individual paired x-y observations | Từng quan sát theo cặp x-y
 
-C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
+C. Counts of numeric values within bins | Số quan sát số học trong từng khoảng
 
-D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
+D. Naming variables and their units | Đặt tên đại lượng và đơn vị đo
 
 **Đáp án: D**
 
 **Giải thích:** Nhãn tránh nhầm đơn vị thời gian, nhiệt độ hay tiền. Con số trên trục thiếu đơn vị khiến người xem không rõ ý nghĩa đo lường.
 
 
-**Q5. Which function draws a line? — Hàm nào vẽ đường?**
+**Q5. Which function draws a line? | Hàm nào vẽ đường?**
 
-A. `plt.plot(x,y)` — `plt.plot(x,y)`
+A. `plt.plot(x,y)` | `plt.plot(x,y)`
 
-B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
+B. `plt.scatter(x,y)` | `plt.scatter(x,y)`
 
-C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
+C. `plt.hist(values,bins=...)` | `plt.hist(values,bins=...)`
 
-D. `plt.savefig(path)` — `plt.savefig(path)`
+D. `plt.savefig(path)` | `plt.savefig(path)`
 
 **Đáp án: A**
 
 **Giải thích:** plot nối điểm theo thứ tự đầu vào mặc định. Hàm vẽ đòi x,y tương ứng nhưng không tự kiểm dữ liệu có đúng ý nghĩa thực tế.
 
 
-**Q6. Which function draws separate x-y points? — Hàm nào vẽ các điểm x-y riêng?**
+**Q6. Which function draws separate x-y points? | Hàm nào vẽ các điểm x-y riêng?**
 
-A. `plt.plot(x,y)` — `plt.plot(x,y)`
+A. `plt.plot(x,y)` | `plt.plot(x,y)`
 
-B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
+B. `plt.scatter(x,y)` | `plt.scatter(x,y)`
 
-C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
+C. `plt.hist(values,bins=...)` | `plt.hist(values,bins=...)`
 
-D. `plt.savefig(path)` — `plt.savefig(path)`
+D. `plt.savefig(path)` | `plt.savefig(path)`
 
 **Đáp án: B**
 
 **Giải thích:** scatter tạo dấu chấm riêng cho từng cặp quan sát. Đây là lựa chọn phù hợp khi các điểm là quan sát rời, không phải chuỗi thời gian cần nối.
 
 
-**Q7. Which function draws histograms? — Hàm nào vẽ histogram?**
+**Q7. Which function draws histograms? | Hàm nào vẽ histogram?**
 
-A. `plt.plot(x,y)` — `plt.plot(x,y)`
+A. `plt.plot(x,y)` | `plt.plot(x,y)`
 
-B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
+B. `plt.scatter(x,y)` | `plt.scatter(x,y)`
 
-C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
+C. `plt.hist(values,bins=...)` | `plt.hist(values,bins=...)`
 
-D. `plt.savefig(path)` — `plt.savefig(path)`
+D. `plt.savefig(path)` | `plt.savefig(path)`
 
 **Đáp án: C**
 
 **Giải thích:** hist đếm trong từng khoảng rồi vẽ cột các khoảng số. `bins` xác định biên hoặc số khoảng; thay đổi tham số này làm thay đổi bản tóm tắt phân bố.
 
 
-**Q8. Which function saves a figure? — Hàm nào lưu hình?**
+**Q8. Which function saves a figure? | Hàm nào lưu hình?**
 
-A. `plt.plot(x,y)` — `plt.plot(x,y)`
+A. `plt.plot(x,y)` | `plt.plot(x,y)`
 
-B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
+B. `plt.scatter(x,y)` | `plt.scatter(x,y)`
 
-C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
+C. `plt.hist(values,bins=...)` | `plt.hist(values,bins=...)`
 
-D. `plt.savefig(path)` — `plt.savefig(path)`
+D. `plt.savefig(path)` | `plt.savefig(path)`
 
 **Đáp án: D**
 
 **Giải thích:** savefig ghi hình đã vẽ ra tệp PNG. Phải lưu trước khi đóng Figure và kiểm đường dẫn cùng quyền ghi.
 
 
-**Q9. Why should x and y have matching observation counts? — Vì sao x và y phải có số quan sát tương ứng?**
+**Q9. Why should x and y have matching observation counts? | Vì sao x và y phải có số quan sát tương ứng?**
 
-A. Each x needs its matching y — Mỗi x cần y tương ứng
+A. Each x needs its matching y | Mỗi x cần y tương ứng
 
-B. Closes the current Figure — Đóng Figure hiện tại
+B. Closes the current Figure | Đóng Figure hiện tại
 
-C. Horizontal-axis label — Nhãn trục ngang
+C. Horizontal-axis label | Nhãn trục ngang
 
-D. Vertical-axis label — Nhãn trục dọc
+D. Vertical-axis label | Nhãn trục dọc
 
 **Đáp án: A**
 
 **Giải thích:** Không ghép được cặp khi thiếu phần tử tương ứng. Dãy lệch chiều có thể gây lỗi hoặc ghép sai đối tượng quan sát.
 
 
-**Q10. What does `plt.close()` do? — `plt.close()` làm gì?**
+**Q10. What does `plt.close()` do? | `plt.close()` làm gì?**
 
-A. Each x needs its matching y — Mỗi x cần y tương ứng
+A. Each x needs its matching y | Mỗi x cần y tương ứng
 
-B. Closes the current Figure — Đóng Figure hiện tại
+B. Closes the current Figure | Đóng Figure hiện tại
 
-C. Horizontal-axis label — Nhãn trục ngang
+C. Horizontal-axis label | Nhãn trục ngang
 
-D. Vertical-axis label — Nhãn trục dọc
+D. Vertical-axis label | Nhãn trục dọc
 
 **Đáp án: B**
 
 **Giải thích:** Đóng giúp giải phóng tài nguyên và tránh mở nhiều hình. Nên đóng Figure sau khi xuất, nhất là trong vòng lặp tạo nhiều tệp.
 
 
-**Q11. What does `plt.xlabel()` set? — `plt.xlabel()` đặt gì?**
+**Q11. What does `plt.xlabel()` set? | `plt.xlabel()` đặt gì?**
 
-A. Each x needs its matching y — Mỗi x cần y tương ứng
+A. Each x needs its matching y | Mỗi x cần y tương ứng
 
-B. Closes the current Figure — Đóng Figure hiện tại
+B. Closes the current Figure | Đóng Figure hiện tại
 
-C. Horizontal-axis label — Nhãn trục ngang
+C. Horizontal-axis label | Nhãn trục ngang
 
-D. Vertical-axis label — Nhãn trục dọc
+D. Vertical-axis label | Nhãn trục dọc
 
 **Đáp án: C**
 
 **Giải thích:** Nó chỉ đổi chữ, không tự đổi dữ liệu hoặc đơn vị. Nhãn có ích nên ghi cả đại lượng và đơn vị như ngày hay giờ.
 
 
-**Q12. What does `plt.ylabel()` set? — `plt.ylabel()` đặt gì?**
+**Q12. What does `plt.ylabel()` set? | `plt.ylabel()` đặt gì?**
 
-A. Each x needs its matching y — Mỗi x cần y tương ứng
+A. Each x needs its matching y | Mỗi x cần y tương ứng
 
-B. Closes the current Figure — Đóng Figure hiện tại
+B. Closes the current Figure | Đóng Figure hiện tại
 
-C. Horizontal-axis label — Nhãn trục ngang
+C. Horizontal-axis label | Nhãn trục ngang
 
-D. Vertical-axis label — Nhãn trục dọc
+D. Vertical-axis label | Nhãn trục dọc
 
 **Đáp án: D**
 
 **Giải thích:** Nó mô tả y và nên kèm đơn vị. Trục nhiệt độ nên ghi rõ Celsius hoặc Fahrenheit, không chỉ ghi 'value'.
 
 
-**Q13. How many markers represent three scatter records? — Ba bản ghi scatter tạo mấy điểm?**
+**Q13. How many markers represent three scatter records? | Ba bản ghi scatter tạo mấy điểm?**
 
-A. Three — Ba
+A. Three | Ba
 
-B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đổi số đếm theo khoảng
+B. Yes, changing bins changes counts per interval | Có, đổi bins sẽ đổi số đếm theo khoảng
 
-C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
+C. No, a categorical bar chart is clearer | Không, biểu đồ cột theo nhãn rõ hơn
 
-D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
+D. No, association alone is insufficient | Không, chỉ liên hệ chưa đủ
 
 **Đáp án: A**
 
 **Giải thích:** Mỗi hàng tạo một điểm. Mỗi điểm tương ứng một sinh viên, không phải mỗi cột đặc trưng tạo một điểm.
 
 
-**Q14. Do histogram counts depend on bin boundaries? — Số đếm histogram có phụ thuộc biên bins không?**
+**Q14. Do histogram counts depend on bin boundaries? | Số đếm histogram có phụ thuộc biên bins không?**
 
-A. Three — Ba
+A. Three | Ba
 
-B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đổi số đếm theo khoảng
+B. Yes, changing bins changes counts per interval | Có, đổi bins sẽ đổi số đếm theo khoảng
 
-C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
+C. No, a categorical bar chart is clearer | Không, biểu đồ cột theo nhãn rõ hơn
 
-D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
+D. No, association alone is insufficient | Không, chỉ liên hệ chưa đủ
 
 **Đáp án: B**
 
 **Giải thích:** Cùng dữ liệu có thể được nhóm khác nhau. Chiều cao histogram thường là số lượng mẫu, không mặc nhiên là xác suất nếu chưa chuẩn hóa.
 
 
-**Q15. Is a histogram appropriate for names A, B, C as categories? — Histogram có thích hợp trực tiếp cho nhãn A,B,C không?**
+**Q15. Is a histogram appropriate for names A, B, C as categories? | Histogram có thích hợp trực tiếp cho nhãn A,B,C không?**
 
-A. Three — Ba
+A. Three | Ba
 
-B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đổi số đếm theo khoảng
+B. Yes, changing bins changes counts per interval | Có, đổi bins sẽ đổi số đếm theo khoảng
 
-C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
+C. No, a categorical bar chart is clearer | Không, biểu đồ cột theo nhãn rõ hơn
 
-D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
+D. No, association alone is insufficient | Không, chỉ liên hệ chưa đủ
 
 **Đáp án: C**
 
 **Giải thích:** Histogram cần khoảng số thay vì tên loại. Cột phân loại so các nhóm tên; histogram dùng khoảng liên tục trên trục số.
 
 
-**Q16. Can scatter points establish causation? — Scatter có chứng minh quan hệ nhân quả không?**
+**Q16. Can scatter points establish causation? | Scatter có chứng minh quan hệ nhân quả không?**
 
-A. Three — Ba
+A. Three | Ba
 
-B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đổi số đếm theo khoảng
+B. Yes, changing bins changes counts per interval | Có, đổi bins sẽ đổi số đếm theo khoảng
 
-C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
+C. No, a categorical bar chart is clearer | Không, biểu đồ cột theo nhãn rõ hơn
 
-D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
+D. No, association alone is insufficient | Không, chỉ liên hệ chưa đủ
 
 **Đáp án: D**
 
 **Giải thích:** Biến khác hoặc cách lấy mẫu có thể tạo cùng xu hướng. Cần xem cách thiết kế nghiên cứu và yếu tố gây nhiễu trước khi nói một biến gây ra biến kia.
 
 
-**Q17. What does backend Agg help with? — Backend Agg giúp gì?**
+**Q17. What does backend Agg help with? | Backend Agg giúp gì?**
 
-A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
+A. Rendering images without a GUI window | Kết xuất hình không cần cửa sổ GUI
 
-B. Order and units of the time axis — Thứ tự và đơn vị trục thời gian
+B. Order and units of the time axis | Thứ tự và đơn vị trục thời gian
 
-C. Array of bin counts — Mảng số lượng theo mỗi bin
+C. Array of bin counts | Mảng số lượng theo mỗi bin
 
-D. No, it is a rendered image — Không, nó là ảnh được kết xuất
+D. No, it is a rendered image | Không, nó là ảnh được kết xuất
 
 **Đáp án: A**
 
 **Giải thích:** Agg phù hợp chạy script hàng loạt hoặc lưu hình trên server. Agg đặc biệt hữu ích cho kiểm thử tự động không cần màn hình đồ họa.
 
 
-**Q18. What should be checked before interpreting a time plot? — Trước khi đọc biểu đồ thời gian cần kiểm gì?**
+**Q18. What should be checked before interpreting a time plot? | Trước khi đọc biểu đồ thời gian cần kiểm gì?**
 
-A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
+A. Rendering images without a GUI window | Kết xuất hình không cần cửa sổ GUI
 
-B. Order and units of the time axis — Thứ tự và đơn vị trục thời gian
+B. Order and units of the time axis | Thứ tự và đơn vị trục thời gian
 
-C. Array of bin counts — Mảng số lượng theo mỗi bin
+C. Array of bin counts | Mảng số lượng theo mỗi bin
 
-D. No, it is a rendered image — Không, nó là ảnh được kết xuất
+D. No, it is a rendered image | Không, nó là ảnh được kết xuất
 
 **Đáp án: B**
 
 **Giải thích:** Sai thứ tự hoặc đơn vị khiến xu hướng bị hiểu sai. Nếu ngày bị xếp sai, đường nối có thể khiến người xem tưởng thời gian đi ngược.
 
 
-**Q19. What does `plt.hist` return first? — `plt.hist` trả gì ở vị trí đầu?**
+**Q19. What does `plt.hist` return first? | `plt.hist` trả gì ở vị trí đầu?**
 
-A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
+A. Rendering images without a GUI window | Kết xuất hình không cần cửa sổ GUI
 
-B. Order and units of the time axis — Thứ tự và đơn vị trục thời gian
+B. Order and units of the time axis | Thứ tự và đơn vị trục thời gian
 
-C. Array of bin counts — Mảng số lượng theo mỗi bin
+C. Array of bin counts | Mảng số lượng theo mỗi bin
 
-D. No, it is a rendered image — Không, nó là ảnh được kết xuất
+D. No, it is a rendered image | Không, nó là ảnh được kết xuất
 
 **Đáp án: C**
 
 **Giải thích:** Giá trị trả về đầu là tần suất, phần sau là biên và đối tượng vẽ. Mảng biên trả về giúp xác định giá trị nào đóng góp vào từng khoảng đếm.
 
 
-**Q20. Does a saved PNG retain an editable dataset automatically? — PNG lưu hình có tự chứa bảng dữ liệu có thể sửa không?**
+**Q20. Does a saved PNG retain an editable dataset automatically? | PNG lưu hình có tự chứa bảng dữ liệu có thể sửa không?**
 
-A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
+A. Rendering images without a GUI window | Kết xuất hình không cần cửa sổ GUI
 
-B. Order and units of the time axis — Thứ tự và đơn vị trục thời gian
+B. Order and units of the time axis | Thứ tự và đơn vị trục thời gian
 
-C. Array of bin counts — Mảng số lượng theo mỗi bin
+C. Array of bin counts | Mảng số lượng theo mỗi bin
 
-D. No, it is a rendered image — Không, nó là ảnh được kết xuất
+D. No, it is a rendered image | Không, nó là ảnh được kết xuất
 
 **Đáp án: D**
 
