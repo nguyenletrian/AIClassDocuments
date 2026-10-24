@@ -53,6 +53,10 @@ import numpy as np
 
 **Đọc kết quả từng bước:** [Giải thích ý nghĩa từng output, số dòng và số cột, cái gì được giữ nguyên hoặc thay đổi, điều gì KHÔNG thể suy ra].
 
+**Trước / sau (khi có phép biến đổi dữ liệu):** [Hiển thị vài hàng của bảng gốc, vài hàng sau biến đổi và **hình kết quả thực được tính từ đúng dữ liệu minh họa** nếu hình giúp hiểu khái niệm. Ghi shape trước/sau, tỷ lệ thông tin giữ lại nếu có, tên hàng/cột, đơn vị; không dùng đồ thị tùy ý không liên quan dữ liệu.]
+
+**Tự kiểm tra nhanh:** [Một câu ngắn kiểm tra ngay khái niệm vừa học, không cần thêm thư viện. Có **đáp án gợi ý** ngay sau đó. Mỗi nhóm kiến thức chính có một câu để người học không phải đợi tới cuối bài.]
+
 **Quy tắc:** Trong mỗi mục 4.2, 4.3... phải nhắc lại khái niệm liên quan rồi mới bắt đầu ví dụ nhỏ **từng bước**. Khi có mảng số, phải nói rõ hàng/cột, từng đặc trưng/đơn vị và ví dụ minh họa cách ghép vector thành matrix khi cần. Không dùng chữ “Subconcept” làm tiêu đề. Viết “Khái niệm liên quan” hoặc tên chủ đề bằng tiếng Việt dễ hiểu. Không giải thích bằng cú pháp hay tên hàm trước khi nói rõ bằng văn; người học phải hiểu *feature là gì* rồi mới gặp ví dụ `np.array`. Không tạo phần “Toán học đằng sau” hoặc chứng minh hàn lâm. Mỗi công thức thể hiện bằng Python trong một ví dụ nhỏ ngay dưới đoạn giải thích.
 
 ## 5. Real-world programming problems — Khoảng năm tình huống thực tế
@@ -79,6 +83,8 @@ import numpy as np
 **Kiểm tra:** [Kết quả thực tế, shape, giới hạn, điều kiện cần thận trọng.]
 
 [Lặp lại đến tình huống 5. Chuyển hóa những bài tập đã ghi nhận trong nguồn nội bộ thành tình huống thực tiễn, không sao chép mô tả hàn lâm.]
+
+**Tính tùy chọn của kiến thức nâng cao:** [Nếu bài tình huống cần KMeans, LogisticRegression, Pipeline hoặc API chưa được dạy trong chuỗi, đánh dấu **Phần mở rộng — có thể đọc sau**, định nghĩa chúng bằng lời ngắn gọn, chỉ yêu cầu nắm vai trò của bài hiện tại; không đột ngột biến chúng thành kiến thức tiên quyết.]
 
 ## 6. Những lỗi dễ gặp
 
