@@ -7,7 +7,9 @@
 
 `Python → NumPy/Pandas → Train/Test → Pipeline → Report`
 
-Bài này hệ thống hóa kiến thức đã học thành các thao tác thực hành có đầu vào và đầu ra rõ ràng.
+**Học xong dùng để làm gì?** Kết hợp chuẩn bị dữ liệu, đặc trưng, huấn luyện mô hình, đánh giá và báo cáo thành một quy trình AI có thể chạy lại.
+
+**Kết nối kiến thức tiếp theo:** Sau bài cuối, áp dụng toàn bộ chuỗi vào bài toán thực tế tự chọn: xác định dữ liệu, đặt tiêu chí đánh giá và lưu kết quả có thể tái tạo.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -324,6 +326,11 @@ C. An ordered chain of preprocessing and model steps — Chuỗi tiền xử lý
 
 D. Checking predictions against held-out targets — So dự đoán với nhãn thật giữ riêng
 
+**Đáp án: A**
+
+**Giải thích:** Trong Iris, bốn số đo cm nằm ở X, không phải nhãn y. Nếu đưa kết quả tương lai hoặc mã lớp vào X, đánh giá sẽ dễ giả tạo do rò rỉ.
+
+
 **Q2. What is a label? — Label là gì?**
 
 A. An input measurement used by the predictor — Đại lượng đo đầu vào mô hình sử dụng
@@ -333,6 +340,11 @@ B. A target value the model should predict — Giá trị đích mô hình cần
 C. An ordered chain of preprocessing and model steps — Chuỗi tiền xử lý và mô hình có thứ tự
 
 D. Checking predictions against held-out targets — So dự đoán với nhãn thật giữ riêng
+
+**Đáp án: B**
+
+**Giải thích:** Classifier có giám sát học từ nhãn thật ghép với từng hàng train. Mỗi trong 150 hàng đặc trưng cần có nhãn tương ứng khi train.
+
 
 **Q3. What is a pipeline? — Pipeline là gì?**
 
@@ -344,6 +356,11 @@ C. An ordered chain of preprocessing and model steps — Chuỗi tiền xử lý
 
 D. Checking predictions against held-out targets — So dự đoán với nhãn thật giữ riêng
 
+**Đáp án: C**
+
+**Giải thích:** Nó fit bộ biến đổi trên train rồi tái sử dụng cho dữ liệu sau. Thứ tự rất quan trọng: điền thiếu và chuẩn hóa trước dự đoán, nhưng tham số chỉ học từ train.
+
+
 **Q4. What is evaluation? — Evaluation là gì?**
 
 A. An input measurement used by the predictor — Đại lượng đo đầu vào mô hình sử dụng
@@ -353,6 +370,11 @@ B. A target value the model should predict — Giá trị đích mô hình cần
 C. An ordered chain of preprocessing and model steps — Chuỗi tiền xử lý và mô hình có thứ tự
 
 D. Checking predictions against held-out targets — So dự đoán với nhãn thật giữ riêng
+
+**Đáp án: D**
+
+**Giải thích:** Test cuối đánh giá dữ liệu chưa fit, không dùng lại mẫu học. Hãy dùng test giữ riêng không thay đổi; điểm train cao có thể chỉ là ghi nhớ dữ liệu.
+
 
 **Q5. What does an Iris feature row represent? — Một hàng feature Iris biểu diễn gì?**
 
@@ -364,6 +386,11 @@ C. Unavailable evaluation information entering fitting — Thông tin đánh gi�
 
 D. To check sample/feature dimensions and alignment — Để kiểm chiều mẫu/đặc trưng và sự khớp nhãn
 
+**Đáp án: A**
+
+**Giải thích:** Hàng là một mẫu hoa, cột là số đo như chiều dài cánh. Với shape (150,4), 150 là mẫu, bốn là biến đo theo cm.
+
+
 **Q6. What does y represent in classification? — y biểu diễn gì khi phân loại?**
 
 A. Four measurements for one flower — Bốn số đo của một bông hoa
@@ -373,6 +400,11 @@ B. The target class per sample — Lớp mục tiêu cho từng mẫu
 C. Unavailable evaluation information entering fitting — Thông tin đánh giá đáng lẽ chưa biết lọt vào fit
 
 D. To check sample/feature dimensions and alignment — Để kiểm chiều mẫu/đặc trưng và sự khớp nhãn
+
+**Đáp án: B**
+
+**Giải thích:** Nhãn y phải ghép một-một với các hàng X. Nếu X và y sai thứ tự, thuật toán đúng vẫn học sai mối quan hệ dữ liệu–nhãn.
+
 
 **Q7. What is data leakage? — Rò rỉ dữ liệu là gì?**
 
@@ -384,6 +416,11 @@ C. Unavailable evaluation information entering fitting — Thông tin đánh gi�
 
 D. To check sample/feature dimensions and alignment — Để kiểm chiều mẫu/đặc trưng và sự khớp nhãn
 
+**Đáp án: C**
+
+**Giải thích:** Fit tiền xử lý trên test hoặc dùng kết quả tương lai có thể làm chỉ số ảo. Rò rỉ còn xảy ra nếu chọn đặc trưng từ toàn bộ dữ liệu trước khi chia.
+
+
 **Q8. Why inspect X.shape and y.shape first? — Vì sao kiểm X.shape và y.shape đầu tiên?**
 
 A. Four measurements for one flower — Bốn số đo của một bông hoa
@@ -393,6 +430,11 @@ B. The target class per sample — Lớp mục tiêu cho từng mẫu
 C. Unavailable evaluation information entering fitting — Thông tin đánh giá đáng lẽ chưa biết lọt vào fit
 
 D. To check sample/feature dimensions and alignment — Để kiểm chiều mẫu/đặc trưng và sự khớp nhãn
+
+**Đáp án: D**
+
+**Giải thích:** Số hàng X lệch số nhãn y khiến việc fit sai. Hàng và nhãn lệch nhau phải được sửa trước khi fit hoặc tính điểm.
+
 
 **Q9. What does train_test_split do? — train_test_split làm gì?**
 
@@ -404,6 +446,11 @@ C. Training features — Các đặc trưng train
 
 D. Training features only — Chỉ đặc trưng train
 
+**Đáp án: A**
+
+**Giải thích:** Hàm chia dữ liệu, không tự học mô hình hay đo accuracy. Phải giữ cả X và y train/test; chia dữ liệu không tự tương đương huấn luyện.
+
+
 **Q10. Why use stratify=y? — Vì sao dùng stratify=y?**
 
 A. Separates data into fitting and held-out portions — Chia dữ liệu thành phần học và phần giữ riêng
@@ -413,6 +460,11 @@ B. To preserve approximate class ratios in split parts — Để giữ tương �
 C. Training features — Các đặc trưng train
 
 D. Training features only — Chỉ đặc trưng train
+
+**Đáp án: B**
+
+**Giải thích:** Giúp giảm lệch lớp khi mỗi lớp có đủ mẫu. Phân tầng hữu ích khi lớp ít mẫu có nguy cơ vắng khỏi tập test.
+
 
 **Q11. What should SimpleImputer learn from? — SimpleImputer nên học từ đâu?**
 
@@ -424,6 +476,11 @@ C. Training features — Các đặc trưng train
 
 D. Training features only — Chỉ đặc trưng train
 
+**Đáp án: C**
+
+**Giải thích:** Median tính từ toàn bộ dữ liệu làm lộ thống kê test. Hàng test không được tác động đến giá trị điền học được, kể cả khi hàng ấy thiếu dữ liệu.
+
+
 **Q12. What should StandardScaler learn from? — StandardScaler nên fit từ đâu?**
 
 A. Separates data into fitting and held-out portions — Chia dữ liệu thành phần học và phần giữ riêng
@@ -433,6 +490,11 @@ B. To preserve approximate class ratios in split parts — Để giữ tương �
 C. Training features — Các đặc trưng train
 
 D. Training features only — Chỉ đặc trưng train
+
+**Đáp án: D**
+
+**Giải thích:** Biến đổi test bằng mean/std train, không fit từ test. Mean và variance từ train phải được áp nhất quán lên mọi mẫu mới.
+
 
 **Q13. What does LogisticRegression produce in Iris? — LogisticRegression trên Iris dự đoán gì?**
 
@@ -444,6 +506,11 @@ C. Actual labels — Các nhãn thật
 
 D. Predicted labels — Các nhãn dự đoán
 
+**Đáp án: A**
+
+**Giải thích:** Dù có chữ Regression, LogisticRegression dùng để phân loại. Mô hình có thể xuất xác suất lớp, nhưng nhiệm vụ đang xét chọn một nhãn rời rạc.
+
+
 **Q14. What does accuracy count? — Accuracy đếm gì?**
 
 A. One of three discrete flower classes — Một trong ba loài hoa rời rạc
@@ -453,6 +520,11 @@ B. Correct predictions divided by total predictions — Số dự đoán đúng 
 C. Actual labels — Các nhãn thật
 
 D. Predicted labels — Các nhãn dự đoán
+
+**Đáp án: B**
+
+**Giải thích:** Accuracy hữu ích nhưng có thể che lỗi lớp hiếm. Với tập lệch lớp, accuracy cao có thể đến từ việc chỉ đoán lớp đông nhất.
+
 
 **Q15. What do confusion matrix rows mean? — Hàng của confusion matrix nghĩa là gì?**
 
@@ -464,6 +536,11 @@ C. Actual labels — Các nhãn thật
 
 D. Predicted labels — Các nhãn dự đoán
 
+**Đáp án: C**
+
+**Giải thích:** Mỗi hàng đếm mẫu thuộc lớp thật tương ứng. Hàng đại diện nhãn thật; ô ngoài đường chéo là lỗi xuất phát từ lớp thật ở hàng đó.
+
+
 **Q16. What do confusion matrix columns mean? — Cột của confusion matrix nghĩa là gì?**
 
 A. One of three discrete flower classes — Một trong ba loài hoa rời rạc
@@ -473,6 +550,11 @@ B. Correct predictions divided by total predictions — Số dự đoán đúng 
 C. Actual labels — Các nhãn thật
 
 D. Predicted labels — Các nhãn dự đoán
+
+**Đáp án: D**
+
+**Giải thích:** Ô ngoài đường chéo là trường hợp dự đoán sang lớp khác. Cột cho biết lớp dự đoán nào nhận các mẫu bị gán nhầm.
+
 
 **Q17. What does PCA reduce? — PCA giảm gì?**
 
@@ -484,6 +566,11 @@ C. On the same held-out split and metric — Trên cùng tập test và chỉ s�
 
 D. No, held-out evaluation is needed — Không, phải đánh giá dữ liệu giữ riêng
 
+**Đáp án: A**
+
+**Giải thích:** Thành phần PCA là trục đặc trưng mới, không phải nhãn. Trục PCA là tổ hợp đặc trưng ban đầu được học, không làm đổi số mẫu.
+
+
 **Q18. Why fit PCA on train only? — Vì sao chỉ fit PCA trên train?**
 
 A. Feature dimensionality while retaining sample rows — Số chiều đặc trưng nhưng giữ số hàng mẫu
@@ -493,6 +580,11 @@ B. To avoid using test distribution to learn axes — Tránh lấy phân phối 
 C. On the same held-out split and metric — Trên cùng tập test và chỉ số đánh giá
 
 D. No, held-out evaluation is needed — Không, phải đánh giá dữ liệu giữ riêng
+
+**Đáp án: B**
+
+**Giải thích:** Test chỉ được transform bằng PCA đã fit từ train. Nếu không, thông tin phân phối test đã lọt vào biểu diễn đặc trưng.
+
 
 **Q19. How should baseline and PCA models be compared? — So baseline và mô hình PCA thế nào?**
 
@@ -504,6 +596,11 @@ C. On the same held-out split and metric — Trên cùng tập test và chỉ s�
 
 D. No, held-out evaluation is needed — Không, phải đánh giá dữ liệu giữ riêng
 
+**Đáp án: C**
+
+**Giải thích:** Khác split hoặc metric không tách được ảnh hưởng của PCA. Train/test phải giống nhau giữa hai cách để chênh lệch metric phản ánh thay đổi mô hình.
+
+
 **Q20. Does a high train score prove model generalization? — Train score cao có chứng minh tổng quát hóa?**
 
 A. Feature dimensionality while retaining sample rows — Số chiều đặc trưng nhưng giữ số hàng mẫu
@@ -514,30 +611,9 @@ C. On the same held-out split and metric — Trên cùng tập test và chỉ s�
 
 D. No, held-out evaluation is needed — Không, phải đánh giá dữ liệu giữ riêng
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | In Iris, four centimeter measurements become X columns, not y labels. A future target or class indicator included in X would make evaluation unrealistically easy. | Trong Iris, bốn số đo cm nằm ở X, không phải nhãn y. Nếu đưa kết quả tương lai hoặc mã lớp vào X, đánh giá sẽ dễ giả tạo do rò rỉ. |
-| Q2 | **B** | A supervised classifier learns from the true labels paired with training rows. For each of 150 feature rows, a corresponding class label must be present during training. | Classifier có giám sát học từ nhãn thật ghép với từng hàng train. Mỗi trong 150 hàng đặc trưng cần có nhãn tương ứng khi train. |
-| Q3 | **C** | It fits each transformer on train then reuses it on later data. The order matters: imputation and scaling must precede prediction but learn parameters from train only. | Nó fit bộ biến đổi trên train rồi tái sử dụng cho dữ liệu sau. Thứ tự rất quan trọng: điền thiếu và chuẩn hóa trước dự đoán, nhưng tham số chỉ học từ train. |
-| Q4 | **D** | The final test assesses unseen data rather than reused fitting samples. Use an unchanged held-out test split; an excellent training score may reflect memorization. | Test cuối đánh giá dữ liệu chưa fit, không dùng lại mẫu học. Hãy dùng test giữ riêng không thay đổi; điểm train cao có thể chỉ là ghi nhớ dữ liệu. |
-| Q5 | **A** | A row is a sample; columns refer to measurements such as petal length. With shape (150,4), 150 are samples and four are measured variables in cm. | Hàng là một mẫu hoa, cột là số đo như chiều dài cánh. Với shape (150,4), 150 là mẫu, bốn là biến đo theo cm. |
-| Q6 | **B** | Targets should align one-to-one with X rows. If X and y are differently ordered, even a correct algorithm learns incorrect correspondences. | Nhãn y phải ghép một-một với các hàng X. Nếu X và y sai thứ tự, thuật toán đúng vẫn học sai mối quan hệ dữ liệu–nhãn. |
-| Q7 | **C** | Fitting preprocessors on test or using future outcomes inflates estimated performance. Leakage may also occur when selecting features using the full dataset before splitting. | Fit tiền xử lý trên test hoặc dùng kết quả tương lai có thể làm chỉ số ảo. Rò rỉ còn xảy ra nếu chọn đặc trưng từ toàn bộ dữ liệu trước khi chia. |
-| Q8 | **D** | A mismatched number of rows and labels invalidates supervised fitting. Misaligned rows and labels must be fixed before any model fitting or scoring. | Số hàng X lệch số nhãn y khiến việc fit sai. Hàng và nhãn lệch nhau phải được sửa trước khi fit hoặc tính điểm. |
-| Q9 | **A** | It does not itself fit a classifier or score accuracy. Keep track of the returned train/test features **and** labels; splitting alone is not fitting. | Hàm chia dữ liệu, không tự học mô hình hay đo accuracy. Phải giữ cả X và y train/test; chia dữ liệu không tự tương đương huấn luyện. |
-| Q10 | **B** | It reduces accidental imbalance when enough cases exist in each class. Stratification is particularly useful when a minority class might otherwise disappear from test. | Giúp giảm lệch lớp khi mỗi lớp có đủ mẫu. Phân tầng hữu ích khi lớp ít mẫu có nguy cơ vắng khỏi tập test. |
-| Q11 | **C** | Median imputation learned from all data would leak test statistics. A test row must not influence the learned fill value, even if that row has missing data. | Median tính từ toàn bộ dữ liệu làm lộ thống kê test. Hàng test không được tác động đến giá trị điền học được, kể cả khi hàng ấy thiếu dữ liệu. |
-| Q12 | **D** | Transform test with training mean/std rather than fitting on test. The same training mean and variance must transform every unseen sample consistently. | Biến đổi test bằng mean/std train, không fit từ test. Mean và variance từ train phải được áp nhất quán lên mọi mẫu mới. |
-| Q13 | **A** | Despite its name, LogisticRegression is used for classification. Class probabilities may also be produced, but the stated prediction task chooses a discrete label. | Dù có chữ Regression, LogisticRegression dùng để phân loại. Mô hình có thể xuất xác suất lớp, nhưng nhiệm vụ đang xét chọn một nhãn rời rạc. |
-| Q14 | **B** | It is useful but can hide minority-class failures. On imbalanced datasets a high accuracy can result from always predicting the majority class. | Accuracy hữu ích nhưng có thể che lỗi lớp hiếm. Với tập lệch lớp, accuracy cao có thể đến từ việc chỉ đoán lớp đông nhất. |
-| Q15 | **C** | Each row counts samples from a given true class. Rows are indexed by truth, so an off-diagonal count is a mistake originating in that true class. | Mỗi hàng đếm mẫu thuộc lớp thật tương ứng. Hàng đại diện nhãn thật; ô ngoài đường chéo là lỗi xuất phát từ lớp thật ở hàng đó. |
-| Q16 | **D** | An off-diagonal entry is a misclassification to another class. Columns let us see which predicted class receives the wrongly assigned samples. | Ô ngoài đường chéo là trường hợp dự đoán sang lớp khác. Cột cho biết lớp dự đoán nào nhận các mẫu bị gán nhầm. |
-| Q17 | **A** | PCA components are transformed axes, not target class labels. PCA axes are learned combinations of original features; it does not change the number of samples. | Thành phần PCA là trục đặc trưng mới, không phải nhãn. Trục PCA là tổ hợp đặc trưng ban đầu được học, không làm đổi số mẫu. |
-| Q18 | **B** | Test data should only be transformed by fitted training PCA. Otherwise information about the test distribution enters the feature representation. | Test chỉ được transform bằng PCA đã fit từ train. Nếu không, thông tin phân phối test đã lọt vào biểu diễn đặc trưng. |
-| Q19 | **C** | Different splits or metrics cannot isolate PCA's effect. Train and test must match between methods so the metric difference is attributable to modeling choices. | Khác split hoặc metric không tách được ảnh hưởng của PCA. Train/test phải giống nhau giữa hai cách để chênh lệch metric phản ánh thay đổi mô hình. |
-| Q20 | **D** | A model can memorize training data yet perform poorly on new cases. Report held-out metrics and classwise errors before judging real-world readiness. | Mô hình có thể nhớ train nhưng dự đoán kém trên mẫu mới. Cần báo metric test và lỗi theo lớp trước khi đánh giá khả năng ứng dụng thực tế. |
+**Giải thích:** Mô hình có thể nhớ train nhưng dự đoán kém trên mẫu mới. Cần báo metric test và lỗi theo lớp trước khi đánh giá khả năng ứng dụng thực tế.
 
 ## 8. Nối sang bài tiếp
 
