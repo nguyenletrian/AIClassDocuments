@@ -90,11 +90,10 @@ print(pd.read_csv(io.StringIO('x\n1')))
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
-**Vấn đề:** Tạo bảng giá sản phẩm.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tạo bảng giá sản phẩm. Thông tin đầu vào: 2 sản phẩm với Price đồng, Qty cái. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** DataFrame tên cột giúp tránh nhầm giá với số lượng.
 
-**Dữ liệu:** 2 sản phẩm với Price đồng, Qty cái.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -109,11 +108,10 @@ print(df)
 
 **Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
 
-**Vấn đề:** Đọc đơn từ CSV văn bản.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc đọc đơn từ CSV văn bản. Thông tin đầu vào: 2 dòng đơn, cột id,amount (đồng). Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Dùng StringIO tạo CSV không phụ thuộc file máy.
 
-**Dữ liệu:** 2 dòng đơn, cột id,amount (đồng).
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -129,11 +127,10 @@ print(df.head())
 
 **Từ vựng trong mục:** **Column** — cột.
 
-**Vấn đề:** Tạo doanh thu mỗi dòng.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tạo doanh thu mỗi dòng. Thông tin đầu vào: 2 sản phẩm. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Một cột mới tính Price × Quantity.
 
-**Dữ liệu:** 2 sản phẩm.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -149,11 +146,10 @@ print(df)
 
 **Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
 
-**Vấn đề:** Xem kiểu dữ liệu đầu vào.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc xem kiểu dữ liệu đầu vào. Thông tin đầu vào: Một cột số lượng, một cột tên. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi.
 
-**Dữ liệu:** Một cột số lượng, một cột tên.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -168,11 +164,10 @@ print(df.dtypes)
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
-**Vấn đề:** Chọn dữ liệu tập huấn luyện.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc chọn dữ liệu tập huấn luyện. Thông tin đầu vào: 2 khách, 3 thuộc tính. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Chỉ giữ các cột feature phù hợp để tạo X.
 
-**Dữ liệu:** 2 khách, 3 thuộc tính.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 

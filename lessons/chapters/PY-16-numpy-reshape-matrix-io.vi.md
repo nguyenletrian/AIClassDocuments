@@ -90,11 +90,10 @@ print(np.array([1,2]).tolist())
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng.
 
-**Vấn đề:** Tổ chức dữ liệu đo theo giờ.
+**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc tổ chức dữ liệu đo theo giờ. Thông tin đầu vào: 6 số đo nhiệt độ giờ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** reshape đổi 6 giá trị thành 2 ngày × 3 giờ.
 
-**Dữ liệu:** 6 số đo nhiệt độ giờ.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -109,11 +108,10 @@ print(values.reshape(2,3))
 
 **Từ vựng trong mục:** **Transpose** — chuyển vị.
 
-**Vấn đề:** Đổi hàng cột báo cáo.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc đổi hàng cột báo cáo. Thông tin đầu vào: 2 SV × 3 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Transpose làm môn thành hàng, học sinh thành cột.
 
-**Dữ liệu:** 2 SV × 3 môn.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -128,11 +126,10 @@ print(scores.T.shape)
 
 **Từ vựng trong mục:** **Matrix multiply** — nhân ma trận.
 
-**Vấn đề:** Điểm tổng kết có trọng số.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc điểm tổng kết có trọng số. Thông tin đầu vào: 3 môn, trọng số cộng bằng 1. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Nhân vector điểm với vector trọng số.
 
-**Dữ liệu:** 3 môn, trọng số cộng bằng 1.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -147,11 +144,10 @@ print(scores@w)
 
 **Từ vựng trong mục:** **Serialization** — lưu dữ liệu.
 
-**Vấn đề:** Tạo đặc trưng tổng hợp.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc tạo đặc trưng tổng hợp. Thông tin đầu vào: 2 SV × 3 môn, tạo 2 đặc trưng. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Nhân matrix học sinh × matrix trọng số.
 
-**Dữ liệu:** 2 SV × 3 môn, tạo 2 đặc trưng.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -167,11 +163,10 @@ print(X@W)
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng.
 
-**Vấn đề:** Lưu và đọc mảng an toàn.
+**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc lưu và đọc mảng an toàn. Thông tin đầu vào: Mảng [3,5,7]. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Lưu trong thư mục tạm và load chỉ từ dữ liệu tự tạo.
 
-**Dữ liệu:** Mảng [3,5,7].
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 

@@ -90,11 +90,10 @@ x=np.array([3,5,7]);print(x[[0,2]])
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-**Vấn đề:** Tra điểm một sinh viên.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc tra điểm một sinh viên. Thông tin đầu vào: 3 học sinh × 2 môn, điểm thang 10. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Lấy đúng hàng sinh viên và cột môn học.
 
-**Dữ liệu:** 3 học sinh × 2 môn, điểm thang 10.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -109,11 +108,10 @@ print(scores[1,0])
 
 **Từ vựng trong mục:** **Slice** — cắt lát.
 
-**Vấn đề:** Báo danh sách điểm cao.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc báo danh sách điểm cao. Thông tin đầu vào: 3 học sinh × 2 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Mask lọc hàng điểm Python>=8.
 
-**Dữ liệu:** 3 học sinh × 2 môn.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -128,11 +126,10 @@ print(X[X[:,0]>=8])
 
 **Từ vựng trong mục:** **Boolean mask** — mặt nạ logic.
 
-**Vấn đề:** Lấy hai môn cần kiểm.
+**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc lấy hai môn cần kiểm. Thông tin đầu vào: 2 sinh viên × 3 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Fancy indexing chọn cột không cần liền nhau.
 
-**Dữ liệu:** 2 sinh viên × 3 môn.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -147,11 +144,10 @@ print(X[:,[0,2]])
 
 **Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao.
 
-**Vấn đề:** Lấy ba khách đầu tiên.
+**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc lấy ba khách đầu tiên. Thông tin đầu vào: 5 khách với điểm chi tiêu. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Slice theo chiều hàng để xem mẫu báo cáo.
 
-**Dữ liệu:** 5 khách với điểm chi tiêu.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -166,11 +162,10 @@ print(spend[:3])
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-**Vấn đề:** Sửa số đo bất thường.
+**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc sửa số đo bất thường. Thông tin đầu vào: 4 nhiệt độ có một giá trị âm lỗi. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
 
 **Vì sao chọn cách giải này?** Thao tác mask trên bản sao để không đổi mảng gốc.
 
-**Dữ liệu:** 4 nhiệt độ có một giá trị âm lỗi.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
