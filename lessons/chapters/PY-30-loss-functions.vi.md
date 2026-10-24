@@ -31,15 +31,20 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 ## 4. Khái niệm liên quan
 
-### 4.1. MSE
+**Nội dung chính:** loss đo mức sai giữa dự báo và mục tiêu. Bài học đi từ hai cách tính sai lệch trên số (**MSE**, **MAE**), tới cách kết hợp hai mức phạt (**Huber**), rồi sang loss trên **xác suất và phân phối** (**cross-entropy**, **KL**). Chọn loss phải dựa vào ý nghĩa dữ liệu và mức phạt cần thiết.
 
-**Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
+### 4.1. MSE — Sai số bình phương trung bình
 
-Trung bình bình phương hiệu dự đoán và giá trị thật.
+**Từ vựng trong mục:** **MSE** — Mean Squared Error; **Residual** — sai lệch.
+
+**Loss function** là hàm cho biết dự báo sai lệch đến mức nào so với mục tiêu, để ta đánh giá hoặc tối ưu mô hình. **MSE** lấy sai số `(dự báo−thực tế)`, bình phương từng sai số rồi **trung bình**. Với thực tế `[2,3]` và dự báo `[1,4]`, sai số là `[-1,+1]`, bình phương thành `[1,1]` và MSE bằng 1. Đơn vị MSE là **bình phương đơn vị đầu ra**, không phải cùng đơn vị như giá nhà.
 
 ```python
 import numpy as np
-print(np.mean((np.array([2,3])-np.array([1,4]))**2))
+
+y_true = np.array([2, 3])
+y_pred = np.array([1, 4])
+print(np.mean((y_true - y_pred) ** 2))
 ```
 
 **Kết quả khi chạy:**
@@ -48,85 +53,102 @@ print(np.mean((np.array([2,3])-np.array([1,4]))**2))
 1.0
 ```
 
-**Tự kiểm tra:** MSE là gì? **Đáp án:** Trung bình bình phương hiệu dự đoán và giá trị thật.
+MSE bằng 1 đơn vị bình phương. Sai số lớn được phạt mạnh hơn vì bình phương.
 
-### 4.2. MAE
+### 4.2. MAE — Sai số tuyệt đối trung bình
 
-**Từ vựng trong mục:** **MAE** — sai số tuyệt đối trung bình.
+**Từ vựng trong mục:** **MAE** — Mean Absolute Error; **Absolute error** — sai số tuyệt đối.
 
-Trung bình trị tuyệt đối sai số.
+**MAE** lấy trị tuyệt đối của từng sai số rồi chia cho số quan sát. Ví dụ thực tế `[10,20,30]` và dự báo `[9,19,50]` có sai lệch tuyệt đối `[1,1,20]`, nên MAE bằng `22/3≈7.333`. Khác MSE, MAE có **cùng đơn vị** với đầu ra và không bình phương để khuếch đại lỗi lớn. Nó không có nghĩa là loại bỏ ảnh hưởng của ngoại lệ hoàn toàn.
 
 ```python
 import numpy as np
-print(np.mean(np.abs(np.array([2,3])-np.array([1,4]))))
+
+y_true = np.array([10, 20, 30])
+y_pred = np.array([9, 19, 50])
+print(round(float(np.mean(np.abs(y_true - y_pred))), 3))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-1.0
+7.333
 ```
 
-**Tự kiểm tra:** MAE là gì? **Đáp án:** Trung bình trị tuyệt đối sai số.
+Sai lệch trung bình tuyệt đối khoảng 7,333 đơn vị đo.
 
-### 4.3. Cross-entropy
+### 4.3. Huber — Trộn bình phương và tuyến tính theo ngưỡng
 
-**Từ vựng trong mục:** **Cross-entropy** — entropy chéo.
+**Từ vựng trong mục:** **Huber loss** — tổn thất Huber; **Delta** — ngưỡng.
 
-Phạt dự đoán xác suất sai nhãn mạnh hơn.
+**Huber** dùng mức phạt giống **bình phương** khi `|e|≤δ` và chuyển sang **tuyến tính** khi lỗi vượt δ. Với δ=1: lỗi có độ lớn 1 mất 0.5, độ lớn 2 mất 1.5, độ lớn 5 mất 4.5. Trung bình ba lỗi `[-1,2,5]` là `6.5/3≈2.167`. Huber là cách cân bằng giữa MSE nhạy với lỗi lớn và MAE tăng tuyến tính; δ quyết định điểm chuyển và mang cùng đơn vị với sai số.
 
 ```python
-import math
-print(-math.log(.8))
+import numpy as np
+
+e = np.array([-1.0, 2.0, 5.0])
+delta = 1.0
+loss = np.where(
+    np.abs(e) <= delta,
+    0.5 * e ** 2,
+    delta * (np.abs(e) - 0.5 * delta),
+)
+print(round(float(loss.mean()), 3))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.2231435513142097
+2.167
 ```
 
-**Tự kiểm tra:** Cross-entropy là gì? **Đáp án:** Phạt dự đoán xác suất sai nhãn mạnh hơn.
+Tổn thất trung bình xấp xỉ 2,167 theo Huber δ=1; lỗi lớn không bị bình phương mãi.
 
-### 4.4. KL divergence
+### 4.4. Cross-entropy và KL — So nhãn hoặc phân phối
 
-**Từ vựng trong mục:** **KL divergence** — độ lệch KL.
+**Từ vựng trong mục:** **Cross-entropy** — entropy chéo; **KL divergence** — phân kỳ KL.
 
-Đo sai khác một chiều giữa hai phân phối xác suất.
+**Cross-entropy** đánh giá phân phối dự báo so với phân phối nhãn/đích. Với phân loại một nhãn đúng, dự báo xác suất cho nhãn đúng là 0.8 thì loss bằng `−ln(0.8)≈0.2231`: xác suất cho nhãn đúng càng thấp, phạt càng lớn. **KL divergence** `D_KL(P||Q)=Σ P_i ln(P_i/Q_i)` so sự khác nhau giữa **hai phân phối** P và Q; với `P=[0.5,0.5]`, `Q=[0.6,0.4]`, KL≈0.0204. KL **không đối xứng** và không phải khoảng cách hình học. Các xác suất trong log cần dương; trong code thực tế có thể clip hoặc xử lý giá trị 0 đúng quy ước.
 
 ```python
 import numpy as np
-p=np.array([.5,.5])
-q=np.array([.6,.4])
-print(np.sum(p*np.log(p/q)))
+
+p_true = 0.8
+P = np.array([0.5, 0.5])
+Q = np.array([0.6, 0.4])
+print(round(float(-np.log(p_true)), 4))
+print(round(float(np.sum(P * np.log(P / Q))), 4))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.020410997260127586
+0.2231
+0.0204
 ```
 
-**Tự kiểm tra:** KL divergence là gì? **Đáp án:** Đo sai khác một chiều giữa hai phân phối xác suất.
+Dòng đầu là cross-entropy của nhãn đúng; dòng sau là KL từ phân phối P sang Q. Hai số mang ý nghĩa khác nhau.
 
-## 5. Năm tình huống ứng dụng thực tế
+## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Đánh giá sai giá nhà
+### Tình huống 1 — Đánh giá sai số giá nhà bằng MSE
 
-**Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
+**Tình huống thực tế:** Hai căn nhà có giá thực tế `[100,200]` và dự báo `[110,170]`, tất cả cùng đơn vị triệu đồng. Cần đánh giá mô hình bằng mức phạt nhấn mạnh dự báo sai lớn.
 
-**Tình huống thực tế:** Hai giá nhà thật [100,200] và giá dự báo [110,170] cùng đơn vị tiền. Tính MSE để đo mức sai lệch.
+**Vì sao chọn cách giải này?** Bình phương lỗi khiến dự báo sai 30 triệu bị phạt mạnh hơn lỗi 10 triệu.
 
-**Vì sao chọn phương án?** MSE phạt dự đoán sai lớn hơn nhiều
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Tạo hai mảng giá thực tế và giá dự báo theo đúng thứ tự căn nhà.
+2. Trừ, bình phương từng sai lệch, lấy trung bình.
+3. In MSE; đơn vị là triệu đồng bình phương.
 
 ```python
 import numpy as np
-y=np.array([100,200])
-pred=np.array([110,170])
-print(np.mean((y-pred)**2))
+
+y_true = np.array([100, 200])
+y_pred = np.array([110, 170])
+print(np.mean((y_true - y_pred) ** 2))
 ```
 
 **Kết quả khi chạy:**
@@ -135,357 +157,361 @@ print(np.mean((y-pred)**2))
 500.0
 ```
 
+MSE bằng 500 (triệu đồng)², không phải sai số tiền trung bình 500 triệu.
 
-### Tình huống 2 — Đánh giá dự báo có outlier
+### Tình huống 2 — Đo lỗi trung bình dễ hiểu bằng MAE
 
-**Từ vựng trong mục:** **MAE** — sai số tuyệt đối trung bình.
+**Tình huống thực tế:** Ba kết quả thực tế `[10,20,30]` và dự báo `[9,19,50]` cùng đơn vị có một dự báo sai lớn ở vị trí cuối. Cần đo sai lệch trung bình theo đơn vị gốc.
 
-**Tình huống thực tế:** Ba giá trị thật [10,20,30] và dự báo [9,19,50]; giá cuối lệch lớn. Tính MAE.
+**Vì sao chọn cách giải này?** MAE đo trị tuyệt đối nên dễ diễn giải theo cùng đơn vị; không bình phương lỗi lớn.
 
-**Vì sao chọn phương án?** MAE giúp so mức sai số tuyệt đối dễ hiểu
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Tạo mảng thực tế và dự báo cùng thứ tự.
+2. Lấy trị tuyệt đối sai lệch theo từng quan sát rồi trung bình.
+3. In kết quả làm tròn ba chữ số.
 
 ```python
 import numpy as np
-print(np.mean(np.abs(np.array([10,20,30])-np.array([9,19,50]))))
+
+y_true = np.array([10, 20, 30])
+y_pred = np.array([9, 19, 50])
+print(round(float(np.mean(np.abs(y_true - y_pred))), 3))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-7.333333333333333
+7.333
 ```
 
+Độ lệch trung bình tuyệt đối khoảng 7.333 đơn vị gốc.
 
-### Tình huống 3 — Tính Huber cho lỗi đo
+### Tình huống 3 — Áp dụng Huber cho số đo nhiễu
 
-**Từ vựng trong mục:** **Cross-entropy** — entropy chéo.
+**Tình huống thực tế:** Ba sai số thiết bị là `[−1,2,5]` đơn vị đo. Dùng Huber với ngưỡng δ=1 để tăng phạt tuyến tính khi lỗi lớn.
 
-**Tình huống thực tế:** Thiết bị có ba sai số [-1,2,5] với ngưỡng Huber δ=1. Tính tổn thất trung bình.
+**Vì sao chọn cách giải này?** Huber dùng phần bình phương ở lỗi nhỏ và phần tuyến tính ở lỗi lớn, tránh khuếch đại lỗi 5 quá mạnh.
 
-**Vì sao chọn phương án?** Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Lưu ba sai số và ngưỡng δ=1.
+2. Dùng `np.where` tính hai nhánh của hàm Huber theo độ lớn lỗi.
+3. Lấy trung bình và in sau làm tròn.
 
 ```python
 import numpy as np
-e=np.array([-1.,2.,5.])
-delta=1.
-loss=np.where(np.abs(e)<=delta,.5*e**2,delta*(np.abs(e)-.5*delta))
-print(loss.mean())
+
+e = np.array([-1.0, 2.0, 5.0])
+delta = 1.0
+loss = np.where(
+    np.abs(e) <= delta,
+    0.5 * e ** 2,
+    delta * (np.abs(e) - 0.5 * delta),
+)
+print(round(float(loss.mean()), 3))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-2.1666666666666665
+2.167
 ```
 
+Loss Huber trung bình khoảng 2.167 cho ba sai số với δ=1.
 
-### Tình huống 4 — Phạt nhãn dự đoán sai
+### Tình huống 4 — Tính cross-entropy của nhãn đúng
 
-**Từ vựng trong mục:** **KL divergence** — độ lệch KL.
+**Tình huống thực tế:** Bộ phân loại đưa xác suất 0.8 cho nhãn đúng của một mẫu. Hãy tính mức phạt logarit cho dự báo này.
 
-**Tình huống thực tế:** Một bộ phân loại dự báo xác suất 0.8 cho nhãn đúng. Tính cross-entropy của nhãn đúng.
+**Vì sao chọn cách giải này?** Với nhãn one-hot, cross-entropy bằng âm log xác suất của nhãn đúng.
 
-**Vì sao chọn phương án?** Cross-entropy dùng xác suất của đúng nhãn
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Lưu xác suất nhãn đúng 0.8, giá trị nằm trong (0,1].
+2. Tính `-math.log(prob_true)`.
+3. Làm tròn bốn chữ số và in loss.
 
 ```python
 import math
-prob_true=.8
-print(-math.log(prob_true))
+
+prob_true = 0.8
+print(round(-math.log(prob_true), 4))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.2231435513142097
+0.2231
 ```
 
+Nếu mô hình tăng xác suất cho nhãn đúng về gần 1, loss giảm về gần 0.
 
-### Tình huống 5 — So phân phối dự báo
+### Tình huống 5 — So hai phân phối bằng KL divergence
 
-**Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
+**Tình huống thực tế:** Phân phối P là `[0.5,0.5]` và Q là `[0.6,0.4]` cho hai lớp; các tổng đều bằng 1. Cần đo P khác Q bao nhiêu theo chiều `D_KL(P||Q)`.
 
-**Tình huống thực tế:** Hai phân phối dự báo p=[0.5,0.5] và q=[0.6,0.4]. Tính độ lệch KL D(p||q).
+**Vì sao chọn cách giải này?** KL cân chênh lệch logarit theo xác suất P và phụ thuộc chiều so sánh, không phải khoảng cách đối xứng.
 
-**Vì sao chọn phương án?** KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Tạo hai phân phối dương, có tổng 1.
+2. Tính `P * log(P/Q)` ở từng lớp rồi cộng.
+3. In KL làm tròn bốn chữ số.
 
 ```python
 import numpy as np
-p=np.array([.5,.5])
-q=np.array([.6,.4])
-print(np.sum(p*np.log(p/q)))
+
+P = np.array([0.5, 0.5])
+Q = np.array([0.6, 0.4])
+print(round(float(np.sum(P * np.log(P / Q))), 4))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.020410997260127586
+0.0204
 ```
 
+KL dương và nhỏ vì hai phân phối khá gần nhau, nhưng không đồng nhất.
 
-## 6. Các lỗi dễ gặp
+## 6. Sai lầm thường gặp
 
-Hàm kích hoạt và loss không tự thay thế quy trình huấn luyện; đạo hàm theo một biến không giống gradient nhiều biến. Tránh tràn số mũ, log(0), chia cho 0; luôn để ý learning rate và đơn vị.
+- **MSE** có đơn vị đầu ra bình phương, **MAE** có đơn vị gốc; không đọc MSE như mức lệch tiền trung bình.
+- Huber cần ngưỡng δ phù hợp đơn vị sai số; ngưỡng này quyết định khi nào chuyển từ phạt bình phương sang tuyến tính.
+- Cross-entropy với nhãn đúng cần xác suất **của lớp đúng**, không phải điểm lớn nhất bất kỳ.
+- `log(0)` không xác định; phải xử lý xác suất bằng công thức ổn định hoặc clip phù hợp khi dùng NumPy đơn giản.
+- KL **bất đối xứng**, không phải khoảng cách Euclid và chỉ có nghĩa với các phân phối hợp lệ.
+- Loss huấn luyện thấp không thay thế việc đánh giá trên tập validation/test độc lập.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Chỉ hỏi kiến thức lý thuyết, so sánh loss và đọc công thức, không hỏi dữ liệu tình huống.**
 
+**Q1. What is MSE? — MSE là gì?**
 
-**Q1. What does MSE mean? — Thuật ngữ MSE có nghĩa gì?**
+A. Mean squared prediction error — Trung bình sai số dự báo bình phương
 
-A. It instead means Trung bình trị tuyệt đối sai số — Trung bình trị tuyệt đối sai số
+B. Mean absolute prediction error — Trung bình trị tuyệt đối sai số
 
-B. It means Trung bình bình phương hiệu dự đoán và giá trị thật — Trung bình bình phương hiệu dự đoán và giá trị thật
+C. Quadratic for small errors and linear for large — Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
-C. It instead means Phạt dự đoán xác suất sai nhãn mạnh hơn — Phạt dự đoán xác suất sai nhãn mạnh hơn
+D. Compare two probability distributions in a directed way — So hai phân phối xác suất có phân biệt chiều
 
-D. It instead means Đo sai khác một chiều giữa hai phân phối xác suất — Đo sai khác một chiều giữa hai phân phối xác suất
+**Q2. What is MAE? — MAE là gì?**
 
+A. Mean squared prediction error — Trung bình sai số dự báo bình phương
 
-**Q2. What does MAE mean? — Thuật ngữ MAE có nghĩa gì?**
+B. Mean absolute prediction error — Trung bình trị tuyệt đối sai số
 
-A. It means Trung bình trị tuyệt đối sai số — Trung bình trị tuyệt đối sai số
+C. Quadratic for small errors and linear for large — Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
-B. It instead means Phạt dự đoán xác suất sai nhãn mạnh hơn — Phạt dự đoán xác suất sai nhãn mạnh hơn
+D. Compare two probability distributions in a directed way — So hai phân phối xác suất có phân biệt chiều
 
-C. It instead means Đo sai khác một chiều giữa hai phân phối xác suất — Đo sai khác một chiều giữa hai phân phối xác suất
+**Q3. What characterizes Huber loss? — Đặc trưng của Huber loss là gì?**
 
-D. It instead means Trung bình bình phương hiệu dự đoán và giá trị thật — Trung bình bình phương hiệu dự đoán và giá trị thật
+A. Mean squared prediction error — Trung bình sai số dự báo bình phương
 
+B. Mean absolute prediction error — Trung bình trị tuyệt đối sai số
 
-**Q3. What does Cross-entropy mean? — Thuật ngữ Cross-entropy có nghĩa gì?**
+C. Quadratic for small errors and linear for large — Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
-A. It instead means Đo sai khác một chiều giữa hai phân phối xác suất — Đo sai khác một chiều giữa hai phân phối xác suất
+D. Compare two probability distributions in a directed way — So hai phân phối xác suất có phân biệt chiều
 
-B. It instead means Trung bình bình phương hiệu dự đoán và giá trị thật — Trung bình bình phương hiệu dự đoán và giá trị thật
+**Q4. What is KL divergence used for? — KL divergence dùng để làm gì?**
 
-C. It instead means Trung bình trị tuyệt đối sai số — Trung bình trị tuyệt đối sai số
+A. Mean squared prediction error — Trung bình sai số dự báo bình phương
 
-D. It means Phạt dự đoán xác suất sai nhãn mạnh hơn — Phạt dự đoán xác suất sai nhãn mạnh hơn
+B. Mean absolute prediction error — Trung bình trị tuyệt đối sai số
 
+C. Quadratic for small errors and linear for large — Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
-**Q4. What does KL divergence mean? — Thuật ngữ KL divergence có nghĩa gì?**
+D. Compare two probability distributions in a directed way — So hai phân phối xác suất có phân biệt chiều
 
-A. It instead means Trung bình bình phương hiệu dự đoán và giá trị thật — Trung bình bình phương hiệu dự đoán và giá trị thật
+**Q5. What does categorical cross-entropy penalize? — Categorical cross-entropy phạt điều gì?**
 
-B. It instead means Trung bình trị tuyệt đối sai số — Trung bình trị tuyệt đối sai số
+A. Low predicted probability for the correct label — Xác suất dự đoán thấp cho nhãn đúng
 
-C. It means Đo sai khác một chiều giữa hai phân phối xác suất — Đo sai khác một chiều giữa hai phân phối xác suất
+B. `mean((y-pred)**2)` — `mean((y-pred)**2)`
 
-D. It instead means Phạt dự đoán xác suất sai nhãn mạnh hơn — Phạt dự đoán xác suất sai nhãn mạnh hơn
+C. `mean(abs(y-pred))` — `mean(abs(y-pred))`
 
+D. `delta` — `delta`
 
-**Q5. What does np.mean((y-pred)**2) do? — Mục đích của np.mean((y-pred)**2) là gì?**
+**Q6. Which formula computes MSE? — Công thức nào tính MSE?**
 
-A. Another operation does MAE ít khuếch đại outlier hơn MSE — MAE ít khuếch đại outlier hơn MSE
+A. Low predicted probability for the correct label — Xác suất dự đoán thấp cho nhãn đúng
 
-B. It is used to MSE nhạy với sai số lớn do bình phương — MSE nhạy với sai số lớn do bình phương
+B. `mean((y-pred)**2)` — `mean((y-pred)**2)`
 
-C. Another operation does Huber phối hợp bình phương và tuyến tính — Huber phối hợp bình phương và tuyến tính
+C. `mean(abs(y-pred))` — `mean(abs(y-pred))`
 
-D. Another operation does Cross-entropy trên xác suất có clip để tránh log(0) — Cross-entropy trên xác suất có clip để tránh log(0)
+D. `delta` — `delta`
 
+**Q7. Which formula computes MAE? — Công thức nào tính MAE?**
 
-**Q6. What does np.mean(np.abs(y-pred)) do? — Mục đích của np.mean(np.abs(y-pred)) là gì?**
+A. Low predicted probability for the correct label — Xác suất dự đoán thấp cho nhãn đúng
 
-A. It is used to MAE ít khuếch đại outlier hơn MSE — MAE ít khuếch đại outlier hơn MSE
+B. `mean((y-pred)**2)` — `mean((y-pred)**2)`
 
-B. Another operation does Huber phối hợp bình phương và tuyến tính — Huber phối hợp bình phương và tuyến tính
+C. `mean(abs(y-pred))` — `mean(abs(y-pred))`
 
-C. Another operation does Cross-entropy trên xác suất có clip để tránh log(0) — Cross-entropy trên xác suất có clip để tránh log(0)
+D. `delta` — `delta`
 
-D. Another operation does MSE nhạy với sai số lớn do bình phương — MSE nhạy với sai số lớn do bình phương
+**Q8. Which parameter sets Huber's transition point? — Tham số nào đặt điểm chuyển Huber?**
 
+A. Low predicted probability for the correct label — Xác suất dự đoán thấp cho nhãn đúng
 
-**Q7. What does np.where(abs_err<=delta,... ) do? — Mục đích của np.where(abs_err<=delta,... ) là gì?**
+B. `mean((y-pred)**2)` — `mean((y-pred)**2)`
 
-A. Another operation does Cross-entropy trên xác suất có clip để tránh log(0) — Cross-entropy trên xác suất có clip để tránh log(0)
+C. `mean(abs(y-pred))` — `mean(abs(y-pred))`
 
-B. Another operation does MSE nhạy với sai số lớn do bình phương — MSE nhạy với sai số lớn do bình phương
+D. `delta` — `delta`
 
-C. Another operation does MAE ít khuếch đại outlier hơn MSE — MAE ít khuếch đại outlier hơn MSE
+**Q9. What does `−log(p_true)` represent for one correct class? — `−log(p_true)` biểu thị gì cho một nhãn đúng?**
 
-D. It is used to Huber phối hợp bình phương và tuyến tính — Huber phối hợp bình phương và tuyến tính
+A. Cross-entropy loss for that sample — Cross-entropy của mẫu đó
 
+B. Nonnegative — Không âm
 
-**Q8. What does -np.sum(y*np.log(probs)) do? — Mục đích của -np.sum(y*np.log(probs)) là gì?**
+C. No, KL is asymmetric — Không, KL bất đối xứng
 
-A. Another operation does MSE nhạy với sai số lớn do bình phương — MSE nhạy với sai số lớn do bình phương
+D. The distributions are identical — Hai phân phối giống nhau
 
-B. Another operation does MAE ít khuếch đại outlier hơn MSE — MAE ít khuếch đại outlier hơn MSE
+**Q10. What is the sign of KL divergence for valid distributions? — KL divergence có dấu gì với phân phối hợp lệ?**
 
-C. It is used to Cross-entropy trên xác suất có clip để tránh log(0) — Cross-entropy trên xác suất có clip để tránh log(0)
+A. Cross-entropy loss for that sample — Cross-entropy của mẫu đó
 
-D. Another operation does Huber phối hợp bình phương và tuyến tính — Huber phối hợp bình phương và tuyến tính
+B. Nonnegative — Không âm
 
+C. No, KL is asymmetric — Không, KL bất đối xứng
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn cách giải ở tình huống 1?**
+D. The distributions are identical — Hai phân phối giống nhau
 
-A. MAE giúp so mức sai số tuyệt đối dễ hiểu — MAE giúp so mức sai số tuyệt đối dễ hiểu
+**Q11. Does swapping P and Q generally preserve KL? — Đổi chỗ P và Q có giữ nguyên KL không?**
 
-B. MSE phạt dự đoán sai lớn hơn nhiều — MSE phạt dự đoán sai lớn hơn nhiều
+A. Cross-entropy loss for that sample — Cross-entropy của mẫu đó
 
-C. Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính — Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính
+B. Nonnegative — Không âm
 
-D. Cross-entropy dùng xác suất của đúng nhãn — Cross-entropy dùng xác suất của đúng nhãn
+C. No, KL is asymmetric — Không, KL bất đối xứng
 
+D. The distributions are identical — Hai phân phối giống nhau
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn cách giải ở tình huống 2?**
+**Q12. What does a zero KL divergence mean for valid finite distributions? — KL bằng 0 nghĩa là gì với các phân phối hữu hạn hợp lệ?**
 
-A. MAE giúp so mức sai số tuyệt đối dễ hiểu — MAE giúp so mức sai số tuyệt đối dễ hiểu
+A. Cross-entropy loss for that sample — Cross-entropy của mẫu đó
 
-B. Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính — Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính
+B. Nonnegative — Không âm
 
-C. Cross-entropy dùng xác suất của đúng nhãn — Cross-entropy dùng xác suất của đúng nhãn
+C. No, KL is asymmetric — Không, KL bất đối xứng
 
-D. KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng — KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng
+D. The distributions are identical — Hai phân phối giống nhau
 
+**Q13. What is the unit of MSE when predictions are in meters? — Dự báo theo mét thì MSE có đơn vị gì?**
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn cách giải ở tình huống 3?**
+A. Square meters — Mét bình phương
 
-A. Cross-entropy dùng xác suất của đúng nhãn — Cross-entropy dùng xác suất của đúng nhãn
+B. Meters — Mét
 
-B. KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng — KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng
+C. MSE — MSE
 
-C. MSE phạt dự đoán sai lớn hơn nhiều — MSE phạt dự đoán sai lớn hơn nhiều
+D. Huber loss — Huber loss
 
-D. Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính — Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính
+**Q14. What is the unit of MAE when predictions are in meters? — Dự báo theo mét thì MAE có đơn vị gì?**
 
+A. Square meters — Mét bình phương
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn cách giải ở tình huống 4?**
+B. Meters — Mét
 
-A. KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng — KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng
+C. MSE — MSE
 
-B. MSE phạt dự đoán sai lớn hơn nhiều — MSE phạt dự đoán sai lớn hơn nhiều
+D. Huber loss — Huber loss
 
-C. Cross-entropy dùng xác suất của đúng nhãn — Cross-entropy dùng xác suất của đúng nhãn
+**Q15. Which loss increases quadratically with error magnitude? — Loss nào tăng theo bình phương độ lớn lỗi?**
 
-D. MAE giúp so mức sai số tuyệt đối dễ hiểu — MAE giúp so mức sai số tuyệt đối dễ hiểu
+A. Square meters — Mét bình phương
 
+B. Meters — Mét
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn cách giải ở tình huống 5?**
+C. MSE — MSE
 
-A. MSE phạt dự đoán sai lớn hơn nhiều — MSE phạt dự đoán sai lớn hơn nhiều
+D. Huber loss — Huber loss
 
-B. KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng — KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng
+**Q16. Which regression loss has a threshold between quadratic and linear penalties? — Loss hồi quy nào có ngưỡng chuyển bình phương sang tuyến tính?**
 
-C. MAE giúp so mức sai số tuyệt đối dễ hiểu — MAE giúp so mức sai số tuyệt đối dễ hiểu
+A. Square meters — Mét bình phương
 
-D. Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính — Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính
+B. Meters — Mét
 
+C. MSE — MSE
 
-**Q14. Which input belongs to scenario 1? — Tình huống 1 sử dụng dữ liệu gì?**
+D. Huber loss — Huber loss
 
-A. The input is Giá thật [100,200], dự đoán [110,170], triệu đồng — Giá thật [100,200], dự đoán [110,170], triệu đồng
+**Q17. Why clip predicted probabilities before a naive log implementation? — Vì sao clip xác suất trước khi lấy log bằng công thức đơn giản?**
 
-B. Another input is Doanh thu [10,20,30], dự đoán [9,19,50] — Doanh thu [10,20,30], dự đoán [9,19,50]
+A. To avoid log(0) and numerical infinities — Để tránh log(0) và vô cực số học
 
-C. Another input is Sai số [-1,2,5], delta=1 — Sai số [-1,2,5], delta=1
+B. MAE — MAE
 
-D. Another input is Xác suất đúng nhãn 0.8 — Xác suất đúng nhãn 0.8
+C. No, evaluate on held-out data — Không, cần đánh giá trên dữ liệu độc lập
 
+D. Predicted probability assigned to the true class — Xác suất dự báo dành cho lớp đúng
 
-**Q15. Which input belongs to scenario 2? — Tình huống 2 sử dụng dữ liệu gì?**
+**Q18. Which loss is easier to interpret in the original output units? — Loss nào dễ đọc theo đơn vị đầu ra ban đầu?**
 
-A. Another input is Sai số [-1,2,5], delta=1 — Sai số [-1,2,5], delta=1
+A. To avoid log(0) and numerical infinities — Để tránh log(0) và vô cực số học
 
-B. Another input is Xác suất đúng nhãn 0.8 — Xác suất đúng nhãn 0.8
+B. MAE — MAE
 
-C. Another input is p=[.5,.5], q=[.6,.4] — p=[.5,.5], q=[.6,.4]
+C. No, evaluate on held-out data — Không, cần đánh giá trên dữ liệu độc lập
 
-D. The input is Doanh thu [10,20,30], dự đoán [9,19,50] — Doanh thu [10,20,30], dự đoán [9,19,50]
+D. Predicted probability assigned to the true class — Xác suất dự báo dành cho lớp đúng
 
+**Q19. Does a lower training loss guarantee better unseen-data performance? — Training loss thấp có bảo đảm dự đoán tốt trên dữ liệu mới?**
 
-**Q16. Which input belongs to scenario 3? — Tình huống 3 sử dụng dữ liệu gì?**
+A. To avoid log(0) and numerical infinities — Để tránh log(0) và vô cực số học
 
-A. Another input is Xác suất đúng nhãn 0.8 — Xác suất đúng nhãn 0.8
+B. MAE — MAE
 
-B. Another input is p=[.5,.5], q=[.6,.4] — p=[.5,.5], q=[.6,.4]
+C. No, evaluate on held-out data — Không, cần đánh giá trên dữ liệu độc lập
 
-C. The input is Sai số [-1,2,5], delta=1 — Sai số [-1,2,5], delta=1
+D. Predicted probability assigned to the true class — Xác suất dự báo dành cho lớp đúng
 
-D. Another input is Giá thật [100,200], dự đoán [110,170], triệu đồng — Giá thật [100,200], dự đoán [110,170], triệu đồng
+**Q20. For one-hot labels, what information matters in cross-entropy? — Với nhãn one-hot, điều gì quyết định cross-entropy?**
 
+A. To avoid log(0) and numerical infinities — Để tránh log(0) và vô cực số học
 
-**Q17. Which input belongs to scenario 4? — Tình huống 4 sử dụng dữ liệu gì?**
+B. MAE — MAE
 
-A. Another input is p=[.5,.5], q=[.6,.4] — p=[.5,.5], q=[.6,.4]
+C. No, evaluate on held-out data — Không, cần đánh giá trên dữ liệu độc lập
 
-B. The input is Xác suất đúng nhãn 0.8 — Xác suất đúng nhãn 0.8
-
-C. Another input is Giá thật [100,200], dự đoán [110,170], triệu đồng — Giá thật [100,200], dự đoán [110,170], triệu đồng
-
-D. Another input is Doanh thu [10,20,30], dự đoán [9,19,50] — Doanh thu [10,20,30], dự đoán [9,19,50]
-
-
-**Q18. Which input belongs to scenario 5? — Tình huống 5 sử dụng dữ liệu gì?**
-
-A. The input is p=[.5,.5], q=[.6,.4] — p=[.5,.5], q=[.6,.4]
-
-B. Another input is Giá thật [100,200], dự đoán [110,170], triệu đồng — Giá thật [100,200], dự đoán [110,170], triệu đồng
-
-C. Another input is Doanh thu [10,20,30], dự đoán [9,19,50] — Doanh thu [10,20,30], dự đoán [9,19,50]
-
-D. Another input is Sai số [-1,2,5], delta=1 — Sai số [-1,2,5], delta=1
-
-
-**Q19. What must be known before computing? — Trước khi tính phải biết gì?**
-
-A. Only editor color — Chỉ màu giao diện
-
-B. Only filename — Chỉ tên file
-
-C. Only number of comments — Chỉ số lượng comment
-
-D. Input meaning and units — Ý nghĩa và đơn vị đầu vào
-
-
-**Q20. What makes a calculation trustworthy? — Điều gì giúp phép tính đáng tin?**
-
-A. Assume models never fail — Cho rằng mô hình không bao giờ sai
-
-B. Delete validation — Xóa bước xác minh
-
-C. Verify results and edge cases — Kiểm tra kết quả và trường hợp biên
-
-D. Guess data units — Đoán đơn vị dữ liệu
+D. Predicted probability assigned to the true class — Xác suất dự báo dành cho lớp đúng
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It means Trung bình bình phương hiệu dự đoán và giá trị thật | Trung bình bình phương hiệu dự đoán và giá trị thật |
-| Q2 | **A** | It means Trung bình trị tuyệt đối sai số | Trung bình trị tuyệt đối sai số |
-| Q3 | **D** | It means Phạt dự đoán xác suất sai nhãn mạnh hơn | Phạt dự đoán xác suất sai nhãn mạnh hơn |
-| Q4 | **C** | It means Đo sai khác một chiều giữa hai phân phối xác suất | Đo sai khác một chiều giữa hai phân phối xác suất |
-| Q5 | **B** | It is used to MSE nhạy với sai số lớn do bình phương | MSE nhạy với sai số lớn do bình phương |
-| Q6 | **A** | It is used to MAE ít khuếch đại outlier hơn MSE | MAE ít khuếch đại outlier hơn MSE |
-| Q7 | **D** | It is used to Huber phối hợp bình phương và tuyến tính | Huber phối hợp bình phương và tuyến tính |
-| Q8 | **C** | It is used to Cross-entropy trên xác suất có clip để tránh log(0) | Cross-entropy trên xác suất có clip để tránh log(0) |
-| Q9 | **B** | MSE phạt dự đoán sai lớn hơn nhiều | MSE phạt dự đoán sai lớn hơn nhiều |
-| Q10 | **A** | MAE giúp so mức sai số tuyệt đối dễ hiểu | MAE giúp so mức sai số tuyệt đối dễ hiểu |
-| Q11 | **D** | Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính | Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính |
-| Q12 | **C** | Cross-entropy dùng xác suất của đúng nhãn | Cross-entropy dùng xác suất của đúng nhãn |
-| Q13 | **B** | KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng | KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng |
-| Q14 | **A** | The input is Giá thật [100,200], dự đoán [110,170], triệu đồng | Giá thật [100,200], dự đoán [110,170], triệu đồng |
-| Q15 | **D** | The input is Doanh thu [10,20,30], dự đoán [9,19,50] | Doanh thu [10,20,30], dự đoán [9,19,50] |
-| Q16 | **C** | The input is Sai số [-1,2,5], delta=1 | Sai số [-1,2,5], delta=1 |
-| Q17 | **B** | The input is Xác suất đúng nhãn 0.8 | Xác suất đúng nhãn 0.8 |
-| Q18 | **A** | The input is p=[.5,.5], q=[.6,.4] | p=[.5,.5], q=[.6,.4] |
-| Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị đầu vào |
-| Q20 | **C** | Verify results and edge cases | Kiểm tra kết quả và trường hợp biên |
+| Q1 | **A** | MSE averages squared deviations. | MSE lấy trung bình bình phương sai lệch. |
+| Q2 | **B** | MAE averages absolute deviations. | MAE lấy trung bình độ lệch tuyệt đối. |
+| Q3 | **C** | Huber changes penalty growth past a threshold. | Huber đổi tốc độ tăng mức phạt sau một ngưỡng. |
+| Q4 | **D** | KL uses a directed log-ratio between distributions. | KL dùng tỷ số logarit theo một chiều giữa các phân phối. |
+| Q5 | **A** | The true class should receive high probability. | Lớp đúng cần được gán xác suất cao. |
+| Q6 | **B** | Square each residual before averaging. | Bình phương từng sai lệch trước khi trung bình. |
+| Q7 | **C** | Take absolute values of residuals before averaging. | Lấy trị tuyệt đối từng sai lệch rồi trung bình. |
+| Q8 | **D** | Delta separates the two Huber regions. | Delta phân chia hai miền của Huber. |
+| Q9 | **A** | With one-hot labels, only the true-class log term remains. | Với one-hot, chỉ còn hạng log của lớp đúng. |
+| Q10 | **B** | KL is nonnegative by Gibbs' inequality. | KL không âm theo bất đẳng thức Gibbs. |
+| Q11 | **C** | D(P‖Q) and D(Q‖P) can differ. | D(P‖Q) và D(Q‖P) có thể khác. |
+| Q12 | **D** | KL is zero only when distributions agree appropriately. | KL bằng 0 khi các phân phối trùng nhau trong điều kiện phù hợp. |
+| Q13 | **A** | Squaring a meter-valued residual yields m². | Bình phương sai lệch mét cho đơn vị m². |
+| Q14 | **B** | Absolute errors keep the original unit. | Sai lệch tuyệt đối giữ đơn vị gốc. |
+| Q15 | **C** | MSE squares error magnitudes. | MSE bình phương độ lớn lỗi. |
+| Q16 | **D** | Huber transitions at delta. | Huber chuyển miền tại delta. |
+| Q17 | **A** | Zero probabilities cause log singularities in naive formulas. | Xác suất 0 gây kỳ dị log trong công thức số học đơn giản. |
+| Q18 | **B** | MAE reports average error in the same measurement unit. | MAE báo sai số trung bình cùng đơn vị đo. |
+| Q19 | **C** | Generalization requires held-out validation. | Khả năng tổng quát cần kiểm chứng bằng dữ liệu độc lập. |
+| Q20 | **D** | The negative log-likelihood uses the true-class score. | Âm log-likelihood dùng xác suất lớp đúng. |
 
 ## 8. Bài tiếp theo
 
