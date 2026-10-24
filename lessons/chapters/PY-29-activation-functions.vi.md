@@ -116,12 +116,12 @@ print(e/e.sum())
 
 **Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần kích hoạt tín hiệu nhiễu âm để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 4 tín hiệu giả lập [-2,0,3,5]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Mạng nơ-ron nhận tín hiệu [-2,0,3,5]. Dùng ReLU bỏ tín hiệu âm nhưng giữ phần dương.
 
 **Vì sao chọn phương án?** ReLU chặn giá trị âm khi đó là chính sách kích hoạt
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -140,12 +140,12 @@ print(np.maximum(0,x))
 
 **Từ vựng trong mục:** **Sigmoid** — hàm sigmoid.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần đổi điểm thô sang tỷ lệ để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Điểm số [-1,0,1]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Ba điểm số [-1,0,1] cần được ánh xạ về khoảng (0,1) bằng sigmoid.
 
 **Vì sao chọn phương án?** Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -164,12 +164,12 @@ print(1/(1+np.exp(-x)))
 
 **Từ vựng trong mục:** **Tanh** — hàm tanh.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần kích hoạt đối xứng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Tín hiệu [-1,0,1]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Ba tín hiệu [-1,0,1] cần hàm tanh để giữ âm, không và dương.
 
 **Vì sao chọn phương án?** tanh cho dấu âm/dương quanh 0
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -187,12 +187,12 @@ print(np.tanh([-1,0,1]))
 
 **Từ vựng trong mục:** **Softmax** — hàm softmax.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần chuẩn hóa điểm phân loại để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Ba logit [2,1,0.1]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Bộ phân loại cho ba lớp điểm [2,1,0.1]. Dùng softmax tính điểm chuẩn hóa tổng bằng 1.
 
 **Vì sao chọn phương án?** Softmax tạo tổng xác suất bằng 1 từ logits
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -213,12 +213,12 @@ print(p,p.sum())
 
 **Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần so mô hình tuyến tính và relu để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Dữ liệu x từ -2 tới 2. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Một mô hình ghép hai ReLU trên x từ -2 đến 2 để tạo đáp ứng đối xứng theo độ lớn ngoài khoảng [-1,1].
 
 **Vì sao chọn phương án?** Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
