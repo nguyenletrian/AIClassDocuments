@@ -29,106 +29,166 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 | `LogisticRegression(max_iter=1000)` | Mô hình phân loại có giám sát |
 | `KMeans(n_clusters=2,random_state=42,n_init=10)` | Phân nhóm không giám sát, số nhóm là giả định |
 
-## 4. Khái niệm với ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Train set
+**Mạch kiến thức:** Để đánh giá mô hình đáng tin, trước hết chia dữ liệu thành train và test. Classification học cách đoán nhãn từ ví dụ đã có nhãn; clustering nhóm các điểm tương tự khi chưa có nhãn. Một test độc lập giúp tránh tự đánh giá trên dữ liệu đã học.
 
-**Từ vựng trong mục:** **Train set** — tập huấn luyện.
+### 4.1. Train set — Tập để học tham số
 
-Mẫu dùng để học tham số mô hình. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+**Từ vựng:** **Train set**.
 
-```python
-train={1,2,3};print(train)
-```
-
-**Tự kiểm tra:** Train set là gì? **Đáp án:** Mẫu dùng để học tham số mô hình.
-
-### 4.2. Test set
-
-**Từ vựng trong mục:** **Test set** — tập kiểm tra.
-
-Mẫu giữ lại chỉ để đánh giá mô hình. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
-
-```python
-test={4};print(test)
-```
-
-**Tự kiểm tra:** Test set là gì? **Đáp án:** Mẫu giữ lại chỉ để đánh giá mô hình.
-
-### 4.3. Classification
-
-**Từ vựng trong mục:** **Classification** — phân loại.
-
-Dự đoán nhãn rời rạc từ feature. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+Dữ liệu train chứa các hàng quan sát dùng để mô hình **học** tham số. Trong bảng Iris, mỗi hàng là một hoa, bốn cột là kích thước tính bằng cm và nhãn là loài. Nếu lấy 112 hoa để train thì các đặc trưng của chúng được đưa vào `fit`; không đưa test vào học scaler hoặc chỉnh siêu tham số.
 
 ```python
 from sklearn.datasets import load_iris
-print(load_iris().target[:3])
+
+data = load_iris()
+print(data.data.shape, data.target.shape)
 ```
 
-**Tự kiểm tra:** Classification là gì? **Đáp án:** Dự đoán nhãn rời rạc từ feature.
+**Kết quả khi chạy:**
 
-### 4.4. Clustering
+```text
+(150, 4) (150,)
+```
 
-**Từ vựng trong mục:** **Clustering** — phân cụm.
+150 hàng hoa, bốn cột đặc trưng và một nhãn cho mỗi hàng.
 
-Thử nhóm mẫu giống nhau mà không cần nhãn sẵn. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
+### 4.2. Test set — Tập chỉ dùng để đánh giá cuối
+
+**Từ vựng:** **Test set**.
+
+Test set là các mẫu giữ lại, không dùng để fit hay chọn cách xử lý. Một cách kiểm tra tối thiểu là **ID train không trùng ID test**. Điều đó chưa đủ loại rò rỉ qua các mẫu liên quan, đặc trưng sinh từ tương lai, hoặc bản ghi trùng nội dung nhưng khác ID.
 
 ```python
+train_ids = {1, 2, 3}
+test_ids = {4, 5}
+print(train_ids.isdisjoint(test_ids))
+```
+
+**Kết quả khi chạy:**
+
+```text
+True
+```
+
+Không có ID xuất hiện ở cả train và test; vẫn cần kiểm tra rò rỉ gián tiếp.
+
+### 4.3. Classification — Dự đoán nhãn đã biết
+
+**Từ vựng:** **Classification**.
+
+Classification là học có giám sát: từ **X là các đặc trưng**, mô hình dự đoán **y là nhãn**. Iris có ba nhãn loài là 0,1,2. Một classifier học từ những hàng đã có nhãn rồi dự đoán loài của hoa mới; khác regression dự đoán giá trị liên tục và không thể thay độ chính xác bằng khoảng cách giữa nhãn số.
+
+```python
+from sklearn.datasets import load_iris
+
+data = load_iris()
+print(sorted(set(data.target.tolist())))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0, 1, 2]
+```
+
+Ba số là mã phân loại ba loài, không phải các đại lượng đo theo cm.
+
+### 4.4. Clustering — Nhóm mẫu khi chưa có nhãn
+
+**Từ vựng:** **Clustering**.
+
+Clustering là học không giám sát: tìm các nhóm điểm gần nhau trong không gian đặc trưng, **không dùng nhãn thật để huấn luyện**. Ví dụ hai cụm điểm quanh `[0,0]` và `[10,10]`; KMeans tìm hai tâm nhóm. Mã cụm `0`/`1` chỉ là định danh tùy cách khởi tạo, không đồng nghĩa nhãn lớp 0/1 của bài phân loại.
+
+```python
+import numpy as np
 from sklearn.cluster import KMeans
-print(KMeans(n_clusters=2,random_state=1,n_init=10))
+
+X = np.array([[0, 0], [0, 1], [10, 10], [10, 11]])
+labels = KMeans(n_clusters=2, random_state=42, n_init=10).fit_predict(X)
+print(len(set(labels.tolist())))
 ```
 
-**Tự kiểm tra:** Clustering là gì? **Đáp án:** Thử nhóm mẫu giống nhau mà không cần nhãn sẵn.
+**Kết quả khi chạy:**
 
-## 5. Năm tình huống thực tế
+```text
+2
+```
 
-### Tình huống 1 — Kiểm hai tập dữ liệu rời nhau
+KMeans tìm được hai cụm; mã số gắn cho từng cụm có thể đổi.
 
-**Từ vựng trong mục:** **Train set** — tập huấn luyện.
+## 5. Năm tình huống ứng dụng
 
-**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần kiểm hai tập dữ liệu rời nhau cho công việc của mình. Dữ liệu đầu vào: train={1,2,3}, test={4,5}. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 1 — Kiểm tra ID train/test
 
-**Vì sao chọn cách này?** Kiểm ID train và test không trùng; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Tình huống thực tế:** Một nhóm thử mô hình với train `{1,2,3}` và test `{4,5}` (mỗi số là ID hồ sơ). Cần xác nhận không có ID nào xuất hiện trong cả hai tập.
 
+**Vì sao chọn cách giải này?** Dùng `isdisjoint` cho đúng câu hỏi về phần tử trùng nhau; không phải đo độ chính xác.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**Quy trình giải:**
+
+1. Tạo hai Set ID train và test.
+2. Kiểm tra phần giao có rỗng.
+3. In Boolean và nêu rằng đây chỉ là một bước chống rò rỉ.
 
 ```python
-train={1,2,3};test={4,5}
+train = {1, 2, 3}
+test = {4, 5}
 print(train.isdisjoint(test))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 2 — Chia Iris có phân tầng
+```text
+True
+```
 
-**Từ vựng trong mục:** **Test set** — tập kiểm tra.
+Hai tập không trùng ID, chưa chứng minh mọi dữ liệu đều độc lập.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần chia iris có phân tầng cho công việc của mình. Dữ liệu đầu vào: 150 hoa, 4 cột số đo cm và 1 nhãn loài. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 2 — Phân chia Iris có phân tầng
 
-**Vì sao chọn cách này?** stratify giúp tỷ lệ các loài tương tự nhau; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Tình huống thực tế:** Tập Iris có 150 hoa, bốn số đo cm/hoa và ba loài với 50 hoa mỗi loài. Cần dành 25% làm test nhưng duy trì tỷ lệ loài gần tương đương.
 
+**Vì sao chọn cách giải này?** `stratify=y` chia theo nhãn, giúp test không tình cờ thiếu lớp trong bộ mẫu này.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**Quy trình giải:**
+
+1. Nạp bảng 150×4 và nhãn 150 giá trị.
+2. Dùng `train_test_split` với test_size=0.25, stratify và seed 42.
+3. In shape train/test.
 
 ```python
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
-D=load_iris();Xtr,Xte,ytr,yte=train_test_split(D.data,D.target,test_size=.25,stratify=D.target,random_state=42)
-print(Xtr.shape,Xte.shape)
+
+data = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    data.data, data.target, test_size=0.25,
+    stratify=data.target, random_state=42,
+)
+print(X_train.shape, X_test.shape)
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 3 — Phân loại trong pipeline
+```text
+(112, 4) (38, 4)
+```
 
-**Từ vựng trong mục:** **Classification** — phân loại.
+112 hoa dùng train, 38 hoa giữ test; mỗi hàng vẫn có bốn đặc trưng.
 
-**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần phân loại trong pipeline cho công việc của mình. Dữ liệu đầu vào: Iris: số đo đài hoa/cánh hoa cm. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 3 — Fit scaler và mô hình trên train
 
-**Vì sao chọn cách này?** Scaler và mô hình chỉ fit trên train, không rò rỉ test; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Tình huống thực tế:** Nhóm học máy dùng bốn kích thước của Iris để đoán một trong ba loài. Cần chuẩn hóa số đo mà không dùng trung bình/độ lệch chuẩn của test trong lúc fit.
 
+**Vì sao chọn cách giải này?** Pipeline tự fit scaler và Logistic Regression trên train, rồi áp cùng biến đổi lên test.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**Quy trình giải:**
+
+1. Chia Iris trước khi fit bất kỳ phép chuẩn hóa nào.
+2. Tạo pipeline StandardScaler → LogisticRegression và fit train.
+3. In số mẫu dự đoán trên test.
 
 ```python
 from sklearn.datasets import load_iris
@@ -136,303 +196,316 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
-D=load_iris();a,b,c,d=train_test_split(D.data,D.target,test_size=.25,stratify=D.target,random_state=42)
-model=make_pipeline(StandardScaler(),LogisticRegression(max_iter=1000));model.fit(a,c)
-print(model.score(b,d))
+
+data = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    data.data, data.target, test_size=0.25,
+    stratify=data.target, random_state=42,
+)
+model = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000))
+model.fit(X_train, y_train)
+print(len(model.predict(X_test)))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 4 — Gom nhóm điểm 2D
+```text
+38
+```
 
-**Từ vựng trong mục:** **Clustering** — phân cụm.
+Model trả một dự đoán nhãn cho mỗi hoa trong 38 hoa test.
 
-**Tình huống thực tế:** Một trung tâm đào tạo cần gom nhóm điểm 2d cho công việc của mình. Dữ liệu đầu vào: 4 điểm [0,0], [0,1], [10,10], [10,11]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 4 — Nhóm bốn tọa độ 2D
 
-**Vì sao chọn cách này?** KMeans chỉ thử nhóm chứ không biết nhãn thật; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Tình huống thực tế:** Bốn điểm trong mặt phẳng, hai điểm quanh `[0,0]`, hai điểm quanh `[10,10]`, chưa có nhãn. Cần phát hiện số cụm khi yêu cầu trước `k=2`.
 
+**Vì sao chọn cách giải này?** KMeans phân nhóm từ khoảng cách giữa các đặc trưng, không dùng y thật.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**Quy trình giải:**
+
+1. Tạo ma trận X shape (4,2), mỗi hàng là một điểm (x,y) cùng đơn vị.
+2. Fit KMeans với k=2, seed cố định.
+3. Đếm số mã cụm khác nhau, tránh phụ thuộc hoán đổi mã cụm.
 
 ```python
 import numpy as np
 from sklearn.cluster import KMeans
-X=np.array([[0,0],[0,1],[10,10],[10,11]])
-print(KMeans(n_clusters=2,random_state=42,n_init=10).fit_predict(X))
+
+X = np.array([[0, 0], [0, 1], [10, 10], [10, 11]])
+cluster_ids = KMeans(n_clusters=2, n_init=10, random_state=42).fit_predict(X)
+print(len(set(cluster_ids.tolist())))
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 5 — So clustering với classification
+```text
+2
+```
 
-**Từ vựng trong mục:** **Train set** — tập huấn luyện.
+Bốn điểm được chia thành hai nhóm, không tự biết nhóm nào là nhãn thật.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so clustering với classification cho công việc của mình. Dữ liệu đầu vào: Iris data với target và đặc trưng riêng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 5 — So classification và clustering
 
-**Vì sao chọn cách này?** Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
+**Tình huống thực tế:** Dữ liệu Iris có bốn đặc trưng số (cm) và nhãn loài. Nhóm thực hành cần xác định thông tin đầu vào nào được phép dùng ở mô hình có giám sát và không giám sát.
 
+**Vì sao chọn cách giải này?** Kiểm tra shape của X và y làm rõ classifier dùng cả nhãn lúc fit, trong khi clustering fit từ X.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
+**Quy trình giải:**
+
+1. Nạp Iris, lấy X chứa kích thước hoa và y chứa nhãn.
+2. In shape X và y.
+3. Phân biệt dùng `(X,y)` để train classification với dùng `X` cho clustering.
 
 ```python
 from sklearn.datasets import load_iris
-D=load_iris()
-print(D.data.shape,D.target.shape)
-print(set(D.target.tolist()))
+
+data = load_iris()
+print(data.data.shape, data.target.shape)
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Nhầm lẫn thường gặp
+```text
+(150, 4) (150,)
+```
 
-- Không nhầm thống kê/tỷ lệ mô phỏng với xác suất dự đoán chắc chắn.
-- Kiểm tra giả định, cỡ mẫu, đơn vị, độ nhạy kết quả và data leakage trước khi ứng dụng AI thật.
+Mỗi hoa có bốn đặc trưng và một nhãn; KMeans không sử dụng nhãn để fit.
+
+## 6. Sai lầm thường gặp
+
+- Dữ liệu test không được dùng để fit scaler hoặc chọn siêu tham số; cần tách trước khi tiền xử lý học tham số.
+- ID không trùng vẫn có thể rò rỉ qua bản ghi liên quan hoặc giá trị tương lai.
+- Classification học từ nhãn y; clustering nhóm X không có nhãn. Không gọi mã cụm là nhãn lớp thật.
+- `stratify=y` giúp giữ tỷ lệ lớp nhưng không chứng minh tập test đại diện toàn bộ dân số.
+- Accuracy test khác loss train và không phản ánh đầy đủ hiệu quả trên dữ liệu mất cân bằng.
+- `scikit-learn` là thư viện ngoài; phiên bản khác nhau có thể thay đổi kết quả học tối ưu.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Q1. What is a train set? — Train set là gì?**
 
+A. Data used for fitting model parameters — Dữ liệu để fit tham số mô hình
 
-**Q1. What is Train set? — Khái niệm Train set là gì?**
+B. Held-out data for final evaluation — Dữ liệu giữ lại để đánh giá cuối
 
-A. Another concept is Mẫu giữ lại chỉ để đánh giá mô hình — Mẫu giữ lại chỉ để đánh giá mô hình
+C. Supervised prediction of discrete labels — Dự đoán nhãn rời rạc có giám sát
 
-B. It is Mẫu dùng để học tham số mô hình — Mẫu dùng để học tham số mô hình
+D. Grouping unlabeled observations by similarity — Nhóm quan sát chưa có nhãn theo độ tương đồng
 
-C. Another concept is Dự đoán nhãn rời rạc từ feature — Dự đoán nhãn rời rạc từ feature
+**Q2. What is a test set? — Test set là gì?**
 
-D. Another concept is Thử nhóm mẫu giống nhau mà không cần nhãn sẵn — Thử nhóm mẫu giống nhau mà không cần nhãn sẵn
+A. Data used for fitting model parameters — Dữ liệu để fit tham số mô hình
 
+B. Held-out data for final evaluation — Dữ liệu giữ lại để đánh giá cuối
 
-**Q2. What is Test set? — Khái niệm Test set là gì?**
+C. Supervised prediction of discrete labels — Dự đoán nhãn rời rạc có giám sát
 
-A. It is Mẫu giữ lại chỉ để đánh giá mô hình — Mẫu giữ lại chỉ để đánh giá mô hình
+D. Grouping unlabeled observations by similarity — Nhóm quan sát chưa có nhãn theo độ tương đồng
 
-B. Another concept is Dự đoán nhãn rời rạc từ feature — Dự đoán nhãn rời rạc từ feature
+**Q3. What is classification? — Classification là gì?**
 
-C. Another concept is Thử nhóm mẫu giống nhau mà không cần nhãn sẵn — Thử nhóm mẫu giống nhau mà không cần nhãn sẵn
+A. Data used for fitting model parameters — Dữ liệu để fit tham số mô hình
 
-D. Another concept is Mẫu dùng để học tham số mô hình — Mẫu dùng để học tham số mô hình
+B. Held-out data for final evaluation — Dữ liệu giữ lại để đánh giá cuối
 
+C. Supervised prediction of discrete labels — Dự đoán nhãn rời rạc có giám sát
 
-**Q3. What is Classification? — Khái niệm Classification là gì?**
+D. Grouping unlabeled observations by similarity — Nhóm quan sát chưa có nhãn theo độ tương đồng
 
-A. Another concept is Thử nhóm mẫu giống nhau mà không cần nhãn sẵn — Thử nhóm mẫu giống nhau mà không cần nhãn sẵn
+**Q4. What is clustering? — Clustering là gì?**
 
-B. Another concept is Mẫu dùng để học tham số mô hình — Mẫu dùng để học tham số mô hình
+A. Data used for fitting model parameters — Dữ liệu để fit tham số mô hình
 
-C. Another concept is Mẫu giữ lại chỉ để đánh giá mô hình — Mẫu giữ lại chỉ để đánh giá mô hình
+B. Held-out data for final evaluation — Dữ liệu giữ lại để đánh giá cuối
 
-D. It is Dự đoán nhãn rời rạc từ feature — Dự đoán nhãn rời rạc từ feature
+C. Supervised prediction of discrete labels — Dự đoán nhãn rời rạc có giám sát
 
+D. Grouping unlabeled observations by similarity — Nhóm quan sát chưa có nhãn theo độ tương đồng
 
-**Q4. What is Clustering? — Khái niệm Clustering là gì?**
+**Q5. What does stratify=y help preserve? — stratify=y giúp giữ gì?**
 
-A. Another concept is Mẫu dùng để học tham số mô hình — Mẫu dùng để học tham số mô hình
+A. Approximate label proportions in train and test — Tỷ lệ nhãn xấp xỉ giữa train và test
 
-B. Another concept is Mẫu giữ lại chỉ để đánh giá mô hình — Mẫu giữ lại chỉ để đánh giá mô hình
+B. Training features only — Chỉ các đặc trưng train
 
-C. It is Thử nhóm mẫu giống nhau mà không cần nhãn sẵn — Thử nhóm mẫu giống nhau mà không cần nhãn sẵn
+C. Preprocessing and estimator fitting/prediction — Tiền xử lý và các bước fit/dự đoán
 
-D. Another concept is Dự đoán nhãn rời rạc từ feature — Dự đoán nhãn rời rạc từ feature
+D. Arbitrary cluster identifiers — Định danh cụm tùy ý
 
+**Q6. What does StandardScaler fit on? — StandardScaler phải fit trên dữ liệu nào?**
 
-**Q5. When should train_test_split(...,test_size=.25,stratify=y) be used? — Khi nào nên dùng train_test_split(...,test_size=.25,stratify=y)?**
+A. Approximate label proportions in train and test — Tỷ lệ nhãn xấp xỉ giữa train và test
 
-A. Another operation is for Fit chỉ trên train để giảm leakage — Fit chỉ trên train để giảm leakage
+B. Training features only — Chỉ các đặc trưng train
 
-B. When you need to Chia train/test có xét tỷ lệ nhãn — Chia train/test có xét tỷ lệ nhãn
+C. Preprocessing and estimator fitting/prediction — Tiền xử lý và các bước fit/dự đoán
 
-C. Another operation is for Mô hình phân loại có giám sát — Mô hình phân loại có giám sát
+D. Arbitrary cluster identifiers — Định danh cụm tùy ý
 
-D. Another operation is for Phân nhóm không giám sát, số nhóm là giả định — Phân nhóm không giám sát, số nhóm là giả định
+**Q7. What does Pipeline combine? — Pipeline gộp gì?**
 
+A. Approximate label proportions in train and test — Tỷ lệ nhãn xấp xỉ giữa train và test
 
-**Q6. When should Pipeline([('scale',...),('model',...)]) be used? — Khi nào nên dùng Pipeline([('scale',...),('model',...)])?**
+B. Training features only — Chỉ các đặc trưng train
 
-A. When you need to Fit chỉ trên train để giảm leakage — Fit chỉ trên train để giảm leakage
+C. Preprocessing and estimator fitting/prediction — Tiền xử lý và các bước fit/dự đoán
 
-B. Another operation is for Mô hình phân loại có giám sát — Mô hình phân loại có giám sát
+D. Arbitrary cluster identifiers — Định danh cụm tùy ý
 
-C. Another operation is for Phân nhóm không giám sát, số nhóm là giả định — Phân nhóm không giám sát, số nhóm là giả định
+**Q8. What do KMeans cluster IDs mean? — Mã cụm KMeans có nghĩa gì?**
 
-D. Another operation is for Chia train/test có xét tỷ lệ nhãn — Chia train/test có xét tỷ lệ nhãn
+A. Approximate label proportions in train and test — Tỷ lệ nhãn xấp xỉ giữa train và test
 
+B. Training features only — Chỉ các đặc trưng train
 
-**Q7. When should LogisticRegression(max_iter=1000) be used? — Khi nào nên dùng LogisticRegression(max_iter=1000)?**
+C. Preprocessing and estimator fitting/prediction — Tiền xử lý và các bước fit/dự đoán
 
-A. Another operation is for Phân nhóm không giám sát, số nhóm là giả định — Phân nhóm không giám sát, số nhóm là giả định
+D. Arbitrary cluster identifiers — Định danh cụm tùy ý
 
-B. Another operation is for Chia train/test có xét tỷ lệ nhãn — Chia train/test có xét tỷ lệ nhãn
+**Q9. What is a feature? — Feature là gì?**
 
-C. Another operation is for Fit chỉ trên train để giảm leakage — Fit chỉ trên train để giảm leakage
+A. Input measurement used to predict — Số đo đầu vào dùng để dự đoán
 
-D. When you need to Mô hình phân loại có giám sát — Mô hình phân loại có giám sát
+B. The desired discrete output class — Lớp đầu ra muốn dự đoán
 
+C. One predicted label per input row — Một nhãn dự đoán cho mỗi hàng đầu vào
 
-**Q8. When should KMeans(n_clusters=2,random_state=42,n_init=10) be used? — Khi nào nên dùng KMeans(n_clusters=2,random_state=42,n_init=10)?**
+D. Prediction accuracy on test labels — Tỷ lệ dự đoán đúng trên nhãn test
 
-A. Another operation is for Chia train/test có xét tỷ lệ nhãn — Chia train/test có xét tỷ lệ nhãn
+**Q10. What is a target label? — Target label là gì?**
 
-B. Another operation is for Fit chỉ trên train để giảm leakage — Fit chỉ trên train để giảm leakage
+A. Input measurement used to predict — Số đo đầu vào dùng để dự đoán
 
-C. When you need to Phân nhóm không giám sát, số nhóm là giả định — Phân nhóm không giám sát, số nhóm là giả định
+B. The desired discrete output class — Lớp đầu ra muốn dự đoán
 
-D. Another operation is for Mô hình phân loại có giám sát — Mô hình phân loại có giám sát
+C. One predicted label per input row — Một nhãn dự đoán cho mỗi hàng đầu vào
 
+D. Prediction accuracy on test labels — Tỷ lệ dự đoán đúng trên nhãn test
 
-**Q9. Why is this method used in scenario 1? — Vì sao dùng phương pháp ở tình huống 1?**
+**Q11. What does `model.predict(X_test)` return? — `model.predict(X_test)` trả gì?**
 
-A. stratify giúp tỷ lệ các loài tương tự nhau — stratify giúp tỷ lệ các loài tương tự nhau
+A. Input measurement used to predict — Số đo đầu vào dùng để dự đoán
 
-B. Kiểm ID train và test không trùng — Kiểm ID train và test không trùng
+B. The desired discrete output class — Lớp đầu ra muốn dự đoán
 
-C. Scaler và mô hình chỉ fit trên train, không rò rỉ test — Scaler và mô hình chỉ fit trên train, không rò rỉ test
+C. One predicted label per input row — Một nhãn dự đoán cho mỗi hàng đầu vào
 
-D. KMeans chỉ thử nhóm chứ không biết nhãn thật — KMeans chỉ thử nhóm chứ không biết nhãn thật
+D. Prediction accuracy on test labels — Tỷ lệ dự đoán đúng trên nhãn test
 
+**Q12. What does `model.score(X_test,y_test)` mean for a standard classifier? — `model.score` cho classifier thông dụng đo gì?**
 
-**Q10. Why is this method used in scenario 2? — Vì sao dùng phương pháp ở tình huống 2?**
+A. Input measurement used to predict — Số đo đầu vào dùng để dự đoán
 
-A. stratify giúp tỷ lệ các loài tương tự nhau — stratify giúp tỷ lệ các loài tương tự nhau
+B. The desired discrete output class — Lớp đầu ra muốn dự đoán
 
-B. Scaler và mô hình chỉ fit trên train, không rò rỉ test — Scaler và mô hình chỉ fit trên train, không rò rỉ test
+C. One predicted label per input row — Một nhãn dự đoán cho mỗi hàng đầu vào
 
-C. KMeans chỉ thử nhóm chứ không biết nhãn thật — KMeans chỉ thử nhóm chứ không biết nhãn thật
+D. Prediction accuracy on test labels — Tỷ lệ dự đoán đúng trên nhãn test
 
-D. Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát — Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát
+**Q13. Which split method helps avoid duplicate IDs? — Kiểm tra nào giúp phát hiện ID trùng?**
 
+A. `train_ids.isdisjoint(test_ids)` — `train_ids.isdisjoint(test_ids)`
 
-**Q11. Why is this method used in scenario 3? — Vì sao dùng phương pháp ở tình huống 3?**
+B. No, correlated records or future information may leak — Không, bản ghi liên quan hoặc thông tin tương lai vẫn rò rỉ
 
-A. KMeans chỉ thử nhóm chứ không biết nhãn thật — KMeans chỉ thử nhóm chứ không biết nhãn thật
+C. No, it fits features X — Không, nó fit đặc trưng X
 
-B. Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát — Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát
+D. Cluster numbers have arbitrary permutations — Số hiệu cụm có thể hoán đổi tùy ý
 
-C. Kiểm ID train và test không trùng — Kiểm ID train và test không trùng
+**Q14. Does disjoint ID imply zero leakage? — Không trùng ID có chắc không rò rỉ?**
 
-D. Scaler và mô hình chỉ fit trên train, không rò rỉ test — Scaler và mô hình chỉ fit trên train, không rò rỉ test
+A. `train_ids.isdisjoint(test_ids)` — `train_ids.isdisjoint(test_ids)`
 
+B. No, correlated records or future information may leak — Không, bản ghi liên quan hoặc thông tin tương lai vẫn rò rỉ
 
-**Q12. Why is this method used in scenario 4? — Vì sao dùng phương pháp ở tình huống 4?**
+C. No, it fits features X — Không, nó fit đặc trưng X
 
-A. Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát — Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát
+D. Cluster numbers have arbitrary permutations — Số hiệu cụm có thể hoán đổi tùy ý
 
-B. Kiểm ID train và test không trùng — Kiểm ID train và test không trùng
+**Q15. Does KMeans need y labels to fit? — KMeans cần nhãn y khi fit không?**
 
-C. KMeans chỉ thử nhóm chứ không biết nhãn thật — KMeans chỉ thử nhóm chứ không biết nhãn thật
+A. `train_ids.isdisjoint(test_ids)` — `train_ids.isdisjoint(test_ids)`
 
-D. stratify giúp tỷ lệ các loài tương tự nhau — stratify giúp tỷ lệ các loài tương tự nhau
+B. No, correlated records or future information may leak — Không, bản ghi liên quan hoặc thông tin tương lai vẫn rò rỉ
 
+C. No, it fits features X — Không, nó fit đặc trưng X
 
-**Q13. Why is this method used in scenario 5? — Vì sao dùng phương pháp ở tình huống 5?**
+D. Cluster numbers have arbitrary permutations — Số hiệu cụm có thể hoán đổi tùy ý
 
-A. Kiểm ID train và test không trùng — Kiểm ID train và test không trùng
+**Q16. Why not directly compare KMeans IDs to true classes for accuracy? — Vì sao không so trực tiếp mã KMeans với lớp thật để tính accuracy?**
 
-B. Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát — Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát
+A. `train_ids.isdisjoint(test_ids)` — `train_ids.isdisjoint(test_ids)`
 
-C. stratify giúp tỷ lệ các loài tương tự nhau — stratify giúp tỷ lệ các loài tương tự nhau
+B. No, correlated records or future information may leak — Không, bản ghi liên quan hoặc thông tin tương lai vẫn rò rỉ
 
-D. Scaler và mô hình chỉ fit trên train, không rò rỉ test — Scaler và mô hình chỉ fit trên train, không rò rỉ test
+C. No, it fits features X — Không, nó fit đặc trưng X
 
+D. Cluster numbers have arbitrary permutations — Số hiệu cụm có thể hoán đổi tùy ý
 
-**Q14. Which input describes scenario 1? — Dữ liệu nào thuộc tình huống 1?**
+**Q17. What shape does a 150-row four-feature table have? — Bảng 150 hàng, bốn đặc trưng có shape nào?**
 
-A. The input is train={1,2,3}, test={4,5} — train={1,2,3}, test={4,5}
+A. (150,4) — (150,4)
 
-B. Another input is 150 hoa, 4 cột số đo cm và 1 nhãn loài — 150 hoa, 4 cột số đo cm và 1 nhãn loài
+B. Allocate about a quarter to test — Dành khoảng một phần tư cho test
 
-C. Another input is Iris: số đo đài hoa/cánh hoa cm — Iris: số đo đài hoa/cánh hoa cm
+C. Held-out final test set — Tập test cuối cùng đã giữ lại
 
-D. Another input is 4 điểm [0,0], [0,1], [10,10], [10,11] — 4 điểm [0,0], [0,1], [10,10], [10,11]
+D. Predicted known class names — Tên lớp đã biết từ dữ liệu nhãn
 
+**Q18. What does test_size=0.25 mean? — test_size=0.25 nghĩa là gì?**
 
-**Q15. Which input describes scenario 2? — Dữ liệu nào thuộc tình huống 2?**
+A. (150,4) — (150,4)
 
-A. Another input is Iris: số đo đài hoa/cánh hoa cm — Iris: số đo đài hoa/cánh hoa cm
+B. Allocate about a quarter to test — Dành khoảng một phần tư cho test
 
-B. Another input is 4 điểm [0,0], [0,1], [10,10], [10,11] — 4 điểm [0,0], [0,1], [10,10], [10,11]
+C. Held-out final test set — Tập test cuối cùng đã giữ lại
 
-C. Another input is Iris data với target và đặc trưng riêng — Iris data với target và đặc trưng riêng
+D. Predicted known class names — Tên lớp đã biết từ dữ liệu nhãn
 
-D. The input is 150 hoa, 4 cột số đo cm và 1 nhãn loài — 150 hoa, 4 cột số đo cm và 1 nhãn loài
+**Q19. What should be fitted before choosing model hyperparameters? — Trước khi chọn siêu tham số, không nên dùng tập nào?**
 
+A. (150,4) — (150,4)
 
-**Q16. Which input describes scenario 3? — Dữ liệu nào thuộc tình huống 3?**
+B. Allocate about a quarter to test — Dành khoảng một phần tư cho test
 
-A. Another input is 4 điểm [0,0], [0,1], [10,10], [10,11] — 4 điểm [0,0], [0,1], [10,10], [10,11]
+C. Held-out final test set — Tập test cuối cùng đã giữ lại
 
-B. Another input is Iris data với target và đặc trưng riêng — Iris data với target và đặc trưng riêng
+D. Predicted known class names — Tên lớp đã biết từ dữ liệu nhãn
 
-C. The input is Iris: số đo đài hoa/cánh hoa cm — Iris: số đo đài hoa/cánh hoa cm
+**Q20. What can a classification model output that KMeans does not inherently provide? — Classifier có đầu ra gì mà KMeans không tự bảo đảm?**
 
-D. Another input is train={1,2,3}, test={4,5} — train={1,2,3}, test={4,5}
+A. (150,4) — (150,4)
 
+B. Allocate about a quarter to test — Dành khoảng một phần tư cho test
 
-**Q17. Which input describes scenario 4? — Dữ liệu nào thuộc tình huống 4?**
+C. Held-out final test set — Tập test cuối cùng đã giữ lại
 
-A. Another input is Iris data với target và đặc trưng riêng — Iris data với target và đặc trưng riêng
-
-B. The input is 4 điểm [0,0], [0,1], [10,10], [10,11] — 4 điểm [0,0], [0,1], [10,10], [10,11]
-
-C. Another input is train={1,2,3}, test={4,5} — train={1,2,3}, test={4,5}
-
-D. Another input is 150 hoa, 4 cột số đo cm và 1 nhãn loài — 150 hoa, 4 cột số đo cm và 1 nhãn loài
-
-
-**Q18. Which input describes scenario 5? — Dữ liệu nào thuộc tình huống 5?**
-
-A. The input is Iris data với target và đặc trưng riêng — Iris data với target và đặc trưng riêng
-
-B. Another input is train={1,2,3}, test={4,5} — train={1,2,3}, test={4,5}
-
-C. Another input is 150 hoa, 4 cột số đo cm và 1 nhãn loài — 150 hoa, 4 cột số đo cm và 1 nhãn loài
-
-D. Another input is Iris: số đo đài hoa/cánh hoa cm — Iris: số đo đài hoa/cánh hoa cm
-
-
-**Q19. What should be stated before analyzing data? — Cần nêu gì trước khi phân tích dữ liệu?**
-
-A. Only file extensions — Chỉ đuôi file
-
-B. Only terminal colors — Chỉ màu terminal
-
-C. Only number of lines — Chỉ số dòng code
-
-D. Units, sample meaning and assumptions — Đơn vị, ý nghĩa mẫu và giả định
-
-
-**Q20. Why is validating results important? — Vì sao cần kiểm tra kết quả?**
-
-A. One example guarantees AI accuracy — Một ví dụ bảo đảm AI đúng
-
-B. It replaces data collection — Nó thay việc thu thập dữ liệu
-
-C. An example may not generalize — Ví dụ có thể không tổng quát
-
-D. It removes test sets — Nó không cần tập kiểm tra
+D. Predicted known class names — Tên lớp đã biết từ dữ liệu nhãn
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Mẫu dùng để học tham số mô hình | Mẫu dùng để học tham số mô hình |
-| Q2 | **A** | It is Mẫu giữ lại chỉ để đánh giá mô hình | Mẫu giữ lại chỉ để đánh giá mô hình |
-| Q3 | **D** | It is Dự đoán nhãn rời rạc từ feature | Dự đoán nhãn rời rạc từ feature |
-| Q4 | **C** | It is Thử nhóm mẫu giống nhau mà không cần nhãn sẵn | Thử nhóm mẫu giống nhau mà không cần nhãn sẵn |
-| Q5 | **B** | When you need to Chia train/test có xét tỷ lệ nhãn | Chia train/test có xét tỷ lệ nhãn |
-| Q6 | **A** | When you need to Fit chỉ trên train để giảm leakage | Fit chỉ trên train để giảm leakage |
-| Q7 | **D** | When you need to Mô hình phân loại có giám sát | Mô hình phân loại có giám sát |
-| Q8 | **C** | When you need to Phân nhóm không giám sát, số nhóm là giả định | Phân nhóm không giám sát, số nhóm là giả định |
-| Q9 | **B** | Kiểm ID train và test không trùng | Kiểm ID train và test không trùng |
-| Q10 | **A** | stratify giúp tỷ lệ các loài tương tự nhau | stratify giúp tỷ lệ các loài tương tự nhau |
-| Q11 | **D** | Scaler và mô hình chỉ fit trên train, không rò rỉ test | Scaler và mô hình chỉ fit trên train, không rò rỉ test |
-| Q12 | **C** | KMeans chỉ thử nhóm chứ không biết nhãn thật | KMeans chỉ thử nhóm chứ không biết nhãn thật |
-| Q13 | **B** | Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát | Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát |
-| Q14 | **A** | The input is train={1,2,3}, test={4,5} | train={1,2,3}, test={4,5} |
-| Q15 | **D** | The input is 150 hoa, 4 cột số đo cm và 1 nhãn loài | 150 hoa, 4 cột số đo cm và 1 nhãn loài |
-| Q16 | **C** | The input is Iris: số đo đài hoa/cánh hoa cm | Iris: số đo đài hoa/cánh hoa cm |
-| Q17 | **B** | The input is 4 điểm [0,0], [0,1], [10,10], [10,11] | 4 điểm [0,0], [0,1], [10,10], [10,11] |
-| Q18 | **A** | The input is Iris data với target và đặc trưng riêng | Iris data với target và đặc trưng riêng |
-| Q19 | **D** | Units, sample meaning and assumptions | Đơn vị, ý nghĩa mẫu và giả định |
-| Q20 | **C** | An example may not generalize | Ví dụ có thể không tổng quát |
+| Q1 | **A** | The learner updates parameters from train samples, not from held-out test records. | Mô hình học tham số từ mẫu train, không cập nhật bằng bản ghi test. |
+| Q2 | **B** | Testing estimates performance on unseen records; repeatedly tuning on test biases it. | Test đo hiệu quả trên dữ liệu chưa học; chỉnh đi chỉnh lại theo test làm đánh giá thiên lệch. |
+| Q3 | **C** | Labels must be supplied when training; the predicted output is a category. | Lúc train phải có nhãn; đầu ra dự đoán là loại/phân lớp. |
+| Q4 | **D** | Clustering organizes X without fitting to existing class labels. | Phân cụm dựa vào X mà không fit nhãn lớp có sẵn. |
+| Q5 | **A** | It partitions the available classes proportionally when the split is feasible. | Nó chia các lớp theo tỷ lệ gần tương ứng khi số mẫu cho phép. |
+| Q6 | **B** | Fitting it on test leaks evaluation distribution into model preparation. | Fit từ test làm rò rỉ phân phối đánh giá vào tiền xử lý. |
+| Q7 | **C** | The same fitted transformations apply consistently during prediction. | Các phép đổi đã học được áp nhất quán khi dự đoán. |
+| Q8 | **D** | IDs can swap even when the geometric grouping remains identical. | Mã có thể đổi 0↔1 dù cách chia hình học không đổi. |
+| Q9 | **A** | Features are columns of X rather than the target label. | Đặc trưng nằm ở cột X, không phải nhãn đích. |
+| Q10 | **B** | Classification models learn a mapping from X to y. | Classifier học ánh xạ từ X sang y. |
+| Q11 | **C** | Each test row produces a class prediction. | Mỗi hàng test có một dự đoán lớp. |
+| Q12 | **D** | Score compares predicted labels with actual labels; it is not a training loss. | Score so dự đoán với nhãn thật; không phải loss train. |
+| Q13 | **A** | A disjointness check verifies no identical IDs occur in both sets. | isdisjoint xác nhận không có cùng mã ở cả hai tập. |
+| Q14 | **B** | Leakage can occur through related data, transformations and time. | Rò rỉ có thể qua dữ liệu liên quan, phép đổi hoặc thông tin thời gian. |
+| Q15 | **C** | Clustering is unsupervised and does not optimize label accuracy. | Phân cụm không giám sát và không tối ưu accuracy theo nhãn thật. |
+| Q16 | **D** | The same clustering can use reversed identifiers without becoming worse. | Cùng nhóm có thể gắn mã đảo ngược mà chất lượng không đổi. |
+| Q17 | **A** | Rows represent flowers; columns represent four measured features. | Hàng là hoa, cột là bốn đặc trưng. |
+| Q18 | **B** | Rounding determines exact integer sample counts. | Làm tròn quyết định số nguyên mẫu chính xác. |
+| Q19 | **C** | Hyperparameter selection should use training-side validation or CV. | Chọn siêu tham số bằng validation/CV thuộc phần train. |
+| Q20 | **D** | KMeans yields clusters, not automatically semantically named classes. | KMeans tạo cụm chứ không tự gán ý nghĩa lớp thật. |
 
 ## 8. Liên hệ bài kế tiếp
 
