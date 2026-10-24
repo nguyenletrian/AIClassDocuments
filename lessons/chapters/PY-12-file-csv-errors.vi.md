@@ -8,7 +8,7 @@
 
 `Dictionary → File/CSV → DataFrame → Dataset AI`
 
-Bài này nối trực tiếp kiến thức trước với bước xử lý dữ liệu/AI sau đó. Hãy nắm ý nghĩa dữ liệu trước khi chạy code.
+Sau Dictionary, ta học cách đưa dữ liệu vào/ra tệp, lưu bảng CSV và xử lý lỗi đầu vào. Đây là nền tảng để làm việc với dữ liệu thật trước khi sử dụng Pandas hay mô hình AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -30,98 +30,125 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `try/except ValueError` | Bắt riêng lỗi dữ liệu nhập không hợp lệ |
 | `Path.read_text()/write_text()` | Đọc/ghi file với đường dẫn kiểu Path |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
-
 ## 4. Khái niệm liên quan
 
-### 4.1. File I/O
+Một chương trình thực tế cần **lưu và đọc lại dữ liệu**, hiểu cấu trúc bảng CSV và xử lý đúng lỗi đầu vào. Bốn khái niệm File I/O, CSV, Exception và Context manager liên kết thành một quy trình: nhận dữ liệu → đọc/ghi an toàn → xử lý trường hợp bất thường.
 
-**Từ vựng trong mục:** **File I/O** — đọc ghi file.
+### 4.1. File I/O — Đọc và ghi dữ liệu
 
-File I/O là việc đọc hoặc ghi dữ liệu ở tệp trên ổ đĩa; `pathlib.Path` giúp thao tác đường dẫn.
+**Từ vựng trong mục:** **File I/O** — đọc/ghi tệp; **Path** — đường dẫn.
+
+**File I/O** (input/output) là việc đưa dữ liệu **từ tệp vào chương trình** hoặc **từ chương trình ra tệp**. Ví dụ hệ thống cần lưu trạng thái `Started` để lần chạy sau có thể đọc lại. Trong đoạn minh họa, `TemporaryDirectory()` tạo thư mục tạm, `Path` xác định đường dẫn `log.txt`, `write_text()` ghi và `read_text()` đọc. Dữ liệu chỉ tồn tại trong thư mục tạm trong suốt khối `with`, tránh để lại file rác.
 
 ```python
 from pathlib import Path
-print(Path('x.csv').suffix)
+from tempfile import TemporaryDirectory
+
+with TemporaryDirectory() as folder:
+    file_path = Path(folder) / 'log.txt'
+    file_path.write_text('Started', encoding='utf-8')
+    print(file_path.read_text(encoding='utf-8'))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-.csv
+Started
 ```
 
-### 4.2. CSV
+Đầu ra đúng chuỗi đã ghi. `encoding='utf-8'` hỗ trợ văn bản tiếng Việt; tệp tạm được xóa sau khi ra khỏi khối.
 
-**Từ vựng trong mục:** **CSV** — dữ liệu phân cách.
+### 4.2. CSV — Bảng dữ liệu phân cách bằng dấu phẩy
 
-CSV là tệp văn bản dạng bảng; `csv.DictReader` đọc mỗi hàng thành Dictionary theo tên cột.
+**Từ vựng trong mục:** **CSV** — dữ liệu phân cách; **Row/column** — hàng/cột.
+
+**CSV** lưu dữ liệu dạng văn bản: **mỗi dòng là một bản ghi**, các giá trị trên một dòng được tách bằng dấu phẩy. Ví dụ bảng sản phẩm có **hai cột** `name` (tên hàng) và `price` (giá) cùng **hai hàng** Pen/10 và Book/35. `csv.DictReader` coi hàng đầu là tên cột và đọc mỗi hàng sau thành Dictionary, giúp tra `row['name']` thay vì nhớ vị trí cột. Giá đọc từ CSV ban đầu là **chuỗi**, muốn tính toán phải chuyển kiểu sau.
 
 ```python
 import csv
-print(csv.__name__)
+from io import StringIO
+
+csv_text = 'name,price\nPen,10\nBook,35\n'
+rows = list(csv.DictReader(StringIO(csv_text)))
+print(rows[1]['name'], rows[1]['price'])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-csv
+Book 35
 ```
 
-### 4.3. Exception
+Hàng dữ liệu thứ hai là Book, giá `35` đang ở dạng chuỗi; mã không tự đổi nó thành số nguyên.
 
-**Từ vựng trong mục:** **Exception** — ngoại lệ.
+### 4.3. Exception — Lỗi có thể xử lý
 
-Ngoại lệ là tình huống chương trình gặp lỗi khi chạy; `try/except` giúp xử lý lỗi dự kiến.
+**Từ vựng trong mục:** **Exception** — ngoại lệ; **ValueError** — lỗi giá trị.
+
+Khi chương trình nhận dữ liệu sai kiểu, không phải toàn bộ ứng dụng đều cần dừng. Chẳng hạn biểu mẫu yêu cầu số nguyên nhưng khách nhập `'abc'`; `int('abc')` sinh **`ValueError`**. Khối `try` chứa thao tác có thể lỗi, còn `except ValueError` chỉ bắt loại lỗi dự kiến và in thông báo. Không dùng `except:` quá rộng vì sẽ che mất những lỗi khác cần được sửa.
 
 ```python
 try:
-    int('x')
+    number = int('abc')
+    print(number)
 except ValueError:
-    print('Bad input')
+    print('Invalid integer')
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Bad input
+Invalid integer
 ```
 
-### 4.4. Context manager
+Chỉ nhánh `except` chạy, vì chuỗi `abc` không thể chuyển thành số nguyên.
 
-**Từ vựng trong mục:** **Context manager** — quản lý ngữ cảnh.
+### 4.4. Context manager — Tự quản lý tài nguyên
 
-`with` dùng trình quản lý ngữ cảnh để tự đóng tệp hoặc tài nguyên khi ra khỏi khối.
+**Từ vựng trong mục:** **Context manager** — quản lý ngữ cảnh; **with** — khối sử dụng tài nguyên.
+
+Khi mở file hoặc bộ đệm, ta cần **đóng tài nguyên** sau khi dùng, kể cả khi có lỗi. Cấu trúc `with ... as ...:` nhận một tài nguyên rồi tự đóng khi thoát khối. Ví dụ `StringIO` là bộ đệm văn bản trong bộ nhớ, có thao tác đọc giống file, không cần tạo file thật. Ta có thể kiểm tra `stream.closed` sau khối `with` để thấy nó đã đóng.
 
 ```python
-import io
-with io.StringIO('abc') as f:
-    print(f.read())
+from io import StringIO
+
+with StringIO('abc') as stream:
+    print(stream.read())
+
+print(stream.closed)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
 abc
+True
 ```
 
+Dòng đầu là nội dung đã đọc; `True` xác nhận bộ đệm được đóng sau khi ra khỏi `with`.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Đọc CSV sản phẩm
 
-**Từ vựng trong mục:** **File I/O** — đọc ghi file.
+**Từ vựng trong mục:** **CSV** — dữ liệu CSV; **DictReader** — đọc theo tên cột.
 
-**Tình huống thực tế:** Cửa hàng có bảng CSV gồm Pen giá 10 và Book giá 35 (cùng đơn vị tiền). Đọc dữ liệu CSV và in tên sản phẩm ở hàng dữ liệu thứ hai.
+**Tình huống thực tế:** Cửa hàng có bảng `name,price` gồm Pen giá 10 và Book giá 35 theo cùng đơn vị tiền. Hãy đọc CSV và in tên mặt hàng nằm ở **hàng dữ liệu thứ hai**.
 
-**Vì sao chọn cách giải này?** `csv.DictReader` đọc từng hàng theo tên cột; chỉ số `1` lấy dòng dữ liệu thứ hai.
+**Vì sao chọn cách giải này?** `csv.DictReader` đọc theo tên cột và `rows[1]` lấy hàng dữ liệu thứ hai (vì chỉ số bắt đầu từ 0).
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Viết dữ liệu CSV với hàng tên cột và hai sản phẩm.
+2. Đọc bằng `DictReader`, chuyển các hàng thành List.
+3. Lấy `rows[1]['name']` và in ra.
 
 ```python
-import csv,io
-csv_text="name,price\nPen,10\nBook,35\n"
-rows=list(csv.DictReader(io.StringIO(csv_text)))
-print(rows[1]["name"])
+import csv
+from io import StringIO
+
+csv_text = 'name,price\nPen,10\nBook,35\n'
+rows = list(csv.DictReader(StringIO(csv_text)))
+print(rows[1]['name'])
 ```
 
 **Kết quả khi chạy:**
@@ -130,50 +157,62 @@ print(rows[1]["name"])
 Book
 ```
 
+`Book` thuộc hàng dữ liệu thứ hai; hàng tiêu đề không được tính là sản phẩm.
+
 ### Tình huống 2 — Lưu nhật ký ứng dụng
 
-**Từ vựng trong mục:** **CSV** — dữ liệu phân cách.
+**Từ vựng trong mục:** **File I/O** — đọc ghi file; **UTF-8** — mã hóa văn bản.
 
-**Tình huống thực tế:** Ứng dụng cần lưu dòng nhật ký `Started` vào file tạm và đọc lại để kiểm tra. In nội dung file nhật ký.
+**Tình huống thực tế:** Ứng dụng ghi trạng thái `Started` vào file nhật ký `log.txt` trong một thư mục tạm. Hãy đọc lại dòng trạng thái để xác minh đã lưu thành công.
 
-**Vì sao chọn cách giải này?** `TemporaryDirectory()` tạo thư mục tạm; `write_text` và `read_text` dùng mã hóa UTF-8.
+**Vì sao chọn cách giải này?** `Path.write_text()` ghi văn bản UTF-8; `Path.read_text()` đọc lại, còn thư mục tạm bảo đảm ví dụ không để lại file.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Tạo thư mục tạm và đường dẫn `log.txt`.
+2. Ghi chữ `Started` vào file với UTF-8.
+3. Đọc file và in trạng thái đã lưu.
 
 ```python
 from pathlib import Path
 from tempfile import TemporaryDirectory
+
 with TemporaryDirectory() as folder:
-    p=Path(folder)/"log.txt"
-    p.write_text("Started\n",encoding="utf-8")
-    print(p.read_text(encoding="utf-8"))
+    file_path = Path(folder) / 'log.txt'
+    file_path.write_text('Started', encoding='utf-8')
+    print(file_path.read_text(encoding='utf-8'))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
 Started
-
 ```
 
-*Lệnh `print()` còn thêm một dòng mới sau ký tự xuống dòng có sẵn trong file.*
+Nội dung đọc trùng dữ liệu đã ghi; file ví dụ được xóa khi thư mục tạm đóng.
 
-### Tình huống 3 — Chặn nhập sai kiểu
+### Tình huống 3 — Chặn dữ liệu nhập sai kiểu
 
-**Từ vựng trong mục:** **Exception** — ngoại lệ.
+**Từ vựng trong mục:** **Exception** — ngoại lệ; **ValueError** — lỗi giá trị.
 
-**Tình huống thực tế:** Biểu mẫu nhận chuỗi `abc` nhưng yêu cầu số nguyên. Thử đổi thành số, nếu sai thì in `None` thay vì dừng chương trình.
+**Tình huống thực tế:** Biểu mẫu chỉ nhận số nguyên nhưng khách nhập chuỗi `abc`. Hãy thử chuyển kiểu; nếu chuyển thất bại, in `None` để biểu thị chưa có số hợp lệ mà không làm chương trình dừng.
 
-**Vì sao chọn cách giải này?** `int` có thể gây `ValueError`; `try/except` bắt lỗi này.
+**Vì sao chọn cách giải này?** `int()` báo `ValueError` với chữ không phải số nguyên. `except ValueError` bắt lỗi này để gán `None` đúng trường hợp.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Đặt `raw = 'abc'`.
+2. Trong `try`, gọi `int(raw)` để chuyển số.
+3. Nếu có `ValueError`, đặt số bằng `None`, rồi in kết quả.
 
 ```python
-raw="abc"
+raw = 'abc'
+
 try:
-    number=int(raw)
+    number = int(raw)
 except ValueError:
-    number=None
+    number = None
+
 print(number)
 ```
 
@@ -183,23 +222,33 @@ print(number)
 None
 ```
 
-### Tình huống 4 — Xuất CSV báo cáo
+`None` biểu thị chưa có giá trị số hợp lệ; nó không phải số 0.
 
-**Từ vựng trong mục:** **Context manager** — quản lý ngữ cảnh.
+### Tình huống 4 — Xuất báo cáo CSV
 
-**Tình huống thực tế:** Báo cáo bán hàng có ngày `2026-10-24` và doanh thu 1200 đơn vị tiền. Tạo dữ liệu CSV với hai cột `date`, `revenue` và in nội dung.
+**Từ vựng trong mục:** **DictWriter** — ghi CSV theo tên cột; **Fieldnames** — tên cột.
 
-**Vì sao chọn cách giải này?** `csv.DictWriter` ghi hàng tiêu đề và một dòng dữ liệu vào bộ nhớ.
+**Tình huống thực tế:** Báo cáo bán hàng có ngày `2026-10-24` và doanh thu `1200` đơn vị tiền. Hãy tạo dữ liệu CSV có hai cột `date`, `revenue` và một dòng dữ liệu, rồi in nội dung file dạng văn bản.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Vì sao chọn cách giải này?** `csv.DictWriter` bảo đảm giá trị được ghi đúng cột. `lineterminator='\n'` tạo dấu xuống dòng thống nhất trong ví dụ; `end=''` tránh `print()` thêm dòng trống.
+
+**Quy trình giải:**
+
+1. Tạo bộ đệm văn bản `StringIO`.
+2. Định nghĩa tên hai cột và dùng `writeheader()` ghi tiêu đề.
+3. Ghi bản ghi doanh thu rồi in nguyên nội dung bộ đệm.
 
 ```python
-import csv,io
-b=io.StringIO()
-w=csv.DictWriter(b,fieldnames=["date","revenue"])
-w.writeheader()
-w.writerow({"date":"2026-10-24","revenue":1200})
-print(b.getvalue())
+import csv
+from io import StringIO
+
+buffer = StringIO()
+writer = csv.DictWriter(
+    buffer, fieldnames=['date', 'revenue'], lineterminator='\n'
+)
+writer.writeheader()
+writer.writerow({'date': '2026-10-24', 'revenue': 1200})
+print(buffer.getvalue(), end='')
 ```
 
 **Kết quả khi chạy:**
@@ -207,28 +256,35 @@ print(b.getvalue())
 ```text
 date,revenue
 2026-10-24,1200
-
 ```
 
-*Ký tự xuống dòng của CSV có thể hiển thị khác nhau theo nền tảng; `csv` thường tạo dòng kết thúc CRLF.*
+Dòng đầu chứa tên cột, dòng sau chứa giá trị. `revenue` ghi trong CSV là chữ biểu diễn số, không còn kiểu `int` khi đọc lại.
 
-### Tình huống 5 — Báo lỗi file thiếu
+### Tình huống 5 — Báo lỗi khi thiếu file
 
-**Từ vựng trong mục:** **File I/O** — đọc ghi file.
+**Từ vựng trong mục:** **FileNotFoundError** — lỗi không tìm thấy file; **Path** — đường dẫn.
 
-**Tình huống thực tế:** Hệ thống thử đọc tệp giả định `__missing_example__.csv` chưa tồn tại. Hiển thị thông báo khi thiếu file.
+**Tình huống thực tế:** Một dịch vụ cần đọc `missing.csv` nhưng tệp này chưa được tạo. Hãy in thông báo `File unavailable` thay vì để chương trình dừng vì lỗi thiếu file.
 
-**Vì sao chọn cách giải này?** `FileNotFoundError` cho phép chương trình đưa ra thông báo dễ hiểu khi tệp không tồn tại.
+**Vì sao chọn cách giải này?** Dùng `FileNotFoundError` để xử lý riêng tình huống file không tồn tại; thư mục tạm đảm bảo tên tệp này chưa được tạo trong ví dụ.
 
-**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
+**Quy trình giải:**
+
+1. Tạo thư mục tạm và đường dẫn tới `missing.csv` chưa tồn tại.
+2. Thử gọi `read_text()` trong `try`.
+3. Khi phát sinh `FileNotFoundError`, in thông báo.
 
 ```python
 from pathlib import Path
-try:
-    text=Path("__missing_example__.csv").read_text()
-except FileNotFoundError:
-    text="File unavailable"
-print(text)
+from tempfile import TemporaryDirectory
+
+with TemporaryDirectory() as folder:
+    missing = Path(folder) / 'missing.csv'
+    try:
+        text = missing.read_text(encoding='utf-8')
+    except FileNotFoundError:
+        text = 'File unavailable'
+    print(text)
 ```
 
 **Kết quả khi chạy:**
@@ -237,10 +293,15 @@ print(text)
 File unavailable
 ```
 
+Tệp chưa tồn tại nên khối `except` xử lý lỗi một cách có kiểm soát.
 ## 6. Sai lầm thường gặp
 
-- Không dùng đầu ra mẫu để suy diễn về người thật, hàng hóa thật hoặc kết quả dự đoán AI.
-- Cần chú ý thứ tự xử lý, kiểu dữ liệu và đơn vị đo. Trường hợp rỗng/thiếu dữ liệu phải có cách xử lý rõ ràng.
+- Khi đọc CSV bằng `DictReader`, dữ liệu **mặc định là chuỗi**; muốn cộng tiền cần chuyển kiểu số hợp lệ.
+- Không nhầm **hàng tiêu đề CSV** với hàng dữ liệu đầu tiên. `rows[0]` là sản phẩm đầu trong ví dụ, không phải dòng `name,price`.
+- Dùng `encoding='utf-8'` với dữ liệu tiếng Việt để tránh lỗi hiển thị do mã hóa.
+- Nên dùng `with` khi làm việc với file để đóng tài nguyên ngay cả khi có ngoại lệ.
+- Chỉ bắt lỗi dự kiến như `ValueError` hay `FileNotFoundError`; `except:` chung chung có thể che lỗi lập trình.
+- `print(text)` sẽ tự thêm ký tự xuống dòng; nếu `text` đã kết thúc bằng `\n`, màn hình có thể thêm một dòng trống.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
