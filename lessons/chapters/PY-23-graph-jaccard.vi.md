@@ -3,7 +3,8 @@
 
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Graph** — đồ thị; **Vertex** — đỉnh.
+**Từ vựng trong mục:** **Graph** — đồ thị
+ **Vertex** — đỉnh.
 
 `Set → Graph → Similarity → Gợi ý bạn học`
 
@@ -20,7 +21,8 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 3. NumPy và các hàm liên quan
 
-**Từ vựng trong mục:** **Function** — hàm; **Shape** — kích thước mảng.
+**Từ vựng trong mục:** **Function** — hàm
+ **Shape** — kích thước mảng.
 
 | Hàm / tham số | Dùng làm gì |
 |---|---|
@@ -42,6 +44,12 @@ graph={'An':{'Binh'},'Binh':{'An'}}
 print(graph)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+{'An': {'Binh'}, 'Binh': {'An'}}
+```
+
 **Tự kiểm tra:** Graph có nghĩa gì? **Đáp án:** Các đỉnh và cạnh mô tả quan hệ giữa đối tượng.
 
 ### 4.2. Vertex
@@ -53,6 +61,12 @@ Một đối tượng được biểu diễn trong đồ thị. Trước khi s�
 ```python
 vertices={'An','Binh'}
 print(len(vertices))
+```
+
+**Kết quả khi chạy:**
+
+```text
+2
 ```
 
 **Tự kiểm tra:** Vertex có nghĩa gì? **Đáp án:** Một đối tượng được biểu diễn trong đồ thị.
@@ -68,6 +82,12 @@ edges={('An','Binh')}
 print(len(edges))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+1
+```
+
 **Tự kiểm tra:** Edge có nghĩa gì? **Đáp án:** Liên hệ hoặc đường nối giữa hai đỉnh.
 
 ### 4.4. Jaccard
@@ -77,8 +97,15 @@ print(len(edges))
 Tỷ lệ số phần tử giao trên hợp giữa hai tập. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
 
 ```python
-a={'Python','AI'};b={'Python'}
-print(len(a&b)/len(a
+a={'Python','AI'}
+b={'Python'}
+print(len(a & b) / len(a | b))
+```
+
+**Kết quả khi chạy:**
+
+```text
+0.5
 ```
 
 **Tự kiểm tra:** Jaccard có nghĩa gì? **Đáp án:** Tỷ lệ số phần tử giao trên hợp giữa hai tập.
@@ -89,48 +116,61 @@ print(len(a&b)/len(a
 
 **Từ vựng trong mục:** **Graph** — đồ thị.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn bạn bè trực tiếp. Bộ dữ liệu đang có: Đồ thị An Binh Lan. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Mạng bạn bè cho biết An kết nối với Bình và Lan, còn Bình kết nối lại An. Liệt kê các bạn trực tiếp của An.
 
-**Vì sao chọn phương án?** Danh sách kề cho phép tra bạn của người đang xét; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Danh sách kề cho phép tra bạn của người đang xét
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 graph={"An":{"Binh","Lan"},"Binh":{"An"},"Lan":{"An"}}
 print(graph["An"])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
+**Kết quả khi chạy:**
+
+```text
+{'Binh', 'Lan'}
+```
 
 ### Tình huống 2 — So trùng sở thích
 
 **Từ vựng trong mục:** **Vertex** — đỉnh.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn so trùng sở thích. Bộ dữ liệu đang có: Hai người với sở thích Python AI SQL. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Hai hồ sơ sở thích A={Python,AI}, B={Python,SQL}. Tính mức tương đồng Jaccard bằng số mục chung chia số mục khác nhau.
 
-**Vì sao chọn phương án?** Jaccard so phần giao với toàn bộ nhãn sở thích; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Jaccard so phần giao với toàn bộ nhãn sở thích
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
-a={"Python","AI"};b={"Python","SQL"}
+a={"Python","AI"}
+b={"Python","SQL"}
 print(len(a&b)/len(a|b))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
+**Kết quả khi chạy:**
+
+```text
+0.3333333333333333
+```
 
 ### Tình huống 3 — Gợi ý đối tác học
 
 **Từ vựng trong mục:** **Edge** — cạnh.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn gợi ý đối tác học. Bộ dữ liệu đang có: Nhóm kỹ năng giả lập. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Một học viên thích Python và AI
+ bạn B thích AI, bạn C thích cả Python lẫn AI. Chọn người có điểm tương đồng cao nhất.
 
-**Vì sao chọn phương án?** Chọn người có Jaccard lớn nhất; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Chọn người có Jaccard lớn nhất
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 target={"AI","Python"}
@@ -139,52 +179,69 @@ scores={n:len(target&s)/len(target|s) for n,s in people.items()}
 print(max(scores,key=scores.get))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
+**Kết quả khi chạy:**
+
+```text
+C
+```
 
 ### Tình huống 4 — Quan hệ có hướng
 
 **Từ vựng trong mục:** **Jaccard** — độ tương đồng.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn quan hệ có hướng. Bộ dữ liệu đang có: A→B và B→C. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Mạng thông báo có hướng A→B và B→C. Kiểm tra đường A→B có đồng nghĩa với B→A không.
 
-**Vì sao chọn phương án?** Cạnh A tới B không nhất thiết có B tới A; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Cạnh A tới B không nhất thiết có B tới A
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 graph={"A":{"B"},"B":{"C"},"C":set()}
 print("B" in graph["A"],"A" in graph["B"])
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
+**Kết quả khi chạy:**
+
+```text
+True False
+```
 
 ### Tình huống 5 — Tìm đường trong mạng
 
 **Từ vựng trong mục:** **Graph** — đồ thị.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tìm đường trong mạng. Bộ dữ liệu đang có: Ba đỉnh A-B-C. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Ba trạm A, B, C nối bằng hai đoạn A-B và B-C. Tìm đường đi ngắn nhất giữa A và C.
 
-**Vì sao chọn phương án?** Dùng networkx khi đồ thị cần tìm đường thay vì code vòng thủ công; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Dùng networkx khi đồ thị cần tìm đường thay vì code vòng thủ công
+ điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import networkx as nx
-G=nx.Graph();G.add_edges_from([("A","B"),("B","C")])
+G=nx.Graph()
+G.add_edges_from([("A","B"),("B","C")])
 print(nx.shortest_path(G,"A","C"))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
+**Kết quả khi chạy:**
+
+```text
+['A', 'B', 'C']
+```
 
 ## 6. Sai lầm cần tránh
 
-Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
+Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape
+ covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Từ vựng trong mục:** **Question** — câu hỏi
+ **Answer** — đáp án.
 
 
 **Q1. What is Graph? — Thuật ngữ Graph có nghĩa gì?**
