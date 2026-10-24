@@ -1,6 +1,5 @@
 # PY-29 — Activation: ReLU, sigmoid, tanh, softmax
 
-*DRAFT · Học qua Python · Cần kiểm tra kết quả và môi trường trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
