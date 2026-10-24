@@ -284,7 +284,7 @@ B. A table of all input truth-value combinations — Bảng các tổ hợp giá
 
 C. The logical conditional 'if p then q' — Điều kiện logic 'nếu p thì q'
 
-D. Multiply the numbers of sequential independent choices — Nhân số lựa chọn qua các bước kết hợp đầy đủ
+D. Multiply stage-choice counts when each earlier choice permits the same stated number of valid continuations — Nhân số cách chọn mỗi bước khi mọi lựa chọn trước đều cho phép cùng số cách đi tiếp hợp lệ
 
 **Q5. When is `p and q` true? — Khi nào `p and q` đúng?**
 
@@ -450,26 +450,26 @@ D. When some outcomes belong to more than one counted group — Khi một kết 
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A proposition has a definite truth value. | Mệnh đề có một giá trị đúng/sai xác định. |
-| Q2 | **B** | Truth tables enumerate Boolean possibilities. | Bảng chân trị liệt kê các khả năng Boolean. |
-| Q3 | **C** | Implication only fails with a true premise and false conclusion. | Kéo theo chỉ sai khi tiền đề đúng, kết luận sai. |
-| Q4 | **D** | If stage one has m options and each has exactly n possible continuations, there are m×n complete outcomes. This counting principle requires stage-wise choices, not probabilistic independence. | Nếu bước đầu có m cách và mỗi cách có đúng n lựa chọn nối tiếp thì có m×n kết quả hoàn chỉnh. Quy tắc đếm theo từng bước này không đòi các biến cố độc lập về xác suất. |
-| Q5 | **A** | AND requires both conditions. | AND cần cả hai điều kiện đúng. |
-| Q6 | **B** | Inclusive OR accepts either or both true conditions. | OR bao hàm chấp nhận một hoặc cả hai điều kiện đúng. |
-| Q7 | **C** | NOT negates its Boolean operand. | NOT phủ định giá trị Boolean. |
-| Q8 | **D** | A true premise with a false conclusion violates implication. | Tiền đề đúng nhưng kết luận sai làm phép kéo theo sai. |
-| Q9 | **A** | Two variables each have two states, giving 2² cases. | Hai biến có hai trạng thái mỗi biến, tạo 2² trường hợp. |
-| Q10 | **B** | Three binary choices give 2³ combinations. | Ba lựa chọn nhị phân tạo 2³ tổ hợp. |
-| Q11 | **C** | One Boolean has True and False. | Một biến Boolean có True và False. |
-| Q12 | **D** | Four Boolean variables give 2⁴ possibilities. | Bốn biến Boolean tạo 2⁴ khả năng. |
-| Q13 | **A** | The expression is false exactly for p=True, q=False. | Biểu thức chỉ sai khi p=True, q=False. |
-| Q14 | **B** | A true premise with a false conclusion is the only false implication case. | Tiền đề đúng và kết luận sai là trường hợp duy nhất làm phép kéo theo sai. |
-| Q15 | **C** | AND is false if any operand is false. | AND sai nếu có một vế sai. |
-| Q16 | **D** | OR is true when one operand is true. | OR đúng khi có một vế đúng. |
-| Q17 | **A** | Disjoint alternatives are added without double counting. | Các nhóm không trùng có thể cộng mà không đếm lặp. |
-| Q18 | **B** | Multiplication requires consistent branching counts. | Nguyên lý nhân yêu cầu số nhánh lựa chọn phù hợp ở từng bước. |
-| Q19 | **C** | product enumerates the Cartesian product. | product liệt kê tích Descartes. |
-| Q20 | **D** | Overlapping groups must not be counted twice. | Nhóm có giao nhau không được đếm trùng. |
+| Q1 | **A** | A proposition has a definite truth value. For instance, `2 + 2 = 4` is a true proposition, while a question such as `What time is it?` does not itself assert a truth value. | Mệnh đề có một giá trị đúng/sai xác định. Ví dụ `2 + 2 = 4` là mệnh đề đúng, còn câu hỏi như `Mấy giờ rồi?` không tự khẳng định một giá trị đúng hay sai. |
+| Q2 | **B** | Truth tables enumerate Boolean possibilities. With two propositions p and q, the four rows are (T,T), (T,F), (F,T), (F,F); this checks every possible assignment. | Bảng chân trị liệt kê các khả năng Boolean. Với hai mệnh đề p và q, bốn hàng là (T,T), (T,F), (F,T), (F,F); bảng xét mọi cách gán giá trị. |
+| Q3 | **C** | Implication only fails with a true premise and false conclusion. It asserts that a true premise cannot lead to a false conclusion; when p is false, the material implication remains true regardless of q. | Kéo theo chỉ sai khi tiền đề đúng, kết luận sai. Phép kéo theo đòi khi tiền đề p đúng thì kết luận q không được sai; khi p sai, kéo theo vật chất vẫn đúng bất kể q. |
+| Q4 | **D** | If stage one has m options and each has exactly n possible continuations, there are m×n complete outcomes. This counting principle requires stage-wise choices, not probabilistic independence. For two shirt choices followed by three pants choices available with every shirt, there are `2 × 3 = 6` outfits; no probabilistic independence is involved. | Nếu bước đầu có m cách và mỗi cách có đúng n lựa chọn nối tiếp thì có m×n kết quả hoàn chỉnh. Quy tắc đếm theo từng bước này không đòi các biến cố độc lập về xác suất. Nếu có hai cách chọn áo và mỗi áo đều ghép được với ba quần, tổng cộng `2 × 3 = 6` bộ; không cần giả thiết độc lập xác suất. |
+| Q5 | **A** | AND requires both conditions. If p is True but q is False, `p and q` is False; one true condition is not enough for AND. | AND cần cả hai điều kiện đúng. Nếu p đúng nhưng q sai thì `p and q` sai; một điều kiện đúng chưa đủ cho phép AND. |
+| Q6 | **B** | Inclusive OR accepts either or both true conditions. This is inclusive OR: p and q may both be true, unlike exclusive OR which requires exactly one true operand. | OR bao hàm chấp nhận một hoặc cả hai điều kiện đúng. Đây là OR bao hàm: p và q có thể cùng đúng, khác XOR chỉ đúng khi đúng một vế. |
+| Q7 | **C** | NOT negates its Boolean operand. If p=True, then `not p=False`; if p=False, the negation becomes True. | NOT phủ định giá trị Boolean. Nếu p=True thì `not p=False`; nếu p=False thì phủ định trở thành True. |
+| Q8 | **D** | A true premise with a false conclusion violates implication. For p=True and q=False, `(not p) or q` is `(False or False)`, hence the implication is false. | Tiền đề đúng nhưng kết luận sai làm phép kéo theo sai. Với p=True và q=False, `(not p) or q` thành `(False or False)`, nên phép kéo theo sai. |
+| Q9 | **A** | Two variables each have two states, giving 2² cases. Each of the two Boolean variables has two values, producing `2 × 2 = 4` combinations rather than two. | Hai biến có hai trạng thái mỗi biến, tạo 2² trường hợp. Mỗi biến Boolean có hai giá trị, tạo `2 × 2 = 4` tổ hợp chứ không chỉ hai tổ hợp. |
+| Q10 | **B** | Three binary choices give 2³ combinations. Three Boolean variables produce `2 × 2 × 2 = 8` input assignments for the truth table. | Ba lựa chọn nhị phân tạo 2³ tổ hợp. Ba biến Boolean tạo `2 × 2 × 2 = 8` cách gán đầu vào cho bảng chân trị. |
+| Q11 | **C** | One Boolean has True and False. The two rows represent the single variable being True and False; the table has `2^1 = 2` rows. | Một biến Boolean có True và False. Hai hàng ứng với biến duy nhất nhận True và False; bảng có `2^1 = 2` hàng. |
+| Q12 | **D** | Four Boolean variables give 2⁴ possibilities. Each extra Boolean variable doubles the number of rows, so four variables require `2^4 = 16` combinations. | Bốn biến Boolean tạo 2⁴ khả năng. Mỗi biến Boolean thêm vào nhân đôi số hàng, nên bốn biến cần `2^4 = 16` tổ hợp. |
+| Q13 | **A** | The expression is false exactly for p=True, q=False. Both `p ⇒ q` and `(not p) or q` are false only for p=True, q=False, so their truth tables match in all cases. | Biểu thức chỉ sai khi p=True, q=False. Cả `p ⇒ q` và `(not p) or q` chỉ sai khi p=True, q=False nên bảng chân trị của chúng trùng nhau. |
+| Q14 | **B** | A true premise with a false conclusion is the only false implication case. The ordered pair is `(p, q)`, so `(True, False)` has the required true premise and false conclusion. | Tiền đề đúng và kết luận sai là trường hợp duy nhất làm phép kéo theo sai. Thứ tự cặp là `(p, q)`, nên `(True, False)` có tiền đề đúng và kết luận sai như yêu cầu. |
+| Q15 | **C** | AND is false if any operand is false. The result is the Boolean `False`, not the integer zero; the second operand is false and AND needs both true. | AND sai nếu có một vế sai. Kết quả là Boolean `False`, không phải số nguyên 0; vế thứ hai sai trong khi AND cần cả hai đúng. |
+| Q16 | **D** | OR is true when one operand is true. Because one operand is true, inclusive OR returns Boolean `True`; `False and True` would instead be False. | OR đúng khi có một vế đúng. Vì có một vế đúng, OR bao hàm trả Boolean `True`; `False and True` thì lại sai. |
+| Q17 | **A** | Disjoint alternatives are added without double counting. If five outcomes belong only to group A and three only to group B, there are `5 + 3 = 8` alternatives with no double counting. | Các nhóm không trùng có thể cộng mà không đếm lặp. Nếu năm kết quả chỉ thuộc nhóm A và ba kết quả chỉ thuộc nhóm B, tổng có `5 + 3 = 8` phương án không đếm trùng. |
+| Q18 | **B** | Multiplication requires consistent branching counts. If every first-stage choice has exactly three allowed second-stage choices, multiply the stage counts; varying branch counts require a more careful sum. | Nguyên lý nhân yêu cầu số nhánh lựa chọn phù hợp ở từng bước. Nếu mỗi lựa chọn bước đầu đều có đúng ba cách đi tiếp thì nhân số cách mỗi bước; khi số nhánh thay đổi phải cộng số cách theo từng nhánh cẩn thận. |
+| Q19 | **C** | product enumerates the Cartesian product. For `A=[1,2]` and `B=['x','y']`, product yields `(1,'x')`, `(1,'y')`, `(2,'x')`, `(2,'y')`, not merely position-matched pairs. | product liệt kê tích Descartes. Với `A=[1,2]` và `B=['x','y']`, product tạo `(1,'x')`, `(1,'y')`, `(2,'x')`, `(2,'y')`, không chỉ ghép vị trí tương ứng. |
+| Q20 | **D** | Overlapping groups must not be counted twice. For overlapping sets of outcomes, `&#124;A ∪ B&#124; = &#124;A&#124; + &#124;B&#124; − &#124;A ∩ B&#124;` removes the count included twice. | Nhóm có giao nhau không được đếm trùng. Với hai nhóm có giao, công thức `|A ∪ B| = |A| + |B| − |A ∩ B|` trừ phần được tính hai lần. |
 
 ## 8. Nối sang bài tiếp
 
