@@ -29,7 +29,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 | `np.column_stack((A,b))` | Ghép ma trận hệ số và vế phải thành augmented matrix |
 | `np.linalg.lstsq(A,b,rcond=None)` | Tìm nghiệm bình phương tối thiểu khi quá nhiều phương trình |
 
-## 4. Khái niệm kèm ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Linear system
 
@@ -40,6 +40,12 @@ Nhiều phương trình chứa cùng các ẩn số. Trước khi sử dụng bi
 ```python
 import numpy as np
 print(np.linalg.solve([[1,1],[2,1]],[5,8]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[3. 2.]
 ```
 
 **Tự kiểm tra:** Linear system có nghĩa gì? **Đáp án:** Nhiều phương trình chứa cùng các ẩn số.
@@ -55,6 +61,12 @@ import numpy as np
 print(np.linalg.matrix_rank([[1,2],[2,4]]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+1
+```
+
 **Tự kiểm tra:** Rank có nghĩa gì? **Đáp án:** Số hàng/cột độc lập tuyến tính.
 
 ### 4.3. Coefficient matrix
@@ -68,6 +80,13 @@ import numpy as np
 print(np.array([[1,1],[2,1]]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[1 1]
+ [2 1]]
+```
+
 **Tự kiểm tra:** Coefficient matrix có nghĩa gì? **Đáp án:** Các hệ số của ẩn trong Ax=b.
 
 ### 4.4. Residual
@@ -78,7 +97,16 @@ print(np.array([[1,1],[2,1]]))
 
 ```python
 import numpy as np
-A=np.eye(2);x=np.array([2,3]);b=np.array([2,3]);print(A@x-b)
+A=np.eye(2)
+x=np.array([2,3])
+b=np.array([2,3])
+print(A@x-b)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0. 0.]
 ```
 
 **Tự kiểm tra:** Residual có nghĩa gì? **Đáp án:** Độ sai khác giữa dự đoán Ax và b.
@@ -98,8 +126,15 @@ A=np.eye(2);x=np.array([2,3]);b=np.array([2,3]);print(A@x-b)
 
 ```python
 import numpy as np
-A=np.array([[1,1],[2,1]],dtype=float);b=np.array([5,8])
+A=np.array([[1,1],[2,1]],dtype=float)
+b=np.array([5,8])
 print(np.linalg.solve(A,b))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[3. 2.]
 ```
 
 
@@ -120,6 +155,12 @@ A=np.array([[1,2],[2,4]])
 print(np.linalg.matrix_rank(A))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+1
+```
+
 
 ### Tình huống 3 — Kiểm chứng nghiệm
 
@@ -134,8 +175,16 @@ print(np.linalg.matrix_rank(A))
 
 ```python
 import numpy as np
-A=np.array([[1,1],[2,1]]);b=np.array([5,8]);x=np.array([3,2])
+A=np.array([[1,1],[2,1]])
+b=np.array([5,8])
+x=np.array([3,2])
 print(np.allclose(A@x,b))
+```
+
+**Kết quả khi chạy:**
+
+```text
+True
 ```
 
 
@@ -152,9 +201,16 @@ print(np.allclose(A@x,b))
 
 ```python
 import numpy as np
-x=np.array([1,2,3]);y=np.array([2,4,6])
+x=np.array([1,2,3])
+y=np.array([2,4,6])
 A=np.column_stack([x,np.ones_like(x)])
 print(np.linalg.lstsq(A,y,rcond=None)[0])
+```
+
+**Kết quả khi chạy:**
+
+```text
+[2.00000000e+00 3.60138006e-16]
 ```
 
 
@@ -171,8 +227,16 @@ print(np.linalg.lstsq(A,y,rcond=None)[0])
 
 ```python
 import numpy as np
-A=np.eye(2);x=np.array([2,3]);b=np.array([2,4])
+A=np.eye(2)
+x=np.array([2,3])
+b=np.array([2,4])
 print(A@x-b)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[ 0. -1.]
 ```
 
 
