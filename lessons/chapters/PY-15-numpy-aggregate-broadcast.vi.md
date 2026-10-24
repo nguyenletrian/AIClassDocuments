@@ -30,59 +30,75 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `np.sqrt()/np.exp()` | Biến đổi từng phần tử, chú ý miền giá trị |
 
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Aggregate
 
 **Từ vựng trong mục:** **Aggregate** — phép tổng hợp.
 
-Gom nhiều giá trị thành chỉ số thống kê. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Phép tổng hợp như `sum`, `mean`, `max` rút nhiều giá trị thành một hoặc vài số dễ theo dõi.
 
 ```python
 import numpy as np
 print(np.array([1,2,3]).sum())
 ```
 
-**Tự kiểm tra:** Aggregate có nghĩa gì? **Đáp án:** Gom nhiều giá trị thành chỉ số thống kê.
+**Kết quả khi chạy:**
+
+```text
+6
+```
 
 ### 4.2. Axis
 
 **Từ vựng trong mục:** **Axis** — trục tính.
 
-Chiều dọc theo phép gom giá trị. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Với mảng hai chiều, `axis=0` tổng hợp theo cột, còn `axis=1` tổng hợp theo hàng.
 
 ```python
 import numpy as np
 print(np.array([[1,2],[3,4]]).mean(axis=0))
 ```
 
-**Tự kiểm tra:** Axis có nghĩa gì? **Đáp án:** Chiều dọc theo phép gom giá trị.
+**Kết quả khi chạy:**
+
+```text
+[2. 3.]
+```
 
 ### 4.3. Broadcasting
 
 **Từ vựng trong mục:** **Broadcasting** — quảng bá mảng.
 
-Mở rộng kích thước tương thích khi tính. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Broadcasting cho phép cộng hoặc nhân một số với từng phần tử của mảng mà không viết vòng lặp.
 
 ```python
 import numpy as np
 print(np.array([1,2])+3)
 ```
 
-**Tự kiểm tra:** Broadcasting có nghĩa gì? **Đáp án:** Mở rộng kích thước tương thích khi tính.
+**Kết quả khi chạy:**
+
+```text
+[4 5]
+```
 
 ### 4.4. Vectorization
 
 **Từ vựng trong mục:** **Vectorization** — vector hóa.
 
-Tính cả mảng không cần viết vòng for từng phần tử. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Vectorization tính trực tiếp nhiều phần tử bằng phép toán trên mảng NumPy.
 
 ```python
 import numpy as np
 print(np.array([1,2,3])*2)
 ```
 
-**Tự kiểm tra:** Vectorization có nghĩa gì? **Đáp án:** Tính cả mảng không cần viết vòng for từng phần tử.
+**Kết quả khi chạy:**
+
+```text
+[2 4 6]
+```
 
 ## 5. Năm tình huống thực tế
 
@@ -90,12 +106,11 @@ print(np.array([1,2,3])*2)
 
 **Từ vựng trong mục:** **Aggregate** — phép tổng hợp.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tổng doanh thu mỗi cửa hàng. Thông tin đầu vào: 2 cửa hàng × 3 ngày, nghìn đồng. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Hai cửa hàng có doanh thu ba ngày là `[10,20,30]` và `[8,12,16]` triệu đồng. Tính doanh thu mỗi cửa hàng.
 
-**Vì sao chọn cách giải này?** axis=1 cộng các ngày trên một hàng/cửa hàng.
+**Vì sao chọn cách giải này?** `sum(axis=1)` cộng các ngày trong từng hàng.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -103,17 +118,23 @@ sales=np.array([[10,20,30],[8,12,16]])
 print(sales.sum(axis=1))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[60 36]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 2 — Điểm trung bình từng môn
 
 **Từ vựng trong mục:** **Axis** — trục tính.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc điểm trung bình từng môn. Thông tin đầu vào: 3 học sinh × 2 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Ba học viên có điểm hai môn lần lượt là `(8,9)`, `(6,7)`, `(9,8)`. Tính trung bình của từng môn.
 
-**Vì sao chọn cách giải này?** axis=0 gom toàn bộ học sinh theo một cột môn.
+**Vì sao chọn cách giải này?** `mean(axis=0)` gom các điểm cùng cột môn học.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -121,17 +142,23 @@ X=np.array([[8,9],[6,7],[9,8]],dtype=float)
 print(X.mean(axis=0))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[7.66666667 8.        ]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 3 — Cộng điểm chuyên cần
 
 **Từ vựng trong mục:** **Broadcasting** — quảng bá mảng.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc cộng điểm chuyên cần. Thông tin đầu vào: 2 học sinh × 3 môn. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Hai học viên có điểm ba môn `(7,8,9)` và `(6,7,8)`, được cộng 1 điểm chuyên cần nhưng không vượt 10. In bảng điểm sau cộng.
 
-**Vì sao chọn cách giải này?** Broadcast cộng thưởng 1 điểm cho từng môn.
+**Vì sao chọn cách giải này?** Broadcasting cộng 1 vào mọi ô; `minimum(...,10)` chặn điểm tối đa.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -139,17 +166,24 @@ X=np.array([[7,8,9],[6,7,8]])
 print(np.minimum(X+1,10))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[ 8  9 10]
+ [ 7  8  9]]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 4 — Nhân các kênh cảm biến
 
 **Từ vựng trong mục:** **Vectorization** — vector hóa.
 
-**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc nhân các kênh cảm biến. Thông tin đầu vào: 3 giá trị đo và hệ số quy đổi. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Ba kênh cảm biến có tín hiệu `[10,20,30]` và hệ số hiệu chỉnh `[1.0,0.5,2.0]`. Tính tín hiệu sau hiệu chỉnh theo từng kênh.
 
-**Vì sao chọn cách giải này?** Vector hóa nhân hệ số cho toàn bộ kênh.
+**Vì sao chọn cách giải này?** Nhân hai mảng cùng chiều để nhân từng cặp phần tử tương ứng.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -158,17 +192,23 @@ factors=np.array([1.0,0.5,2.0])
 print(signals*factors)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[10. 10. 60.]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 5 — Tìm giá trị cao nhất theo cột
 
 **Từ vựng trong mục:** **Aggregate** — phép tổng hợp.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tìm giá trị cao nhất theo cột. Thông tin đầu vào: 3 mẫu × 2 kênh. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Bảng hai cột số đo có ba hàng `(2,4)`, `(5,1)`, `(3,6)`. Lấy giá trị cao nhất của mỗi cột.
 
-**Vì sao chọn cách giải này?** max(axis=0) chọn đỉnh từng feature.
+**Vì sao chọn cách giải này?** `max(axis=0)` lấy cực đại theo cột.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Lưu dữ liệu đúng thứ tự hàng/cột → dùng phép NumPy phù hợp → in và giải thích kết quả.
 
 ```python
 import numpy as np
@@ -176,6 +216,13 @@ X=np.array([[2,4],[5,1],[3,6]])
 print(X.max(axis=0))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[5 6]
+```
+
+**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ## 6. Sai lầm thường gặp
 
