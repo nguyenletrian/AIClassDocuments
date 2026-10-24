@@ -1,4 +1,4 @@
-# 06 — List, chỉ số, slicing và sắp xếp
+# PY-06 — List, chỉ số, cắt danh sách và sắp xếp
 
 
 ## 1. Vị trí trong chuỗi kiến thức
@@ -7,7 +7,7 @@
 
 `Vòng lặp → List → Vector/Array`
 
-Từ kiến thức trước, phần này giúp sinh viên quyết định nên tổ chức và xử lý dữ liệu bằng cấu trúc nào, rồi mới tiến tới các bài xử lý dữ liệu cho AI.
+Sau khi học vòng lặp, ta dùng List để lưu nhiều giá trị trong cùng một biến. Có thể thêm, xóa, sửa, sắp xếp và duyệt từng phần tử.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -29,50 +29,44 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 | `sort(), sorted()` | Sắp xếp tại chỗ hoặc tạo danh sách mới |
 | `items[start:stop]` | Lấy vùng con không bao gồm stop |
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. List
 
 **Từ vựng trong mục:** **List** — danh sách.
 
-Tập hợp có thứ tự, có thể thay đổi. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+List là danh sách có thứ tự, có thể chứa nhiều giá trị và có thể chỉnh sửa. Ví dụ `[1, 2]` có hai phần tử. Dùng dấu ngoặc vuông `[]` để tạo list.
 
 ```python
 a=[1,2]
 print(a)
 ```
 
-**Tự kiểm tra:** List có nghĩa gì? **Đáp án:** Tập hợp có thứ tự, có thể thay đổi.
-
 ### 4.2. Index
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-Vị trí tính từ 0 để lấy phần tử. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Chỉ số cho biết phần tử nằm ở đâu trong list. Python đếm từ `0`, nên `[8, 9][0]` lấy số `8`. Chỉ số `-1` lấy phần tử cuối.
 
 ```python
 print([8,9][0])
 ```
 
-**Tự kiểm tra:** Index có nghĩa gì? **Đáp án:** Vị trí tính từ 0 để lấy phần tử.
-
 ### 4.3. Slice
 
 **Từ vựng trong mục:** **Slice** — cắt lát.
 
-Lấy đoạn phần tử theo start:stop. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Cắt danh sách lấy một đoạn mà không thay đổi danh sách gốc. `[1, 2, 3][:2]` lấy từ đầu tới trước chỉ số 2, cho `[1, 2]`.
 
 ```python
 print([1,2,3][:2])
 ```
 
-**Tự kiểm tra:** Slice có nghĩa gì? **Đáp án:** Lấy đoạn phần tử theo start:stop.
-
 ### 4.4. Mutability
 
 **Từ vựng trong mục:** **Mutability** — khả năng sửa.
 
-Có thể cập nhật phần tử của danh sách. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+List có thể sửa nội dung sau khi tạo. Với `a = [1, 2]`, câu lệnh `a[1] = 5` đổi phần tử thứ hai; kết quả là `[1, 5]`.
 
 ```python
 a=[1,2]
@@ -80,20 +74,23 @@ a[1]=5
 print(a)
 ```
 
-**Tự kiểm tra:** Mutability có nghĩa gì? **Đáp án:** Có thể cập nhật phần tử của danh sách.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Giỏ hàng
 
 **Từ vựng trong mục:** **List** — danh sách.
 
-**Tình huống thực tế:** Một cửa hàng cần giỏ hàng. Dữ liệu hiện có: Hai món ban đầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một cửa hàng đang có giỏ hàng gồm `milk` (sữa) và `bread` (bánh mì). Khách muốn thêm `rice` (gạo) vào cuối giỏ.
 
-**Vì sao chọn cách này?** Thêm món mới vào danh sách thứ tự đã chọn.
+**Yêu cầu:** In danh sách hàng sau khi thêm gạo.
 
+**Vì sao chọn cách giải này?** `append()` thêm một phần tử vào cuối list mà vẫn giữ các món trước đó.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Tạo list `basket` gồm sữa và bánh mì.
+2. Gọi `basket.append("rice")`.
+3. In toàn bộ giỏ hàng.
 
 ```python
 basket=["milk","bread"]
@@ -101,36 +98,46 @@ basket.append("rice")
 print(basket)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `['milk', 'bread', 'rice']` — giỏ có ba món theo đúng thứ tự.
 
 ### Tình huống 2 — Lấy hai ưu tiên cao
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần lấy hai ưu tiên cao. Dữ liệu hiện có: Điểm ưu tiên [2,9,4,7]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một đội hỗ trợ nhận điểm ưu tiên của bốn yêu cầu là `[2, 9, 4, 7]`; điểm càng lớn thì yêu cầu càng cần xử lý trước.
 
-**Vì sao chọn cách này?** Sắp xếp bản sao giữ thứ tự gốc để còn so sánh.
+**Yêu cầu:** In hai điểm ưu tiên cao nhất mà không thay đổi list gốc.
 
+**Vì sao chọn cách giải này?** `sorted(..., reverse=True)` tạo danh sách mới từ cao xuống thấp, rồi `[:2]` lấy hai giá trị đầu.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu bốn điểm vào `scores`.
+2. Sắp xếp giảm dần bằng `sorted(scores, reverse=True)`.
+3. Cắt `[:2]` và in kết quả.
 
 ```python
 scores=[2,9,4,7]
 print(sorted(scores,reverse=True)[:2])
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `[9, 7]` — hai mức ưu tiên cao nhất. List `scores` gốc không bị thay đổi.
 
 ### Tình huống 3 — Lọc điểm đạt
 
 **Từ vựng trong mục:** **Slice** — cắt lát.
 
-**Tình huống thực tế:** Một trung tâm đào tạo cần lọc điểm đạt. Dữ liệu hiện có: 4 điểm thang 10; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Trung tâm đào tạo có điểm của bốn học viên là `[4, 7, 9, 3]` trên thang 10. Điểm đạt yêu cầu là từ 5 trở lên.
 
-**Vì sao chọn cách này?** Chọn điểm >=5 bằng điều kiện trong list comprehension.
+**Yêu cầu:** Tạo list mới chỉ chứa điểm đạt.
 
+**Vì sao chọn cách giải này?** List comprehension `[x for x in scores if x >= 5]` duyệt từng điểm và chỉ giữ giá trị đạt ngưỡng.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu điểm vào `scores`.
+2. Với mỗi `x`, kiểm tra `x >= 5`.
+3. Thêm các điểm đạt vào `passed` và in list mới.
 
 ```python
 scores=[4,7,9,3]
@@ -138,18 +145,23 @@ passed=[x for x in scores if x>=5]
 print(passed)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `[7, 9]` — hai điểm đạt, vẫn giữ thứ tự xuất hiện ban đầu.
 
 ### Tình huống 4 — Sửa tồn kho
 
 **Từ vựng trong mục:** **Mutability** — khả năng sửa.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần sửa tồn kho. Dữ liệu hiện có: Tồn 3 mặt hàng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Kho lưu số lượng ba mặt hàng trong list `[8, 6, 9]`. Sau kiểm kê, mặt hàng thứ hai thực tế còn 4 sản phẩm, không phải 6.
 
-**Vì sao chọn cách này?** Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai.
+**Yêu cầu:** Sửa lại số lượng mặt hàng thứ hai rồi in danh sách tồn kho mới.
 
+**Vì sao chọn cách giải này?** List có thể chỉnh trực tiếp theo chỉ số; mặt hàng thứ hai nằm ở chỉ số `1`.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu `[8, 6, 9]` vào `stock`.
+2. Gán `stock[1] = 4`.
+3. In danh sách sau khi sửa.
 
 ```python
 stock=[8,6,9]
@@ -157,18 +169,23 @@ stock[1]=4
 print(stock)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `[8, 4, 9]` — chỉ số lượng mặt hàng thứ hai được cập nhật.
 
 ### Tình huống 5 — Hàng đợi yêu cầu
 
 **Từ vựng trong mục:** **List** — danh sách.
 
-**Tình huống thực tế:** Một cửa hàng cần hàng đợi yêu cầu. Dữ liệu hiện có: 3 mã yêu cầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Bộ phận hỗ trợ đang xử lý ba yêu cầu theo thứ tự `REQ01`, `REQ02`, `REQ03`. Yêu cầu đến trước phải được xử lý trước.
 
-**Vì sao chọn cách này?** Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách.
+**Yêu cầu:** Lấy yêu cầu đầu hàng đợi ra để xử lý và in danh sách còn lại.
 
+**Vì sao chọn cách giải này?** `pop(0)` lấy và xóa phần tử đầu list; phù hợp để minh họa hàng đợi nhỏ. Với hàng đợi lớn hoặc thường xuyên lấy đầu, `collections.deque` phù hợp hơn.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Tạo list `queue` theo thứ tự yêu cầu đến.
+2. Dùng `pop(0)` lấy yêu cầu đầu vào biến `done`.
+3. In mã đã xử lý và list còn lại.
 
 ```python
 queue=["REQ01","REQ02","REQ03"]
@@ -176,260 +193,245 @@ done=queue.pop(0)
 print(done,queue)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `REQ01 ['REQ02', 'REQ03']` — yêu cầu đầu đã được lấy ra, hai yêu cầu còn lại giữ nguyên thứ tự.
 
 ## 6. Nhầm lẫn dễ gặp
 
-Không sử dụng cấu trúc dữ liệu sai với mục đích: ví dụ tập hợp không hỗ trợ truy cập theo chỉ số như list; tuple không sửa từng phần tử. Mọi dữ liệu thật cần xác minh kiểu, đơn vị và tính hợp lệ.
+- Chỉ số list bắt đầu từ `0`; truy cập vượt ngoài list gây `IndexError`.
+- `append([3,4])` thêm cả list như một phần tử, còn `extend([3,4])` thêm lần lượt `3` và `4`.
+- `list.sort()` sửa list gốc và trả về `None`; `sorted(list)` tạo list mới.
+- `pop(0)` sẽ lỗi nếu list rỗng. Với hàng đợi lớn, nên dùng `collections.deque`.
+- Cắt list bằng `[:2]` không lấy phần tử có chỉ số `2`.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is List? — Thuật ngữ List có nghĩa gì?**
+**Q1. What does a Python list store? — List lưu gì?**
 
-A. A different concept: Vị trí tính từ 0 để lấy phần tử — Vị trí tính từ 0 để lấy phần tử
+A. Multiple ordered values — Nhiều giá trị có thứ tự
 
-B. A concept described as: Tập hợp có thứ tự, có thể thay đổi — Tập hợp có thứ tự, có thể thay đổi
+B. Only one number — Chỉ một số
 
-C. A different concept: Lấy đoạn phần tử theo start:stop — Lấy đoạn phần tử theo start:stop
+C. Only file names — Chỉ tên file
 
-D. A different concept: Có thể cập nhật phần tử của danh sách — Có thể cập nhật phần tử của danh sách
+D. A running process — Một tiến trình đang chạy
 
+**Q2. What is the first list index? — Chỉ số đầu tiên của list là bao nhiêu?**
 
-**Q2. What is Index? — Thuật ngữ Index có nghĩa gì?**
+A. 1 — 1
 
-A. A concept described as: Vị trí tính từ 0 để lấy phần tử — Vị trí tính từ 0 để lấy phần tử
+B. 0 — 0
 
-B. A different concept: Lấy đoạn phần tử theo start:stop — Lấy đoạn phần tử theo start:stop
+C. -2 — -2
 
-C. A different concept: Có thể cập nhật phần tử của danh sách — Có thể cập nhật phần tử của danh sách
+D. 10 — 10
 
-D. A different concept: Tập hợp có thứ tự, có thể thay đổi — Tập hợp có thứ tự, có thể thay đổi
+**Q3. What does items[:2] return? — items[:2] lấy gì?**
 
+A. The last two items — Hai phần tử cuối
 
-**Q3. What is Slice? — Thuật ngữ Slice có nghĩa gì?**
+B. The third item only — Chỉ phần tử thứ ba
 
-A. A different concept: Có thể cập nhật phần tử của danh sách — Có thể cập nhật phần tử của danh sách
+C. The first two items — Hai phần tử đầu
 
-B. A different concept: Tập hợp có thứ tự, có thể thay đổi — Tập hợp có thứ tự, có thể thay đổi
+D. An empty list always — Luôn là list rỗng
 
-C. A different concept: Vị trí tính từ 0 để lấy phần tử — Vị trí tính từ 0 để lấy phần tử
+**Q4. Can list elements be replaced? — Có thể thay đổi phần tử list không?**
 
-D. A concept described as: Lấy đoạn phần tử theo start:stop — Lấy đoạn phần tử theo start:stop
+A. No, lists are fixed — Không, list không sửa được
 
+B. Only after sorting — Chỉ sau khi sắp xếp
 
-**Q4. What is Mutability? — Thuật ngữ Mutability có nghĩa gì?**
+C. Only with input() — Chỉ bằng input()
 
-A. A different concept: Tập hợp có thứ tự, có thể thay đổi — Tập hợp có thứ tự, có thể thay đổi
+D. Yes, using an index — Có, bằng chỉ số
 
-B. A different concept: Vị trí tính từ 0 để lấy phần tử — Vị trí tính từ 0 để lấy phần tử
+**Q5. What does append(x) do? — append(x) làm gì?**
 
-C. A concept described as: Có thể cập nhật phần tử của danh sách — Có thể cập nhật phần tử của danh sách
+A. Adds x at the end — Thêm x vào cuối
 
-D. A different concept: Lấy đoạn phần tử theo start:stop — Lấy đoạn phần tử theo start:stop
+B. Removes x — Xóa x
 
+C. Sorts the list — Sắp xếp list
 
-**Q5. Which statement fits 'append(), extend(), insert()'? — Mô tả nào đúng với 'append(), extend(), insert()'?**
+D. Returns the first item — Lấy phần tử đầu
 
-A. It is used for: Xóa theo vị trí hoặc giá trị — Xóa theo vị trí hoặc giá trị
+**Q6. How does extend differ from append? — extend khác append như thế nào?**
 
-B. This syntax is used for: Thêm từng phần tử hoặc nhiều phần tử vào danh sách — Thêm từng phần tử hoặc nhiều phần tử vào danh sách
+A. Both delete values — Cả hai xóa dữ liệu
 
-C. It is used for: Sắp xếp tại chỗ hoặc tạo danh sách mới — Sắp xếp tại chỗ hoặc tạo danh sách mới
+B. extend adds elements from an iterable — extend thêm từng phần tử của một nhóm
 
-D. It is used for: Lấy vùng con không bao gồm stop — Lấy vùng con không bao gồm stop
+C. extend sorts the list — extend sắp xếp list
 
+D. append always fails — append luôn lỗi
 
-**Q6. Which statement fits 'pop(), remove(), del'? — Mô tả nào đúng với 'pop(), remove(), del'?**
+**Q7. What does pop(0) do? — pop(0) làm gì?**
 
-A. This syntax is used for: Xóa theo vị trí hoặc giá trị — Xóa theo vị trí hoặc giá trị
+A. Removes the last item — Xóa phần tử cuối
 
-B. It is used for: Sắp xếp tại chỗ hoặc tạo danh sách mới — Sắp xếp tại chỗ hoặc tạo danh sách mới
+B. Copies the list — Sao chép list
 
-C. It is used for: Lấy vùng con không bao gồm stop — Lấy vùng con không bao gồm stop
+C. Removes and returns the first item — Xóa và trả về phần tử đầu
 
-D. It is used for: Thêm từng phần tử hoặc nhiều phần tử vào danh sách — Thêm từng phần tử hoặc nhiều phần tử vào danh sách
+D. Clears all items — Xóa toàn bộ
 
+**Q8. Which operation keeps the original list unchanged? — Cách sắp xếp nào không sửa list gốc?**
 
-**Q7. Which statement fits 'sort(), sorted()'? — Mô tả nào đúng với 'sort(), sorted()'?**
+A. items.sort() — items.sort()
 
-A. It is used for: Lấy vùng con không bao gồm stop — Lấy vùng con không bao gồm stop
+B. items.reverse() — items.reverse()
 
-B. It is used for: Thêm từng phần tử hoặc nhiều phần tử vào danh sách — Thêm từng phần tử hoặc nhiều phần tử vào danh sách
+C. items.append(2) — items.append(2)
 
-C. It is used for: Xóa theo vị trí hoặc giá trị — Xóa theo vị trí hoặc giá trị
+D. sorted(items) — sorted(items)
 
-D. This syntax is used for: Sắp xếp tại chỗ hoặc tạo danh sách mới — Sắp xếp tại chỗ hoặc tạo danh sách mới
+**Q9. What is the basket after appending rice? — Giỏ hàng sau khi thêm rice là gì?**
 
+A. ['milk', 'bread', 'rice'] — ['milk', 'bread', 'rice']
 
-**Q8. Which statement fits 'items[start:stop]'? — Mô tả nào đúng với 'items[start:stop]'?**
+B. ['rice'] — ['rice']
 
-A. It is used for: Thêm từng phần tử hoặc nhiều phần tử vào danh sách — Thêm từng phần tử hoặc nhiều phần tử vào danh sách
+C. ['milk', 'bread'] — ['milk', 'bread']
 
-B. It is used for: Xóa theo vị trí hoặc giá trị — Xóa theo vị trí hoặc giá trị
+D. ['bread', 'rice'] — ['bread', 'rice']
 
-C. This syntax is used for: Lấy vùng con không bao gồm stop — Lấy vùng con không bao gồm stop
+**Q10. What are the two highest priority scores? — Hai điểm ưu tiên cao nhất là gì?**
 
-D. It is used for: Sắp xếp tại chỗ hoặc tạo danh sách mới — Sắp xếp tại chỗ hoặc tạo danh sách mới
+A. [2, 4] — [2, 4]
 
+B. [9, 7] — [9, 7]
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn cách này ở tình huống 1?**
+C. [7, 4] — [7, 4]
 
-A. Because Sắp xếp bản sao giữ thứ tự gốc để còn so sánh — Sắp xếp bản sao giữ thứ tự gốc để còn so sánh
+D. [9, 2] — [9, 2]
 
-B. Because Thêm món mới vào danh sách thứ tự đã chọn — Thêm món mới vào danh sách thứ tự đã chọn
+**Q11. Which scores pass the threshold of 5? — Những điểm nào đạt ngưỡng 5?**
 
-C. Because Chọn điểm >=5 bằng điều kiện trong list comprehension — Chọn điểm >=5 bằng điều kiện trong list comprehension
+A. [4, 3] — [4, 3]
 
-D. Because Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai — Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai
+B. [4, 7, 9, 3] — [4, 7, 9, 3]
 
+C. [7, 9] — [7, 9]
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn cách này ở tình huống 2?**
+D. [] — []
 
-A. Because Sắp xếp bản sao giữ thứ tự gốc để còn so sánh — Sắp xếp bản sao giữ thứ tự gốc để còn so sánh
+**Q12. What is the stock after correcting index 1? — Tồn kho sau khi sửa chỉ số 1 là gì?**
 
-B. Because Chọn điểm >=5 bằng điều kiện trong list comprehension — Chọn điểm >=5 bằng điều kiện trong list comprehension
+A. [4, 6, 9] — [4, 6, 9]
 
-C. Because Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai — Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai
+B. [8, 6, 4] — [8, 6, 4]
 
-D. Because Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách — Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách
+C. [8, 6, 9] — [8, 6, 9]
 
+D. [8, 4, 9] — [8, 4, 9]
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn cách này ở tình huống 3?**
+**Q13. Which request is processed first? — Yêu cầu nào được xử lý trước?**
 
-A. Because Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai — Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai
+A. REQ01 — REQ01
 
-B. Because Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách — Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách
+B. REQ03 — REQ03
 
-C. Because Thêm món mới vào danh sách thứ tự đã chọn — Thêm món mới vào danh sách thứ tự đã chọn
+C. REQ02 — REQ02
 
-D. Because Chọn điểm >=5 bằng điều kiện trong list comprehension — Chọn điểm >=5 bằng điều kiện trong list comprehension
+D. None — Không có
 
+**Q14. What is [8, 9][0]? — [8, 9][0] bằng bao nhiêu?**
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn cách này ở tình huống 4?**
+A. 9 — 9
 
-A. Because Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách — Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách
+B. 8 — 8
 
-B. Because Thêm món mới vào danh sách thứ tự đã chọn — Thêm món mới vào danh sách thứ tự đã chọn
+C. 0 — 0
 
-C. Because Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai — Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai
+D. 2 — 2
 
-D. Because Sắp xếp bản sao giữ thứ tự gốc để còn so sánh — Sắp xếp bản sao giữ thứ tự gốc để còn so sánh
+**Q15. What is [1, 2, 3][:2]? — [1, 2, 3][:2] bằng gì?**
 
+A. [2, 3] — [2, 3]
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn cách này ở tình huống 5?**
+B. [1, 2, 3] — [1, 2, 3]
 
-A. Because Thêm món mới vào danh sách thứ tự đã chọn — Thêm món mới vào danh sách thứ tự đã chọn
+C. [1, 2] — [1, 2]
 
-B. Because Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách — Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách
+D. [3] — [3]
 
-C. Because Sắp xếp bản sao giữ thứ tự gốc để còn so sánh — Sắp xếp bản sao giữ thứ tự gốc để còn so sánh
+**Q16. What happens with a[1] = 5 for a = [1, 2]? — a thay đổi thế nào với a[1] = 5?**
 
-D. Because Chọn điểm >=5 bằng điều kiện trong list comprehension — Chọn điểm >=5 bằng điều kiện trong list comprehension
+A. [5, 2] — [5, 2]
 
+B. [1, 2] — [1, 2]
 
-**Q14. What input belongs to scenario 1? — Tình huống 1 sử dụng dữ liệu gì?**
+C. [1, 2, 5] — [1, 2, 5]
 
-A. The stated input: Hai món ban đầu — Hai món ban đầu
+D. [1, 5] — [1, 5]
 
-B. The input is Điểm ưu tiên [2,9,4,7] — Điểm ưu tiên [2,9,4,7]
+**Q17. Why use sorted(scores, reverse=True)? — Vì sao dùng sorted(scores, reverse=True)?**
 
-C. The input is 4 điểm thang 10 — 4 điểm thang 10
+A. To sort descending without changing scores — Để sắp giảm dần mà không sửa scores
 
-D. The input is Tồn 3 mặt hàng — Tồn 3 mặt hàng
+B. To clear scores — Để xóa scores
 
+C. To select random scores — Để chọn điểm ngẫu nhiên
 
-**Q15. What input belongs to scenario 2? — Tình huống 2 sử dụng dữ liệu gì?**
+D. To convert scores to text — Để đổi điểm thành chữ
 
-A. The input is 4 điểm thang 10 — 4 điểm thang 10
+**Q18. Which condition retains passing scores? — Điều kiện nào giữ lại điểm đạt?**
 
-B. The input is Tồn 3 mặt hàng — Tồn 3 mặt hàng
+A. x < 5 — x < 5
 
-C. The input is 3 mã yêu cầu — 3 mã yêu cầu
+B. x >= 5 — x >= 5
 
-D. The stated input: Điểm ưu tiên [2,9,4,7] — Điểm ưu tiên [2,9,4,7]
+C. x == 0 — x == 0
 
+D. x != x — x != x
 
-**Q16. What input belongs to scenario 3? — Tình huống 3 sử dụng dữ liệu gì?**
+**Q19. What happens when pop(0) is called on an empty list? — Gọi pop(0) trên list rỗng sẽ thế nào?**
 
-A. The input is Tồn 3 mặt hàng — Tồn 3 mặt hàng
+A. Returns zero — Trả về số 0
 
-B. The input is 3 mã yêu cầu — 3 mã yêu cầu
+B. Returns None — Trả về None
 
-C. The stated input: 4 điểm thang 10 — 4 điểm thang 10
+C. Raises IndexError — Báo lỗi IndexError
 
-D. The input is Hai món ban đầu — Hai món ban đầu
+D. Creates one element — Tạo một phần tử
 
+**Q20. What does list.sort() return? — list.sort() trả về gì?**
 
-**Q17. What input belongs to scenario 4? — Tình huống 4 sử dụng dữ liệu gì?**
+A. The sorted copy — Bản sao đã sắp
 
-A. The input is 3 mã yêu cầu — 3 mã yêu cầu
+B. The largest item — Phần tử lớn nhất
 
-B. The stated input: Tồn 3 mặt hàng — Tồn 3 mặt hàng
+C. The original length — Độ dài ban đầu
 
-C. The input is Hai món ban đầu — Hai món ban đầu
-
-D. The input is Điểm ưu tiên [2,9,4,7] — Điểm ưu tiên [2,9,4,7]
-
-
-**Q18. What input belongs to scenario 5? — Tình huống 5 sử dụng dữ liệu gì?**
-
-A. The stated input: 3 mã yêu cầu — 3 mã yêu cầu
-
-B. The input is Hai món ban đầu — Hai món ban đầu
-
-C. The input is Điểm ưu tiên [2,9,4,7] — Điểm ưu tiên [2,9,4,7]
-
-D. The input is 4 điểm thang 10 — 4 điểm thang 10
-
-
-**Q19. What must be known before processing data? — Cần biết gì trước khi xử lý dữ liệu?**
-
-A. Only file name — Chỉ tên file
-
-B. Only editor theme — Chỉ màu giao diện
-
-C. Only line count — Chỉ số dòng
-
-D. Input meaning, type and units — Ý nghĩa, kiểu và đơn vị đầu vào
-
-
-**Q20. How should a student check an example? — Nên kiểm tra ví dụ như thế nào?**
-
-A. Assume all inputs work — Cho rằng dữ liệu nào cũng đúng
-
-B. Ignore errors — Bỏ qua lỗi
-
-C. Verify output and edge cases — Đối chiếu kết quả và thử trường hợp biên
-
-D. Delete comments — Xóa chú thích
+D. None — None
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | A concept described as: Tập hợp có thứ tự, có thể thay đổi | Tập hợp có thứ tự, có thể thay đổi |
-| Q2 | **A** | A concept described as: Vị trí tính từ 0 để lấy phần tử | Vị trí tính từ 0 để lấy phần tử |
-| Q3 | **D** | A concept described as: Lấy đoạn phần tử theo start:stop | Lấy đoạn phần tử theo start:stop |
-| Q4 | **C** | A concept described as: Có thể cập nhật phần tử của danh sách | Có thể cập nhật phần tử của danh sách |
-| Q5 | **B** | This syntax is used for: Thêm từng phần tử hoặc nhiều phần tử vào danh sách | Thêm từng phần tử hoặc nhiều phần tử vào danh sách |
-| Q6 | **A** | This syntax is used for: Xóa theo vị trí hoặc giá trị | Xóa theo vị trí hoặc giá trị |
-| Q7 | **D** | This syntax is used for: Sắp xếp tại chỗ hoặc tạo danh sách mới | Sắp xếp tại chỗ hoặc tạo danh sách mới |
-| Q8 | **C** | This syntax is used for: Lấy vùng con không bao gồm stop | Lấy vùng con không bao gồm stop |
-| Q9 | **B** | Because Thêm món mới vào danh sách thứ tự đã chọn | Thêm món mới vào danh sách thứ tự đã chọn |
-| Q10 | **A** | Because Sắp xếp bản sao giữ thứ tự gốc để còn so sánh | Sắp xếp bản sao giữ thứ tự gốc để còn so sánh |
-| Q11 | **D** | Because Chọn điểm >=5 bằng điều kiện trong list comprehension | Chọn điểm >=5 bằng điều kiện trong list comprehension |
-| Q12 | **C** | Because Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai | Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai |
-| Q13 | **B** | Because Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách | Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách |
-| Q14 | **A** | The stated input: Hai món ban đầu | Hai món ban đầu |
-| Q15 | **D** | The stated input: Điểm ưu tiên [2,9,4,7] | Điểm ưu tiên [2,9,4,7] |
-| Q16 | **C** | The stated input: 4 điểm thang 10 | 4 điểm thang 10 |
-| Q17 | **B** | The stated input: Tồn 3 mặt hàng | Tồn 3 mặt hàng |
-| Q18 | **A** | The stated input: 3 mã yêu cầu | 3 mã yêu cầu |
-| Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
-| Q20 | **C** | Verify output and edge cases | Đối chiếu kết quả và thử trường hợp biên |
+| Q1 | **A** | A list stores values in order. | List lưu các giá trị theo thứ tự. |
+| Q2 | **B** | Python list indexing starts at zero. | Chỉ số list bắt đầu từ 0. |
+| Q3 | **C** | The stop index is excluded. | Không lấy phần tử ở vị trí kết thúc. |
+| Q4 | **D** | Lists are mutable. | List có thể thay đổi. |
+| Q5 | **A** | append adds one element. | append thêm một phần tử. |
+| Q6 | **B** | extend adds multiple supplied elements. | extend thêm từng phần tử được truyền vào. |
+| Q7 | **C** | Index zero refers to the first item. | Chỉ số 0 là phần tử đầu. |
+| Q8 | **D** | sorted produces a new list. | sorted tạo list mới. |
+| Q9 | **A** | append keeps existing elements and adds rice. | append giữ các món cũ và thêm rice. |
+| Q10 | **B** | Sort descending and take two items. | Sắp giảm dần rồi lấy hai phần tử. |
+| Q11 | **C** | Only scores at least five pass. | Chỉ điểm từ 5 trở lên được giữ. |
+| Q12 | **D** | Index one is the second item. | Chỉ số 1 là phần tử thứ hai. |
+| Q13 | **A** | pop(0) selects the first request. | pop(0) lấy yêu cầu đầu. |
+| Q14 | **B** | Index zero retrieves 8. | Chỉ số 0 lấy số 8. |
+| Q15 | **C** | Slicing excludes index 2. | Cắt trước chỉ số 2. |
+| Q16 | **D** | The second element is replaced. | Phần tử thứ hai được thay. |
+| Q17 | **A** | sorted returns a new list in descending order. | sorted trả về list mới theo thứ tự giảm dần. |
+| Q18 | **B** | Five or above meets the threshold. | Từ 5 trở lên là đạt. |
+| Q19 | **C** | There is no first element to remove. | List rỗng không có phần tử đầu để lấy. |
+| Q20 | **D** | sort changes the list in place and returns None. | sort sửa trực tiếp list và trả về None. |
 
-## 8. Kết nối bài tiếp theo
+## 8. Nối sang bài tiếp theo
 
 `Vòng lặp → List → Vector/Array`.
