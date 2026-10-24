@@ -725,325 +725,205 @@ print("Accuracy without PCA:", round(without_pca.score(X_test, y_test), 4))
 
 *Mỗi câu có nội dung tiếng Anh và bản dịch tiếng Việt. Mỗi phương án cũng được dịch để sinh viên vừa tự kiểm tra kiến thức, vừa ôn thuật ngữ chuyên ngành.*
 
-**Q1. What is the primary purpose of PCA?**
+**Q1. What is the primary purpose of PCA? — PCA có mục đích chính là gì?**
 
-*Tiếng Việt: PCA có mục đích chính là gì?*
+A. To label samples automatically — Tự động gán nhãn các mẫu
 
-A. To label samples automatically  
-*Tự động gán nhãn các mẫu*
+B. To reduce dimensionality by creating new components — Giảm số chiều bằng cách tạo ra các thành phần mới
 
-B. To reduce dimensionality by creating new components  
-*Giảm số chiều bằng cách tạo ra các thành phần mới*
+C. To remove every correlated sample — Loại bỏ mọi mẫu có tương quan
 
-C. To remove every correlated sample  
-*Loại bỏ mọi mẫu có tương quan*
+D. To guarantee higher accuracy — Bảo đảm độ chính xác cao hơn
 
-D. To guarantee higher accuracy  
-*Bảo đảm độ chính xác cao hơn*
+**Q2. Which object stores the fraction of variance explained by each component? — Thuộc tính nào lưu tỷ lệ phương sai mà từng thành phần chính giải thích được?**
 
-**Q2. Which object stores the fraction of variance explained by each component?**
+A. `pca.components_` — Thuộc tính `pca.components_` — các hướng thành phần chính
 
-*Tiếng Việt: Thuộc tính nào lưu tỷ lệ phương sai mà từng thành phần chính giải thích được?*
+B. `pca.classes_` — Thuộc tính `pca.classes_` — không phải thuộc tính cần dùng để xem phương sai PCA
 
-A. `pca.components_`  
-*Thuộc tính `pca.components_` — các hướng thành phần chính*
+C. `pca.explained_variance_ratio_` — Thuộc tính `pca.explained_variance_ratio_` — tỷ lệ phương sai từng thành phần
 
-B. `pca.classes_`  
-*Thuộc tính `pca.classes_` — không phải thuộc tính cần dùng để xem phương sai PCA*
+D. `pca.predict()` — Lời gọi `pca.predict()` — PCA không phải mô hình dự đoán nhãn
 
-C. `pca.explained_variance_ratio_`  
-*Thuộc tính `pca.explained_variance_ratio_` — tỷ lệ phương sai từng thành phần*
+**Q3. Why is `StandardScaler` often used before PCA? — Tại sao thường dùng StandardScaler trước PCA?**
 
-D. `pca.predict()`  
-*Lời gọi `pca.predict()` — PCA không phải mô hình dự đoán nhãn*
+A. To make every feature an integer — Biến mọi đặc trưng thành số nguyên
 
-**Q3. Why is `StandardScaler` often used before PCA?**
+B. To ensure different feature scales do not dominate solely because of units — Tránh việc đặc trưng có thang đo lớn chi phối chỉ vì đơn vị đo
 
-*Tiếng Việt: Tại sao thường dùng StandardScaler trước PCA?*
+C. To guarantee that no data is lost — Bảo đảm không mất bất kỳ thông tin nào
 
-A. To make every feature an integer  
-*Biến mọi đặc trưng thành số nguyên*
+D. To convert all data into labels — Chuyển toàn bộ dữ liệu thành nhãn
 
-B. To ensure different feature scales do not dominate solely because of units  
-*Tránh việc đặc trưng có thang đo lớn chi phối chỉ vì đơn vị đo*
+**Q4. A dataset has shape `(100, 5)`. After `PCA(n_components=2)`, what is the transformed shape? — Dữ liệu có kích thước (100, 5). Sau PCA(n_components=2), kích thước mới là bao nhiêu?**
 
-C. To guarantee that no data is lost  
-*Bảo đảm không mất bất kỳ thông tin nào*
+A. `(5, 2)` — (5, 2)
 
-D. To convert all data into labels  
-*Chuyển toàn bộ dữ liệu thành nhãn*
+B. `(2, 100)` — (2, 100)
 
-**Q4. A dataset has shape `(100, 5)`. After `PCA(n_components=2)`, what is the transformed shape?**
+C. `(100, 2)` — (100, 2)
 
-*Tiếng Việt: Dữ liệu có kích thước (100, 5). Sau PCA(n_components=2), kích thước mới là bao nhiêu?*
+D. `(100, 5)` — (100, 5)
 
-A. `(5, 2)`  
-*(5, 2)*
+**Q5. What does `model.fit(X_train, y_train)` do in a scikit-learn `Pipeline`? — model.fit(X_train, y_train) làm gì trong Pipeline của scikit-learn?**
 
-B. `(2, 100)`  
-*(2, 100)*
+A. Fits transformations and the estimator using the training set — Huấn luyện các bước biến đổi và mô hình bằng tập train
 
-C. `(100, 2)`  
-*(100, 2)*
+B. Fits the model on the entire dataset including the test set — Huấn luyện bằng toàn bộ dữ liệu, gồm cả tập test
 
-D. `(100, 5)`  
-*(100, 5)*
+C. Only prints the model parameters — Chỉ in tham số của mô hình
 
-**Q5. What does `model.fit(X_train, y_train)` do in a scikit-learn `Pipeline`?**
+D. Automatically creates the labels — Tự tạo nhãn cho dữ liệu
 
-*Tiếng Việt: model.fit(X_train, y_train) làm gì trong Pipeline của scikit-learn?*
+**Q6. Does retaining 95% of PCA variance guarantee 95% classification accuracy? — Giữ lại 95% phương sai bằng PCA có bảo đảm độ chính xác phân loại 95% không?**
 
-A. Fits transformations and the estimator using the training set  
-*Huấn luyện các bước biến đổi và mô hình bằng tập train*
+A. Yes, always — Có, luôn luôn
 
-B. Fits the model on the entire dataset including the test set  
-*Huấn luyện bằng toàn bộ dữ liệu, gồm cả tập test*
+B. Yes, if two components are used — Có, nếu dùng hai thành phần chính
 
-C. Only prints the model parameters  
-*Chỉ in tham số của mô hình*
+C. Only with KMeans — Chỉ khi dùng KMeans
 
-D. Automatically creates the labels  
-*Tự tạo nhãn cho dữ liệu*
+D. No, variance retention and classification accuracy measure different things — Không, phương sai và độ chính xác phân loại là hai thước đo khác nhau
 
-**Q6. Does retaining 95% of PCA variance guarantee 95% classification accuracy?**
+**Q7. Which statement about PCA and KMeans is correct? — Phát biểu nào đúng về PCA và KMeans?**
 
-*Tiếng Việt: Giữ lại 95% phương sai bằng PCA có bảo đảm độ chính xác phân loại 95% không?*
+A. PCA automatically assigns cluster labels — PCA tự gán nhãn cụm
 
-A. Yes, always  
-*Có, luôn luôn*
+B. PCA transforms features; KMeans can cluster the transformed features — PCA biến đổi đặc trưng; KMeans có thể phân cụm trên dữ liệu đã biến đổi
 
-B. Yes, if two components are used  
-*Có, nếu dùng hai thành phần chính*
+C. KMeans is required to compute eigenvectors — KMeans cần thiết để tính vector riêng
 
-C. Only with KMeans  
-*Chỉ khi dùng KMeans*
+D. Both always return the same labels — Hai thuật toán luôn cho cùng một nhãn
 
-D. No, variance retention and classification accuracy measure different things  
-*Không, phương sai và độ chính xác phân loại là hai thước đo khác nhau*
+**Q8. What is data leakage in the PCA workflow? — Rò rỉ dữ liệu (data leakage) trong quy trình PCA là gì?**
 
-**Q7. Which statement about PCA and KMeans is correct?**
+A. Drawing a scatter plot from training data — Vẽ biểu đồ phân tán bằng tập train
 
-*Tiếng Việt: Phát biểu nào đúng về PCA và KMeans?*
+B. Selecting two principal components — Chọn hai thành phần chính
 
-A. PCA automatically assigns cluster labels  
-*PCA tự gán nhãn cụm*
+C. Fitting preprocessing steps on test data before evaluating the model — Để các bước tiền xử lý học từ tập test trước khi đánh giá mô hình
 
-B. PCA transforms features; KMeans can cluster the transformed features  
-*PCA biến đổi đặc trưng; KMeans có thể phân cụm trên dữ liệu đã biến đổi*
+D. Calling `transform()` on new data — Gọi transform trên dữ liệu mới
 
-C. KMeans is required to compute eigenvectors  
-*KMeans cần thiết để tính vector riêng*
+**Q9. In a customer dataset, what does the word "feature" mean? — Trong bộ dữ liệu khách hàng, "feature" có nghĩa gì?**
 
-D. Both always return the same labels  
-*Hai thuật toán luôn cho cùng một nhãn*
+A. An attribute describing a customer — Thuộc tính mô tả khách hàng
 
-**Q8. What is data leakage in the PCA workflow?**
+B. An automatically predicted customer label — Nhãn khách hàng do mô hình tự dự đoán
 
-*Tiếng Việt: Rò rỉ dữ liệu (data leakage) trong quy trình PCA là gì?*
+C. A random row number — Số thứ tự hàng ngẫu nhiên
 
-A. Drawing a scatter plot from training data  
-*Vẽ biểu đồ phân tán bằng tập train*
+D. The name of the PCA algorithm — Tên thuật toán PCA
 
-B. Selecting two principal components  
-*Chọn hai thành phần chính*
+**Q10. In an array with shape `(100, 5)`, what does 100 represent? — Trong mảng có shape (100, 5), số 100 biểu thị điều gì?**
 
-C. Fitting preprocessing steps on test data before evaluating the model  
-*Để các bước tiền xử lý học từ tập test trước khi đánh giá mô hình*
+A. Five hundred total features — Tổng cộng 500 đặc trưng
 
-D. Calling `transform()` on new data  
-*Gọi transform trên dữ liệu mới*
+B. The number of PC axes — Số trục thành phần chính
 
-**Q9. In a customer dataset, what does the word "feature" mean?**
+C. The number of customers (samples) — Số khách hàng (số mẫu)
 
-*Tiếng Việt: Trong bộ dữ liệu khách hàng, "feature" có nghĩa gì?*
+D. The number of target classes — Số lớp mục tiêu
 
-A. An attribute describing a customer  
-*Thuộc tính mô tả khách hàng*
+**Q11. Which array represents ONE customer with five numeric features? — Mảng nào biểu diễn MỘT khách hàng với năm đặc trưng số?**
 
-B. An automatically predicted customer label  
-*Nhãn khách hàng do mô hình tự dự đoán*
+A. `np.array([[1, 2], [3, 4]])` — Mảng hai chiều gồm hai hàng và hai cột: `np.array([[1, 2], [3, 4]])`
 
-C. A random row number  
-*Số thứ tự hàng ngẫu nhiên*
+B. `np.array([12, 4, 950, 18, 7])` — Mảng một chiều có năm số: `np.array([12, 4, 950, 18, 7])`
 
-D. The name of the PCA algorithm  
-*Tên thuật toán PCA*
+C. `np.array([["A", "B"]])` — Mảng chứa văn bản thay vì năm số: `np.array([["A", "B"]])`
 
-**Q10. In an array with shape `(100, 5)`, what does 100 represent?**
+D. `np.array([])` — Mảng rỗng, không có năm giá trị: `np.array([])`
 
-*Tiếng Việt: Trong mảng có shape (100, 5), số 100 biểu thị điều gì?*
+**Q12. What does `X.mean(axis=0)` calculate for a 2D dataset? — X.mean(axis=0) tính gì với dữ liệu hai chiều?**
 
-A. Five hundred total features  
-*Tổng cộng 500 đặc trưng*
+A. One average across the entire dataset — Một giá trị trung bình cho toàn bộ bảng
 
-B. The number of PC axes  
-*Số trục thành phần chính*
+B. A mean for each sample (row) — Trung bình của mỗi mẫu (hàng)
 
-C. The number of customers (samples)  
-*Số khách hàng (số mẫu)*
+C. The number of samples — Số lượng mẫu
 
-D. The number of target classes  
-*Số lớp mục tiêu*
+D. The mean of each feature (column) — Trung bình của mỗi đặc trưng (cột)
 
-**Q11. Which array represents ONE customer with five numeric features?**
+**Q13. What does a high variance of customer spending suggest? — Phương sai lớn của chi tiêu khách hàng cho thấy điều gì?**
 
-*Tiếng Việt: Mảng nào biểu diễn MỘT khách hàng với năm đặc trưng số?*
+A. Every customer spends exactly the same amount — Mọi khách đều chi tiêu đúng bằng nhau
 
-A. `np.array([[1, 2], [3, 4]])`  
-*Mảng hai chiều gồm hai hàng và hai cột: `np.array([[1, 2], [3, 4]])`*
+B. The spending values differ substantially — Các mức chi tiêu phân tán, khác nhau đáng kể
 
-B. `np.array([12, 4, 950, 18, 7])`  
-*Mảng một chiều có năm số: `np.array([12, 4, 950, 18, 7])`*
+C. The model has high classification accuracy — Mô hình chắc chắn có độ chính xác phân loại cao
 
-C. `np.array([["A", "B"]])`  
-*Mảng chứa văn bản thay vì năm số: `np.array([["A", "B"]])`*
+D. Customers have no recorded spending — Khách hàng không có dữ liệu chi tiêu
 
-D. `np.array([])`  
-*Mảng rỗng, không có năm giá trị: `np.array([])`*
+**Q14. Why do we often set `rowvar=False` in `np.cov(X, rowvar=False)`? — Vì sao thường đặt rowvar=False trong np.cov(X, rowvar=False)?**
 
-**Q12. What does `X.mean(axis=0)` calculate for a 2D dataset?**
+A. It treats columns as the variables/features — Để coi các cột là biến/đặc trưng
 
-*Tiếng Việt: X.mean(axis=0) tính gì với dữ liệu hai chiều?*
+B. It removes all rows with zeros — Để xóa các hàng có giá trị 0
 
-A. One average across the entire dataset  
-*Một giá trị trung bình cho toàn bộ bảng*
+C. It forces covariance to equal one — Để ép hiệp phương sai bằng 1
 
-B. A mean for each sample (row)  
-*Trung bình của mỗi mẫu (hàng)*
+D. It sorts customers by spending — Để sắp khách theo chi tiêu
 
-C. The number of samples  
-*Số lượng mẫu*
+**Q15. In the context of PCA, what does an eigenvector of the covariance matrix describe? — Trong PCA, vector riêng của ma trận hiệp phương sai mô tả điều gì?**
 
-D. The mean of each feature (column)  
-*Trung bình của mỗi đặc trưng (cột)*
+A. A customer identifier — Mã định danh khách hàng
 
-**Q13. What does a high variance of customer spending suggest?**
+B. A final prediction label — Nhãn dự đoán cuối cùng
 
-*Tiếng Việt: Phương sai lớn của chi tiêu khách hàng cho thấy điều gì?*
+C. A direction in feature space — Một hướng trong không gian đặc trưng
 
-A. Every customer spends exactly the same amount  
-*Mọi khách đều chi tiêu đúng bằng nhau*
+D. A Python library dependency — Thư viện Python cần cài
 
-B. The spending values differ substantially  
-*Các mức chi tiêu phân tán, khác nhau đáng kể*
+**Q16. A larger eigenvalue associated with a PCA direction generally means ... — Giá trị riêng lớn hơn gắn với một hướng PCA thường có nghĩa gì?**
 
-C. The model has high classification accuracy  
-*Mô hình chắc chắn có độ chính xác phân loại cao*
+A. The direction holds more variance — Hướng đó chứa nhiều phương sai hơn
 
-D. Customers have no recorded spending  
-*Khách hàng không có dữ liệu chi tiêu*
+B. The direction is the final class prediction — Hướng đó là nhãn lớp cuối cùng
 
-**Q14. Why do we often set `rowvar=False` in `np.cov(X, rowvar=False)`?**
+C. There are more customers in the dataset — Bộ dữ liệu có nhiều khách hàng hơn
 
-*Tiếng Việt: Vì sao thường đặt rowvar=False trong np.cov(X, rowvar=False)?*
+D. The accuracy is guaranteed to be higher — Độ chính xác được bảo đảm tăng
 
-A. It treats columns as the variables/features  
-*Để coi các cột là biến/đặc trưng*
+**Q17. A fitted PCA model receives a new customer record. What should you call to apply its existing axes? — Một mô hình PCA đã fit nhận khách mới. Gọi gì để dùng các trục đã học?**
 
-B. It removes all rows with zeros  
-*Để xóa các hàng có giá trị 0*
+A. `fit_transform(new_customer)` to learn new axes — fit_transform(new_customer) để học trục mới
 
-C. It forces covariance to equal one  
-*Để ép hiệp phương sai bằng 1*
+B. `transform(new_customer_scaled)` using the same fitted preprocessing workflow — transform(new_customer_scaled) sau khi áp dụng cùng quy trình tiền xử lý đã fit
 
-D. It sorts customers by spending  
-*Để sắp khách theo chi tiêu*
+C. `predict(new_customer)` on PCA alone — predict(new_customer) trực tiếp trên PCA
 
-**Q15. In the context of PCA, what does an eigenvector of the covariance matrix describe?**
+D. `fit(new_customer)` before every prediction — fit(new_customer) trước mỗi lần dự đoán
 
-*Tiếng Việt: Trong PCA, vector riêng của ma trận hiệp phương sai mô tả điều gì?*
+**Q18. Three factory sensors are strongly correlated. What is a sensible first action? — Ba cảm biến của nhà máy có tương quan rất mạnh. Bước đầu nào hợp lý?**
 
-A. A customer identifier  
-*Mã định danh khách hàng*
+A. Delete two physical sensors immediately — Xóa ngay hai cảm biến vật lý
 
-B. A final prediction label  
-*Nhãn dự đoán cuối cùng*
+B. Declare all anomalies impossible — Khẳng định mọi bất thường đều không thể xảy ra
 
-C. A direction in feature space  
-*Một hướng trong không gian đặc trưng*
+C. Try PCA for dashboard compression, then check variance and safety requirements — Thử PCA để nén dữ liệu hiển thị rồi kiểm tra phương sai và yêu cầu an toàn
 
-D. A Python library dependency  
-*Thư viện Python cần cài*
+D. Replace all sensor readings with zeros — Thay mọi giá trị cảm biến bằng 0
 
-**Q16. A larger eigenvalue associated with a PCA direction generally means ...**
+**Q19. What does `PCA(n_components=0.95, svd_solver="full")` request? — PCA(n_components=0.95, svd_solver="full") yêu cầu gì?**
 
-*Tiếng Việt: Giá trị riêng lớn hơn gắn với một hướng PCA thường có nghĩa gì?*
+A. Exactly 95 components — Chính xác 95 thành phần
 
-A. The direction holds more variance  
-*Hướng đó chứa nhiều phương sai hơn*
+B. A guaranteed 95% classification accuracy — Bảo đảm độ chính xác phân loại 95%
 
-B. The direction is the final class prediction  
-*Hướng đó là nhãn lớp cuối cùng*
+C. Two components for every dataset — Luôn lấy hai thành phần
 
-C. There are more customers in the dataset  
-*Bộ dữ liệu có nhiều khách hàng hơn*
+D. Enough components to retain at least 95% of fitted data variance — Giữ đủ số thành phần để đạt ít nhất 95% phương sai trên tập đã fit
 
-D. The accuracy is guaranteed to be higher  
-*Độ chính xác được bảo đảm tăng*
+**Q20. What is the fairest simple way to test whether PCA helps a classifier? — Cách so sánh đơn giản nào công bằng nhất để biết PCA có giúp mô hình phân loại không?**
 
-**Q17. A fitted PCA model receives a new customer record. What should you call to apply its existing axes?**
+A. Use one train/test split and compare matched pipelines with and without PCA — Dùng cùng cách chia train/test, so sánh hai pipeline tương đương có và không có PCA
 
-*Tiếng Việt: Một mô hình PCA đã fit nhận khách mới. Gọi gì để dùng các trục đã học?*
+B. Test PCA on training data and the other model on different test data — Kiểm tra PCA trên train còn mô hình kia trên bộ test khác
 
-A. `fit_transform(new_customer)` to learn new axes  
-*fit_transform(new_customer) để học trục mới*
+C. Keep PCA only when it produces a prettier scatter plot — Chỉ giữ PCA nếu biểu đồ trông đẹp hơn
 
-B. `transform(new_customer_scaled)` using the same fitted preprocessing workflow  
-*transform(new_customer_scaled) sau khi áp dụng cùng quy trình tiền xử lý đã fit*
-
-C. `predict(new_customer)` on PCA alone  
-*predict(new_customer) trực tiếp trên PCA*
-
-D. `fit(new_customer)` before every prediction  
-*fit(new_customer) trước mỗi lần dự đoán*
-
-**Q18. Three factory sensors are strongly correlated. What is a sensible first action?**
-
-*Tiếng Việt: Ba cảm biến của nhà máy có tương quan rất mạnh. Bước đầu nào hợp lý?*
-
-A. Delete two physical sensors immediately  
-*Xóa ngay hai cảm biến vật lý*
-
-B. Declare all anomalies impossible  
-*Khẳng định mọi bất thường đều không thể xảy ra*
-
-C. Try PCA for dashboard compression, then check variance and safety requirements  
-*Thử PCA để nén dữ liệu hiển thị rồi kiểm tra phương sai và yêu cầu an toàn*
-
-D. Replace all sensor readings with zeros  
-*Thay mọi giá trị cảm biến bằng 0*
-
-**Q19. What does `PCA(n_components=0.95, svd_solver="full")` request?**
-
-*Tiếng Việt: PCA(n_components=0.95, svd_solver="full") yêu cầu gì?*
-
-A. Exactly 95 components  
-*Chính xác 95 thành phần*
-
-B. A guaranteed 95% classification accuracy  
-*Bảo đảm độ chính xác phân loại 95%*
-
-C. Two components for every dataset  
-*Luôn lấy hai thành phần*
-
-D. Enough components to retain at least 95% of fitted data variance  
-*Giữ đủ số thành phần để đạt ít nhất 95% phương sai trên tập đã fit*
-
-**Q20. What is the fairest simple way to test whether PCA helps a classifier?**
-
-*Tiếng Việt: Cách so sánh đơn giản nào công bằng nhất để biết PCA có giúp mô hình phân loại không?*
-
-A. Use one train/test split and compare matched pipelines with and without PCA  
-*Dùng cùng cách chia train/test, so sánh hai pipeline tương đương có và không có PCA*
-
-B. Test PCA on training data and the other model on different test data  
-*Kiểm tra PCA trên train còn mô hình kia trên bộ test khác*
-
-C. Keep PCA only when it produces a prettier scatter plot  
-*Chỉ giữ PCA nếu biểu đồ trông đẹp hơn*
-
-D. Fit preprocessing on the full dataset before creating a test set  
-*Fit tiền xử lý trên toàn bộ dữ liệu trước khi tách test*
+D. Fit preprocessing on the full dataset before creating a test set — Fit tiền xử lý trên toàn bộ dữ liệu trước khi tách test
 
 ### Answer key / Đáp án và giải thích song ngữ
 
