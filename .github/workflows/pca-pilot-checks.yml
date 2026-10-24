@@ -1,0 +1,32 @@
+name: PCA Pilot Validation
+
+on:
+  pull_request:
+    paths:
+      - "lessons/pilot/**"
+      - "tests/test_pca_student_v2.py"
+      - ".github/workflows/pca-pilot-checks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pca-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: "requirements-pca-pilot.txt"
+      - name: Install minimal PCA learning dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pca-pilot.txt
+      - name: Run PCA student documentation checks
+        env:
+          MPLBACKEND: Agg
+        run: python -m unittest discover -s tests -p 'test_pca_student_v2.py' -v
