@@ -1,6 +1,5 @@
 # PY-37 — Thống kê mô tả: mean, median, mode, variance và std
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
