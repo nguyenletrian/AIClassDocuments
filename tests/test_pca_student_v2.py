@@ -137,7 +137,437 @@ class StudentPcaLessonTests(unittest.TestCase):
     def test_bilingual_quiz_includes_every_option_and_key(self):
         quiz = self.text.split('## 7. English–Vietnamese', 1)[1].split('## 8.', 1)[0]
         self.assertEqual(len(re.findall(r'^\*\*Q\d+\.', quiz, re.M)), 20)
-        self.assertEqual(quiz.count('*Tiếng Việt: '), 20)
+        self.assertEqual(quiz.count('*Tiếng Việt: '), 0)
+        self.assertEqual(len(re.findall(r'^\*\*Q\d+\..+ — .+\*\*
+        self.assertEqual(len(re.findall(r'^\| Q\d+ \|', quiz, re.M)), 20)
+        # English and Vietnamese must be on the same line for every option.
+        items = re.findall(r'^[A-D]\. .+ — .+
+        self.assertEqual(len(items), 80)
+        self.assertIn('Explanation (English)', quiz)
+        self.assertIn('Giải thích (Tiếng Việt)', quiz)
+        self.assertNotIn('scatter plot (biểu đồ phân tán)', quiz)
+
+    def test_all_markdown_images_exist_at_relative_paths(self):
+        refs = re.findall(r'!\[[^\n]*\]\(([^)\n]+)\)', self.text)
+        self.assertEqual(sorted(refs), sorted([
+            'assets/pca-before-after.svg', 'assets/pca-direction-intuition.svg',
+        ]))
+        for ref in refs:
+            self.assertTrue((LESSON.parent / ref).is_file(), ref)
+            self.assertNotIn('(', ref)  # Previous automatic translation broke paths.
+
+    def test_five_immediate_self_checks_and_advanced_labels(self):
+        sections = [
+            self.text.split(f"### 4.{i}.", 1)[1].split(f"### 4.{i+1}.", 1)[0]
+            for i in range(2, 6)
+        ]
+        sections.append(
+            self.text.split("### 4.6.", 1)[1].split("## 5.", 1)[0]
+        )
+        for i, section in enumerate(sections, start=2):
+            with self.subTest(concept=i):
+                self.assertIn(f"**Tự kiểm tra nhanh — 4.{i}:**", section)
+                self.assertIn("**Đáp án gợi ý:**", section)
+        self.assertGreaterEqual(self.text.count("**Phần mở rộng — có thể đọc sau:**"), 2)
+        self.assertIn("KMeans", self.text)
+        self.assertIn("LogisticRegression", self.text)
+
+    def test_before_after_table_matches_real_pca_values(self):
+        # Exact synthetic student data from the lesson, NOT a screenshot guess.
+        import numpy as np
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.decomposition import PCA
+
+        data = np.array([
+            [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+            [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+            [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+            [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+        ], dtype=float)
+        pca = PCA(n_components=2)
+        points = pca.fit_transform(StandardScaler().fit_transform(data))
+        expected = (
+            ("SV1", "0.75", "-0.54"),
+            ("SV2", "1.85", "-0.40"),
+            ("SV3", "-1.81", "0.71"),
+        )
+        section = self.text.split("### 4.5.", 1)[1].split("### 4.6.", 1)[0]
+        self.assertIn("![Bảng dữ liệu gốc", section)
+        for n, (label, x, y) in enumerate(expected):
+            self.assertEqual(label, f"SV{n+1}")
+            self.assertAlmostEqual(points[n, 0], float(x), delta=.006)
+            self.assertAlmostEqual(points[n, 1], float(y), delta=.006)
+            self.assertRegex(section, rf"\| {label} \| .* \| {re.escape(x)} \| {re.escape(y)} \|")
+        self.assertAlmostEqual(pca.explained_variance_ratio_.sum(), .9865238828, places=7)
+        self.assertIn("98,65%", section)
+
+    def test_source_figures_are_local_svg_and_pca_coordinates_match(self):
+        assets = LESSON.parent / "assets"
+        paths = [
+            assets / "pca-before-after.svg",
+            assets / "pca-direction-intuition.svg",
+        ]
+        for path in paths:
+            self.assertTrue(path.is_file(), str(path))
+            root = ET.parse(path).getroot()
+            self.assertTrue(root.tag.endswith("svg"))
+            self.assertFalse(any(
+                key.lower().endswith("href") and ("http://" in val or "https://" in val)
+                for element in root.iter()
+                for key, val in element.attrib.items()
+            ))
+        before = ET.parse(paths[0]).getroot()
+        nodes = [
+            element for element in before.iter()
+            if element.attrib.get("data-student", "").startswith("SV")
+        ]
+        self.assertEqual(len(nodes), 8)
+        import numpy as np
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.decomposition import PCA
+        profiles = np.array([
+            [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+            [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+            [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+            [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+        ], dtype=float)
+        coords = PCA(n_components=2).fit_transform(StandardScaler().fit_transform(profiles))
+        for i, node in enumerate(nodes):
+            self.assertEqual(node.attrib["data-student"], f"SV{i+1}")
+            self.assertAlmostEqual(float(node.attrib["data-pc1"]), coords[i, 0], delta=.0001)
+            self.assertAlmostEqual(float(node.attrib["data-pc2"]), coords[i, 1], delta=.0001)
+
+    def test_all_python_snippets_have_valid_syntax(self):
+        for number, block in enumerate(self.blocks, 1):
+            with self.subTest(number=number):
+                ast.parse(block)
+
+    def run_scenario(self, number):
+        match = re.search(r"^### Tình huống " + str(number) + r" —.*?^```python\n(.*?)\n```",
+                          self.text, re.M | re.S)
+        self.assertIsNotNone(match)
+        ns, printed = {"__name__": "__main__"}, io.StringIO()
+        with contextlib.redirect_stdout(printed), patch("matplotlib.pyplot.show"):
+            exec(compile(match.group(1), "scenario-" + str(number) + ".py", "exec"), ns)
+        return ns, printed.getvalue()
+
+    def test_scenario_1_school_profiles(self):
+        ns, output = self.run_scenario(1)
+        self.assertEqual(ns["map_2d"].shape, (8, 2))
+        self.assertAlmostEqual(ns["pca"].explained_variance_ratio_.sum(), .9865238828, places=6)
+        self.assertIn("98.65", output)
+
+    def test_scenario_2_sensor_redundancy(self):
+        ns, output = self.run_scenario(2)
+        self.assertEqual(ns["compressed"].shape, (8, 1))
+        self.assertGreater(ns["pca"].explained_variance_ratio_.sum(), .999)
+
+    def test_scenario_3_customers(self):
+        ns, output = self.run_scenario(3)
+        self.assertEqual(ns["locations"].shape, (10, 2))
+        self.assertEqual(sorted(ns["np"].bincount(ns["labels"]).tolist()), [5, 5])
+
+    def test_scenario_4_auto_variance_threshold(self):
+        ns, output = self.run_scenario(4)
+        self.assertEqual(ns["compressed"].shape[0], 8)
+        self.assertGreaterEqual(ns["pca"].explained_variance_ratio_.sum(), .95)
+
+    def test_scenario_5_no_data_leakage(self):
+        ns, output = self.run_scenario(5)
+        self.assertEqual((len(ns["X_train"]), len(ns["X_test"])), (112, 38))
+        self.assertEqual(ns["with_pca"].named_steps["reduce"].n_components_, 2)
+        self.assertTrue(0 <= ns["with_pca"].score(ns["X_test"], ns["y_test"]) <= 1)
+        self.assertTrue(0 <= ns["without_pca"].score(ns["X_test"], ns["y_test"]) <= 1)
+
+
+if __name__ == "__main__":
+    unittest.main()
+, quiz, re.M)), 20)
+        self.assertEqual(len(re.findall(r'^\| Q\d+ \|', quiz, re.M)), 20)
+        # Each English option is followed by a Vietnamese translation line.
+        items = re.findall(r'^[A-D]\. [^\n]+\n\*[^\n]+\*', quiz, re.M)
+        self.assertEqual(len(items), 80)
+        self.assertIn('Explanation (English)', quiz)
+        self.assertIn('Giải thích (Tiếng Việt)', quiz)
+        self.assertNotIn('scatter plot (biểu đồ phân tán)', quiz)
+
+    def test_all_markdown_images_exist_at_relative_paths(self):
+        refs = re.findall(r'!\[[^\n]*\]\(([^)\n]+)\)', self.text)
+        self.assertEqual(sorted(refs), sorted([
+            'assets/pca-before-after.svg', 'assets/pca-direction-intuition.svg',
+        ]))
+        for ref in refs:
+            self.assertTrue((LESSON.parent / ref).is_file(), ref)
+            self.assertNotIn('(', ref)  # Previous automatic translation broke paths.
+
+    def test_five_immediate_self_checks_and_advanced_labels(self):
+        sections = [
+            self.text.split(f"### 4.{i}.", 1)[1].split(f"### 4.{i+1}.", 1)[0]
+            for i in range(2, 6)
+        ]
+        sections.append(
+            self.text.split("### 4.6.", 1)[1].split("## 5.", 1)[0]
+        )
+        for i, section in enumerate(sections, start=2):
+            with self.subTest(concept=i):
+                self.assertIn(f"**Tự kiểm tra nhanh — 4.{i}:**", section)
+                self.assertIn("**Đáp án gợi ý:**", section)
+        self.assertGreaterEqual(self.text.count("**Phần mở rộng — có thể đọc sau:**"), 2)
+        self.assertIn("KMeans", self.text)
+        self.assertIn("LogisticRegression", self.text)
+
+    def test_before_after_table_matches_real_pca_values(self):
+        # Exact synthetic student data from the lesson, NOT a screenshot guess.
+        import numpy as np
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.decomposition import PCA
+
+        data = np.array([
+            [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+            [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+            [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+            [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+        ], dtype=float)
+        pca = PCA(n_components=2)
+        points = pca.fit_transform(StandardScaler().fit_transform(data))
+        expected = (
+            ("SV1", "0.75", "-0.54"),
+            ("SV2", "1.85", "-0.40"),
+            ("SV3", "-1.81", "0.71"),
+        )
+        section = self.text.split("### 4.5.", 1)[1].split("### 4.6.", 1)[0]
+        self.assertIn("![Bảng dữ liệu gốc", section)
+        for n, (label, x, y) in enumerate(expected):
+            self.assertEqual(label, f"SV{n+1}")
+            self.assertAlmostEqual(points[n, 0], float(x), delta=.006)
+            self.assertAlmostEqual(points[n, 1], float(y), delta=.006)
+            self.assertRegex(section, rf"\| {label} \| .* \| {re.escape(x)} \| {re.escape(y)} \|")
+        self.assertAlmostEqual(pca.explained_variance_ratio_.sum(), .9865238828, places=7)
+        self.assertIn("98,65%", section)
+
+    def test_source_figures_are_local_svg_and_pca_coordinates_match(self):
+        assets = LESSON.parent / "assets"
+        paths = [
+            assets / "pca-before-after.svg",
+            assets / "pca-direction-intuition.svg",
+        ]
+        for path in paths:
+            self.assertTrue(path.is_file(), str(path))
+            root = ET.parse(path).getroot()
+            self.assertTrue(root.tag.endswith("svg"))
+            self.assertFalse(any(
+                key.lower().endswith("href") and ("http://" in val or "https://" in val)
+                for element in root.iter()
+                for key, val in element.attrib.items()
+            ))
+        before = ET.parse(paths[0]).getroot()
+        nodes = [
+            element for element in before.iter()
+            if element.attrib.get("data-student", "").startswith("SV")
+        ]
+        self.assertEqual(len(nodes), 8)
+        import numpy as np
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.decomposition import PCA
+        profiles = np.array([
+            [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+            [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+            [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+            [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+        ], dtype=float)
+        coords = PCA(n_components=2).fit_transform(StandardScaler().fit_transform(profiles))
+        for i, node in enumerate(nodes):
+            self.assertEqual(node.attrib["data-student"], f"SV{i+1}")
+            self.assertAlmostEqual(float(node.attrib["data-pc1"]), coords[i, 0], delta=.0001)
+            self.assertAlmostEqual(float(node.attrib["data-pc2"]), coords[i, 1], delta=.0001)
+
+    def test_all_python_snippets_have_valid_syntax(self):
+        for number, block in enumerate(self.blocks, 1):
+            with self.subTest(number=number):
+                ast.parse(block)
+
+    def run_scenario(self, number):
+        match = re.search(r"^### Tình huống " + str(number) + r" —.*?^```python\n(.*?)\n```",
+                          self.text, re.M | re.S)
+        self.assertIsNotNone(match)
+        ns, printed = {"__name__": "__main__"}, io.StringIO()
+        with contextlib.redirect_stdout(printed), patch("matplotlib.pyplot.show"):
+            exec(compile(match.group(1), "scenario-" + str(number) + ".py", "exec"), ns)
+        return ns, printed.getvalue()
+
+    def test_scenario_1_school_profiles(self):
+        ns, output = self.run_scenario(1)
+        self.assertEqual(ns["map_2d"].shape, (8, 2))
+        self.assertAlmostEqual(ns["pca"].explained_variance_ratio_.sum(), .9865238828, places=6)
+        self.assertIn("98.65", output)
+
+    def test_scenario_2_sensor_redundancy(self):
+        ns, output = self.run_scenario(2)
+        self.assertEqual(ns["compressed"].shape, (8, 1))
+        self.assertGreater(ns["pca"].explained_variance_ratio_.sum(), .999)
+
+    def test_scenario_3_customers(self):
+        ns, output = self.run_scenario(3)
+        self.assertEqual(ns["locations"].shape, (10, 2))
+        self.assertEqual(sorted(ns["np"].bincount(ns["labels"]).tolist()), [5, 5])
+
+    def test_scenario_4_auto_variance_threshold(self):
+        ns, output = self.run_scenario(4)
+        self.assertEqual(ns["compressed"].shape[0], 8)
+        self.assertGreaterEqual(ns["pca"].explained_variance_ratio_.sum(), .95)
+
+    def test_scenario_5_no_data_leakage(self):
+        ns, output = self.run_scenario(5)
+        self.assertEqual((len(ns["X_train"]), len(ns["X_test"])), (112, 38))
+        self.assertEqual(ns["with_pca"].named_steps["reduce"].n_components_, 2)
+        self.assertTrue(0 <= ns["with_pca"].score(ns["X_test"], ns["y_test"]) <= 1)
+        self.assertTrue(0 <= ns["without_pca"].score(ns["X_test"], ns["y_test"]) <= 1)
+
+
+if __name__ == "__main__":
+    unittest.main()
+, quiz, re.M)
+        self.assertEqual(len(items), 80)
+        self.assertIn('Explanation (English)', quiz)
+        self.assertIn('Giải thích (Tiếng Việt)', quiz)
+        self.assertNotIn('scatter plot (biểu đồ phân tán)', quiz)
+
+    def test_all_markdown_images_exist_at_relative_paths(self):
+        refs = re.findall(r'!\[[^\n]*\]\(([^)\n]+)\)', self.text)
+        self.assertEqual(sorted(refs), sorted([
+            'assets/pca-before-after.svg', 'assets/pca-direction-intuition.svg',
+        ]))
+        for ref in refs:
+            self.assertTrue((LESSON.parent / ref).is_file(), ref)
+            self.assertNotIn('(', ref)  # Previous automatic translation broke paths.
+
+    def test_five_immediate_self_checks_and_advanced_labels(self):
+        sections = [
+            self.text.split(f"### 4.{i}.", 1)[1].split(f"### 4.{i+1}.", 1)[0]
+            for i in range(2, 6)
+        ]
+        sections.append(
+            self.text.split("### 4.6.", 1)[1].split("## 5.", 1)[0]
+        )
+        for i, section in enumerate(sections, start=2):
+            with self.subTest(concept=i):
+                self.assertIn(f"**Tự kiểm tra nhanh — 4.{i}:**", section)
+                self.assertIn("**Đáp án gợi ý:**", section)
+        self.assertGreaterEqual(self.text.count("**Phần mở rộng — có thể đọc sau:**"), 2)
+        self.assertIn("KMeans", self.text)
+        self.assertIn("LogisticRegression", self.text)
+
+    def test_before_after_table_matches_real_pca_values(self):
+        # Exact synthetic student data from the lesson, NOT a screenshot guess.
+        import numpy as np
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.decomposition import PCA
+
+        data = np.array([
+            [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+            [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+            [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+            [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+        ], dtype=float)
+        pca = PCA(n_components=2)
+        points = pca.fit_transform(StandardScaler().fit_transform(data))
+        expected = (
+            ("SV1", "0.75", "-0.54"),
+            ("SV2", "1.85", "-0.40"),
+            ("SV3", "-1.81", "0.71"),
+        )
+        section = self.text.split("### 4.5.", 1)[1].split("### 4.6.", 1)[0]
+        self.assertIn("![Bảng dữ liệu gốc", section)
+        for n, (label, x, y) in enumerate(expected):
+            self.assertEqual(label, f"SV{n+1}")
+            self.assertAlmostEqual(points[n, 0], float(x), delta=.006)
+            self.assertAlmostEqual(points[n, 1], float(y), delta=.006)
+            self.assertRegex(section, rf"\| {label} \| .* \| {re.escape(x)} \| {re.escape(y)} \|")
+        self.assertAlmostEqual(pca.explained_variance_ratio_.sum(), .9865238828, places=7)
+        self.assertIn("98,65%", section)
+
+    def test_source_figures_are_local_svg_and_pca_coordinates_match(self):
+        assets = LESSON.parent / "assets"
+        paths = [
+            assets / "pca-before-after.svg",
+            assets / "pca-direction-intuition.svg",
+        ]
+        for path in paths:
+            self.assertTrue(path.is_file(), str(path))
+            root = ET.parse(path).getroot()
+            self.assertTrue(root.tag.endswith("svg"))
+            self.assertFalse(any(
+                key.lower().endswith("href") and ("http://" in val or "https://" in val)
+                for element in root.iter()
+                for key, val in element.attrib.items()
+            ))
+        before = ET.parse(paths[0]).getroot()
+        nodes = [
+            element for element in before.iter()
+            if element.attrib.get("data-student", "").startswith("SV")
+        ]
+        self.assertEqual(len(nodes), 8)
+        import numpy as np
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.decomposition import PCA
+        profiles = np.array([
+            [80, 81, 72, 20, 90], [85, 88, 80, 22, 95],
+            [60, 65, 72, 12, 75], [70, 72, 68, 15, 80],
+            [90, 91, 88, 25, 98], [88, 87, 89, 20, 90],
+            [40, 45, 50, 10, 70], [75, 73, 76, 15, 85],
+        ], dtype=float)
+        coords = PCA(n_components=2).fit_transform(StandardScaler().fit_transform(profiles))
+        for i, node in enumerate(nodes):
+            self.assertEqual(node.attrib["data-student"], f"SV{i+1}")
+            self.assertAlmostEqual(float(node.attrib["data-pc1"]), coords[i, 0], delta=.0001)
+            self.assertAlmostEqual(float(node.attrib["data-pc2"]), coords[i, 1], delta=.0001)
+
+    def test_all_python_snippets_have_valid_syntax(self):
+        for number, block in enumerate(self.blocks, 1):
+            with self.subTest(number=number):
+                ast.parse(block)
+
+    def run_scenario(self, number):
+        match = re.search(r"^### Tình huống " + str(number) + r" —.*?^```python\n(.*?)\n```",
+                          self.text, re.M | re.S)
+        self.assertIsNotNone(match)
+        ns, printed = {"__name__": "__main__"}, io.StringIO()
+        with contextlib.redirect_stdout(printed), patch("matplotlib.pyplot.show"):
+            exec(compile(match.group(1), "scenario-" + str(number) + ".py", "exec"), ns)
+        return ns, printed.getvalue()
+
+    def test_scenario_1_school_profiles(self):
+        ns, output = self.run_scenario(1)
+        self.assertEqual(ns["map_2d"].shape, (8, 2))
+        self.assertAlmostEqual(ns["pca"].explained_variance_ratio_.sum(), .9865238828, places=6)
+        self.assertIn("98.65", output)
+
+    def test_scenario_2_sensor_redundancy(self):
+        ns, output = self.run_scenario(2)
+        self.assertEqual(ns["compressed"].shape, (8, 1))
+        self.assertGreater(ns["pca"].explained_variance_ratio_.sum(), .999)
+
+    def test_scenario_3_customers(self):
+        ns, output = self.run_scenario(3)
+        self.assertEqual(ns["locations"].shape, (10, 2))
+        self.assertEqual(sorted(ns["np"].bincount(ns["labels"]).tolist()), [5, 5])
+
+    def test_scenario_4_auto_variance_threshold(self):
+        ns, output = self.run_scenario(4)
+        self.assertEqual(ns["compressed"].shape[0], 8)
+        self.assertGreaterEqual(ns["pca"].explained_variance_ratio_.sum(), .95)
+
+    def test_scenario_5_no_data_leakage(self):
+        ns, output = self.run_scenario(5)
+        self.assertEqual((len(ns["X_train"]), len(ns["X_test"])), (112, 38))
+        self.assertEqual(ns["with_pca"].named_steps["reduce"].n_components_, 2)
+        self.assertTrue(0 <= ns["with_pca"].score(ns["X_test"], ns["y_test"]) <= 1)
+        self.assertTrue(0 <= ns["without_pca"].score(ns["X_test"], ns["y_test"]) <= 1)
+
+
+if __name__ == "__main__":
+    unittest.main()
+, quiz, re.M)), 20)
         self.assertEqual(len(re.findall(r'^\| Q\d+ \|', quiz, re.M)), 20)
         # Each English option is followed by a Vietnamese translation line.
         items = re.findall(r'^[A-D]\. [^\n]+\n\*[^\n]+\*', quiz, re.M)
