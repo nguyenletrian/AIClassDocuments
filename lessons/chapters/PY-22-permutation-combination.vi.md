@@ -1,6 +1,5 @@
 # PY-22 — Hoán vị, tổ hợp và tam giác Pascal
 
-*DRAFT · Dữ liệu giả lập · Cần kiểm chứng code trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
