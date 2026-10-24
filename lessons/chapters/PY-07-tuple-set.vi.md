@@ -31,74 +31,104 @@ Sau List, ta học hai cách lưu dữ liệu khác: Tuple giữ thứ tự và 
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Tuple
+Sau List, có hai nhu cầu khác nhau: **giữ một bộ dữ liệu có thứ tự nhưng không sửa trực tiếp** (Tuple), hoặc **chỉ lưu các giá trị không trùng và so sánh hai nhóm** (Set). Hai cấu trúc không thay thế lẫn nhau: tọa độ `(3, 4)` phù hợp với Tuple, còn danh sách kỹ năng không trùng phù hợp với Set. Từ Set, bài học mở rộng sang phép hợp và phép giao.
 
-**Từ vựng trong mục:** **Tuple** — bộ giá trị.
+### 4.1. Tuple — Bộ giá trị cố định
 
-Tuple giữ các giá trị theo đúng thứ tự và không thể gán lại từng phần tử. Ví dụ `(2, 3)` có thể lưu tọa độ x, y; lấy phần tử bằng chỉ số như List.
+**Từ vựng trong mục:** **Tuple** — bộ giá trị; **Coordinate** — tọa độ.
+
+Tuple chứa các phần tử **có thứ tự**, thường dùng cho một cặp thông tin gắn với nhau như tọa độ `(x, y)`. Với điểm ở vị trí `x = 3`, `y = 4` mét, ta viết `point = (3, 4)`; `point[0]` là x và `point[1]` là y. Không thể gán `point[0] = 5` như List; nếu cần vị trí mới, tạo Tuple mới.
 
 ```python
-point=(2,3)
+point = (3, 4)
 print(point)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(2, 3)
+(3, 4)
 ```
 
-### 4.2. Set
+Dấu ngoặc tròn biểu thị Tuple gồm hai tọa độ, khác dấu ngoặc vuông của List.
 
-**Từ vựng trong mục:** **Set** — tập hợp.
+### 4.2. Set — Tập hợp không trùng
 
-Set chỉ giữ mỗi giá trị một lần. `set([1, 1, 2])` tạo tập chứa `1` và `2`. Set không đảm bảo thứ tự, nên không lấy phần tử bằng chỉ số.
+**Từ vựng trong mục:** **Set** — tập hợp; **Duplicate** — giá trị lặp.
+
+Set giúp lưu **những giá trị khác nhau** mà không cần ghi cùng một giá trị nhiều lần. Một nhóm học ghi ba nhãn `Python`, `AI`, `Python`; khi chuyển sang Set, nhãn `Python` bị trùng chỉ còn một lần. Set không có chỉ số vị trí như `set[0]` và không đảm bảo thứ tự in. `set()` tạo tập rỗng, còn `{}` tạo Dictionary rỗng.
 
 ```python
-print(set([1,1,2]))
+skills = set(['Python', 'AI', 'Python'])
+print(len(skills))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{1, 2}
+2
 ```
 
-*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
+Có hai kỹ năng khác nhau: Python và AI. Ta in **số lượng** để không phụ thuộc thứ tự hiển thị của Set.
 
-### 4.3. Union
+### 4.3. Union — Gộp hai nhóm
 
-**Từ vựng trong mục:** **Union** — phép hợp.
+**Từ vựng trong mục:** **Union** — phép hợp; **Set** — tập hợp.
 
-Phép hợp gộp các phần tử của hai tập và tự loại phần trùng. `{1, 2} | {2, 3}` cho tập chứa `1`, `2`, `3`.
+Giả sử nhóm A học `{Python, AI}`, nhóm B học `{AI, SQL}`. Cửa hàng khóa học muốn biết **tất cả kỹ năng có trong ít nhất một nhóm**. Phép hợp `a | b` giữ Python, AI và SQL nhưng chỉ giữ AI một lần. Với Set, ký hiệu `|` là phép hợp tập hợp, không phải toán tử `or` nối điều kiện Boolean.
 
 ```python
-print({1, 2} | {2, 3})
+a = {'Python', 'AI'}
+b = {'AI', 'SQL'}
+print(len(a | b))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{1, 2, 3}
+3
 ```
 
-*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
+Phép hợp gồm ba kỹ năng khác nhau; ký hiệu `|` gộp hai Set và tự loại phần trùng.
 
-### 4.4. Intersection
+### 4.4. Intersection — Tìm phần chung
 
-**Từ vựng trong mục:** **Intersection** — phép giao.
+**Từ vựng trong mục:** **Intersection** — phép giao; **Set** — tập hợp.
 
-Phép giao chỉ giữ phần tử có mặt trong cả hai tập. `{1, 2} & {2, 3}` cho tập chỉ có phần tử `2`.
+Vẫn với hai nhóm A có `{Python, AI}` và B có `{AI, SQL}`, ta muốn tìm **kỹ năng cả hai nhóm đều học**. Phép giao `a & b` chỉ giữ AI, vì Python không có ở B và SQL không có ở A. Phép giao khác phép hợp: hợp trả ba kỹ năng, giao chỉ một kỹ năng.
 
 ```python
-print({1,2}&{2,3})
+a = {'Python', 'AI'}
+b = {'AI', 'SQL'}
+print(a & b)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{2}
+{'AI'}
 ```
+
+Chỉ có AI xuất hiện trong cả hai nhóm; tập chỉ có một phần tử nên thứ tự hiển thị không gây nhầm lẫn.
+### 4.5. Difference — Phần tử còn thiếu trong Set
+
+**Từ vựng trong mục:** **Difference** — hiệu tập hợp; **Set** — tập hợp.
+
+Ngoài phép hợp và phép giao, ta còn cần biết **phần tử chỉ có ở nhóm A nhưng chưa có ở nhóm B**. Ví dụ khóa học yêu cầu `Python`, `SQL`, `AI`, còn học viên đã hoàn thành `Python`; hiệu `required - done` giữ `SQL` và `AI`. Dùng `sorted()` nếu muốn in các kỹ năng theo một thứ tự rõ ràng. Hiệu `a - b` khác **hiệu đối xứng** `a ^ b`, vốn lấy các phần tử chỉ thuộc một trong hai nhóm.
+
+```python
+required = {'Python', 'SQL', 'AI'}
+done = {'Python'}
+print(sorted(required - done))
+```
+
+**Kết quả khi chạy:**
+
+```text
+['AI', 'SQL']
+```
+
+Kết quả là một **List đã sắp xếp**, gồm hai kỹ năng cần học tiếp. Set gốc không bị thay đổi.
 
 ## 5. Năm tình huống lập trình thực tế
 
