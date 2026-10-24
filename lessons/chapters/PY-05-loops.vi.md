@@ -38,7 +38,8 @@ Bài trước dùng `if` để chọn việc cần làm. Bài này dùng vòng l
 Mỗi lần vòng lặp chạy một lượt gọi là một lần lặp. `range(2)` cho hai giá trị `0` và `1`, nên ví dụ in hai dòng tương ứng.
 
 ```python
-for i in range(2): print(i)
+for i in range(2):
+    print(i)
 ```
 
 **Kết quả khi chạy:**
@@ -55,7 +56,8 @@ for i in range(2): print(i)
 Dùng `for` khi muốn lần lượt xử lý các giá trị trong một danh sách hoặc `range`. Ví dụ với `[1, 2]`, Python lần lượt in `1` rồi `2`.
 
 ```python
-for x in [1,2]: print(x)
+for x in [1,2]:
+    print(x)
 ```
 
 **Kết quả khi chạy:**
@@ -87,7 +89,8 @@ while n>0:
 
 ```python
 for x in [0,1,2]:
-    if x==0: continue
+    if x==0:
+        continue
     print(x)
 ```
 
@@ -119,7 +122,8 @@ for x in [0,1,2]:
 ```python
 orders=[120,80,200]
 total=0
-for value in orders: total+=value
+for value in orders:
+    total+=value
 print(total)
 ```
 
@@ -152,7 +156,8 @@ print(total)
 data=[30,None,35,33]
 valid=[]
 for x in data:
-    if x is None: continue
+    if x is None:
+        continue
     valid.append(x)
 print(valid)
 ```
