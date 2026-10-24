@@ -30,39 +30,51 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `__str__/set_*/get_*` | Hiển thị và kiểm tra thao tác thay đổi giá trị |
 
 
-## 4. Khái niệm và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Class
 
 **Từ vựng trong mục:** **Class** — lớp.
 
-Khuôn mô tả dữ liệu và cách xử lý. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Class là khuôn mẫu để tạo các đối tượng có cùng kiểu thông tin và phương thức.
 
 ```python
 class P: pass
 print(P)
 ```
 
-**Tự kiểm tra:** Class là gì? **Đáp án:** Khuôn mô tả dữ liệu và cách xử lý.
+**Kết quả khi chạy:**
+
+```text
+<class '__main__.P'>
+```
+
+*Tên module của lớp có thể khác `__main__` khi chạy trong môi trường khác.*
 
 ### 4.2. Object
 
 **Từ vựng trong mục:** **Object** — đối tượng.
 
-Một thể hiện cụ thể của lớp. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Object là một đối tượng cụ thể được tạo từ class; mỗi đối tượng có dữ liệu riêng.
 
 ```python
 class P: pass
 print(type(P()))
 ```
 
-**Tự kiểm tra:** Object là gì? **Đáp án:** Một thể hiện cụ thể của lớp.
+**Kết quả khi chạy:**
+
+```text
+<class '__main__.P'>
+```
+
+*Tên module của lớp có thể khác `__main__` khi chạy trong môi trường khác.*
 
 ### 4.3. Constructor
 
 **Từ vựng trong mục:** **Constructor** — hàm khởi tạo.
 
-Thiết lập thuộc tính lúc tạo instance. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+`__init__` chạy khi tạo đối tượng để thiết lập các thuộc tính ban đầu.
 
 ```python
 class P:
@@ -70,13 +82,17 @@ class P:
 print(P(3).x)
 ```
 
-**Tự kiểm tra:** Constructor là gì? **Đáp án:** Thiết lập thuộc tính lúc tạo instance.
+**Kết quả khi chạy:**
+
+```text
+3
+```
 
 ### 4.4. Encapsulation
 
 **Từ vựng trong mục:** **Encapsulation** — đóng gói.
 
-Đặt dữ liệu và hành vi bên trong đối tượng. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Đóng gói đặt dữ liệu và thao tác cùng trong đối tượng, giúp quản lý trạng thái dễ hơn.
 
 ```python
 class Counter:
@@ -85,7 +101,11 @@ class Counter:
 c=Counter();c.add();print(c.n)
 ```
 
-**Tự kiểm tra:** Encapsulation là gì? **Đáp án:** Đặt dữ liệu và hành vi bên trong đối tượng.
+**Kết quả khi chạy:**
+
+```text
+1
+```
 
 ## 5. Năm tình huống lập trình thực tế
 
@@ -93,12 +113,11 @@ c=Counter();c.add();print(c.n)
 
 **Từ vựng trong mục:** **Class** — lớp.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc tạo hồ sơ học viên. Thông tin đầu vào: Một sinh viên có tên An, điểm 8. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Trung tâm tạo hồ sơ học viên An, có điểm 8 trên thang 10. In tên và điểm của học viên.
 
-**Vì sao chọn cách giải?** Mỗi object giữ tên và điểm riêng, thay vì nhiều list song song. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** Dùng class `Student` để gom tên và điểm của một học viên.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 class Student:
@@ -107,18 +126,23 @@ s=Student("An",8)
 print(s.name,s.score)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+An 8
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 2 — Giỏ hàng có phương thức
 
 **Từ vựng trong mục:** **Object** — đối tượng.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc giỏ hàng có phương thức. Thông tin đầu vào: Giá [100,200] nghìn đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Một khách đưa hai món giá 100 và 200 đơn vị tiền vào giỏ hàng. Tính tổng tiền trong giỏ.
 
-**Vì sao chọn cách giải?** Đặt add và total cùng nơi lưu giá sản phẩm. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** Đối tượng `Cart` giữ list giá và có phương thức `add`, `total`.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 class Cart:
@@ -129,18 +153,23 @@ c=Cart();c.add(100);c.add(200)
 print(c.total())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+300
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 3 — Ràng buộc điểm nhập
 
 **Từ vựng trong mục:** **Constructor** — hàm khởi tạo.
 
-**Tình huống thực tế:** Một trung tâm đào tạo đang cần giải quyết việc ràng buộc điểm nhập. Thông tin đầu vào: Một lần nhập 9/10. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Hệ thống chỉ cho phép lưu điểm trong khoảng 0 đến 10. Một học viên có điểm 9. Lưu và in điểm hợp lệ.
 
-**Vì sao chọn cách giải?** Setter chặn điểm ngoài thang 0–10. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** Phương thức `set` kiểm tra giới hạn trước khi cập nhật.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 class Score:
@@ -151,18 +180,23 @@ class Score:
 s=Score();s.set(9);print(s.value)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+9
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 4 — In hóa đơn dễ đọc
 
 **Từ vựng trong mục:** **Encapsulation** — đóng gói.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc in hóa đơn dễ đọc. Thông tin đầu vào: Đơn O01 trị giá 150000 đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Một hóa đơn có mã O01 và số tiền 150.000 VND. In hóa đơn ở dạng dễ đọc.
 
-**Vì sao chọn cách giải?** __str__ định nghĩa chữ hiện khi in đối tượng. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** `__str__` quy định cách đối tượng hiển thị khi truyền vào `print`.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 class Order:
@@ -171,18 +205,23 @@ class Order:
 print(Order("O01",150000))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+O01: 150000 VND
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 5 — Hai cảm biến độc lập
 
 **Từ vựng trong mục:** **Class** — lớp.
 
-**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc hai cảm biến độc lập. Thông tin đầu vào: Cảm biến A=20, B=40 độ C. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Hai cảm biến có giá trị ban đầu lần lượt 20 và 40. Cảm biến đầu được cập nhật thành 25. Kiểm tra hai cảm biến có lưu giá trị độc lập hay không.
 
-**Vì sao chọn cách giải?** Instance khác nhau không chia sẻ nhầm dữ liệu đo. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** Mỗi lần gọi `Sensor()` tạo một đối tượng có thuộc tính `value` riêng.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 class Sensor:
@@ -192,7 +231,13 @@ a.value=25
 print(a.value,b.value)
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+25 40
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ## 6. Sai lầm thường gặp
 
