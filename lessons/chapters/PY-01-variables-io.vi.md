@@ -1,6 +1,5 @@
 # PY-01 — Biến, đầu vào và đầu ra trong Python
 
-*Trạng thái: DRAFT · Dữ liệu minh họa giả lập · Chưa xác nhận chạy Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 | `int()/float()` | Đổi chuỗi hợp lệ sang số trước khi tính toán |
 | `type()` | Kiểm tra kiểu dữ liệu khi chưa rõ đầu vào |
 
-Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiều comment vào ví dụ.
 
 ## 4. Khái niệm liên quan — từ lời giải thích đến Python
 
@@ -38,7 +36,7 @@ Các tham số được giải thích ngay cạnh hàm, không chèn quá nhiề
 
 **Từ vựng trong mục:** **Variable** — biến.
 
-Tên dùng để tham chiếu một giá trị. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Tên dùng để tham chiếu một giá trị. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 total = 12
@@ -53,7 +51,7 @@ print(total)
 
 **Từ vựng trong mục:** **Input** — đầu vào.
 
-Thông tin đưa vào chương trình. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Thông tin đưa vào chương trình. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 name = 'An'
@@ -68,7 +66,7 @@ print(name)
 
 **Từ vựng trong mục:** **Output** — đầu ra.
 
-Thông tin chương trình tạo ra. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Thông tin chương trình tạo ra. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 print('Xin chào')
@@ -82,7 +80,7 @@ print('Xin chào')
 
 **Từ vựng trong mục:** **Type** — kiểu dữ liệu.
 
-Nhóm giá trị như str, int, float. Trước khi chạy ví dụ, xác định giá trị đầu vào có ý nghĩa gì.
+Nhóm giá trị như str, int, float. xác định giá trị đầu vào có ý nghĩa gì.
 
 ```python
 print(type(2.5))
@@ -100,9 +98,9 @@ print(type(2.5))
 
 **Vấn đề:** Chào khách mới.
 
-**Vì sao chọn cách này?** Lưu tên trong biến để dùng lại trong nhiều thông báo. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Lưu tên trong biến để dùng lại trong nhiều thông báo
 
-**Dữ liệu:** Một chuỗi là tên khách; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Một chuỗi là tên khách.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -120,9 +118,9 @@ print(f"Xin chào {name}!")
 
 **Vấn đề:** Tính tiền hóa đơn.
 
-**Vì sao chọn cách này?** Đổi số từ văn bản thành số trước khi nhân. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Đổi số từ văn bản thành số trước khi nhân
 
-**Dữ liệu:** Giá 120000 đồng, số lượng 3; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Giá 120000 đồng, số lượng 3.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -140,9 +138,9 @@ print(price * quantity)
 
 **Vấn đề:** Hiển thị điểm.
 
-**Vì sao chọn cách này?** Format tên và điểm để xuất ra một dòng dễ đọc. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Format tên và điểm để xuất ra một dòng dễ đọc
 
-**Dữ liệu:** Tên An, điểm 8.5/10; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Tên An, điểm 8.5/10.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -159,9 +157,9 @@ print(f"{name}: {score}/10")
 
 **Vấn đề:** Ghi nhiệt độ.
 
-**Vì sao chọn cách này?** Giữ kiểu số thực để không mất phần thập phân. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Giữ kiểu số thực để không mất phần thập phân
 
-**Dữ liệu:** Nhiệt độ 36.5 độ C; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Nhiệt độ 36.5 độ C.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -178,9 +176,9 @@ print(type(temperature), temperature)
 
 **Vấn đề:** Giữ mã đơn.
 
-**Vì sao chọn cách này?** Mã đơn không phải đại lượng nên giữ dạng chuỗi. Không dùng thuật toán phức tạp hơn khi quy tắc đơn giản đã đủ.
+**Vì sao chọn cách này?** Mã đơn không phải đại lượng nên giữ dạng chuỗi
 
-**Dữ liệu:** Mã 0007; đây là dữ liệu ví dụ, không phải hồ sơ thật. Mỗi giá trị mang ý nghĩa và đơn vị đã nêu.
+**Dữ liệu:** Mã 0007.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
