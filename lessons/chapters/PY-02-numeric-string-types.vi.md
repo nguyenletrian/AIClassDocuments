@@ -98,11 +98,10 @@ print(code[:2])
 
 **Từ vựng trong mục:** **Integer** — số nguyên.
 
-**Vấn đề:** Chuẩn hóa email.
+**Tình huống thực tế:** Một ứng dụng thực tế cần chuẩn hóa email. Dữ liệu hiện có: Email nhập thừa khoảng trắng. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Bỏ khoảng trắng và đổi chữ thường trước so trùng.
 
-**Dữ liệu:** Email nhập thừa khoảng trắng.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -116,11 +115,10 @@ print(email.strip().lower())
 
 **Từ vựng trong mục:** **Float** — số thực.
 
-**Vấn đề:** Tách nhãn sản phẩm.
+**Tình huống thực tế:** Một cửa hàng cần tách nhãn sản phẩm. Dữ liệu hiện có: Chuỗi có 3 nhãn. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Dấu phẩy tạo ranh giới giữa nhãn.
 
-**Dữ liệu:** Chuỗi có 3 nhãn.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -134,11 +132,10 @@ print(labels.split(","))
 
 **Từ vựng trong mục:** **Boolean** — giá trị logic.
 
-**Vấn đề:** Giữ mã đầu 0.
+**Tình huống thực tế:** Một ứng dụng thực tế cần giữ mã đầu 0. Dữ liệu hiện có: Mã đơn 00045. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Mã không được mất chữ số đầu khi dùng để tra cứu.
 
-**Dữ liệu:** Mã đơn 00045.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -152,11 +149,10 @@ print(order_id[:3])
 
 **Từ vựng trong mục:** **String** — chuỗi.
 
-**Vấn đề:** Đổi số từ CSV.
+**Tình huống thực tế:** Một ứng dụng thực tế cần đổi số từ csv. Dữ liệu hiện có: Giá 12.5, số lượng 3. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Chuyển chuỗi số trước khi tính tổng.
 
-**Dữ liệu:** Giá 12.5, số lượng 3.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -171,11 +167,10 @@ print(price * qty)
 
 **Từ vựng trong mục:** **Integer** — số nguyên.
 
-**Vấn đề:** Che số liên lạc.
+**Tình huống thực tế:** Một ứng dụng thực tế cần che số liên lạc. Dữ liệu hiện có: Số mô phỏng 0900123456. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Lấy ba ký tự cuối mà không lộ phần trước.
 
-**Dữ liệu:** Số mô phỏng 0900123456.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 

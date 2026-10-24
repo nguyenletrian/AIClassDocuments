@@ -86,11 +86,10 @@ print({1,2}&{2,3})
 
 **Từ vựng trong mục:** **Tuple** — bộ giá trị.
 
-**Vấn đề thực tế:** Khử email trùng.
+**Tình huống thực tế:** Một ứng dụng thực tế cần khử email trùng. Dữ liệu hiện có: Bốn email có hai trùng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Set loại bản ghi email giống hệt nhau.
 
-**Dữ liệu:** Bốn email có hai trùng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -105,11 +104,10 @@ print(len(set(emails)))
 
 **Từ vựng trong mục:** **Set** — tập hợp.
 
-**Vấn đề thực tế:** Lưu tọa độ.
+**Tình huống thực tế:** Một ứng dụng thực tế cần lưu tọa độ. Dữ liệu hiện có: Tọa độ (3,4); nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Tuple phù hợp điểm cố định (x,y) trong một phép tính.
 
-**Dữ liệu:** Tọa độ (3,4); nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -125,11 +123,10 @@ print(x*x+y*y)
 
 **Từ vựng trong mục:** **Union** — phép hợp.
 
-**Vấn đề thực tế:** Tìm kỹ năng chung.
+**Tình huống thực tế:** Một ứng dụng thực tế cần tìm kỹ năng chung. Dữ liệu hiện có: Hai danh sách kỹ năng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Phép giao cho biết kỹ năng cả hai cùng có.
 
-**Dữ liệu:** Hai danh sách kỹ năng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -145,11 +142,10 @@ print(a&b)
 
 **Từ vựng trong mục:** **Intersection** — phép giao.
 
-**Vấn đề thực tế:** Gộp nhóm chủ đề.
+**Tình huống thực tế:** Một ứng dụng thực tế cần gộp nhóm chủ đề. Dữ liệu hiện có: Hai nhóm nhãn tài liệu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Phép hợp giữ mỗi chủ đề một lần.
 
-**Dữ liệu:** Hai nhóm nhãn tài liệu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -165,11 +161,10 @@ print(a|b)
 
 **Từ vựng trong mục:** **Tuple** — bộ giá trị.
 
-**Vấn đề thực tế:** Liệt kê bài còn thiếu.
+**Tình huống thực tế:** Một ứng dụng thực tế cần liệt kê bài còn thiếu. Dữ liệu hiện có: Yêu cầu Python SQL AI, đã học Python; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Hiệu tập cho ra mục cần học nhưng chưa hoàn thành.
 
-**Dữ liệu:** Yêu cầu Python SQL AI, đã học Python; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 

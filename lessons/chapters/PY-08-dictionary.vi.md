@@ -85,11 +85,10 @@ print({'A':{'score':8}}['A']['score'])
 
 **Từ vựng trong mục:** **Dictionary** — từ điển.
 
-**Vấn đề thực tế:** Tra cứu đơn theo mã.
+**Tình huống thực tế:** Một cửa hàng cần tra cứu đơn theo mã. Dữ liệu hiện có: Hai đơn O1 và O2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Tra khóa trực tiếp thay vì duyệt từng vị trí trong list.
 
-**Dữ liệu:** Hai đơn O1 và O2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -104,11 +103,10 @@ print(orders.get("O3","Not found"))
 
 **Từ vựng trong mục:** **Key** — khóa.
 
-**Vấn đề thực tế:** Cập nhật tồn kho.
+**Tình huống thực tế:** Một ứng dụng thực tế cần cập nhật tồn kho. Dữ liệu hiện có: SKU01 tồn 5, bán 2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** SKU là khóa ổn định phù hợp cập nhật số lượng.
 
-**Dữ liệu:** SKU01 tồn 5, bán 2; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -124,11 +122,10 @@ print(stock)
 
 **Từ vựng trong mục:** **Value** — giá trị.
 
-**Vấn đề thực tế:** Đếm nhãn.
+**Tình huống thực tế:** Một ứng dụng thực tế cần đếm nhãn. Dữ liệu hiện có: Ba nhãn AI Math AI; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** get(key,0) giúp cộng dồn an toàn từ 0.
 
-**Dữ liệu:** Ba nhãn AI Math AI; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -145,11 +142,10 @@ print(count)
 
 **Từ vựng trong mục:** **Nested dict** — từ điển lồng.
 
-**Vấn đề thực tế:** Hồ sơ lồng nhau.
+**Tình huống thực tế:** Một ứng dụng thực tế cần hồ sơ lồng nhau. Dữ liệu hiện có: Hai SV với điểm 8 và 9; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Từ điển con gom dữ liệu theo từng mã sinh viên.
 
-**Dữ liệu:** Hai SV với điểm 8 và 9; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -164,11 +160,10 @@ print(students["SV2"]["score"])
 
 **Từ vựng trong mục:** **Dictionary** — từ điển.
 
-**Vấn đề thực tế:** Xóa SKU không có.
+**Tình huống thực tế:** Một ứng dụng thực tế cần xóa sku không có. Dữ liệu hiện có: Danh sách có P01 nhưng không có P02; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** pop mặc định None ngăn lỗi khi mã không tồn tại.
 
-**Dữ liệu:** Danh sách có P01 nhưng không có P02; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 

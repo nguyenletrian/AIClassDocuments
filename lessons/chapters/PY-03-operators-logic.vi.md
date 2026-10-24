@@ -94,11 +94,10 @@ print(5 & 3)
 
 **Từ vựng trong mục:** **Arithmetic** — số học.
 
-**Vấn đề:** Tính ưu đãi.
+**Tình huống thực tế:** Một cửa hàng cần tính ưu đãi. Dữ liệu hiện có: Giá 250000 đồng giảm 10%. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Nhân tỷ lệ giảm với giá để tính tiền còn lại.
 
-**Dữ liệu:** Giá 250000 đồng giảm 10%.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -112,11 +111,10 @@ print(price * (1 - 0.10))
 
 **Từ vựng trong mục:** **Comparison** — so sánh.
 
-**Vấn đề:** Xét VIP.
+**Tình huống thực tế:** Một cửa hàng quy định khách đạt hạng VIP khi gắn bó ít nhất 5 năm và chi tiêu từ 1.000.000 đồng. Khách 5 năm, chi 1200000 đồng. Hãy xác định khách hàng này có đạt hạng VIP hay không.
 
 **Vì sao chọn cách này?** Hai điều kiện đều phải đúng.
 
-**Dữ liệu:** Khách 5 năm, chi 1200000 đồng.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -130,11 +128,10 @@ print(years >= 5 and spending >= 1000000)
 
 **Từ vựng trong mục:** **Logical** — logic.
 
-**Vấn đề:** Đóng thùng hàng.
+**Tình huống thực tế:** Một cửa hàng cần đóng thùng hàng. Dữ liệu hiện có: 23 sản phẩm, 5 sản phẩm/thùng. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Chia nguyên đếm thùng đủ và dư đếm món lẻ.
 
-**Dữ liệu:** 23 sản phẩm, 5 sản phẩm/thùng.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -148,11 +145,10 @@ print(items // box_size, items % box_size)
 
 **Từ vựng trong mục:** **Bitwise** — thao tác bit.
 
-**Vấn đề:** Đọc cờ thiết bị.
+**Tình huống thực tế:** Một ứng dụng thực tế cần đọc cờ thiết bị. Dữ liệu hiện có: Trạng thái mô phỏng 0b1010. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Kiểm một bit bằng phép AND trên số nhị phân.
 
-**Dữ liệu:** Trạng thái mô phỏng 0b1010.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -166,11 +162,10 @@ print(bool(status & 0b0010))
 
 **Từ vựng trong mục:** **Arithmetic** — số học.
 
-**Vấn đề:** Ưu tiên đơn hàng.
+**Tình huống thực tế:** Một cửa hàng cần ưu tiên đơn hàng. Dữ liệu hiện có: Giá trị 3000000 đồng hoặc trễ 2 ngày. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Chỉ cần một trong hai ngưỡng được đáp ứng.
 
-**Dữ liệu:** Giá trị 3000000 đồng hoặc trễ 2 ngày.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 

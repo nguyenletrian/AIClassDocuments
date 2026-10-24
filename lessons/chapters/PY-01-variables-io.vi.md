@@ -96,11 +96,10 @@ print(type(2.5))
 
 **Từ vựng trong mục:** **Variable** — biến.
 
-**Vấn đề:** Chào khách mới.
+**Tình huống thực tế:** Một cửa hàng cần chào khách mới. Dữ liệu hiện có: Một chuỗi là tên khách. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Lưu tên trong biến để dùng lại trong nhiều thông báo
 
-**Dữ liệu:** Một chuỗi là tên khách.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -115,11 +114,10 @@ print(f"Xin chào {name}!")
 
 **Từ vựng trong mục:** **Input** — đầu vào.
 
-**Vấn đề:** Tính tiền hóa đơn.
+**Tình huống thực tế:** Một cửa hàng cần tính tiền hóa đơn. Dữ liệu hiện có: Giá 120000 đồng, số lượng 3. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Đổi số từ văn bản thành số trước khi nhân
 
-**Dữ liệu:** Giá 120000 đồng, số lượng 3.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -134,11 +132,10 @@ print(price * quantity)
 
 **Từ vựng trong mục:** **Output** — đầu ra.
 
-**Vấn đề:** Hiển thị điểm.
+**Tình huống thực tế:** Một trung tâm đào tạo cần hiển thị điểm. Dữ liệu hiện có: Tên An, điểm 8.5/10. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Format tên và điểm để xuất ra một dòng dễ đọc
 
-**Dữ liệu:** Tên An, điểm 8.5/10.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -152,11 +149,10 @@ print(f"{name}: {score}/10")
 
 **Từ vựng trong mục:** **Type** — kiểu dữ liệu.
 
-**Vấn đề:** Ghi nhiệt độ.
+**Tình huống thực tế:** Một hệ thống giám sát cần ghi nhiệt độ. Dữ liệu hiện có: Nhiệt độ 36.5 độ C. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Giữ kiểu số thực để không mất phần thập phân
 
-**Dữ liệu:** Nhiệt độ 36.5 độ C.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 
@@ -170,11 +166,10 @@ print(type(temperature), temperature)
 
 **Từ vựng trong mục:** **Variable** — biến.
 
-**Vấn đề:** Giữ mã đơn.
+**Tình huống thực tế:** Một cửa hàng cần giữ mã đơn. Dữ liệu hiện có: Mã 0007. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Mã đơn không phải đại lượng nên giữ dạng chuỗi
 
-**Dữ liệu:** Mã 0007.
 
 **Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
 

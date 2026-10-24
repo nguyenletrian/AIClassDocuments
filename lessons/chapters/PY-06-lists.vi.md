@@ -88,11 +88,10 @@ print(a)
 
 **Từ vựng trong mục:** **List** — danh sách.
 
-**Vấn đề thực tế:** Giỏ hàng.
+**Tình huống thực tế:** Một cửa hàng cần giỏ hàng. Dữ liệu hiện có: Hai món ban đầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Thêm món mới vào danh sách thứ tự đã chọn.
 
-**Dữ liệu:** Hai món ban đầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -108,11 +107,10 @@ print(basket)
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
-**Vấn đề thực tế:** Lấy hai ưu tiên cao.
+**Tình huống thực tế:** Một ứng dụng thực tế cần lấy hai ưu tiên cao. Dữ liệu hiện có: Điểm ưu tiên [2,9,4,7]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Sắp xếp bản sao giữ thứ tự gốc để còn so sánh.
 
-**Dữ liệu:** Điểm ưu tiên [2,9,4,7]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -127,11 +125,10 @@ print(sorted(scores,reverse=True)[:2])
 
 **Từ vựng trong mục:** **Slice** — cắt lát.
 
-**Vấn đề thực tế:** Lọc điểm đạt.
+**Tình huống thực tế:** Một trung tâm đào tạo cần lọc điểm đạt. Dữ liệu hiện có: 4 điểm thang 10; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Chọn điểm >=5 bằng điều kiện trong list comprehension.
 
-**Dữ liệu:** 4 điểm thang 10; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -147,11 +144,10 @@ print(passed)
 
 **Từ vựng trong mục:** **Mutability** — khả năng sửa.
 
-**Vấn đề thực tế:** Sửa tồn kho.
+**Tình huống thực tế:** Một ứng dụng thực tế cần sửa tồn kho. Dữ liệu hiện có: Tồn 3 mặt hàng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai.
 
-**Dữ liệu:** Tồn 3 mặt hàng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
@@ -167,11 +163,10 @@ print(stock)
 
 **Từ vựng trong mục:** **List** — danh sách.
 
-**Vấn đề thực tế:** Hàng đợi yêu cầu.
+**Tình huống thực tế:** Một cửa hàng cần hàng đợi yêu cầu. Dữ liệu hiện có: 3 mã yêu cầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
 
 **Vì sao chọn cách này?** Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách.
 
-**Dữ liệu:** 3 mã yêu cầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
 **Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
 
