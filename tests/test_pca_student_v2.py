@@ -22,7 +22,7 @@ class StudentPcaLessonTests(unittest.TestCase):
     def test_student_first_layout_and_no_internal_sources(self):
         for expected in ("## 1. PCA nằm ở đâu", "## 2. English vocabulary",
                          "## 3. Thư viện và hàm Python", "## 4. PCA và các khái niệm liên quan",
-                         "## 5. Năm tình huống", "## 7. English multiple-choice"):
+                         "## 5. Năm tình huống", "## 7. English–Vietnamese multiple-choice"):
             self.assertIn(expected, self.text)
         self.assertEqual(len(re.findall(r"^### Tình huống [1-5]", self.text, re.M)), 5)
         self.assertEqual(len(re.findall(r"^\*\*Q\d+\.", self.text, re.M)), 20)
@@ -40,18 +40,18 @@ class StudentPcaLessonTests(unittest.TestCase):
         self.assertNotIn("Subconcept", self.text)
         # Feature/Vector/Matrix are defined in prose before the first code sample.
         concepts = self.text.split("### 4.2.", 1)[1].split("### 4.3.", 1)[0]
-        for concept in ("**Feature (đặc trưng):**", "**Vector (véc-tơ):**", "**Matrix (ma trận):**"):
+        for concept in ("**Feature:**", "**Vector:**", "**Matrix:**"):
             self.assertIn(concept, concepts)
-        self.assertLess(concepts.index("**Feature (đặc trưng):**"), concepts.index("```python"))
-        self.assertLess(concepts.index("**Vector (véc-tơ):**"), concepts.index("```python"))
+        self.assertLess(concepts.index("**Feature:**"), concepts.index("```python"))
+        self.assertLess(concepts.index("**Vector:**"), concepts.index("```python"))
 
 
     def test_explanations_progress_from_vectors_to_matrix(self):
         # The concept example must construct five profiles, then stack them.
         section = self.text.split("### 4.2.", 1)[1].split("### 4.3.", 1)[0]
         for expected in (
-            "**Nhắc lại các khái niệm", "5 khách hàng → 5 vector (véc-tơ) → 1 ma trận",
-            "**5 khách → 5 vector (véc-tơ):**", "**5 vector (véc-tơ) → 1 matrix (ma trận):**",
+            "**Nhắc lại các khái niệm", "5 khách hàng → 5 vector → 1 ma trận",
+            "**5 khách → 5 vector:**", "**5 vector → 1 matrix:**",
             "customer_1 =", "customer_5 =", "np.vstack(customer_vectors)",
             "print(\"Shape:\", X.shape)  # (5, 5)",
         ):
@@ -113,16 +113,47 @@ class StudentPcaLessonTests(unittest.TestCase):
             with self.subTest(no_redundant_note=flag):
                 self.assertNotRegex(code_blocks, r'(?m)^\s*#\s*' + re.escape(flag) + r'\s*:')
 
-    def test_english_concepts_have_vietnamese_translation_in_prose(self):
-        core = self.text.split('### 4.4.', 1)[1].split('### 4.5.', 1)[0]
-        self.assertIn('Eigenvector (vector riêng)', core)
-        self.assertIn('Eigenvalue (giá trị riêng)', core)
-        self.assertIn('Covariance (hiệp phương sai)', core)
-        self.assertNotIn('vector (véc-tơ) riêng', core)
-        self.assertIn('Feature (đặc trưng)', self.text)
-        self.assertIn('Matrix (ma trận)', self.text)
-        quiz = self.text.split('## 7. English multiple-choice', 1)[1]
-        self.assertNotIn('feature (đặc trưng)', quiz)  # Preserve English questions.
+    def test_each_section_has_a_small_term_glossary(self):
+        parts = [
+            '## 1.', '## 3.', '## 4.',
+            *[f'### 4.{i}.' for i in range(1, 7)],
+            '## 5.', *[f'### Tình huống {i}' for i in range(1, 6)],
+            '## 6.', '## 8.',
+        ]
+        lines = self.text.splitlines()
+        for heading in parts:
+            with self.subTest(heading=heading):
+                matches = [i for i, line in enumerate(lines) if line.startswith(heading)]
+                self.assertEqual(len(matches), 1, heading)
+                # A short glossary must come immediately after the section heading.
+                follow = '\n'.join(lines[matches[0]+1:matches[0]+4])
+                self.assertIn('**Từ vựng trong mục:**', follow)
+        eigen = self.text.split('### 4.4.', 1)[1].split('### 4.5.', 1)[0]
+        self.assertIn('**Eigenvector** — vector riêng', eigen)
+        self.assertIn('**Eigenvalue** — giá trị riêng', eigen)
+        self.assertIn('**Covariance** — hiệp phương sai', eigen)
+        self.assertNotIn('Eigenvector (vector riêng)', eigen)
+
+    def test_bilingual_quiz_includes_every_option_and_key(self):
+        quiz = self.text.split('## 7. English–Vietnamese', 1)[1].split('## 8.', 1)[0]
+        self.assertEqual(len(re.findall(r'^\*\*Q\d+\.', quiz, re.M)), 20)
+        self.assertEqual(quiz.count('*Tiếng Việt: '), 20)
+        self.assertEqual(len(re.findall(r'^\| Q\d+ \|', quiz, re.M)), 20)
+        # Each English option is followed by a Vietnamese translation line.
+        items = re.findall(r'^[A-D]\. [^\n]+\n\*[^\n]+\*', quiz, re.M)
+        self.assertEqual(len(items), 80)
+        self.assertIn('Explanation (English)', quiz)
+        self.assertIn('Giải thích (Tiếng Việt)', quiz)
+        self.assertNotIn('scatter plot (biểu đồ phân tán)', quiz)
+
+    def test_all_markdown_images_exist_at_relative_paths(self):
+        refs = re.findall(r'!\[[^\n]*\]\(([^)\n]+)\)', self.text)
+        self.assertEqual(sorted(refs), sorted([
+            'assets/pca-before-after.svg', 'assets/pca-direction-intuition.svg',
+        ]))
+        for ref in refs:
+            self.assertTrue((LESSON.parent / ref).is_file(), ref)
+            self.assertNotIn('(', ref)  # Previous automatic translation broke paths.
 
     def test_five_immediate_self_checks_and_advanced_labels(self):
         sections = [
