@@ -90,7 +90,7 @@ print(len(a&b)/len(a
 
 **Vì sao chọn cách này?** Chữ hoa và khoảng trắng làm tìm kiếm không khớp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Chuỗi '  Machine LEARNING '. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Chuỗi '  Machine LEARNING '.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -99,7 +99,6 @@ text="  Machine LEARNING "
 print(text.strip().lower())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 2 — Tách từ câu đơn giản
 
@@ -109,7 +108,7 @@ print(text.strip().lower())
 
 **Vì sao chọn cách này?** split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Câu tiếng Anh 'AI helps Python'. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Câu tiếng Anh 'AI helps Python'.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -118,7 +117,6 @@ sentence="AI helps Python"
 print(sentence.lower().split())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 3 — Lập kho từ vựng
 
@@ -128,7 +126,7 @@ print(sentence.lower().split())
 
 **Vì sao chọn cách này?** Set lọc token lặp để đếm từ duy nhất; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Hai câu ngắn tiếng Anh. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Hai câu ngắn tiếng Anh.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -138,7 +136,6 @@ words=set(" ".join(sentences).lower().split())
 print(sorted(words))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 4 — Độ giống hai tài liệu
 
@@ -148,7 +145,7 @@ print(sorted(words))
 
 **Vì sao chọn cách này?** Jaccard xét số từ chung không tính tần suất; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Hai văn bản có từ 'python' chung. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Hai văn bản có từ 'python' chung.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -157,7 +154,6 @@ a=set("python for ai".split());b=set("python and sql".split())
 print(len(a&b)/len(a|b))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ### Tình huống 5 — Kiểm văn bản không có từ
 
@@ -167,7 +163,7 @@ print(len(a&b)/len(a|b))
 
 **Vì sao chọn cách này?** Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Hai chuỗi rỗng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
+**Dữ liệu:** Hai chuỗi rỗng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -177,7 +173,6 @@ score=1.0 if not(a|b) else len(a&b)/len(a|b)
 print(score)
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 
