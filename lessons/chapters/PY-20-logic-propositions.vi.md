@@ -7,7 +7,7 @@
 
 `Boolean → logic mệnh đề → tổ hợp → xác suất`
 
-Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước và cách xử lý dữ liệu để ứng dụng AI sau này.
+Sau các điều kiện `if`, ta tìm hiểu vì sao phép `and`, `or`, `not` cho kết quả đúng hoặc sai và cách đếm số lựa chọn có thể xảy ra.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -29,153 +29,201 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 | `itertools.product(A,B)` | Tạo tích Descartes của hai tập tùy chọn |
 | `math.prod(counts)` | Nhân số lựa chọn từng bước độc lập |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. Proposition
 
 **Từ vựng trong mục:** **Proposition** — mệnh đề.
 
-Câu có giá trị True hoặc False. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+Mệnh đề là phát biểu có thể xác định đúng (`True`) hoặc sai (`False`). Ví dụ `3 > 1` là một mệnh đề đúng.
 
 ```python
-print(3>1)
+print(3 > 1)
 ```
 
-**Tự kiểm tra nhanh:** Proposition là gì? **Đáp án:** Câu có giá trị True hoặc False.
+**Kết quả khi chạy:**
+
+```text
+True
+```
 
 ### 4.2. Truth table
 
 **Từ vựng trong mục:** **Truth table** — bảng chân trị.
 
-Liệt kê kết quả ứng với mọi tổ hợp logic. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+Bảng chân trị liệt kê mọi khả năng của các biến Boolean. Với một biến `p`, có hai trường hợp: `True` hoặc `False`; phủ định `not p` đảo giá trị đó.
 
 ```python
-for p in [True,False]:
-    print(p,not p)
+for p in [True, False]:
+        print(p, not p)
 ```
 
-**Tự kiểm tra nhanh:** Truth table là gì? **Đáp án:** Liệt kê kết quả ứng với mọi tổ hợp logic.
+**Kết quả khi chạy:**
+
+```text
+True False
+False True
+```
 
 ### 4.3. Implication
 
 **Từ vựng trong mục:** **Implication** — kéo theo.
 
-Quan hệ P⇒Q tương đương (not P) or Q. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+Mệnh đề kéo theo `p ⇒ q` chỉ sai khi `p` đúng nhưng `q` sai. Trong Python ta viết `(not p) or q`. Đây là quy tắc logic, không khẳng định quan hệ nhân quả.
 
 ```python
-p,q=True,False
+p, q = True, False
 print((not p) or q)
 ```
 
-**Tự kiểm tra nhanh:** Implication là gì? **Đáp án:** Quan hệ P⇒Q tương đương (not P) or Q.
+**Kết quả khi chạy:**
+
+```text
+False
+```
 
 ### 4.4. Counting
 
 **Từ vựng trong mục:** **Counting** — nguyên lý đếm.
 
-Đếm số khả năng khi ghép lựa chọn. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+Nguyên lý nhân: nếu chọn một trong 3 màu và một trong 4 cỡ độc lập thì có `3 * 4 = 12` kiểu kết hợp.
 
 ```python
-print(3*4)
+print(3 * 4)
 ```
 
-**Tự kiểm tra nhanh:** Counting là gì? **Đáp án:** Đếm số khả năng khi ghép lựa chọn.
+**Kết quả khi chạy:**
 
-## 5. Năm vấn đề thực tế
+```text
+12
+```
+
+## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Điều kiện đăng nhập
 
-**Từ vựng trong mục:** **Proposition** — mệnh đề.
+**Từ vựng trong mục:** **Proposition** — mệnh đề; **AND** — và.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn điều kiện đăng nhập. Bộ dữ liệu đang có: Hai cờ Boolean. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Một cổng học tập chỉ cho mở nội dung khi người dùng đã đăng nhập và xác minh tài khoản. Trong lần kiểm tra này `logged_in=True`, `verified=False`. In kết quả người dùng có được quyền truy cập hay không.
 
-**Vì sao chọn phương án này?** Dùng and để đòi cả đăng nhập và xác minh. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Toán tử `and` chỉ cho `True` khi cả hai điều kiện đều đúng.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Đặt hai trạng thái Boolean → nối chúng bằng `and` → in kết quả.
 
 ```python
-logged_in,verified=True,False
+logged_in, verified = True, False
 print(logged_in and verified)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+False
+```
+
+**Giải thích kết quả:** `False` — tài khoản đã đăng nhập nhưng chưa xác minh.
 
 ### Tình huống 2 — Bảng chân trị
 
-**Từ vựng trong mục:** **Truth table** — bảng chân trị.
+**Từ vựng trong mục:** **Truth table** — bảng chân trị; **OR** — hoặc.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn bảng chân trị. Bộ dữ liệu đang có: P và Q nhận True/False. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Nhân viên kiểm thử muốn lập bảng chân trị cho `p and q` và `p or q`, trong đó `p`, `q` đều có thể là `True` hoặc `False`. In tất cả bốn tổ hợp của p và q cùng kết quả của hai phép logic.
 
-**Vì sao chọn phương án này?** Quét bốn tổ hợp của hai mệnh đề. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Hai vòng `for` lồng nhau tạo đủ 2 × 2 tổ hợp.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Duyệt p theo hai trạng thái → với mỗi p duyệt q → in p, q, p and q, p or q.
 
 ```python
-for p in [True,False]:
-    for q in [True,False]:
-        print(p,q,p and q,p or q)
+for p in [True, False]:
+    for q in [True, False]:
+                print(p, q, p and q, p or q)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+True True True True
+True False False True
+False True False True
+False False False False
+```
+
+**Giải thích kết quả:** Bốn dòng cho đủ các trường hợp; `and` chỉ đúng khi cả hai đúng, `or` đúng khi ít nhất một đúng.
 
 ### Tình huống 3 — Kiểm quy tắc kéo theo
 
-**Từ vựng trong mục:** **Implication** — kéo theo.
+**Từ vựng trong mục:** **Implication** — kéo theo; **Premise** — tiền đề.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm quy tắc kéo theo. Bộ dữ liệu đang có: P đúng, Q sai. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Một quy định nội bộ phát biểu: “Nếu đã được phê duyệt (p) thì phải có chứng nhận (q)”. Có trường hợp `p=True` nhưng `q=False`. Kiểm tra quy tắc kéo theo có được đáp ứng không.
 
-**Vì sao chọn phương án này?** Phép kéo theo chỉ sai khi P đúng nhưng Q sai. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** `(not p) or q` tương đương phép kéo theo và nhận `False` khi tiền đề đúng nhưng kết luận sai.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Gán p=True, q=False → tính `(not p) or q` → in kết quả.
 
 ```python
-p,q=True,False
+p, q = True, False
 print((not p) or q)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+False
+```
+
+**Giải thích kết quả:** `False` — trường hợp này vi phạm quy tắc.
 
 ### Tình huống 4 — Cấu hình áo
 
-**Từ vựng trong mục:** **Counting** — nguyên lý đếm.
+**Từ vựng trong mục:** **Counting** — nguyên lý đếm; **Combination** — cách kết hợp.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn cấu hình áo. Bộ dữ liệu đang có: 3 màu và 4 cỡ áo. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Cửa hàng cho khách chọn 1 trong 3 màu áo và 1 trong 4 cỡ; mọi màu đều có đủ bốn cỡ. Tính số cách chọn một màu và một cỡ.
 
-**Vì sao chọn phương án này?** Nguyên lý nhân đếm số tổ hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Nguyên lý nhân phù hợp khi mỗi lựa chọn màu kết hợp được với mọi lựa chọn cỡ.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Lấy số màu nhân số cỡ: 3 × 4 → in tổng số kết hợp.
 
 ```python
-print(3*4)
+print(3 * 4)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+12
+```
+
+**Giải thích kết quả:** `12` cách chọn.
 
 ### Tình huống 5 — Ghép các tùy chọn
 
-**Từ vựng trong mục:** **Proposition** — mệnh đề.
+**Từ vựng trong mục:** **Cartesian product** — tích Descartes; **Option** — lựa chọn.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn ghép các tùy chọn. Bộ dữ liệu đang có: 2 màu và 2 size. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Cửa hàng bán áo có hai màu `red`, `blue` và hai cỡ `S`, `M`, mọi màu đều có đủ hai cỡ. In danh sách cụ thể tất cả cặp (màu, cỡ).
 
-**Vì sao chọn phương án này?** product liệt kê từng cặp màu và size. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** `itertools.product` liệt kê tích Descartes, khác với chỉ đếm bằng phép nhân.
 
-
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo list hai màu và hai cỡ → dùng `product` → chuyển sang list và in.
 
 ```python
 from itertools import product
-print(list(product(["red","blue"],["S","M"])))
+print(list(product(["red", "blue"], ["S", "M"])))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+[('red', 'S'), ('red', 'M'), ('blue', 'S'), ('blue', 'M')]
+```
+
+**Giải thích kết quả:** Bốn cặp: `(red,S)`, `(red,M)`, `(blue,S)`, `(blue,M)`.
 
 ## 6. Các lỗi dễ mắc
 
-Cần phân biệt khi nào thứ tự quan trọng, khi nào phần tử trùng được tính lại, và khi nào dữ liệu thật không có đủ điều kiện như ví dụ. Xem kỹ kiểu dữ liệu và đầu vào trống.
+- `and` chỉ đúng khi cả hai điều kiện đúng, `or` đúng khi ít nhất một điều kiện đúng; `not` đảo Boolean.
+- Với mệnh đề kéo theo `p ⇒ q`, trường hợp `p=False` không chứng minh rằng `q=True`.
+- Nguyên lý nhân chỉ áp dụng trực tiếp khi mỗi lựa chọn ở bước trước đều có đủ lựa chọn tiếp theo.
+- Tích Descartes liệt kê các cặp có thứ tự theo hai nguồn; đừng nhầm với phép hợp của Set.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
