@@ -539,26 +539,26 @@ D. An expected inherited instance attribute may be missing — Một thuộc tí
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | A subclass can build on code defined by its parent.~Lớp con có thể kế thừa và mở rộng phần đã được lớp cha định nghĩa. | undefined |
-| Q2 | **B** | The parentheses name the parent class of Dog.~Trong khai báo lớp, ngoặc chỉ lớp cha của Dog. | undefined |
-| Q3 | **C** | The parent's initializer can set attributes shared across subclasses.~Phương thức khởi tạo lớp cha giúp thiết lập các thuộc tính dùng chung. | undefined |
-| Q4 | **D** | Polymorphism lets callers use a common operation without checking concrete types.~Đa hình cho phép dùng một thao tác chung mà không cần phân nhánh theo từng kiểu đối tượng. | undefined |
-| Q5 | **A** | For a child instance, its overriding method is selected in place of the inherited one.~Khi lớp con ghi đè, đối tượng lớp con dùng cách triển khai mới. | undefined |
-| Q6 | **B** | With ABC, an unimplemented abstract method prevents instantiating the abstract class.~Trong ABC, phương thức trừu tượng chưa triển khai khiến lớp không được khởi tạo trực tiếp. | undefined |
-| Q7 | **C** | ABC provides infrastructure; `@abstractmethod` identifies required methods.~ABC cung cấp cơ chế, còn `@abstractmethod` chỉ ra phương thức bắt buộc. | undefined |
-| Q8 | **D** | The subclass remains abstract until required methods are implemented.~Lớp con vẫn trừu tượng nếu chưa cài đặt đầy đủ các phương thức yêu cầu. | undefined |
-| Q9 | **A** | Inheritance relationships are included in an isinstance check.~Kiểm tra isinstance cũng tính quan hệ kế thừa, không chỉ đúng lớp trực tiếp. | undefined |
-| Q10 | **B** | Python resolves the method on the actual child object first.~Python ưu tiên phương thức phù hợp trên đối tượng lớp con. | undefined |
-| Q11 | **C** | Calling the parent initializer makes shared instance data available to the child.~Gọi khởi tạo lớp cha sẽ tạo dữ liệu chung để lớp con dùng. | undefined |
-| Q12 | **D** | What matters is that callers can use the expected operation.~Điểm cốt lõi là các đối tượng đáp ứng thao tác mà nơi gọi cần. | undefined |
-| Q13 | **A** | Instance attributes such as `self.name` belong to that specific object.~Thuộc tính như `self.name` thuộc về đối tượng đang thực hiện phương thức. | undefined |
-| Q14 | **B** | The child selects its implementation, while parent instances retain their method.~Lớp con dùng bản mới, còn đối tượng lớp cha vẫn giữ phương thức của nó. | undefined |
-| Q15 | **C** | super can delegate to the next method in the inheritance resolution order.~super cho phép gọi phương thức kế tiếp trong thứ tự phân giải kế thừa. | undefined |
-| Q16 | **D** | Abstract classes can combine shared logic with required abstract operations.~Lớp trừu tượng có thể vừa chứa logic chung vừa quy định thao tác bắt buộc. | undefined |
-| Q17 | **A** | The common method name can execute differently on different subclasses.~Tên phương thức chung có thể chạy khác nhau trên các lớp con. | undefined |
-| Q18 | **B** | Parent in parentheses is the class being inherited.~Tên trong dấu ngoặc là lớp được kế thừa. | undefined |
-| Q19 | **C** | A base class reduces repeated definitions across related subclasses.~Lớp cha giúp tránh viết lặp những thành phần chung của các lớp có liên quan. | undefined |
-| Q20 | **D** | Without initialization, an attribute such as `name` might not be set.~Không gọi phần khởi tạo cần thiết có thể khiến thuộc tính như `name` chưa tồn tại. | undefined |
+| Q1 | **A** | A subclass can build on code defined by its parent. | Lớp con có thể kế thừa và mở rộng phần đã được lớp cha định nghĩa. |
+| Q2 | **B** | The parentheses name the parent class of Dog. | Trong khai báo lớp, ngoặc chỉ lớp cha của Dog. |
+| Q3 | **C** | The parent's initializer can set attributes shared across subclasses. | Phương thức khởi tạo lớp cha giúp thiết lập các thuộc tính dùng chung. |
+| Q4 | **D** | Polymorphism lets callers use a common operation without checking concrete types. | Đa hình cho phép dùng một thao tác chung mà không cần phân nhánh theo từng kiểu đối tượng. |
+| Q5 | **A** | For a child instance, its overriding method is selected in place of the inherited one. | Khi lớp con ghi đè, đối tượng lớp con dùng cách triển khai mới. |
+| Q6 | **B** | With ABC, an unimplemented abstract method prevents instantiating the abstract class. | Trong ABC, phương thức trừu tượng chưa triển khai khiến lớp không được khởi tạo trực tiếp. |
+| Q7 | **C** | ABC provides infrastructure; `@abstractmethod` identifies required methods. | ABC cung cấp cơ chế, còn `@abstractmethod` chỉ ra phương thức bắt buộc. |
+| Q8 | **D** | The subclass remains abstract until required methods are implemented. | Lớp con vẫn trừu tượng nếu chưa cài đặt đầy đủ các phương thức yêu cầu. |
+| Q9 | **A** | Inheritance relationships are included in an isinstance check. | Kiểm tra isinstance cũng tính quan hệ kế thừa, không chỉ đúng lớp trực tiếp. |
+| Q10 | **B** | Python resolves the method on the actual child object first. | Python ưu tiên phương thức phù hợp trên đối tượng lớp con. |
+| Q11 | **C** | Calling the parent initializer makes shared instance data available to the child. | Gọi khởi tạo lớp cha sẽ tạo dữ liệu chung để lớp con dùng. |
+| Q12 | **D** | What matters is that callers can use the expected operation. | Điểm cốt lõi là các đối tượng đáp ứng thao tác mà nơi gọi cần. |
+| Q13 | **A** | Instance attributes such as `self.name` belong to that specific object. | Thuộc tính như `self.name` thuộc về đối tượng đang thực hiện phương thức. |
+| Q14 | **B** | The child selects its implementation, while parent instances retain their method. | Lớp con dùng bản mới, còn đối tượng lớp cha vẫn giữ phương thức của nó. |
+| Q15 | **C** | super can delegate to the next method in the inheritance resolution order. | super cho phép gọi phương thức kế tiếp trong thứ tự phân giải kế thừa. |
+| Q16 | **D** | Abstract classes can combine shared logic with required abstract operations. | Lớp trừu tượng có thể vừa chứa logic chung vừa quy định thao tác bắt buộc. |
+| Q17 | **A** | The common method name can execute differently on different subclasses. | Tên phương thức chung có thể chạy khác nhau trên các lớp con. |
+| Q18 | **B** | Parent in parentheses is the class being inherited. | Tên trong dấu ngoặc là lớp được kế thừa. |
+| Q19 | **C** | A base class reduces repeated definitions across related subclasses. | Lớp cha giúp tránh viết lặp những thành phần chung của các lớp có liên quan. |
+| Q20 | **D** | Without initialization, an attribute such as `name` might not be set. | Không gọi phần khởi tạo cần thiết có thể khiến thuộc tính như `name` chưa tồn tại. |
 
 ## 8. Nối sang bài tiếp theo
 
