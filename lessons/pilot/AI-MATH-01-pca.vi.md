@@ -721,6 +721,8 @@ print("Accuracy without PCA:", round(without_pca.score(X_test, y_test), 4))
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
+**Từ vựng trong mục:** **Question** — câu hỏi; **Option** — phương án; **Answer key** — bảng đáp án; **Explanation** — lời giải thích.
+
 *Mỗi câu có nội dung tiếng Anh và bản dịch tiếng Việt. Mỗi phương án cũng được dịch để sinh viên vừa tự kiểm tra kiến thức, vừa ôn thuật ngữ chuyên ngành.*
 
 **Q1. What is the primary purpose of PCA?**
@@ -744,16 +746,16 @@ D. To guarantee higher accuracy
 *Tiếng Việt: Thuộc tính nào lưu tỷ lệ phương sai mà từng thành phần chính giải thích được?*
 
 A. `pca.components_`  
-*pca.components_*
+*Thuộc tính `pca.components_` — các hướng thành phần chính*
 
 B. `pca.classes_`  
-*pca.classes_*
+*Thuộc tính `pca.classes_` — không phải thuộc tính cần dùng để xem phương sai PCA*
 
 C. `pca.explained_variance_ratio_`  
-*pca.explained_variance_ratio_*
+*Thuộc tính `pca.explained_variance_ratio_` — tỷ lệ phương sai từng thành phần*
 
 D. `pca.predict()`  
-*pca.predict()*
+*Lời gọi `pca.predict()` — PCA không phải mô hình dự đoán nhãn*
 
 **Q3. Why is `StandardScaler` often used before PCA?**
 
@@ -888,16 +890,16 @@ D. The number of target classes
 *Tiếng Việt: Mảng nào biểu diễn MỘT khách hàng với năm đặc trưng số?*
 
 A. `np.array([[1, 2], [3, 4]])`  
-*np.array([[1, 2], [3, 4]])*
+*Mảng hai chiều gồm hai hàng và hai cột: `np.array([[1, 2], [3, 4]])`*
 
 B. `np.array([12, 4, 950, 18, 7])`  
-*np.array([12, 4, 950, 18, 7])*
+*Mảng một chiều có năm số: `np.array([12, 4, 950, 18, 7])`*
 
 C. `np.array([["A", "B"]])`  
-*np.array([["A", "B"]])*
+*Mảng chứa văn bản thay vì năm số: `np.array([["A", "B"]])`*
 
 D. `np.array([])`  
-*np.array([])*
+*Mảng rỗng, không có năm giá trị: `np.array([])`*
 
 **Q12. What does `X.mean(axis=0)` calculate for a 2D dataset?**
 
