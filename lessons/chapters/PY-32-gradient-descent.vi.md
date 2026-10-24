@@ -1,14 +1,8 @@
 # PY-32 — Đạo hàm riêng, gradient descent và learning rate
 
-*DRAFT · Học qua Python · Cần kiểm tra kết quả và môi trường trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Partial derivative** — đạo hàm riêng; **Gradient** — vector gradient.
-
 `Derivative → Gradient → Optimization → Training`
-
-Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc tối ưu tính toán phục vụ AI. Đọc ví dụ trước khi liên hệ tới mô hình phức tạp.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 ## 3. Hàm và cách gọi bằng Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / tham số | Giải thích |
 |---|---|
 | `sympy.diff(f,x)` | Đạo hàm riêng của hàm f theo x |
@@ -34,67 +26,47 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 ### 4.1. Partial derivative
 
-**Từ vựng trong mục:** **Partial derivative** — đạo hàm riêng.
-
-Đạo hàm theo một biến khi các biến khác giữ cố định. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Đạo hàm theo một biến khi các biến khác giữ cố định.
 
 ```python
 import sympy as sp
 x,y=sp.symbols('x y');print(sp.diff(x*x+3*x*y,x))
 ```
 
-**Tự kiểm tra:** Partial derivative là gì? **Đáp án:** Đạo hàm theo một biến khi các biến khác giữ cố định.
-
 ### 4.2. Gradient
 
-**Từ vựng trong mục:** **Gradient** — vector gradient.
-
-Vector gồm các đạo hàm riêng của hàm nhiều biến. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Vector gồm các đạo hàm riêng của hàm nhiều biến.
 
 ```python
 import numpy as np
 print(np.array([2*3.,2*4.]))
 ```
 
-**Tự kiểm tra:** Gradient là gì? **Đáp án:** Vector gồm các đạo hàm riêng của hàm nhiều biến.
-
 ### 4.3. Learning rate
 
-**Từ vựng trong mục:** **Learning rate** — tốc độ học.
-
-Bước nhân gradient khi cập nhật tham số. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Bước nhân gradient khi cập nhật tham số.
 
 ```python
 lr=.1;w=3.;print(w-lr*2*w)
 ```
 
-**Tự kiểm tra:** Learning rate là gì? **Đáp án:** Bước nhân gradient khi cập nhật tham số.
-
 ### 4.4. Epoch
 
-**Từ vựng trong mục:** **Epoch** — vòng huấn luyện.
-
-Một lượt sử dụng hết dữ liệu train để cập nhật mô hình. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Một lượt sử dụng hết dữ liệu train để cập nhật mô hình.
 
 ```python
 for epoch in range(3): print(epoch)
 ```
 
-**Tự kiểm tra:** Epoch là gì? **Đáp án:** Một lượt sử dụng hết dữ liệu train để cập nhật mô hình.
-
 ## 5. Năm tình huống ứng dụng thực tế
 
 ### Tình huống 1 — Giảm chi phí một biến
 
-**Từ vựng trong mục:** **Partial derivative** — đạo hàm riêng.
-
 **Vấn đề:** Giảm chi phí một biến.
 
-**Vì sao chọn phương án?** Cập nhật w theo độ dốc của hàm w²; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Cập nhật w theo độ dốc của hàm w²
 
-**Dữ liệu:** Bắt đầu w=4, lr=0.1, 10 bước. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Bắt đầu w=4, lr=0.1, 10 bước.
 
 ```python
 w=4.;lr=.1
@@ -103,19 +75,13 @@ for step in range(10):
 print(round(w,4))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 2 — Đạo hàm riêng chi phí
-
-**Từ vựng trong mục:** **Gradient** — vector gradient.
 
 **Vấn đề:** Đạo hàm riêng chi phí.
 
-**Vì sao chọn phương án?** Hàm hai biến f=x²+3xy+y² cần đạo hàm từng biến; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Hàm hai biến f=x²+3xy+y² cần đạo hàm từng biến
 
-**Dữ liệu:** Hàm tại x=1,y=2. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Hàm tại x=1,y=2.
 
 ```python
 import sympy as sp
@@ -123,19 +89,13 @@ x,y=sp.symbols('x y');f=x*x+3*x*y+y*y
 print(sp.diff(f,x).subs({x:1,y:2}))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 3 — Theo dõi lịch sử loss
-
-**Từ vựng trong mục:** **Learning rate** — tốc độ học.
 
 **Vấn đề:** Theo dõi lịch sử loss.
 
-**Vì sao chọn phương án?** Lưu loss sau từng bước để xem có giảm; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Lưu loss sau từng bước để xem có giảm
 
-**Dữ liệu:** Hàm loss w² với w=3. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Hàm loss w² với w=3.
 
 ```python
 w=3.;history=[]
@@ -145,19 +105,13 @@ for step in range(5):
 print(history)
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 4 — So tốc độ học
-
-**Từ vựng trong mục:** **Epoch** — vòng huấn luyện.
 
 **Vấn đề:** So tốc độ học.
 
-**Vì sao chọn phương án?** Learning rate quá cao có thể làm mất ổn định; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Learning rate quá cao có thể làm mất ổn định
 
-**Dữ liệu:** w=4, lr 0.1 và 1.1. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** w=4, lr 0.1 và 1.1.
 
 ```python
 for lr in [.1,1.1]:
@@ -166,19 +120,13 @@ for lr in [.1,1.1]:
     print(lr,round(w*w,3))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 5 — Fit giá nhà bằng gradient
-
-**Từ vựng trong mục:** **Partial derivative** — đạo hàm riêng.
 
 **Vấn đề:** Fit giá nhà bằng gradient.
 
-**Vì sao chọn phương án?** Tính dMSE/dw rồi cập nhật hệ số hồi quy tuyến tính; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Tính dMSE/dw rồi cập nhật hệ số hồi quy tuyến tính
 
-**Dữ liệu:** X=[1,2,3], y=[2,4,6], 100 bước. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** X=[1,2,3], y=[2,4,6], 100 bước.
 
 ```python
 import numpy as np
@@ -189,15 +137,11 @@ for _ in range(100):
 print(round(w,3))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ## 6. Các lỗi dễ gặp
 
 Hàm kích hoạt và loss không tự thay thế quy trình huấn luyện; đạo hàm theo một biến không giống gradient nhiều biến. Tránh tràn số mũ, log(0), chia cho 0; luôn để ý learning rate và đơn vị.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What does Partial derivative mean? — Thuật ngữ Partial derivative có nghĩa gì?**
@@ -443,7 +387,3 @@ D. Guess data units — Đoán đơn vị dữ liệu
 | Q18 | **A** | The input is X=[1,2,3], y=[2,4,6], 100 bước | X=[1,2,3], y=[2,4,6], 100 bước |
 | Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị đầu vào |
 | Q20 | **C** | Verify results and edge cases | Kiểm tra kết quả và trường hợp biên |
-
-## 8. Bài tiếp theo
-
-`Derivative → Gradient → Optimization → Training`.
