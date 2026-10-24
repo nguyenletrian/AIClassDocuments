@@ -394,7 +394,7 @@ B. 6 — 6
 
 C. 16 — 16
 
-D. 5 — 5
+D. 4 — 4
 
 **Q14. What is the value of x²+2 at x=2? — Giá trị x²+2 khi x=2 là gì?**
 
@@ -404,7 +404,7 @@ B. 6 — 6
 
 C. 16 — 16
 
-D. 5 — 5
+D. 4 — 4
 
 **Q15. What is 2 raised to the fourth power? — 2 mũ 4 bằng gì?**
 
@@ -414,9 +414,9 @@ B. 6 — 6
 
 C. 16 — 16
 
-D. 5 — 5
+D. 4 — 4
 
-**Q16. How many intervals are between six evenly spaced points? — Sáu điểm cách đều tạo bao nhiêu khoảng?**
+**Q16. How many intervals are between five evenly spaced points? — Năm điểm cách đều tạo bao nhiêu khoảng?**
 
 A. 5 — 5
 
@@ -424,7 +424,7 @@ B. 6 — 6
 
 C. 16 — 16
 
-D. 5 — 5
+D. 4 — 4
 
 **Q17. What does `np.exp(0)` equal? — `np.exp(0)` bằng bao nhiêu?**
 
