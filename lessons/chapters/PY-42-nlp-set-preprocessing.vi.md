@@ -1,6 +1,5 @@
 # PY-42 — Tiền xử lý văn bản, token và Jaccard trong NLP
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
