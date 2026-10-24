@@ -31,13 +31,13 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 
 Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
 
-## 4. Khái niệm và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Inheritance
 
 **Từ vựng trong mục:** **Inheritance** — kế thừa.
 
-Lớp con dùng lại các đặc điểm lớp cha. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Kế thừa cho phép lớp con dùng lại thuộc tính và phương thức có từ lớp cha.
 
 ```python
 class P: pass
@@ -45,13 +45,17 @@ class C(P): pass
 print(isinstance(C(),P))
 ```
 
-**Tự kiểm tra:** Inheritance là gì? **Đáp án:** Lớp con dùng lại các đặc điểm lớp cha.
+**Kết quả khi chạy:**
+
+```text
+True
+```
 
 ### 4.2. Polymorphism
 
 **Từ vựng trong mục:** **Polymorphism** — đa hình.
 
-Cùng lời gọi nhưng các lớp có cách đáp khác nhau. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Đa hình nghĩa là gọi cùng tên phương thức nhưng từng lớp có thể xử lý khác nhau.
 
 ```python
 class A:
@@ -59,13 +63,17 @@ class A:
 print(A().f())
 ```
 
-**Tự kiểm tra:** Polymorphism là gì? **Đáp án:** Cùng lời gọi nhưng các lớp có cách đáp khác nhau.
+**Kết quả khi chạy:**
+
+```text
+1
+```
 
 ### 4.3. Abstract class
 
 **Từ vựng trong mục:** **Abstract class** — lớp trừu tượng.
 
-Khung lớp ràng buộc phương thức cần cài đặt. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Lớp trừu tượng có thể quy định phương thức mà lớp con phải triển khai; chỉ kế thừa `ABC` thôi chưa bắt buộc lớp là trừu tượng.
 
 ```python
 from abc import ABC
@@ -73,13 +81,19 @@ class Base(ABC): pass
 print(Base())
 ```
 
-**Tự kiểm tra:** Abstract class là gì? **Đáp án:** Khung lớp ràng buộc phương thức cần cài đặt.
+**Kết quả khi chạy:**
+
+```text
+<__main__.Base object at 0x...>
+```
+
+*Địa chỉ bộ nhớ trong biểu diễn đối tượng thay đổi mỗi lần chạy. Ví dụ này chỉ kế thừa `ABC`, chưa có phương thức trừu tượng.*
 
 ### 4.4. Override
 
 **Từ vựng trong mục:** **Override** — ghi đè.
 
-Lớp con cài lại phương thức của lớp cha. Đây là bước nhỏ của chuỗi kiến thức, không cần chứng minh toán học để hiểu cách tính bằng Python.
+Ghi đè là khi lớp con tự viết lại phương thức cùng tên với lớp cha.
 
 ```python
 class A:
@@ -89,7 +103,11 @@ class B(A):
 print(B().f())
 ```
 
-**Tự kiểm tra:** Override là gì? **Đáp án:** Lớp con cài lại phương thức của lớp cha.
+**Kết quả khi chạy:**
+
+```text
+2
+```
 
 ## 5. Năm tình huống lập trình thực tế
 
@@ -97,12 +115,11 @@ print(B().f())
 
 **Từ vựng trong mục:** **Inheritance** — kế thừa.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc các loại sản phẩm. Thông tin đầu vào: Một sản phẩm điện tử giả lập. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Cửa hàng có một sản phẩm điện tử tên Phone, cần xác định nhóm sản phẩm. In nhóm của sản phẩm điện tử.
 
-**Vì sao chọn cách giải?** Điểm chung được đặt ở lớp cha, khác biệt ở lớp con. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** `Electronic` kế thừa `Product`, nên tái sử dụng cách lưu tên và bổ sung `category`.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 class Product:
@@ -112,18 +129,23 @@ class Electronic(Product):
 print(Electronic("Phone").category())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+electronic
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 2 — Giao diện gửi thông báo
 
 **Từ vựng trong mục:** **Polymorphism** — đa hình.
 
-**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc giao diện gửi thông báo. Thông tin đầu vào: Tin nhắn Hello. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Ứng dụng cần quy định mọi bộ gửi thông báo đều có phương thức `send`. Một bộ gửi lên màn hình nhận thông điệp Hello. In kết quả gửi thông báo.
 
-**Vì sao chọn cách giải?** ABC bắt buộc các cách gửi cùng có send. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** `ABC` và `@abstractmethod` yêu cầu lớp con cài đặt `send` trước khi tạo đối tượng.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 from abc import ABC,abstractmethod
@@ -135,18 +157,23 @@ class Console(Notifier):
 print(Console().send("Hello"))
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+Sent:Hello
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 3 — Tính phí vận chuyển
 
 **Từ vựng trong mục:** **Abstract class** — lớp trừu tượng.
 
-**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc tính phí vận chuyển. Thông tin đầu vào: Dịch vụ Express phí 35000 đồng. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Đơn vận chuyển nhanh có phí 35.000 đồng, khác mức mặc định 0 đồng. In phí của gói giao nhanh.
 
-**Vì sao chọn cách giải?** Mỗi dịch vụ tự định nghĩa fee nhưng nơi gọi thống nhất. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** Lớp `Express` ghi đè phương thức `fee` của `Shipping`.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 class Shipping:
@@ -156,18 +183,23 @@ class Express(Shipping):
 print(Express().fee())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+35000
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 4 — Đọc nhiều loại cảm biến
 
 **Từ vựng trong mục:** **Override** — ghi đè.
 
-**Tình huống thực tế:** Một hệ thống giám sát đang cần giải quyết việc đọc nhiều loại cảm biến. Thông tin đầu vào: Nhiệt độ 26.5 °C, độ ẩm 62%. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Hệ thống có cảm biến nhiệt độ đọc 26.5 °C và cảm biến độ ẩm đọc 62%. Đọc lần lượt hai cảm biến bằng cùng một phương thức `read`.
 
-**Vì sao chọn cách giải?** Các cảm biến dùng chung read nhưng trả số đo khác nhau. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** Mỗi loại cảm biến triển khai `read` riêng; vòng lặp chỉ cần gọi một tên phương thức.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 class Sensor:
@@ -179,18 +211,24 @@ class Humidity(Sensor):
 for s in [Temp(),Humidity()]:print(s.read())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+26.5
+62
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ### Tình huống 5 — Chuyển định dạng báo cáo
 
 **Từ vựng trong mục:** **Inheritance** — kế thừa.
 
-**Tình huống thực tế:** Một nhóm phát triển phần mềm đang cần giải quyết việc chuyển định dạng báo cáo. Thông tin đầu vào: Báo cáo plain và HTML. Dữ liệu minh họa; khi có bảng, mỗi hàng là đối tượng và mỗi cột là một thuộc tính với ý nghĩa rõ. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Hệ thống xuất báo cáo HTML với nội dung `<p>report</p>`. In kết quả kết xuất HTML.
 
-**Vì sao chọn cách giải?** Ghi đè render giúp thêm loại xuất mà không sửa lời gọi. Đây là phương án phù hợp bài toán nhỏ, không tự suy ra đủ an toàn với mọi dữ liệu thật.
+**Vì sao chọn cách giải này?** `HtmlReport` ghi đè `render` để tạo định dạng HTML thay vì văn bản thường.
 
-
-**Quy trình:** Nắm dữ liệu → chọn cấu trúc/hàm → tính → in và kiểm tra kết quả.
+**Quy trình giải:** Tạo dữ liệu theo đề bài → áp dụng hàm hoặc phương thức được giải thích → in kết quả và hiểu ý nghĩa của nó.
 
 ```python
 class Report:
@@ -200,7 +238,13 @@ class HtmlReport(Report):
 print(HtmlReport().render())
 ```
 
-**Đọc kết quả:** So sánh kết quả với tình huống đầu vào và thử trường hợp ngoại lệ.
+**Kết quả khi chạy:**
+
+```text
+<p>report</p>
+```
+
+**Kết quả:** Chương trình thực hiện yêu cầu với dữ liệu đã cho.
 
 ## 6. Sai lầm thường gặp
 
