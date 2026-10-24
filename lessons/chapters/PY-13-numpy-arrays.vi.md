@@ -1,6 +1,5 @@
 # PY-13 — NumPy ndarray, shape, dtype và axis
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
