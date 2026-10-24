@@ -125,8 +125,6 @@ print(scores.shape)
 (3, 2)
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 2 — Trung bình từng môn
 
 **Từ vựng trong mục:** **Shape** — kích thước mảng.
@@ -148,8 +146,6 @@ print(scores.mean(axis=0))
 ```text
 [7.66666667 8.        ]
 ```
-
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ### Tình huống 3 — Tính tổng doanh thu theo cửa hàng
 
@@ -173,8 +169,6 @@ print(sales.sum(axis=1))
 [60 36]
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 4 — Tạo bảng dự báo ban đầu
 
 **Từ vựng trong mục:** **Axis** — trục tính toán.
@@ -197,8 +191,6 @@ print(forecast.shape)
 (2, 3)
 ```
 
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
-
 ### Tình huống 5 — Kiểm kiểu điểm đầu vào
 
 **Từ vựng trong mục:** **ndarray** — mảng NumPy.
@@ -220,8 +212,6 @@ print(scores.dtype,scores.size)
 ```text
 float64 2
 ```
-
-**Kết quả:** Xem ngay giá trị bên dưới đoạn code để biết phép tính đã thực hiện gì.
 
 ## 6. Sai lầm thường gặp
 
