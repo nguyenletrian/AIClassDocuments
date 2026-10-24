@@ -1,14 +1,8 @@
 # PY-37 — Thống kê mô tả: mean, median, mode, variance và std
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Mean** — trung bình; **Median** — trung vị.
-
 `NumPy/Pandas → Thống kê mô tả → Outlier → ML`
-
-Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất, thống kê và các bước học máy.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 
 ## 3. Hàm Python và tham số quan trọng
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / cú pháp | Cách sử dụng |
 |---|---|
 | `np.mean()/np.median()` | Trung bình và trung vị, median bớt nhạy với giá trị cực lớn |
@@ -34,88 +26,62 @@ Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất,
 
 ### 4.1. Mean
 
-**Từ vựng trong mục:** **Mean** — trung bình.
-
-Tổng giá trị chia số quan sát. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Tổng giá trị chia số quan sát.
 
 ```python
 import numpy as np
 print(np.mean([2,4,6]))
 ```
 
-**Tự kiểm tra:** Mean là gì? **Đáp án:** Tổng giá trị chia số quan sát.
-
 ### 4.2. Median
 
-**Từ vựng trong mục:** **Median** — trung vị.
-
-Giá trị giữa sau khi sắp xếp. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Giá trị giữa sau khi sắp xếp.
 
 ```python
 import numpy as np
 print(np.median([2,4,100]))
 ```
 
-**Tự kiểm tra:** Median là gì? **Đáp án:** Giá trị giữa sau khi sắp xếp.
-
 ### 4.3. Variance
 
-**Từ vựng trong mục:** **Variance** — phương sai.
-
-Mức phân tán bình phương quanh trung bình. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Mức phân tán bình phương quanh trung bình.
 
 ```python
 import numpy as np
 print(np.var([1,2,3]))
 ```
 
-**Tự kiểm tra:** Variance là gì? **Đáp án:** Mức phân tán bình phương quanh trung bình.
-
 ### 4.4. Standard deviation
 
-**Từ vựng trong mục:** **Standard deviation** — độ lệch chuẩn.
-
-Căn bậc hai của phương sai, cùng đơn vị dữ liệu. Trước khi tính, phân biệt điều kiện áp dụng và ý nghĩa của đầu vào.
+Căn bậc hai của phương sai, cùng đơn vị dữ liệu.
 
 ```python
 import numpy as np
 print(np.std([1,2,3]))
 ```
 
-**Tự kiểm tra:** Standard deviation là gì? **Đáp án:** Căn bậc hai của phương sai, cùng đơn vị dữ liệu.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Trung bình thời gian giao hàng
 
-**Từ vựng trong mục:** **Mean** — trung bình.
-
 **Vấn đề:** Trung bình thời gian giao hàng.
 
-**Vì sao chọn phương pháp này?** Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều.
 
-**Dữ liệu:** [2,3,4] ngày. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** [2,3,4] ngày.
 
 ```python
 import numpy as np
 print(np.mean([2,3,4]))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 2 — So trung vị tiền hàng
-
-**Từ vựng trong mục:** **Median** — trung vị.
 
 **Vấn đề:** So trung vị tiền hàng.
 
-**Vì sao chọn phương pháp này?** Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn.
 
-**Dữ liệu:** [100,120,10000] nghìn đồng. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** [100,120,10000] nghìn đồng.
 
 ```python
 import numpy as np
@@ -123,57 +89,39 @@ x=[100,120,10000]
 print(np.mean(x),np.median(x))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 3 — Tính phương sai điểm
-
-**Từ vựng trong mục:** **Variance** — phương sai.
 
 **Vấn đề:** Tính phương sai điểm.
 
-**Vì sao chọn phương pháp này?** Variance đo sự phân tán theo đơn vị bình phương. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Variance đo sự phân tán theo đơn vị bình phương.
 
-**Dữ liệu:** [6,8,10] điểm. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** [6,8,10] điểm.
 
 ```python
 import numpy as np
 print(np.var([6,8,10],ddof=0))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 4 — Xem độ ổn định cảm biến
-
-**Từ vựng trong mục:** **Standard deviation** — độ lệch chuẩn.
 
 **Vấn đề:** Xem độ ổn định cảm biến.
 
-**Vì sao chọn phương pháp này?** Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc.
 
-**Dữ liệu:** [20,21,19,20] độ C. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** [20,21,19,20] độ C.
 
 ```python
 import numpy as np
 print(np.std([20,21,19,20],ddof=0))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ### Tình huống 5 — Tìm loại sản phẩm phổ biến
-
-**Từ vựng trong mục:** **Mean** — trung bình.
 
 **Vấn đề:** Tìm loại sản phẩm phổ biến.
 
-**Vì sao chọn phương pháp này?** value_counts cho số lần mỗi nhãn xuất hiện. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
+**Vì sao chọn phương pháp này?** value_counts cho số lần mỗi nhãn xuất hiện.
 
-**Dữ liệu:** Nhãn A,A,B,C,A. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
-
-**Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
+**Dữ liệu:** Nhãn A,A,B,C,A.
 
 ```python
 import pandas as pd
@@ -181,15 +129,11 @@ s=pd.Series(["A","A","B","C","A"])
 print(s.value_counts())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
-
 ## 6. Những nhầm lẫn thường gặp
 
 Xác suất có điều kiện cần mẫu nền; xác suất của phân phối liên tục tại một điểm không phải PDF; thống kê từ một nhóm nhỏ không tự chứng minh kết quả cho quần thể. Chú ý định nghĩa mean/std và giả định độc lập.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Mean? — Thuật ngữ Mean là gì?**
@@ -435,7 +379,3 @@ D. Ignoring missing inputs — Bỏ dữ liệu thiếu mà không đánh giá
 | Q18 | **A** | The input is Nhãn A,A,B,C,A | Nhãn A,A,B,C,A |
 | Q19 | **D** | Assumptions, units and sample size | Giả định, đơn vị và kích thước mẫu |
 | Q20 | **C** | Checking assumptions and edge cases | Kiểm tra giả định và trường hợp biên |
-
-## 8. Liên hệ bài tiếp theo
-
-`NumPy/Pandas → Thống kê mô tả → Outlier → ML`.
