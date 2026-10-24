@@ -1,6 +1,5 @@
 # PY-11 — Kế thừa, đa hình và lớp trừu tượng ABC
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
