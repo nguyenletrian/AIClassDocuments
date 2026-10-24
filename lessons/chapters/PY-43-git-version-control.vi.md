@@ -85,11 +85,10 @@ git remote -v
 
 **Từ vựng trong mục:** **Repository** — kho mã nguồn.
 
-**Bài toán:** Kiểm trạng thái trước lưu.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần kiểm trạng thái trước lưu cho công việc của mình. Dữ liệu đầu vào: Một repository đã git init. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** status giúp biết có thay đổi chưa commit
 
-**Dữ liệu:** Một repository đã git init.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -102,11 +101,10 @@ git status
 
 **Từ vựng trong mục:** **Commit** — bản ghi thay đổi.
 
-**Bài toán:** Lưu thay đổi bài tập.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần lưu thay đổi bài tập cho công việc của mình. Dữ liệu đầu vào: File script lesson.py mới được sửa. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Stage đúng file tránh commit nhầm tài liệu khác
 
-**Dữ liệu:** File script lesson.py mới được sửa.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -120,11 +118,10 @@ git commit -m "docs: add practice script"
 
 **Từ vựng trong mục:** **Branch** — nhánh.
 
-**Bài toán:** Tạo nhánh thí nghiệm.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần tạo nhánh thí nghiệm cho công việc của mình. Dữ liệu đầu vào: Repo bài học. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Tách công việc mới khỏi main ổn định
 
-**Dữ liệu:** Repo bài học.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -137,11 +134,10 @@ git switch -c experiment/pca
 
 **Từ vựng trong mục:** **Remote** — kho từ xa.
 
-**Bài toán:** Xem lịch sử.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần xem lịch sử cho công việc của mình. Dữ liệu đầu vào: Repo đã có ít nhất một commit. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Log giúp truy lại lần thay đổi gần nhất
 
-**Dữ liệu:** Repo đã có ít nhất một commit.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -154,11 +150,10 @@ git log --oneline -5
 
 **Từ vựng trong mục:** **Repository** — kho mã nguồn.
 
-**Bài toán:** Xem thay đổi chưa stage.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần xem thay đổi chưa stage cho công việc của mình. Dữ liệu đầu vào: Repo có file đang sửa. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Diff giúp kiểm tra trước khi lưu
 
-**Dữ liệu:** Repo có file đang sửa.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 

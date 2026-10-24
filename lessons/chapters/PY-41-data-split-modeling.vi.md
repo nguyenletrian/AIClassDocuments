@@ -87,11 +87,10 @@ print(KMeans(n_clusters=2,random_state=1,n_init=10))
 
 **Từ vựng trong mục:** **Train set** — tập huấn luyện.
 
-**Vấn đề:** Kiểm hai tập dữ liệu rời nhau.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần kiểm hai tập dữ liệu rời nhau cho công việc của mình. Dữ liệu đầu vào: train={1,2,3}, test={4,5}. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Kiểm ID train và test không trùng; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** train={1,2,3}, test={4,5}.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -105,11 +104,10 @@ print(train.isdisjoint(test))
 
 **Từ vựng trong mục:** **Test set** — tập kiểm tra.
 
-**Vấn đề:** Chia Iris có phân tầng.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần chia iris có phân tầng cho công việc của mình. Dữ liệu đầu vào: 150 hoa, 4 cột số đo cm và 1 nhãn loài. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** stratify giúp tỷ lệ các loài tương tự nhau; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 150 hoa, 4 cột số đo cm và 1 nhãn loài.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -125,11 +123,10 @@ print(Xtr.shape,Xte.shape)
 
 **Từ vựng trong mục:** **Classification** — phân loại.
 
-**Vấn đề:** Phân loại trong pipeline.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần phân loại trong pipeline cho công việc của mình. Dữ liệu đầu vào: Iris: số đo đài hoa/cánh hoa cm. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Scaler và mô hình chỉ fit trên train, không rò rỉ test; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Iris: số đo đài hoa/cánh hoa cm.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -149,11 +146,10 @@ print(model.score(b,d))
 
 **Từ vựng trong mục:** **Clustering** — phân cụm.
 
-**Vấn đề:** Gom nhóm điểm 2D.
+**Tình huống thực tế:** Một trung tâm đào tạo cần gom nhóm điểm 2d cho công việc của mình. Dữ liệu đầu vào: 4 điểm [0,0], [0,1], [10,10], [10,11]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** KMeans chỉ thử nhóm chứ không biết nhãn thật; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 4 điểm [0,0], [0,1], [10,10], [10,11].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -169,11 +165,10 @@ print(KMeans(n_clusters=2,random_state=42,n_init=10).fit_predict(X))
 
 **Từ vựng trong mục:** **Train set** — tập huấn luyện.
 
-**Vấn đề:** So clustering với classification.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so clustering với classification cho công việc của mình. Dữ liệu đầu vào: Iris data với target và đặc trưng riêng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Iris data với target và đặc trưng riêng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 

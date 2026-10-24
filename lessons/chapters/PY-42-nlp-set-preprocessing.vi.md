@@ -86,11 +86,10 @@ print(len(a&b)/len(a
 
 **Từ vựng trong mục:** **Token** — đơn vị từ.
 
-**Vấn đề:** Chuẩn hóa câu tìm kiếm.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần chuẩn hóa câu tìm kiếm cho công việc của mình. Dữ liệu đầu vào: Chuỗi '  Machine LEARNING '. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Chữ hoa và khoảng trắng làm tìm kiếm không khớp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Chuỗi '  Machine LEARNING '.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -104,11 +103,10 @@ print(text.strip().lower())
 
 **Từ vựng trong mục:** **Vocabulary** — từ vựng.
 
-**Vấn đề:** Tách từ câu đơn giản.
+**Tình huống thực tế:** Một doanh nghiệp cần tách từ câu đơn giản cho công việc của mình. Dữ liệu đầu vào: Câu tiếng Anh 'AI helps Python'. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** split theo khoảng trắng phù hợp demo nhưng không đủ cho tiếng Việt phức tạp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Câu tiếng Anh 'AI helps Python'.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -122,11 +120,10 @@ print(sentence.lower().split())
 
 **Từ vựng trong mục:** **Normalization** — chuẩn hóa văn bản.
 
-**Vấn đề:** Lập kho từ vựng.
+**Tình huống thực tế:** Một doanh nghiệp cần lập kho từ vựng cho công việc của mình. Dữ liệu đầu vào: Hai câu ngắn tiếng Anh. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Set lọc token lặp để đếm từ duy nhất; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Hai câu ngắn tiếng Anh.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -141,11 +138,10 @@ print(sorted(words))
 
 **Từ vựng trong mục:** **Jaccard** — tương đồng Jaccard.
 
-**Vấn đề:** Độ giống hai tài liệu.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần độ giống hai tài liệu cho công việc của mình. Dữ liệu đầu vào: Hai văn bản có từ 'python' chung. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Jaccard xét số từ chung không tính tần suất; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Hai văn bản có từ 'python' chung.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -159,11 +155,10 @@ print(len(a&b)/len(a|b))
 
 **Từ vựng trong mục:** **Token** — đơn vị từ.
 
-**Vấn đề:** Kiểm văn bản không có từ.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần kiểm văn bản không có từ cho công việc của mình. Dữ liệu đầu vào: Hai chuỗi rỗng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Hợp rỗng phải được định nghĩa cách trả kết quả tránh chia 0; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Hai chuỗi rỗng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 

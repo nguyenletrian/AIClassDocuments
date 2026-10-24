@@ -88,11 +88,10 @@ print(8/10)
 
 **Từ vựng trong mục:** **Feature** — đặc trưng.
 
-**Bài toán:** Kiểm schema dữ liệu.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần kiểm schema dữ liệu cho công việc của mình. Dữ liệu đầu vào: Iris có 150 hoa × 4 số đo cm và một nhãn loài. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Nêu rõ đầu vào và nhãn trước khi huấn luyện
 
-**Dữ liệu:** Iris có 150 hoa × 4 số đo cm và một nhãn loài.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -107,11 +106,10 @@ print(D.data.shape,D.target.shape)
 
 **Từ vựng trong mục:** **Label** — nhãn.
 
-**Bài toán:** Chia tập có phân tầng.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần chia tập có phân tầng cho công việc của mình. Dữ liệu đầu vào: Iris có 3 loài. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** stratify giúp tỷ lệ nhãn ba loài ổn định
 
-**Dữ liệu:** Iris có 3 loài.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -127,11 +125,10 @@ print(a.shape,b.shape)
 
 **Từ vựng trong mục:** **Pipeline** — chuỗi xử lý.
 
-**Bài toán:** Huấn luyện pipeline.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần huấn luyện pipeline cho công việc của mình. Dữ liệu đầu vào: Iris với 4 đặc trưng cm. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test
 
-**Dữ liệu:** Iris với 4 đặc trưng cm.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -151,11 +148,10 @@ print(m.score(b,d))
 
 **Từ vựng trong mục:** **Evaluation** — đánh giá.
 
-**Bài toán:** Dùng confusion matrix.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần dùng confusion matrix cho công việc của mình. Dữ liệu đầu vào: Các nhãn thật và dự đoán mô phỏng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm
 
-**Dữ liệu:** Các nhãn thật và dự đoán mô phỏng.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -169,11 +165,10 @@ print(confusion_matrix([0,1,1,0],[0,1,0,0]))
 
 **Từ vựng trong mục:** **Feature** — đặc trưng.
 
-**Bài toán:** So baseline không PCA.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so baseline không pca cho công việc của mình. Dữ liệu đầu vào: Iris 150 hoa, 4 đặc trưng số. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Phải so trên cùng tập train/test mới kết luận được
 
-**Dữ liệu:** Iris 150 hoa, 4 đặc trưng số.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 

@@ -89,11 +89,10 @@ print(pd.Series([1,2,3,4,5]).kurt())
 
 **Từ vựng trong mục:** **Quantile** — phân vị.
 
-**Vấn đề:** Mốc chi tiêu 75%.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần mốc chi tiêu 75% cho công việc của mình. Dữ liệu đầu vào: 5 số chi tiêu [10,20,30,40,50], nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Phân vị chia nhóm khách theo vị trí chi tiêu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 số chi tiêu [10,20,30,40,50], nghìn đồng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -108,11 +107,10 @@ print(np.quantile(x,.75))
 
 **Từ vựng trong mục:** **IQR** — khoảng tứ phân vị.
 
-**Vấn đề:** Kiểm outlier hóa đơn.
+**Tình huống thực tế:** Một doanh nghiệp cần kiểm outlier hóa đơn cho công việc của mình. Dữ liệu đầu vào: 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** IQR gợi ý hóa đơn bất thường để rà soát; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 8 đơn [10,11,12,12,13,15,16,90], nghìn đồng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -128,11 +126,10 @@ print(x[(x<q1-1.5*iqr)|(x>q3+1.5*iqr)])
 
 **Từ vựng trong mục:** **Skewness** — độ lệch phân phối.
 
-**Vấn đề:** So độ lệch phân phối.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so độ lệch phân phối cho công việc của mình. Dữ liệu đầu vào: Giá trị [1,1,2,8]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** skew dương giúp nhận ra đuôi phải dài; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Giá trị [1,1,2,8].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -146,11 +143,10 @@ print(pd.Series([1,1,2,8]).skew())
 
 **Từ vựng trong mục:** **Kurtosis** — độ nhọn/đuôi phân phối.
 
-**Vấn đề:** Xem độ nhọn phân phối.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần xem độ nhọn phân phối cho công việc của mình. Dữ liệu đầu vào: 10 giá trị đo minh họa. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** kurt có ý nghĩa khi cỡ mẫu và quy ước phù hợp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 10 giá trị đo minh họa.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -165,11 +161,10 @@ print(s.kurt())
 
 **Từ vựng trong mục:** **Quantile** — phân vị.
 
-**Vấn đề:** Chọn cách điền dữ liệu.
+**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần chọn cách điền dữ liệu cho công việc của mình. Dữ liệu đầu vào: [100,120,10000,None] nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Median có thể hữu ích khi có giá trị lớn bất thường; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** [100,120,10000,None] nghìn đồng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 

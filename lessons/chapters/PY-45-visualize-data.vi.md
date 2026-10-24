@@ -89,11 +89,10 @@ plt.xlabel('Time (s)');plt.close()
 
 **Từ vựng trong mục:** **Line chart** — biểu đồ đường.
 
-**Bài toán:** Doanh thu ba ngày.
+**Tình huống thực tế:** Một doanh nghiệp cần doanh thu ba ngày cho công việc của mình. Dữ liệu đầu vào: 3 ngày, doanh thu nghìn đồng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Line chart tốt cho xu hướng theo thời gian
 
-**Dữ liệu:** 3 ngày, doanh thu nghìn đồng.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -107,11 +106,10 @@ plt.plot([1,2,3],[10,15,12]);plt.xlabel("Day");plt.ylabel("Revenue (thousand VND
 
 **Từ vựng trong mục:** **Scatter plot** — biểu đồ phân tán.
 
-**Bài toán:** Giờ học và điểm.
+**Tình huống thực tế:** Một trung tâm đào tạo cần giờ học và điểm cho công việc của mình. Dữ liệu đầu vào: 3 SV, giờ/tuần và điểm/10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Scatter cho thấy từng sinh viên là một cặp số
 
-**Dữ liệu:** 3 SV, giờ/tuần và điểm/10.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -125,11 +123,10 @@ plt.scatter([2,4,6],[5,7,9]);plt.xlabel("Hours/week");plt.ylabel("Score");plt.cl
 
 **Từ vựng trong mục:** **Histogram** — biểu đồ tần suất.
 
-**Bài toán:** Phân bố điểm thi.
+**Tình huống thực tế:** Một trung tâm đào tạo cần phân bố điểm thi cho công việc của mình. Dữ liệu đầu vào: 6 điểm trên thang 10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Histogram đếm số SV theo dải điểm
 
-**Dữ liệu:** 6 điểm trên thang 10.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -143,11 +140,10 @@ plt.hist([5,6,6,7,8,9],bins=5);plt.xlabel("Score");plt.ylabel("Students");plt.cl
 
 **Từ vựng trong mục:** **Axis label** — nhãn trục.
 
-**Bài toán:** Lưu biểu đồ PNG.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần lưu biểu đồ png cho công việc của mình. Dữ liệu đầu vào: Dữ liệu hai tháng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** savefig tạo tài liệu không cần màn hình tương tác
 
-**Dữ liệu:** Dữ liệu hai tháng.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -165,11 +161,10 @@ with TemporaryDirectory() as d:
 
 **Từ vựng trong mục:** **Line chart** — biểu đồ đường.
 
-**Bài toán:** Đặt nhãn đọc được.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần đặt nhãn đọc được cho công việc của mình. Dữ liệu đầu vào: 3 điểm thời gian–nhiệt độ. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Nhãn giúp không nhầm giá trị x/y và đơn vị
 
-**Dữ liệu:** 3 điểm thời gian–nhiệt độ.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 

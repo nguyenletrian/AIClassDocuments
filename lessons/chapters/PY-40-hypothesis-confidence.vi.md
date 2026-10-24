@@ -88,11 +88,10 @@ print(np.mean([2,3,4]))
 
 **Từ vựng trong mục:** **Null hypothesis** — giả thuyết không.
 
-**Vấn đề:** Đánh giá điểm trung bình so với 50.
+**Tình huống thực tế:** Một trung tâm đào tạo cần đánh giá điểm trung bình so với 50 cho công việc của mình. Dữ liệu đầu vào: 7 điểm [48,52,55,49,51,47,53]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** T-test giúp so mean của mẫu với một chuẩn đã định; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 7 điểm [48,52,55,49,51,47,53].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -107,11 +106,10 @@ print(ttest_1samp(x,popmean=50).pvalue)
 
 **Từ vựng trong mục:** **p-value** — giá trị p.
 
-**Vấn đề:** Khoảng tin cậy thời gian giao hàng.
+**Tình huống thực tế:** Một doanh nghiệp cần khoảng tin cậy thời gian giao hàng cho công việc của mình. Dữ liệu đầu vào: 5 số ngày [2,3,3,4,2]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** t.interval dùng std mẫu khi n nhỏ và giả định phù hợp; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 số ngày [2,3,3,4,2].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -127,11 +125,10 @@ print(t.interval(.95,df=len(x)-1,loc=mean,scale=sem(x)))
 
 **Từ vựng trong mục:** **T-test** — kiểm định t.
 
-**Vấn đề:** Xem sai số chuẩn.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần xem sai số chuẩn cho công việc của mình. Dữ liệu đầu vào: 5 ngày giao hàng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** sem cho biết mức bất định của mean mẫu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 ngày giao hàng.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -145,11 +142,10 @@ print(sem([2,3,3,4,2]))
 
 **Từ vựng trong mục:** **Confidence interval** — khoảng tin cậy.
 
-**Vấn đề:** Kiểm định thang thời gian.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần kiểm định thang thời gian cho công việc của mình. Dữ liệu đầu vào: Giả sử alpha=0.05. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** So pvalue với ngưỡng alpha chứ không coi pvalue là xác suất H0 đúng; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Giả sử alpha=0.05.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -164,11 +160,10 @@ print("Reject H0" if p<.05 else "Not enough evidence")
 
 **Từ vựng trong mục:** **Null hypothesis** — giả thuyết không.
 
-**Vấn đề:** Phân biệt ý nghĩa alpha.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần phân biệt ý nghĩa alpha cho công việc của mình. Dữ liệu đầu vào: pvalue=0.04, alpha 0.01 và 0.05. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Thay alpha đổi quyết định chứ không đổi dữ liệu pvalue; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** pvalue=0.04, alpha 0.01 và 0.05.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 

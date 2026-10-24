@@ -88,11 +88,10 @@ print(np.std([1,2,3],ddof=1)/np.sqrt(3))
 
 **Từ vựng trong mục:** **Population** — tổng thể.
 
-**Vấn đề:** Rút mẫu kiểm kê.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần rút mẫu kiểm kê cho công việc của mình. Dữ liệu đầu vào: 20 đơn, lấy ngẫu nhiên 5. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Lấy ngẫu nhiên một số đơn để kiểm tra thủ công; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 20 đơn, lấy ngẫu nhiên 5.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -106,11 +105,10 @@ print(random.Random(42).sample(list(range(1,21)),5))
 
 **Từ vựng trong mục:** **Sample** — mẫu.
 
-**Vấn đề:** So biến thiên mean mẫu.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so biến thiên mean mẫu cho công việc của mình. Dữ liệu đầu vào: Tổng thể 10000 giá trị lệch, mỗi mẫu n=40. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Rút mẫu nhiều lần để quan sát trung bình mẫu; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** Tổng thể 10000 giá trị lệch, mỗi mẫu n=40.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -127,11 +125,10 @@ print(np.mean(means),np.std(means))
 
 **Từ vựng trong mục:** **CLT** — định lý giới hạn trung tâm.
 
-**Vấn đề:** Tính sai số chuẩn điểm.
+**Tình huống thực tế:** Một trung tâm đào tạo cần tính sai số chuẩn điểm cho công việc của mình. Dữ liệu đầu vào: 5 điểm [6,7,8,9,10]. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** SE khác độ lệch chuẩn của điểm riêng lẻ; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 5 điểm [6,7,8,9,10].
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -146,11 +143,10 @@ print(x.std(ddof=1)/np.sqrt(len(x)))
 
 **Từ vựng trong mục:** **Standard error** — sai số chuẩn.
 
-**Vấn đề:** Cỡ mẫu tăng tác động SE.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần cỡ mẫu tăng tác động se cho công việc của mình. Dữ liệu đầu vào: sigma=10, n=25 và 100. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Với sigma giữ nguyên, SE giảm theo căn n; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** sigma=10, n=25 và 100.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
@@ -165,11 +161,10 @@ for n in [25,100]:print(n,sigma/np.sqrt(n))
 
 **Từ vựng trong mục:** **Population** — tổng thể.
 
-**Vấn đề:** Lấy mẫu bảng khách hàng.
+**Tình huống thực tế:** Một doanh nghiệp cần lấy mẫu bảng khách hàng cho công việc của mình. Dữ liệu đầu vào: 10 khách, lấy 3. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** random_state giữ kết quả thử lặp lại; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
-**Dữ liệu:** 10 khách, lấy 3.
 
 **Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 

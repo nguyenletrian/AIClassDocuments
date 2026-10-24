@@ -86,11 +86,10 @@ print(sum([7,8,9])/3)
 
 **Từ vựng trong mục:** **CRUD** — tạo/đọc/sửa/xóa.
 
-**Bài toán:** Thêm sinh viên.
+**Tình huống thực tế:** Một trung tâm đào tạo cần thêm sinh viên cho công việc của mình. Dữ liệu đầu vào: Một hồ sơ S1 mới, điểm 8/10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Kiểm mã trùng trước khi thêm để không ghi đè
 
-**Dữ liệu:** Một hồ sơ S1 mới, điểm 8/10.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -107,11 +106,10 @@ print(db)
 
 **Từ vựng trong mục:** **Validation** — xác minh dữ liệu.
 
-**Bài toán:** Tra cứu bằng mã.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần tra cứu bằng mã cho công việc của mình. Dữ liệu đầu vào: Hai sinh viên mã S1 S2. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Dictionary truy xuất bằng khóa không cần biết thứ tự bản ghi
 
-**Dữ liệu:** Hai sinh viên mã S1 S2.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -125,11 +123,10 @@ print(db.get("S3","Not found"))
 
 **Từ vựng trong mục:** **Lookup** — tra cứu.
 
-**Bài toán:** Cập nhật điểm.
+**Tình huống thực tế:** Một trung tâm đào tạo cần cập nhật điểm cho công việc của mình. Dữ liệu đầu vào: SV S1 có điểm 7 sửa thành 9. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** Ràng buộc 0–10 trước khi thay giá trị
 
-**Dữ liệu:** SV S1 có điểm 7 sửa thành 9.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -144,11 +141,10 @@ print(db)
 
 **Từ vựng trong mục:** **Aggregate** — tổng hợp.
 
-**Bài toán:** Xóa bản ghi.
+**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần xóa bản ghi cho công việc của mình. Dữ liệu đầu vào: Mã S2 chưa tồn tại. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** pop với giá trị mặc định tránh KeyError
 
-**Dữ liệu:** Mã S2 chưa tồn tại.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -162,11 +158,10 @@ print(db.pop("S2",None))
 
 **Từ vựng trong mục:** **CRUD** — tạo/đọc/sửa/xóa.
 
-**Bài toán:** Báo cáo điểm lớp.
+**Tình huống thực tế:** Một trung tâm đào tạo cần báo cáo điểm lớp cho công việc của mình. Dữ liệu đầu vào: Điểm 7,8,9 trên thang 10. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
 
 **Vì sao chọn cách này?** mean tính trung bình và max xác định điểm cao
 
-**Dữ liệu:** Điểm 7,8,9 trên thang 10.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
