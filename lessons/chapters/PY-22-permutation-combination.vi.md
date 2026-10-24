@@ -342,7 +342,7 @@ A. 1 — 1
 
 B. 6 — 6
 
-C. 6 pairs — 6 cặp
+C. 10 pairs — 10 cặp
 
 D. 12 pairs — 12 cặp
 
@@ -352,17 +352,17 @@ A. 1 — 1
 
 B. 6 — 6
 
-C. 6 pairs — 6 cặp
+C. 10 pairs — 10 cặp
 
 D. 12 pairs — 12 cặp
 
-**Q11. How many unordered pairs can be chosen from four distinct items? — Chọn cặp không thứ tự từ bốn phần tử có bao nhiêu cách?**
+**Q11. How many unordered pairs can be chosen from five distinct items? — Chọn cặp không thứ tự từ năm phần tử có bao nhiêu cách?**
 
 A. 1 — 1
 
 B. 6 — 6
 
-C. 6 pairs — 6 cặp
+C. 10 pairs — 10 cặp
 
 D. 12 pairs — 12 cặp
 
@@ -372,7 +372,7 @@ A. 1 — 1
 
 B. 6 — 6
 
-C. 6 pairs — 6 cặp
+C. 10 pairs — 10 cặp
 
 D. 12 pairs — 12 cặp
 
@@ -470,7 +470,7 @@ D. The number grows factorially — Số cách tăng theo giai thừa
 | Q8 | **D** | Without r, permutations enumerates complete orderings. | Không truyền r, permutations liệt kê toàn bộ thứ tự. |
 | Q9 | **A** | The empty arrangement has exactly one possible order. | Dãy rỗng có một cách sắp xếp. |
 | Q10 | **B** | 3! = 3×2×1 = 6. | 3! = 3×2×1 = 6. |
-| Q11 | **C** | C(4,2)=6. | C(4,2)=6. |
+| Q11 | **C** | Choosing two from five without order gives C(5,2)=10 pairs. | Chọn hai từ năm không xét thứ tự có C(5,2)=10 cặp. |
 | Q12 | **D** | 4×3 = 12. | 4×3 = 12. |
 | Q13 | **A** | Each chosen group can be arranged in k! orders. | Mỗi nhóm k người có k! cách sắp. |
 | Q14 | **B** | There is one way to choose nobody. | Có một cách chọn tập rỗng. |
