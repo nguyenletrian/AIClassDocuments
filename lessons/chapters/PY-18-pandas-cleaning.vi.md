@@ -138,7 +138,7 @@ Có đúng một giá trị giá không hợp lệ. Chuyển thành NaN giúp ph
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"age":[20,None,25]})
+df = pd.DataFrame({"age":[20, None, 25]})
 print(df.isna().sum())
 ```
 
@@ -165,8 +165,8 @@ dtype: int64
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"spent":[100,None,200]})
-df["spent"]=df["spent"].fillna(df["spent"].median())
+df = pd.DataFrame({"spent":[100, None, 200]})
+df["spent"] = df["spent"].fillna(df["spent"].median())
 print(df)
 ```
 
@@ -195,7 +195,7 @@ print(df)
 
 ```python
 import pandas as pd
-df=pd.DataFrame({"id":["O1","O1","O2"],"amount":[10,10,20]})
+df = pd.DataFrame({"id":["O1", "O1", "O2"], "amount":[10, 10, 20]})
 print(df.drop_duplicates())
 ```
 
@@ -223,8 +223,8 @@ print(df.drop_duplicates())
 
 ```python
 import pandas as pd
-s=pd.Series(["100","bad","250"])
-print(pd.to_numeric(s,errors="coerce"))
+s = pd.Series(["100", "bad", "250"])
+print(pd.to_numeric(s, errors="coerce"))
 ```
 
 **Kết quả khi chạy:**
@@ -252,10 +252,10 @@ dtype: float64
 
 ```python
 import pandas as pd
-train=pd.Series([10,None,20])
-test=pd.Series([None,30])
-median=train.median()
-print(train.fillna(median),test.fillna(median))
+train = pd.Series([10, None, 20])
+test = pd.Series([None, 30])
+median = train.median()
+print(train.fillna(median), test.fillna(median))
 ```
 
 **Kết quả khi chạy:**
