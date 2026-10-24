@@ -22,7 +22,7 @@
 
 [Cách cài thư viện (nếu có), **bảng nhóm theo từng hàm**: tên hàm/cú pháp → mục đích → các tham số và ý nghĩa/lý do chọn giá trị, ví dụ ngắn có thể chạy. GỘP `dtype=float` vào `np.array`, `axis=0` vào `mean`/`var`, `rowvar=False` vào `cov`, `n_components` vào `PCA`... **Không tạo chương tham số/flags riêng**. Giải thích `fit`, `transform`, `shape` trước khi sử dụng.]
 
-## 4. Khái niệm và các kiến thức liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. [Khái niệm chính]
 
