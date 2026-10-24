@@ -282,250 +282,230 @@ Dữ liệu gồm hai điểm kiểu `float64`, không phải chuỗi.
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
+**Q1. What is a NumPy `ndarray`? — `ndarray` của NumPy là gì?**
 
-**Q1. Which description matches ndarray? — Mô tả nào đúng với ndarray?**
+A. An array for data with a common dtype — Mảng dữ liệu có kiểu phần tử chung
 
-A. A different concept described as Số phần tử trên từng chiều — Số phần tử trên từng chiều
+B. A single text file — Một tệp văn bản đơn
 
-B. The concept described as Một mảng đồng nhất về kiểu phần tử — Một mảng đồng nhất về kiểu phần tử
+C. A Python exception — Một ngoại lệ Python
 
-C. A different concept described as Kiểu dữ liệu của giá trị trong mảng — Kiểu dữ liệu của giá trị trong mảng
+D. A class inheritance rule — Quy tắc kế thừa lớp
 
-D. A different concept described as Chiều dọc theo phép tổng hợp — Chiều dọc theo phép tổng hợp
+**Q2. What does `shape=(3, 2)` mean for a 2-D array? — `shape=(3, 2)` nghĩa là gì với mảng hai chiều?**
 
+A. Only three total elements — Chỉ có ba phần tử
 
-**Q2. Which description matches Shape? — Mô tả nào đúng với Shape?**
+B. Three rows and two columns — Ba hàng và hai cột
 
-A. The concept described as Số phần tử trên từng chiều — Số phần tử trên từng chiều
+C. Two rows and three columns — Hai hàng và ba cột
 
-B. A different concept described as Kiểu dữ liệu của giá trị trong mảng — Kiểu dữ liệu của giá trị trong mảng
+D. Three dimensions and two values — Ba chiều và hai giá trị
 
-C. A different concept described as Chiều dọc theo phép tổng hợp — Chiều dọc theo phép tổng hợp
+**Q3. What is the size of an array with shape `(3, 2)`? — Mảng có shape `(3, 2)` chứa bao nhiêu phần tử?**
 
-D. A different concept described as Một mảng đồng nhất về kiểu phần tử — Một mảng đồng nhất về kiểu phần tử
+A. 2 — 2
 
+B. 5 — 5
 
-**Q3. Which description matches dtype? — Mô tả nào đúng với dtype?**
+C. 6 — 6
 
-A. A different concept described as Chiều dọc theo phép tổng hợp — Chiều dọc theo phép tổng hợp
+D. 3 — 3
 
-B. A different concept described as Một mảng đồng nhất về kiểu phần tử — Một mảng đồng nhất về kiểu phần tử
+**Q4. What does `ndim` report? — Thuộc tính `ndim` cho biết gì?**
 
-C. A different concept described as Số phần tử trên từng chiều — Số phần tử trên từng chiều
+A. The number of rows only — Chỉ số hàng
 
-D. The concept described as Kiểu dữ liệu của giá trị trong mảng — Kiểu dữ liệu của giá trị trong mảng
+B. The data type of an element — Kiểu phần tử
 
+C. The maximum array value — Giá trị lớn nhất
 
-**Q4. Which description matches Axis? — Mô tả nào đúng với Axis?**
+D. The number of array dimensions — Số chiều của mảng
 
-A. A different concept described as Một mảng đồng nhất về kiểu phần tử — Một mảng đồng nhất về kiểu phần tử
+**Q5. What does `dtype` describe? — `dtype` mô tả gì?**
 
-B. A different concept described as Số phần tử trên từng chiều — Số phần tử trên từng chiều
+A. The data type of array elements — Kiểu dữ liệu của các phần tử
 
-C. The concept described as Chiều dọc theo phép tổng hợp — Chiều dọc theo phép tổng hợp
+B. The array's row count — Số hàng
 
-D. A different concept described as Kiểu dữ liệu của giá trị trong mảng — Kiểu dữ liệu của giá trị trong mảng
+C. The file's extension — Phần mở rộng của file
 
+D. The mean of all entries — Trung bình các phần tử
 
-**Q5. Which use matches np.array(data,dtype=float)? — Công dụng nào đúng với np.array(data,dtype=float)?**
+**Q6. Why specify `dtype=float` when storing decimal scores? — Vì sao dùng `dtype=float` khi lưu điểm có phần lẻ?**
 
-A. Use a different operation to Xem hàng/cột, số chiều, số phần tử — Xem hàng/cột, số chiều, số phần tử
+A. To delete missing records — Để xóa bản ghi thiếu
 
-B. Use this syntax to Tạo mảng số thực, dtype=float cho phép lưu phần thập phân — Tạo mảng số thực, dtype=float cho phép lưu phần thập phân
+B. To preserve fractional values — Để giữ giá trị có phần thập phân
 
-C. Use a different operation to Tính trung bình của từng CỘT từ các hàng — Tính trung bình của từng CỘT từ các hàng
+C. To force integer truncation — Để ép cắt về số nguyên
 
-D. Use a different operation to Tạo dữ liệu số được khởi tạo rõ hình dạng — Tạo dữ liệu số được khởi tạo rõ hình dạng
+D. To change rows into columns — Để đổi hàng thành cột
 
+**Q7. For a 2-D array, what does `mean(axis=0)` return? — Với mảng hai chiều, `mean(axis=0)` trả về gì?**
 
-**Q6. Which use matches X.shape/X.ndim/X.size? — Công dụng nào đúng với X.shape/X.ndim/X.size?**
+A. Only the first cell — Chỉ ô đầu tiên
 
-A. Use this syntax to Xem hàng/cột, số chiều, số phần tử — Xem hàng/cột, số chiều, số phần tử
+B. The original array unchanged — Mảng gốc không đổi
 
-B. Use a different operation to Tính trung bình của từng CỘT từ các hàng — Tính trung bình của từng CỘT từ các hàng
+C. One mean per column — Một giá trị trung bình cho mỗi cột
 
-C. Use a different operation to Tạo dữ liệu số được khởi tạo rõ hình dạng — Tạo dữ liệu số được khởi tạo rõ hình dạng
+D. One mean per row — Một giá trị trung bình cho mỗi hàng
 
-D. Use a different operation to Tạo mảng số thực, dtype=float cho phép lưu phần thập phân — Tạo mảng số thực, dtype=float cho phép lưu phần thập phân
+**Q8. For a 2-D array, what does `sum(axis=1)` produce? — Với mảng hai chiều, `sum(axis=1)` tạo gì?**
 
+A. One sum per column — Một tổng cho mỗi cột
 
-**Q7. Which use matches X.mean(axis=0)? — Công dụng nào đúng với X.mean(axis=0)?**
+B. A list of column names — List tên cột
 
-A. Use a different operation to Tạo dữ liệu số được khởi tạo rõ hình dạng — Tạo dữ liệu số được khởi tạo rõ hình dạng
+C. The shape tuple only — Chỉ tuple shape
 
-B. Use a different operation to Tạo mảng số thực, dtype=float cho phép lưu phần thập phân — Tạo mảng số thực, dtype=float cho phép lưu phần thập phân
+D. One sum per row — Một tổng cho mỗi hàng
 
-C. Use a different operation to Xem hàng/cột, số chiều, số phần tử — Xem hàng/cột, số chiều, số phần tử
+**Q9. Which statement correctly distinguishes `shape` and `size`? — Đâu là điểm khác nhau giữa `shape` và `size`?**
 
-D. Use this syntax to Tính trung bình của từng CỘT từ các hàng — Tính trung bình của từng CỘT từ các hàng
+A. shape lists dimensions; size counts elements — shape ghi kích thước từng chiều; size đếm phần tử
 
+B. They are always identical numbers — Chúng luôn là cùng một số
 
-**Q8. Which use matches np.zeros()/np.ones()? — Công dụng nào đúng với np.zeros()/np.ones()?**
+C. size gives dtype; shape gives values — size cho kiểu dữ liệu; shape cho giá trị
 
-A. Use a different operation to Tạo mảng số thực, dtype=float cho phép lưu phần thập phân — Tạo mảng số thực, dtype=float cho phép lưu phần thập phân
+D. Both change elements automatically — Cả hai tự đổi phần tử
 
-B. Use a different operation to Xem hàng/cột, số chiều, số phần tử — Xem hàng/cột, số chiều, số phần tử
+**Q10. What does `np.array([1, 2, 3])` create? — `np.array([1, 2, 3])` tạo ra gì?**
 
-C. Use this syntax to Tạo dữ liệu số được khởi tạo rõ hình dạng — Tạo dữ liệu số được khởi tạo rõ hình dạng
+A. A class named Array — Lớp tên Array
 
-D. Use a different operation to Tính trung bình của từng CỘT từ các hàng — Tính trung bình của từng CỘT từ các hàng
+B. A one-dimensional NumPy array — Một mảng NumPy một chiều
 
+C. A two-column table — Bảng hai cột
 
-**Q9. What solves scenario 1? — Cách nào giải quyết tình huống 1?**
+D. A CSV file on disk — File CSV trên đĩa
 
-A. Another method is chosen because axis=0 cho phép tính trung bình theo cột môn học — axis=0 cho phép tính trung bình theo cột môn học
+**Q11. What does `np.zeros((2, 3))` create? — `np.zeros((2, 3))` tạo gì?**
 
-B. Choose the method because Dùng ma trận một hàng mỗi SV và cột mỗi môn — Dùng ma trận một hàng mỗi SV và cột mỗi môn
+A. A 3×2 array of ones — Mảng 3×2 toàn số 1
 
-C. Another method is chosen because axis=1 gom giá trị theo từng HÀNG/cửa hàng — axis=1 gom giá trị theo từng HÀNG/cửa hàng
+B. An empty array with no elements — Mảng rỗng không có phần tử
 
-D. Another method is chosen because zeros cấp đúng kích thước chờ ghi kết quả — zeros cấp đúng kích thước chờ ghi kết quả
+C. A 2×3 array initialized to zeros — Mảng 2×3 được khởi tạo toàn số 0
 
+D. A 2×3 table of missing strings — Bảng 2×3 gồm chuỗi thiếu
 
-**Q10. What solves scenario 2? — Cách nào giải quyết tình huống 2?**
+**Q12. How is `np.ones((2, 2))` different from `np.zeros((2, 2))`? — `np.ones((2, 2))` khác `np.zeros((2, 2))` thế nào?**
 
-A. Choose the method because axis=0 cho phép tính trung bình theo cột môn học — axis=0 cho phép tính trung bình theo cột môn học
+A. It always creates a CSV file — Nó luôn tạo file CSV
 
-B. Another method is chosen because axis=1 gom giá trị theo từng HÀNG/cửa hàng — axis=1 gom giá trị theo từng HÀNG/cửa hàng
+B. It has four dimensions — Nó có bốn chiều
 
-C. Another method is chosen because zeros cấp đúng kích thước chờ ghi kết quả — zeros cấp đúng kích thước chờ ghi kết quả
+C. It cannot be used in arithmetic — Nó không thể tính toán
 
-D. Another method is chosen because Mảng float giữ điểm có phần thập phân — Mảng float giữ điểm có phần thập phân
+D. It initializes entries to one instead of zero — Nó khởi tạo giá trị 1 thay cho 0
 
+**Q13. How do NumPy array and Python List differ in numeric operations? — Mảng NumPy khác List Python về phép toán số như thế nào?**
 
-**Q11. What solves scenario 3? — Cách nào giải quyết tình huống 3?**
+A. NumPy enables element-wise numerical operations — NumPy hỗ trợ phép toán số theo từng phần tử
 
-A. Another method is chosen because zeros cấp đúng kích thước chờ ghi kết quả — zeros cấp đúng kích thước chờ ghi kết quả
+B. A List always multiplies elements element-wise — List luôn nhân từng phần tử
 
-B. Another method is chosen because Mảng float giữ điểm có phần thập phân — Mảng float giữ điểm có phần thập phân
+C. A NumPy array stores only strings — Mảng NumPy chỉ lưu chuỗi
 
-C. Another method is chosen because Dùng ma trận một hàng mỗi SV và cột mỗi môn — Dùng ma trận một hàng mỗi SV và cột mỗi môn
+D. A List cannot hold numbers — List không chứa được số
 
-D. Choose the method because axis=1 gom giá trị theo từng HÀNG/cửa hàng — axis=1 gom giá trị theo từng HÀNG/cửa hàng
+**Q14. For an array with rows as learners and columns as subjects, what does axis=0 average? — Nếu hàng là học viên và cột là môn, `axis=0` tính trung bình theo gì?**
 
+A. Only the last subject — Chỉ môn cuối
 
-**Q12. What solves scenario 4? — Cách nào giải quyết tình huống 4?**
+B. Each subject across learners — Từng môn qua các học viên
 
-A. Another method is chosen because Mảng float giữ điểm có phần thập phân — Mảng float giữ điểm có phần thập phân
+C. Each learner across subjects — Từng học viên qua các môn
 
-B. Another method is chosen because Dùng ma trận một hàng mỗi SV và cột mỗi môn — Dùng ma trận một hàng mỗi SV và cột mỗi môn
+D. Only the first learner — Chỉ học viên đầu
 
-C. Choose the method because zeros cấp đúng kích thước chờ ghi kết quả — zeros cấp đúng kích thước chờ ghi kết quả
+**Q15. How many dimensions does a two-dimensional score table have? — Bảng điểm hai chiều có `ndim` bằng bao nhiêu?**
 
-D. Another method is chosen because axis=0 cho phép tính trung bình theo cột môn học — axis=0 cho phép tính trung bình theo cột môn học
+A. 3 — 3
 
+B. The total number of scores — Tổng số điểm
 
-**Q13. What solves scenario 5? — Cách nào giải quyết tình huống 5?**
+C. 2 — 2
 
-A. Another method is chosen because Dùng ma trận một hàng mỗi SV và cột mỗi môn — Dùng ma trận một hàng mỗi SV và cột mỗi môn
+D. 1 — 1
 
-B. Choose the method because Mảng float giữ điểm có phần thập phân — Mảng float giữ điểm có phần thập phân
+**Q16. Which code accesses array shape without computing new values? — Cú pháp nào lấy shape mà không tính thêm dữ liệu?**
 
-C. Another method is chosen because axis=0 cho phép tính trung bình theo cột môn học — axis=0 cho phép tính trung bình theo cột môn học
+A. `X.sort()` — `X.sort()`
 
-D. Another method is chosen because axis=1 gom giá trị theo từng HÀNG/cửa hàng — axis=1 gom giá trị theo từng HÀNG/cửa hàng
+B. `X.delete()` — `X.delete()`
 
+C. `X.write()` — `X.write()`
 
-**Q14. Which data is used in scenario 1? — Tình huống 1 dùng dữ liệu nào?**
+D. `X.shape` — `X.shape`
 
-A. The described input 3 học sinh × 2 môn, điểm thang 10 — 3 học sinh × 2 môn, điểm thang 10
+**Q17. Which code counts all array entries? — Cú pháp nào đếm tổng số phần tử mảng?**
 
-B. Another input 3 học sinh, 2 môn — 3 học sinh, 2 môn
+A. `X.size` — `X.size`
 
-C. Another input 2 cửa hàng × 3 ngày, đơn vị nghìn đồng — 2 cửa hàng × 3 ngày, đơn vị nghìn đồng
+B. `X.mean()` — `X.mean()`
 
-D. Another input 2 ngày × 3 kênh cảm biến — 2 ngày × 3 kênh cảm biến
+C. `X.dtype` — `X.dtype`
 
+D. `X.shape[0]` in every case — Luôn `X.shape[0]`
 
-**Q15. Which data is used in scenario 2? — Tình huống 2 dùng dữ liệu nào?**
+**Q18. What happens when integer data are explicitly cast to an integer dtype? — Khi ép dữ liệu có phần lẻ sang dtype số nguyên có thể xảy ra gì?**
 
-A. Another input 2 cửa hàng × 3 ngày, đơn vị nghìn đồng — 2 cửa hàng × 3 ngày, đơn vị nghìn đồng
+A. Its shape must become (1,1) — Shape bắt buộc thành (1,1)
 
-B. Another input 2 ngày × 3 kênh cảm biến — 2 ngày × 3 kênh cảm biến
+B. Fractional parts may be discarded — Phần thập phân có thể bị bỏ
 
-C. Another input Điểm 7.5, 8.0 — Điểm 7.5, 8.0
+C. All values become file paths — Mọi giá trị thành đường dẫn
 
-D. The described input 3 học sinh, 2 môn — 3 học sinh, 2 môn
+D. The array becomes a dictionary — Mảng trở thành Dictionary
 
+**Q19. What is the output shape of `X.mean(axis=0)` for `X.shape == (3,2)`? — Nếu `X.shape == (3,2)`, `X.mean(axis=0)` có shape nào?**
 
-**Q16. Which data is used in scenario 3? — Tình huống 3 dùng dữ liệu nào?**
+A. `(3,2)` — `(3,2)`
 
-A. Another input 2 ngày × 3 kênh cảm biến — 2 ngày × 3 kênh cảm biến
+B. `(1,3)` — `(1,3)`
 
-B. Another input Điểm 7.5, 8.0 — Điểm 7.5, 8.0
+C. `(2,)` — `(2,)`
 
-C. The described input 2 cửa hàng × 3 ngày, đơn vị nghìn đồng — 2 cửa hàng × 3 ngày, đơn vị nghìn đồng
+D. `(3,)` — `(3,)`
 
-D. Another input 3 học sinh × 2 môn, điểm thang 10 — 3 học sinh × 2 môn, điểm thang 10
+**Q20. Why label the meaning of each row and column? — Vì sao phải nêu rõ ý nghĩa từng hàng, cột?**
 
+A. To change dtype automatically — Để tự đổi dtype
 
-**Q17. Which data is used in scenario 4? — Tình huống 4 dùng dữ liệu nào?**
+B. To avoid all numeric calculations — Để tránh mọi phép tính
 
-A. Another input Điểm 7.5, 8.0 — Điểm 7.5, 8.0
+C. To convert a matrix into text — Để chuyển ma trận thành chữ
 
-B. The described input 2 ngày × 3 kênh cảm biến — 2 ngày × 3 kênh cảm biến
-
-C. Another input 3 học sinh × 2 môn, điểm thang 10 — 3 học sinh × 2 môn, điểm thang 10
-
-D. Another input 3 học sinh, 2 môn — 3 học sinh, 2 môn
-
-
-**Q18. Which data is used in scenario 5? — Tình huống 5 dùng dữ liệu nào?**
-
-A. The described input Điểm 7.5, 8.0 — Điểm 7.5, 8.0
-
-B. Another input 3 học sinh × 2 môn, điểm thang 10 — 3 học sinh × 2 môn, điểm thang 10
-
-C. Another input 3 học sinh, 2 môn — 3 học sinh, 2 môn
-
-D. Another input 2 cửa hàng × 3 ngày, đơn vị nghìn đồng — 2 cửa hàng × 3 ngày, đơn vị nghìn đồng
-
-
-**Q19. What must be clear before computing? — Cần hiểu gì trước khi tính?**
-
-A. Only font color — Chỉ màu chữ
-
-B. Only filename length — Chỉ độ dài tên file
-
-C. Only number of comments — Chỉ số comment
-
-D. Input meaning and units — Ý nghĩa và đơn vị dữ liệu
-
-
-**Q20. What should follow a successful demo? — Sau khi demo chạy đúng nên làm gì?**
-
-A. Assume it works for all data — Cho rằng luôn đúng với mọi dữ liệu
-
-B. Remove input validation — Xóa kiểm tra đầu vào
-
-C. Verify output and unusual inputs — Kiểm tra đầu ra và giá trị biên
-
-D. Ignore unexpected results — Bỏ qua kết quả bất thường
+D. To interpret aggregated results correctly — Để hiểu đúng kết quả tổng hợp
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | The concept described as Một mảng đồng nhất về kiểu phần tử | Một mảng đồng nhất về kiểu phần tử |
-| Q2 | **A** | The concept described as Số phần tử trên từng chiều | Số phần tử trên từng chiều |
-| Q3 | **D** | The concept described as Kiểu dữ liệu của giá trị trong mảng | Kiểu dữ liệu của giá trị trong mảng |
-| Q4 | **C** | The concept described as Chiều dọc theo phép tổng hợp | Chiều dọc theo phép tổng hợp |
-| Q5 | **B** | Use this syntax to Tạo mảng số thực, dtype=float cho phép lưu phần thập phân | Tạo mảng số thực, dtype=float cho phép lưu phần thập phân |
-| Q6 | **A** | Use this syntax to Xem hàng/cột, số chiều, số phần tử | Xem hàng/cột, số chiều, số phần tử |
-| Q7 | **D** | Use this syntax to Tính trung bình của từng CỘT từ các hàng | Tính trung bình của từng CỘT từ các hàng |
-| Q8 | **C** | Use this syntax to Tạo dữ liệu số được khởi tạo rõ hình dạng | Tạo dữ liệu số được khởi tạo rõ hình dạng |
-| Q9 | **B** | Choose the method because Dùng ma trận một hàng mỗi SV và cột mỗi môn | Dùng ma trận một hàng mỗi SV và cột mỗi môn |
-| Q10 | **A** | Choose the method because axis=0 cho phép tính trung bình theo cột môn học | axis=0 cho phép tính trung bình theo cột môn học |
-| Q11 | **D** | Choose the method because axis=1 gom giá trị theo từng HÀNG/cửa hàng | axis=1 gom giá trị theo từng HÀNG/cửa hàng |
-| Q12 | **C** | Choose the method because zeros cấp đúng kích thước chờ ghi kết quả | zeros cấp đúng kích thước chờ ghi kết quả |
-| Q13 | **B** | Choose the method because Mảng float giữ điểm có phần thập phân | Mảng float giữ điểm có phần thập phân |
-| Q14 | **A** | The described input 3 học sinh × 2 môn, điểm thang 10 | 3 học sinh × 2 môn, điểm thang 10 |
-| Q15 | **D** | The described input 3 học sinh, 2 môn | 3 học sinh, 2 môn |
-| Q16 | **C** | The described input 2 cửa hàng × 3 ngày, đơn vị nghìn đồng | 2 cửa hàng × 3 ngày, đơn vị nghìn đồng |
-| Q17 | **B** | The described input 2 ngày × 3 kênh cảm biến | 2 ngày × 3 kênh cảm biến |
-| Q18 | **A** | The described input Điểm 7.5, 8.0 | Điểm 7.5, 8.0 |
-| Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị dữ liệu |
-| Q20 | **C** | Verify output and unusual inputs | Kiểm tra đầu ra và giá trị biên |
+| Q1 | **A** | ndarray organizes elements into one or more dimensions for numerical operations.~ndarray tổ chức phần tử theo một hay nhiều chiều để tính toán. | undefined |
+| Q2 | **B** | For a 2-D array, shape lists the row count first and the column count second.~Với mảng hai chiều, shape ghi số hàng trước và số cột sau. | undefined |
+| Q3 | **C** | The total element count is the product of the dimensions: 3×2.~Tổng số phần tử bằng tích kích thước hai chiều: 3×2. | undefined |
+| Q4 | **D** | ndim describes dimensionality rather than the number of elements.~ndim cho biết số chiều, không phải tổng số phần tử. | undefined |
+| Q5 | **A** | A common dtype governs how values in a NumPy array are represented.~dtype chung quyết định cách biểu diễn các giá trị của mảng NumPy. | undefined |
+| Q6 | **B** | A floating dtype retains fractional parts such as 8.5.~Kiểu số thực giữ phần lẻ của các điểm như 8.5. | undefined |
+| Q7 | **C** | Axis 0 aggregates across rows while preserving columns.~Axis 0 tổng hợp qua các hàng và giữ chiều cột. | undefined |
+| Q8 | **D** | Axis 1 aggregates across columns of each row.~Axis 1 tính tổng qua các cột trong từng hàng. | undefined |
+| Q9 | **A** | An array may have shape (3, 2) but size 6.~Mảng có thể có shape (3, 2) nhưng size bằng 6. | undefined |
+| Q10 | **B** | A flat sequence creates a one-dimensional ndarray.~Dãy phẳng tạo ndarray một chiều. | undefined |
+| Q11 | **C** | zeros creates the requested shape and fills every position with zero.~zeros tạo mảng đúng kích thước và điền 0 vào mỗi ô. | undefined |
+| Q12 | **D** | Both share the same requested shape; only their initialized values differ.~Cả hai có shape như yêu cầu; chỉ khác giá trị khởi tạo. | undefined |
+| Q13 | **A** | For example, ndarray times 2 multiplies values, while list times 2 repeats the list.~Ví dụ ndarray nhân 2 sẽ nhân giá trị, còn List nhân 2 lặp lại List. | undefined |
+| Q14 | **B** | Each column represents a subject, and axis 0 combines rows.~Mỗi cột là một môn; axis 0 gộp các hàng học viên. | undefined |
+| Q15 | **C** | A matrix-like table is two-dimensional even when it has many rows.~Bảng dạng ma trận có hai chiều dù có nhiều hàng. | undefined |
+| Q16 | **D** | shape is an array attribute that reports dimensions.~shape là thuộc tính báo kích thước các chiều. | undefined |
+| Q17 | **A** | size counts elements across every dimension, not just rows.~size đếm phần tử trên mọi chiều, không chỉ đếm hàng. | undefined |
+| Q18 | **B** | Integer storage cannot represent fractions exactly.~Kiểu nguyên không biểu diễn trực tiếp phần thập phân. | undefined |
+| Q19 | **C** | Three rows are reduced, leaving two column results.~Ba hàng được tổng hợp, còn hai giá trị ứng với hai cột. | undefined |
+| Q20 | **D** | Without labels, axis choices may compute the right numbers for the wrong question.~Thiếu ý nghĩa hàng/cột dễ dẫn đến tính ra số đúng phép nhưng trả lời sai câu hỏi. | undefined |
 
 ## 8. Nối sang bài tiếp theo
 
