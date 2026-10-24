@@ -1,6 +1,5 @@
 # PY-34 — Xác suất, không gian mẫu và biến cố
 
-*DRAFT · Dữ liệu minh họa, các quy tắc khoa học chỉ áp dụng khi giả định được thỏa*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
