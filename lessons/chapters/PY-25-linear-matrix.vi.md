@@ -132,7 +132,7 @@ print(round(float(np.linalg.det(A)), 6))
 
 ```python
 import numpy as np
-X=np.array([[10,20,30],[12,8,5]])
+X = np.array([[10, 20, 30], [12, 8, 5]])
 print(X.T.shape)
 ```
 
@@ -160,8 +160,8 @@ print(X.T.shape)
 
 ```python
 import numpy as np
-X=np.array([[8,7,9],[6,5,8]])
-W=np.array([[.2],[.3],[.5]])
+X = np.array([[8, 7, 9], [6, 5, 8]])
+W = np.array([[.2], [.3], [.5]])
 print(X@W)
 ```
 
@@ -190,8 +190,8 @@ print(X@W)
 
 ```python
 import numpy as np
-A=np.array([[2,1],[1,2]],dtype=float)
-print(round(np.linalg.det(A),6))
+A = np.array([[2, 1], [1, 2]], dtype=float)
+print(round(np.linalg.det(A), 6))
 ```
 
 **Kết quả khi chạy:**
@@ -218,8 +218,8 @@ print(round(np.linalg.det(A),6))
 
 ```python
 import numpy as np
-A=np.diag([2.,4.])
-print(np.allclose(A@np.linalg.inv(A),np.eye(2)))
+A = np.diag([2., 4.])
+print(np.allclose(A@np.linalg.inv(A), np.eye(2)))
 ```
 
 **Kết quả khi chạy:**
@@ -246,8 +246,8 @@ True
 
 ```python
 import numpy as np
-A=np.ones((2,3))
-B=np.ones((3,2))
+A = np.ones((2, 3))
+B = np.ones((3, 2))
 assert A.shape[1]==B.shape[0]
 print((A@B).shape)
 ```
