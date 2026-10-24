@@ -7,9 +7,9 @@ Mọi công việc biên soạn tuân thủ [docs/PYTHOCLASS-CURRICULUM.md](docs
 
 ## Nguyên tắc biên soạn
 1. Quét đủ file trong `sources/pythoclass-file-inventory.csv`; bóc tách mọi khái niệm **dù chỉ xuất hiện ngắn** và lưu trong bản đồ chủ đề. Không công bố "đã xử lý toàn bộ" khi chưa duyệt 65/65 file.
-2. Mỗi bài bao gồm: **khái niệm**, **mục đích**, **công thức nếu có**, **thư viện Python**, **cách sử dụng Python**, **ứng dụng thực tế trong lập trình AI**, **khoảng năm bài tập** kèm code và kiểm chứng.
-3. Dùng tiếng Việt rõ ràng; thuật ngữ tiếng Anh giữ tại lần đầu. Xây dựng đường học từ căn bản lên nâng cao, ưu tiên kiến thức trước–sau.
-4. Phân biệt: `GHI CHÉP GỐC`, `ĐÃ HIỆU ĐÍNH`, `AI MỞ RỘNG`. Không truyền lại công thức hoặc code sai; thử cú pháp, test giá trị, tránh dữ liệu rò rỉ trong ML.
+2. Tài liệu xuất bản cho sinh viên phải theo đúng thứ tự: **vị trí kiến thức** → **English vocabulary** → **thư viện/hàm Python** → **khái niệm chính và phụ kèm biểu thức tính bằng Python** → **khoảng 5 tình huống thực tế có quy trình và code giải thích vì sao** → **English multiple-choice questions với đáp án** → nối sang bài tiếp. KHÔNG có mục tiêu học tập, chứng minh toán học riêng hoặc ngôn ngữ giáo án.
+3. Dùng tiếng Việt rõ ràng; có bảng thuật ngữ tiếng Anh đặt trước thư viện và khái niệm. Mỗi bài phải có sơ đồ chuỗi kiến thức (ví dụ Vector → Matrix → Features → PCA → ML) để sinh viên biết nội dung đang ở đâu trong hệ thống.
+4. Truy nguyên `GHI CHÉP GỐC`, `ĐÃ HIỆU ĐÍNH`, `AI MỞ RỘNG` **chỉ ở hồ sơ nội bộ** `sources/`/docs, KHÔNG trong bài dành cho sinh viên. Không nhắc tên repo PythoClass/PythonClass, đường dẫn ghi chép hoặc quá trình biên soạn trong `lessons/`. Không truyền lại công thức hoặc code sai; thử cú pháp, test giá trị, tránh dữ liệu rò rỉ trong ML.
 5. Không sửa repository PythoClass. Không lưu secret, output chứa thông tin cá nhân hoặc nguồn bị hạn chế quyền sử dụng lên GitHub.
 6. Không yêu cầu chủ dự án thủ công gửi ảnh/chép notes khi nguồn đã có thể đọc qua GitHub và công cụ được phép. Tự kiểm tra file binary bằng công cụ phù hợp, báo cáo chính xác blocker nếu không đọc được.
 7. **Chỉ triển khai một bài mẫu PCA** dưới `lessons/pilot/`. Giữ `goal_review.enabled=false` và không tạo task viết hàng loạt cho đến khi chủ dự án xem và góp ý mẫu.
