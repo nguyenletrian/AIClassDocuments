@@ -10,13 +10,13 @@
 
 [Giải thích bài này đang đứng ở đâu trong chuỗi từ dễ đến khó. Các khái niệm con cũng phải có vị trí logic. Không viết mục tiêu giảng dạy, không viết "sau bài học bạn sẽ...".]
 
-## 2. English vocabulary — Các thuật ngữ cần biết
+## 2. English vocabulary — Các thuật ngữ tổng quan
 
 | English | Nghĩa ngắn gọn | Nhận biết khi dùng Python |
 |---|---|---|
 | ... | ... | ... |
 
-[Đưa thuật ngữ tiếng Anh lên TRƯỚC thư viện và khái niệm. Thuật ngữ hữu ích, không cố nhồi từ khó.]
+[Bảng này chỉ là từ vựng tổng quan. **Trước mỗi mục/tiểu mục và mỗi tình huống** đều có thêm dòng **Từ vựng trong mục**: English — Tiếng Việt; chọn 2–5 thuật ngữ thực sự xuất hiện trong mục. Nhắc lại có chọn lọc, không nhồi từ khó. **Không** đặt bản dịch (tiếng Việt) sau mỗi lần dùng thuật ngữ trong câu văn.]
 
 ## 3. Python libraries & functions — Thư viện, API và hàm
 
@@ -25,6 +25,8 @@
 ## 4. Khái niệm và các kiến thức liên quan
 
 ### 4.1. [Khái niệm chính]
+
+**Từ vựng trong mục:** **English term** — Nghĩa tiếng Việt; **Another term** — Nghĩa tiếng Việt.
 [Khái niệm, mục đích và khi nào dùng bằng ngôn ngữ sinh viên dễ tự đọc.]
 
 ```python
@@ -32,6 +34,8 @@
 ```
 
 ### 4.2. [Khái niệm liên quan 1 — tên tiếng Việt và tiếng Anh]
+
+**Từ vựng trong mục:** **Feature** — đặc trưng; **Vector** — véc-tơ; **Matrix** — ma trận.
 [Trước hết dùng 1–3 đoạn văn ngắn giải thích **đây là gì**, **xuất hiện ở đâu trong ví dụ đời thường**, **liên hệ với khái niệm chính thế nào**; nếu nhiều thuật ngữ thì giải thích riêng từng thuật ngữ rồi mới đưa code.]
 
 **Nhắc lại kiến thức liên quan:** [Liệt kê và nhắc lại các khái niệm ngay trong bài này, bằng câu dễ hiểu. Nếu có Feature, Vector, Matrix thì giải thích lại chúng chứ không chỉ ghi tên. Nêu rõ mỗi hàng/cột tương ứng đối tượng/đặc trưng nào.]
@@ -58,13 +62,15 @@ import numpy as np
 
 **Tự kiểm tra nhanh:** [Một câu ngắn kiểm tra ngay khái niệm vừa học, không cần thêm thư viện. Có **đáp án gợi ý** ngay sau đó. Mỗi nhóm kiến thức chính có một câu để người học không phải đợi tới cuối bài.]
 
-**Quy tắc thuật ngữ:** Trong câu tiếng Việt, khi nhắc một thuật ngữ tiếng Anh, **luôn gắn nghĩa tiếng Việt trong ngoặc ngay sau**: `eigenvector` (vector riêng), `eigenvalue` (giá trị riêng), feature (đặc trưng), matrix (ma trận), PCA (phân tích thành phần chính). Cũng áp dụng cho lần nhắc lại ở phần nội dung và tiêu đề. Ngoại lệ: tên hàm, tham số và biến trong code/backticks, cột English của bảng từ vựng vốn đã có cột dịch, và 20 câu trắc nghiệm cần giữ hoàn toàn tiếng Anh.
+**Quy tắc thuật ngữ:** Ở đầu mỗi mục, tiểu mục và tình huống có một dòng **Từ vựng trong mục:** liệt kê English — nghĩa tiếng Việt. Trong phần diễn giải sau đó chỉ dùng thuật ngữ tự nhiên, không gắn lại phần dịch trong ngoặc ở mọi lần nhắc. Tên hàm, tham số và biến trong code/backticks luôn giữ nguyên. Câu hỏi trắc nghiệm ở cuối được viết **song ngữ Anh–Việt** (câu hỏi, cả bốn phương án, đáp án và giải thích).
 
 **Quy tắc:** Trong mỗi mục 4.2, 4.3... phải nhắc lại khái niệm liên quan rồi mới bắt đầu ví dụ nhỏ **từng bước**. Khi có mảng số, phải nói rõ hàng/cột, từng đặc trưng/đơn vị và ví dụ minh họa cách ghép vector thành matrix khi cần. Không dùng chữ “Subconcept” làm tiêu đề. Viết “Khái niệm liên quan” hoặc tên chủ đề bằng tiếng Việt dễ hiểu. Không giải thích bằng cú pháp hay tên hàm trước khi nói rõ bằng văn; người học phải hiểu *feature là gì* rồi mới gặp ví dụ `np.array`. Không tạo phần “Toán học đằng sau” hoặc chứng minh hàn lâm. Mỗi công thức thể hiện bằng Python trong một ví dụ nhỏ ngay dưới đoạn giải thích.
 
 ## 5. Real-world programming problems — Khoảng năm tình huống thực tế
 
 ### Tình huống 1 — [Tên vấn đề có thực trong công việc / AI]
+
+**Từ vựng trong mục:** **Feature** — đặc trưng; **Dataset** — tập dữ liệu. [Thay theo nội dung mỗi tình huống.]
 
 **Vấn đề:** [Ai đang gặp khó khăn gì, cần kết quả nào?]
 
@@ -94,22 +100,31 @@ import numpy as np
 
 [Những hiểu lầm hoặc sai lầm khiến sinh viên viết code sai. Đưa ví dụ Python ngắn nếu hữu ích.]
 
-## 7. English multiple-choice questions
+## 7. English–Vietnamese multiple-choice questions
 
 **Q1. [English question]?**
 
+*Tiếng Việt: [Bản dịch của câu hỏi]*
+
 A. ...  
+*Dịch nghĩa A*  
+
 B. ...  
+*Dịch nghĩa B*  
+
 C. ...  
-D. ...
+*Dịch nghĩa C*  
 
-[**Đúng 20 câu**: câu hỏi bằng tiếng Anh, 4 đáp án A/B/C/D, gồm khái niệm, tính toán bằng Python và lựa chọn giải pháp thực tiễn. Không đánh đố, câu nào cũng có đáp án đúng và giải thích.]
+D. ...  
+*Dịch nghĩa D*
 
-### Answer key & short explanations
+[**Đúng 20 câu**: mỗi câu có **English question + bản dịch tiếng Việt**, **bốn lựa chọn Anh–Việt** và đáp án, giải thích **Anh–Việt**. Giữ nguyên cú pháp code, không dịch tên hàm/biến. Không đánh đố.]
 
-| Question | Answer | Explanation |
-|---|---|---|
-| Q1 | **B** | Short English explanation. |
+### Answer key / Đáp án và giải thích song ngữ
+
+| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
+|---|---|---|---|
+| Q1 | **B** | Short English explanation. | Giải thích ngắn bằng tiếng Việt. |
 
 ## 8. Nối sang bài tiếp theo
 
