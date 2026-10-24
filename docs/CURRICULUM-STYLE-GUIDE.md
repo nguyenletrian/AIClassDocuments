@@ -22,6 +22,12 @@ Mỗi `### Tình huống N` phải có **một dòng/đoạn `**Tình huống th
 
 **Sau đề bài:** `**Vì sao chọn cách này?**` giải thích phép toán/phương pháp phù hợp; `**Quy trình:**` nêu các bước **riêng cho tình huống** (không lặp các bước chung chung kiểu "xác định đầu vào → in kết quả" cho cả 5 bài); tiếp đến code và giải thích đầu ra cụ thể. Không lặp lại dữ liệu ở một nhãn `**Dữ liệu:**` riêng. **Giữ nguyên dữ liệu, ngưỡng và điều kiện thật trong code**, nếu không suy ra được ý nghĩa thì phải rà code, không tự đặt chính sách khác.
 
+### Hiển thị kết quả ngay sau ví dụ Python
+
+Sau **mọi** khối code minh họa, thêm dòng **`**Kết quả khi chạy:**`** và một khối `text` chứa đúng những gì chương trình in ra. Không yêu cầu người học tự chạy để mới thấy kết quả. Nếu code không in gì, ghi rõ **“Không in ra màn hình”** và nêu trạng thái cuối nếu có ích. Không tự nhận xét một giá trị được in nếu chương trình chưa `print` giá trị đó; không thêm chú thích `#` giả làm output trong code Python.
+
+Ví dụ: `print((2, 3))` in `(2, 3)`; `print(set([1, 1, 2]))` in tập `{1, 2}`, **không** phải list `[1, 2]`. Với Set nhiều phần tử, thứ tự hiển thị không được đảm bảo; cho một kết quả mẫu và nói rõ thứ tự có thể khác. Mọi dòng kết quả phải khớp đúng với code, kể cả chữ hoa, dấu cách, dấu ngoặc, `True`/`False` và dữ liệu `None`.
+
 ## Kết cấu dành cho sinh viên
 1. **Bài đang ở đâu trong chuỗi kiến thức?** Trình bày các bài trước → bài hiện tại → bài liên quan, dễ theo dõi.
 2. **Từ vựng trong mục:** trước từng mục và tiểu mục, 2–5 thuật ngữ `English — tiếng Việt`; đoạn văn phía sau viết tự nhiên, **không** thêm `(Vietnamese)` sau mỗi lần nhắc. Những bảng thuật ngữ chỉ ghi từ thật sự dùng trong mục.
