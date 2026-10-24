@@ -29,7 +29,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 | `np.cov(X,rowvar=False)` | Cột là feature, hàng là mẫu khi tính covariance |
 | `np.argsort(values)[::-1]` | Sắp eigenvalue giảm dần để chọn hướng lớn |
 
-## 4. Khái niệm kèm ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Eigenvector
 
@@ -43,6 +43,12 @@ w,v=np.linalg.eigh([[2.,0.],[0.,3.]])
 print(v.shape)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+(2, 2)
+```
+
 **Tự kiểm tra:** Eigenvector có nghĩa gì? **Đáp án:** Hướng mà phép biến đổi tuyến tính chỉ co/dãn.
 
 ### 4.2. Eigenvalue
@@ -54,6 +60,12 @@ Hệ số co/dãn theo một vector riêng. Trước khi sử dụng biểu th�
 ```python
 import numpy as np
 print(np.linalg.eigvalsh([[2.,0.],[0.,3.]]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[2. 3.]
 ```
 
 **Tự kiểm tra:** Eigenvalue có nghĩa gì? **Đáp án:** Hệ số co/dãn theo một vector riêng.
@@ -70,6 +82,13 @@ X=np.array([[1,2],[2,4],[3,6]])
 print(np.cov(X,rowvar=False))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[1. 2.]
+ [2. 4.]]
+```
+
 **Tự kiểm tra:** Covariance có nghĩa gì? **Đáp án:** Cách hai đặc trưng biến thiên cùng nhau.
 
 ### 4.4. Principal direction
@@ -82,6 +101,12 @@ Hướng chứa nhiều phương sai nhất trong PCA. Trước khi sử dụng 
 import numpy as np
 w,v=np.linalg.eigh([[2.,0.],[0.,3.]])
 print(v[:,-1])
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0. 1.]
 ```
 
 **Tự kiểm tra:** Principal direction có nghĩa gì? **Đáp án:** Hướng chứa nhiều phương sai nhất trong PCA.
@@ -101,8 +126,15 @@ print(v[:,-1])
 
 ```python
 import numpy as np
-C=np.diag([2.,3.]);w,v=np.linalg.eigh(C)
+C=np.diag([2.,3.])
+w,v=np.linalg.eigh(C)
 print(w[-1],v[:,-1])
+```
+
+**Kết quả khi chạy:**
+
+```text
+3.0 [0. 1.]
 ```
 
 
@@ -123,6 +155,12 @@ X=np.array([[1,2],[2,4],[3,6]],dtype=float)
 print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[0. 5.]
+```
+
 
 ### Tình huống 3 — Kiểm công thức eigen
 
@@ -137,8 +175,15 @@ print(np.linalg.eigvalsh(np.cov(X,rowvar=False)))
 
 ```python
 import numpy as np
-A=np.diag([2.,3.]);w,v=np.linalg.eigh(A)
+A=np.diag([2.,3.])
+w,v=np.linalg.eigh(A)
 print(np.allclose(A@v[:,-1],w[-1]*v[:,-1]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+True
 ```
 
 
@@ -159,6 +204,12 @@ values=np.array([4,1,3])
 print(np.argsort(values)[::-1])
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[0 2 1]
+```
+
 
 ### Tình huống 5 — So với PCA của sklearn
 
@@ -176,6 +227,12 @@ import numpy as np
 from sklearn.decomposition import PCA
 X=np.array([[1,2],[2,3],[3,4]],dtype=float)
 print(PCA(n_components=1).fit_transform(X).shape)
+```
+
+**Kết quả khi chạy:**
+
+```text
+(3, 1)
 ```
 
 
