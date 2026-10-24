@@ -39,7 +39,8 @@ Sau khi biết xử lý dữ liệu bằng vòng lặp và danh sách, ta tạo 
 Hàm là một nhóm lệnh có tên, có thể gọi nhiều lần. `twice(x)` nhân giá trị truyền vào với 2; `twice(3)` trả về `6`.
 
 ```python
-def twice(x): return x*2
+def twice(x):
+    return x*2
 print(twice(3))
 ```
 
@@ -56,7 +57,8 @@ print(twice(3))
 Tham số là tên biến khai báo trong hàm, như `name` của `hello(name)`. Khi gọi `hello('Lan')`, chuỗi `'Lan'` được truyền vào và in ra `Lan`.
 
 ```python
-def hello(name): return name
+def hello(name):
+    return name
 print(hello('Lan'))
 ```
 
@@ -73,7 +75,8 @@ Lan
 `return` gửi kết quả về nơi gọi hàm; khác với `print()` chỉ hiển thị ra màn hình. `add(2, 3)` trả về `5`, rồi `print()` hiển thị số đó.
 
 ```python
-def add(a,b): return a+b
+def add(a,b):
+    return a+b
 print(add(2,3))
 ```
 
@@ -177,7 +180,8 @@ print(sorted(people,key=lambda r:r["score"],reverse=True))
 3. Truyền điểm 11 vào hàm và in kết quả.
 
 ```python
-def valid_score(x): return 0<=x<=10
+def valid_score(x):
+    return 0<=x<=10
 print(valid_score(11))
 ```
 
