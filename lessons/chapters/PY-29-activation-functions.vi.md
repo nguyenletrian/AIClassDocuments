@@ -29,7 +29,7 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 | `np.tanh(x)` | Kích hoạt có đầu ra âm/dương |
 | `np.exp(z-max(z))/sum(... )` | Softmax ổn định hơn tính exp(z) trực tiếp |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. ReLU
 
@@ -42,6 +42,12 @@ import numpy as np
 print(np.maximum(0,[-2,3]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[0 3]
+```
+
 **Tự kiểm tra:** ReLU là gì? **Đáp án:** Giữ số dương, số âm thành 0.
 
 ### 4.2. Sigmoid
@@ -52,7 +58,14 @@ print(np.maximum(0,[-2,3]))
 
 ```python
 import numpy as np
-x=np.array([0.]);print(1/(1+np.exp(-x)))
+x=np.array([0.])
+print(1/(1+np.exp(-x)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.5]
 ```
 
 **Tự kiểm tra:** Sigmoid là gì? **Đáp án:** Ánh xạ số thực về khoảng (0,1).
@@ -68,6 +81,12 @@ import numpy as np
 print(np.tanh([0.,1.]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[0.         0.76159416]
+```
+
 **Tự kiểm tra:** Tanh là gì? **Đáp án:** Ánh xạ số thực về (-1,1).
 
 ### 4.4. Softmax
@@ -78,7 +97,15 @@ Biến logits thành phân phối xác suất tổng bằng 1.
 
 ```python
 import numpy as np
-z=np.array([1.,2.]);e=np.exp(z-z.max());print(e/e.sum())
+z=np.array([1.,2.])
+e=np.exp(z-z.max())
+print(e/e.sum())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.26894142 0.73105858]
 ```
 
 **Tự kiểm tra:** Softmax là gì? **Đáp án:** Biến logits thành phân phối xác suất tổng bằng 1.
@@ -102,6 +129,12 @@ x=np.array([-2.,0.,3.,5.])
 print(np.maximum(0,x))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[0. 0. 3. 5.]
+```
+
 
 ### Tình huống 2 — Đổi điểm thô sang tỷ lệ
 
@@ -118,6 +151,12 @@ print(np.maximum(0,x))
 import numpy as np
 x=np.array([-1.,0.,1.])
 print(1/(1+np.exp(-x)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.26894142 0.5        0.73105858]
 ```
 
 
@@ -137,6 +176,12 @@ import numpy as np
 print(np.tanh([-1,0,1]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[-0.76159416  0.          0.76159416]
+```
+
 
 ### Tình huống 4 — Chuẩn hóa điểm phân loại
 
@@ -151,8 +196,16 @@ print(np.tanh([-1,0,1]))
 
 ```python
 import numpy as np
-z=np.array([2.,1.,.1]);e=np.exp(z-z.max())
-p=e/e.sum();print(p,p.sum())
+z=np.array([2.,1.,.1])
+e=np.exp(z-z.max())
+p=e/e.sum()
+print(p,p.sum())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[0.65900114 0.24243297 0.09856589] 1.0
 ```
 
 
@@ -172,6 +225,12 @@ import numpy as np
 x=np.linspace(-2,2,5)
 y=np.maximum(0,x-1)+np.maximum(0,-x-1)
 print(y)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[1. 0. 0. 0. 1.]
 ```
 
 
