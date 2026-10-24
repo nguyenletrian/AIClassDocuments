@@ -40,10 +40,10 @@ class StudentPcaLessonTests(unittest.TestCase):
         self.assertNotIn("Subconcept", self.text)
         # Feature/Vector/Matrix are defined in prose before the first code sample.
         concepts = self.text.split("### 4.2.", 1)[1].split("### 4.3.", 1)[0]
-        for concept in ("**Feature là gì?**", "**Vector là gì?**", "**Matrix là gì?**"):
+        for concept in ("**Feature (đặc trưng):**", "**Vector:**", "**Matrix (ma trận):**"):
             self.assertIn(concept, concepts)
-        self.assertLess(concepts.index("**Feature là gì?**"), concepts.index("```python"))
-        self.assertLess(concepts.index("**Vector là gì?**"), concepts.index("```python"))
+        self.assertLess(concepts.index("**Feature (đặc trưng):**"), concepts.index("```python"))
+        self.assertLess(concepts.index("**Vector:**"), concepts.index("```python"))
 
 
     def test_explanations_progress_from_vectors_to_matrix(self):
@@ -86,6 +86,24 @@ class StudentPcaLessonTests(unittest.TestCase):
                 self.assertRegex(block, r"(?i)giờ|phút|đơn|đồng|cm|đơn vị")
         self.assertIn("iris.target là NHÃN loài hoa", scenario_code[4])
         self.assertIn("profiles.shape", scenario_code[0])
+
+    def test_named_python_arguments_are_explained(self):
+        glossary = self.text.split("### 3.3.", 1)[1].split("## 4.", 1)[0]
+        for keyword in (
+            'dtype=float', 'axis=0', 'rowvar=False', 'n_components=2',
+            'n_components=1', 'n_components=0.95', 'svd_solver="full"',
+            'random_state=42', 'n_init=10', 'test_size=0.25',
+            'stratify=iris.target', 'max_iter=1000', 'start=1',
+            'textcoords="offset points"',
+        ):
+            with self.subTest(argument=keyword):
+                self.assertIn(keyword, glossary)
+        for comment in (
+            '# dtype=float:', '# axis=0:', '# rowvar=False:',
+            '# n_init=10:', '# random_state=42:', '# test_size=0.25:',
+            '# max_iter=1000:',
+        ):
+            self.assertIn(comment, self.text)
 
     def test_five_immediate_self_checks_and_advanced_labels(self):
         sections = [
