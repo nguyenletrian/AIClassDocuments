@@ -42,6 +42,12 @@ a=[1,2]
 print(a)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[1, 2]
+```
+
 ### 4.2. Index
 
 **Từ vựng trong mục:** **Index** — chỉ số.
@@ -50,6 +56,12 @@ Chỉ số cho biết phần tử nằm ở đâu trong list. Python đếm từ
 
 ```python
 print([8,9][0])
+```
+
+**Kết quả khi chạy:**
+
+```text
+8
 ```
 
 ### 4.3. Slice
@@ -62,6 +74,12 @@ Cắt danh sách lấy một đoạn mà không thay đổi danh sách gốc. `[
 print([1,2,3][:2])
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[1, 2]
+```
+
 ### 4.4. Mutability
 
 **Từ vựng trong mục:** **Mutability** — khả năng sửa.
@@ -72,6 +90,12 @@ List có thể sửa nội dung sau khi tạo. Với `a = [1, 2]`, câu lệnh `
 a=[1,2]
 a[1]=5
 print(a)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[1, 5]
 ```
 
 ## 5. Năm tình huống lập trình thực tế
@@ -98,6 +122,12 @@ basket.append("rice")
 print(basket)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+['milk', 'bread', 'rice']
+```
+
 **Kết quả:** `['milk', 'bread', 'rice']` — giỏ có ba món theo đúng thứ tự.
 
 ### Tình huống 2 — Lấy hai ưu tiên cao
@@ -119,6 +149,12 @@ print(basket)
 ```python
 scores=[2,9,4,7]
 print(sorted(scores,reverse=True)[:2])
+```
+
+**Kết quả khi chạy:**
+
+```text
+[9, 7]
 ```
 
 **Kết quả:** `[9, 7]` — hai mức ưu tiên cao nhất. List `scores` gốc không bị thay đổi.
@@ -145,6 +181,12 @@ passed=[x for x in scores if x>=5]
 print(passed)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[7, 9]
+```
+
 **Kết quả:** `[7, 9]` — hai điểm đạt, vẫn giữ thứ tự xuất hiện ban đầu.
 
 ### Tình huống 4 — Sửa tồn kho
@@ -169,6 +211,12 @@ stock[1]=4
 print(stock)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[8, 4, 9]
+```
+
 **Kết quả:** `[8, 4, 9]` — chỉ số lượng mặt hàng thứ hai được cập nhật.
 
 ### Tình huống 5 — Hàng đợi yêu cầu
@@ -191,6 +239,12 @@ print(stock)
 queue=["REQ01","REQ02","REQ03"]
 done=queue.pop(0)
 print(done,queue)
+```
+
+**Kết quả khi chạy:**
+
+```text
+REQ01 ['REQ02', 'REQ03']
 ```
 
 **Kết quả:** `REQ01 ['REQ02', 'REQ03']` — yêu cầu đầu đã được lấy ra, hai yêu cầu còn lại giữ nguyên thứ tự.
