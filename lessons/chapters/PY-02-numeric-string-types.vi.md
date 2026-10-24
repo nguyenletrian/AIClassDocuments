@@ -32,11 +32,13 @@ Sau khi biết lưu thông tin vào biến, ta học cách phân biệt số, ch
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Integer
+**Kiểu dữ liệu (data type)** cho Python biết một giá trị biểu diễn điều gì và có thể thực hiện những phép toán nào. Số lượng món hàng thường là số nguyên, nhiệt độ có thể là số thực, điều kiện đạt/chưa đạt là Boolean, còn mã sản phẩm phải được giữ như chuỗi.
 
-**Từ vựng trong mục:** **Integer** — số nguyên.
+### 4.1. Integer — Số nguyên
 
-`int` dùng để lưu số nguyên như số sản phẩm hay số học viên. Trong ví dụ, `n = 5` là số nguyên; `type(n)` cho biết kiểu dữ liệu là `int`.
+**Từ vựng trong mục:** **Integer** — số nguyên; **Type** — kiểu dữ liệu.
+
+`int` biểu diễn những số không có phần thập phân, ví dụ 5 sản phẩm hoặc 12 học viên. Dùng `int` khi cần đếm hoặc tính toán số lượng nguyên; khác với chuỗi `"5"`, số `5` thực hiện được phép cộng số học. Ở đây biến `n` giữ số 5 và `type(n)` kiểm tra kiểu.
 
 ```python
 n = 5
@@ -49,12 +51,13 @@ print(type(n))
 <class 'int'>
 ```
 
+Kết quả cho biết `n` là số nguyên, không phải chuỗi.
 
-### 4.2. Float
+### 4.2. Float — Số thực
 
-**Từ vựng trong mục:** **Float** — số thực.
+**Từ vựng trong mục:** **Float** — số thực; **Decimal** — phần thập phân.
 
-`float` dùng cho số có phần thập phân như nhiệt độ `36.5` °C hay điểm `8.5`. Ví dụ dưới đây in ra `3.5`.
+`float` lưu các số có phần thập phân, như 3,5 kg hàng hoặc nhiệt độ 36,5 °C. Nếu cần tính trên những số đo này, dùng số thực thay vì chữ. Trong ví dụ, `x` nhận `3.5` và `print()` hiển thị giá trị của nó.
 
 ```python
 x = 3.5
@@ -67,12 +70,13 @@ print(x)
 3.5
 ```
 
+Dấu chấm trong code biểu diễn phần thập phân; đơn vị đo phải được xác định theo bài toán.
 
-### 4.3. Boolean
+### 4.3. Boolean — Giá trị đúng/sai
 
-**Từ vựng trong mục:** **Boolean** — giá trị logic.
+**Từ vựng trong mục:** **Boolean** — giá trị logic; **True/False** — đúng/sai.
 
-`bool` thể hiện hai trạng thái `True` (đúng) hoặc `False` (sai). Ví dụ, biến `ok = True` có thể dùng để ghi lại một bước kiểm tra đã đạt.
+`bool` chỉ có hai giá trị `True` và `False`, phù hợp với câu hỏi dạng “đã thanh toán chưa?” hoặc “đủ điều kiện chưa?”. Biến `ok = True` ở đây tượng trưng cho trạng thái kiểm tra đã đạt. Đây không phải chữ `"True"`: Python hiểu là giá trị logic.
 
 ```python
 ok = True
@@ -85,12 +89,13 @@ print(ok)
 True
 ```
 
+Đầu ra là giá trị logic `True`, không phải số 1 hoặc một thông báo khác.
 
-### 4.4. String
+### 4.4. String — Chuỗi ký tự
 
-**Từ vựng trong mục:** **String** — chuỗi.
+**Từ vựng trong mục:** **String** — chuỗi; **Slice** — cắt chuỗi.
 
-`str` lưu chữ, số điện thoại hoặc mã đơn. Chuỗi `AB12` có bốn ký tự; `code[:2]` lấy hai ký tự đầu, nên in ra `AB`.
+`str` lưu dãy ký tự theo đúng thứ tự, kể cả chữ số nằm trong mã như `AB12` hoặc số điện thoại bắt đầu bằng 0. Với `code = 'AB12'`, các vị trí lần lượt là 0:A, 1:B, 2:1, 3:2. Cú pháp `[:2]` lấy ký tự ở vị trí 0 và 1, không lấy vị trí 2.
 
 ```python
 code = 'AB12'
@@ -103,7 +108,7 @@ print(code[:2])
 AB
 ```
 
-
+Hai ký tự đầu được tách ra mà chuỗi ban đầu vẫn giữ nguyên.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Chuẩn hóa email
