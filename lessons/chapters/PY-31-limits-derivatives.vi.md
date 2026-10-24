@@ -35,7 +35,7 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 **Từ vựng trong mục:** **Limit** — giới hạn.
 
-Giá trị hàm tiến gần khi đầu vào tiến đến điểm. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Giá trị hàm tiến gần khi đầu vào tiến đến điểm.
 
 ```python
 import sympy as sp
@@ -48,7 +48,7 @@ x=sp.symbols('x');print(sp.limit((x*x-4)/(x-2),x,2))
 
 **Từ vựng trong mục:** **Continuity** — tính liên tục.
 
-Giới hạn và giá trị hàm phù hợp tại điểm xét. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Giới hạn và giá trị hàm phù hợp tại điểm xét.
 
 ```python
 import sympy as sp
@@ -61,7 +61,7 @@ x=sp.symbols('x');print(sp.limit(x*x,x,2)==4)
 
 **Từ vựng trong mục:** **Derivative** — đạo hàm.
 
-Tốc độ thay đổi cục bộ của hàm theo đầu vào. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Tốc độ thay đổi cục bộ của hàm theo đầu vào.
 
 ```python
 import sympy as sp
@@ -74,7 +74,7 @@ x=sp.symbols('x');print(sp.diff(x*x,x))
 
 **Từ vựng trong mục:** **Tangent slope** — độ dốc tiếp tuyến.
 
-Giá trị đạo hàm tại một điểm. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Giá trị đạo hàm tại một điểm.
 
 ```python
 import sympy as sp
@@ -91,9 +91,9 @@ x=sp.symbols('x');print(sp.diff(x*x,x).subs(x,3))
 
 **Vấn đề:** Xem giá trị gần điểm rỗng.
 
-**Vì sao chọn phương án?** Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Giới hạn cho biết xu hướng dù biểu thức gốc không xác định tại điểm
 
-**Dữ liệu:** (x²-4)/(x-2), khi x→2. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** (x²-4)/(x-2), khi x→2.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -103,7 +103,6 @@ x=sp.symbols('x')
 print(sp.limit((x*x-4)/(x-2),x,2))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 2 — Tốc độ tăng quãng đường
 
@@ -111,9 +110,9 @@ print(sp.limit((x*x-4)/(x-2),x,2))
 
 **Vấn đề:** Tốc độ tăng quãng đường.
 
-**Vì sao chọn phương án?** Đạo hàm quãng đường theo thời gian là vận tốc; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Đạo hàm quãng đường theo thời gian là vận tốc
 
-**Dữ liệu:** Quãng đường s(t)=t², t=3 giây. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Quãng đường s(t)=t², t=3 giây.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -123,7 +122,6 @@ t=sp.symbols('t');v=sp.diff(t**2,t)
 print(v.subs(t,3))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 3 — Độ dốc đường giá
 
@@ -131,9 +129,9 @@ print(v.subs(t,3))
 
 **Vấn đề:** Độ dốc đường giá.
 
-**Vì sao chọn phương án?** Tìm đạo hàm để biết xu hướng ở x=4; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Tìm đạo hàm để biết xu hướng ở x=4
 
-**Dữ liệu:** Hàm doanh thu f(x)=2x²+3x. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Hàm doanh thu f(x)=2x²+3x.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -143,7 +141,6 @@ x=sp.symbols('x');f=2*x*x+3*x
 print(sp.diff(f,x).subs(x,4))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 4 — Kiểm liên tục hàm đơn giản
 
@@ -151,9 +148,9 @@ print(sp.diff(f,x).subs(x,4))
 
 **Vấn đề:** Kiểm liên tục hàm đơn giản.
 
-**Vì sao chọn phương án?** Đối chiếu limit và f(a); không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Đối chiếu limit và f(a)
 
-**Dữ liệu:** f(x)=x² tại x=2. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** f(x)=x² tại x=2.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -163,7 +160,6 @@ x=sp.symbols('x');f=x*x
 print(sp.limit(f,x,2)==f.subs(x,2))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 5 — Ước lượng đạo hàm từ cảm biến
 
@@ -171,9 +167,9 @@ print(sp.limit(f,x,2)==f.subs(x,2))
 
 **Vấn đề:** Ước lượng đạo hàm từ cảm biến.
 
-**Vì sao chọn phương án?** gradient gần đúng khi dữ liệu chỉ có giá trị mẫu; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** gradient gần đúng khi dữ liệu chỉ có giá trị mẫu
 
-**Dữ liệu:** 5 thời điểm cách nhau 1 giây. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** 5 thời điểm cách nhau 1 giây.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -183,7 +179,6 @@ time=np.arange(5.);distance=time**2
 print(np.gradient(distance,time))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ## 6. Các lỗi dễ gặp
 
