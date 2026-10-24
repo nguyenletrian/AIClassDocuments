@@ -1,14 +1,8 @@
 # PY-29 — Activation: ReLU, sigmoid, tanh, softmax
 
-*DRAFT · Học qua Python · Cần kiểm tra kết quả và môi trường trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu; **Sigmoid** — hàm sigmoid.
-
 `Hàm số → Activation → Neural Network → Classification`
-
-Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc tối ưu tính toán phục vụ AI. Đọc ví dụ trước khi liên hệ tới mô hình phức tạp.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 ## 3. Hàm và cách gọi bằng Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / tham số | Giải thích |
 |---|---|
 | `np.maximum(0,x)` | ReLU, tạo phi tuyến cho mạng |
@@ -34,69 +26,49 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 ### 4.1. ReLU
 
-**Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
-
-Giữ số dương, số âm thành 0. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Giữ số dương, số âm thành 0.
 
 ```python
 import numpy as np
 print(np.maximum(0,[-2,3]))
 ```
 
-**Tự kiểm tra:** ReLU là gì? **Đáp án:** Giữ số dương, số âm thành 0.
-
 ### 4.2. Sigmoid
 
-**Từ vựng trong mục:** **Sigmoid** — hàm sigmoid.
-
-Ánh xạ số thực về khoảng (0,1). Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Ánh xạ số thực về khoảng (0,1).
 
 ```python
 import numpy as np
 x=np.array([0.]);print(1/(1+np.exp(-x)))
 ```
 
-**Tự kiểm tra:** Sigmoid là gì? **Đáp án:** Ánh xạ số thực về khoảng (0,1).
-
 ### 4.3. Tanh
 
-**Từ vựng trong mục:** **Tanh** — hàm tanh.
-
-Ánh xạ số thực về (-1,1). Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Ánh xạ số thực về (-1,1).
 
 ```python
 import numpy as np
 print(np.tanh([0.,1.]))
 ```
 
-**Tự kiểm tra:** Tanh là gì? **Đáp án:** Ánh xạ số thực về (-1,1).
-
 ### 4.4. Softmax
 
-**Từ vựng trong mục:** **Softmax** — hàm softmax.
-
-Biến logits thành phân phối xác suất tổng bằng 1. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Biến logits thành phân phối xác suất tổng bằng 1.
 
 ```python
 import numpy as np
 z=np.array([1.,2.]);e=np.exp(z-z.max());print(e/e.sum())
 ```
 
-**Tự kiểm tra:** Softmax là gì? **Đáp án:** Biến logits thành phân phối xác suất tổng bằng 1.
-
 ## 5. Năm tình huống ứng dụng thực tế
 
 ### Tình huống 1 — Kích hoạt tín hiệu nhiễu âm
 
-**Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
-
 **Vấn đề:** Kích hoạt tín hiệu nhiễu âm.
 
-**Vì sao chọn phương án?** ReLU chặn giá trị âm khi đó là chính sách kích hoạt; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** ReLU chặn giá trị âm khi đó là chính sách kích hoạt
 
-**Dữ liệu:** 4 tín hiệu giả lập [-2,0,3,5]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** 4 tín hiệu giả lập [-2,0,3,5].
 
 ```python
 import numpy as np
@@ -104,19 +76,13 @@ x=np.array([-2.,0.,3.,5.])
 print(np.maximum(0,x))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 2 — Đổi điểm thô sang tỷ lệ
-
-**Từ vựng trong mục:** **Sigmoid** — hàm sigmoid.
 
 **Vấn đề:** Đổi điểm thô sang tỷ lệ.
 
-**Vì sao chọn phương án?** Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất
 
-**Dữ liệu:** Điểm số [-1,0,1]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Điểm số [-1,0,1].
 
 ```python
 import numpy as np
@@ -124,38 +90,26 @@ x=np.array([-1.,0.,1.])
 print(1/(1+np.exp(-x)))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 3 — Kích hoạt đối xứng
-
-**Từ vựng trong mục:** **Tanh** — hàm tanh.
 
 **Vấn đề:** Kích hoạt đối xứng.
 
-**Vì sao chọn phương án?** tanh cho dấu âm/dương quanh 0; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** tanh cho dấu âm/dương quanh 0
 
-**Dữ liệu:** Tín hiệu [-1,0,1]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Tín hiệu [-1,0,1].
 
 ```python
 import numpy as np
 print(np.tanh([-1,0,1]))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 4 — Chuẩn hóa điểm phân loại
-
-**Từ vựng trong mục:** **Softmax** — hàm softmax.
 
 **Vấn đề:** Chuẩn hóa điểm phân loại.
 
-**Vì sao chọn phương án?** Softmax tạo tổng xác suất bằng 1 từ logits; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Softmax tạo tổng xác suất bằng 1 từ logits
 
-**Dữ liệu:** Ba logit [2,1,0.1]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Ba logit [2,1,0.1].
 
 ```python
 import numpy as np
@@ -163,19 +117,13 @@ z=np.array([2.,1.,.1]);e=np.exp(z-z.max())
 p=e/e.sum();print(p,p.sum())
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ### Tình huống 5 — So mô hình tuyến tính và ReLU
-
-**Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
 
 **Vấn đề:** So mô hình tuyến tính và ReLU.
 
-**Vì sao chọn phương án?** Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc
 
-**Dữ liệu:** Dữ liệu x từ -2 tới 2. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
-
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Dữ liệu:** Dữ liệu x từ -2 tới 2.
 
 ```python
 import numpy as np
@@ -184,15 +132,11 @@ y=np.maximum(0,x-1)+np.maximum(0,-x-1)
 print(y)
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
-
 ## 6. Các lỗi dễ gặp
 
 Hàm kích hoạt và loss không tự thay thế quy trình huấn luyện; đạo hàm theo một biến không giống gradient nhiều biến. Tránh tràn số mũ, log(0), chia cho 0; luôn để ý learning rate và đơn vị.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What does ReLU mean? — Thuật ngữ ReLU có nghĩa gì?**
@@ -438,7 +382,3 @@ D. Guess data units — Đoán đơn vị dữ liệu
 | Q18 | **A** | The input is Dữ liệu x từ -2 tới 2 | Dữ liệu x từ -2 tới 2 |
 | Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị đầu vào |
 | Q20 | **C** | Verify results and edge cases | Kiểm tra kết quả và trường hợp biên |
-
-## 8. Bài tiếp theo
-
-`Hàm số → Activation → Neural Network → Classification`.
