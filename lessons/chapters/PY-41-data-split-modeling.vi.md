@@ -402,7 +402,7 @@ C. One predicted label per input row — Một nhãn dự đoán cho mỗi hàng
 
 D. Prediction accuracy on test labels — Tỷ lệ dự đoán đúng trên nhãn test
 
-**Q13. Which split method helps avoid duplicate IDs? — Kiểm tra nào giúp phát hiện ID trùng?**
+**Q13. Which check detects overlapping IDs across train and test? — Phép kiểm tra nào phát hiện ID xuất hiện ở cả train và test?**
 
 A. `train_ids.isdisjoint(test_ids)` — `train_ids.isdisjoint(test_ids)`
 
@@ -462,7 +462,7 @@ C. Held-out final test set — Tập test cuối cùng đã giữ lại
 
 D. Predicted known class names — Tên lớp đã biết từ dữ liệu nhãn
 
-**Q19. What should be fitted before choosing model hyperparameters? — Trước khi chọn siêu tham số, không nên dùng tập nào?**
+**Q19. Which dataset must be excluded from hyperparameter tuning? — Không được dùng tập nào để điều chỉnh siêu tham số?**
 
 A. (150,4) — (150,4)
 
@@ -486,26 +486,26 @@ D. Predicted known class names — Tên lớp đã biết từ dữ liệu nhãn
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | The learner updates parameters from train samples, not from held-out test records. | Mô hình học tham số từ mẫu train, không cập nhật bằng bản ghi test. |
-| Q2 | **B** | Testing estimates performance on unseen records; repeatedly tuning on test biases it. | Test đo hiệu quả trên dữ liệu chưa học; chỉnh đi chỉnh lại theo test làm đánh giá thiên lệch. |
-| Q3 | **C** | Labels must be supplied when training; the predicted output is a category. | Lúc train phải có nhãn; đầu ra dự đoán là loại/phân lớp. |
-| Q4 | **D** | Clustering organizes X without fitting to existing class labels. | Phân cụm dựa vào X mà không fit nhãn lớp có sẵn. |
-| Q5 | **A** | It partitions the available classes proportionally when the split is feasible. | Nó chia các lớp theo tỷ lệ gần tương ứng khi số mẫu cho phép. |
-| Q6 | **B** | Fitting it on test leaks evaluation distribution into model preparation. | Fit từ test làm rò rỉ phân phối đánh giá vào tiền xử lý. |
-| Q7 | **C** | The same fitted transformations apply consistently during prediction. | Các phép đổi đã học được áp nhất quán khi dự đoán. |
-| Q8 | **D** | IDs can swap even when the geometric grouping remains identical. | Mã có thể đổi 0↔1 dù cách chia hình học không đổi. |
-| Q9 | **A** | Features are columns of X rather than the target label. | Đặc trưng nằm ở cột X, không phải nhãn đích. |
-| Q10 | **B** | Classification models learn a mapping from X to y. | Classifier học ánh xạ từ X sang y. |
-| Q11 | **C** | Each test row produces a class prediction. | Mỗi hàng test có một dự đoán lớp. |
-| Q12 | **D** | Score compares predicted labels with actual labels; it is not a training loss. | Score so dự đoán với nhãn thật; không phải loss train. |
-| Q13 | **A** | A disjointness check verifies no identical IDs occur in both sets. | isdisjoint xác nhận không có cùng mã ở cả hai tập. |
-| Q14 | **B** | Leakage can occur through related data, transformations and time. | Rò rỉ có thể qua dữ liệu liên quan, phép đổi hoặc thông tin thời gian. |
-| Q15 | **C** | Clustering is unsupervised and does not optimize label accuracy. | Phân cụm không giám sát và không tối ưu accuracy theo nhãn thật. |
-| Q16 | **D** | The same clustering can use reversed identifiers without becoming worse. | Cùng nhóm có thể gắn mã đảo ngược mà chất lượng không đổi. |
-| Q17 | **A** | Rows represent flowers; columns represent four measured features. | Hàng là hoa, cột là bốn đặc trưng. |
-| Q18 | **B** | Rounding determines exact integer sample counts. | Làm tròn quyết định số nguyên mẫu chính xác. |
-| Q19 | **C** | Hyperparameter selection should use training-side validation or CV. | Chọn siêu tham số bằng validation/CV thuộc phần train. |
-| Q20 | **D** | KMeans yields clusters, not automatically semantically named classes. | KMeans tạo cụm chứ không tự gán ý nghĩa lớp thật. |
+| Q1 | **A** | The learner updates parameters from train samples, not from held-out test records. The unit is a training row with its features and label, not the later test row. | Mô hình học tham số từ mẫu train, không cập nhật bằng bản ghi test. Đơn vị học là hàng train với đặc trưng và nhãn, không phải hàng test để chấm điểm. |
+| Q2 | **B** | Testing estimates performance on unseen records; repeatedly tuning on test biases it. The point is independence from fitting; evaluating repeatedly while adjusting invalidates that independence. | Test đo hiệu quả trên dữ liệu chưa học; chỉnh đi chỉnh lại theo test làm đánh giá thiên lệch. Điểm cốt lõi là test độc lập với quá trình học; điều chỉnh lặp dựa trên test sẽ làm mất tính độc lập ấy. |
+| Q3 | **C** | Labels must be supplied when training; the predicted output is a category. Unlike clustering, supervised classification has an explicit target label during fitting. | Lúc train phải có nhãn; đầu ra dự đoán là loại/phân lớp. Khác phân cụm, bài phân loại có nhãn mục tiêu rõ ràng khi học. |
+| Q4 | **D** | Clustering organizes X without fitting to existing class labels. Unlike a classifier, it cannot infer the real-world meaning of a cluster number by itself. | Phân cụm dựa vào X mà không fit nhãn lớp có sẵn. Khác classifier, KMeans không tự hiểu ý nghĩa đời thực của số hiệu cụm. |
+| Q5 | **A** | It partitions the available classes proportionally when the split is feasible. It preserves class balance only approximately; it cannot guarantee the representativeness of every subgroup. | Nó chia các lớp theo tỷ lệ gần tương ứng khi số mẫu cho phép. Nó chỉ giữ tỷ lệ lớp xấp xỉ, không bảo đảm mọi nhóm nhỏ đều đại diện. |
+| Q6 | **B** | Fitting it on test leaks evaluation distribution into model preparation. Applying train-fitted statistics to test is permitted; recomputing them on test is not. | Fit từ test làm rò rỉ phân phối đánh giá vào tiền xử lý. Được áp thống kê đã học từ train lên test, nhưng không được học lại thống kê từ test. |
+| Q7 | **C** | The same fitted transformations apply consistently during prediction. That is why preprocessing belongs inside the training workflow rather than being fitted on the entire dataset first. | Các phép đổi đã học được áp nhất quán khi dự đoán. Vì thế tiền xử lý phải nằm trong quy trình train, không fit trước trên toàn bộ dữ liệu. |
+| Q8 | **D** | IDs can swap even when the geometric grouping remains identical. Compare clusters by membership or external mapping, never by assuming zero equals a known class. | Mã có thể đổi 0↔1 dù cách chia hình học không đổi. Hãy đánh giá theo thành viên nhóm hoặc ánh xạ có căn cứ, không mặc định mã 0 là một loài cụ thể. |
+| Q9 | **A** | Features are columns of X rather than the target label. A column should have a well-defined measurement meaning and unit before it is used by a classifier. | Đặc trưng nằm ở cột X, không phải nhãn đích. Mỗi cột cần có ý nghĩa và đơn vị đo rõ ràng trước khi đưa vào classifier. |
+| Q10 | **B** | Classification models learn a mapping from X to y. A target is not a feature that should be available to the model at prediction time. | Classifier học ánh xạ từ X sang y. Nhãn là mục tiêu dự đoán, không phải đặc trưng được đưa sẵn khi dự đoán. |
+| Q11 | **C** | Each test row produces a class prediction. Its length must equal the number of input rows; otherwise some samples have no prediction. | Mỗi hàng test có một dự đoán lớp. Số nhãn dự đoán phải bằng số hàng đầu vào, nếu không sẽ thiếu kết quả cho một số mẫu. |
+| Q12 | **D** | Score compares predicted labels with actual labels; it is not a training loss. For imbalanced classes, also review classwise precision/recall or a confusion matrix. | Score so dự đoán với nhãn thật; không phải loss train. Nếu nhãn mất cân bằng, cần đọc thêm precision/recall theo lớp hoặc confusion matrix. |
+| Q13 | **A** | A disjointness check verifies no identical IDs occur in both sets. This catches a simple overlap but cannot detect related measurements stored under different IDs. | isdisjoint xác nhận không có cùng mã ở cả hai tập. Kiểm tra này bắt trùng mã đơn giản, không phát hiện phép đo liên quan mang mã khác nhau. |
+| Q14 | **B** | Leakage can occur through related data, transformations and time. Leakage is about unavailable information entering training, not merely about duplicate identifiers. | Rò rỉ có thể qua dữ liệu liên quan, phép đổi hoặc thông tin thời gian. Rò rỉ là thông tin đáng lẽ chưa biết lọt vào train, không chỉ là vấn đề trùng mã. |
+| Q15 | **C** | Clustering is unsupervised and does not optimize label accuracy. KMeans only needs the feature coordinates and the requested number of clusters. | Phân cụm không giám sát và không tối ưu accuracy theo nhãn thật. KMeans chỉ cần tọa độ đặc trưng và số cụm muốn tìm. |
+| Q16 | **D** | The same clustering can use reversed identifiers without becoming worse. If two cluster numbers are swapped, classification-style accuracy can change even though grouping is unchanged. | Cùng nhóm có thể gắn mã đảo ngược mà chất lượng không đổi. Nếu đổi nhãn số của hai cụm, accuracy kiểu phân loại có thể đổi dù cách chia nhóm vẫn y hệt. |
+| Q17 | **A** | Rows represent flowers; columns represent four measured features. The first dimension counts flowers, the second counts measurements per flower. | Hàng là hoa, cột là bốn đặc trưng. Chiều thứ nhất đếm số hoa, chiều thứ hai đếm số đo trên mỗi hoa. |
+| Q18 | **B** | Rounding determines exact integer sample counts. With finite samples the library must round the requested fraction to an integer count. | Làm tròn quyết định số nguyên mẫu chính xác. Với số mẫu hữu hạn, thư viện phải làm tròn tỷ lệ yêu cầu thành số lượng nguyên. |
+| Q19 | **C** | Hyperparameter selection should use training-side validation or CV. Choose hyperparameters using a validation split or cross-validation of training data, then test once. | Chọn siêu tham số bằng validation/CV thuộc phần train. Hãy chọn siêu tham số bằng validation hoặc cross-validation trên phần train, sau đó đánh giá test cuối. |
+| Q20 | **D** | KMeans yields clusters, not automatically semantically named classes. A class ID represents an established label; a cluster ID only identifies a discovered group. | KMeans tạo cụm chứ không tự gán ý nghĩa lớp thật. Mã lớp là nhãn đã xác định; mã cụm chỉ đánh dấu một nhóm vừa phát hiện. |
 
 ## 8. Liên hệ bài kế tiếp
 
