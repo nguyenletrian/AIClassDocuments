@@ -35,7 +35,7 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 **Từ vựng trong mục:** **Repository** — kho mã nguồn.
 
-Nơi lưu lịch sử phiên bản. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Nơi lưu lịch sử phiên bản.
 
 ```bash
 git status
@@ -47,7 +47,7 @@ git status
 
 **Từ vựng trong mục:** **Commit** — bản ghi thay đổi.
 
-Điểm lưu thay đổi có thông điệp. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Điểm lưu thay đổi có thông điệp.
 
 ```bash
 git log -1
@@ -59,7 +59,7 @@ git log -1
 
 **Từ vựng trong mục:** **Branch** — nhánh.
 
-Hướng phát triển độc lập. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Hướng phát triển độc lập.
 
 ```bash
 git branch
@@ -71,7 +71,7 @@ git branch
 
 **Từ vựng trong mục:** **Remote** — kho từ xa.
 
-Đường dẫn đến repository cộng tác. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Đường dẫn đến repository cộng tác.
 
 ```bash
 git remote -v
@@ -87,9 +87,9 @@ git remote -v
 
 **Bài toán:** Kiểm trạng thái trước lưu.
 
-**Vì sao chọn cách này?** status giúp biết có thay đổi chưa commit; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** status giúp biết có thay đổi chưa commit
 
-**Dữ liệu:** Một repository đã git init. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
+**Dữ liệu:** Một repository đã git init.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -97,7 +97,6 @@ git remote -v
 git status
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 2 — Lưu thay đổi bài tập
 
@@ -105,9 +104,9 @@ git status
 
 **Bài toán:** Lưu thay đổi bài tập.
 
-**Vì sao chọn cách này?** Stage đúng file tránh commit nhầm tài liệu khác; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Stage đúng file tránh commit nhầm tài liệu khác
 
-**Dữ liệu:** File script lesson.py mới được sửa. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
+**Dữ liệu:** File script lesson.py mới được sửa.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -116,7 +115,6 @@ git add lesson.py
 git commit -m "docs: add practice script"
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 3 — Tạo nhánh thí nghiệm
 
@@ -124,9 +122,9 @@ git commit -m "docs: add practice script"
 
 **Bài toán:** Tạo nhánh thí nghiệm.
 
-**Vì sao chọn cách này?** Tách công việc mới khỏi main ổn định; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Tách công việc mới khỏi main ổn định
 
-**Dữ liệu:** Repo bài học. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
+**Dữ liệu:** Repo bài học.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -134,7 +132,6 @@ git commit -m "docs: add practice script"
 git switch -c experiment/pca
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 4 — Xem lịch sử
 
@@ -142,9 +139,9 @@ git switch -c experiment/pca
 
 **Bài toán:** Xem lịch sử.
 
-**Vì sao chọn cách này?** Log giúp truy lại lần thay đổi gần nhất; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Log giúp truy lại lần thay đổi gần nhất
 
-**Dữ liệu:** Repo đã có ít nhất một commit. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
+**Dữ liệu:** Repo đã có ít nhất một commit.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -152,7 +149,6 @@ git switch -c experiment/pca
 git log --oneline -5
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ### Tình huống 5 — Xem thay đổi chưa stage
 
@@ -160,9 +156,9 @@ git log --oneline -5
 
 **Bài toán:** Xem thay đổi chưa stage.
 
-**Vì sao chọn cách này?** Diff giúp kiểm tra trước khi lưu; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Diff giúp kiểm tra trước khi lưu
 
-**Dữ liệu:** Repo có file đang sửa. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
+**Dữ liệu:** Repo có file đang sửa.
 
 **Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
 
@@ -170,7 +166,6 @@ git log --oneline -5
 git diff -- lesson.py
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ## 6. Nhầm lẫn cần tránh
 
