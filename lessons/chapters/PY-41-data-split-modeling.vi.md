@@ -1,10 +1,6 @@
 # PY-41 — Phân hoạch dữ liệu, classification và clustering
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
-
 ## 1. Vị trí trong chuỗi kiến thức
-
-**Từ vựng trong mục:** **Train set** — tập huấn luyện; **Test set** — tập kiểm tra.
 
 `Set/NumPy → Train/Test → Preprocessing → Classification/Clustering`
 
@@ -21,8 +17,6 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ## 3. Thư viện và hàm Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cách viết | Khi nào dùng, ý nghĩa tham số |
 |---|---|
 | `train_test_split(...,test_size=.25,stratify=y)` | Chia train/test có xét tỷ lệ nhãn |
@@ -34,19 +28,13 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ### 4.1. Train set
 
-**Từ vựng trong mục:** **Train set** — tập huấn luyện.
-
 Mẫu dùng để học tham số mô hình. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
 ```python
 train={1,2,3};print(train)
 ```
 
-**Tự kiểm tra:** Train set là gì? **Đáp án:** Mẫu dùng để học tham số mô hình.
-
 ### 4.2. Test set
-
-**Từ vựng trong mục:** **Test set** — tập kiểm tra.
 
 Mẫu giữ lại chỉ để đánh giá mô hình. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -54,11 +42,7 @@ Mẫu giữ lại chỉ để đánh giá mô hình. Thử đoạn code để th
 test={4};print(test)
 ```
 
-**Tự kiểm tra:** Test set là gì? **Đáp án:** Mẫu giữ lại chỉ để đánh giá mô hình.
-
 ### 4.3. Classification
-
-**Từ vựng trong mục:** **Classification** — phân loại.
 
 Dự đoán nhãn rời rạc từ feature. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -67,11 +51,7 @@ from sklearn.datasets import load_iris
 print(load_iris().target[:3])
 ```
 
-**Tự kiểm tra:** Classification là gì? **Đáp án:** Dự đoán nhãn rời rạc từ feature.
-
 ### 4.4. Clustering
-
-**Từ vựng trong mục:** **Clustering** — phân cụm.
 
 Thử nhóm mẫu giống nhau mà không cần nhãn sẵn. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -80,13 +60,9 @@ from sklearn.cluster import KMeans
 print(KMeans(n_clusters=2,random_state=1,n_init=10))
 ```
 
-**Tự kiểm tra:** Clustering là gì? **Đáp án:** Thử nhóm mẫu giống nhau mà không cần nhãn sẵn.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Kiểm hai tập dữ liệu rời nhau
-
-**Từ vựng trong mục:** **Train set** — tập huấn luyện.
 
 **Vấn đề:** Kiểm hai tập dữ liệu rời nhau.
 
@@ -94,26 +70,18 @@ print(KMeans(n_clusters=2,random_state=1,n_init=10))
 
 **Dữ liệu:** train={1,2,3}, test={4,5}. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 train={1,2,3};test={4,5}
 print(train.isdisjoint(test))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 2 — Chia Iris có phân tầng
-
-**Từ vựng trong mục:** **Test set** — tập kiểm tra.
 
 **Vấn đề:** Chia Iris có phân tầng.
 
 **Vì sao chọn cách này?** stratify giúp tỷ lệ các loài tương tự nhau; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
 **Dữ liệu:** 150 hoa, 4 cột số đo cm và 1 nhãn loài. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
 ```python
 from sklearn.datasets import load_iris
@@ -122,19 +90,13 @@ D=load_iris();Xtr,Xte,ytr,yte=train_test_split(D.data,D.target,test_size=.25,str
 print(Xtr.shape,Xte.shape)
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 3 — Phân loại trong pipeline
-
-**Từ vựng trong mục:** **Classification** — phân loại.
 
 **Vấn đề:** Phân loại trong pipeline.
 
 **Vì sao chọn cách này?** Scaler và mô hình chỉ fit trên train, không rò rỉ test; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
 **Dữ liệu:** Iris: số đo đài hoa/cánh hoa cm. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
 ```python
 from sklearn.datasets import load_iris
@@ -147,19 +109,13 @@ model=make_pipeline(StandardScaler(),LogisticRegression(max_iter=1000));model.fi
 print(model.score(b,d))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 4 — Gom nhóm điểm 2D
-
-**Từ vựng trong mục:** **Clustering** — phân cụm.
 
 **Vấn đề:** Gom nhóm điểm 2D.
 
 **Vì sao chọn cách này?** KMeans chỉ thử nhóm chứ không biết nhãn thật; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
 **Dữ liệu:** 4 điểm [0,0], [0,1], [10,10], [10,11]. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
 ```python
 import numpy as np
@@ -168,19 +124,13 @@ X=np.array([[0,0],[0,1],[10,10],[10,11]])
 print(KMeans(n_clusters=2,random_state=42,n_init=10).fit_predict(X))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 5 — So clustering với classification
-
-**Từ vựng trong mục:** **Train set** — tập huấn luyện.
 
 **Vấn đề:** So clustering với classification.
 
 **Vì sao chọn cách này?** Không dùng accuracy của nhãn KMeans tùy ý như nhãn lớp có giám sát; không áp dụng kết luận ngoài phạm vi giả định của dữ liệu.
 
 **Dữ liệu:** Iris data với target và đặc trưng riêng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
-
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
 
 ```python
 from sklearn.datasets import load_iris
@@ -189,16 +139,12 @@ print(D.data.shape,D.target.shape)
 print(set(D.target.tolist()))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ## 6. Nhầm lẫn thường gặp
 
 - Không nhầm thống kê/tỷ lệ mô phỏng với xác suất dự đoán chắc chắn.
 - Kiểm tra giả định, cỡ mẫu, đơn vị, độ nhạy kết quả và data leakage trước khi ứng dụng AI thật.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Train set? — Khái niệm Train set là gì?**
@@ -444,7 +390,3 @@ D. It removes test sets — Nó không cần tập kiểm tra
 | Q18 | **A** | The input is Iris data với target và đặc trưng riêng | Iris data với target và đặc trưng riêng |
 | Q19 | **D** | Units, sample meaning and assumptions | Đơn vị, ý nghĩa mẫu và giả định |
 | Q20 | **C** | An example may not generalize | Ví dụ có thể không tổng quát |
-
-## 8. Liên hệ bài kế tiếp
-
-`Set/NumPy → Train/Test → Preprocessing → Classification/Clustering`.
