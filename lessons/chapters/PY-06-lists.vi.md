@@ -1,6 +1,5 @@
 # 06 — List, chỉ số, slicing và sắp xếp
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -91,7 +90,7 @@ print(a)
 
 **Vấn đề thực tế:** Giỏ hàng.
 
-**Vì sao chọn cách này?** Thêm món mới vào danh sách thứ tự đã chọn; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Thêm món mới vào danh sách thứ tự đã chọn.
 
 **Dữ liệu:** Hai món ban đầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -111,7 +110,7 @@ print(basket)
 
 **Vấn đề thực tế:** Lấy hai ưu tiên cao.
 
-**Vì sao chọn cách này?** Sắp xếp bản sao giữ thứ tự gốc để còn so sánh; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Sắp xếp bản sao giữ thứ tự gốc để còn so sánh.
 
 **Dữ liệu:** Điểm ưu tiên [2,9,4,7]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -130,7 +129,7 @@ print(sorted(scores,reverse=True)[:2])
 
 **Vấn đề thực tế:** Lọc điểm đạt.
 
-**Vì sao chọn cách này?** Chọn điểm >=5 bằng điều kiện trong list comprehension; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Chọn điểm >=5 bằng điều kiện trong list comprehension.
 
 **Dữ liệu:** 4 điểm thang 10; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -150,7 +149,7 @@ print(passed)
 
 **Vấn đề thực tế:** Sửa tồn kho.
 
-**Vì sao chọn cách này?** Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Sửa trực tiếp phần tử thứ hai khi kiểm đếm sai.
 
 **Dữ liệu:** Tồn 3 mặt hàng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -170,7 +169,7 @@ print(stock)
 
 **Vấn đề thực tế:** Hàng đợi yêu cầu.
 
-**Vì sao chọn cách này?** Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Lấy yêu cầu đầu tiên và xóa nó khỏi danh sách.
 
 **Dữ liệu:** 3 mã yêu cầu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
