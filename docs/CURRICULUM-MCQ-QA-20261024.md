@@ -90,3 +90,10 @@ Guide kiểm tra tính đúng theo nghĩa đã được merge riêng tại **PR 
 - Quét 31 bài **PY-16–PY-46** ở `main`: mỗi bài 20 answer rows, không phát hiện kiểu hỏng `undefined`/`~` này. Đây chỉ là phép kiểm tra một dạng lỗi cụ thể, không chứng nhận 31 bài đạt QA học thuật.
 
 **Trạng thái:** `BILINGUAL_TABLE_REPAIRED` cho PY-11–PY-15; **chưa** `SEMANTIC_QA_PASS` cho 100 câu. Phần lớn giải thích cũ vẫn ngắn, cần đọc và nâng cấp toàn bộ câu hỏi, ba nhiễu, giải thích bằng quy trình chuyên sâu; chưa có rà duyệt giảng viên, chạy full repository tests hay kiểm thử Windows.
+
+## Bổ sung QA ngữ nghĩa PY-01–PY-05 — 24/10/2026 (sau PR #107)
+
+- Đối chiếu lại 100 câu và bốn phương án của từng câu trên `main` đã có các thay đổi mới: các giải thích Anh–Việt đều nêu thêm quy tắc, ví dụ hoặc phân biệt; bộ lựa chọn và vị trí đáp án đã được sắp xếp lại. Không sao chép đáp án cũ theo vị trí.
+- **PY-02 Q1:** thay cụm tiếng Anh `whole number` vốn dễ được hiểu chỉ là số không âm bằng diễn đạt bao gồm số nguyên âm, 0 và số nguyên dương; làm rõ `int` lưu chính xác giá trị nguyên.
+- **PY-05 Q13:** câu hỏi cũ hỏi số giá trị nhưng phương án lại ghi số lượt lặp. Thống nhất cả hai ngôn ngữ thành số lượt thực thi của vòng `for` duyệt hết `range(3)`, làm rõ mốc dừng bị loại.
+- **Đã kiểm tra:** không thay đổi mã Python hoặc đáp án khóa ở hai câu; mỗi bài vẫn cần đầy đủ 20 câu/80 lựa chọn/20 dòng key. **Chưa xác nhận Windows runtime** và chưa có duyệt học thuật bên thứ ba. Đây là sửa lỗi có căn cứ, không phải chứng nhận phát hành trọn bộ.
