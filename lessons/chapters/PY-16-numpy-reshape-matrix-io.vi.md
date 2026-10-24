@@ -1,6 +1,5 @@
 # PY-16 — NumPy reshape, transpose, ma trận và lưu file
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
