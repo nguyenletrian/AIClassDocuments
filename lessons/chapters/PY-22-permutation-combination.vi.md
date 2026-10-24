@@ -31,15 +31,18 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Permutation
+Khi chọn người hoặc sắp xếp công việc, câu hỏi đầu tiên là **đổi thứ tự có tạo ra kết quả khác không?** Nếu có, ta đếm các cách sắp xếp bằng **hoán vị**; nếu không, ta đếm **tổ hợp**. **Giai thừa** là phép nhân nền tảng để tính những số cách đó, còn **hệ số nhị thức** tạo nên các hàng của tam giác Pascal.
 
-**Từ vựng trong mục:** **Permutation** — hoán vị.
+### 4.1. Permutation — Chọn và phân vai có thứ tự
 
-Chọn có phân biệt thứ tự. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Permutation** — chỉnh hợp/hoán vị có thứ tự; **Order** — thứ tự.
+
+Có năm ứng viên và hai vị trí **khác nhau** là trưởng nhóm, phó nhóm. Chọn trưởng có 5 cách; sau đó chọn phó còn 4 cách, nên có `5 × 4 = 20` phương án. Đảo vai trò hai người tạo phương án khác. `math.perm(n,k)` đếm cách lấy **k người khác nhau từ n người** và phân thứ tự, với `0 ≤ k ≤ n`. Nếu dùng hết n người, kết quả là `n!`.
 
 ```python
 import math
-print(math.perm(5,2))
+
+print(math.perm(5, 2))
 ```
 
 **Kết quả khi chạy:**
@@ -48,15 +51,18 @@ print(math.perm(5,2))
 20
 ```
 
-### 4.2. Combination
+Có 20 cách phân vai trưởng/phó; đổi thứ tự hai người được tính là cách khác.
 
-**Từ vựng trong mục:** **Combination** — tổ hợp.
+### 4.2. Combination — Chọn nhóm không phân vai
 
-Chọn nhóm không xét thứ tự. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Combination** — tổ hợp; **Order-independent** — không xét thứ tự.
+
+Nếu năm ứng viên chỉ cần chọn **hai người cùng một đội**, cặp An–Bình và Bình–An là **một** đội, không phải hai. Công thức `C(n,k) = n! / (k!(n-k)!)`; với 5 chọn 2 có 10 nhóm. `math.comb(n,k)` tính trực tiếp số nhóm mà không cần liệt kê từng cặp. Trong thực tế cần xác nhận có được chọn một người nhiều lần hay không; ở đây mỗi ứng viên chỉ chọn tối đa một lần.
 
 ```python
 import math
-print(math.comb(5,2))
+
+print(math.comb(5, 2))
 ```
 
 **Kết quả khi chạy:**
@@ -65,14 +71,17 @@ print(math.comb(5,2))
 10
 ```
 
-### 4.3. Factorial
+Số nhóm bằng nửa số cách phân vai hai người vì hoán đổi hai vai không tạo đội mới.
 
-**Từ vựng trong mục:** **Factorial** — giai thừa.
+### 4.3. Factorial — Sắp xếp tất cả phần tử
 
-Tích các số từ 1 đến n. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Factorial** — giai thừa; **Arrangement** — thứ tự sắp xếp.
+
+Với bốn nhiệm vụ **khác nhau**, có 4 cách chọn việc đầu, 3 cách chọn việc thứ hai, rồi 2 và 1. Tổng số cách sắp xếp là `4! = 4×3×2×1 = 24`. Đây là **giai thừa**. Quy ước `0! = 1` vì có đúng một cách sắp xếp dãy rỗng. `math.factorial` áp dụng cho số nguyên không âm.
 
 ```python
 import math
+
 print(math.factorial(4))
 ```
 
@@ -82,23 +91,27 @@ print(math.factorial(4))
 24
 ```
 
-### 4.4. Binomial coefficient
+Bốn nhiệm vụ khác nhau có 24 thứ tự thực hiện nếu mỗi nhiệm vụ xuất hiện đúng một lần.
 
-**Từ vựng trong mục:** **Binomial coefficient** — hệ số nhị thức.
+### 4.4. Binomial coefficient và tam giác Pascal
 
-Số cách chọn k từ n. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
+**Từ vựng trong mục:** **Binomial coefficient** — hệ số nhị thức; **Pascal triangle** — tam giác Pascal.
+
+**Hệ số nhị thức** `C(n,k)` là số cách chọn k phần tử không xét thứ tự, đồng thời là hệ số của `a^(n-k)b^k` trong khai triển `(a+b)^n`. Các giá trị `C(n,0)` đến `C(n,n)` tạo thành **hàng n của tam giác Pascal** (đếm từ hàng 0). Với n = 4, hàng có năm hệ số `1,4,6,4,1`; hai cạnh bằng 1 và mỗi ô trong bằng tổng hai ô ngay phía trên.
 
 ```python
 import math
-print(math.comb(6,3))
+
+print([math.comb(4, k) for k in range(5)])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-20
+[1, 4, 6, 4, 1]
 ```
 
+Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
 ## 5. Năm vấn đề thực tế
 
 ### Tình huống 1 — Chọn trưởng và phó nhóm
@@ -107,10 +120,14 @@ print(math.comb(6,3))
 
 **Tình huống thực tế:** Ban tổ chức có 5 ứng viên và cần chọn một trưởng nhóm, một phó nhóm, hai vị trí khác nhau. Có bao nhiêu cách chọn?
 
-**Vì sao chọn phương án này?** Vị trí trưởng và phó khác nhau nên dùng hoán vị. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Hai vai trò khác nhau nên phải tính số cách có thứ tự, dùng `perm`.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Xác định trưởng nhóm và phó nhóm là hai vị trí khác nhau.
+2. Chọn trưởng trong năm người rồi phó trong bốn người còn lại.
+3. Nhân 5×4 hoặc gọi `math.perm(5,2)` để đếm.
 
 ```python
 import math
@@ -129,10 +146,14 @@ print(math.perm(5,2))
 
 **Tình huống thực tế:** Một đội thi cần chọn 5 người từ 12 ứng viên; vai trò của người được chọn không phân biệt. Có bao nhiêu đội?
 
-**Vì sao chọn phương án này?** Các thành viên không phân vai trò nên dùng tổ hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Không phân vai nên mỗi nhóm năm người chỉ được đếm một lần, dùng `comb`.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Ghi nhận đội có năm thành viên và có 12 ứng viên.
+2. Xác định thứ tự thành viên không quan trọng.
+3. Gọi `math.comb(12,5)` để đếm các đội khác nhau.
 
 ```python
 import math
@@ -151,20 +172,24 @@ print(math.comb(12,5))
 
 **Tình huống thực tế:** Bộ kiểm thử có ba tác vụ A, B, C; cần thử mọi thứ tự thực hiện. Liệt kê các thứ tự.
 
-**Vì sao chọn phương án này?** Thứ tự thực hiện làm kết quả khác nhau. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Đề yêu cầu toàn bộ thứ tự của ba tác vụ, nên cần hoán vị độ dài ba và nhận `3!` kết quả.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Tạo ba tác vụ A, B, C, mỗi tác vụ phải xuất hiện một lần.
+2. Dùng `itertools.permutations(tasks)` không truyền độ dài để lấy đủ ba tác vụ.
+3. In sáu thứ tự; đối chiếu `3! = 6`.
 
 ```python
 from itertools import permutations
-print(list(permutations(["A","B","C"])))
+print(list(permutations(['A', 'B', 'C'])))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[('A', 'B'), ('A', 'C'), ('B', 'A'), ('B', 'C'), ('C', 'A'), ('C', 'B')]
+[('A', 'B', 'C'), ('A', 'C', 'B'), ('B', 'A', 'C'), ('B', 'C', 'A'), ('C', 'A', 'B'), ('C', 'B', 'A')]
 ```
 
 ### Tình huống 4 — Đề xuất cặp môn học
@@ -173,10 +198,14 @@ print(list(permutations(["A","B","C"])))
 
 **Tình huống thực tế:** Nhóm học chọn hai môn trong ba môn Python, AI, SQL; thứ tự không quan trọng. Liệt kê các cặp môn.
 
-**Vì sao chọn phương án này?** Mỗi cặp môn học không cần phân biệt thứ tự. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Cặp môn không có thứ tự, vì vậy `combinations` không nhân đôi những cặp đảo chiều.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Lưu ba môn Python, AI, SQL vào List.
+2. Dùng `combinations(subjects,2)` vì không phân biệt hai thứ tự trong cùng cặp.
+3. In ba cặp môn có thể chọn.
 
 ```python
 from itertools import combinations
@@ -195,10 +224,14 @@ print(list(combinations(["Python","AI","SQL"],2)))
 
 **Tình huống thực tế:** Giáo viên cần viết hàng n=4 của tam giác Pascal bằng C(4,k), k từ 0 đến 4.
 
-**Vì sao chọn phương án này?** Hệ số comb cho từng vị trí hàng n. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
+**Vì sao chọn cách giải này?** Các giá trị của tam giác Pascal chính là các hệ số nhị thức `C(n,k)`.
 
 
-**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
+**Quy trình giải:**
+
+1. Chọn hàng n=4 của tam giác Pascal.
+2. Tính các hệ số `math.comb(4,k)` với k=0..4.
+3. In năm giá trị và kiểm tra tính đối xứng.
 
 ```python
 import math
@@ -211,9 +244,13 @@ print([math.comb(4,k) for k in range(5)])
 [1, 4, 6, 4, 1]
 ```
 
-## 6. Các lỗi dễ mắc
+## 6. Sai lầm thường gặp
 
-Cần phân biệt khi nào thứ tự quan trọng, khi nào phần tử trùng được tính lại, và khi nào dữ liệu thật không có đủ điều kiện như ví dụ. Xem kỹ kiểu dữ liệu và đầu vào trống.
+- Phân biệt bài toán **có thứ tự** (`perm`) với **không xét thứ tự** (`comb`).
+- `itertools.permutations(items,2)` chỉ tạo các cặp có thứ tự, không phải sắp xếp toàn bộ ba phần tử; không truyền k để lấy toàn bộ.
+- Cả `math.perm` và `math.comb` giả định các phần tử phân biệt và không chọn trùng một phần tử.
+- `math.factorial` cần số nguyên không âm; `0! = 1`.
+- `itertools` để **liệt kê** các phương án; `math` giúp **đếm** khi số phương án quá lớn không nên liệt kê.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
