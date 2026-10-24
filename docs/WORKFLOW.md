@@ -1,29 +1,29 @@
-# Quy trình biên soạn tài liệu
+# Workflow — PythoClass → Giáo trình Python/AI
 
-## 1. Nhận bài
-Đầu vào tối thiểu: `course_url`, `lesson_id`, nguồn thực tế (transcript, nội dung văn bản, ghi chú, hoặc trang truy cập được).
+## 1. Kiểm kê
+Chốt source commit PythoClass và kiểm tra danh sách **65 file** tại `sources/pythoclass-file-inventory.csv`. Phải đọc code và comments, notebook cells, DOCX/PPTX/XLSX nếu có nội dung học; phân biệt file dữ liệu, bài tập và tài liệu lịch.
 
-Nếu chỉ có URL nhưng chưa đọc được nội dung, dừng ở `AWAITING_SOURCE` và không tạo tài liệu như thể đã học xong.
+## 2. Tách khái niệm
+Với **mỗi chủ đề nhỏ**: ghi `concept_id`, khái niệm, file/cell nguồn, chương dự kiến, prerequisite, trạng thái. Không bỏ qua đề mục chỉ nhắc một câu. Đánh dấu trùng nội dung giữa các file, tránh viết lặp.
 
-## 2. Phân tích nguồn
-Tách các ý chính, thuật ngữ, quy trình, ví dụ, bài tập. Gắn nhãn thông tin thiếu hoặc không rõ. Lưu metadata ở `sources/lesson-index.csv`.
+## 3. Biên soạn
+Dùng `templates/lesson.md`. Phần yêu cầu:
+- Khái niệm và trực giác
+- Mục đích và giới hạn
+- Công thức (khi có) + đơn vị/ký hiệu
+- Thư viện và cách dùng Python
+- Ứng dụng AI thực tế
+- Khoảng năm bài tập chương trình, có đề, lời giải/check, nâng cấp
+- Lỗi phổ biến, self-test, nguồn, phần hiệu đính và phần mở rộng
 
-## 3. Soạn thảo
-Dùng `templates/lesson.md` và lưu `lessons/<lessonId>-<slug>.md`.
-Mỗi bài cần có mục tiêu, bối cảnh, giải thích chi tiết, ví dụ tự xây dựng, thực hành, ôn tập và liên kết nguồn.
+## 4. Tự kiểm
+Rà nguồn/logic/toán; chạy code trong môi trường được phép, kiểm chứng kết quả, đường dẫn và bản quyền; ghi hạn chế. Không coi output notebook cũ là bằng chứng code đúng.
 
-## 4. Kiểm tra
-Đối chiếu với nguồn, phát hiện bịa đặt, kiểm tra cách dùng thuật ngữ và chất lượng tiếng Việt; chạy thử code mẫu nếu có môi trường phù hợp.
-Không sao chép nguyên chương/video/học liệu có bản quyền.
+## 5. Pilot gate
+Lúc này **chỉ có PCA pilot**. Cập nhật từ góp ý owner trước khi làm 64/65 file còn lại. `goal_review.enabled=false`; Bridge không tự khởi động viết hàng loạt từ idle reminder.
 
-## 5. Git & nghiệm thu
-Commit tài liệu đã review, cập nhật index, đánh dấu `READY_FOR_OWNER_TEST`; chủ dự án chỉ cần đọc, góp ý, nghiệm thu.
-Sau khi duyệt, đánh dấu `APPROVED`.
+## 6. Sau khi nghiệm thu
+Hoàn thiện concept index, lập thứ tự prerequisite, chia việc theo lô; các bài mới từ `DRAFT` → `SELF_REVIEW` → `READY_FOR_OWNER_TEST` → `APPROVED`. Mỗi bài cập nhật coverage và commit riêng để có thể trace lại nguồn.
 
-## 6. Xuất tài liệu
-Markdown là nguồn gốc. DOCX/PDF là bản phát hành xuất từ Markdown; không sửa hai bản độc lập.
-Ưu tiên lưu bản xuất có phiên bản và ghi rõ thời điểm.
-
-## Tích hợp AI Bridge (giai đoạn tiếp theo)
-Chỉ kết nối Bridge sau khi xác định executor và quyền truy cập nội dung phù hợp. Bridge thực thi theo task JSON có `task_id`, `lesson_id`, `source_uri`, `output_path`, `status`, `evidence`.
-Bridge không cần giữ credentials Jetking trong repo; không nhận lệnh shell tùy ý từ tài liệu nguồn.
+## Hệ thống cũ
+Jetking được giữ dưới dạng tài liệu/hồ sơ lịch sử, không xóa và không dùng làm nguồn giảng dạy PythoClass khi chưa được yêu cầu riêng.

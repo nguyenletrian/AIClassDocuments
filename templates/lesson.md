@@ -1,47 +1,48 @@
-# [Tên bài học] — Lesson [ID]
+# [Mã bài] — [Tên khái niệm] trong Python & AI
 
-> **Nguồn:** [URL]
-> **Khóa học:** [Tên khóa học]
-> **Ngày biên soạn:** YYYY-MM-DD
-> **Trạng thái:** DRAFT
-> **Loại nguồn đã đọc:** [transcript / trang / ghi chú]
+> **Nguồn gốc:** PythoClass — [file cụ thể và đường dẫn GitHub]
+> **Trạng thái:** DRAFT / SELF_REVIEW / PILOT_REVIEW / READY_FOR_OWNER_TEST / APPROVED
+> **Trình độ / prerequisite:** [kiến thức cần có]
+> **Nguồn đã đối chiếu:** [file/cell/commit], **phần mở rộng:** [mô tả]
 
 ## 1. Mục tiêu học tập
-Sau bài học, người học có thể:
-- ...
+[Bài học giúp người học làm được điều gì?]
 
-## 2. Tóm tắt nhanh
-[3–5 ý chính, chỉ dựa trên nguồn thực tế.]
+## 2. Khái niệm và trực giác
+[Định nghĩa chính xác; ví dụ đời thường hoặc dữ liệu dễ hình dung.]
 
-## 3. Kiến thức trọng tâm
-### 3.1. [Chủ đề]
-[Giải thích bằng tiếng Việt, giữ thuật ngữ tiếng Anh trong ngoặc khi cần.]
+## 3. Mục đích, khi nào dùng và khi nào không nên dùng
+[Lợi ích cụ thể, giới hạn, đánh đổi.]
 
-## 4. Ví dụ minh họa
-> **Ví dụ do AI tự xây dựng**, không phải ví dụ trích nguyên văn từ Jetking.
+## 4. Công thức và toán liên quan
+[Ký hiệu, công thức, giải thích từng phần, ví dụ nhỏ. Nếu không áp dụng, ghi rõ lý do.]
 
-[Ví dụ và lời giải.]
+## 5. Thư viện Python và API cần biết
+[Thư viện, lệnh cài đặt, tên hàm, tham số quan trọng, shape đầu vào/đầu ra.]
 
-## 5. Thực hành
-[Bài tập có yêu cầu, bước thực hiện, cách kiểm tra kết quả.]
+## 6. Ví dụ căn bản có thể chạy
+[Đoạn code độc lập, dữ liệu, kết quả kỳ vọng và diễn giải.]
 
-## 6. Thuật ngữ Anh — Việt
-| Thuật ngữ | Giải thích |
-| --- | --- |
-| ... | ... |
+## 7. Ứng dụng trong lập trình AI
+[Ít nhất một trường hợp dùng thực tế; không nói quá kết quả.]
 
-## 7. Câu hỏi ôn tập
-1. ...
-2. ...
-3. ...
+## 8. Năm bài tập lập trình
+### 8.1. Bài tập dễ
+[Mục tiêu, đề, code mẫu, kết quả kiểm tra, thử thách.]
+### 8.2. Bài tập căn bản+
+[...]
+### 8.3. Bài tập dữ liệu thực nghiệm
+[...]
+### 8.4. Bài tập biến thể và đánh giá
+[...]
+### 8.5. Bài tập ứng dụng AI
+[...]
 
-## 8. Đáp án / Gợi ý
-1. ...
-2. ...
-3. ...
+## 9. Sai lầm phổ biến và câu hỏi ôn tập
+[Những ngộ nhận cần tránh; câu hỏi và lời giải gợi ý.]
 
-## 9. Nguồn & giới hạn
-- **Nguồn:** [URL, lessonId]
-- **Phạm vi đối chiếu:** [phần nguồn thực sự đã xem]
-- **Điểm chưa xác minh:** [nếu có]
-- **Nội dung mở rộng:** [đánh dấu tách biệt khỏi bài gốc]
+## 10. Nguồn & phân biệt đóng góp
+- **Ghi chép nguồn:** [nội dung thật đã có]
+- **Đã hiệu đính:** [lỗi từ note/code đã sửa]
+- **Tự mở rộng:** [bài tập, ví dụ AI và kiến thức thêm]
+- **Giới hạn / chưa xác minh:** [minh bạch]
