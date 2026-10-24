@@ -452,15 +452,15 @@ C. `X.dtype` — `X.dtype`
 
 D. `X.shape[0]` in every case — Luôn `X.shape[0]`
 
-**Q18. What happens when integer data are explicitly cast to an integer dtype? — Khi ép dữ liệu có phần lẻ sang dtype số nguyên có thể xảy ra gì?**
+**Q18. For finite floating-point values within the target integer range, what does NumPy `.astype(int)` do to their fractional parts? — Với giá trị dấu phẩy động hữu hạn nằm trong phạm vi kiểu số nguyên đích, NumPy `.astype(int)` xử lý phần lẻ thế nào?**
 
-A. Its shape must become (1,1) — Shape bắt buộc thành (1,1)
+A. It rounds every value to the nearest integer — Làm tròn mọi giá trị về số nguyên gần nhất
 
-B. Fractional parts may be discarded — Phần thập phân có thể bị bỏ
+B. It discards fractional parts toward zero — Bỏ phần lẻ theo hướng về số 0
 
-C. All values become file paths — Mọi giá trị thành đường dẫn
+C. It preserves fractional parts unchanged — Giữ nguyên toàn bộ phần lẻ
 
-D. The array becomes a dictionary — Mảng trở thành Dictionary
+D. It forces the shape to become `(1, 1)` — Buộc shape chuyển thành `(1, 1)`
 
 **Q19. What is the output shape of `X.mean(axis=0)` for `X.shape == (3,2)`? — Nếu `X.shape == (3,2)`, `X.mean(axis=0)` có shape nào?**
 
@@ -486,26 +486,26 @@ D. To interpret aggregated results correctly — Để hiểu đúng kết quả
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | ndarray organizes elements into one or more dimensions for numerical operations.~ndarray tổ chức phần tử theo một hay nhiều chiều để tính toán. | undefined |
-| Q2 | **B** | For a 2-D array, shape lists the row count first and the column count second.~Với mảng hai chiều, shape ghi số hàng trước và số cột sau. | undefined |
-| Q3 | **C** | The total element count is the product of the dimensions: 3×2.~Tổng số phần tử bằng tích kích thước hai chiều: 3×2. | undefined |
-| Q4 | **D** | ndim describes dimensionality rather than the number of elements.~ndim cho biết số chiều, không phải tổng số phần tử. | undefined |
-| Q5 | **A** | A common dtype governs how values in a NumPy array are represented.~dtype chung quyết định cách biểu diễn các giá trị của mảng NumPy. | undefined |
-| Q6 | **B** | A floating dtype retains fractional parts such as 8.5.~Kiểu số thực giữ phần lẻ của các điểm như 8.5. | undefined |
-| Q7 | **C** | Axis 0 aggregates across rows while preserving columns.~Axis 0 tổng hợp qua các hàng và giữ chiều cột. | undefined |
-| Q8 | **D** | Axis 1 aggregates across columns of each row.~Axis 1 tính tổng qua các cột trong từng hàng. | undefined |
-| Q9 | **A** | An array may have shape (3, 2) but size 6.~Mảng có thể có shape (3, 2) nhưng size bằng 6. | undefined |
-| Q10 | **B** | A flat sequence creates a one-dimensional ndarray.~Dãy phẳng tạo ndarray một chiều. | undefined |
-| Q11 | **C** | zeros creates the requested shape and fills every position with zero.~zeros tạo mảng đúng kích thước và điền 0 vào mỗi ô. | undefined |
-| Q12 | **D** | Both share the same requested shape; only their initialized values differ.~Cả hai có shape như yêu cầu; chỉ khác giá trị khởi tạo. | undefined |
-| Q13 | **A** | For example, ndarray times 2 multiplies values, while list times 2 repeats the list.~Ví dụ ndarray nhân 2 sẽ nhân giá trị, còn List nhân 2 lặp lại List. | undefined |
-| Q14 | **B** | Each column represents a subject, and axis 0 combines rows.~Mỗi cột là một môn; axis 0 gộp các hàng học viên. | undefined |
-| Q15 | **C** | A matrix-like table is two-dimensional even when it has many rows.~Bảng dạng ma trận có hai chiều dù có nhiều hàng. | undefined |
-| Q16 | **D** | shape is an array attribute that reports dimensions.~shape là thuộc tính báo kích thước các chiều. | undefined |
-| Q17 | **A** | size counts elements across every dimension, not just rows.~size đếm phần tử trên mọi chiều, không chỉ đếm hàng. | undefined |
-| Q18 | **B** | Integer storage cannot represent fractions exactly.~Kiểu nguyên không biểu diễn trực tiếp phần thập phân. | undefined |
-| Q19 | **C** | Three rows are reduced, leaving two column results.~Ba hàng được tổng hợp, còn hai giá trị ứng với hai cột. | undefined |
-| Q20 | **D** | Without labels, axis choices may compute the right numbers for the wrong question.~Thiếu ý nghĩa hàng/cột dễ dẫn đến tính ra số đúng phép nhưng trả lời sai câu hỏi. | undefined |
+| Q1 | **A** | ndarray organizes elements into one or more dimensions for numerical operations. | ndarray tổ chức phần tử theo một hay nhiều chiều để tính toán. |
+| Q2 | **B** | For a 2-D array, shape lists the row count first and the column count second. | Với mảng hai chiều, shape ghi số hàng trước và số cột sau. |
+| Q3 | **C** | The total element count is the product of the dimensions: 3×2. | Tổng số phần tử bằng tích kích thước hai chiều: 3×2. |
+| Q4 | **D** | ndim describes dimensionality rather than the number of elements. | ndim cho biết số chiều, không phải tổng số phần tử. |
+| Q5 | **A** | A common dtype governs how values in a NumPy array are represented. | dtype chung quyết định cách biểu diễn các giá trị của mảng NumPy. |
+| Q6 | **B** | A floating dtype retains fractional parts such as 8.5. | Kiểu số thực giữ phần lẻ của các điểm như 8.5. |
+| Q7 | **C** | Axis 0 aggregates across rows while preserving columns. | Axis 0 tổng hợp qua các hàng và giữ chiều cột. |
+| Q8 | **D** | Axis 1 aggregates across columns of each row. | Axis 1 tính tổng qua các cột trong từng hàng. |
+| Q9 | **A** | An array may have shape (3, 2) but size 6. | Mảng có thể có shape (3, 2) nhưng size bằng 6. |
+| Q10 | **B** | A flat sequence creates a one-dimensional ndarray. | Dãy phẳng tạo ndarray một chiều. |
+| Q11 | **C** | zeros creates the requested shape and fills every position with zero. | zeros tạo mảng đúng kích thước và điền 0 vào mỗi ô. |
+| Q12 | **D** | Both share the same requested shape; only their initialized values differ. | Cả hai có shape như yêu cầu; chỉ khác giá trị khởi tạo. |
+| Q13 | **A** | For example, ndarray times 2 multiplies values, while list times 2 repeats the list. | Ví dụ ndarray nhân 2 sẽ nhân giá trị, còn List nhân 2 lặp lại List. |
+| Q14 | **B** | Each column represents a subject, and axis 0 combines rows. | Mỗi cột là một môn; axis 0 gộp các hàng học viên. |
+| Q15 | **C** | A matrix-like table is two-dimensional even when it has many rows. | Bảng dạng ma trận có hai chiều dù có nhiều hàng. |
+| Q16 | **D** | shape is an array attribute that reports dimensions. | shape là thuộc tính báo kích thước các chiều. |
+| Q17 | **A** | size counts elements across every dimension, not just rows. | size đếm phần tử trên mọi chiều, không chỉ đếm hàng. |
+| Q18 | **B** | Converting finite in-range floats to an integer dtype truncates toward zero, not to the nearest integer. For example, `np.array([2.9, -2.9]).astype(int)` contains integers `2` and `-2`; the array keeps its shape. | Khi đổi số thực hữu hạn trong phạm vi hợp lệ sang dtype nguyên, NumPy cắt phần lẻ về phía 0 chứ không làm tròn tới số gần nhất. Ví dụ `np.array([2.9, -2.9]).astype(int)` chứa số nguyên `2` và `-2`; shape của mảng giữ nguyên. |
+| Q19 | **C** | Three rows are reduced, leaving two column results. | Ba hàng được tổng hợp, còn hai giá trị ứng với hai cột. |
+| Q20 | **D** | Without labels, axis choices may compute the right numbers for the wrong question. | Thiếu ý nghĩa hàng/cột dễ dẫn đến tính ra số đúng phép nhưng trả lời sai câu hỏi. |
 
 ## 8. Nối sang bài tiếp theo
 
