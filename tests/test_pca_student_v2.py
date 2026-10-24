@@ -27,7 +27,7 @@ class StudentPcaLessonTests(unittest.TestCase):
         self.assertEqual(len(re.findall(r"^\*\*Q\d+\.", self.text, re.M)), 20)
         for forbidden in ("PythoClass", "PythonClass", "Toán học đằng sau", "Sau bài học"):
             self.assertNotIn(forbidden, self.text)
-        self.assertEqual(len(self.blocks), 12)
+        self.assertEqual(len(self.blocks), 11)
         # Each of the five cases must justify its choice, not only give steps.
         self.assertEqual(self.text.count("**Vì sao chọn cách này?**"), 5)
         self.assertEqual(len(re.findall(r"^\| Q\d+ \|", self.text, re.M)), 20)
@@ -39,6 +39,47 @@ class StudentPcaLessonTests(unittest.TestCase):
         self.assertLess(concepts.index("**Feature là gì?**"), concepts.index("```python"))
         self.assertLess(concepts.index("**Vector là gì?**"), concepts.index("```python"))
 
+
+    def test_explanations_progress_from_vectors_to_matrix(self):
+        # The concept example must construct five profiles, then stack them.
+        section = self.text.split("### 4.2.", 1)[1].split("### 4.3.", 1)[0]
+        for expected in (
+            "**Nhắc lại các khái niệm", "5 khách hàng → 5 vector → 1 ma trận",
+            "**5 khách → 5 vector:**", "**5 vector → 1 matrix:**",
+            "customer_1 =", "customer_5 =", "np.vstack(customer_vectors)",
+            "print(\"Shape:\", X.shape)  # (5, 5)",
+        ):
+            self.assertIn(expected, section)
+        self.assertLess(section.index("**Nhắc lại"), section.index("customer_1 ="))
+        self.assertLess(section.index("customer_1 ="), section.index("np.vstack"))
+
+        # Run the small example by itself. Rows correspond to 5 customers,
+        # columns to the declared five features in the same fixed order.
+        block = re.search(r"```python\n(.*?)\n```", section, re.S)
+        self.assertIsNotNone(block)
+        scope = {}
+        with contextlib.redirect_stdout(io.StringIO()):
+            exec(compile(block.group(1), "concept-4.2.py", "exec"), scope)
+        self.assertEqual(scope["X"].shape, (5, 5))
+        self.assertEqual(len(scope["customer_vectors"]), 5)
+        self.assertEqual(scope["X"][:, 2].tolist(), [950, 1200, 500, 1600, 220])
+
+    def test_each_scenario_labels_rows_columns_and_units(self):
+        scenario_code = [
+            re.search(
+                r"^### Tình huống " + str(i) + r" —.*?^```python\n(.*?)\n```",
+                self.text, re.M | re.S
+            ).group(1)
+            for i in range(1, 6)
+        ]
+        for i, block in enumerate(scenario_code, start=1):
+            with self.subTest(scenario=i):
+                self.assertRegex(block, r"(?i)HÀNG|hàng")
+                self.assertRegex(block, r"(?i)CỘT|cột")
+                self.assertRegex(block, r"(?i)BƯỚC 1")
+                self.assertRegex(block, r"(?i)giờ|phút|đơn|đồng|cm|đơn vị")
+        self.assertIn("iris.target là NHÃN loài hoa", scenario_code[4])
+        self.assertIn("profiles.shape", scenario_code[0])
 
     def test_all_python_snippets_have_valid_syntax(self):
         for number, block in enumerate(self.blocks, 1):
