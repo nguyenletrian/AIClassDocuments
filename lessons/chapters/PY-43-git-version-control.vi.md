@@ -1,14 +1,8 @@
 # PY-43 — Git: quản lý phiên bản và hợp tác trên mã nguồn
 
-*DRAFT · Bài tổng hợp dành cho sinh viên; cần kiểm tra code và môi trường cài đặt trước phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Repository** — kho mã nguồn; **Commit** — bản ghi thay đổi.
-
 `File/Project → git init/add/commit → branch → pull/push → Review`
-
-Bài này hệ thống hóa kiến thức đã học thành các thao tác thực hành có đầu vào và đầu ra rõ ràng.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 ## 3. Hàm và cách sử dụng
 
-**Từ vựng trong mục:** **Function** — hàm; **Option** — tùy chọn.
-
 | Cú pháp | Mục đích và lựa chọn |
 |---|---|
 | `git status` | Xem file được sửa và đã stage hay chưa |
@@ -34,152 +26,104 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 ### 4.1. Repository
 
-**Từ vựng trong mục:** **Repository** — kho mã nguồn.
-
-Nơi lưu lịch sử phiên bản. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Nơi lưu lịch sử phiên bản.
 
 ```bash
 git status
 ```
 
-**Tự kiểm tra:** Repository nghĩa là gì? **Đáp án:** Nơi lưu lịch sử phiên bản.
-
 ### 4.2. Commit
 
-**Từ vựng trong mục:** **Commit** — bản ghi thay đổi.
-
-Điểm lưu thay đổi có thông điệp. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Điểm lưu thay đổi có thông điệp.
 
 ```bash
 git log -1
 ```
 
-**Tự kiểm tra:** Commit nghĩa là gì? **Đáp án:** Điểm lưu thay đổi có thông điệp.
-
 ### 4.3. Branch
 
-**Từ vựng trong mục:** **Branch** — nhánh.
-
-Hướng phát triển độc lập. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Hướng phát triển độc lập.
 
 ```bash
 git branch
 ```
 
-**Tự kiểm tra:** Branch nghĩa là gì? **Đáp án:** Hướng phát triển độc lập.
-
 ### 4.4. Remote
 
-**Từ vựng trong mục:** **Remote** — kho từ xa.
-
-Đường dẫn đến repository cộng tác. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Đường dẫn đến repository cộng tác.
 
 ```bash
 git remote -v
 ```
 
-**Tự kiểm tra:** Remote nghĩa là gì? **Đáp án:** Đường dẫn đến repository cộng tác.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Kiểm trạng thái trước lưu
 
-**Từ vựng trong mục:** **Repository** — kho mã nguồn.
-
 **Bài toán:** Kiểm trạng thái trước lưu.
 
-**Vì sao chọn cách này?** status giúp biết có thay đổi chưa commit; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** status giúp biết có thay đổi chưa commit
 
-**Dữ liệu:** Một repository đã git init. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Một repository đã git init.
 
 ```bash
 git status
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 2 — Lưu thay đổi bài tập
-
-**Từ vựng trong mục:** **Commit** — bản ghi thay đổi.
 
 **Bài toán:** Lưu thay đổi bài tập.
 
-**Vì sao chọn cách này?** Stage đúng file tránh commit nhầm tài liệu khác; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Stage đúng file tránh commit nhầm tài liệu khác
 
-**Dữ liệu:** File script lesson.py mới được sửa. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** File script lesson.py mới được sửa.
 
 ```bash
 git add lesson.py
 git commit -m "docs: add practice script"
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 3 — Tạo nhánh thí nghiệm
-
-**Từ vựng trong mục:** **Branch** — nhánh.
 
 **Bài toán:** Tạo nhánh thí nghiệm.
 
-**Vì sao chọn cách này?** Tách công việc mới khỏi main ổn định; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Tách công việc mới khỏi main ổn định
 
-**Dữ liệu:** Repo bài học. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Repo bài học.
 
 ```bash
 git switch -c experiment/pca
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 4 — Xem lịch sử
-
-**Từ vựng trong mục:** **Remote** — kho từ xa.
 
 **Bài toán:** Xem lịch sử.
 
-**Vì sao chọn cách này?** Log giúp truy lại lần thay đổi gần nhất; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Log giúp truy lại lần thay đổi gần nhất
 
-**Dữ liệu:** Repo đã có ít nhất một commit. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Repo đã có ít nhất một commit.
 
 ```bash
 git log --oneline -5
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 5 — Xem thay đổi chưa stage
-
-**Từ vựng trong mục:** **Repository** — kho mã nguồn.
 
 **Bài toán:** Xem thay đổi chưa stage.
 
-**Vì sao chọn cách này?** Diff giúp kiểm tra trước khi lưu; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Diff giúp kiểm tra trước khi lưu
 
-**Dữ liệu:** Repo có file đang sửa. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Repo có file đang sửa.
 
 ```bash
 git diff -- lesson.py
 ```
-
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
 
 ## 6. Nhầm lẫn cần tránh
 
 Đừng sao chép lệnh khi chưa hiểu dữ liệu hoặc trạng thái môi trường; kết quả thử nghiệm không chứng minh rằng mọi máy và mọi bộ dữ liệu đều giống nhau.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer key** — bảng đáp án.
 
 
 **Q1. What is Repository? — Thuật ngữ Repository là gì?**
@@ -425,7 +369,3 @@ D. No evidence — Không cần bằng chứng
 | Q18 | **A** | Repo có file đang sửa | Repo có file đang sửa |
 | Q19 | **D** | Understand source, parameters and permissions | Hiểu nguồn, tham số và quyền hạn |
 | Q20 | **C** | Observed output, failures and limits | Đầu ra thật, lỗi và giới hạn |
-
-## 8. Nối sang bài tiếp
-
-`File/Project → git init/add/commit → branch → pull/push → Review`.
