@@ -93,7 +93,7 @@ print(np.std([1,2,3]))
 
 **Vì sao chọn phương pháp này?** Mean tóm tắt thời gian thường gặp khi dữ liệu tương đối đều. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** [2,3,4] ngày. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** [2,3,4] ngày.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -102,7 +102,6 @@ import numpy as np
 print(np.mean([2,3,4]))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 2 — So trung vị tiền hàng
 
@@ -112,7 +111,7 @@ print(np.mean([2,3,4]))
 
 **Vì sao chọn phương pháp này?** Có đơn cực lớn nên median dễ đại diện cho giá phổ biến hơn. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** [100,120,10000] nghìn đồng. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** [100,120,10000] nghìn đồng.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -122,7 +121,6 @@ x=[100,120,10000]
 print(np.mean(x),np.median(x))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 3 — Tính phương sai điểm
 
@@ -132,7 +130,7 @@ print(np.mean(x),np.median(x))
 
 **Vì sao chọn phương pháp này?** Variance đo sự phân tán theo đơn vị bình phương. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** [6,8,10] điểm. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** [6,8,10] điểm.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -141,7 +139,6 @@ import numpy as np
 print(np.var([6,8,10],ddof=0))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 4 — Xem độ ổn định cảm biến
 
@@ -151,7 +148,7 @@ print(np.var([6,8,10],ddof=0))
 
 **Vì sao chọn phương pháp này?** Std biểu diễn độ phân tán cùng đơn vị với giá trị gốc. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** [20,21,19,20] độ C. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** [20,21,19,20] độ C.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -160,7 +157,6 @@ import numpy as np
 print(np.std([20,21,19,20],ddof=0))
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ### Tình huống 5 — Tìm loại sản phẩm phổ biến
 
@@ -170,7 +166,7 @@ print(np.std([20,21,19,20],ddof=0))
 
 **Vì sao chọn phương pháp này?** value_counts cho số lần mỗi nhãn xuất hiện. Không dùng kết quả mô phỏng làm bằng chứng thống kê khi thiếu đủ mẫu và giả định.
 
-**Dữ liệu:** Nhãn A,A,B,C,A. Các số liệu là giả lập và đơn vị/thứ tự được nêu ngay tại đây; không suy ra kết luận cho người thật.
+**Dữ liệu:** Nhãn A,A,B,C,A.
 
 **Quy trình:** làm rõ giả định → mô tả biến cố/đặc trưng → chọn hàm → kiểm tra kết quả, giới hạn và độ nhạy.
 
@@ -180,7 +176,6 @@ s=pd.Series(["A","A","B","C","A"])
 print(s.value_counts())
 ```
 
-**Đọc kết quả:** Đối chiếu kết quả với ý nghĩa xác suất hoặc đơn vị đo; lưu ý sai số và cách lấy mẫu.
 
 ## 6. Những nhầm lẫn thường gặp
 
