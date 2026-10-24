@@ -1,10 +1,6 @@
 # PY-42 — Tiền xử lý văn bản, token và Jaccard trong NLP
 
-*DRAFT · Các ví dụ minh họa và giả định phải được kiểm tra trước khi ứng dụng thực*
-
 ## 1. Vị trí trong chuỗi kiến thức
-
-**Từ vựng trong mục:** **Token** — đơn vị từ; **Vocabulary** — từ vựng.
 
 `String → Set → Tokenization → Vector hóa văn bản`
 
@@ -21,8 +17,6 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ## 3. Thư viện và hàm Python
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / cách viết | Khi nào dùng, ý nghĩa tham số |
 |---|---|
 | `str.lower()/strip()` | Chuẩn hóa chữ hoa và khoảng trắng đơn giản |
@@ -34,19 +28,13 @@ Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh gi�
 
 ### 4.1. Token
 
-**Từ vựng trong mục:** **Token** — đơn vị từ.
-
 Một phần văn bản sau khi tách theo quy tắc. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
 ```python
 print('AI helps'.split())
 ```
 
-**Tự kiểm tra:** Token là gì? **Đáp án:** Một phần văn bản sau khi tách theo quy tắc.
-
 ### 4.2. Vocabulary
-
-**Từ vựng trong mục:** **Vocabulary** — từ vựng.
 
 Tập token khác nhau trong dữ liệu. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -54,11 +42,7 @@ Tập token khác nhau trong dữ liệu. Thử đoạn code để thấy ý ngh
 print(set('AI Python AI'.split()))
 ```
 
-**Tự kiểm tra:** Vocabulary là gì? **Đáp án:** Tập token khác nhau trong dữ liệu.
-
 ### 4.3. Normalization
-
-**Từ vựng trong mục:** **Normalization** — chuẩn hóa văn bản.
 
 Đưa chữ về dạng phù hợp để so khớp. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -66,11 +50,7 @@ print(set('AI Python AI'.split()))
 print('  AI  '.strip().lower())
 ```
 
-**Tự kiểm tra:** Normalization là gì? **Đáp án:** Đưa chữ về dạng phù hợp để so khớp.
-
 ### 4.4. Jaccard
-
-**Từ vựng trong mục:** **Jaccard** — tương đồng Jaccard.
 
 Tỷ lệ giao trên hợp của hai tập token. Thử đoạn code để thấy ý nghĩa đầu ra trước khi đọc bài tập.
 
@@ -79,13 +59,9 @@ a={'ai','python'};b={'ai'}
 print(len(a&b)/len(a
 ```
 
-**Tự kiểm tra:** Jaccard là gì? **Đáp án:** Tỷ lệ giao trên hợp của hai tập token.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Chuẩn hóa câu tìm kiếm
-
-**Từ vựng trong mục:** **Token** — đơn vị từ.
 
 **Vấn đề:** Chuẩn hóa câu tìm kiếm.
 
@@ -93,18 +69,12 @@ print(len(a&b)/len(a
 
 **Dữ liệu:** Chuỗi '  Machine LEARNING '. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 text="  Machine LEARNING "
 print(text.strip().lower())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 2 — Tách từ câu đơn giản
-
-**Từ vựng trong mục:** **Vocabulary** — từ vựng.
 
 **Vấn đề:** Tách từ câu đơn giản.
 
@@ -112,18 +82,12 @@ print(text.strip().lower())
 
 **Dữ liệu:** Câu tiếng Anh 'AI helps Python'. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 sentence="AI helps Python"
 print(sentence.lower().split())
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 3 — Lập kho từ vựng
-
-**Từ vựng trong mục:** **Normalization** — chuẩn hóa văn bản.
 
 **Vấn đề:** Lập kho từ vựng.
 
@@ -131,19 +95,13 @@ print(sentence.lower().split())
 
 **Dữ liệu:** Hai câu ngắn tiếng Anh. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 sentences=["AI uses data","AI uses Python"]
 words=set(" ".join(sentences).lower().split())
 print(sorted(words))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 4 — Độ giống hai tài liệu
-
-**Từ vựng trong mục:** **Jaccard** — tương đồng Jaccard.
 
 **Vấn đề:** Độ giống hai tài liệu.
 
@@ -151,18 +109,12 @@ print(sorted(words))
 
 **Dữ liệu:** Hai văn bản có từ 'python' chung. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 a=set("python for ai".split());b=set("python and sql".split())
 print(len(a&b)/len(a|b))
 ```
 
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
-
 ### Tình huống 5 — Kiểm văn bản không có từ
-
-**Từ vựng trong mục:** **Token** — đơn vị từ.
 
 **Vấn đề:** Kiểm văn bản không có từ.
 
@@ -170,15 +122,11 @@ print(len(a&b)/len(a|b))
 
 **Dữ liệu:** Hai chuỗi rỗng. Dữ liệu ví dụ và đơn vị đo nêu rõ; không thay cho dữ liệu kiểm chứng ngoài đời.
 
-**Quy trình:** làm rõ ý nghĩa đầu vào → chọn phương pháp → chạy code → kiểm tra/diễn giải kết quả.
-
 ```python
 a=set();b=set()
 score=1.0 if not(a|b) else len(a&b)/len(a|b)
 print(score)
 ```
-
-**Đọc kết quả:** Kiểm tra đầu ra với ví dụ, thay đầu vào để thấy giới hạn và trường hợp không phù hợp.
 
 ## 6. Nhầm lẫn thường gặp
 
@@ -186,8 +134,6 @@ print(score)
 - Kiểm tra giả định, cỡ mẫu, đơn vị, độ nhạy kết quả và data leakage trước khi ứng dụng AI thật.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Token? — Khái niệm Token là gì?**
@@ -433,7 +379,3 @@ D. It removes test sets — Nó không cần tập kiểm tra
 | Q18 | **A** | The input is Hai chuỗi rỗng | Hai chuỗi rỗng |
 | Q19 | **D** | Units, sample meaning and assumptions | Đơn vị, ý nghĩa mẫu và giả định |
 | Q20 | **C** | An example may not generalize | Ví dụ có thể không tổng quát |
-
-## 8. Liên hệ bài kế tiếp
-
-`String → Set → Tokenization → Vector hóa văn bản`.
