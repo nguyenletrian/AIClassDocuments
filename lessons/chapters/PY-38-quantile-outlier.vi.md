@@ -7,7 +7,9 @@
 
 `Thống kê mô tả → Quantile/IQR → Outlier → Kiểm tra dữ liệu ML`
 
-Kiến thức giúp sinh viên dùng Python để hiểu dữ liệu, đánh giá độ bất định và chuẩn bị dữ liệu cho AI.
+**Học xong dùng để làm gì?** Dùng Q1/Q3/IQR phát hiện quan sát nằm xa phân bố, phân biệt ngoại lệ thật và nhập liệu sai.
+
+**Kết nối kiến thức tiếp theo:** PY-39 xem kết quả thống kê thay đổi như thế nào khi lấy mẫu nhiều lần.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -279,6 +281,11 @@ C. Distribution asymmetry — Mức bất đối xứng phân phối
 
 D. Fourth-moment tail behavior relative to normal — Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
+**Đáp án: A**
+
+**Giải thích:** Phân vị chia dữ liệu sắp thứ tự theo tỷ lệ.
+
+
 **Q2. What is IQR? — IQR là gì?**
 
 A. A value associated with a cumulative rank — Giá trị gắn với một mức thứ hạng tích lũy
@@ -288,6 +295,11 @@ B. The difference Q3−Q1 — Hiệu Q3−Q1
 C. Distribution asymmetry — Mức bất đối xứng phân phối
 
 D. Fourth-moment tail behavior relative to normal — Đặc trưng moment bậc bốn/đuôi so với chuẩn
+
+**Đáp án: B**
+
+**Giải thích:** Nó đo độ rộng nửa giữa dữ liệu.
+
 
 **Q3. What does skewness measure? — Skewness đo gì?**
 
@@ -299,6 +311,11 @@ C. Distribution asymmetry — Mức bất đối xứng phân phối
 
 D. Fourth-moment tail behavior relative to normal — Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
+**Đáp án: C**
+
+**Giải thích:** Dấu gợi ý phía đuôi dài.
+
+
 **Q4. What does excess kurtosis measure? — Excess kurtosis mô tả gì?**
 
 A. A value associated with a cumulative rank — Giá trị gắn với một mức thứ hạng tích lũy
@@ -308,6 +325,11 @@ B. The difference Q3−Q1 — Hiệu Q3−Q1
 C. Distribution asymmetry — Mức bất đối xứng phân phối
 
 D. Fourth-moment tail behavior relative to normal — Đặc trưng moment bậc bốn/đuôi so với chuẩn
+
+**Đáp án: D**
+
+**Giải thích:** Pandas dùng mốc 0 cho chuẩn.
+
 
 **Q5. What is the Q2 quantile? — Q2 là phân vị nào?**
 
@@ -319,6 +341,11 @@ C. Q3+1.5×IQR — Q3+1.5×IQR
 
 D. Q1−1.5×IQR — Q1−1.5×IQR
 
+**Đáp án: A**
+
+**Giải thích:** Q2 tương ứng phân vị 50%.
+
+
 **Q6. What does np.quantile(x,0.75) return? — np.quantile(x,0.75) trả gì?**
 
 A. The median — Trung vị
@@ -328,6 +355,11 @@ B. The 75th-percentile value — Giá trị phân vị 75%
 C. Q3+1.5×IQR — Q3+1.5×IQR
 
 D. Q1−1.5×IQR — Q1−1.5×IQR
+
+**Đáp án: B**
+
+**Giải thích:** Đây là Q3 theo quy ước nội suy đã chọn.
+
 
 **Q7. How is an upper IQR fence computed? — Ngưỡng trên IQR được tính sao?**
 
@@ -339,6 +371,11 @@ C. Q3+1.5×IQR — Q3+1.5×IQR
 
 D. Q1−1.5×IQR — Q1−1.5×IQR
 
+**Đáp án: C**
+
+**Giải thích:** Giá trị vượt được gắn cờ rà soát.
+
+
 **Q8. How is a lower IQR fence computed? — Ngưỡng dưới IQR được tính sao?**
 
 A. The median — Trung vị
@@ -348,6 +385,11 @@ B. The 75th-percentile value — Giá trị phân vị 75%
 C. Q3+1.5×IQR — Q3+1.5×IQR
 
 D. Q1−1.5×IQR — Q1−1.5×IQR
+
+**Đáp án: D**
+
+**Giải thích:** Giá trị dưới là ứng viên ngoại lệ.
+
 
 **Q9. What does positive skew suggest? — Skew dương gợi ý gì?**
 
@@ -359,6 +401,11 @@ C. Excess kurtosis — Kurtosis dư
 
 D. A skewness statistic — Hệ số độ lệch phân phối
 
+**Đáp án: A**
+
+**Giải thích:** Giá trị lớn kéo đuôi sang phải.
+
+
 **Q10. What does negative skew suggest? — Skew âm gợi ý gì?**
 
 A. A longer right tail — Đuôi phải dài hơn
@@ -368,6 +415,11 @@ B. A longer left tail — Đuôi trái dài hơn
 C. Excess kurtosis — Kurtosis dư
 
 D. A skewness statistic — Hệ số độ lệch phân phối
+
+**Đáp án: B**
+
+**Giải thích:** Giá trị nhỏ kéo đuôi về trái.
+
 
 **Q11. What does Series.kurt() return? — Series.kurt() trả gì?**
 
@@ -379,6 +431,11 @@ C. Excess kurtosis — Kurtosis dư
 
 D. A skewness statistic — Hệ số độ lệch phân phối
 
+**Đáp án: C**
+
+**Giải thích:** Pandas dùng quy ước kurtosis dư.
+
+
 **Q12. What does Series.skew() return? — Series.skew() trả gì?**
 
 A. A longer right tail — Đuôi phải dài hơn
@@ -388,6 +445,11 @@ B. A longer left tail — Đuôi trái dài hơn
 C. Excess kurtosis — Kurtosis dư
 
 D. A skewness statistic — Hệ số độ lệch phân phối
+
+**Đáp án: D**
+
+**Giải thích:** Nó ước lượng bất đối xứng từ mẫu.
+
 
 **Q13. What is Q3−Q1 called? — Q3−Q1 gọi là gì?**
 
@@ -399,6 +461,11 @@ C. 5 — 5
 
 D. No; legitimate extremes may be flagged — Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
+**Đáp án: A**
+
+**Giải thích:** Hiệu này chính là IQR.
+
+
 **Q14. What is median of 1,3,5? — Median của 1,3,5 bằng gì?**
 
 A. Interquartile range — Khoảng tứ phân vị
@@ -408,6 +475,11 @@ B. 3 — 3
 C. 5 — 5
 
 D. No; legitimate extremes may be flagged — Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
+
+**Đáp án: B**
+
+**Giải thích:** Giá trị đứng giữa là ba.
+
 
 **Q15. What is IQR if Q1=2 and Q3=7? — IQR nếu Q1=2, Q3=7 bằng bao nhiêu?**
 
@@ -419,6 +491,11 @@ C. 5 — 5
 
 D. No; legitimate extremes may be flagged — Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
+**Đáp án: C**
+
+**Giải thích:** Bảy trừ hai bằng năm.
+
+
 **Q16. Does an IQR outlier flag prove a measurement error? — Gắn cờ outlier theo IQR có chứng minh số đo sai không?**
 
 A. Interquartile range — Khoảng tứ phân vị
@@ -428,6 +505,11 @@ B. 3 — 3
 C. 5 — 5
 
 D. No; legitimate extremes may be flagged — Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
+
+**Đáp án: D**
+
+**Giải thích:** Ngưỡng chỉ là quy tắc sàng lọc.
+
 
 **Q17. Why can quantile values differ between software packages? — Vì sao phân vị có thể khác giữa các phần mềm?**
 
@@ -439,6 +521,11 @@ C. Median — Trung vị
 
 D. Fit the imputation value on train only — Tính giá trị điền chỉ từ train
 
+**Đáp án: A**
+
+**Giải thích:** Mẫu nhỏ dễ cho thấy sự khác biệt quy ước.
+
+
 **Q18. Why should you avoid interpreting high kurtosis only as a tall peak? — Vì sao không nên hiểu kurtosis cao chỉ là đỉnh cao?**
 
 A. Different interpolation conventions — Quy ước nội suy khác nhau
@@ -448,6 +535,11 @@ B. It concerns fourth moments and tails — Nó liên quan moment bậc bốn v�
 C. Median — Trung vị
 
 D. Fit the imputation value on train only — Tính giá trị điền chỉ từ train
+
+**Đáp án: B**
+
+**Giải thích:** Chỉ độ cao đỉnh không đủ diễn giải.
+
 
 **Q19. What statistic is often robust for imputation with extreme values? — Thống kê nào thường phù hợp điền thiếu khi có ngoại lệ lớn?**
 
@@ -459,6 +551,11 @@ C. Median — Trung vị
 
 D. Fit the imputation value on train only — Tính giá trị điền chỉ từ train
 
+**Đáp án: C**
+
+**Giải thích:** Thứ tự khiến trung vị ít nhạy với cực trị.
+
+
 **Q20. What is a crucial train/test rule when imputing missing values? — Quy tắc train/test quan trọng khi điền khuyết là gì?**
 
 A. Different interpolation conventions — Quy ước nội suy khác nhau
@@ -469,30 +566,9 @@ C. Median — Trung vị
 
 D. Fit the imputation value on train only — Tính giá trị điền chỉ từ train
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | Quantiles divide ordered data by proportions. | Phân vị chia dữ liệu sắp thứ tự theo tỷ lệ. |
-| Q2 | **B** | It measures the middle half's spread. | Nó đo độ rộng nửa giữa dữ liệu. |
-| Q3 | **C** | Its sign indicates tail direction. | Dấu gợi ý phía đuôi dài. |
-| Q4 | **D** | Pandas uses a normal-reference zero. | Pandas dùng mốc 0 cho chuẩn. |
-| Q5 | **A** | Q2 corresponds to the 50th percentile. | Q2 tương ứng phân vị 50%. |
-| Q6 | **B** | This is Q3 by the chosen interpolation convention. | Đây là Q3 theo quy ước nội suy đã chọn. |
-| Q7 | **C** | Values above are flagged for review. | Giá trị vượt được gắn cờ rà soát. |
-| Q8 | **D** | Values below are potential outliers. | Giá trị dưới là ứng viên ngoại lệ. |
-| Q9 | **A** | Large values stretch the positive direction. | Giá trị lớn kéo đuôi sang phải. |
-| Q10 | **B** | Small values stretch the negative direction. | Giá trị nhỏ kéo đuôi về trái. |
-| Q11 | **C** | Pandas uses the excess convention. | Pandas dùng quy ước kurtosis dư. |
-| Q12 | **D** | It estimates asymmetry from the sample. | Nó ước lượng bất đối xứng từ mẫu. |
-| Q13 | **A** | The difference is the IQR. | Hiệu này chính là IQR. |
-| Q14 | **B** | The sorted middle value is three. | Giá trị đứng giữa là ba. |
-| Q15 | **C** | Seven minus two is five. | Bảy trừ hai bằng năm. |
-| Q16 | **D** | The fence is a screening rule. | Ngưỡng chỉ là quy tắc sàng lọc. |
-| Q17 | **A** | Small samples especially reveal convention differences. | Mẫu nhỏ dễ cho thấy sự khác biệt quy ước. |
-| Q18 | **B** | Peak height alone is insufficient. | Chỉ độ cao đỉnh không đủ diễn giải. |
-| Q19 | **C** | Ranks reduce sensitivity to large extremes. | Thứ tự khiến trung vị ít nhạy với cực trị. |
-| Q20 | **D** | Test data must not influence fitted preprocessing. | Dữ liệu test không tham gia học tham số tiền xử lý. |
+**Giải thích:** Dữ liệu test không tham gia học tham số tiền xử lý.
 
 ## 8. Liên hệ bài kế tiếp
 

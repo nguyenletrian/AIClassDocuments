@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/export_curriculum_pdf.yml'
       - 'scripts/export_chapters_pdf.py'
+      - 'lessons/chapters/**'
 jobs:
   export:
     runs-on: ubuntu-latest
@@ -18,6 +19,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fonts-noto-core fonts-dejavu-core
           python -m pip install --disable-pip-version-check 'mistune>=3.1,<4' 'weasyprint>=66,<69' 'latex2mathml>=3,<4' 'pymupdf>=1.24,<2'
+      - name: Verify curriculum structure and inline Vietnamese QA
+        run: python -m unittest discover -s tests -p 'test_curriculum_structure.py' -v
       - name: Export and inspect PDF
         run: |
           python scripts/export_chapters_pdf.py

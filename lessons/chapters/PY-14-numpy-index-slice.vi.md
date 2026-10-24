@@ -7,7 +7,9 @@
 
 `NumPy ndarray → Chọn hàng/cột → DataFrame/PCA`
 
-Sau NumPy ndarray và shape, ta học cách lấy đúng phần tử, cột, hàng hoặc nhóm thỏa điều kiện. Chỉ số, lát cắt, mặt nạ Boolean và fancy indexing có mục đích khác nhau.
+**Học xong dùng để làm gì?** Lọc quan sát, chọn cột đặc trưng, hiểu lúc nào thao tác sửa dữ liệu gốc qua view.
+
+**Kết nối kiến thức tiếp theo:** PY-15 thực hiện phép tổng hợp và broadcasting trên dữ liệu được chọn.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -292,6 +294,11 @@ C. The number of dimensions — Số chiều của mảng
 
 D. 1 — 1
 
+**Đáp án: B**
+
+**Giải thích:** Chỉ số bắt đầu từ không: `a[0]` là phần tử đầu, còn `a[1]` là phần tử thứ hai. Chỉ số âm đếm ngược từ cuối.
+
+
 **Q2. For a 2-D array, what does `X[1, 0]` select? — Trong mảng hai chiều, `X[1, 0]` chọn gì?**
 
 A. Every row, first column — Mọi hàng, cột đầu
@@ -301,6 +308,11 @@ B. Row 2, column 1 — Hàng thứ hai, cột đầu tiên
 C. All columns of the first row — Mọi cột của hàng đầu
 
 D. Row 1, column 2 — Hàng đầu, cột thứ hai
+
+**Đáp án: B**
+
+**Giải thích:** Mảng 2D được truy cập theo `X[hàng, cột]`, với chỉ số bắt đầu từ không. Vì thế `X[1, 0]` là hàng hai, cột một.
+
 
 **Q3. What does `a[-1]` mean for a nonempty 1-D array? — `a[-1]` nghĩa là gì với mảng một chiều không rỗng?**
 
@@ -312,6 +324,11 @@ C. All negative values — Mọi giá trị âm
 
 D. The first element — Phần tử đầu
 
+**Đáp án: B**
+
+**Giải thích:** Với mảng không rỗng, chỉ số `-1` lấy phần tử cuối; ở `[4, 6, 8]` đó là `8`. Ngược lại, chỉ số `0` lấy phần tử đầu.
+
+
 **Q4. Which endpoint does a slice `a[1:4]` exclude? — Slice `a[1:4]` không lấy vị trí nào?**
 
 A. Index 3 — Chỉ số 3
@@ -321,6 +338,11 @@ B. Index 1 — Chỉ số 1
 C. Index 4 — Chỉ số 4
 
 D. Index 2 — Chỉ số 2
+
+**Đáp án: C**
+
+**Giải thích:** Chỉ số dừng của slice không được lấy: `a[1:4]` chọn vị trí 1, 2, 3 nếu có. Vị trí 4 không thuộc lát cắt.
+
 
 **Q5. What does `X[:, 0]` select? — `X[:, 0]` lấy gì?**
 
@@ -332,6 +354,11 @@ C. Only rows with value zero — Chỉ hàng có giá trị 0
 
 D. All rows in the first column — Mọi hàng ở cột đầu
 
+**Đáp án: D**
+
+**Giải thích:** Trong `X[:, 0]`, dấu `:` chọn mọi hàng và `0` chọn cột đầu. Kết quả là dữ liệu theo cột, khác `X[0, :]` lấy một hàng.
+
+
 **Q6. What does `X[0, :]` select? — `X[0, :]` lấy gì?**
 
 A. All columns of the first row — Mọi cột của hàng đầu
@@ -341,6 +368,11 @@ B. The last row — Hàng cuối
 C. All rows of the first column — Mọi hàng của cột đầu
 
 D. The diagonal — Đường chéo
+
+**Đáp án: A**
+
+**Giải thích:** `X[0, :]` cố định hàng số không và giữ mọi cột. Với `[[1,2],[3,4]]`, kết quả là hàng đầu `[1,2]`, không phải cột đầu.
+
 
 **Q7. What does a Boolean mask contain? — Mặt nạ Boolean chứa gì?**
 
@@ -352,6 +384,11 @@ C. Only column names — Chỉ tên cột
 
 D. True/False values indicating which entries to keep — Giá trị True/False cho biết phần tử nào được giữ
 
+**Đáp án: D**
+
+**Giải thích:** Mặt nạ Boolean chứa các vị trí `True` và `False`, thường sinh từ phép so sánh. Với `[4, 8]`, điều kiện `a >= 7` chỉ chọn phần tử thứ hai.
+
+
 **Q8. What is selected by `a[a >= 7]`? — `a[a >= 7]` chọn gì?**
 
 A. All entries smaller than 7 — Mọi phần tử nhỏ hơn 7
@@ -361,6 +398,11 @@ B. Only the element at index 7 — Chỉ phần tử chỉ số 7
 C. Elements at least 7 — Các phần tử từ 7 trở lên
 
 D. The first seven entries — Bảy phần tử đầu
+
+**Đáp án: C**
+
+**Giải thích:** Biểu thức so giá trị với ngưỡng 7 rồi giữ phần tử thỏa điều kiện. Với `[4, 7, 9]`, kết quả là `[7, 9]`, không phải phần tử có chỉ số 7.
+
 
 **Q9. What does `a[[0, 2]]` illustrate? — `a[[0, 2]]` minh họa điều gì?**
 
@@ -372,6 +414,11 @@ C. Fancy indexing with selected positions — Fancy indexing chọn các vị tr
 
 D. A matrix transpose — Chuyển vị ma trận
 
+**Đáp án: C**
+
+**Giải thích:** `a[[0, 2]]` dùng mảng chỉ số nguyên để chọn các vị trí cụ thể. Nó có thể lấy phần tử đầu và thứ ba không liền nhau, khác với lát cắt liên tục.
+
+
 **Q10. What is the difference between slicing and fancy indexing? — Slicing khác fancy indexing ở điểm nào?**
 
 A. Both always select entire matrices — Cả hai luôn lấy cả ma trận
@@ -381,6 +428,11 @@ B. Slicing requires Boolean values only — Slicing chỉ dùng Boolean
 C. Slices describe ranges; fancy indexing specifies index arrays — Slice chỉ đoạn, fancy indexing chỉ mảng vị trí
 
 D. Fancy indexing never uses integers — Fancy indexing không dùng số nguyên
+
+**Đáp án: C**
+
+**Giải thích:** Slice xác định dãy chỉ số có quy luật như `a[1:6:2]`; fancy indexing nguyên chỉ vị trí tùy ý như `a[[5, 1, 5]]`. Fancy indexing có thể lặp hoặc đổi thứ tự vị trí.
+
 
 **Q11. In NumPy, basic slicing generally returns what? — Basic slicing của NumPy thường trả về gì?**
 
@@ -392,6 +444,11 @@ C. A plain Python set — Một Set Python
 
 D. A new CSV file — File CSV mới
 
+**Đáp án: A**
+
+**Giải thích:** Basic slicing thường trả view chia sẻ bộ nhớ nền. Sửa `part = a[1:3]` có thể ảnh hưởng giá trị gốc tương ứng; hãy dùng `.copy()` khi cần dữ liệu độc lập.
+
+
 **Q12. Does advanced integer-array indexing generally return a view? — Indexing bằng mảng số nguyên nâng cao thường tạo view không?**
 
 A. Yes, it always shares memory — Có, luôn chia sẻ bộ nhớ
@@ -401,6 +458,11 @@ B. No, it generally returns a copy — Không, thường trả bản sao
 C. It converts the source to strings — Nó chuyển nguồn thành chuỗi
 
 D. It only returns None — Nó chỉ trả None
+
+**Đáp án: B**
+
+**Giải thích:** Indexing nâng cao bằng số nguyên thường sao chép dữ liệu được chọn thay vì tạo view. Sửa `b = a[[0,2]]` thường không đổi `a`; gán trực tiếp `a[[0,2]] = ...` là thao tác khác.
+
 
 **Q13. How do you keep source data unchanged before assignment? — Làm sao giữ mảng gốc không đổi trước khi gán?**
 
@@ -412,6 +474,11 @@ C. Always modify a slice directly — Luôn sửa trực tiếp slice
 
 D. Replace every value with zero — Thay mọi giá trị bằng 0
 
+**Đáp án: A**
+
+**Giải thích:** Lệnh `b = a.copy()` tạo bộ nhớ riêng trước khi sửa. Sau đó gán `b[0] = 9` không đổi `a[0]`, khác với sửa view dùng chung dữ liệu.
+
+
 **Q14. For shape (3,2), what does `X[:, 1]` return? — Nếu shape là (3,2), `X[:, 1]` trả về gì?**
 
 A. Three values from the second column — Ba giá trị ở cột thứ hai
@@ -421,6 +488,11 @@ B. Two values from the first row — Hai giá trị của hàng đầu
 C. An array with five values — Mảng năm giá trị
 
 D. One value in the center — Một giá trị giữa bảng
+
+**Đáp án: A**
+
+**Giải thích:** Mảng `(3,2)` có ba hàng hai cột. `X[:, 1]` lấy cột thứ hai qua cả ba hàng, cho kết quả có shape `(3,)`.
+
 
 **Q15. What does `X[:, [0, 2]]` mean when X has three columns? — `X[:, [0, 2]]` nghĩa là gì nếu X có ba cột?**
 
@@ -432,6 +504,11 @@ C. All rows and the first and third columns — Mọi hàng, cột thứ nhất 
 
 D. Only the second column — Chỉ cột thứ hai
 
+**Đáp án: C**
+
+**Giải thích:** Với ba cột, chỉ số `[0,2]` xác định cột thứ nhất và thứ ba. Dấu hai chấm giữ mọi hàng; biểu thức chọn hai cột chứ không cộng giá trị của chúng.
+
+
 **Q16. What is the effect of `a[:3]`? — `a[:3]` có tác dụng gì?**
 
 A. Take up to the first three entries — Lấy tối đa ba phần tử đầu
@@ -441,6 +518,11 @@ B. Take index 3 alone — Chỉ lấy phần tử số 3
 C. Sort entries descending — Sắp phần tử giảm dần
 
 D. Remove the first three entries — Xóa ba phần tử đầu
+
+**Đáp án: A**
+
+**Giải thích:** Bỏ start nghĩa là mặc định từ không, còn chỉ số dừng 3 không được lấy. Vì vậy `a[:3]` lấy tối đa ba phần tử đầu ngay cả khi mảng ngắn hơn; nó không xóa chúng.
+
 
 **Q17. Which operation filters entire rows based on the first column? — Lệnh nào lọc cả hàng theo điều kiện ở cột đầu?**
 
@@ -452,6 +534,11 @@ C. `X[0, 0]` — `X[0, 0]`
 
 D. `X[X[:, 0] >= 8]` — `X[X[:, 0] >= 8]`
 
+**Đáp án: D**
+
+**Giải thích:** `X[:,0] >= 8` tạo một Boolean cho mỗi hàng bằng cách xét giá trị cột đầu. Dùng mask này để lấy từ `X` sẽ giữ nguyên các hàng thỏa điều kiện, không chỉ phần tử cột đầu.
+
+
 **Q18. What happens when a scalar index is beyond array bounds? — Khi chỉ số phần tử vượt giới hạn mảng thì sao?**
 
 A. It silently creates a new row — Nó âm thầm tạo hàng mới
@@ -461,6 +548,11 @@ B. NumPy raises IndexError — NumPy báo IndexError
 C. It converts the array to a dictionary — Nó chuyển mảng thành Dictionary
 
 D. It always returns zero — Nó luôn trả 0
+
+**Đáp án: B**
+
+**Giải thích:** Chỉ số đơn vượt phạm vi một trục mảng gây `IndexError`. Với mảng dài ba phần tử, chỉ số 3 không hợp lệ vì vị trí dương cuối là 2; truy cập không tự mở rộng mảng.
+
 
 **Q19. How does `X[mask]` differ from `X[[0,2]]`? — `X[mask]` khác `X[[0,2]]` ra sao?**
 
@@ -472,6 +564,11 @@ C. Indices always compare values to a threshold — Chỉ số luôn so giá tr�
 
 D. A mask selects by condition; indices select by position — Mask chọn theo điều kiện; chỉ số chọn theo vị trí
 
+**Đáp án: D**
+
+**Giải thích:** Mask Boolean đánh dấu vị trí vượt qua phép kiểm tra, còn mảng chỉ số nguyên nêu thẳng các vị trí. Mask dựa trên điều kiện và `X[[0,2]]` không nhất thiết chọn cùng hàng.
+
+
 **Q20. Why state what rows and columns represent? — Vì sao cần nêu rõ ý nghĩa hàng và cột?**
 
 A. To make all arrays immutable — Để mọi mảng bất biến
@@ -482,30 +579,9 @@ C. To avoid using dtype — Để tránh dtype
 
 D. To select the intended data without swapping dimensions — Để chọn đúng dữ liệu và không đảo chiều
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **B** | Indexes start at zero: the first element is `a[0]`, while `a[1]` is the second. Negative indexes count backward from the end. | Chỉ số bắt đầu từ không: `a[0]` là phần tử đầu, còn `a[1]` là phần tử thứ hai. Chỉ số âm đếm ngược từ cuối. |
-| Q2 | **B** | A 2-D array is addressed as `X[row, column]`, using zero-based positions. Therefore `X[1, 0]` is the second row, first column. | Mảng 2D được truy cập theo `X[hàng, cột]`, với chỉ số bắt đầu từ không. Vì thế `X[1, 0]` là hàng hai, cột một. |
-| Q3 | **B** | For a nonempty array, index `-1` selects its final item; for `[4, 6, 8]` that is `8`. By contrast, `0` selects the first item. | Với mảng không rỗng, chỉ số `-1` lấy phần tử cuối; ở `[4, 6, 8]` đó là `8`. Ngược lại, chỉ số `0` lấy phần tử đầu. |
-| Q4 | **C** | The stop index in a slice is excluded: `a[1:4]` selects positions 1, 2 and 3 if present. Index 4 does not belong to the slice. | Chỉ số dừng của slice không được lấy: `a[1:4]` chọn vị trí 1, 2, 3 nếu có. Vị trí 4 không thuộc lát cắt. |
-| Q5 | **D** | In `X[:, 0]`, the colon selects every row and `0` chooses the first column. This produces column data, unlike `X[0, :]` which reads one row. | Trong `X[:, 0]`, dấu `:` chọn mọi hàng và `0` chọn cột đầu. Kết quả là dữ liệu theo cột, khác `X[0, :]` lấy một hàng. |
-| Q6 | **A** | `X[0, :]` fixes row zero and keeps every column. For a matrix `[[1,2],[3,4]]`, it yields the first row `[1,2]`, not the first column. | `X[0, :]` cố định hàng số không và giữ mọi cột. Với `[[1,2],[3,4]]`, kết quả là hàng đầu `[1,2]`, không phải cột đầu. |
-| Q7 | **D** | A Boolean mask stores `True` and `False` positions, often from a comparison. For values `[4, 8]`, the test `a >= 7` selects only the second item. | Mặt nạ Boolean chứa các vị trí `True` và `False`, thường sinh từ phép so sánh. Với `[4, 8]`, điều kiện `a >= 7` chỉ chọn phần tử thứ hai. |
-| Q8 | **C** | The expression compares values against 7 and retains those meeting the threshold. For `[4, 7, 9]`, it returns `[7, 9]`, not the item at index 7. | Biểu thức so giá trị với ngưỡng 7 rồi giữ phần tử thỏa điều kiện. Với `[4, 7, 9]`, kết quả là `[7, 9]`, không phải phần tử có chỉ số 7. |
-| Q9 | **C** | `a[[0, 2]]` uses an integer index array to select explicit positions. It can pick nonadjacent items such as the first and third, unlike one continuous slice. | `a[[0, 2]]` dùng mảng chỉ số nguyên để chọn các vị trí cụ thể. Nó có thể lấy phần tử đầu và thứ ba không liền nhau, khác với lát cắt liên tục. |
-| Q10 | **C** | A slice defines a regular range such as `a[1:6:2]`; integer fancy indexing names arbitrary positions such as `a[[5, 1, 5]]`. Fancy indexing can repeat or reorder positions. | Slice xác định dãy chỉ số có quy luật như `a[1:6:2]`; fancy indexing nguyên chỉ vị trí tùy ý như `a[[5, 1, 5]]`. Fancy indexing có thể lặp hoặc đổi thứ tự vị trí. |
-| Q11 | **A** | Basic slicing normally returns a view sharing underlying memory. Editing a slice such as `part = a[1:3]` may change the corresponding original values; use `.copy()` for independence. | Basic slicing thường trả view chia sẻ bộ nhớ nền. Sửa `part = a[1:3]` có thể ảnh hưởng giá trị gốc tương ứng; hãy dùng `.copy()` khi cần dữ liệu độc lập. |
-| Q12 | **B** | Advanced integer indexing generally copies selected data rather than returning a view. Modifying a stored selection such as `b = a[[0,2]]` does not normally alter `a`; direct assignment `a[[0,2]] = ...` is a different operation. | Indexing nâng cao bằng số nguyên thường sao chép dữ liệu được chọn thay vì tạo view. Sửa `b = a[[0,2]]` thường không đổi `a`; gán trực tiếp `a[[0,2]] = ...` là thao tác khác. |
-| Q13 | **A** | An explicit `b = a.copy()` gives separate storage before editing. Assigning `b[0] = 9` then leaves the value at `a[0]` unchanged, unlike editing a shared slice view. | Lệnh `b = a.copy()` tạo bộ nhớ riêng trước khi sửa. Sau đó gán `b[0] = 9` không đổi `a[0]`, khác với sửa view dùng chung dữ liệu. |
-| Q14 | **A** | A `(3,2)` array has three rows and two columns. `X[:, 1]` takes the second column across all three rows, producing a result with shape `(3,)`. | Mảng `(3,2)` có ba hàng hai cột. `X[:, 1]` lấy cột thứ hai qua cả ba hàng, cho kết quả có shape `(3,)`. |
-| Q15 | **C** | With three columns, indexes `[0,2]` specify the first and third columns. The colon keeps all rows; this selects two columns instead of adding their values. | Với ba cột, chỉ số `[0,2]` xác định cột thứ nhất và thứ ba. Dấu hai chấm giữ mọi hàng; biểu thức chọn hai cột chứ không cộng giá trị của chúng. |
-| Q16 | **A** | The omitted start defaults to zero and the stop index 3 is excluded. Thus `a[:3]` takes up to the first three items even if the array has fewer; it does not remove them. | Bỏ start nghĩa là mặc định từ không, còn chỉ số dừng 3 không được lấy. Vì vậy `a[:3]` lấy tối đa ba phần tử đầu ngay cả khi mảng ngắn hơn; nó không xóa chúng. |
-| Q17 | **D** | `X[:,0] >= 8` creates one Boolean per row by testing its first-column value. Indexing `X` with this mask keeps full matching rows, not merely the first-column entries. | `X[:,0] >= 8` tạo một Boolean cho mỗi hàng bằng cách xét giá trị cột đầu. Dùng mask này để lấy từ `X` sẽ giữ nguyên các hàng thỏa điều kiện, không chỉ phần tử cột đầu. |
-| Q18 | **B** | A scalar index outside an array axis raises `IndexError`. In a length-three array, index 3 is invalid because the last positive position is 2; indexing does not automatically grow the array. | Chỉ số đơn vượt phạm vi một trục mảng gây `IndexError`. Với mảng dài ba phần tử, chỉ số 3 không hợp lệ vì vị trí dương cuối là 2; truy cập không tự mở rộng mảng. |
-| Q19 | **D** | A Boolean mask marks which positions pass a test, whereas an integer-array index lists positions explicitly. A condition-based mask and `X[[0,2]]` need not select the same rows. | Mask Boolean đánh dấu vị trí vượt qua phép kiểm tra, còn mảng chỉ số nguyên nêu thẳng các vị trí. Mask dựa trên điều kiện và `X[[0,2]]` không nhất thiết chọn cùng hàng. |
-| Q20 | **D** | The meaning of each axis determines which slice answers the real question. If rows are learners and columns are subjects, `X[:,0]` gets every learner's first-subject score, while `X[0,:]` gets one learner's scores. | Ý nghĩa từng trục quyết định lát cắt nào trả lời đúng vấn đề. Nếu hàng là học viên và cột là môn, `X[:,0]` lấy điểm môn đầu của mọi học viên, còn `X[0,:]` lấy điểm các môn của học viên đầu. |
+**Giải thích:** Ý nghĩa từng trục quyết định lát cắt nào trả lời đúng vấn đề. Nếu hàng là học viên và cột là môn, `X[:,0]` lấy điểm môn đầu của mọi học viên, còn `X[0,:]` lấy điểm các môn của học viên đầu.
 
 ## 8. Nối bài tiếp theo
 

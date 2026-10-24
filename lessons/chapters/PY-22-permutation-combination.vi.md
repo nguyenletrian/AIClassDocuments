@@ -7,7 +7,9 @@
 
 `Nguyên lý đếm → hoán vị/tổ hợp → phân phối nhị thức`
 
-Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước và cách xử lý dữ liệu để ứng dụng AI sau này.
+**Học xong dùng để làm gì?** Tính số cách chọn người, chia vai hoặc sắp lịch, phân biệt có và không xét thứ tự.
+
+**Kết nối kiến thức tiếp theo:** PY-23 mô hình hóa quan hệ và độ tương đồng giữa đối tượng bằng đồ thị/Jaccard.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -266,6 +268,11 @@ C. The product 1×2×…×n — Tích 1×2×…×n
 
 D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
+**Đáp án: A**
+
+**Giải thích:** Đổi thứ tự người được chọn tạo cách sắp khác.
+
+
 **Q2. When should combinations be used? — Khi nào dùng tổ hợp?**
 
 A. When order matters — Khi thứ tự quan trọng
@@ -275,6 +282,11 @@ B. When order does not matter — Khi thứ tự không quan trọng
 C. The product 1×2×…×n — Tích 1×2×…×n
 
 D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
+
+**Đáp án: B**
+
+**Giải thích:** Nhóm không đổi khi thành viên đổi chỗ.
+
 
 **Q3. What is factorial n!? — Giai thừa n! là gì?**
 
@@ -286,6 +298,11 @@ C. The product 1×2×…×n — Tích 1×2×…×n
 
 D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
+**Đáp án: C**
+
+**Giải thích:** Giai thừa đếm cách sắp xếp n phần tử phân biệt.
+
+
 **Q4. What is a binomial coefficient C(n,k)? — Hệ số nhị thức C(n,k) là gì?**
 
 A. When order matters — Khi thứ tự quan trọng
@@ -295,6 +312,11 @@ B. When order does not matter — Khi thứ tự không quan trọng
 C. The product 1×2×…×n — Tích 1×2×…×n
 
 D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
+
+**Đáp án: D**
+
+**Giải thích:** C(n,k) còn là hệ số trong khai triển (a+b)^n.
+
 
 **Q5. Which function counts ordered selections? — Hàm nào đếm cách chọn có thứ tự?**
 
@@ -306,6 +328,11 @@ C. `math.factorial(n)` — `math.factorial(n)`
 
 D. `itertools.permutations(items)` — `itertools.permutations(items)`
 
+**Đáp án: A**
+
+**Giải thích:** perm đếm cách chọn có thứ tự không lặp.
+
+
 **Q6. Which function counts unordered selections? — Hàm nào đếm cách chọn không thứ tự?**
 
 A. `math.perm(n, k)` — `math.perm(n, k)`
@@ -315,6 +342,11 @@ B. `math.comb(n, k)` — `math.comb(n, k)`
 C. `math.factorial(n)` — `math.factorial(n)`
 
 D. `itertools.permutations(items)` — `itertools.permutations(items)`
+
+**Đáp án: B**
+
+**Giải thích:** comb đếm các nhóm khác nhau, không xét sắp xếp.
+
 
 **Q7. Which function calculates n!? — Hàm nào tính n!?**
 
@@ -326,6 +358,11 @@ C. `math.factorial(n)` — `math.factorial(n)`
 
 D. `itertools.permutations(items)` — `itertools.permutations(items)`
 
+**Đáp án: C**
+
+**Giải thích:** factorial nhân các số nguyên từ một tới n.
+
+
 **Q8. Which function lists all ordered arrangements? — Hàm nào liệt kê các cách sắp xếp có thứ tự?**
 
 A. `math.perm(n, k)` — `math.perm(n, k)`
@@ -335,6 +372,11 @@ B. `math.comb(n, k)` — `math.comb(n, k)`
 C. `math.factorial(n)` — `math.factorial(n)`
 
 D. `itertools.permutations(items)` — `itertools.permutations(items)`
+
+**Đáp án: D**
+
+**Giải thích:** Không truyền r, permutations liệt kê toàn bộ thứ tự.
+
 
 **Q9. What is the value of 0!? — 0! bằng bao nhiêu?**
 
@@ -346,6 +388,11 @@ C. 10 pairs — 10 cặp
 
 D. 12 pairs — 12 cặp
 
+**Đáp án: A**
+
+**Giải thích:** Dãy rỗng có một cách sắp xếp.
+
+
 **Q10. How many full orderings of three distinct items exist? — Ba phần tử phân biệt có bao nhiêu thứ tự đầy đủ?**
 
 A. 1 — 1
@@ -355,6 +402,11 @@ B. 6 — 6
 C. 10 pairs — 10 cặp
 
 D. 12 pairs — 12 cặp
+
+**Đáp án: B**
+
+**Giải thích:** 3! = 3×2×1 = 6.
+
 
 **Q11. How many unordered pairs can be chosen from five distinct items? — Chọn cặp không thứ tự từ năm phần tử có bao nhiêu cách?**
 
@@ -366,6 +418,11 @@ C. 10 pairs — 10 cặp
 
 D. 12 pairs — 12 cặp
 
+**Đáp án: C**
+
+**Giải thích:** Chọn hai từ năm không xét thứ tự có C(5,2)=10 cặp.
+
+
 **Q12. How many ordered pairs can be formed from four distinct items without repetition? — Từ bốn phần tử phân biệt có bao nhiêu cặp có thứ tự không lặp?**
 
 A. 1 — 1
@@ -375,6 +432,11 @@ B. 6 — 6
 C. 10 pairs — 10 cặp
 
 D. 12 pairs — 12 cặp
+
+**Đáp án: D**
+
+**Giải thích:** 4×3 = 12.
+
 
 **Q13. What identity relates combinations and permutations? — Công thức nào liên hệ tổ hợp và chỉnh hợp?**
 
@@ -386,6 +448,11 @@ C. n — n
 
 D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
+**Đáp án: A**
+
+**Giải thích:** Mỗi nhóm k người có k! cách sắp.
+
+
 **Q14. What is C(n,0)? — C(n,0) bằng gì?**
 
 A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
@@ -395,6 +462,11 @@ B. 1 — 1
 C. n — n
 
 D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
+
+**Đáp án: B**
+
+**Giải thích:** Có một cách chọn tập rỗng.
+
 
 **Q15. What is C(n,n−1)? — C(n,n−1) bằng gì?**
 
@@ -406,6 +478,11 @@ C. n — n
 
 D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
+**Đáp án: C**
+
+**Giải thích:** Chọn n−1 từ n tương đương chọn một phần tử bỏ lại nên có n cách.
+
+
 **Q16. How are entries in Pascal's triangle obtained? — Các ô trong tam giác Pascal được tạo ra sao?**
 
 A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
@@ -415,6 +492,11 @@ B. 1 — 1
 C. n — n
 
 D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
+
+**Đáp án: D**
+
+**Giải thích:** Hệ thức Pascal cộng hai hệ số ở hàng trước.
+
 
 **Q17. What does `itertools.combinations(items,2)` list? — `itertools.combinations(items,2)` liệt kê gì?**
 
@@ -426,6 +508,11 @@ C. It returns zero — Hàm trả về 0
 
 D. The number grows factorially — Số cách tăng theo giai thừa
 
+**Đáp án: A**
+
+**Giải thích:** Hàm tạo mỗi cặp khác nhau đúng một lần.
+
+
 **Q18. What does `itertools.permutations(items,2)` list? — `itertools.permutations(items,2)` liệt kê gì?**
 
 A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
@@ -435,6 +522,11 @@ B. Ordered two-item arrangements — Cặp hai phần tử có thứ tự
 C. It returns zero — Hàm trả về 0
 
 D. The number grows factorially — Số cách tăng theo giai thừa
+
+**Đáp án: B**
+
+**Giải thích:** Đổi thứ tự hai phần tử tạo kết quả khác.
+
 
 **Q19. What happens if k>n in `math.comb(n,k)` for nonnegative integers? — Nếu k>n trong math.comb với số nguyên không âm thì sao?**
 
@@ -446,6 +538,11 @@ C. It returns zero — Hàm trả về 0
 
 D. The number grows factorially — Số cách tăng theo giai thừa
 
+**Đáp án: C**
+
+**Giải thích:** Không thể chọn k phần tử nếu tổng phần tử ít hơn k.
+
+
 **Q20. Why avoid materializing all permutations for large n? — Vì sao tránh liệt kê toàn bộ hoán vị khi n lớn?**
 
 A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
@@ -456,30 +553,9 @@ C. It returns zero — Hàm trả về 0
 
 D. The number grows factorially — Số cách tăng theo giai thừa
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | Reordering selected people produces a different arrangement. | Đổi thứ tự người được chọn tạo cách sắp khác. |
-| Q2 | **B** | A group remains the same after members swap positions. | Nhóm không đổi khi thành viên đổi chỗ. |
-| Q3 | **C** | Factorial counts arrangements of n distinct items. | Giai thừa đếm cách sắp xếp n phần tử phân biệt. |
-| Q4 | **D** | C(n,k) is also a coefficient in (a+b)^n. | C(n,k) còn là hệ số trong khai triển (a+b)^n. |
-| Q5 | **A** | perm counts arrangements without replacement. | perm đếm cách chọn có thứ tự không lặp. |
-| Q6 | **B** | comb counts distinct groups rather than arrangements. | comb đếm các nhóm khác nhau, không xét sắp xếp. |
-| Q7 | **C** | factorial multiplies integers from one through n. | factorial nhân các số nguyên từ một tới n. |
-| Q8 | **D** | Without r, permutations enumerates complete orderings. | Không truyền r, permutations liệt kê toàn bộ thứ tự. |
-| Q9 | **A** | The empty arrangement has exactly one possible order. | Dãy rỗng có một cách sắp xếp. |
-| Q10 | **B** | 3! = 3×2×1 = 6. | 3! = 3×2×1 = 6. |
-| Q11 | **C** | Choosing two from five without order gives C(5,2)=10 pairs. | Chọn hai từ năm không xét thứ tự có C(5,2)=10 cặp. |
-| Q12 | **D** | 4×3 = 12. | 4×3 = 12. |
-| Q13 | **A** | Each chosen group can be arranged in k! orders. | Mỗi nhóm k người có k! cách sắp. |
-| Q14 | **B** | There is one way to choose nobody. | Có một cách chọn tập rỗng. |
-| Q15 | **C** | Choosing n−1 items from n is equivalent to choosing which one to leave out, giving n possibilities. | Chọn n−1 từ n tương đương chọn một phần tử bỏ lại nên có n cách. |
-| Q16 | **D** | Pascal's identity is C(n,k)=C(n−1,k−1)+C(n−1,k). | Hệ thức Pascal cộng hai hệ số ở hàng trước. |
-| Q17 | **A** | It emits each distinct pair once. | Hàm tạo mỗi cặp khác nhau đúng một lần. |
-| Q18 | **B** | Reversing a pair yields a different result. | Đổi thứ tự hai phần tử tạo kết quả khác. |
-| Q19 | **C** | No k-subset exists when fewer than k items are available. | Không thể chọn k phần tử nếu tổng phần tử ít hơn k. |
-| Q20 | **D** | n! quickly becomes too large to store or display. | n! tăng nhanh khiến không thể lưu hoặc in hết. |
+**Giải thích:** n! tăng nhanh khiến không thể lưu hoặc in hết.
 
 ## 8. Nối sang bài tiếp
 

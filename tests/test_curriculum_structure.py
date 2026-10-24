@@ -46,9 +46,20 @@ class CurriculumStructureTests(unittest.TestCase):
                 self.assertEqual(qs, list(range(1, 21)))
                 options = re.findall(r"^([A-D])\. .+ — .+$", text, re.M)
                 self.assertEqual(options, list("ABCD") * 20)
-                answers = [int(x) for x in re.findall(
-                    r"^\| Q(\d+) \| \*\*[A-D]\*\* \|", text, re.M)]
-                self.assertEqual(answers, list(range(1, 21)))
+                qa_text = text.split("## 7.", 1)[1].split("## 8.", 1)[0]
+                blocks = re.findall(
+                    r"(?ms)^\*\*Q(\d+)\..*?\*\*$"
+                    r"(.*?)(?=^\*\*Q\d+\.|\Z)", qa_text)
+                self.assertEqual([int(q) for q, _ in blocks], list(range(1, 21)))
+                for q, block in blocks:
+                    answers = re.findall(r"^\*\*Đáp án: ([A-D])\*\*$", block, re.M)
+                    notes = re.findall(r"^\*\*Giải thích:\*\* (.+)$", block, re.M)
+                    self.assertEqual(len(answers), 1, f"Q{q}: exactly one answer")
+                    self.assertEqual(len(notes), 1, f"Q{q}: one Vietnamese explanation")
+                    self.assertNotIn("Explanation (English)", block)
+                self.assertNotIn("### Answer key", qa_text)
+                self.assertIn("**Học xong dùng để làm gì?**", text)
+                self.assertIn("**Kết nối kiến thức tiếp theo:**", text)
                 self.assertIn("**Từ vựng trong mục:**", text)
                 cases_text = text.split("## 5.", 1)[1].split("## 6.", 1)[0]
                 self.assertEqual(cases_text.count("**Tình huống thực tế:**"), 5)

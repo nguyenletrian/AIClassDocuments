@@ -7,7 +7,9 @@
 
 `Dự đoán → Sai số → Loss → Tối ưu hóa`
 
-Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc tối ưu tính toán phục vụ AI. Đọc ví dụ trước khi liên hệ tới mô hình phức tạp.
+**Học xong dùng để làm gì?** Đo sai số dự đoán bằng MSE hoặc loss thích hợp và đặt mục tiêu cần tối ưu.
+
+**Kết nối kiến thức tiếp theo:** PY-31 tính đạo hàm để biết loss thay đổi ra sao khi chỉnh tham số.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -298,6 +300,11 @@ C. Quadratic for small errors and linear for large — Bình phương lỗi nh�
 
 D. Compare two probability distributions in a directed way — So hai phân phối xác suất có phân biệt chiều
 
+**Đáp án: A**
+
+**Giải thích:** MSE lấy trung bình bình phương sai lệch.
+
+
 **Q2. What is MAE? — MAE là gì?**
 
 A. Mean squared prediction error — Trung bình sai số dự báo bình phương
@@ -307,6 +314,11 @@ B. Mean absolute prediction error — Trung bình trị tuyệt đối sai số
 C. Quadratic for small errors and linear for large — Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
 D. Compare two probability distributions in a directed way — So hai phân phối xác suất có phân biệt chiều
+
+**Đáp án: B**
+
+**Giải thích:** MAE lấy trung bình độ lệch tuyệt đối.
+
 
 **Q3. What characterizes Huber loss? — Đặc trưng của Huber loss là gì?**
 
@@ -318,6 +330,11 @@ C. Quadratic for small errors and linear for large — Bình phương lỗi nh�
 
 D. Compare two probability distributions in a directed way — So hai phân phối xác suất có phân biệt chiều
 
+**Đáp án: C**
+
+**Giải thích:** Huber đổi tốc độ tăng mức phạt sau một ngưỡng.
+
+
 **Q4. What is KL divergence used for? — KL divergence dùng để làm gì?**
 
 A. Mean squared prediction error — Trung bình sai số dự báo bình phương
@@ -327,6 +344,11 @@ B. Mean absolute prediction error — Trung bình trị tuyệt đối sai số
 C. Quadratic for small errors and linear for large — Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
 D. Compare two probability distributions in a directed way — So hai phân phối xác suất có phân biệt chiều
+
+**Đáp án: D**
+
+**Giải thích:** KL dùng tỷ số logarit theo một chiều giữa các phân phối.
+
 
 **Q5. What does categorical cross-entropy penalize? — Categorical cross-entropy phạt điều gì?**
 
@@ -338,6 +360,11 @@ C. `mean(abs(y-pred))` — `mean(abs(y-pred))`
 
 D. `delta` — `delta`
 
+**Đáp án: A**
+
+**Giải thích:** Lớp đúng cần được gán xác suất cao.
+
+
 **Q6. Which formula computes MSE? — Công thức nào tính MSE?**
 
 A. Low predicted probability for the correct label — Xác suất dự đoán thấp cho nhãn đúng
@@ -347,6 +374,11 @@ B. `mean((y-pred)**2)` — `mean((y-pred)**2)`
 C. `mean(abs(y-pred))` — `mean(abs(y-pred))`
 
 D. `delta` — `delta`
+
+**Đáp án: B**
+
+**Giải thích:** Bình phương từng sai lệch trước khi trung bình.
+
 
 **Q7. Which formula computes MAE? — Công thức nào tính MAE?**
 
@@ -358,6 +390,11 @@ C. `mean(abs(y-pred))` — `mean(abs(y-pred))`
 
 D. `delta` — `delta`
 
+**Đáp án: C**
+
+**Giải thích:** Lấy trị tuyệt đối từng sai lệch rồi trung bình.
+
+
 **Q8. Which parameter sets Huber's transition point? — Tham số nào đặt điểm chuyển Huber?**
 
 A. Low predicted probability for the correct label — Xác suất dự đoán thấp cho nhãn đúng
@@ -367,6 +404,11 @@ B. `mean((y-pred)**2)` — `mean((y-pred)**2)`
 C. `mean(abs(y-pred))` — `mean(abs(y-pred))`
 
 D. `delta` — `delta`
+
+**Đáp án: D**
+
+**Giải thích:** Delta phân chia hai miền của Huber.
+
 
 **Q9. What does `−log(p_true)` represent for one correct class? — `−log(p_true)` biểu thị gì cho một nhãn đúng?**
 
@@ -378,6 +420,11 @@ C. No, KL is asymmetric — Không, KL bất đối xứng
 
 D. The distributions are identical — Hai phân phối giống nhau
 
+**Đáp án: A**
+
+**Giải thích:** Với one-hot, chỉ còn hạng log của lớp đúng.
+
+
 **Q10. What is the sign of KL divergence for valid distributions? — KL divergence có dấu gì với phân phối hợp lệ?**
 
 A. Cross-entropy loss for that sample — Cross-entropy của mẫu đó
@@ -387,6 +434,11 @@ B. Nonnegative — Không âm
 C. No, KL is asymmetric — Không, KL bất đối xứng
 
 D. The distributions are identical — Hai phân phối giống nhau
+
+**Đáp án: B**
+
+**Giải thích:** KL không âm theo bất đẳng thức Gibbs.
+
 
 **Q11. Does swapping P and Q generally preserve KL? — Đổi chỗ P và Q có giữ nguyên KL không?**
 
@@ -398,6 +450,11 @@ C. No, KL is asymmetric — Không, KL bất đối xứng
 
 D. The distributions are identical — Hai phân phối giống nhau
 
+**Đáp án: C**
+
+**Giải thích:** D(P‖Q) và D(Q‖P) có thể khác.
+
+
 **Q12. What does a zero KL divergence mean for valid finite distributions? — KL bằng 0 nghĩa là gì với các phân phối hữu hạn hợp lệ?**
 
 A. Cross-entropy loss for that sample — Cross-entropy của mẫu đó
@@ -407,6 +464,11 @@ B. Nonnegative — Không âm
 C. No, KL is asymmetric — Không, KL bất đối xứng
 
 D. The distributions are identical — Hai phân phối giống nhau
+
+**Đáp án: D**
+
+**Giải thích:** KL bằng 0 khi các phân phối trùng nhau trong điều kiện phù hợp.
+
 
 **Q13. What is the unit of MSE when predictions are in meters? — Dự báo theo mét thì MSE có đơn vị gì?**
 
@@ -418,6 +480,11 @@ C. MSE — MSE
 
 D. Huber loss — Huber loss
 
+**Đáp án: A**
+
+**Giải thích:** Bình phương sai lệch mét cho đơn vị m².
+
+
 **Q14. What is the unit of MAE when predictions are in meters? — Dự báo theo mét thì MAE có đơn vị gì?**
 
 A. Square meters — Mét bình phương
@@ -427,6 +494,11 @@ B. Meters — Mét
 C. MSE — MSE
 
 D. Huber loss — Huber loss
+
+**Đáp án: B**
+
+**Giải thích:** Sai lệch tuyệt đối giữ đơn vị gốc.
+
 
 **Q15. Which loss increases quadratically with error magnitude? — Loss nào tăng theo bình phương độ lớn lỗi?**
 
@@ -438,6 +510,11 @@ C. MSE — MSE
 
 D. Huber loss — Huber loss
 
+**Đáp án: C**
+
+**Giải thích:** MSE bình phương độ lớn lỗi.
+
+
 **Q16. Which regression loss has a threshold between quadratic and linear penalties? — Loss hồi quy nào có ngưỡng chuyển bình phương sang tuyến tính?**
 
 A. Square meters — Mét bình phương
@@ -447,6 +524,11 @@ B. Meters — Mét
 C. MSE — MSE
 
 D. Huber loss — Huber loss
+
+**Đáp án: D**
+
+**Giải thích:** Huber chuyển miền tại delta.
+
 
 **Q17. Why clip predicted probabilities before a naive log implementation? — Vì sao clip xác suất trước khi lấy log bằng công thức đơn giản?**
 
@@ -458,6 +540,11 @@ C. No, evaluate on held-out data — Không, cần đánh giá trên dữ liệu
 
 D. Predicted probability assigned to the true class — Xác suất dự báo dành cho lớp đúng
 
+**Đáp án: A**
+
+**Giải thích:** Xác suất 0 gây kỳ dị log trong công thức số học đơn giản.
+
+
 **Q18. Which loss is easier to interpret in the original output units? — Loss nào dễ đọc theo đơn vị đầu ra ban đầu?**
 
 A. To avoid log(0) and numerical infinities — Để tránh log(0) và vô cực số học
@@ -467,6 +554,11 @@ B. MAE — MAE
 C. No, evaluate on held-out data — Không, cần đánh giá trên dữ liệu độc lập
 
 D. Predicted probability assigned to the true class — Xác suất dự báo dành cho lớp đúng
+
+**Đáp án: B**
+
+**Giải thích:** MAE báo sai số trung bình cùng đơn vị đo.
+
 
 **Q19. Does a lower training loss guarantee better unseen-data performance? — Training loss thấp có bảo đảm dự đoán tốt trên dữ liệu mới?**
 
@@ -478,6 +570,11 @@ C. No, evaluate on held-out data — Không, cần đánh giá trên dữ liệu
 
 D. Predicted probability assigned to the true class — Xác suất dự báo dành cho lớp đúng
 
+**Đáp án: C**
+
+**Giải thích:** Khả năng tổng quát cần kiểm chứng bằng dữ liệu độc lập.
+
+
 **Q20. For one-hot labels, what information matters in cross-entropy? — Với nhãn one-hot, điều gì quyết định cross-entropy?**
 
 A. To avoid log(0) and numerical infinities — Để tránh log(0) và vô cực số học
@@ -488,30 +585,9 @@ C. No, evaluate on held-out data — Không, cần đánh giá trên dữ liệu
 
 D. Predicted probability assigned to the true class — Xác suất dự báo dành cho lớp đúng
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | MSE averages squared deviations. | MSE lấy trung bình bình phương sai lệch. |
-| Q2 | **B** | MAE averages absolute deviations. | MAE lấy trung bình độ lệch tuyệt đối. |
-| Q3 | **C** | Huber changes penalty growth past a threshold. | Huber đổi tốc độ tăng mức phạt sau một ngưỡng. |
-| Q4 | **D** | KL uses a directed log-ratio between distributions. | KL dùng tỷ số logarit theo một chiều giữa các phân phối. |
-| Q5 | **A** | The true class should receive high probability. | Lớp đúng cần được gán xác suất cao. |
-| Q6 | **B** | Square each residual before averaging. | Bình phương từng sai lệch trước khi trung bình. |
-| Q7 | **C** | Take absolute values of residuals before averaging. | Lấy trị tuyệt đối từng sai lệch rồi trung bình. |
-| Q8 | **D** | Delta separates the two Huber regions. | Delta phân chia hai miền của Huber. |
-| Q9 | **A** | With one-hot labels, only the true-class log term remains. | Với one-hot, chỉ còn hạng log của lớp đúng. |
-| Q10 | **B** | KL is nonnegative by Gibbs' inequality. | KL không âm theo bất đẳng thức Gibbs. |
-| Q11 | **C** | D(P‖Q) and D(Q‖P) can differ. | D(P‖Q) và D(Q‖P) có thể khác. |
-| Q12 | **D** | KL is zero only when distributions agree appropriately. | KL bằng 0 khi các phân phối trùng nhau trong điều kiện phù hợp. |
-| Q13 | **A** | Squaring a meter-valued residual yields m². | Bình phương sai lệch mét cho đơn vị m². |
-| Q14 | **B** | Absolute errors keep the original unit. | Sai lệch tuyệt đối giữ đơn vị gốc. |
-| Q15 | **C** | MSE squares error magnitudes. | MSE bình phương độ lớn lỗi. |
-| Q16 | **D** | Huber transitions at delta. | Huber chuyển miền tại delta. |
-| Q17 | **A** | Zero probabilities cause log singularities in naive formulas. | Xác suất 0 gây kỳ dị log trong công thức số học đơn giản. |
-| Q18 | **B** | MAE reports average error in the same measurement unit. | MAE báo sai số trung bình cùng đơn vị đo. |
-| Q19 | **C** | Generalization requires held-out validation. | Khả năng tổng quát cần kiểm chứng bằng dữ liệu độc lập. |
-| Q20 | **D** | The negative log-likelihood uses the true-class score. | Âm log-likelihood dùng xác suất lớp đúng. |
+**Giải thích:** Âm log-likelihood dùng xác suất lớp đúng.
 
 ## 8. Bài tiếp theo
 

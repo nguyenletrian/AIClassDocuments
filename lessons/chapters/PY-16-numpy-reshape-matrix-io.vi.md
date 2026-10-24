@@ -7,7 +7,9 @@
 
 `ndarray → Reshape/Transpose → Matrix → Model Input`
 
-Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều đối tượng và đặc trưng trước khi dùng trong AI.
+**Học xong dùng để làm gì?** Chuyển mảng thành ma trận, nhân ma trận và lưu dữ liệu NPY để dùng lại mà không mất shape/dtype.
+
+**Kết nối kiến thức tiếp theo:** PY-17 đưa dữ liệu vào DataFrame có nhãn hàng và tên cột.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -290,6 +292,11 @@ C. Swaps rows and columns — Hoán đổi hàng và cột
 
 D. Matrix multiplication — Phép nhân ma trận
 
+**Đáp án: A**
+
+**Giải thích:** reshape bố trí lại cùng các phần tử theo kích thước mới. Với sáu phần tử, đổi `(2,3)` thành `(3,2)` hợp lệ, nhưng đổi thành `(4,2)` thì không.
+
+
 **Q2. What does `.T` do to a 2-D array? — `.T` làm gì với mảng 2-D?**
 
 A. The array's shape without changing its total element count — Hình dạng mảng mà không đổi số phần tử
@@ -299,6 +306,11 @@ B. Writes an array to an NPY file — Ghi mảng vào tệp NPY
 C. Matrix multiplication — Phép nhân ma trận
 
 D. Swaps rows and columns — Hoán đổi hàng và cột
+
+**Đáp án: D**
+
+**Giải thích:** Chuyển vị tráo hai trục của ma trận. Với `[[1,2,3],[4,5,6]]`, chuyển vị tạo ba hàng lần lượt là `[1,4]`, `[2,5]`, `[3,6]`.
+
 
 **Q3. What does `A @ B` mean for compatible matrices? — `A @ B` nghĩa là gì với các ma trận tương thích?**
 
@@ -310,6 +322,11 @@ C. The array's shape without changing its total element count — Hình dạng m
 
 D. Writes an array to an NPY file — Ghi mảng vào tệp NPY
 
+**Đáp án: B**
+
+**Giải thích:** Toán tử @ tuân theo quy tắc nhân ma trận chứ không nhân riêng từng ô. Nếu `A` có shape `(2,3)` và `B` là `(3,4)`, thì `A @ B` có shape `(2,4)`; dấu `*` lại nhân từng phần tử.
+
+
 **Q4. What does `np.save()` do? — `np.save()` làm gì?**
 
 A. Swaps rows and columns — Hoán đổi hàng và cột
@@ -319,6 +336,11 @@ B. Matrix multiplication — Phép nhân ma trận
 C. Writes an array to an NPY file — Ghi mảng vào tệp NPY
 
 D. The array's shape without changing its total element count — Hình dạng mảng mà không đổi số phần tử
+
+**Đáp án: C**
+
+**Giải thích:** NumPy lưu giá trị, shape và dtype ở định dạng NPY. Khác CSV văn bản, tệp NPY giữ thông tin riêng của NumPy để khôi phục đúng mảng.
+
 
 **Q5. Which shape specifically has two rows and three columns? — Shape nào có đúng hai hàng và ba cột?**
 
@@ -330,6 +352,11 @@ C. `(6,)` — `(6,)`
 
 D. `(2, 4)` — `(2, 4)`
 
+**Đáp án: B**
+
+**Giải thích:** Chiều thứ nhất là số hàng và chiều thứ hai là số cột: (2,3). Shape `(2,3)` có tổng sáu ô; `(3,2)` cũng sáu ô nhưng số hàng và cột đảo vị trí.
+
+
 **Q6. What is the transpose shape of a `(2, 3)` matrix? — Chuyển vị ma trận `(2, 3)` có shape nào?**
 
 A. `(2, 3)` — `(2, 3)`
@@ -339,6 +366,11 @@ B. `(2, 4)` — `(2, 4)`
 C. `(3, 2)` — `(3, 2)`
 
 D. `(6,)` — `(6,)`
+
+**Đáp án: C**
+
+**Giải thích:** Chuyển vị đảo kích thước hàng và cột. Ma trận `(2,3)` trở thành `(3,2)` sau `.T` vì mỗi cột cũ trở thành một hàng.
+
 
 **Q7. What is the shape of `(2, 3) @ (3, 4)`? — Phép `(2, 3) @ (3, 4)` cho shape gì?**
 
@@ -350,6 +382,11 @@ C. `(2, 4)` — `(2, 4)`
 
 D. `(6,)` — `(6,)`
 
+**Đáp án: C**
+
+**Giải thích:** Hai chiều trong cùng bằng 3, còn hai chiều ngoài là 2 và 4. Chiều chung bằng 3 được kết hợp khi nhân, còn hai chiều ngoài 2 và 4 được giữ trong kết quả.
+
+
 **Q8. What shape has a one-dimensional array of six values? — Mảng một chiều có sáu giá trị có shape nào?**
 
 A. `(3, 2)` — `(3, 2)`
@@ -359,6 +396,11 @@ B. `(2, 4)` — `(2, 4)`
 C. `(2, 3)` — `(2, 3)`
 
 D. `(6,)` — `(6,)`
+
+**Đáp án: D**
+
+**Giải thích:** Mảng phẳng sáu phần tử có một chiều độ dài sáu. Dấu phẩy trong `(6,)` biểu diễn shape một chiều; `(1,6)` mới có hai chiều.
+
 
 **Q9. How does `reshape` differ from transpose? — reshape khác transpose ở đâu?**
 
@@ -370,6 +412,11 @@ C. `*` multiplies element-wise; `@` performs matrix multiplication — `*` nhân
 
 D. Reads the saved array — Đọc lại mảng đã lưu
 
+**Đáp án: A**
+
+**Giải thích:** reshape và transpose có thể cho cùng shape nhưng giá trị ở vị trí khác. Với `[[1,2,3],[4,5,6]]`, `reshape(3,2)` tạo các hàng `[1,2]`, `[3,4]`, `[5,6]`, còn `.T` cho `[1,4]`, `[2,5]`, `[3,6]`.
+
+
 **Q10. How does `*` differ from `@` for numeric ndarrays? — `*` khác `@` thế nào với ndarray số?**
 
 A. Reads the saved array — Đọc lại mảng đã lưu
@@ -379,6 +426,11 @@ B. `*` multiplies element-wise; `@` performs matrix multiplication — `*` nhân
 C. Reshape regroups positions; transpose exchanges axes — Reshape nhóm lại vị trí; transpose đổi trục
 
 D. Converts the array into Python lists or scalars — Chuyển mảng thành List hoặc số Python
+
+**Đáp án: B**
+
+**Giải thích:** Dấu sao nhân theo phần tử, @ tuân quy tắc nhân ma trận. Với hai ma trận 2×2 toàn số một, `A * B` vẫn toàn số một, còn `A @ B` toàn số hai do cộng các tích theo hàng–cột.
+
 
 **Q11. What does `np.load()` normally do for an NPY file? — `np.load()` làm gì với tệp NPY?**
 
@@ -390,6 +442,11 @@ C. `*` multiplies element-wise; `@` performs matrix multiplication — `*` nhân
 
 D. Converts the array into Python lists or scalars — Chuyển mảng thành List hoặc số Python
 
+**Đáp án: A**
+
+**Giải thích:** load phục hồi mảng NumPy đã ghi. Với tệp NPY đáng tin cậy, `np.load(path)` khôi phục mảng; tránh bật pickle cho dữ liệu đối tượng chưa tin cậy.
+
+
 **Q12. What does `array.tolist()` do? — `array.tolist()` làm gì?**
 
 A. Converts the array into Python lists or scalars — Chuyển mảng thành List hoặc số Python
@@ -399,6 +456,11 @@ B. Reshape regroups positions; transpose exchanges axes — Reshape nhóm lại 
 C. `*` multiplies element-wise; `@` performs matrix multiplication — `*` nhân từng phần tử; `@` nhân ma trận
 
 D. Reads the saved array — Đọc lại mảng đã lưu
+
+**Đáp án: A**
+
+**Giải thích:** tolist chuyển biểu diễn dữ liệu trong bộ nhớ chứ không ghi tệp. Mảng hai chiều chuyển thành List lồng nhau, còn mảng không chiều chuyển thành giá trị vô hướng Python.
+
 
 **Q13. What happens if you reshape six elements to `(4, 2)`? — Điều gì xảy ra nếu reshape sáu phần tử thành `(4, 2)`?**
 
@@ -410,6 +472,11 @@ C. A ValueError due to incompatible element counts — Phát sinh ValueError vì
 
 D. Shape and dtype — Shape và dtype
 
+**Đáp án: C**
+
+**Giải thích:** Bảng 4×2 cần tám giá trị, không phải sáu. Shape `(4,2)` cần `4 × 2 = 8` ô, nên NumPy không thể phân bố đúng sáu phần tử hiện có vào shape này.
+
+
 **Q14. What must match to multiply two matrices with `@`? — Muốn nhân hai ma trận bằng `@`, chiều nào phải khớp?**
 
 A. `allow_pickle=False` — `allow_pickle=False`
@@ -419,6 +486,11 @@ B. Left columns and right rows — Số cột bên trái và số hàng bên ph�
 C. A ValueError due to incompatible element counts — Phát sinh ValueError vì số phần tử không khớp
 
 D. Shape and dtype — Shape và dtype
+
+**Đáp án: B**
+
+**Giải thích:** Nhân ma trận yêu cầu hai chiều trong bằng nhau. Nếu `A` là `(m,n)` và `B` là `(n,p)`, phép nhân hợp lệ và trả shape `(m,p)`.
+
 
 **Q15. Which option avoids loading pickled objects from an NPY file? — Tùy chọn nào tránh đọc đối tượng pickle trong file NPY?**
 
@@ -430,6 +502,11 @@ C. Shape and dtype — Shape và dtype
 
 D. `allow_pickle=False` — `allow_pickle=False`
 
+**Đáp án: D**
+
+**Giải thích:** Tắt pickle an toàn hơn khi đọc dữ liệu số chưa tin cậy. Với `np.load(path, allow_pickle=False)`, mảng object cần pickle sẽ không được đọc, giúp giảm rủi ro chạy mã từ tệp không tin cậy.
+
+
 **Q16. What does NPY preserve in addition to array values? — NPY lưu thêm gì ngoài các giá trị?**
 
 A. `allow_pickle=False` — `allow_pickle=False`
@@ -439,6 +516,11 @@ B. A ValueError due to incompatible element counts — Phát sinh ValueError vì
 C. Shape and dtype — Shape và dtype
 
 D. Left columns and right rows — Số cột bên trái và số hàng bên phải
+
+**Đáp án: C**
+
+**Giải thích:** NPY lưu thông tin để khôi phục cấu trúc và kiểu phần tử. Khác các dòng văn bản thường, shape và dtype được lưu để mảng số `(2,3)` khôi phục đúng cấu trúc.
+
 
 **Q17. What is a 1-D dot product of two equal-length numeric vectors? — Tích vô hướng của hai vector một chiều bằng nhau độ dài là gì?**
 
@@ -450,6 +532,11 @@ C. `dtype` — `dtype`
 
 D. `shape` — `shape`
 
+**Đáp án: A**
+
+**Giải thích:** Tích vô hướng nhân các vị trí tương ứng rồi cộng kết quả. Với `[1,2]` và `[3,4]`, tích vô hướng bằng `1×3 + 2×4 = 11`, là một số đơn chứ không phải List.
+
+
 **Q18. What does `np.eye(3)` create? — `np.eye(3)` tạo gì?**
 
 A. `shape` — `shape`
@@ -459,6 +546,11 @@ B. The sum of pairwise products — Tổng các tích của từng cặp phần 
 C. `dtype` — `dtype`
 
 D. A 3-by-3 identity matrix — Ma trận đơn vị 3×3
+
+**Đáp án: D**
+
+**Giải thích:** Ma trận đơn vị có 1 ở đường chéo và 0 ở vị trí khác. Đường chéo chính là `[1,1,1]`, còn sáu ô ngoài chéo đều bằng không; nó không phải ma trận toàn số một.
+
 
 **Q19. Which property reports the array dimensions? — Thuộc tính nào cho biết kích thước các chiều?**
 
@@ -470,6 +562,11 @@ C. `dtype` — `dtype`
 
 D. `shape` — `shape`
 
+**Đáp án: D**
+
+**Giải thích:** shape liệt kê độ dài của từng trục mảng. Với mảng 2D ba hàng hai cột, `X.shape` là `(3,2)` chứ không phải kiểu dữ liệu.
+
+
 **Q20. Which property reports element data type? — Thuộc tính nào cho biết kiểu phần tử?**
 
 A. `shape` — `shape`
@@ -480,30 +577,9 @@ C. A 3-by-3 identity matrix — Ma trận đơn vị 3×3
 
 D. The sum of pairwise products — Tổng các tích của từng cặp phần tử
 
-### Answer key — Đáp án song ngữ
+**Đáp án: B**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | reshape rearranges the same elements into new dimensions. For six elements, reshaping from `(2,3)` to `(3,2)` is valid, but reshaping to `(4,2)` is not. | reshape bố trí lại cùng các phần tử theo kích thước mới. Với sáu phần tử, đổi `(2,3)` thành `(3,2)` hợp lệ, nhưng đổi thành `(4,2)` thì không. |
-| Q2 | **D** | A transpose exchanges the two axes of a matrix. For `[[1,2,3],[4,5,6]]`, the transpose has three rows containing `[1,4]`, `[2,5]`, `[3,6]`. | Chuyển vị tráo hai trục của ma trận. Với `[[1,2,3],[4,5,6]]`, chuyển vị tạo ba hàng lần lượt là `[1,4]`, `[2,5]`, `[3,6]`. |
-| Q3 | **B** | The @ operator follows matrix multiplication rather than per-cell multiplication. If `A` has shape `(2,3)` and `B` has shape `(3,4)`, then `A @ B` produces shape `(2,4)`; `*` is element-wise instead. | Toán tử @ tuân theo quy tắc nhân ma trận chứ không nhân riêng từng ô. Nếu `A` có shape `(2,3)` và `B` là `(3,4)`, thì `A @ B` có shape `(2,4)`; dấu `*` lại nhân từng phần tử. |
-| Q4 | **C** | NumPy saves array values, shape and dtype in NPY format. Unlike a plain CSV export, an NPY file retains NumPy-specific information used to reconstruct the array. | NumPy lưu giá trị, shape và dtype ở định dạng NPY. Khác CSV văn bản, tệp NPY giữ thông tin riêng của NumPy để khôi phục đúng mảng. |
-| Q5 | **B** | The first dimension counts rows and the second counts columns: (2,3). The `(2,3)` shape has six total cells, whereas `(3,2)` has the row and column counts reversed. | Chiều thứ nhất là số hàng và chiều thứ hai là số cột: (2,3). Shape `(2,3)` có tổng sáu ô; `(3,2)` cũng sáu ô nhưng số hàng và cột đảo vị trí. |
-| Q6 | **C** | A transpose swaps row and column dimensions. A `(2,3)` matrix becomes `(3,2)` after `.T` because each original column becomes a row. | Chuyển vị đảo kích thước hàng và cột. Ma trận `(2,3)` trở thành `(3,2)` sau `.T` vì mỗi cột cũ trở thành một hàng. |
-| Q7 | **C** | Matching inner dimensions 3 leave outer dimensions 2 and 4. The shared dimension 3 is contracted, while the outer dimensions 2 and 4 remain in the product. | Hai chiều trong cùng bằng 3, còn hai chiều ngoài là 2 và 4. Chiều chung bằng 3 được kết hợp khi nhân, còn hai chiều ngoài 2 và 4 được giữ trong kết quả. |
-| Q8 | **D** | A flat six-element array has one dimension of length six. The trailing comma in `(6,)` denotes a one-dimensional shape; `(1,6)` would have two dimensions. | Mảng phẳng sáu phần tử có một chiều độ dài sáu. Dấu phẩy trong `(6,)` biểu diễn shape một chiều; `(1,6)` mới có hai chiều. |
-| Q9 | **A** | Reshape and transpose can yield the same shape but different values at positions. For `[[1,2,3],[4,5,6]]`, `reshape(3,2)` groups `[1,2]`, `[3,4]`, `[5,6]`, whereas `.T` groups `[1,4]`, `[2,5]`, `[3,6]`. | reshape và transpose có thể cho cùng shape nhưng giá trị ở vị trí khác. Với `[[1,2,3],[4,5,6]]`, `reshape(3,2)` tạo các hàng `[1,2]`, `[3,4]`, `[5,6]`, còn `.T` cho `[1,4]`, `[2,5]`, `[3,6]`. |
-| Q10 | **B** | Star uses broadcasting element-wise, while at follows matrix rules. For two 2×2 arrays of ones, `A * B` stays all ones while `A @ B` contains twos because it sums pairwise products. | Dấu sao nhân theo phần tử, @ tuân quy tắc nhân ma trận. Với hai ma trận 2×2 toàn số một, `A * B` vẫn toàn số một, còn `A @ B` toàn số hai do cộng các tích theo hàng–cột. |
-| Q11 | **A** | load restores the stored NumPy array. For a trusted NPY file, `np.load(path)` reconstructs an array; avoid enabling pickle for untrusted object data. | load phục hồi mảng NumPy đã ghi. Với tệp NPY đáng tin cậy, `np.load(path)` khôi phục mảng; tránh bật pickle cho dữ liệu đối tượng chưa tin cậy. |
-| Q12 | **A** | tolist converts the in-memory representation without saving a file. A two-dimensional array becomes nested Python lists, while a zero-dimensional array becomes a Python scalar. | tolist chuyển biểu diễn dữ liệu trong bộ nhớ chứ không ghi tệp. Mảng hai chiều chuyển thành List lồng nhau, còn mảng không chiều chuyển thành giá trị vô hướng Python. |
-| Q13 | **C** | A 4×2 shape needs eight values, not six. Shape `(4,2)` requires `4 × 2 = 8` cells, so NumPy cannot fit exactly six existing elements into it. | Bảng 4×2 cần tám giá trị, không phải sáu. Shape `(4,2)` cần `4 × 2 = 8` ô, nên NumPy không thể phân bố đúng sáu phần tử hiện có vào shape này. |
-| Q14 | **B** | Matrix multiplication contracts the common inner dimension. If `A` is `(m,n)` and `B` is `(n,p)`, multiplication is defined and produces `(m,p)`. | Nhân ma trận yêu cầu hai chiều trong bằng nhau. Nếu `A` là `(m,n)` và `B` là `(n,p)`, phép nhân hợp lệ và trả shape `(m,p)`. |
-| Q15 | **D** | Disabling pickle is safer for untrusted numeric data. With `np.load(path, allow_pickle=False)`, an object array requiring pickle cannot be loaded, reducing code-execution risk from untrusted files. | Tắt pickle an toàn hơn khi đọc dữ liệu số chưa tin cậy. Với `np.load(path, allow_pickle=False)`, mảng object cần pickle sẽ không được đọc, giúp giảm rủi ro chạy mã từ tệp không tin cậy. |
-| Q16 | **C** | NPY stores NumPy metadata needed to restore the array. Unlike plain-text rows, shape and dtype are serialized so a `(2,3)` numeric array can be reconstructed with its structure. | NPY lưu thông tin để khôi phục cấu trúc và kiểu phần tử. Khác các dòng văn bản thường, shape và dtype được lưu để mảng số `(2,3)` khôi phục đúng cấu trúc. |
-| Q17 | **A** | The dot product multiplies matching positions and adds the products. For `[1,2]` and `[3,4]`, the dot product is `1×3 + 2×4 = 11`, a scalar rather than a list. | Tích vô hướng nhân các vị trí tương ứng rồi cộng kết quả. Với `[1,2]` và `[3,4]`, tích vô hướng bằng `1×3 + 2×4 = 11`, là một số đơn chứ không phải List. |
-| Q18 | **D** | The identity matrix has ones on its diagonal and zeros elsewhere. Its diagonal is `[1,1,1]`, and its six off-diagonal entries are zero; it is not a matrix of all ones. | Ma trận đơn vị có 1 ở đường chéo và 0 ở vị trí khác. Đường chéo chính là `[1,1,1]`, còn sáu ô ngoài chéo đều bằng không; nó không phải ma trận toàn số một. |
-| Q19 | **D** | shape lists the length of each array axis. For a 2-D array with three rows and two columns, `X.shape` is `(3,2)` rather than a data type. | shape liệt kê độ dài của từng trục mảng. Với mảng 2D ba hàng hai cột, `X.shape` là `(3,2)` chứ không phải kiểu dữ liệu. |
-| Q20 | **B** | dtype records the stored numeric or other element type. For example, an integer array may report an integer dtype whereas a decimal array reports a floating dtype; `shape` reports dimensions instead. | dtype ghi kiểu số hoặc kiểu dữ liệu khác của phần tử. Ví dụ mảng số nguyên có dtype nguyên, mảng số thập phân có dtype thực; `shape` mới cho kích thước các chiều. |
+**Giải thích:** dtype ghi kiểu số hoặc kiểu dữ liệu khác của phần tử. Ví dụ mảng số nguyên có dtype nguyên, mảng số thập phân có dtype thực; `shape` mới cho kích thước các chiều.
 
 ## 8. Nối bài tiếp theo
 

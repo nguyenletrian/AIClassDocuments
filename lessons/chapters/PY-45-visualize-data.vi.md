@@ -7,7 +7,9 @@
 
 `NumPy/Pandas → Visualization → EDA → PCA/ML`
 
-Bài này hệ thống hóa kiến thức đã học thành các thao tác thực hành có đầu vào và đầu ra rõ ràng.
+**Học xong dùng để làm gì?** Dùng biểu đồ thể hiện phân phối, xu hướng và so sánh, ghi nhãn trục/đơn vị để đọc đúng kết quả.
+
+**Kết nối kiến thức tiếp theo:** PY-46 tích hợp dữ liệu, xử lý, mô hình và trực quan hóa trong một dự án nhỏ.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -330,6 +332,11 @@ C. Counts of numeric values within bins — Số quan sát số học trong từ
 
 D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
 
+**Đáp án: A**
+
+**Giải thích:** Nối các mốc cho xu hướng, không đảm bảo có số đo giữa các mốc. Nếu dữ liệu là các loại không có thứ tự, biểu đồ cột phù hợp hơn việc nối đường.
+
+
 **Q2. What does a scatter plot represent? — Scatter plot biểu diễn gì?**
 
 A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
@@ -339,6 +346,11 @@ B. Individual paired x-y observations — Từng quan sát theo cặp x-y
 C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
 
 D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
+
+**Đáp án: B**
+
+**Giải thích:** Mỗi điểm là x và y của cùng một bản ghi. Mảng x và y phải cùng thứ tự bản ghi, nếu không các điểm ghép sẽ sai.
+
 
 **Q3. What does a histogram represent? — Histogram biểu diễn gì?**
 
@@ -350,6 +362,11 @@ C. Counts of numeric values within bins — Số quan sát số học trong từ
 
 D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
 
+**Đáp án: C**
+
+**Giải thích:** Histogram chia khoảng giá trị số, không giống biểu đồ cột loại. Đổi biên bins sẽ đổi số đếm; khi so histogram cần nêu rõ khoảng chia.
+
+
 **Q4. What are axis labels for? — Nhãn trục để làm gì?**
 
 A. Showing changes across ordered positions — Thể hiện thay đổi theo các mốc có thứ tự
@@ -359,6 +376,11 @@ B. Individual paired x-y observations — Từng quan sát theo cặp x-y
 C. Counts of numeric values within bins — Số quan sát số học trong từng khoảng
 
 D. Naming variables and their units — Đặt tên đại lượng và đơn vị đo
+
+**Đáp án: D**
+
+**Giải thích:** Nhãn tránh nhầm đơn vị thời gian, nhiệt độ hay tiền. Con số trên trục thiếu đơn vị khiến người xem không rõ ý nghĩa đo lường.
+
 
 **Q5. Which function draws a line? — Hàm nào vẽ đường?**
 
@@ -370,6 +392,11 @@ C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
 
 D. `plt.savefig(path)` — `plt.savefig(path)`
 
+**Đáp án: A**
+
+**Giải thích:** plot nối điểm theo thứ tự đầu vào mặc định. Hàm vẽ đòi x,y tương ứng nhưng không tự kiểm dữ liệu có đúng ý nghĩa thực tế.
+
+
 **Q6. Which function draws separate x-y points? — Hàm nào vẽ các điểm x-y riêng?**
 
 A. `plt.plot(x,y)` — `plt.plot(x,y)`
@@ -379,6 +406,11 @@ B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
 C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
 
 D. `plt.savefig(path)` — `plt.savefig(path)`
+
+**Đáp án: B**
+
+**Giải thích:** scatter tạo dấu chấm riêng cho từng cặp quan sát. Đây là lựa chọn phù hợp khi các điểm là quan sát rời, không phải chuỗi thời gian cần nối.
+
 
 **Q7. Which function draws histograms? — Hàm nào vẽ histogram?**
 
@@ -390,6 +422,11 @@ C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
 
 D. `plt.savefig(path)` — `plt.savefig(path)`
 
+**Đáp án: C**
+
+**Giải thích:** hist đếm trong từng khoảng rồi vẽ cột các khoảng số. `bins` xác định biên hoặc số khoảng; thay đổi tham số này làm thay đổi bản tóm tắt phân bố.
+
+
 **Q8. Which function saves a figure? — Hàm nào lưu hình?**
 
 A. `plt.plot(x,y)` — `plt.plot(x,y)`
@@ -399,6 +436,11 @@ B. `plt.scatter(x,y)` — `plt.scatter(x,y)`
 C. `plt.hist(values,bins=...)` — `plt.hist(values,bins=...)`
 
 D. `plt.savefig(path)` — `plt.savefig(path)`
+
+**Đáp án: D**
+
+**Giải thích:** savefig ghi hình đã vẽ ra tệp PNG. Phải lưu trước khi đóng Figure và kiểm đường dẫn cùng quyền ghi.
+
 
 **Q9. Why should x and y have matching observation counts? — Vì sao x và y phải có số quan sát tương ứng?**
 
@@ -410,6 +452,11 @@ C. Horizontal-axis label — Nhãn trục ngang
 
 D. Vertical-axis label — Nhãn trục dọc
 
+**Đáp án: A**
+
+**Giải thích:** Không ghép được cặp khi thiếu phần tử tương ứng. Dãy lệch chiều có thể gây lỗi hoặc ghép sai đối tượng quan sát.
+
+
 **Q10. What does `plt.close()` do? — `plt.close()` làm gì?**
 
 A. Each x needs its matching y — Mỗi x cần y tương ứng
@@ -419,6 +466,11 @@ B. Closes the current Figure — Đóng Figure hiện tại
 C. Horizontal-axis label — Nhãn trục ngang
 
 D. Vertical-axis label — Nhãn trục dọc
+
+**Đáp án: B**
+
+**Giải thích:** Đóng giúp giải phóng tài nguyên và tránh mở nhiều hình. Nên đóng Figure sau khi xuất, nhất là trong vòng lặp tạo nhiều tệp.
+
 
 **Q11. What does `plt.xlabel()` set? — `plt.xlabel()` đặt gì?**
 
@@ -430,6 +482,11 @@ C. Horizontal-axis label — Nhãn trục ngang
 
 D. Vertical-axis label — Nhãn trục dọc
 
+**Đáp án: C**
+
+**Giải thích:** Nó chỉ đổi chữ, không tự đổi dữ liệu hoặc đơn vị. Nhãn có ích nên ghi cả đại lượng và đơn vị như ngày hay giờ.
+
+
 **Q12. What does `plt.ylabel()` set? — `plt.ylabel()` đặt gì?**
 
 A. Each x needs its matching y — Mỗi x cần y tương ứng
@@ -439,6 +496,11 @@ B. Closes the current Figure — Đóng Figure hiện tại
 C. Horizontal-axis label — Nhãn trục ngang
 
 D. Vertical-axis label — Nhãn trục dọc
+
+**Đáp án: D**
+
+**Giải thích:** Nó mô tả y và nên kèm đơn vị. Trục nhiệt độ nên ghi rõ Celsius hoặc Fahrenheit, không chỉ ghi 'value'.
+
 
 **Q13. How many markers represent three scatter records? — Ba bản ghi scatter tạo mấy điểm?**
 
@@ -450,6 +512,11 @@ C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nh
 
 D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
 
+**Đáp án: A**
+
+**Giải thích:** Mỗi hàng tạo một điểm. Mỗi điểm tương ứng một sinh viên, không phải mỗi cột đặc trưng tạo một điểm.
+
+
 **Q14. Do histogram counts depend on bin boundaries? — Số đếm histogram có phụ thuộc biên bins không?**
 
 A. Three — Ba
@@ -459,6 +526,11 @@ B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đ�
 C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
 
 D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
+
+**Đáp án: B**
+
+**Giải thích:** Cùng dữ liệu có thể được nhóm khác nhau. Chiều cao histogram thường là số lượng mẫu, không mặc nhiên là xác suất nếu chưa chuẩn hóa.
+
 
 **Q15. Is a histogram appropriate for names A, B, C as categories? — Histogram có thích hợp trực tiếp cho nhãn A,B,C không?**
 
@@ -470,6 +542,11 @@ C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nh
 
 D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
 
+**Đáp án: C**
+
+**Giải thích:** Histogram cần khoảng số thay vì tên loại. Cột phân loại so các nhóm tên; histogram dùng khoảng liên tục trên trục số.
+
+
 **Q16. Can scatter points establish causation? — Scatter có chứng minh quan hệ nhân quả không?**
 
 A. Three — Ba
@@ -479,6 +556,11 @@ B. Yes, changing bins changes counts per interval — Có, đổi bins sẽ đ�
 C. No, a categorical bar chart is clearer — Không, biểu đồ cột theo nhãn rõ hơn
 
 D. No, association alone is insufficient — Không, chỉ liên hệ chưa đủ
+
+**Đáp án: D**
+
+**Giải thích:** Biến khác hoặc cách lấy mẫu có thể tạo cùng xu hướng. Cần xem cách thiết kế nghiên cứu và yếu tố gây nhiễu trước khi nói một biến gây ra biến kia.
+
 
 **Q17. What does backend Agg help with? — Backend Agg giúp gì?**
 
@@ -490,6 +572,11 @@ C. Array of bin counts — Mảng số lượng theo mỗi bin
 
 D. No, it is a rendered image — Không, nó là ảnh được kết xuất
 
+**Đáp án: A**
+
+**Giải thích:** Agg phù hợp chạy script hàng loạt hoặc lưu hình trên server. Agg đặc biệt hữu ích cho kiểm thử tự động không cần màn hình đồ họa.
+
+
 **Q18. What should be checked before interpreting a time plot? — Trước khi đọc biểu đồ thời gian cần kiểm gì?**
 
 A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
@@ -499,6 +586,11 @@ B. Order and units of the time axis — Thứ tự và đơn vị trục thời 
 C. Array of bin counts — Mảng số lượng theo mỗi bin
 
 D. No, it is a rendered image — Không, nó là ảnh được kết xuất
+
+**Đáp án: B**
+
+**Giải thích:** Sai thứ tự hoặc đơn vị khiến xu hướng bị hiểu sai. Nếu ngày bị xếp sai, đường nối có thể khiến người xem tưởng thời gian đi ngược.
+
 
 **Q19. What does `plt.hist` return first? — `plt.hist` trả gì ở vị trí đầu?**
 
@@ -510,6 +602,11 @@ C. Array of bin counts — Mảng số lượng theo mỗi bin
 
 D. No, it is a rendered image — Không, nó là ảnh được kết xuất
 
+**Đáp án: C**
+
+**Giải thích:** Giá trị trả về đầu là tần suất, phần sau là biên và đối tượng vẽ. Mảng biên trả về giúp xác định giá trị nào đóng góp vào từng khoảng đếm.
+
+
 **Q20. Does a saved PNG retain an editable dataset automatically? — PNG lưu hình có tự chứa bảng dữ liệu có thể sửa không?**
 
 A. Rendering images without a GUI window — Kết xuất hình không cần cửa sổ GUI
@@ -520,30 +617,9 @@ C. Array of bin counts — Mảng số lượng theo mỗi bin
 
 D. No, it is a rendered image — Không, nó là ảnh được kết xuất
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | Connecting ordered points shows a trend, not necessarily a measured value between points. For unordered categories, a separate bar chart is clearer than a connecting line. | Nối các mốc cho xu hướng, không đảm bảo có số đo giữa các mốc. Nếu dữ liệu là các loại không có thứ tự, biểu đồ cột phù hợp hơn việc nối đường. |
-| Q2 | **B** | Each point comes from matching x and y of the same record. The x and y arrays must represent the same records in corresponding positions. | Mỗi điểm là x và y của cùng một bản ghi. Mảng x và y phải cùng thứ tự bản ghi, nếu không các điểm ghép sẽ sai. |
-| Q3 | **C** | Histogram groups numeric values by boundaries, unlike a categorical bar chart. Different bin edges can change counts, so report bins whenever comparing histograms. | Histogram chia khoảng giá trị số, không giống biểu đồ cột loại. Đổi biên bins sẽ đổi số đếm; khi so histogram cần nêu rõ khoảng chia. |
-| Q4 | **D** | Labels prevent confusing time, temperature or currency units. A scale without its unit makes the plotted numbers ambiguous to readers. | Nhãn tránh nhầm đơn vị thời gian, nhiệt độ hay tiền. Con số trên trục thiếu đơn vị khiến người xem không rõ ý nghĩa đo lường. |
-| Q5 | **A** | plot connects points in input order by default. The plotting function expects matched x and y positions and does not verify the real-world meaning of data. | plot nối điểm theo thứ tự đầu vào mặc định. Hàm vẽ đòi x,y tương ứng nhưng không tự kiểm dữ liệu có đúng ý nghĩa thực tế. |
-| Q6 | **B** | scatter creates separate markers for each paired observation. It is the right choice when points are separate observations rather than a connected time series. | scatter tạo dấu chấm riêng cho từng cặp quan sát. Đây là lựa chọn phù hợp khi các điểm là quan sát rời, không phải chuỗi thời gian cần nối. |
-| Q7 | **C** | hist computes bin counts then draws bars for numeric intervals. `bins` defines interval boundaries or count; changing it changes the grouped summary. | hist đếm trong từng khoảng rồi vẽ cột các khoảng số. `bins` xác định biên hoặc số khoảng; thay đổi tham số này làm thay đổi bản tóm tắt phân bố. |
-| Q8 | **D** | savefig writes the rendered figure to a file such as PNG. Saving occurs before closing the Figure; check the target path and access permissions. | savefig ghi hình đã vẽ ra tệp PNG. Phải lưu trước khi đóng Figure và kiểm đường dẫn cùng quyền ghi. |
-| Q9 | **A** | Mismatched pairs cannot represent a valid table of points. Mismatched lengths raise an error or invalidate the intended observation pairing. | Không ghép được cặp khi thiếu phần tử tương ứng. Dãy lệch chiều có thể gây lỗi hoặc ghép sai đối tượng quan sát. |
-| Q10 | **B** | Closing releases figure resources and avoids accumulating open plots. Close a Figure after exporting it, especially inside a loop producing many files. | Đóng giúp giải phóng tài nguyên và tránh mở nhiều hình. Nên đóng Figure sau khi xuất, nhất là trong vòng lặp tạo nhiều tệp. |
-| Q11 | **C** | It changes text, not the x data or its units automatically. For meaningful axes, include both quantity and unit such as Day or hours. | Nó chỉ đổi chữ, không tự đổi dữ liệu hoặc đơn vị. Nhãn có ích nên ghi cả đại lượng và đơn vị như ngày hay giờ. |
-| Q12 | **D** | It describes y values and should include units. A temperature axis should say Celsius or Fahrenheit rather than only 'value'. | Nó mô tả y và nên kèm đơn vị. Trục nhiệt độ nên ghi rõ Celsius hoặc Fahrenheit, không chỉ ghi 'value'. |
-| Q13 | **A** | Each row maps to one point. One marker per student is different from one marker per feature column. | Mỗi hàng tạo một điểm. Mỗi điểm tương ứng một sinh viên, không phải mỗi cột đặc trưng tạo một điểm. |
-| Q14 | **B** | The same observations can be grouped differently. Histogram heights describe sample counts, not necessarily probabilities unless normalized. | Cùng dữ liệu có thể được nhóm khác nhau. Chiều cao histogram thường là số lượng mẫu, không mặc nhiên là xác suất nếu chưa chuẩn hóa. |
-| Q15 | **C** | Histogram expects numeric ranges rather than category names. Categorical bars compare named groups, while histogram bins occupy intervals on a numeric axis. | Histogram cần khoảng số thay vì tên loại. Cột phân loại so các nhóm tên; histogram dùng khoảng liên tục trên trục số. |
-| Q16 | **D** | Other variables or selection can explain observed patterns. Check study design and confounders before claiming one variable causes another. | Biến khác hoặc cách lấy mẫu có thể tạo cùng xu hướng. Cần xem cách thiết kế nghiên cứu và yếu tố gây nhiễu trước khi nói một biến gây ra biến kia. |
-| Q17 | **A** | Agg supports batch scripts or server-side saved images. Agg is especially useful for automated tests that should not require a desktop display. | Agg phù hợp chạy script hàng loạt hoặc lưu hình trên server. Agg đặc biệt hữu ích cho kiểm thử tự động không cần màn hình đồ họa. |
-| Q18 | **B** | Incorrect ordering or mismatched units distorts trends. If dates are out of order, a connected line can misleadingly suggest backward time. | Sai thứ tự hoặc đơn vị khiến xu hướng bị hiểu sai. Nếu ngày bị xếp sai, đường nối có thể khiến người xem tưởng thời gian đi ngược. |
-| Q19 | **C** | The first return value records frequencies; following outputs hold edges and artists. The returned edges clarify which values contribute to each reported bin count. | Giá trị trả về đầu là tần suất, phần sau là biên và đối tượng vẽ. Mảng biên trả về giúp xác định giá trị nào đóng góp vào từng khoảng đếm. |
-| Q20 | **D** | Store raw data separately for recalculation and reproducibility. Keep the script, labels and numeric source table to regenerate the visualization later. | Muốn tính lại và sửa biểu đồ cần lưu dữ liệu gốc riêng. Cần lưu script, nhãn và bảng số gốc để tái tạo lại biểu đồ khi cần. |
+**Giải thích:** Muốn tính lại và sửa biểu đồ cần lưu dữ liệu gốc riêng. Cần lưu script, nhãn và bảng số gốc để tái tạo lại biểu đồ khi cần.
 
 ## 8. Nối sang bài tiếp
 

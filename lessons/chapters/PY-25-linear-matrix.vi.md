@@ -7,7 +7,9 @@
 
 `Vector → Matrix → Hệ tuyến tính → Eigenvalue/PCA`
 
-Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python trước khi sử dụng vào học máy.
+**Học xong dùng để làm gì?** Tổ chức bảng đặc trưng thành ma trận và nhân ma trận để biến đổi dữ liệu nhiều chiều.
+
+**Kết nối kiến thức tiếp theo:** PY-26 giải các ràng buộc dưới dạng hệ tuyến tính và kiểm tra rank.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -281,6 +283,11 @@ C. Rows of the left matrix with columns of the right — Hàng ma trận trái v
 
 D. A scalar associated with a square matrix — Một số gắn với ma trận vuông
 
+**Đáp án: A**
+
+**Giải thích:** Ma trận sắp phần tử theo hàng và cột.
+
+
 **Q2. What is the transpose of a matrix? — Chuyển vị của ma trận là gì?**
 
 A. A two-dimensional array of values — Bảng dữ liệu hai chiều
@@ -290,6 +297,11 @@ B. A matrix with rows and columns exchanged — Ma trận đổi vai trò hàng 
 C. Rows of the left matrix with columns of the right — Hàng ma trận trái với cột ma trận phải
 
 D. A scalar associated with a square matrix — Một số gắn với ma trận vuông
+
+**Đáp án: B**
+
+**Giải thích:** Chuyển vị hoán đổi các trục ma trận.
+
 
 **Q3. What does matrix multiplication combine? — Phép nhân ma trận kết hợp gì?**
 
@@ -301,6 +313,11 @@ C. Rows of the left matrix with columns of the right — Hàng ma trận trái v
 
 D. A scalar associated with a square matrix — Một số gắn với ma trận vuông
 
+**Đáp án: C**
+
+**Giải thích:** Mỗi ô kết quả là tích vô hướng một hàng với một cột.
+
+
 **Q4. What is a determinant? — Định thức là gì?**
 
 A. A two-dimensional array of values — Bảng dữ liệu hai chiều
@@ -310,6 +327,11 @@ B. A matrix with rows and columns exchanged — Ma trận đổi vai trò hàng 
 C. Rows of the left matrix with columns of the right — Hàng ma trận trái với cột ma trận phải
 
 D. A scalar associated with a square matrix — Một số gắn với ma trận vuông
+
+**Đáp án: D**
+
+**Giải thích:** Định thức hỗ trợ kiểm tra tính khả nghịch.
+
 
 **Q5. What is the shape of a matrix with two rows and three columns? — Ma trận hai hàng ba cột có shape gì?**
 
@@ -321,6 +343,11 @@ C. `(2, 1)` — `(2, 1)`
 
 D. `(3, 3)` — `(3, 3)`
 
+**Đáp án: A**
+
+**Giải thích:** Shape ghi số hàng trước số cột.
+
+
 **Q6. What is the transpose shape of a (2,3) matrix? — Chuyển vị ma trận (2,3) có shape gì?**
 
 A. `(2, 3)` — `(2, 3)`
@@ -330,6 +357,11 @@ B. `(3, 2)` — `(3, 2)`
 C. `(2, 1)` — `(2, 1)`
 
 D. `(3, 3)` — `(3, 3)`
+
+**Đáp án: B**
+
+**Giải thích:** Hàng và cột đổi vai trò.
+
 
 **Q7. What shape results from (2,3) @ (3,1)? — Phép (2,3) @ (3,1) cho shape gì?**
 
@@ -341,6 +373,11 @@ C. `(2, 1)` — `(2, 1)`
 
 D. `(3, 3)` — `(3, 3)`
 
+**Đáp án: C**
+
+**Giải thích:** Hai chiều trong bằng 3; giữ hai chiều ngoài.
+
+
 **Q8. What is the shape of `np.eye(3)`? — `np.eye(3)` tạo ma trận shape nào?**
 
 A. `(2, 3)` — `(2, 3)`
@@ -350,6 +387,11 @@ B. `(3, 2)` — `(3, 2)`
 C. `(2, 1)` — `(2, 1)`
 
 D. `(3, 3)` — `(3, 3)`
+
+**Đáp án: D**
+
+**Giải thích:** Ma trận đơn vị bậc 3 là ma trận vuông.
+
 
 **Q9. Which operator performs matrix multiplication? — Toán tử nào thực hiện nhân ma trận?**
 
@@ -361,6 +403,11 @@ C. `np.linalg.det(A)` — `np.linalg.det(A)`
 
 D. `np.linalg.inv(A)` — `np.linalg.inv(A)`
 
+**Đáp án: A**
+
+**Giải thích:** @ thực hiện đúng quy tắc nhân ma trận.
+
+
 **Q10. Which attribute returns the transpose of a 2-D ndarray? — Thuộc tính nào cho chuyển vị mảng 2-D?**
 
 A. `@` — `@`
@@ -370,6 +417,11 @@ B. `.T` — `.T`
 C. `np.linalg.det(A)` — `np.linalg.det(A)`
 
 D. `np.linalg.inv(A)` — `np.linalg.inv(A)`
+
+**Đáp án: B**
+
+**Giải thích:** T là thuộc tính chuyển vị tiện dụng.
+
 
 **Q11. Which function computes a square matrix determinant? — Hàm nào tính định thức ma trận vuông?**
 
@@ -381,6 +433,11 @@ C. `np.linalg.det(A)` — `np.linalg.det(A)`
 
 D. `np.linalg.inv(A)` — `np.linalg.inv(A)`
 
+**Đáp án: C**
+
+**Giải thích:** det trả định thức dạng số.
+
+
 **Q12. Which function computes a nonsingular matrix inverse? — Hàm nào tính nghịch đảo ma trận khả nghịch?**
 
 A. `@` — `@`
@@ -390,6 +447,11 @@ B. `.T` — `.T`
 C. `np.linalg.det(A)` — `np.linalg.det(A)`
 
 D. `np.linalg.inv(A)` — `np.linalg.inv(A)`
+
+**Đáp án: D**
+
+**Giải thích:** inv tính nghịch đảo khi ma trận khả nghịch.
+
 
 **Q13. When is a square matrix invertible? — Khi nào ma trận vuông khả nghịch?**
 
@@ -401,6 +463,11 @@ C. Identity matrix — Ma trận đơn vị
 
 D. `np.allclose(A, B)` — `np.allclose(A, B)`
 
+**Đáp án: A**
+
+**Giải thích:** Định thức khác 0 tương đương khả nghịch.
+
+
 **Q14. What is determinant of [[2,1],[1,2]]? — Định thức [[2,1],[1,2]] bằng gì?**
 
 A. Its determinant is nonzero — Định thức khác không
@@ -410,6 +477,11 @@ B. 3 — 3
 C. Identity matrix — Ma trận đơn vị
 
 D. `np.allclose(A, B)` — `np.allclose(A, B)`
+
+**Đáp án: B**
+
+**Giải thích:** Định thức 2×2 bằng 2×2−1×1.
+
 
 **Q15. What does `A @ inv(A)` approximate? — `A @ inv(A)` gần bằng gì?**
 
@@ -421,6 +493,11 @@ C. Identity matrix — Ma trận đơn vị
 
 D. `np.allclose(A, B)` — `np.allclose(A, B)`
 
+**Đáp án: C**
+
+**Giải thích:** Nhân ma trận với nghịch đảo bằng I trong tính toán chính xác.
+
+
 **Q16. How do you test approximate equality of float arrays? — Kiểm tra hai mảng float gần bằng nhau bằng gì?**
 
 A. Its determinant is nonzero — Định thức khác không
@@ -430,6 +507,11 @@ B. 3 — 3
 C. Identity matrix — Ma trận đơn vị
 
 D. `np.allclose(A, B)` — `np.allclose(A, B)`
+
+**Đáp án: D**
+
+**Giải thích:** allclose chấp nhận sai số dấu phẩy động nhỏ.
+
 
 **Q17. Which dimensions must match for A @ B? — Nhân A @ B cần các chiều nào bằng nhau?**
 
@@ -441,6 +523,11 @@ C. `np.linalg.solve(A, b)` — `np.linalg.solve(A, b)`
 
 D. A linear algebra error — Lỗi đại số tuyến tính
 
+**Đáp án: A**
+
+**Giải thích:** Nhân ma trận yêu cầu hai chiều trong trùng.
+
+
 **Q18. What does `A * B` do for compatible NumPy arrays? — `A * B` trên mảng NumPy tương thích làm gì?**
 
 A. Columns of A and rows of B — Số cột A và số hàng B
@@ -450,6 +537,11 @@ B. Element-wise multiplication — Nhân theo từng phần tử
 C. `np.linalg.solve(A, b)` — `np.linalg.solve(A, b)`
 
 D. A linear algebra error — Lỗi đại số tuyến tính
+
+**Đáp án: B**
+
+**Giải thích:** Dấu sao nhân phần tử tương ứng có broadcasting.
+
 
 **Q19. What is preferred to solve Ax=b numerically? — Để giải hệ Ax=b bằng NumPy nên ưu tiên gì?**
 
@@ -461,6 +553,11 @@ C. `np.linalg.solve(A, b)` — `np.linalg.solve(A, b)`
 
 D. A linear algebra error — Lỗi đại số tuyến tính
 
+**Đáp án: C**
+
+**Giải thích:** Giải trực tiếp thường tốt hơn tính nghịch đảo rồi nhân.
+
+
 **Q20. What happens to a singular matrix when using `np.linalg.inv`? — Dùng `np.linalg.inv` với ma trận suy biến thường gây gì?**
 
 A. Columns of A and rows of B — Số cột A và số hàng B
@@ -471,30 +568,9 @@ C. `np.linalg.solve(A, b)` — `np.linalg.solve(A, b)`
 
 D. A linear algebra error — Lỗi đại số tuyến tính
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | A matrix arranges entries by row and column. | Ma trận sắp phần tử theo hàng và cột. |
-| Q2 | **B** | Transposition exchanges the matrix axes. | Chuyển vị hoán đổi các trục ma trận. |
-| Q3 | **C** | Each output is an inner product of a row and a column. | Mỗi ô kết quả là tích vô hướng một hàng với một cột. |
-| Q4 | **D** | The determinant helps determine invertibility. | Định thức hỗ trợ kiểm tra tính khả nghịch. |
-| Q5 | **A** | Shape lists rows before columns. | Shape ghi số hàng trước số cột. |
-| Q6 | **B** | Rows and columns exchange places. | Hàng và cột đổi vai trò. |
-| Q7 | **C** | The inner 3 dimensions match; outer dimensions remain. | Hai chiều trong bằng 3; giữ hai chiều ngoài. |
-| Q8 | **D** | The identity matrix of size 3 is square. | Ma trận đơn vị bậc 3 là ma trận vuông. |
-| Q9 | **A** | @ follows matrix multiplication rules. | @ thực hiện đúng quy tắc nhân ma trận. |
-| Q10 | **B** | T is a convenient transpose attribute. | T là thuộc tính chuyển vị tiện dụng. |
-| Q11 | **C** | det returns a scalar determinant. | det trả định thức dạng số. |
-| Q12 | **D** | inv computes A inverse for invertible matrices. | inv tính nghịch đảo khi ma trận khả nghịch. |
-| Q13 | **A** | Nonzero determinant is equivalent to nonsingularity. | Định thức khác 0 tương đương khả nghịch. |
-| Q14 | **B** | The 2×2 determinant is 2×2−1×1. | Định thức 2×2 bằng 2×2−1×1. |
-| Q15 | **C** | A times its inverse equals I in exact arithmetic. | Nhân ma trận với nghịch đảo bằng I trong tính toán chính xác. |
-| Q16 | **D** | allclose tolerates small floating-point errors. | allclose chấp nhận sai số dấu phẩy động nhỏ. |
-| Q17 | **A** | Matrix multiplication contracts the shared inner dimension. | Nhân ma trận yêu cầu hai chiều trong trùng. |
-| Q18 | **B** | Star multiplies corresponding entries with broadcasting. | Dấu sao nhân phần tử tương ứng có broadcasting. |
-| Q19 | **C** | Solving directly is generally preferable to forming an explicit inverse. | Giải trực tiếp thường tốt hơn tính nghịch đảo rồi nhân. |
-| Q20 | **D** | A singular matrix lacks an inverse. | Ma trận suy biến không có nghịch đảo. |
+**Giải thích:** Ma trận suy biến không có nghịch đảo.
 
 ## 8. Nối sang bài kế tiếp
 

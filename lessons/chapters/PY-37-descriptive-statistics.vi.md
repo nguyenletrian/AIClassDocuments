@@ -7,7 +7,9 @@
 
 `NumPy/Pandas → Thống kê mô tả → Outlier → ML`
 
-Bài này kết nối dữ liệu thực nghiệm với cách tính xác suất, thống kê và các bước học máy.
+**Học xong dùng để làm gì?** Tóm tắt bảng số bằng trung bình, trung vị, phương sai và độ lệch chuẩn để so sánh các nhóm.
+
+**Kết nối kiến thức tiếp theo:** PY-38 dùng phân vị/IQR để tìm giá trị khác thường mà trung bình có thể che khuất.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -276,6 +278,11 @@ C. Squared dispersion around the mean — Độ phân tán bình phương quanh 
 
 D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
 
+**Đáp án: A**
+
+**Giải thích:** Mọi quan sát góp vào trung bình.
+
+
 **Q2. What is median? — Median là gì?**
 
 A. Sum divided by observation count — Tổng chia số quan sát
@@ -285,6 +292,11 @@ B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
 C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
 
 D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
+
+**Đáp án: B**
+
+**Giải thích:** Trung vị dựa trên thứ tự, không dựa trên tổng độ lớn.
+
 
 **Q3. What does variance measure? — Variance đo gì?**
 
@@ -296,6 +308,11 @@ C. Squared dispersion around the mean — Độ phân tán bình phương quanh 
 
 D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
 
+**Đáp án: C**
+
+**Giải thích:** Nó lấy trung bình bình phương độ lệch.
+
+
 **Q4. What does standard deviation measure? — Std đo gì?**
 
 A. Sum divided by observation count — Tổng chia số quan sát
@@ -305,6 +322,11 @@ B. Middle ranked value after sorting — Giá trị ở giữa sau khi sắp
 C. Squared dispersion around the mean — Độ phân tán bình phương quanh mean
 
 D. Spread in original measurement units — Độ phân tán cùng đơn vị gốc
+
+**Đáp án: D**
+
+**Giải thích:** Std là căn bậc hai phương sai.
+
 
 **Q5. What is mode? — Mode là gì?**
 
@@ -316,6 +338,11 @@ C. Divide by n−1 — Chia cho n−1
 
 D. Frequency per distinct label — Tần suất từng nhãn khác nhau
 
+**Đáp án: A**
+
+**Giải thích:** Yếu vị dùng được cho nhãn lẫn số.
+
+
 **Q6. What is ddof=0 in np.var? — ddof=0 trong np.var là gì?**
 
 A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
@@ -325,6 +352,11 @@ B. Divide sum of squares by n — Chia tổng bình phương cho n
 C. Divide by n−1 — Chia cho n−1
 
 D. Frequency per distinct label — Tần suất từng nhãn khác nhau
+
+**Đáp án: B**
+
+**Giải thích:** Nó tính phương sai theo quy ước quần thể.
+
 
 **Q7. What is ddof=1 for sample variance? — ddof=1 dùng cho gì?**
 
@@ -336,6 +368,11 @@ C. Divide by n−1 — Chia cho n−1
 
 D. Frequency per distinct label — Tần suất từng nhãn khác nhau
 
+**Đáp án: C**
+
+**Giải thích:** Đó là ước lượng phương sai mẫu thông dụng.
+
+
 **Q8. What does value_counts() produce? — value_counts() tạo gì?**
 
 A. Most frequent observed value — Giá trị xuất hiện nhiều nhất
@@ -345,6 +382,11 @@ B. Divide sum of squares by n — Chia tổng bình phương cho n
 C. Divide by n−1 — Chia cho n−1
 
 D. Frequency per distinct label — Tần suất từng nhãn khác nhau
+
+**Đáp án: D**
+
+**Giải thích:** Nó đếm lượt xuất hiện của từng nhãn.
+
 
 **Q9. What is mean of 2,3,4? — Mean của 2,3,4 là bao nhiêu?**
 
@@ -356,6 +398,11 @@ C. 2/3 — 2/3
 
 D. 1 — 1
 
+**Đáp án: A**
+
+**Giải thích:** Tổng 9 chia 3 bằng 3.
+
+
 **Q10. What is median of 2,4,100? — Median của 2,4,100 là bao nhiêu?**
 
 A. 3 — 3
@@ -365,6 +412,11 @@ B. 4 — 4
 C. 2/3 — 2/3
 
 D. 1 — 1
+
+**Đáp án: B**
+
+**Giải thích:** Bốn nằm giữa dãy đã sắp.
+
 
 **Q11. What is population variance of 1,2,3? — Phương sai quần thể của 1,2,3 là gì?**
 
@@ -376,6 +428,11 @@ C. 2/3 — 2/3
 
 D. 1 — 1
 
+**Đáp án: C**
+
+**Giải thích:** Bình phương lệch là 1,0,1 rồi chia ba.
+
+
 **Q12. What is sample variance of 1,2,3? — Phương sai mẫu của 1,2,3 là gì?**
 
 A. 3 — 3
@@ -385,6 +442,11 @@ B. 4 — 4
 C. 2/3 — 2/3
 
 D. 1 — 1
+
+**Đáp án: D**
+
+**Giải thích:** Tổng bình phương 2 chia n−1=2.
+
 
 **Q13. What unit does variance have? — Variance có đơn vị gì?**
 
@@ -396,6 +458,11 @@ C. Median — Trung vị
 
 D. Mode — Yếu vị
 
+**Đáp án: A**
+
+**Giải thích:** Bình phương lệch làm bình phương đơn vị.
+
+
 **Q14. What unit does std have? — Std có đơn vị gì?**
 
 A. Squared input units — Bình phương đơn vị dữ liệu
@@ -405,6 +472,11 @@ B. Original input units — Đơn vị gốc của dữ liệu
 C. Median — Trung vị
 
 D. Mode — Yếu vị
+
+**Đáp án: B**
+
+**Giải thích:** Lấy căn đưa về đơn vị ban đầu.
+
 
 **Q15. Which statistic resists large outliers better? — Thống kê nào ít nhạy với ngoại lệ cực lớn hơn?**
 
@@ -416,6 +488,11 @@ C. Median — Trung vị
 
 D. Mode — Yếu vị
 
+**Đáp án: C**
+
+**Giải thích:** Giá trị cực lớn ít tác động vị trí giữa.
+
+
 **Q16. Which statistic is useful for categorical labels? — Thống kê nào phù hợp nhãn phân loại?**
 
 A. Squared input units — Bình phương đơn vị dữ liệu
@@ -425,6 +502,11 @@ B. Original input units — Đơn vị gốc của dữ liệu
 C. Median — Trung vị
 
 D. Mode — Yếu vị
+
+**Đáp án: D**
+
+**Giải thích:** Lấy trung bình mã chữ không có ý nghĩa số học.
+
 
 **Q17. Does std equal standard error? — Std có giống sai số chuẩn không?**
 
@@ -436,6 +518,11 @@ C. Different denominators give different results — Mẫu số khác nhau cho k
 
 D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
 
+**Đáp án: A**
+
+**Giải thích:** SE đo độ biến thiên của thống kê ước lượng.
+
+
 **Q18. Can mean lie above most observations? — Mean có thể lớn hơn phần lớn quan sát không?**
 
 A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
@@ -445,6 +532,11 @@ B. Yes, large outliers can pull it up — Có, ngoại lệ lớn kéo mean lên
 C. Different denominators give different results — Mẫu số khác nhau cho kết quả khác
 
 D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
+
+**Đáp án: B**
+
+**Giải thích:** Mean phụ thuộc tổng các giá trị.
+
 
 **Q19. Why state ddof when reporting variance? — Vì sao báo ddof khi trình bày phương sai?**
 
@@ -456,6 +548,11 @@ C. Different denominators give different results — Mẫu số khác nhau cho k
 
 D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
 
+**Đáp án: C**
+
+**Giải thích:** Quy ước mẫu và quần thể khác nhau.
+
+
 **Q20. What happens if values use mismatched units? — Nếu số liệu dùng đơn vị không thống nhất thì sao?**
 
 A. No, std measures spread of individual values — Không, std đo độ phân tán quan sát
@@ -466,30 +563,9 @@ C. Different denominators give different results — Mẫu số khác nhau cho k
 
 D. Summary statistics can lose meaning — Thống kê tổng hợp có thể mất ý nghĩa
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | All observations contribute to the average. | Mọi quan sát góp vào trung bình. |
-| Q2 | **B** | Median uses rank rather than total magnitude. | Trung vị dựa trên thứ tự, không dựa trên tổng độ lớn. |
-| Q3 | **C** | It averages squared deviations. | Nó lấy trung bình bình phương độ lệch. |
-| Q4 | **D** | Std is the square root of variance. | Std là căn bậc hai phương sai. |
-| Q5 | **A** | It applies to categories and numeric data. | Yếu vị dùng được cho nhãn lẫn số. |
-| Q6 | **B** | It computes population-style variance. | Nó tính phương sai theo quy ước quần thể. |
-| Q7 | **C** | It is the conventional sample variance estimator. | Đó là ước lượng phương sai mẫu thông dụng. |
-| Q8 | **D** | It counts categorical occurrences. | Nó đếm lượt xuất hiện của từng nhãn. |
-| Q9 | **A** | (2+3+4)/3=3. | Tổng 9 chia 3 bằng 3. |
-| Q10 | **B** | Four is the middle ranked observation. | Bốn nằm giữa dãy đã sắp. |
-| Q11 | **C** | Squared deviations 1,0,1 average to 2/3. | Bình phương lệch là 1,0,1 rồi chia ba. |
-| Q12 | **D** | Divide squared-deviation sum two by n−1=2. | Tổng bình phương 2 chia n−1=2. |
-| Q13 | **A** | Squaring deviations squares their units. | Bình phương lệch làm bình phương đơn vị. |
-| Q14 | **B** | Square root restores the original units. | Lấy căn đưa về đơn vị ban đầu. |
-| Q15 | **C** | Extreme magnitudes barely change ranks. | Giá trị cực lớn ít tác động vị trí giữa. |
-| Q16 | **D** | Averages of text labels have no numeric meaning. | Lấy trung bình mã chữ không có ý nghĩa số học. |
-| Q17 | **A** | SE concerns variability of estimated statistics. | SE đo độ biến thiên của thống kê ước lượng. |
-| Q18 | **B** | The mean depends on the sum. | Mean phụ thuộc tổng các giá trị. |
-| Q19 | **C** | Sample and population conventions differ. | Quy ước mẫu và quần thể khác nhau. |
-| Q20 | **D** | You must normalize units before calculating. | Cần thống nhất đơn vị trước khi tính. |
+**Giải thích:** Cần thống nhất đơn vị trước khi tính.
 
 ## 8. Liên hệ bài tiếp theo
 

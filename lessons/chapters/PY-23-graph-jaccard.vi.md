@@ -8,7 +8,9 @@
 
 `Set → Graph → Similarity → Gợi ý bạn học`
 
-Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python trước khi sử dụng vào học máy.
+**Học xong dùng để làm gì?** Dùng cạnh và nút mô tả liên kết; so nhãn/sở thích bằng hệ số tương đồng Jaccard.
+
+**Kết nối kiến thức tiếp theo:** PY-24 chuyển đặc trưng đối tượng thành vector có thể đo độ dài và hướng.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -273,6 +275,11 @@ C. A relationship connecting two vertices — Quan hệ nối hai đỉnh
 
 D. A mapping from each vertex to its neighbors — Ánh xạ mỗi đỉnh tới các đỉnh kề
 
+**Đáp án: A**
+
+**Giải thích:** Đồ thị mô tả quan hệ giữa các đối tượng.
+
+
 **Q2. What is a vertex? — Đỉnh trong đồ thị là gì?**
 
 A. A collection of vertices and edges — Tập các đỉnh và cạnh
@@ -282,6 +289,11 @@ B. An entity or node in the network — Một đối tượng hoặc nút trong 
 C. A relationship connecting two vertices — Quan hệ nối hai đỉnh
 
 D. A mapping from each vertex to its neighbors — Ánh xạ mỗi đỉnh tới các đỉnh kề
+
+**Đáp án: B**
+
+**Giải thích:** Mỗi đỉnh đại diện một đối tượng.
+
 
 **Q3. What is an edge? — Cạnh của đồ thị là gì?**
 
@@ -293,6 +305,11 @@ C. A relationship connecting two vertices — Quan hệ nối hai đỉnh
 
 D. A mapping from each vertex to its neighbors — Ánh xạ mỗi đỉnh tới các đỉnh kề
 
+**Đáp án: C**
+
+**Giải thích:** Cạnh biểu diễn kết nối giữa các đỉnh.
+
+
 **Q4. What is an adjacency list? — Danh sách kề là gì?**
 
 A. A collection of vertices and edges — Tập các đỉnh và cạnh
@@ -302,6 +319,11 @@ B. An entity or node in the network — Một đối tượng hoặc nút trong 
 C. A relationship connecting two vertices — Quan hệ nối hai đỉnh
 
 D. A mapping from each vertex to its neighbors — Ánh xạ mỗi đỉnh tới các đỉnh kề
+
+**Đáp án: D**
+
+**Giải thích:** Danh sách kề lưu các kết nối của từng đỉnh.
+
 
 **Q5. What does a directed edge A→B assert? — Cạnh có hướng A→B cho biết gì?**
 
@@ -313,6 +335,11 @@ C. The neighbors stored for An — Những đỉnh kề được lưu cho An
 
 D. A sequence of connected vertices — Chuỗi các đỉnh nối tiếp nhau
 
+**Đáp án: A**
+
+**Giải thích:** Chiều kết nối quan trọng; B→A không tự tồn tại.
+
+
 **Q6. What does an undirected edge mean? — Cạnh vô hướng có ý nghĩa gì?**
 
 A. A connection from A to B — Kết nối đi từ A đến B
@@ -322,6 +349,11 @@ B. A connection without direction — Kết nối không phân biệt chiều
 C. The neighbors stored for An — Những đỉnh kề được lưu cho An
 
 D. A sequence of connected vertices — Chuỗi các đỉnh nối tiếp nhau
+
+**Đáp án: B**
+
+**Giải thích:** Quan hệ vô hướng đi được theo cả hai chiều.
+
 
 **Q7. What does `graph['An']` return in an adjacency dictionary? — `graph['An']` trong Dictionary kề trả gì?**
 
@@ -333,6 +365,11 @@ C. The neighbors stored for An — Những đỉnh kề được lưu cho An
 
 D. A sequence of connected vertices — Chuỗi các đỉnh nối tiếp nhau
 
+**Đáp án: C**
+
+**Giải thích:** Giá trị của khóa đỉnh chứa các nút lân cận.
+
+
 **Q8. What does a path in a graph describe? — Đường đi trong đồ thị biểu diễn gì?**
 
 A. A connection from A to B — Kết nối đi từ A đến B
@@ -342,6 +379,11 @@ B. A connection without direction — Kết nối không phân biệt chiều
 C. The neighbors stored for An — Những đỉnh kề được lưu cho An
 
 D. A sequence of connected vertices — Chuỗi các đỉnh nối tiếp nhau
+
+**Đáp án: D**
+
+**Giải thích:** Hai đỉnh liên tiếp trên đường đi phải có cạnh nối.
+
 
 **Q9. What is Jaccard similarity for sets A and B? — Jaccard giữa hai Set A, B bằng gì?**
 
@@ -353,6 +395,11 @@ C. 0 — 0
 
 D. A zero union denominator — Mẫu số hợp bằng 0
 
+**Đáp án: A**
+
+**Giải thích:** Jaccard so phần chung với toàn bộ phần tử khác nhau.
+
+
 **Q10. What is Jaccard for two identical nonempty sets? — Jaccard của hai Set giống nhau và không rỗng là gì?**
 
 A. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
@@ -362,6 +409,11 @@ B. 1 — 1
 C. 0 — 0
 
 D. A zero union denominator — Mẫu số hợp bằng 0
+
+**Đáp án: B**
+
+**Giải thích:** Phép giao bằng phép hợp.
+
 
 **Q11. What is Jaccard for two disjoint nonempty sets? — Jaccard của hai Set không giao nhau, không rỗng là gì?**
 
@@ -373,6 +425,11 @@ C. 0 — 0
 
 D. A zero union denominator — Mẫu số hợp bằng 0
 
+**Đáp án: C**
+
+**Giải thích:** Phép giao không có phần tử nào.
+
+
 **Q12. What must be handled before computing Jaccard on two empty sets? — Cần xử lý gì trước khi tính Jaccard cho hai Set rỗng?**
 
 A. Intersection size divided by union size — Số phần tử giao chia số phần tử hợp
@@ -382,6 +439,11 @@ B. 1 — 1
 C. 0 — 0
 
 D. A zero union denominator — Mẫu số hợp bằng 0
+
+**Đáp án: D**
+
+**Giải thích:** Nếu không xử lý sẽ chia cho 0.
+
 
 **Q13. What does `nx.Graph()` create? — `nx.Graph()` tạo gì?**
 
@@ -393,6 +455,11 @@ C. A path with fewest edges — Đường đi có ít cạnh nhất
 
 D. Install and import the package — Cài và import thư viện
 
+**Đáp án: A**
+
+**Giải thích:** Graph tạo cạnh vô hướng theo mặc định.
+
+
 **Q14. What does `nx.DiGraph()` create? — `nx.DiGraph()` tạo gì?**
 
 A. An undirected NetworkX graph — Đồ thị vô hướng NetworkX
@@ -402,6 +469,11 @@ B. A directed NetworkX graph — Đồ thị có hướng NetworkX
 C. A path with fewest edges — Đường đi có ít cạnh nhất
 
 D. Install and import the package — Cài và import thư viện
+
+**Đáp án: B**
+
+**Giải thích:** DiGraph phân biệt chiều cạnh.
+
 
 **Q15. What does `nx.shortest_path()` find on an unweighted graph? — `nx.shortest_path()` tìm gì trên đồ thị không trọng số?**
 
@@ -413,6 +485,11 @@ C. A path with fewest edges — Đường đi có ít cạnh nhất
 
 D. Install and import the package — Cài và import thư viện
 
+**Đáp án: C**
+
+**Giải thích:** Đường ngắn nhất không trọng số có ít cạnh nhất.
+
+
 **Q16. What is required to use NetworkX in Python? — Để dùng NetworkX trong Python cần gì?**
 
 A. An undirected NetworkX graph — Đồ thị vô hướng NetworkX
@@ -422,6 +499,11 @@ B. A directed NetworkX graph — Đồ thị có hướng NetworkX
 C. A path with fewest edges — Đường đi có ít cạnh nhất
 
 D. Install and import the package — Cài và import thư viện
+
+**Đáp án: D**
+
+**Giải thích:** NetworkX không thuộc thư viện chuẩn Python.
+
 
 **Q17. How can neighbor display order be made consistent? — Làm sao in danh sách các đỉnh kề theo thứ tự ổn định?**
 
@@ -433,6 +515,11 @@ C. To identify each graph entity unambiguously — Để xác định từng đ�
 
 D. Jaccard compares sets; shortest path follows graph edges — Jaccard so hai tập; đường ngắn nhất đi theo cạnh
 
+**Đáp án: A**
+
+**Giải thích:** Set không bảo đảm thứ tự khi in.
+
+
 **Q18. What happens if no path exists between two vertices? — Nếu không có đường nối hai đỉnh thì sao?**
 
 A. Call `sorted()` on neighbor sets — Gọi `sorted()` trên Set đỉnh kề
@@ -442,6 +529,11 @@ B. No valid route can be returned — Không có tuyến đường hợp lệ đ
 C. To identify each graph entity unambiguously — Để xác định từng đối tượng không mơ hồ
 
 D. Jaccard compares sets; shortest path follows graph edges — Jaccard so hai tập; đường ngắn nhất đi theo cạnh
+
+**Đáp án: B**
+
+**Giải thích:** Thuật toán tìm đường cần xử lý hai đỉnh không liên thông.
+
 
 **Q19. Why should node names be unique? — Vì sao tên đỉnh nên duy nhất?**
 
@@ -453,6 +545,11 @@ C. To identify each graph entity unambiguously — Để xác định từng đ�
 
 D. Jaccard compares sets; shortest path follows graph edges — Jaccard so hai tập; đường ngắn nhất đi theo cạnh
 
+**Đáp án: C**
+
+**Giải thích:** Mã đỉnh trùng khiến các đối tượng bị nhập làm một.
+
+
 **Q20. What distinguishes Jaccard from graph shortest path? — Jaccard khác đường đi ngắn nhất ở đâu?**
 
 A. Call `sorted()` on neighbor sets — Gọi `sorted()` trên Set đỉnh kề
@@ -463,30 +560,9 @@ C. To identify each graph entity unambiguously — Để xác định từng đ�
 
 D. Jaccard compares sets; shortest path follows graph edges — Jaccard so hai tập; đường ngắn nhất đi theo cạnh
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | Graphs model relations among entities. | Đồ thị mô tả quan hệ giữa các đối tượng. |
-| Q2 | **B** | Each vertex identifies an entity. | Mỗi đỉnh đại diện một đối tượng. |
-| Q3 | **C** | Edges represent connectivity. | Cạnh biểu diễn kết nối giữa các đỉnh. |
-| Q4 | **D** | Adjacency lists record connections for each vertex. | Danh sách kề lưu các kết nối của từng đỉnh. |
-| Q5 | **A** | Direction matters; B→A need not exist. | Chiều kết nối quan trọng; B→A không tự tồn tại. |
-| Q6 | **B** | An undirected friendship can be traversed both ways. | Quan hệ vô hướng đi được theo cả hai chiều. |
-| Q7 | **C** | The value for a node holds its adjacent vertices. | Giá trị của khóa đỉnh chứa các nút lân cận. |
-| Q8 | **D** | Consecutive vertices must share edges. | Hai đỉnh liên tiếp trên đường đi phải có cạnh nối. |
-| Q9 | **A** | Jaccard compares shared members with all distinct members. | Jaccard so phần chung với toàn bộ phần tử khác nhau. |
-| Q10 | **B** | The intersection equals the union. | Phép giao bằng phép hợp. |
-| Q11 | **C** | The intersection contains no elements. | Phép giao không có phần tử nào. |
-| Q12 | **D** | The formula would otherwise divide by zero. | Nếu không xử lý sẽ chia cho 0. |
-| Q13 | **A** | Graph defaults to undirected edges. | Graph tạo cạnh vô hướng theo mặc định. |
-| Q14 | **B** | DiGraph stores edge directions. | DiGraph phân biệt chiều cạnh. |
-| Q15 | **C** | Unweighted shortest paths minimize edge count. | Đường ngắn nhất không trọng số có ít cạnh nhất. |
-| Q16 | **D** | NetworkX is not a standard-library module. | NetworkX không thuộc thư viện chuẩn Python. |
-| Q17 | **A** | Sets do not guarantee displayed order. | Set không bảo đảm thứ tự khi in. |
-| Q18 | **B** | Path algorithms must handle disconnected vertices. | Thuật toán tìm đường cần xử lý hai đỉnh không liên thông. |
-| Q19 | **C** | Duplicate identifiers collapse distinct entities. | Mã đỉnh trùng khiến các đối tượng bị nhập làm một. |
-| Q20 | **D** | The two tools answer different questions. | Hai công cụ trả lời hai loại câu hỏi khác nhau. |
+**Giải thích:** Hai công cụ trả lời hai loại câu hỏi khác nhau.
 
 ## 8. Nối sang bài kế tiếp
 

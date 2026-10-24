@@ -7,7 +7,9 @@
 
 `List/Set → Dictionary → JSON/CSV → DataFrame`
 
-Sau List, Tuple và Set, ta học Dictionary để tìm thông tin qua một tên hoặc mã riêng. Thay vì nhớ số thứ tự, ta lấy thông tin theo khóa như `id`, `name` hoặc mã sản phẩm.
+**Học xong dùng để làm gì?** Tra cứu hồ sơ học viên theo mã và biểu diễn bản ghi có nhiều trường bằng khóa–giá trị.
+
+**Kết nối kiến thức tiếp theo:** PY-09 viết hàm tái sử dụng các bước xử lý những bản ghi đó.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -289,6 +291,10 @@ C. A mapping from hashable keys to values — Ánh xạ từ khóa có thể bă
 
 D. A sequence with numeric positions only — Dãy chỉ truy cập bằng vị trí số
 
+**Đáp án: C**
+
+**Giải thích:** Dictionary ánh xạ các khóa khác nhau, có thể băm, tới giá trị tương ứng, ví dụ `{'name':'An', 'score':9}`. Bạn truy cập giá trị qua khóa thay vì chỉ số vị trí như List.
+
 
 **Q2. What does a dictionary key do? — Khóa Dictionary có vai trò gì?**
 
@@ -299,6 +305,10 @@ B. Stores all keys as values — Lưu mọi khóa thành giá trị
 C. Sorts the stored values — Sắp xếp các giá trị đã lưu
 
 D. Identifies an entry for lookup — Xác định mục để tra cứu
+
+**Đáp án: D**
+
+**Giải thích:** Khóa xác định một mục để tra cứu, cập nhật hoặc xóa giá trị. Trong `{'age': 20}`, khóa `'age'` dẫn đến giá trị `20`; khóa không đồng nghĩa với giá trị đi kèm.
 
 
 **Q3. What is a dictionary value? — Giá trị Dictionary là gì?**
@@ -311,6 +321,10 @@ C. Always a second dictionary — Luôn là Dictionary thứ hai
 
 D. A name used only in a `for` loop — Tên chỉ dùng trong vòng `for`
 
+**Đáp án: B**
+
+**Giải thích:** Giá trị Dictionary là dữ liệu lưu dưới một khóa, chẳng hạn số `20` dưới khóa `'age'`. Giá trị có thể thuộc nhiều kiểu kể cả List hoặc Dictionary, trong khi khóa phải là đối tượng có thể băm.
+
 
 **Q4. What is a nested dictionary? — Dictionary lồng nhau là gì?**
 
@@ -321,6 +335,10 @@ B. A list nested inside a set — List lồng trong Set
 C. A set of duplicate keys — Set gồm khóa trùng
 
 D. A dictionary with only numeric keys — Dictionary chỉ có khóa số
+
+**Đáp án: A**
+
+**Giải thích:** Dictionary lồng nhau là Dictionary được lưu làm giá trị trong Dictionary khác. Ví dụ `{'A': {'score': 9}}` gom trường `score` dưới khóa `'A'`, và hai lần truy cập ngoặc vuông sẽ lấy được con số.
 
 
 **Q5. What does `d['x']` do when x exists? — `d['x']` làm gì khi khóa x tồn tại?**
@@ -333,6 +351,10 @@ C. Returns `'x'` as a string — Trả chuỗi `'x'`
 
 D. Deletes the entry for `'x'` — Xóa mục có khóa `'x'`
 
+**Đáp án: B**
+
+**Giải thích:** Khi khóa `'x'` tồn tại, `d['x']` lấy giá trị gắn với khóa đó. Khác `d.get('x')`, truy cập ngoặc vuông sẽ gây `KeyError` nếu khóa không tồn tại.
+
 
 **Q6. What does `d.get('x')` return if x is absent? — `d.get('x')` trả về gì nếu thiếu khóa x?**
 
@@ -343,6 +365,10 @@ B. `None` by default — Mặc định là `None`
 C. The empty dictionary `{}` — Dictionary rỗng `{}`
 
 D. The string `'x'` — Chuỗi `'x'`
+
+**Đáp án: B**
+
+**Giải thích:** Khi không cung cấp mặc định, `d.get('x')` trả `None` nếu thiếu khóa thay vì gây `KeyError`. Cách này giúp xử lý dữ liệu thiếu, nhưng bản thân `None` cũng có thể là giá trị được lưu thật.
 
 
 **Q7. What does `d.get('x', 0)` return if x is absent? — `d.get('x', 0)` trả về gì nếu thiếu x?**
@@ -355,6 +381,10 @@ C. The string `'0'` — Chuỗi `'0'`
 
 D. `None` — `None`
 
+**Đáp án: A**
+
+**Giải thích:** Đối số thứ hai của `get` là giá trị dự phòng khi không tìm thấy khóa, nên `d.get('x', 0)` trả số nguyên `0` nếu thiếu `'x'`. Lệnh không tạo khóa đó và không ghi đè giá trị đang có.
+
 
 **Q8. What does `d['missing']` raise? — `d['missing']` phát sinh gì khi thiếu khóa?**
 
@@ -365,6 +395,10 @@ B. An empty list — List rỗng
 C. `KeyError` — `KeyError`
 
 D. `None` — `None`
+
+**Đáp án: C**
+
+**Giải thích:** Truy cập trực tiếp `d['missing']` gây `KeyError` khi không có khóa. Với dữ liệu tùy chọn, `get` có thể trả giá trị dự phòng; sự khác biệt này quyết định có xem việc thiếu khóa là lỗi hay không.
 
 
 **Q9. What does `d.items()` provide? — `d.items()` cung cấp gì?**
@@ -377,6 +411,10 @@ C. Only a view of values — Chỉ view các giá trị
 
 D. Only a view of keys — Chỉ view các khóa
 
+**Đáp án: B**
+
+**Giải thích:** `d.items()` trả một view động của các cặp khóa–giá trị, thường duyệt bằng `for key, value in d.items()`. Nó khác `keys()` chỉ đưa ra khóa và `values()` chỉ đưa ra giá trị.
+
 
 **Q10. What does `d.keys()` provide? — `d.keys()` cung cấp gì?**
 
@@ -387,6 +425,10 @@ B. A list of keys sorted automatically — List khóa tự sắp
 C. A view of pairs — View các cặp khóa–giá trị
 
 D. A view of dictionary keys — View của các khóa Dictionary
+
+**Đáp án: D**
+
+**Giải thích:** `d.keys()` cung cấp view động của các khóa Dictionary. Với `{'a': 1}`, khi duyệt view này nhận `'a'`, không phải giá trị `1` hay cả cặp khóa–giá trị.
 
 
 **Q11. What does `d.values()` provide? — `d.values()` cung cấp gì?**
@@ -399,6 +441,10 @@ C. A view of keys — View các khóa
 
 D. A view of key-value pairs — View các cặp khóa–giá trị
 
+**Đáp án: A**
+
+**Giải thích:** `d.values()` trả view động của các giá trị đang lưu. Với `{'a': 1, 'b': 2}`, khi duyệt thu được 1 và 2; muốn kèm khóa tương ứng thì dùng `items()`.
+
 
 **Q12. What does `d.pop('x', None)` do if x is present? — `d.pop('x', None)` làm gì nếu x tồn tại?**
 
@@ -409,6 +455,10 @@ B. Removes the key but always returns `None` — Xóa khóa nhưng luôn trả `
 C. Deletes every dictionary entry — Xóa mọi mục Dictionary
 
 D. Removes `'x'` and returns its former value — Xóa `'x'` và trả giá trị cũ
+
+**Đáp án: D**
+
+**Giải thích:** Khi `'x'` tồn tại, `d.pop('x', None)` xóa mục tương ứng và trả về giá trị cũ. Đối số `None` chỉ là giá trị dự phòng nếu không có khóa; nó không ép kết quả luôn thành `None`.
 
 
 **Q13. What does `d['x'] = 5` do if x already exists? — `d['x'] = 5` làm gì khi x đã tồn tại?**
@@ -421,6 +471,10 @@ C. Deletes the key `'x'` — Xóa khóa `'x'`
 
 D. Tests whether `'x'` exists — Kiểm tra `'x'` tồn tại không
 
+**Đáp án: A**
+
+**Giải thích:** Gán `d['x'] = 5` khi khóa `'x'` đã tồn tại sẽ thay giá trị của mục đó thành `5`. Lệnh không tạo thêm một khóa `'x'` thứ hai vì mỗi khóa Dictionary là duy nhất.
+
 
 **Q14. What does `d['new'] = 5` do if new is absent? — `d['new'] = 5` làm gì khi khóa new chưa có?**
 
@@ -431,6 +485,10 @@ B. Returns the total dictionary length — Trả tổng độ dài Dictionary
 C. Replaces an unrelated existing key — Thay một khóa cũ không liên quan
 
 D. Inserts a new key-value entry — Thêm một mục khóa–giá trị mới
+
+**Đáp án: D**
+
+**Giải thích:** Gán `d['new'] = 5` khi chưa có khóa sẽ thêm cặp `'new'` ánh xạ tới 5. Cùng cú pháp gán này lại cập nhật giá trị nếu khóa đã tồn tại.
 
 
 **Q15. What does `del d['x']` do for an existing key? — `del d['x']` làm gì với khóa đang tồn tại?**
@@ -443,6 +501,10 @@ C. Leaves the entry intact and returns its value — Giữ nguyên mục và tr�
 
 D. Replaces its value with `None` — Thay giá trị bằng `None`
 
+**Đáp án: A**
+
+**Giải thích:** `del d['x']` xóa khóa có sẵn cùng giá trị tương ứng khỏi Dictionary. Khác `pop`, câu lệnh `del` không trả về giá trị đã xóa.
+
 
 **Q16. What does `'x' in d` test? — `'x' in d` kiểm tra gì?**
 
@@ -453,6 +515,10 @@ B. Whether any key maps to `'x'` — Có khóa nào ánh xạ tới `'x'` không
 C. Whether `'x'` is a dictionary key — `'x'` có là khóa Dictionary không
 
 D. Whether `'x'` appears in values only — `'x'` có nằm trong các giá trị hay không
+
+**Đáp án: C**
+
+**Giải thích:** Với Dictionary, `in` mặc định kiểm tra khóa: `'x' in {'x': 3}` là `True`, còn `3 in {'x': 3}` là `False`. Muốn kiểm tra giá trị thay vì khóa, hãy xét thành viên trong `d.values()`.
 
 
 **Q17. May a List be a normal dictionary key? — Có thể dùng List làm khóa Dictionary thông thường không?**
@@ -465,6 +531,10 @@ C. No, lists are unhashable — Không, List không thể băm
 
 D. Yes, every list is hashable — Có, mọi List đều có thể băm
 
+**Đáp án: C**
+
+**Giải thích:** List có thể thay đổi nên không thể băm và không dùng làm khóa Dictionary thông thường. Thử `{[1,2]: 'x'}` gây `TypeError`; một Tuple chứa các số có thể băm thì dùng được.
+
 
 **Q18. Can a tuple of integers be a dictionary key? — Tuple chứa số nguyên có thể làm khóa Dictionary không?**
 
@@ -475,6 +545,10 @@ B. Yes, a tuple of integers is hashable — Có, Tuple chứa số nguyên có t
 C. Only if the tuple has one element — Chỉ nếu Tuple có một phần tử
 
 D. Only if the tuple is empty — Chỉ nếu Tuple rỗng
+
+**Đáp án: B**
+
+**Giải thích:** Tuple chỉ chứa số nguyên có thể băm nên dùng làm khóa Dictionary, ví dụ `{(1,2): 'point'}`. Không phải mọi Tuple đều dùng được: Tuple chứa List cũng không thể băm vì một phần tử bên trong không thể băm.
 
 
 **Q19. How do you access the score in `d['A']` when it is a nested dictionary? — Lấy điểm trong Dictionary con `d['A']` thế nào?**
@@ -487,6 +561,10 @@ C. `d.get('A', 'score')` — `d.get('A', 'score')`
 
 D. `d['A']['score']` — `d['A']['score']`
 
+**Đáp án: D**
+
+**Giải thích:** `d['A']['score']` trước tiên lấy Dictionary con dưới khóa `'A'`, rồi tra mục `'score'` trong đó. Với `d={'A':{'score':9}}`, biểu thức trả 9; nếu thiếu một trong các khóa thì cách truy cập trực tiếp gây `KeyError`.
+
 
 **Q20. What must be unique within one dictionary? — Điều gì phải duy nhất trong một Dictionary?**
 
@@ -498,30 +576,9 @@ C. Dictionary keys — Các khóa Dictionary
 
 D. Neither keys nor values must be unique — Cả khóa lẫn giá trị đều không cần duy nhất
 
-### Answer key — Đáp án song ngữ
+**Đáp án: C**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **C** | A dictionary maps unique hashable keys to associated values, for example `{'name':'An', 'score':9}`. You retrieve a value through its key instead of a numeric list position. | Dictionary ánh xạ các khóa khác nhau, có thể băm, tới giá trị tương ứng, ví dụ `{'name':'An', 'score':9}`. Bạn truy cập giá trị qua khóa thay vì chỉ số vị trí như List. |
-| Q2 | **D** | A key identifies an entry and is used to look up, update, or remove its value. For `{'age': 20}`, the key `'age'` leads to value `20`; it is not itself the associated value. | Khóa xác định một mục để tra cứu, cập nhật hoặc xóa giá trị. Trong `{'age': 20}`, khóa `'age'` dẫn đến giá trị `20`; khóa không đồng nghĩa với giá trị đi kèm. |
-| Q3 | **B** | A dictionary value is the data stored under a key, such as number `20` under key `'age'`. Values can be many types, including lists or dictionaries, while keys must be hashable. | Giá trị Dictionary là dữ liệu lưu dưới một khóa, chẳng hạn số `20` dưới khóa `'age'`. Giá trị có thể thuộc nhiều kiểu kể cả List hoặc Dictionary, trong khi khóa phải là đối tượng có thể băm. |
-| Q4 | **A** | A nested dictionary is a dictionary used as a value inside another mapping. For example `{'A': {'score': 9}}` groups the `score` field under key `'A'`, and two bracket lookups reach the number. | Dictionary lồng nhau là Dictionary được lưu làm giá trị trong Dictionary khác. Ví dụ `{'A': {'score': 9}}` gom trường `score` dưới khóa `'A'`, và hai lần truy cập ngoặc vuông sẽ lấy được con số. |
-| Q5 | **B** | When key `'x'` exists, `d['x']` returns the value associated with it. Unlike `d.get('x')`, direct bracket lookup raises `KeyError` if the key is missing. | Khi khóa `'x'` tồn tại, `d['x']` lấy giá trị gắn với khóa đó. Khác `d.get('x')`, truy cập ngoặc vuông sẽ gây `KeyError` nếu khóa không tồn tại. |
-| Q6 | **B** | Without an explicit default, `d.get('x')` returns `None` for a missing key instead of raising `KeyError`. This lets the caller handle missing data, but `None` might also be a legitimate stored value. | Khi không cung cấp mặc định, `d.get('x')` trả `None` nếu thiếu khóa thay vì gây `KeyError`. Cách này giúp xử lý dữ liệu thiếu, nhưng bản thân `None` cũng có thể là giá trị được lưu thật. |
-| Q7 | **A** | The second argument of `get` is the fallback for a missing key, so `d.get('x', 0)` returns integer `0` when `'x'` is absent. It does not create that key or overwrite existing values. | Đối số thứ hai của `get` là giá trị dự phòng khi không tìm thấy khóa, nên `d.get('x', 0)` trả số nguyên `0` nếu thiếu `'x'`. Lệnh không tạo khóa đó và không ghi đè giá trị đang có. |
-| Q8 | **C** | Direct access with `d['missing']` raises `KeyError` when the key is absent. For optional entries, `get` can return a fallback; this difference matters when deciding whether absence should be an error. | Truy cập trực tiếp `d['missing']` gây `KeyError` khi không có khóa. Với dữ liệu tùy chọn, `get` có thể trả giá trị dự phòng; sự khác biệt này quyết định có xem việc thiếu khóa là lỗi hay không. |
-| Q9 | **B** | `d.items()` returns a dynamic view of key-value pairs used in loops such as `for key, value in d.items()`. It is not the same as `keys()`, which exposes only keys, or `values()`, which exposes only values. | `d.items()` trả một view động của các cặp khóa–giá trị, thường duyệt bằng `for key, value in d.items()`. Nó khác `keys()` chỉ đưa ra khóa và `values()` chỉ đưa ra giá trị. |
-| Q10 | **D** | `d.keys()` provides a dynamic view of dictionary keys. With `{'a': 1}`, iterating that view yields `'a'`, not value `1` or the entire key-value pair. | `d.keys()` cung cấp view động của các khóa Dictionary. Với `{'a': 1}`, khi duyệt view này nhận `'a'`, không phải giá trị `1` hay cả cặp khóa–giá trị. |
-| Q11 | **A** | `d.values()` provides a dynamic view of the values stored in a dictionary. For `{'a': 1, 'b': 2}`, iteration yields 1 and 2; to retain their associated keys, use `items()` instead. | `d.values()` trả view động của các giá trị đang lưu. Với `{'a': 1, 'b': 2}`, khi duyệt thu được 1 và 2; muốn kèm khóa tương ứng thì dùng `items()`. |
-| Q12 | **D** | When `'x'` is present, `d.pop('x', None)` removes its entry and returns its former value. The optional `None` is a fallback only if the key is absent; it does not force the return value to be `None`. | Khi `'x'` tồn tại, `d.pop('x', None)` xóa mục tương ứng và trả về giá trị cũ. Đối số `None` chỉ là giá trị dự phòng nếu không có khóa; nó không ép kết quả luôn thành `None`. |
-| Q13 | **A** | Assigning `d['x'] = 5` when `'x'` is already a key replaces that entry's value with `5`. It does not insert a second duplicate key because each dictionary key is unique. | Gán `d['x'] = 5` khi khóa `'x'` đã tồn tại sẽ thay giá trị của mục đó thành `5`. Lệnh không tạo thêm một khóa `'x'` thứ hai vì mỗi khóa Dictionary là duy nhất. |
-| Q14 | **D** | Assigning `d['new'] = 5` when the key is absent inserts a new mapping from `'new'` to 5. The same assignment syntax updates an existing key if it was already present. | Gán `d['new'] = 5` khi chưa có khóa sẽ thêm cặp `'new'` ánh xạ tới 5. Cùng cú pháp gán này lại cập nhật giá trị nếu khóa đã tồn tại. |
-| Q15 | **A** | `del d['x']` removes an existing key and its associated value from the dictionary. Unlike `pop`, the `del` statement does not produce the removed value as a return result. | `del d['x']` xóa khóa có sẵn cùng giá trị tương ứng khỏi Dictionary. Khác `pop`, câu lệnh `del` không trả về giá trị đã xóa. |
-| Q16 | **C** | For dictionaries, `in` tests keys by default: `'x' in {'x': 3}` is `True`, but `3 in {'x': 3}` is `False`. To inspect values rather than keys, check membership in `d.values()`. | Với Dictionary, `in` mặc định kiểm tra khóa: `'x' in {'x': 3}` là `True`, còn `3 in {'x': 3}` là `False`. Muốn kiểm tra giá trị thay vì khóa, hãy xét thành viên trong `d.values()`. |
-| Q17 | **C** | A list is mutable and therefore unhashable, so it cannot be an ordinary dictionary key. Trying `{[1,2]: 'x'}` raises `TypeError`; a tuple of hashable numbers can be used instead. | List có thể thay đổi nên không thể băm và không dùng làm khóa Dictionary thông thường. Thử `{[1,2]: 'x'}` gây `TypeError`; một Tuple chứa các số có thể băm thì dùng được. |
-| Q18 | **B** | A tuple consisting solely of integers is hashable and can serve as a dictionary key, such as `{(1,2): 'point'}`. Not every tuple works: one containing a list is unhashable because a nested member is unhashable. | Tuple chỉ chứa số nguyên có thể băm nên dùng làm khóa Dictionary, ví dụ `{(1,2): 'point'}`. Không phải mọi Tuple đều dùng được: Tuple chứa List cũng không thể băm vì một phần tử bên trong không thể băm. |
-| Q19 | **D** | `d['A']['score']` first retrieves the nested dictionary stored under `'A'`, then looks up its `'score'` entry. With `d={'A':{'score':9}}`, the expression returns 9; the nested keys must exist or direct access raises `KeyError`. | `d['A']['score']` trước tiên lấy Dictionary con dưới khóa `'A'`, rồi tra mục `'score'` trong đó. Với `d={'A':{'score':9}}`, biểu thức trả 9; nếu thiếu một trong các khóa thì cách truy cập trực tiếp gây `KeyError`. |
-| Q20 | **C** | Keys are unique within a dictionary; assigning the same key again updates the existing entry rather than adding another copy. Values may repeat across multiple keys, so uniqueness applies to keys, not values. | Các khóa là duy nhất trong một Dictionary; gán lại cùng một khóa sẽ cập nhật mục cũ thay vì tạo thêm bản sao. Giá trị có thể lặp ở nhiều khóa nên tính duy nhất áp dụng cho khóa chứ không phải giá trị. |
+**Giải thích:** Các khóa là duy nhất trong một Dictionary; gán lại cùng một khóa sẽ cập nhật mục cũ thay vì tạo thêm bản sao. Giá trị có thể lặp ở nhiều khóa nên tính duy nhất áp dụng cho khóa chứ không phải giá trị.
 
 ## 8. Nối sang bài tiếp theo
 
