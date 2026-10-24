@@ -29,411 +29,515 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 | `make_pipeline(StandardScaler(),LogisticRegression())` | Fit scaler/model trên train trong một chuỗi |
 | `model.score(X_test,y_test)` | Đánh giá tập test, không suy từ điểm train |
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm chính và liên quan
 
-### 4.1. Feature
+**Mạch kiến thức:** Một dự án AI bắt đầu từ việc hiểu mỗi hàng mẫu, cột đặc trưng và nhãn mục tiêu. Dữ liệu được làm sạch theo đúng quy tắc, chia train/test **trước khi học tham số xử lý**, huấn luyện bằng Pipeline rồi đánh giá trên nhãn test. Kết quả mô hình cần đọc cùng giới hạn, không chỉ nhìn một con số accuracy.
 
-**Từ vựng trong mục:** **Feature** — đặc trưng.
+### 4.1. Feature và label — Đầu vào khác mục tiêu
 
-Cột đầu vào cho mô hình.
+**Từ vựng trong mục:** **Feature — đặc trưng; Label — nhãn**.
 
-```python
-x=[[1,2],[3,4]]
-print(len(x[0]))
-```
-
-**Tự kiểm tra:** Feature nghĩa là gì? **Đáp án:** Cột đầu vào cho mô hình.
-
-### 4.2. Label
-
-**Từ vựng trong mục:** **Label** — nhãn.
-
-Giá trị mục tiêu cần dự đoán.
-
-```python
-y=[0,1]
-print(y)
-```
-
-**Tự kiểm tra:** Label nghĩa là gì? **Đáp án:** Giá trị mục tiêu cần dự đoán.
-
-### 4.3. Pipeline
-
-**Từ vựng trong mục:** **Pipeline** — chuỗi xử lý.
-
-Gom tiền xử lý và mô hình thành các bước.
-
-```python
-from sklearn.pipeline import Pipeline
-print(Pipeline)
-```
-
-**Tự kiểm tra:** Pipeline nghĩa là gì? **Đáp án:** Gom tiền xử lý và mô hình thành các bước.
-
-### 4.4. Evaluation
-
-**Từ vựng trong mục:** **Evaluation** — đánh giá.
-
-Đo kết quả trên dữ liệu chưa dùng để fit.
-
-```python
-print(8/10)
-```
-
-**Tự kiểm tra:** Evaluation nghĩa là gì? **Đáp án:** Đo kết quả trên dữ liệu chưa dùng để fit.
-
-## 5. Năm tình huống thực tế
-
-### Tình huống 1 — Kiểm schema dữ liệu
-
-**Từ vựng trong mục:** **Feature** — đặc trưng.
-
-**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần kiểm schema dữ liệu cho công việc của mình. Dữ liệu đầu vào: Iris có 150 hoa × 4 số đo cm và một nhãn loài. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Nêu rõ đầu vào và nhãn trước khi huấn luyện
-
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+Trong mini-project phân loại hoa Iris, một **hàng** ứng với một bông hoa; bốn **cột feature** là chiều dài/rộng đài hoa và cánh hoa, đơn vị cm. **Label** (y) là mã loài 0,1,2 cần dự đoán. X có shape `(150,4)`, y có 150 nhãn. Không đưa cột chứa nhãn hoặc thông tin được biết sau kết quả vào X, vì đó là rò rỉ mục tiêu.
 
 ```python
 from sklearn.datasets import load_iris
-D=load_iris()
-print(D.data.shape,D.target.shape)
+
+data = load_iris()
+print(data.data.shape, data.target.shape)
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 2 — Chia tập có phân tầng
+```text
+(150, 4) (150,)
+```
 
-**Từ vựng trong mục:** **Label** — nhãn.
+Mỗi trong 150 hoa có bốn số đo dùng dự đoán một trong ba loài.
 
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần chia tập có phân tầng cho công việc của mình. Dữ liệu đầu vào: Iris có 3 loài. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### 4.2. Cleaning — Xử lý ô khuyết đúng thứ tự
 
-**Vì sao chọn cách này?** stratify giúp tỷ lệ nhãn ba loài ổn định
+**Từ vựng trong mục:** **Cleaning — làm sạch; Imputation — điền thiếu**.
 
+Trước khi huấn luyện cần kiểm kiểu dữ liệu, giá trị thiếu, lỗi nhập và đơn vị. Nếu thiếu số đo, có thể điền bằng **median của tập train**, nhưng **không** tính median từ cả train và test. Ví dụ ba chiều dài (cm) `[5,None,7]`, median từ hai giá trị có thực là 6; điền None bằng 6. Đây là giá trị ước lượng, không phải số đo gốc.
 
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+```python
+import pandas as pd
+
+values = pd.Series([5.0, None, 7.0])
+print(values.fillna(values.median()).tolist())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[5.0, 6.0, 7.0]
+```
+
+Giá trị thiếu được thay bằng trung vị 6 cm của hai số đã quan sát.
+
+### 4.3. Pipeline — Gắn tiền xử lý với mô hình
+
+**Từ vựng trong mục:** **Pipeline — chuỗi xử lý; Fit — học tham số**.
+
+**Pipeline** ghép các bước `SimpleImputer` → `StandardScaler` → `LogisticRegression`. Khi `.fit(X_train,y_train)`, bước điền thiếu và chuẩn hóa **học tham số từ train**, mô hình sau đó học nhãn. Khi `.predict(X_test)`, các phép biến đổi dùng lại tham số train. Điều này hạn chế rò rỉ test do tính mean/median hay scale trên toàn bảng trước khi chia.
+
+```python
+from sklearn.pipeline import make_pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+model = make_pipeline(
+    SimpleImputer(strategy='median'),
+    StandardScaler(),
+    LogisticRegression(max_iter=1000),
+)
+print(len(model.steps))
+```
+
+**Kết quả khi chạy:**
+
+```text
+3
+```
+
+Pipeline gồm ba bước nối tiếp: điền thiếu, chuẩn hóa, phân loại; chưa gọi fit nên chưa có mô hình đã học.
+
+### 4.4. Evaluation — Đánh giá trên dữ liệu chưa fit
+
+**Từ vựng trong mục:** **Evaluation — đánh giá; Confusion matrix — ma trận nhầm lẫn**.
+
+Đánh giá phân loại phải so nhãn dự đoán với nhãn thật của **test giữ riêng**. **Accuracy** là số dự đoán đúng chia tổng số mẫu, nhưng có thể gây hiểu sai nếu một lớp rất phổ biến. **Confusion matrix** ghi số mẫu theo **hàng = nhãn thật**, **cột = nhãn dự đoán**; ô ngoài đường chéo cho biết những lỗi nhầm lớp cụ thể.
+
+```python
+from sklearn.metrics import confusion_matrix
+
+actual = [0, 1, 1, 0]
+predicted = [0, 1, 0, 0]
+print(confusion_matrix(actual, predicted).tolist())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[[2, 0], [1, 1]]
+```
+
+Lớp thật 0 có hai mẫu dự đoán đúng; lớp thật 1 có một mẫu nhầm sang 0 và một mẫu đúng.
+
+## 5. Năm tình huống ứng dụng
+
+### Tình huống 1 — Kiểm cấu trúc dữ liệu trước khi mô hình hóa
+
+**Từ vựng trong mục:** **Feature** — đặc trưng; **Label** — nhãn; **Test set** — tập đánh giá.
+
+**Tình huống thực tế:** Nhóm đào tạo dùng dữ liệu Iris công khai có 150 hoa, bốn số đo cm mỗi hoa và nhãn thuộc ba loài. Trước khi viết mô hình, cần xác nhận mỗi hoa có đủ cột đặc trưng và một nhãn.
+
+**Vì sao chọn cách giải này?** Kiểm `shape` ngay từ đầu để tránh ghép sai chiều dữ liệu với vector nhãn.
+
+**Quy trình giải:**
+
+1. Nạp Iris và lấy X, y.
+2. In shape của X và y.
+3. Xác nhận 150 hàng X khớp 150 phần tử y.
+
+```python
+from sklearn.datasets import load_iris
+
+data = load_iris()
+print(data.data.shape, data.target.shape)
+```
+
+**Kết quả khi chạy:**
+
+```text
+(150, 4) (150,)
+```
+
+Có 150 mẫu và bốn cột đặc trưng mỗi mẫu, tương ứng 150 nhãn.
+
+### Tình huống 2 — Giữ tỷ lệ lớp khi chia train/test
+
+**Từ vựng trong mục:** **Feature** — đặc trưng; **Label** — nhãn; **Test set** — tập đánh giá.
+
+**Tình huống thực tế:** Iris có ba loài, mỗi loài 50 hoa. Cần chia 25% test, đảm bảo mô hình không thấy dữ liệu test trong lúc fit và tỷ lệ nhãn gần được giữ.
+
+**Vì sao chọn cách giải này?** `train_test_split` với `stratify` giảm nguy cơ tỷ lệ lớp thay đổi ngẫu nhiên ở tập test.
+
+**Quy trình giải:**
+
+1. Nạp Iris và chia theo y với test_size=0.25, seed 42.
+2. Giữ riêng X_train, X_test, y_train, y_test.
+3. In shape hai ma trận đặc trưng.
 
 ```python
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
-D=load_iris();a,b,c,d=train_test_split(D.data,D.target,stratify=D.target,random_state=42,test_size=.25)
-print(a.shape,b.shape)
+
+data = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    data.data, data.target, test_size=0.25,
+    stratify=data.target, random_state=42,
+)
+print(X_train.shape, X_test.shape)
 ```
 
+**Kết quả khi chạy:**
 
-### Tình huống 3 — Huấn luyện pipeline
+```text
+(112, 4) (38, 4)
+```
 
-**Từ vựng trong mục:** **Pipeline** — chuỗi xử lý.
+112 hoa train và 38 hoa test, vẫn giữ bốn cột cm.
 
-**Tình huống thực tế:** Một nhóm phát triển phần mềm và AI cần huấn luyện pipeline cho công việc của mình. Dữ liệu đầu vào: Iris với 4 đặc trưng cm. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
+### Tình huống 3 — Huấn luyện pipeline chống rò rỉ
 
-**Vì sao chọn cách này?** Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test
+**Từ vựng trong mục:** **Feature** — đặc trưng; **Label** — nhãn; **Test set** — tập đánh giá.
 
+**Tình huống thực tế:** Nhóm kỹ thuật muốn học phân loại loài Iris từ bốn số đo cm, có quy tắc điền giá trị thiếu, chuẩn hóa và Logistic Regression. Tập test 25% không được dùng để fit bước tiền xử lý.
 
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Vì sao chọn cách giải này?** Pipeline áp cùng các biến đổi đã học từ train cho test, không chuẩn hóa cả 150 mẫu trước khi chia.
+
+**Quy trình giải:**
+
+1. Chia Iris thành train/test theo nhãn.
+2. Tạo pipeline imputer → scaler → classifier và fit trên train.
+3. Dự đoán X_test và in số nhãn được trả về.
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+data = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    data.data, data.target, test_size=0.25,
+    stratify=data.target, random_state=42,
+)
+model = make_pipeline(
+    SimpleImputer(strategy='median'), StandardScaler(),
+    LogisticRegression(max_iter=1000),
+)
+model.fit(X_train, y_train)
+print(len(model.predict(X_test)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+38
+```
+
+Pipeline đưa ra một dự đoán lớp cho mỗi mẫu test, nhưng chưa đủ để nói độ chính xác.
+
+### Tình huống 4 — Đọc nhầm lẫn giữa các lớp
+
+**Từ vựng trong mục:** **Feature** — đặc trưng; **Label** — nhãn; **Test set** — tập đánh giá.
+
+**Tình huống thực tế:** Một mô hình dự đoán bốn trường hợp có nhãn thật `[0,1,1,0]` và dự đoán `[0,1,0,0]`. Cần biết lớp nào bị nhầm chứ không chỉ accuracy 3/4.
+
+**Vì sao chọn cách giải này?** Ma trận nhầm lẫn đặt nhãn thật theo hàng, dự đoán theo cột; ô ngoài đường chéo biểu thị lỗi.
+
+**Quy trình giải:**
+
+1. Lưu hai danh sách nhãn cùng thứ tự quan sát.
+2. Tạo `confusion_matrix` rồi đổi sang List.
+3. In bảng 2×2, đọc từng ô theo hàng thật–cột dự đoán.
+
+```python
+from sklearn.metrics import confusion_matrix
+
+actual = [0, 1, 1, 0]
+predicted = [0, 1, 0, 0]
+print(confusion_matrix(actual, predicted).tolist())
+```
+
+**Kết quả khi chạy:**
+
+```text
+[[2, 0], [1, 1]]
+```
+
+Một mẫu lớp 1 bị đoán nhầm thành 0; ba trong bốn mẫu dự đoán đúng.
+
+### Tình huống 5 — So baseline và PCA đúng nguyên tắc
+
+**Từ vựng trong mục:** **Feature** — đặc trưng; **Label** — nhãn; **Test set** — tập đánh giá.
+
+**Tình huống thực tế:** Trên Iris, nhóm thực hành muốn so một baseline dùng bốn đặc trưng với mô hình PCA giảm còn hai thành phần. Cần xác định shape trước/sau trên **train**, tránh fit PCA lên toàn dữ liệu test.
+
+**Vì sao chọn cách giải này?** PCA phải fit trên train trong pipeline; hai thành phần là đặc trưng được rút ra, không phải nhãn loài.
+
+**Quy trình giải:**
+
+1. Chia Iris trước, rồi fit scaler và PCA trên X_train.
+2. Biến đổi X_test bằng đúng hai bộ biến đổi đã fit.
+3. In shape của train/test sau PCA để thấy số cột giảm còn 2.
 
 ```python
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-D=load_iris();a,b,c,d=train_test_split(D.data,D.target,stratify=D.target,random_state=42,test_size=.25)
-m=make_pipeline(StandardScaler(),LogisticRegression(max_iter=1000));m.fit(a,c)
-print(m.score(b,d))
-```
-
-
-### Tình huống 4 — Dùng confusion matrix
-
-**Từ vựng trong mục:** **Evaluation** — đánh giá.
-
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần dùng confusion matrix cho công việc của mình. Dữ liệu đầu vào: Các nhãn thật và dự đoán mô phỏng. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm
-
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
-
-```python
-from sklearn.metrics import confusion_matrix
-print(confusion_matrix([0,1,1,0],[0,1,0,0]))
-```
-
-
-### Tình huống 5 — So baseline không PCA
-
-**Từ vựng trong mục:** **Feature** — đặc trưng.
-
-**Tình huống thực tế:** Một nhóm phân tích dữ liệu cần so baseline không pca cho công việc của mình. Dữ liệu đầu vào: Iris 150 hoa, 4 đặc trưng số. Hãy xây dựng chương trình thực hiện yêu cầu và trình bày kết quả.
-
-**Vì sao chọn cách này?** Phải so trên cùng tập train/test mới kết luận được
-
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
-
-```python
-from sklearn.datasets import load_iris
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-D=load_iris();X=StandardScaler().fit_transform(D.data)
-print(PCA(n_components=2).fit_transform(X).shape)
-# Đây chỉ là biểu diễn, chưa phải kết quả đánh giá mô hình.
+
+data = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    data.data, data.target, test_size=0.25,
+    stratify=data.target, random_state=42,
+)
+features = make_pipeline(StandardScaler(), PCA(n_components=2))
+train_2d = features.fit_transform(X_train)
+test_2d = features.transform(X_test)
+print(train_2d.shape, test_2d.shape)
 ```
 
+**Kết quả khi chạy:**
 
-## 6. Nhầm lẫn cần tránh
+```text
+(112, 2) (38, 2)
+```
 
-Đừng sao chép lệnh khi chưa hiểu dữ liệu hoặc trạng thái môi trường; kết quả thử nghiệm không chứng minh rằng mọi máy và mọi bộ dữ liệu đều giống nhau.
+PCA giảm bốn cột cm thành hai thành phần tổng hợp, giữ số hoa. Muốn so hiệu quả phải huấn luyện và đánh giá trên cùng split.
+
+## 6. Sai lầm thường gặp
+
+- X là cột đặc trưng, y là nhãn; không đưa nhãn hoặc kết quả biết sau sự kiện vào feature.
+- Phải chia train/test trước khi học median, mean/std hoặc PCA để tránh rò rỉ.
+- Không `fit_transform` PCA trên X_test; chỉ `transform` bằng PCA đã fit từ train.
+- Accuracy cao vẫn có thể che lỗi lớp hiếm; đọc thêm confusion matrix theo hàng thật–cột dự đoán.
+- Thay đổi split hoặc metric khi so hai phương pháp sẽ gây so sánh thiếu công bằng.
+- Đánh giá trên test không phải huấn luyện; chỉnh siêu tham số dựa mãi vào test làm rò rỉ đánh giá.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer key** — bảng đáp án.
+**Q1. What is a feature in supervised learning? — Feature trong học có giám sát là gì?**
 
+A. An input measurement used by the predictor — Đại lượng đo đầu vào mô hình sử dụng
 
-**Q1. What is Feature? — Thuật ngữ Feature là gì?**
+B. A target value the model should predict — Giá trị đích mô hình cần dự đoán
 
-A. Another term is Giá trị mục tiêu cần dự đoán — Giá trị mục tiêu cần dự đoán
+C. An ordered chain of preprocessing and model steps — Chuỗi tiền xử lý và mô hình có thứ tự
 
-B. It is Cột đầu vào cho mô hình — Cột đầu vào cho mô hình
+D. Checking predictions against held-out targets — So dự đoán với nhãn thật giữ riêng
 
-C. Another term is Gom tiền xử lý và mô hình thành các bước — Gom tiền xử lý và mô hình thành các bước
+**Q2. What is a label? — Label là gì?**
 
-D. Another term is Đo kết quả trên dữ liệu chưa dùng để fit — Đo kết quả trên dữ liệu chưa dùng để fit
+A. An input measurement used by the predictor — Đại lượng đo đầu vào mô hình sử dụng
 
+B. A target value the model should predict — Giá trị đích mô hình cần dự đoán
 
-**Q2. What is Label? — Thuật ngữ Label là gì?**
+C. An ordered chain of preprocessing and model steps — Chuỗi tiền xử lý và mô hình có thứ tự
 
-A. It is Giá trị mục tiêu cần dự đoán — Giá trị mục tiêu cần dự đoán
+D. Checking predictions against held-out targets — So dự đoán với nhãn thật giữ riêng
 
-B. Another term is Gom tiền xử lý và mô hình thành các bước — Gom tiền xử lý và mô hình thành các bước
+**Q3. What is a pipeline? — Pipeline là gì?**
 
-C. Another term is Đo kết quả trên dữ liệu chưa dùng để fit — Đo kết quả trên dữ liệu chưa dùng để fit
+A. An input measurement used by the predictor — Đại lượng đo đầu vào mô hình sử dụng
 
-D. Another term is Cột đầu vào cho mô hình — Cột đầu vào cho mô hình
+B. A target value the model should predict — Giá trị đích mô hình cần dự đoán
 
+C. An ordered chain of preprocessing and model steps — Chuỗi tiền xử lý và mô hình có thứ tự
 
-**Q3. What is Pipeline? — Thuật ngữ Pipeline là gì?**
+D. Checking predictions against held-out targets — So dự đoán với nhãn thật giữ riêng
 
-A. Another term is Đo kết quả trên dữ liệu chưa dùng để fit — Đo kết quả trên dữ liệu chưa dùng để fit
+**Q4. What is evaluation? — Evaluation là gì?**
 
-B. Another term is Cột đầu vào cho mô hình — Cột đầu vào cho mô hình
+A. An input measurement used by the predictor — Đại lượng đo đầu vào mô hình sử dụng
 
-C. Another term is Giá trị mục tiêu cần dự đoán — Giá trị mục tiêu cần dự đoán
+B. A target value the model should predict — Giá trị đích mô hình cần dự đoán
 
-D. It is Gom tiền xử lý và mô hình thành các bước — Gom tiền xử lý và mô hình thành các bước
+C. An ordered chain of preprocessing and model steps — Chuỗi tiền xử lý và mô hình có thứ tự
 
+D. Checking predictions against held-out targets — So dự đoán với nhãn thật giữ riêng
 
-**Q4. What is Evaluation? — Thuật ngữ Evaluation là gì?**
+**Q5. What does an Iris feature row represent? — Một hàng feature Iris biểu diễn gì?**
 
-A. Another term is Cột đầu vào cho mô hình — Cột đầu vào cho mô hình
+A. Four measurements for one flower — Bốn số đo của một bông hoa
 
-B. Another term is Giá trị mục tiêu cần dự đoán — Giá trị mục tiêu cần dự đoán
+B. The target class per sample — Lớp mục tiêu cho từng mẫu
 
-C. It is Đo kết quả trên dữ liệu chưa dùng để fit — Đo kết quả trên dữ liệu chưa dùng để fit
+C. Unavailable evaluation information entering fitting — Thông tin đánh giá đáng lẽ chưa biết lọt vào fit
 
-D. Another term is Gom tiền xử lý và mô hình thành các bước — Gom tiền xử lý và mô hình thành các bước
+D. To check sample/feature dimensions and alignment — Để kiểm chiều mẫu/đặc trưng và sự khớp nhãn
 
+**Q6. What does y represent in classification? — y biểu diễn gì khi phân loại?**
 
-**Q5. What is pd.DataFrame()/dropna() used for? — Cú pháp pd.DataFrame()/dropna() dùng để làm gì?**
+A. Four measurements for one flower — Bốn số đo của một bông hoa
 
-A. A different function is for Chia dữ liệu theo nhãn, tránh leakage — Chia dữ liệu theo nhãn, tránh leakage
+B. The target class per sample — Lớp mục tiêu cho từng mẫu
 
-B. It is for Tạo bảng và đánh giá xử lý giá trị thiếu — Tạo bảng và đánh giá xử lý giá trị thiếu
+C. Unavailable evaluation information entering fitting — Thông tin đánh giá đáng lẽ chưa biết lọt vào fit
 
-C. A different function is for Fit scaler/model trên train trong một chuỗi — Fit scaler/model trên train trong một chuỗi
+D. To check sample/feature dimensions and alignment — Để kiểm chiều mẫu/đặc trưng và sự khớp nhãn
 
-D. A different function is for Đánh giá tập test, không suy từ điểm train — Đánh giá tập test, không suy từ điểm train
+**Q7. What is data leakage? — Rò rỉ dữ liệu là gì?**
 
+A. Four measurements for one flower — Bốn số đo của một bông hoa
 
-**Q6. What is train_test_split(...,stratify=y) used for? — Cú pháp train_test_split(...,stratify=y) dùng để làm gì?**
+B. The target class per sample — Lớp mục tiêu cho từng mẫu
 
-A. It is for Chia dữ liệu theo nhãn, tránh leakage — Chia dữ liệu theo nhãn, tránh leakage
+C. Unavailable evaluation information entering fitting — Thông tin đánh giá đáng lẽ chưa biết lọt vào fit
 
-B. A different function is for Fit scaler/model trên train trong một chuỗi — Fit scaler/model trên train trong một chuỗi
+D. To check sample/feature dimensions and alignment — Để kiểm chiều mẫu/đặc trưng và sự khớp nhãn
 
-C. A different function is for Đánh giá tập test, không suy từ điểm train — Đánh giá tập test, không suy từ điểm train
+**Q8. Why inspect X.shape and y.shape first? — Vì sao kiểm X.shape và y.shape đầu tiên?**
 
-D. A different function is for Tạo bảng và đánh giá xử lý giá trị thiếu — Tạo bảng và đánh giá xử lý giá trị thiếu
+A. Four measurements for one flower — Bốn số đo của một bông hoa
 
+B. The target class per sample — Lớp mục tiêu cho từng mẫu
 
-**Q7. What is make_pipeline(StandardScaler(),LogisticRegression()) used for? — Cú pháp make_pipeline(StandardScaler(),LogisticRegression()) dùng để làm gì?**
+C. Unavailable evaluation information entering fitting — Thông tin đánh giá đáng lẽ chưa biết lọt vào fit
 
-A. A different function is for Đánh giá tập test, không suy từ điểm train — Đánh giá tập test, không suy từ điểm train
+D. To check sample/feature dimensions and alignment — Để kiểm chiều mẫu/đặc trưng và sự khớp nhãn
 
-B. A different function is for Tạo bảng và đánh giá xử lý giá trị thiếu — Tạo bảng và đánh giá xử lý giá trị thiếu
+**Q9. What does train_test_split do? — train_test_split làm gì?**
 
-C. A different function is for Chia dữ liệu theo nhãn, tránh leakage — Chia dữ liệu theo nhãn, tránh leakage
+A. Separates data into fitting and held-out portions — Chia dữ liệu thành phần học và phần giữ riêng
 
-D. It is for Fit scaler/model trên train trong một chuỗi — Fit scaler/model trên train trong một chuỗi
+B. To preserve approximate class ratios in split parts — Để giữ tương đối tỷ lệ lớp trong các tập
 
+C. Training features — Các đặc trưng train
 
-**Q8. What is model.score(X_test,y_test) used for? — Cú pháp model.score(X_test,y_test) dùng để làm gì?**
+D. Training features only — Chỉ đặc trưng train
 
-A. A different function is for Tạo bảng và đánh giá xử lý giá trị thiếu — Tạo bảng và đánh giá xử lý giá trị thiếu
+**Q10. Why use stratify=y? — Vì sao dùng stratify=y?**
 
-B. A different function is for Chia dữ liệu theo nhãn, tránh leakage — Chia dữ liệu theo nhãn, tránh leakage
+A. Separates data into fitting and held-out portions — Chia dữ liệu thành phần học và phần giữ riêng
 
-C. It is for Đánh giá tập test, không suy từ điểm train — Đánh giá tập test, không suy từ điểm train
+B. To preserve approximate class ratios in split parts — Để giữ tương đối tỷ lệ lớp trong các tập
 
-D. A different function is for Fit scaler/model trên train trong một chuỗi — Fit scaler/model trên train trong một chuỗi
+C. Training features — Các đặc trưng train
 
+D. Training features only — Chỉ đặc trưng train
 
-**Q9. Why choose this approach in scenario 1? — Vì sao chọn cách làm trong tình huống 1?**
+**Q11. What should SimpleImputer learn from? — SimpleImputer nên học từ đâu?**
 
-A. stratify giúp tỷ lệ nhãn ba loài ổn định — stratify giúp tỷ lệ nhãn ba loài ổn định
+A. Separates data into fitting and held-out portions — Chia dữ liệu thành phần học và phần giữ riêng
 
-B. Nêu rõ đầu vào và nhãn trước khi huấn luyện — Nêu rõ đầu vào và nhãn trước khi huấn luyện
+B. To preserve approximate class ratios in split parts — Để giữ tương đối tỷ lệ lớp trong các tập
 
-C. Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test — Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test
+C. Training features — Các đặc trưng train
 
-D. Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm — Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm
+D. Training features only — Chỉ đặc trưng train
 
+**Q12. What should StandardScaler learn from? — StandardScaler nên fit từ đâu?**
 
-**Q10. Why choose this approach in scenario 2? — Vì sao chọn cách làm trong tình huống 2?**
+A. Separates data into fitting and held-out portions — Chia dữ liệu thành phần học và phần giữ riêng
 
-A. stratify giúp tỷ lệ nhãn ba loài ổn định — stratify giúp tỷ lệ nhãn ba loài ổn định
+B. To preserve approximate class ratios in split parts — Để giữ tương đối tỷ lệ lớp trong các tập
 
-B. Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test — Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test
+C. Training features — Các đặc trưng train
 
-C. Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm — Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm
+D. Training features only — Chỉ đặc trưng train
 
-D. Phải so trên cùng tập train/test mới kết luận được — Phải so trên cùng tập train/test mới kết luận được
+**Q13. What does LogisticRegression produce in Iris? — LogisticRegression trên Iris dự đoán gì?**
 
+A. One of three discrete flower classes — Một trong ba loài hoa rời rạc
 
-**Q11. Why choose this approach in scenario 3? — Vì sao chọn cách làm trong tình huống 3?**
+B. Correct predictions divided by total predictions — Số dự đoán đúng chia tổng số dự đoán
 
-A. Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm — Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm
+C. Actual labels — Các nhãn thật
 
-B. Phải so trên cùng tập train/test mới kết luận được — Phải so trên cùng tập train/test mới kết luận được
+D. Predicted labels — Các nhãn dự đoán
 
-C. Nêu rõ đầu vào và nhãn trước khi huấn luyện — Nêu rõ đầu vào và nhãn trước khi huấn luyện
+**Q14. What does accuracy count? — Accuracy đếm gì?**
 
-D. Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test — Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test
+A. One of three discrete flower classes — Một trong ba loài hoa rời rạc
 
+B. Correct predictions divided by total predictions — Số dự đoán đúng chia tổng số dự đoán
 
-**Q12. Why choose this approach in scenario 4? — Vì sao chọn cách làm trong tình huống 4?**
+C. Actual labels — Các nhãn thật
 
-A. Phải so trên cùng tập train/test mới kết luận được — Phải so trên cùng tập train/test mới kết luận được
+D. Predicted labels — Các nhãn dự đoán
 
-B. Nêu rõ đầu vào và nhãn trước khi huấn luyện — Nêu rõ đầu vào và nhãn trước khi huấn luyện
+**Q15. What do confusion matrix rows mean? — Hàng của confusion matrix nghĩa là gì?**
 
-C. Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm — Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm
+A. One of three discrete flower classes — Một trong ba loài hoa rời rạc
 
-D. stratify giúp tỷ lệ nhãn ba loài ổn định — stratify giúp tỷ lệ nhãn ba loài ổn định
+B. Correct predictions divided by total predictions — Số dự đoán đúng chia tổng số dự đoán
 
+C. Actual labels — Các nhãn thật
 
-**Q13. Why choose this approach in scenario 5? — Vì sao chọn cách làm trong tình huống 5?**
+D. Predicted labels — Các nhãn dự đoán
 
-A. Nêu rõ đầu vào và nhãn trước khi huấn luyện — Nêu rõ đầu vào và nhãn trước khi huấn luyện
+**Q16. What do confusion matrix columns mean? — Cột của confusion matrix nghĩa là gì?**
 
-B. Phải so trên cùng tập train/test mới kết luận được — Phải so trên cùng tập train/test mới kết luận được
+A. One of three discrete flower classes — Một trong ba loài hoa rời rạc
 
-C. stratify giúp tỷ lệ nhãn ba loài ổn định — stratify giúp tỷ lệ nhãn ba loài ổn định
+B. Correct predictions divided by total predictions — Số dự đoán đúng chia tổng số dự đoán
 
-D. Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test — Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test
+C. Actual labels — Các nhãn thật
 
+D. Predicted labels — Các nhãn dự đoán
 
-**Q14. What input is used in scenario 1? — Tình huống 1 sử dụng đầu vào nào?**
+**Q17. What does PCA reduce? — PCA giảm gì?**
 
-A. Iris có 150 hoa × 4 số đo cm và một nhãn loài — Iris có 150 hoa × 4 số đo cm và một nhãn loài
+A. Feature dimensionality while retaining sample rows — Số chiều đặc trưng nhưng giữ số hàng mẫu
 
-B. Iris có 3 loài — Iris có 3 loài
+B. To avoid using test distribution to learn axes — Tránh lấy phân phối test để học các trục
 
-C. Iris với 4 đặc trưng cm — Iris với 4 đặc trưng cm
+C. On the same held-out split and metric — Trên cùng tập test và chỉ số đánh giá
 
-D. Các nhãn thật và dự đoán mô phỏng — Các nhãn thật và dự đoán mô phỏng
+D. No, held-out evaluation is needed — Không, phải đánh giá dữ liệu giữ riêng
 
+**Q18. Why fit PCA on train only? — Vì sao chỉ fit PCA trên train?**
 
-**Q15. What input is used in scenario 2? — Tình huống 2 sử dụng đầu vào nào?**
+A. Feature dimensionality while retaining sample rows — Số chiều đặc trưng nhưng giữ số hàng mẫu
 
-A. Iris với 4 đặc trưng cm — Iris với 4 đặc trưng cm
+B. To avoid using test distribution to learn axes — Tránh lấy phân phối test để học các trục
 
-B. Các nhãn thật và dự đoán mô phỏng — Các nhãn thật và dự đoán mô phỏng
+C. On the same held-out split and metric — Trên cùng tập test và chỉ số đánh giá
 
-C. Iris 150 hoa, 4 đặc trưng số — Iris 150 hoa, 4 đặc trưng số
+D. No, held-out evaluation is needed — Không, phải đánh giá dữ liệu giữ riêng
 
-D. Iris có 3 loài — Iris có 3 loài
+**Q19. How should baseline and PCA models be compared? — So baseline và mô hình PCA thế nào?**
 
+A. Feature dimensionality while retaining sample rows — Số chiều đặc trưng nhưng giữ số hàng mẫu
 
-**Q16. What input is used in scenario 3? — Tình huống 3 sử dụng đầu vào nào?**
+B. To avoid using test distribution to learn axes — Tránh lấy phân phối test để học các trục
 
-A. Các nhãn thật và dự đoán mô phỏng — Các nhãn thật và dự đoán mô phỏng
+C. On the same held-out split and metric — Trên cùng tập test và chỉ số đánh giá
 
-B. Iris 150 hoa, 4 đặc trưng số — Iris 150 hoa, 4 đặc trưng số
+D. No, held-out evaluation is needed — Không, phải đánh giá dữ liệu giữ riêng
 
-C. Iris với 4 đặc trưng cm — Iris với 4 đặc trưng cm
+**Q20. Does a high train score prove model generalization? — Train score cao có chứng minh tổng quát hóa?**
 
-D. Iris có 150 hoa × 4 số đo cm và một nhãn loài — Iris có 150 hoa × 4 số đo cm và một nhãn loài
+A. Feature dimensionality while retaining sample rows — Số chiều đặc trưng nhưng giữ số hàng mẫu
 
+B. To avoid using test distribution to learn axes — Tránh lấy phân phối test để học các trục
 
-**Q17. What input is used in scenario 4? — Tình huống 4 sử dụng đầu vào nào?**
+C. On the same held-out split and metric — Trên cùng tập test và chỉ số đánh giá
 
-A. Iris 150 hoa, 4 đặc trưng số — Iris 150 hoa, 4 đặc trưng số
-
-B. Các nhãn thật và dự đoán mô phỏng — Các nhãn thật và dự đoán mô phỏng
-
-C. Iris có 150 hoa × 4 số đo cm và một nhãn loài — Iris có 150 hoa × 4 số đo cm và một nhãn loài
-
-D. Iris có 3 loài — Iris có 3 loài
-
-
-**Q18. What input is used in scenario 5? — Tình huống 5 sử dụng đầu vào nào?**
-
-A. Iris 150 hoa, 4 đặc trưng số — Iris 150 hoa, 4 đặc trưng số
-
-B. Iris có 150 hoa × 4 số đo cm và một nhãn loài — Iris có 150 hoa × 4 số đo cm và một nhãn loài
-
-C. Iris có 3 loài — Iris có 3 loài
-
-D. Iris với 4 đặc trưng cm — Iris với 4 đặc trưng cm
-
-
-**Q19. What is important before executing a workflow? — Trước khi chạy workflow cần điều gì?**
-
-A. Only count blank lines — Chỉ đếm dòng trắng
-
-B. Only change editor theme — Chỉ đổi giao diện
-
-C. Ignore credentials — Bỏ qua quản lý tài khoản
-
-D. Understand source, parameters and permissions — Hiểu nguồn, tham số và quyền hạn
-
-
-**Q20. What should be reported after a test? — Sau khi test cần báo cáo gì?**
-
-A. Only a success claim — Chỉ nói thành công
-
-B. A guess of future results — Đoán kết quả tương lai
-
-C. Observed output, failures and limits — Đầu ra thật, lỗi và giới hạn
-
-D. No evidence — Không cần bằng chứng
+D. No, held-out evaluation is needed — Không, phải đánh giá dữ liệu giữ riêng
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It is Cột đầu vào cho mô hình | Cột đầu vào cho mô hình |
-| Q2 | **A** | It is Giá trị mục tiêu cần dự đoán | Giá trị mục tiêu cần dự đoán |
-| Q3 | **D** | It is Gom tiền xử lý và mô hình thành các bước | Gom tiền xử lý và mô hình thành các bước |
-| Q4 | **C** | It is Đo kết quả trên dữ liệu chưa dùng để fit | Đo kết quả trên dữ liệu chưa dùng để fit |
-| Q5 | **B** | It is for Tạo bảng và đánh giá xử lý giá trị thiếu | Tạo bảng và đánh giá xử lý giá trị thiếu |
-| Q6 | **A** | It is for Chia dữ liệu theo nhãn, tránh leakage | Chia dữ liệu theo nhãn, tránh leakage |
-| Q7 | **D** | It is for Fit scaler/model trên train trong một chuỗi | Fit scaler/model trên train trong một chuỗi |
-| Q8 | **C** | It is for Đánh giá tập test, không suy từ điểm train | Đánh giá tập test, không suy từ điểm train |
-| Q9 | **B** | Nêu rõ đầu vào và nhãn trước khi huấn luyện | Nêu rõ đầu vào và nhãn trước khi huấn luyện |
-| Q10 | **A** | stratify giúp tỷ lệ nhãn ba loài ổn định | stratify giúp tỷ lệ nhãn ba loài ổn định |
-| Q11 | **D** | Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test | Gộp chuẩn hóa và phân loại để không fit toàn bộ dữ liệu test |
-| Q12 | **C** | Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm | Một tỷ lệ accuracy không chỉ ra lớp nào bị nhầm |
-| Q13 | **B** | Phải so trên cùng tập train/test mới kết luận được | Phải so trên cùng tập train/test mới kết luận được |
-| Q14 | **A** | Iris có 150 hoa × 4 số đo cm và một nhãn loài | Iris có 150 hoa × 4 số đo cm và một nhãn loài |
-| Q15 | **D** | Iris có 3 loài | Iris có 3 loài |
-| Q16 | **C** | Iris với 4 đặc trưng cm | Iris với 4 đặc trưng cm |
-| Q17 | **B** | Các nhãn thật và dự đoán mô phỏng | Các nhãn thật và dự đoán mô phỏng |
-| Q18 | **A** | Iris 150 hoa, 4 đặc trưng số | Iris 150 hoa, 4 đặc trưng số |
-| Q19 | **D** | Understand source, parameters and permissions | Hiểu nguồn, tham số và quyền hạn |
-| Q20 | **C** | Observed output, failures and limits | Đầu ra thật, lỗi và giới hạn |
+| Q1 | **A** | In Iris, four centimeter measurements become X columns, not y labels. | Trong Iris, bốn số đo cm nằm ở X, không phải nhãn y. |
+| Q2 | **B** | A supervised classifier learns from the true labels paired with training rows. | Classifier có giám sát học từ nhãn thật ghép với từng hàng train. |
+| Q3 | **C** | It fits each transformer on train then reuses it on later data. | Nó fit bộ biến đổi trên train rồi tái sử dụng cho dữ liệu sau. |
+| Q4 | **D** | The final test assesses unseen data rather than reused fitting samples. | Test cuối đánh giá dữ liệu chưa fit, không dùng lại mẫu học. |
+| Q5 | **A** | A row is a sample; columns refer to measurements such as petal length. | Hàng là một mẫu hoa, cột là số đo như chiều dài cánh. |
+| Q6 | **B** | Targets should align one-to-one with X rows. | Nhãn y phải ghép một-một với các hàng X. |
+| Q7 | **C** | Fitting preprocessors on test or using future outcomes inflates estimated performance. | Fit tiền xử lý trên test hoặc dùng kết quả tương lai có thể làm chỉ số ảo. |
+| Q8 | **D** | A mismatched number of rows and labels invalidates supervised fitting. | Số hàng X lệch số nhãn y khiến việc fit sai. |
+| Q9 | **A** | It does not itself fit a classifier or score accuracy. | Hàm chia dữ liệu, không tự học mô hình hay đo accuracy. |
+| Q10 | **B** | It reduces accidental imbalance when enough cases exist in each class. | Giúp giảm lệch lớp khi mỗi lớp có đủ mẫu. |
+| Q11 | **C** | Median imputation learned from all data would leak test statistics. | Median tính từ toàn bộ dữ liệu làm lộ thống kê test. |
+| Q12 | **D** | Transform test with training mean/std rather than fitting on test. | Biến đổi test bằng mean/std train, không fit từ test. |
+| Q13 | **A** | Despite its name, LogisticRegression is used for classification. | Dù có chữ Regression, LogisticRegression dùng để phân loại. |
+| Q14 | **B** | It is useful but can hide minority-class failures. | Accuracy hữu ích nhưng có thể che lỗi lớp hiếm. |
+| Q15 | **C** | Each row counts samples from a given true class. | Mỗi hàng đếm mẫu thuộc lớp thật tương ứng. |
+| Q16 | **D** | An off-diagonal entry is a misclassification to another class. | Ô ngoài đường chéo là trường hợp dự đoán sang lớp khác. |
+| Q17 | **A** | PCA components are transformed axes, not target class labels. | Thành phần PCA là trục đặc trưng mới, không phải nhãn. |
+| Q18 | **B** | Test data should only be transformed by fitted training PCA. | Test chỉ được transform bằng PCA đã fit từ train. |
+| Q19 | **C** | Different splits or metrics cannot isolate PCA's effect. | Khác split hoặc metric không tách được ảnh hưởng của PCA. |
+| Q20 | **D** | A model can memorize training data yet perform poorly on new cases. | Mô hình có thể nhớ train nhưng dự đoán kém trên mẫu mới. |
 
 ## 8. Nối sang bài tiếp
 
