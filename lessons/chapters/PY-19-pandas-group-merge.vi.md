@@ -97,7 +97,8 @@ Name: sale, dtype: int64
 
 ```python
 import pandas as pd
-a=pd.DataFrame({"id":[1],"x":[2]});b=pd.DataFrame({"id":[1],"y":[3]})
+a=pd.DataFrame({"id":[1],"x":[2]})
+b=pd.DataFrame({"id":[1],"y":[3]})
 print(a.merge(b,on="id"))
 ```
 
@@ -134,8 +135,6 @@ print(df[df.price>=800])
 2    C   1200
 ```
 
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
-
 ### Tình huống 2 — Tra dòng thứ hai
 
 **Từ vựng trong mục:** **iloc** — chọn theo vị trí.
@@ -158,8 +157,6 @@ print(df.iloc[1])
 id    B
 Name: 1, dtype: object
 ```
-
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 3 — Doanh thu từng vùng
 
@@ -186,8 +183,6 @@ B     8
 Name: sale, dtype: int64
 ```
 
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
-
 ### Tình huống 4 — Đơn hàng và khách
 
 **Từ vựng trong mục:** **merge** — ghép bảng.
@@ -213,8 +208,6 @@ print(a.merge(b,on="id",how="left"))
 1   2    20  Lan
 ```
 
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
-
 ### Tình huống 5 — Top doanh số
 
 **Từ vựng trong mục:** **loc** — chọn theo nhãn.
@@ -238,8 +231,6 @@ print(df.sort_values("sale",ascending=False).head(2))
 1  B    80
 3  D    60
 ```
-
-**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ## 6. Các lỗi dễ mắc
 
