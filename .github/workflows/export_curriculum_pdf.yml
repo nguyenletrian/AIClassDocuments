@@ -1,0 +1,44 @@
+name: Export curriculum PDF
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/export_curriculum_pdf.yml'
+      - 'scripts/export_chapters_pdf.py'
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install fonts and renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-core fonts-dejavu-core
+          python -m pip install --disable-pip-version-check 'mistune>=3.1,<4' 'weasyprint>=66,<69' 'latex2mathml>=3,<4' 'pymupdf>=1.24,<2'
+      - name: Export and inspect PDF
+        run: |
+          python scripts/export_chapters_pdf.py
+          python - <<'PY'
+          import fitz
+          from pathlib import Path
+          path=Path('exports/pdf/AIClassDocuments-PY01-PY46-PREVIEW.vi.pdf')
+          doc=fitz.open(path)
+          assert len(doc)>46, f'Insufficient pages: {len(doc)}'
+          text='\n'.join(page.get_text() for page in doc)
+          for chapter in [1,10,20,30,40,46]:
+              assert f'PY-{chapter:02d}' in text, f'Chapter missing: {chapter}'
+          assert 'Trắc nghiệm' in text and 'Kết quả' in text
+          print('PDF_VERIFIED',len(doc),'pages',path.stat().st_size,'bytes')
+          PY
+      - name: Commit preview PDF
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add exports/pdf/AIClassDocuments-PY01-PY46-PREVIEW.vi.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m 'exports: render 46-chapter curriculum preview PDF'
+            git push
+          fi
