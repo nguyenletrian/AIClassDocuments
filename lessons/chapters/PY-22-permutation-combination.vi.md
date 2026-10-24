@@ -42,6 +42,7 @@ Khi chọn người hoặc sắp xếp công việc, câu hỏi đầu tiên là
 Có năm ứng viên và hai vị trí **khác nhau** là trưởng nhóm, phó nhóm. Chọn trưởng có 5 cách; sau đó chọn phó còn 4 cách, nên có `5 × 4 = 20` phương án. Đảo vai trò hai người tạo phương án khác. `math.perm(n,k)` đếm cách lấy **k người khác nhau từ n người** và phân thứ tự, với `0 ≤ k ≤ n`. Nếu dùng hết n người, kết quả là `n!`.
 
 ```python
+# Mục đích: Chọn và phân vai có thứ tự.
 import math
 
 print(math.perm(5, 2))
@@ -62,6 +63,7 @@ Có 20 cách phân vai trưởng/phó; đổi thứ tự hai người được t
 Nếu năm ứng viên chỉ cần chọn **hai người cùng một đội**, cặp An–Bình và Bình–An là **một** đội, không phải hai. Công thức `C(n,k) = n! / (k!(n-k)!)`; với 5 chọn 2 có 10 nhóm. `math.comb(n,k)` tính trực tiếp số nhóm mà không cần liệt kê từng cặp. Trong thực tế cần xác nhận có được chọn một người nhiều lần hay không; ở đây mỗi ứng viên chỉ chọn tối đa một lần.
 
 ```python
+# Mục đích: Chọn nhóm không phân vai.
 import math
 
 print(math.comb(5, 2))
@@ -82,6 +84,7 @@ Số nhóm bằng nửa số cách phân vai hai người vì hoán đổi hai v
 Với bốn nhiệm vụ **khác nhau**, có 4 cách chọn việc đầu, 3 cách chọn việc thứ hai, rồi 2 và 1. Tổng số cách sắp xếp là `4! = 4×3×2×1 = 24`. Đây là **giai thừa**. Quy ước `0! = 1` vì có đúng một cách sắp xếp dãy rỗng. `math.factorial` áp dụng cho số nguyên không âm.
 
 ```python
+# Mục đích: Sắp xếp tất cả phần tử.
 import math
 
 print(math.factorial(4))
@@ -102,6 +105,7 @@ Bốn nhiệm vụ khác nhau có 24 thứ tự thực hiện nếu mỗi nhiệ
 **Hệ số nhị thức** `C(n,k)` là số cách chọn k phần tử không xét thứ tự, đồng thời là hệ số của `a^(n-k)b^k` trong khai triển `(a+b)^n`. Các giá trị `C(n,0)` đến `C(n,n)` tạo thành **hàng n của tam giác Pascal** (đếm từ hàng 0). Với n = 4, hàng có năm hệ số `1,4,6,4,1`; hai cạnh bằng 1 và mỗi ô trong bằng tổng hai ô ngay phía trên.
 
 ```python
+# Mục đích: Binomial coefficient và tam giác Pascal.
 import math
 
 print([math.comb(4, k) for k in range(5)])
@@ -132,6 +136,7 @@ Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
 3. Nhân 5×4 hoặc gọi `math.perm(5,2)` để đếm.
 
 ```python
+# Mục đích: Chọn trưởng và phó nhóm.
 import math
 print(math.perm(5, 2))
 ```
@@ -158,6 +163,7 @@ print(math.perm(5, 2))
 3. Gọi `math.comb(12,5)` để đếm các đội khác nhau.
 
 ```python
+# Mục đích: Chọn đội thi.
 import math
 print(math.comb(12, 5))
 ```
@@ -184,6 +190,7 @@ print(math.comb(12, 5))
 3. In sáu thứ tự; đối chiếu `3! = 6`.
 
 ```python
+# Mục đích: Sắp thứ tự kiểm thử.
 from itertools import permutations
 print(list(permutations(['A', 'B', 'C'])))
 ```
@@ -210,6 +217,7 @@ print(list(permutations(['A', 'B', 'C'])))
 3. In ba cặp môn có thể chọn.
 
 ```python
+# Mục đích: Đề xuất cặp môn học.
 from itertools import combinations
 print(list(combinations(["Python", "AI", "SQL"], 2)))
 ```
@@ -236,6 +244,7 @@ print(list(combinations(["Python", "AI", "SQL"], 2)))
 3. In năm giá trị và kiểm tra tính đối xứng.
 
 ```python
+# Mục đích: Tính hàng Pascal.
 import math
 print([math.comb(4, k) for k in range(5)])
 ```
@@ -254,304 +263,304 @@ print([math.comb(4, k) for k in range(5)])
 - `math.factorial` cần số nguyên không âm; `0! = 1`.
 - `itertools` để **liệt kê** các phương án; `math` giúp **đếm** khi số phương án quá lớn không nên liệt kê.
 
-## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
+## 7. Trắc nghiệm
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. When should permutations be used? — Khi nào dùng hoán vị/chỉnh hợp?**
+**Q1. When should permutations be used? | Khi nào dùng hoán vị/chỉnh hợp?**
 
-A. When order matters — Khi thứ tự quan trọng
+A. When order matters | Khi thứ tự quan trọng
 
-B. When order does not matter — Khi thứ tự không quan trọng
+B. When order does not matter | Khi thứ tự không quan trọng
 
-C. The product 1×2×…×n — Tích 1×2×…×n
+C. The product 1×2×…×n | Tích 1×2×…×n
 
-D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
+D. The number of unordered k-subsets from n distinct items | Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
 **Đáp án: A**
 
 **Giải thích:** Đổi thứ tự người được chọn tạo cách sắp khác.
 
 
-**Q2. When should combinations be used? — Khi nào dùng tổ hợp?**
+**Q2. When should combinations be used? | Khi nào dùng tổ hợp?**
 
-A. When order matters — Khi thứ tự quan trọng
+A. When order matters | Khi thứ tự quan trọng
 
-B. When order does not matter — Khi thứ tự không quan trọng
+B. When order does not matter | Khi thứ tự không quan trọng
 
-C. The product 1×2×…×n — Tích 1×2×…×n
+C. The product 1×2×…×n | Tích 1×2×…×n
 
-D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
+D. The number of unordered k-subsets from n distinct items | Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
 **Đáp án: B**
 
 **Giải thích:** Nhóm không đổi khi thành viên đổi chỗ.
 
 
-**Q3. What is factorial n!? — Giai thừa n! là gì?**
+**Q3. What is factorial n!? | Giai thừa n! là gì?**
 
-A. When order matters — Khi thứ tự quan trọng
+A. When order matters | Khi thứ tự quan trọng
 
-B. When order does not matter — Khi thứ tự không quan trọng
+B. When order does not matter | Khi thứ tự không quan trọng
 
-C. The product 1×2×…×n — Tích 1×2×…×n
+C. The product 1×2×…×n | Tích 1×2×…×n
 
-D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
+D. The number of unordered k-subsets from n distinct items | Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
 **Đáp án: C**
 
 **Giải thích:** Giai thừa đếm cách sắp xếp n phần tử phân biệt.
 
 
-**Q4. What is a binomial coefficient C(n,k)? — Hệ số nhị thức C(n,k) là gì?**
+**Q4. What is a binomial coefficient C(n,k)? | Hệ số nhị thức C(n,k) là gì?**
 
-A. When order matters — Khi thứ tự quan trọng
+A. When order matters | Khi thứ tự quan trọng
 
-B. When order does not matter — Khi thứ tự không quan trọng
+B. When order does not matter | Khi thứ tự không quan trọng
 
-C. The product 1×2×…×n — Tích 1×2×…×n
+C. The product 1×2×…×n | Tích 1×2×…×n
 
-D. The number of unordered k-subsets from n distinct items — Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
+D. The number of unordered k-subsets from n distinct items | Số nhóm k phần tử không xét thứ tự từ n phần tử khác nhau
 
 **Đáp án: D**
 
 **Giải thích:** C(n,k) còn là hệ số trong khai triển (a+b)^n.
 
 
-**Q5. Which function counts ordered selections? — Hàm nào đếm cách chọn có thứ tự?**
+**Q5. Which function counts ordered selections? | Hàm nào đếm cách chọn có thứ tự?**
 
-A. `math.perm(n, k)` — `math.perm(n, k)`
+A. `math.perm(n, k)` | `math.perm(n, k)`
 
-B. `math.comb(n, k)` — `math.comb(n, k)`
+B. `math.comb(n, k)` | `math.comb(n, k)`
 
-C. `math.factorial(n)` — `math.factorial(n)`
+C. `math.factorial(n)` | `math.factorial(n)`
 
-D. `itertools.permutations(items)` — `itertools.permutations(items)`
+D. `itertools.permutations(items)` | `itertools.permutations(items)`
 
 **Đáp án: A**
 
 **Giải thích:** perm đếm cách chọn có thứ tự không lặp.
 
 
-**Q6. Which function counts unordered selections? — Hàm nào đếm cách chọn không thứ tự?**
+**Q6. Which function counts unordered selections? | Hàm nào đếm cách chọn không thứ tự?**
 
-A. `math.perm(n, k)` — `math.perm(n, k)`
+A. `math.perm(n, k)` | `math.perm(n, k)`
 
-B. `math.comb(n, k)` — `math.comb(n, k)`
+B. `math.comb(n, k)` | `math.comb(n, k)`
 
-C. `math.factorial(n)` — `math.factorial(n)`
+C. `math.factorial(n)` | `math.factorial(n)`
 
-D. `itertools.permutations(items)` — `itertools.permutations(items)`
+D. `itertools.permutations(items)` | `itertools.permutations(items)`
 
 **Đáp án: B**
 
 **Giải thích:** comb đếm các nhóm khác nhau, không xét sắp xếp.
 
 
-**Q7. Which function calculates n!? — Hàm nào tính n!?**
+**Q7. Which function calculates n!? | Hàm nào tính n!?**
 
-A. `math.perm(n, k)` — `math.perm(n, k)`
+A. `math.perm(n, k)` | `math.perm(n, k)`
 
-B. `math.comb(n, k)` — `math.comb(n, k)`
+B. `math.comb(n, k)` | `math.comb(n, k)`
 
-C. `math.factorial(n)` — `math.factorial(n)`
+C. `math.factorial(n)` | `math.factorial(n)`
 
-D. `itertools.permutations(items)` — `itertools.permutations(items)`
+D. `itertools.permutations(items)` | `itertools.permutations(items)`
 
 **Đáp án: C**
 
 **Giải thích:** factorial nhân các số nguyên từ một tới n.
 
 
-**Q8. Which function lists all ordered arrangements? — Hàm nào liệt kê các cách sắp xếp có thứ tự?**
+**Q8. Which function lists all ordered arrangements? | Hàm nào liệt kê các cách sắp xếp có thứ tự?**
 
-A. `math.perm(n, k)` — `math.perm(n, k)`
+A. `math.perm(n, k)` | `math.perm(n, k)`
 
-B. `math.comb(n, k)` — `math.comb(n, k)`
+B. `math.comb(n, k)` | `math.comb(n, k)`
 
-C. `math.factorial(n)` — `math.factorial(n)`
+C. `math.factorial(n)` | `math.factorial(n)`
 
-D. `itertools.permutations(items)` — `itertools.permutations(items)`
+D. `itertools.permutations(items)` | `itertools.permutations(items)`
 
 **Đáp án: D**
 
 **Giải thích:** Không truyền r, permutations liệt kê toàn bộ thứ tự.
 
 
-**Q9. What is the value of 0!? — 0! bằng bao nhiêu?**
+**Q9. What is the value of 0!? | 0! bằng bao nhiêu?**
 
-A. 1 — 1
+A. 1 | 1
 
-B. 6 — 6
+B. 6 | 6
 
-C. 10 pairs — 10 cặp
+C. 10 pairs | 10 cặp
 
-D. 12 pairs — 12 cặp
+D. 12 pairs | 12 cặp
 
 **Đáp án: A**
 
 **Giải thích:** Dãy rỗng có một cách sắp xếp.
 
 
-**Q10. How many full orderings of three distinct items exist? — Ba phần tử phân biệt có bao nhiêu thứ tự đầy đủ?**
+**Q10. How many full orderings of three distinct items exist? | Ba phần tử phân biệt có bao nhiêu thứ tự đầy đủ?**
 
-A. 1 — 1
+A. 1 | 1
 
-B. 6 — 6
+B. 6 | 6
 
-C. 10 pairs — 10 cặp
+C. 10 pairs | 10 cặp
 
-D. 12 pairs — 12 cặp
+D. 12 pairs | 12 cặp
 
 **Đáp án: B**
 
 **Giải thích:** 3! = 3×2×1 = 6.
 
 
-**Q11. How many unordered pairs can be chosen from five distinct items? — Chọn cặp không thứ tự từ năm phần tử có bao nhiêu cách?**
+**Q11. How many unordered pairs can be chosen from five distinct items? | Chọn cặp không thứ tự từ năm phần tử có bao nhiêu cách?**
 
-A. 1 — 1
+A. 1 | 1
 
-B. 6 — 6
+B. 6 | 6
 
-C. 10 pairs — 10 cặp
+C. 10 pairs | 10 cặp
 
-D. 12 pairs — 12 cặp
+D. 12 pairs | 12 cặp
 
 **Đáp án: C**
 
 **Giải thích:** Chọn hai từ năm không xét thứ tự có C(5,2)=10 cặp.
 
 
-**Q12. How many ordered pairs can be formed from four distinct items without repetition? — Từ bốn phần tử phân biệt có bao nhiêu cặp có thứ tự không lặp?**
+**Q12. How many ordered pairs can be formed from four distinct items without repetition? | Từ bốn phần tử phân biệt có bao nhiêu cặp có thứ tự không lặp?**
 
-A. 1 — 1
+A. 1 | 1
 
-B. 6 — 6
+B. 6 | 6
 
-C. 10 pairs — 10 cặp
+C. 10 pairs | 10 cặp
 
-D. 12 pairs — 12 cặp
+D. 12 pairs | 12 cặp
 
 **Đáp án: D**
 
 **Giải thích:** 4×3 = 12.
 
 
-**Q13. What identity relates combinations and permutations? — Công thức nào liên hệ tổ hợp và chỉnh hợp?**
+**Q13. What identity relates combinations and permutations? | Công thức nào liên hệ tổ hợp và chỉnh hợp?**
 
-A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
+A. P(n,k)=C(n,k)×k! | P(n,k)=C(n,k)×k!
 
-B. 1 — 1
+B. 1 | 1
 
-C. n — n
+C. n | n
 
-D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
+D. Each inner entry sums two entries directly above | Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
 **Đáp án: A**
 
 **Giải thích:** Mỗi nhóm k người có k! cách sắp.
 
 
-**Q14. What is C(n,0)? — C(n,0) bằng gì?**
+**Q14. What is C(n,0)? | C(n,0) bằng gì?**
 
-A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
+A. P(n,k)=C(n,k)×k! | P(n,k)=C(n,k)×k!
 
-B. 1 — 1
+B. 1 | 1
 
-C. n — n
+C. n | n
 
-D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
+D. Each inner entry sums two entries directly above | Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
 **Đáp án: B**
 
 **Giải thích:** Có một cách chọn tập rỗng.
 
 
-**Q15. What is C(n,n−1)? — C(n,n−1) bằng gì?**
+**Q15. What is C(n,n−1)? | C(n,n−1) bằng gì?**
 
-A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
+A. P(n,k)=C(n,k)×k! | P(n,k)=C(n,k)×k!
 
-B. 1 — 1
+B. 1 | 1
 
-C. n — n
+C. n | n
 
-D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
+D. Each inner entry sums two entries directly above | Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
 **Đáp án: C**
 
 **Giải thích:** Chọn n−1 từ n tương đương chọn một phần tử bỏ lại nên có n cách.
 
 
-**Q16. How are entries in Pascal's triangle obtained? — Các ô trong tam giác Pascal được tạo ra sao?**
+**Q16. How are entries in Pascal's triangle obtained? | Các ô trong tam giác Pascal được tạo ra sao?**
 
-A. P(n,k)=C(n,k)×k! — P(n,k)=C(n,k)×k!
+A. P(n,k)=C(n,k)×k! | P(n,k)=C(n,k)×k!
 
-B. 1 — 1
+B. 1 | 1
 
-C. n — n
+C. n | n
 
-D. Each inner entry sums two entries directly above — Mỗi ô bên trong bằng tổng hai ô ngay phía trên
+D. Each inner entry sums two entries directly above | Mỗi ô bên trong bằng tổng hai ô ngay phía trên
 
 **Đáp án: D**
 
 **Giải thích:** Hệ thức Pascal cộng hai hệ số ở hàng trước.
 
 
-**Q17. What does `itertools.combinations(items,2)` list? — `itertools.combinations(items,2)` liệt kê gì?**
+**Q17. What does `itertools.combinations(items,2)` list? | `itertools.combinations(items,2)` liệt kê gì?**
 
-A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
+A. Unordered two-item groups | Nhóm hai phần tử không xét thứ tự
 
-B. Ordered two-item arrangements — Cặp hai phần tử có thứ tự
+B. Ordered two-item arrangements | Cặp hai phần tử có thứ tự
 
-C. It returns zero — Hàm trả về 0
+C. It returns zero | Hàm trả về 0
 
-D. The number grows factorially — Số cách tăng theo giai thừa
+D. The number grows factorially | Số cách tăng theo giai thừa
 
 **Đáp án: A**
 
 **Giải thích:** Hàm tạo mỗi cặp khác nhau đúng một lần.
 
 
-**Q18. What does `itertools.permutations(items,2)` list? — `itertools.permutations(items,2)` liệt kê gì?**
+**Q18. What does `itertools.permutations(items,2)` list? | `itertools.permutations(items,2)` liệt kê gì?**
 
-A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
+A. Unordered two-item groups | Nhóm hai phần tử không xét thứ tự
 
-B. Ordered two-item arrangements — Cặp hai phần tử có thứ tự
+B. Ordered two-item arrangements | Cặp hai phần tử có thứ tự
 
-C. It returns zero — Hàm trả về 0
+C. It returns zero | Hàm trả về 0
 
-D. The number grows factorially — Số cách tăng theo giai thừa
+D. The number grows factorially | Số cách tăng theo giai thừa
 
 **Đáp án: B**
 
 **Giải thích:** Đổi thứ tự hai phần tử tạo kết quả khác.
 
 
-**Q19. What happens if k>n in `math.comb(n,k)` for nonnegative integers? — Nếu k>n trong math.comb với số nguyên không âm thì sao?**
+**Q19. What happens if k>n in `math.comb(n,k)` for nonnegative integers? | Nếu k>n trong math.comb với số nguyên không âm thì sao?**
 
-A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
+A. Unordered two-item groups | Nhóm hai phần tử không xét thứ tự
 
-B. Ordered two-item arrangements — Cặp hai phần tử có thứ tự
+B. Ordered two-item arrangements | Cặp hai phần tử có thứ tự
 
-C. It returns zero — Hàm trả về 0
+C. It returns zero | Hàm trả về 0
 
-D. The number grows factorially — Số cách tăng theo giai thừa
+D. The number grows factorially | Số cách tăng theo giai thừa
 
 **Đáp án: C**
 
 **Giải thích:** Không thể chọn k phần tử nếu tổng phần tử ít hơn k.
 
 
-**Q20. Why avoid materializing all permutations for large n? — Vì sao tránh liệt kê toàn bộ hoán vị khi n lớn?**
+**Q20. Why avoid materializing all permutations for large n? | Vì sao tránh liệt kê toàn bộ hoán vị khi n lớn?**
 
-A. Unordered two-item groups — Nhóm hai phần tử không xét thứ tự
+A. Unordered two-item groups | Nhóm hai phần tử không xét thứ tự
 
-B. Ordered two-item arrangements — Cặp hai phần tử có thứ tự
+B. Ordered two-item arrangements | Cặp hai phần tử có thứ tự
 
-C. It returns zero — Hàm trả về 0
+C. It returns zero | Hàm trả về 0
 
-D. The number grows factorially — Số cách tăng theo giai thừa
+D. The number grows factorially | Số cách tăng theo giai thừa
 
 **Đáp án: D**
 
