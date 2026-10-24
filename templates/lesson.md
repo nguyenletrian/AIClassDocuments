@@ -21,6 +21,8 @@
 ## 3. Python libraries & functions — Thư viện, API và hàm
 
 [Cách cài thư viện (nếu có), bảng hàm với công dụng và tham số quan trọng, ví dụ ngắn có thể chạy. Giải thích `fit`, `transform`, `axis`, `shape`... trước khi bài dùng chúng.]
+ 
+**3.x. Các tham số / keyword arguments:** [Giải thích ngay từ phần thư viện: mỗi tham số là gì, tại sao chọn giá trị này và sẽ thay đổi gì nếu đổi/bỏ. Ví dụ `dtype=float` lưu số thực, `axis=0` tính theo từng cột, `rowvar=False`, `n_components=2`, `random_state=42`... Không chỉ liệt kê tên hàm.]
 
 ## 4. Concepts & subconcepts — Khái niệm và khái niệm con
 
@@ -47,7 +49,8 @@ import numpy as np
 # Mỗi HÀNG = một đối tượng; các CỘT = feature kèm đơn vị đo.
 # BƯỚC 2 — Tạo từng vector của đối tượng, chỉ rõ thứ tự feature.
 # BƯỚC 3 — Ghép vector thành matrix (nếu phù hợp).
-# BƯỚC 4 — Áp dụng hàm/khái niệm và giải thích vì sao dùng thao tác đó.
+# BƯỚC 4 — Áp dụng hàm/khái niệm; giải thích NGAY TRÊN DÒNG GỌI HÀM
+# mỗi lựa chọn như dtype=float, axis=0, n_components=2 có tác dụng gì.
 # BƯỚC 5 — In shape / kết quả để kiểm tra ý nghĩa.
 ```
 
@@ -76,7 +79,9 @@ import numpy as np
 ```python
 # BƯỚC 1 — Chú thích dữ liệu: mỗi HÀNG và từng CỘT/đơn vị.
 # BƯỚC 2 — Xây dựng các vector và matrix đầu vào theo thứ tự hợp lý.
-# BƯỚC 3 — Chọn API theo lý do đã giải thích, không chỉ ghi lại tên lệnh.
+# BƯỚC 3 — Chọn API, diễn giải cả các đối số (flags/options)
+# chẳng hạn dtype=float (số thực), n_components=2 (hai PC)
+# và nêu lý do không dùng giá trị khác.
 # BƯỚC 4 — Kiểm tra shape và ý nghĩa kết quả.
 ```
 
