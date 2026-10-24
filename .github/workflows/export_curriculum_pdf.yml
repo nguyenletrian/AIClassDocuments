@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/export_curriculum_pdf.yml'
       - 'scripts/export_chapters_pdf.py'
+      - 'lessons/chapters/**'
 jobs:
   export:
     runs-on: ubuntu-latest
