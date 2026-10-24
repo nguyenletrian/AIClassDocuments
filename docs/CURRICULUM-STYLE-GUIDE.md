@@ -12,7 +12,7 @@ Cắt trạng ngữ và mở đầu nếu bỏ đi không làm thay đổi nghĩ
 
 Giữ bằng mọi giá: **định nghĩa, thông số kỹ thuật, điều kiện áp dụng, ý nghĩa hàng/cột/đơn vị, công thức, giải thích tại sao chọn giải pháp khi mang thông tin, kết quả thực tế, cảnh báo an toàn/bảo mật, lỗi biên, hướng dẫn kiểm chứng có tính bài học, code, câu hỏi, phương án và đáp án**. Không biến bài thành quá ngắn hoặc làm mất mạch lập luận. Ưu tiên ví dụ số cụ thể thay vì lời khuyên chung chung; gộp câu lặp nhưng không bỏ chi tiết có giá trị học tập.
 
-Sau mỗi lần biên tập, đối chiếu số ví dụ, code, 5 tình huống, 20 câu hỏi và 80 lựa chọn trắc nghiệm Anh–Việt cùng dòng và bảng đáp án. Soát lại Markdown, liên kết hình và code block. **Không sửa nội dung trong code fence bằng quy tắc cắt chữ.**
+Sau mỗi lần biên tập, so sánh số ví dụ, code, 5 tình huống, 20 câu hỏi và 80 lựa chọn trắc nghiệm Anh–Việt cùng dòng và bảng đáp án. Soát lại Markdown, liên kết hình và code block. **Không sửa nội dung trong code fence bằng quy tắc cắt chữ.**
 
 ### Viết đề bài thực tế thành một đoạn hoàn chỉnh
 
@@ -31,11 +31,17 @@ Một tình huống đạt chuẩn khi người học chỉ đọc riêng **Vấ
 
 Rà riêng từng tình huống với code trước khi công bố. Bộ kiểm thử đếm nhãn không thay thế thẩm định chất lượng đề bài, tính đúng đắn của đầu ra và kiểm định chạy thực tế.
 
+### Câu chữ gần gũi và bỏ tự kiểm tra nhỏ
+
+Viết bằng câu ngắn, dễ hiểu, ví dụ quen thuộc; ưu tiên **“so sánh”** thay **“đối chiếu”**, **“kết quả”** thay **“giá trị đầu ra”**, **“in kết quả”** thay **“xuất đầu ra”** khi nói về `print()`. Khi diễn tả việc đưa một giá trị vào hàm, ưu tiên **“truyền vào”** (ví dụ: truyền `name` vào `print()`); với `input()` hoặc biểu mẫu, nói **“nhập vào”**. Không đổi khái niệm **đầu vào** thành **kết quả**, vì chúng khác nhau. Giữ thuật ngữ tiếng Anh chính xác trong bảng từ vựng và tên hàm Python.
+
+**Bỏ các mục “Tự kiểm tra”, “Tự kiểm tra nhanh”, “Đáp án”, “Đáp án gợi ý” ngay sau khái niệm**, nhưng vẫn **giữ 20 câu trắc nghiệm song ngữ và bảng đáp án cuối bài**. Không xóa lời giải thích kết quả code.
+
 ## Kết cấu dành cho sinh viên
 1. **Bài đang ở đâu trong chuỗi kiến thức?** Trình bày các bài trước → bài hiện tại → bài liên quan, dễ theo dõi.
 2. **Từ vựng trong mục:** trước từng mục và tiểu mục, 2–5 thuật ngữ `English — tiếng Việt`; đoạn văn phía sau viết tự nhiên, **không** thêm `(Vietnamese)` sau mỗi lần nhắc. Những bảng thuật ngữ chỉ ghi từ thật sự dùng trong mục.
 3. **Thư viện và hàm:** cú pháp, mục đích, các tham số được giải thích cùng hàm (`dtype=float` trong `np.array`, `axis=0` trong các phép thống kê...), không rải quá nhiều chú thích tham số khắp code.
-4. **Khái niệm và khái niệm liên quan:** giải thích trước bằng tiếng Việt phổ thông → một ví dụ nhỏ có dữ liệu và đơn vị → code Python → giải thích kết quả → câu tự kiểm tra với đáp án. Không có mục chứng minh toán học, mục tiêu dành cho giảng viên hoặc chữ “Subconcept”.
+4. **Khái niệm và khái niệm liên quan:** giải thích trước bằng tiếng Việt phổ thông → một ví dụ nhỏ có dữ liệu và đơn vị → code Python → giải thích kết quả → giải thích kết quả. Không có mục chứng minh toán học, mục tiêu dành cho giảng viên hoặc chữ “Subconcept”.
 5. **5 tình huống thực tế:** gộp bối cảnh + vấn đề + số liệu + yêu cầu đầu ra thành **một đề bài có thể tự hiểu** ở `**Tình huống thực tế:**`. Sau đó trình bày vì sao chọn phép giải, các bước cụ thể, code và đầu ra. Không lặp nhãn vấn đề/dữ liệu hoặc quy trình chung.
 6. **20 câu trắc nghiệm Anh–Việt** với mỗi câu và **bản dịch trên CÙNG MỘT DÒNG**, ví dụ: `**Q1. What is a vector? — Vector là gì?**`. Mỗi phương án nằm trên **một dòng**: `A. A sequence of numbers — Một dãy số`. Đủ 4 lựa chọn cho một câu. Phần answer key là bảng 4 cột: `Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt)`. Không viết một dòng dịch tách dưới câu hỏi/phương án.
 7. **Nối sang bài kế tiếp:** giải thích mối liên hệ trong chuỗi kiến thức, không ép hiểu thuật toán nâng cao trước khi học nền.
