@@ -48,7 +48,7 @@ print(rng.binomial(n=3, p=0.8, size=5).tolist())
 **Kết quả khi chạy:**
 
 ```text
-[2, 2, 2, 2, 3]
+[2, 3, 2, 2, 3]
 ```
 
 Mỗi phần tử là số đơn đúng giờ trong một nhóm ba đơn; đây là năm lần thử giả lập.
