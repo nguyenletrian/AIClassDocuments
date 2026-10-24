@@ -7,7 +7,9 @@
 
 `Hàm số → Activation → Neural Network → Classification`
 
-Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc tối ưu tính toán phục vụ AI. Đọc ví dụ trước khi liên hệ tới mô hình phức tạp.
+**Học xong dùng để làm gì?** Hiểu ReLU/sigmoid biến đổi tín hiệu và giúp mô hình vượt giới hạn của lớp tuyến tính thuần túy.
+
+**Kết nối kiến thức tiếp theo:** PY-30 dùng loss để đo dự đoán sai thực tế bao nhiêu.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -283,6 +285,11 @@ C. A smooth activation mapping into (−1,1) — Hàm trơn đưa giá trị và
 
 D. Normalization of several class logits to sum one — Chuẩn hóa nhiều logit lớp có tổng bằng một
 
+**Đáp án: A**
+
+**Giải thích:** ReLU chặn giá trị âm về không.
+
+
 **Q2. What is sigmoid? — Sigmoid là gì?**
 
 A. `max(0,x)` — `max(0,x)`
@@ -292,6 +299,11 @@ B. `1/(1+exp(-x))` — `1/(1+exp(-x))`
 C. A smooth activation mapping into (−1,1) — Hàm trơn đưa giá trị vào (−1,1)
 
 D. Normalization of several class logits to sum one — Chuẩn hóa nhiều logit lớp có tổng bằng một
+
+**Đáp án: B**
+
+**Giải thích:** Sigmoid là phép biến đổi logistic hình chữ S.
+
 
 **Q3. What is tanh? — Tanh là gì?**
 
@@ -303,6 +315,11 @@ C. A smooth activation mapping into (−1,1) — Hàm trơn đưa giá trị và
 
 D. Normalization of several class logits to sum one — Chuẩn hóa nhiều logit lớp có tổng bằng một
 
+**Đáp án: C**
+
+**Giải thích:** Tanh cân quanh 0 và giới hạn giữa −1 và 1.
+
+
 **Q4. What is softmax? — Softmax là gì?**
 
 A. `max(0,x)` — `max(0,x)`
@@ -312,6 +329,11 @@ B. `1/(1+exp(-x))` — `1/(1+exp(-x))`
 C. A smooth activation mapping into (−1,1) — Hàm trơn đưa giá trị vào (−1,1)
 
 D. Normalization of several class logits to sum one — Chuẩn hóa nhiều logit lớp có tổng bằng một
+
+**Đáp án: D**
+
+**Giải thích:** Softmax ràng buộc điểm lớp thành một phân phối chuẩn hóa.
+
 
 **Q5. What is the output range of ReLU? — Đầu ra ReLU thuộc khoảng nào?**
 
@@ -323,6 +345,11 @@ C. Strictly between −1 and 1 — Nằm giữa −1 và 1, không gồm hai đ�
 
 D. They are nonnegative and sum to one — Không âm và có tổng bằng một
 
+**Đáp án: A**
+
+**Giải thích:** Đầu vào dương được ReLU giữ nguyên.
+
+
 **Q6. What is the output range of sigmoid? — Đầu ra sigmoid thuộc khoảng nào?**
 
 A. From zero upward without a fixed upper bound — Từ không trở lên, không có cận trên cố định
@@ -332,6 +359,11 @@ B. Strictly between 0 and 1 — Nằm giữa 0 và 1, không gồm hai đầu
 C. Strictly between −1 and 1 — Nằm giữa −1 và 1, không gồm hai đầu
 
 D. They are nonnegative and sum to one — Không âm và có tổng bằng một
+
+**Đáp án: B**
+
+**Giải thích:** Sigmoid với đầu vào hữu hạn nằm trong (0,1).
+
 
 **Q7. What is the output range of tanh? — Đầu ra tanh thuộc khoảng nào?**
 
@@ -343,6 +375,11 @@ C. Strictly between −1 and 1 — Nằm giữa −1 và 1, không gồm hai đ�
 
 D. They are nonnegative and sum to one — Không âm và có tổng bằng một
 
+**Đáp án: C**
+
+**Giải thích:** Tanh với đầu vào hữu hạn thuộc (−1,1).
+
+
 **Q8. What is true of softmax class scores? — Điều nào đúng về các điểm softmax?**
 
 A. From zero upward without a fixed upper bound — Từ không trở lên, không có cận trên cố định
@@ -352,6 +389,11 @@ B. Strictly between 0 and 1 — Nằm giữa 0 và 1, không gồm hai đầu
 C. Strictly between −1 and 1 — Nằm giữa −1 và 1, không gồm hai đầu
 
 D. They are nonnegative and sum to one — Không âm và có tổng bằng một
+
+**Đáp án: D**
+
+**Giải thích:** Softmax chia từng exp cho tổng các exp.
+
 
 **Q9. Which NumPy function applies ReLU? — Hàm NumPy nào thực hiện ReLU?**
 
@@ -363,6 +405,11 @@ C. The largest logit — Logit lớn nhất
 
 D. Tanh — Tanh
 
+**Đáp án: A**
+
+**Giải thích:** maximum chặn từng phần tử.
+
+
 **Q10. Which NumPy function directly computes tanh? — Hàm NumPy nào tính tanh trực tiếp?**
 
 A. `np.maximum(0,x)` — `np.maximum(0,x)`
@@ -372,6 +419,11 @@ B. `np.tanh(x)` — `np.tanh(x)`
 C. The largest logit — Logit lớn nhất
 
 D. Tanh — Tanh
+
+**Đáp án: B**
+
+**Giải thích:** NumPy có hàm tanh trực tiếp.
+
 
 **Q11. Which quantity should be subtracted from logits before stable softmax exponentiation? — Nên trừ gì khỏi logit trước khi tính exp softmax ổn định?**
 
@@ -383,6 +435,11 @@ C. The largest logit — Logit lớn nhất
 
 D. Tanh — Tanh
 
+**Đáp án: C**
+
+**Giải thích:** Trừ cực đại giữ các số exp không vượt một.
+
+
 **Q12. Which activation outputs exactly 0 at input 0? — Hàm nào trả đúng 0 với đầu vào 0?**
 
 A. `np.maximum(0,x)` — `np.maximum(0,x)`
@@ -392,6 +449,11 @@ B. `np.tanh(x)` — `np.tanh(x)`
 C. The largest logit — Logit lớn nhất
 
 D. Tanh — Tanh
+
+**Đáp án: D**
+
+**Giải thích:** Tanh(0)=0, còn sigmoid(0)=0.5.
+
 
 **Q13. What is sigmoid(0)? — sigmoid(0) bằng gì?**
 
@@ -403,6 +465,11 @@ C. A negative output — Giá trị đầu ra âm
 
 D. It reduces overflow risk without changing the result — Giảm nguy cơ tràn số mà không đổi kết quả
 
+**Đáp án: A**
+
+**Giải thích:** Sigmoid tại zero bằng một nửa.
+
+
 **Q14. What is ReLU(−2)? — ReLU(−2) bằng gì?**
 
 A. 0.5 — 0.5
@@ -412,6 +479,11 @@ B. 0 — 0
 C. A negative output — Giá trị đầu ra âm
 
 D. It reduces overflow risk without changing the result — Giảm nguy cơ tràn số mà không đổi kết quả
+
+**Đáp án: B**
+
+**Giải thích:** ReLU chặn đầu vào âm.
+
 
 **Q15. What does tanh produce for negative input? — Tanh tạo đầu ra thế nào khi đầu vào âm?**
 
@@ -423,6 +495,11 @@ C. A negative output — Giá trị đầu ra âm
 
 D. It reduces overflow risk without changing the result — Giảm nguy cơ tràn số mà không đổi kết quả
 
+**Đáp án: C**
+
+**Giải thích:** Tanh giữ dấu của đầu vào hữu hạn khác 0.
+
+
 **Q16. Why does subtracting max(logits) help softmax? — Vì sao trừ cực đại logit giúp softmax?**
 
 A. 0.5 — 0.5
@@ -432,6 +509,11 @@ B. 0 — 0
 C. A negative output — Giá trị đầu ra âm
 
 D. It reduces overflow risk without changing the result — Giảm nguy cơ tràn số mà không đổi kết quả
+
+**Đáp án: D**
+
+**Giải thích:** Dịch đều các logit không đổi softmax nhưng giảm tràn số.
+
 
 **Q17. Which output structure suits mutually exclusive multi-class prediction? — Dạng đầu ra nào phù hợp phân loại nhiều lớp loại trừ nhau?**
 
@@ -443,6 +525,11 @@ C. No, calibration needs checking — Không, cần đánh giá độ hiệu chu
 
 D. Softmax couples scores so they sum to one — Softmax ràng buộc điểm các lớp có tổng một
 
+**Đáp án: A**
+
+**Giải thích:** Softmax thường dùng cho đầu ra các lớp loại trừ nhau.
+
+
 **Q18. Why might ReLU neurons stop updating? — Vì sao một số nơ-ron ReLU có thể ngừng cập nhật?**
 
 A. A softmax distribution over classes — Phân phối softmax trên các lớp
@@ -452,6 +539,11 @@ B. Their inputs remain in the nonpositive flat region — Đầu vào luôn ở 
 C. No, calibration needs checking — Không, cần đánh giá độ hiệu chuẩn
 
 D. Softmax couples scores so they sum to one — Softmax ràng buộc điểm các lớp có tổng một
+
+**Đáp án: B**
+
+**Giải thích:** Độ dốc ReLU bằng không ở đầu vào âm.
+
 
 **Q19. Do sigmoid outputs automatically prove calibrated probabilities? — Đầu ra sigmoid có mặc nhiên là xác suất đã hiệu chuẩn không?**
 
@@ -463,6 +555,11 @@ C. No, calibration needs checking — Không, cần đánh giá độ hiệu chu
 
 D. Softmax couples scores so they sum to one — Softmax ràng buộc điểm các lớp có tổng một
 
+**Đáp án: C**
+
+**Giải thích:** Điểm số cần kiểm tra với kết quả thực tế.
+
+
 **Q20. Which difference distinguishes softmax from independent sigmoid outputs? — Điểm nào phân biệt softmax với sigmoid độc lập?**
 
 A. A softmax distribution over classes — Phân phối softmax trên các lớp
@@ -473,30 +570,9 @@ C. No, calibration needs checking — Không, cần đánh giá độ hiệu chu
 
 D. Softmax couples scores so they sum to one — Softmax ràng buộc điểm các lớp có tổng một
 
-### Answer key — Đáp án song ngữ
+**Đáp án: D**
 
-| Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
-|---|---|---|---|
-| Q1 | **A** | ReLU clips negative values to zero. | ReLU chặn giá trị âm về không. |
-| Q2 | **B** | Sigmoid is a logistic S-shaped transform. | Sigmoid là phép biến đổi logistic hình chữ S. |
-| Q3 | **C** | Tanh is zero-centered and bounded between minus one and one. | Tanh cân quanh 0 và giới hạn giữa −1 và 1. |
-| Q4 | **D** | Softmax couples class scores into one normalized distribution. | Softmax ràng buộc điểm lớp thành một phân phối chuẩn hóa. |
-| Q5 | **A** | Positive inputs pass through ReLU unchanged. | Đầu vào dương được ReLU giữ nguyên. |
-| Q6 | **B** | Finite sigmoid outputs lie strictly inside (0,1). | Sigmoid với đầu vào hữu hạn nằm trong (0,1). |
-| Q7 | **C** | Finite tanh outputs lie inside (−1,1). | Tanh với đầu vào hữu hạn thuộc (−1,1). |
-| Q8 | **D** | Softmax divides each exponential by their sum. | Softmax chia từng exp cho tổng các exp. |
-| Q9 | **A** | maximum performs element-wise clipping. | maximum chặn từng phần tử. |
-| Q10 | **B** | NumPy provides tanh directly. | NumPy có hàm tanh trực tiếp. |
-| Q11 | **C** | Subtracting the maximum keeps exponents at most one. | Trừ cực đại giữ các số exp không vượt một. |
-| Q12 | **D** | Tanh of zero is zero; sigmoid of zero is 0.5. | Tanh(0)=0, còn sigmoid(0)=0.5. |
-| Q13 | **A** | Sigmoid at zero is one-half. | Sigmoid tại zero bằng một nửa. |
-| Q14 | **B** | ReLU suppresses negative input. | ReLU chặn đầu vào âm. |
-| Q15 | **C** | Tanh preserves the sign of finite nonzero input. | Tanh giữ dấu của đầu vào hữu hạn khác 0. |
-| Q16 | **D** | Shifted logits yield the same softmax but safer exponentials. | Dịch đều các logit không đổi softmax nhưng giảm tràn số. |
-| Q17 | **A** | Softmax is a common output layer for exclusive classes. | Softmax thường dùng cho đầu ra các lớp loại trừ nhau. |
-| Q18 | **B** | The slope of ReLU is zero on negative inputs. | Độ dốc ReLU bằng không ở đầu vào âm. |
-| Q19 | **C** | Numerical scores need validation against observed outcomes. | Điểm số cần kiểm tra với kết quả thực tế. |
-| Q20 | **D** | Separate sigmoids need not sum to one. | Các sigmoid độc lập không bắt buộc có tổng bằng một. |
+**Giải thích:** Các sigmoid độc lập không bắt buộc có tổng bằng một.
 
 ## 8. Bài tiếp theo
 
