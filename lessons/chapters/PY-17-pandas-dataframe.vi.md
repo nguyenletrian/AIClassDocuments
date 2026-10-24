@@ -1,14 +1,8 @@
 # PY-17 — Pandas Series, DataFrame và đọc CSV
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Series** — chuỗi Pandas; **DataFrame** — bảng dữ liệu.
-
 `NumPy ndarray → Pandas DataFrame → Làm sạch → EDA/AI`
-
-Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều đối tượng và đặc trưng trước khi dùng trong AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 
 ## 3. Thư viện, hàm và lựa chọn
 
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
-
 | Hàm / tham số | Giải thích ngay theo hàm |
 |---|---|
 | `pd.Series(values)` | Tạo dãy có chỉ mục |
@@ -30,75 +22,53 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `pd.read_csv(path)` | Đọc CSV có tiêu đề, quy định đường dẫn/encoding |
 | `df.head()/df.info()/df.describe()` | Xem nhanh bản ghi, schema, thống kê |
 
-Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã được giải thích ngay tại bảng hàm này.
-
 ## 4. Khái niệm liên quan và ví dụ nhỏ
 
 ### 4.1. Series
 
-**Từ vựng trong mục:** **Series** — chuỗi Pandas.
-
-Dữ liệu một chiều có nhãn chỉ mục. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Dữ liệu một chiều có nhãn chỉ mục.
 
 ```python
 import pandas as pd
 print(pd.Series([3,4]))
 ```
 
-**Tự kiểm tra:** Series có nghĩa gì? **Đáp án:** Dữ liệu một chiều có nhãn chỉ mục.
-
 ### 4.2. DataFrame
 
-**Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
-
-Bảng có hàng và cột đặt tên. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Bảng có hàng và cột đặt tên.
 
 ```python
 import pandas as pd
 print(pd.DataFrame({'x':[1,2]}))
 ```
 
-**Tự kiểm tra:** DataFrame có nghĩa gì? **Đáp án:** Bảng có hàng và cột đặt tên.
-
 ### 4.3. Column
 
-**Từ vựng trong mục:** **Column** — cột.
-
-Một feature mang ý nghĩa xác định. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Một feature mang ý nghĩa xác định.
 
 ```python
 import pandas as pd
 x=pd.DataFrame({'price':[10]});print(x['price'])
 ```
 
-**Tự kiểm tra:** Column có nghĩa gì? **Đáp án:** Một feature mang ý nghĩa xác định.
-
 ### 4.4. CSV
 
-**Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
-
-Định dạng văn bản cho bảng có header. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Định dạng văn bản cho bảng có header.
 
 ```python
 import pandas as pd,io
 print(pd.read_csv(io.StringIO('x\n1')))
 ```
 
-**Tự kiểm tra:** CSV có nghĩa gì? **Đáp án:** Định dạng văn bản cho bảng có header.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Tạo bảng giá sản phẩm
 
-**Từ vựng trong mục:** **Series** — chuỗi Pandas.
-
 **Vấn đề:** Tạo bảng giá sản phẩm.
 
-**Vì sao chọn cách giải này?** DataFrame tên cột giúp tránh nhầm giá với số lượng. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** DataFrame tên cột giúp tránh nhầm giá với số lượng.
 
-**Dữ liệu:** 2 sản phẩm với Price đồng, Qty cái; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 2 sản phẩm với Price đồng, Qty cái.
 
 ```python
 import pandas as pd
@@ -106,19 +76,13 @@ df=pd.DataFrame({"Product":["Pen","Book"],"Price":[10000,35000],"Qty":[2,1]})
 print(df)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 2 — Đọc đơn từ CSV văn bản
-
-**Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
 
 **Vấn đề:** Đọc đơn từ CSV văn bản.
 
-**Vì sao chọn cách giải này?** Dùng StringIO tạo CSV không phụ thuộc file máy. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Dùng StringIO tạo CSV không phụ thuộc file máy.
 
-**Dữ liệu:** 2 dòng đơn, cột id,amount (đồng); mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 2 dòng đơn, cột id,amount (đồng).
 
 ```python
 import pandas as pd,io
@@ -127,19 +91,13 @@ df=pd.read_csv(io.StringIO(csv_text))
 print(df.head())
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 3 — Tạo doanh thu mỗi dòng
-
-**Từ vựng trong mục:** **Column** — cột.
 
 **Vấn đề:** Tạo doanh thu mỗi dòng.
 
-**Vì sao chọn cách giải này?** Một cột mới tính Price × Quantity. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Một cột mới tính Price × Quantity.
 
-**Dữ liệu:** 2 sản phẩm; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 2 sản phẩm.
 
 ```python
 import pandas as pd
@@ -148,19 +106,13 @@ df["Revenue"]=df.Price*df.Qty
 print(df)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 4 — Xem kiểu dữ liệu đầu vào
-
-**Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
 
 **Vấn đề:** Xem kiểu dữ liệu đầu vào.
 
-**Vì sao chọn cách giải này?** dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi.
 
-**Dữ liệu:** Một cột số lượng, một cột tên; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** Một cột số lượng, một cột tên.
 
 ```python
 import pandas as pd
@@ -168,19 +120,13 @@ df=pd.DataFrame({"name":["A","B"],"qty":[2,3]})
 print(df.dtypes)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 5 — Chọn dữ liệu tập huấn luyện
-
-**Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
 **Vấn đề:** Chọn dữ liệu tập huấn luyện.
 
-**Vì sao chọn cách giải này?** Chỉ giữ các cột feature phù hợp để tạo X. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Chỉ giữ các cột feature phù hợp để tạo X.
 
-**Dữ liệu:** 2 khách, 3 thuộc tính; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 2 khách, 3 thuộc tính.
 
 ```python
 import pandas as pd
@@ -189,15 +135,11 @@ X=df[["visits","spent"]]
 print(X.shape)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ## 6. Sai lầm thường gặp
 
 Các tham số như axis, shape, dtype hoặc cách xử lý giá trị thiếu có thể thay đổi kết quả. Trước khi xử lý phải biết số hàng, số cột, đơn vị và mục đích của từng phép biến đổi.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What does Series mean? — Ý nghĩa của Series là gì?**
@@ -443,7 +385,3 @@ D. To change column meanings — Để thay đổi nghĩa các cột
 | Q18 | **A** | The stated data are 2 khách, 3 thuộc tính | 2 khách, 3 thuộc tính |
 | Q19 | **D** | Rows, columns and units | Hàng, cột và đơn vị |
 | Q20 | **C** | To check limitations and edge cases | Để thấy giới hạn và trường hợp biên |
-
-## 8. Nối bài tiếp theo
-
-`NumPy ndarray → Pandas DataFrame → Làm sạch → EDA/AI`.
