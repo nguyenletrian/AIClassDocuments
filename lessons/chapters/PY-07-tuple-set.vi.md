@@ -1,4 +1,4 @@
-# 07 — Tuple, Set và phép hợp/giao
+# PY-07 — Tuple, Set và các phép toán tập hợp
 
 
 ## 1. Vị trí trong chuỗi kiến thức
@@ -7,7 +7,7 @@
 
 `List → Tuple và Set → Tập hợp/Jaccard`
 
-Từ kiến thức trước, phần này giúp sinh viên quyết định nên tổ chức và xử lý dữ liệu bằng cấu trúc nào, rồi mới tiến tới các bài xử lý dữ liệu cho AI.
+Sau List, ta học hai cách lưu dữ liệu khác: Tuple giữ thứ tự và không cho sửa phần tử; Set chỉ giữ các phần tử khác nhau, giúp tìm phần chung hoặc gộp hai nhóm.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -26,90 +26,92 @@ Từ kiến thức trước, phần này giúp sinh viên quyết định nên t
 |---|---|
 | `tuple(items)` | Lưu một bộ dữ liệu có thứ tự và cố định |
 | `set(items)` | Khử giá trị trùng, không giữ thứ tự đáng tin |
-| `a ` |  b, a & b |
+| `a.union(b)`, `a.intersection(b)` | Lấy toàn bộ phần tử của hai tập (hợp), hoặc chỉ phần tử chung (giao); tương đương `a \| b` và `a & b` |
 | `a - b, a ^ b` | Tìm phần tử còn thiếu hoặc khác nhau |
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Tuple
 
 **Từ vựng trong mục:** **Tuple** — bộ giá trị.
 
-Dãy có thứ tự không sửa phần tử được. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Tuple giữ các giá trị theo đúng thứ tự và không thể gán lại từng phần tử. Ví dụ `(2, 3)` có thể lưu tọa độ x, y; lấy phần tử bằng chỉ số như List.
 
 ```python
 point=(2,3)
 print(point)
 ```
 
-**Tự kiểm tra:** Tuple có nghĩa gì? **Đáp án:** Dãy có thứ tự không sửa phần tử được.
-
 ### 4.2. Set
 
 **Từ vựng trong mục:** **Set** — tập hợp.
 
-Nhóm phần tử không trùng lặp. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Set chỉ giữ mỗi giá trị một lần. `set([1, 1, 2])` tạo tập chứa `1` và `2`. Set không đảm bảo thứ tự, nên không lấy phần tử bằng chỉ số.
 
 ```python
 print(set([1,1,2]))
 ```
 
-**Tự kiểm tra:** Set có nghĩa gì? **Đáp án:** Nhóm phần tử không trùng lặp.
-
 ### 4.3. Union
 
 **Từ vựng trong mục:** **Union** — phép hợp.
 
-Mọi phần tử có trong ít nhất một tập. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Phép hợp gộp các phần tử của hai tập và tự loại phần trùng. `{1, 2} | {2, 3}` cho tập chứa `1`, `2`, `3`.
 
 ```python
-print({1,2}
+print({1, 2} | {2, 3})
 ```
-
-**Tự kiểm tra:** Union có nghĩa gì? **Đáp án:** Mọi phần tử có trong ít nhất một tập.
 
 ### 4.4. Intersection
 
 **Từ vựng trong mục:** **Intersection** — phép giao.
 
-Phần tử chung của hai tập. Đây là khái niệm cần nắm trước khi áp dụng bước xử lý bên dưới.
+Phép giao chỉ giữ phần tử có mặt trong cả hai tập. `{1, 2} & {2, 3}` cho tập chỉ có phần tử `2`.
 
 ```python
 print({1,2}&{2,3})
 ```
 
-**Tự kiểm tra:** Intersection có nghĩa gì? **Đáp án:** Phần tử chung của hai tập.
-
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Khử email trùng
 
-**Từ vựng trong mục:** **Tuple** — bộ giá trị.
+**Từ vựng trong mục:** **Set** — tập hợp; **Duplicate** — trùng lặp.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần khử email trùng. Dữ liệu hiện có: Bốn email có hai trùng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Ứng dụng gửi thông báo đang có bốn email `a@x.vn`, `b@x.vn`, `a@x.vn`, `c@x.vn`. Địa chỉ `a@x.vn` bị nhập hai lần.
 
-**Vì sao chọn cách này?** Set loại bản ghi email giống hệt nhau.
+**Yêu cầu:** Đếm có bao nhiêu địa chỉ email khác nhau.
 
+**Vì sao chọn cách giải này?** `set()` bỏ bản ghi giống hệt nhau, `len()` đếm số email còn lại. Cách này chưa xử lý khác biệt chữ hoa/chữ thường.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu bốn email vào list.
+2. Chuyển list thành set để bỏ email bị lặp.
+3. Dùng `len()` đếm số email khác nhau.
 
 ```python
 emails=["a@x.vn","b@x.vn","a@x.vn","c@x.vn"]
 print(len(set(emails)))
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `3` — có ba địa chỉ email khác nhau.
 
 ### Tình huống 2 — Lưu tọa độ
 
-**Từ vựng trong mục:** **Set** — tập hợp.
+**Từ vựng trong mục:** **Tuple** — bộ giá trị; **Coordinate** — tọa độ.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần lưu tọa độ. Dữ liệu hiện có: Tọa độ (3,4); nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một phần mềm bản đồ lưu điểm có tọa độ `(3, 4)` mét, tính từ gốc `(0, 0)`. Hai giá trị lần lượt là vị trí x và y.
 
-**Vì sao chọn cách này?** Tuple phù hợp điểm cố định (x,y) trong một phép tính.
+**Yêu cầu:** Lấy x, y từ tuple và tính bình phương khoảng cách đến gốc tọa độ.
 
+**Vì sao chọn cách giải này?** Tuple lưu gọn cặp tọa độ có thứ tự. Công thức `x*x + y*y` tính bình phương khoảng cách, không phải khoảng cách thực.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu tọa độ vào tuple `point`.
+2. Tách tuple thành `x` và `y`.
+3. Tính `x*x + y*y` rồi in kết quả.
 
 ```python
 point=(3,4)
@@ -117,18 +119,23 @@ x,y=point
 print(x*x+y*y)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** `25` m² — bình phương khoảng cách; khoảng cách thật bằng 5 mét.
 
 ### Tình huống 3 — Tìm kỹ năng chung
 
-**Từ vựng trong mục:** **Union** — phép hợp.
+**Từ vựng trong mục:** **Intersection** — phép giao; **Set** — tập hợp.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần tìm kỹ năng chung. Dữ liệu hiện có: Hai danh sách kỹ năng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Hai nhóm học viên có kỹ năng lần lượt là `{'Python', 'AI', 'SQL'}` và `{'Python', 'Math', 'AI'}`.
 
-**Vì sao chọn cách này?** Phép giao cho biết kỹ năng cả hai cùng có.
+**Yêu cầu:** Tìm những kỹ năng có ở cả hai nhóm.
 
+**Vì sao chọn cách giải này?** Phép giao `&` chỉ giữ các phần tử chung giữa hai set.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu kỹ năng của mỗi nhóm thành một set.
+2. Dùng `a & b` để tìm phần tử chung.
+3. In tập kỹ năng tìm được.
 
 ```python
 a={"Python","AI","SQL"}
@@ -136,18 +143,23 @@ b={"Python","Math","AI"}
 print(a&b)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** Tập chứa `Python` và `AI`; thứ tự hiển thị của set có thể thay đổi.
 
 ### Tình huống 4 — Gộp nhóm chủ đề
 
-**Từ vựng trong mục:** **Intersection** — phép giao.
+**Từ vựng trong mục:** **Union** — phép hợp; **Set** — tập hợp.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần gộp nhóm chủ đề. Dữ liệu hiện có: Hai nhóm nhãn tài liệu; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Hai nhóm tài liệu được gắn nhãn `{'Python', 'Math'}` và `{'Math', 'AI'}`. Nhân viên cần danh sách chủ đề của cả hai nhóm mà không lặp lại `Math`.
 
-**Vì sao chọn cách này?** Phép hợp giữ mỗi chủ đề một lần.
+**Yêu cầu:** Gộp các nhãn thành một set chỉ chứa các chủ đề khác nhau.
 
+**Vì sao chọn cách giải này?** Phép hợp `|` lấy tất cả phần tử thuộc một trong hai set và bỏ phần trùng.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu nhãn của từng nhóm thành set.
+2. Dùng `a | b` để gộp.
+3. In các nhãn sau khi gộp.
 
 ```python
 a={"Python","Math"}
@@ -155,18 +167,23 @@ b={"Math","AI"}
 print(a|b)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** Tập chứa `Python`, `Math`, `AI`; thứ tự in không cố định.
 
 ### Tình huống 5 — Liệt kê bài còn thiếu
 
-**Từ vựng trong mục:** **Tuple** — bộ giá trị.
+**Từ vựng trong mục:** **Difference** — hiệu tập hợp; **Set** — tập hợp.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần liệt kê bài còn thiếu. Dữ liệu hiện có: Yêu cầu Python SQL AI, đã học Python; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Khóa học yêu cầu ba kỹ năng `Python`, `SQL`, `AI`. Một học viên đã học xong `Python`.
 
-**Vì sao chọn cách này?** Hiệu tập cho ra mục cần học nhưng chưa hoàn thành.
+**Yêu cầu:** Liệt kê các kỹ năng học viên còn phải học.
 
+**Vì sao chọn cách giải này?** Hiệu tập hợp `required - done` giữ những kỹ năng bắt buộc chưa có trong tập đã hoàn thành.
 
-**Quy trình:** Xác định dữ liệu → chọn phép xử lý → chạy code → đọc kết quả và thử trường hợp biên.
+**Quy trình giải:**
+
+1. Lưu tập kỹ năng bắt buộc.
+2. Lưu tập kỹ năng đã học.
+3. Lấy hiệu hai tập và in kết quả.
 
 ```python
 required={"Python","SQL","AI"}
@@ -174,260 +191,244 @@ done={"Python"}
 print(required-done)
 ```
 
-**Đọc kết quả:** Đối chiếu với giả định đầu vào; đổi dữ liệu và xem kết quả có đúng ý nghĩa không.
+**Kết quả:** Tập chứa `SQL` và `AI`; thứ tự in không cố định.
 
 ## 6. Nhầm lẫn dễ gặp
 
-Không sử dụng cấu trúc dữ liệu sai với mục đích: ví dụ tập hợp không hỗ trợ truy cập theo chỉ số như list; tuple không sửa từng phần tử. Mọi dữ liệu thật cần xác minh kiểu, đơn vị và tính hợp lệ.
+- Tuple không cho gán lại từng phần tử như `point[0] = 5`; nếu cần sửa tọa độ, tạo tuple mới.
+- Set không có thứ tự cố định, không dùng `my_set[0]` và không dựa vào thứ tự khi in.
+- Set chỉ giữ phần tử có thể băm được (hashable); không thể đặt list trực tiếp làm phần tử của set.
+- Phép hợp `|` lấy tất cả phần tử; phép giao `&` chỉ lấy phần tử chung; phép trừ `-` tìm phần tử còn thiếu.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is Tuple? — Thuật ngữ Tuple có nghĩa gì?**
+**Q1. Which property describes a tuple? — Tuple có đặc điểm gì?**
 
-A. A different concept: Nhóm phần tử không trùng lặp — Nhóm phần tử không trùng lặp
+A. Ordered and cannot be changed in place — Có thứ tự và không sửa trực tiếp được
 
-B. A concept described as: Dãy có thứ tự không sửa phần tử được — Dãy có thứ tự không sửa phần tử được
+B. Always removes duplicates — Luôn bỏ phần tử trùng
 
-C. A different concept: Mọi phần tử có trong ít nhất một tập — Mọi phần tử có trong ít nhất một tập
+C. Always sorts numbers — Luôn sắp xếp số
 
-D. A different concept: Phần tử chung của hai tập — Phần tử chung của hai tập
+D. Has no positions — Không có vị trí
 
+**Q2. What is the main feature of a set? — Set có đặc điểm chính gì?**
 
-**Q2. What is Set? — Thuật ngữ Set có nghĩa gì?**
+A. Keeps every duplicate — Giữ mọi giá trị trùng
 
-A. A concept described as: Nhóm phần tử không trùng lặp — Nhóm phần tử không trùng lặp
+B. Contains unique elements — Chỉ chứa phần tử không trùng
 
-B. A different concept: Mọi phần tử có trong ít nhất một tập — Mọi phần tử có trong ít nhất một tập
+C. Supports index access — Có thể lấy bằng chỉ số
 
-C. A different concept: Phần tử chung của hai tập — Phần tử chung của hai tập
+D. Always has sorted order — Luôn theo thứ tự sắp xếp
 
-D. A different concept: Dãy có thứ tự không sửa phần tử được — Dãy có thứ tự không sửa phần tử được
+**Q3. What does set union mean? — Phép hợp tập hợp là gì?**
 
+A. Only common elements — Chỉ phần tử chung
 
-**Q3. What is Union? — Thuật ngữ Union có nghĩa gì?**
+B. Only left-side elements — Chỉ phần tử bên trái
 
-A. A different concept: Phần tử chung của hai tập — Phần tử chung của hai tập
+C. All distinct elements from either set — Mọi phần tử khác nhau từ hai tập
 
-B. A different concept: Dãy có thứ tự không sửa phần tử được — Dãy có thứ tự không sửa phần tử được
+D. No elements — Không có phần tử
 
-C. A different concept: Nhóm phần tử không trùng lặp — Nhóm phần tử không trùng lặp
+**Q4. What does intersection return? — Phép giao cho kết quả gì?**
 
-D. A concept described as: Mọi phần tử có trong ít nhất một tập — Mọi phần tử có trong ít nhất một tập
+A. All original duplicates — Toàn bộ phần tử trùng gốc
 
+B. Elements in exactly one set — Phần tử chỉ thuộc một tập
 
-**Q4. What is Intersection? — Thuật ngữ Intersection có nghĩa gì?**
+C. The larger set — Tập lớn hơn
 
-A. A different concept: Dãy có thứ tự không sửa phần tử được — Dãy có thứ tự không sửa phần tử được
+D. Elements shared by both sets — Phần tử chung của cả hai tập
 
-B. A different concept: Nhóm phần tử không trùng lặp — Nhóm phần tử không trùng lặp
+**Q5. What does tuple([3, 4]) create? — tuple([3, 4]) tạo gì?**
 
-C. A concept described as: Phần tử chung của hai tập — Phần tử chung của hai tập
+A. (3, 4) — (3, 4)
 
-D. A different concept: Mọi phần tử có trong ít nhất một tập — Mọi phần tử có trong ít nhất một tập
+B. {3, 4} — {3, 4}
 
+C. [3, 4] — [3, 4]
 
-**Q5. Which statement fits 'tuple(items)'? — Mô tả nào đúng với 'tuple(items)'?**
+D. 3 — 3
 
-A. It is used for: Khử giá trị trùng, không giữ thứ tự đáng tin — Khử giá trị trùng, không giữ thứ tự đáng tin
+**Q6. What is set([1, 1, 2])? — set([1, 1, 2]) chứa gì?**
 
-B. This syntax is used for: Lưu một bộ dữ liệu có thứ tự và cố định — Lưu một bộ dữ liệu có thứ tự và cố định
+A. Three separate items — Ba phần tử khác nhau
 
-C. It is used for:  b, a & b —  b, a & b
+B. The elements 1 and 2 — Hai phần tử 1 và 2
 
-D. It is used for: Tìm phần tử còn thiếu hoặc khác nhau — Tìm phần tử còn thiếu hoặc khác nhau
+C. Only 1 — Chỉ có 1
 
+D. An error — Báo lỗi
 
-**Q6. Which statement fits 'set(items)'? — Mô tả nào đúng với 'set(items)'?**
+**Q7. What does a | b perform on sets? — a | b thực hiện phép nào?**
 
-A. This syntax is used for: Khử giá trị trùng, không giữ thứ tự đáng tin — Khử giá trị trùng, không giữ thứ tự đáng tin
+A. Difference — Hiệu
 
-B. It is used for:  b, a & b —  b, a & b
+B. Intersection — Giao
 
-C. It is used for: Tìm phần tử còn thiếu hoặc khác nhau — Tìm phần tử còn thiếu hoặc khác nhau
+C. Union — Hợp
 
-D. It is used for: Lưu một bộ dữ liệu có thứ tự và cố định — Lưu một bộ dữ liệu có thứ tự và cố định
+D. Division — Chia
 
+**Q8. What does a & b perform on sets? — a & b thực hiện phép nào?**
 
-**Q7. Which statement fits 'a '? — Mô tả nào đúng với 'a '?**
+A. Union — Hợp
 
-A. It is used for: Tìm phần tử còn thiếu hoặc khác nhau — Tìm phần tử còn thiếu hoặc khác nhau
+B. Difference — Hiệu
 
-B. It is used for: Lưu một bộ dữ liệu có thứ tự và cố định — Lưu một bộ dữ liệu có thứ tự và cố định
+C. Exclusive-or — Hiệu đối xứng
 
-C. It is used for: Khử giá trị trùng, không giữ thứ tự đáng tin — Khử giá trị trùng, không giữ thứ tự đáng tin
+D. Intersection — Giao
 
-D. This syntax is used for:  b, a & b —  b, a & b
+**Q9. How many distinct email addresses are listed? — Có bao nhiêu email khác nhau?**
 
+A. 3 — 3
 
-**Q8. Which statement fits 'a - b, a ^ b'? — Mô tả nào đúng với 'a - b, a ^ b'?**
+B. 4 — 4
 
-A. It is used for: Lưu một bộ dữ liệu có thứ tự và cố định — Lưu một bộ dữ liệu có thứ tự và cố định
+C. 2 — 2
 
-B. It is used for: Khử giá trị trùng, không giữ thứ tự đáng tin — Khử giá trị trùng, không giữ thứ tự đáng tin
+D. 1 — 1
 
-C. This syntax is used for: Tìm phần tử còn thiếu hoặc khác nhau — Tìm phần tử còn thiếu hoặc khác nhau
+**Q10. What is x*x + y*y for point (3, 4)? — x*x + y*y bằng bao nhiêu với điểm (3, 4)?**
 
-D. It is used for:  b, a & b —  b, a & b
+A. 5 — 5
 
+B. 25 — 25
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn cách này ở tình huống 1?**
+C. 7 — 7
 
-A. Because Tuple phù hợp điểm cố định (x,y) trong một phép tính — Tuple phù hợp điểm cố định (x,y) trong một phép tính
+D. 12 — 12
 
-B. Because Set loại bản ghi email giống hệt nhau — Set loại bản ghi email giống hệt nhau
+**Q11. Which skills appear in both groups? — Kỹ năng nào có ở cả hai nhóm?**
 
-C. Because Phép giao cho biết kỹ năng cả hai cùng có — Phép giao cho biết kỹ năng cả hai cùng có
+A. SQL and Math — SQL và Math
 
-D. Because Phép hợp giữ mỗi chủ đề một lần — Phép hợp giữ mỗi chủ đề một lần
+B. Only Python — Chỉ Python
 
+C. Python and AI — Python và AI
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn cách này ở tình huống 2?**
+D. Only SQL — Chỉ SQL
 
-A. Because Tuple phù hợp điểm cố định (x,y) trong một phép tính — Tuple phù hợp điểm cố định (x,y) trong một phép tính
+**Q12. Which subjects are in the union of both groups? — Phép hợp hai nhóm chủ đề gồm gì?**
 
-B. Because Phép giao cho biết kỹ năng cả hai cùng có — Phép giao cho biết kỹ năng cả hai cùng có
+A. Only Math — Chỉ Math
 
-C. Because Phép hợp giữ mỗi chủ đề một lần — Phép hợp giữ mỗi chủ đề một lần
+B. Only Python and AI — Chỉ Python và AI
 
-D. Because Hiệu tập cho ra mục cần học nhưng chưa hoàn thành — Hiệu tập cho ra mục cần học nhưng chưa hoàn thành
+C. Four duplicate labels — Bốn nhãn có trùng
 
+D. Python, Math, and AI — Python, Math và AI
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn cách này ở tình huống 3?**
+**Q13. What skills remain to learn? — Những kỹ năng nào còn phải học?**
 
-A. Because Phép hợp giữ mỗi chủ đề một lần — Phép hợp giữ mỗi chủ đề một lần
+A. SQL and AI — SQL và AI
 
-B. Because Hiệu tập cho ra mục cần học nhưng chưa hoàn thành — Hiệu tập cho ra mục cần học nhưng chưa hoàn thành
+B. Python only — Chỉ Python
 
-C. Because Set loại bản ghi email giống hệt nhau — Set loại bản ghi email giống hệt nhau
+C. None — Không còn gì
 
-D. Because Phép giao cho biết kỹ năng cả hai cùng có — Phép giao cho biết kỹ năng cả hai cùng có
+D. Python and SQL — Python và SQL
 
+**Q14. Which expression finds missing skills? — Cách nào tìm kỹ năng còn thiếu?**
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn cách này ở tình huống 4?**
+A. required & done — required & done
 
-A. Because Hiệu tập cho ra mục cần học nhưng chưa hoàn thành — Hiệu tập cho ra mục cần học nhưng chưa hoàn thành
+B. required - done — required - done
 
-B. Because Set loại bản ghi email giống hệt nhau — Set loại bản ghi email giống hệt nhau
+C. required  —  done
 
-C. Because Phép hợp giữ mỗi chủ đề một lần — Phép hợp giữ mỗi chủ đề một lần
+D. required == done — required == done
 
-D. Because Tuple phù hợp điểm cố định (x,y) trong một phép tính — Tuple phù hợp điểm cố định (x,y) trong một phép tính
+**Q15. Can a tuple element be reassigned? — Có thể gán lại một phần tử tuple không?**
 
+A. Yes, using append — Có, dùng append
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn cách này ở tình huống 5?**
+B. Yes, with a set — Có, dùng set
 
-A. Because Set loại bản ghi email giống hệt nhau — Set loại bản ghi email giống hệt nhau
+C. No, tuples are immutable — Không, tuple không sửa trực tiếp được
 
-B. Because Hiệu tập cho ra mục cần học nhưng chưa hoàn thành — Hiệu tập cho ra mục cần học nhưng chưa hoàn thành
+D. Only if it stores strings — Chỉ khi chứa chuỗi
 
-C. Because Tuple phù hợp điểm cố định (x,y) trong một phép tính — Tuple phù hợp điểm cố định (x,y) trong một phép tính
+**Q16. Can a set be accessed with [0]? — Có thể lấy phần tử set bằng [0] không?**
 
-D. Because Phép giao cho biết kỹ năng cả hai cùng có — Phép giao cho biết kỹ năng cả hai cùng có
+A. Yes, always — Có, luôn được
 
+B. Only for strings — Chỉ với chuỗi
 
-**Q14. What input belongs to scenario 1? — Tình huống 1 sử dụng dữ liệu gì?**
+C. Only after union — Chỉ sau phép hợp
 
-A. The stated input: Bốn email có hai trùng — Bốn email có hai trùng
+D. No, sets are not indexed — Không, set không có chỉ số
 
-B. The input is Tọa độ (3,4) — Tọa độ (3,4)
+**Q17. What does a ^ b return for sets? — a ^ b cho kết quả gì?**
 
-C. The input is Hai danh sách kỹ năng — Hai danh sách kỹ năng
+A. Elements present in exactly one set — Phần tử chỉ thuộc một trong hai tập
 
-D. The input is Hai nhóm nhãn tài liệu — Hai nhóm nhãn tài liệu
+B. Only shared elements — Chỉ phần tử chung
 
+C. All duplicates — Mọi phần tử trùng
 
-**Q15. What input belongs to scenario 2? — Tình huống 2 sử dụng dữ liệu gì?**
+D. An ordered tuple — Tuple có thứ tự
 
-A. The input is Hai danh sách kỹ năng — Hai danh sách kỹ năng
+**Q18. Does printing a set guarantee order? — In một set có đảm bảo thứ tự không?**
 
-B. The input is Hai nhóm nhãn tài liệu — Hai nhóm nhãn tài liệu
+A. Yes, alphabetical — Có, theo chữ cái
 
-C. The input is Yêu cầu Python SQL AI, đã học Python — Yêu cầu Python SQL AI, đã học Python
+B. No, the order is not guaranteed — Không, thứ tự không được đảm bảo
 
-D. The stated input: Tọa độ (3,4) — Tọa độ (3,4)
+C. Yes, insertion order — Có, theo thứ tự thêm
 
+D. Yes, numerical order — Có, theo số
 
-**Q16. What input belongs to scenario 3? — Tình huống 3 sử dụng dữ liệu gì?**
+**Q19. What does a - b contain? — a - b gồm phần tử nào?**
 
-A. The input is Hai nhóm nhãn tài liệu — Hai nhóm nhãn tài liệu
+A. Only common elements — Chỉ phần tử chung
 
-B. The input is Yêu cầu Python SQL AI, đã học Python — Yêu cầu Python SQL AI, đã học Python
+B. Everything in b — Toàn bộ phần tử b
 
-C. The stated input: Hai danh sách kỹ năng — Hai danh sách kỹ năng
+C. Elements in a but not b — Phần tử thuộc a nhưng không thuộc b
 
-D. The input is Bốn email có hai trùng — Bốn email có hai trùng
+D. Everything in both — Toàn bộ phần tử hai tập
 
+**Q20. What type suits a fixed coordinate pair? — Kiểu nào phù hợp để lưu cặp tọa độ không đổi?**
 
-**Q17. What input belongs to scenario 4? — Tình huống 4 sử dụng dữ liệu gì?**
+A. set — set
 
-A. The input is Yêu cầu Python SQL AI, đã học Python — Yêu cầu Python SQL AI, đã học Python
+B. dict — dict
 
-B. The stated input: Hai nhóm nhãn tài liệu — Hai nhóm nhãn tài liệu
+C. list only — Chỉ list
 
-C. The input is Bốn email có hai trùng — Bốn email có hai trùng
-
-D. The input is Tọa độ (3,4) — Tọa độ (3,4)
-
-
-**Q18. What input belongs to scenario 5? — Tình huống 5 sử dụng dữ liệu gì?**
-
-A. The stated input: Yêu cầu Python SQL AI, đã học Python — Yêu cầu Python SQL AI, đã học Python
-
-B. The input is Bốn email có hai trùng — Bốn email có hai trùng
-
-C. The input is Tọa độ (3,4) — Tọa độ (3,4)
-
-D. The input is Hai danh sách kỹ năng — Hai danh sách kỹ năng
-
-
-**Q19. What must be known before processing data? — Cần biết gì trước khi xử lý dữ liệu?**
-
-A. Only file name — Chỉ tên file
-
-B. Only editor theme — Chỉ màu giao diện
-
-C. Only line count — Chỉ số dòng
-
-D. Input meaning, type and units — Ý nghĩa, kiểu và đơn vị đầu vào
-
-
-**Q20. How should a student check an example? — Nên kiểm tra ví dụ như thế nào?**
-
-A. Assume all inputs work — Cho rằng dữ liệu nào cũng đúng
-
-B. Ignore errors — Bỏ qua lỗi
-
-C. Verify output and edge cases — Đối chiếu kết quả và thử trường hợp biên
-
-D. Delete comments — Xóa chú thích
+D. tuple — tuple
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | A concept described as: Dãy có thứ tự không sửa phần tử được | Dãy có thứ tự không sửa phần tử được |
-| Q2 | **A** | A concept described as: Nhóm phần tử không trùng lặp | Nhóm phần tử không trùng lặp |
-| Q3 | **D** | A concept described as: Mọi phần tử có trong ít nhất một tập | Mọi phần tử có trong ít nhất một tập |
-| Q4 | **C** | A concept described as: Phần tử chung của hai tập | Phần tử chung của hai tập |
-| Q5 | **B** | This syntax is used for: Lưu một bộ dữ liệu có thứ tự và cố định | Lưu một bộ dữ liệu có thứ tự và cố định |
-| Q6 | **A** | This syntax is used for: Khử giá trị trùng, không giữ thứ tự đáng tin | Khử giá trị trùng, không giữ thứ tự đáng tin |
-| Q7 | **D** | This syntax is used for:  b, a & b |  b, a & b |
-| Q8 | **C** | This syntax is used for: Tìm phần tử còn thiếu hoặc khác nhau | Tìm phần tử còn thiếu hoặc khác nhau |
-| Q9 | **B** | Because Set loại bản ghi email giống hệt nhau | Set loại bản ghi email giống hệt nhau |
-| Q10 | **A** | Because Tuple phù hợp điểm cố định (x,y) trong một phép tính | Tuple phù hợp điểm cố định (x,y) trong một phép tính |
-| Q11 | **D** | Because Phép giao cho biết kỹ năng cả hai cùng có | Phép giao cho biết kỹ năng cả hai cùng có |
-| Q12 | **C** | Because Phép hợp giữ mỗi chủ đề một lần | Phép hợp giữ mỗi chủ đề một lần |
-| Q13 | **B** | Because Hiệu tập cho ra mục cần học nhưng chưa hoàn thành | Hiệu tập cho ra mục cần học nhưng chưa hoàn thành |
-| Q14 | **A** | The stated input: Bốn email có hai trùng | Bốn email có hai trùng |
-| Q15 | **D** | The stated input: Tọa độ (3,4) | Tọa độ (3,4) |
-| Q16 | **C** | The stated input: Hai danh sách kỹ năng | Hai danh sách kỹ năng |
-| Q17 | **B** | The stated input: Hai nhóm nhãn tài liệu | Hai nhóm nhãn tài liệu |
-| Q18 | **A** | The stated input: Yêu cầu Python SQL AI, đã học Python | Yêu cầu Python SQL AI, đã học Python |
-| Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
-| Q20 | **C** | Verify output and edge cases | Đối chiếu kết quả và thử trường hợp biên |
+| Q1 | **A** | Tuple elements cannot be reassigned. | Không thể gán lại trực tiếp phần tử của tuple. |
+| Q2 | **B** | Sets eliminate duplicate elements. | Set bỏ các phần tử trùng. |
+| Q3 | **C** | Union contains elements appearing in either set. | Phép hợp chứa phần tử thuộc ít nhất một tập. |
+| Q4 | **D** | Intersection keeps shared elements. | Phép giao giữ phần tử chung. |
+| Q5 | **A** | tuple converts the list into a tuple. | tuple đổi list thành tuple. |
+| Q6 | **B** | The repeated 1 is removed. | Số 1 trùng được bỏ. |
+| Q7 | **C** | The  |  operator computes set union. |
+| Q8 | **D** | The & operator computes intersection. | Toán tử & tính phép giao. |
+| Q9 | **A** | One email is repeated, leaving three unique addresses. | Một email bị lặp nên còn ba địa chỉ khác nhau. |
+| Q10 | **B** | 3 squared plus 4 squared equals 25. | 3 bình phương cộng 4 bình phương bằng 25. |
+| Q11 | **C** | The intersection contains Python and AI. | Phép giao cho Python và AI. |
+| Q12 | **D** | The union keeps each label once. | Phép hợp chỉ giữ mỗi nhãn một lần. |
+| Q13 | **A** | Subtracting completed skills leaves SQL and AI. | Trừ kỹ năng đã học còn SQL và AI. |
+| Q14 | **B** | Set difference removes completed skills. | Hiệu tập hợp bỏ các kỹ năng đã hoàn thành. |
+| Q15 | **C** | Tuple item assignment raises TypeError. | Gán vào phần tử tuple gây TypeError. |
+| Q16 | **D** | Sets do not support positional indexing. | Set không hỗ trợ truy cập theo vị trí. |
+| Q17 | **A** | Symmetric difference excludes shared elements. | Hiệu đối xứng bỏ phần tử chung. |
+| Q18 | **B** | Sets are unordered collections. | Set là tập hợp không có thứ tự cố định. |
+| Q19 | **C** | Difference keeps items exclusive to a. | Phép trừ giữ phần tử của a không có trong b. |
+| Q20 | **D** | A tuple stores the ordered coordinate pair. | Tuple lưu cặp tọa độ có thứ tự. |
 
-## 8. Kết nối bài tiếp theo
+## 8. Nối sang bài tiếp theo
 
 `List → Tuple và Set → Tập hợp/Jaccard`.
