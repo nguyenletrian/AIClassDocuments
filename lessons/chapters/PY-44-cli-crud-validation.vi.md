@@ -1,14 +1,8 @@
 # PY-44 — Ứng dụng CLI: CRUD, kiểm tra dữ liệu và thống kê hồ sơ
 
-*DRAFT · Bài tổng hợp dành cho sinh viên; cần kiểm tra code và môi trường cài đặt trước phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **CRUD** — tạo/đọc/sửa/xóa; **Validation** — xác minh dữ liệu.
-
 `Dictionary/Function → CRUD → CLI → File/CSV → Data App`
-
-Bài này hệ thống hóa kiến thức đã học thành các thao tác thực hành có đầu vào và đầu ra rõ ràng.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 ## 3. Hàm và cách sử dụng
 
-**Từ vựng trong mục:** **Function** — hàm; **Option** — tùy chọn.
-
 | Cú pháp | Mục đích và lựa chọn |
 |---|---|
 | `dict.get(id)` | Đọc bản ghi và trả mặc định nếu thiếu |
@@ -34,66 +26,46 @@ Bài này hệ thống hóa kiến thức đã học thành các thao tác thự
 
 ### 4.1. CRUD
 
-**Từ vựng trong mục:** **CRUD** — tạo/đọc/sửa/xóa.
-
-Bốn thao tác quản lý bản ghi. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Bốn thao tác quản lý bản ghi.
 
 ```python
 db={'S1':8}
 print(db)
 ```
 
-**Tự kiểm tra:** CRUD nghĩa là gì? **Đáp án:** Bốn thao tác quản lý bản ghi.
-
 ### 4.2. Validation
 
-**Từ vựng trong mục:** **Validation** — xác minh dữ liệu.
-
-Đảm bảo giá trị đúng giới hạn. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Đảm bảo giá trị đúng giới hạn.
 
 ```python
 print(0<=8<=10)
 ```
 
-**Tự kiểm tra:** Validation nghĩa là gì? **Đáp án:** Đảm bảo giá trị đúng giới hạn.
-
 ### 4.3. Lookup
 
-**Từ vựng trong mục:** **Lookup** — tra cứu.
-
-Tìm bản ghi qua khóa. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Tìm bản ghi qua khóa.
 
 ```python
 print({'S1':8}.get('S1'))
 ```
 
-**Tự kiểm tra:** Lookup nghĩa là gì? **Đáp án:** Tìm bản ghi qua khóa.
-
 ### 4.4. Aggregate
 
-**Từ vựng trong mục:** **Aggregate** — tổng hợp.
-
-Tính chỉ số từ nhiều hồ sơ. Dưới đây là thao tác tối giản trước khi kết hợp vào bài toán lớn hơn.
+Tính chỉ số từ nhiều hồ sơ.
 
 ```python
 print(sum([7,8,9])/3)
 ```
 
-**Tự kiểm tra:** Aggregate nghĩa là gì? **Đáp án:** Tính chỉ số từ nhiều hồ sơ.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Thêm sinh viên
 
-**Từ vựng trong mục:** **CRUD** — tạo/đọc/sửa/xóa.
-
 **Bài toán:** Thêm sinh viên.
 
-**Vì sao chọn cách này?** Kiểm mã trùng trước khi thêm để không ghi đè; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Kiểm mã trùng trước khi thêm để không ghi đè
 
-**Dữ liệu:** Một hồ sơ S1 mới, điểm 8/10. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Một hồ sơ S1 mới, điểm 8/10.
 
 ```python
 db={}
@@ -103,38 +75,26 @@ if student_id not in db and 0<=score<=10:
 print(db)
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 2 — Tra cứu bằng mã
-
-**Từ vựng trong mục:** **Validation** — xác minh dữ liệu.
 
 **Bài toán:** Tra cứu bằng mã.
 
-**Vì sao chọn cách này?** Dictionary truy xuất bằng khóa không cần biết thứ tự bản ghi; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Dictionary truy xuất bằng khóa không cần biết thứ tự bản ghi
 
-**Dữ liệu:** Hai sinh viên mã S1 S2. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Hai sinh viên mã S1 S2.
 
 ```python
 db={"S1":{"score":8},"S2":{"score":9}}
 print(db.get("S3","Not found"))
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 3 — Cập nhật điểm
-
-**Từ vựng trong mục:** **Lookup** — tra cứu.
 
 **Bài toán:** Cập nhật điểm.
 
-**Vì sao chọn cách này?** Ràng buộc 0–10 trước khi thay giá trị; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** Ràng buộc 0–10 trước khi thay giá trị
 
-**Dữ liệu:** SV S1 có điểm 7 sửa thành 9. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** SV S1 có điểm 7 sửa thành 9.
 
 ```python
 db={"S1":{"score":7}};new_score=9
@@ -142,53 +102,37 @@ if 0<=new_score<=10:db["S1"]["score"]=new_score
 print(db)
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 4 — Xóa bản ghi
-
-**Từ vựng trong mục:** **Aggregate** — tổng hợp.
 
 **Bài toán:** Xóa bản ghi.
 
-**Vì sao chọn cách này?** pop với giá trị mặc định tránh KeyError; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** pop với giá trị mặc định tránh KeyError
 
-**Dữ liệu:** Mã S2 chưa tồn tại. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Mã S2 chưa tồn tại.
 
 ```python
 db={"S1":{"score":8}}
 print(db.pop("S2",None))
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ### Tình huống 5 — Báo cáo điểm lớp
-
-**Từ vựng trong mục:** **CRUD** — tạo/đọc/sửa/xóa.
 
 **Bài toán:** Báo cáo điểm lớp.
 
-**Vì sao chọn cách này?** mean tính trung bình và max xác định điểm cao; giải pháp phải khớp đúng bối cảnh và phạm vi dữ liệu.
+**Vì sao chọn cách này?** mean tính trung bình và max xác định điểm cao
 
-**Dữ liệu:** Điểm 7,8,9 trên thang 10. Đây là tình huống học tập giả lập hoặc nguồn mẫu được nêu trong code.
-
-**Quy trình:** Hiểu dữ liệu → chọn lệnh/hàm → thực hiện → kiểm chứng kết quả → ghi hạn chế.
+**Dữ liệu:** Điểm 7,8,9 trên thang 10.
 
 ```python
 scores=[7,8,9]
 print({"mean":sum(scores)/len(scores),"max":max(scores)})
 ```
 
-**Kiểm tra:** Đọc kết quả, các lỗi/trường hợp biên và cân nhắc trước khi dùng vào dự án thật.
-
 ## 6. Nhầm lẫn cần tránh
 
 Đừng sao chép lệnh khi chưa hiểu dữ liệu hoặc trạng thái môi trường; kết quả thử nghiệm không chứng minh rằng mọi máy và mọi bộ dữ liệu đều giống nhau.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer key** — bảng đáp án.
 
 
 **Q1. What is CRUD? — Thuật ngữ CRUD là gì?**
@@ -434,7 +378,3 @@ D. No evidence — Không cần bằng chứng
 | Q18 | **A** | Điểm 7,8,9 trên thang 10 | Điểm 7,8,9 trên thang 10 |
 | Q19 | **D** | Understand source, parameters and permissions | Hiểu nguồn, tham số và quyền hạn |
 | Q20 | **C** | Observed output, failures and limits | Đầu ra thật, lỗi và giới hạn |
-
-## 8. Nối sang bài tiếp
-
-`Dictionary/Function → CRUD → CLI → File/CSV → Data App`.
