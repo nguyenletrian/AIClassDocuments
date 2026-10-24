@@ -289,6 +289,7 @@ C. A mapping from hashable keys to values — Ánh xạ từ khóa có thể bă
 
 D. A sequence with numeric positions only — Dãy chỉ truy cập bằng vị trí số
 
+
 **Q2. What does a dictionary key do? — Khóa Dictionary có vai trò gì?**
 
 A. Specifies the dictionary's length — Xác định độ dài Dictionary
@@ -298,6 +299,7 @@ B. Stores all keys as values — Lưu mọi khóa thành giá trị
 C. Sorts the stored values — Sắp xếp các giá trị đã lưu
 
 D. Identifies an entry for lookup — Xác định mục để tra cứu
+
 
 **Q3. What is a dictionary value? — Giá trị Dictionary là gì?**
 
@@ -309,6 +311,7 @@ C. Always a second dictionary — Luôn là Dictionary thứ hai
 
 D. A name used only in a `for` loop — Tên chỉ dùng trong vòng `for`
 
+
 **Q4. What is a nested dictionary? — Dictionary lồng nhau là gì?**
 
 A. A dictionary stored inside another dictionary — Dictionary được lưu trong Dictionary khác
@@ -318,6 +321,7 @@ B. A list nested inside a set — List lồng trong Set
 C. A set of duplicate keys — Set gồm khóa trùng
 
 D. A dictionary with only numeric keys — Dictionary chỉ có khóa số
+
 
 **Q5. What does `d['x']` do when x exists? — `d['x']` làm gì khi khóa x tồn tại?**
 
@@ -329,6 +333,7 @@ C. Returns `'x'` as a string — Trả chuỗi `'x'`
 
 D. Deletes the entry for `'x'` — Xóa mục có khóa `'x'`
 
+
 **Q6. What does `d.get('x')` return if x is absent? — `d.get('x')` trả về gì nếu thiếu khóa x?**
 
 A. `KeyError` — `KeyError`
@@ -338,6 +343,7 @@ B. `None` by default — Mặc định là `None`
 C. The empty dictionary `{}` — Dictionary rỗng `{}`
 
 D. The string `'x'` — Chuỗi `'x'`
+
 
 **Q7. What does `d.get('x', 0)` return if x is absent? — `d.get('x', 0)` trả về gì nếu thiếu x?**
 
@@ -349,6 +355,7 @@ C. The string `'0'` — Chuỗi `'0'`
 
 D. `None` — `None`
 
+
 **Q8. What does `d['missing']` raise? — `d['missing']` phát sinh gì khi thiếu khóa?**
 
 A. `0` — `0`
@@ -358,6 +365,7 @@ B. An empty list — List rỗng
 C. `KeyError` — `KeyError`
 
 D. `None` — `None`
+
 
 **Q9. What does `d.items()` provide? — `d.items()` cung cấp gì?**
 
@@ -369,6 +377,7 @@ C. Only a view of values — Chỉ view các giá trị
 
 D. Only a view of keys — Chỉ view các khóa
 
+
 **Q10. What does `d.keys()` provide? — `d.keys()` cung cấp gì?**
 
 A. A view of values — View các giá trị
@@ -378,6 +387,7 @@ B. A list of keys sorted automatically — List khóa tự sắp
 C. A view of pairs — View các cặp khóa–giá trị
 
 D. A view of dictionary keys — View của các khóa Dictionary
+
 
 **Q11. What does `d.values()` provide? — `d.values()` cung cấp gì?**
 
@@ -389,6 +399,7 @@ C. A view of keys — View các khóa
 
 D. A view of key-value pairs — View các cặp khóa–giá trị
 
+
 **Q12. What does `d.pop('x', None)` do if x is present? — `d.pop('x', None)` làm gì nếu x tồn tại?**
 
 A. Returns the value without deletion — Trả giá trị nhưng không xóa
@@ -398,6 +409,7 @@ B. Removes the key but always returns `None` — Xóa khóa nhưng luôn trả `
 C. Deletes every dictionary entry — Xóa mọi mục Dictionary
 
 D. Removes `'x'` and returns its former value — Xóa `'x'` và trả giá trị cũ
+
 
 **Q13. What does `d['x'] = 5` do if x already exists? — `d['x'] = 5` làm gì khi x đã tồn tại?**
 
@@ -409,6 +421,7 @@ C. Deletes the key `'x'` — Xóa khóa `'x'`
 
 D. Tests whether `'x'` exists — Kiểm tra `'x'` tồn tại không
 
+
 **Q14. What does `d['new'] = 5` do if new is absent? — `d['new'] = 5` làm gì khi khóa new chưa có?**
 
 A. Deletes an absent key — Xóa một khóa không tồn tại
@@ -418,6 +431,7 @@ B. Returns the total dictionary length — Trả tổng độ dài Dictionary
 C. Replaces an unrelated existing key — Thay một khóa cũ không liên quan
 
 D. Inserts a new key-value entry — Thêm một mục khóa–giá trị mới
+
 
 **Q15. What does `del d['x']` do for an existing key? — `del d['x']` làm gì với khóa đang tồn tại?**
 
@@ -429,6 +443,7 @@ C. Leaves the entry intact and returns its value — Giữ nguyên mục và tr�
 
 D. Replaces its value with `None` — Thay giá trị bằng `None`
 
+
 **Q16. What does `'x' in d` test? — `'x' in d` kiểm tra gì?**
 
 A. Whether `'x'` is a numeric index — `'x'` có phải chỉ số số hay không
@@ -438,6 +453,7 @@ B. Whether any key maps to `'x'` — Có khóa nào ánh xạ tới `'x'` không
 C. Whether `'x'` is a dictionary key — `'x'` có là khóa Dictionary không
 
 D. Whether `'x'` appears in values only — `'x'` có nằm trong các giá trị hay không
+
 
 **Q17. May a List be a normal dictionary key? — Có thể dùng List làm khóa Dictionary thông thường không?**
 
@@ -449,6 +465,7 @@ C. No, lists are unhashable — Không, List không thể băm
 
 D. Yes, every list is hashable — Có, mọi List đều có thể băm
 
+
 **Q18. Can a tuple of integers be a dictionary key? — Tuple chứa số nguyên có thể làm khóa Dictionary không?**
 
 A. No, all tuples are unhashable — Không, mọi Tuple đều không thể băm
@@ -458,6 +475,7 @@ B. Yes, a tuple of integers is hashable — Có, Tuple chứa số nguyên có t
 C. Only if the tuple has one element — Chỉ nếu Tuple có một phần tử
 
 D. Only if the tuple is empty — Chỉ nếu Tuple rỗng
+
 
 **Q19. How do you access the score in `d['A']` when it is a nested dictionary? — Lấy điểm trong Dictionary con `d['A']` thế nào?**
 
@@ -469,15 +487,16 @@ C. `d.get('A', 'score')` — `d.get('A', 'score')`
 
 D. `d['A']['score']` — `d['A']['score']`
 
+
 **Q20. What must be unique within one dictionary? — Điều gì phải duy nhất trong một Dictionary?**
 
 A. Dictionary values — Các giá trị Dictionary
 
 B. Both all keys and all values must be unique — Cả khóa và giá trị đều phải duy nhất
 
-C. Neither keys nor values must be unique — Cả khóa lẫn giá trị đều không cần duy nhất
+C. Dictionary keys — Các khóa Dictionary
 
-D. Dictionary keys — Các khóa Dictionary
+D. Neither keys nor values must be unique — Cả khóa lẫn giá trị đều không cần duy nhất
 
 ### Answer key — Đáp án song ngữ
 
