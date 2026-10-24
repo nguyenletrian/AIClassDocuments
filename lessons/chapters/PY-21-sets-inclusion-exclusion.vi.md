@@ -1,10 +1,6 @@
 # PY-21 — Tập hợp, bao hàm–loại trừ và phân hoạch
 
-*DRAFT · Dữ liệu giả lập · Cần kiểm chứng code trước khi phát hành*
-
 ## 1. Vị trí trong chuỗi kiến thức
-
-**Từ vựng trong mục:** **Union** — phép hợp; **Intersection** — phép giao.
 
 `Set → hợp/giao/hiệu → bao hàm–loại trừ → train/test`
 
@@ -21,8 +17,6 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 
 ## 3. Hàm Python và tham số
 
-**Từ vựng trong mục:** **Function** — hàm; **Parameter** — tham số.
-
 | Hàm / cú pháp | Vì sao dùng |
 |---|---|
 | `a | b, a & b` | Hợp và giao các tập hợp |
@@ -34,8 +28,6 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 
 ### 4.1. Union
 
-**Từ vựng trong mục:** **Union** — phép hợp.
-
 Lấy tất cả phần tử thuộc ít nhất một tập. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
@@ -45,8 +37,6 @@ print({1,2}|{2,3})
 **Tự kiểm tra nhanh:** Union là gì? **Đáp án:** Lấy tất cả phần tử thuộc ít nhất một tập.
 
 ### 4.2. Intersection
-
-**Từ vựng trong mục:** **Intersection** — phép giao.
 
 Lấy phần tử có trong cả hai tập. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
@@ -58,8 +48,6 @@ print({1,2}&{2,3})
 
 ### 4.3. Inclusion–exclusion
 
-**Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ.
-
 Cộng từng tập rồi trừ phần giao bị đếm hai lần. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
@@ -70,8 +58,6 @@ print(len(a)+len(b)-len(a&b))
 **Tự kiểm tra nhanh:** Inclusion–exclusion là gì? **Đáp án:** Cộng từng tập rồi trừ phần giao bị đếm hai lần.
 
 ### 4.4. Partition
-
-**Từ vựng trong mục:** **Partition** — phân hoạch.
 
 Chia thành các nhóm rời nhau phủ đủ tập gốc. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
@@ -86,26 +72,18 @@ print(train.isdisjoint(test))
 
 ### Tình huống 1 — Đếm người học ít nhất một môn
 
-**Từ vựng trong mục:** **Union** — phép hợp.
-
 **Vấn đề:** Đếm người học ít nhất một môn.
 
 **Vì sao chọn phương án này?** Phép hợp tránh đếm người học cả hai môn hai lần. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 **Dữ liệu:** Nhóm học Python và AI. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 a={"SV1","SV2","SV3"};b={"SV2","SV4"}
 print(len(a|b))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 2 — Người học cả hai môn
-
-**Từ vựng trong mục:** **Intersection** — phép giao.
 
 **Vấn đề:** Người học cả hai môn.
 
@@ -113,18 +91,12 @@ print(len(a|b))
 
 **Dữ liệu:** Nhóm sinh viên hai môn. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 a={"SV1","SV2"};b={"SV2","SV3"}
 print(a&b)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 3 — Kiểm công thức đếm
-
-**Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ.
 
 **Vấn đề:** Kiểm công thức đếm.
 
@@ -132,18 +104,12 @@ print(a&b)
 
 **Dữ liệu:** Hai tập ID có giao. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 a={1,2,3};b={3,4}
 print(len(a)+len(b)-len(a&b),len(a|b))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 4 — Chia tập train/test
-
-**Từ vựng trong mục:** **Partition** — phân hoạch.
 
 **Vấn đề:** Chia tập train/test.
 
@@ -151,19 +117,13 @@ print(len(a)+len(b)-len(a&b),len(a|b))
 
 **Dữ liệu:** train={1,2,3}, test={4,5}. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 train={1,2,3};test={4,5}
 assert train.isdisjoint(test)
 print(train|test)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
-
 ### Tình huống 5 — Tìm sở thích riêng
-
-**Từ vựng trong mục:** **Union** — phép hợp.
 
 **Vấn đề:** Tìm sở thích riêng.
 
@@ -171,22 +131,16 @@ print(train|test)
 
 **Dữ liệu:** Hai nhóm Web và AI. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể.
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
-
 ```python
 web={"An","Binh"};ai={"Binh","Lan"}
 print(web^ai)
 ```
-
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
 
 ## 6. Các lỗi dễ mắc
 
 Cần phân biệt khi nào thứ tự quan trọng, khi nào phần tử trùng được tính lại, và khi nào dữ liệu thật không có đủ điều kiện như ví dụ. Xem kỹ kiểu dữ liệu và đầu vào trống.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What best describes Union? — Mô tả nào đúng với Union?**
@@ -432,7 +386,3 @@ D. Ignore edge cases — Bỏ qua trường hợp biên
 | Q18 | **A** | The data are Hai nhóm Web và AI | Hai nhóm Web và AI |
 | Q19 | **D** | Meaning of rows, columns and units | Ý nghĩa hàng, cột và đơn vị |
 | Q20 | **C** | Check the result and limitations | Kiểm tra kết quả và giới hạn |
-
-## 8. Nối sang bài tiếp
-
-`Set → hợp/giao/hiệu → bao hàm–loại trừ → train/test`.
