@@ -32,11 +32,13 @@ Sau khi biết dùng biến và kiểu dữ liệu, ta học các phép tính v�
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Arithmetic
+**Toán tử (operator)** là dấu hoặc từ khóa thực hiện một thao tác trên dữ liệu. Với một đơn hàng, ta dùng toán tử số học để tính tiền, so sánh để kiểm tra ngưỡng, rồi dùng logic để ghép điều kiện. Toán tử bit cũng dùng ký hiệu nhưng xử lý các chữ số nhị phân thay vì điều kiện thông thường.
 
-**Từ vựng trong mục:** **Arithmetic** — số học.
+### 4.1. Arithmetic — Toán tử số học
 
-Toán tử số học dùng để tính cộng `+`, trừ `-`, nhân `*`, chia `/`. Ví dụ `5 * 3` cho kết quả `15`. Python còn có `//` để chia lấy phần nguyên và `%` để lấy phần dư.
+**Từ vựng trong mục:** **Arithmetic** — số học; **Multiplication** — phép nhân.
+
+Số học giúp tính từ các dữ liệu có sẵn: `+` cộng, `-` trừ, `*` nhân, `/` chia. Ví dụ cửa hàng bán 5 món, mỗi món 3 nghìn đồng: lấy số lượng nhân đơn giá để được tổng 15 nghìn đồng. Python còn có `//` chia lấy phần nguyên và `%` lấy phần dư khi chia thùng hoặc chia nhóm.
 
 ```python
 print(5 * 3)
@@ -48,12 +50,13 @@ print(5 * 3)
 15
 ```
 
+Giá trị `15` là tổng tiền theo đơn vị nghìn đồng của ví dụ.
 
-### 4.2. Comparison
+### 4.2. Comparison — Toán tử so sánh
 
-**Từ vựng trong mục:** **Comparison** — so sánh.
+**Từ vựng trong mục:** **Comparison** — so sánh; **Boolean** — đúng/sai.
 
-Toán tử so sánh kiểm tra hai giá trị bằng nhau, khác nhau, lớn hơn hay nhỏ hơn. Ví dụ, `8 >= 5` trả về `True` vì 8 lớn hơn 5. Dùng `==` để so sánh bằng nhau, khác với `=` để gán giá trị.
+So sánh trả lời một câu hỏi bằng `True` hoặc `False`. Nếu kho có 8 món và đơn hàng cần 5 món, điều kiện `8 >= 5` kiểm tra đủ hàng để giao không. Các dấu `>`, `<`, `>=`, `<=`, `==`, `!=` biểu diễn lớn hơn, nhỏ hơn, bằng hoặc khác nhau. Phân biệt `==` để kiểm tra với `=` để gán.
 
 ```python
 print(8 >= 5)
@@ -65,12 +68,13 @@ print(8 >= 5)
 True
 ```
 
+Kho có ít nhất 5 món nên điều kiện đủ hàng là đúng.
 
-### 4.3. Logical
+### 4.3. Logical — Toán tử logic
 
-**Từ vựng trong mục:** **Logical** — logic.
+**Từ vựng trong mục:** **Logical** — logic; **AND** — và; **OR** — hoặc.
 
-Toán tử logic nối các điều kiện đúng/sai: `and` cần cả hai đúng, `or` chỉ cần ít nhất một điều kiện đúng, còn `not` đảo ngược kết quả. `True and False` trả về `False`.
+Sau khi có các điều kiện đúng/sai, `and` yêu cầu mọi điều kiện cùng đúng; `or` chỉ cần một điều kiện đúng; `not` đảo trạng thái. Ví dụ người dùng đã đăng nhập (`True`) nhưng chưa xác minh (`False`): nếu hệ thống bắt buộc cả hai thì `and` trả về `False`.
 
 ```python
 print(True and False)
@@ -82,12 +86,13 @@ print(True and False)
 False
 ```
 
+Một trong hai điều kiện chưa đạt, nên không thỏa yêu cầu `and`.
 
-### 4.4. Bitwise
+### 4.4. Bitwise — Toán tử theo bit
 
-**Từ vựng trong mục:** **Bitwise** — thao tác bit.
+**Từ vựng trong mục:** **Bitwise** — theo bit; **Binary** — nhị phân.
 
-Bit là một chữ số nhị phân, chỉ có thể là `0` hoặc `1`. Phép `&` chỉ giữ bit bằng 1 ở cả hai số: `5` (`0101`) và `3` (`0011`) cho kết quả `1` (`0001`). Đây là phép xử lý bit, khác với toán tử logic `and`.
+Máy tính biểu diễn số nguyên bằng các bit `0` và `1`. Toán tử `&` so từng vị trí bit và chỉ giữ `1` khi hai phía cùng có `1`. Số 5 là `0101`, số 3 là `0011`; phần chung chỉ còn `0001`, tương ứng số 1. Đây là phép xử lý số nguyên theo bit, **khác** `and` dùng để nối điều kiện logic.
 
 ```python
 print(5 & 3)
@@ -99,7 +104,7 @@ print(5 & 3)
 1
 ```
 
-
+Số `1` là kết quả phép AND theo bit giữa 5 và 3.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tính ưu đãi
