@@ -29,7 +29,7 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 | `len(a | b)` | Đếm phần tử khác nhau |
 | `a.isdisjoint(b)` | Kiểm tra hai nhóm có trùng phần tử không |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. Union
 
@@ -41,7 +41,11 @@ Lấy tất cả phần tử thuộc ít nhất một tập. Đọc khái niệm
 print({1,2}|{2,3})
 ```
 
-**Tự kiểm tra nhanh:** Union là gì? **Đáp án:** Lấy tất cả phần tử thuộc ít nhất một tập.
+**Kết quả khi chạy:**
+
+```text
+{1, 2, 3}
+```
 
 ### 4.2. Intersection
 
@@ -53,7 +57,11 @@ Lấy phần tử có trong cả hai tập. Đọc khái niệm trước rồi k
 print({1,2}&{2,3})
 ```
 
-**Tự kiểm tra nhanh:** Intersection là gì? **Đáp án:** Lấy phần tử có trong cả hai tập.
+**Kết quả khi chạy:**
+
+```text
+{2}
+```
 
 ### 4.3. Inclusion–exclusion
 
@@ -62,11 +70,16 @@ print({1,2}&{2,3})
 Cộng từng tập rồi trừ phần giao bị đếm hai lần. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
-a={1,2};b={2,3}
+a={1,2}
+b={2,3}
 print(len(a)+len(b)-len(a&b))
 ```
 
-**Tự kiểm tra nhanh:** Inclusion–exclusion là gì? **Đáp án:** Cộng từng tập rồi trừ phần giao bị đếm hai lần.
+**Kết quả khi chạy:**
+
+```text
+3
+```
 
 ### 4.4. Partition
 
@@ -75,11 +88,16 @@ print(len(a)+len(b)-len(a&b))
 Chia thành các nhóm rời nhau phủ đủ tập gốc. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
-train={1,2};test={3}
+train={1,2}
+test={3}
 print(train.isdisjoint(test))
 ```
 
-**Tự kiểm tra nhanh:** Partition là gì? **Đáp án:** Chia thành các nhóm rời nhau phủ đủ tập gốc.
+**Kết quả khi chạy:**
+
+```text
+True
+```
 
 ## 5. Năm vấn đề thực tế
 
@@ -95,11 +113,16 @@ print(train.isdisjoint(test))
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
 ```python
-a={"SV1","SV2","SV3"};b={"SV2","SV4"}
+a={"SV1","SV2","SV3"}
+b={"SV2","SV4"}
 print(len(a|b))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+4
+```
 
 ### Tình huống 2 — Người học cả hai môn
 
@@ -113,11 +136,16 @@ print(len(a|b))
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
 ```python
-a={"SV1","SV2"};b={"SV2","SV3"}
+a={"SV1","SV2"}
+b={"SV2","SV3"}
 print(a&b)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+{'SV2'}
+```
 
 ### Tình huống 3 — Kiểm công thức đếm
 
@@ -131,11 +159,16 @@ print(a&b)
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
 ```python
-a={1,2,3};b={3,4}
+a={1,2,3}
+b={3,4}
 print(len(a)+len(b)-len(a&b),len(a|b))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+4 4
+```
 
 ### Tình huống 4 — Chia tập train/test
 
@@ -149,12 +182,17 @@ print(len(a)+len(b)-len(a&b),len(a|b))
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
 ```python
-train={1,2,3};test={4,5}
+train={1,2,3}
+test={4,5}
 assert train.isdisjoint(test)
 print(train|test)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+{1, 2, 3, 4, 5}
+```
 
 ### Tình huống 5 — Tìm sở thích riêng
 
@@ -168,11 +206,16 @@ print(train|test)
 **Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
 
 ```python
-web={"An","Binh"};ai={"Binh","Lan"}
+web={"An","Binh"}
+ai={"Binh","Lan"}
 print(web^ai)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+{'An', 'Lan'}
+```
 
 ## 6. Các lỗi dễ mắc
 
