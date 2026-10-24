@@ -50,80 +50,63 @@ NumPy Array → Vector → Matrix
 | **Fit / Transform** | Học quy tắc từ dữ liệu / áp dụng quy tắc đó | `fit()`, `transform()` |
 | **Data Leakage** | Dữ liệu kiểm tra bị dùng để học trước | Tránh bằng `Pipeline` |
 
-## 3. Thư viện và hàm Python cần biết trước khi học PCA
+## 3. Thư viện và hàm Python cần biết trước khi học PCA (phân tích thành phần chính)
 
-Cài đặt một lần:
+Cài thư viện:
 
 ```bash
 python -m pip install numpy scikit-learn matplotlib
 ```
 
-### 3.1. NumPy: biểu diễn và kiểm tra dữ liệu
+Các tham số viết dạng `tên=giá_trị` (*keyword arguments — đối số đặt tên*) được giải thích **cùng hàm mà chúng điều khiển**. Khi đến ví dụ, ta chỉ chú thích dữ liệu và **lý do thực hiện từng bước**, tránh giải nghĩa đi giải nghĩa lại mỗi tham số trong code.
 
-| Hàm / thuộc tính | Khi nào dùng | Ví dụ |
+### 3.1. NumPy — tạo, kiểm tra và tính trên dữ liệu
+
+| Hàm / cách viết | Công dụng và ý nghĩa tham số | Khi nào cần |
 |---|---|---|
-| `np.array()` | Chuyển dữ liệu thành matrix số | `X = np.array([[2, 3], [4, 5]])` |
-| `X.shape` | Kiểm tra số mẫu, số feature | `(2, 2)` |
-| `X.mean(axis=0)` | Tính trung bình từng feature | `[3., 4.]` |
-| `np.var(X, axis=0)` | Đo mức độ phân tán từng feature | `[1., 1.]` |
-| `np.cov(X, rowvar=False)` | Kiểm tra các cột cùng biến thiên | Matrix hiệp phương sai |
-| `np.linalg.eigh(C)` | Đọc eigenvalue/eigenvector của matrix đối xứng `C` | Phân tích hướng biến thiên |
+| `np.array(data, dtype=float)` | Chuyển dữ liệu thành mảng; `dtype=float` chọn **kiểu số thực**, hỗ trợ giá trị thập phân. Nếu bỏ, NumPy có thể suy ra kiểu nguyên từ dữ liệu nguyên. | Tạo dữ liệu số để tiếp tục tính toán; **không tự chuẩn hóa** |
+| `X.shape` | Trả về `(số hàng, số cột)` đối với matrix (ma trận) hai chiều. | Kiểm tra số đối tượng và số feature (đặc trưng) |
+| `np.vstack(vectors)` | Ghép các vector (véc-tơ) **theo chiều hàng** thành matrix (ma trận). | Từ nhiều đối tượng → một bảng |
+| `X.mean(axis=0)` | `axis=0`: gom các hàng, tính một giá trị trung bình cho **mỗi cột**. Nếu `axis=1` thì tính cho từng hàng. | Tính mean (trung bình) từng feature (đặc trưng) |
+| `X.var(axis=0)` | `axis=0`: tính variance (phương sai) cho từng cột. | Xem độ phân tán của từng feature (đặc trưng) |
+| `np.cov(X, rowvar=False)` | `rowvar=False`: xem **mỗi cột là một biến**, mỗi hàng là một mẫu. Mặc định `rowvar=True` hiểu hàng là biến. | Lập matrix (ma trận) covariance (hiệp phương sai) |
+| `np.corrcoef(X, rowvar=False)` | Tương tự `rowvar=False`, tính correlation (tương quan) giữa các cột. | Kiểm tra hai kênh có xu hướng biến thiên cùng nhau |
+| `np.linalg.eigh(C)` | Lấy eigenvalues (giá trị riêng) và eigenvectors (vector riêng) của matrix (ma trận) đối xứng như covariance (hiệp phương sai). | Hiểu hướng biến thiên của dữ liệu |
+| `np.round(values, 2)` | Làm tròn đến hai chữ số thập phân để dễ đọc. | Hiển thị kết quả, không thay đổi dữ liệu gốc nếu chỉ in |
 
-Ví dụ ngắn:
+**Ví dụ nhỏ — hai khách hàng, hai feature (đặc trưng):**
 
 ```python
 import numpy as np
 
-# Dữ liệu minh họa của 2 khách hàng.
-# Mỗi hàng = một khách; cột 0 = lượt ghé, cột 1 = số đơn.
-# dtype=float: giữ các số dưới dạng float (số thực), thuận tiện cho phép tính.
-X = np.array([[2, 3], [4, 5]], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+# Mỗi HÀNG = một khách; CỘT 0 = lượt ghé (lượt), CỘT 1 = đơn (đơn).
+X = np.array([[2, 3], [4, 5]], dtype=float)
 
-# Từ 2 vector của khách, có 1 ma trận 2 hàng × 2 feature.
+# Kiểm tra cấu trúc trước, rồi tính mean (trung bình) theo từng cột.
 print("Samples x Features:", X.shape)  # (2, 2)
-# axis=0: gộp giá trị các hàng và tính trung bình riêng từng CỘT.
 print("Mean per feature:", X.mean(axis=0))  # [3. 4.]
 ```
 
-### 3.2. scikit-learn: những lệnh sẽ dùng liên tục
+### 3.2. scikit-learn — chuẩn hóa, giảm chiều và ứng dụng AI
 
-| Hàm / thuộc tính | Vai trò |
-|---|---|
-| `StandardScaler()` | Đưa các feature khác đơn vị về thang đo so sánh được |
-| `scaler.fit_transform(X)` | Học trung bình/độ lệch chuẩn rồi chuẩn hóa `X` |
-| `scaler.transform(X_new)` | Chuẩn hóa dữ liệu mới theo **quy tắc đã học**, không học lại |
-| `PCA(n_components=2)` | Yêu cầu hai trục dữ liệu mới |
-| `PCA(n_components=0.95, svd_solver="full")` | Chọn ít trục nhất để giữ tối thiểu 95% phương sai trong tập đang fit |
-| `pca.fit_transform(X)` | Học trục PCA và chuyển dữ liệu sang hệ trục mới |
-| `pca.transform(X_new)` | Chiếu dữ liệu mới lên các trục PCA đã học |
-| `pca.components_` | Xem mỗi trục PC kết hợp các feature ban đầu ra sao |
-| `pca.explained_variance_ratio_` | Xem mỗi trục giữ bao nhiêu phần phương sai |
-| `Pipeline([...])` | Xử lý các bước theo đúng thứ tự, tránh học nhầm dữ liệu test |
-
-**Ghi nhớ `fit` khác `transform`:** `fit` tạo ra quy tắc từ tập dữ liệu; `transform` áp dụng đúng quy tắc đó cho dữ liệu khác. Khi có train/test, chỉ gọi `fit` trên **train**.
-
-### 3.3. Tham số trong dấu ngoặc — vì sao phải chọn giá trị?
-
-Trong Python, phần `tên=giá_trị` khi gọi hàm là **đối số đặt tên** (*keyword argument*). Ví dụ `dtype=float` yêu cầu NumPy lưu dữ liệu dưới dạng **số thực**, chứ không phải thực hiện phép tính PCA. Hãy luôn hỏi: *Tham số điều khiển điều gì, vì sao chọn giá trị đó và nếu đổi thì kết quả có thể khác gì?*
-
-| Đối số | Nghĩa đơn giản | Vì sao dùng trong bài? |
+| Hàm / cách viết | Công dụng và ý nghĩa tham số | Khi nào cần |
 |---|---|---|
-| `dtype=float` | Lưu mảng dưới dạng số thực, có thể chứa phần thập phân | Thuận tiện khi chuẩn hóa/tính tọa độ PCA; **không** tự chuẩn hóa |
-| `axis=0` | Với `X.mean`, gom các **hàng** và trả kết quả theo **từng cột** | Tính trung bình mỗi feature |
-| `rowvar=False` | Với `np.cov`/`np.corrcoef`, coi **các cột là biến** | Bảng khách hàng/sinh viên lưu mỗi hàng là một mẫu |
-| `n_components=2` | Lấy hai PC | Vẽ tọa độ trên mặt phẳng 2D |
-| `n_components=1` | Lấy một PC | Thử tóm tắt các kênh cảm biến |
-| `n_components=0.95` | Chọn số PC để giữ ít nhất 95% phương sai (với solver thích hợp) | Không phải đoán sẵn số cột |
-| `svd_solver="full"` | Dùng SVD đầy đủ | Hỗ trợ chọn số PC theo ngưỡng phương sai |
-| `random_state=42` | Cố định hạt giống ngẫu nhiên | Chạy lại dễ tái lập; số **42 không có ý nghĩa khoa học đặc biệt** |
-| `n_init=10` | KMeans thử 10 lần khởi tạo tâm cụm | Giảm phụ thuộc một lần khởi tạo |
-| `test_size=0.25` | Giữ 25% dữ liệu làm test | Có tập để kiểm tra mô hình |
-| `stratify=iris.target` | Chia tập theo tỷ lệ nhãn loài | Các loài có tỷ lệ gần giống nhau ở train/test |
-| `max_iter=1000` | Cho LogisticRegression tối đa 1000 lượt tối ưu | Tránh dừng quá sớm; không nhất thiết cần đủ 1000 |
-| `start=1` | `enumerate` đếm từ 1 thay vì 0 | Hiện SV1, SV2... |
-| `xytext=(4,4)` + `textcoords="offset points"` | Dịch chữ ghi chú khỏi dấu chấm trên biểu đồ | Giúp nhãn không chồng lên điểm |
+| `StandardScaler()` | Học mean (trung bình) và độ lệch chuẩn theo từng feature (đặc trưng), để đưa các cột về thang đo có thể so sánh. | Trước PCA (phân tích thành phần chính) khi các cột có đơn vị khác nhau |
+| `scaler.fit_transform(X)` | **Fit (học quy tắc)** từ `X` rồi **transform (biến đổi)** `X`. | Dữ liệu dùng để học cách chuẩn hóa |
+| `scaler.transform(X_new)` | Biến đổi mẫu mới theo quy tắc đã học, **không fit lại**. | Tránh rò rỉ dữ liệu test (kiểm tra) |
+| `PCA(n_components=2)` | `n_components=2` chọn **hai principal components (thành phần chính)** mới. Thay số 2 nếu muốn số chiều khác. | Trực quan hóa trên mặt phẳng |
+| `PCA(n_components=1)` | Chỉ giữ **một** thành phần chính. | Thử tóm tắt nhiều kênh đo |
+| `PCA(n_components=0.95, svd_solver="full")` | `0.95` nghĩa là giữ **tối thiểu 95% variance (phương sai)**; `svd_solver="full"` dùng phép phân rã đầy đủ, hỗ trợ chọn số PC theo ngưỡng. | Tự chọn số chiều đáp ứng ngưỡng |
+| `pca.fit_transform(X)` / `pca.transform(X_new)` | Học các trục PC và chuyển dữ liệu sang trục mới; mẫu mới chỉ cần `transform`. | Biểu diễn dữ liệu trên trục PCA đã học |
+| `pca.explained_variance_ratio_` | Tỷ lệ variance (phương sai) mỗi trục PC giữ lại. | Kiểm tra mức biến thiên sau giảm chiều |
+| `train_test_split(..., test_size=0.25, stratify=iris.target, random_state=42)` | Dùng **25% làm test (kiểm tra)**; `stratify` giữ tỷ lệ nhãn loài; `random_state=42` cố định ngẫu nhiên để tái lập (42 không đặc biệt). | Chia tập dữ liệu công bằng trước khi học |
+| `Pipeline([...])` | Ghép các bước xử lý liên tiếp; gọi `fit` trên train (huấn luyện) để tránh leakage (rò rỉ dữ liệu). | So sánh mô hình dự đoán có/không có PCA |
+| `KMeans(n_clusters=2, random_state=42, n_init=10)` | Thử chia **2 nhóm**; `random_state` giúp tái lập; `n_init=10` thử mười lần chọn tâm ban đầu. | **Phần mở rộng:** clustering (phân cụm) |
+| `LogisticRegression(max_iter=1000)` | Mô hình classification (phân loại); `max_iter` cho phép tối đa 1000 lượt tối ưu, không buộc chạy đủ 1000. | **Phần mở rộng:** dự đoán nhãn |
+| `enumerate(items, start=1)` | `start=1` đếm từ 1 thay vì 0. | Đặt nhãn SV1, SV2... |
+| `plt.annotate(..., xytext=(4,4), textcoords="offset points")` | Dời vị trí chữ chú thích tương đối 4 point theo hai hướng để không đè điểm vẽ. | Hiển thị biểu đồ rõ ràng |
 
-**Thử đọc một lệnh:** `X = np.array([[1,100],[2,200]], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.` tạo matrix **2 hàng × 2 cột**, kiểu số thực. Bạn có thể xem `X.dtype` để kiểm tra. Với mảng toàn số nguyên, bỏ `dtype=float` thường làm NumPy dùng kiểu số nguyên; khi cần lưu số thập phân phải chọn kiểu phù hợp.
+**Điểm cần nhớ:** Tên hàm và các tham số đã được giải thích ở đây. Trong code minh họa phía dưới, comment chỉ tập trung vào: **dữ liệu chứa gì, vì sao làm bước đó và kết quả cần kiểm tra gì**.
 
 ## 4. PCA và các khái niệm liên quan
 
@@ -162,7 +145,7 @@ Ta sẽ làm tuần tự: **(1)** tạo các vector của từng khách, **(2)**
 ```python
 import numpy as np
 
-# BƯỚC 1 — Mỗi khách hàng có một vector chứa 5 feature.
+# BƯỚC 1 — Mỗi khách hàng có một véc-tơ chứa 5 đặc trưng.
 # Thứ tự 5 cột: [lượt ghé, số đơn, chi tiêu (nghìn đồng),
 #               số phút xem hàng, số lượt quay lại].
 customer_1 = np.array([12, 4, 950, 18, 7])    # Khách 1
@@ -171,21 +154,19 @@ customer_3 = np.array([8, 2, 500, 10, 3])     # Khách 3
 customer_4 = np.array([21, 7, 1600, 26, 11])  # Khách 4
 customer_5 = np.array([6, 1, 220, 5, 1])      # Khách 5
 
-# BƯỚC 2 — Ghép 5 vector theo chiều hàng bằng np.vstack().
-# Mỗi vector trở thành một hàng; không thay đổi thứ tự feature.
+# BƯỚC 2 — Ghép 5 véc-tơ theo chiều hàng bằng np.vstack().
+# Mỗi véc-tơ trở thành một hàng; không thay đổi thứ tự đặc trưng.
 customer_vectors = [
     customer_1, customer_2, customer_3, customer_4, customer_5
 ]
-# np.vstack xếp các vector theo chiều DỌC: 5 vector thành 5 hàng.
 X = np.vstack(customer_vectors)
 
 # BƯỚC 3 — Đọc một hàng và một cột để hiểu cấu trúc dữ liệu.
 print("Khách hàng đầu tiên:", X[0])  # 5 feature của khách 1
 print("Chi tiêu 5 khách:", X[:, 2])  # [950 1200 500 1600 220]
 
-# BƯỚC 4 — Số hàng × số cột = số khách × số feature.
+# BƯỚC 4 — Số hàng × số cột = số khách × số đặc trưng.
 print("Số vector:", len(customer_vectors))  # 5
-# shape=(hàng, cột): (5,5) là 5 khách với 5 đặc trưng mỗi khách.
 print("Shape:", X.shape)  # (5, 5)
 ```
 
@@ -216,14 +197,14 @@ print("Shape:", X.shape)  # (5, 5)
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
-# BƯỚC 1 — Lập bảng 3 khách hàng giả lập từ 3 vector.
+# BƯỚC 1 — Lập bảng 3 khách hàng giả lập từ 3 véc-tơ.
 # Mỗi hàng = 1 khách: K1, K2, K3.
 # Cột 0 = Orders (đơn); cột 1 = Spending (nghìn đồng).
 X = np.array([
     [1, 100],  # K1: 1 đơn, 100 nghìn đồng
     [2, 200],  # K2: 2 đơn, 200 nghìn đồng
     [3, 300],  # K3: 3 đơn, 300 nghìn đồng
-], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+], dtype=float)
 
 # BƯỚC 2 — axis=0 tính mean/variance theo từng cột cho mọi khách.
 print("Mean:", X.mean(axis=0))  # [  2. 200.]
@@ -266,20 +247,17 @@ import numpy as np
 
 # BƯỚC 1 — Ba khách giả lập, mỗi hàng tương ứng một khách.
 # Cột 0 = lượt ghé cửa hàng (lượt), cột 1 = số đơn (đơn).
-# Hai cột tăng cùng nhau trong ví dụ để quan sát covariance.
+# Hai cột tăng cùng nhau trong ví dụ để quan sát hiệp phương sai.
 X = np.array([
     [1, 1],  # K1: 1 lượt, 1 đơn
     [2, 2],  # K2: 2 lượt, 2 đơn
     [3, 3],  # K3: 3 lượt, 3 đơn
-], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+], dtype=float)
 
-# BƯỚC 2 — rowvar=False: mỗi cột là một feature, mỗi hàng là một khách.
-# rowvar=False: mỗi CỘT là một feature, không xem mỗi khách là biến.
 covariance = np.cov(X, rowvar=False)
 
-# BƯỚC 3 — Covariance là ma trận đối xứng nên dùng eigh.
-# Kết quả gồm eigenvalue (độ biến thiên) và eigenvector (hướng).
-# eigh dùng cho ma trận đối xứng như covariance (khác eig tổng quát).
+# BƯỚC 3 — hiệp phương sai là ma trận đối xứng nên dùng eigh.
+# eigh dùng cho ma trận đối xứng như hiệp phương sai (khác eig tổng quát).
 eigenvalues, eigenvectors = np.linalg.eigh(covariance)
 
 print("Covariance:", covariance)
@@ -309,7 +287,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
 # BƯỚC 1 — 8 hồ sơ sinh viên giả lập: mỗi HÀNG là 1 sinh viên (SV1..SV8).
-# Mỗi vector/hàng chứa 5 FEATURE theo thứ tự các CỘT:
+# Mỗi véc-tơ/hàng chứa 5 đặc trưng theo thứ tự các CỘT:
 # 0 = điểm Toán (0-100); 1 = điểm Vật lý (0-100);
 # 2 = điểm Tiếng Anh (0-100); 3 = giờ tự học (giờ/tuần);
 # 4 = chuyên cần (phần trăm, 0-100).
@@ -322,16 +300,14 @@ X = np.array([
     [88, 87, 89, 20, 90],  # SV6
     [40, 45, 50, 10, 70],  # SV7
     [75, 73, 76, 15, 85],  # SV8
-], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+], dtype=float)
 print("Số sinh viên × số feature:", X.shape)  # (8, 5)
 
 # BƯỚC 2 — Chuẩn hóa 5 cột vì điểm, giờ học và phần trăm khác đơn vị.
 scaled = StandardScaler().fit_transform(X)
 
 # BƯỚC 3 — Cần xem dữ liệu trên đồ thị phẳng nên giữ hai tọa độ PC.
-# n_components=2: muốn có hai tọa độ PC mới để vẽ trên mặt phẳng.
 pca = PCA(n_components=2)
-# fit_transform: học hai hướng PC rồi biến đổi cả 8 hàng dữ liệu.
 X_new = pca.fit_transform(scaled)
 
 print("Before:", X.shape)  # (8, 5)
@@ -339,7 +315,6 @@ print("After:", X_new.shape)  # (8, 2)
 print("Retained (%):", round(pca.explained_variance_ratio_.sum() * 100, 2))
 
 # In tọa độ mới của 3 sinh viên đầu tiên để thấy PC là số cụ thể.
-# [:3] chỉ lấy 3 sinh viên đầu; start=1 để đánh số từ SV1 thay vì SV0.
 for index, (pc1, pc2) in enumerate(X_new[:3], start=1):
     print(f"SV{index}: PC1={pc1:.2f}; PC2={pc2:.2f}")
 ```
@@ -386,11 +361,11 @@ train = np.array([
     [1, 100],  # K1
     [2, 200],  # K2
     [3, 300],  # K3
-], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+], dtype=float)
 
 # BƯỚC 2 — Một khách mới K4, cùng đúng hai cột và đơn vị.
 # Không học lại quy tắc chỉ từ một khách mới vì muốn áp dụng quy tắc cũ.
-new_customer = np.array([[4, 350]], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+new_customer = np.array([[4, 350]], dtype=float)
 
 scaler = StandardScaler()
 scaler.fit(train)                      # BƯỚC 3 — Học chỉ từ 3 khách train
@@ -432,12 +407,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
 # BƯỚC 1 — Thu thập 8 hồ sơ sinh viên GIẢ LẬP.
-# Mỗi HÀNG = một sinh viên (SV1..SV8) = một vector có 5 giá trị.
+# Mỗi HÀNG = một sinh viên (SV1..SV8) = một véc-tơ có 5 giá trị.
 # Các CỘT theo thứ tự:
 # [0] Math: điểm Toán /100; [1] Physics: điểm Vật lý /100;
 # [2] English: điểm Tiếng Anh /100; [3] StudyHours: giờ tự học/tuần;
 # [4] Attendance: tỷ lệ chuyên cần (%).
-# Cần đúng thứ tự cột cho mọi SV để PCA hiểu đúng feature.
+# Cần đúng thứ tự cột cho mọi SV để PCA hiểu đúng đặc trưng.
 profiles = np.array([
     [80, 81, 72, 20, 90],  # SV1
     [85, 88, 80, 22, 95],  # SV2
@@ -447,7 +422,7 @@ profiles = np.array([
     [88, 87, 89, 20, 90],  # SV6
     [40, 45, 50, 10, 70],  # SV7
     [75, 73, 76, 15, 85],  # SV8
-], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+], dtype=float)
 print("Bảng hồ sơ sinh viên:", profiles.shape)  # (8, 5)
 
 # BƯỚC 2 — Vì điểm số, giờ học và chuyên cần dùng thang khác nhau,
@@ -455,7 +430,7 @@ print("Bảng hồ sơ sinh viên:", profiles.shape)  # (8, 5)
 scaled = StandardScaler().fit_transform(profiles)
 
 # BƯỚC 3 — Muốn vẽ trên mặt phẳng nên chọn hai trục PC,
-# không phải chỉ lấy hai cột feature gốc.
+# không phải chỉ lấy hai cột đặc trưng gốc.
 pca = PCA(n_components=2)
 map_2d = pca.fit_transform(scaled)
 
@@ -467,7 +442,6 @@ print("Retained (%):", round(100 * pca.explained_variance_ratio_.sum(), 2))
 plt.scatter(map_2d[:, 0], map_2d[:, 1])
 for index, (x, y) in enumerate(map_2d, start=1):
     # Chú thích bằng nhãn ẩn danh; không sử dụng dữ liệu cá nhân thật.
-    # xytext=(4,4), textcoords="offset points": dịch chữ khỏi dấu chấm 4 point.
     plt.annotate(f"SV{index}", (x, y), xytext=(4, 4), textcoords="offset points")
 plt.xlabel("PC1")
 plt.ylabel("PC2")
@@ -511,17 +485,15 @@ sensors = np.array([
     [33, 67, 331],  # T6
     [35, 71, 352],  # T7
     [38, 76, 379],  # T8
-], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+], dtype=float)
 print("Thời điểm × kênh đo:", sensors.shape)  # (8, 3)
 
 # BƯỚC 2 — Xem các cột có tương quan không trước khi thử nén chúng.
-# rowvar=False: xem 3 CỘT cảm biến là 3 biến để tính tương quan.
 correlation = np.corrcoef(sensors, rowvar=False)
 print("Correlation (rounded):\n", np.round(correlation, 2))
 
 # BƯỚC 3 — Đơn vị/độ lớn khác nhau nên chuẩn hóa trước khi giảm chiều.
 scaled = StandardScaler().fit_transform(sensors)
-# n_components=1: thử biểu diễn cả 3 kênh bằng một tọa độ tổng hợp.
 pca = PCA(n_components=1)
 compressed = pca.fit_transform(scaled)
 
@@ -553,7 +525,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 
-# BƯỚC 1 — 10 khách hàng giả lập (KH1..KH10) thành 10 vector.
+# BƯỚC 1 — 10 khách hàng giả lập (KH1..KH10) thành 10 véc-tơ.
 # Mỗi HÀNG = một khách; mỗi CỘT theo cùng thứ tự:
 # 0 = lượt xem sản phẩm (lượt), 1 = số đơn (đơn),
 # 2 = tổng chi tiêu (nghìn đồng), 3 = thời gian tương tác (phút).
@@ -568,7 +540,7 @@ customers = np.array([
     [76, 10, 1550, 55], # KH8
     [88, 14, 1900, 68], # KH9
     [95, 13, 1850, 72], # KH10
-], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+], dtype=float)
 print("Khách hàng × feature:", customers.shape)  # (10, 4)
 
 # BƯỚC 2 — Các cột chi tiêu và lượt xem lớn hơn số đơn, cần cùng thang đo.
@@ -579,9 +551,6 @@ locations = PCA(n_components=2).fit_transform(scaled)
 
 # BƯỚC 4 — KMeans mới là bước quyết định nhãn nhóm;
 # PCA chỉ biến đổi tọa độ chứ không tự phân cụm.
-# n_clusters=2: chỉ THỬ 2 nhóm, không khẳng định có đúng 2 nhóm.
-# random_state=42: cố định lựa chọn ngẫu nhiên để chạy lại ra kết quả tương tự.
-# n_init=10: thử 10 lần khởi tạo tâm cụm để giảm phụ thuộc một lần thử.
 labels = KMeans(n_clusters=2, random_state=42, n_init=10).fit_predict(locations)
 
 print("PCA shape:", locations.shape)
@@ -611,7 +580,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
 # BƯỚC 1 — 8 cửa hàng giả lập trong CÙNG kỳ báo cáo.
-# Mỗi HÀNG = một cửa hàng CH1..CH8 (một vector có 5 feature).
+# Mỗi HÀNG = một cửa hàng CH1..CH8 (một véc-tơ có 5 đặc trưng).
 # Các CỘT: 0 = khách ghé (người), 1 = đơn hàng (đơn),
 # 2 = doanh thu (NGHÌN đồng), 3 = số click quảng cáo (lượt),
 # 4 = sản phẩm bán ra (sản phẩm).
@@ -624,15 +593,13 @@ shops = np.array([
     [450, 68, 160000, 109, 98], # CH6
     [250, 36, 85000, 64, 60],   # CH7
     [600, 90, 210000, 150, 125],# CH8
-], dtype=float)  # dtype=float: số thực, tiện cho tính toán có phần thập phân.
+], dtype=float)
 print("Cửa hàng × feature:", shops.shape)  # (8, 5)
 
 # BƯỚC 2 — Không để cột doanh thu lớn chi phối chỉ vì cách ghi đơn vị.
 scaled = StandardScaler().fit_transform(shops)
 
 # BƯỚC 3 — 0.95 yêu cầu giữ ít nhất 95% phương sai, KHÔNG phải 0.95 chiều.
-# n_components=0.95: giữ ít PC nhất để đạt >=95% phương sai.
-# svd_solver="full": phép phân rã cho phép chọn số PC theo ngưỡng.
 pca = PCA(n_components=0.95, svd_solver="full")
 compressed = pca.fit_transform(scaled)
 
@@ -679,9 +646,6 @@ print("Nhãn loài:", iris.target_names)
 # BƯỚC 2 — Chia train/test trước mọi bước học từ dữ liệu.
 X_train, X_test, y_train, y_test = train_test_split(
     iris.data, iris.target,
-    # test_size=0.25: dành 25% hoa để kiểm tra, không cho học trước.
-    # stratify=iris.target: giữ tỷ lệ các loài hoa tương tự trong train/test.
-    # random_state=42: cố định phép chia để có thể so sánh lại kết quả.
     test_size=0.25, stratify=iris.target, random_state=42
 )
 
@@ -690,15 +654,13 @@ X_train, X_test, y_train, y_test = train_test_split(
 with_pca = Pipeline([
     ("scale", StandardScaler()),
     ("reduce", PCA(n_components=2)),
-    # max_iter=1000: tối đa 1000 vòng tối ưu; mô hình có thể hội tụ sớm hơn.
     ("predict", LogisticRegression(max_iter=1000)),
 ])
 
-# BƯỚC 4 — Cùng loại classifier nhưng giữ nguyên 4 feature
+# BƯỚC 4 — Cùng loại classifier nhưng giữ nguyên 4 đặc trưng
 # để có đối chứng công bằng khi quyết định có nên dùng PCA hay không.
 without_pca = Pipeline([
     ("scale", StandardScaler()),
-    # max_iter=1000: tối đa 1000 vòng tối ưu; mô hình có thể hội tụ sớm hơn.
     ("predict", LogisticRegression(max_iter=1000)),
 ])
 
