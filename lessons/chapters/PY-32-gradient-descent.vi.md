@@ -1,6 +1,5 @@
 # PY-32 — Đạo hàm riêng, gradient descent và learning rate
 
-*DRAFT · Học qua Python · Cần kiểm tra kết quả và môi trường trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
