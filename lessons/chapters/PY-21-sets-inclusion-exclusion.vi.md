@@ -29,7 +29,7 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 | `len(a | b)` | Đếm phần tử khác nhau |
 | `a.isdisjoint(b)` | Kiểm tra hai nhóm có trùng phần tử không |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. Union
 
@@ -41,7 +41,11 @@ Lấy tất cả phần tử thuộc ít nhất một tập. Đọc khái niệm
 print({1,2}|{2,3})
 ```
 
-**Tự kiểm tra nhanh:** Union là gì? **Đáp án:** Lấy tất cả phần tử thuộc ít nhất một tập.
+**Kết quả khi chạy:**
+
+```text
+{1, 2, 3}
+```
 
 ### 4.2. Intersection
 
@@ -53,7 +57,11 @@ Lấy phần tử có trong cả hai tập. Đọc khái niệm trước rồi k
 print({1,2}&{2,3})
 ```
 
-**Tự kiểm tra nhanh:** Intersection là gì? **Đáp án:** Lấy phần tử có trong cả hai tập.
+**Kết quả khi chạy:**
+
+```text
+{2}
+```
 
 ### 4.3. Inclusion–exclusion
 
@@ -62,11 +70,16 @@ print({1,2}&{2,3})
 Cộng từng tập rồi trừ phần giao bị đếm hai lần. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
-a={1,2};b={2,3}
+a={1,2}
+b={2,3}
 print(len(a)+len(b)-len(a&b))
 ```
 
-**Tự kiểm tra nhanh:** Inclusion–exclusion là gì? **Đáp án:** Cộng từng tập rồi trừ phần giao bị đếm hai lần.
+**Kết quả khi chạy:**
+
+```text
+3
+```
 
 ### 4.4. Partition
 
@@ -75,11 +88,16 @@ print(len(a)+len(b)-len(a&b))
 Chia thành các nhóm rời nhau phủ đủ tập gốc. Đọc khái niệm trước rồi kiểm tra bằng ví dụ Python nhỏ.
 
 ```python
-train={1,2};test={3}
+train={1,2}
+test={3}
 print(train.isdisjoint(test))
 ```
 
-**Tự kiểm tra nhanh:** Partition là gì? **Đáp án:** Chia thành các nhóm rời nhau phủ đủ tập gốc.
+**Kết quả khi chạy:**
+
+```text
+True
+```
 
 ## 5. Năm vấn đề thực tế
 
@@ -87,92 +105,117 @@ print(train.isdisjoint(test))
 
 **Từ vựng trong mục:** **Union** — phép hợp.
 
-**Tình huống thực tế:** Một trường học muốn đếm người học ít nhất một môn. Bộ dữ liệu đang có: Nhóm học Python và AI. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Một lớp có học viên SV1, SV2, SV3 đăng ký môn Python và SV2, SV4 đăng ký AI. Đếm số học viên học ít nhất một trong hai môn.
 
 **Vì sao chọn phương án này?** Phép hợp tránh đếm người học cả hai môn hai lần. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
-a={"SV1","SV2","SV3"};b={"SV2","SV4"}
+a={"SV1","SV2","SV3"}
+b={"SV2","SV4"}
 print(len(a|b))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+4
+```
 
 ### Tình huống 2 — Người học cả hai môn
 
 **Từ vựng trong mục:** **Intersection** — phép giao.
 
-**Tình huống thực tế:** Một trường học muốn người học cả hai môn. Bộ dữ liệu đang có: Nhóm sinh viên hai môn. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Hai nhóm học viên A gồm SV1, SV2; B gồm SV2, SV3. Tìm mã học viên có mặt ở cả hai nhóm.
 
 **Vì sao chọn phương án này?** Phép giao lấy đúng người thuộc hai nhóm. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
-a={"SV1","SV2"};b={"SV2","SV3"}
+a={"SV1","SV2"}
+b={"SV2","SV3"}
 print(a&b)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+{'SV2'}
+```
 
 ### Tình huống 3 — Kiểm công thức đếm
 
 **Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn kiểm công thức đếm. Bộ dữ liệu đang có: Hai tập ID có giao. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Hai nhóm mã ID {1,2,3} và {3,4} trùng mã 3. Tính tổng số mã khác nhau và đối chiếu với phép hợp.
 
 **Vì sao chọn phương án này?** Bao hàm–loại trừ cho kết quả như hợp. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
-a={1,2,3};b={3,4}
+a={1,2,3}
+b={3,4}
 print(len(a)+len(b)-len(a&b),len(a|b))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+4 4
+```
 
 ### Tình huống 4 — Chia tập train/test
 
 **Từ vựng trong mục:** **Partition** — phân hoạch.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chia tập train/test. Bộ dữ liệu đang có: train={1,2,3}, test={4,5}. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Đội AI dùng mã dữ liệu {1,2,3} làm tập huấn luyện, {4,5} làm tập kiểm tra. Kiểm tra hai tập có trùng ID không.
 
 **Vì sao chọn phương án này?** Hai nhóm ID đánh giá không trùng nhau. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
-train={1,2,3};test={4,5}
+train={1,2,3}
+test={4,5}
 assert train.isdisjoint(test)
 print(train|test)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+{1, 2, 3, 4, 5}
+```
 
 ### Tình huống 5 — Tìm sở thích riêng
 
 **Từ vựng trong mục:** **Union** — phép hợp.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tìm sở thích riêng. Bộ dữ liệu đang có: Hai nhóm Web và AI. Đầu vào minh họa; nếu dùng bảng, mỗi hàng là một đối tượng và cột là đặc trưng cụ thể. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Nhóm học Web gồm An, Bình; nhóm học AI gồm Bình, Lan. Tìm học viên chỉ tham gia đúng một trong hai nhóm.
 
 **Vì sao chọn phương án này?** Hiệu đối xứng lấy người chỉ thuộc một nhóm. Đừng chọn thuật toán AI khi chỉ cần thống kê hay quy tắc rõ ràng.
 
 
-**Quy trình:** Đọc dữ liệu → chọn phương pháp → triển khai → đọc kết quả → kiểm tra trường hợp biên.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
-web={"An","Binh"};ai={"Binh","Lan"}
+web={"An","Binh"}
+ai={"Binh","Lan"}
 print(web^ai)
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+{'An', 'Lan'}
+```
 
 ## 6. Các lỗi dễ mắc
 
