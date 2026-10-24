@@ -37,6 +37,10 @@ Viết bằng câu ngắn, dễ hiểu, ví dụ quen thuộc; ưu tiên **“so
 
 **Bỏ các mục “Tự kiểm tra”, “Tự kiểm tra nhanh”, “Đáp án”, “Đáp án gợi ý” ngay sau khái niệm**, nhưng vẫn **giữ 20 câu trắc nghiệm song ngữ và bảng đáp án cuối bài**. Không xóa lời giải thích kết quả code.
 
+### Tiêu đề mục khái niệm
+
+Dùng tiêu đề ngắn gọn **`## 4. Khái niệm liên quan`**. Không thêm cụm **“— từ lời giải thích đến Python”** hoặc câu mô tả quy trình học vào tiêu đề. Phần giải thích bằng lời và ví dụ Python vẫn giữ trong nội dung từng tiểu mục.
+
 ## Kết cấu dành cho sinh viên
 1. **Bài đang ở đâu trong chuỗi kiến thức?** Trình bày các bài trước → bài hiện tại → bài liên quan, dễ theo dõi.
 2. **Từ vựng trong mục:** trước từng mục và tiểu mục, 2–5 thuật ngữ `English — tiếng Việt`; đoạn văn phía sau viết tự nhiên, **không** thêm `(Vietnamese)` sau mỗi lần nhắc. Những bảng thuật ngữ chỉ ghi từ thật sự dùng trong mục.
