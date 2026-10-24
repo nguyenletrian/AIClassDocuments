@@ -158,7 +158,7 @@ print(X[:, 2])  # [950. 1200. 500.] -> chi tiêu của cả ba khách
 - **2 cột mới** là hai tọa độ tổng hợp `PC1` và `PC2`, **không phải** hai feature ban đầu được chọn ra nguyên vẹn.
 - Để đọc lại chi tiêu hay số đơn gốc, phải giữ bảng `X` ban đầu; không thể coi cột PC1 là "Spending".
 
-<text>Nói ngắn gọn: feature là **thông tin**, vector là **một hồ sơ**, matrix là **nhiều hồ sơ**, còn PCA giúp biểu diễn mỗi hồ sơ bằng ít tọa độ tổng hợp hơn.</text>
+**Nói ngắn gọn:**  feature là **thông tin**, vector là **một hồ sơ**, matrix là **nhiều hồ sơ**, còn PCA giúp biểu diễn mỗi hồ sơ bằng ít tọa độ tổng hợp hơn.
 
 ### 4.3. Mean (trung bình), Variance (phương sai), Standardization (chuẩn hóa)
 
