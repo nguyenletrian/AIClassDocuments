@@ -43,6 +43,12 @@ n = 5
 print(type(n))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+<class 'int'>
+```
+
 
 ### 4.2. Float
 
@@ -53,6 +59,12 @@ print(type(n))
 ```python
 x = 3.5
 print(x)
+```
+
+**Kết quả khi chạy:**
+
+```text
+3.5
 ```
 
 
@@ -67,6 +79,12 @@ ok = True
 print(ok)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+True
+```
+
 
 ### 4.4. String
 
@@ -77,6 +95,12 @@ print(ok)
 ```python
 code = 'AB12'
 print(code[:2])
+```
+
+**Kết quả khi chạy:**
+
+```text
+AB
 ```
 
 
@@ -103,6 +127,12 @@ email = "  Lan@Example.COM "
 print(email.strip().lower())
 ```
 
+**Kết quả khi chạy:**
+
+```text
+lan@example.com
+```
+
 **Kết quả:** `lan@example.com` — email không còn khoảng trắng thừa và đã viết thường.
 
 ### Tình huống 2 — Tách nhãn sản phẩm
@@ -126,6 +156,12 @@ labels = "AI,Python,Math"
 print(labels.split(","))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+['AI', 'Python', 'Math']
+```
+
 **Kết quả:** `['AI', 'Python', 'Math']` — ba nhãn được tách thành ba phần tử.
 
 ### Tình huống 3 — Giữ mã đầu 0
@@ -147,6 +183,12 @@ print(labels.split(","))
 ```python
 order_id = "00045"
 print(order_id[:3])
+```
+
+**Kết quả khi chạy:**
+
+```text
+000
 ```
 
 **Kết quả:** `000` — ba ký tự đầu của mã vẫn được giữ nguyên. Chương trình không in cả mã `00045`.
@@ -173,6 +215,12 @@ qty = int("3")
 print(price * qty)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+37.5
+```
+
 **Kết quả:** `37.5` đơn vị tiền — tổng giá của ba sản phẩm.
 
 ### Tình huống 5 — Che số liên lạc
@@ -194,6 +242,12 @@ print(price * qty)
 ```python
 phone = "0900123456"
 print("*" * (len(phone)-3) + phone[-3:])
+```
+
+**Kết quả khi chạy:**
+
+```text
+*******456
 ```
 
 **Kết quả:** `*******456` — bảy ký tự đầu được che, chỉ còn `456`.

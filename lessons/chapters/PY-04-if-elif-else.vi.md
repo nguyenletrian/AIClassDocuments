@@ -41,6 +41,12 @@
 print(5>3)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+True
+```
+
 ### 4.2. Branch
 
 **Từ vựng trong mục:** **Branch** — nhánh.
@@ -49,6 +55,12 @@ Nhánh là phần code chỉ chạy khi điều kiện phù hợp. Sau `if` ph�
 
 ```python
 if True: print('ok')
+```
+
+**Kết quả khi chạy:**
+
+```text
+ok
 ```
 
 ### 4.3. Threshold
@@ -61,6 +73,12 @@ Ngưỡng là mốc dùng để quyết định kết quả. Chẳng hạn đi�
 print(85>=80)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+True
+```
+
 ### 4.4. Nested if
 
 **Từ vựng trong mục:** **Nested if** — điều kiện lồng.
@@ -71,6 +89,12 @@ print(85>=80)
 x=2
 if x>0:
     if x%2==0: print('even')
+```
+
+**Kết quả khi chạy:**
+
+```text
+even
 ```
 
 ## 5. Năm tình huống lập trình thực tế
@@ -100,6 +124,12 @@ else: grade="Other"
 print(grade)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+B
+```
+
 **Kết quả:** `B` — 85 điểm đạt mức B theo quy tắc đã nêu.
 
 ### Tình huống 2 — Cảnh báo hàng gần hết
@@ -127,6 +157,12 @@ else: state="OK"
 print(state)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+Low
+```
+
 **Kết quả:** `Low` — còn 4 món nên hàng đang gần hết.
 
 ### Tình huống 3 — Xét VIP
@@ -150,6 +186,12 @@ print(state)
 years,paid=6,1500000
 if years>=5 and paid>=1000000: print("VIP")
 else: print("Regular")
+```
+
+**Kết quả khi chạy:**
+
+```text
+VIP
 ```
 
 **Kết quả:** `VIP` — khách đạt cả hai ngưỡng quy định.
@@ -177,6 +219,12 @@ if online:
 else: print("Offline")
 ```
 
+**Kết quả khi chạy:**
+
+```text
+Hot
+```
+
 **Kết quả:** `Hot` — thiết bị đang kết nối và nhiệt độ 82 °C đạt ngưỡng cảnh báo.
 
 ### Tình huống 5 — Tính quý của tháng
@@ -199,6 +247,12 @@ else: print("Offline")
 month=10
 if 1<=month<=12: print((month-1)//3+1)
 else: print("Invalid")
+```
+
+**Kết quả khi chạy:**
+
+```text
+4
 ```
 
 **Kết quả:** `4` — tháng 10 thuộc quý 4.

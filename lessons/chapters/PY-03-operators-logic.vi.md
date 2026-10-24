@@ -42,6 +42,12 @@ Toán tử số học dùng để tính cộng `+`, trừ `-`, nhân `*`, chia `
 print(5 * 3)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+15
+```
+
 
 ### 4.2. Comparison
 
@@ -51,6 +57,12 @@ Toán tử so sánh kiểm tra hai giá trị bằng nhau, khác nhau, lớn hơ
 
 ```python
 print(8 >= 5)
+```
+
+**Kết quả khi chạy:**
+
+```text
+True
 ```
 
 
@@ -64,6 +76,12 @@ Toán tử logic nối các điều kiện đúng/sai: `and` cần cả hai đú
 print(True and False)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+False
+```
+
 
 ### 4.4. Bitwise
 
@@ -73,6 +91,12 @@ Bit là một chữ số nhị phân, chỉ có thể là `0` hoặc `1`. Phép 
 
 ```python
 print(5 & 3)
+```
+
+**Kết quả khi chạy:**
+
+```text
+1
 ```
 
 
@@ -99,6 +123,12 @@ price = 250000
 print(price * (1 - 0.10))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+225000.0
+```
+
 **Kết quả:** `225000.0` đồng — khách được giảm 25.000 đồng.
 
 ### Tình huống 2 — Xét VIP
@@ -120,6 +150,12 @@ print(price * (1 - 0.10))
 ```python
 years, spending = 5, 1200000
 print(years >= 5 and spending >= 1000000)
+```
+
+**Kết quả khi chạy:**
+
+```text
+True
 ```
 
 **Kết quả:** `True` — khách đạt cả hai tiêu chí VIP.
@@ -145,6 +181,12 @@ items, box_size = 23, 5
 print(items // box_size, items % box_size)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+4 3
+```
+
 **Kết quả:** `4 3` — có 4 thùng đầy và 3 sản phẩm dư.
 
 ### Tình huống 4 — Đọc cờ thiết bị
@@ -168,6 +210,12 @@ status = 0b1010
 print(bool(status & 0b0010))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+True
+```
+
 **Kết quả:** `True` — bit `0b0010` đang bật.
 
 ### Tình huống 5 — Ưu tiên đơn hàng
@@ -189,6 +237,12 @@ print(bool(status & 0b0010))
 ```python
 amount, delay = 3000000, 0
 print(amount >= 2000000 or delay > 2)
+```
+
+**Kết quả khi chạy:**
+
+```text
+True
 ```
 
 **Kết quả:** `True` — đơn được ưu tiên nhờ giá trị đạt ngưỡng.

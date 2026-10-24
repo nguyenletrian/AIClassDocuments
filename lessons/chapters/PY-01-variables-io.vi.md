@@ -43,6 +43,12 @@ total = 12
 print(total)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+12
+```
+
 
 ### 4.2. Input
 
@@ -53,6 +59,12 @@ print(total)
 ```python
 name = 'An'
 print(name)
+```
+
+**Kết quả khi chạy:**
+
+```text
+An
 ```
 
 
@@ -66,6 +78,12 @@ Kết quả là thông tin chương trình tạo ra. `print('Xin chào')` hiển
 print('Xin chào')
 ```
 
+**Kết quả khi chạy:**
+
+```text
+Xin chào
+```
+
 
 ### 4.4. Type
 
@@ -75,6 +93,12 @@ Kiểu dữ liệu cho Python biết một giá trị là chữ hay số. `str` 
 
 ```python
 print(type(2.5))
+```
+
+**Kết quả khi chạy:**
+
+```text
+<class 'float'>
 ```
 
 
@@ -102,6 +126,12 @@ name = "Lan"
 print(f"Xin chào {name}!")
 ```
 
+**Kết quả khi chạy:**
+
+```text
+Xin chào Lan!
+```
+
 **Kết quả:** `Xin chào Lan!` — lời chào chứa đúng tên khách.
 
 ### Tình huống 2 — Tính tiền hóa đơn
@@ -124,6 +154,12 @@ print(f"Xin chào {name}!")
 price = int("120000")
 quantity = int("3")
 print(price * quantity)
+```
+
+**Kết quả khi chạy:**
+
+```text
+360000
 ```
 
 **Kết quả:** `360000` — khách phải trả 360.000 đồng.
@@ -149,6 +185,12 @@ name, score = "An", 8.5
 print(f"{name}: {score}/10")
 ```
 
+**Kết quả khi chạy:**
+
+```text
+An: 8.5/10
+```
+
 **Kết quả:** `An: 8.5/10` — dòng thông tin gồm tên và điểm học viên.
 
 ### Tình huống 4 — Ghi nhiệt độ
@@ -170,6 +212,12 @@ print(f"{name}: {score}/10")
 ```python
 temperature = 36.5
 print(type(temperature), temperature)
+```
+
+**Kết quả khi chạy:**
+
+```text
+<class 'float'> 36.5
 ```
 
 **Kết quả:** `<class 'float'> 36.5` — kiểu số thực và giá trị 36,5; code chưa in đơn vị °C.
@@ -194,6 +242,12 @@ print(type(temperature), temperature)
 order_id = "0007"
 print(order_id)
 assert order_id.startswith("00")
+```
+
+**Kết quả khi chạy:**
+
+```text
+0007
 ```
 
 **Kết quả:** `0007` — mã được in nguyên vẹn; `assert` không in thêm khi kiểm tra đúng.
