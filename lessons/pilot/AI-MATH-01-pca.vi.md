@@ -100,6 +100,29 @@ print("Mean per feature:", X.mean(axis=0))  # [3. 4.]
 
 **Ghi nhớ `fit` khác `transform`:** `fit` tạo ra quy tắc từ tập dữ liệu; `transform` áp dụng đúng quy tắc đó cho dữ liệu khác. Khi có train/test, chỉ gọi `fit` trên **train**.
 
+### 3.3. Tham số trong dấu ngoặc — vì sao phải chọn giá trị?
+
+Trong Python, phần `tên=giá_trị` khi gọi hàm là **đối số đặt tên** (*keyword argument*). Ví dụ `dtype=float` yêu cầu NumPy lưu dữ liệu dưới dạng **số thực**, chứ không phải thực hiện phép tính PCA. Hãy luôn hỏi: *Tham số điều khiển điều gì, vì sao chọn giá trị đó và nếu đổi thì kết quả có thể khác gì?*
+
+| Đối số | Nghĩa đơn giản | Vì sao dùng trong bài? |
+|---|---|---|
+| `dtype=float` | Lưu mảng dưới dạng số thực, có thể chứa phần thập phân | Thuận tiện khi chuẩn hóa/tính tọa độ PCA; **không** tự chuẩn hóa |
+| `axis=0` | Với `X.mean`, gom các **hàng** và trả kết quả theo **từng cột** | Tính trung bình mỗi feature |
+| `rowvar=False` | Với `np.cov`/`np.corrcoef`, coi **các cột là biến** | Bảng khách hàng/sinh viên lưu mỗi hàng là một mẫu |
+| `n_components=2` | Lấy hai PC | Vẽ tọa độ trên mặt phẳng 2D |
+| `n_components=1` | Lấy một PC | Thử tóm tắt các kênh cảm biến |
+| `n_components=0.95` | Chọn số PC để giữ ít nhất 95% phương sai (với solver thích hợp) | Không phải đoán sẵn số cột |
+| `svd_solver="full"` | Dùng SVD đầy đủ | Hỗ trợ chọn số PC theo ngưỡng phương sai |
+| `random_state=42` | Cố định hạt giống ngẫu nhiên | Chạy lại dễ tái lập; số **42 không có ý nghĩa khoa học đặc biệt** |
+| `n_init=10` | KMeans thử 10 lần khởi tạo tâm cụm | Giảm phụ thuộc một lần khởi tạo |
+| `test_size=0.25` | Giữ 25% dữ liệu làm test | Có tập để kiểm tra mô hình |
+| `stratify=iris.target` | Chia tập theo tỷ lệ nhãn loài | Các loài có tỷ lệ gần giống nhau ở train/test |
+| `max_iter=1000` | Cho LogisticRegression tối đa 1000 lượt tối ưu | Tránh dừng quá sớm; không nhất thiết cần đủ 1000 |
+| `start=1` | `enumerate` đếm từ 1 thay vì 0 | Hiện SV1, SV2... |
+| `xytext=(4,4)` + `textcoords="offset points"` | Dịch chữ ghi chú khỏi dấu chấm trên biểu đồ | Giúp nhãn không chồng lên điểm |
+
+**Thử đọc một lệnh:** `X = np.array([[1,100],[2,200]], dtype=float)` tạo matrix **2 hàng × 2 cột**, kiểu số thực. Bạn có thể xem `X.dtype` để kiểm tra. Với mảng toàn số nguyên, bỏ `dtype=float` thường làm NumPy dùng kiểu số nguyên; khi cần lưu số thập phân phải chọn kiểu phù hợp.
+
 ## 4. PCA và các khái niệm liên quan
 
 Phần này đi theo đúng thứ tự: **giải thích bằng lời → ví dụ nhỏ → Python thực hiện phép tính → đọc kết quả**. Mỗi khái niệm là một mắt xích để hiểu PCA, không phải một chủ đề toán học tách rời.
