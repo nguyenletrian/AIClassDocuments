@@ -60,7 +60,6 @@ import numpy as np
 
 **Trước / sau (khi có phép biến đổi dữ liệu):** [Hiển thị vài hàng của bảng gốc, vài hàng sau biến đổi và **hình kết quả thực được tính từ đúng dữ liệu minh họa** nếu hình giúp hiểu khái niệm. Ghi shape trước/sau, tỷ lệ thông tin giữ lại nếu có, tên hàng/cột, đơn vị; không dùng đồ thị tùy ý không liên quan dữ liệu.]
 
-**Tự kiểm tra nhanh:** [Một câu ngắn kiểm tra ngay khái niệm vừa học, không cần thêm thư viện. Có **đáp án gợi ý** ngay sau đó. Mỗi nhóm kiến thức chính có một câu để người học không phải đợi tới cuối bài.]
 
 **QUAN TRỌNG:** Đọc `docs/CURRICULUM-STYLE-GUIDE.md` khi tạo mỗi bài; tuân thủ ví dụ hỏi/đáp song ngữ cùng một dòng.
 
@@ -82,7 +81,7 @@ import numpy as np
 
 **Vì sao chọn cách giải này?** [Một đoạn giải thích rõ vấn đề đòi hỏi gì, tại sao phương pháp/hàm này phù hợp hơn phương án dễ nhầm khác, giả định và khi nào cách này không còn phù hợp. Chỉ liệt kê API không đủ.]
 
-**Quy trình giải:** [Các bước thực hiện có ý nghĩa riêng với tình huống, đối chiếu đúng phép tính và các biến trong code.]
+**Quy trình giải:** [Các bước thực hiện có ý nghĩa riêng với tình huống, so sánh với phép tính và các biến trong code.]
 
 [Không lặp thêm mục Dữ liệu riêng: giải thích số hàng/cột, đơn vị, nguồn dữ liệu ngay trong vấn đề thực tế khi cần.]
 
