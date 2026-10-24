@@ -379,7 +379,7 @@ B. Skips the rest of the current iteration — Bỏ phần còn lại của lư�
 
 C. Nothing; it is a placeholder statement — Không làm gì; đó là câu lệnh giữ chỗ
 
-D. Proceeds to the next iteration if there is one — Chuyển sang lượt lặp kế tiếp nếu còn
+D. When the loop finishes without `break` — Khi vòng lặp kết thúc mà không gặp `break`
 
 **Q9. What does `range(1, 4)` represent? — `range(1, 4)` biểu diễn gì?**
 
