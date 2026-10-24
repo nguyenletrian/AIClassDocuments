@@ -270,13 +270,13 @@ print("*" * (len(phone)-3) + phone[-3:])
 
 **Q1. What is an integer? — Số nguyên là gì?**
 
-A. A whole number without a fractional part — Số không có phần thập phân
+A. An ordered sequence of characters — Dãy ký tự có thứ tự
 
-B. A floating-point number — Số thực dấu phẩy động
+B. A whole number without a fractional part — Số không có phần thập phân
 
 C. A true/false value — Một giá trị đúng/sai
 
-D. An ordered sequence of characters — Dãy ký tự có thứ tự
+D. A floating-point number — Số thực dấu phẩy động
 
 **Q2. What is a float? — Float là kiểu dữ liệu nào?**
 
@@ -290,23 +290,23 @@ D. An ordered sequence of characters — Dãy ký tự có thứ tự
 
 **Q3. What is a Boolean? — Boolean là gì?**
 
-A. A whole number without a fractional part — Số không có phần thập phân
+A. A true/false value — Một giá trị đúng/sai
 
 B. A floating-point number — Số thực dấu phẩy động
 
-C. A true/false value — Một giá trị đúng/sai
+C. An ordered sequence of characters — Dãy ký tự có thứ tự
 
-D. An ordered sequence of characters — Dãy ký tự có thứ tự
+D. A whole number without a fractional part — Số không có phần thập phân
 
 **Q4. What is a string? — Chuỗi là gì?**
 
-A. A whole number without a fractional part — Số không có phần thập phân
+A. An ordered sequence of characters — Dãy ký tự có thứ tự
 
-B. A floating-point number — Số thực dấu phẩy động
+B. A whole number without a fractional part — Số không có phần thập phân
 
-C. A true/false value — Một giá trị đúng/sai
+C. A floating-point number — Số thực dấu phẩy động
 
-D. An ordered sequence of characters — Dãy ký tự có thứ tự
+D. A true/false value — Một giá trị đúng/sai
 
 **Q5. What does `strip()` normally remove? — `strip()` thường loại bỏ gì?**
 
@@ -320,31 +320,31 @@ D. Substitutes matching text — Thay các đoạn chữ khớp mẫu
 
 **Q6. What does `lower()` return? — `lower()` trả về gì?**
 
-A. Whitespace at both ends — Khoảng trắng ở hai đầu
+A. Substitutes matching text — Thay các đoạn chữ khớp mẫu
 
-B. Text converted to lowercase — Văn bản chuyển sang chữ thường
+B. Text converted to uppercase — Văn bản chuyển sang chữ hoa
 
-C. Text converted to uppercase — Văn bản chuyển sang chữ hoa
+C. Text converted to lowercase — Văn bản chuyển sang chữ thường
 
-D. Substitutes matching text — Thay các đoạn chữ khớp mẫu
+D. Whitespace at both ends — Khoảng trắng ở hai đầu
 
 **Q7. What does `upper()` return? — `upper()` trả về gì?**
 
 A. Whitespace at both ends — Khoảng trắng ở hai đầu
 
-B. Text converted to lowercase — Văn bản chuyển sang chữ thường
+B. Substitutes matching text — Thay các đoạn chữ khớp mẫu
 
-C. Text converted to uppercase — Văn bản chuyển sang chữ hoa
+C. Text converted to lowercase — Văn bản chuyển sang chữ thường
 
-D. Substitutes matching text — Thay các đoạn chữ khớp mẫu
+D. Text converted to uppercase — Văn bản chuyển sang chữ hoa
 
 **Q8. What does `replace(old, new)` do? — `replace(old, new)` có tác dụng gì?**
 
 A. Whitespace at both ends — Khoảng trắng ở hai đầu
 
-B. Text converted to lowercase — Văn bản chuyển sang chữ thường
+B. Text converted to uppercase — Văn bản chuyển sang chữ hoa
 
-C. Text converted to uppercase — Văn bản chuyển sang chữ hoa
+C. Text converted to lowercase — Văn bản chuyển sang chữ thường
 
 D. Substitutes matching text — Thay các đoạn chữ khớp mẫu
 
@@ -352,146 +352,146 @@ D. Substitutes matching text — Thay các đoạn chữ khớp mẫu
 
 A. `['a', 'b']` — `['a', 'b']`
 
-B. `'BC'` — `'BC'`
+B. `'ab'` — `'ab'`
 
-C. `6` — `6`
+C. `('a', 'b')` — `('a', 'b')`
 
-D. `'xAy'` — `'xAy'`
+D. `['a,b']` — `['a,b']`
 
 **Q10. What does `'ABCD'[1:3]` yield? — `'ABCD'[1:3]` cho kết quả gì?**
 
-A. `['a', 'b']` — `['a', 'b']`
+A. `'CD'` — `'CD'`
 
-B. `'BC'` — `'BC'`
+B. `'AB'` — `'AB'`
 
-C. `6` — `6`
+C. `'BC'` — `'BC'`
 
-D. `'xAy'` — `'xAy'`
+D. `'BCD'` — `'BCD'`
 
 **Q11. What does `len('Python')` yield? — `len('Python')` trả về gì?**
 
-A. `['a', 'b']` — `['a', 'b']`
+A. `5` — `5`
 
-B. `'BC'` — `'BC'`
+B. `7` — `7`
 
-C. `6` — `6`
+C. `'6'` (string) — `'6'` (chuỗi)
 
-D. `'xAy'` — `'xAy'`
+D. `6` (integer) — `6` (số nguyên)
 
 **Q12. What does `'A'.join(['x','y'])` yield? — `'A'.join(['x','y'])` tạo gì?**
 
-A. `['a', 'b']` — `['a', 'b']`
+A. `['x', 'A', 'y']` — `['x', 'A', 'y']`
 
-B. `'BC'` — `'BC'`
+B. `'xyA'` — `'xyA'`
 
-C. `6` — `6`
+C. `'xAy'` — `'xAy'`
 
-D. `'xAy'` — `'xAy'`
+D. `'Axy'` — `'Axy'`
 
 **Q13. What does `int('12')` create? — `int('12')` tạo ra gì?**
 
-A. The integer 12 — Số nguyên 12
+A. `ValueError` — `ValueError`
 
-B. The float 1.5 — Số thực 1.5
+B. `12` (integer) — `12` (số nguyên)
 
-C. The string `'12'` — Chuỗi `'12'`
+C. `12.0` (float) — `12.0` (số thực)
 
-D. `True` — `True`
+D. `'12'` (string) — `'12'` (chuỗi)
 
 **Q14. What does `float('1.5')` create? — `float('1.5')` tạo ra gì?**
 
-A. The integer 12 — Số nguyên 12
+A. `ValueError` — `ValueError`
 
-B. The float 1.5 — Số thực 1.5
+B. `1` (integer) — `1` (số nguyên)
 
-C. The string `'12'` — Chuỗi `'12'`
+C. `'1.5'` (string) — `'1.5'` (chuỗi)
 
-D. `True` — `True`
+D. `1.5` (float) — `1.5` (số thực)
 
 **Q15. What does `str(12)` create? — `str(12)` tạo gì?**
 
-A. The integer 12 — Số nguyên 12
+A. `['1', '2']` — `['1', '2']`
 
-B. The float 1.5 — Số thực 1.5
+B. `'12'` (string) — `'12'` (chuỗi)
 
-C. The string `'12'` — Chuỗi `'12'`
+C. `12.0` (float) — `12.0` (số thực)
 
-D. `True` — `True`
+D. `12` (integer) — `12` (số nguyên)
 
 **Q16. What does `bool('False')` return? — `bool('False')` trả về gì?**
 
-A. The integer 12 — Số nguyên 12
+A. `True` — `True`
 
-B. The float 1.5 — Số thực 1.5
+B. `False` — `False`
 
-C. The string `'12'` — Chuỗi `'12'`
+C. `ValueError` — `ValueError`
 
-D. `True` — `True`
+D. `'False'` (string) — `'False'` (chuỗi)
 
 **Q17. What is true of Python strings? — Điều nào đúng về chuỗi Python?**
 
-A. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
+A. Strings are unordered collections — Chuỗi là tập hợp không có thứ tự
 
-B. Strings can be changed in place with `s[0] = 'x'` — Có thể đổi chuỗi tại chỗ bằng `s[0] = 'x'`
+B. Strings store only numbers — Chuỗi chỉ lưu số
 
-C. Strings store only numbers — Chuỗi chỉ lưu số
+C. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
 
-D. Strings are unordered collections — Chuỗi là tập hợp không có thứ tự
+D. Strings can be changed in place with `s[0] = 'x'` — Có thể đổi chuỗi tại chỗ bằng `s[0] = 'x'`
 
 **Q18. What does `s[-1]` select for a nonempty string? — `s[-1]` lấy gì khi chuỗi không rỗng?**
 
-A. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
+A. The first character — Ký tự đầu
 
-B. The last character — Ký tự cuối
+B. Always raises `IndexError` — Luôn gây `IndexError`
 
-C. `False` — `False`
+C. The final two characters — Hai ký tự cuối
 
-D. `'42'` — `'42'`
+D. The last character — Ký tự cuối
 
 **Q19. What does `'Ab' == 'ab'` evaluate to? — `'Ab' == 'ab'` có giá trị gì?**
 
-A. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
+A. `'False'` (string) — `'False'` (chuỗi)
 
-B. The last character — Ký tự cuối
+B. `True` (Boolean) — `True` (Boolean)
 
-C. `False` — `False`
+C. `False` (Boolean) — `False` (Boolean)
 
-D. `'42'` — `'42'`
+D. `0` (integer) — `0` (số nguyên)
 
 **Q20. What is the result of `'4' + '2'`? — `'4' + '2'` cho kết quả gì?**
 
-A. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
+A. `TypeError` — `TypeError`
 
-B. The last character — Ký tự cuối
+B. `'42'` (string) — `'42'` (chuỗi)
 
-C. `False` — `False`
+C. `'6'` (string) — `'6'` (chuỗi)
 
-D. `'42'` — `'42'`
+D. `6` (integer) — `6` (số nguyên)
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | Integers represent whole-number quantities. | Số nguyên biểu diễn những lượng không có phần lẻ. |
-| Q2 | **B** | Floats can represent numbers with fractional parts. | Float có thể biểu diễn số có phần thập phân. |
-| Q3 | **C** | Boolean values are True and False. | Giá trị Boolean là True và False. |
-| Q4 | **D** | str stores textual characters in order. | str lưu các ký tự văn bản theo thứ tự. |
-| Q5 | **A** | strip removes leading and trailing whitespace by default. | strip mặc định bỏ khoảng trắng đầu và cuối. |
-| Q6 | **B** | lower produces a lowercase string. | lower tạo ra chuỗi chữ thường. |
-| Q7 | **C** | upper produces an uppercase string. | upper tạo ra chuỗi chữ hoa. |
-| Q8 | **D** | replace returns text with specified substrings replaced. | replace trả chuỗi với đoạn khớp đã được thay. |
-| Q9 | **A** | split separates the string at the comma. | split tách chuỗi tại dấu phẩy. |
-| Q10 | **B** | Slicing includes index 1 and excludes index 3. | Lát cắt lấy vị trí 1 nhưng không lấy vị trí 3. |
-| Q11 | **C** | The word Python contains six characters. | Từ Python có sáu ký tự. |
-| Q12 | **D** | join inserts the separator A between items. | join chèn chữ A giữa các phần tử. |
-| Q13 | **A** | int parses integer-formatted text. | int chuyển chuỗi biểu diễn số nguyên thành số nguyên. |
-| Q14 | **B** | float parses a decimal number in text. | float chuyển chuỗi số thập phân thành số thực. |
-| Q15 | **C** | str converts a number to a textual representation. | str chuyển số thành biểu diễn chữ. |
-| Q16 | **D** | Any nonempty string is truthy, including the text False. | Chuỗi không rỗng có giá trị logic đúng, kể cả chữ False. |
-| Q17 | **A** | Strings cannot have their characters replaced by index: `s[0] = 'x'` raises `TypeError`. Methods such as `replace()` return another string; unlike mutable lists, the original string remains unchanged. | Không thể gán lại ký tự chuỗi theo chỉ số: `s[0] = 'x'` gây `TypeError`. Hàm như `replace()` trả về chuỗi khác; khác với list có thể sửa, chuỗi ban đầu vẫn giữ nguyên. |
-| Q18 | **B** | Negative indexing counts from the end. | Chỉ số âm đếm từ cuối chuỗi. |
-| Q19 | **C** | String equality is case-sensitive by default. | So sánh chuỗi mặc định phân biệt hoa/thường. |
-| Q20 | **D** | The plus sign concatenates strings rather than adding integers. | Dấu cộng nối chuỗi thay vì cộng số nguyên. |
+| Q1 | **B** | An integer represents a number with no fractional part, such as `-3`, `0`, or `12`. Unlike a floating-point value, the Python `int` type stores an exact integer quantity. | Số nguyên biểu diễn giá trị không có phần lẻ như `-3`, `0`, `12`. Khác kiểu dấu phẩy động, `int` lưu chính xác một lượng nguyên. |
+| Q2 | **B** | A `float` is Python's floating-point numeric type; examples include `1.5` and `2.0`. Even `2.0`, though mathematically whole, has type `float`, not `int`. | `float` là kiểu số dấu phẩy động trong Python, ví dụ `1.5` và `2.0`. Ngay cả `2.0` dù có giá trị toán học nguyên vẫn là `float` chứ không phải `int`. |
+| Q3 | **A** | A Boolean expresses one of two truth states, `True` or `False`, used for conditions such as `3 > 2`. Its job differs from storing a number or an ordered sequence of characters. | Boolean biểu diễn một trong hai trạng thái `True` hoặc `False`, thường dùng trong điều kiện như `3 > 2`. Vai trò của nó khác việc lưu số hoặc dãy ký tự có thứ tự. |
+| Q4 | **A** | A string (`str`) is an ordered sequence of Unicode characters, such as `'Python'`. A string of digits like `'12'` is still text, so adding it to another string concatenates text instead of doing arithmetic. | Chuỗi (`str`) là dãy ký tự Unicode có thứ tự, chẳng hạn `'Python'`. Chuỗi chữ số như `'12'` vẫn là văn bản nên cộng với chuỗi khác sẽ nối chữ, không phải cộng số. |
+| Q5 | **A** | With no arguments, `strip()` removes whitespace from the beginning and end, not from the middle. For example `'  a b  '.strip()` becomes `'a b'` and retains the space between `a` and `b`. | Khi không truyền tham số, `strip()` bỏ khoảng trắng ở đầu và cuối, không xóa khoảng trắng giữa chuỗi. Ví dụ `'  a b  '.strip()` thành `'a b'` và giữ dấu cách giữa `a` và `b`. |
+| Q6 | **C** | `lower()` returns a lowercase copy of a string, so `'PyThOn'.lower()` gives `'python'`. It does not modify the original string in place because strings are immutable. | `lower()` trả về bản sao chữ thường, nên `'PyThOn'.lower()` được `'python'`. Hàm không sửa chuỗi gốc tại chỗ vì chuỗi là bất biến. |
+| Q7 | **D** | `upper()` returns the uppercase version of characters, for example `'ab'.upper()` yields `'AB'`. Unlike `lower()`, it maps letters toward uppercase, while leaving characters such as digits unchanged. | `upper()` trả về chữ hoa, ví dụ `'ab'.upper()` là `'AB'`. Khác `lower()`, nó đổi chữ cái về dạng hoa; ký tự như chữ số vẫn giữ nguyên. |
+| Q8 | **D** | `replace(old, new)` returns a new string with matching occurrences substituted; `'aba'.replace('a', 'x')` gives `'xbx'`. It does not alter the original string or simply change letter case. | `replace(old, new)` trả về chuỗi mới sau khi thay các đoạn khớp; `'aba'.replace('a', 'x')` được `'xbx'`. Hàm không sửa chuỗi gốc và không chỉ đơn thuần đổi hoa/thường. |
+| Q9 | **A** | `split(',')` separates text at each comma and returns a list of substrings: `'a,b'` becomes `['a', 'b']`. The comma is removed as the delimiter; the result is a list, not one concatenated string. | `split(',')` tách văn bản tại mỗi dấu phẩy và trả về danh sách các chuỗi con: `'a,b'` thành `['a', 'b']`. Dấu phẩy là dấu phân cách nên bị bỏ đi; kết quả là list chứ không phải một chuỗi. |
+| Q10 | **C** | String indexing starts at zero, so in `'ABCD'` indexes 1 and 2 are `B` and `C`. Slice `[1:3]` includes the start index 1 but excludes stop index 3, yielding `'BC'`. | Chỉ số chuỗi bắt đầu từ 0, nên trong `'ABCD'`, vị trí 1 và 2 là `B` và `C`. Lát cắt `[1:3]` lấy vị trí 1 nhưng không lấy mốc dừng 3, cho `'BC'`. |
+| Q11 | **D** | `len()` counts the characters in the string: `P`, `y`, `t`, `h`, `o`, `n` make six. It returns integer `6`, not a string `'6'`; case has no effect on this count. | `len()` đếm số ký tự trong chuỗi: `P`, `y`, `t`, `h`, `o`, `n` là sáu ký tự. Hàm trả về số nguyên `6`, không phải chuỗi `'6'`; chữ hoa/thường không đổi số lượng. |
+| Q12 | **C** | `join()` inserts the calling string between items: `'A'.join(['x','y'])` gives `'xAy'`. It neither prefixes `A` to the full list nor appends it after the last item. | `join()` chèn chuỗi đứng trước dấu chấm vào giữa các phần tử: `'A'.join(['x','y'])` cho `'xAy'`. Nó không thêm `A` ở đầu toàn danh sách hoặc sau phần tử cuối. |
+| Q13 | **B** | `int('12')` converts a valid integer string to the integer `12`, which can take part in arithmetic. The output is not the unchanged text `'12'` and is not a floating-point `12.0`. | `int('12')` đổi chuỗi số nguyên hợp lệ thành số nguyên `12` để có thể tính toán. Kết quả không còn là văn bản `'12'` và cũng không phải số thực `12.0`. |
+| Q14 | **D** | `float('1.5')` parses numeric text into the floating-point value `1.5`. It preserves the fractional value rather than truncating to integer `1`, and no error occurs for this valid text. | `float('1.5')` chuyển văn bản số hợp lệ thành số thực `1.5`. Nó giữ phần lẻ thay vì cắt thành số nguyên `1`, và chuỗi hợp lệ này không gây lỗi. |
+| Q15 | **B** | `str(12)` gives the textual representation `'12'`, suitable for labels or concatenation. The result is not integer `12`: `'12' + '3'` forms `'123'`, not the numeric total `15`. | `str(12)` tạo biểu diễn văn bản `'12'`, phù hợp làm nhãn hoặc nối chuỗi. Kết quả không còn là số nguyên `12`: `'12' + '3'` tạo `'123'`, không phải tổng số `15`. |
+| Q16 | **A** | `bool()` tests the truthiness of an object, not whether its text spells the word `True`. Since `'False'` contains characters, `bool('False')` is `True`; only an empty string is falsy among strings. | `bool()` kiểm tra tính đúng/sai của giá trị, không đọc nghĩa chữ `True` hay `False` trong văn bản. Do chuỗi `'False'` không rỗng nên `bool('False')` bằng `True`; với chuỗi, chỉ chuỗi rỗng được xem là sai. |
+| Q17 | **C** | Strings are immutable: assigning `s[0] = 'x'` raises `TypeError`, even when `s` is not empty. Operations such as `replace()` create a new string rather than modifying characters of the old string. | Chuỗi là bất biến: gán `s[0] = 'x'` gây `TypeError`, kể cả khi `s` không rỗng. Các phép như `replace()` tạo chuỗi mới thay vì sửa từng ký tự của chuỗi cũ. |
+| Q18 | **D** | Index `-1` counts from the end and selects the last character of a nonempty string. For `s = 'cat'`, `s[-1]` is `'t'`; `s[0]` instead gets `'c'`. | Chỉ số `-1` đếm từ cuối và lấy ký tự cuối của chuỗi không rỗng. Với `s = 'cat'`, `s[-1]` là `'t'`, còn `s[0]` lấy `'c'`. |
+| Q19 | **C** | String equality compares characters and their case: `'A'` differs from `'a'`, so `'Ab' == 'ab'` yields Boolean `False`. Converting both strings with `.lower()` would change this comparison. | So sánh chuỗi xét từng ký tự và phân biệt chữ hoa/thường: `'A'` khác `'a'` nên `'Ab' == 'ab'` cho Boolean `False`. Nếu đổi cả hai chuỗi về chữ thường trước khi so sánh thì kết quả sẽ khác. |
+| Q20 | **B** | Both operands are strings, so `+` concatenates them in order: `'4' + '2'` is `'42'`. To add numerically, convert them first, for example `int('4') + int('2')` produces integer `6`. | Cả hai toán hạng đều là chuỗi nên `+` nối theo thứ tự: `'4' + '2'` được `'42'`. Muốn cộng số, cần đổi kiểu trước, ví dụ `int('4') + int('2')` cho số nguyên `6`. |
 
 ## 8. Nối sang bài kế tiếp
 

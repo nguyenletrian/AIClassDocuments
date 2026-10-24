@@ -306,228 +306,228 @@ else:
 
 **Q1. What does `if` do? — `if` dùng để làm gì?**
 
-A. Runs its block when a condition is true — Chạy khối lệnh khi điều kiện đúng
+A. Always runs every conditional branch — Luôn chạy mọi nhánh điều kiện
 
-B. When preceding branches have not matched — Khi các nhánh trước chưa đúng
+B. Runs its body only when the condition is false — Chỉ chạy thân khối khi điều kiện sai
 
-C. When no earlier condition matched — Khi không điều kiện trước nào đúng
+C. Runs its body once regardless of the condition — Luôn chạy thân khối một lần bất kể điều kiện
 
-D. An if statement inside another block — Câu lệnh if nằm trong khối lệnh khác
+D. Runs its indented body when the condition is true — Chạy thân khối thụt lề khi điều kiện đúng
 
 **Q2. When is an `elif` condition checked? — Khi nào Python xét điều kiện `elif`?**
 
-A. Runs its block when a condition is true — Chạy khối lệnh khi điều kiện đúng
+A. Even after a preceding branch has matched — Kể cả khi nhánh trước đã đúng
 
-B. When preceding branches have not matched — Khi các nhánh trước chưa đúng
+B. Before the preceding `if` is checked — Trước khi kiểm tra `if` đứng trước
 
-C. When no earlier condition matched — Khi không điều kiện trước nào đúng
+C. After `else` has executed — Sau khi `else` chạy
 
-D. An if statement inside another block — Câu lệnh if nằm trong khối lệnh khác
+D. Only if earlier branches in the same chain did not match — Chỉ khi các nhánh trước trong cùng chuỗi không khớp
 
 **Q3. When does an `else` block run? — Khi nào khối `else` chạy?**
 
-A. Runs its block when a condition is true — Chạy khối lệnh khi điều kiện đúng
+A. Every time the initial `if` is true — Mỗi khi `if` đầu tiên đúng
 
-B. When preceding branches have not matched — Khi các nhánh trước chưa đúng
+B. After any successful `elif` branch — Sau bất kỳ nhánh `elif` nào đúng
 
-C. When no earlier condition matched — Khi không điều kiện trước nào đúng
+C. When no earlier condition in its chain was true — Khi mọi điều kiện trước trong cùng chuỗi đều sai
 
-D. An if statement inside another block — Câu lệnh if nằm trong khối lệnh khác
+D. Only when a program raises an error — Chỉ khi chương trình phát sinh lỗi
 
 **Q4. What is a nested `if`? — `if` lồng nhau là gì?**
 
-A. Runs its block when a condition is true — Chạy khối lệnh khi điều kiện đúng
+A. An `if` statement inside another conditional block — Một lệnh `if` bên trong khối điều kiện khác
 
-B. When preceding branches have not matched — Khi các nhánh trước chưa đúng
+B. A condition joined by `and` — Điều kiện kết hợp bởi `and`
 
-C. When no earlier condition matched — Khi không điều kiện trước nào đúng
+C. An `else` branch following `if` — Nhánh `else` theo sau `if`
 
-D. An if statement inside another block — Câu lệnh if nằm trong khối lệnh khác
+D. Two `if` statements at the same indentation level — Hai lệnh `if` có cùng mức thụt lề
 
 **Q5. Which keyword introduces another conditional test? — Từ khóa nào bổ sung một điều kiện tiếp theo?**
 
-A. `elif` — `elif`
+A. `if` — `if`
 
 B. `else` — `else`
 
-C. `if` — `if`
+C. `elif` — `elif`
 
 D. `in` — `in`
 
 **Q6. Which keyword gives an unconditional fallback branch? — Từ khóa nào tạo nhánh còn lại không cần điều kiện?**
 
-A. `elif` — `elif`
+A. `in` — `in`
 
-B. `else` — `else`
+B. `elif` — `elif`
 
 C. `if` — `if`
 
-D. `in` — `in`
+D. `else` — `else`
 
 **Q7. Which keyword starts a conditional branch? — Từ khóa nào bắt đầu một nhánh điều kiện?**
 
-A. `elif` — `elif`
+A. `else` — `else`
 
-B. `else` — `else`
+B. `if` — `if`
 
-C. `if` — `if`
+C. `elif` — `elif`
 
 D. `in` — `in`
 
 **Q8. Which operator asks whether an item belongs to a list? — Toán tử nào kiểm tra phần tử có trong List?**
 
-A. `elif` — `elif`
+A. `if` — `if`
 
-B. `else` — `else`
+B. `elif` — `elif`
 
-C. `if` — `if`
+C. `in` — `in`
 
-D. `in` — `in`
+D. `else` — `else`
 
 **Q9. What does `score >= 80` include? — Điều kiện `score >= 80` bao gồm gì?**
 
-A. Scores equal to or above 80 — Điểm bằng hoặc lớn hơn 80
+A. Only the score exactly equal to 80 — Chỉ điểm đúng bằng 80
 
-B. Assignment versus comparison — Phép gán và phép so sánh
+B. Every score of at least 80, including 80 — Mọi điểm từ 80 trở lên, kể cả 80
 
-C. Indentation — Thụt lề
+C. Only scores strictly above 80 — Chỉ điểm lớn hơn 80
 
-D. Top to bottom — Từ trên xuống dưới
+D. Scores below 80 — Điểm thấp hơn 80
 
 **Q10. What is the difference between `=` and `==`? — Dấu `=` khác `==` ra sao?**
 
-A. Scores equal to or above 80 — Điểm bằng hoặc lớn hơn 80
+A. `=` assigns; `==` compares equality — `=` để gán; `==` so sánh bằng nhau
 
-B. Assignment versus comparison — Phép gán và phép so sánh
+B. `=` compares; `==` assigns — `=` để so sánh; `==` để gán
 
-C. Indentation — Thụt lề
+C. Both operators assign variables — Cả hai toán tử đều dùng gán biến
 
-D. Top to bottom — Từ trên xuống dưới
+D. Both operators compare equality — Cả hai toán tử so sánh bằng nhau
 
 **Q11. What defines the body of an `if` in Python? — Điều gì xác định thân khối `if` trong Python?**
 
-A. Scores equal to or above 80 — Điểm bằng hoặc lớn hơn 80
+A. The indentation of following statements — Mức thụt lề của các câu lệnh theo sau
 
-B. Assignment versus comparison — Phép gán và phép so sánh
+B. The number of printed statements — Số câu lệnh in ra
 
-C. Indentation — Thụt lề
+C. The order of imported libraries — Thứ tự thư viện được nhập
 
-D. Top to bottom — Từ trên xuống dưới
+D. The variable name in the condition — Tên biến trong điều kiện
 
 **Q12. How are cases checked in an `if/elif` chain? — Các trường hợp được xét theo thứ tự nào trong chuỗi `if/elif`?**
 
-A. Scores equal to or above 80 — Điểm bằng hoặc lớn hơn 80
+A. All branches run concurrently — Mọi nhánh chạy đồng thời
 
-B. Assignment versus comparison — Phép gán và phép so sánh
+B. Top to bottom, stopping after the first match — Từ trên xuống, dừng tại nhánh đúng đầu tiên
 
-C. Indentation — Thụt lề
+C. From the last `elif` upward — Từ `elif` cuối lên trên
 
-D. Top to bottom — Từ trên xuống dưới
+D. By whichever condition is cheapest — Theo điều kiện tốn ít tính toán nhất
 
 **Q13. What does `True and False` evaluate to? — `True and False` bằng gì?**
 
-A. `False` — `False`
+A. `0` (integer) — `0` (số nguyên)
 
-B. `True` — `True`
-
-C. `0` (the integer) — `0` (số nguyên)
-
-D. `None` — `None`
-
-**Q14. What does `True or False` evaluate to? — `True or False` bằng gì?**
-
-A. `False` — `False`
-
-B. `True` — `True`
-
-C. `0` (the integer) — `0` (số nguyên)
-
-D. `None` — `None`
-
-**Q15. What does `not True` evaluate to? — `not True` bằng gì?**
-
-A. `False` — `False`
-
-B. `True` — `True`
-
-C. `0` (the integer) — `0` (số nguyên)
-
-D. `None` — `None`
-
-**Q16. What does `5 % 2 == 0` evaluate to? — `5 % 2 == 0` có kết quả gì?**
-
-A. `0` (the integer) — `0` (số nguyên)
-
-B. `True` — `True`
+B. `True` (Boolean) — `True` (Boolean)
 
 C. `None` — `None`
 
-D. `False` (the Boolean) — `False` (kiểu Boolean)
+D. `False` (Boolean) — `False` (Boolean)
+
+**Q14. What does `True or False` evaluate to? — `True or False` bằng gì?**
+
+A. `None` — `None`
+
+B. `1` (integer) — `1` (số nguyên)
+
+C. `True` (Boolean) — `True` (Boolean)
+
+D. `False` (Boolean) — `False` (Boolean)
+
+**Q15. What does `not True` evaluate to? — `not True` bằng gì?**
+
+A. `0` (integer) — `0` (số nguyên)
+
+B. `True` (Boolean) — `True` (Boolean)
+
+C. `None` — `None`
+
+D. `False` (Boolean) — `False` (Boolean)
+
+**Q16. What does `5 % 2 == 0` evaluate to? — `5 % 2 == 0` có kết quả gì?**
+
+A. `False` (Boolean) — `False` (Boolean)
+
+B. `None` — `None`
+
+C. `0` (integer) — `0` (số nguyên)
+
+D. `True` (Boolean) — `True` (Boolean)
 
 **Q17. How many branches run in one `if/elif/else` chain? — Có bao nhiêu nhánh chạy trong một chuỗi `if/elif/else`?**
 
-A. At most one branch — Tối đa một nhánh
+A. Every branch whose condition is true — Mọi nhánh có điều kiện đúng
 
-B. Its body is skipped — Thân nhánh if bị bỏ qua
+B. Every `elif` plus `else` — Mọi nhánh `elif` và `else`
 
-C. Use `and` — Dùng `and`
+C. At most one branch, possibly none without `else` — Tối đa một nhánh, có thể không nhánh nào nếu thiếu `else`
 
-D. Order mutually exclusive threshold branches carefully — Sắp xếp nhánh ngưỡng không chồng lấn cẩn thận
+D. Exactly two branches always — Luôn đúng hai nhánh
 
 **Q18. What happens if an `if` condition is false and there is no `else`? — Nếu `if` sai và không có `else` thì sao?**
 
-A. At most one branch — Tối đa một nhánh
+A. The body runs once regardless — Thân nhánh vẫn chạy một lần
 
-B. Its body is skipped — Thân nhánh if bị bỏ qua
+B. The body is skipped and execution continues — Bỏ qua thân nhánh và tiếp tục chương trình
 
-C. Use `and` — Dùng `and`
+C. A `SyntaxError` is raised — Phát sinh `SyntaxError`
 
-D. Order mutually exclusive threshold branches carefully — Sắp xếp nhánh ngưỡng không chồng lấn cẩn thận
+D. Python inserts and runs an implicit `else` — Python tự chèn và chạy `else`
 
 **Q19. How can two conditions both be required for access? — Cách nào yêu cầu đồng thời hai điều kiện để cho phép truy cập?**
 
-A. At most one branch — Tối đa một nhánh
+A. Use `==` alone — Chỉ dùng `==`
 
-B. Its body is skipped — Thân nhánh if bị bỏ qua
+B. Use `and` — Dùng `and`
 
-C. Use `and` — Dùng `and`
+C. Use `or` — Dùng `or`
 
-D. Order mutually exclusive threshold branches carefully — Sắp xếp nhánh ngưỡng không chồng lấn cẩn thận
+D. Use `not` — Dùng `not`
 
-**Q20. What helps prevent overlapping grade categories? — Điều gì giúp tránh các nhóm điểm chồng lấn?**
+**Q20. In one `if/elif` grade chain, which order correctly tests `score >= 90`, `score >= 80`, and `score >= 70` to select the highest applicable grade? — Trong một chuỗi `if/elif` phân loại điểm, cần xét `score >= 90`, `score >= 80`, `score >= 70` theo thứ tự nào để chọn mức cao nhất phù hợp?**
 
-A. At most one branch — Tối đa một nhánh
+A. Test `>= 90`, then `>= 80`, then `>= 70` — Xét `>= 90`, rồi `>= 80`, rồi `>= 70`
 
-B. Its body is skipped — Thân nhánh if bị bỏ qua
+B. Write independent `if` statements to select a single grade — Viết các `if` độc lập để chọn duy nhất một nhóm
 
-C. Use `and` — Dùng `and`
+C. Test `>= 70` before `>= 90` — Xét `>= 70` trước `>= 90`
 
-D. Order mutually exclusive threshold branches carefully — Sắp xếp nhánh ngưỡng không chồng lấn cẩn thận
+D. Use any order because all matches run — Thứ tự tùy ý vì mọi nhánh đúng đều chạy
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | if evaluates a condition to choose a branch. | if đánh giá điều kiện để chọn nhánh lệnh. |
-| Q2 | **B** | An elif is tried only if earlier conditions in the chain failed. | elif chỉ được xét khi các điều kiện trước đó trong chuỗi chưa đúng. |
-| Q3 | **C** | else is the fallback of the same if/elif chain. | else là nhánh dự phòng của chuỗi if/elif. |
-| Q4 | **D** | Nested conditions let an inner test depend on an outer branch. | Điều kiện lồng cho phép kiểm tra bên trong phụ thuộc nhánh ngoài. |
-| Q5 | **A** | elif adds another condition after an if. | elif bổ sung điều kiện sau if. |
-| Q6 | **B** | else has no condition of its own in an if chain. | else không có điều kiện riêng trong chuỗi if. |
-| Q7 | **C** | if introduces the initial condition. | if mở đầu phép kiểm tra điều kiện. |
-| Q8 | **D** | The membership operator checks whether the item appears in a collection. | Toán tử in kiểm tra phần tử có thuộc tập dữ liệu không. |
-| Q9 | **A** | The >= operator includes its threshold. | Dấu >= bao gồm cả mốc 80. |
-| Q10 | **B** | One equals assigns, double equals checks equality. | Một dấu bằng để gán; hai dấu bằng kiểm tra bằng nhau. |
-| Q11 | **C** | Statements at the same indentation level belong to the branch. | Các lệnh thụt cùng mức thuộc cùng khối. |
-| Q12 | **D** | Python checks branches in written order and selects the first match. | Python xét theo thứ tự viết và chọn nhánh đầu tiên đúng. |
-| Q13 | **A** | and requires all conditions to be true. | and yêu cầu tất cả điều kiện đều đúng. |
-| Q14 | **B** | or only needs one true condition. | or chỉ cần một điều kiện đúng. |
-| Q15 | **A** | The `not` operator negates its operand: `True` becomes the Boolean `False`. This differs from numeric zero (`0`) even though `0` is falsy when used as a condition. | Toán tử `not` phủ định toán hạng: `True` trở thành Boolean `False`. Kết quả khác số nguyên `0`, dù `0` cũng được xem là sai khi dùng làm điều kiện. |
-| Q16 | **D** | `5 % 2` is `1`, and comparing `1 == 0` yields Boolean `False`; five is therefore odd. The result is not integer `0` or `None`, even though those can be falsy. | `5 % 2` bằng `1`, so sánh `1 == 0` cho Boolean `False`; vậy 5 là số lẻ. Kết quả không phải số nguyên `0` hay `None`, dù các giá trị đó có thể được xem là sai trong điều kiện. |
-| Q17 | **A** | Only the first matching branch runs. | Chỉ nhánh đầu tiên thỏa điều kiện được chạy. |
-| Q18 | **B** | A false if without an else simply does not run its body. | Nếu if sai và không có else thì thân if không chạy. |
-| Q19 | **C** | Logical AND requires both conditions to hold. | AND yêu cầu cả hai điều kiện đều đúng. |
-| Q20 | **D** | A descending threshold order makes the first matching category unambiguous. | Xét các ngưỡng từ cao xuống giúp chọn nhóm đầu tiên khớp rõ ràng. |
+| Q1 | **D** | An `if` evaluates its condition, then executes its indented body only if that condition is truthy. For example, with `x = 5`, `if x > 3:` enters its body; an `else` is not required. | `if` đánh giá điều kiện rồi chỉ chạy thân khối được thụt lề nếu điều kiện có giá trị đúng. Ví dụ với `x = 5`, `if x > 3:` sẽ chạy thân khối; không bắt buộc phải có `else`. |
+| Q2 | **D** | Python checks an `elif` only after the preceding `if` or `elif` conditions in the same chain did not match. Once a preceding branch matches, later `elif` tests are skipped, preventing multiple branches from running. | Python chỉ xét `elif` khi những điều kiện `if` hoặc `elif` đứng trước trong cùng chuỗi đều không khớp. Khi một nhánh trước đã đúng, các `elif` sau không được kiểm tra, nên không có nhiều nhánh cùng chạy. |
+| Q3 | **C** | `else` is the fallback branch without its own condition. It executes only when no earlier `if` or `elif` condition in that chain was truthy; it does not run after a successful branch. | `else` là nhánh dự phòng không có điều kiện riêng. Nó chỉ chạy khi mọi điều kiện `if` hoặc `elif` đứng trước trong cùng chuỗi đều sai, không chạy sau nhánh đã khớp. |
+| Q4 | **A** | A nested `if` is a conditional inside another conditional's body, so the inner test occurs only if execution reaches that block. This differs from two separate top-level `if` statements, which can both run. | `if` lồng nhau là câu lệnh điều kiện nằm trong thân một câu lệnh điều kiện khác nên điều kiện trong chỉ được xét khi chương trình đi vào khối đó. Nó khác hai câu `if` độc lập, vốn có thể cùng chạy. |
+| Q5 | **C** | `elif` means an additional conditional branch attached to an earlier `if`. Unlike `else`, it has its own condition, such as `elif score >= 80:`. | `elif` mở thêm một nhánh có điều kiện nối với `if` trước đó. Khác `else`, nhánh này có điều kiện riêng, ví dụ `elif score >= 80:`. |
+| Q6 | **D** | `else` names the unconditional fallback in an `if/elif/else` chain; Python reaches it only when earlier conditions are false. You cannot write `else condition:` because `else` does not take a condition. | `else` là nhánh dự phòng không ghi điều kiện trong chuỗi `if/elif/else`; Python chỉ vào đó khi các điều kiện trước sai. Không thể viết `else condition:` vì `else` không nhận điều kiện. |
+| Q7 | **B** | The initial conditional branch starts with `if`, followed by an expression and a colon. `elif` can follow that `if`, but cannot start a new chain on its own. | Nhánh điều kiện đầu tiên dùng `if`, tiếp theo là biểu thức và dấu hai chấm. `elif` chỉ có thể nối sau một `if` trước đó, không tự mở đầu chuỗi mới. |
+| Q8 | **C** | `in` checks membership: `3 in [1, 3]` evaluates to `True`. By contrast, `if`, `elif`, and `else` are control-flow keywords, not operators for membership. | `in` kiểm tra phần tử thuộc tập hợp: `3 in [1, 3]` là `True`. Trong khi đó `if`, `elif`, `else` là từ khóa điều khiển luồng, không phải toán tử kiểm tra phần tử. |
+| Q9 | **B** | `>=` includes the threshold itself, so `score >= 80` is true for 80, 81, and higher values. The strict comparison `score > 80` would incorrectly exclude exactly 80. | `>=` bao gồm chính giá trị ngưỡng, nên `score >= 80` đúng với 80, 81 và các giá trị lớn hơn. Dùng so sánh nghiêm ngặt `score > 80` sẽ loại đúng điểm 80. |
+| Q10 | **A** | `=` assigns a value, as in `score = 80`, whereas `==` compares values and yields a Boolean, as in `score == 80`. They are not interchangeable within an `if` condition. | `=` gán giá trị như `score = 80`, còn `==` so sánh và trả Boolean như `score == 80`. Không thể thay hai toán tử cho nhau trong điều kiện `if`. |
+| Q11 | **A** | Indentation identifies which statements belong to the `if` body, conventionally four spaces per level. The colon finishes the header, but only the following correctly indented lines are inside the branch. | Thụt lề xác định câu lệnh nào thuộc thân `if`, thông thường bốn dấu cách cho mỗi cấp. Dấu hai chấm kết thúc dòng điều kiện, còn các dòng thụt lề đúng sau đó mới nằm trong nhánh. |
+| Q12 | **B** | Python tests branches from top to bottom and executes the first one whose condition is true. If scores of 95 also satisfy `>= 80`, placing `>= 80` before `>= 90` will choose the lower grade prematurely. | Python xét nhánh từ trên xuống và chạy nhánh đầu tiên có điều kiện đúng. Nếu điểm 95 cũng thỏa `>= 80`, đặt `>= 80` trước `>= 90` sẽ chọn mức điểm thấp hơn quá sớm. |
+| Q13 | **D** | `and` with Boolean operands is `True` only when both operands are `True`. Since the second operand is `False`, `True and False` yields Boolean `False`, not integer `0`. | `and` với hai toán hạng Boolean chỉ trả `True` khi cả hai đều `True`. Vì vế thứ hai là `False`, `True and False` cho Boolean `False`, không phải số nguyên `0`. |
+| Q14 | **C** | `or` with Boolean operands requires only one true side; the left side is `True`, so `True or False` is Boolean `True`. This is not the same type as the integer `1`. | `or` với toán hạng Boolean chỉ cần một vế đúng; vế trái là `True` nên `True or False` cho Boolean `True`. Kết quả không cùng kiểu với số nguyên `1`. |
+| Q15 | **D** | `not` reverses the truth value of its operand, so `not True` evaluates to Boolean `False`. An integer `0` is falsy in a condition but is not the value returned here. | `not` đảo giá trị logic của toán hạng, nên `not True` cho Boolean `False`. Số nguyên `0` cũng được xem là sai trong điều kiện nhưng không phải giá trị trả về ở đây. |
+| Q16 | **A** | The remainder `5 % 2` is `1`; comparing `1 == 0` is therefore false. The whole expression returns Boolean `False`, which indicates that five is not even. | Phần dư `5 % 2` là `1`; vì vậy so sánh `1 == 0` là sai. Toàn bộ biểu thức trả về Boolean `False`, nghĩa là 5 không phải số chẵn. |
+| Q17 | **C** | In one `if/elif/else` chain, execution selects at most one branch: the first matching one, or `else` when none match. If no `else` is present and all conditions fail, zero branches run. | Trong một chuỗi `if/elif/else`, chương trình chạy tối đa một nhánh: nhánh đúng đầu tiên hoặc `else` khi không nhánh nào đúng. Nếu không có `else` và mọi điều kiện đều sai thì không nhánh nào chạy. |
+| Q18 | **B** | When the `if` condition is false, its body is simply skipped. If no `else` follows, execution continues after the conditional; this is valid Python, not a syntax error. | Khi điều kiện `if` sai, thân nhánh đó được bỏ qua. Nếu không có `else`, chương trình tiếp tục sau khối điều kiện; đây là Python hợp lệ, không phải lỗi cú pháp. |
+| Q19 | **B** | Logical `and` requires both conditions to hold, such as `has_ticket and age >= 18`. Using `or` would admit anyone satisfying only one of the conditions, which does not enforce both requirements. | Phép `and` bắt buộc đồng thời hai điều kiện như `has_ticket and age >= 18`. Dùng `or` sẽ chấp nhận người chỉ thỏa một điều kiện, nên không đảm bảo đủ cả hai yêu cầu. |
+| Q20 | **A** | A chain selects its first matching branch; test the most restrictive grade threshold first, such as `>= 90` before `>= 80` and `>= 70`. Starting with `>= 70` would classify a score of 95 too early. | Chuỗi điều kiện chọn nhánh đúng đầu tiên; hãy xét ngưỡng điểm cao nhất trước, ví dụ `>= 90`, rồi `>= 80`, `>= 70`. Nếu bắt đầu từ `>= 70`, điểm 95 sẽ bị xếp nhóm quá sớm. |
 
 ## 8. Nối sang bài tiếp theo
 
