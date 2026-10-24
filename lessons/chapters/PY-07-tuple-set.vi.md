@@ -42,6 +42,12 @@ point=(2,3)
 print(point)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+(2, 3)
+```
+
 ### 4.2. Set
 
 **Từ vựng trong mục:** **Set** — tập hợp.
@@ -51,6 +57,14 @@ Set chỉ giữ mỗi giá trị một lần. `set([1, 1, 2])` tạo tập chứ
 ```python
 print(set([1,1,2]))
 ```
+
+**Kết quả khi chạy:**
+
+```text
+{1, 2}
+```
+
+*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
 
 ### 4.3. Union
 
@@ -62,6 +76,14 @@ Phép hợp gộp các phần tử của hai tập và tự loại phần trùng
 print({1, 2} | {2, 3})
 ```
 
+**Kết quả khi chạy:**
+
+```text
+{1, 2, 3}
+```
+
+*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
+
 ### 4.4. Intersection
 
 **Từ vựng trong mục:** **Intersection** — phép giao.
@@ -70,6 +92,12 @@ Phép giao chỉ giữ phần tử có mặt trong cả hai tập. `{1, 2} & {2,
 
 ```python
 print({1,2}&{2,3})
+```
+
+**Kết quả khi chạy:**
+
+```text
+{2}
 ```
 
 ## 5. Năm tình huống lập trình thực tế
@@ -93,6 +121,12 @@ print({1,2}&{2,3})
 ```python
 emails=["a@x.vn","b@x.vn","a@x.vn","c@x.vn"]
 print(len(set(emails)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+3
 ```
 
 **Kết quả:** `3` — có ba địa chỉ email khác nhau.
@@ -119,6 +153,12 @@ x,y=point
 print(x*x+y*y)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+25
+```
+
 **Kết quả:** `25` m² — bình phương khoảng cách; khoảng cách thật bằng 5 mét.
 
 ### Tình huống 3 — Tìm kỹ năng chung
@@ -142,6 +182,14 @@ a={"Python","AI","SQL"}
 b={"Python","Math","AI"}
 print(a&b)
 ```
+
+**Kết quả khi chạy:**
+
+```text
+{'Python', 'AI'}
+```
+
+*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
 
 **Kết quả:** Tập chứa `Python` và `AI`; thứ tự hiển thị của set có thể thay đổi.
 
@@ -167,6 +215,14 @@ b={"Math","AI"}
 print(a|b)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+{'Python', 'Math', 'AI'}
+```
+
+*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
+
 **Kết quả:** Tập chứa `Python`, `Math`, `AI`; thứ tự in không cố định.
 
 ### Tình huống 5 — Liệt kê bài còn thiếu
@@ -190,6 +246,14 @@ required={"Python","SQL","AI"}
 done={"Python"}
 print(required-done)
 ```
+
+**Kết quả khi chạy:**
+
+```text
+{'SQL', 'AI'}
+```
+
+*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
 
 **Kết quả:** Tập chứa `SQL` và `AI`; thứ tự in không cố định.
 
