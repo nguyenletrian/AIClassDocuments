@@ -72,3 +72,6 @@ Mỗi bài có đúng năm đề bài thực tế với bối cảnh, đối tư
 
 ## Câu chữ thân thiện với người mới học
 Ưu tiên “so sánh” thay “đối chiếu”, “kết quả” thay “giá trị đầu ra”; nói “truyền vào” khi đưa đối số vào hàm, “nhập vào” khi người dùng gõ dữ liệu. Không đánh đồng đầu vào với kết quả. Dùng câu ngắn, từ phổ thông, không dùng câu mẫu vô nghĩa. Bỏ “Tự kiểm tra”/“Đáp án gợi ý” sau các tiểu mục, nhưng giữ nguyên 20 câu trắc nghiệm song ngữ và bảng đáp án cuối bài.
+
+## Tiêu đề mục khái niệm
+Tiêu đề mục 4 phải viết ngắn gọn: `## 4. Khái niệm liên quan`. Bỏ đuôi “— từ lời giải thích đến Python”. Vẫn giải thích bằng lời trước khi minh họa bằng code trong nội dung.
