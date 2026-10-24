@@ -1,14 +1,8 @@
 # PY-24 — Scalar, vector, norm, đơn vị và dot product
 
-*DRAFT · Dữ liệu số mô phỏng; chưa xác nhận kiểm thử trên Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Scalar** — đại lượng vô hướng; **Vector** — véc-tơ.
-
 `NumPy → Scalar/Vector → Matrix → PCA`
-
-Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python trước khi sử dụng vào học máy.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -21,8 +15,6 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ## 3. NumPy và các hàm liên quan
 
-**Từ vựng trong mục:** **Function** — hàm; **Shape** — kích thước mảng.
-
 | Hàm / tham số | Dùng làm gì |
 |---|---|
 | `np.array([...],dtype=float)` | Tạo véc-tơ kiểu thực khi phép tính tạo phần thập phân |
@@ -34,69 +26,49 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 
 ### 4.1. Scalar
 
-**Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
-
-Một số đơn lẻ có thể đo độ lớn. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Một số đơn lẻ có thể đo độ lớn.
 
 ```python
 rate=2.5
 print(rate)
 ```
 
-**Tự kiểm tra:** Scalar có nghĩa gì? **Đáp án:** Một số đơn lẻ có thể đo độ lớn.
-
 ### 4.2. Vector
 
-**Từ vựng trong mục:** **Vector** — véc-tơ.
-
-Dãy số mô tả nhiều thành phần của một đối tượng. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Dãy số mô tả nhiều thành phần của một đối tượng.
 
 ```python
 import numpy as np
 print(np.array([3,4]))
 ```
 
-**Tự kiểm tra:** Vector có nghĩa gì? **Đáp án:** Dãy số mô tả nhiều thành phần của một đối tượng.
-
 ### 4.3. Norm
 
-**Từ vựng trong mục:** **Norm** — độ lớn véc-tơ.
-
-Độ dài theo chuẩn đã chọn. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Độ dài theo chuẩn đã chọn.
 
 ```python
 import numpy as np
 print(np.linalg.norm([3,4]))
 ```
 
-**Tự kiểm tra:** Norm có nghĩa gì? **Đáp án:** Độ dài theo chuẩn đã chọn.
-
 ### 4.4. Dot product
 
-**Từ vựng trong mục:** **Dot product** — tích vô hướng.
-
-Nhân từng cặp tọa độ tương ứng rồi cộng. Trước khi sử dụng biểu thức hãy xem phần tử, hàng/cột và đơn vị đầu vào.
+Nhân từng cặp tọa độ tương ứng rồi cộng.
 
 ```python
 import numpy as np
 print(np.dot([1,2],[3,4]))
 ```
 
-**Tự kiểm tra:** Dot product có nghĩa gì? **Đáp án:** Nhân từng cặp tọa độ tương ứng rồi cộng.
-
 ## 5. Năm tình huống ứng dụng
 
 ### Tình huống 1 — Tính khoảng cách 2D
 
-**Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
-
 **Vấn đề:** Tính khoảng cách 2D.
 
-**Vì sao chọn phương án?** Norm từ véc-tơ độ lệch giúp tính khoảng cách đến gốc; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Norm từ véc-tơ độ lệch giúp tính khoảng cách đến gốc
 
-**Dữ liệu:** Vị trí điểm [3,4] mét. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Vị trí điểm [3,4] mét.
 
 ```python
 import numpy as np
@@ -104,19 +76,13 @@ v=np.array([3,4],dtype=float)
 print(np.linalg.norm(v))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 2 — Chuẩn hóa hướng di chuyển
-
-**Từ vựng trong mục:** **Vector** — véc-tơ.
 
 **Vấn đề:** Chuẩn hóa hướng di chuyển.
 
-**Vì sao chọn phương án?** Chia norm giúp hướng có độ dài 1 trước điều khiển tốc độ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Chia norm giúp hướng có độ dài 1 trước điều khiển tốc độ
 
-**Dữ liệu:** Véc-tơ [3,4] mét. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Véc-tơ [3,4] mét.
 
 ```python
 import numpy as np
@@ -125,19 +91,13 @@ u=v/norm if norm else v
 print(u)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 3 — Điểm tổng kết có trọng số
-
-**Từ vựng trong mục:** **Norm** — độ lớn véc-tơ.
 
 **Vấn đề:** Điểm tổng kết có trọng số.
 
-**Vì sao chọn phương án?** Dot product của điểm và trọng số tạo điểm tổng; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Dot product của điểm và trọng số tạo điểm tổng
 
-**Dữ liệu:** Điểm 8 7 9; trọng số 0.2,0.3,0.5. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Điểm 8 7 9; trọng số 0.2,0.3,0.5.
 
 ```python
 import numpy as np
@@ -145,19 +105,13 @@ scores=np.array([8,7,9]);weights=np.array([.2,.3,.5])
 print(scores@weights)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 4 — Tìm hai hướng vuông góc
-
-**Từ vựng trong mục:** **Dot product** — tích vô hướng.
 
 **Vấn đề:** Tìm hai hướng vuông góc.
 
-**Vì sao chọn phương án?** Dot bằng 0 cho hai vector khác 0 biểu thị trực giao; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Dot bằng 0 cho hai vector khác 0 biểu thị trực giao
 
-**Dữ liệu:** a=[1,0], b=[0,1]. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** a=[1,0], b=[0,1].
 
 ```python
 import numpy as np
@@ -165,19 +119,13 @@ a=np.array([1,0]);b=np.array([0,1])
 print(a@b)
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ### Tình huống 5 — Tính sai khác cảm biến
-
-**Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
 
 **Vấn đề:** Tính sai khác cảm biến.
 
-**Vì sao chọn phương án?** Norm của hiệu vector đo mức sai khác tổng hợp; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
+**Vì sao chọn phương án?** Norm của hiệu vector đo mức sai khác tổng hợp
 
-**Dữ liệu:** Hai kênh cảm biến trên cùng đơn vị. Mỗi hàng là một đối tượng, mỗi cột là feature trong bài toán (nếu đầu vào là ma trận). Những con số ở đây là minh họa, không phải kết luận thực tế.
-
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Dữ liệu:** Hai kênh cảm biến trên cùng đơn vị.
 
 ```python
 import numpy as np
@@ -185,15 +133,11 @@ a=np.array([20,30]);b=np.array([23,34])
 print(np.linalg.norm(a-b))
 ```
 
-**Đọc kết quả:** Chú ý kích thước và đơn vị kết quả, thử thêm ca biên nếu đưa vào ứng dụng thực tế.
-
 ## 6. Sai lầm cần tránh
 
 Phân biệt vector một chiều với ma trận hai chiều, tránh nhân ma trận sai shape; covariance và eigenvalue không phải độ chính xác mô hình. Các ví dụ số không có ý nghĩa dự đoán nếu thiếu bước đánh giá.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What is Scalar? — Thuật ngữ Scalar có nghĩa gì?**
@@ -439,7 +383,3 @@ D. It guarantees no leakage — Nó bảo đảm không rò rỉ dữ liệu
 | Q18 | **A** | The input is Hai kênh cảm biến trên cùng đơn vị | Hai kênh cảm biến trên cùng đơn vị |
 | Q19 | **D** | Shapes and data units | Shape và đơn vị dữ liệu |
 | Q20 | **C** | It does not establish predictive performance | Nó không đo chất lượng dự đoán |
-
-## 8. Nối sang bài kế tiếp
-
-`NumPy → Scalar/Vector → Matrix → PCA`.
