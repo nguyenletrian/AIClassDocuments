@@ -110,12 +110,12 @@ print(2**4)
 
 **Từ vựng trong mục:** **Linear function** — hàm tuyến tính.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần ước lượng phí giao hàng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 3 km, phí nền 10000 đồng, 5000 đồng/km. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Dịch vụ giao hàng thu phí cơ bản 10.000 đồng và 5.000 đồng mỗi km; khách đi 3 km. Tính phí.
 
 **Vì sao chọn phương án?** Mỗi km tăng một mức phí ổn định nên chọn tuyến tính
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 km=3
@@ -134,12 +134,12 @@ print(total)
 
 **Từ vựng trong mục:** **Quadratic** — hàm bậc hai.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần mô hình chi phí tăng theo tải để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Tải x=4. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Một mô hình chi phí phụ thuộc tải x theo công thức 2x²+3x+10; với x=4, tính chi phí.
 
 **Vì sao chọn phương án?** Chi phí có phần tăng bậc hai với tải lớn
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 load=4
@@ -158,12 +158,12 @@ print(cost)
 
 **Từ vựng trong mục:** **Polynomial** — hàm đa thức.
 
-**Tình huống thực tế:** Một nhóm phát triển AI cần dự báo từ đa thức mô phỏng để phục vụ một công việc cụ thể. Đầu vào được cung cấp: Ba điểm thời gian [0,1,2], hệ số [1,0,2]. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Mô hình dự báo y=x²+2 nhận đầu vào [0,1,2]. Tính đầu ra cho từng giá trị.
 
 **Vì sao chọn phương án?** polyval giúp biểu diễn đường cong hệ số đã biết
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
@@ -181,12 +181,12 @@ print(np.polyval([1,0,2],np.array([0,1,2])))
 
 **Từ vựng trong mục:** **Exponential** — hàm mũ.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần mô phỏng tăng trưởng qua kỳ để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 1000 đơn vị ban đầu, 3 kỳ. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Một chỉ số ban đầu 1.000 đơn vị tăng 5% mỗi kỳ trong ba kỳ. Tính giá trị sau tăng trưởng.
 
 **Vì sao chọn phương án?** Lũy thừa mô tả tăng 5% mỗi kỳ, không phải dự đoán chắc chắn
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 start,rate,periods=1000,0.05,3
@@ -204,12 +204,12 @@ print(round(start*(1+rate)**periods,2))
 
 **Từ vựng trong mục:** **Linear function** — hàm tuyến tính.
 
-**Tình huống thực tế:** Một nhóm phân tích đang hỗ trợ quyết định vận hành cần vẽ đường tuyến tính dữ liệu để phục vụ một công việc cụ thể. Đầu vào được cung cấp: 5 điểm x từ 0 đến 10. Hãy viết chương trình xử lý thông tin trên và giải thích kết quả.
+**Tình huống thực tế:** Một đường dự báo tuyến tính y=2x+5 được đánh giá tại năm giá trị x từ 0 đến 10. In các cặp (x,y).
 
 **Vì sao chọn phương án?** linspace tạo mẫu x đều để tính y
 
 
-**Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
+**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
 
 ```python
 import numpy as np
