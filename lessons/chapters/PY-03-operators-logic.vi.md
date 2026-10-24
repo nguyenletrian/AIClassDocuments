@@ -94,86 +94,116 @@ print(5 & 3)
 
 **Từ vựng trong mục:** **Arithmetic** — số học.
 
-**Tình huống thực tế:** Một cửa hàng giảm giá 10% cho sản phẩm có giá niêm yết 250.000 đồng. Hãy tính số tiền khách hàng phải thanh toán sau giảm giá.
+**Vấn đề thực tế:** Một cửa hàng bán sản phẩm có giá niêm yết 250.000 đồng và áp dụng mức giảm giá 10% trên giá niêm yết.
 
-**Vì sao chọn cách này?** Nhân tỷ lệ giảm với giá để tính tiền còn lại.
+**Yêu cầu:** Viết Python tính số tiền khách phải thanh toán sau khi giảm giá.
 
+**Vì sao chọn cách giải này?** Phép nhân với `(1 - 0.10)` lấy trực tiếp 90% giá gốc, là số tiền còn phải trả.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu giá niêm yết `price = 250000` (đồng).
+2. Chuyển mức giảm 10% thành tỷ lệ `0.10`.
+3. Nhân giá với phần tỷ lệ còn lại và in số tiền phải trả.
 
 ```python
 price = 250000
 print(price * (1 - 0.10))
 ```
 
+**Kết quả:** `225000.0` đồng, tương ứng giá gốc trừ 25.000 đồng.
 
 ### Tình huống 2 — Xét VIP
 
 **Từ vựng trong mục:** **Comparison** — so sánh.
 
-**Tình huống thực tế:** Một cửa hàng quy định khách đạt hạng VIP khi gắn bó ít nhất 5 năm và chi tiêu từ 1.000.000 đồng. Một khách hàng đã gắn bó 5 năm và có tổng chi tiêu 1.200.000 đồng. Hãy xác định khách này có đủ điều kiện VIP không.
+**Vấn đề thực tế:** Cửa hàng chỉ công nhận khách hàng VIP khi họ là thành viên **ít nhất 5 năm** và có tổng chi tiêu **từ 1.000.000 đồng**. Một khách đã tham gia 5 năm và chi 1.200.000 đồng.
 
-**Vì sao chọn cách này?** Hai điều kiện đều phải đúng.
+**Yêu cầu:** Viết chương trình xác định khách hàng này có đủ điều kiện VIP hay không.
 
+**Vì sao chọn cách giải này?** Hai điều kiện phải đồng thời đúng, nên dùng toán tử logic `and` để kết hợp hai phép so sánh ngưỡng `>=`.
 
-**Quy trình:** kiểm tra `years >= 5` và `spending >= 1000000` → dùng `and` vì phải thỏa cả hai điều kiện → trả về `True` nếu đủ điều kiện, ngược lại `False`.
+**Quy trình giải:**
+
+1. Lưu số năm là thành viên và tổng chi tiêu.
+2. Kiểm tra `years >= 5` và `spending >= 1000000`.
+3. Dùng `and` để trả về `True` chỉ khi cả hai điều kiện đúng.
 
 ```python
 years, spending = 5, 1200000
 print(years >= 5 and spending >= 1000000)
 ```
 
+**Kết quả:** `True` — khách hàng đủ điều kiện VIP vì đạt cả ngưỡng thời gian lẫn chi tiêu.
 
 ### Tình huống 3 — Đóng thùng hàng
 
 **Từ vựng trong mục:** **Logical** — logic.
 
-**Tình huống thực tế:** Kho hàng cần đóng 23 sản phẩm vào các thùng, mỗi thùng chứa tối đa 5 sản phẩm. Hãy tính số thùng đóng đầy và số sản phẩm còn lại.
+**Vấn đề thực tế:** Một kho cần đóng 23 sản phẩm vào các thùng, mỗi thùng chứa đúng 5 sản phẩm khi đầy. Các sản phẩm còn dư được để riêng.
 
-**Vì sao chọn cách này?** Chia nguyên đếm thùng đủ và dư đếm món lẻ.
+**Yêu cầu:** Tính số thùng đầy và số sản phẩm chưa đủ để đóng thêm một thùng.
 
+**Vì sao chọn cách giải này?** Chia nguyên `//` đếm số nhóm đủ 5 món, còn phép chia lấy dư `%` cho biết số món chưa đủ một thùng.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Ghi số sản phẩm `23` và sức chứa `5`.
+2. Tính `items // box_size` để đếm thùng đầy.
+3. Tính `items % box_size` để đếm sản phẩm dư.
 
 ```python
 items, box_size = 23, 5
 print(items // box_size, items % box_size)
 ```
 
+**Kết quả:** `4 3` — đóng được 4 thùng đầy và còn 3 sản phẩm.
 
 ### Tình huống 4 — Đọc cờ thiết bị
 
 **Từ vựng trong mục:** **Bitwise** — thao tác bit.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần đọc cờ thiết bị. Dữ liệu hiện có: Trạng thái mô phỏng 0b1010. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Vấn đề thực tế:** Bộ điều khiển lưu trạng thái bốn công tắc trong số nhị phân `0b1010`. Bit `0b0010` biểu thị công tắc thứ hai tính từ phải qua có đang bật hay không.
 
-**Vì sao chọn cách này?** Kiểm một bit bằng phép AND trên số nhị phân.
+**Yêu cầu:** Viết chương trình kiểm tra công tắc này đang bật (`True`) hay tắt (`False`).
 
+**Vì sao chọn cách giải này?** Phép AND bit `&` giữ lại đúng vị trí bit cần kiểm tra; `bool` chuyển kết quả khác 0 thành `True`.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu trạng thái thiết bị dưới dạng `0b1010`.
+2. Dùng mặt nạ `0b0010` với toán tử `&`.
+3. Chuyển thành Boolean và in trạng thái.
 
 ```python
 status = 0b1010
 print(bool(status & 0b0010))
 ```
 
+**Kết quả:** `True` — bit `0b0010` đang bật trong trạng thái `0b1010`.
 
 ### Tình huống 5 — Ưu tiên đơn hàng
 
 **Từ vựng trong mục:** **Arithmetic** — số học.
 
-**Tình huống thực tế:** Một cửa hàng cần ưu tiên đơn hàng. Dữ liệu hiện có: Giá trị 3000000 đồng hoặc trễ 2 ngày. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Vấn đề thực tế:** Cửa hàng ưu tiên xử lý đơn hàng nếu **giá trị từ 2.000.000 đồng** hoặc **bị trễ hơn 2 ngày**. Một đơn có giá trị 3.000.000 đồng và hiện chưa bị trễ (`delay = 0` ngày).
 
-**Vì sao chọn cách này?** Chỉ cần một trong hai ngưỡng được đáp ứng.
+**Yêu cầu:** Viết chương trình kiểm tra đơn này có thuộc diện ưu tiên hay không.
 
+**Vì sao chọn cách giải này?** Điều kiện ưu tiên chỉ cần đạt một trong hai ngưỡng, nên dùng toán tử `or` để kết hợp các phép so sánh.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu giá trị đơn `amount` và số ngày trễ `delay`.
+2. Kiểm tra `amount >= 2000000`.
+3. Kiểm tra `delay > 2`, rồi nối hai kết quả bằng `or`.
 
 ```python
 amount, delay = 3000000, 0
 print(amount >= 2000000 or delay > 2)
 ```
 
+**Kết quả:** `True` — đơn được ưu tiên vì giá trị đạt ngưỡng dù chưa trễ ngày nào.
 
 ## 6. Những nhầm lẫn thường gặp
 
