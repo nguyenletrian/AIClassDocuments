@@ -1,6 +1,5 @@
 # PY-23 — Đồ thị, danh sách kề và Jaccard similarity
 
-*DRAFT · Dữ liệu số mô phỏng; chưa xác nhận kiểm thử trên Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
