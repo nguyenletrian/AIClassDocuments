@@ -389,7 +389,7 @@ A. 0.2 — 0.2
 
 B. 0.56 — 0.56
 
-C. 0.2 — 0.2
+C. 0.3 — 0.3
 
 D. No; base rate and false positives also matter — Không; còn tỷ lệ nền và dương giả
 
@@ -399,17 +399,17 @@ A. 0.2 — 0.2
 
 B. 0.56 — 0.56
 
-C. 0.2 — 0.2
+C. 0.3 — 0.3
 
 D. No; base rate and false positives also matter — Không; còn tỷ lệ nền và dương giả
 
-**Q15. If P(A)=0.5 and P(B)=0.4 and they are independent, what is P(A and B)? — Nếu A, B độc lập có xác suất 0.5 và 0.4 thì P(A và B) là gì?**
+**Q15. If P(A)=0.5 and P(B)=0.6 and they are independent, what is P(A and B)? — Nếu A, B độc lập có xác suất 0.5 và 0.6 thì P(A và B) là gì?**
 
 A. 0.2 — 0.2
 
 B. 0.56 — 0.56
 
-C. 0.2 — 0.2
+C. 0.3 — 0.3
 
 D. No; base rate and false positives also matter — Không; còn tỷ lệ nền và dương giả
 
@@ -419,7 +419,7 @@ A. 0.2 — 0.2
 
 B. 0.56 — 0.56
 
-C. 0.2 — 0.2
+C. 0.3 — 0.3
 
 D. No; base rate and false positives also matter — Không; còn tỷ lệ nền và dương giả
 
@@ -481,7 +481,7 @@ D. They condition on different reference groups — Chúng xét trên hai nhóm 
 | Q12 | **D** | False positive refers to a positive test in a negative case. | Dương giả là cảnh báo dương ở trường hợp không lỗi. |
 | Q13 | **A** | Twenty divided by one hundred equals 0.2. | 20 chia 100 bằng 0.2. |
 | Q14 | **B** | 0.6×0.8+0.4×0.2 equals 0.56. | 0.6×0.8+0.4×0.2 bằng 0.56. |
-| Q15 | **C** | 0.5×0.4 equals 0.2. | 0.5 nhân 0.4 bằng 0.2. |
+| Q15 | **C** | For independent events, 0.5×0.6=0.3. | Với biến cố độc lập, 0.5×0.6=0.3. |
 | Q16 | **D** | Sensitivity and posterior condition on different populations. | Độ nhạy và posterior xét hai nhóm mẫu nền khác nhau. |
 | Q17 | **A** | Rare events can make most alerts false even with strong sensitivity. | Sự kiện hiếm có thể khiến phần lớn cảnh báo là dương giả. |
 | Q18 | **B** | Division by zero would be undefined. | Chia cho 0 không xác định. |
