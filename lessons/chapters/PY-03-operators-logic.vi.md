@@ -252,7 +252,7 @@ D. Combining boolean conditions — Kết hợp các điều kiện
 
 A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
 
-B. This Python operation supports the described task — Tính số học và tỷ lệ
+B. These operators perform arithmetic calculations — Tính số học và tỷ lệ
 
 C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
 
@@ -261,7 +261,7 @@ D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra
 
 **Q6. Which use matches //, %, **? — Công dụng nào đúng với //, %, **?**
 
-A. This Python operation supports the described task — Chia nguyên, lấy dư, lũy thừa
+A. These operators calculate floor division, remainder and powers — Chia nguyên, lấy dư, lũy thừa
 
 B. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
 
@@ -278,7 +278,7 @@ B. It automatically trains a neural network — Nó tự huấn luyện mạng n
 
 C. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
 
-D. This Python operation supports the described task — So sánh và kết hợp điều kiện
+D. These operators compare values and combine conditions — So sánh và kết hợp điều kiện
 
 
 **Q8. Which use matches &, |, ^? — Công dụng nào đúng với &, |, ^?**
@@ -287,7 +287,7 @@ A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệ
 
 B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
 
-C. This Python operation supports the described task — Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ
+C. These operators work on individual bits of integers — Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ
 
 D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
 
