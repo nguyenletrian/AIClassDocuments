@@ -31,11 +31,13 @@ Bài trước dùng `if` để chọn việc cần làm. Bài này dùng vòng l
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Iteration
+**Vòng lặp** cho phép chương trình thực hiện một công việc nhiều lần mà không phải sao chép cùng câu lệnh. Một lần thực hiện được gọi là **lần lặp**. Dùng `for` khi duyệt các phần tử đã có; dùng `while` khi còn phải lặp theo một điều kiện. Hai lệnh `break` và `continue` kiểm soát cách vòng lặp kết thúc hoặc bỏ qua một lượt.
 
-**Từ vựng trong mục:** **Iteration** — lần lặp.
+### 4.1. Loop / Iteration — Vòng lặp và lần lặp
 
-Mỗi lần vòng lặp chạy một lượt gọi là một lần lặp. `range(2)` cho hai giá trị `0` và `1`, nên ví dụ in hai dòng tương ứng.
+**Từ vựng trong mục:** **Loop** — vòng lặp; **Iteration** — lần lặp.
+
+Ví dụ cần đánh số hai lượt kiểm tra liên tiếp. Thay vì viết hai lần `print()`, ta dùng `for` và `range(2)` để Python lần lượt cấp giá trị 0 và 1 cho biến `i`. Mỗi lần thân vòng lặp chạy là một **lần lặp**; ở ví dụ có hai lần lặp và hai dòng được in ra.
 
 ```python
 for i in range(2):
@@ -49,14 +51,16 @@ for i in range(2):
 1
 ```
 
-### 4.2. For loop
+`range(2)` bắt đầu từ 0 và dừng trước 2, nên in 0 rồi 1.
 
-**Từ vựng trong mục:** **For loop** — vòng for.
+### 4.2. For loop — Duyệt từng phần tử
 
-Dùng `for` khi muốn lần lượt xử lý các giá trị trong một danh sách hoặc `range`. Ví dụ với `[1, 2]`, Python lần lượt in `1` rồi `2`.
+**Từ vựng trong mục:** **For loop** — vòng `for`; **Iterable** — dữ liệu duyệt được.
+
+Khi có sẵn danh sách `[1, 2]` đại diện hai mã số, `for` lấy từng phần tử theo thứ tự rồi chạy thân vòng lặp. Biến `x` lần lượt nhận 1 rồi 2; nếu danh sách có thêm phần tử, code không cần thêm một câu `print()` riêng cho phần tử mới.
 
 ```python
-for x in [1,2]:
+for x in [1, 2]:
     print(x)
 ```
 
@@ -67,30 +71,43 @@ for x in [1,2]:
 2
 ```
 
-### 4.3. While loop
+Mỗi phần tử tạo ra một dòng đầu ra, theo thứ tự đã lưu trong danh sách.
 
-**Từ vựng trong mục:** **While loop** — vòng while.
+### 4.3. While loop — Lặp khi điều kiện còn đúng
 
-`while` tiếp tục chạy khi điều kiện còn đúng. Trong ví dụ `n` bắt đầu bằng 2, sau mỗi lượt giảm 1 nên vòng lặp kết thúc khi `n = 0`. Phải đảm bảo điều kiện có thể chuyển thành sai để tránh lặp mãi.
+**Từ vựng trong mục:** **While loop** — vòng `while`; **Condition** — điều kiện.
+
+`while` kiểm tra một điều kiện **trước mỗi lượt**. Ví dụ số việc còn lại là `n = 2`; mỗi lượt hoàn thành một việc nên giảm `n` đi 1. Khi `n` bằng 0 thì `n > 0` sai, vòng lặp dừng. Điều kiện phải có cơ hội trở thành sai để tránh lặp vô hạn.
 
 ```python
-n=2
-while n>0:
-    n-=1
+n = 2
+
+while n > 0:
+    n -= 1
+
+print(n)
 ```
 
-**Kết quả khi chạy:** Không in ra màn hình. Biến `n` giảm từ `2` xuống `0`.
+**Kết quả khi chạy:**
 
-### 4.4. Break/continue
+```text
+0
+```
 
-**Từ vựng trong mục:** **Break/continue** — dừng/bỏ qua.
+Hai lượt giảm từ 2 xuống 1 rồi 0; câu `print` bên ngoài vòng lặp cho thấy giá trị cuối cùng.
 
-`break` thoát hẳn vòng lặp, còn `continue` bỏ phần còn lại của lượt đang chạy rồi sang lượt sau. Ví dụ bỏ qua số `0` và in `1`, `2`.
+### 4.4. Break / continue — Dừng hoặc bỏ qua
+
+**Từ vựng trong mục:** **Break** — dừng vòng lặp; **Continue** — bỏ qua lượt hiện tại.
+
+`continue` bỏ phần còn lại của **lượt đang chạy** nhưng vẫn xét lượt tiếp theo. `break` thoát khỏi **toàn bộ vòng lặp hiện tại**. Ví dụ duyệt `[0, 1, 2, 3]`: bỏ qua 0, in 1 và 2, rồi dừng khi gặp 3. Hai lệnh có tác dụng khác nhau dù đều làm một số dòng không được thực hiện.
 
 ```python
-for x in [0,1,2]:
-    if x==0:
+for x in [0, 1, 2, 3]:
+    if x == 0:
         continue
+    if x == 3:
+        break
     print(x)
 ```
 
@@ -101,6 +118,7 @@ for x in [0,1,2]:
 2
 ```
 
+Số 0 bị bỏ qua bởi `continue`; khi đến 3, `break` dừng hẳn nên không in 3.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tổng hợp doanh thu
