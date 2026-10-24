@@ -268,249 +268,230 @@ print("*" * (len(phone)-3) + phone[-3:])
 
 **Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
-**Q1. What is Integer? — Thuật ngữ Integer có nghĩa gì?**
+**Q1. What is an integer? — Số nguyên là gì?**
 
-A. A fractional numeric value — Số có thể có phần lẻ
+A. A whole number without a fractional part — Số không có phần thập phân
 
-B. A whole-number value — Giá trị không có phần thập phân
+B. A floating-point number — Số thực dấu phẩy động
 
-C. A true-or-false value — Giá trị True hoặc False
+C. A true/false value — Một giá trị đúng/sai
 
-D. An ordered sequence of characters — Dãy ký tự có thể cắt lát
+D. An ordered sequence of characters — Dãy ký tự có thứ tự
 
+**Q2. What is a float? — Float là kiểu dữ liệu nào?**
 
-**Q2. What is Float? — Thuật ngữ Float có nghĩa gì?**
+A. A whole number without a fractional part — Số không có phần thập phân
 
-A. A fractional numeric value — Số có thể có phần lẻ
+B. A floating-point number — Số thực dấu phẩy động
 
-B. A true-or-false value — Giá trị True hoặc False
+C. A true/false value — Một giá trị đúng/sai
 
-C. An ordered sequence of characters — Dãy ký tự có thể cắt lát
+D. An ordered sequence of characters — Dãy ký tự có thứ tự
 
-D. A whole-number value — Giá trị không có phần thập phân
+**Q3. What is a Boolean? — Boolean là gì?**
 
+A. A whole number without a fractional part — Số không có phần thập phân
 
-**Q3. What is Boolean? — Thuật ngữ Boolean có nghĩa gì?**
+B. A floating-point number — Số thực dấu phẩy động
 
-A. An ordered sequence of characters — Dãy ký tự có thể cắt lát
+C. A true/false value — Một giá trị đúng/sai
 
-B. A whole-number value — Giá trị không có phần thập phân
+D. An ordered sequence of characters — Dãy ký tự có thứ tự
 
-C. A fractional numeric value — Số có thể có phần lẻ
+**Q4. What is a string? — Chuỗi là gì?**
 
-D. A true-or-false value — Giá trị True hoặc False
+A. A whole number without a fractional part — Số không có phần thập phân
 
+B. A floating-point number — Số thực dấu phẩy động
 
-**Q4. What is String? — Thuật ngữ String có nghĩa gì?**
+C. A true/false value — Một giá trị đúng/sai
 
-A. A whole-number value — Giá trị không có phần thập phân
+D. An ordered sequence of characters — Dãy ký tự có thứ tự
 
-B. A fractional numeric value — Số có thể có phần lẻ
+**Q5. What does `strip()` normally remove? — `strip()` thường loại bỏ gì?**
 
-C. An ordered sequence of characters — Dãy ký tự có thể cắt lát
+A. Whitespace at both ends — Khoảng trắng ở hai đầu
 
-D. A true-or-false value — Giá trị True hoặc False
+B. Text converted to lowercase — Văn bản chuyển sang chữ thường
 
+C. Text converted to uppercase — Văn bản chuyển sang chữ hoa
 
-**Q5. Which use matches str()/int()/float()? — Công dụng nào đúng với str()/int()/float()?**
+D. Substitutes matching text — Thay các đoạn chữ khớp mẫu
 
-A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+**Q6. What does `lower()` return? — `lower()` trả về gì?**
 
-B. These functions convert values between text and numeric types — Chuyển kiểu phù hợp trước khi xử lý
+A. Whitespace at both ends — Khoảng trắng ở hai đầu
 
-C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+B. Text converted to lowercase — Văn bản chuyển sang chữ thường
 
-D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+C. Text converted to uppercase — Văn bản chuyển sang chữ hoa
 
+D. Substitutes matching text — Thay các đoạn chữ khớp mẫu
 
-**Q6. Which use matches strip()/lower()/upper()? — Công dụng nào đúng với strip()/lower()/upper()?**
+**Q7. What does `upper()` return? — `upper()` trả về gì?**
 
-A. These methods trim surrounding spaces or change letter case — Dọn khoảng trắng và chuẩn hóa chữ
+A. Whitespace at both ends — Khoảng trắng ở hai đầu
 
-B. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+B. Text converted to lowercase — Văn bản chuyển sang chữ thường
 
-C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+C. Text converted to uppercase — Văn bản chuyển sang chữ hoa
 
-D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+D. Substitutes matching text — Thay các đoạn chữ khớp mẫu
 
+**Q8. What does `replace(old, new)` do? — `replace(old, new)` có tác dụng gì?**
 
-**Q7. Which use matches split()/replace()? — Công dụng nào đúng với split()/replace()?**
+A. Whitespace at both ends — Khoảng trắng ở hai đầu
 
-A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+B. Text converted to lowercase — Văn bản chuyển sang chữ thường
 
-B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+C. Text converted to uppercase — Văn bản chuyển sang chữ hoa
 
-C. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+D. Substitutes matching text — Thay các đoạn chữ khớp mẫu
 
-D. These methods split text or replace part of it — Tách chuỗi hoặc thay thế đoạn văn bản
+**Q9. What does `'a,b'.split(',')` return? — `'a,b'.split(',')` trả về gì?**
 
+A. `['a', 'b']` — `['a', 'b']`
 
-**Q8. Which use matches s[start:stop]? — Công dụng nào đúng với s[start:stop]?**
+B. `'BC'` — `'BC'`
 
-A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
+C. `6` — `6`
 
-B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
+D. `'xAy'` — `'xAy'`
 
-C. This slice returns characters before the stop index — Cắt ký tự theo vị trí, không lấy chỉ số stop
+**Q10. What does `'ABCD'[1:3]` yield? — `'ABCD'[1:3]` cho kết quả gì?**
 
-D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
+A. `['a', 'b']` — `['a', 'b']`
 
+B. `'BC'` — `'BC'`
 
-**Q9. Which reason fits 'Email cleanup'? — Lý do nào phù hợp với 'Chuẩn hóa email'?**
+C. `6` — `6`
 
-A. Split comma-separated labels — Dấu phẩy tạo ranh giới giữa nhãn
+D. `'xAy'` — `'xAy'`
 
-B. Normalize contact text before matching — Bỏ khoảng trắng và đổi chữ thường trước so trùng
+**Q11. What does `len('Python')` yield? — `len('Python')` trả về gì?**
 
-C. Keep identifier as text — Mã không được mất chữ số đầu khi dùng để tra cứu
+A. `['a', 'b']` — `['a', 'b']`
 
-D. Convert numeric strings — Chuyển chuỗi số trước khi tính tổng
+B. `'BC'` — `'BC'`
 
+C. `6` — `6`
 
-**Q10. Which reason fits 'Split labels'? — Lý do nào phù hợp với 'Tách nhãn sản phẩm'?**
+D. `'xAy'` — `'xAy'`
 
-A. Split comma-separated labels — Dấu phẩy tạo ranh giới giữa nhãn
+**Q12. What does `'A'.join(['x','y'])` yield? — `'A'.join(['x','y'])` tạo gì?**
 
-B. Keep identifier as text — Mã không được mất chữ số đầu khi dùng để tra cứu
+A. `['a', 'b']` — `['a', 'b']`
 
-C. Convert numeric strings — Chuyển chuỗi số trước khi tính tổng
+B. `'BC'` — `'BC'`
 
-D. Mask a contact string — Lấy ba ký tự cuối mà không lộ phần trước
+C. `6` — `6`
 
+D. `'xAy'` — `'xAy'`
 
-**Q11. Which reason fits 'Preserve leading zero'? — Lý do nào phù hợp với 'Giữ mã đầu 0'?**
+**Q13. What does `int('12')` create? — `int('12')` tạo ra gì?**
 
-A. Convert numeric strings — Chuyển chuỗi số trước khi tính tổng
+A. The integer 12 — Số nguyên 12
 
-B. Mask a contact string — Lấy ba ký tự cuối mà không lộ phần trước
+B. The float 1.5 — Số thực 1.5
 
-C. Normalize contact text before matching — Bỏ khoảng trắng và đổi chữ thường trước so trùng
+C. The string `'12'` — Chuỗi `'12'`
 
-D. Keep identifier as text — Mã không được mất chữ số đầu khi dùng để tra cứu
+D. `True` — `True`
 
+**Q14. What does `float('1.5')` create? — `float('1.5')` tạo ra gì?**
 
-**Q12. Which reason fits 'Parse price'? — Lý do nào phù hợp với 'Đổi số từ CSV'?**
+A. The integer 12 — Số nguyên 12
 
-A. Mask a contact string — Lấy ba ký tự cuối mà không lộ phần trước
+B. The float 1.5 — Số thực 1.5
 
-B. Normalize contact text before matching — Bỏ khoảng trắng và đổi chữ thường trước so trùng
+C. The string `'12'` — Chuỗi `'12'`
 
-C. Convert numeric strings — Chuyển chuỗi số trước khi tính tổng
+D. `True` — `True`
 
-D. Split comma-separated labels — Dấu phẩy tạo ranh giới giữa nhãn
+**Q15. What does `str(12)` create? — `str(12)` tạo gì?**
 
+A. The integer 12 — Số nguyên 12
 
-**Q13. Which reason fits 'Mask contact'? — Lý do nào phù hợp với 'Che số liên lạc'?**
+B. The float 1.5 — Số thực 1.5
 
-A. Normalize contact text before matching — Bỏ khoảng trắng và đổi chữ thường trước so trùng
+C. The string `'12'` — Chuỗi `'12'`
 
-B. Mask a contact string — Lấy ba ký tự cuối mà không lộ phần trước
+D. `True` — `True`
 
-C. Split comma-separated labels — Dấu phẩy tạo ranh giới giữa nhãn
+**Q16. What does `bool('False')` return? — `bool('False')` trả về gì?**
 
-D. Keep identifier as text — Mã không được mất chữ số đầu khi dùng để tra cứu
+A. The integer 12 — Số nguyên 12
 
+B. The float 1.5 — Số thực 1.5
 
-**Q14. Which input fits 'Email cleanup'? — Dữ liệu nào được dùng cho 'Chuẩn hóa email'?**
+C. The string `'12'` — Chuỗi `'12'`
 
-A. The sample described for Email cleanup — Email nhập thừa khoảng trắng
+D. `True` — `True`
 
-B. Input from Split labels — Chuỗi có 3 nhãn
+**Q17. What is true of Python strings? — Điều nào đúng về chuỗi Python?**
 
-C. Input from Preserve leading zero — Mã đơn 00045
+A. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
 
-D. Input from Parse price — Giá 12.5, số lượng 3
+B. The last character — Ký tự cuối
 
+C. `False` — `False`
 
-**Q15. Which input fits 'Split labels'? — Dữ liệu nào được dùng cho 'Tách nhãn sản phẩm'?**
+D. `'42'` — `'42'`
 
-A. Input from Preserve leading zero — Mã đơn 00045
+**Q18. What does `s[-1]` select for a nonempty string? — `s[-1]` lấy gì khi chuỗi không rỗng?**
 
-B. Input from Parse price — Giá 12.5, số lượng 3
+A. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
 
-C. Input from Mask contact — Số mô phỏng 0900123456
+B. The last character — Ký tự cuối
 
-D. The sample described for Split labels — Chuỗi có 3 nhãn
+C. `False` — `False`
 
+D. `'42'` — `'42'`
 
-**Q16. Which input fits 'Preserve leading zero'? — Dữ liệu nào được dùng cho 'Giữ mã đầu 0'?**
+**Q19. What does `'Ab' == 'ab'` evaluate to? — `'Ab' == 'ab'` có giá trị gì?**
 
-A. Input from Parse price — Giá 12.5, số lượng 3
+A. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
 
-B. Input from Mask contact — Số mô phỏng 0900123456
+B. The last character — Ký tự cuối
 
-C. The sample described for Preserve leading zero — Mã đơn 00045
+C. `False` — `False`
 
-D. Input from Email cleanup — Email nhập thừa khoảng trắng
+D. `'42'` — `'42'`
 
+**Q20. What is the result of `'4' + '2'`? — `'4' + '2'` cho kết quả gì?**
 
-**Q17. Which input fits 'Parse price'? — Dữ liệu nào được dùng cho 'Đổi số từ CSV'?**
+A. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
 
-A. Input from Mask contact — Số mô phỏng 0900123456
+B. The last character — Ký tự cuối
 
-B. The sample described for Parse price — Giá 12.5, số lượng 3
+C. `False` — `False`
 
-C. Input from Email cleanup — Email nhập thừa khoảng trắng
-
-D. Input from Split labels — Chuỗi có 3 nhãn
-
-
-**Q18. Which input fits 'Mask contact'? — Dữ liệu nào được dùng cho 'Che số liên lạc'?**
-
-A. The sample described for Mask contact — Số mô phỏng 0900123456
-
-B. Input from Email cleanup — Email nhập thừa khoảng trắng
-
-C. Input from Split labels — Chuỗi có 3 nhãn
-
-D. Input from Preserve leading zero — Mã đơn 00045
-
-
-**Q19. What must be checked before processing input? — Cần xác định gì trước xử lý?**
-
-A. Only text size — Chỉ kích thước chữ
-
-B. Only the file name length — Chỉ độ dài tên file
-
-C. Only program comments — Chỉ phần comment
-
-D. Input meaning, type and units — Ý nghĩa, kiểu và đơn vị đầu vào
-
-
-**Q20. What should follow a successful example? — Sau khi ví dụ chạy đúng nên làm gì?**
-
-A. Assume all datasets work identically — Cho rằng mọi bộ dữ liệu giống nhau
-
-B. Delete all tests — Xóa toàn bộ kiểm thử
-
-C. Validate output and edge cases — Kiểm tra kết quả và trường hợp biên
-
-D. Ignore input errors — Bỏ qua lỗi nhập liệu
+D. `'42'` — `'42'`
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | A whole-number value | Giá trị không có phần thập phân |
-| Q2 | **A** | A fractional numeric value | Số có thể có phần lẻ |
-| Q3 | **D** | A true-or-false value | Giá trị True hoặc False |
-| Q4 | **C** | An ordered sequence of characters | Dãy ký tự có thể cắt lát |
-| Q5 | **B** | This Python operation supports the described task | Chuyển kiểu phù hợp trước khi xử lý |
-| Q6 | **A** | This Python operation supports the described task | Dọn khoảng trắng và chuẩn hóa chữ |
-| Q7 | **D** | This Python operation supports the described task | Tách chuỗi hoặc thay thế đoạn văn bản |
-| Q8 | **C** | This Python operation supports the described task | Cắt ký tự theo vị trí, không lấy chỉ số stop |
-| Q9 | **B** | Normalize contact text before matching | Bỏ khoảng trắng và đổi chữ thường trước so trùng |
-| Q10 | **A** | Split comma-separated labels | Dấu phẩy tạo ranh giới giữa nhãn |
-| Q11 | **D** | Keep identifier as text | Mã không được mất chữ số đầu khi dùng để tra cứu |
-| Q12 | **C** | Convert numeric strings | Chuyển chuỗi số trước khi tính tổng |
-| Q13 | **B** | Mask a contact string | Lấy ba ký tự cuối mà không lộ phần trước |
-| Q14 | **A** | The sample described for Email cleanup | Email nhập thừa khoảng trắng |
-| Q15 | **D** | The sample described for Split labels | Chuỗi có 3 nhãn |
-| Q16 | **C** | The sample described for Preserve leading zero | Mã đơn 00045 |
-| Q17 | **B** | The sample described for Parse price | Giá 12.5, số lượng 3 |
-| Q18 | **A** | The sample described for Mask contact | Số mô phỏng 0900123456 |
-| Q19 | **D** | Input meaning, type and units | Ý nghĩa, kiểu và đơn vị đầu vào |
-| Q20 | **C** | Validate output and edge cases | Kiểm tra kết quả và trường hợp biên |
+| Q1 | **A** | Integers represent whole-number quantities. | Số nguyên biểu diễn những lượng không có phần lẻ. |
+| Q2 | **B** | Floats can represent numbers with fractional parts. | Float có thể biểu diễn số có phần thập phân. |
+| Q3 | **C** | Boolean values are True and False. | Giá trị Boolean là True và False. |
+| Q4 | **D** | str stores textual characters in order. | str lưu các ký tự văn bản theo thứ tự. |
+| Q5 | **A** | strip removes leading and trailing whitespace by default. | strip mặc định bỏ khoảng trắng đầu và cuối. |
+| Q6 | **B** | lower produces a lowercase string. | lower tạo ra chuỗi chữ thường. |
+| Q7 | **C** | upper produces an uppercase string. | upper tạo ra chuỗi chữ hoa. |
+| Q8 | **D** | replace returns text with specified substrings replaced. | replace trả chuỗi với đoạn khớp đã được thay. |
+| Q9 | **A** | split separates the string at the comma. | split tách chuỗi tại dấu phẩy. |
+| Q10 | **B** | Slicing includes index 1 and excludes index 3. | Lát cắt lấy vị trí 1 nhưng không lấy vị trí 3. |
+| Q11 | **C** | The word Python contains six characters. | Từ Python có sáu ký tự. |
+| Q12 | **D** | join inserts the separator A between items. | join chèn chữ A giữa các phần tử. |
+| Q13 | **A** | int parses integer-formatted text. | int chuyển chuỗi biểu diễn số nguyên thành số nguyên. |
+| Q14 | **B** | float parses a decimal number in text. | float chuyển chuỗi số thập phân thành số thực. |
+| Q15 | **C** | str converts a number to a textual representation. | str chuyển số thành biểu diễn chữ. |
+| Q16 | **D** | Any nonempty string is truthy, including the text False. | Chuỗi không rỗng có giá trị logic đúng, kể cả chữ False. |
+| Q17 | **A** | A string operation returns a new string instead of mutating characters. | Phép xử lý chuỗi tạo chuỗi mới thay vì sửa ký tự tại chỗ. |
+| Q18 | **B** | Negative indexing counts from the end. | Chỉ số âm đếm từ cuối chuỗi. |
+| Q19 | **C** | String equality is case-sensitive by default. | So sánh chuỗi mặc định phân biệt hoa/thường. |
+| Q20 | **D** | The plus sign concatenates strings rather than adding integers. | Dấu cộng nối chuỗi thay vì cộng số nguyên. |
 
 ## 8. Nối sang bài kế tiếp
 
