@@ -430,9 +430,9 @@ A. `False` — `False`
 
 B. `True` — `True`
 
-C. `False` as a negated value — Giá trị phủ định là False
+C. `0` (the integer) — `0` (số nguyên)
 
-D. `False` because five is odd — False vì 5 là số lẻ
+D. `None` — `None`
 
 **Q14. What does `True or False` evaluate to? — `True or False` bằng gì?**
 
@@ -440,9 +440,9 @@ A. `False` — `False`
 
 B. `True` — `True`
 
-C. `False` as a negated value — Giá trị phủ định là False
+C. `0` (the integer) — `0` (số nguyên)
 
-D. `False` because five is odd — False vì 5 là số lẻ
+D. `None` — `None`
 
 **Q15. What does `not True` evaluate to? — `not True` bằng gì?**
 
@@ -450,19 +450,19 @@ A. `False` — `False`
 
 B. `True` — `True`
 
-C. `False` as a negated value — Giá trị phủ định là False
+C. `0` (the integer) — `0` (số nguyên)
 
-D. `False` because five is odd — False vì 5 là số lẻ
+D. `None` — `None`
 
 **Q16. What does `5 % 2 == 0` evaluate to? — `5 % 2 == 0` có kết quả gì?**
 
-A. `False` — `False`
+A. `0` (the integer) — `0` (số nguyên)
 
 B. `True` — `True`
 
-C. `False` as a negated value — Giá trị phủ định là False
+C. `None` — `None`
 
-D. `False` because five is odd — False vì 5 là số lẻ
+D. `False` (the Boolean) — `False` (kiểu Boolean)
 
 **Q17. How many branches run in one `if/elif/else` chain? — Có bao nhiêu nhánh chạy trong một chuỗi `if/elif/else`?**
 
@@ -522,8 +522,8 @@ D. Order mutually exclusive threshold branches carefully — Sắp xếp nhánh 
 | Q12 | **D** | Python checks branches in written order and selects the first match. | Python xét theo thứ tự viết và chọn nhánh đầu tiên đúng. |
 | Q13 | **A** | and requires all conditions to be true. | and yêu cầu tất cả điều kiện đều đúng. |
 | Q14 | **B** | or only needs one true condition. | or chỉ cần một điều kiện đúng. |
-| Q15 | **C** | not reverses the truth value. | not đảo giá trị đúng/sai. |
-| Q16 | **D** | The remainder of dividing five by two is one. | Chia 5 cho 2 dư 1 nên biểu thức sai. |
+| Q15 | **A** | The `not` operator negates its operand: `True` becomes the Boolean `False`. This differs from numeric zero (`0`) even though `0` is falsy when used as a condition. | Toán tử `not` phủ định toán hạng: `True` trở thành Boolean `False`. Kết quả khác số nguyên `0`, dù `0` cũng được xem là sai khi dùng làm điều kiện. |
+| Q16 | **D** | `5 % 2` is `1`, and comparing `1 == 0` yields Boolean `False`; five is therefore odd. The result is not integer `0` or `None`, even though those can be falsy. | `5 % 2` bằng `1`, so sánh `1 == 0` cho Boolean `False`; vậy 5 là số lẻ. Kết quả không phải số nguyên `0` hay `None`, dù các giá trị đó có thể được xem là sai trong điều kiện. |
 | Q17 | **A** | Only the first matching branch runs. | Chỉ nhánh đầu tiên thỏa điều kiện được chạy. |
 | Q18 | **B** | A false if without an else simply does not run its body. | Nếu if sai và không có else thì thân if không chạy. |
 | Q19 | **C** | Logical AND requires both conditions to hold. | AND yêu cầu cả hai điều kiện đều đúng. |

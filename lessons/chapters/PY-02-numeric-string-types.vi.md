@@ -432,11 +432,11 @@ D. `True` — `True`
 
 A. Strings are immutable — Chuỗi không thể sửa trực tiếp từng ký tự
 
-B. The last character — Ký tự cuối
+B. Strings can be changed in place with `s[0] = 'x'` — Có thể đổi chuỗi tại chỗ bằng `s[0] = 'x'`
 
-C. `False` — `False`
+C. Strings store only numbers — Chuỗi chỉ lưu số
 
-D. `'42'` — `'42'`
+D. Strings are unordered collections — Chuỗi là tập hợp không có thứ tự
 
 **Q18. What does `s[-1]` select for a nonempty string? — `s[-1]` lấy gì khi chuỗi không rỗng?**
 
@@ -488,7 +488,7 @@ D. `'42'` — `'42'`
 | Q14 | **B** | float parses a decimal number in text. | float chuyển chuỗi số thập phân thành số thực. |
 | Q15 | **C** | str converts a number to a textual representation. | str chuyển số thành biểu diễn chữ. |
 | Q16 | **D** | Any nonempty string is truthy, including the text False. | Chuỗi không rỗng có giá trị logic đúng, kể cả chữ False. |
-| Q17 | **A** | A string operation returns a new string instead of mutating characters. | Phép xử lý chuỗi tạo chuỗi mới thay vì sửa ký tự tại chỗ. |
+| Q17 | **A** | Strings cannot have their characters replaced by index: `s[0] = 'x'` raises `TypeError`. Methods such as `replace()` return another string; unlike mutable lists, the original string remains unchanged. | Không thể gán lại ký tự chuỗi theo chỉ số: `s[0] = 'x'` gây `TypeError`. Hàm như `replace()` trả về chuỗi khác; khác với list có thể sửa, chuỗi ban đầu vẫn giữ nguyên. |
 | Q18 | **B** | Negative indexing counts from the end. | Chỉ số âm đếm từ cuối chuỗi. |
 | Q19 | **C** | String equality is case-sensitive by default. | So sánh chuỗi mặc định phân biệt hoa/thường. |
 | Q20 | **D** | The plus sign concatenates strings rather than adding integers. | Dấu cộng nối chuỗi thay vì cộng số nguyên. |

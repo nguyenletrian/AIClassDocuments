@@ -369,7 +369,7 @@ A. `False` — `False`
 
 B. `True` — `True`
 
-C. The opposite Boolean value — Giá trị Boolean đảo ngược
+C. `not False` — `not False`
 
 D. The integer `1` — Số nguyên `1`
 
@@ -477,7 +477,7 @@ D. `6` — `6`
 | Q8 | **D** | The slash performs true division in Python 3. | Dấu / thực hiện phép chia cho kết quả số thực trong Python 3. |
 | Q9 | **A** | Logical AND fails if either condition is false. | AND sai khi ít nhất một điều kiện sai. |
 | Q10 | **B** | Logical OR is true if either operand is true. | OR đúng khi có ít nhất một điều kiện đúng. |
-| Q11 | **C** | not negates a Boolean expression. | not phủ định biểu thức Boolean. |
+| Q11 | **A** | `not` reverses the truth value, so `not True` evaluates to the Boolean `False`. The expression `not False` is `True`, and the integer `1` is not the Boolean result. | `not` đảo giá trị logic nên `not True` cho Boolean `False`. Biểu thức `not False` lại cho `True`, còn số nguyên `1` không phải kết quả Boolean của biểu thức này. |
 | Q12 | **D** | Binary 0101 AND 0011 equals 0001. | Nhị phân 0101 AND 0011 bằng 0001. |
 | Q13 | **A** | Not-equal checks inequality. | != kiểm tra hai giá trị không bằng nhau. |
 | Q14 | **B** | Greater-than-or-equal includes the boundary value. | >= bao gồm cả giá trị ở ngưỡng. |

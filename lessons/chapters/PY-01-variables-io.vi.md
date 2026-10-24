@@ -437,7 +437,7 @@ C. `float` — `float`
 
 D. `Hi` — `Hi`
 
-**Q18. What does `x = 2; x = 4` leave in x? — Hai phép gán `x = 2; x = 4` khiến x có giá trị gì?**
+**Q18. If `x = 2` is followed by `x = 4` on the next line, what is the final value of `x`? — Nếu `x = 2` rồi `x = 4` ở dòng tiếp theo, giá trị cuối của `x` là gì?**
 
 A. `2 3` — `2 3`
 
@@ -488,7 +488,7 @@ D. `Hi` — `Hi`
 | Q15 | **C** | float converts valid numeric text to a floating-point value. | float chuyển chuỗi số hợp lệ thành số thực. |
 | Q16 | **D** | Letters abc are not a valid integer literal. | abc không phải biểu diễn số nguyên hợp lệ. |
 | Q17 | **A** | print separates multiple arguments with a space by default. | print mặc định đặt một dấu cách giữa các đối số. |
-| Q18 | **B** | The later assignment replaces the earlier binding. | Phép gán sau thay giá trị được gán trước đó. |
+| Q18 | **B** | Assigning `2` binds `x` to the integer 2, but the next assignment rebinds `x` to 4. Reading `x` afterward produces `4`, not the previous value; assignment is not addition. | Lệnh đầu gán `x` bằng số nguyên 2, nhưng lệnh kế tiếp gán lại `x` thành 4. Đọc `x` sau hai lệnh sẽ được `4`, không phải giá trị cũ; phép gán không phải phép cộng. |
 | Q19 | **C** | The decimal point makes 2.0 a floating-point literal. | Dấu thập phân khiến 2.0 là số thực. |
 | Q20 | **D** | Quotation marks mark a string literal and are not printed. | Dấu nháy là cú pháp chuỗi, không được in ra. |
 
