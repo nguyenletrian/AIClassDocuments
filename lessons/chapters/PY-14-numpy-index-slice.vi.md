@@ -29,7 +29,6 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `X[condition]` | Giữ các phần tử thỏa điều kiện logic |
 | `X[:,[0,2]]` | Chọn các cột không liền nhau |
 
-Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã được giải thích ngay tại bảng hàm này.
 
 ## 4. Khái niệm liên quan và ví dụ nhỏ
 
@@ -93,9 +92,9 @@ x=np.array([3,5,7]);print(x[[0,2]])
 
 **Vấn đề:** Tra điểm một sinh viên.
 
-**Vì sao chọn cách giải này?** Lấy đúng hàng sinh viên và cột môn học. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Lấy đúng hàng sinh viên và cột môn học.
 
-**Dữ liệu:** 3 học sinh × 2 môn, điểm thang 10; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 3 học sinh × 2 môn, điểm thang 10.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -105,7 +104,6 @@ scores=np.array([[8,9],[6,7],[9,8]])
 print(scores[1,0])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 2 — Báo danh sách điểm cao
 
@@ -113,9 +111,9 @@ print(scores[1,0])
 
 **Vấn đề:** Báo danh sách điểm cao.
 
-**Vì sao chọn cách giải này?** Mask lọc hàng điểm Python>=8. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Mask lọc hàng điểm Python>=8.
 
-**Dữ liệu:** 3 học sinh × 2 môn; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 3 học sinh × 2 môn.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -125,7 +123,6 @@ X=np.array([[8,9],[6,7],[9,8]])
 print(X[X[:,0]>=8])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 3 — Lấy hai môn cần kiểm
 
@@ -133,9 +130,9 @@ print(X[X[:,0]>=8])
 
 **Vấn đề:** Lấy hai môn cần kiểm.
 
-**Vì sao chọn cách giải này?** Fancy indexing chọn cột không cần liền nhau. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Fancy indexing chọn cột không cần liền nhau.
 
-**Dữ liệu:** 2 sinh viên × 3 môn; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 2 sinh viên × 3 môn.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -145,7 +142,6 @@ X=np.array([[8,7,9],[6,5,8]])
 print(X[:,[0,2]])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 4 — Lấy ba khách đầu tiên
 
@@ -153,9 +149,9 @@ print(X[:,[0,2]])
 
 **Vấn đề:** Lấy ba khách đầu tiên.
 
-**Vì sao chọn cách giải này?** Slice theo chiều hàng để xem mẫu báo cáo. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Slice theo chiều hàng để xem mẫu báo cáo.
 
-**Dữ liệu:** 5 khách với điểm chi tiêu; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 5 khách với điểm chi tiêu.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -165,7 +161,6 @@ spend=np.array([100,200,50,300,120])
 print(spend[:3])
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ### Tình huống 5 — Sửa số đo bất thường
 
@@ -173,9 +168,9 @@ print(spend[:3])
 
 **Vấn đề:** Sửa số đo bất thường.
 
-**Vì sao chọn cách giải này?** Thao tác mask trên bản sao để không đổi mảng gốc. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Thao tác mask trên bản sao để không đổi mảng gốc.
 
-**Dữ liệu:** 4 nhiệt độ có một giá trị âm lỗi; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
+**Dữ liệu:** 4 nhiệt độ có một giá trị âm lỗi.
 
 **Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
 
@@ -186,7 +181,6 @@ clean=values.copy();clean[clean<0]=0
 print(values,clean)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
 
 ## 6. Sai lầm thường gặp
 
