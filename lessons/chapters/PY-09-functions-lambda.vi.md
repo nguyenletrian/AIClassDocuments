@@ -1,6 +1,5 @@
 # PY-09 — Hàm, return, lambda và phạm vi biến
 
-*DRAFT · Tài liệu tự học · Các mã và dữ liệu mẫu cần được kiểm tra trước khi công bố chính thức*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -30,7 +29,6 @@ Bài này nối trực tiếp kiến thức trước với bước xử lý dữ
 | `lambda x: expr` | Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh |
 | `sorted(..., key=...)` | Chọn tiêu chí để sắp xếp bản ghi |
 
-Các lựa chọn được giải thích cùng hàm; trong ví dụ code chỉ nhắc lý do thao tác, ý nghĩa hàng/cột và đơn vị đo.
 
 ## 4. Khái niệm và ví dụ nhỏ
 
