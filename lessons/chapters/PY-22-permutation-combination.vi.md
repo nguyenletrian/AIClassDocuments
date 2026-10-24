@@ -29,7 +29,7 @@ Bài học giúp sinh viên nhìn rõ quan hệ giữa kiến thức trước v�
 | `math.comb(n,k)` | Đếm cách chọn không thứ tự |
 | `itertools.combinations/permutations` | Liệt kê kết quả khi n nhỏ |
 
-## 4. Các khái niệm liên quan
+## 4. Khái niệm liên quan
 
 ### 4.1. Permutation
 
@@ -42,7 +42,11 @@ import math
 print(math.perm(5,2))
 ```
 
-**Tự kiểm tra nhanh:** Permutation là gì? **Đáp án:** Chọn có phân biệt thứ tự.
+**Kết quả khi chạy:**
+
+```text
+20
+```
 
 ### 4.2. Combination
 
@@ -55,7 +59,11 @@ import math
 print(math.comb(5,2))
 ```
 
-**Tự kiểm tra nhanh:** Combination là gì? **Đáp án:** Chọn nhóm không xét thứ tự.
+**Kết quả khi chạy:**
+
+```text
+10
+```
 
 ### 4.3. Factorial
 
@@ -68,7 +76,11 @@ import math
 print(math.factorial(4))
 ```
 
-**Tự kiểm tra nhanh:** Factorial là gì? **Đáp án:** Tích các số từ 1 đến n.
+**Kết quả khi chạy:**
+
+```text
+24
+```
 
 ### 4.4. Binomial coefficient
 
@@ -81,7 +93,11 @@ import math
 print(math.comb(6,3))
 ```
 
-**Tự kiểm tra nhanh:** Binomial coefficient là gì? **Đáp án:** Số cách chọn k từ n.
+**Kết quả khi chạy:**
+
+```text
+20
+```
 
 ## 5. Năm vấn đề thực tế
 
@@ -101,7 +117,11 @@ import math
 print(math.perm(5,2))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+20
+```
 
 ### Tình huống 2 — Chọn đội thi
 
@@ -119,7 +139,11 @@ import math
 print(math.comb(12,5))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+792
+```
 
 ### Tình huống 3 — Sắp thứ tự kiểm thử
 
@@ -137,7 +161,11 @@ from itertools import permutations
 print(list(permutations(["A","B","C"])))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+[('A', 'B'), ('A', 'C'), ('B', 'A'), ('B', 'C'), ('C', 'A'), ('C', 'B')]
+```
 
 ### Tình huống 4 — Đề xuất cặp môn học
 
@@ -155,7 +183,11 @@ from itertools import combinations
 print(list(combinations(["Python","AI","SQL"],2)))
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+[('Python', 'AI'), ('Python', 'SQL'), ('AI', 'SQL')]
+```
 
 ### Tình huống 5 — Tính hàng Pascal
 
@@ -173,7 +205,11 @@ import math
 print([math.comb(4,k) for k in range(5)])
 ```
 
-**Đọc kết quả:** Giải thích ý nghĩa đầu ra và thử thay một dữ liệu để quan sát kết quả.
+**Kết quả khi chạy:**
+
+```text
+[1, 4, 6, 4, 1]
+```
 
 ## 6. Các lỗi dễ mắc
 
