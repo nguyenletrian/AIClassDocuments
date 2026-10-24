@@ -1,14 +1,8 @@
 # PY-18 — Pandas: missing values, duplicates và kiểu dữ liệu
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
-
 ## 1. Vị trí trong chuỗi kiến thức
 
-**Từ vựng trong mục:** **Missing value** — giá trị thiếu; **Duplicate** — bản ghi trùng.
-
 `DataFrame → Data Cleaning → EDA → ML Pipeline`
-
-Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều đối tượng và đặc trưng trước khi dùng trong AI.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -20,8 +14,6 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | Data validation | kiểm tra dữ liệu | Xác nhận dữ liệu đúng kiểu và giới hạn |
 
 ## 3. Thư viện, hàm và lựa chọn
-
-**Từ vựng trong mục:** **Function** — hàm; **Argument** — đối số.
 
 | Hàm / tham số | Giải thích ngay theo hàm |
 |---|---|
@@ -36,69 +28,49 @@ Trong code demo, chú thích dữ liệu và lý do xử lý; các flags đã đ
 
 ### 4.1. Missing value
 
-**Từ vựng trong mục:** **Missing value** — giá trị thiếu.
-
-Ô không chứa số liệu hợp lệ. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Ô không chứa số liệu hợp lệ.
 
 ```python
 import pandas as pd
 print(pd.Series([1,None]).isna())
 ```
 
-**Tự kiểm tra:** Missing value có nghĩa gì? **Đáp án:** Ô không chứa số liệu hợp lệ.
-
 ### 4.2. Duplicate
 
-**Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
-
-Hai hàng dữ liệu giống nhau. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Hai hàng dữ liệu giống nhau.
 
 ```python
 import pandas as pd
 print(pd.Series([1,1]).duplicated())
 ```
 
-**Tự kiểm tra:** Duplicate có nghĩa gì? **Đáp án:** Hai hàng dữ liệu giống nhau.
-
 ### 4.3. Imputation
 
-**Từ vựng trong mục:** **Imputation** — điền khuyết.
-
-Thay ô trống bằng giá trị phù hợp. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Thay ô trống bằng giá trị phù hợp.
 
 ```python
 import pandas as pd
 print(pd.Series([1,None]).fillna(0))
 ```
 
-**Tự kiểm tra:** Imputation có nghĩa gì? **Đáp án:** Thay ô trống bằng giá trị phù hợp.
-
 ### 4.4. Data validation
 
-**Từ vựng trong mục:** **Data validation** — kiểm tra dữ liệu.
-
-Xác nhận dữ liệu đúng kiểu và giới hạn. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Xác nhận dữ liệu đúng kiểu và giới hạn.
 
 ```python
 import pandas as pd
 print(pd.to_numeric(pd.Series(['2']),errors='coerce'))
 ```
 
-**Tự kiểm tra:** Data validation có nghĩa gì? **Đáp án:** Xác nhận dữ liệu đúng kiểu và giới hạn.
-
 ## 5. Năm tình huống thực tế
 
 ### Tình huống 1 — Báo số khách thiếu tuổi
 
-**Từ vựng trong mục:** **Missing value** — giá trị thiếu.
-
 **Vấn đề:** Báo số khách thiếu tuổi.
 
-**Vì sao chọn cách giải này?** isna().sum() giúp biết cột nào cần xử lý. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** isna().sum() giúp biết cột nào cần xử lý.
 
-**Dữ liệu:** 3 khách, cột age có một None; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 3 khách, cột age có một None
 
 ```python
 import pandas as pd
@@ -106,19 +78,13 @@ df=pd.DataFrame({"age":[20,None,25]})
 print(df.isna().sum())
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 2 — Điền giá trị trung vị
-
-**Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
 
 **Vấn đề:** Điền giá trị trung vị.
 
-**Vì sao chọn cách giải này?** Median đỡ bị ảnh hưởng bởi một giá trị quá lớn. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Median đỡ bị ảnh hưởng bởi một giá trị quá lớn.
 
-**Dữ liệu:** Cột chi tiêu 3 khách có 1 None; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** Cột chi tiêu 3 khách có 1 None
 
 ```python
 import pandas as pd
@@ -127,19 +93,13 @@ df["spent"]=df["spent"].fillna(df["spent"].median())
 print(df)
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 3 — Loại trùng mã đơn
-
-**Từ vựng trong mục:** **Imputation** — điền khuyết.
 
 **Vấn đề:** Loại trùng mã đơn.
 
-**Vì sao chọn cách giải này?** Loại dòng trùng sau khi xác nhận cùng bản ghi. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Loại dòng trùng sau khi xác nhận cùng bản ghi.
 
-**Dữ liệu:** 3 dòng mã O1 O1 O2; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** 3 dòng mã O1 O1 O2
 
 ```python
 import pandas as pd
@@ -147,19 +107,13 @@ df=pd.DataFrame({"id":["O1","O1","O2"],"amount":[10,10,20]})
 print(df.drop_duplicates())
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 4 — Đổi chuỗi giá sang số
-
-**Từ vựng trong mục:** **Data validation** — kiểm tra dữ liệu.
 
 **Vấn đề:** Đổi chuỗi giá sang số.
 
-**Vì sao chọn cách giải này?** coerce đánh dấu đầu vào lỗi để không tính nhầm. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** coerce đánh dấu đầu vào lỗi để không tính nhầm.
 
-**Dữ liệu:** Giá ['100','bad','250'] đồng; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** Giá ['100','bad','250'] đồng
 
 ```python
 import pandas as pd
@@ -167,19 +121,13 @@ s=pd.Series(["100","bad","250"])
 print(pd.to_numeric(s,errors="coerce"))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ### Tình huống 5 — Chuẩn bị train/test tránh leakage
-
-**Từ vựng trong mục:** **Missing value** — giá trị thiếu.
 
 **Vấn đề:** Chuẩn bị train/test tránh leakage.
 
-**Vì sao chọn cách giải này?** Median phải học từ train và dùng lại cho test. Đây là lựa chọn đơn giản, có thể chạy thử độc lập trước khi dùng trên dữ liệu lớn.
+**Vì sao chọn cách giải này?** Median phải học từ train và dùng lại cho test.
 
-**Dữ liệu:** Train [10,None,20], test [None,30]; mỗi hàng của bảng là một mẫu, mỗi cột là một thuộc tính theo đơn vị trong mô tả. Các số là dữ liệu minh họa.
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Dữ liệu:** Train [10,None,20], test [None,30]
 
 ```python
 import pandas as pd
@@ -188,15 +136,11 @@ median=train.median()
 print(train.fillna(median),test.fillna(median))
 ```
 
-**Đọc kết quả:** Kiểm tra shape và giá trị in ra. Không suy diễn độ chính xác một mô hình AI từ dữ liệu demo.
-
 ## 6. Sai lầm thường gặp
 
 Các tham số như axis, shape, dtype hoặc cách xử lý giá trị thiếu có thể thay đổi kết quả. Trước khi xử lý phải biết số hàng, số cột, đơn vị và mục đích của từng phép biến đổi.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
-
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
 
 
 **Q1. What does Missing value mean? — Ý nghĩa của Missing value là gì?**
@@ -442,7 +386,3 @@ D. To change column meanings — Để thay đổi nghĩa các cột
 | Q18 | **A** | The stated data are Train [10,None,20], test [None,30] | Train [10,None,20], test [None,30] |
 | Q19 | **D** | Rows, columns and units | Hàng, cột và đơn vị |
 | Q20 | **C** | To check limitations and edge cases | Để thấy giới hạn và trường hợp biên |
-
-## 8. Nối bài tiếp theo
-
-`DataFrame → Data Cleaning → EDA → ML Pipeline`.
