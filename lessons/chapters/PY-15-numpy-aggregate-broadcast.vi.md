@@ -485,26 +485,26 @@ D. It determines whether rows or columns answer the question — Nó quyết đ�
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | Functions such as sum and mean summarize a group of numbers.~Hàm như sum và mean tóm tắt một nhóm giá trị số. | undefined |
-| Q2 | **B** | A mean divides the sum by the number of included values.~Trung bình được tính bằng tổng chia số giá trị được tính. | undefined |
-| Q3 | **C** | Maximum selects an extreme value, not a sum or mean.~Phép cực đại chọn giá trị lớn nhất, không phải tổng hay trung bình. | undefined |
-| Q4 | **D** | Axis 0 reduces over rows, preserving the column dimension.~Axis 0 tổng hợp qua các hàng và giữ kết quả theo cột. | undefined |
-| Q5 | **A** | Axis 1 reduces across columns of each row.~Axis 1 cộng các cột trên từng hàng. | undefined |
-| Q6 | **B** | NumPy can virtually expand compatible dimensions during element-wise operations.~NumPy có thể mở rộng chiều tương thích khi tính theo phần tử. | undefined |
-| Q7 | **C** | A scalar can be applied element-wise without a Python loop.~Số đơn được áp vào từng phần tử mà không cần vòng for Python. | undefined |
-| Q8 | **D** | Broadcasting compares shapes from the right; dimensions are compatible if equal or one is 1.~Broadcasting xét các chiều từ phải sang trái; chiều tương thích khi bằng nhau hoặc một bên là 1. | undefined |
-| Q9 | **A** | Element-wise operations need compatible dimensions to align values.~Tính theo phần tử cần các chiều có thể ghép tương thích. | undefined |
-| Q10 | **B** | Array operations replace explicit per-element loops in user code.~Phép toán mảng thay cho vòng lặp Python phải viết cho từng phần tử. | undefined |
-| Q11 | **C** | The star operator is element-wise multiplication for ndarrays.~Toán tử sao `*` nhân theo từng phần tử của ndarray. | undefined |
-| Q12 | **D** | The @ operator follows matrix multiplication rules rather than element-wise multiplication.~Toán tử @ tuân theo quy tắc nhân ma trận, không phải nhân theo từng phần tử. | undefined |
-| Q13 | **A** | It returns the smaller of each array value and the given scalar.~Hàm chọn số nhỏ hơn giữa từng phần tử và ngưỡng 10. | undefined |
-| Q14 | **B** | np.min reduces along an axis; np.minimum performs element-wise comparisons.~np.min lấy giá trị nhỏ nhất qua một trục; np.minimum so sánh từng ô. | undefined |
-| Q15 | **C** | Summing across three columns leaves one total per row, two totals overall.~Cộng qua ba cột còn một tổng mỗi hàng, tức hai tổng. | undefined |
-| Q16 | **D** | Reducing the two rows leaves one mean for each of three columns.~Gộp hai hàng còn một trung bình cho mỗi ba cột. | undefined |
-| Q17 | **A** | A length-three vector matches the three columns and broadcasts across both rows.~Vector dài 3 khớp ba cột và được áp lên cả hai hàng. | undefined |
-| Q18 | **B** | Broadcasting describes compatible virtual expansion for operations.~Broadcasting mô tả việc mở rộng logic các chiều tương thích khi tính toán. | undefined |
-| Q19 | **C** | Vectorized operations often preserve shapes, whereas aggregates may reduce dimensions.~Tính vector hóa thường giữ kích thước, còn tổng hợp có thể giảm số chiều. | undefined |
-| Q20 | **D** | The same array operation has a different interpretation for different row/column meanings.~Cùng phép tính mảng có thể mang ý nghĩa khác nhau tùy nội dung hàng/cột. | undefined |
+| Q1 | **A** | Functions such as sum and mean summarize a group of numbers. | Hàm như sum và mean tóm tắt một nhóm giá trị số. |
+| Q2 | **B** | A mean divides the sum by the number of included values. | Trung bình được tính bằng tổng chia số giá trị được tính. |
+| Q3 | **C** | Maximum selects an extreme value, not a sum or mean. | Phép cực đại chọn giá trị lớn nhất, không phải tổng hay trung bình. |
+| Q4 | **D** | Axis 0 reduces over rows, preserving the column dimension. | Axis 0 tổng hợp qua các hàng và giữ kết quả theo cột. |
+| Q5 | **A** | Axis 1 reduces across columns of each row. | Axis 1 cộng các cột trên từng hàng. |
+| Q6 | **B** | NumPy can virtually expand compatible dimensions during element-wise operations. | NumPy có thể mở rộng chiều tương thích khi tính theo phần tử. |
+| Q7 | **C** | A scalar can be applied element-wise without a Python loop. | Số đơn được áp vào từng phần tử mà không cần vòng for Python. |
+| Q8 | **D** | Broadcasting compares shapes from the right; dimensions are compatible if equal or one is 1. | Broadcasting xét các chiều từ phải sang trái; chiều tương thích khi bằng nhau hoặc một bên là 1. |
+| Q9 | **A** | Element-wise operations need compatible dimensions to align values. | Tính theo phần tử cần các chiều có thể ghép tương thích. |
+| Q10 | **B** | Array operations replace explicit per-element loops in user code. | Phép toán mảng thay cho vòng lặp Python phải viết cho từng phần tử. |
+| Q11 | **C** | The star operator is element-wise multiplication for ndarrays. | Toán tử sao `*` nhân theo từng phần tử của ndarray. |
+| Q12 | **D** | The @ operator follows matrix multiplication rules rather than element-wise multiplication. | Toán tử @ tuân theo quy tắc nhân ma trận, không phải nhân theo từng phần tử. |
+| Q13 | **A** | It returns the smaller of each array value and the given scalar. | Hàm chọn số nhỏ hơn giữa từng phần tử và ngưỡng 10. |
+| Q14 | **B** | np.min reduces along an axis; np.minimum performs element-wise comparisons. | np.min lấy giá trị nhỏ nhất qua một trục; np.minimum so sánh từng ô. |
+| Q15 | **C** | Summing across three columns leaves one total per row, two totals overall. | Cộng qua ba cột còn một tổng mỗi hàng, tức hai tổng. |
+| Q16 | **D** | Reducing the two rows leaves one mean for each of three columns. | Gộp hai hàng còn một trung bình cho mỗi ba cột. |
+| Q17 | **A** | A length-three vector matches the three columns and broadcasts across both rows. | Vector dài 3 khớp ba cột và được áp lên cả hai hàng. |
+| Q18 | **B** | Broadcasting describes compatible virtual expansion for operations. | Broadcasting mô tả việc mở rộng logic các chiều tương thích khi tính toán. |
+| Q19 | **C** | Vectorized operations often preserve shapes, whereas aggregates may reduce dimensions. | Tính vector hóa thường giữ kích thước, còn tổng hợp có thể giảm số chiều. |
+| Q20 | **D** | The same array operation has a different interpretation for different row/column meanings. | Cùng phép tính mảng có thể mang ý nghĩa khác nhau tùy nội dung hàng/cột. |
 
 ## 8. Nối bài tiếp theo
 
