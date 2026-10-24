@@ -28,19 +28,23 @@ Sau khi biết xử lý dữ liệu bằng vòng lặp và danh sách, ta tạo 
 | `default / keyword arguments` | Dùng tham số mặc định hoặc gọi theo tên cho dễ đọc |
 | `lambda x: expr` | Dùng biểu thức ngắn khi hàm không cần nhiều câu lệnh |
 | `sorted(..., key=...)` | Chọn tiêu chí để sắp xếp bản ghi |
+| Biến cục bộ trong `def` | Tên tạo trong hàm thường chỉ dùng được trong hàm, không truy cập trực tiếp từ bên ngoài |
 
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Function
+Một **hàm (function)** gom nhiều bước xử lý thành một công việc có tên, có thể gọi lại bằng dữ liệu khác nhau. Khi gọi hàm, giá trị đi vào qua **tham số**, kết quả có thể quay lại bằng **`return`**. `lambda` phù hợp cho một biểu thức ngắn, còn **phạm vi biến (scope)** giúp phân biệt biến chỉ dùng bên trong hàm với biến dùng bên ngoài. Ta dùng cùng ý tưởng tính tiền để lần lượt hiểu năm phần này.
 
-**Từ vựng trong mục:** **Function** — hàm.
+### 4.1. Function — Hàm tái sử dụng
 
-Hàm là một nhóm lệnh có tên, có thể gọi nhiều lần. `twice(x)` nhân giá trị truyền vào với 2; `twice(3)` trả về `6`.
+**Từ vựng trong mục:** **Function** — hàm; **Call** — lời gọi hàm.
+
+Giả sử cửa hàng cần tính giá của món hàng nhân đôi khi mua hai phần giống nhau. Nếu viết phép nhân tại nhiều chỗ, thay đổi quy tắc sẽ khó. Ta định nghĩa `twice(x)` bằng từ khóa `def`: `x` là đầu vào, phép `x * 2` tạo kết quả. Khi viết `twice(3)`, Python chạy thân hàm với `x = 3`, rồi trả số 6. Dòng `print()` bên ngoài mới đưa số này lên màn hình.
 
 ```python
 def twice(x):
-    return x*2
+    return x * 2
+
 print(twice(3))
 ```
 
@@ -50,34 +54,41 @@ print(twice(3))
 6
 ```
 
-### 4.2. Parameter
+Một định nghĩa hàm có thể dùng lại cho nhiều giá trị như 3, 5 hoặc 10 mà không viết lại phép nhân.
 
-**Từ vựng trong mục:** **Parameter** — tham số.
+### 4.2. Parameter và Argument — Tham số và đối số
 
-Tham số là tên biến khai báo trong hàm, như `name` của `hello(name)`. Khi gọi `hello('Lan')`, chuỗi `'Lan'` được truyền vào và in ra `Lan`.
+**Từ vựng trong mục:** **Parameter** — tham số; **Argument** — đối số.
+
+**Tham số** là tên xuất hiện trong dòng định nghĩa, ví dụ `name` của `hello(name)`. **Đối số** là giá trị thật được truyền lúc gọi hàm, ví dụ `'Lan'` trong `hello('Lan')`. Trong thân hàm, `name` tạm nhận `'Lan'`, tạo chuỗi lời chào rồi `return` gửi nó về nơi gọi.
 
 ```python
 def hello(name):
-    return name
+    return f'Xin chào {name}!'
+
 print(hello('Lan'))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Lan
+Xin chào Lan!
 ```
 
-### 4.3. Return
+`name` là tham số, còn `'Lan'` là đối số của lời gọi cụ thể. Truyền `'An'` sẽ tạo lời chào khác.
 
-**Từ vựng trong mục:** **Return** — trả về.
+### 4.3. Return — Kết quả trả về
 
-`return` gửi kết quả về nơi gọi hàm; khác với `print()` chỉ hiển thị ra màn hình. `add(2, 3)` trả về `5`, rồi `print()` hiển thị số đó.
+**Từ vựng trong mục:** **Return** — trả về; **Print** — hiển thị.
+
+`return` khác `print()`: `return` **gửi giá trị về nơi gọi hàm** để chương trình có thể lưu hoặc tính tiếp; `print()` chỉ hiển thị. Ví dụ `add(a, b)` tính tổng hai số. Khi gán `total = add(2, 3)`, biến `total` nhận 5; lệnh `print(total)` mới làm số 5 xuất hiện trên màn hình.
 
 ```python
-def add(a,b):
-    return a+b
-print(add(2,3))
+def add(a, b):
+    return a + b
+
+total = add(2, 3)
+print(total)
 ```
 
 **Kết quả khi chạy:**
@@ -86,14 +97,17 @@ print(add(2,3))
 5
 ```
 
-### 4.4. Lambda
+Giá trị trả về có thể lưu trong biến `total`; nếu hàm chỉ `print()` mà không `return`, nơi gọi không nhận được tổng để tính tiếp.
 
-**Từ vựng trong mục:** **Lambda** — hàm ẩn danh.
+### 4.4. Lambda — Hàm ngắn dùng một biểu thức
 
-`lambda` tạo hàm ngắn chỉ có một biểu thức, phù hợp cho thao tác đơn giản như chọn khóa sắp xếp. `(lambda x: x+1)(5)` cho kết quả `6`.
+**Từ vựng trong mục:** **Lambda** — hàm ẩn danh; **Expression** — biểu thức.
+
+Khi chỉ cần phép biến đổi đơn giản, `lambda x: x + 1` là cách viết ngắn của một hàm nhận `x` và trả về `x + 1`. Chẳng hạn tăng số lượng hiện tại 5 lên thêm một món sẽ ra 6. `lambda` thích hợp làm tiêu chí sắp xếp hay lọc; công việc có nhiều bước nên dùng `def` để dễ đọc.
 
 ```python
-print((lambda x: x+1)(5))
+increase = lambda x: x + 1
+print(increase(5))
 ```
 
 **Kết quả khi chạy:**
@@ -102,6 +116,30 @@ print((lambda x: x+1)(5))
 6
 ```
 
+Hàm được tạo bằng `lambda` nhận 5 và cho 6. Đây là một biểu thức, không có thân nhiều câu lệnh như `def`.
+
+### 4.5. Scope — Phạm vi biến
+
+**Từ vựng trong mục:** **Scope** — phạm vi biến; **Local variable** — biến cục bộ.
+
+**Phạm vi biến** xác định nơi một tên biến có thể được dùng. Trong hàm `with_fee(price)`, biến `fee = 5` chỉ được tạo khi hàm chạy và dùng trong hàm; đó là **biến cục bộ (local)**. Bên ngoài hàm, chương trình chỉ dùng giá trị `return`, không truy cập trực tiếp `fee`. Ví dụ đơn hàng giá 100 (nghìn đồng) có phí xử lý 5 (nghìn đồng).
+
+```python
+def with_fee(price):
+    fee = 5
+    return price + fee
+
+final_price = with_fee(100)
+print(final_price)
+```
+
+**Kết quả khi chạy:**
+
+```text
+105
+```
+
+Số 105 là tổng giá và phí, đơn vị nghìn đồng. Biến `fee` ở trong hàm; nếu gọi `print(fee)` ở ngoài, Python sẽ báo `NameError`.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Tính thuế giá trị gia tăng
@@ -260,6 +298,7 @@ print(list(filter(lambda x:x>=4,priorities)))
 - `lambda` phù hợp biểu thức ngắn, còn xử lý nhiều bước nên dùng `def` cho dễ đọc.
 - Hàm tính trung bình cần xử lý danh sách rỗng trước khi chia cho `len(values)`.
 - Khi sắp xếp bản ghi, phải chọn đúng trường dữ liệu trong `key`.
+- Không dùng trực tiếp biến cục bộ của hàm từ bên ngoài; đưa dữ liệu cần dùng ra ngoài bằng `return`.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
