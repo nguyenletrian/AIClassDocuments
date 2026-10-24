@@ -132,7 +132,7 @@ Hai hồ sơ giống nhau khoảng 33,3% theo Jaccard vì chỉ chung một trê
 3. Sắp xếp tên để đầu ra không phụ thuộc thứ tự Set.
 
 ```python
-graph={"An":{"Binh","Lan"},"Binh":{"An"},"Lan":{"An"}}
+graph = {"An":{"Binh", "Lan"}, "Binh":{"An"}, "Lan":{"An"}}
 print(sorted(graph['An']))
 ```
 
@@ -158,8 +158,8 @@ print(sorted(graph['An']))
 3. Chia số kỹ năng chung cho số kỹ năng khác nhau và in độ tương đồng.
 
 ```python
-a={"Python","AI"}
-b={"Python","SQL"}
+a = {"Python", "AI"}
+b = {"Python", "SQL"}
 print(len(a&b)/len(a|b))
 ```
 
@@ -185,10 +185,10 @@ print(len(a&b)/len(a|b))
 3. Dùng `max(scores, key=scores.get)` chọn ứng viên có tỷ lệ cao nhất.
 
 ```python
-target={"AI","Python"}
-people={"B":{"AI"},"C":{"AI","Python"}}
-scores={n:len(target&s)/len(target|s) for n,s in people.items()}
-print(max(scores,key=scores.get))
+target = {"AI", "Python"}
+people = {"B":{"AI"}, "C":{"AI", "Python"}}
+scores = {n:len(target&s)/len(target|s) for n, s in people.items()}
+print(max(scores, key=scores.get))
 ```
 
 **Kết quả khi chạy:**
@@ -213,8 +213,8 @@ C
 3. Kiểm tra riêng A có thuộc danh sách kề của B không và in hai kết quả.
 
 ```python
-graph={"A":{"B"},"B":{"C"},"C":set()}
-print("B" in graph["A"],"A" in graph["B"])
+graph = {"A":{"B"}, "B":{"C"}, "C":set()}
+print("B" in graph["A"], "A" in graph["B"])
 ```
 
 **Kết quả khi chạy:**
@@ -240,9 +240,9 @@ True False
 
 ```python
 import networkx as nx
-G=nx.Graph()
-G.add_edges_from([("A","B"),("B","C")])
-print(nx.shortest_path(G,"A","C"))
+G = nx.Graph()
+G.add_edges_from([("A", "B"), ("B", "C")])
+print(nx.shortest_path(G, "A", "C"))
 ```
 
 **Kết quả khi chạy:**
