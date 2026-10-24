@@ -4,25 +4,30 @@
 
 Bài học đi theo thứ tự: **chuỗi kiến thức → từ vựng Anh–Việt theo từng mục → thư viện và hàm Python → các khái niệm với ví dụ → năm tình huống thực tế → 20 câu trắc nghiệm song ngữ và đáp án**. Các phép tính được thể hiện ngay trong Python; không có phần chứng minh toán học hoặc mục tiêu giáo án.
 
-## Bài mẫu chờ góp ý
+## Giáo trình đã có bản thảo
 **[AI-MATH-01 — PCA: Phân tích thành phần chính](lessons/pilot/AI-MATH-01-pca.vi.md)**
 
-Bài thử có hình minh họa PCA trước/sau từ dữ liệu chạy thật, câu tự kiểm tra ngay sau các nhóm khái niệm, năm tình huống thực tế bằng Python có chú thích lý do, và 20 câu trắc nghiệm Anh–Việt kèm đáp án song ngữ. Các thuật toán mở rộng được đánh dấu để sinh viên đọc sau. Đây chỉ là **pilot**; chưa nhân rộng toàn bộ giáo trình trước khi duyệt.
+Bài PCA là mẫu được dùng để định hình quy chuẩn. **46 chương khác** đã được tạo ở [mục lục giáo trình](lessons/chapters/README.md). Những chương mới được đánh dấu **DRAFT** để phân biệt với học liệu đã kiểm định code và nội dung.
 
 ## Cấu trúc
 - `AGENTS.md`: quy tắc cho Architect/Document Author và giữ tính an toàn Bridge.
 - `docs/PYTHOCLASS-CURRICULUM.md`: quy trình chuẩn hóa bài học, quyền hạn và cổng nghiệm thu.
-- `sources/pythoclass-file-inventory.csv`: inventory 65 file được ghim theo source commit.
+- `sources/pythoclass-file-inventory.csv`: bảng nguồn ban đầu 65 file (lịch sử).
+- `sources/curriculum-source-coverage.csv`: bảng nguồn mới 68 file, có trạng thái phần nào đã xem, chưa đọc sâu hoặc là binary chưa phân tích.
 - `sources/pythoclass-topic-map.md`: bản đồ chủ đề ban đầu — **chưa coi là bao phủ hoàn tất**.
 - `templates/lesson.md`: mẫu mỗi bài.
+- `docs/CURRICULUM-STYLE-GUIDE.md`: **phải đọc trước mỗi lần tạo bài**; có hợp đồng trắc nghiệm song ngữ trên cùng một dòng.
+- `docs/CURRICULUM-QA-STATUS.md`: bằng chứng kiểm tra cấu trúc và giới hạn kiểm định.
+- `lessons/chapters/README.md`: mục lục 46 chương bản thảo.
 - `exports/pdf/`: thư mục dành cho PDF phát hành (khác nơi lưu Markdown); chưa xuất PDF ở giai đoạn này.
-- `lessons/pilot/`: bài mẫu cần góp ý; chỉ chuyển sang bài chính sau nghiệm thu.
+- `lessons/pilot/`: bài PCA tham chiếu cách trình bày.
+- `lessons/chapters/`: 46 chương khác ở trạng thái DRAFT, chưa coi là kiểm định.
 - `docs/JETKING-*`, `sources/lesson-index.csv`: lịch sử Jetking được giữ để truy vết; **không phải nguồn giáo trình hiện tại**.
 
 ## Trình tự triển khai
-1. Đọc đầy đủ PythoClass, lập bảng khái niệm từ tất cả file nguồn.
-2. Biên soạn + kiểm thử **một bài PCA** và nhận góp ý owner.
-3. Khi pilot được duyệt: phân chia toàn bộ thành các bài có prereq và coverage, triển khai theo chủ đề, có kiểm thử code.
-4. Review bài trong Markdown; khi cần, xuất PDF riêng vào `exports/pdf/` và kiểm tra các hình, bảng, code, dấu tiếng Việt trước khi phát hành.
+1. Bắt buộc đọc `docs/CURRICULUM-STYLE-GUIDE.md` và mẫu bài trước khi tạo/chỉnh giáo trình.
+2. Dùng [mục lục 46 bài](lessons/chapters/README.md) và [coverage ledger](sources/curriculum-source-coverage.csv) để tránh bỏ sót khái niệm nhỏ.
+3. **Rà các bài DRAFT**: tiếp tục đọc file nguồn chưa trích xuất, kiểm tra cú pháp/đầu ra code, kiến thức và câu trắc nghiệm; chỉ chuyển sang trạng thái đã kiểm định khi có bằng chứng.
+4. Khi cần, xuất PDF riêng vào `exports/pdf/` và kiểm tra hình, bảng, code và dấu tiếng Việt trước khi phát hành.
 
 Không sửa PythoClass; không truy cập lại Jetking chỉ vì nhiệm vụ mới; không tự kích hoạt task Bridge khi chưa có việc đủ điều kiện.

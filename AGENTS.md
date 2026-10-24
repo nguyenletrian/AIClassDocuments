@@ -3,10 +3,10 @@
 ## Mục đích được chủ dự án đổi ngày 2026-10-24
 Tài liệu tham chiếu **chính** là repository [nguyenletrian/PythoClass](https://github.com/nguyenletrian/PythoClass), chứa bài ghi chép, lab, scripts và notebooks của chủ dự án. Nhiệm vụ mới là **biên soạn lại thành giáo trình Python ứng dụng AI chuẩn xác và có thể thực hành**, không phải chép lại nguyên văn hay dịch khóa Jetking. Các ghi nhận Jetking cũ chỉ còn là hồ sơ lịch sử, không được tự ý tái kích hoạt.
 
-Mọi công việc biên soạn tuân thủ [docs/PYTHOCLASS-CURRICULUM.md](docs/PYTHOCLASS-CURRICULUM.md).
+Mọi công việc biên soạn **PHẢI đọc** [docs/CURRICULUM-STYLE-GUIDE.md](docs/CURRICULUM-STYLE-GUIDE.md) và [templates/lesson.md](templates/lesson.md) **trước khi viết bất kỳ bài nào**. Quy trình nguồn chi tiết ở [docs/PYTHOCLASS-CURRICULUM.md](docs/PYTHOCLASS-CURRICULUM.md).
 
 ## Nguyên tắc biên soạn
-1. Quét đủ file trong `sources/pythoclass-file-inventory.csv`; bóc tách mọi khái niệm **dù chỉ xuất hiện ngắn** và lưu trong bản đồ chủ đề. Không công bố "đã xử lý toàn bộ" khi chưa duyệt 65/65 file.
+1. Kiểm kê nguồn tại `sources/curriculum-source-coverage.csv` (68 file trong phiên bản nguồn 24/10/2026), bóc tách mọi khái niệm **dù chỉ nhắc ngắn**. Bảng `sources/pythoclass-file-inventory.csv` chỉ là snapshot 65 file trước đó. Không công bố bao phủ toàn bộ nếu còn nguồn chưa đọc.
 2. Tài liệu dành cho sinh viên đi theo thứ tự: **vị trí kiến thức → English vocabulary → thư viện/hàm Python → các khái niệm được giải thích bằng lời rồi minh họa bằng ví dụ Python nhỏ → 5 tình huống thực tế có lý do chọn phương pháp, quy trình và code → 20 câu trắc nghiệm song ngữ Anh–Việt với lựa chọn và giải thích → bài tiếp theo**. Các từ như Feature/Vector/Matrix phải được định nghĩa riêng bằng ngôn ngữ phổ thông trước khi xuất hiện trong phép tính; không dùng nhãn tiêu đề “Subconcept”, không có mục tiêu học tập/chứng minh toán học hoặc ngôn ngữ giáo án.
 3. Dùng tiếng Việt rõ ràng; có bảng thuật ngữ tiếng Anh đặt trước thư viện và khái niệm. Mỗi bài phải có sơ đồ chuỗi kiến thức (ví dụ Vector → Matrix → Features → PCA → ML) để sinh viên biết nội dung đang ở đâu trong hệ thống.
 3a. Ở mỗi mục khái niệm liên quan (4.2, 4.3...), **nhắc lại bằng lời khái niệm xuất hiện trong mục**, rồi trình bày **một ví dụ nhỏ tăng tiến từng bước**: đối tượng → vector → matrix → phép xử lý → đọc kết quả. Bất cứ khối dữ liệu nào cũng phải chú thích: số hàng, **mỗi hàng biểu diễn ai/cái gì**, tên & ý nghĩa từng cột, đơn vị đo, nguồn dữ liệu (giả lập/công khai). Không đưa array số trần mà thiếu nghĩa dữ liệu. Mỗi code block gắn bước và lý do chọn thao tác.
@@ -16,10 +16,10 @@ Mọi công việc biên soạn tuân thủ [docs/PYTHOCLASS-CURRICULUM.md](docs
 4. Truy nguyên `GHI CHÉP GỐC`, `ĐÃ HIỆU ĐÍNH`, `AI MỞ RỘNG` **chỉ ở hồ sơ nội bộ** `sources/`/docs, KHÔNG trong bài dành cho sinh viên. Không nhắc tên repo PythoClass/PythonClass, đường dẫn ghi chép hoặc quá trình biên soạn trong `lessons/`. Không truyền lại công thức hoặc code sai; thử cú pháp, test giá trị, tránh dữ liệu rò rỉ trong ML.
 5. Không sửa repository PythoClass. Không lưu secret, output chứa thông tin cá nhân hoặc nguồn bị hạn chế quyền sử dụng lên GitHub.
 6. Không yêu cầu chủ dự án thủ công gửi ảnh/chép notes khi nguồn đã có thể đọc qua GitHub và công cụ được phép. Tự kiểm tra file binary bằng công cụ phù hợp, báo cáo chính xác blocker nếu không đọc được.
-7. **Chỉ triển khai một bài mẫu PCA** dưới `lessons/pilot/`. Giữ `goal_review.enabled=false` và không tạo task viết hàng loạt cho đến khi chủ dự án xem và góp ý mẫu.
+7. **Đã có lệnh chủ dự án 2026-10-24 triển khai toàn bộ chương trình**. Cho phép soạn các bài còn lại theo style guide. Vẫn giữ `goal_review.enabled=false` để tránh spam heartbeat; không đổi ACK/tác vụ cũ. Bài mới mang trạng thái `DRAFT` tới khi test thật.
 
 ## Tiêu chí sẵn sàng
-Bài mẫu chỉ ở `PILOT_REVIEW` khi đã có nguồn cụ thể, đủ cấu trúc yêu cầu, kết quả bài tập đã đối chiếu và các giới hạn được ghi rõ. Chuyển sang `OWNER_APPROVED` khi chủ dự án đánh giá bố cục và nội dung. Các lô bài tiếp theo chỉ mở sau đó.
+Đã có 46 bài DRAFT trong `lessons/chapters/` và một bài PCA tham chiếu, được chủ dự án cho phép biên soạn. Chỉ nâng bài sang `CODE_VERIFIED` khi chạy code/test có bằng chứng, sang `EDITOR_REVIEWED` khi rà chuẩn mực, nguồn và trắc nghiệm. Xem `docs/CURRICULUM-QA-STATUS.md`; không đồng nhất việc có bài với đã hoàn thành mọi khái niệm nguồn.
 
 ## Hệ thống Bridge
 AIBridge giữ worker identity, queue/ACK và các quyền task theo cơ chế cũ. Đổi mục tiêu tài liệu **không** là giấy phép để restart, gửi idle reminders lặp lại, replay ambiguous sends, tự tạo New Chat hay chạy lại các task Jetking. Khi cần đọc/tạo tài liệu từ PythoClass, ưu tiên GitHub; chỉ tạo các task Bridge giới hạn nhiệm vụ thật và có thể kiểm chứng.
@@ -61,7 +61,7 @@ test runner riêng vào dự án. Hợp đồng tham khảo:
   thu thập dữ liệu log runtime và không được tự truy cập tài khoản/nguồn học.
 
 ## Git
-- Đặt mỗi bài ở `lessons/<lessonId>-<slug>.md`.
+- Đặt bài giảng ở `lessons/chapters/PY-<nn>-<slug>.vi.md` và cập nhật `lessons/chapters/README.md` theo chuỗi tiên quyết.
 - Không commit credential, session hoặc thông tin cá nhân.
 - Commit nhỏ, mô tả được công việc; không overwrite công việc người dùng.
 - Repo và Bridge là các thành phần riêng: cấu hình máy, endpoint và secret đặt ngoài repo.

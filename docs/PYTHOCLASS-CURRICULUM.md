@@ -1,3 +1,5 @@
+**Trước mỗi lần tạo bài, đọc bắt buộc `docs/CURRICULUM-STYLE-GUIDE.md` và `templates/lesson.md`. Bản dịch trắc nghiệm Q/A nằm cùng dòng: `**Q1. English? — Tiếng Việt?**`, `A. English — Tiếng Việt`.**
+
 # PythoClass → AIClassDocuments — Hướng dẫn biên soạn giáo trình (2026-10-24)
 
 ## Nhiệm vụ mới
@@ -44,8 +46,8 @@ Không dùng mục "mục tiêu học tập", "sau bài học bạn sẽ làm đ
 ## Test và nghiệm thu
 - Code của năm tình huống thực tế phải chạy hoặc được kiểm tra rõ điều kiện cài đặt và dữ liệu. Comment giải thích lý do chọn biến đổi/hàm, không chỉ mô tả câu lệnh. Đoạn cần UI/biểu đồ có thể chạy headless bằng việc kiểm tra dữ liệu trước `show()`.
 - Đối chiếu con số xuất ra, shape, đơn vị đo, `random_state` và tránh data leakage với ML.
-- Ghi trạng thái: `SOURCE_MAPPED → DRAFT → SELF_REVIEW → PILOT_REVIEW → OWNER_APPROVED`.
-- Bài thử đầu: `lessons/pilot/AI-MATH-01-pca.vi.md`. **Chỉ sau khi owner duyệt bố cục** mới mở rộng ra toàn repo. Trước đó không tạo hàng loạt, không tự queue task làm tài liệu mới và không tự bật `goal_review.enabled`.
+- Ghi trạng thái: `SOURCE_MAPPED → DRAFT → CODE_VERIFIED → EDITOR_REVIEWED → APPROVED` (không đánh dấu CODE_VERIFIED chỉ vì đã tạo file).
+- Bài PCA mẫu ở `lessons/pilot/AI-MATH-01-pca.vi.md`; **chủ dự án đã cho phép tạo 46 chương DRAFT còn lại ngày 24/10/2026**. Việc viết bản thảo không có nghĩa nội dung/code đã được kiểm định. Giữ `goal_review.enabled=false` để Bridge không tự gửi nhắc nhở idle liên tục.
 
 ## Quy trình tự chủ (không đẩy việc thô cho chủ dự án)
 1. Kiểm kê và đọc tài liệu trực tiếp qua GitHub/Bridge của nguồn `PythoClass`.
@@ -56,5 +58,5 @@ Không dùng mục "mục tiêu học tập", "sau bài học bạn sẽ làm đ
 ## Trạng thái triển khai hiện tại
 - Pilot: **PCA (Principal Component Analysis)**, từ `MON 2/3. Eigens_PCA.py`, `MON 2/LabSession3_4.py`, `MON 2/Linear Algebra.py`.
 - Đã kiểm tra các khối tính toán mẫu với NumPy 2.3.5 và scikit-learn 1.8.0.
-- Đây chưa phải đánh giá hoàn tất mọi `.docx`/`.pptx`/`.xlsx` hoặc toàn bộ 60+ file nguồn.
+- Đã có **46 chương DRAFT** tại `lessons/chapters/` và mục lục riêng. **68 tệp nguồn** đang được kiểm kê theo `sources/curriculum-source-coverage.csv`; vẫn chưa phân tích hoàn tất DOCX/PPTX/XLSX hoặc mọi concept nhỏ, nên chưa công bố bao phủ 100%.
 - Mọi thử nghiệm Bridge cho Jetking cũ **không thuộc** chương trình mới. Nhánh AIBridge nghiên cứu asset discovery trước đó vẫn độc lập, không merge hoặc kích hoạt chỉ vì goal thay đổi.
