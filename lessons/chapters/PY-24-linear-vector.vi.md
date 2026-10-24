@@ -113,12 +113,12 @@ print(np.dot([1,2],[3,4]))
 
 **Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
 
-**Tình huống thực tế:** Một doanh nghiệp bán lẻ muốn tính khoảng cách 2D. Bộ dữ liệu đang có: Vị trí điểm [3,4] mét. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Robot di chuyển từ (0,0) tới (3,4) mét. Tính khoảng cách theo đường thẳng.
 
 **Vì sao chọn phương án?** Norm từ véc-tơ độ lệch giúp tính khoảng cách đến gốc; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
@@ -137,12 +137,12 @@ print(np.linalg.norm(v))
 
 **Từ vựng trong mục:** **Vector** — véc-tơ.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn chuẩn hóa hướng di chuyển. Bộ dữ liệu đang có: Véc-tơ [3,4] mét. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Robot nhận vector hướng (3,4). Chuẩn hóa thành vector đơn vị để chỉ biểu thị hướng.
 
 **Vì sao chọn phương án?** Chia norm giúp hướng có độ dài 1 trước điều khiển tốc độ; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
@@ -163,12 +163,12 @@ print(u)
 
 **Từ vựng trong mục:** **Norm** — độ lớn véc-tơ.
 
-**Tình huống thực tế:** Một trường học muốn điểm tổng kết có trọng số. Bộ dữ liệu đang có: Điểm 8 7 9; trọng số 0.2,0.3,0.5. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Điểm ba môn của học viên là [8,7,9] theo trọng số [20%,30%,50%]. Tính điểm tổng kết.
 
 **Vì sao chọn phương án?** Dot product của điểm và trọng số tạo điểm tổng; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
@@ -188,12 +188,12 @@ print(scores@weights)
 
 **Từ vựng trong mục:** **Dot product** — tích vô hướng.
 
-**Tình huống thực tế:** Một tổ chức đang triển khai hệ thống dữ liệu muốn tìm hai hướng vuông góc. Bộ dữ liệu đang có: a=[1,0], b=[0,1]. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Hai hướng [1,0] và [0,1] cần kiểm tra vuông góc bằng tích vô hướng.
 
 **Vì sao chọn phương án?** Dot bằng 0 cho hai vector khác 0 biểu thị trực giao; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
@@ -213,12 +213,12 @@ print(a@b)
 
 **Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
 
-**Tình huống thực tế:** Một hệ thống giám sát muốn tính sai khác cảm biến. Bộ dữ liệu đang có: Hai kênh cảm biến trên cùng đơn vị. Hãy lập trình giải quyết yêu cầu này và đưa ra kết quả có thể kiểm tra.
+**Tình huống thực tế:** Hai lần đo cảm biến theo cặp cùng đơn vị là (20,30) và (23,34). Tính độ lệch Euclid.
 
 **Vì sao chọn phương án?** Norm của hiệu vector đo mức sai khác tổng hợp; điều kiện tiên quyết là dữ liệu có shape và ý nghĩa từng giá trị rõ ràng.
 
 
-**Quy trình:** mô tả dữ liệu → xác định phép tính/shape → tính bằng Python → kiểm tra kết quả.
+**Quy trình giải:** Xác định dữ liệu đầu vào theo đề bài, áp dụng phép tính được giới thiệu và đối chiếu giá trị in ra.
 
 ```python
 import numpy as np
