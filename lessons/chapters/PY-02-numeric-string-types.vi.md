@@ -7,7 +7,7 @@
 
 `Biến → int/float/bool/str → Slicing → Xử lý văn bản`
 
-Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu đầu vào, thao tác và đầu ra trước khi dùng cho dữ liệu AI.
+Sau khi biết lưu thông tin vào biến, ta học cách phân biệt số, chữ và giá trị đúng/sai. Nhờ vậy, Python có thể tính tiền, kiểm tra điều kiện và xử lý văn bản đúng cách.
 
 ## 2. English vocabulary — Từ vựng
 
@@ -30,131 +30,142 @@ Khái niệm trong bài nằm ở bước này của chuỗi học; hãy hiểu 
 | `s[start:stop]` | Cắt ký tự theo vị trí, không lấy chỉ số stop |
 
 
-## 4. Khái niệm liên quan — từ lời giải thích đến Python
+## 4. Khái niệm liên quan
 
 ### 4.1. Integer
 
 **Từ vựng trong mục:** **Integer** — số nguyên.
 
-Giá trị không có phần thập phân. xác định giá trị đầu vào có ý nghĩa gì.
+`int` dùng để lưu số nguyên như số sản phẩm hay số học viên. Trong ví dụ, `n = 5` là số nguyên; `type(n)` cho biết kiểu dữ liệu là `int`.
 
 ```python
 n = 5
 print(type(n))
 ```
 
-**Tự kiểm tra:** Integer có ý nghĩa gì?
-
-**Đáp án:** Giá trị không có phần thập phân.
 
 ### 4.2. Float
 
 **Từ vựng trong mục:** **Float** — số thực.
 
-Số có thể có phần lẻ. xác định giá trị đầu vào có ý nghĩa gì.
+`float` dùng cho số có phần thập phân như nhiệt độ `36.5` °C hay điểm `8.5`. Ví dụ dưới đây in ra `3.5`.
 
 ```python
 x = 3.5
 print(x)
 ```
 
-**Tự kiểm tra:** Float có ý nghĩa gì?
-
-**Đáp án:** Số có thể có phần lẻ.
 
 ### 4.3. Boolean
 
 **Từ vựng trong mục:** **Boolean** — giá trị logic.
 
-Giá trị True hoặc False. xác định giá trị đầu vào có ý nghĩa gì.
+`bool` thể hiện hai trạng thái `True` (đúng) hoặc `False` (sai). Ví dụ, biến `ok = True` có thể dùng để ghi lại một bước kiểm tra đã đạt.
 
 ```python
 ok = True
 print(ok)
 ```
 
-**Tự kiểm tra:** Boolean có ý nghĩa gì?
-
-**Đáp án:** Giá trị True hoặc False.
 
 ### 4.4. String
 
 **Từ vựng trong mục:** **String** — chuỗi.
 
-Dãy ký tự có thể cắt lát. xác định giá trị đầu vào có ý nghĩa gì.
+`str` lưu chữ, số điện thoại hoặc mã đơn. Chuỗi `AB12` có bốn ký tự; `code[:2]` lấy hai ký tự đầu, nên in ra `AB`.
 
 ```python
 code = 'AB12'
 print(code[:2])
 ```
 
-**Tự kiểm tra:** String có ý nghĩa gì?
-
-**Đáp án:** Dãy ký tự có thể cắt lát.
 
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Chuẩn hóa email
 
-**Từ vựng trong mục:** **Integer** — số nguyên.
+**Từ vựng trong mục:** **String** — chuỗi; **Method** — phương thức.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần chuẩn hóa email. Dữ liệu hiện có: Email nhập thừa khoảng trắng. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một ứng dụng lưu email do khách nhập là `"  Lan@Example.COM "`, trong đó có khoảng trắng thừa ở đầu và cuối, còn chữ hoa và chữ thường được nhập lẫn nhau.
 
-**Vì sao chọn cách này?** Bỏ khoảng trắng và đổi chữ thường trước so trùng.
+**Yêu cầu:** In email không còn khoảng trắng ở hai đầu và được đổi thành chữ thường.
 
+**Vì sao chọn cách giải này?** `strip()` bỏ khoảng trắng hai đầu; `lower()` đổi chữ thành chữ thường, giúp thống nhất cách hiển thị và hỗ trợ so sánh email. Cách này không kiểm tra email có hợp lệ hay không.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu chuỗi email ban đầu.
+2. Dùng `strip()` bỏ khoảng trắng đầu và cuối.
+3. Dùng `lower()` đổi chữ thành chữ thường rồi in kết quả.
 
 ```python
 email = "  Lan@Example.COM "
 print(email.strip().lower())
 ```
 
+**Kết quả:** `lan@example.com` — email không còn khoảng trắng thừa và đã viết thường.
 
 ### Tình huống 2 — Tách nhãn sản phẩm
 
-**Từ vựng trong mục:** **Float** — số thực.
+**Từ vựng trong mục:** **String** — chuỗi; **Split** — tách.
 
-**Tình huống thực tế:** Một cửa hàng cần tách nhãn sản phẩm. Dữ liệu hiện có: Chuỗi có 3 nhãn. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một cửa hàng nhận chuỗi nhãn sản phẩm `"AI,Python,Math"`. Ba nhãn được ngăn cách bằng dấu phẩy và cần tách riêng để xử lý từng nhãn.
 
-**Vì sao chọn cách này?** Dấu phẩy tạo ranh giới giữa nhãn.
+**Yêu cầu:** Tạo danh sách gồm ba nhãn từ chuỗi này.
 
+**Vì sao chọn cách giải này?** `split(",")` tách chuỗi ở mỗi dấu phẩy thành các phần tử riêng trong một danh sách.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu chuỗi nhãn vào `labels`.
+2. Truyền dấu phẩy vào `split()` để tách các nhãn.
+3. In danh sách nhận được.
 
 ```python
 labels = "AI,Python,Math"
 print(labels.split(","))
 ```
 
+**Kết quả:** `['AI', 'Python', 'Math']` — ba nhãn được tách thành ba phần tử.
 
 ### Tình huống 3 — Giữ mã đầu 0
 
-**Từ vựng trong mục:** **Boolean** — giá trị logic.
+**Từ vựng trong mục:** **String** — chuỗi; **Slice** — cắt chuỗi.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần giữ mã đầu 0. Dữ liệu hiện có: Mã đơn 00045. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Hệ thống quản lý đơn hàng lưu mã `00045`. Các số `0` đầu mã phải được giữ nguyên vì đây là mã nhận diện, không phải số để tính toán.
 
-**Vì sao chọn cách này?** Mã không được mất chữ số đầu khi dùng để tra cứu.
+**Yêu cầu:** Lưu mã đơn và in ba ký tự đầu của mã để kiểm tra chúng vẫn còn nguyên.
 
+**Vì sao chọn cách giải này?** Chuỗi `str` giữ được các số `0` đứng đầu. Cú pháp `[:3]` lấy ba ký tự đầu, không chuyển mã sang số nguyên.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu `"00045"` vào `order_id`.
+2. Lấy ba ký tự đầu bằng `order_id[:3]`.
+3. In kết quả để xem phần đầu của mã.
 
 ```python
 order_id = "00045"
 print(order_id[:3])
 ```
 
+**Kết quả:** `000` — ba ký tự đầu của mã vẫn được giữ nguyên. Chương trình không in cả mã `00045`.
 
 ### Tình huống 4 — Đổi số từ CSV
 
-**Từ vựng trong mục:** **String** — chuỗi.
+**Từ vựng trong mục:** **Float** — số thực; **Integer** — số nguyên.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần đổi số từ csv. Dữ liệu hiện có: Giá 12.5, số lượng 3. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Một cửa hàng nhập từ file CSV giá một sản phẩm là chuỗi `"12.5"` và số lượng là chuỗi `"3"`. Giá tính theo cùng đơn vị tiền của hệ thống.
 
-**Vì sao chọn cách này?** Chuyển chuỗi số trước khi tính tổng.
+**Yêu cầu:** Đổi hai chuỗi thành số, rồi tính số tiền cho ba sản phẩm.
 
+**Vì sao chọn cách giải này?** Dùng `float()` cho giá có phần thập phân và `int()` cho số lượng nguyên, sau đó nhân hai số để tính tiền.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Đổi `"12.5"` thành số thực bằng `float()`.
+2. Đổi `"3"` thành số nguyên bằng `int()`.
+3. Nhân giá và số lượng rồi in kết quả.
 
 ```python
 price = float("12.5")
@@ -162,28 +173,37 @@ qty = int("3")
 print(price * qty)
 ```
 
+**Kết quả:** `37.5` đơn vị tiền — tổng giá của ba sản phẩm.
 
 ### Tình huống 5 — Che số liên lạc
 
-**Từ vựng trong mục:** **Integer** — số nguyên.
+**Từ vựng trong mục:** **String** — chuỗi; **Slice** — cắt chuỗi.
 
-**Tình huống thực tế:** Một ứng dụng thực tế cần che số liên lạc. Dữ liệu hiện có: Số mô phỏng 0900123456. Hãy viết chương trình xử lý dữ liệu này và xác định kết quả theo yêu cầu.
+**Tình huống thực tế:** Ứng dụng chăm sóc khách hàng có số điện thoại mẫu `0900123456`. Khi hiển thị trên màn hình, ứng dụng chỉ được để lộ ba chữ số cuối.
 
-**Vì sao chọn cách này?** Lấy ba ký tự cuối mà không lộ phần trước.
+**Yêu cầu:** In số điện thoại dưới dạng dấu `*` che toàn bộ ký tự trừ ba số cuối.
 
+**Vì sao chọn cách giải này?** Lưu số điện thoại dạng chuỗi để giữ số `0` đầu. `phone[-3:]` lấy ba ký tự cuối; `len(phone)-3` tính số dấu `*` cần in.
 
-**Quy trình:** xác định đầu vào → thực hiện phép tính / điều kiện → in kết quả → kiểm tra các trường hợp khác.
+**Quy trình giải:**
+
+1. Lưu số điện thoại dưới dạng chuỗi.
+2. Tạo số dấu `*` bằng độ dài chuỗi trừ ba.
+3. Ghép phần che với ba ký tự cuối rồi in.
 
 ```python
 phone = "0900123456"
 print("*" * (len(phone)-3) + phone[-3:])
 ```
 
+**Kết quả:** `*******456` — bảy ký tự đầu được che, chỉ còn `456`.
 
 ## 6. Những nhầm lẫn thường gặp
 
-- Không suy diễn từ một ví dụ minh họa sang mọi bộ dữ liệu thật.
-- Dùng phép xử lý phù hợp với kiểu dữ liệu và đơn vị đo. Khi có đầu vào người dùng, cần kiểm tra lỗi.
+- `int("12.5")` gây lỗi vì chuỗi này không viết theo dạng số nguyên; dùng `float("12.5")` nếu cần số có phần thập phân.
+- Không chuyển mã đơn hoặc số điện thoại sang `int` nếu cần giữ số `0` ở đầu.
+- `strip()` chỉ bỏ khoảng trắng ở hai đầu chuỗi; `lower()` không tự kiểm tra email hợp lệ.
+- `s[:3]` lấy ba ký tự đầu (vị trí 0, 1, 2), không lấy ký tự ở vị trí 3.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
@@ -237,7 +257,7 @@ D. A true-or-false value — Giá trị True hoặc False
 
 A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
 
-B. This Python operation supports the described task — Chuyển kiểu phù hợp trước khi xử lý
+B. These functions convert values between text and numeric types — Chuyển kiểu phù hợp trước khi xử lý
 
 C. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
 
@@ -246,7 +266,7 @@ D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra
 
 **Q6. Which use matches strip()/lower()/upper()? — Công dụng nào đúng với strip()/lower()/upper()?**
 
-A. This Python operation supports the described task — Dọn khoảng trắng và chuẩn hóa chữ
+A. These methods trim surrounding spaces or change letter case — Dọn khoảng trắng và chuẩn hóa chữ
 
 B. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệt đối
 
@@ -263,7 +283,7 @@ B. It automatically trains a neural network — Nó tự huấn luyện mạng n
 
 C. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
 
-D. This Python operation supports the described task — Tách chuỗi hoặc thay thế đoạn văn bản
+D. These methods split text or replace part of it — Tách chuỗi hoặc thay thế đoạn văn bản
 
 
 **Q8. Which use matches s[start:stop]? — Công dụng nào đúng với s[start:stop]?**
@@ -272,7 +292,7 @@ A. It always creates perfect predictions — Nó luôn dự đoán đúng tuyệ
 
 B. It automatically trains a neural network — Nó tự huấn luyện mạng nơ-ron
 
-C. This Python operation supports the described task — Cắt ký tự theo vị trí, không lấy chỉ số stop
+C. This slice returns characters before the stop index — Cắt ký tự theo vị trí, không lấy chỉ số stop
 
 D. It removes the need for input checks — Nó loại bỏ nhu cầu kiểm tra đầu vào
 
