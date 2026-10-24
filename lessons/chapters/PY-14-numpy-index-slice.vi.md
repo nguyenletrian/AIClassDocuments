@@ -1,6 +1,5 @@
 # PY-14 — NumPy indexing, slicing, boolean và fancy indexing
 
-*DRAFT · Dữ liệu minh họa để luyện tập, chưa xác nhận kiểm thử Windows*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
