@@ -29,7 +29,7 @@ Nắm liên hệ giữa cấu trúc toán học và mảng dữ liệu Python tr
 | `A @ B` | Nhân ma trận khi số cột A bằng số hàng B |
 | `np.linalg.det()/inv()` | Định thức và nghịch đảo khi khả nghịch; giải hệ nên ưu tiên solve |
 
-## 4. Khái niệm kèm ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Matrix
 
@@ -40,6 +40,12 @@ Bảng hai chiều chứa giá trị theo hàng và cột. Trước khi sử d�
 ```python
 import numpy as np
 print(np.array([[1,2],[3,4]]).shape)
+```
+
+**Kết quả khi chạy:**
+
+```text
+(2, 2)
 ```
 
 **Tự kiểm tra:** Matrix có nghĩa gì? **Đáp án:** Bảng hai chiều chứa giá trị theo hàng và cột.
@@ -55,6 +61,13 @@ import numpy as np
 print(np.array([[1,2],[3,4]]).T)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+[[1 3]
+ [2 4]]
+```
+
 **Tự kiểm tra:** Transpose có nghĩa gì? **Đáp án:** Đổi vai trò hàng và cột của ma trận.
 
 ### 4.3. Determinant
@@ -68,6 +81,12 @@ import numpy as np
 print(np.linalg.det([[1,2],[3,4]]))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+-2.0000000000000004
+```
+
 **Tự kiểm tra:** Determinant có nghĩa gì? **Đáp án:** Số của ma trận vuông dùng xét tính khả nghịch.
 
 ### 4.4. Inverse
@@ -79,6 +98,13 @@ Ma trận B làm AB=BA=I khi tồn tại. Trước khi sử dụng biểu thức
 ```python
 import numpy as np
 print(np.linalg.inv([[2.,0.],[0.,3.]]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+[[0.5        0.        ]
+ [0.         0.33333333]]
 ```
 
 **Tự kiểm tra:** Inverse có nghĩa gì? **Đáp án:** Ma trận B làm AB=BA=I khi tồn tại.
@@ -102,6 +128,12 @@ X=np.array([[10,20,30],[12,8,5]])
 print(X.T.shape)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+(3, 2)
+```
+
 
 ### Tình huống 2 — Nhân bảng điểm và trọng số
 
@@ -119,6 +151,13 @@ import numpy as np
 X=np.array([[8,7,9],[6,5,8]])
 W=np.array([[.2],[.3],[.5]])
 print(X@W)
+```
+
+**Kết quả khi chạy:**
+
+```text
+[[8.2]
+ [6.7]]
 ```
 
 
@@ -139,6 +178,12 @@ A=np.array([[2,1],[1,2]],dtype=float)
 print(round(np.linalg.det(A),6))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+3.0
+```
+
 
 ### Tình huống 4 — Kiểm tra nghịch đảo
 
@@ -157,6 +202,12 @@ A=np.diag([2.,4.])
 print(np.allclose(A@np.linalg.inv(A),np.eye(2)))
 ```
 
+**Kết quả khi chạy:**
+
+```text
+True
+```
+
 
 ### Tình huống 5 — Kiểm tra shape trước nhân
 
@@ -171,9 +222,16 @@ print(np.allclose(A@np.linalg.inv(A),np.eye(2)))
 
 ```python
 import numpy as np
-A=np.ones((2,3));B=np.ones((3,2))
+A=np.ones((2,3))
+B=np.ones((3,2))
 assert A.shape[1]==B.shape[0]
 print((A@B).shape)
+```
+
+**Kết quả khi chạy:**
+
+```text
+(2, 2)
 ```
 
 
