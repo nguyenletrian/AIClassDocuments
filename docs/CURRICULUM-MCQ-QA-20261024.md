@@ -118,3 +118,24 @@ Guide kiểm tra tính đúng theo nghĩa đã được merge riêng tại **PR 
 
 ### Giới hạn
 - **Chưa kiểm Windows**, chưa chạy toàn bộ repository test suite hay mọi code fence, chưa có duyệt học thuật độc lập của giảng viên. Không đánh dấu `WINDOWS_VERIFIED` hoặc xem kiểm tra cấu trúc là chứng nhận phát hành. Vòng tiếp theo: **PY-16–PY-20**.
+
+## Vòng QA chuyên sâu PY-16–PY-20 — 24/10/2026
+
+**Phạm vi:** 100 câu/400 lựa chọn của năm bài NumPy reshape–matrix–I/O, Pandas DataFrame, cleaning, grouping/merge và logic–counting. Đọc lại toàn bộ A/B/C/D và answer key; **bổ sung giải thích có ví dụ, phân biệt hoặc điều kiện áp dụng cho 100/100 câu bằng cả tiếng Anh và tiếng Việt**.
+
+### Phát hiện và sửa chữa
+- **PY-16:** minh họa bằng dữ liệu cụ thể sự khác nhau giữa `reshape()` và `.T`, `*` và `@`; làm rõ shape phép nhân, dot product và định dạng NPY. Giải thích `allow_pickle=False` khi đọc dữ liệu chưa tin cậy.
+- **PY-17 Q7:** giới hạn rõ trường hợp DataFrame có tên cột duy nhất để `df['x']` trả Series; phân biệt với `df[['x']]` trả DataFrame. Giải thích index alignment, dtype, shape và ý nghĩa hàng/cột.
+- **PY-18:** làm rõ `fillna` mặc định trả bản đã xử lý (không âm thầm sửa biến gốc), `duplicated` giữ bản ghi đầu, tác động của điền khuyết và nguy cơ data leakage.
+- **PY-19:** giải thích `loc` theo nhãn khác `iloc` theo vị trí, `groupby`, `many_to_one`, left/inner join. Lưu ý left join vẫn có thể nhân hàng khi khóa phía phải trùng.
+- **PY-20 Q4:** bỏ từ `independent choices` dễ gây nhầm với độc lập xác suất; thay bằng điều kiện số cách đi tiếp hợp lệ không đổi theo lựa chọn ở các bước trước. Bổ sung ví dụ đếm, bảng chân trị, kéo theo, tích Descartes và loại trừ phần giao. Đã escape ký tự `|` trong công thức ở hai cột giải thích.
+
+### Kết quả QA
+- Đọc và hoán vị vị trí A/B/C/D để bỏ chu kỳ đáp án máy móc nhưng **giữ nguyên nội dung của 100 phương án đúng**; sau hoán vị đối chiếu lại với 100 cụm đáp án kỳ vọng theo ngữ nghĩa, **100/100 đúng**.
+- Cả năm bài vẫn có đúng **20 câu, 80 phương án, 20 dòng answer key bốn cột**; câu và bốn lựa chọn giữ Anh–Việt cùng dòng, không hỏi nhớ tình huống/ví dụ đánh số. Mỗi bài có 5 A, 5 B, 5 C, 5 D.
+- Đối chiếu với `main` trước đợt sửa: mọi nội dung **ngoài mục 7** bất biến, gồm tình huống, khối Python, ví dụ và phần chuyển tiếp.
+- Đã thực thi **40/40 kiểm chứng chọn lọc thành công** với Python 3.13.5, NumPy 2.3.5 và Pandas 2.2.3: reshape/transposition, NPY save/load, dot/matmul, DataFrame/Series/index alignment, CSV, missing-value cleaning, group/merge validation, bảng chân trị và phép đếm.
+
+### Giới hạn
+- Đây là vòng biên tập QA do AI thực hiện, **không phải chứng nhận học thuật độc lập**. Chưa kiểm thử Windows, chưa chạy full suite của repository hay toàn bộ code fence; không gắn `WINDOWS_VERIFIED` hoặc `APPROVED` chỉ từ kết quả này.
+- Nhóm kế tiếp trong lộ trình: **PY-21–PY-25**.
