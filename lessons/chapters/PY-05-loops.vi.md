@@ -1,6 +1,5 @@
 # 05 — Vòng lặp for/while, break/continue
 
-*Trạng thái: DRAFT · Ví dụ giả lập · Cần xác minh thực thi trước khi phát hành*
 
 ## 1. Vị trí trong chuỗi kiến thức
 
@@ -92,7 +91,7 @@ for x in [0,1,2]:
 
 **Vấn đề thực tế:** Tổng hợp doanh thu.
 
-**Vì sao chọn cách này?** Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Duyệt từng giao dịch và cộng dồn thay vì gõ từng phép cộng.
 
 **Dữ liệu:** 3 đơn vị nghìn đồng: 120, 80, 200; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -113,7 +112,7 @@ print(total)
 
 **Vấn đề thực tế:** Loại dòng trống.
 
-**Vì sao chọn cách này?** Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Bỏ qua None nhưng vẫn xử lý các giá trị hợp lệ khác.
 
 **Dữ liệu:** Bốn giá trị nhiệt độ, một None; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -136,7 +135,7 @@ print(valid)
 
 **Vấn đề thực tế:** Tìm hàng hết tồn.
 
-**Vì sao chọn cách này?** Dừng ngay khi thấy số lượng bằng 0; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Dừng ngay khi thấy số lượng bằng 0.
 
 **Dữ liệu:** Bốn mã hàng có số lượng [5,3,0,4]; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -158,7 +157,7 @@ for i,x in enumerate(stocks):
 
 **Vấn đề thực tế:** Giới hạn kết nối.
 
-**Vì sao chọn cách này?** While có giới hạn số lượt tránh chạy vô hạn; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** While có giới hạn số lượt tránh chạy vô hạn.
 
 **Dữ liệu:** Tối đa ba lần thử kết nối mô phỏng; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
@@ -180,7 +179,7 @@ print(attempts,connected)
 
 **Vấn đề thực tế:** Lập bảng lịch học.
 
-**Vì sao chọn cách này?** Lặp lồng khi có hai chiều sinh viên và ngày; không cần công cụ phức tạp hơn khi một quy tắc rõ ràng đã giải được vấn đề.
+**Vì sao chọn cách này?** Lặp lồng khi có hai chiều sinh viên và ngày.
 
 **Dữ liệu:** 2 sinh viên, 3 ngày; nếu là bảng thì mỗi hàng là một đối tượng và mỗi cột mang một thuộc tính có thứ tự. Các giá trị ở đây đều là ví dụ.
 
