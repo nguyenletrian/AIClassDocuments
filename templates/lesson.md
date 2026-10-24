@@ -34,16 +34,26 @@
 ### 4.2. [Khái niệm liên quan 1 — tên tiếng Việt và tiếng Anh]
 [Trước hết dùng 1–3 đoạn văn ngắn giải thích **đây là gì**, **xuất hiện ở đâu trong ví dụ đời thường**, **liên hệ với khái niệm chính thế nào**; nếu nhiều thuật ngữ thì giải thích riêng từng thuật ngữ rồi mới đưa code.]
 
-**Ví dụ nhỏ trong Python:**
+**Nhắc lại kiến thức liên quan:** [Liệt kê và nhắc lại các khái niệm ngay trong bài này, bằng câu dễ hiểu. Nếu có Feature, Vector, Matrix thì giải thích lại chúng chứ không chỉ ghi tên. Nêu rõ mỗi hàng/cột tương ứng đối tượng/đặc trưng nào.]
+
+**Ví dụ nhỏ từng bước trong Python:**
+
+**Dữ liệu gồm:** [Số dòng/mẫu, tên các cột, từng cột đo gì, đơn vị đo; nêu dữ liệu giả lập hay thật. Khi minh họa 5 đối tượng: từ 5 đối tượng tạo 5 vector, ghép thành một matrix và đọc kết quả.]
 
 ```python
-# Code tối giản để kiểm chứng lời giải thích ở trên.
-# Giải thích vì sao chọn biến, hàm hoặc cách tính.
+import numpy as np
+
+# BƯỚC 1 — Mô tả nguồn dữ liệu và cấu trúc trước khi tạo array.
+# Mỗi HÀNG = một đối tượng; các CỘT = feature kèm đơn vị đo.
+# BƯỚC 2 — Tạo từng vector của đối tượng, chỉ rõ thứ tự feature.
+# BƯỚC 3 — Ghép vector thành matrix (nếu phù hợp).
+# BƯỚC 4 — Áp dụng hàm/khái niệm và giải thích vì sao dùng thao tác đó.
+# BƯỚC 5 — In shape / kết quả để kiểm tra ý nghĩa.
 ```
 
-**Đọc kết quả:** [Nói rõ người học sẽ thấy gì, shape/giá trị nào thay đổi, điều gì không thể suy ra].
+**Đọc kết quả từng bước:** [Giải thích ý nghĩa từng output, số dòng và số cột, cái gì được giữ nguyên hoặc thay đổi, điều gì KHÔNG thể suy ra].
 
-**Quy tắc:** Không dùng chữ “Subconcept” làm tiêu đề. Viết “Khái niệm liên quan” hoặc tên chủ đề bằng tiếng Việt dễ hiểu. Không giải thích bằng cú pháp hay tên hàm trước khi nói rõ bằng văn; người học phải hiểu *feature là gì* rồi mới gặp ví dụ `np.array`. Không tạo phần “Toán học đằng sau” hoặc chứng minh hàn lâm. Mỗi công thức thể hiện bằng Python trong một ví dụ nhỏ ngay dưới đoạn giải thích.
+**Quy tắc:** Trong mỗi mục 4.2, 4.3... phải nhắc lại khái niệm liên quan rồi mới bắt đầu ví dụ nhỏ **từng bước**. Khi có mảng số, phải nói rõ hàng/cột, từng đặc trưng/đơn vị và ví dụ minh họa cách ghép vector thành matrix khi cần. Không dùng chữ “Subconcept” làm tiêu đề. Viết “Khái niệm liên quan” hoặc tên chủ đề bằng tiếng Việt dễ hiểu. Không giải thích bằng cú pháp hay tên hàm trước khi nói rõ bằng văn; người học phải hiểu *feature là gì* rồi mới gặp ví dụ `np.array`. Không tạo phần “Toán học đằng sau” hoặc chứng minh hàn lâm. Mỗi công thức thể hiện bằng Python trong một ví dụ nhỏ ngay dưới đoạn giải thích.
 
 ## 5. Real-world programming problems — Khoảng năm tình huống thực tế
 
@@ -57,8 +67,13 @@
 
 **Quy trình:** [Các bước cụ thể theo đúng thứ tự.]
 
+**Bộ dữ liệu:** [Mỗi hàng là ai/vật gì? Mỗi cột là feature nào, đo bằng đơn vị gì? Có bao nhiêu mẫu? Là dữ liệu thật, mẫu công khai hay ví dụ giả lập?]
+
 ```python
-# Comment tập trung vào LÝ DO chọn thao tác, không chỉ nhắc lại lệnh.
+# BƯỚC 1 — Chú thích dữ liệu: mỗi HÀNG và từng CỘT/đơn vị.
+# BƯỚC 2 — Xây dựng các vector và matrix đầu vào theo thứ tự hợp lý.
+# BƯỚC 3 — Chọn API theo lý do đã giải thích, không chỉ ghi lại tên lệnh.
+# BƯỚC 4 — Kiểm tra shape và ý nghĩa kết quả.
 ```
 
 **Kiểm tra:** [Kết quả thực tế, shape, giới hạn, điều kiện cần thận trọng.]
