@@ -35,7 +35,7 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 **Từ vựng trong mục:** **MSE** — sai số bình phương trung bình.
 
-Trung bình bình phương hiệu dự đoán và giá trị thật. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Trung bình bình phương hiệu dự đoán và giá trị thật.
 
 ```python
 import numpy as np
@@ -48,7 +48,7 @@ print(np.mean((np.array([2,3])-np.array([1,4]))**2))
 
 **Từ vựng trong mục:** **MAE** — sai số tuyệt đối trung bình.
 
-Trung bình trị tuyệt đối sai số. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Trung bình trị tuyệt đối sai số.
 
 ```python
 import numpy as np
@@ -61,7 +61,7 @@ print(np.mean(np.abs(np.array([2,3])-np.array([1,4]))))
 
 **Từ vựng trong mục:** **Cross-entropy** — entropy chéo.
 
-Phạt dự đoán xác suất sai nhãn mạnh hơn. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Phạt dự đoán xác suất sai nhãn mạnh hơn.
 
 ```python
 import math
@@ -74,7 +74,7 @@ print(-math.log(.8))
 
 **Từ vựng trong mục:** **KL divergence** — độ lệch KL.
 
-Đo sai khác một chiều giữa hai phân phối xác suất. Thử mã nhỏ để nhìn thấy giá trị trước khi làm bài toán phức tạp hơn.
+Đo sai khác một chiều giữa hai phân phối xác suất.
 
 ```python
 import numpy as np
@@ -91,9 +91,9 @@ p=np.array([.5,.5]);q=np.array([.6,.4]);print(np.sum(p*np.log(p/q)))
 
 **Vấn đề:** Đánh giá sai giá nhà.
 
-**Vì sao chọn phương án?** MSE phạt dự đoán sai lớn hơn nhiều; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** MSE phạt dự đoán sai lớn hơn nhiều
 
-**Dữ liệu:** Giá thật [100,200], dự đoán [110,170], triệu đồng. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Giá thật [100,200], dự đoán [110,170], triệu đồng.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -103,7 +103,6 @@ y=np.array([100,200]);pred=np.array([110,170])
 print(np.mean((y-pred)**2))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 2 — Đánh giá dự báo có outlier
 
@@ -111,9 +110,9 @@ print(np.mean((y-pred)**2))
 
 **Vấn đề:** Đánh giá dự báo có outlier.
 
-**Vì sao chọn phương án?** MAE giúp so mức sai số tuyệt đối dễ hiểu; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** MAE giúp so mức sai số tuyệt đối dễ hiểu
 
-**Dữ liệu:** Doanh thu [10,20,30], dự đoán [9,19,50]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Doanh thu [10,20,30], dự đoán [9,19,50].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -122,7 +121,6 @@ import numpy as np
 print(np.mean(np.abs(np.array([10,20,30])-np.array([9,19,50]))))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 3 — Tính Huber cho lỗi đo
 
@@ -130,9 +128,9 @@ print(np.mean(np.abs(np.array([10,20,30])-np.array([9,19,50]))))
 
 **Vấn đề:** Tính Huber cho lỗi đo.
 
-**Vì sao chọn phương án?** Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Huber xử lý sai số nhỏ bằng bình phương, lớn bằng tuyến tính
 
-**Dữ liệu:** Sai số [-1,2,5], delta=1. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Sai số [-1,2,5], delta=1.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -143,7 +141,6 @@ loss=np.where(np.abs(e)<=delta,.5*e**2,delta*(np.abs(e)-.5*delta))
 print(loss.mean())
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 4 — Phạt nhãn dự đoán sai
 
@@ -151,9 +148,9 @@ print(loss.mean())
 
 **Vấn đề:** Phạt nhãn dự đoán sai.
 
-**Vì sao chọn phương án?** Cross-entropy dùng xác suất của đúng nhãn; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** Cross-entropy dùng xác suất của đúng nhãn
 
-**Dữ liệu:** Xác suất đúng nhãn 0.8. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** Xác suất đúng nhãn 0.8.
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -163,7 +160,6 @@ prob_true=.8
 print(-math.log(prob_true))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ### Tình huống 5 — So phân phối dự báo
 
@@ -171,9 +167,9 @@ print(-math.log(prob_true))
 
 **Vấn đề:** So phân phối dự báo.
 
-**Vì sao chọn phương án?** KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng; không dùng công thức hoặc mô hình phức tạp hơn khi các giả định chưa được kiểm tra.
+**Vì sao chọn phương án?** KL khác 0 khi phân phối thay đổi, lưu ý bất đối xứng
 
-**Dữ liệu:** p=[.5,.5], q=[.6,.4]. Các đơn vị và phép tính đã ghi trong đoạn mô tả; dữ liệu minh họa không dùng làm kết luận thực.
+**Dữ liệu:** p=[.5,.5], q=[.6,.4].
 
 **Quy trình:** xác định giá trị/hàm → chọn phương pháp → lập trình → quan sát giá trị/shape → thử thêm đầu vào.
 
@@ -183,7 +179,6 @@ p=np.array([.5,.5]);q=np.array([.6,.4])
 print(np.sum(p*np.log(p/q)))
 ```
 
-**Đọc kết quả:** So sánh số in ra với công thức trong bài. Nếu dữ liệu thực có nhiễu, phải kiểm tra điều kiện và giới hạn trước khi ứng dụng vào AI.
 
 ## 6. Các lỗi dễ gặp
 
