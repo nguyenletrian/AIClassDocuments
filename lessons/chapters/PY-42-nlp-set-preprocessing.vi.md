@@ -456,26 +456,26 @@ D. For complex punctuation or multilingual segmentation — Khi có dấu câu p
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **A** | Tokens may be words, word pieces, or punctuation depending on the tokenizer. | Token có thể là từ, mảnh từ hoặc dấu câu tùy bộ tách. |
-| Q2 | **B** | Vocabulary deduplicates token identities, unlike a frequency list. | Tập từ vựng bỏ trùng danh tính token, khác bảng tần suất. |
-| Q3 | **C** | Lowercasing and trimming help match equivalent surface forms. | Chữ thường và cắt khoảng trắng giúp khớp dạng văn bản. |
-| Q4 | **D** | It measures shared distinct tokens relative to all distinct tokens. | Nó đo từ khác nhau chung so với tổng số từ khác nhau. |
-| Q5 | **A** | Whitespace splitting does not understand all language word boundaries. | Tách bằng khoảng trắng không hiểu mọi ranh giới từ. |
-| Q6 | **B** | It can align case variants for matching but does not remove punctuation. | Giúp so biến thể chữ hoa/thường nhưng không bỏ dấu câu. |
-| Q7 | **C** | Interior whitespace is not removed by strip. | strip không xóa khoảng trắng giữa câu. |
-| Q8 | **D** | Sets are unordered for display, sorted returns an ordered list. | Set không bảo đảm thứ tự; sorted tạo List có thứ tự. |
-| Q9 | **A** | The intersection contains values present in both sets. | Giao chỉ giữ giá trị có ở cả hai tập. |
-| Q10 | **B** | The union deduplicates tokens occurring in both. | Hợp loại token trùng ở cả hai bên. |
-| Q11 | **C** | Converting to Set removes counts and word order. | Chuyển sang Set mất số lần và thứ tự từ. |
-| Q12 | **D** | Their intersection equals their union. | Giao bằng hợp nên tỷ số bằng một. |
-| Q13 | **A** | There are no shared tokens in the numerator. | Không có token chung nên tử số bằng không. |
-| Q14 | **B** | No mathematical quotient is defined for 0/0. | Phép chia 0/0 không xác định; ứng dụng phải tự quy định. |
-| Q15 | **C** | Whitespace-separated syllables need not be distinct lexical words. | Các tiếng ngăn bởi khoảng trắng chưa chắc là từ độc lập. |
-| Q16 | **D** | Case conversion and punctuation handling are separate steps. | Đổi chữ thường và xử lý dấu câu là hai bước khác nhau. |
-| Q17 | **A** | Different words can mean the same but have zero direct overlap. | Hai từ khác chữ dù đồng nghĩa vẫn có thể không chung token. |
-| Q18 | **B** | The union is the denominator of set Jaccard. | Hợp là mẫu số của Jaccard trên Set. |
-| Q19 | **C** | Set records membership only, not sequence or counts. | Set chỉ lưu sự có mặt, không lưu vị trí hay lượt xuất hiện. |
-| Q20 | **D** | A language-aware tokenizer can handle boundaries beyond whitespace. | Tokenizer theo ngôn ngữ xử lý ranh giới vượt quá khoảng trắng. |
+| Q1 | **A** | Tokens may be words, word pieces, or punctuation depending on the tokenizer. The exact unit depends on tokenizer rules, so a token is not always a whole natural-language word. | Token có thể là từ, mảnh từ hoặc dấu câu tùy bộ tách. Đơn vị cụ thể phụ thuộc quy tắc tokenizer; token không nhất thiết là một từ hoàn chỉnh. |
+| Q2 | **B** | Vocabulary deduplicates token identities, unlike a frequency list. It answers which tokens exist, not how many times each occurs in a document. | Tập từ vựng bỏ trùng danh tính token, khác bảng tần suất. Nó trả lời có những token nào, chứ không trả lời mỗi token xuất hiện bao nhiêu lần. |
+| Q3 | **C** | Lowercasing and trimming help match equivalent surface forms. Normalization changes the representation; its rules must remain consistent across compared documents. | Chữ thường và cắt khoảng trắng giúp khớp dạng văn bản. Chuẩn hóa đổi cách biểu diễn; quy tắc phải nhất quán giữa các văn bản đem so. |
+| Q4 | **D** | It measures shared distinct tokens relative to all distinct tokens. One shared token among five distinct tokens gives 1/5, not 1/3 or 1/6. | Nó đo từ khác nhau chung so với tổng số từ khác nhau. Một từ chung trong năm từ khác nhau cho 1/5, không phải lấy độ dài một câu làm mẫu số. |
+| Q5 | **A** | Whitespace splitting does not understand all language word boundaries. This is a parsing rule, not a Vietnamese linguistic word segmentation algorithm. | Tách bằng khoảng trắng không hiểu mọi ranh giới từ. Đây là quy tắc tách chuỗi, không phải thuật toán phân đoạn từ tiếng Việt về mặt ngôn ngữ. |
+| Q6 | **B** | It can align case variants for matching but does not remove punctuation. `lower` changes case but does not remove spaces or split the text into tokens. | Giúp so biến thể chữ hoa/thường nhưng không bỏ dấu câu. `lower` chỉ đổi chữ hoa/thường, không tự xóa khoảng trắng hoặc tách token. |
+| Q7 | **C** | Interior whitespace is not removed by strip. Use `split` or another normalization step for internal whitespace rather than assuming `strip` handles it. | strip không xóa khoảng trắng giữa câu. Muốn xử lý khoảng trắng giữa câu cần `split` hoặc bước khác, không thể chỉ dùng `strip`. |
+| Q8 | **D** | Sets are unordered for display, sorted returns an ordered list. A Set removes duplicates, while `sorted` creates the predictable ordered List for display. | Set không bảo đảm thứ tự; sorted tạo List có thứ tự. Set loại phần tử trùng, còn `sorted` tạo List có thứ tự để in ổn định. |
+| Q9 | **A** | The intersection contains values present in both sets. For A={'ai','python'} and B={'ai'}, the intersection is {'ai'}, not all of A. | Giao chỉ giữ giá trị có ở cả hai tập. Với A={'ai','python'}, B={'ai'}, giao chỉ có 'ai', không chứa toàn bộ A. |
+| Q10 | **B** | The union deduplicates tokens occurring in both. Union includes tokens exclusive to either side as well as their common tokens. | Hợp loại token trùng ở cả hai bên. Hợp gồm từ riêng ở mỗi bên lẫn các từ chung giữa hai bên. |
+| Q11 | **C** | Converting to Set removes counts and word order. Therefore Jaccard on Sets cannot distinguish one occurrence from ten occurrences of the same token. | Chuyển sang Set mất số lần và thứ tự từ. Vì vậy Jaccard trên Set không phân biệt từ xuất hiện một lần với mười lần. |
+| Q12 | **D** | Their intersection equals their union. This is only defined when the shared union is nonempty, which the question explicitly ensures. | Giao bằng hợp nên tỷ số bằng một. Kết quả này áp dụng khi hợp không rỗng, đúng điều kiện đã nêu trong câu hỏi. |
+| Q13 | **A** | There are no shared tokens in the numerator. The numerator is zero while the denominator remains positive. | Không có token chung nên tử số bằng không. Tử số bằng không nhưng mẫu số vẫn dương. |
+| Q14 | **B** | No mathematical quotient is defined for 0/0. A business rule may choose similarity 1 for two empty documents, but another application may choose 0 or 'undefined'. | Phép chia 0/0 không xác định; ứng dụng phải tự quy định. Ứng dụng có thể quy ước hai văn bản rỗng giống nhau 1, nhưng hệ khác có thể chọn 0 hoặc không xác định. |
+| Q15 | **C** | Whitespace-separated syllables need not be distinct lexical words. A Vietnamese word can consist of several whitespace-separated syllables. | Các tiếng ngăn bởi khoảng trắng chưa chắc là từ độc lập. Một từ tiếng Việt có thể gồm nhiều tiếng được ngăn bằng khoảng trắng. |
+| Q16 | **D** | Case conversion and punctuation handling are separate steps. A punctuation mark can remain attached to a word until a separate cleaning/tokenization rule handles it. | Đổi chữ thường và xử lý dấu câu là hai bước khác nhau. Dấu câu có thể còn dính vào token cho đến khi có bước làm sạch/tách riêng. |
+| Q17 | **A** | Different words can mean the same but have zero direct overlap. Jaccard measures overlap in surface forms; semantic similarity needs more linguistic representation. | Hai từ khác chữ dù đồng nghĩa vẫn có thể không chung token. Jaccard đo trùng mặt chữ; muốn so ý nghĩa cần biểu diễn ngôn ngữ phong phú hơn. |
+| Q18 | **B** | The union is the denominator of set Jaccard. For nonempty union this count is the denominator; using len(A) alone would inflate scores. | Hợp là mẫu số của Jaccard trên Set. Khi hợp khác rỗng, đây là mẫu số; chỉ dùng len(A) có thể khiến điểm sai. |
+| Q19 | **C** | Set records membership only, not sequence or counts. Use a frequency Counter or token list if occurrence counts or ordering matters. | Set chỉ lưu sự có mặt, không lưu vị trí hay lượt xuất hiện. Khi cần đếm số lần hoặc giữ thứ tự, hãy dùng Counter hoặc List token. |
+| Q20 | **D** | A language-aware tokenizer can handle boundaries beyond whitespace. Choose a tokenizer appropriate for the language and retain the same rule at indexing and querying. | Tokenizer theo ngôn ngữ xử lý ranh giới vượt quá khoảng trắng. Chọn bộ tách phù hợp ngôn ngữ và dùng thống nhất lúc lập chỉ mục lẫn lúc truy vấn. |
 
 ## 8. Liên hệ bài kế tiếp
 
