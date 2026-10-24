@@ -110,7 +110,6 @@ name = "Lan"
 print(f"Xin chào {name}!")
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 2 — Tính tiền hóa đơn
 
@@ -130,7 +129,6 @@ quantity = int("3")
 print(price * quantity)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 3 — Hiển thị điểm
 
@@ -149,7 +147,6 @@ name, score = "An", 8.5
 print(f"{name}: {score}/10")
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 4 — Ghi nhiệt độ
 
@@ -168,7 +165,6 @@ temperature = 36.5
 print(type(temperature), temperature)
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ### Tình huống 5 — Giữ mã đơn
 
@@ -188,7 +184,6 @@ print(order_id)
 assert order_id.startswith("00")
 ```
 
-**Tự kiểm chứng:** Đối chiếu kết quả với quy tắc và thử sửa đầu vào để kiểm tra tác động.
 
 ## 6. Những nhầm lẫn thường gặp
 
