@@ -30,59 +30,81 @@ Nắm khái niệm của bài này giúp xử lý đúng dữ liệu có nhiều
 | `df.head()/df.info()/df.describe()` | Xem nhanh bản ghi, schema, thống kê |
 
 
-## 4. Khái niệm liên quan và ví dụ nhỏ
+## 4. Khái niệm liên quan
 
 ### 4.1. Series
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
-Dữ liệu một chiều có nhãn chỉ mục. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Series là dãy dữ liệu một chiều có chỉ số, giúp gắn giá trị với vị trí hoặc nhãn.
 
 ```python
 import pandas as pd
 print(pd.Series([3,4]))
 ```
 
-**Tự kiểm tra:** Series có nghĩa gì? **Đáp án:** Dữ liệu một chiều có nhãn chỉ mục.
+**Kết quả khi chạy:**
+
+```text
+0    3
+1    4
+dtype: int64
+```
 
 ### 4.2. DataFrame
 
 **Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
 
-Bảng có hàng và cột đặt tên. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+DataFrame là bảng có hàng và cột; mỗi cột mang một loại thông tin rõ ràng.
 
 ```python
 import pandas as pd
 print(pd.DataFrame({'x':[1,2]}))
 ```
 
-**Tự kiểm tra:** DataFrame có nghĩa gì? **Đáp án:** Bảng có hàng và cột đặt tên.
+**Kết quả khi chạy:**
+
+```text
+   x
+0  1
+1  2
+```
 
 ### 4.3. Column
 
 **Từ vựng trong mục:** **Column** — cột.
 
-Một feature mang ý nghĩa xác định. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+Cột là một thuộc tính, chẳng hạn `Price` biểu thị giá và `Qty` biểu thị số lượng.
 
 ```python
 import pandas as pd
 x=pd.DataFrame({'price':[10]});print(x['price'])
 ```
 
-**Tự kiểm tra:** Column có nghĩa gì? **Đáp án:** Một feature mang ý nghĩa xác định.
+**Kết quả khi chạy:**
+
+```text
+0    10
+Name: price, dtype: int64
+```
 
 ### 4.4. CSV
 
 **Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
 
-Định dạng văn bản cho bảng có header. Hãy xem ví dụ nhỏ trước khi đưa ý tưởng này vào một bảng dữ liệu lớn hơn.
+`read_csv` đọc bảng từ dữ liệu CSV; hàng đầu thường chứa tên cột.
 
 ```python
 import pandas as pd,io
 print(pd.read_csv(io.StringIO('x\n1')))
 ```
 
-**Tự kiểm tra:** CSV có nghĩa gì? **Đáp án:** Định dạng văn bản cho bảng có header.
+**Kết quả khi chạy:**
+
+```text
+   x
+0  1
+```
 
 ## 5. Năm tình huống thực tế
 
@@ -90,12 +112,11 @@ print(pd.read_csv(io.StringIO('x\n1')))
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tạo bảng giá sản phẩm. Thông tin đầu vào: 2 sản phẩm với Price đồng, Qty cái. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Cửa hàng quản lý hai mặt hàng: Pen giá 10.000 đồng, số lượng 2; Book giá 35.000 đồng, số lượng 1. Tạo và in bảng có cột Product, Price, Qty.
 
-**Vì sao chọn cách giải này?** DataFrame tên cột giúp tránh nhầm giá với số lượng.
+**Vì sao chọn cách giải này?** DataFrame đặt tên các cột, mỗi hàng là một sản phẩm.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -103,17 +124,25 @@ df=pd.DataFrame({"Product":["Pen","Book"],"Price":[10000,35000],"Qty":[2,1]})
 print(df)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+  Product  Price  Qty
+0     Pen  10000    2
+1    Book  35000    1
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 2 — Đọc đơn từ CSV văn bản
 
 **Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc đọc đơn từ CSV văn bản. Thông tin đầu vào: 2 dòng đơn, cột id,amount (đồng). Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Ứng dụng nhận CSV có hai đơn O1 trị giá 10.000 và O2 trị giá 30.000 đồng. Đọc và in bảng hai đơn hàng.
 
-**Vì sao chọn cách giải này?** Dùng StringIO tạo CSV không phụ thuộc file máy.
+**Vì sao chọn cách giải này?** `read_csv` chuyển CSV thành DataFrame; `head()` xem những hàng đầu.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd,io
@@ -122,17 +151,25 @@ df=pd.read_csv(io.StringIO(csv_text))
 print(df.head())
 ```
 
+**Kết quả khi chạy:**
+
+```text
+   id  amount
+0  O1   10000
+1  O2   30000
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 3 — Tạo doanh thu mỗi dòng
 
 **Từ vựng trong mục:** **Column** — cột.
 
-**Tình huống thực tế:** Một cửa hàng đang cần giải quyết việc tạo doanh thu mỗi dòng. Thông tin đầu vào: 2 sản phẩm. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Hai sản phẩm có đơn giá `[10,20]` và số lượng `[2,3]` theo cùng đơn vị tiền. Thêm cột doanh thu mỗi dòng bằng giá nhân số lượng.
 
-**Vì sao chọn cách giải này?** Một cột mới tính Price × Quantity.
+**Vì sao chọn cách giải này?** Pandas nhân từng hàng của hai cột Price và Qty.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -141,17 +178,25 @@ df["Revenue"]=df.Price*df.Qty
 print(df)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+   Price  Qty  Revenue
+0     10    2       20
+1     20    3       60
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 4 — Xem kiểu dữ liệu đầu vào
 
 **Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
 
-**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc xem kiểu dữ liệu đầu vào. Thông tin đầu vào: Một cột số lượng, một cột tên. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Bảng có tên A, B và số lượng 2, 3 sản phẩm. In kiểu dữ liệu của hai cột để kiểm tra.
 
-**Vì sao chọn cách giải này?** dtypes giúp phát hiện cột số bị lưu nhầm thành chuỗi.
+**Vì sao chọn cách giải này?** `dtypes` cho biết cột chữ và cột số đang được lưu dưới kiểu nào.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -159,17 +204,25 @@ df=pd.DataFrame({"name":["A","B"],"qty":[2,3]})
 print(df.dtypes)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+name    object
+qty      int64
+dtype: object
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ### Tình huống 5 — Chọn dữ liệu tập huấn luyện
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
-**Tình huống thực tế:** Một bộ phận vận hành đang cần giải quyết việc chọn dữ liệu tập huấn luyện. Thông tin đầu vào: 2 khách, 3 thuộc tính. Hãy lập trình thực hiện việc này và in kết quả để nhân viên kiểm tra.
+**Tình huống thực tế:** Bảng hai khách có `visits` là 2, 5; `spent` là 100, 200; `city` là A, B. Chọn hai cột visits và spent làm dữ liệu mô hình rồi in kích thước.
 
-**Vì sao chọn cách giải này?** Chỉ giữ các cột feature phù hợp để tạo X.
+**Vì sao chọn cách giải này?** `df[[...]]` chọn hai cột, bỏ city khỏi đầu vào mẫu.
 
-
-**Quy trình:** hiểu hàng/cột → chọn hàm → chạy phép tính → so sánh trước/sau → kiểm tra trường hợp biên.
+**Quy trình giải:** Tạo bảng theo các cột và hàng đã nêu → chọn phép Pandas phù hợp → in và đọc kết quả.
 
 ```python
 import pandas as pd
@@ -178,6 +231,13 @@ X=df[["visits","spent"]]
 print(X.shape)
 ```
 
+**Kết quả khi chạy:**
+
+```text
+(2, 2)
+```
+
+**Kết quả:** Đọc bảng hoặc giá trị in ngay bên dưới để kiểm tra những hàng và cột được giữ lại.
 
 ## 6. Sai lầm thường gặp
 
