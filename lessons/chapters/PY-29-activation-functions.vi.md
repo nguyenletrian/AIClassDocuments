@@ -31,461 +31,472 @@ Kiến thức này liên quan đến việc biểu diễn, đánh giá hoặc t�
 
 ## 4. Khái niệm liên quan
 
-### 4.1. ReLU
+**Nội dung chính:** một mạng nơ-ron áp hàm kích hoạt lên điểm thô để tạo quan hệ phi tuyến. ReLU chặn phần âm, sigmoid nén về (0,1), tanh giữ dấu trong (−1,1), còn softmax ràng buộc nhiều lớp thành phân phối có tổng 1.
 
-**Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
+### 4.1. ReLU — Giữ phần dương, chặn phần âm
 
-Giữ số dương, số âm thành 0.
+**Từ vựng trong mục:** **ReLU** — Rectified Linear Unit; **Activation** — kích hoạt.
+
+**Activation function (hàm kích hoạt)** biến đổi đầu ra của một nơ-ron trước khi chuyển sang bước kế tiếp. **ReLU** tính `max(0,x)`: đầu vào âm được chuyển về 0, đầu vào dương được giữ. Ví dụ các tín hiệu `[-2,0,3]` thành `[0,0,3]`. Đây là hàm gấp khúc tại 0, giúp mạng có quan hệ phi tuyến; song nơ-ron có thể ngừng cập nhật nếu liên tục nhận vùng âm.
 
 ```python
 import numpy as np
-print(np.maximum(0,[-2,3]))
+
+signals = np.array([-2, 0, 3])
+print(np.maximum(0, signals).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0 3]
+[0, 0, 3]
 ```
 
-**Tự kiểm tra:** ReLU là gì? **Đáp án:** Giữ số dương, số âm thành 0.
+ReLU không giữ phần âm; đầu vào dương bằng 3 đi qua không đổi.
 
-### 4.2. Sigmoid
+### 4.2. Sigmoid — Ánh xạ một điểm thô sang (0,1)
 
-**Từ vựng trong mục:** **Sigmoid** — hàm sigmoid.
+**Từ vựng trong mục:** **Sigmoid** — hàm chữ S; **Logit** — điểm thô.
 
-Ánh xạ số thực về khoảng (0,1).
+**Sigmoid** là `1/(1+exp(-x))`, đổi một **logit** (điểm thô có thể âm hoặc dương) thành số trong khoảng **(0,1)**. Ở x=0 đầu ra đúng 0.5; x âm dưới 0.5 và x dương trên 0.5. Trong phân loại nhị phân, thường dùng sigmoid cho lớp dương, nhưng bản thân giá trị đầu ra **không bảo đảm là xác suất đã hiệu chuẩn**. Khi x quá lớn về độ lớn, cần triển khai số học ổn định hơn công thức trực tiếp.
 
 ```python
 import numpy as np
-x=np.array([0.])
-print(1/(1+np.exp(-x)))
+
+x = np.array([-1.0, 0.0, 1.0])
+scores = 1 / (1 + np.exp(-x))
+print(np.round(scores, 3).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0.5]
+[0.269, 0.5, 0.731]
 ```
 
-**Tự kiểm tra:** Sigmoid là gì? **Đáp án:** Ánh xạ số thực về khoảng (0,1).
+Điểm âm được ánh xạ dưới 0.5, điểm 0 thành 0.5 và điểm dương trên 0.5.
 
-### 4.3. Tanh
+### 4.3. Tanh — Giữ dấu âm và dương quanh zero
 
-**Từ vựng trong mục:** **Tanh** — hàm tanh.
+**Từ vựng trong mục:** **Tanh** — tang hyperbolic; **Zero-centered** — cân quanh 0.
 
-Ánh xạ số thực về (-1,1).
+**Tanh** cũng cong chữ S nhưng đầu ra nằm trong **(−1,1)** thay vì (0,1). Đầu vào âm cho đầu ra âm, đầu vào 0 cho 0, đầu vào dương cho dương. Vì cân quanh 0, tanh có thể thích hợp khi cần giữ dấu tín hiệu. Với x=−1,0,1 kết quả khoảng −0.762, 0, 0.762. Khi |x| rất lớn, tanh bão hòa gần ±1 nên độ dốc nhỏ.
 
 ```python
 import numpy as np
-print(np.tanh([0.,1.]))
+
+x = np.array([-1.0, 0.0, 1.0])
+print(np.round(np.tanh(x), 3).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0.         0.76159416]
+[-0.762, 0.0, 0.762]
 ```
 
-**Tự kiểm tra:** Tanh là gì? **Đáp án:** Ánh xạ số thực về (-1,1).
+Hàm giữ dấu âm/dương và bằng 0 tại đầu vào 0.
 
-### 4.4. Softmax
+### 4.4. Softmax — So sánh nhiều lớp cùng lúc
 
-**Từ vựng trong mục:** **Softmax** — hàm softmax.
+**Từ vựng trong mục:** **Softmax** — chuẩn hóa điểm nhiều lớp; **Class logit** — điểm thô theo lớp.
 
-Biến logits thành phân phối xác suất tổng bằng 1.
+Khi mô hình phân loại **một nhãn trong ba lớp loại trừ nhau**, nó có ba logit (điểm thô) `z=[2,1,0.1]`. Softmax dùng `exp(z_i)/sum(exp(z_j))` để mỗi lớp nhận giá trị trong (0,1) và **tổng các lớp bằng 1**. Trừ `max(z)` trước khi tính exp giúp giảm nguy cơ tràn số mà không đổi kết quả. Khác sigmoid áp riêng từng giá trị, softmax ràng buộc các lớp cạnh tranh nhau.
 
 ```python
 import numpy as np
-z=np.array([1.,2.])
-e=np.exp(z-z.max())
-print(e/e.sum())
+
+z = np.array([2.0, 1.0, 0.1])
+e = np.exp(z - z.max())
+p = e / e.sum()
+print(np.round(p, 3).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0.26894142 0.73105858]
+[0.659, 0.242, 0.099]
 ```
 
-**Tự kiểm tra:** Softmax là gì? **Đáp án:** Biến logits thành phân phối xác suất tổng bằng 1.
+Lớp đầu có điểm chuẩn hóa cao nhất; tổng ba điểm trước làm tròn là 1.
 
-## 5. Năm tình huống ứng dụng thực tế
+## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Kích hoạt tín hiệu nhiễu âm
+### Tình huống 1 — Chặn tín hiệu âm bằng ReLU
 
-**Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
+**Tình huống thực tế:** Một lớp mạng nhận bốn tín hiệu đầu vào `[-2,0,3,5]`, không có đơn vị vì đây là logit nội bộ. Cần giữ giá trị dương và cho mọi giá trị âm về 0.
 
-**Tình huống thực tế:** Mạng nơ-ron nhận tín hiệu [-2,0,3,5]. Dùng ReLU bỏ tín hiệu âm nhưng giữ phần dương.
+**Vì sao chọn cách giải này?** ReLU đúng với quy tắc xử lý `max(0,x)` mà không cần từng điều kiện `if`.
 
-**Vì sao chọn phương án?** ReLU chặn giá trị âm khi đó là chính sách kích hoạt
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Lưu bốn đầu vào trong ndarray.
+2. Áp `np.maximum(0,x)` đồng thời lên mọi phần tử.
+3. In các giá trị sau kích hoạt.
 
 ```python
 import numpy as np
-x=np.array([-2.,0.,3.,5.])
-print(np.maximum(0,x))
+
+x = np.array([-2, 0, 3, 5])
+print(np.maximum(0, x).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0. 0. 3. 5.]
+[0, 0, 3, 5]
 ```
 
+Hai giá trị âm/0 cho đầu ra 0, hai giá trị dương được giữ.
 
-### Tình huống 2 — Đổi điểm thô sang tỷ lệ
+### Tình huống 2 — Chuyển ba logit bằng sigmoid
 
-**Từ vựng trong mục:** **Sigmoid** — hàm sigmoid.
+**Tình huống thực tế:** Mô hình phân loại nhị phân có ba điểm thô `[-1,0,1]` của ba quan sát. Cần biến đổi điểm về khoảng (0,1) để so sánh.
 
-**Tình huống thực tế:** Ba điểm số [-1,0,1] cần được ánh xạ về khoảng (0,1) bằng sigmoid.
+**Vì sao chọn cách giải này?** Sigmoid tác động lên từng điểm riêng và cho 0.5 khi logit bằng 0.
 
-**Vì sao chọn phương án?** Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Lưu ba logit dạng float.
+2. Áp công thức sigmoid lên mảng.
+3. Làm tròn ba chữ số và in.
 
 ```python
 import numpy as np
-x=np.array([-1.,0.,1.])
-print(1/(1+np.exp(-x)))
+
+x = np.array([-1.0, 0.0, 1.0])
+print(np.round(1 / (1 + np.exp(-x)), 3).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0.26894142 0.5        0.73105858]
+[0.269, 0.5, 0.731]
 ```
 
+Thứ tự ba quan sát không đổi; điểm sigmoid chưa mặc nhiên được hiệu chuẩn.
 
-### Tình huống 3 — Kích hoạt đối xứng
+### Tình huống 3 — Giữ tín hiệu âm dương bằng tanh
 
-**Từ vựng trong mục:** **Tanh** — hàm tanh.
+**Tình huống thực tế:** Một mạng dùng tín hiệu âm, 0, dương để biểu diễn hướng tác động; đầu vào lần lượt là −1,0,1. Cần đầu ra cân quanh 0.
 
-**Tình huống thực tế:** Ba tín hiệu [-1,0,1] cần hàm tanh để giữ âm, không và dương.
+**Vì sao chọn cách giải này?** Tanh giữ dấu trong khoảng (−1,1), phù hợp hơn sigmoid nếu cần tín hiệu âm.
 
-**Vì sao chọn phương án?** tanh cho dấu âm/dương quanh 0
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Tạo ba tín hiệu số thực.
+2. Áp `np.tanh` và làm tròn.
+3. In ba giá trị sau biến đổi.
 
 ```python
 import numpy as np
-print(np.tanh([-1,0,1]))
+
+x = np.array([-1.0, 0.0, 1.0])
+print(np.round(np.tanh(x), 3).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[-0.76159416  0.          0.76159416]
+[-0.762, 0.0, 0.762]
 ```
 
+Tín hiệu âm vẫn âm, dương vẫn dương và giá trị 0 giữ nguyên.
 
-### Tình huống 4 — Chuẩn hóa điểm phân loại
+### Tình huống 4 — Chuẩn hóa ba điểm phân loại
 
-**Từ vựng trong mục:** **Softmax** — hàm softmax.
+**Tình huống thực tế:** Một mô hình dự đoán một trong ba loại sản phẩm với logit `[2,1,0.1]`; cần tỷ trọng cho từng lớp sao cho tổng bằng 1.
 
-**Tình huống thực tế:** Bộ phân loại cho ba lớp điểm [2,1,0.1]. Dùng softmax tính điểm chuẩn hóa tổng bằng 1.
+**Vì sao chọn cách giải này?** Softmax biến toàn bộ bộ logit thành một phân phối, có bước trừ cực đại để tính ổn định.
 
-**Vì sao chọn phương án?** Softmax tạo tổng xác suất bằng 1 từ logits
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Lưu ba logit cho ba lớp loại trừ nhau.
+2. Trừ logit lớn nhất rồi tính exp.
+3. Chia cho tổng exp, in giá trị đã làm tròn.
 
 ```python
 import numpy as np
-z=np.array([2.,1.,.1])
-e=np.exp(z-z.max())
-p=e/e.sum()
-print(p,p.sum())
+
+z = np.array([2.0, 1.0, 0.1])
+e = np.exp(z - z.max())
+prob = e / e.sum()
+print(np.round(prob, 3).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0.65900114 0.24243297 0.09856589] 1.0
+[0.659, 0.242, 0.099]
 ```
 
+Lớp đầu nhận điểm lớn nhất. Giá trị làm tròn không được dùng để kiểm tra tổng chính xác tuyệt đối.
 
-### Tình huống 5 — So mô hình tuyến tính và ReLU
+### Tình huống 5 — Ghép hai ReLU thành hàm có khoảng chết
 
-**Từ vựng trong mục:** **ReLU** — hàm chỉnh lưu.
+**Tình huống thực tế:** Đầu vào x chạy qua −2, −1, 0, 1, 2. Đội nghiên cứu muốn hàm bằng 0 trong đoạn [−1,1] nhưng tăng bên ngoài hai mép.
 
-**Tình huống thực tế:** Một mô hình ghép hai ReLU trên x từ -2 đến 2 để tạo đáp ứng đối xứng theo độ lớn ngoài khoảng [-1,1].
+**Vì sao chọn cách giải này?** Tổng `ReLU(x−1)+ReLU(−x−1)` tạo hàm gấp khúc đối xứng quanh 0.
 
-**Vì sao chọn phương án?** Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc
+**Quy trình giải:**
 
-
-**Quy trình giải:** Lưu đầu vào đã nêu, dùng công thức hoặc hàm trong code rồi đối chiếu kết quả in ra.
+1. Tạo năm điểm x cách đều từ −2 tới 2.
+2. Áp hai ReLU lên x−1 và −x−1.
+3. Cộng hai kết quả và in dãy.
 
 ```python
 import numpy as np
-x=np.linspace(-2,2,5)
-y=np.maximum(0,x-1)+np.maximum(0,-x-1)
-print(y)
+
+x = np.arange(-2, 3)
+y = np.maximum(0, x - 1) + np.maximum(0, -x - 1)
+print(y.tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[1. 0. 0. 0. 1.]
+[1, 0, 0, 0, 1]
 ```
 
+Hàm có giá trị 0 ở ba điểm giữa và tăng đối xứng ở ngoài khoảng.
 
-## 6. Các lỗi dễ gặp
+## 6. Sai lầm thường gặp
 
-Hàm kích hoạt và loss không tự thay thế quy trình huấn luyện; đạo hàm theo một biến không giống gradient nhiều biến. Tránh tràn số mũ, log(0), chia cho 0; luôn để ý learning rate và đơn vị.
+- ReLU không chặn **giá trị dương lớn**; nó chỉ chặn phần âm.
+- Sigmoid nén mỗi giá trị về (0,1), nhưng các giá trị này không tự trở thành xác suất đã hiệu chuẩn.
+- Tanh nằm trong (−1,1), còn sigmoid trong (0,1); không thay thế khi cần giữ tín hiệu âm.
+- Softmax áp **cùng lúc** lên các logit của nhiều lớp; không áp độc lập từng logit.
+- Khi tính softmax nên trừ logit lớn nhất trước `exp` để giảm tràn số.
+- Softmax phù hợp các lớp loại trừ nhau; nhiều nhãn có thể đồng thời đúng thường dùng nhiều đầu ra sigmoid thay vì ép tổng một.
 
 ## 7. English–Vietnamese multiple-choice questions — Trắc nghiệm song ngữ
 
-**Từ vựng trong mục:** **Question** — câu hỏi; **Answer** — đáp án.
+**Chỉ hỏi kiến thức, phân biệt hàm và cách đọc đầu ra; không hỏi tình huống đánh số.**
 
+**Q1. What is a ReLU activation? — Hàm kích hoạt ReLU là gì?**
 
-**Q1. What does ReLU mean? — Thuật ngữ ReLU có nghĩa gì?**
+A. `max(0,x)` — `max(0,x)`
 
-A. It instead means Ánh xạ số thực về khoảng (0,1) — Ánh xạ số thực về khoảng (0,1)
+B. `1/(1+exp(-x))` — `1/(1+exp(-x))`
 
-B. It means Giữ số dương, số âm thành 0 — Giữ số dương, số âm thành 0
+C. A smooth activation mapping into (−1,1) — Hàm trơn đưa giá trị vào (−1,1)
 
-C. It instead means Ánh xạ số thực về (-1,1) — Ánh xạ số thực về (-1,1)
+D. Normalization of several class logits to sum one — Chuẩn hóa nhiều logit lớp có tổng bằng một
 
-D. It instead means Biến logits thành phân phối xác suất tổng bằng 1 — Biến logits thành phân phối xác suất tổng bằng 1
+**Q2. What is sigmoid? — Sigmoid là gì?**
 
+A. `max(0,x)` — `max(0,x)`
 
-**Q2. What does Sigmoid mean? — Thuật ngữ Sigmoid có nghĩa gì?**
+B. `1/(1+exp(-x))` — `1/(1+exp(-x))`
 
-A. It means Ánh xạ số thực về khoảng (0,1) — Ánh xạ số thực về khoảng (0,1)
+C. A smooth activation mapping into (−1,1) — Hàm trơn đưa giá trị vào (−1,1)
 
-B. It instead means Ánh xạ số thực về (-1,1) — Ánh xạ số thực về (-1,1)
+D. Normalization of several class logits to sum one — Chuẩn hóa nhiều logit lớp có tổng bằng một
 
-C. It instead means Biến logits thành phân phối xác suất tổng bằng 1 — Biến logits thành phân phối xác suất tổng bằng 1
+**Q3. What is tanh? — Tanh là gì?**
 
-D. It instead means Giữ số dương, số âm thành 0 — Giữ số dương, số âm thành 0
+A. `max(0,x)` — `max(0,x)`
 
+B. `1/(1+exp(-x))` — `1/(1+exp(-x))`
 
-**Q3. What does Tanh mean? — Thuật ngữ Tanh có nghĩa gì?**
+C. A smooth activation mapping into (−1,1) — Hàm trơn đưa giá trị vào (−1,1)
 
-A. It instead means Biến logits thành phân phối xác suất tổng bằng 1 — Biến logits thành phân phối xác suất tổng bằng 1
+D. Normalization of several class logits to sum one — Chuẩn hóa nhiều logit lớp có tổng bằng một
 
-B. It instead means Giữ số dương, số âm thành 0 — Giữ số dương, số âm thành 0
+**Q4. What is softmax? — Softmax là gì?**
 
-C. It instead means Ánh xạ số thực về khoảng (0,1) — Ánh xạ số thực về khoảng (0,1)
+A. `max(0,x)` — `max(0,x)`
 
-D. It means Ánh xạ số thực về (-1,1) — Ánh xạ số thực về (-1,1)
+B. `1/(1+exp(-x))` — `1/(1+exp(-x))`
 
+C. A smooth activation mapping into (−1,1) — Hàm trơn đưa giá trị vào (−1,1)
 
-**Q4. What does Softmax mean? — Thuật ngữ Softmax có nghĩa gì?**
+D. Normalization of several class logits to sum one — Chuẩn hóa nhiều logit lớp có tổng bằng một
 
-A. It instead means Giữ số dương, số âm thành 0 — Giữ số dương, số âm thành 0
+**Q5. What is the output range of ReLU? — Đầu ra ReLU thuộc khoảng nào?**
 
-B. It instead means Ánh xạ số thực về khoảng (0,1) — Ánh xạ số thực về khoảng (0,1)
+A. From zero upward without a fixed upper bound — Từ không trở lên, không có cận trên cố định
 
-C. It means Biến logits thành phân phối xác suất tổng bằng 1 — Biến logits thành phân phối xác suất tổng bằng 1
+B. Strictly between 0 and 1 — Nằm giữa 0 và 1, không gồm hai đầu
 
-D. It instead means Ánh xạ số thực về (-1,1) — Ánh xạ số thực về (-1,1)
+C. Strictly between −1 and 1 — Nằm giữa −1 và 1, không gồm hai đầu
 
+D. They are nonnegative and sum to one — Không âm và có tổng bằng một
 
-**Q5. What does np.maximum(0,x) do? — Mục đích của np.maximum(0,x) là gì?**
+**Q6. What is the output range of sigmoid? — Đầu ra sigmoid thuộc khoảng nào?**
 
-A. Another operation does Sigmoid, cẩn thận số quá lớn — Sigmoid, cẩn thận số quá lớn
+A. From zero upward without a fixed upper bound — Từ không trở lên, không có cận trên cố định
 
-B. It is used to ReLU, tạo phi tuyến cho mạng — ReLU, tạo phi tuyến cho mạng
+B. Strictly between 0 and 1 — Nằm giữa 0 và 1, không gồm hai đầu
 
-C. Another operation does Kích hoạt có đầu ra âm/dương — Kích hoạt có đầu ra âm/dương
+C. Strictly between −1 and 1 — Nằm giữa −1 và 1, không gồm hai đầu
 
-D. Another operation does Softmax ổn định hơn tính exp(z) trực tiếp — Softmax ổn định hơn tính exp(z) trực tiếp
+D. They are nonnegative and sum to one — Không âm và có tổng bằng một
 
+**Q7. What is the output range of tanh? — Đầu ra tanh thuộc khoảng nào?**
 
-**Q6. What does 1/(1+np.exp(-x)) do? — Mục đích của 1/(1+np.exp(-x)) là gì?**
+A. From zero upward without a fixed upper bound — Từ không trở lên, không có cận trên cố định
 
-A. It is used to Sigmoid, cẩn thận số quá lớn — Sigmoid, cẩn thận số quá lớn
+B. Strictly between 0 and 1 — Nằm giữa 0 và 1, không gồm hai đầu
 
-B. Another operation does Kích hoạt có đầu ra âm/dương — Kích hoạt có đầu ra âm/dương
+C. Strictly between −1 and 1 — Nằm giữa −1 và 1, không gồm hai đầu
 
-C. Another operation does Softmax ổn định hơn tính exp(z) trực tiếp — Softmax ổn định hơn tính exp(z) trực tiếp
+D. They are nonnegative and sum to one — Không âm và có tổng bằng một
 
-D. Another operation does ReLU, tạo phi tuyến cho mạng — ReLU, tạo phi tuyến cho mạng
+**Q8. What is true of softmax class scores? — Điều nào đúng về các điểm softmax?**
 
+A. From zero upward without a fixed upper bound — Từ không trở lên, không có cận trên cố định
 
-**Q7. What does np.tanh(x) do? — Mục đích của np.tanh(x) là gì?**
+B. Strictly between 0 and 1 — Nằm giữa 0 và 1, không gồm hai đầu
 
-A. Another operation does Softmax ổn định hơn tính exp(z) trực tiếp — Softmax ổn định hơn tính exp(z) trực tiếp
+C. Strictly between −1 and 1 — Nằm giữa −1 và 1, không gồm hai đầu
 
-B. Another operation does ReLU, tạo phi tuyến cho mạng — ReLU, tạo phi tuyến cho mạng
+D. They are nonnegative and sum to one — Không âm và có tổng bằng một
 
-C. Another operation does Sigmoid, cẩn thận số quá lớn — Sigmoid, cẩn thận số quá lớn
+**Q9. Which NumPy function applies ReLU? — Hàm NumPy nào thực hiện ReLU?**
 
-D. It is used to Kích hoạt có đầu ra âm/dương — Kích hoạt có đầu ra âm/dương
+A. `np.maximum(0,x)` — `np.maximum(0,x)`
 
+B. `np.tanh(x)` — `np.tanh(x)`
 
-**Q8. What does np.exp(z-max(z))/sum(... ) do? — Mục đích của np.exp(z-max(z))/sum(... ) là gì?**
+C. The largest logit — Logit lớn nhất
 
-A. Another operation does ReLU, tạo phi tuyến cho mạng — ReLU, tạo phi tuyến cho mạng
+D. Tanh — Tanh
 
-B. Another operation does Sigmoid, cẩn thận số quá lớn — Sigmoid, cẩn thận số quá lớn
+**Q10. Which NumPy function directly computes tanh? — Hàm NumPy nào tính tanh trực tiếp?**
 
-C. It is used to Softmax ổn định hơn tính exp(z) trực tiếp — Softmax ổn định hơn tính exp(z) trực tiếp
+A. `np.maximum(0,x)` — `np.maximum(0,x)`
 
-D. Another operation does Kích hoạt có đầu ra âm/dương — Kích hoạt có đầu ra âm/dương
+B. `np.tanh(x)` — `np.tanh(x)`
 
+C. The largest logit — Logit lớn nhất
 
-**Q9. Why use this method in scenario 1? — Vì sao chọn cách giải ở tình huống 1?**
+D. Tanh — Tanh
 
-A. Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất — Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất
+**Q11. Which quantity should be subtracted from logits before stable softmax exponentiation? — Nên trừ gì khỏi logit trước khi tính exp softmax ổn định?**
 
-B. ReLU chặn giá trị âm khi đó là chính sách kích hoạt — ReLU chặn giá trị âm khi đó là chính sách kích hoạt
+A. `np.maximum(0,x)` — `np.maximum(0,x)`
 
-C. tanh cho dấu âm/dương quanh 0 — tanh cho dấu âm/dương quanh 0
+B. `np.tanh(x)` — `np.tanh(x)`
 
-D. Softmax tạo tổng xác suất bằng 1 từ logits — Softmax tạo tổng xác suất bằng 1 từ logits
+C. The largest logit — Logit lớn nhất
 
+D. Tanh — Tanh
 
-**Q10. Why use this method in scenario 2? — Vì sao chọn cách giải ở tình huống 2?**
+**Q12. Which activation outputs exactly 0 at input 0? — Hàm nào trả đúng 0 với đầu vào 0?**
 
-A. Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất — Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất
+A. `np.maximum(0,x)` — `np.maximum(0,x)`
 
-B. tanh cho dấu âm/dương quanh 0 — tanh cho dấu âm/dương quanh 0
+B. `np.tanh(x)` — `np.tanh(x)`
 
-C. Softmax tạo tổng xác suất bằng 1 từ logits — Softmax tạo tổng xác suất bằng 1 từ logits
+C. The largest logit — Logit lớn nhất
 
-D. Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc — Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc
+D. Tanh — Tanh
 
+**Q13. What is sigmoid(0)? — sigmoid(0) bằng gì?**
 
-**Q11. Why use this method in scenario 3? — Vì sao chọn cách giải ở tình huống 3?**
+A. 0.5 — 0.5
 
-A. Softmax tạo tổng xác suất bằng 1 từ logits — Softmax tạo tổng xác suất bằng 1 từ logits
+B. 0 — 0
 
-B. Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc — Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc
+C. A negative output — Giá trị đầu ra âm
 
-C. ReLU chặn giá trị âm khi đó là chính sách kích hoạt — ReLU chặn giá trị âm khi đó là chính sách kích hoạt
+D. It reduces overflow risk without changing the result — Giảm nguy cơ tràn số mà không đổi kết quả
 
-D. tanh cho dấu âm/dương quanh 0 — tanh cho dấu âm/dương quanh 0
+**Q14. What is ReLU(−2)? — ReLU(−2) bằng gì?**
 
+A. 0.5 — 0.5
 
-**Q12. Why use this method in scenario 4? — Vì sao chọn cách giải ở tình huống 4?**
+B. 0 — 0
 
-A. Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc — Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc
+C. A negative output — Giá trị đầu ra âm
 
-B. ReLU chặn giá trị âm khi đó là chính sách kích hoạt — ReLU chặn giá trị âm khi đó là chính sách kích hoạt
+D. It reduces overflow risk without changing the result — Giảm nguy cơ tràn số mà không đổi kết quả
 
-C. Softmax tạo tổng xác suất bằng 1 từ logits — Softmax tạo tổng xác suất bằng 1 từ logits
+**Q15. What does tanh produce for negative input? — Tanh tạo đầu ra thế nào khi đầu vào âm?**
 
-D. Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất — Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất
+A. 0.5 — 0.5
 
+B. 0 — 0
 
-**Q13. Why use this method in scenario 5? — Vì sao chọn cách giải ở tình huống 5?**
+C. A negative output — Giá trị đầu ra âm
 
-A. ReLU chặn giá trị âm khi đó là chính sách kích hoạt — ReLU chặn giá trị âm khi đó là chính sách kích hoạt
+D. It reduces overflow risk without changing the result — Giảm nguy cơ tràn số mà không đổi kết quả
 
-B. Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc — Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc
+**Q16. Why does subtracting max(logits) help softmax? — Vì sao trừ cực đại logit giúp softmax?**
 
-C. Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất — Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất
+A. 0.5 — 0.5
 
-D. tanh cho dấu âm/dương quanh 0 — tanh cho dấu âm/dương quanh 0
+B. 0 — 0
 
+C. A negative output — Giá trị đầu ra âm
 
-**Q14. Which input belongs to scenario 1? — Tình huống 1 sử dụng dữ liệu gì?**
+D. It reduces overflow risk without changing the result — Giảm nguy cơ tràn số mà không đổi kết quả
 
-A. The input is 4 tín hiệu giả lập [-2,0,3,5] — 4 tín hiệu giả lập [-2,0,3,5]
+**Q17. Which output structure suits mutually exclusive multi-class prediction? — Dạng đầu ra nào phù hợp phân loại nhiều lớp loại trừ nhau?**
 
-B. Another input is Điểm số [-1,0,1] — Điểm số [-1,0,1]
+A. A softmax distribution over classes — Phân phối softmax trên các lớp
 
-C. Another input is Tín hiệu [-1,0,1] — Tín hiệu [-1,0,1]
+B. Their inputs remain in the nonpositive flat region — Đầu vào luôn ở vùng phẳng không dương
 
-D. Another input is Ba logit [2,1,0.1] — Ba logit [2,1,0.1]
+C. No, calibration needs checking — Không, cần đánh giá độ hiệu chuẩn
 
+D. Softmax couples scores so they sum to one — Softmax ràng buộc điểm các lớp có tổng một
 
-**Q15. Which input belongs to scenario 2? — Tình huống 2 sử dụng dữ liệu gì?**
+**Q18. Why might ReLU neurons stop updating? — Vì sao một số nơ-ron ReLU có thể ngừng cập nhật?**
 
-A. Another input is Tín hiệu [-1,0,1] — Tín hiệu [-1,0,1]
+A. A softmax distribution over classes — Phân phối softmax trên các lớp
 
-B. Another input is Ba logit [2,1,0.1] — Ba logit [2,1,0.1]
+B. Their inputs remain in the nonpositive flat region — Đầu vào luôn ở vùng phẳng không dương
 
-C. Another input is Dữ liệu x từ -2 tới 2 — Dữ liệu x từ -2 tới 2
+C. No, calibration needs checking — Không, cần đánh giá độ hiệu chuẩn
 
-D. The input is Điểm số [-1,0,1] — Điểm số [-1,0,1]
+D. Softmax couples scores so they sum to one — Softmax ràng buộc điểm các lớp có tổng một
 
+**Q19. Do sigmoid outputs automatically prove calibrated probabilities? — Đầu ra sigmoid có mặc nhiên là xác suất đã hiệu chuẩn không?**
 
-**Q16. Which input belongs to scenario 3? — Tình huống 3 sử dụng dữ liệu gì?**
+A. A softmax distribution over classes — Phân phối softmax trên các lớp
 
-A. Another input is Ba logit [2,1,0.1] — Ba logit [2,1,0.1]
+B. Their inputs remain in the nonpositive flat region — Đầu vào luôn ở vùng phẳng không dương
 
-B. Another input is Dữ liệu x từ -2 tới 2 — Dữ liệu x từ -2 tới 2
+C. No, calibration needs checking — Không, cần đánh giá độ hiệu chuẩn
 
-C. The input is Tín hiệu [-1,0,1] — Tín hiệu [-1,0,1]
+D. Softmax couples scores so they sum to one — Softmax ràng buộc điểm các lớp có tổng một
 
-D. Another input is 4 tín hiệu giả lập [-2,0,3,5] — 4 tín hiệu giả lập [-2,0,3,5]
+**Q20. Which difference distinguishes softmax from independent sigmoid outputs? — Điểm nào phân biệt softmax với sigmoid độc lập?**
 
+A. A softmax distribution over classes — Phân phối softmax trên các lớp
 
-**Q17. Which input belongs to scenario 4? — Tình huống 4 sử dụng dữ liệu gì?**
+B. Their inputs remain in the nonpositive flat region — Đầu vào luôn ở vùng phẳng không dương
 
-A. Another input is Dữ liệu x từ -2 tới 2 — Dữ liệu x từ -2 tới 2
+C. No, calibration needs checking — Không, cần đánh giá độ hiệu chuẩn
 
-B. The input is Ba logit [2,1,0.1] — Ba logit [2,1,0.1]
-
-C. Another input is 4 tín hiệu giả lập [-2,0,3,5] — 4 tín hiệu giả lập [-2,0,3,5]
-
-D. Another input is Điểm số [-1,0,1] — Điểm số [-1,0,1]
-
-
-**Q18. Which input belongs to scenario 5? — Tình huống 5 sử dụng dữ liệu gì?**
-
-A. The input is Dữ liệu x từ -2 tới 2 — Dữ liệu x từ -2 tới 2
-
-B. Another input is 4 tín hiệu giả lập [-2,0,3,5] — 4 tín hiệu giả lập [-2,0,3,5]
-
-C. Another input is Điểm số [-1,0,1] — Điểm số [-1,0,1]
-
-D. Another input is Tín hiệu [-1,0,1] — Tín hiệu [-1,0,1]
-
-
-**Q19. What must be known before computing? — Trước khi tính phải biết gì?**
-
-A. Only editor color — Chỉ màu giao diện
-
-B. Only filename — Chỉ tên file
-
-C. Only number of comments — Chỉ số lượng comment
-
-D. Input meaning and units — Ý nghĩa và đơn vị đầu vào
-
-
-**Q20. What makes a calculation trustworthy? — Điều gì giúp phép tính đáng tin?**
-
-A. Assume models never fail — Cho rằng mô hình không bao giờ sai
-
-B. Delete validation — Xóa bước xác minh
-
-C. Verify results and edge cases — Kiểm tra kết quả và trường hợp biên
-
-D. Guess data units — Đoán đơn vị dữ liệu
+D. Softmax couples scores so they sum to one — Softmax ràng buộc điểm các lớp có tổng một
 
 ### Answer key — Đáp án song ngữ
 
 | Câu | Đáp án | Explanation (English) | Giải thích (Tiếng Việt) |
 |---|---|---|---|
-| Q1 | **B** | It means Giữ số dương, số âm thành 0 | Giữ số dương, số âm thành 0 |
-| Q2 | **A** | It means Ánh xạ số thực về khoảng (0,1) | Ánh xạ số thực về khoảng (0,1) |
-| Q3 | **D** | It means Ánh xạ số thực về (-1,1) | Ánh xạ số thực về (-1,1) |
-| Q4 | **C** | It means Biến logits thành phân phối xác suất tổng bằng 1 | Biến logits thành phân phối xác suất tổng bằng 1 |
-| Q5 | **B** | It is used to ReLU, tạo phi tuyến cho mạng | ReLU, tạo phi tuyến cho mạng |
-| Q6 | **A** | It is used to Sigmoid, cẩn thận số quá lớn | Sigmoid, cẩn thận số quá lớn |
-| Q7 | **D** | It is used to Kích hoạt có đầu ra âm/dương | Kích hoạt có đầu ra âm/dương |
-| Q8 | **C** | It is used to Softmax ổn định hơn tính exp(z) trực tiếp | Softmax ổn định hơn tính exp(z) trực tiếp |
-| Q9 | **B** | ReLU chặn giá trị âm khi đó là chính sách kích hoạt | ReLU chặn giá trị âm khi đó là chính sách kích hoạt |
-| Q10 | **A** | Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất | Sigmoid cho giá trị nằm giữa 0 và 1, không tự hiệu chuẩn xác suất |
-| Q11 | **D** | tanh cho dấu âm/dương quanh 0 | tanh cho dấu âm/dương quanh 0 |
-| Q12 | **C** | Softmax tạo tổng xác suất bằng 1 từ logits | Softmax tạo tổng xác suất bằng 1 từ logits |
-| Q13 | **B** | Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc | Một hoặc nhiều lớp ReLU cho phép dạng hàm gấp khúc |
-| Q14 | **A** | The input is 4 tín hiệu giả lập [-2,0,3,5] | 4 tín hiệu giả lập [-2,0,3,5] |
-| Q15 | **D** | The input is Điểm số [-1,0,1] | Điểm số [-1,0,1] |
-| Q16 | **C** | The input is Tín hiệu [-1,0,1] | Tín hiệu [-1,0,1] |
-| Q17 | **B** | The input is Ba logit [2,1,0.1] | Ba logit [2,1,0.1] |
-| Q18 | **A** | The input is Dữ liệu x từ -2 tới 2 | Dữ liệu x từ -2 tới 2 |
-| Q19 | **D** | Input meaning and units | Ý nghĩa và đơn vị đầu vào |
-| Q20 | **C** | Verify results and edge cases | Kiểm tra kết quả và trường hợp biên |
+| Q1 | **A** | ReLU clips negative values to zero. | ReLU chặn giá trị âm về không. |
+| Q2 | **B** | Sigmoid is a logistic S-shaped transform. | Sigmoid là phép biến đổi logistic hình chữ S. |
+| Q3 | **C** | Tanh is zero-centered and bounded between minus one and one. | Tanh cân quanh 0 và giới hạn giữa −1 và 1. |
+| Q4 | **D** | Softmax couples class scores into one normalized distribution. | Softmax ràng buộc điểm lớp thành một phân phối chuẩn hóa. |
+| Q5 | **A** | Positive inputs pass through ReLU unchanged. | Đầu vào dương được ReLU giữ nguyên. |
+| Q6 | **B** | Finite sigmoid outputs lie strictly inside (0,1). | Sigmoid với đầu vào hữu hạn nằm trong (0,1). |
+| Q7 | **C** | Finite tanh outputs lie inside (−1,1). | Tanh với đầu vào hữu hạn thuộc (−1,1). |
+| Q8 | **D** | Softmax divides each exponential by their sum. | Softmax chia từng exp cho tổng các exp. |
+| Q9 | **A** | maximum performs element-wise clipping. | maximum chặn từng phần tử. |
+| Q10 | **B** | NumPy provides tanh directly. | NumPy có hàm tanh trực tiếp. |
+| Q11 | **C** | Subtracting the maximum keeps exponents at most one. | Trừ cực đại giữ các số exp không vượt một. |
+| Q12 | **D** | Tanh of zero is zero; sigmoid of zero is 0.5. | Tanh(0)=0, còn sigmoid(0)=0.5. |
+| Q13 | **A** | Sigmoid at zero is one-half. | Sigmoid tại zero bằng một nửa. |
+| Q14 | **B** | ReLU suppresses negative input. | ReLU chặn đầu vào âm. |
+| Q15 | **C** | Tanh preserves the sign of finite nonzero input. | Tanh giữ dấu của đầu vào hữu hạn khác 0. |
+| Q16 | **D** | Shifted logits yield the same softmax but safer exponentials. | Dịch đều các logit không đổi softmax nhưng giảm tràn số. |
+| Q17 | **A** | Softmax is a common output layer for exclusive classes. | Softmax thường dùng cho đầu ra các lớp loại trừ nhau. |
+| Q18 | **B** | The slope of ReLU is zero on negative inputs. | Độ dốc ReLU bằng không ở đầu vào âm. |
+| Q19 | **C** | Numerical scores need validation against observed outcomes. | Điểm số cần kiểm tra với kết quả thực tế. |
+| Q20 | **D** | Separate sigmoids need not sum to one. | Các sigmoid độc lập không bắt buộc có tổng bằng một. |
 
 ## 8. Bài tiếp theo
 
