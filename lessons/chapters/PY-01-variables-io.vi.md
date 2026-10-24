@@ -32,11 +32,13 @@ Một chương trình nhận thông tin, lưu vào biến, xử lý và tạo ra
 
 ## 4. Khái niệm liên quan
 
-### 4.1. Variable
+Một chương trình thường đi theo mạch **nhận thông tin → lưu vào biến → xử lý → đưa ra kết quả**. Bài này bắt đầu từ biến và cho thấy đầu vào, đầu ra và kiểu dữ liệu phối hợp ra sao trong mạch đó.
 
-**Từ vựng trong mục:** **Variable** — biến.
+### 4.1. Variable — Biến
 
-Biến là tên ta đặt cho một giá trị để dùng lại. Ví dụ, `total = 12` lưu số 12 vào biến `total`; `print(total)` in ra 12.
+**Từ vựng trong mục:** **Variable** — biến; **Assignment** — phép gán.
+
+Biến là tên để chương trình ghi nhớ một giá trị. Khi viết `total = 12`, Python gắn tên `total` với số `12`; dòng tiếp theo đọc lại giá trị qua tên đó. Biến giúp ta dùng lại dữ liệu và thay đổi dữ liệu ở một chỗ thay vì viết số trực tiếp khắp chương trình.
 
 ```python
 total = 12
@@ -49,12 +51,13 @@ print(total)
 12
 ```
 
+`total` là tên biến, còn `12` là giá trị được in ra.
 
-### 4.2. Input
+### 4.2. Input — Đầu vào
 
-**Từ vựng trong mục:** **Input** — đầu vào.
+**Từ vựng trong mục:** **Input** — đầu vào; **String** — chuỗi.
 
-Đầu vào là thông tin chương trình nhận được, chẳng hạn tên khách do người dùng nhập. `input()` nhận chữ gõ từ bàn phím. Ví dụ dưới đây gán sẵn tên `An` để minh họa cách lưu và dùng thông tin.
+Đầu vào là dữ liệu chương trình nhận để xử lý: có thể từ bàn phím, biểu mẫu hoặc tệp. Ví dụ, biểu mẫu nhận tên khách `An`, ứng dụng lưu tên đó trong biến `name`. Để ví dụ tự chạy không cần gõ phím, ta mô phỏng dữ liệu đã nhận bằng một phép gán; khi nhận trực tiếp từ bàn phím, có thể dùng `input()`.
 
 ```python
 name = 'An'
@@ -67,12 +70,13 @@ print(name)
 An
 ```
 
+Chương trình in đúng tên đã nhận. Biến có thể đến từ nhiều nguồn, không chỉ bàn phím.
 
-### 4.3. Output
+### 4.3. Output — Đầu ra
 
-**Từ vựng trong mục:** **Output** — đầu ra.
+**Từ vựng trong mục:** **Output** — đầu ra; **Print** — hiển thị.
 
-Kết quả là thông tin chương trình tạo ra. `print('Xin chào')` hiển thị chữ `Xin chào` trên màn hình.
+Đầu ra là thông tin chương trình gửi ra ngoài sau khi xử lý. Đầu ra có thể xuất hiện trên màn hình, được lưu vào file hoặc gửi đến hệ thống khác. Trong bài căn bản, `print()` giúp nhìn thấy giá trị đang được tạo ra; chuỗi trong dấu nháy là nội dung cần hiển thị.
 
 ```python
 print('Xin chào')
@@ -84,12 +88,13 @@ print('Xin chào')
 Xin chào
 ```
 
+`print()` hiển thị dòng chữ; dấu nháy chỉ là cú pháp Python, không xuất hiện trong kết quả.
 
-### 4.4. Type
+### 4.4. Type — Kiểu dữ liệu
 
-**Từ vựng trong mục:** **Type** — kiểu dữ liệu.
+**Từ vựng trong mục:** **Type** — kiểu dữ liệu; **Float** — số thực.
 
-Kiểu dữ liệu cho Python biết một giá trị là chữ hay số. `str` là chuỗi, `int` là số nguyên, còn `float` là số có phần thập phân. `type(2.5)` cho biết `2.5` là số thực.
+Cùng một biến có thể chứa chữ hoặc số, nhưng **kiểu dữ liệu** quyết định phép xử lý nào phù hợp. Chẳng hạn mã đơn `"0007"` là chuỗi (`str`) cần giữ số 0 đầu; giá trị `2.5` là số thực (`float`) có thể dùng để tính toán. Hàm `type()` cho biết kiểu của một giá trị.
 
 ```python
 print(type(2.5))
@@ -101,7 +106,7 @@ print(type(2.5))
 <class 'float'>
 ```
 
-
+`float` báo đây là số thực, không phải chuỗi ký tự ``2.5`.
 ## 5. Năm tình huống lập trình thực tế
 
 ### Tình huống 1 — Chào khách mới
