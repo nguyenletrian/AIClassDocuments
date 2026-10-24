@@ -97,3 +97,24 @@ Guide kiểm tra tính đúng theo nghĩa đã được merge riêng tại **PR 
 - **PY-02 Q1:** thay cụm tiếng Anh `whole number` vốn dễ được hiểu chỉ là số không âm bằng diễn đạt bao gồm số nguyên âm, 0 và số nguyên dương; làm rõ `int` lưu chính xác giá trị nguyên.
 - **PY-05 Q13:** câu hỏi cũ hỏi số giá trị nhưng phương án lại ghi số lượt lặp. Thống nhất cả hai ngôn ngữ thành số lượt thực thi của vòng `for` duyệt hết `range(3)`, làm rõ mốc dừng bị loại.
 - **Đã kiểm tra:** không thay đổi mã Python hoặc đáp án khóa ở hai câu; mỗi bài vẫn cần đầy đủ 20 câu/80 lựa chọn/20 dòng key. **Chưa xác nhận Windows runtime** và chưa có duyệt học thuật bên thứ ba. Đây là sửa lỗi có căn cứ, không phải chứng nhận phát hành trọn bộ.
+
+## Vòng QA chuyên sâu PY-11–PY-15 — 24/10/2026
+
+**Phạm vi:** 100 câu và 400 lựa chọn về OOP/kế thừa, File–CSV, NumPy array, indexing và broadcasting. Đã đọc toàn bộ lựa chọn A/B/C/D và bảng khóa; viết lại **100 giải thích Anh–Việt** thành lời giải có quy tắc, ví dụ ngắn hoặc phân biệt nhầm lẫn. Đây là vòng biên tập ngữ nghĩa do AI thực hiện, không phải phản biện học thuật độc lập của giảng viên.
+
+### Chỉnh sửa ngữ nghĩa
+- **PY-11:** làm rõ quan hệ kế thừa, thứ tự phân giải phương thức khi dùng `super()`, override và cơ chế `ABC`/`@abstractmethod` (không phải mọi phương thức trong ABC đều tự trừu tượng).
+- **PY-12 Q5:** UTF-8 dùng cho cả mã hóa khi ghi và giải mã khi đọc, không phải bảo mật. **Q8:** xác định `DictReader` trả chuỗi trong hàng đầy đủ; trường thiếu có thể trả `None`. **Q13:** `except ValueError:` bắt loại ngoại lệ `ValueError`, không chỉ một trường hợp chuyển đổi số.
+- **PY-13:** giải thích shape/size/ndim/dtype bằng ví dụ có kích thước; phân biệt `axis=0` với `axis=1`, ép float sang int theo hướng về 0.
+- **PY-14:** giải thích basic slicing thường trả view, integer-array indexing trả copy; phân biệt gán trực tiếp theo chỉ số, mask theo hàng, và cách đọc hàng/cột.
+- **PY-15 Q3:** làm rõ phép `max` lấy cực đại toàn mảng khi không chỉ định trục hoặc theo trục nếu có; **Q13:** nêu rõ điều kiện dữ liệu số hữu hạn khi minh họa chặn trên bằng `np.minimum`. Bổ sung cách tương thích broadcasting và shape sau phép gộp.
+
+### Bằng chứng kiểm tra trên nhánh QA
+- Mỗi bài giữ nguyên 20 Q, 80 lựa chọn, 20 dòng khóa bốn cột; tổng **100 Q / 400 lựa chọn / 100 khóa**. Từng khóa sau xáo lựa chọn được đối chiếu với chính nội dung phương án đúng trước đó, sau đó kiểm tra lại 100 lựa chọn đúng bằng cụm đáp án kỳ vọng viết độc lập, không chỉ dựa mẫu vị trí chữ cái.
+- Tất cả lựa chọn được phân bổ lại để tránh chuỗi **A–B–C–D lặp máy móc**. Mỗi bài có 5 A, 5 B, 5 C, 5 D; các đáp án mang nội dung chính xác được bảo toàn qua phép hoán vị.
+- Đối chiếu phần trước mục 7 và sau mục 7: **không đổi** nội dung bài, mã Python, các tình huống thực tế, bảng dữ liệu hay phần chuyển tiếp; diff chỉ gồm 5 chương và hồ sơ QA.
+- Chạy **14/14 kiểm chứng Python độc lập đạt** trên Python 3.13.5, NumPy 2.3.5 của môi trường hiện tại: CSV `DictReader` cả trường đầy đủ và thiếu, shape/size/ndim, mean/sum theo trục, ép int, mask/indexing/copy, broadcasting, `np.minimum`.
+- Không xuất hiện hàng giải thích `undefined` hoặc dấu nối `~`; không có tham chiếu tình huống/ví dụ đánh số trong trắc nghiệm.
+
+### Giới hạn
+- **Chưa kiểm Windows**, chưa chạy toàn bộ repository test suite hay mọi code fence, chưa có duyệt học thuật độc lập của giảng viên. Không đánh dấu `WINDOWS_VERIFIED` hoặc xem kiểm tra cấu trúc là chứng nhận phát hành. Vòng tiếp theo: **PY-16–PY-20**.
