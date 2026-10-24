@@ -30,6 +30,11 @@ class StudentPcaLessonTests(unittest.TestCase):
         self.assertEqual(len(self.blocks), 11)
         # Each of the five cases must justify its choice, not only give steps.
         self.assertEqual(self.text.count("**Vì sao chọn cách này?**"), 5)
+        # Terms and dataset structure are reiterated before calculations.
+        self.assertEqual(self.text.count("**Nhắc lại kiến thức liên quan:**"), 4)
+        self.assertEqual(self.text.count("**Nhắc lại kiến thức để giải bài:**"), 5)
+        self.assertEqual(self.text.count("**Dữ liệu sử dụng:**"), 5)
+        self.assertEqual(len(re.findall(r"^### Tình huống [1-5]", self.text, re.M)), 5)
         self.assertEqual(len(re.findall(r"^\| Q\d+ \|", self.text, re.M)), 20)
         self.assertNotIn("Subconcept", self.text)
         # Feature/Vector/Matrix are defined in prose before the first code sample.
