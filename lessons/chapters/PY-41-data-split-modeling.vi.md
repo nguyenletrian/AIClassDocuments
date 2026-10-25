@@ -124,163 +124,221 @@ print(len(set(labels.tolist())))
 
 KMeans tìm được hai cụm; mã số gắn cho từng cụm có thể đổi.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống chia dữ liệu, classification và clustering — từ 10 đến 20 hồ sơ
 
-### Tình huống 1 — Kiểm tra ID train/test
+### Tình huống 1 — Cấp 1: Giữ riêng 2 trong 10 học viên để đánh giá
 
-**Tình huống thực tế:** Một nhóm thử mô hình với train `{1,2,3}` và test `{4,5}` (mỗi số là ID hồ sơ). Cần xác nhận không có ID nào xuất hiện trong cả hai tập.
+**Từ vựng trong mục:** **Train** — tập huấn luyện; **Test** — tập đánh giá; **Disjoint** — không trùng.
 
-**Vì sao chọn cách giải này?** Dùng `isdisjoint` cho đúng câu hỏi về phần tử trùng nhau; không phải đo độ chính xác.
+**Tình huống thực tế:** Một trung tâm có **10 hồ sơ học viên** H01–H10, mỗi hồ sơ gồm ID, số giờ luyện tập (giờ/tuần) và điểm (thang 10). Cần chọn 8 người cho train, 2 người cuối cho test để minh họa nguyên tắc: không dùng hồ sơ test trong quá trình học.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Tách theo ID trước khi tính toán tránh đánh giá trên chính người đã dùng để học. Đây là cách chia minh họa có trật tự, **không phải lấy mẫu ngẫu nhiên**; nếu dữ liệu sắp theo thời gian/nhãn thì cần xét cách chia phù hợp.
 
-1. Tạo hai Set ID train và test.
-2. Kiểm tra phần giao có rỗng.
-3. In Boolean và nêu rằng đây chỉ là một bước chống rò rỉ.
+**Quy trình:**
+1. Tạo 10 bộ ID–giờ–điểm, mỗi hàng là một người.
+2. Chia 8 dòng đầu train, 2 dòng cuối test.
+3. Kiểm tra giao ID bằng Set và số người của cả hai nhóm.
 
 ```python
-# Mục đích: Kiểm tra ID train/test.
-train = {1, 2, 3}
-test = {4, 5}
-print(train.isdisjoint(test))
+records = [{"id":f"H{i:02d}", "hours":i, "score":min(10, 4+i//2)} for i in range(1,11)]
+train = records[:8]
+test = records[8:]
+train_ids = {r["id"] for r in train}
+test_ids = {r["id"] for r in test}
+assert len(records) == 10
+print("Hồ sơ:", len(records))
+print("Train/test:", len(train), len(test))
+print("ID không giao nhau:", train_ids.isdisjoint(test_ids))
+print("Phủ toàn bộ:", len(train_ids | test_ids) == 10)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Hồ sơ: 10
+Train/test: 8 2
+ID không giao nhau: True
+Phủ toàn bộ: True
 ```
 
-Hai tập không trùng ID, chưa chứng minh mọi dữ liệu đều độc lập.
+ID rời nhau chỉ là điều kiện cần: nếu một người có hai ID khác nhau hoặc đặc trưng chứa thông tin tương lai, vẫn có thể xảy ra rò rỉ.
 
-### Tình huống 2 — Phân chia Iris có phân tầng
+### Tình huống 2 — Cấp 2: Chia phân tầng 12 hồ sơ cân bằng nhãn
 
-**Tình huống thực tế:** Tập Iris có 150 hoa, bốn số đo cm/hoa và ba loài với 50 hoa mỗi loài. Cần dành 25% làm test nhưng duy trì tỷ lệ loài gần tương đương.
+**Từ vựng trong mục:** **Stratify** — giữ tỷ lệ nhãn; **Random state** — hạt giống ngẫu nhiên.
 
-**Vì sao chọn cách giải này?** `stratify=y` chia theo nhãn, giúp test không tình cờ thiếu lớp trong bộ mẫu này.
+**Tình huống thực tế:** Đội tư vấn có **12 khách hàng** S01–S12, mỗi hàng ghi điểm hoạt động (điểm) và nhãn `0=chưa đăng ký`, `1=đã đăng ký`. Có 6 khách cho mỗi nhãn. Cần chia train/test **8/4** mà nhóm test vẫn có đủ hai nhãn; không dùng nhãn test để huấn luyện.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `train_test_split(..., stratify=y)` giữ tỷ lệ nhãn trong hai nhóm khi số lượng cho phép. `random_state=42` giúp lặp lại cách chia; phân tầng không có nghĩa dữ liệu đã đủ lớn để ước lượng hiệu năng thật.
 
-1. Nạp bảng 150×4 và nhãn 150 giá trị.
-2. Dùng `train_test_split` với test_size=0.25, stratify và seed 42.
-3. In shape train/test.
+**Quy trình:**
+1. Tạo 12 mã, đặc trưng điểm và nhãn nhị phân.
+2. Chia bằng stratify với test_size=4, giữ ID tương ứng.
+3. Đếm nhãn train/test, xác nhận ID không trùng và mỗi nhóm có hai nhãn.
 
 ```python
-# Mục đích: Phân chia Iris có phân tầng.
-from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
-
-data = load_iris()
-X_train, X_test, y_train, y_test = train_test_split(
-    data.data, data.target, test_size=0.25,
-    stratify=data.target, random_state=42,
-)
-print(X_train.shape, X_test.shape)
+records = [{"id":"S01","score":5,"label":0},{"id":"S02","score":6,"label":1},{"id":"S03","score":7,"label":0},{"id":"S04","score":8,"label":1},{"id":"S05","score":9,"label":0},{"id":"S06","score":10,"label":1},{"id":"S07","score":11,"label":0},{"id":"S08","score":12,"label":1},{"id":"S09","score":13,"label":0},{"id":"S10","score":14,"label":1},{"id":"S11","score":15,"label":0},{"id":"S12","score":16,"label":1}]
+ids = [row["id"] for row in records]
+y = [row["label"] for row in records]
+train_ids, test_ids, y_train, y_test = train_test_split(
+    ids, y, test_size=4, random_state=42, stratify=y)
+assert len(records) == 12
+print("Hồ sơ:", len(records))
+print("Train/test:", len(train_ids), len(test_ids))
+print("Nhãn train 0/1:", y_train.count(0), y_train.count(1))
+print("Nhãn test 0/1:", y_test.count(0), y_test.count(1))
+print("ID không giao nhau:", set(train_ids).isdisjoint(test_ids))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(112, 4) (38, 4)
+Hồ sơ: 12
+Train/test: 8 4
+Nhãn train 0/1: 4 4
+Nhãn test 0/1: 2 2
+ID không giao nhau: True
 ```
 
-112 hoa dùng train, 38 hoa giữ test; mỗi hàng vẫn có bốn đặc trưng.
+Phân tầng dùng nhãn **chỉ để quyết định cách chia**, không có nghĩa mô hình được nhìn nhãn test khi fit.
 
-### Tình huống 3 — Fit scaler và mô hình trên train
+### Tình huống 3 — Cấp 3: Huấn luyện classifier trong Pipeline với 15 bông hoa
 
-**Tình huống thực tế:** Nhóm học máy dùng bốn kích thước của Iris để đoán một trong ba loài. Cần chuẩn hóa số đo mà không dùng trung bình/độ lệch chuẩn của test trong lúc fit.
+**Từ vựng trong mục:** **Classification** — phân loại có nhãn; **Pipeline** — chuỗi xử lý; **Leakage** — rò rỉ thông tin.
 
-**Vì sao chọn cách giải này?** Pipeline tự fit scaler và Logistic Regression trên train, rồi áp cùng biến đổi lên test.
+**Tình huống thực tế:** Nhóm thực hành có **15 hồ sơ hoa** F01–F15; mỗi hàng gồm chiều dài và chiều rộng cánh (cm), nhãn loài `0/1/2`, năm hoa cho mỗi loài. Cần giữ 6 hoa làm test, fit bộ chuẩn hóa **chỉ trên 9 hoa train**, sau đó huấn luyện Logistic Regression và dự đoán 6 hoa test.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Scaler **không được học từ cả 15 hoa** trước khi tách. Pipeline gọi `fit` trên train để đồng thời học trung bình/độ lệch chuẩn và classifier. Bản test chỉ dùng để đánh giá ngoài mẫu.
 
-1. Chia Iris trước khi fit bất kỳ phép chuẩn hóa nào.
-2. Tạo pipeline StandardScaler → LogisticRegression và fit train.
-3. In số mẫu dự đoán trên test.
+**Quy trình:**
+1. Tạo 15 dòng có đủ ID, hai số đo cm, ba nhãn.
+2. Tách train/test phân tầng 9/6 và ghép `StandardScaler` + `LogisticRegression`.
+3. Fit chỉ trên train, kiểm scaler mean bằng train mean và in số dự đoán/độ chính xác test.
 
 ```python
-# Mục đích: Fit scaler và mô hình trên train.
-from sklearn.datasets import load_iris
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+records = [{"id":"F01","length_cm":1.5,"width_cm":0.5,"species":0},{"id":"F02","length_cm":1.6,"width_cm":0.53,"species":0},{"id":"F03","length_cm":1.7,"width_cm":0.56,"species":0},{"id":"F04","length_cm":1.8,"width_cm":0.59,"species":0},{"id":"F05","length_cm":1.9,"width_cm":0.62,"species":0},{"id":"F06","length_cm":4.5,"width_cm":1.5,"species":1},{"id":"F07","length_cm":4.6,"width_cm":1.53,"species":1},{"id":"F08","length_cm":4.7,"width_cm":1.56,"species":1},{"id":"F09","length_cm":4.8,"width_cm":1.59,"species":1},{"id":"F10","length_cm":4.9,"width_cm":1.62,"species":1},{"id":"F11","length_cm":7.5,"width_cm":2.5,"species":2},{"id":"F12","length_cm":7.6,"width_cm":2.53,"species":2},{"id":"F13","length_cm":7.7,"width_cm":2.56,"species":2},{"id":"F14","length_cm":7.8,"width_cm":2.59,"species":2},{"id":"F15","length_cm":7.9,"width_cm":2.62,"species":2}]
+X = np.array([[row["length_cm"],row["width_cm"]] for row in records])
+y = np.array([row["species"] for row in records])
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=6,
+                                                  stratify=y,random_state=42)
+model = Pipeline([("scale", StandardScaler()),
+                  ("classifier", LogisticRegression(max_iter=1000))])
+model.fit(X_train,y_train)
+predicted = model.predict(X_test)
+assert len(records) == 15
+print("Hoa:", len(records))
+print("Train/test:", len(X_train), len(X_test))
+print("Scaler chỉ fit train:", bool(np.allclose(model.named_steps["scale"].mean_, X_train.mean(axis=0))))
+print("Đã dự đoán:", len(predicted))
+print("Accuracy hợp lệ:", bool(0 <= np.mean(predicted==y_test) <= 1))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Hoa: 15
+Train/test: 9 6
+Scaler chỉ fit train: True
+Đã dự đoán: 6
+Accuracy hợp lệ: True
+```
+
+Accuracy chỉ được tính từ **sáu hoa test**, không phải bằng chứng kết quả sẽ giữ nguyên ngoài dữ liệu mô phỏng.
+
+### Tình huống 4 — Cấp 4: KMeans tìm hai cụm trong 18 tọa độ không có nhãn
+
+**Từ vựng trong mục:** **Clustering** — gom cụm không giám sát; **Centroid** — tâm cụm.
+
+**Tình huống thực tế:** Kho robot ghi **18 vị trí** `(x,y)` bằng mét, mỗi hàng là vị trí một vật thể. Chín vị trí nằm quanh vùng (1,1), chín vị trí quanh (11,11). Không có nhãn vùng trong bảng đầu vào; cần dùng KMeans tìm hai cụm và xem mỗi cụm có bao nhiêu vị trí.
+
+**Vì sao chọn cách này?** Clustering **không học nhãn đúng** từ người dạy; thuật toán dựa trên khoảng cách giữa các tọa độ, các mã cụm 0/1 có thể đảo khi khởi tạo. So kích thước cụm phải **sắp tăng**, không gán cố định mã 0 là vùng trái.
+
+**Quy trình:**
+1. Tạo 18 điểm có đơn vị m, không tạo nhãn để fit.
+2. Dùng KMeans với 2 nhóm và random_state cố định.
+3. Sắp kích thước hai nhóm, sắp tâm theo tọa độ x để báo cáo ổn định.
+
+```python
+import numpy as np
+from sklearn.cluster import KMeans
+points = np.array([[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2],[10,10],[11,10],[12,10],[10,11],[11,11],[12,11],[10,12],[11,12],[12,12]],dtype=float)
+model = KMeans(n_clusters=2, random_state=42, n_init=10).fit(points)
+counts = sorted(np.bincount(model.labels_).tolist())
+centers = model.cluster_centers_[np.argsort(model.cluster_centers_[:,0])]
+assert points.shape == (18,2)
+print("Vật thể:", len(points))
+print("Số cụm:", len(counts))
+print("Vật thể mỗi cụm:", counts)
+print("Tâm theo trục x:", [round(float(v),1) for v in centers[:,0]])
+```
+
+**Kết quả khi chạy:**
+
+```text
+Vật thể: 18
+Số cụm: 2
+Vật thể mỗi cụm: [9, 9]
+Tâm theo trục x: [1.0, 11.0]
+```
+
+Người học không được gọi cụm số 0 là loài số 0 chỉ vì hai hệ thống cùng dùng số; nhãn cụm chỉ là định danh.
+
+### Tình huống 5 — Cấp 5: So dự đoán có giám sát và gom cụm trên 20 khách hàng
+
+**Từ vựng trong mục:** **Classification vs. clustering** — phân loại so với gom cụm; **Adjusted Rand Index** — độ phù hợp cụm không lệ thuộc mã.
+
+**Tình huống thực tế:** Hệ thống có **20 hồ sơ khách** H01–H20; mỗi dòng gồm hai chỉ số hành vi không đơn vị x/y và nhãn tham chiếu 0/1 (10 khách mỗi nhãn). Nhóm phân tích muốn xây **classifier** bằng 16 train/4 test và **clustering** trên riêng các tọa độ mà không đưa nhãn vào `fit`. Cần đánh giá hai kết quả riêng, tránh khẳng định hai mã cụm tương ứng nhãn 0/1.
+
+**Vì sao chọn cách này?** Classification dự đoán nhãn đã biết và đánh giá trên test chưa học; KMeans khám phá cụm từ đặc trưng mà không cần nhãn. `adjusted_rand_score` chỉ **đối chiếu sau khi gom**, không dùng nhãn để huấn luyện; chỉ số không nhạy với việc đảo tên cụm.
+
+**Quy trình:**
+1. Tạo 20 hàng có ID, x/y, nhãn; tách train/test phân tầng.
+2. Fit Pipeline classifier trên 16 train và đánh giá 4 test.
+3. Fit KMeans trên toàn bộ 20 đặc trưng **không có nhãn**, tính ARI chỉ để đối chiếu kết quả.
+
+```python
+import numpy as np
+from sklearn.cluster import KMeans
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import adjusted_rand_score
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-
-data = load_iris()
-X_train, X_test, y_train, y_test = train_test_split(
-    data.data, data.target, test_size=0.25,
-    stratify=data.target, random_state=42,
-)
-model = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000))
-model.fit(X_train, y_train)
-print(len(model.predict(X_test)))
+records = [{"id":"H01","x":0,"y":1,"label":0},{"id":"H02","x":0.2,"y":1,"label":0},{"id":"H03","x":0.4,"y":1,"label":0},{"id":"H04","x":0.6000000000000001,"y":1,"label":0},{"id":"H05","x":0.8,"y":1,"label":0},{"id":"H06","x":0,"y":1.2,"label":0},{"id":"H07","x":0.2,"y":1.2,"label":0},{"id":"H08","x":0.4,"y":1.2,"label":0},{"id":"H09","x":0.6000000000000001,"y":1.2,"label":0},{"id":"H10","x":0.8,"y":1.2,"label":0},{"id":"H11","x":8,"y":9,"label":1},{"id":"H12","x":8.2,"y":9,"label":1},{"id":"H13","x":8.4,"y":9,"label":1},{"id":"H14","x":8.6,"y":9,"label":1},{"id":"H15","x":8.8,"y":9,"label":1},{"id":"H16","x":8,"y":9.2,"label":1},{"id":"H17","x":8.2,"y":9.2,"label":1},{"id":"H18","x":8.4,"y":9.2,"label":1},{"id":"H19","x":8.6,"y":9.2,"label":1},{"id":"H20","x":8.8,"y":9.2,"label":1}]
+X = np.array([[r["x"],r["y"]] for r in records], dtype=float)
+y = np.array([r["label"] for r in records])
+ids = np.arange(len(records))
+train, test = train_test_split(ids, test_size=4, stratify=y, random_state=42)
+clf = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000))
+clf.fit(X[train], y[train])
+accuracy = float(clf.score(X[test], y[test]))
+clusters = KMeans(n_clusters=2,random_state=42,n_init=10).fit_predict(X)
+ari = adjusted_rand_score(y,clusters)
+assert len(records) == 20 and set(train).isdisjoint(test)
+print("Khách:", len(records))
+print("Train/test:", len(train), len(test))
+print("Accuracy test hợp lệ:", 0 <= accuracy <= 1)
+print("Cụm:", len(set(clusters.tolist())))
+print("ARI khi đối chiếu:", f"{ari:.2f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-38
+Khách: 20
+Train/test: 16 4
+Accuracy test hợp lệ: True
+Cụm: 2
+ARI khi đối chiếu: 1.00
 ```
 
-Model trả một dự đoán nhãn cho mỗi hoa trong 38 hoa test.
-
-### Tình huống 4 — Nhóm bốn tọa độ 2D
-
-**Tình huống thực tế:** Bốn điểm trong mặt phẳng, hai điểm quanh `[0,0]`, hai điểm quanh `[10,10]`, chưa có nhãn. Cần phát hiện số cụm khi yêu cầu trước `k=2`.
-
-**Vì sao chọn cách giải này?** KMeans phân nhóm từ khoảng cách giữa các đặc trưng, không dùng y thật.
-
-**Quy trình giải:**
-
-1. Tạo ma trận X shape (4,2), mỗi hàng là một điểm (x,y) cùng đơn vị.
-2. Fit KMeans với k=2, seed cố định.
-3. Đếm số mã cụm khác nhau, tránh phụ thuộc hoán đổi mã cụm.
-
-```python
-# Mục đích: Nhóm bốn tọa độ 2D.
-import numpy as np
-from sklearn.cluster import KMeans
-
-X = np.array([[0, 0], [0, 1], [10, 10], [10, 11]])
-cluster_ids = KMeans(n_clusters=2, n_init=10, random_state=42).fit_predict(X)
-print(len(set(cluster_ids.tolist())))
-```
-
-**Kết quả khi chạy:**
-
-```text
-2
-```
-
-Bốn điểm được chia thành hai nhóm, không tự biết nhóm nào là nhãn thật.
-
-### Tình huống 5 — So classification và clustering
-
-**Tình huống thực tế:** Dữ liệu Iris có bốn đặc trưng số (cm) và nhãn loài. Nhóm thực hành cần xác định thông tin đầu vào nào được phép dùng ở mô hình có giám sát và không giám sát.
-
-**Vì sao chọn cách giải này?** Kiểm tra shape của X và y làm rõ classifier dùng cả nhãn lúc fit, trong khi clustering fit từ X.
-
-**Quy trình giải:**
-
-1. Nạp Iris, lấy X chứa kích thước hoa và y chứa nhãn.
-2. In shape X và y.
-3. Phân biệt dùng `(X,y)` để train classification với dùng `X` cho clustering.
-
-```python
-# Mục đích: So classification và clustering.
-from sklearn.datasets import load_iris
-
-data = load_iris()
-print(data.data.shape, data.target.shape)
-```
-
-**Kết quả khi chạy:**
-
-```text
-(150, 4) (150,)
-```
-
-Mỗi hoa có bốn đặc trưng và một nhãn; KMeans không sử dụng nhãn để fit.
+Độ phù hợp cao ở ví dụ vì **hai cụm giả lập được tách xa nhau**. Kết quả gom cụm không tự chứng minh nhãn tham chiếu là bản chất của khách hàng.
 
 ## 6. Sai lầm thường gặp
 

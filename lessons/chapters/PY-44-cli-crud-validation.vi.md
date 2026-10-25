@@ -116,157 +116,246 @@ print(sum(scores) / len(scores), max(scores))
 
 Điểm trung bình bằng 8/10, điểm cao nhất bằng 9/10 trên ba hồ sơ.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống CLI/CRUD — từ kiểm mã đến 20 lệnh có audit
 
-### Tình huống 1 — Thêm sinh viên không ghi đè mã cũ
+### Tình huống 1 — Cấp 1: Tạo hồ sơ từ 10 yêu cầu, từ chối ID trùng
 
-**Từ vựng trong mục:** **Record** — bản ghi; **ID** — mã định danh.
+**Từ vựng trong mục:** **Create** — tạo hồ sơ; **Unique key** — khóa duy nhất.
 
-**Tình huống thực tế:** Trung tâm muốn tạo hồ sơ cho sinh viên S1 tên An, điểm 8/10. Kho hiện rỗng. Chỉ thêm nếu mã chưa tồn tại và điểm thuộc 0–10.
+**Tình huống thực tế:** Phòng đào tạo nhận **10 yêu cầu thêm học viên**; mỗi yêu cầu gồm mã S01…, tên và điểm thang 10. Yêu cầu cuối cố nhập lại mã S03 với tên khác, nên cần lưu được 9 hồ sơ và từ chối thao tác có nguy cơ ghi đè điểm thật.
 
-**Vì sao chọn cách giải này?** Kiểm tra cả tính duy nhất của khóa và phạm vi điểm trước khi tạo bản ghi.
+**Vì sao chọn cách này?** Dictionary chỉ cho phép một giá trị cho một khóa; nếu gán thẳng `db[id]=...` mà không kiểm tra, yêu cầu trùng sẽ **âm thầm ghi đè**. Kiểm trước khi ghi, lưu số thành công/thất bại để dễ đối soát.
 
-**Quy trình giải:**
-
-1. Tạo Dictionary rỗng, mã S1, điểm 8.
-2. Kiểm mã chưa có và điểm hợp lệ.
-3. Thêm hồ sơ rồi in dữ liệu đã lưu.
+**Quy trình:**
+1. Tạo 10 yêu cầu có một mã lặp và điểm hợp lệ.
+2. Kiểm mã tồn tại trước mỗi lệnh ADD rồi lưu hồ sơ.
+3. Đếm kết quả, xác nhận điểm S03 gốc không bị thay.
 
 ```python
-# Mục đích: Thêm sinh viên không ghi đè mã cũ.
+requests = [{"id":"S01","name":"Student01","score":5},{"id":"S02","name":"Student02","score":6},{"id":"S03","name":"Student03","score":7},{"id":"S04","name":"Student04","score":8},{"id":"S05","name":"Student05","score":9},{"id":"S06","name":"Student06","score":10},{"id":"S07","name":"Student07","score":5},{"id":"S08","name":"Student08","score":6},{"id":"S09","name":"Student09","score":7},{"id":"S03","name":"Student10","score":8}]
 db = {}
-student_id = 'S1'
-score = 8
-if student_id not in db and 0 <= score <= 10:
-    db[student_id] = {'name': 'An', 'score': score}
-print(db)
+rejected = []
+for row in requests:
+    if row["id"] in db:
+        rejected.append(row["id"])
+        continue
+    db[row["id"]] = {"name":row["name"],"score":row["score"]}
+assert len(requests) == 10
+print("Yêu cầu:", len(requests))
+print("Đã tạo:", len(db))
+print("Trùng mã:", ", ".join(rejected))
+print("Điểm S03:", db["S03"]["score"])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'S1': {'name': 'An', 'score': 8}}
+Yêu cầu: 10
+Đã tạo: 9
+Trùng mã: S03
+Điểm S03: 7
 ```
 
-Đã thêm một hồ sơ S1, giữ điểm theo thang 10.
+9 hồ sơ cuối là **9 mã khác nhau**; dòng nhập trùng phải được báo lại cho người dùng thay vì tự sửa hồ sơ cũ.
 
-### Tình huống 2 — Thông báo khi mã không tồn tại
+### Tình huống 2 — Cấp 2: Tra cứu 12 mã và phân biệt ID vắng với điểm 0
 
-**Từ vựng trong mục:** **Record** — bản ghi; **ID** — mã định danh.
+**Từ vựng trong mục:** **Read** — đọc hồ sơ; **Lookup** — tra theo khóa; **Missing key** — mã không có.
 
-**Tình huống thực tế:** Danh sách chỉ có S1 điểm 8 và S2 điểm 9; nhân viên tìm mã S3. Chương trình cần báo không tìm thấy thay vì dừng vì lỗi KeyError.
+**Tình huống thực tế:** Phòng học có **10 học viên** S01–S10 trong RAM; S01 có điểm **0/10 hợp lệ**. Nhân viên thực hiện **12 lượt tra cứu**, gồm đủ 10 mã và hai mã không tồn tại S99/S88. Cần trả lời số mã tìm thấy, số mã thiếu và xác nhận S01 không bị coi là hồ sơ không tồn tại vì có điểm 0.
 
-**Vì sao chọn cách giải này?** `dict.get` cho phép định nghĩa giá trị mặc định khi thiếu mã.
+**Vì sao chọn cách này?** `dict.get(id)` trả None khi thiếu khóa; kiểm đối tượng hồ sơ bằng `is None`, không dùng `if not record['score']` vì điểm 0 là số hợp lệ.
 
-**Quy trình giải:**
-
-1. Tạo kho hai sinh viên.
-2. Tra khóa S3 bằng `get` kèm thông báo mặc định.
-3. In kết quả tra cứu.
+**Quy trình:**
+1. Tạo 10 hồ sơ với mã khác nhau và 12 lượt tra ID.
+2. Dùng `get` nhận hồ sơ hoặc None, đếm lượt tìm thấy/thất bại.
+3. Kiểm riêng điểm 0 của S01 vẫn được trả về đúng.
 
 ```python
-# Mục đích: Thông báo khi mã không tồn tại.
-db = {'S1': {'score': 8}, 'S2': {'score': 9}}
-print(db.get('S3', 'Not found'))
+db = {f"S{i:02d}":{"score":i-1} for i in range(1,11)}
+requests = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S99","S88"]
+found, missing = [], []
+for sid in requests:
+    record = db.get(sid)
+    (missing if record is None else found).append(sid)
+assert len(requests) == 12
+print("Lượt tra cứu:", len(requests))
+print("Tìm thấy:", len(found))
+print("Không thấy:", ", ".join(missing))
+print("S01 có điểm 0:", db["S01"]["score"] == 0)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Not found
+Lượt tra cứu: 12
+Tìm thấy: 10
+Không thấy: S99, S88
+S01 có điểm 0: True
 ```
 
-Hồ sơ S3 không tồn tại; không có bản ghi nào bị thay đổi.
+Không tìm thấy mã là **vấn đề khóa**, khác với việc tìm thấy mã nhưng giá trị điểm bằng 0.
 
-### Tình huống 3 — Sửa điểm sau khi kiểm thang
+### Tình huống 3 — Cấp 3: Kiểm dữ liệu trước khi sửa điểm qua 15 yêu cầu
 
-**Từ vựng trong mục:** **Record** — bản ghi; **ID** — mã định danh.
+**Từ vựng trong mục:** **Update** — sửa hồ sơ; **Validation** — kiểm dữ liệu; **Finite number** — số hữu hạn.
 
-**Tình huống thực tế:** Hồ sơ S1 có điểm 7/10, người quản lý duyệt sửa lên 9/10. Chỉ cập nhật nếu mã tồn tại và điểm mới hợp lệ.
+**Tình huống thực tế:** Một lớp có **10 hồ sơ** S01–S10 và nhận **15 yêu cầu sửa điểm**; 10 yêu cầu đầu hợp lệ (điểm trong 0–10), năm yêu cầu sau gồm điểm âm, vượt 10, chuỗi không phải số, NaN và mã không tồn tại. Cần cập nhật chỉ các yêu cầu hợp lệ, không ghi giá trị giả hoặc tạo mã mới.
 
-**Vì sao chọn cách giải này?** Kiểm tra trước khi Update tránh vô tình tạo hồ sơ mới hoặc lưu điểm ngoài phạm vi.
+**Vì sao chọn cách này?** Chuỗi từ CLI phải đổi sang `float` trong `try/except`, tiếp tục kiểm `math.isfinite` vì `float('nan')` là số dấu phẩy động nhưng **không phải điểm hợp lệ**. Kiểm khóa trước thao tác Update.
 
-**Quy trình giải:**
-
-1. Tạo bản ghi ban đầu S1 điểm 7.
-2. Kiểm S1 đang tồn tại và 9 nằm trong thang.
-3. Cập nhật điểm, in bản ghi sau sửa.
+**Quy trình:**
+1. Tạo 10 mã ban đầu và 15 yêu cầu chứa điểm ở dạng chuỗi.
+2. Kiểm mã có sẵn, thử đổi điểm, chặn số ngoài thang và NaN.
+3. Đếm cập nhật/thất bại, đối chiếu số hồ sơ và điểm mới S03.
 
 ```python
-# Mục đích: Sửa điểm sau khi kiểm thang.
-db = {'S1': {'score': 7}}
-new_score = 9
-if 'S1' in db and 0 <= new_score <= 10:
-    db['S1']['score'] = new_score
-print(db)
+import math
+db = {f"S{i:02d}":{"score":5.0} for i in range(1,11)}
+updates = [["S01","6.5"],["S02","7.5"],["S03","8.5"],["S04","9.5"],["S05","6.5"],["S06","6.5"],["S07","7.5"],["S08","8.5"],["S09","9.5"],["S10","6.5"],["S03","-1"],["S02","11"],["S04","bad"],["S05","nan"],["S99","7.5"]]
+accepted, rejected = 0, 0
+for sid, raw_score in updates:
+    if sid not in db:
+        rejected += 1
+        continue
+    try:
+        score = float(raw_score)
+    except ValueError:
+        rejected += 1
+        continue
+    if not math.isfinite(score) or not (0 <= score <= 10):
+        rejected += 1
+        continue
+    db[sid]["score"] = score
+    accepted += 1
+assert len(updates) == 15
+print("Yêu cầu:", len(updates))
+print("Cập nhật:", accepted)
+print("Từ chối:", rejected)
+print("Hồ sơ còn:", len(db))
+print("Điểm S03:", db["S03"]["score"])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'S1': {'score': 9}}
+Yêu cầu: 15
+Cập nhật: 10
+Từ chối: 5
+Hồ sơ còn: 10
+Điểm S03: 8.5
 ```
 
-Điểm đã đổi 7→9/10; đây là Update, không tạo sinh viên thứ hai.
+NaN phải bị chặn **trước khi ghi**; nếu để NaN trong dữ liệu, tổng hợp điểm và so sánh ngưỡng về sau có thể bị sai.
 
-### Tình huống 4 — Xóa mã sinh viên thiếu an toàn
+### Tình huống 4 — Cấp 4: Xóa an toàn từ 18 lệnh với mã lặp và mã lạ
 
-**Từ vựng trong mục:** **Record** — bản ghi; **ID** — mã định danh.
+**Từ vựng trong mục:** **Delete** — xóa; **Idempotence** — gọi lại không làm sai dữ liệu; **Audit** — đối soát.
 
-**Tình huống thực tế:** Kho chỉ có S1, nhân viên yêu cầu xóa S2 vốn không tồn tại. Chương trình phải báo không có bản ghi, không ném lỗi hoặc xóa S1.
+**Tình huống thực tế:** Một ứng dụng CLI ban đầu có **10 hồ sơ** S01–S10 và nhận **18 lệnh xóa**; 10 lệnh đầu xóa đúng mã một lần, 8 lệnh cuối lặp hoặc chứa mã chưa có. Cần biết có bao nhiêu hồ sơ thực sự bị xóa, bao nhiêu lệnh không thay đổi dữ liệu và kiểm tra DB rỗng sau cùng.
 
-**Vì sao chọn cách giải này?** `pop(key,default)` xử lý được nhánh không tìm thấy và không xóa khóa khác.
+**Vì sao chọn cách này?** `dict.pop(id, None)` tránh ném KeyError khi mã vắng. Nhưng CLI vẫn cần **thông báo không tìm thấy**, không coi lần xóa thứ hai là thành công.
 
-**Quy trình giải:**
-
-1. Khởi tạo kho chỉ có S1.
-2. Gọi `pop('S2',None)`.
-3. In kết quả và kiểm kho không thay đổi.
+**Quy trình:**
+1. Tạo 10 ID trong Dictionary và 18 mã được yêu cầu xóa.
+2. Dùng `pop(..., None)`, đếm thành công khi trả hồ sơ thật.
+3. Báo số lệnh lỗi/không thay đổi và số hồ sơ còn lại.
 
 ```python
-# Mục đích: Xóa mã sinh viên thiếu an toàn.
-db = {'S1': {'score': 8}}
-print(db.pop('S2', None))
-print(db)
+db = {f"S{i:02d}":{"score":i} for i in range(1,11)}
+requests = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S01","S02","S03","S99","S98","S97","S05","S100"]
+deleted, missing = 0, 0
+for sid in requests:
+    value = db.pop(sid, None)
+    if value is None:
+        missing += 1
+    else:
+        deleted += 1
+assert len(requests) == 18
+print("Lệnh xóa:", len(requests))
+print("Xóa thật:", deleted)
+print("Mã không còn:", missing)
+print("Hồ sơ còn:", len(db))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-None
-{'S1': {'score': 8}}
+Lệnh xóa: 18
+Xóa thật: 10
+Mã không còn: 8
+Hồ sơ còn: 0
 ```
 
-Không có S2 để xóa nên trả None; S1 được giữ nguyên.
+Xóa không tìm thấy được ghi nhận rõ trong **audit**; không được ngầm tạo lại hồ sơ trong quá trình xóa.
 
-### Tình huống 5 — Tổng hợp kết quả của một lớp
+### Tình huống 5 — Cấp 5: Chạy 20 câu lệnh CLI CRUD có kiểm tra và báo cáo cuối
 
-**Từ vựng trong mục:** **Record** — bản ghi; **ID** — mã định danh.
+**Từ vựng trong mục:** **CLI command** — lệnh văn bản; **CRUD** — tạo/đọc/sửa/xóa; **Audit trail** — lịch sử thao tác.
 
-**Tình huống thực tế:** Lớp có ba điểm 7,8,9 theo thang 10; giáo viên muốn in mean và điểm tối đa để báo cáo nội bộ.
+**Tình huống thực tế:** Trung tâm mô phỏng một ứng dụng CLI nhận **20 lệnh văn bản** gồm ADD, GET, UPDATE, DELETE, REPORT. Mỗi lệnh là một dòng sự kiện có thứ tự; 10 lệnh đầu thêm học viên, các lệnh sau có sửa hợp lệ, thêm trùng, điểm `bad`, tra mã không có, xóa lặp và điểm vượt 10. Cần **không làm hỏng dữ liệu khi nhập lỗi**, đếm số lệnh từ chối và in mean điểm trên hồ sơ còn lại.
 
-**Vì sao chọn cách giải này?** Tính các chỉ số trực tiếp từ điểm số, thay vì lấy trung bình mã sinh viên hoặc chuỗi tên.
+**Vì sao chọn cách này?** Dùng `shlex.split` tách cú pháp đơn giản thay vì `eval`, kiểm số trường từng loại lệnh, kiểm trùng mã/số hữu hạn/thang điểm trước khi sửa. Một lệnh báo cáo chỉ **đọc**, không thay đổi Dictionary.
 
-**Quy trình giải:**
-
-1. Tạo List gồm ba điểm.
-2. Tính mean bằng tổng chia cỡ nhóm và max.
-3. In Dictionary báo cáo có hai chỉ số.
+**Quy trình:**
+1. Lưu 20 dòng lệnh để chạy tự động, không cần người nhập bàn phím.
+2. Phân tích từng lệnh theo tên và số đối số, kiểm khóa và giá trị điểm.
+3. Đếm CREATE/UPDATE/DELETE/thất bại; tính số hồ sơ và mean cuối, xác nhận báo cáo không ghi dữ liệu.
 
 ```python
-# Mục đích: Tổng hợp kết quả của một lớp.
-scores = [7, 8, 9]
-report = {'mean': sum(scores) / len(scores), 'max': max(scores)}
-print(report)
+import math
+import shlex
+commands = ["ADD S01 7","ADD S02 8","ADD S03 9","ADD S04 6","ADD S05 5","ADD S06 10","ADD S07 7","ADD S08 8","ADD S09 9","ADD S10 6","ADD S01 9","UPDATE S03 9.5","UPDATE S05 bad","GET S03","GET S99","DELETE S02","DELETE S02","ADD S11 11","UPDATE S08 8.5","REPORT"]
+db = {}
+audit = {"ADD":0,"UPDATE":0,"DELETE":0,"GET":0,"REPORT":0,"REJECT":0}
+def parse_score(raw):
+    try:
+        value = float(raw)
+    except ValueError:
+        return None
+    return value if math.isfinite(value) and 0 <= value <= 10 else None
+for command in commands:
+    parts = shlex.split(command)
+    verb = parts[0]
+    ok = False
+    if verb == "ADD" and len(parts) == 3:
+        sid, raw = parts[1:]
+        score = parse_score(raw)
+        if sid not in db and score is not None:
+            db[sid] = score
+            ok = True
+    elif verb == "UPDATE" and len(parts) == 3:
+        sid, raw = parts[1:]
+        score = parse_score(raw)
+        if sid in db and score is not None:
+            db[sid] = score
+            ok = True
+    elif verb == "GET" and len(parts) == 2:
+        ok = parts[1] in db
+    elif verb == "DELETE" and len(parts) == 2:
+        ok = db.pop(parts[1], None) is not None
+    elif verb == "REPORT" and len(parts) == 1:
+        ok = bool(db)
+    audit[verb if ok else "REJECT"] += 1
+assert len(commands) == 20 and sum(audit.values()) == 20
+print("Lệnh:", len(commands))
+print("Thêm/sửa/xóa:", audit["ADD"], audit["UPDATE"], audit["DELETE"])
+print("Lệnh từ chối:", audit["REJECT"])
+print("Hồ sơ cuối:", len(db))
+print(f"Điểm TB cuối: {sum(db.values())/len(db):.2f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'mean': 8.0, 'max': 9}
+Lệnh: 20
+Thêm/sửa/xóa: 10 2 1
+Lệnh từ chối: 5
+Hồ sơ cuối: 9
+Điểm TB cuối: 7.56
 ```
 
-Trung bình lớp 8 điểm; cao nhất là 9 điểm.
+Ứng dụng hiện chỉ lưu trạng thái **trong RAM**: khi tắt chương trình dữ liệu biến mất. Triển khai thật phải bổ sung lưu bền, phân quyền và kiểm thử xử lý lỗi.
 
 ## 6. Sai lầm thường gặp
 
