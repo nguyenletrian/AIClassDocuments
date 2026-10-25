@@ -3,8 +3,8 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_10_REVIEWED_WAIT_CI",
-  "last_completed_batch": 9,
+  "status": "COMPLETED",
+  "last_completed_batch": 10,
   "batches": [
     {
       "batch": 1,
@@ -264,11 +264,11 @@
       "lessons": [
         "PY-46"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 143,
+      "merged_commit": "0be0ad1ccf340fbdea9fd54ecc6b876da645ce8b",
+      "ci_run": 40170021620,
       "branch": "chore/markdown-render-batch-10-20261025",
       "reviewed_lessons": [
         "PY-46"
@@ -280,7 +280,7 @@
         "malformed_table_rows": 0,
         "lesson_edits": 0
       },
-      "notes": "Full PY-46 markdown display audit: 711 lines, no visible pipe HTML entities, no unescaped table-cell pipes, no malformed table-row column counts. No lesson edits; preserve content, code, MCQ unchanged. Await CI PASS on final PR head before merge. Explicit Python goal stays APPROVED_DEFERRED until batch10 MERGED and ledger COMPLETED."
+      "notes": "PR #143 squash merged 0be0ad1ccf340fbdea9fd54ecc6b876da645ce8b. Final-head GitHub CI 40170021620 PASS on 176ad2a1543a1911b1e95911aa81c26c2e808e20. Full PY-46 audit (711 lines) found no visible HTML pipe entities, unescaped Markdown table code pipes or malformed tables; zero lesson edits. Goal Markdown completed 10/10 batches, 46/46 chapters; Windows worker verification not claimed. Owner-approved explicit Python readability goal may be activated only once no outstanding old tasks/PRs are confirmed."
     }
   ],
   "notes": "Separate formatting-only QA workstream. The previously completed 230-scenario/920-MCQ ledger remains unchanged. Never edit outside the current batch. Review full lesson but change only verified formatting errors, commit/CI/merge/record progress before next batch."
