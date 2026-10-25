@@ -3,8 +3,8 @@
   "owner_approved": true,
   "expected_lessons": 46,
   "expected_batches": 10,
-  "last_completed_batch": 9,
-  "status": "READY_FOR_BATCH_10",
+  "last_completed_batch": 10,
+  "status": "COMPLETED",
   "batch_limit": 5,
   "batches": [
     {
@@ -199,7 +199,17 @@
       "lessons": [
         "PY-46"
       ],
-      "status": "PENDING"
+      "status": "COMPLETED",
+      "pr_number": 174,
+      "merged_sha": "1ac083b1b14e4076df0128d211204c1fa9210f69",
+      "final_pr_head_sha": "b5696cb0b48c073650f8c1452f1fc86383338adc",
+      "ci_run_id": 40199916125,
+      "ci_conclusion": "SUCCESS",
+      "python_code_fences_annotated": 9,
+      "comments_added_net": 186,
+      "unchanged_executable_source": true,
+      "unchanged_outside_python_fences": true,
+      "windows_validation": "UNVERIFIED"
     }
   ],
   "preservation_rules": "Comments-only in executable Python fences, AST-equivalent statements, identical stdout and external lesson content incl 920 MCQs.",
