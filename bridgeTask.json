@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-no-note-comparison-copies-20261025",
-    "revision": "2026-10-25-no-note-46-lessons-batch02",
+    "revision": "2026-10-25-no-note-46-lessons-batch03",
     "title": "Thêm bản No Note ngay trước bản code có chú thích trong 46 bài",
-    "phase": "READY_FOR_BATCH_02",
+    "phase": "READY_FOR_BATCH_03",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-NO-NOTE-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-NO-NOTE-PROGRESS.json",
@@ -1201,17 +1201,17 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Owner-approved No Note goal active, Batch01 PY-01..PY-05 COMPLETED and merged PR #175 (7e7090ab2206a19aa2de8a71cb3c7abd279e2e8e), final PR HEAD 932ced08cdd26161812c73b632353530785d6a60 GitHub CI run #40201266169 SUCCESS. 45 paired Python fences, original five Markdown sources reconstructed identically and source AST preserved. Ledger completed 1/10, next Batch02 ONLY PY-06..PY-10. Read current main branch, complete ledger, owner-approved goal, style guide, bridge TaskSource and tests. Only one active batch, no pending PR/task or ACK; add No Note before each executable snippet, original annotated fences byte-identical, no copied result/text/MCQ material. Adapt tests/test_curriculum_batch_02_scenarios.py to expect two fences and execute annotated code once with exact stdout; include No Note regression tests already in CI. Commit each lesson once, final-head PR CI success before merge, record PR SHA CI and 5-lesson pair count, then rearm Batch03 only. Windows/CDP ownership remains UNVERIFIED.",
-    "review_hold": "Batch01 completed, 45 pairs merged. Next work is strictly Batch02 PY-06..PY-10. No duplicate actions for previous five lessons; informational heartbeat is not a second approval.",
-    "active_batch": 2,
+    "next_review": "Owner-approved No Note goal active, Batch02 PY-06..PY-10 COMPLETED and merged PR #176 (609ee12762a92509e02d93c4cf0ad98b67f2f59a), final PR HEAD 7596fa223e659fd2364648b3f0cd7a1fc7a11d61 GitHub CI #40201909291 SUCCESS. 48 code pairs merged, original content reconstructed unchanged, scenario stdout tested. Ledger completed 2/10, total 93 pairs. Next approved batch ONLY PY-11..PY-15. Read current main TaskSource, ledger, goal spec, guide, lessons, tests; no outstanding PR or task/ACK. Add one No Note before each original executable code fence, preserve annotated source byte-for-byte and all output/MCQ/prose; update Batch03 scenario test to expect two fences and execute annotated copy once, do not weaken exact stdout. One commit per lesson and one PR per batch, final HEAD GitHub CI SUCCESS before merge and durable ledger; rearm only Batch04 thereafter. CDP 9224 identity and Windows/PowerShell tests remain UNVERIFIED.",
+    "review_hold": "Batch01 and Batch02 completed, 93 pairs merged. Next work strictly PY-11..PY-15 as Batch03; do not replay earlier lessons or duplicate informational heartbeat.",
+    "active_batch": 3,
     "active_lessons": [
-      "PY-06",
-      "PY-07",
-      "PY-08",
-      "PY-09",
-      "PY-10"
+      "PY-11",
+      "PY-12",
+      "PY-13",
+      "PY-14",
+      "PY-15"
     ],
-    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_5; active only PY-06..PY-10; continue only after preceding Batch01 ledger COMPLETED, final-head CI SUCCESS, zero outstanding PR/tasks; do not overlap with Batch03."
+    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_5; active only PY-11..PY-15, previous Batch02 complete PR176 final-head CI SUCCESS and ledger 2/10; avoid overlapping Batch04."
   },
   "goal_review_history": [
     {
@@ -1341,6 +1341,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "No Note Batch01 merged PR175 and progress ledger recorded; approved Batch02 PY-06..PY-10 may resume from an idle goal review without duplicate tasks."
+    "reason": "No Note Batch02 merged PR176; ledger 2/10 completed, Batch03 PY-11..PY-15 dependency-ready, no pending PR/task/ACK."
   }
 }
