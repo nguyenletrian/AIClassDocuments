@@ -74,7 +74,10 @@ class ExplicitPythonStyleTests(unittest.TestCase):
                     r"^\x60\x60\x60python\n(.*?)^\x60\x60\x60$",
                     content, flags=re.MULTILINE | re.DOTALL,
                 )
-                self.assertGreaterEqual(len(snippets), 9, chapter_id)
+                # PY-43 teaches Git primarily through shell fences; it has five
+                # complete executable Python Git integration examples.
+                expected = 5 if chapter_id == "PY-43" else 9
+                self.assertGreaterEqual(len(snippets), expected, chapter_id)
                 for index, code in enumerate(snippets, 1):
                     with self.subTest(chapter=chapter_id, snippet=index):
                         self.assertEqual(
