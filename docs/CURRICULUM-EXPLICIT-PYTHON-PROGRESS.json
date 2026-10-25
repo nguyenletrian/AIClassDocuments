@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_02",
+  "status": "BATCH_02_IN_PROGRESS",
   "last_completed_batch": 1,
   "batches": [
     {
@@ -45,11 +45,26 @@
         "PY-09",
         "PY-10"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-06",
+        "PY-07",
+        "PY-08",
+        "PY-09",
+        "PY-10"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-02-20261025",
+      "lesson_commits": {
+        "PY-06": "4b5ae948742631e509299d12e928511f48f2ab17",
+        "PY-07": "5bac305a9bc553666687392a278a0d888d6a9d29",
+        "PY-08": "df2284e787d65148f64934e80a1afb638425b7a6",
+        "PY-09": "479c1768f42f9bf9686578a452048117e2929261",
+        "PY-10": "4981a8cd723b9b90afb2f9e5df8a1eefac7b6c3d"
+      },
+      "notes": "5 lessons committed separately on batch02 branch: explicit for loops, named accumulators and if/raise instead of assert, list/set/dict comprehensions, genexprs, inline conditionals; lesson structure, 25 scenarios, MCQs and expected stdout preserved pending execution CI. Python AST test checks all active/reviewed batches. Do not mark MERGED or Windows PASS before evidence."
     },
     {
       "batch": 3,

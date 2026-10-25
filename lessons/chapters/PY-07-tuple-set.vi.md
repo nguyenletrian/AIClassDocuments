@@ -155,8 +155,12 @@ Kết quả là một **List đã sắp xếp**, gồm hai kỹ năng cần họ
 ```python
 positions = [(3,4),(0,2),(5,0),(1,1),(2,3),(4,1),(6,0),(1,4),(2,2),(5,5)]
 first_x, first_y = positions[0]
-far_count = sum(x*x + y*y >= 25 for x, y in positions)
-assert len(positions) == 10
+far_count = 0
+for x, y in positions:
+    if x*x + y*y >= 25:
+        far_count += 1
+if len(positions) != 10:
+    raise ValueError("Cần đủ 10 vị trí robot.")
 print("Số vị trí:", len(positions))
 print("Điểm đầu:", first_x, first_y)
 print("Điểm xa:", far_count)
@@ -187,9 +191,12 @@ Mỗi tuple là một điểm đo có hai thành phần. Số 25 mang đơn vị
 
 ```python
 raw = ["Lan@EXAMPLE.invalid","an@example.invalid"," LAN@example.invalid ","binh@example.invalid","chi@example.invalid","An@Example.INVALID","dung@example.invalid","ha@example.invalid","Minh@example.invalid","lan@example.invalid","trang@example.invalid","ha@example.invalid"]
-normalized = [email.strip().lower() for email in raw]
+normalized = []
+for email in raw:
+    normalized.append(email.strip().lower())
 unique = set(normalized)
-assert len(raw) == 12
+if len(raw) != 12:
+    raise ValueError("Cần đủ 12 dòng email đầu vào.")
 print("Dòng nhận:", len(raw))
 print("Email duy nhất:", len(unique))
 print("Bản ghi trùng:", len(raw) - len(unique))
@@ -220,11 +227,17 @@ Tên miền `.invalid` chỉ dành cho dữ liệu minh họa. Không dùng số
 
 ```python
 registrations = [("SV01","Python"),("SV02","Python"),("SV03","AI"),("SV01","AI"),("SV04","Python"),("SV05","AI"),("SV06","Python"),("SV07","AI"),("SV02","AI"),("SV08","Python"),("SV09","Python"),("SV10","AI"),("SV03","Python"),("SV11","Python"),("SV12","AI")]
-python_students = {student for student, subject in registrations if subject == "Python"}
-ai_students = {student for student, subject in registrations if subject == "AI"}
+python_students = set()
+ai_students = set()
+for student, subject in registrations:
+    if subject == "Python":
+        python_students.add(student)
+    if subject == "AI":
+        ai_students.add(student)
 both = sorted(python_students & ai_students)
 all_students = python_students | ai_students
-assert len(registrations) == 15
+if len(registrations) != 15:
+    raise ValueError("Cần đúng 15 lượt đăng ký hai môn.")
 print("Lượt đăng ký:", len(registrations))
 print("Học cả hai:", ", ".join(both))
 print("Học viên khác nhau:", len(all_students))
@@ -255,10 +268,19 @@ Cùng một mã xuất hiện hai lần là hai lượt đăng ký hợp lệ, k
 
 ```python
 registrations = [("U01","A"),("U02","A"),("U03","B"),("U04","A"),("U05","B"),("U06","A"),("U07","B"),("U08","A"),("U09","A"),("U10","B"),("U02","B"),("U04","B"),("U11","A"),("U12","B"),(None,"B"),("U13","A"),("U14","B"),("U10","A")]
-valid = [(code, group) for code, group in registrations if code is not None]
-a = {code for code, group in valid if group == "A"}
-b = {code for code, group in valid if group == "B"}
-assert len(registrations) == 18
+valid = []
+a = set()
+b = set()
+for code, group in registrations:
+    if code is None:
+        continue
+    valid.append((code, group))
+    if group == "A":
+        a.add(code)
+    if group == "B":
+        b.add(code)
+if len(registrations) != 18:
+    raise ValueError("Cần đúng 18 lượt tham gia nhóm.")
 print("Lượt ghi:", len(registrations))
 print("Thiếu ID:", len(registrations) - len(valid))
 print("Chỉ nhóm A:", ", ".join(sorted(a - b)))
@@ -292,13 +314,28 @@ Không gộp hai lượt của cùng người thành một lỗi: cùng ID ở A
 ```python
 records = [("S01","Python"),("S01","SQL"),("S01","AI"),("S02","Python"),("S02","SQL"),("S03","AI"),("S03","SQL"),("S04","Python"),("S04","AI"),("S05","Python"),("S05","SQL"),("S05","AI"),("S06","Python"),("S06","Python"),("S06",None),("S07","SQL"),("S07","AI"),("S08","Python"),("S08","SQL"),("S08","AI")]
 required = {"Python", "SQL", "AI"}
-valid = [(student, skill) for student, skill in records if skill is not None]
+valid = []
+all_student_codes = set()
+for student, skill in records:
+    all_student_codes.add(student)
+    if skill is not None:
+        valid.append((student, skill))
 unique_pairs = set(valid)
-all_students = sorted({student for student, skill in records})
-completed = [student for student in all_students
-             if not (required - {skill for user, skill in unique_pairs if user == student})]
-missing_s06 = required - {skill for user, skill in unique_pairs if user == "S06"}
-assert len(records) == 20
+all_students = sorted(all_student_codes)
+completed = []
+missing_s06 = set()
+for student in all_students:
+    learned = set()
+    for user, skill in unique_pairs:
+        if user == student:
+            learned.add(skill)
+    remaining = required - learned
+    if not remaining:
+        completed.append(student)
+    if student == "S06":
+        missing_s06 = remaining
+if len(records) != 20:
+    raise ValueError("Cần kiểm tra đủ 20 lượt kỹ năng.")
 print("Lượt ghi:", len(records))
 print("Thiếu kỹ năng:", len(records) - len(valid))
 print("Lượt trùng:", len(valid) - len(unique_pairs))

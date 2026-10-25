@@ -155,7 +155,8 @@ Danh sách kết quả được sắp theo điểm giảm dần. Các điểm s�
 basket = ["Gạo", "Sữa", "Trứng", "Dầu", "Muối", "Đường", "Mì", "Cam", "Bơ", "Táo"]
 before = len(basket)
 basket.append("Bánh")
-assert before == 10 and len(basket) == before + 1
+if before != 10 or len(basket) != before + 1:
+    raise ValueError("Danh sách phải bắt đầu với 10 món và tăng đúng một món.")
 print("Ban đầu:", before)
 print("Sau thêm:", len(basket))
 print("Món cuối:", basket[-1])
@@ -186,11 +187,17 @@ Món cuối: Bánh
 
 ```python
 priorities = [4,9,7,9,3,8,6,10,2,10,5,8]
-ranked = [(-score, position, f"T{position:02d}") for position, score in enumerate(priorities, 1)]
+ranked = []
+for position, score in enumerate(priorities, 1):
+    ranked.append((-score, position, f"T{position:02d}"))
 ranked = sorted(ranked)
-top_three = [row[2] for row in ranked[:3]]
-assert len(priorities) == 12
-assert priorities[0] == 4
+top_three = []
+for row in ranked[:3]:
+    top_three.append(row[2])
+if len(priorities) != 12:
+    raise ValueError("Cần đủ 12 phiếu ưu tiên.")
+if priorities[0] != 4:
+    raise ValueError("Danh sách gốc đã bị thay đổi ở phiếu T01.")
 print("Phiếu:", len(priorities))
 print("Ba phiếu trước:", ", ".join(top_three))
 print("Điểm gốc T01:", priorities[0])
@@ -212,7 +219,7 @@ Dùng chỉ số gốc để phân xử hòa điểm giúp kết quả ổn đ�
 
 **Tình huống thực tế:** Trung tâm có **15 học viên** H01…H15 với điểm cuối kỳ theo thứ tự, thang 10. Điểm từ **5** được tính là đạt. Giáo viên cần danh sách mã đạt, số học viên chưa đạt và ba mã đầu tiên trong nhóm chưa đạt để sắp lịch hỗ trợ.
 
-**Vì sao chọn cách này?** List comprehension tạo danh sách từ từng cặp vị trí–điểm; một phép lọc cho nhóm đạt, phép lọc khác cho nhóm chưa đạt. Cắt `[:3]` giới hạn số người cần gọi trước mà vẫn giữ thứ tự lớp.
+**Vì sao chọn cách này?** Vòng `for` đọc từng cặp vị trí–điểm; câu lệnh `if` tách nhóm đạt và nhóm chưa đạt. Viết tường minh giúp học viên nhìn thấy cách mỗi phần tử được thêm vào list. Cắt `[:3]` giới hạn số người cần gọi trước mà vẫn giữ thứ tự lớp.
 
 **Quy trình:**
 1. Dùng `enumerate(..., 1)` để liên kết điểm với mã học viên.
@@ -221,10 +228,18 @@ Dùng chỉ số gốc để phân xử hòa điểm giúp kết quả ổn đ�
 
 ```python
 grades = [4.5,7,8,3,9,5,7.5,4,6.5,10,8,2,7,5.5,9.5]
-passed = [f"H{i:02d}" for i, grade in enumerate(grades, 1) if grade >= 5]
-needs_help = [f"H{i:02d}" for i, grade in enumerate(grades, 1) if grade < 5]
-assert len(grades) == 15
-assert len(passed) + len(needs_help) == 15
+passed = []
+needs_help = []
+for i, grade in enumerate(grades, 1):
+    student_code = f"H{i:02d}"
+    if grade >= 5:
+        passed.append(student_code)
+    else:
+        needs_help.append(student_code)
+if len(grades) != 15:
+    raise ValueError("Cần đủ 15 điểm học viên.")
+if len(passed) + len(needs_help) != 15:
+    raise ValueError("Hai nhóm điểm phải bao phủ đủ 15 học viên.")
 print("Số học viên:", len(grades))
 print("Đạt:", len(passed))
 print("Cần hỗ trợ:", len(needs_help))
@@ -260,9 +275,14 @@ original = [8,6,9,5,11,4,12,7,3,10,6,9,8,5,7,4,0,None]
 updated = original.copy()
 updated[1] = 4  # K02
 updated[7] = 5  # K08
-missing = [f"K{i:02d}" for i, value in enumerate(updated, 1) if value is None]
-assert len(original) == len(updated) == 18
-assert original[1] == 6 and original[7] == 7
+missing = []
+for i, value in enumerate(updated, 1):
+    if value is None:
+        missing.append(f"K{i:02d}")
+if len(original) != 18 or len(updated) != 18:
+    raise ValueError("Cần đủ 18 mục tồn kho trong cả hai danh sách.")
+if original[1] != 6 or original[7] != 7:
+    raise ValueError("Sổ kiểm kê gốc không được thay đổi.")
 print("SKU:", len(updated))
 print("K02 cũ/mới:", original[1], updated[1])
 print("K08 cũ/mới:", original[7], updated[7])
@@ -295,14 +315,24 @@ Chưa kiểm kê: K18
 
 ```python
 priorities = [3,1,2,3,2,1,3,2,1,3,2,None,1,3,2,1,3,2,1,2]
-queue = [(f"R{i:02d}", value) for i, value in enumerate(priorities, 1)]
-missing = [code for code, level in queue if level is None]
-ready = [(-level, arrival, code) for arrival, (code, level) in enumerate(queue)
-         if level is not None]
+queue = []
+for i, value in enumerate(priorities, 1):
+    queue.append((f"R{i:02d}", value))
+missing = []
+ready = []
+for arrival, (code, level) in enumerate(queue):
+    if level is None:
+        missing.append(code)
+    else:
+        ready.append((-level, arrival, code))
 ready.sort()
-next_five = [code for neg_level, arrival, code in ready[:5]]
-assert len(queue) == 20
-assert len(ready) + len(missing) == 20
+next_five = []
+for neg_level, arrival, code in ready[:5]:
+    next_five.append(code)
+if len(queue) != 20:
+    raise ValueError("Cần đủ 20 phiếu hỗ trợ.")
+if len(ready) + len(missing) != 20:
+    raise ValueError("Các phiếu sẵn sàng và thiếu điểm phải đủ 20.")
 print("Tổng phiếu:", len(queue))
 print("Sẵn sàng:", len(ready))
 print("Thiếu ưu tiên:", ", ".join(missing))

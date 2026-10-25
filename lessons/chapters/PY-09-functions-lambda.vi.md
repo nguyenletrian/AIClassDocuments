@@ -166,8 +166,11 @@ Số 105 là tổng giá và phí, đơn vị nghìn đồng. Biến `fee` ở t
 prices_vnd = [50000,72000,90000,110000,85000,60000,95000,120000,140000,100000]
 def with_tax(price, rate=0.10):
     return round(price * (1 + rate))
-prices_after_tax = [with_tax(price) for price in prices_vnd]
-assert len(prices_after_tax) == 10
+prices_after_tax = []
+for price in prices_vnd:
+    prices_after_tax.append(with_tax(price))
+if len(prices_after_tax) != 10:
+    raise ValueError("Cần tính thuế đủ 10 đơn giá.")
 print("Mặt hàng:", len(prices_vnd))
 print("Giá món đầu:", prices_after_tax[0])
 print("Tổng tiền (đồng):", sum(prices_after_tax))
@@ -199,10 +202,15 @@ Hàm trả về số, không tự in ra; có thể dùng tiếp trong các phép
 ```python
 students = [{"name":"An","score":8},{"name":"Bình","score":9},{"name":"Chi","score":7},{"name":"Dung","score":9},{"name":"Hà","score":6},{"name":"Khánh","score":10},{"name":"Lan","score":8},{"name":"Minh","score":9},{"name":"Nam","score":5},{"name":"Trang","score":10},{"name":"Vy","score":7},{"name":"Yến","score":9}]
 ranked = sorted(students, key=lambda item: item["score"], reverse=True)
-assert len(students) == 12
-assert students[0]["name"] == "An"
+if len(students) != 12:
+    raise ValueError("Cần đủ 12 hồ sơ đăng ký.")
+if students[0]["name"] != "An":
+    raise ValueError("Danh sách gốc không được đổi thứ tự nộp.")
 print("Học viên:", len(students))
-print("Phỏng vấn trước:", ", ".join(student["name"] for student in ranked[:4]))
+interview_names = []
+for student in ranked[:4]:
+    interview_names.append(student["name"])
+print("Phỏng vấn trước:", ", ".join(interview_names))
 print("Nguồn đầu:", students[0]["name"])
 ```
 
@@ -236,9 +244,15 @@ def valid_score(value):
 
 def passed(value):
     return valid_score(value) and value >= 5
-valid = [score for score in scores if valid_score(score)]
-passed_scores = [score for score in scores if passed(score)]
-assert len(scores) == 15
+valid = []
+passed_scores = []
+for score in scores:
+    if valid_score(score):
+        valid.append(score)
+        if passed(score):
+            passed_scores.append(score)
+if len(scores) != 15:
+    raise ValueError("Cần kiểm tra đủ 15 kết quả điểm.")
 print("Lượt nhận:", len(scores))
 print("Hợp lệ:", len(valid))
 print("Đạt:", len(passed_scores))
@@ -280,11 +294,15 @@ def summarize(values):
         else:
             accepted.append(amount)
     total = sum(accepted)
-    average = total / len(accepted) if accepted else None
+    if accepted:
+        average = total / len(accepted)
+    else:
+        average = None
     return len(accepted), total, average, bad_ids
 
 count, total, average, errors = summarize(amounts)
-assert len(amounts) == 18
+if len(amounts) != 18:
+    raise ValueError("Cần đủ 18 giao dịch để thống kê.")
 print("Giao dịch:", len(amounts))
 print("Hợp lệ:", count)
 print("Tổng (nghìn đồng):", total)
@@ -336,8 +354,10 @@ def report(items):
     return totals, invalid
 
 totals, invalid = report(orders)
-assert len(orders) == 20
-assert len(orders) - len(invalid) == 18
+if len(orders) != 20:
+    raise ValueError("Cần đủ 20 hóa đơn.")
+if len(orders) - len(invalid) != 18:
+    raise ValueError("Số hóa đơn hợp lệ phải bằng 18.")
 print("Số hóa đơn:", len(orders))
 print("Hợp lệ:", len(orders) - len(invalid))
 print("Cần sửa:", ", ".join(invalid))

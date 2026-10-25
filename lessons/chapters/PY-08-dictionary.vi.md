@@ -139,11 +139,16 @@ Kết quả `200` là số tiền của đơn O2 (đơn vị tiền theo quy đ�
 
 ```python
 orders = {"O01":"paid","O02":"pending","O03":"paid","O04":"cancelled","O05":"pending","O06":"paid","O07":"pending","O08":"paid","O09":"cancelled","O10":"paid"}
-assert len(orders) == 10
+if len(orders) != 10:
+    raise ValueError("Cần đủ 10 đơn hàng.")
 print("Số đơn:", len(orders))
 print("O04:", orders.get("O04", "Not found"))
 print("O11:", orders.get("O11", "Not found"))
-print("Đã trả:", sum(value == "paid" for value in orders.values()))
+paid_count = 0
+for value in orders.values():
+    if value == "paid":
+        paid_count += 1
+print("Đã trả:", paid_count)
 ```
 
 **Kết quả khi chạy:**
@@ -173,12 +178,17 @@ O11 không có khóa trong bảng, nên `Not found` là thông báo tra cứu, k
 ```python
 starting = [10,8,12,5,20,9,13,6,7,11,14,4]
 sold = [2,1,3,0,4,1,2,2,1,3,4,0]
-stock = {f"P{i:02d}": amount for i, amount in enumerate(starting, 1)}
+stock = {}
+for i, amount in enumerate(starting, 1):
+    sku = f"P{i:02d}"
+    stock[sku] = amount
 for i, quantity in enumerate(sold, 1):
     sku = f"P{i:02d}"
-    assert quantity <= stock[sku]
+    if quantity > stock[sku]:
+        raise ValueError(f"SKU {sku}: số bán vượt quá tồn kho.")
     stock[sku] -= quantity
-assert len(stock) == 12
+if len(stock) != 12:
+    raise ValueError("Cần đủ 12 mã sản phẩm trong kho.")
 print("SKU:", len(stock))
 print("Tồn tổng:", sum(stock.values()))
 print("P05 còn:", stock["P05"])
@@ -212,11 +222,20 @@ labels = ["AI","Python","SQL","AI","Math","Python","AI","SQL","Python","Math","S
 counts = {}
 for label in labels:
     counts[label] = counts.get(label, 0) + 1
-ranking = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
-assert len(labels) == 15 and sum(counts.values()) == 15
+def ranking_key(item):
+    return (-item[1], item[0])
+ranking = sorted(counts.items(), key=ranking_key)
+if len(labels) != 15 or sum(counts.values()) != 15:
+    raise ValueError("Cần đối chiếu đủ 15 nhãn được đếm.")
 print("Lượt:", len(labels))
-print("Đếm:", ", ".join(f"{name}={counts[name]}" for name in sorted(counts)))
-print("Top 2:", ", ".join(name for name, count in ranking[:2]))
+count_labels = []
+for name in sorted(counts):
+    count_labels.append(f"{name}={counts[name]}")
+top_names = []
+for name, count in ranking[:2]:
+    top_names.append(name)
+print("Đếm:", ", ".join(count_labels))
+print("Top 2:", ", ".join(top_names))
 ```
 
 **Kết quả khi chạy:**
@@ -244,8 +263,10 @@ Mỗi nhãn là một khóa. Việc có hai nhãn cùng tần suất chỉ ảnh
 
 ```python
 scores = [8,7,9,None,6.5,10,4,7.5,8.5,9,5,6,8,11,7,None,4.5,9]
-students = {f"S{i:02d}": {"name": f"Học viên {i:02d}", "score": value}
-            for i, value in enumerate(scores, 1)}
+students = {}
+for i, value in enumerate(scores, 1):
+    student_code = f"S{i:02d}"
+    students[student_code] = {"name": f"Học viên {i:02d}", "score": value}
 valid, missing, invalid = [], [], []
 for code, info in students.items():
     score = info["score"]
@@ -255,7 +276,8 @@ for code, info in students.items():
         invalid.append(code)
     else:
         valid.append(code)
-assert len(students) == len(valid) + len(missing) + len(invalid) == 18
+if len(students) != 18 or len(valid) + len(missing) + len(invalid) != 18:
+    raise ValueError("Cần phân loại đủ 18 hồ sơ học viên.")
 print("Hồ sơ:", len(students))
 print("Hợp lệ:", len(valid))
 print("Thiếu:", ", ".join(missing))
@@ -298,11 +320,18 @@ for index, (sku, action, quantity) in enumerate(events, 1):
         stock[sku] -= quantity
     else:
         rejected.append(index)
-assert len(events) == 20
+if len(events) != 20:
+    raise ValueError("Cần kiểm tra đủ 20 giao dịch kho.")
 print("Giao dịch:", len(events))
 print("Đã nhận:", len(events) - len(rejected))
-print("Từ chối lượt:", ", ".join(str(i) for i in rejected))
-print("Tồn cuối:", ", ".join(f"{sku}={stock[sku]}" for sku in sorted(stock)))
+rejected_labels = []
+for index in rejected:
+    rejected_labels.append(str(index))
+stock_labels = []
+for sku in sorted(stock):
+    stock_labels.append(f"{sku}={stock[sku]}")
+print("Từ chối lượt:", ", ".join(rejected_labels))
+print("Tồn cuối:", ", ".join(stock_labels))
 ```
 
 **Kết quả khi chạy:**

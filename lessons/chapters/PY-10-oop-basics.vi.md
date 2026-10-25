@@ -164,8 +164,11 @@ class Student:
         self.code = code
         self.score = score
 
-students = [Student(f"S{i:02d}", score) for i, score in enumerate(scores, 1)]
-assert len(students) == 10
+students = []
+for i, score in enumerate(scores, 1):
+    students.append(Student(f"S{i:02d}", score))
+if len(students) != 10:
+    raise ValueError("Cần tạo đủ 10 đối tượng học viên.")
 print("Học viên:", len(students))
 print("S01:", students[0].score)
 print("S10:", students[-1].score)
@@ -207,8 +210,10 @@ class Cart:
 cart = Cart()
 for price in prices:
     cart.add(price)
-assert len(cart.prices) == 12
-assert Cart().total() == 0
+if len(cart.prices) != 12:
+    raise ValueError("Giỏ hàng phải chứa đủ 12 món.")
+if Cart().total() != 0:
+    raise ValueError("Giỏ hàng mới phải rỗng, không chia sẻ danh sách cũ.")
 print("Mặt hàng:", len(cart.prices))
 print("Tổng (nghìn đồng):", cart.total())
 print("Giỏ mới (nghìn đồng):", Cart().total())
@@ -258,9 +263,14 @@ for index, score in enumerate(raw_scores, 1):
     except ValueError:
         errors.append(record.code)
     records.append(record)
-assert len(records) == 15
+if len(records) != 15:
+    raise ValueError("Cần lưu đủ 15 hồ sơ.")
 print("Hồ sơ:", len(records))
-print("Đã lưu điểm:", sum(rec.get_score() is not None for rec in records))
+saved_count = 0
+for rec in records:
+    if rec.get_score() is not None:
+        saved_count += 1
+print("Đã lưu điểm:", saved_count)
 print("Sai:", ", ".join(errors))
 ```
 
@@ -295,17 +305,31 @@ class Invoice:
     def is_ready(self):
         return isinstance(self.amount, (int, float)) and self.amount >= 0
     def __str__(self):
-        value = f"{self.amount:,} đồng" if self.is_ready() else "Chưa có số tiền"
+        if self.is_ready():
+            value = f"{self.amount:,} đồng"
+        else:
+            value = "Chưa có số tiền"
         return f"{self.code}: {value}"
 
-invoices = [Invoice(f"O{i:02d}", amount) for i, amount in enumerate(amounts, 1)]
-ready = [order for order in invoices if order.is_ready()]
-missing = [order.code for order in invoices if not order.is_ready()]
-assert len(invoices) == 18
+invoices = []
+for i, amount in enumerate(amounts, 1):
+    invoices.append(Invoice(f"O{i:02d}", amount))
+ready = []
+missing = []
+for order in invoices:
+    if order.is_ready():
+        ready.append(order)
+    else:
+        missing.append(order.code)
+if len(invoices) != 18:
+    raise ValueError("Cần đủ 18 hóa đơn.")
 print("Số hóa đơn:", len(invoices))
 print("Sẵn sàng:", len(ready))
 print("Thiếu:", ", ".join(missing))
-print("Tổng (đồng):", sum(order.amount for order in ready))
+total_amount = 0
+for order in ready:
+    total_amount += order.amount
+print("Tổng (đồng):", total_amount)
 print("Mẫu:", str(invoices[0]))
 ```
 
@@ -346,17 +370,25 @@ class StockItem:
         self.quantity -= requested
         return True
 
-items = {code: StockItem(code, qty) for code, qty in initial.items()}
+items = {}
+for code, qty in initial.items():
+    items[code] = StockItem(code, qty)
 rejected = []
 for index, (code, requested) in enumerate(requests, 1):
     if not items[code].reserve(requested):
         rejected.append(f"T{index:02d}")
-assert len(requests) == 20
-assert all(item.quantity >= 0 for item in items.values())
+if len(requests) != 20:
+    raise ValueError("Cần xử lý đủ 20 yêu cầu xuất kho.")
+for item in items.values():
+    if item.quantity < 0:
+        raise ValueError("Tồn kho của sản phẩm không được âm.")
 print("Yêu cầu:", len(requests))
 print("Chấp nhận:", len(requests) - len(rejected))
 print("Từ chối:", ", ".join(rejected))
-print("Tồn cuối:", ", ".join(f"{code}={items[code].quantity}" for code in sorted(items)))
+stock_labels = []
+for code in sorted(items):
+    stock_labels.append(f"{code}={items[code].quantity}")
+print("Tồn cuối:", ", ".join(stock_labels))
 ```
 
 **Kết quả khi chạy:**
