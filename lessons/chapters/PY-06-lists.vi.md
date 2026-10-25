@@ -42,8 +42,10 @@ Một cửa hàng cần ghi các món trong giỏ theo đúng thứ tự khách 
 List giữ các phần tử theo thứ tự, và mỗi phần tử có thể là tên món hàng, số hoặc một kiểu dữ liệu khác. Giỏ hàng ban đầu gồm `milk` (sữa) và `bread` (bánh mì); ta đặt cả hai vào biến `basket` để xử lý cùng nhau. Dùng dấu `[]` để tạo danh sách, dấu phẩy ngăn cách các phần tử.
 
 ```python
-# Mục đích: Danh sách.
+# Mục đích: Tạo list giỏ hàng lưu nhiều món theo thứ tự.
+# Dữ liệu: List giữ hai chuỗi tên món, có thứ tự và có thể sửa.
 basket = ['milk', 'bread']
+# print() in toàn bộ list theo thứ tự và dạng ngoặc vuông.
 print(basket)
 ```
 
@@ -62,8 +64,10 @@ Danh sách có hai phần tử theo thứ tự sữa trước, bánh mì sau. Kh
 Khi biết món cần lấy nằm ở vị trí nào, ta dùng **chỉ số**. Python bắt đầu đếm từ `0`: với `['milk', 'bread']`, `basket[0]` là `milk`, còn `basket[1]` là `bread`; `basket[-1]` cũng chỉ phần tử cuối. Chỉ số nằm ngoài giới hạn danh sách sẽ gây `IndexError`.
 
 ```python
-# Mục đích: Vị trí phần tử.
+# Mục đích: Truy cập phần tử đầu tiên của list bằng chỉ số.
+# Dữ liệu: Hai món đứng ở vị trí 0 và 1.
 basket = ['milk', 'bread']
+# [0] lấy phần tử đầu tiên vì chỉ số list bắt đầu từ 0.
 print(basket[0])
 ```
 
@@ -82,8 +86,10 @@ Chỉ số `0` lấy đúng món sữa ở vị trí đầu tiên, không phải
 Nếu giỏ có ba món `milk`, `bread`, `rice` và chỉ muốn lấy hai món đầu, ta dùng `basket[:2]`. Với lát cắt `[start:stop]`, vị trí `start` được lấy, còn `stop` **không được lấy**. Bỏ trống `start` nghĩa là bắt đầu từ đầu danh sách. Lát cắt tạo list mới, không xóa phần tử khỏi giỏ gốc.
 
 ```python
-# Mục đích: Lấy một đoạn danh sách.
+# Mục đích: Lấy một lát cắt gồm hai món đầu danh sách.
+# Dữ liệu: Ba món trong list, thao tác cắt không làm thay đổi list.
 basket = ['milk', 'bread', 'rice']
+# [:2] lấy phần tử vị trí 0 và 1, loại trừ cận phải 2; tạo list mới.
 print(basket[:2])
 ```
 
@@ -102,8 +108,10 @@ Kết quả gồm sữa và bánh mì; `rice` ở chỉ số `2` nằm ngoài đ
 Khác với tuple ở bài kế tiếp, **List là kiểu có thể sửa** sau khi tạo. Nếu cửa hàng đổi món thứ hai từ `bread` thành `rice`, ta gán trực tiếp `basket[1] = 'rice'`. Danh sách vẫn có hai phần tử, chỉ giá trị tại vị trí 1 được thay. Muốn thêm món mới vào cuối thì dùng `append()`, không phải phép gán này.
 
 ```python
-# Mục đích: Thay đổi nội dung danh sách.
+# Mục đích: Thay đổi món ở vị trí thứ hai trong list.
+# Dữ liệu: Thay món thứ hai của hai món có sẵn.
 basket = ['milk', 'bread']
+# [1] là món thứ hai; phép gán thay món này trực tiếp trong list gốc.
 basket[1] = 'rice'
 print(basket)
 ```
@@ -122,8 +130,10 @@ Món thứ hai đổi thành gạo; món sữa đầu tiên vẫn giữ nguyên.
 Khi có điểm ưu tiên `[7, 9, 4]`, ta thường muốn xem điểm cao trước. Hàm `sorted(scores, reverse=True)` tạo **List mới** theo thứ tự giảm dần; `reverse=False` (mặc định) cho thứ tự tăng dần. List ban đầu không bị sửa bởi `sorted()`, khác với phương thức `scores.sort()` vốn sắp xếp trực tiếp List gốc. Với ví dụ này, điểm 9 đứng đầu, rồi 7 và 4.
 
 ```python
-# Mục đích: Sắp xếp List.
+# Mục đích: Tạo danh sách điểm xếp giảm dần mà giữ list gốc.
+# Dữ liệu: Ba điểm cần xếp cao xuống thấp.
 scores = [7, 9, 4]
+# sorted() tạo list mới, không đổi scores; reverse=True xếp từ điểm lớn xuống nhỏ.
 ranked = sorted(scores, reverse=True)
 print(ranked)
 ```
@@ -152,13 +162,21 @@ Danh sách kết quả được sắp theo điểm giảm dần. Các điểm s�
 3. Đối chiếu độ dài tăng đúng một và đọc phần tử cuối.
 
 ```python
+# Mục đích: Thêm món mới vào giỏ có 10 món và kiểm số lượng.
+# Dữ liệu: 10 món hàng, mỗi phần tử là tên một món.
 basket = ["Gạo", "Sữa", "Trứng", "Dầu", "Muối", "Đường", "Mì", "Cam", "Bơ", "Táo"]
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 before = len(basket)
+# append() thêm một món vào cuối list gốc.
 basket.append("Bánh")
+# Kiểm tra số phần tử đã tăng đúng một sau thao tác append().
 if before != 10 or len(basket) != before + 1:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Danh sách phải bắt đầu với 10 món và tăng đúng một món.")
 print("Ban đầu:", before)
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Sau thêm:", len(basket))
+# [-1] lấy món cuối cùng mới thêm.
 print("Món cuối:", basket[-1])
 ```
 
@@ -186,20 +204,34 @@ Món cuối: Bánh
 3. Lấy ba phiếu đầu; kiểm tra list điểm nguồn vẫn giữ thứ tự.
 
 ```python
+# Mục đích: Xếp 12 phiếu theo điểm ưu tiên giảm dần và thứ tự đến.
+# Dữ liệu: 12 phiếu có điểm ưu tiên; nếu bằng điểm, phiếu đến trước xếp trước.
 priorities = [4,9,7,9,3,8,6,10,2,10,5,8]
 ranked = []
+# enumerate(...,1) ghép điểm với thứ tự phiếu từ 1.
 for position, score in enumerate(priorities, 1):
+    # Tuple (-score, position, mã): dấu âm làm điểm cao được xếp trước khi sort tăng; position phá hòa ưu tiên đến trước.
     ranked.append((-score, position, f"T{position:02d}"))
+# sorted() so từng phần tử tuple theo thứ tự từ trái sang phải; không chỉnh list nguồn priorities.
 ranked = sorted(ranked)
 top_three = []
+# [:3] lấy ba tuple đứng đầu, không bao gồm vị trí 3.
 for row in ranked[:3]:
+    # [2] đọc mã phiếu (trường thứ ba) trong tuple đã xếp.
     top_three.append(row[2])
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(priorities) != 12:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần đủ 12 phiếu ưu tiên.")
+# [0] xác minh điểm đầu danh sách gốc không bị sắp lại.
 if priorities[0] != 4:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Danh sách gốc đã bị thay đổi ở phiếu T01.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Phiếu:", len(priorities))
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Ba phiếu trước:", ", ".join(top_three))
+# [0] xác minh điểm đầu danh sách gốc không bị sắp lại.
 print("Điểm gốc T01:", priorities[0])
 ```
 
@@ -227,22 +259,37 @@ Dùng chỉ số gốc để phân xử hòa điểm giúp kết quả ổn đ�
 3. In số lượng, ba mã cần hỗ trợ và kiểm tra tổng vẫn bằng 15.
 
 ```python
+# Mục đích: Chia 15 điểm thành đạt hoặc cần hỗ trợ và lấy ba học viên cần hỗ trợ đầu.
+# Dữ liệu: 15 điểm học viên, ngưỡng đạt là 5/10.
 grades = [4.5,7,8,3,9,5,7.5,4,6.5,10,8,2,7,5.5,9.5]
 passed = []
 needs_help = []
+# enumerate(...,1) ghép mỗi điểm với mã học viên 1..15.
 for i, grade in enumerate(grades, 1):
+    # Định dạng f-string :02d cho số thứ tự thành 2 chữ số với số 0 bổ sung.
     student_code = f"H{i:02d}"
+    # Điểm từ 5 trở lên vào nhóm đạt, còn lại cần hỗ trợ.
     if grade >= 5:
+        # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
         passed.append(student_code)
     else:
+        # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
         needs_help.append(student_code)
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(grades) != 15:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần đủ 15 điểm học viên.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(passed) + len(needs_help) != 15:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Hai nhóm điểm phải bao phủ đủ 15 học viên.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Số học viên:", len(grades))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Đạt:", len(passed))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Cần hỗ trợ:", len(needs_help))
+# [:3] lấy tối đa ba mã đầu trong nhóm cần hỗ trợ.
 print("Gọi trước:", ", ".join(needs_help[:3]))
 ```
 
@@ -271,21 +318,36 @@ Gọi trước: H01, H04, H08
 3. In dữ liệu trước/sau, số lượt thiếu; xác nhận list cũ chưa bị sửa.
 
 ```python
+# Mục đích: Sao chép sổ tồn 18 SKU, chỉnh hai kệ mà không đổi bản gốc.
+# Dữ liệu: 18 số tồn theo SKU K01..K18, None là chưa có kiểm kê.
 original = [8,6,9,5,11,4,12,7,3,10,6,9,8,5,7,4,0,None]
+# copy() tạo bản sao list độc lập theo từng phần tử; sửa updated không đổi original (giá trị đơn giản int/None).
 updated = original.copy()
+# [1] ứng với SKU K02, không phải K01 vì chỉ số bắt đầu 0.
 updated[1] = 4  # K02
+# [7] ứng với SKU K08.
 updated[7] = 5  # K08
 missing = []
+# enumerate(...,1) tạo mã kệ K01..K18 theo vị trí.
 for i, value in enumerate(updated, 1):
+    # is None nhận bản ghi chưa kiểm kê; không nhầm tồn kho 0 là thiếu.
     if value is None:
+        # append() ghi lại mã kệ chưa có dữ liệu.
         missing.append(f"K{i:02d}")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(original) != 18 or len(updated) != 18:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần đủ 18 mục tồn kho trong cả hai danh sách.")
 if original[1] != 6 or original[7] != 7:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Sổ kiểm kê gốc không được thay đổi.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("SKU:", len(updated))
+# [1] ứng với SKU K02, không phải K01 vì chỉ số bắt đầu 0.
 print("K02 cũ/mới:", original[1], updated[1])
+# [7] ứng với SKU K08.
 print("K08 cũ/mới:", original[7], updated[7])
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Chưa kiểm kê:", ", ".join(missing))
 ```
 
@@ -314,28 +376,47 @@ Chưa kiểm kê: K18
 3. Sắp xếp thành hàng đợi xử lý, đối chiếu số dòng và in năm phiếu đầu.
 
 ```python
+# Mục đích: Sắp xếp 20 yêu cầu hỗ trợ theo mức ưu tiên, bỏ phiếu thiếu.
+# Dữ liệu: 20 mức ưu tiên 1..3; None là chưa có mức; thứ tự tiếp nhận dùng khi đồng hạng.
 priorities = [3,1,2,3,2,1,3,2,1,3,2,None,1,3,2,1,3,2,1,2]
 queue = []
+# Đánh mã 20 yêu cầu R01..R20 từ vị trí 1.
 for i, value in enumerate(priorities, 1):
+    # append() ghép mã và mức ưu tiên vào một tuple.
     queue.append((f"R{i:02d}", value))
 missing = []
 ready = []
+# enumerate() không truyền start mặc định từ 0 để lưu thứ tự đến.
 for arrival, (code, level) in enumerate(queue):
+    # is None tìm phiếu thiếu mức ưu tiên, không đưa vào hàng xử lý.
     if level is None:
+        # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
         missing.append(code)
     else:
+        # Lưu tuple (-mức, thứ tự đến, mã); mức lớn có số âm nhỏ hơn nên đứng trước.
         ready.append((-level, arrival, code))
+# sort() sắp xếp list tại chỗ; tuple so từ trường thứ nhất đến thứ hai giúp giải quyết đồng hạng.
 ready.sort()
 next_five = []
+# [:5] lấy đúng năm phiếu đầu sau khi xếp (bỏ cận phải 5).
 for neg_level, arrival, code in ready[:5]:
+    # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
     next_five.append(code)
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(queue) != 20:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần đủ 20 phiếu hỗ trợ.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(ready) + len(missing) != 20:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Các phiếu sẵn sàng và thiếu điểm phải đủ 20.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Tổng phiếu:", len(queue))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Sẵn sàng:", len(ready))
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Thiếu ưu tiên:", ", ".join(missing))
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Xử lý trước:", ", ".join(next_five))
 ```
 
