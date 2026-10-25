@@ -133,7 +133,8 @@ Tích vô hướng trả một scalar bằng 11.
 import numpy as np
 steps = np.array([[3,4],[0,2],[-2,0],[1,-1],[2,2],[-3,1],[0,-4],[4,0],[-1,3],[2,-2]], dtype=float)
 ending = steps.sum(axis=0)
-assert steps.shape == (10, 2)
+if steps.shape != (10, 2):
+    raise ValueError("Cần đủ 10 bước chuyển động hai chiều.")
 print("Bước:", len(steps))
 print("Lệch x (m):", int(ending[0]))
 print("Lệch y (m):", int(ending[1]))
@@ -171,11 +172,15 @@ lengths = np.linalg.norm(vectors, axis=1)
 valid = lengths > 0
 normalized = np.zeros_like(vectors)
 normalized[valid] = vectors[valid] / lengths[valid, None]
-assert len(vectors) == 12
+if len(vectors) != 12:
+    raise ValueError("Cần đủ 12 véc-tơ cần chuẩn hóa.")
 print("Yêu cầu:", len(vectors))
 print("Hướng hợp lệ:", int(valid.sum()))
 print("Hướng chưa xác định:", int((~valid).sum()))
-print("Véc-tơ đầu:", ", ".join(f"{x:.2f}" for x in normalized[0]))
+values = []
+for x in normalized[0]:
+    values.append(f"{x:.2f}")
+print("Véc-tơ đầu:", ", ".join(values))
 ```
 
 **Kết quả khi chạy:**
@@ -207,7 +212,8 @@ import numpy as np
 scores = np.array([[5,6,7],[6,8,10],[7,10,9],[8,7,8],[9,9,7],[5,6,10],[6,8,9],[7,10,8],[8,7,7],[9,9,10],[5,6,9],[6,8,8],[7,10,7],[8,7,10],[9,9,9]], dtype=float)
 weights = np.array([0.2, 0.3, 0.5])
 final_scores = scores @ weights
-assert scores.shape == (15, 3) and final_scores.shape == (15,)
+if scores.shape != (15, 3) or final_scores.shape != (15,):
+    raise ValueError("Cần đủ 15 học viên với 3 môn và 15 điểm cuối.")
 print("Học viên:", len(final_scores))
 print(f"H01: {final_scores[0]:.2f}")
 print(f"H15: {final_scores[-1]:.2f}")
@@ -243,7 +249,8 @@ import numpy as np
 directions = np.array([[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1],[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1],[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1]], dtype=float)
 reference = np.array([1.0, 0.0])
 projections = directions @ reference
-assert directions.shape == (18, 2)
+if directions.shape != (18, 2):
+    raise ValueError("Cần đủ 18 lệnh chuyển động hai chiều.")
 print("Lệnh:", len(directions))
 print("Ngược chiều:", int((projections < 0).sum()))
 print("Vuông góc:", int((projections == 0).sum()))
@@ -281,7 +288,8 @@ expected = np.array([[11,19,33],[12,20,31],[13,21,32],[14,22,30],[15,19,31],[11,
 residual = observed - expected
 errors = np.linalg.norm(residual, axis=1)
 worst = int(errors.argmax())
-assert observed.shape == expected.shape == (20, 3)
+if observed.shape != (20, 3) or expected.shape != (20, 3):
+    raise ValueError("Cần 20 lượt đo, mỗi lượt có ba tọa độ nguồn và kỳ vọng.")
 print("Lượt đo:", len(errors))
 print("Vượt 2 mm:", int((errors > 2).sum()))
 print("Lượt sai nhất:", f"M{worst+1:02d}")

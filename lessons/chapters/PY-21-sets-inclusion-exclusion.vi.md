@@ -136,9 +136,15 @@ Hai tập đều có dữ liệu, không trùng và phủ đủ toàn bộ năm 
 
 ```python
 registrations = [["SV01","Python"],["SV02","AI"],["SV03","Python"],["SV01","AI"],["SV04","AI"],["SV05","Python"],["SV06","AI"],["SV05","AI"],["SV07","Python"],["SV08","AI"]]
-python_students = {sid for sid, subject in registrations if subject == "Python"}
-ai_students = {sid for sid, subject in registrations if subject == "AI"}
-assert len(registrations) == 10
+python_students = set()
+ai_students = set()
+for sid, subject in registrations:
+    if subject == "Python":
+        python_students.add(sid)
+    if subject == "AI":
+        ai_students.add(sid)
+if len(registrations) != 10:
+    raise ValueError("Cần đủ 10 lượt đăng ký.")
 print("Lượt đăng ký:", len(registrations))
 print("Học viên duy nhất:", len(python_students | ai_students))
 print("Học cả hai:", ", ".join(sorted(python_students & ai_students)))
@@ -169,12 +175,18 @@ SV01 đăng ký hai lớp vẫn là **một người**. Đây là bài tập ph�
 
 ```python
 registrations = [["H01","AI"],["H02","Python"],["H03","AI"],["H04","Python"],["H05","AI"],["H01","Python"],["H06","Python"],["H07","AI"],["H08","Python"],["H09","AI"],["H07","Python"],["H10","Python"]]
-pyt = {sid for sid, sub in registrations if sub == "Python"}
-ai = {sid for sid, sub in registrations if sub == "AI"}
+pyt = set()
+ai = set()
+for sid, sub in registrations:
+    if sub == "Python":
+        pyt.add(sid)
+    if sub == "AI":
+        ai.add(sid)
 only_python = sorted(pyt - ai)
 only_ai = sorted(ai - pyt)
 only_one = pyt ^ ai
-assert len(registrations) == 12
+if len(registrations) != 12:
+    raise ValueError("Cần đủ 12 lượt đăng ký.")
 print("Lượt:", len(registrations))
 print("Chỉ Python:", ", ".join(only_python))
 print("Chỉ AI:", ", ".join(only_ai))
@@ -207,10 +219,16 @@ Một người có thể thuộc hai Set cùng lúc, nên không được dùng 
 
 ```python
 visits = [["K01","app"],["K02","web"],["K01","web"],["K03","app"],["K04","web"],["K05","app"],["K06","web"],["K07","app"],["K03","web"],["K08","app"],["K09","web"],["K10","app"],["K11","web"],["K12","app"],["K12","web"]]
-app = {sid for sid, channel in visits if channel == "app"}
-web = {sid for sid, channel in visits if channel == "web"}
+app = set()
+web = set()
+for sid, channel in visits:
+    if channel == "app":
+        app.add(sid)
+    if channel == "web":
+        web.add(sid)
 via_count = len(app) + len(web) - len(app & web)
-assert len(visits) == 15 and via_count == len(app | web)
+if len(visits) != 15 or via_count != len(app | web):
+    raise ValueError("Cần đối chiếu đủ 15 lượt và số khách duy nhất.")
 print("Lượt:", len(visits))
 print("Dùng app:", len(app))
 print("Dùng web:", len(web))
@@ -251,7 +269,8 @@ source = set(all_ids)
 overlap = sorted(train & test)
 missing = sorted(source - (train | test))
 valid_partition = train.isdisjoint(test) and (train | test) == source
-assert len(source) == 18
+if len(source) != 18:
+    raise ValueError("Cần đủ 18 mẫu nguồn trước khi chia Train/Test.")
 print("Mẫu nguồn:", len(source))
 print("Trùng:", ", ".join(overlap))
 print("Chưa phân nhóm:", ", ".join(missing))
@@ -284,13 +303,23 @@ Chỉ khi hai điều kiện cùng đúng mới sử dụng train/test: một m�
 
 ```python
 records = [{"id":"S01","region":"Bắc","channel":"app","score":10},{"id":"S02","region":"Nam","channel":"web","score":11},{"id":"S03","region":"Trung","channel":"app","score":12},{"id":"S04","region":"Bắc","channel":"web","score":13},{"id":"S05","region":"Nam","channel":"app","score":14},{"id":"S06","region":"Trung","channel":"web","score":15},{"id":"S07","region":"Bắc","channel":"app","score":16},{"id":"S08","region":"Nam","channel":"web","score":17},{"id":"S09","region":"Trung","channel":"app","score":18},{"id":"S10","region":"Bắc","channel":"web","score":19},{"id":"S11","region":"Nam","channel":"app","score":20},{"id":"S12","region":"Trung","channel":"web","score":21},{"id":"S13","region":"Bắc","channel":"app","score":22},{"id":"S14","region":"Nam","channel":"web","score":23},{"id":"S15","region":"Trung","channel":"app","score":24},{"id":"S16","region":"Bắc","channel":"web","score":25},{"id":"S04","region":"Nam","channel":"app","score":26},{"id":"S07","region":"Trung","channel":"web","score":27},{"id":"S19","region":"Bắc","channel":"app","score":28},{"id":"S20","region":"Nam","channel":"web","score":29}]
-regions = {name: set() for name in ("Bắc", "Nam", "Trung")}
+regions = {}
+for name in ("Bắc", "Nam", "Trung"):
+    regions[name] = set()
 for row in records:
     regions[row["region"]].add(row["id"])
 all_people = set().union(*regions.values())
-multiple_regions = sorted(sid for sid in all_people
-                          if sum(sid in members for members in regions.values()) > 1)
-assert len(records) == 20
+multiple_regions = []
+for sid in all_people:
+    membership_count = 0
+    for members in regions.values():
+        if sid in members:
+            membership_count += 1
+    if membership_count > 1:
+        multiple_regions.append(sid)
+multiple_regions.sort()
+if len(records) != 20:
+    raise ValueError("Cần kiểm tra đủ 20 lượt ghi nhận theo vùng.")
 print("Dòng nhận:", len(records))
 print("Người duy nhất:", len(all_people))
 print("Dòng dư do trùng ID:", len(records) - len(all_people))

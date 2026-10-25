@@ -139,7 +139,8 @@ import numpy as np
 raw = np.array([10,12,9,14,11,13,15,16,12,18], dtype=float)
 sales = raw.reshape(5, 2)
 by_day = sales.T
-assert raw.size == sales.size == by_day.size == 10
+if raw.size != 10 or sales.size != 10 or by_day.size != 10:
+    raise ValueError("Cần giữ đủ 10 số liệu khi đổi dạng và chuyển vị.")
 print("Lượt ghi:", raw.size)
 print("Bảng cửa hàng:", sales.shape)
 print("Bảng theo ngày:", by_day.shape)
@@ -175,8 +176,10 @@ import numpy as np
 scores = np.array([[5,6,7],[6,8,10],[7,10,9],[8,7,8],[9,9,7],[5,6,10],[6,8,9],[7,10,8],[8,7,7],[9,9,10],[5,6,9],[6,8,8]], dtype=float)
 weights = np.array([[0.5, 0.1], [0.2, 0.3], [0.3, 0.6]])
 ratings = scores @ weights
-assert scores.shape == (12, 3) and weights.shape == (3, 2)
-assert ratings.shape == (12, 2)
+if scores.shape != (12, 3) or weights.shape != (3, 2):
+    raise ValueError("Bảng điểm 12x3 phải ghép đúng ma trận trọng số 3x2.")
+if ratings.shape != (12, 2):
+    raise ValueError("Kết quả phải có hai đánh giá cho mỗi trong 12 học viên.")
 print("Học viên:", ratings.shape[0])
 print("Cột đánh giá:", ratings.shape[1])
 print(f"H01 chuyên môn: {ratings[0,0]:.2f}")
@@ -214,12 +217,20 @@ import numpy as np
 points = np.array([[1,2],[2,2],[3,2],[4,2],[5,2],[1,3],[2,3],[3,3],[4,3],[5,3],[1,4],[2,4],[3,4],[4,4],[5,4]], dtype=float)
 rotate = np.array([[0.0, -1.0], [1.0, 0.0]])
 converted = points @ rotate
-assert points.shape == converted.shape == (15, 2)
-assert np.allclose(np.linalg.norm(points, axis=1), np.linalg.norm(converted, axis=1))
+if points.shape != (15, 2) or converted.shape != (15, 2):
+    raise ValueError("Phải có đúng 15 điểm gốc và điểm đã đổi tọa độ.")
+if not np.allclose(np.linalg.norm(points, axis=1), np.linalg.norm(converted, axis=1)):
+    raise ValueError("Phép quay phải bảo toàn chiều dài của từng điểm.")
 print("Điểm:", len(points))
 print(f"Định thức: {np.linalg.det(rotate):.1f}")
-print("Điểm đầu (gốc):", ", ".join(f"{x:.1f}" for x in points[0]))
-print("Điểm đầu (mới):", ", ".join(f"{x:.1f}" for x in converted[0]))
+original_labels = []
+converted_labels = []
+for value in points[0]:
+    original_labels.append(f"{value:.1f}")
+for value in converted[0]:
+    converted_labels.append(f"{value:.1f}")
+print("Điểm đầu (gốc):", ", ".join(original_labels))
+print("Điểm đầu (mới):", ", ".join(converted_labels))
 ```
 
 **Kết quả khi chạy:**
@@ -252,11 +263,16 @@ mix = np.array([[2.0, 1.0], [1.0, 3.0]])
 measured = np.array([[4,7],[6,8],[8,9],[10,10],[12,11],[14,12],[5,10],[7,11],[9,12],[11,13],[13,14],[15,15],[6,13],[8,14],[10,15],[12,16],[14,17],[16,18]], dtype=float)
 restored = np.linalg.solve(mix, measured.T).T
 reconstructed = restored @ mix.T
-assert measured.shape == restored.shape == (18, 2)
-assert np.allclose(reconstructed, measured)
+if measured.shape != (18, 2) or restored.shape != (18, 2):
+    raise ValueError("Cần đủ 18 lượt đo và hai thông số khôi phục.")
+if not np.allclose(reconstructed, measured):
+    raise ValueError("Tái tạo số đo phải khớp dữ liệu đầu vào.")
 print("Lượt đo:", len(measured))
 print(f"Định thức: {np.linalg.det(mix):.1f}")
-print("Nguồn đầu:", ", ".join(f"{v:.1f}" for v in restored[0]))
+first_values = []
+for value in restored[0]:
+    first_values.append(f"{value:.1f}")
+print("Nguồn đầu:", ", ".join(first_values))
 print("Khôi phục đúng:", bool(np.allclose(reconstructed, measured)))
 ```
 
@@ -295,9 +311,11 @@ for record in records:
         singular.append(record["id"])
         continue
     values = np.linalg.solve(matrix, measured)
-    assert np.allclose(matrix @ values, measured)
+    if not np.allclose(matrix @ values, measured):
+        raise ValueError("Giải hệ phải tái tạo đúng số đo hiệu chuẩn.")
     solved.append(record["id"])
-assert len(records) == len(solved) + len(singular) == 20
+if len(records) != 20 or len(solved) + len(singular) != 20:
+    raise ValueError("Phải kiểm tra đủ 20 lượt hiệu chuẩn, kể cả ma trận suy biến.")
 print("Lượt hiệu chuẩn:", len(records))
 print("Giải được:", len(solved))
 print("Không thể giải:", ", ".join(singular))

@@ -138,12 +138,16 @@ Hai hồ sơ giống nhau khoảng 33,3% theo Jaccard vì chỉ chung một trê
 ```python
 nodes = list("ABCDEFGHIJ")
 edges = [["A","B"],["A","C"],["A","D"],["B","E"],["C","E"],["D","F"],["E","F"],["F","G"],["G","H"],["H","I"],["I","J"],["C","J"]]
-graph = {node: set() for node in nodes}
+graph = {}
+for node in nodes:
+    graph[node] = set()
 for left, right in edges:
     graph[left].add(right)
     graph[right].add(left)
-assert len(nodes) == 10 and len(edges) == 12
-assert sum(map(len, graph.values())) == 2 * len(edges)
+if len(nodes) != 10 or len(edges) != 12:
+    raise ValueError("Cần đúng 10 người và 12 quan hệ.")
+if sum(map(len, graph.values())) != 2 * len(edges):
+    raise ValueError("Đồ thị vô hướng phải ghi hai đầu mỗi cạnh.")
 print("Người:", len(nodes))
 print("Quan hệ:", len(edges))
 print("Bạn của A:", ", ".join(sorted(graph["A"])))
@@ -179,12 +183,19 @@ profiles = [{"id":"H01","skills":["Python","AI","Python"]},{"id":"H02","skills":
 def jaccard(first, second):
     a, b = set(first), set(second)
     union = a | b
-    return len(a & b) / len(union) if union else 0.0
+    if union:
+        return len(a & b) / len(union)
+    return 0.0
 reference = profiles[0]["skills"]
 score = jaccard(reference, profiles[1]["skills"])
-ranked = sorted(((p["id"], jaccard(reference, p["skills"])) for p in profiles[1:]),
-                key=lambda row: (-row[1], row[0]))
-assert len(profiles) == 12
+ranked = []
+for person in profiles[1:]:
+    ranked.append((person["id"], jaccard(reference, person["skills"])))
+def sort_by_score(row):
+    return (-row[1], row[0])
+ranked.sort(key=sort_by_score)
+if len(profiles) != 12:
+    raise ValueError("Cần đúng 12 hồ sơ kỹ năng.")
 print("Hồ sơ:", len(profiles))
 print(f"Jaccard H01-H02: {score:.2f}")
 print("Gần H01 nhất:", ranked[0][0], f"{ranked[0][1]:.2f}")
@@ -215,8 +226,14 @@ Gần H01 nhất: H07 1.00
 
 ```python
 edges = [["A","B"],["B","C"],["C","D"],["A","D"],["D","E"],["E","F"],["F","G"],["H","I"],["I","J"],["J","K"],["K","L"],["H","L"],["L","M"],["M","N"],["N","O"]]
-vertices = sorted({name for edge in edges for name in edge})
-graph = {v: set() for v in vertices}
+vertex_set = set()
+for edge in edges:
+    for name in edge:
+        vertex_set.add(name)
+vertices = sorted(vertex_set)
+graph = {}
+for vertex in vertices:
+    graph[vertex] = set()
 for a, b in edges:
     graph[a].add(b)
     graph[b].add(a)
@@ -233,11 +250,24 @@ for start in vertices:
         members.add(node)
         stack.extend(graph[node] - seen)
     components.append(members)
-assert len(edges) == 15 and len(vertices) == 15
+if len(edges) != 15 or len(vertices) != 15:
+    raise ValueError("Đồ thị cần 15 cạnh và 15 đỉnh.")
 print("Cạnh:", len(edges))
 print("Cụm:", len(components))
-print("Kích thước cụm:", ", ".join(map(str, sorted(map(len, components), reverse=True))))
-print("A kết nối O:", any({"A", "O"} <= group for group in components))
+sizes = []
+for group in components:
+    sizes.append(len(group))
+sizes.sort(reverse=True)
+labels = []
+for size in sizes:
+    labels.append(str(size))
+connected = False
+for group in components:
+    if {"A", "O"} <= group:
+        connected = True
+        break
+print("Kích thước cụm:", ", ".join(labels))
+print("A kết nối O:", connected)
 ```
 
 **Kết quả khi chạy:**
@@ -269,13 +299,24 @@ people = [{"id":"U01","skills":["Python","SQL","Python"]},{"id":"U02","skills":[
 def similarity(a, b):
     a, b = set(a), set(b)
     total = a | b
-    return len(a & b) / len(total) if total else 0.0
+    if total:
+        return len(a & b) / len(total)
+    return 0.0
 base = people[0]["skills"]
-ranked = sorted(((p["id"], similarity(base, p["skills"])) for p in people[1:]),
-                key=lambda item: (-item[1], item[0]))
-assert len(people) == 18
+ranked = []
+for person in people[1:]:
+    ranked.append((person["id"], similarity(base, person["skills"])))
+def ranking_key(item):
+    return (-item[1], item[0])
+ranked.sort(key=ranking_key)
+if len(people) != 18:
+    raise ValueError("Cần đúng 18 hồ sơ kỹ năng.")
 print("Hồ sơ:", len(people))
-print("Thiếu kỹ năng:", sum(not p["skills"] for p in people))
+missing_skills = 0
+for person in people:
+    if not person["skills"]:
+        missing_skills += 1
+print("Thiếu kỹ năng:", missing_skills)
 for uid, score in ranked[:3]:
     print(f"{uid}: {score:.2f}")
 ```
@@ -325,8 +366,13 @@ def shortest(start, end):
     return None
 path = shortest("A", "K")
 a, b = graph.get("A", set()), graph.get("B", set())
-score = len(a & b) / len(a | b) if a | b else 0.0
-assert len(edges) == 20
+union = a | b
+if union:
+    score = len(a & b) / len(union)
+else:
+    score = 0.0
+if len(edges) != 20:
+    raise ValueError("Cần đủ 20 cạnh có hướng.")
 print("Cạnh có hướng:", len(edges))
 print("Đường A-K:", " -> ".join(path))
 print("Số cạnh đường:", len(path) - 1)
