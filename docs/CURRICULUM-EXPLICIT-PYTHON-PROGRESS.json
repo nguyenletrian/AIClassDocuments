@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "BATCH_02_IN_PROGRESS",
-  "last_completed_batch": 1,
+  "status": "READY_FOR_BATCH_03",
+  "last_completed_batch": 2,
   "batches": [
     {
       "batch": 1,
@@ -45,7 +45,7 @@
         "PY-09",
         "PY-10"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-06",
         "PY-07",
@@ -53,9 +53,9 @@
         "PY-09",
         "PY-10"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 146,
+      "merged_commit": "0075af2a64a4d89519cfc97a75bca838e595ddd8",
+      "ci_run": 40171565557,
       "branch": "feat/explicit-python-batch-02-20261025",
       "lesson_commits": {
         "PY-06": "4b5ae948742631e509299d12e928511f48f2ab17",
@@ -64,7 +64,7 @@
         "PY-09": "479c1768f42f9bf9686578a452048117e2929261",
         "PY-10": "4981a8cd723b9b90afb2f9e5df8a1eefac7b6c3d"
       },
-      "notes": "5 lessons committed separately on batch02 branch: explicit for loops, named accumulators and if/raise instead of assert, list/set/dict comprehensions, genexprs, inline conditionals; lesson structure, 25 scenarios, MCQs and expected stdout preserved pending execution CI. Python AST test checks all active/reviewed batches. Do not mark MERGED or Windows PASS before evidence."
+      "notes": "PR #146 squash merged commit 0075af2a64a4d89519cfc97a75bca838e595ddd8 after final-head GitHub Actions CI #40171565557 PASS on e23c7b8c5a3e05288592df4da58fbdee4e102a1d. PY-06..PY-10 individually committed; converted executable assert, comprehensions/generators and ternaries to explicit if/for. Existing curriculum 46-lesson structures/MCQ, 25 scenarios PY-06..10 execution and stdout, Markdown and explicit Python AST regression PASS. Windows worker not claimed. Next batch03 PY-11..15; owner-approved scenario explanation goal remains APPROVED_DEFERRED."
     },
     {
       "batch": 3,
