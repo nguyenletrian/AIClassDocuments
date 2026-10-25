@@ -43,13 +43,21 @@ Một chương trình thực tế cần **lưu và đọc lại dữ liệu**, h
 **File I/O** (input/output) là việc đưa dữ liệu **từ tệp vào chương trình** hoặc **từ chương trình ra tệp**. Ví dụ hệ thống cần lưu trạng thái `Started` để lần chạy sau có thể đọc lại. Trong đoạn minh họa, `TemporaryDirectory()` tạo thư mục tạm, `Path` xác định đường dẫn `log.txt`, `write_text()` ghi và `read_text()` đọc. Dữ liệu chỉ tồn tại trong thư mục tạm trong suốt khối `with`, tránh để lại file rác.
 
 ```python
-# Mục đích: Đọc và ghi dữ liệu.
+# Mục đích: Viết và đọc lại văn bản UTF-8 trong thư mục tạm, tự dọn sau khi dùng.
+# Dữ liệu: Path tạo đường dẫn hệ điều hành; TemporaryDirectory() tạo thư mục tạm và xóa khi ra khỏi with.
+# Path biểu diễn đường dẫn file dễ ghép bằng toán tử /.
 from pathlib import Path
+# TemporaryDirectory() tạo thư mục tạm, tự xóa sau khối with.
 from tempfile import TemporaryDirectory
 
+# with nhận đường dẫn tạm qua as folder và bảo đảm thư mục được dọn khi kết thúc.
 with TemporaryDirectory() as folder:
+    # Path(folder) / 'log.txt' ghép đường dẫn thư mục với tên file độc lập hệ điều hành.
     file_path = Path(folder) / 'log.txt'
+    # write_text() tạo/ghi file; encoding='utf-8' giữ tiếng Việt và ký tự Unicode.
     file_path.write_text('Started', encoding='utf-8')
+    # read_text(encoding='utf-8') đọc lại toàn bộ file thành chuỗi.
+    # print() xuất nội dung vừa đọc để kiểm chứng ghi/đọc.
     print(file_path.read_text(encoding='utf-8'))
 ```
 
@@ -68,12 +76,18 @@ Started
 **CSV** lưu dữ liệu dạng văn bản: **mỗi dòng là một bản ghi**, các giá trị trên một dòng được tách bằng dấu phẩy. Ví dụ bảng sản phẩm có **hai cột** `name` (tên hàng) và `price` (giá) cùng **hai hàng** Pen/10 và Book/35. `csv.DictReader` coi hàng đầu là tên cột và đọc mỗi hàng sau thành Dictionary, giúp tra `row['name']` thay vì nhớ vị trí cột. Giá đọc từ CSV ban đầu là **chuỗi**, muốn tính toán phải chuyển kiểu sau.
 
 ```python
-# Mục đích: Bảng dữ liệu phân cách bằng dấu phẩy.
+# Mục đích: Đọc dữ liệu CSV ở bộ nhớ thành các hàng dictionary theo tên cột.
+# Dữ liệu: Chuỗi csv_text gồm tiêu đề name,price và hai hàng Pen/Book; CSV là văn bản phân cột bằng dấu phẩy.
+# csv là thư viện chuẩn đọc/ghi bảng phân cách dấu phẩy.
 import csv
+# StringIO tạo file văn bản giả trong RAM, không tạo file thật.
 from io import StringIO
 
+# Ký tự \n trong chuỗi là xuống dòng: dòng đầu đặt tên các cột.
 csv_text = 'name,price\nPen,10\nBook,35\n'
+# DictReader đọc mỗi hàng thành dictionary, khóa lấy từ tiêu đề cột; list() thu toàn bộ hàng.
 rows = list(csv.DictReader(StringIO(csv_text)))
+# [1] lấy hàng thứ hai (Book), ['name']/['price'] lấy các ô theo tên cột; giá vẫn là chuỗi.
 print(rows[1]['name'], rows[1]['price'])
 ```
 
@@ -92,10 +106,14 @@ Hàng dữ liệu thứ hai là Book, giá `35` đang ở dạng chuỗi; mã kh
 Khi chương trình nhận dữ liệu sai kiểu, không phải toàn bộ ứng dụng đều cần dừng. Chẳng hạn biểu mẫu yêu cầu số nguyên nhưng khách nhập `'abc'`; `int('abc')` sinh **`ValueError`**. Khối `try` chứa thao tác có thể lỗi, còn `except ValueError` chỉ bắt loại lỗi dự kiến và in thông báo. Không dùng `except:` quá rộng vì sẽ che mất những lỗi khác cần được sửa.
 
 ```python
-# Mục đích: Lỗi có thể xử lý.
+# Mục đích: Bắt ValueError khi chuyển một chuỗi không phải số thành int.
+# Dữ liệu: Chuỗi abc không thể chuyển sang số nguyên; cần xử lý lỗi có kiểm soát.
+# try chứa lệnh có thể thất bại, luồng chuyển sang except nếu gặp lỗi.
 try:
+    # int() yêu cầu chuỗi có biểu diễn số nguyên; 'abc' gây ValueError.
     number = int('abc')
     print(number)
+# Bắt riêng ValueError để hiện thông báo mà không làm chương trình dừng bất ngờ.
 except ValueError:
     print('Invalid integer')
 ```
@@ -115,12 +133,17 @@ Chỉ nhánh `except` chạy, vì chuỗi `abc` không thể chuyển thành s�
 Khi mở file hoặc bộ đệm, ta cần **đóng tài nguyên** sau khi dùng, kể cả khi có lỗi. Cấu trúc `with ... as ...:` nhận một tài nguyên rồi tự đóng khi thoát khối. Ví dụ `StringIO` là bộ đệm văn bản trong bộ nhớ, có thao tác đọc giống file, không cần tạo file thật. Ta có thể kiểm tra `stream.closed` sau khối `with` để thấy nó đã đóng.
 
 ```python
-# Mục đích: Tự quản lý tài nguyên.
+# Mục đích: Dùng with quản lý StringIO và kiểm tra luồng đã đóng.
+# Dữ liệu: StringIO là luồng văn bản nằm trong RAM; with sẽ đóng luồng khi thoát.
+# StringIO cung cấp luồng văn bản trong bộ nhớ.
 from io import StringIO
 
+# with gọi cơ chế đóng luồng khi ra khỏi khối, ngay cả khi có lỗi.
 with StringIO('abc') as stream:
+    # read() đọc hết nội dung còn lại từ con trỏ của luồng.
     print(stream.read())
 
+# Thuộc tính closed là True sau khi with đóng tài nguyên.
 print(stream.closed)
 ```
 
@@ -148,8 +171,13 @@ Dòng đầu là nội dung đã đọc; `True` xác nhận bộ đệm được
 3. Tra P08 và in số bản ghi.
 
 ```python
+# Mục đích: Đọc CSV 10 sản phẩm, tìm hàng có mã P08 và in đơn giá.
+# Dữ liệu: CSV gồm 10 hàng sku/name/price_vnd, mỗi hàng là một sản phẩm và giá đồng dạng chuỗi.
+# csv xử lý bảng text, không tự đổi giá trong cột thành số.
 import csv
+# StringIO biến chuỗi CSV thành luồng có thể đọc.
 from io import StringIO
+# Nội dung nhiều dòng gồm tiêu đề sku,name,price_vnd và 10 sản phẩm; giá đơn vị đồng dạng text.
 csv_text = """sku,name,price_vnd
 P01,Bút,12000
 P02,Vở,18000
@@ -162,18 +190,28 @@ P08,Bút màu,42000
 P09,Kẹp,8000
 P10,Hộp,30000
 """
+# DictReader trả từng hàng dict dùng tên cột làm khóa; list() giữ 10 hàng.
 rows = list(csv.DictReader(StringIO(csv_text)))
 match = None
+# Duyệt từng hàng CSV để tìm theo mã SKU.
 for row in rows:
+    # Tra khóa sku của hàng; == so chính xác với mã P08.
     if row["sku"] == "P08":
         match = row
+        # break dừng tìm ngay khi gặp SKU mong muốn.
         break
+# is None cho biết chưa tìm được mã, thay vì giả định tồn tại.
 if match is None:
+    # ValueError báo dữ liệu không hợp lệ và dừng khi kiểm tra thất bại.
     raise ValueError("Không tìm thấy sản phẩm P08.")
+# len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
 if len(rows) != 10:
+    # ValueError báo dữ liệu không hợp lệ và dừng khi kiểm tra thất bại.
     raise ValueError("Cần đủ 10 sản phẩm CSV.")
+# len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
 print("Sản phẩm:", len(rows))
 print("P08:", match["name"])
+# Giá được đọc dưới dạng chuỗi từ CSV; in như số nhưng chưa dùng int().
 print("Giá P08 (đồng):", match["price_vnd"])
 ```
 
@@ -201,16 +239,29 @@ Giá trong CSV được đọc thành chuỗi; nếu cần tính tiền thì ph�
 3. So sánh nội dung và đếm dòng để bảo đảm không mất dữ liệu.
 
 ```python
+# Mục đích: Ghi rồi đọc lại 12 sự kiện log trong thư mục tạm bằng UTF-8.
+# Dữ liệu: 12 chuỗi sự kiện từ khởi động đến kết thúc, mỗi sự kiện ghi thành một dòng log.
+# Path ghép đường dẫn tệp theo cách phù hợp hệ điều hành.
 from pathlib import Path
+# Thư mục tạm tránh ghi tệp vào vị trí người dùng thật.
 from tempfile import TemporaryDirectory
 events = ["Khởi động","Đọc tập tin","Kết nối nội bộ","Tải dữ liệu","Kiểm kiểu","Chuẩn hóa","Lưu nháp","Chạy báo cáo","Xác nhận","Ghi nhận","Sao lưu","Kết thúc"]
+# with tự dọn file và thư mục khi kết thúc khối.
 with TemporaryDirectory() as temp:
+    # Ghép đường dẫn tạm với log.txt bằng / của Path.
     path = Path(temp) / "log.txt"
+    # join(events) ghép các sự kiện bằng xuống dòng; + '\n' thêm kết thúc dòng cuối.
+    # write_text(encoding='utf-8') ghi chuỗi Unicode vào file.
     path.write_text("\n".join(events) + "\n", encoding="utf-8")
+    # read_text() trả chuỗi; splitlines() tách thành list dòng, bỏ dấu kết thúc dòng.
     readback = path.read_text(encoding="utf-8").splitlines()
+    # So từng dòng đã đọc với list gốc; != báo lỗi khi dữ liệu bị sai.
     if readback != events:
+        # ValueError báo dữ liệu không hợp lệ và dừng khi kiểm tra thất bại.
         raise ValueError("Nội dung ghi và đọc lại phải trùng nhau.")
+    # len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
     print("Sự kiện:", len(readback))
+    # [0] là sự kiện đầu, [-1] là sự kiện cuối.
     print("Đầu:", readback[0])
     print("Cuối:", readback[-1])
 ```
@@ -239,18 +290,31 @@ Chính xác 12 dòng đã được đọc lại. Kiểu dữ liệu là chuỗi,
 3. Xác nhận số hợp lệ cộng số lỗi bằng 15.
 
 ```python
+# Mục đích: Thử chuyển 15 chuỗi số lượng thành int và thu thập mã dòng bị lỗi.
+# Dữ liệu: 15 lượng hàng dạng chuỗi; -3 là int hợp lệ nhưng âm, 12.5/abc/rỗng không chuyển int được.
 raw_quantities = ["12","8","0","-3","15","abc","6","7","9","10","12.5","5","4","","18"]
 converted, invalid = [], []
+# enumerate(...,1) gắn dòng R01..R15 với từng chuỗi đầu vào.
 for i, raw in enumerate(raw_quantities, 1):
+    # try bắt đầu thử chuyển chuỗi thành số nguyên.
     try:
+        # int() chấp nhận số nguyên có dấu như -3, nhưng không nhận '12.5', 'abc' hay chuỗi rỗng.
         converted.append(int(raw))
+    # Bắt đúng lỗi chuyển đổi mà không làm mất các dòng hợp lệ.
     except ValueError:
+        # append() lưu mã dòng lỗi; f-string :02d luôn có hai chữ số.
         invalid.append(f"R{i:02d}")
+# len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
 if len(raw_quantities) != 15 or len(converted) + len(invalid) != 15:
+    # ValueError báo dữ liệu không hợp lệ và dừng khi kiểm tra thất bại.
     raise ValueError("Cần kiểm tra đủ 15 dòng số lượng.")
+# len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
 print("Dòng nhận:", len(raw_quantities))
+# len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
 print("Hợp lệ:", len(converted))
+# sum() cộng các giá trị chuyển được, bao gồm -3 vì tiêu chí chỉ kiểm cú pháp int.
 print("Tổng điều chỉnh:", sum(converted))
+# join() ghép các mã bằng dấu phẩy và khoảng trắng.
 print("Cần sửa:", ", ".join(invalid))
 ```
 
@@ -279,34 +343,60 @@ Giá trị -3 được chấp nhận vì bài toán cho phép điều chỉnh â
 3. Dùng `DictWriter` xuất dữ liệu sạch và đọc lại để đếm.
 
 ```python
+# Mục đích: Làm sạch 18 giá từ CSV ở bộ nhớ, chỉ xuất dòng giá nguyên hợp lệ.
+# Dữ liệu: 18 giá hàng chuỗi VND; bad và chuỗi rỗng là sai, các dòng còn lại thuộc một SKU.
+# csv cung cấp DictWriter/DictReader để xuất và đọc bảng có tên cột.
 import csv
+# StringIO lưu CSV trong RAM, không tạo file trên ổ đĩa.
 from io import StringIO
 raw_prices = ["10000","11000","12000","13000","14000","bad","16000","17000","18000","19000","20000","","22000","23000","24000","25000","26000","27000"]
+# Tạo luồng văn bản rỗng để ghi CSV đầu vào.
 source = StringIO()
+# DictWriter ghi từng dict theo thứ tự fieldnames; lineterminator='\n' cố định dấu xuống dòng.
 writer = csv.DictWriter(source, fieldnames=["sku", "price_vnd"], lineterminator="\n")
+# Ghi dòng đầu tên cột sku,price_vnd.
 writer.writeheader()
+# Đánh số giá bắt đầu từ 1 để tạo SKU P01..P18.
 for i, price in enumerate(raw_prices, 1):
+    # writerow() ghi một dictionary thành một dòng CSV.
     writer.writerow({"sku": f"P{i:02d}", "price_vnd": price})
+# seek(0) đưa con trỏ về đầu trước khi đọc lại, nếu không sẽ không đọc được hàng.
 source.seek(0)
 cleaned, errors = [], []
+# DictReader duyệt các hàng theo tên khóa, cột price_vnd vẫn ở dạng chuỗi.
 for row in csv.DictReader(source):
+    # isdigit() chỉ nhận chuỗi toàn chữ số, loại bad/rỗng; int() đổi chuỗi hợp lệ thành số.
     if row["price_vnd"].isdigit():
+        # append() giữ dict đã làm sạch, bảo toàn mã SKU.
         cleaned.append({"sku": row["sku"], "price_vnd": int(row["price_vnd"])})
     else:
+        # append() lưu mã có giá lỗi để báo cáo.
         errors.append(row["sku"])
+# Luồng CSV đầu ra riêng với nguồn, tránh chồng ghi dữ liệu thô.
 output = StringIO()
+# Ghi cột đúng thứ tự như CSV nguồn; dấu dòng \n.
 writer = csv.DictWriter(output, fieldnames=["sku", "price_vnd"], lineterminator="\n")
+# Ghi dòng đầu tên cột sku,price_vnd.
 writer.writeheader()
+# writerows() ghi toàn bộ hàng hợp lệ; khác writerow() ghi một hàng.
 writer.writerows(cleaned)
+# Đặt lại con trỏ để kiểm thử đọc bản CSV vừa xuất.
 output.seek(0)
+# Đọc lại file giả đầu ra để đối chiếu số dòng.
 written = list(csv.DictReader(output))
+# len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
 if len(raw_prices) != 18 or len(cleaned) + len(errors) != 18:
+    # ValueError báo dữ liệu không hợp lệ và dừng khi kiểm tra thất bại.
     raise ValueError("Cần đối chiếu đủ 18 dòng CSV.")
+# len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
 print("Dòng đầu vào:", len(raw_prices))
+# len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
 print("Dòng CSV sạch:", len(written))
+# join() ghép các mã bằng dấu phẩy và khoảng trắng.
 print("Cần sửa:", ", ".join(errors))
 total_price = 0
 for row in cleaned:
+    # Giá trong cleaned đã là số int; += cộng đồng của mỗi SKU.
     total_price += row["price_vnd"]
 print("Tổng đơn giá (đồng):", total_price)
 ```
@@ -336,41 +426,74 @@ Tổng đơn giá (đồng): 297000
 3. Ghi file sạch bằng `DictWriter`, đọc lại kiểm tra số dòng và tổng doanh thu.
 
 ```python
+# Mục đích: Kiểm tra 20 hóa đơn CSV thật trong thư mục tạm, loại mã trùng và giá lỗi.
+# Dữ liệu: 20 dict hóa đơn (order_id, amount_vnd chuỗi); có một mã lặp O05, giá bad và rỗng.
+# csv hỗ trợ đọc/ghi file bảng có cột tên.
 import csv
+# Path cung cấp đường dẫn file để kết hợp với thư mục tạm.
 from pathlib import Path
+# TemporaryDirectory bảo đảm không để lại incoming.csv/validated.csv sau with.
 from tempfile import TemporaryDirectory
 rows = [{"order_id":"O01","amount_vnd":"20000"},{"order_id":"O02","amount_vnd":"30000"},{"order_id":"O03","amount_vnd":"40000"},{"order_id":"O04","amount_vnd":"50000"},{"order_id":"O05","amount_vnd":"60000"},{"order_id":"O06","amount_vnd":"20000"},{"order_id":"O07","amount_vnd":"30000"},{"order_id":"O08","amount_vnd":"bad"},{"order_id":"O09","amount_vnd":"50000"},{"order_id":"O10","amount_vnd":"60000"},{"order_id":"O11","amount_vnd":"20000"},{"order_id":"O12","amount_vnd":"30000"},{"order_id":"O05","amount_vnd":"40000"},{"order_id":"O14","amount_vnd":"50000"},{"order_id":"O15","amount_vnd":"60000"},{"order_id":"O16","amount_vnd":"20000"},{"order_id":"O17","amount_vnd":""},{"order_id":"O18","amount_vnd":"40000"},{"order_id":"O19","amount_vnd":"50000"},{"order_id":"O20","amount_vnd":"60000"}]
+# with tạo thư mục và tự xóa cả hai file khi ra khỏi khối.
 with TemporaryDirectory() as folder:
+    # Phép / ghép thư mục và tên file .csv.
     incoming = Path(folder) / "incoming.csv"
+    # Phép / ghép thư mục và tên file .csv.
     cleaned = Path(folder) / "validated.csv"
+    # open('w') ghi mới, encoding='utf-8' giữ Unicode; newline='' tránh dòng trống khi module csv tự quản xuống dòng.
     with incoming.open("w", encoding="utf-8", newline="") as f:
+        # DictWriter gắn khóa dict với thứ tự cột order_id,amount_vnd.
         writer = csv.DictWriter(f, fieldnames=["order_id", "amount_vnd"])
+        # Ghi tiêu đề cột trước dữ liệu.
         writer.writeheader()
+        # writerows() ghi nhiều hàng dictionary qua CSV.
         writer.writerows(rows)
+    # set() lưu mã đã xuất hiện, valid lưu dict hợp lệ, errors lưu nhãn lỗi.
     seen, valid, errors = set(), [], []
+    # open('r') đọc lại UTF-8; newline='' để thư viện csv phân tích đúng kết thúc dòng.
     with incoming.open("r", encoding="utf-8", newline="") as f:
+        # DictReader trả dict theo cột; enumerate(...,1) đánh số dòng dữ liệu bắt đầu 1 (không gồm header).
         for line_number, row in enumerate(csv.DictReader(f), 1):
             key = row["order_id"]
+            # Toán tử in kiểm tra mã đã gặp; phát hiện dòng trùng.
             if key in seen:
+                # append() lưu thông tin dòng hỏng; :02d in số dòng thành hai chữ số.
                 errors.append(f"D{line_number:02d}:trùng")
+            # isdigit() yêu cầu tất cả ký tự là chữ số; loại bad và chuỗi rỗng, chưa nhận số âm/thập phân.
             elif not row["amount_vnd"].isdigit():
+                # append() lưu thông tin dòng hỏng; :02d in số dòng thành hai chữ số.
                 errors.append(f"D{line_number:02d}:giá")
             else:
+                # add() ghi mã của dòng hợp lệ vào set để lần sau bắt trùng.
                 seen.add(key)
+                # append() ghi hàng hợp lệ, giữ thứ tự gốc.
                 valid.append(row)
+    # Mở CSV đích để ghi các hàng đã kiểm tra.
     with cleaned.open("w", encoding="utf-8", newline="") as f:
+        # DictWriter gắn khóa dict với thứ tự cột order_id,amount_vnd.
         writer = csv.DictWriter(f, fieldnames=["order_id", "amount_vnd"])
+        # Ghi tiêu đề cột trước dữ liệu.
         writer.writeheader()
+        # writerows() ghi nhiều hàng dictionary qua CSV.
         writer.writerows(valid)
+    # Đọc file kết quả để xác minh xuất thành công.
     with cleaned.open("r", encoding="utf-8", newline="") as f:
+        # list() gom các hàng CSV đã xuất để so đếm.
         exported = list(csv.DictReader(f))
+    # len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
     if len(rows) != 20 or len(exported) + len(errors) != 20:
+        # ValueError báo dữ liệu không hợp lệ và dừng khi kiểm tra thất bại.
         raise ValueError("Cần đối chiếu đủ 20 dòng hóa đơn.")
+    # len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
     print("Đầu vào:", len(rows))
+    # len() đếm bản ghi để đối chiếu số lượng kỳ vọng.
     print("Đã xuất:", len(exported))
+    # join() ghép các mã bằng dấu phẩy và khoảng trắng.
     print("Lỗi:", ", ".join(errors))
     total_amount = 0
     for row in exported:
+        # Giá CSV vốn là chuỗi; int() chuyển sang số trước khi cộng tổng đồng.
         total_amount += int(row["amount_vnd"])
     print("Tổng tiền (đồng):", total_amount)
 ```
