@@ -123,148 +123,188 @@ print(round(float(np.std(celsius, ddof=0)), 3))
 
 Độ lệch chuẩn 0,707 °C mô tả dao động nhiệt quanh mean 20 °C.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống thống kê mô tả — từ mean đến báo cáo dữ liệu thiếu
 
-### Tình huống 1 — Trung bình thời gian giao ba đơn
+### Tình huống 1 — Cấp 1: Trung bình thời gian xử lý của 10 yêu cầu
 
-**Tình huống thực tế:** Ba đơn hàng có thời gian giao lần lượt 2,3,4 ngày, theo cùng quy định đo. Quản lý muốn một chỉ số đại diện mức thời gian giao trung bình.
+**Từ vựng trong mục:** **Mean** — trung bình; **Observation** — một lượt quan sát.
 
-**Vì sao chọn cách giải này?** Mean phù hợp khi cần tổng thời gian trên mỗi đơn và dữ liệu không có ngoại lệ lớn.
+**Tình huống thực tế:** Nhân viên đo thời gian xử lý **10 yêu cầu hỗ trợ**, mỗi hàng một yêu cầu và thời gian tính bằng phút. Cần tổng số phút, trung bình mỗi yêu cầu và thời gian ngắn nhất/dài nhất để ước lượng công việc trong ca.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Mean gộp **toàn bộ 10 thời gian có cùng đơn vị**; thống kê min/max giúp không lầm rằng mọi yêu cầu đều mất thời gian bằng mean.
 
-1. Đưa ba thời gian theo ngày vào một mảng.
-2. Tính trung bình bằng `np.mean`.
-3. In kết quả, chú ý không phải mọi đơn đều bằng mean.
+**Quy trình:**
+1. Lưu 10 số phút xử lý theo thứ tự yêu cầu.
+2. Tính tổng, trung bình bằng NumPy.
+3. So khoảng giá trị ngắn nhất và dài nhất.
 
 ```python
-# Mục đích: Trung bình thời gian giao ba đơn.
 import numpy as np
-
-days = np.array([2, 3, 4])
-print(float(np.mean(days)))
+minutes = np.array([2,3,4,3,2,5,3,4,2,4], dtype=float)
+assert minutes.size == 10
+print("Yêu cầu:", minutes.size)
+print("Tổng phút:", int(minutes.sum()))
+print(f"Trung bình (phút): {minutes.mean():.1f}")
+print("Nhỏ nhất/lớn nhất:", int(minutes.min()), int(minutes.max()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-3.0
+Yêu cầu: 10
+Tổng phút: 32
+Trung bình (phút): 3.2
+Nhỏ nhất/lớn nhất: 2 5
 ```
 
-Trung bình ba đơn là 3 ngày.
+Trung bình 3,2 phút là kết quả trên đúng mười yêu cầu đã ghi, không phải cam kết thời gian giải quyết từng yêu cầu.
 
-### Tình huống 2 — So mean và median hóa đơn
+### Tình huống 2 — Cấp 2: So mean và median khi 12 hóa đơn có đơn rất lớn
 
-**Tình huống thực tế:** Cửa hàng có ba hóa đơn 100, 120 và 10.000 nghìn đồng. Cần trình bày một giá trị trung tâm ít bị hóa đơn cực lớn kéo lên.
+**Từ vựng trong mục:** **Median** — trung vị; **Outlier** — giá trị khác biệt.
 
-**Vì sao chọn cách giải này?** Median bền hơn với giá trị cực đoan so với mean; in cả hai để thấy sự khác biệt.
+**Tình huống thực tế:** Một cửa hàng có **12 hóa đơn**, mỗi dòng là thành tiền của một đơn, đơn vị nghìn đồng. Có một hóa đơn 1.000 nghìn đồng hợp lệ, cao hơn hẳn 11 đơn còn lại. Muốn có chỉ số đại diện cho mức chi phổ biến, quản lý cần xem **cả mean lẫn median**, không tự xóa đơn lớn.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Mean sử dụng mọi số và bị kéo về phía hóa đơn lớn; median chọn vị trí giữa đã sắp nên ít biến động khi có một giá trị cực cao. Hai chỉ số phản ánh **hai cách mô tả khác nhau**, không có cái nào luôn đúng hơn.
 
-1. Lưu ba hóa đơn theo nghìn đồng.
-2. Tính mean và median cùng bộ dữ liệu.
-3. Làm tròn mean ba chữ số và in trung vị.
+**Quy trình:**
+1. Ghi đủ 12 hóa đơn, giữ cả đơn lớn.
+2. Tính mean và median, đối chiếu sự khác biệt.
+3. In số lượng đơn và giá trị lớn nhất.
 
 ```python
-# Mục đích: So mean và median hóa đơn.
 import numpy as np
-
-amounts = [100, 120, 10000]
-print(round(float(np.mean(amounts)), 3), float(np.median(amounts)))
+amounts = np.array([100,105,110,110,115,120,125,130,130,135,140,1000], dtype=float)
+assert len(amounts) == 12
+print("Hóa đơn:", len(amounts))
+print(f"Mean (nghìn đồng): {amounts.mean():.2f}")
+print(f"Median (nghìn đồng): {np.median(amounts):.2f}")
+print("Đơn lớn nhất:", int(amounts.max()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-3406.667 120.0
+Hóa đơn: 12
+Mean (nghìn đồng): 193.33
+Median (nghìn đồng): 122.50
+Đơn lớn nhất: 1000
 ```
 
-Mean cao bất thường nhưng trung vị 120 nghìn gần hai hóa đơn thông thường.
+Median là trung bình của hai giá trị giữa vì có số hóa đơn chẵn; không phải trung bình 12 hóa đơn.
 
-### Tình huống 3 — Đo độ phân tán điểm thi
+### Tình huống 3 — Cấp 3: Tìm mode của 15 lượt chọn sản phẩm
 
-**Tình huống thực tế:** Ba điểm kiểm tra `[6,8,10]` (điểm trên thang 10) tạo toàn bộ nhóm cần mô tả. Cần tính phương sai **quần thể** của nhóm này.
+**Từ vựng trong mục:** **Mode** — giá trị phổ biến nhất; **Frequency** — số lần xuất hiện.
 
-**Vì sao chọn cách giải này?** Bình phương sai khác làm mất dấu âm, sau đó lấy trung bình trên cả ba điểm `ddof=0`.
+**Tình huống thực tế:** Quầy văn phòng phẩm ghi **15 lượt chọn sản phẩm**, mỗi hàng là nhãn nhóm sản phẩm như Bút, Vở, Thước hoặc Tẩy. Nhân viên cần biết loại nào được chọn nhiều nhất, đồng thời báo lượt chọn của từng loại. Không tính mean của nhãn vì nhãn không phải đại lượng số.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `value_counts()` đếm số lượt mỗi nhãn, `mode()` hoặc dòng đầu của bảng tần suất cho nhãn nhiều nhất. Đây là bài toán nhãn phân loại, không dùng phương sai hay trung bình.
 
-1. Tạo mảng điểm [6,8,10].
-2. Tính `np.var(...,ddof=0)` vì đang mô tả toàn bộ nhóm.
-3. In kết quả ba chữ số.
+**Quy trình:**
+1. Ghi 15 nhãn sản phẩm theo thứ tự lượt.
+2. Đếm tần suất bằng Series.
+3. Sắp tần suất giảm và in nhãn nhiều nhất.
 
 ```python
-# Mục đích: Đo độ phân tán điểm thi.
-import numpy as np
-
-scores = [6, 8, 10]
-print(round(float(np.var(scores, ddof=0)), 3))
-```
-
-**Kết quả khi chạy:**
-
-```text
-2.667
-```
-
-Phương sai quần thể khoảng 2,667 điểm².
-
-### Tình huống 4 — Kiểm tra độ dao động nhiệt độ
-
-**Tình huống thực tế:** Cảm biến ghi 20,21,19,20 °C tại bốn thời điểm. Nhóm kiểm soát muốn đo mức dao động, giữ đơn vị °C để dễ so ngưỡng vận hành.
-
-**Vì sao chọn cách giải này?** Std là căn phương sai, giữ cùng đơn vị nhiệt độ để có thể đọc trực tiếp.
-
-**Quy trình giải:**
-
-1. Lưu bốn nhiệt độ theo °C.
-2. Dùng std quần thể `ddof=0`.
-3. Làm tròn ba chữ số và in.
-
-```python
-# Mục đích: Kiểm tra độ dao động nhiệt độ.
-import numpy as np
-
-celsius = [20, 21, 19, 20]
-print(round(float(np.std(celsius, ddof=0)), 3))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0.707
-```
-
-Std khoảng 0,707 °C quanh mức trung bình 20 °C.
-
-### Tình huống 5 — Tìm nhãn sản phẩm xuất hiện nhiều nhất
-
-**Tình huống thực tế:** Danh sách năm lượt mua mang mã `A,A,B,C,A`. Mỗi phần tử là một lượt, không phải số lượng tồn kho. Cần tìm mã được mua nhiều lượt nhất.
-
-**Vì sao chọn cách giải này?** Mode hoặc `value_counts` phù hợp với nhãn phân loại; không lấy mean của chữ.
-
-**Quy trình giải:**
-
-1. Tạo Series nhãn từng lượt mua.
-2. Dùng `value_counts` đếm tần suất.
-3. Lấy nhãn đầu và số lượt mua.
-
-```python
-# Mục đích: Tìm nhãn sản phẩm xuất hiện nhiều nhất.
 import pandas as pd
-
-products = pd.Series(['A', 'A', 'B', 'C', 'A'])
-counts = products.value_counts()
-print(counts.index[0], int(counts.iloc[0]))
+categories = ["Bút","Vở","Bút","Thước","Bút","Tẩy","Vở","Bút","Thước","Vở","Bút","Vở","Tẩy","Bút","Thước"]
+counts = pd.Series(categories).value_counts()
+assert len(categories) == 15
+print("Lượt chọn:", len(categories))
+print("Nhãn khác nhau:", len(counts))
+print("Mode:", counts.index[0])
+print("Số lượt mode:", int(counts.iloc[0]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-A 3
+Lượt chọn: 15
+Nhãn khác nhau: 4
+Mode: Bút
+Số lượt mode: 6
 ```
 
-Mã A xuất hiện ba lượt, nhiều nhất trong danh sách.
+Mode cho biết nhãn thường thấy nhất **trong 15 lượt**, không kết luận sản phẩm ấy sẽ được chọn nhiều nhất trong mọi ca.
+
+### Tình huống 4 — Cấp 4: Phân biệt phương sai mẫu và quần thể trên 18 nhiệt độ
+
+**Từ vựng trong mục:** **Variance** — phương sai; **Standard deviation** — độ lệch chuẩn; **ddof** — hiệu chỉnh mẫu.
+
+**Tình huống thực tế:** Phòng máy đo **18 lần nhiệt độ** (°C), mỗi hàng một lượt. Nếu xem đây là **toàn bộ ca** thì dùng phương sai quần thể `ddof=0`; nếu xem đây là mẫu để ước lượng ca tương tự thì dùng `ddof=1`. Hãy tính cả hai và độ lệch chuẩn của mẫu để thấy mẫu số khác nhau.
+
+**Vì sao chọn cách này?** Phương sai bình phương các sai lệch nên có đơn vị °C²; độ lệch chuẩn lấy căn để trở về °C. Nêu rõ ddof giúp người đọc không lấy hai kết quả khác nhau làm lỗi code.
+
+**Quy trình:**
+1. Lưu 18 nhiệt độ và ghi rõ đơn vị °C.
+2. Tính phương sai với hai quy ước ddof=0 và ddof=1.
+3. Tính std mẫu và kiểm phương sai mẫu lớn hơn phương sai quần thể.
+
+```python
+import numpy as np
+celsius = np.array([18,19,20,21,22,23,24,25,26,27,18,19,20,21,22,23,24,25], dtype=float)
+pop_var = np.var(celsius, ddof=0)
+sample_var = np.var(celsius, ddof=1)
+assert len(celsius) == 18
+print("Lượt đo:", len(celsius))
+print(f"Phương sai quần thể (°C²): {pop_var:.3f}")
+print(f"Phương sai mẫu (°C²): {sample_var:.3f}")
+print(f"Std mẫu (°C): {np.std(celsius, ddof=1):.3f}")
+print("Hiệu chỉnh làm tăng phương sai:", bool(sample_var > pop_var))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Lượt đo: 18
+Phương sai quần thể (°C²): 7.164
+Phương sai mẫu (°C²): 7.585
+Std mẫu (°C): 2.754
+Hiệu chỉnh làm tăng phương sai: True
+```
+
+Khác biệt do **quy ước đang thống kê toàn bộ hay ước lượng từ mẫu**; bản thân 18 số đo không đổi.
+
+### Tình huống 5 — Cấp 5: Báo cáo mô tả 20 thời gian giao có một bản ghi thiếu
+
+**Từ vựng trong mục:** **Missingness** — dữ liệu thiếu; **Describe** — bảng mô tả; **Median** — trung vị.
+
+**Tình huống thực tế:** Nhà vận chuyển có **20 phiếu giao**, mỗi phiếu một thời gian xử lý (phút); phiếu cuối chưa ghi nên là `None`, **không phải 0 phút**. Cần lập thống kê cho 19 phiếu có số, đếm riêng một phiếu thiếu, so mean/median và phương sai mẫu. Không bỏ cả phiếu khỏi tổng số bản ghi.
+
+**Vì sao chọn cách này?** Chuyển thiếu sang NaN rồi dùng `dropna()` hoặc `describe()` giữ số phiếu nguồn và số có dữ liệu tách biệt. Phương sai mẫu chỉ tính trên 19 giá trị, tránh kéo mean xuống do điền 0 sai.
+
+**Quy trình:**
+1. Tạo 20 dòng và đổi giá trị thiếu thành NaN.
+2. Đếm missing trước khi tính và lấy danh sách có số.
+3. Tính mean, median, sample std có đơn vị.
+
+```python
+import pandas as pd
+raw = [20,21,22,22,23,24,24,25,26,27,21,22,23,24,25,26,27,28,29,None]
+data = pd.Series(raw, dtype="float64")
+valid = data.dropna()
+assert len(data) == 20
+print("Phiếu:", len(data))
+print("Đủ thời gian:", len(valid))
+print("Thiếu:", int(data.isna().sum()))
+print(f"Mean (phút): {valid.mean():.2f}")
+print(f"Median (phút): {valid.median():.2f}")
+print(f"Std mẫu (phút): {valid.std(ddof=1):.2f}")
+```
+
+**Kết quả khi chạy:**
+
+```text
+Phiếu: 20
+Đủ thời gian: 19
+Thiếu: 1
+Mean (phút): 24.16
+Median (phút): 24.00
+Std mẫu (phút): 2.54
+```
+
+Trung bình mô tả 19 phiếu có số, **không đại diện** cho phiếu thiếu nếu lý do thiếu liên quan đến thời gian giao.
 
 ## 6. Sai lầm thường gặp
 

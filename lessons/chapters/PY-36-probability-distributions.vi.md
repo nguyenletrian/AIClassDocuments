@@ -120,144 +120,189 @@ print(round(float(probability), 4))
 
 Theo chuẩn tắc N(0,1), khoảng −1 đến +1 chứa khoảng 68,27% xác suất.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống phân phối — từ PMF nhị thức đến mô phỏng nhiều lô
 
-### Tình huống 1 — Đếm đúng tám đơn hàng giao đúng giờ
+### Tình huống 1 — Cấp 1: So 10 đơn đúng hạn với phân phối nhị thức
 
-**Tình huống thực tế:** Một kho vận giả định mỗi đơn có xác suất 0,8 giao đúng giờ, độc lập với các đơn khác. Trong một nhóm 10 đơn, cần biết xác suất **chính xác tám đơn** đạt yêu cầu.
+**Từ vựng trong mục:** **Bernoulli** — phép thử hai kết quả; **Binomial PMF** — xác suất đúng k thành công.
 
-**Vì sao chọn cách giải này?** PMF nhị thức tính xác suất đúng k lần thành công trên n phép thử độc lập cùng xác suất p.
+**Tình huống thực tế:** Một đơn vị giao nhận theo dõi **10 đơn hàng**; mỗi bản ghi 1 nếu đúng giờ và 0 nếu trễ. Chính sách dự báo giả định **mỗi đơn độc lập, xác suất đúng hạn bằng 0,8**, giống nhau giữa các đơn. Cần đếm số đơn đúng giờ trong bảng rồi tính khả năng nhận **đúng số đơn ấy** theo mô hình nhị thức.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Nhị thức phù hợp khi có số lần thử cố định, hai kết quả và cùng xác suất; `binom.pmf` hỏi **đúng k**, khác tỷ lệ thực nghiệm `k/10`. Một ngày có tỷ lệ 80% không chứng minh giả định độc lập.
 
-1. Xác định thành công là đơn đúng giờ, n=10, p=0.8 và k=8.
-2. Dùng `binom.pmf(k,n,p)`.
-3. In xác suất và ghi rõ đây là đúng 8, không phải tối đa 8.
+**Quy trình:**
+1. Đếm mười cờ thực tế và xác định số thành công k.
+2. Tính xác suất nhị thức cho đúng k trong mười đơn.
+3. In số đơn và xác suất để tránh nhầm PMF với phần trăm quan sát.
 
 ```python
-# Mục đích: Đếm đúng tám đơn hàng giao đúng giờ.
 from scipy.stats import binom
-
-print(round(float(binom.pmf(8, 10, 0.8)), 4))
+observed = [1,1,0,1,1,1,0,1,1,1]
+count = sum(observed)
+prob = binom.pmf(count, n=10, p=0.8)
+assert len(observed) == 10
+print("Đơn:", len(observed))
+print("Đúng hạn:", count)
+print(f"P(đúng số này): {prob:.4f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.302
+Đơn: 10
+Đúng hạn: 8
+P(đúng số này): 0.3020
 ```
 
-Xác suất đúng tám đơn đúng giờ là khoảng 0,302 theo các giả định.
+Xác suất 0,3020 là kết quả của **mô hình đã giả định**, không phải xác suất một đơn bất kỳ được giao đúng hạn.
 
-### Tình huống 2 — Xác suất có không quá ba lỗi
+### Tình huống 2 — Cấp 2: Tính xác suất không quá hai lỗi trong 12 linh kiện
 
-**Tình huống thực tế:** Nhà máy xét 10 linh kiện độc lập, xác suất lỗi mỗi chiếc 0,1. Bộ phận kiểm định muốn xác suất có từ 0 đến 3 chiếc lỗi, **bao gồm cả 3**.
+**Từ vựng trong mục:** **Binomial CDF** — xác suất tích lũy; **Threshold** — ngưỡng.
 
-**Vì sao chọn cách giải này?** CDF nhị thức cộng các xác suất P(X=0), P(X=1), P(X=2), P(X=3).
+**Tình huống thực tế:** Trạm lắp ráp ghi **12 linh kiện**, mỗi linh kiện có cờ lỗi 1/0; ba chiếc đang được đánh dấu lỗi. Giả sử ở một lô tương tự mỗi linh kiện lỗi độc lập với xác suất 0,1. Quản đốc muốn biết khả năng có **tối đa hai linh kiện lỗi trong một lô 12 chiếc**, đồng thời so số lỗi của lô đang quan sát.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `binom.cdf(2,12,0.1)` cộng xác suất từ 0 đến 2 lỗi, không phải xác suất **đúng hai lỗi**; kết quả dự báo theo mô hình khác việc đếm ba lỗi đã xảy ra.
 
-1. Đặt X là số linh kiện lỗi, n=10 và p=0.1.
-2. Tính `binom.cdf(3,10,0.1)`.
-3. Làm tròn bốn chữ số và in kết quả.
+**Quy trình:**
+1. Lưu 12 cờ lỗi và đếm lỗi quan sát.
+2. Dùng `binom.cdf` cho biến cố số lỗi không vượt 2.
+3. Phân biệt số lỗi thật với xác suất mô hình.
 
 ```python
-# Mục đích: Xác suất có không quá ba lỗi.
 from scipy.stats import binom
-
-print(round(float(binom.cdf(3, 10, 0.1)), 4))
+faults = [1,0,0,0,1,0,0,0,1,0,0,0]
+probability = binom.cdf(2, n=len(faults), p=0.1)
+assert len(faults) == 12
+print("Linh kiện:", len(faults))
+print("Lỗi quan sát:", sum(faults))
+print(f"P(không quá 2 lỗi): {probability:.4f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.9872
+Linh kiện: 12
+Lỗi quan sát: 3
+P(không quá 2 lỗi): 0.8891
 ```
 
-Theo mô hình, xác suất có tối đa ba linh kiện lỗi khoảng 98,72%.
+Một lô đã có ba lỗi không thay đổi cách tính xác suất của **lô tương lai dưới giả định**; muốn cập nhật xác suất lỗi p cần nhiều dữ liệu hơn.
 
-### Tình huống 3 — Tỷ lệ đo cảm biến dưới ngưỡng
+### Tình huống 3 — Cấp 3: Tỷ lệ quan sát dưới ngưỡng so với phân phối chuẩn của 15 số đo
 
-**Tình huống thực tế:** Một cảm biến có phép đo được giả định chuẩn với trung bình 100, độ lệch chuẩn 15 đơn vị đo. Ngưỡng theo dõi là 115; cần tính tỷ lệ phép đo không vượt ngưỡng.
+**Từ vựng trong mục:** **Normal CDF** — xác suất tích lũy chuẩn; **Empirical rate** — tần suất quan sát.
 
-**Vì sao chọn cách giải này?** CDF chuẩn cộng xác suất của mọi giá trị từ dưới ngưỡng đến ngưỡng.
+**Tình huống thực tế:** Trạm nhiệt có **15 phép đo** °C, mỗi hàng là một số đo đã quan sát. Kỹ sư giả định mô hình chuẩn có trung bình 100 °C và độ lệch chuẩn 10 °C; cần tính xác suất lý thuyết **không vượt 110 °C**, đồng thời xem tỷ lệ đo thực tế ≤110 °C trên 15 mẫu.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `norm.cdf` tính diện tích xác suất đến ngưỡng, còn số đo thực tế phải **đếm**. Hai đại lượng có mẫu số/nguồn khác nhau; không thể dùng `norm.pdf(110)` như xác suất dưới ngưỡng.
 
-1. Gán μ=100, σ=15 và ngưỡng 115 cùng đơn vị.
-2. Gọi `norm.cdf` với `loc=100`, `scale=15`.
-3. In xác suất đến bốn chữ số thập phân.
+**Quy trình:**
+1. Nhập 15 giá trị °C và đếm mẫu ≤110.
+2. Tính CDF tại 110 với μ=100, σ=10.
+3. Báo tỷ lệ đo và xác suất giả định cùng nhãn riêng.
 
 ```python
-# Mục đích: Tỷ lệ đo cảm biến dưới ngưỡng.
-from scipy.stats import norm
-
-print(round(float(norm.cdf(115, loc=100, scale=15)), 4))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0.8413
-```
-
-Khoảng 84,13% phép đo không vượt 115 nếu giả định phân phối chuẩn phù hợp.
-
-### Tình huống 4 — Phân biệt mật độ tại điểm và xác suất
-
-**Tình huống thực tế:** Mô hình độ lệch chuẩn tắc X~N(0,1). Nhà phân tích cần xem **mật độ** ở x=0, không phải tỷ lệ quan sát bằng chính xác 0.
-
-**Vì sao chọn cách giải này?** PDF chuẩn cho chiều cao đường cong tại điểm; xác suất của điểm đơn lẻ trong biến liên tục bằng 0.
-
-**Quy trình giải:**
-
-1. Chọn phân phối chuẩn tắc μ=0, σ=1.
-2. Tính `norm.pdf(0)`.
-3. In mật độ và tránh diễn giải như tỷ lệ sự kiện X=0.
-
-```python
-# Mục đích: Phân biệt mật độ tại điểm và xác suất.
-from scipy.stats import norm
-
-print(round(float(norm.pdf(0)), 4))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0.3989
-```
-
-0,3989 là mật độ tại 0, **không phải 39,89% xác suất có giá trị đúng bằng 0**.
-
-### Tình huống 5 — Tạo năm mẫu cảm biến chuẩn để thử code
-
-**Tình huống thực tế:** Lập trình viên muốn năm số thử để kiểm tra luồng dữ liệu cảm biến giả lập N(0,1), có thể tạo lại khi học viên chạy đúng môi trường.
-
-**Vì sao chọn cách giải này?** Bộ sinh NumPy với seed giúp kiểm tra cùng chuỗi dữ liệu trong phiên bản tương thích.
-
-**Quy trình giải:**
-
-1. Tạo `default_rng(42)`.
-2. Sinh năm mẫu chuẩn trung bình 0, độ lệch chuẩn 1.
-3. Làm tròn ba chữ số và chuyển List để in ổn định.
-
-```python
-# Mục đích: Tạo năm mẫu cảm biến chuẩn để thử code.
 import numpy as np
-
-rng = np.random.default_rng(42)
-samples = rng.normal(loc=0, scale=1, size=5)
-print(np.round(samples, 3).tolist())
+from scipy.stats import norm
+celsius = np.array([90,95,101,103,110,104,96,98,111,93,106,99,109,102,97], dtype=float)
+empirical = np.mean(celsius <= 110)
+theoretical = norm.cdf(110, loc=100, scale=10)
+assert len(celsius) == 15
+print("Lượt đo:", len(celsius))
+print("Đo ≤110:", int((celsius <= 110).sum()))
+print(f"Tỷ lệ đo: {empirical:.3f}")
+print(f"CDF mô hình: {theoretical:.4f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0.305, -1.04, 0.75, 0.941, -1.951]
+Lượt đo: 15
+Đo ≤110: 14
+Tỷ lệ đo: 0.933
+CDF mô hình: 0.8413
 ```
 
-Đây là năm giá trị giả lập, không phải minh chứng rằng dữ liệu cảm biến thực tế tuân phân phối chuẩn.
+Việc 14/15 phép đo đạt ngưỡng không chứng minh dữ liệu thực sự phân phối chuẩn; μ và σ ở đây là giả định minh họa.
+
+### Tình huống 4 — Cấp 4: Phân biệt mật độ và xác suất khoảng trên 18 mức cảm biến
+
+**Từ vựng trong mục:** **PDF** — mật độ; **CDF interval** — xác suất trong khoảng.
+
+**Tình huống thực tế:** Bộ hiệu chuẩn ghi **18 mức tín hiệu** (đơn vị cảm biến), mỗi hàng một lượt; muốn đánh giá khoảng chấp nhận **90 đến 110** dưới mô hình chuẩn μ=100, σ=10. Cần đếm mẫu thực tế trong khoảng, tính xác suất theo CDF, và in riêng PDF tại 100 để nhắc rằng mật độ tại điểm **không phải** xác suất một điểm.
+
+**Vì sao chọn cách này?** Biến chuẩn là liên tục, nên xác suất tại đúng một giá trị bằng 0; xác suất trong khoảng lấy bằng **hiệu hai CDF**, còn PDF chỉ là độ cao đường mật độ.
+
+**Quy trình:**
+1. Tạo 18 số đo có cùng đơn vị.
+2. Đếm số đo trong khoảng 90–110 (kể cả hai biên).
+3. Tính xác suất khoảng bằng CDF và mật độ tại 100 bằng PDF.
+
+```python
+import numpy as np
+from scipy.stats import norm
+values = np.array([84,88,90,92,94,95,97,98,99,100,101,102,103,105,108,110,113,117], dtype=float)
+observed = int(((values >= 90) & (values <= 110)).sum())
+interval = norm.cdf(110, 100, 10) - norm.cdf(90, 100, 10)
+density = norm.pdf(100, 100, 10)
+assert values.shape == (18,)
+print("Lượt đo:", len(values))
+print("Trong khoảng:", observed)
+print(f"Xác suất mô hình: {interval:.4f}")
+print(f"Mật độ tại 100: {density:.4f}")
+```
+
+**Kết quả khi chạy:**
+
+```text
+Lượt đo: 18
+Trong khoảng: 14
+Xác suất mô hình: 0.6827
+Mật độ tại 100: 0.0399
+```
+
+PDF có đơn vị **nghịch đảo đơn vị cảm biến**, trong khi xác suất khoảng không mang đơn vị và nằm trong [0,1].
+
+### Tình huống 5 — Cấp 5: Lặp 20 lô thử và đối chiếu phân phối số thành công
+
+**Từ vựng trong mục:** **Sampling distribution** — phân phối kết quả thử; **PMF normalization** — tổng xác suất bằng một.
+
+**Tình huống thực tế:** Đội vận hành mô phỏng **20 lô**, mỗi hàng là số đơn đúng giờ trong **10 đơn độc lập** của lô đó; giả định xác suất đúng giờ 0,7 cho mọi đơn. Cần đối chiếu số thành công trung bình từ 20 lô với kỳ vọng lý thuyết, kiểm tra **toàn bộ 11 giá trị** k=0…10 trong PMF tạo tổng xác suất 1. Trình bày mô phỏng có seed để tái lập.
+
+**Vì sao chọn cách này?** `rng.binomial` tạo **20 quan sát về số lần thành công**, mỗi quan sát trong [0,10], còn `binom.pmf` mô tả phân phối của **một lô**. Tổng xác suất 11 giá trị phải bằng 1, không phải 20.
+
+**Quy trình:**
+1. Mô phỏng 20 lô có 10 lần thử/lô bằng seed cố định.
+2. Tính số trung bình quan sát và kỳ vọng 10×0,7.
+3. Liệt kê xác suất PMF từ 0 đến 10 rồi đối chiếu tổng.
+
+```python
+import numpy as np
+from scipy.stats import binom
+rng = np.random.default_rng(42)
+counts = rng.binomial(n=10, p=0.7, size=20)
+possible = np.arange(11)
+probabilities = binom.pmf(possible, n=10, p=0.7)
+assert counts.shape == (20,) and np.all((counts >= 0) & (counts <= 10))
+print("Lô mô phỏng:", len(counts))
+print("Đơn mỗi lô:", 10)
+print("Kỳ vọng mỗi lô:", f"{10*0.7:.1f}")
+print("PMF có 11 giá trị:", len(probabilities))
+print("Tổng PMF bằng 1:", bool(np.isclose(probabilities.sum(), 1)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Lô mô phỏng: 20
+Đơn mỗi lô: 10
+Kỳ vọng mỗi lô: 7.0
+PMF có 11 giá trị: 11
+Tổng PMF bằng 1: True
+```
+
+20 là số **lô mô phỏng**, không phải n=20 trong từng phép thử nhị thức. Đối với các đơn phụ thuộc nhau, mô hình nhị thức này có thể không phù hợp.
 
 ## 6. Sai lầm thường gặp
 
