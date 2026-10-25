@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_07",
+  "status": "BATCH_07_IN_PROGRESS",
   "last_completed_batch": 6,
   "batches": [
     {
@@ -195,11 +195,26 @@
         "PY-34",
         "PY-35"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-31",
+        "PY-32",
+        "PY-33",
+        "PY-34",
+        "PY-35"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-07-20261025",
+      "lesson_commits": {
+        "PY-31": "c01cc97202bf5f02a84126ec4d4680bc6c257216",
+        "PY-32": "fb02d1b7443d77b9235219db77b6a57117716374",
+        "PY-33": "6e39c2660438750d32f416a3822045941d7d5dd7",
+        "PY-34": "3a9599746082b049b73f813396b7a0ad08aa088b",
+        "PY-35": "cc848aa07a32a15bf30646872b5e244de8ec5942"
+      },
+      "notes": "Batch07 five independent lesson commits for PY-31..35; rewrote 5 Tình huống thực tế + 5 Vì sao chọn cách này paragraphs per chapter (50 total), explaining limits/derivatives, gradient descent, Jacobian/Hessian, weighted probability and Bayes simply while preserving units/assumptions and seed=42/5000 simulated draws. Strict full-file compare against main with only those two approved single-line paragraph types masked: all other bytes identical, including 45 original Python fences, exact documented stdout, definitions, 20 MCQ per chapter and all chapter structure. GitHub CI and merge pending. Windows/PowerShell and CDP 9224 worker identity unverified; no Windows PASS."
     },
     {
       "batch": 8,
