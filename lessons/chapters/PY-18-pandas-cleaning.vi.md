@@ -126,159 +126,200 @@ print(prices.isna().sum())
 
 Có đúng một giá trị giá không hợp lệ. Chuyển thành NaN giúp phát hiện, không có nghĩa đã sửa được giá trị thật.
 
-## 5. Năm tình huống thực tế
+## 5. Năm tình huống làm sạch dữ liệu — từ phát hiện đến tránh leakage
 
-### Tình huống 1 — Báo số khách thiếu tuổi
+### Tình huống 1 — Cấp 1: Phát hiện tuổi thiếu trong 10 hồ sơ
 
-**Từ vựng trong mục:** **Missing value** — giá trị thiếu.
+**Từ vựng trong mục:** **Missing value** — giá trị thiếu; **isna** — kiểm tra ô trống.
 
-**Tình huống thực tế:** Một bảng tuổi khách có ba hàng `[20, None, 25]`, trong đó khách thứ hai chưa nhập tuổi. Đếm số tuổi bị thiếu.
+**Tình huống thực tế:** Bộ phận tuyển sinh tiếp nhận **10 hồ sơ** H01…H10, mỗi hàng là tuổi học viên (năm). H03 và H08 chưa khai tuổi (`None`). Cần đếm số hồ sơ thiếu tuổi và giữ nguyên các tuổi đã nhập, tuyệt đối không biến thiếu thành 0 tuổi.
 
-**Vì sao chọn cách giải này?** `isna()` đánh dấu các ô thiếu; `sum()` đếm các ô đó theo cột.
+**Vì sao chọn cách này?** `isna()` tạo một cột đúng/sai theo vị trí, rồi `sum()` đếm các dòng thiếu. Ở bước phát hiện chưa cần xóa hay điền số để tránh thay dữ liệu gốc.
 
-**Quy trình giải:**
-
-1. Tạo bảng `age` gồm ba khách, người thứ hai có giá trị thiếu.
-2. Dùng `isna()` đánh dấu từng ô thiếu.
-3. Dùng `sum()` đếm và in số trường hợp cần rà soát.
+**Quy trình:**
+1. Tạo DataFrame 10 mã học viên và tuổi.
+2. Dùng `isna()` trên cột tuổi để xác định mã thiếu.
+3. In tổng số hồ sơ, số thiếu và mã cần bổ sung.
 
 ```python
-# Mục đích: Báo số khách thiếu tuổi.
 import pandas as pd
-df = pd.DataFrame({"age":[20, None, 25]})
-print(df.isna().sum())
+df = pd.DataFrame({"id": [f"H{i:02d}" for i in range(1, 11)],
+                   "age": [25,28,None,31,22,29,35,None,26,32]})
+missing = df["age"].isna()
+assert len(df) == 10
+print("Hồ sơ:", len(df))
+print("Thiếu tuổi:", int(missing.sum()))
+print("Cần bổ sung:", ", ".join(df.loc[missing, "id"]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-age    1
-dtype: int64
+Hồ sơ: 10
+Thiếu tuổi: 2
+Cần bổ sung: H03, H08
 ```
 
-### Tình huống 2 — Điền giá trị trung vị
+Hai học viên còn thiếu tuổi vẫn tồn tại trong báo cáo; số 0 không được dùng làm tuổi điền vào.
 
-**Từ vựng trong mục:** **Imputation** — điền khuyết; **Median** — trung vị.
+### Tình huống 2 — Cấp 2: Điền trung vị cho hai trong 12 mức chi
 
-**Tình huống thực tế:** Cửa hàng có mức chi tiêu `[100, None, 200]` đơn vị tiền; một dòng chưa có số liệu. Điền chỗ thiếu bằng trung vị của số liệu hiện có.
+**Từ vựng trong mục:** **Imputation** — điền khuyết; **Median** — trung vị; **Copy** — bản sao.
 
-**Vì sao chọn cách giải này?** Trung vị của 100 và 200 là 150; `fillna` chỉ thay giá trị thiếu.
+**Tình huống thực tế:** Cửa hàng khảo sát **12 mức chi** (nghìn đồng/khách), trong đó khách thứ 4 và thứ 9 chưa khai. Nhóm phân tích quyết định **thử** điền trung vị của mười mức chi có thật để có bảng làm việc, nhưng phải giữ bảng thô để kiểm tra; đây không phải dữ liệu chi tiêu thực tế của hai khách.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `median()` trên cột có thiếu tự bỏ NaN, còn `fillna()` tạo giá trị thay thế. Việc giữ bản gốc tách bạch số đo thật với số được suy ra; không sử dụng giá trị này như giao dịch thật.
 
-1. Tạo cột `spent` có hai số 100, 200 và một ô thiếu.
-2. Tính trung vị từ các số có thật, được 150.
-3. Gọi `fillna` trên cột chi tiêu và in bảng đã điền.
+**Quy trình:**
+1. Tạo 12 khoản chi và đếm số thiếu trước sửa.
+2. Tính trung vị từ dữ liệu có thật; sao chép bảng rồi `fillna`.
+3. So sánh số thiếu của bản gốc và bản thử, in giá trị đã điền.
 
 ```python
-# Mục đích: Điền giá trị trung vị.
 import pandas as pd
-df = pd.DataFrame({"spent":[100, None, 200]})
-df["spent"] = df["spent"].fillna(df["spent"].median())
-print(df)
+raw = pd.DataFrame({"spent_thousand": [100,120,140,None,160,180,200,220,None,240,260,280]})
+median = raw["spent_thousand"].median()
+working = raw.copy()
+working["spent_thousand"] = working["spent_thousand"].fillna(median)
+assert len(raw) == 12
+print("Khách:", len(raw))
+print("Thiếu ban đầu:", int(raw["spent_thousand"].isna().sum()))
+print(f"Trung vị (nghìn đồng): {median:.1f}")
+print("Thiếu sau điền:", int(working["spent_thousand"].isna().sum()))
+print("Bản gốc vẫn thiếu:", int(raw["spent_thousand"].isna().sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-   spent
-0  100.0
-1  150.0
-2  200.0
+Khách: 12
+Thiếu ban đầu: 2
+Trung vị (nghìn đồng): 190.0
+Thiếu sau điền: 0
+Bản gốc vẫn thiếu: 2
 ```
 
-### Tình huống 3 — Loại dòng trùng hoàn toàn
+Trung vị là một lựa chọn minh họa; quyết định điền hay bỏ dữ liệu phải xét mục đích phân tích và ý nghĩa giá trị thiếu.
 
-**Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
+### Tình huống 3 — Cấp 3: Loại đúng hàng trùng hoàn toàn trong 15 giao dịch
 
-**Tình huống thực tế:** Đơn hàng có ba dòng O1:10, O1:10 và O2:20, trong đó hai dòng O1 giống hệt nhau. Loại dòng trùng hoàn toàn và in bảng còn lại.
+**Từ vựng trong mục:** **Duplicate** — bản ghi trùng; **drop_duplicates** — bỏ hàng trùng.
 
-**Vì sao chọn cách giải này?** `drop_duplicates()` giữ một bản của những dòng giống nhau.
+**Tình huống thực tế:** Một nhân viên nhập **15 dòng** đơn hàng gồm mã đơn và số tiền (nghìn đồng). Có ba dòng nhập lặp nguyên vẹn (cùng mã và số tiền). Cần biết số dòng trùng và số giao dịch sau bỏ trùng; đồng thời giải thích rằng chỉ được khử trùng khi đây thực sự là bản nhập lặp, không phải hai lần mua hợp lệ có cùng số tiền.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `duplicated()` so **tất cả cột** phát hiện hàng y hệt nhau; `drop_duplicates()` giữ bản đầu, không loại hai mã khác nhau chỉ vì số tiền bằng nhau.
 
-1. Tạo bảng ba dòng với hai bản ghi O1 giống hệt và một O2.
-2. Gọi `drop_duplicates()` để loại dòng trùng hoàn toàn.
-3. In bảng còn hai bản ghi; giữ nguyên index cũ nếu không reset.
+**Quy trình:**
+1. Tạo bảng với 15 cặp mã–tiền.
+2. Đếm hàng trùng hoàn toàn bằng `duplicated()`.
+3. Khử trùng trên bản làm việc, đối chiếu số dòng còn lại và tổng tiền.
 
 ```python
-# Mục đích: Loại dòng trùng hoàn toàn.
 import pandas as pd
-df = pd.DataFrame({"id":["O1", "O1", "O2"], "amount":[10, 10, 20]})
-print(df.drop_duplicates())
+rows = [("O01",100),("O02",150),("O03",100),("O01",100),("O04",200),("O05",180),("O02",150),("O06",130),("O07",220),("O08",170),("O09",160),("O09",160),("O10",190),("O11",110),("O12",250)]
+df = pd.DataFrame(rows, columns=["order_id", "amount_thousand"])
+repeat_count = int(df.duplicated().sum())
+cleaned = df.drop_duplicates().copy()
+assert len(df) == 15 and len(cleaned) + repeat_count == 15
+print("Dòng gốc:", len(df))
+print("Dòng trùng:", repeat_count)
+print("Dòng duy nhất:", len(cleaned))
+print("Mã O01 còn:", int((cleaned["order_id"] == "O01").sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-   id  amount
-0  O1      10
-2  O2      20
+Dòng gốc: 15
+Dòng trùng: 3
+Dòng duy nhất: 12
+Mã O01 còn: 1
 ```
 
-### Tình huống 4 — Đổi chuỗi giá sang số
+Chỉ khử ba hàng xác định là bị nhập lặp; nếu có số hóa đơn hợp lệ khác, không được xóa chỉ vì giá trị thanh toán trùng nhau.
 
-**Từ vựng trong mục:** **Data validation** — kiểm tra dữ liệu.
+### Tình huống 4 — Cấp 4: Chuyển 18 giá tiền dạng chữ và rà soát giá sai
 
-**Tình huống thực tế:** Dữ liệu giá nhận ba chuỗi `100`, `bad`, `250`. Giá trị `bad` không thể đổi thành số. Đổi các chuỗi số thành số, còn giá trị không hợp lệ thành NaN.
+**Từ vựng trong mục:** **to_numeric** — chuyển sang số; **errors=coerce** — biến lỗi thành NaN; **Validation** — kiểm dữ liệu.
 
-**Vì sao chọn cách giải này?** `to_numeric(errors='coerce')` cho phép xử lý giá trị sai kiểu mà không dừng chương trình.
+**Tình huống thực tế:** Nhà bán hàng nhập **18 đơn giá** (đồng/món), một hàng cho một SKU. Ba giá trị nhập sai ở dòng 4 (`bad`), 11 (rỗng), 17 (`N/A`). Cần chuyển kiểu để tính tổng **15 đơn giá có số**, giữ danh sách SKU chưa có giá và không dùng 0 đồng làm giá giả định.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `pd.to_numeric(errors='coerce')` xử lý chuỗi lỗi bằng NaN để có thể kiểm tra, không làm chương trình dừng; sau đó `notna()` xác định giá thật và `isna()` chỉ ra mã cần sửa.
 
-1. Đọc ba chuỗi giá, trong đó `'bad'` không phải số.
-2. Dùng `pd.to_numeric(..., errors='coerce')` chuyển lỗi thành NaN.
-3. In Series và xác định vị trí giá chưa hợp lệ.
+**Quy trình:**
+1. Tạo 18 chuỗi giá có mã P01…P18.
+2. Chuyển kiểu theo cột bằng `to_numeric(errors='coerce')`.
+3. Đếm dòng hợp lệ/lỗi, in mã lỗi và tổng giá các dòng có số.
 
 ```python
-# Mục đích: Đổi chuỗi giá sang số.
 import pandas as pd
-s = pd.Series(["100", "bad", "250"])
-print(pd.to_numeric(s, errors="coerce"))
+df = pd.DataFrame({"sku": [f"P{i:02d}" for i in range(1, 19)],
+                   "raw_price_vnd": ["50000","55000","60000","bad","70000","75000","80000","85000","90000","95000","","105000","110000","115000","120000","125000","N/A","135000"]})
+df["price_vnd"] = pd.to_numeric(df["raw_price_vnd"], errors="coerce")
+bad = df["price_vnd"].isna()
+assert len(df) == 18
+print("SKU:", len(df))
+print("Giá hợp lệ:", int((~bad).sum()))
+print("Cần sửa:", ", ".join(df.loc[bad, "sku"]))
+print("Tổng đơn giá (đồng):", int(df["price_vnd"].sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0    100.0
-1      NaN
-2    250.0
-dtype: float64
+SKU: 18
+Giá hợp lệ: 15
+Cần sửa: P04, P11, P17
+Tổng đơn giá (đồng): 1370000
 ```
 
-### Tình huống 5 — Chuẩn bị train/test tránh leakage
+Tổng đơn giá không phải doanh thu. Nếu cần doanh thu phải ghép thêm số lượng bán cho từng SKU.
 
-**Từ vựng trong mục:** **Missing value** — giá trị thiếu.
+### Tình huống 5 — Cấp 5: Tách 20 hồ sơ train/test trước khi tính trung vị điền khuyết
 
-**Tình huống thực tế:** Dữ liệu train là `[10, None, 20]` và test là `[None,30]`. Lấy trung vị từ train rồi điền số thiếu của cả train và test.
+**Từ vựng trong mục:** **Data leakage** — rò rỉ dữ liệu; **Train/test split** — chia tập; **Imputation** — điền khuyết.
 
-**Vì sao chọn cách giải này?** Tính thống kê chỉ từ tập train giúp tránh rò rỉ thông tin từ test.
+**Tình huống thực tế:** Một đội học máy có **20 hồ sơ giả lập** H01…H20; mỗi người có tuổi (năm), mức chi (nghìn đồng) và nhãn nhóm quan sát. Theo phân chia định trước, **15 hồ sơ đầu dùng tập train**, 5 hồ sơ cuối dùng test. Có hai giá trị thiếu ở train và **một giá trị test đặc biệt lớn**. Cần tính trung vị **chỉ từ train** để điền, áp cùng trung vị đó cho test nếu test thiếu, giữ bản gốc và tuyệt đối không dùng thống kê test để chọn giá trị train.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Nếu tính trung vị từ cả 20 người trước khi tách, dữ liệu test đã góp phần quyết định cách xử lý train, gây **data leakage**. Cách đúng là tách trước rồi học thống kê từ train; trong ví dụ này test có giá trị bất thường để nhấn mạnh nguyên tắc.
 
-1. Tạo riêng Series train `[10, None, 20]` và test `[None, 30]`.
-2. Tính trung vị **chỉ trên train**, thu được 15.
-3. Dùng 15 điền vào ô thiếu của cả train và test, không học từ test.
+**Quy trình:**
+1. Tạo DataFrame 20 người; tách 15 dòng đầu/5 dòng cuối.
+2. Tính median từ `train` trên số hợp lệ, không dùng `test`.
+3. Dùng một median cố định điền vào bản train/test, đối chiếu số dòng và giá trị của train.
 
 ```python
-# Mục đích: Chuẩn bị train/test tránh leakage.
 import pandas as pd
-train = pd.Series([10, None, 20])
-test = pd.Series([None, 30])
-median = train.median()
-print(train.fillna(median), test.fillna(median))
+raw = pd.DataFrame({"id": [f"H{i:02d}" for i in range(1, 21)],
+                    "age_years": [20,21,22,23,24,25,26,27,20,21,22,23,24,25,26,27,20,21,22,23],
+                    "spent_thousand": [100,113,None,139,152,165,178,191,204,None,110,123,136,149,162,175,999,201,214,107]})
+train = raw.iloc[:15].copy()
+test = raw.iloc[15:].copy()
+train_median = train["spent_thousand"].median()
+train["spent_thousand"] = train["spent_thousand"].fillna(train_median)
+test["spent_thousand"] = test["spent_thousand"].fillna(train_median)
+assert len(raw) == len(train) + len(test) == 20
+assert raw["spent_thousand"].isna().sum() == 2
+print("Hồ sơ:", len(raw))
+print("Train:", len(train))
+print("Test:", len(test))
+print("Thiếu train trước:", 2)
+print(f"Trung vị học từ train: {train_median:.1f}")
+print("Thiếu sau điền:", int(train["spent_thousand"].isna().sum() + test["spent_thousand"].isna().sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0    10.0
-1    15.0
-2    20.0
-dtype: float64 0    15.0
-1    30.0
-dtype: float64
+Hồ sơ: 20
+Train: 15
+Test: 5
+Thiếu train trước: 2
+Trung vị học từ train: 149.0
+Thiếu sau điền: 0
 ```
+
+Trung vị của train được tái sử dụng khi xử lý test; bản dữ liệu thô vẫn giữ dấu vết dữ liệu thiếu. Không biến chỉ số từ test thành tham số chọn trong lúc chuẩn bị train.
 
 ## 6. Sai lầm thường gặp
 
