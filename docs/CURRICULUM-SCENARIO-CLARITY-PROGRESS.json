@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "BATCH_05_IN_PROGRESS",
-  "last_completed_batch": 4,
+  "status": "READY_FOR_BATCH_06",
+  "last_completed_batch": 5,
   "batches": [
     {
       "batch": 1,
@@ -135,7 +135,7 @@
         "PY-24",
         "PY-25"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-21",
         "PY-22",
@@ -143,9 +143,9 @@
         "PY-24",
         "PY-25"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 159,
+      "merged_commit": "10d65828baf72d0f7f6bc1351e71c496c46634c6",
+      "ci_run": 40180735375,
       "branch": "feat/scenario-clarity-batch-05-20261025",
       "lesson_commits": {
         "PY-21": "49b288f2e3ab68b9587b4ea09c49382656839a87",
@@ -154,7 +154,7 @@
         "PY-24": "71e5a46ea0600fdad7c7f365779a268351b51d08",
         "PY-25": "3969e6e52a2cfb2872aecf6bf9a843374924ca81"
       },
-      "notes": "PY-21..25 separately committed. Exactly five Tình huống thực tế and five Vì sao chọn cách này paragraphs rewritten per chapter, 50 total. Explain set operations, combinatorics, graphs and Jaccard, vector and matrix math through concrete real/simulated data, units, method reasoning and pitfalls. Compared each full changed chapter with main after masking only allowed two prose paragraph types: every other byte identical including 45 Python code fences, expected stdout, definitions, 20 MCQs per chapter and chapter structure. GitHub CI and PR merge PENDING. Windows/PowerShell canary unavailable, CDP 9224 identity unverified; no local PASS."
+      "notes": "Batch05 PY-21..25 five independent lesson commits, exactly 50 revised scenario/why prose paragraphs. Full-file byte comparison outside allowed two prose paragraphs matches main for each of five files; preserved 45 Python code blocks, exact stdout, all definitions, 100 MCQs and scenario progression. PR #159 final-head eb1fccd83dfe0892730c5da823c0ecd948d73af0 GitHub Actions CI #40180735375 COMPLETED SUCCESS checking 46-lesson curriculum structure+MCQ, explicit Python AST, independent scenario script execution/stdout and Markdown. Squash merged 10d65828baf72d0f7f6bc1351e71c496c46634c6. Windows PowerShell/CDP unverified; next batch06 PY-26..30."
     },
     {
       "batch": 6,
