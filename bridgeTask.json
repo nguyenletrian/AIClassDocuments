@@ -1187,22 +1187,22 @@
     "reason": "Owner-approved shared AIBrigde ChatGPT Conversation Reliability task. Load merged AIBrigde main PR #26 fae2617706314b2a600f9e0044827b4cddcb1f68 before running pending v2 browser:conversation_structure_probe with payload.detail_level=contexts. Managed restart barrier is processed first, before task dispatch. Preserve Edge session, current ChatGPT conversation, 17 completed task ACKs and Jetking goal_review.enabled=false. Read-only context counts only; do not replay the older v1 task or create/move ChatGPT conversation. A stale v1 result instead of v2 is NOT acceptable; report runtime freshness mismatch."
   },
   "goal_review": {
-    "enabled": false,
+    "enabled": true,
     "approval": "approved",
-    "status": "completed",
-    "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
-    "revision": "2026-10-25-scenario-clarity-10-batches-completed-final-pr164",
-    "title": "Viết lại tình huống thực tế dễ hiểu và giải thích kỹ vì sao chọn cách này",
-    "phase": "COMPLETED",
+    "status": "active",
+    "goal_id": "aiclassdocuments-full-code-annotations-20261025",
+    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch01",
+    "title": "Chú thích đầy đủ code Python, giải thích mọi API/phương thức khó hiểu trong 46 bài",
+    "phase": "READY_FOR_BATCH_01",
     "chapter_index": "lessons/chapters/README.md",
-    "goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
-    "progress_ledger": "docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json",
-    "workflow_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
+    "goal_spec": "docs/CURRICULUM-CODE-ANNOTATION-GOAL.json",
+    "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
+    "workflow_guide": "docs/CURRICULUM-STYLE-GUIDE.md",
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Owner-approved scenario clarity goal COMPLETED 10/10 sequential batches (PY-01..PY-46, 46 lessons, 230 progressive scenarios) after PR #164 merged at 0801e42bc82cb0e31561200ae96bd6c88c7e7835 and final-head GitHub CI run #40184711415 COMPLETED SUCCESS. Durable ledger docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json status COMPLETED last_completed_batch=10, ten batches MERGED, goal spec COMPLETED. Open PRs=0 and TaskSource pending=0 at completion. No remaining owner-approved scenario clarity work. Do not publish new tasks, automatically reactivate this goal, replay historical Jetking tasks, or create a ChatGPT conversation due to idle heartbeat reminders. Next goal requires separate explicit owner approval. CDP port 9224 owner unverified; PowerShell canary unavailable; Windows PASS UNVERIFIED.",
-    "review_hold": "This owner-approved scenario clarity goal is COMPLETED (PY-01..PY-46, 10/10 MERGED). Goal review disabled; idle heartbeat requests are informational and must leave TaskSource queue idle. Evidence PR #164, final-head CI #40184711415 SUCCESS, ledger status COMPLETED. Any future goal needs separate explicit owner approval. Windows/PowerShell and CDP 9224 verification unavailable, no Windows PASS."
+    "next_review": "Owner explicitly approved NEW full-code-annotation goal after successful 920-MCQ PDF and Markdown export (GitHub Actions #40186408627 SUCCESS, files in exports/pdf and exports/markdown), previous scenario clarity ledger COMPLETED 10/10. Authoritative code goal and ledger at docs/CURRICULUM-CODE-ANNOTATION-GOAL.json / docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json. Begin ONLY batch01 PY-01..PY-05 after verifying fresh main, no open PR, no pending/ACK. Add helpful Vietnamese # comments INSIDE every executable Python code fence across all teaching sections: each block has # Mục đích, annotate non-obvious APIs, attributes, flags, chains, data meaning and cleanup. In particular explain matplotlib.use('Agg') as headless backend, plt.gca() as current Axes, .lines[0] first line, get_xdata() x values, len() size, plt.close() release figure. Do NOT modify executable Python AST, original stdout, definitions, lesson structure or ANY of 920 MCQs. One lesson commit each; verify AST equivalence per fence and exact scenario stdout, run 46-lesson curriculum/MCQ/Markdown tests, merge ONLY after final-head GitHub CI SUCCESS, durably record PR/CI/merge SHA, advance to next batch. Do not replay old Jetking tasks or duplicate heartbeat reminders. CDP 9224 identity unverified and Windows PowerShell canary unavailable: avoid browser rebind and never claim Windows PASS. One unchanged goal event is idle boundary; no duplicate queue task.",
+    "review_hold": "APPROVED new code annotation goal, active READY_FOR_BATCH_01 PY-01..05; previous prose goal COMPLETED, PDF 920 MCQ exported. Pending=0. GitHub Architect-side edits only; do not create duplicate Bridge tasks. CDP 9224 unverified and Windows PowerShell canary unavailable."
   },
   "goal_review_history": [
     {
