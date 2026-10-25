@@ -42,11 +42,16 @@
 Một **eigenvector** là vector khác không mà khi nhân với ma trận vuông A, nó chỉ đổi **độ lớn hoặc đảo chiều**, không rời khỏi đường phương ban đầu: `A @ v = λ*v`. Ví dụ ma trận `diag(2,3)` nhân vector `[0,1]` cho `[0,3]`, vẫn nằm trên trục tung. Điều kiện là vector khác không và phù hợp số chiều của A; vector riêng không phải bất kỳ vector nào.
 
 ```python
-# Mục đích: Hướng không bị xoay sau biến đổi.
+# Mục đích: Minh họa vector riêng giữ nguyên hướng khi bị ma trận giãn theo trục.
+# Dữ liệu: A=diag(2,3) giãn x gấp 2, y gấp 3; v=[0,1] trùng trục y.
+# NumPy (np) cung cấp mảng số và các hàm đại số tuyến tính/covariance.
 import numpy as np
 
+# np.diag() đặt hai hệ số trên đường chéo, các ô khác bằng 0.
 A = np.diag([2.0, 3.0])
+# v là vector hướng y với hai thành phần x=0,y=1.
 v = np.array([0.0, 1.0])
+# @ nhân ma trận với vector: ra [0,3], giữ phương y và giãn gấp 3; đó là hướng riêng.
 print(A @ v)
 ```
 
@@ -65,10 +70,14 @@ print(A @ v)
 **Trị riêng** λ cho biết A phóng đại, thu nhỏ hoặc đảo chiều **vector riêng** bao nhiêu lần. Với `diag(2,3)`, hướng trục x có λ=2 và trục y có λ=3. Đó là tính chất của ma trận A; trị riêng **không** tự động mang nghĩa phương sai trừ khi A đang là **ma trận hiệp phương sai**. `np.linalg.eigvalsh` lấy các trị riêng của ma trận đối xứng theo thứ tự tăng dần.
 
 ```python
-# Mục đích: Hệ số biến đổi trên hướng riêng.
+# Mục đích: Đọc các trị riêng của ma trận đường chéo đối xứng bằng eigvalsh().
+# Dữ liệu: A là ma trận 2×2 đối xứng, hệ số giãn theo hai trục bằng 2 và 3.
+# NumPy (np) cung cấp mảng số và các hàm đại số tuyến tính/covariance.
 import numpy as np
 
+# diag() tạo ma trận đường chéo thực đối xứng.
 A = np.diag([2.0, 3.0])
+# eigvalsh() trả TRỊ RIÊNG tăng dần của ma trận đối xứng, KHÔNG trả vector riêng; phù hợp vì A đối xứng.
 print(np.linalg.eigvalsh(A))
 ```
 
@@ -87,10 +96,14 @@ Hai trị riêng là 2 và 3, tương ứng mức co giãn của hai trục tọ
 **Hiệp phương sai** đo xu hướng hai đặc trưng tăng/giảm cùng nhau. Dữ liệu có ba **hàng mẫu** `(1,2)`, `(2,4)`, `(3,6)` và hai **cột đặc trưng** x, y, trong đó y=2x. `np.cov(X,rowvar=False)` lấy **cột là biến**, **hàng là quan sát**, trả ma trận 2×2. Các ô đường chéo là phương sai từng biến, hai ô còn lại là hiệp phương sai. Không nhầm covariance với tương quan chuẩn hóa từ −1 đến 1.
 
 ```python
-# Mục đích: Hai đặc trưng cùng thay đổi ra sao?.
+# Mục đích: Tính covariance của hai cột số liệu có quan hệ y=2x.
+# Dữ liệu: Ba hàng quan sát, cột y gấp đôi x; covariance mô tả biến thiên cùng nhau.
+# NumPy (np) cung cấp mảng số và các hàm đại số tuyến tính/covariance.
 import numpy as np
 
+# Mỗi hàng là một mẫu, mỗi cột là một biến x/y.
 X = np.array([[1, 2], [2, 4], [3, 6]])
+# np.cov() tính hiệp phương sai mẫu (mẫu số n−1); rowvar=False nghĩa biến theo CỘT, không theo hàng; kết quả ma trận 2×2.
 print(np.cov(X, rowvar=False))
 ```
 
@@ -110,11 +123,17 @@ Biến y có phương sai gấp bốn x và hiệp phương sai dương 2, vì y
 Với **ma trận hiệp phương sai đối xứng**, vector riêng của **trị riêng lớn nhất** biểu diễn hướng có phương sai lớn nhất. Đây là nguyên lý của PCA. Ví dụ hiệp phương sai `diag(2,3)` có phương sai theo x là 2 và theo y là 3, nên hướng chính là trục y. **Dấu của eigenvector không cố định**: `[0,1]` và `[0,-1]` đều mô tả cùng một trục. Lấy `abs` khi chỉ muốn minh họa độ lớn thành phần.
 
 ```python
-# Mục đích: Hướng biến thiên chính trong PCA.
+# Mục đích: Chọn vector riêng ứng với trị riêng lớn nhất để hiểu hướng PCA.
+# Dữ liệu: C=diag(2,3) là covariance giả định; chiều y biến thiên nhiều nhất.
+# NumPy (np) cung cấp mảng số và các hàm đại số tuyến tính/covariance.
 import numpy as np
 
+# Ma trận đường chéo có phương sai lớn nhất nằm ở hướng y.
 C = np.diag([2.0, 3.0])
+# eigh() trả tuple (values,vectors) với values tăng dần; mỗi CỘT vectors là một vector riêng tương ứng.
 values, vectors = np.linalg.eigh(C)
+# [:, -1] lấy cột vector riêng CUỐI ứng với trị riêng lớn nhất.
+# abs() bỏ khác biệt dấu +/- vì hai vector đối hướng biểu diễn cùng trục riêng.
 print(np.abs(vectors[:, -1]))
 ```
 
@@ -142,15 +161,24 @@ Hướng có phương sai lớn nhất nằm trên trục y; đổi dấu vector
 3. Chọn trục có phương sai lớn nhất và diễn giải.
 
 ```python
+# Mục đích: Kiểm một cột không đổi khiến một trị riêng bằng 0 trong 10 mẫu.
+# Dữ liệu: 10 hàng, x tăng 1..10 nhưng y luôn 20; y không mang thông tin biến thiên.
+# NumPy (np) cung cấp mảng số và các hàm đại số tuyến tính/covariance.
 import numpy as np
+# 10 điểm có y=20 ở mọi hàng nên độ biến thiên y bằng 0.
 X = np.array([[1,20],[2,20],[3,20],[4,20],[5,20],[6,20],[7,20],[8,20],[9,20],[10,20]], dtype=float)
+# rowvar=False dùng các cột làm biến; covariance ước lượng theo mẫu, chia cho n−1.
 C = np.cov(X, rowvar=False)
+# eigvalsh trả hai trị riêng xếp tăng; trị riêng gần 0 ở trục không đổi.
 values = np.linalg.eigvalsh(C)
 if X.shape != (10, 2):
+    # ValueError dừng nếu số hàng/cột hoặc kết quả PCA không đúng yêu cầu.
     raise ValueError("Cần 10 lượt đo với hai đại lượng.")
 print("Lượt đo:", len(X))
+# [0] là trị nhỏ nhất, [-1] lớn nhất, :.2f định dạng hai chữ số lẻ.
 print("Trị riêng nhỏ:", f"{values[0]:.2f}")
 print("Trị riêng lớn:", f"{values[-1]:.2f}")
+# [:,1] lấy toàn bộ cột y; ==20 tạo mask bool; np.all() yêu cầu tất cả True; bool() chuyển về Boolean Python.
 print("Y không thay đổi:", bool(np.all(X[:, 1] == 20)))
 ```
 
@@ -179,17 +207,26 @@ Y không thay đổi: True
 3. Đếm số trị riêng dương theo ngưỡng nhỏ.
 
 ```python
+# Mục đích: Đếm hướng biến thiên độc lập khi 12 điểm đều nằm trên đường thẳng.
+# Dữ liệu: 12 điểm hai chiều y=2x; thực chất chỉ một hướng độc lập.
+# NumPy (np) cung cấp mảng số và các hàm đại số tuyến tính/covariance.
 import numpy as np
+# 12 hàng (x,y) với y luôn gấp đôi x: hai cột không độc lập.
 X = np.array([[1,2],[2,4],[3,6],[4,8],[5,10],[6,12],[7,14],[8,16],[9,18],[10,20],[11,22],[12,24]], dtype=float)
+# rowvar=False nghĩa mỗi cột x/y là một biến, các hàng là lượt đo.
 C = np.cov(X, rowvar=False)
+# Trị riêng từ ma trận đối xứng C xếp tăng, một hướng gần 0 vì dữ liệu trên đường.
 eigenvalues = np.linalg.eigvalsh(C)
 if X.shape != (12, 2):
+    # ValueError dừng nếu số hàng/cột hoặc kết quả PCA không đúng yêu cầu.
     raise ValueError("Cần đúng 12 mẫu hai chiều.")
 print("Mẫu:", len(X))
 labels = []
 for value in eigenvalues:
+    # f-string :.2f hiển thị từng trị riêng với hai chữ số sau dấu thập phân.
     labels.append(f"{value:.2f}")
 print("Trị riêng:", ", ".join(labels))
+# Ngưỡng 1e-9 bỏ sai số float gần 0; > tạo mask, sum() đếm chiều biến thiên đáng kể.
 print("Chiều có biến thiên:", int((eigenvalues > 1e-9).sum()))
 ```
 
@@ -217,19 +254,31 @@ Trị riêng 0 không nói rằng một cột toàn số 0, mà nói hai cột k
 3. Kiểm chứng từng cột véc-tơ qua quan hệ riêng.
 
 ```python
+# Mục đích: Kiểm phương trình C@v=λv cho các vector riêng của 15 điểm hai chiều.
+# Dữ liệu: 15 điểm tạo lưới 5×3, mỗi hàng một điểm x,y.
+# NumPy (np) cung cấp mảng số và các hàm đại số tuyến tính/covariance.
 import numpy as np
+# 15 hàng điểm trên lưới hai chiều, dtype=float phục vụ tính covariance.
 X = np.array([[0,0],[1,0],[2,0],[3,0],[4,0],[0,1],[1,1],[2,1],[3,1],[4,1],[0,2],[1,2],[2,2],[3,2],[4,2]], dtype=float)
+# cov 2×2 dùng hai cột làm hai biến, chia n−1 theo mặc định.
 C = np.cov(X, rowvar=False)
+# eigh() trả trị riêng và vector riêng (vector được xếp theo CỘT).
 values, vectors = np.linalg.eigh(C)
+# @ nhân C đồng thời với mỗi cột vector riêng.
+# Broadcast trị riêng tương ứng theo cột, tạo λv cho mỗi vector.
+# allclose() kiểm C@v ≈ λv trong dung sai floating-point, không dùng == tuyệt đối.
 verified = np.allclose(C @ vectors, vectors * values)
 if X.shape != (15, 2):
+    # ValueError dừng nếu số hàng/cột hoặc kết quả PCA không đúng yêu cầu.
     raise ValueError("Cần đúng 15 điểm hai chiều.")
 print("Điểm:", len(X))
 labels = []
 for value in values:
+    # Định dạng :.3f in ba số thập phân.
     labels.append(f"{value:.3f}")
 print("Trị riêng:", ", ".join(labels))
 print("Kiểm chứng:", bool(verified))
+# shape[1] đếm số hướng/ số cột vector riêng.
 print("Số hướng:", vectors.shape[1])
 ```
 
@@ -258,21 +307,34 @@ Chỉ khi nhân ma trận hiệp phương sai với **đúng véc-tơ riêng** m
 3. Kiểm tra hướng chính bằng giá trị tuyệt đối của véc-tơ riêng, tránh phụ thuộc dấu.
 
 ```python
+# Mục đích: Chọn hướng phương sai chính trên lưới 18 điểm và tính tỷ lệ giữ được.
+# Dữ liệu: 18 hàng điểm tạo lưới 6×3; phương sai x lớn hơn y.
+# NumPy (np) cung cấp mảng số và các hàm đại số tuyến tính/covariance.
 import numpy as np
+# 18 mẫu điểm x/y, dtype=float.
 points = np.array([[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[0,2],[1,2],[2,2],[3,2],[4,2],[5,2]], dtype=float)
+# rowvar=False tính covariance giữa CỘT x,y của các hàng quan sát.
 C = np.cov(points, rowvar=False)
+# eigh trả trị riêng tăng dần và vector riêng ở các cột.
 values, vectors = np.linalg.eigh(C)
+# argsort trả CHỈ SỐ tăng dần theo trị riêng; [::-1] đảo thứ tự thành giảm dần.
 order = np.argsort(values)[::-1]
+# [:,order[0]] chọn cột vector riêng cho trị lớn nhất.
+# abs() bỏ dấu vector riêng vốn có thể đảo chiều ±.
 principal = np.abs(vectors[:, order[0]])
 if points.shape != (18, 2):
+    # ValueError dừng nếu số hàng/cột hoặc kết quả PCA không đúng yêu cầu.
     raise ValueError("Cần đúng 18 điểm hai chiều.")
 print("Điểm:", len(points))
+# So độ lớn x với y để chọn tên trục gần vector chính nhất.
 if principal[0] > principal[1]:
     principal_axis = "x"
 else:
     principal_axis = "y"
 print("Hướng chính:", principal_axis)
+# Chia trị riêng lớn nhất cho tổng trị riêng, nhân 100 để ra % phương sai giữ bởi một hướng.
 print(f"Tỷ lệ phương sai lớn nhất: {100*values[order[0]]/values.sum():.2f}%")
+# len() đếm hai chiều/trị riêng ban đầu.
 print("Số chiều:", len(values))
 ```
 
@@ -301,22 +363,40 @@ Trị riêng chỉ có ý nghĩa **phương sai** vì ma trận ở đây là co
 3. Tái tạo bảng, kiểm tra sai số và báo tỷ lệ phương sai của hướng đầu.
 
 ```python
+# Mục đích: Chiếu 20 hồ sơ bốn đặc trưng phụ thuộc tuyến tính xuống hai chiều rồi tái tạo.
+# Dữ liệu: 20 hàng × 4 cột, cột 1=2×cột 0 và cột 3=3×cột 2; chỉ có hai hướng độc lập.
+# NumPy (np) cung cấp mảng số và các hàm đại số tuyến tính/covariance.
 import numpy as np
+# 20 hồ sơ có 4 cột nhưng chỉ 2 cột mang biến thiên độc lập; dtype=float.
 X = np.array([[0,0,0,0],[1,2,0,0],[2,4,0,0],[3,6,0,0],[4,8,0,0],[0,0,1,3],[1,2,1,3],[2,4,1,3],[3,6,1,3],[4,8,1,3],[0,0,2,6],[1,2,2,6],[2,4,2,6],[3,6,2,6],[4,8,2,6],[0,0,3,9],[1,2,3,9],[2,4,3,9],[3,6,3,9],[4,8,3,9]], dtype=float)
+# mean(axis=0) tính trung bình TỪNG CỘT trên mọi hàng.
+# Broadcast trừ vector bốn trung bình cho mỗi hàng, đưa từng biến về trung bình 0.
 centered = X - X.mean(axis=0)
+# rowvar=False tính ma trận covariance 4×4 theo CỘT (np.cov tự trừ trung bình và chia n−1).
 C = np.cov(X, rowvar=False)
+# eigh trả 4 trị riêng tăng dần và vector riêng ở các cột.
 values, vectors = np.linalg.eigh(C)
+# argsort trả chỉ số sắp tăng, [::-1] đảo để hướng phương sai lớn lên trước.
 order = np.argsort(values)[::-1]
+# order[:2] chọn hai trị lớn nhất; vectors[:,...] lấy hai vector riêng làm basis 4×2.
 basis = vectors[:, order[:2]]
+# @ chiếu từng hàng bốn chiều lên hai hướng mới, trả bảng 20×2.
 projected = centered @ basis
+# mean(axis=0) tính trung bình TỪNG CỘT trên mọi hàng.
+# @ với basis.T (2×4) khôi phục bốn tọa độ đã căn giữa.
+# Cộng lại bốn trung bình từng cột để quay về thang dữ liệu ban đầu.
 recreated = projected @ basis.T + X.mean(axis=0)
 if X.shape != (20, 4) or projected.shape != (20, 2):
+    # ValueError dừng nếu số hàng/cột hoặc kết quả PCA không đúng yêu cầu.
     raise ValueError("Cần 20 mẫu bốn đặc trưng và hai chiều sau PCA.")
 print("Hồ sơ:", len(X))
 print("Cột gốc:", X.shape[1])
 print("Cột sau PCA:", projected.shape[1])
+# Mask trị riêng dương đáng kể, dùng đếm số hướng biến thiên.
 print("Trị riêng dương:", int((values > 1e-9).sum()))
+# Tỷ lệ phương sai hướng đầu = trị riêng lớn nhất / tổng trị riêng ×100 (%).
 print(f"Hướng đầu giữ: {100*values[order[0]]/values.sum():.2f}%")
+# allclose đối chiếu tái tạo với dữ liệu gốc có dung sai; giữ hai hướng đủ vì dữ liệu chỉ có hai hướng độc lập.
 print("Tái tạo đúng:", bool(np.allclose(recreated, X)))
 ```
 
