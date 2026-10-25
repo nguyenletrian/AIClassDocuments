@@ -1,0 +1,43 @@
+{
+  "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
+  "title": "Chuyển ví dụ Python sang cú pháp tường minh cho học viên mới",
+  "approval": "owner_approved",
+  "status": "APPROVED_DEFERRED",
+  "activation_condition": {
+    "goal_id": "aiclassdocuments-markdown-render-46-lessons-20261025",
+    "progress_ledger": "docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json",
+    "requires_last_completed_batch": 10,
+    "requires_status": "COMPLETED",
+    "requires_no_pending_tasks": true,
+    "requires_no_open_prs_for_old_goal": true
+  },
+  "scope": {
+    "repository": "nguyenletrian/AIClassDocuments",
+    "chapters": "PY-01 through PY-46",
+    "work_style": "ten sequential batches, up to five lessons per batch, independent commits, CI PASS, merge and durable ledger after each batch",
+    "rules": [
+      "In all executable Python examples remove every `assert` used for checking/preconditions, replace with explicit `if` and a clear meaningful reaction such as a readable `raise ValueError`/`raise RuntimeError` or explicit output; preserve learning intent and avoid hiding failures.",
+      "Rewrite list/set/dict comprehensions and generator expressions (for example `[i for i, color in enumerate(colors, 1) if color == \"Xanh\"]`) as explicit initialization, `for` loops and nested `if` where necessary; prioritize beginners understanding over terse syntax.",
+      "Apply the same readability principle to other unnecessarily terse or nested one-liners only when they obscure beginner learning, keeping results equivalent.",
+      "Preserve lesson structure, definitions, scenarios, concepts and meaning, MCQ questions/answers, intentional algorithm choices, record counts 10/12/15/18/20 and exact documented stdout; do not change output silently.",
+      "For every batch verify independently executed code blocks still match stdout exactly; run existing curriculum structure/MCQ/Markdown regression and prior batch tests; record commits/PR/CI/merge; no fabricated Windows validation."
+    ]
+  },
+  "example": {
+    "before": [
+      "blue = [i for i, color in enumerate(colors, 1) if color == \"Xanh\"]",
+      "assert len(colors) == 10"
+    ],
+    "after": [
+      "blue = []",
+      "for i, color in enumerate(colors, 1):",
+      "    if color == \"Xanh\":",
+      "        blue.append(i)",
+      "if len(colors) != 10:",
+      "    raise ValueError(\"Dữ liệu phải có đúng 10 vé\")"
+    ]
+  },
+  "reason": "User specifically requested new goal but ONLY AFTER existing Markdown formatting goal is fully completed; do not start now, do not change lessons outside active batch, do not activate duplicate tasks from idle heartbeats.",
+  "created_on": "2026-10-25",
+  "progress": "NOT_STARTED"
+}
