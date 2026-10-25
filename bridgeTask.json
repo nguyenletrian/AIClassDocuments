@@ -1187,27 +1187,21 @@
     "reason": "Owner-approved shared AIBrigde ChatGPT Conversation Reliability task. Load merged AIBrigde main PR #26 fae2617706314b2a600f9e0044827b4cddcb1f68 before running pending v2 browser:conversation_structure_probe with payload.detail_level=contexts. Managed restart barrier is processed first, before task dispatch. Preserve Edge session, current ChatGPT conversation, 17 completed task ACKs and Jetking goal_review.enabled=false. Read-only context counts only; do not replay the older v1 task or create/move ChatGPT conversation. A stale v1 result instead of v2 is NOT acceptable; report runtime freshness mismatch."
   },
   "goal_review": {
-    "enabled": false,
+    "enabled": true,
     "approval": "approved",
-    "status": "completed",
-    "goal_id": "aiclassdocuments-progressive-46-scenarios-20261025",
-    "revision": "2026-10-25-five-lesson-sequential-batches-v1-completed",
-    "title": "Nâng cấp 46 bài: 5 tình huống khó dần, 10–20 dữ liệu, chỉ 5 bài mỗi lượt",
-    "phase": "COMPLETED",
-    "source_repository": "https://github.com/nguyenletrian/PythoClass.git",
-    "source_commit": "37bcd2358ed616a9130ef954913adef728a1f9b8",
+    "status": "active",
+    "goal_id": "aiclassdocuments-markdown-render-46-lessons-20261025",
+    "revision": "2026-10-25-markdown-10-batches-resume-batch02",
+    "title": "Rà và sửa lỗi hiển thị Markdown trong 46 bài, mỗi đợt tối đa 5 bài",
+    "phase": "READY_FOR_BATCH_02",
     "chapter_index": "lessons/chapters/README.md",
-    "style_guide": "docs/CURRICULUM-STYLE-GUIDE.md",
-    "source_coverage": "sources/curriculum-source-coverage.csv",
-    "source_file_count": 68,
+    "progress_ledger": "docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json",
     "workflow_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-    "progress_ledger": "docs/CURRICULUM-5-LESSON-PROGRESS.json",
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "unverified_draft_branch": "feat/46-lessons-scenarios-progression-20261025",
-    "next_review": "Owner-approved PY-01..PY-46 goal is COMPLETE: 46 lessons, 230 progressive scenarios, 920 bilingual multiple-choice questions; all ten batches MERGED. Final PR #132 merge commit 67fb35e483c35c42e2b86082af8400f1bbad5780, final-head GitHub CI 40164254257 PASS. Progress ledger docs/CURRICULUM-5-LESSON-PROGRESS.json status COMPLETED last_completed_batch=10. No further approved curriculum work or pending task; do not reopen goal, replay historical Jetking tasks, publish duplicate task or start a new ChatGPT conversation due to idle reminders. Windows Bridge verification remains unverified without a real worker result; owner can separately approve future QA goals.",
-    "review_hold": "This approved goal is completed and disabled. Idle reviews and heartbeat reminders are suppressed; no more work may be activated without a new explicit owner-approved goal. Evidence: PR #132 CI 40164254257 and final progress ledger."
+    "next_review": "Owner approved Markdown rendering fixes across 46 chapters sequentially in ten batches max 5 lessons each. Formatting batch01 PY-01..PY-05 merged PR #133 (bb4a8474a05e9ed62219f298a42c5ced034bae20), CI #40165216899 PASS. Current progress ledger last_completed_batch=1, READY_FOR_BATCH_02. On next verified idle/goal review read current main/ledger/open PRs/task ACK; review ONLY batch02 PY-06..PY-10 and fix verified unescaped pipes in Markdown tables or leaked entities (e.g. literal &#124;), preserving educational content and MCQ answers. Commit only needed lesson fixes, run Markdown regression and existing tests, PR, wait CI PASS, merge, update ledger, then next sequential batch. Never duplicate a pending task, replay old Jetking probes, restart runtime or create new ChatGPT conversation for heartbeat alone. Previously completed 46-lesson scenario goal must remain archived.",
+    "review_hold": "Active owner-approved 10-batch formatting QA goal. Continue only the next five chapters in the ledger. Informational heartbeat is not authorization for duplicate sends or unapproved work. Suppress idle reminders again only when this new goal is completed."
   },
   "goal_review_history": [
     {
@@ -1250,10 +1244,37 @@
         "source_coverage": "sources/curriculum-source-coverage.csv",
         "source_file_count": 68
       }
+    },
+    {
+      "archived_on": "2026-10-25",
+      "status": "COMPLETED_REPLACED_BY_OWNER_APPROVED_MARKDOWN_REVIEW",
+      "previous": {
+        "enabled": false,
+        "approval": "approved",
+        "status": "completed",
+        "goal_id": "aiclassdocuments-progressive-46-scenarios-20261025",
+        "revision": "2026-10-25-five-lesson-sequential-batches-v1-completed",
+        "title": "Nâng cấp 46 bài: 5 tình huống khó dần, 10–20 dữ liệu, chỉ 5 bài mỗi lượt",
+        "phase": "COMPLETED",
+        "source_repository": "https://github.com/nguyenletrian/PythoClass.git",
+        "source_commit": "37bcd2358ed616a9130ef954913adef728a1f9b8",
+        "chapter_index": "lessons/chapters/README.md",
+        "style_guide": "docs/CURRICULUM-STYLE-GUIDE.md",
+        "source_coverage": "sources/curriculum-source-coverage.csv",
+        "source_file_count": 68,
+        "workflow_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
+        "progress_ledger": "docs/CURRICULUM-5-LESSON-PROGRESS.json",
+        "batch_limit": 5,
+        "expected_lessons": 46,
+        "expected_batches": 10,
+        "unverified_draft_branch": "feat/46-lessons-scenarios-progression-20261025",
+        "next_review": "Owner-approved PY-01..PY-46 goal is COMPLETE: 46 lessons, 230 progressive scenarios, 920 bilingual multiple-choice questions; all ten batches MERGED. Final PR #132 merge commit 67fb35e483c35c42e2b86082af8400f1bbad5780, final-head GitHub CI 40164254257 PASS. Progress ledger docs/CURRICULUM-5-LESSON-PROGRESS.json status COMPLETED last_completed_batch=10. No further approved curriculum work or pending task; do not reopen goal, replay historical Jetking tasks, publish duplicate task or start a new ChatGPT conversation due to idle reminders. Windows Bridge verification remains unverified without a real worker result; owner can separately approve future QA goals.",
+        "review_hold": "This approved goal is completed and disabled. Idle reviews and heartbeat reminders are suppressed; no more work may be activated without a new explicit owner-approved goal. Evidence: PR #132 CI 40164254257 and final progress ledger."
+      }
     }
   ],
   "owner_pause": {
-    "suppress_idle_reminders": true,
-    "reason": "Owner-approved 46-lesson/230-scenario curriculum goal completed in ten merged batches. Keep informational idle reminders suppressed; no active approved task. Windows Bridge verification is not claimed."
+    "suppress_idle_reminders": false,
+    "reason": "Owner requested Bridge request flow restored for active, approved sequential Markdown-rendering fixes. No legacy task replay; batch02 PY-06..10 is next."
   }
 }
