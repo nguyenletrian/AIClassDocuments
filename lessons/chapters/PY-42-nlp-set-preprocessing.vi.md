@@ -40,8 +40,11 @@
 Trong xử lý ngôn ngữ tự nhiên (NLP), **token** là đơn vị văn bản sau một bước tách: có thể là từ, dấu câu, hoặc phần nhỏ của từ. Với câu tiếng Anh đơn giản `AI helps Python`, `split()` theo khoảng trắng tạo ba token. Đây **không phải** bộ tách từ tiếng Việt chuẩn: một từ ghép tiếng Việt có thể gồm nhiều tiếng và cần tokenizer chuyên biệt.
 
 ```python
-# Mục đích: Đơn vị nhỏ sau quy tắc tách.
+# Mục đích: Tách một câu thành token chữ thường để chuẩn hóa từ ngữ trước khi so sánh.
+# Dữ liệu: Câu 'AI helps Python' gồm ba từ cách nhau bởi dấu cách; chưa có dấu câu.
+# Giữ câu gốc có chữ hoa để minh họa bước chuẩn hóa.
 sentence = 'AI helps Python'
+# lower() tạo chuỗi mới viết thường; split() tách theo khoảng trắng và trả list token, KHÔNG tự loại dấu câu.
 print(sentence.lower().split())
 ```
 
@@ -60,9 +63,14 @@ Ba token chữ thường sau tách theo khoảng trắng; dấu câu chưa đư�
 **Vocabulary** là tập các token **khác nhau** quan sát được trong kho văn bản. Hai câu `AI uses data` và `AI uses Python` có token chung `AI`, `uses`; dùng Set chỉ giữ mỗi từ một lần. Set giúp đếm từ duy nhất nhưng không giữ số lần xuất hiện, khác Bag-of-Words. In qua `sorted()` để không phụ thuộc thứ tự Set.
 
 ```python
-# Mục đích: Tập token duy nhất.
+# Mục đích: Tạo tập token duy nhất từ hai câu sau khi ghép và chuẩn hóa.
+# Dữ liệu: Hai câu có từ AI và uses lặp lại; cần danh sách TỪ KHÁC NHAU, không phải tần suất.
+# List gồm hai câu đầu vào; mỗi phần tử là một chuỗi.
 sentences = ['AI uses data', 'AI uses Python']
+# join() nối hai câu bằng dấu cách, tránh nối dính từ cuối câu trước với từ đầu câu sau.
+# lower() chuẩn hóa chữ thường rồi split() tách token theo khoảng trắng.
 tokens = ' '.join(sentences).lower().split()
+# set() bỏ các token lặp; sorted() xếp tăng theo chữ để kết quả in ổn định.
 print(sorted(set(tokens)))
 ```
 
@@ -81,8 +89,11 @@ Kho từ vựng có bốn token khác nhau; `ai` và `uses` không bị đếm h
 **Normalization** đưa văn bản về một quy ước nhất quán: bỏ khoảng trắng hai đầu, chuyển chữ về thường, đôi khi xử lý Unicode và dấu câu. Ví dụ `  Machine LEARNING ` chuẩn hóa thành `machine learning`. Nếu không chuẩn hóa, `AI` và `ai` có thể bị xem là hai token; tuy nhiên xóa dấu tiếng Việt tùy tiện có thể làm mất nghĩa.
 
 ```python
-# Mục đích: Chuẩn hóa trước khi so từ.
+# Mục đích: Dọn dấu cách thừa hai đầu và viết thường một cụm tìm kiếm.
+# Dữ liệu: Chuỗi gốc có khoảng trắng thừa và chữ hoa 'Machine LEARNING'.
+# Chuỗi đầu vào vẫn giữ nguyên dấu cách/chữ hoa khi chưa xử lý.
 text = '  Machine LEARNING '
+# strip() bỏ khoảng trắng ở ĐẦU/CUỐI, không xóa khoảng trắng giữa từ; lower() đổi sang chữ thường, không sửa biến text gốc.
 print(text.strip().lower())
 ```
 
@@ -101,9 +112,13 @@ Khoảng trắng ở đầu/cuối bị bỏ, chữ hoa chuyển thành chữ th
 **Jaccard** đo độ giống của hai **tập token**: `J(A,B)=|A∩B|/|A∪B|` nếu hợp khác rỗng. Câu A `python for ai` có ba token; câu B `python and sql` cũng ba token. Giao chỉ có `python` (1 phần tử), hợp có năm từ, nên J=0.2. Jaccard Set không tính tần suất và không hiểu nghĩa tương đương của từ; với hai tập rỗng cần chọn quy ước riêng để tránh chia 0.
 
 ```python
-# Mục đích: Tỷ lệ token chung so với tất cả token.
+# Mục đích: Đo độ tương đồng Jaccard giữa hai câu qua tập các từ.
+# Dữ liệu: Hai cụm có chung từ python; tập hợp hợp nhất có năm từ khác nhau.
+# split() chia theo dấu cách, set() bỏ từ trùng để chỉ còn những từ duy nhất của câu A.
 a = set('python for ai'.split())
+# Tạo tập từ B theo cùng quy tắc để so công bằng.
 b = set('python and sql'.split())
+# & là giao các từ chung; | là hợp các từ không trùng; len() đếm số từ, chia tạo Jaccard từ 0 đến 1, round(...,2) chỉ làm tròn khi in.
 print(round(len(a & b) / len(a | b), 2))
 ```
 
@@ -131,15 +146,27 @@ Hai tài liệu chung một trên năm token khác nhau; độ giống tập h�
 3. In số lượt và danh sách cụm duy nhất theo thứ tự ổn định.
 
 ```python
+# Mục đích: Chuẩn hóa mười lượt tìm kiếm và đếm số cụm khác nhau sau khi bỏ chữ hoa/khoảng trắng.
+# Dữ liệu: 10 chuỗi truy vấn có bản sao khác kiểu chữ và khoảng trắng; vẫn giữ tiếng Việt có dấu.
+# Danh sách mười LƯỢT tìm kiếm; cùng ý định có thể xuất hiện nhiều lần.
 queries = [" Python ","PYTHON","AI"," ai ","Data","DATA","NLP","nLp","Máy học","máy học"]
+# List mới chứa chuỗi chuẩn hóa theo cùng thứ tự, không ghi đè queries gốc.
 normalized = []
+# Duyệt một lượt cho mỗi truy vấn.
 for text in queries:
+    # strip() xóa khoảng trắng hai đầu, lower() đổi chữ hoa sang chữ thường, không bỏ dấu tiếng Việt.
+    # append() thêm kết quả chuẩn hóa vào list mới.
     normalized.append(text.strip().lower())
+# set() bỏ các truy vấn trùng sau chuẩn hóa; sorted() sắp danh sách khác nhau cho dễ đọc.
 unique = sorted(set(normalized))
+# len() kiểm đủ mười lượt gốc trước khi kết luận.
 if len(queries) != 10:
+    # Báo lỗi khi dữ liệu thiếu hoặc sai số lượt, tránh đánh giá không đủ mẫu.
     raise ValueError("Cần đủ 10 lượt tìm kiếm.")
 print("Lượt tìm:", len(queries))
+# Đếm số cụm KHÁC NHAU, không phải tổng lượt.
 print("Cụm khác nhau:", len(unique))
+# join() nối các cụm khác nhau bằng dấu phẩy và khoảng trắng.
 print("Cụm:", ", ".join(unique))
 ```
 
@@ -167,18 +194,32 @@ Từ `máy học` vẫn gồm hai tiếng cách nhau bằng dấu cách. Nếu c
 3. Đếm tổng token và vốn từ khác nhau để thấy một từ có thể lặp.
 
 ```python
+# Mục đích: Tách token chữ cái trong 12 tin nhắn và xây vốn từ duy nhất.
+# Dữ liệu: 12 câu tiếng Anh có dấu chấm/chấm than; muốn đếm lượt token và số từ khác nhau.
+# re là thư viện chuẩn cho biểu thức chính quy (regex), dùng tách từ bỏ dấu câu.
 import re
+# List 12 tin nhắn; mỗi phần tử là một câu với dấu câu có thể khác nhau.
 messages = ["AI helps Python.","Python helps teams!","Data drives AI.","AI uses data.","Python cleans data.","Teams learn Python.","AI supports teams.","Data needs quality.","Learn AI with Python.","Quality data matters.","Python helps AI.","Teams review data."]
+# Lưu MỌI lượt token, kể cả những từ lặp lại qua các câu.
 tokens = []
+# Duyệt từng tin nhắn riêng.
 for text in messages:
+    # lower() chuyển chữ thường; findall() tìm mọi CHUỖI LIÊN TIẾP chỉ gồm a..z, bỏ dấu câu/chữ số và không hỗ trợ nguyên vẹn từ tiếng Việt có dấu.
     for word in re.findall(r"[a-z]+", text.lower()):
+        # append() giữ mỗi lần xuất hiện của từ, kể cả khi trùng.
         tokens.append(word)
+# set() biến các lượt token thành vốn từ duy nhất, bỏ lặp.
 vocabulary = set(tokens)
+# Kiểm đủ 12 tin nhắn nguồn.
 if len(messages) != 12:
+    # Dừng khi nguồn thiếu tin nhắn theo kịch bản.
     raise ValueError("Cần đủ 12 tin nhắn.")
 print("Tin nhắn:", len(messages))
+# Đếm tổng lượt xuất hiện của token (có lặp).
 print("Lượt token:", len(tokens))
+# Đếm số token khác nhau (không lặp).
 print("Token khác nhau:", len(vocabulary))
+# in kiểm từ python có trong set hay không, trả Boolean.
 print("Có từ python:", "python" in vocabulary)
 ```
 
@@ -207,20 +248,36 @@ Tổng lượt token tính cả từ lặp, còn vocabulary chỉ tính từ duy
 3. In số từ khác nhau, tổng lượt token, tên và tần suất của từ phổ biến nhất.
 
 ```python
+# Mục đích: Đếm tần suất từng từ trong 15 tiêu đề và tìm từ xuất hiện nhiều nhất.
+# Dữ liệu: 15 tiêu đề xoay quanh python/ai/data và course; 'course' lặp ở mỗi tiêu đề.
+# Counter là kiểu dictionary chuyên đếm số lần mỗi phần tử xuất hiện.
 from collections import Counter
+# 15 tiêu đề, không phải 15 từ riêng biệt.
 headings = ["python course","ai course","data course","python course","ai course","data course","python course","ai course","data course","python course","ai course","data course","python course","ai course","data course"]
+# List lưu mọi từ từ các tiêu đề, giữ lặp để tính tần suất.
 tokens = []
+# Duyệt từng tiêu đề.
 for heading in headings:
+    # split() tách token tại khoảng trắng, trả list các từ của tiêu đề.
     for token in heading.split():
+        # append() lưu từng lượt token, giữ từ lặp.
         tokens.append(token)
+# Counter() tạo ánh xạ từ→số lượt xuất hiện từ list có lặp.
 counts = Counter(tokens)
+# most_common(1) trả list một tuple (từ,số lượt) có tần suất cao nhất; [0] lấy chính tuple đó.
 most_common = counts.most_common(1)[0]
+# Kiểm đúng 15 tiêu đề nguồn.
 if len(headings) != 15:
+    # Dừng nếu thiếu tiêu đề.
     raise ValueError("Cần đủ 15 tiêu đề.")
 print("Tiêu đề:", len(headings))
+# Số lượt token, bao gồm trùng lặp.
 print("Lượt token:", len(tokens))
+# Số TỪ KHÁC NHAU được Counter lưu làm khóa.
 print("Từ khác nhau:", len(counts))
+# Chỉ số [0] lấy từ phổ biến nhất trong tuple; [1] là số lần xuất hiện.
 print("Từ phổ biến nhất:", most_common[0])
+# Đọc số lượt xuất hiện của từ được chọn.
 print("Số lượt:", most_common[1])
 ```
 
@@ -250,30 +307,55 @@ Từ `course` phổ biến nhất vì có mặt trong mọi tiêu đề; chưa c
 3. In ba phiếu gần nhất và số phiếu không có token.
 
 ```python
+# Mục đích: Tính Jaccard giữa từ khóa truy vấn và 18 phiếu hỗ trợ, xếp hạng ba phiếu liên quan nhất.
+# Dữ liệu: 18 nội dung phiếu, có một phiếu rỗng; truy vấn 'login password' được tách thành set token.
+# Regex re.findall() tìm các chuỗi chữ cái liên tiếp trong từng phiếu.
 import re
+# 18 phiếu, chuỗi rỗng thể hiện phiếu chưa ghi mô tả.
 texts = ["login password reset","login password issue","reset login account","payment invoice request","refund payment card","shipment tracking delayed","delivery package status","account password change","login device blocked","payment not received","invoice missing pdf","courier lost shipment","delivery date change","reset password urgent","account verification failed","general help needed","","password login help"]
+# Hàm nhận một câu và trả TẬP từ duy nhất sau chuẩn hóa.
 def words(text):
+    # lower() chuẩn hóa chữ; findall() chỉ tách từ a-z, bỏ dấu câu; set() loại từ lặp, không tách chuẩn tiếng Việt có dấu.
     return set(re.findall(r"[a-z]+", text.lower()))
+# Hàm nhận hai set token và trả điểm Jaccard.
 def similarity(a,b):
+    # & là giao các token chung giữa hai tập.
     common = a & b
+    # | là hợp chứa mọi token có ở ít nhất một tập, không trùng.
     union = a | b
+    # Kiểm tập hợp KHÔNG RỖNG trước khi chia, tránh ZeroDivisionError.
     if union:
+        # Jaccard = số từ chung / số từ trong hợp; từ 0 đến 1.
         return len(common) / len(union)
+    # Nếu cả hai tập đều rỗng, quy ước điểm bằng 0 thay vì chia 0.
     return 0.0
+# Chuẩn hóa truy vấn thành set hai từ bằng cùng hàm words().
 query = words("login password")
+# List lưu tuple (mã phiếu, điểm tương đồng).
 ranked = []
+# enumerate(...,1) đánh số phiếu từ T01 đến T18 thay vì chỉ số Python 0.
 for i, text in enumerate(texts, 1):
+    # Định dạng số thứ tự hai chữ số để có mã T01..T18.
+    # append() thêm một tuple kết quả cho mỗi phiếu.
     ranked.append((f"T{i:02d}", similarity(query, words(text))))
+# sort(key=...) ưu tiên điểm row[1] GIẢM DẦN nhờ dấu âm, nếu hòa thì mã row[0] TĂNG DẦN để ổn định.
 ranked.sort(key=lambda row:(-row[1],row[0]))
+# Kiểm đủ 18 phiếu ban đầu.
 if len(texts) != 18:
+    # Dừng nếu sai số lượng phiếu.
     raise ValueError("Cần đủ 18 phiếu hỗ trợ.")
 print("Phiếu:", len(texts))
+# 18 phiếu, chuỗi rỗng thể hiện phiếu chưa ghi mô tả.
 missing_texts = 0
 for text in texts:
+    # not set đúng khi không rút được token, phát hiện chuỗi rỗng/không có từ a-z.
     if not words(text):
+        # Đếm số phiếu thiếu token hữu ích.
         missing_texts += 1
 print("Thiếu nội dung:", missing_texts)
+# [:3] chọn ba phiếu đầu sau xếp hạng, không lấy phần tử vị trí 3.
 for code, value in ranked[:3]:
+    # In mã và điểm Jaccard với ba chữ số thập phân.
     print(f"{code}: {value:.3f}")
 ```
 
@@ -303,39 +385,70 @@ Jaccard Set bỏ thông tin **thứ tự và tần suất**; phiếu điểm cao
 3. Chọn nhóm điểm dương cao nhất, còn 0 thì unknown; tổng hợp số phiếu của từng nhóm.
 
 ```python
+# Mục đích: Tự động phân tuyến 20 phiếu vào account/billing/delivery bằng Jaccard từ khóa.
+# Dữ liệu: 20 chuỗi phiếu, ba nhóm từ khóa; với điểm 0 cho mọi nhóm thì trả unknown.
+# Dùng regex để tách token chỉ gồm ký tự a-z.
 import re
+# Counter đếm số phiếu được gán vào từng nhóm, mặc định khóa chưa có có số đếm 0.
 from collections import Counter
+# 20 phiếu; dòng rỗng sẽ có tập từ rỗng và thường được trả unknown.
 texts = ["login password reset urgent","invoice payment refund request","shipment delivery tracking update","general question please","login password reset urgent","invoice payment refund request","shipment delivery tracking update","general question please","login password reset urgent","invoice payment refund request","shipment delivery tracking update","general question please","login password reset urgent","invoice payment refund request","shipment delivery tracking update","general question please","login password reset urgent","invoice payment refund request","shipment delivery tracking update",""]
+# Dictionary ánh xạ tên chủ đề sang tập từ khóa duy nhất; mỗi chủ đề có vốn từ riêng.
 keywords = {"account": {"login","password","reset"},
             "billing": {"invoice","payment","refund"},
             "delivery": {"shipment","delivery","tracking"}}
+# Tách và chuẩn hóa chuỗi thành set từ không trùng.
 def tokens(text):
+    # Tìm từ chữ cái ASCII sau lower(); không tách nguyên vẹn tiếng Việt có dấu và bỏ dấu câu.
     return set(re.findall(r"[a-z]+", text.lower()))
+# Hàm chọn nhãn chủ đề cho một phiếu theo mức giao từ khóa.
+# Phân loại phiếu bằng hàm tính Jaccard vừa định nghĩa.
 def route(text):
+    # Chuẩn hóa nội dung phiếu thành set từ.
     words = tokens(text)
+    # Dictionary điểm tương đồng theo từng tên chủ đề.
     scores = {}
+    # items() duyệt cặp (tên nhóm, tập từ khóa) để chấm từng nhóm.
     for name,vocabulary in keywords.items():
+        # | lấy hợp mọi từ của phiếu và bộ từ khóa nhóm.
         union = words | vocabulary
+        # Tránh chia cho 0 khi cả phiếu và vocabulary rỗng.
         if union:
+            # & là giao các từ trong phiếu trùng từ khóa chủ đề.
+            # Điểm Jaccard bằng số từ chung chia tổng loại từ, không đếm lặp.
             scores[name] = len(words & vocabulary) / len(union)
         else:
+            # Nếu hợp rỗng thì quy ước tương đồng 0.
             scores[name] = 0
+    # Xếp nhãn theo điểm GIẢM (âm scores[n]), hòa điểm theo tên A-Z; [0] lấy tên tốt nhất.
     name = sorted(scores, key=lambda n:(-scores[n], n))[0]
+    # Chỉ chấp nhận chủ đề khi có ít nhất một phần trùng, tránh tự gán phiếu không liên quan.
     if scores[name] > 0:
         return name
+    # Không có từ khóa chung thì gắn unknown, không ép thuộc một nhóm bất kỳ.
     return "unknown"
+# Khởi tạo bộ đếm số phiếu cho mỗi tuyến.
 counts = Counter()
+# Duyệt từng phiếu nguồn đúng một lần.
 for text in texts:
+    # Phân loại phiếu bằng hàm tính Jaccard vừa định nghĩa.
     category = route(text)
+    # Tăng một lượt cho tuyến được chọn; Counter tự khởi tạo số đếm 0.
     counts[category] += 1
+# Kiểm đúng hai mươi phiếu nguồn.
 if len(texts) != 20:
+    # Báo sai số phiếu để tránh báo cáo thiếu.
     raise ValueError("Cần đủ 20 phiếu cần phân tuyến.")
 print("Phiếu:", len(texts))
 for name in ("account","billing","delivery","unknown"):
+    # Tra số phiếu từng tuyến, với Counter tuyến chưa gặp trả 0.
     print(f"{name}: {counts[name]}")
 empty_count = 0
+# Duyệt từng phiếu nguồn đúng một lần.
 for text in texts:
+    # Tập token rỗng đánh dấu phiếu rỗng hoặc không có từ phù hợp regex.
     if not tokens(text):
+        # Đếm phiếu thiếu nội dung có thể tách token.
         empty_count += 1
 print("Phiếu rỗng:", empty_count)
 ```
