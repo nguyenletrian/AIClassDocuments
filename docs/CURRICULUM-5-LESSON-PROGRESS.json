@@ -14,8 +14,8 @@
     18,
     20
   ],
-  "last_completed_batch": 7,
-  "status": "BATCH_08_QA_PASSED_WAIT_MERGE",
+  "last_completed_batch": 8,
+  "status": "READY_FOR_BATCH_09",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -208,14 +208,14 @@
         "PY-39",
         "PY-40"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "branch": "feat/curriculum-scenarios-batch-08-20261025",
       "pr_number": 130,
-      "merged_commit": null,
-      "ci_run": 40162343077,
+      "merged_commit": "edc42ac1e9dfac06ac470d91bc85ac0cabd9c1db",
+      "ci_run": 40162426911,
       "windows_test": null,
       "updated_at": "2026-10-25",
-      "notes": "PR #130 CI #40162343077 PASS after correcting three PY-37 answer mismatches; Python 3.12+NumPy/Pandas/SymPy/SciPy, all 25 PY-36..40 snippets executed and exact stdout matched, previous batches01..07 plus structure, quiz, syntax and ledger checks PASS. Not merged yet. No Windows Bridge verification evidence.",
+      "notes": "PR #130 squash-merged edc42ac1e9dfac06ac470d91bc85ac0cabd9c1db. Final-head CI 40162426911 PASS: Python3.12 NumPy/Pandas/SymPy/SciPy, all 25 PY-36..40 code blocks independently executed and exact stdout matched (3 documented PY-37 answer errors corrected). Batches01..07 and 46-chapter/MCQ/syntax/ledger checks PASS. Windows Bridge verification not evidenced. Next PY-41..45.",
       "lesson_commits": {
         "PY-36": "65eba9fc443127a4b9cda044a87cc26c781b12d1",
         "PY-37": "1a616fcab88693399fed7f912579e923832f97e7",
