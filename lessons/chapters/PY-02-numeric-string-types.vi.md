@@ -132,8 +132,12 @@ Hai ký tự đầu được tách ra mà chuỗi ban đầu vẫn giữ nguyên
 
 ```python
 raw_emails = ["  Member01@Example.INVALID  ","  Member02@Example.INVALID  ","  Member03@Example.INVALID  ","  Member04@Example.INVALID  ","  Member05@Example.INVALID  ","  Member06@Example.INVALID  ","  Member07@Example.INVALID  ","  Member08@Example.INVALID  ","  Member09@Example.INVALID  ","  Member10@Example.INVALID  "]
-cleaned = [email.strip().lower() for email in raw_emails]
-assert len(cleaned) == 10
+cleaned = []
+for email in raw_emails:
+    normalized_email = email.strip().lower()
+    cleaned.append(normalized_email)
+if len(cleaned) != 10:
+    raise ValueError("Phải chuẩn hóa đủ 10 địa chỉ email.")
 print("Số email:", len(cleaned))
 print("Đầu:", cleaned[0])
 print("Cuối:", cleaned[-1])
@@ -169,7 +173,8 @@ for text in raw_labels:
     for part in text.split(","):
         label = part.strip().lower()
         counts[label] = counts.get(label, 0) + 1
-assert len(raw_labels) == 12
+if len(raw_labels) != 12:
+    raise ValueError("Phải có đủ 12 dòng nhãn sản phẩm.")
 print("Số dòng:", len(raw_labels))
 for label in sorted(counts):
     print(label, counts[label])
@@ -203,9 +208,17 @@ Mỗi dòng đóng góp hai nhãn, tổng tất cả số đếm phải bằng 2
 
 ```python
 raw_codes = ["  00001  ","  00002  ","  00003  ","  00004  ","  00005  ","  00006  ","  00007  ","  00008  ","  00009  ","  00010  ","  00011  ","  00012  ","  00013  ","  00014  ","  00015  "]
-codes = [code.strip() for code in raw_codes]
-valid = all(code.isdigit() and len(code) == 5 for code in codes)
-assert len(codes) == 15
+codes = []
+for code in raw_codes:
+    cleaned_code = code.strip()
+    codes.append(cleaned_code)
+valid = True
+for code in codes:
+    if not code.isdigit() or len(code) != 5:
+        valid = False
+        break
+if len(codes) != 15:
+    raise ValueError("Phải kiểm tra đủ 15 mã đơn hàng.")
 print("Số mã:", len(codes))
 print("Đều hợp lệ:", valid)
 print("Mã đầu:", codes[0], "| đầu mã:", codes[0][:3])
@@ -246,7 +259,8 @@ for index, raw in enumerate(raw_prices, 1):
         invalid_ids.append(f"P{index:02d}")
         continue
     valid_prices.append(float(clean))
-assert len(raw_prices) == 18
+if len(raw_prices) != 18:
+    raise ValueError("Phải có đúng 18 chuỗi đơn giá.")
 print("Giá hợp lệ:", len(valid_prices))
 print("Giá lỗi:", ", ".join(invalid_ids))
 print(f"Tổng giá (nghìn đồng): {sum(valid_prices):.1f}")
@@ -291,7 +305,8 @@ for raw in raw_ids:
     else:
         seen.add(code)
         accepted.append(code)
-assert len(raw_ids) == 20
+if len(raw_ids) != 20:
+    raise ValueError("Phải có đúng 20 mã hồ sơ để kiểm tra.")
 print("Đầu vào:", len(raw_ids))
 print("Hợp lệ duy nhất:", len(accepted))
 print("Sai định dạng:", len(invalid))
