@@ -42,13 +42,21 @@
 Biểu đồ đường nối những điểm theo **thứ tự x**, thích hợp quan sát biến thiên doanh thu theo ngày. Ví dụ ba ngày 1,2,3 có doanh thu 10,15,12 nghìn đồng: trục x là ngày, trục y là nghìn đồng. Nối điểm cho thấy tăng rồi giảm; không có nghĩa tồn tại dữ liệu ở mọi thời điểm giữa hai ngày. `plt.plot(x,y)` yêu cầu hai dãy có cùng số phần tử.
 
 ```python
-# Mục đích: Nối các mốc có thứ tự.
+# Mục đích: Vẽ đường nối ba mốc theo thứ tự, sau đó đọc lại dữ liệu trục x từ chính đối tượng đường vẽ.
+# Dữ liệu: Ba mốc x=[1,2,3] và y=[10,15,12]; không lưu ảnh ra file, chỉ kiểm số điểm.
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
 import matplotlib
+# use('Agg') chọn backend Agg vẽ ảnh raster KHÔNG cần cửa sổ GUI, phù hợp Windows headless/CI; phải đặt TRƯỚC import pyplot.
 matplotlib.use('Agg')
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
+# pyplot là giao diện vẽ đồ thị dùng tên ngắn plt; các lệnh plt thao tác trên figure/axes hiện tại.
 import matplotlib.pyplot as plt
 
+# plt.plot(x,y) tạo Line2D nối ba cặp số theo THỨ TỰ x/y; không tự sắp hay nội suy thành dữ liệu quan sát mới.
 plt.plot([1, 2, 3], [10, 15, 12])
+# plt.gca() lấy Axes hiện tại (Get Current Axes); .lines là list các Line2D đã vẽ; [0] chọn đường đầu; .get_xdata() đọc ba tọa độ x gốc; len() đếm số tọa độ, không đếm số đoạn (2).
 print(len(plt.gca().lines[0].get_xdata()))
+# close() đóng figure hiện tại, giải phóng tài nguyên; không cần hiển thị cửa sổ với backend Agg.
 plt.close()
 ```
 
@@ -67,13 +75,21 @@ Biểu đồ đã nhận ba điểm, rồi đóng Figure; số 3 là số mốc,
 Biểu đồ scatter đặt **mỗi mẫu thành một điểm (x,y)**. Ví dụ ba sinh viên học 2,4,6 giờ/tuần, có điểm 5,7,9: mỗi vị trí x ghép đúng điểm y của cùng học viên. Scatter giúp thấy liên hệ, nhưng không tự chứng minh học nhiều gây điểm cao. `plt.scatter` tạo các điểm riêng không nối đường như line chart.
 
 ```python
-# Mục đích: Mỗi hàng là một cặp quan sát.
+# Mục đích: Vẽ scatter từ ba cặp x/y và đếm chính xác các điểm đã vẽ bằng get_offsets().
+# Dữ liệu: Ba điểm (2,5), (4,7), (6,9), mỗi cặp là một quan sát độc lập.
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
 import matplotlib
+# use('Agg') chọn backend Agg vẽ ảnh raster KHÔNG cần cửa sổ GUI, phù hợp Windows headless/CI; phải đặt TRƯỚC import pyplot.
 matplotlib.use('Agg')
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
+# pyplot là giao diện vẽ đồ thị dùng tên ngắn plt; các lệnh plt thao tác trên figure/axes hiện tại.
 import matplotlib.pyplot as plt
 
+# scatter(x,y) vẽ điểm rời, không nối chúng thành đường như plot().
 plt.scatter([2, 4, 6], [5, 7, 9])
+# gca() lấy Axes hiện tại; collections[0] là PathCollection của scatter đầu tiên; get_offsets() trả mảng tọa độ shape (3,2); len() đếm BA điểm (hàng).
 print(len(plt.gca().collections[0].get_offsets()))
+# Đóng figure để tránh tích lũy đối tượng vẽ khi chạy nhiều ví dụ liên tiếp.
 plt.close()
 ```
 
@@ -92,13 +108,21 @@ plt.close()
 Histogram dùng **một dãy số** và chia trục giá trị thành các **bins**, rồi đếm số quan sát trong mỗi khoảng. Sáu điểm `[5,6,6,7,8,9]` chia bốn bins đều từ 5 đến 9 tạo tần suất `[1,2,1,2]`. Khác biểu đồ cột cho các loại (A,B,C), histogram phù hợp biến số liên tục hoặc có thứ tự giá trị và phụ thuộc độ rộng bins.
 
 ```python
-# Mục đích: Đếm số đo rơi vào các khoảng.
+# Mục đích: Vẽ histogram với biên khoảng tự chọn, kiểm đếm tần suất ở mỗi khoảng.
+# Dữ liệu: Sáu số đo 5,6,6,7,8,9; các mốc bins 5/6/7/8/10 tạo bốn khoảng.
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
 import matplotlib
+# use('Agg') chọn backend Agg vẽ ảnh raster KHÔNG cần cửa sổ GUI, phù hợp Windows headless/CI; phải đặt TRƯỚC import pyplot.
 matplotlib.use('Agg')
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
+# pyplot là giao diện vẽ đồ thị dùng tên ngắn plt; các lệnh plt thao tác trên figure/axes hiện tại.
 import matplotlib.pyplot as plt
 
+# hist(data,bins=...) phân số đo vào bốn khoảng [5,6),[6,7),[7,8),[8,10]; khoảng CUỐI bao gồm biên phải 10. Hàm trả (counts,edges,bars): số lượt mỗi khoảng, các ranh giới, các hình cột.
 counts, edges, bars = plt.hist([5, 6, 6, 7, 8, 9], bins=[5, 6, 7, 8, 10])
+# counts là ndarray float số lượt trong mỗi bin; astype(int) đổi sang số nguyên để in, tolist() đổi ndarray thành list Python; không biến thành dữ liệu gốc.
 print(counts.astype(int).tolist())
+# Đóng figure sau khi lấy counts, tránh giữ figure dư trong RAM.
 plt.close()
 ```
 
@@ -117,15 +141,25 @@ Bốn khoảng chứa lần lượt 1, 2, 1, 2 quan sát; khoảng cuối bao g�
 **Nhãn trục** cho biết đang đo gì: `Time (hours)` ở trục ngang và `Temperature (°C)` ở trục dọc. Không ghi đơn vị, người xem dễ nhầm giờ với phút hoặc độ C với độ F. `xlabel`/`ylabel` chỉ đổi chữ trên Figure, không tự đổi dữ liệu. Có thể lưu hình bằng `savefig` rồi đóng `close` để không giữ Figure trong bộ nhớ.
 
 ```python
-# Mục đích: Ghi rõ biến và đơn vị.
+# Mục đích: Gắn nhãn trục có đơn vị cho đường nhiệt độ theo thời gian, rồi đọc lại nhãn đã đặt.
+# Dữ liệu: Hai thời điểm 1,2 giờ, nhiệt độ 22,24°C; trục x giờ và trục y độ C.
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
 import matplotlib
+# use('Agg') chọn backend Agg vẽ ảnh raster KHÔNG cần cửa sổ GUI, phù hợp Windows headless/CI; phải đặt TRƯỚC import pyplot.
 matplotlib.use('Agg')
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
+# pyplot là giao diện vẽ đồ thị dùng tên ngắn plt; các lệnh plt thao tác trên figure/axes hiện tại.
 import matplotlib.pyplot as plt
 
+# Vẽ hai cặp (thời gian giờ, nhiệt độ °C), nối hai mốc theo thứ tự.
 plt.plot([1, 2], [22, 24])
+# xlabel() đặt tên TRỤC x, ghi rõ đơn vị giờ để người đọc không nhầm với ngày.
 plt.xlabel('Time (hours)')
+# ylabel() đặt tên TRỤC y, đơn vị nhiệt độ độ C (chữ C trong nhãn).
 plt.ylabel('Temperature (C)')
+# gca() lấy Axes hiện tại, get_xlabel() đọc CHUỖI tên trục x để xác nhận đã gắn; không đọc dữ liệu đường.
 print(plt.gca().get_xlabel())
+# Đóng figure sau sử dụng để thu hồi bộ nhớ.
 plt.close()
 ```
 
@@ -153,26 +187,47 @@ Trục x được gắn đúng ý nghĩa thời gian; phải đặt cả y và �
 3. Lưu `sales_10_days.png`, kiểm 10 điểm trong đường và file tồn tại.
 
 ```python
+# Mục đích: Vẽ biểu đồ đường doanh thu 10 ngày, lưu PNG và kiểm đủ 10 điểm dữ liệu.
+# Dữ liệu: 10 ngày, doanh thu từng ngày đơn vị triệu VND; lưu ảnh sales_10_days.png vào thư mục làm việc hiện tại.
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
 import matplotlib
+# use('Agg') chuyển sang backend Agg không cần cửa sổ màn hình, tạo ảnh raster để lưu file; gọi TRƯỚC pyplot.
 matplotlib.use("Agg")
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
+# pyplot là giao diện vẽ đồ thị dùng tên ngắn plt; các lệnh plt thao tác trên figure/axes hiện tại.
 import matplotlib.pyplot as plt
+# Path cho thao tác tên file ảnh theo hệ điều hành và kiểm sự tồn tại/kích thước file.
 from pathlib import Path
 
+# range(1,11) tạo ngày 1..10, không lấy ngày 11; list() hiện thực dãy.
 days = list(range(1,11))
+# 10 giá trị doanh thu triệu đồng, khớp cùng vị trí với days.
 revenues = [10,12,11,14,15,14,17,18,16,20]
+# subplots() tạo (fig,ax): Figure là khung ảnh toàn bộ, Axes là vùng dữ liệu để vẽ.
 fig, ax = plt.subplots()
+# ax.plot() nối dữ liệu theo ngày; marker='o' thêm chấm tròn ngay các mốc quan sát, không thêm ngày mới.
 ax.plot(days, revenues, marker="o")
+# ax.set() đặt cùng lúc tiêu đề và nhãn trục; xlabel Day, ylabel Revenue (million VND) nêu đơn vị.
 ax.set(title="Sales over 10 days", xlabel="Day", ylabel="Revenue (million VND)")
+# tight_layout() điều chỉnh khoảng cách để tiêu đề/nhãn trục ít bị cắt khi lưu PNG.
 fig.tight_layout()
+# Path() là đường dẫn TƯƠNG ĐỐI theo cwd, không phải đường dẫn tuyệt đối hoặc thư mục tạm.
 path = Path("sales_10_days.png")
+# savefig() ghi ảnh PNG tới path; dpi=130 là mật độ điểm ảnh mỗi inch khi raster hóa, không phải số điểm dữ liệu.
 fig.savefig(path, dpi=130)
+# ax.lines chứa các Line2D; [0] là đường đầu, get_xdata() trả dãy ngày, len() đếm 10 tọa độ.
 points = len(ax.lines[0].get_xdata())
+# close(fig) đóng ĐÚNG Figure fig đã lưu để giải phóng tài nguyên dù file PNG vẫn còn trên đĩa.
 plt.close(fig)
+# Kiểm đủ 10 ngày doanh thu theo kịch bản; cũng nên giữ days khớp khi tạo dữ liệu khác.
 if len(revenues) != 10:
+    # Ném ValueError khi thiếu giá trị doanh thu, ngăn báo cáo số liệu chưa đủ.
     raise ValueError("Cần đủ 10 ngày doanh thu.")
 print("Ngày:", len(days))
 print("Điểm đường:", points)
+# [-1] lấy phần tử cuối list doanh thu (ngày 10), không phải số ngày.
 print("Doanh thu ngày 10 (triệu đồng):", revenues[-1])
+# is_file() kiểm đường dẫn là file; stat().st_size đo byte >0 xác nhận file ảnh có nội dung, không chứng minh nội dung đẹp hay đúng ngữ nghĩa.
 print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
 ```
 
@@ -201,26 +256,47 @@ Chạy code sẽ tạo **sales_10_days.png** trong thư mục làm việc. Đi�
 3. Lưu `study_vs_score.png`, kiểm scatter thực sự chứa 12 hàng.
 
 ```python
+# Mục đích: Vẽ scatter giữa giờ học và điểm của 12 học viên rồi lưu file PNG.
+# Dữ liệu: 12 cặp (giờ học/tuần, điểm 0–10), có người trùng giờ học nhưng điểm khác nhau.
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
 import matplotlib
+# use('Agg') chuyển sang backend Agg không cần cửa sổ màn hình, tạo ảnh raster để lưu file; gọi TRƯỚC pyplot.
 matplotlib.use("Agg")
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
+# pyplot là giao diện vẽ đồ thị dùng tên ngắn plt; các lệnh plt thao tác trên figure/axes hiện tại.
 import matplotlib.pyplot as plt
+# Path() quản lý đường dẫn file ảnh và kiểm file đã ghi.
 from pathlib import Path
 
+# List 12 giờ học/tuần, mỗi vị trí là một học viên.
 hours = [1,2,2,3,3,4,4,5,5,6,7,8]
+# List 12 điểm 0–10 cùng vị trí với giờ học tương ứng.
 scores = [4,5,6,5,7,6,8,7,8,9,8,10]
+# Tạo Figure fig và vùng vẽ Axes ax để chỉnh nhãn/lưu.
 fig, ax = plt.subplots()
+# scatter() tạo PathCollection các chấm rời; `points` lưu đối tượng scatter, không phải list tọa độ số.
 points = ax.scatter(hours, scores)
+# Đặt tiêu đề và nhãn trục; x là giờ/tuần, y là điểm 0–10.
 ax.set(title="Study hours and score", xlabel="Study (hours/week)", ylabel="Score (0-10)")
+# set_ylim(ymin,ymax) khóa khoảng HIỂN THỊ trục y 0..11 để thấy cả điểm 10, không thay scores.
 ax.set_ylim(0, 11)
+# Chỉnh bố cục để tránh nhãn bị cắt ở mép PNG.
 fig.tight_layout()
+# Tên file tương đối so với thư mục làm việc hiện tại.
 path = Path("study_vs_score.png")
+# Lưu scatter thành PNG với dpi=130, không ảnh hưởng số học viên.
 fig.savefig(path, dpi=130)
+# PathCollection.get_offsets() trả tọa độ điểm shape (12,2); len() đếm 12 cặp thay vì đếm pixel ảnh.
 count = len(points.get_offsets())
+# Đóng figure để giải phóng đối tượng giao diện/đồ họa sau khi lưu.
 plt.close(fig)
+# or báo lỗi nếu MỘT trong hai list thiếu 12 phần tử; số học viên và điểm phải đồng bộ.
 if len(hours) != 12 or len(scores) != 12:
+    # Dừng trước khi báo cáo khi số lượt học không đủ.
     raise ValueError("Cần đủ 12 học viên và 12 điểm.")
 print("Học viên:", len(hours))
 print("Điểm scatter:", count)
+# Kiểm có file PNG thật và số byte >0; không chỉ kiểm có tên file.
 print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
 ```
 
@@ -248,24 +324,44 @@ Trùng vị trí scatter có thể che lên nhau; số điểm đếm từ dữ 
 3. Kiểm tổng tần suất của bốn khoảng đúng 15 chuyến.
 
 ```python
+# Mục đích: Vẽ histogram 15 thời gian giao hàng trong bốn khoảng 0–10,10–20,20–30,30–40 phút.
+# Dữ liệu: 15 chuyến giao phút, histogram đếm số chuyến theo khoảng, không biểu diễn trình tự thời gian.
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
 import matplotlib
+# use('Agg') chuyển sang backend Agg không cần cửa sổ màn hình, tạo ảnh raster để lưu file; gọi TRƯỚC pyplot.
 matplotlib.use("Agg")
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
+# pyplot là giao diện vẽ đồ thị dùng tên ngắn plt; các lệnh plt thao tác trên figure/axes hiện tại.
 import matplotlib.pyplot as plt
+# Dùng Path để đặt tên ảnh PNG và xác minh file được tạo.
 from pathlib import Path
 
+# List 15 độ dài chuyến giao hàng, đơn vị phút.
 minutes = [4,7,8,9,10,11,14,16,18,20,21,24,27,31,37]
+# Tạo Figure và Axes mới để không trộn biểu đồ với bài khác.
 fig, ax = plt.subplots()
+# hist() chia vào bốn khoảng [0,10),[10,20),[20,30),[30,40] (khoảng cuối gồm biên phải). Trả counts=tần suất, edges=mốc biên, bars=hình cột; edgecolor='black' vẽ viền đen, không đổi số liệu.
 counts, edges, bars = ax.hist(minutes, bins=[0,10,20,30,40], edgecolor="black")
+# Đặt tên biểu đồ, nhãn x là phút, y là số chuyến (tần suất), không phải mật độ khi không đặt density=True.
 ax.set(title="Delivery duration", xlabel="Duration (minutes)", ylabel="Number of trips")
+# Canh bố cục để nhãn/tiêu đề hiển thị đầy đủ.
 fig.tight_layout()
+# Tên PNG tương đối trong cwd hiện tại.
 path = Path("delivery_histogram.png")
+# Ghi histogram ra file PNG với dpi=130.
 fig.savefig(path, dpi=130)
+# Đóng figure sau lưu để không giữ ảnh dư trong bộ nhớ.
 plt.close(fig)
+# len() đếm 15 chuyến nguồn; counts.sum() cộng TẤT CẢ tần suất các bin, phải đủ 15 (các bin bao trùm mọi số đo).
 if len(minutes) != 15 or int(counts.sum()) != 15:
+    # Dừng nếu có lượt ngoài bin hoặc thiếu bản ghi.
     raise ValueError("Cần đủ 15 chuyến trong các cột tần suất.")
 print("Chuyến:", len(minutes))
+# Có một phần tử counts cho mỗi KHOẢNG, tức 4 khoảng, khác len(edges)=5 mốc biên.
 print("Số khoảng:", len(counts))
+# counts là ndarray số thực, astype(int) chuyển đếm lượt thành số nguyên để in; tolist() chuyển thành list Python.
 print("Tần suất:", counts.astype(int).tolist())
+# Kiểm ảnh PNG tồn tại và lớn hơn 0 byte.
 print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
 ```
 
@@ -294,32 +390,59 @@ Histogram khác biểu đồ cột danh mục: trục ngang biểu diễn **kho�
 3. Lưu `branches_18_days.png` và kiểm mỗi đường có đúng 18 điểm.
 
 ```python
+# Mục đích: So hai đường doanh thu trong 18 ngày, thêm legend và kiểm mỗi đường có đủ 18 điểm.
+# Dữ liệu: 18 ngày, hai dãy doanh thu Branch A/B tính triệu VND; cả hai dùng cùng trục ngày.
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
 import matplotlib
+# use('Agg') chuyển sang backend Agg không cần cửa sổ màn hình, tạo ảnh raster để lưu file; gọi TRƯỚC pyplot.
 matplotlib.use("Agg")
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
+# pyplot là giao diện vẽ đồ thị dùng tên ngắn plt; các lệnh plt thao tác trên figure/axes hiện tại.
 import matplotlib.pyplot as plt
+# Path biểu diễn file xuất đồ thị theo đường dẫn tương đối.
 from pathlib import Path
 
+# Tạo ngày từ 1 tới 18, không lấy 19.
 days = list(range(1,19))
+# 18 số doanh thu chi nhánh A, đơn vị triệu VND.
 branch_a = [10,12,14,13,15,17,16,18,20,19,21,23,22,24,26,25,27,29]
+# 18 số doanh thu chi nhánh B, theo đúng thứ tự ngày như A.
 branch_b = [9,11,13,15,13,15,17,19,17,19,21,23,21,23,25,27,25,27]
+# Tạo Figure và Axes riêng cho biểu đồ hai đường.
 fig, ax = plt.subplots()
+# Vẽ đường A, marker='o' dùng điểm tròn, label đặt tên đường để legend tra được.
 ax.plot(days, branch_a, marker="o", label="Branch A")
+# Vẽ đường B, marker='s' là ô vuông, hai đường dùng chung trục x nhưng phân biệt nhãn.
 ax.plot(days, branch_b, marker="s", label="Branch B")
+# Đặt tiêu đề và nhãn đơn vị trục doanh thu triệu VND.
 ax.set(title="Branch revenue", xlabel="Day", ylabel="Revenue (million VND)")
+# legend() hiển thị chú giải lấy từ label của mỗi Line2D, không tự tạo dữ liệu.
 ax.legend()
+# Điều chỉnh khoảng cách nhãn và vùng hình trước khi lưu.
 fig.tight_layout()
+# Tên file PNG của biểu đồ hai chi nhánh trong cwd.
 path = Path("branches_18_days.png")
+# Lưu file ảnh PNG ở độ phân giải dpi=130.
 fig.savefig(path, dpi=130)
+# List rỗng ghi số mốc dữ liệu trên mỗi đường, không lưu tổng pixel.
 count = []
+# ax.lines là danh sách hai đối tượng Line2D đã vẽ; lặp qua từng đường.
 for line in ax.lines:
+    # get_xdata() lấy dãy x của Line2D tương ứng; len() đếm 18 ngày trên đường đó.
+    # append() thêm số điểm của mỗi Line2D vào list để đối chiếu.
     count.append(len(line.get_xdata()))
+# Đóng figure sau khi đọc các đường và lưu file, tránh rò rỉ bộ nhớ đồ họa.
 plt.close(fig)
+# or yêu cầu cả ba dãy ngày/A/B có đúng 18 phần tử.
 if len(days) != 18 or len(branch_a) != 18 or len(branch_b) != 18:
+    # Báo lỗi nếu bất kỳ dãy nào thiếu mốc, không tiếp tục báo cáo.
     raise ValueError("Cần đủ 18 ngày và hai dãy doanh thu.")
 print("Ngày:", len(days))
 print("Đường:", len(count))
 print("Điểm mỗi đường:", count)
+# [-1] là doanh thu ngày 18 của A, không phải doanh thu trung bình.
 print("A ngày 18:", branch_a[-1])
+# Xác minh file hình đã được ghi thực và không rỗng.
 print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
 ```
 
@@ -349,38 +472,71 @@ A ngày 18: 29
 3. Vẽ histogram sai số ở ô thứ hai, gắn nhãn/trục, lưu hình và báo số điểm lệch.
 
 ```python
+# Mục đích: Tạo hình hai biểu đồ: đo so chuẩn với điểm bất thường và histogram sai lệch trên 20 lượt.
+# Dữ liệu: 20 cặp x/observed, chuẩn reference=2x+5; lượt M18 có độ lệch lớn, cảnh báo khi |residual|>10.
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
 import matplotlib
+# use('Agg') chuyển sang backend Agg không cần cửa sổ màn hình, tạo ảnh raster để lưu file; gọi TRƯỚC pyplot.
 matplotlib.use("Agg")
+# Nhập thư viện Matplotlib để chọn backend trước khi nhập pyplot.
+# pyplot là giao diện vẽ đồ thị dùng tên ngắn plt; các lệnh plt thao tác trên figure/axes hiện tại.
 import matplotlib.pyplot as plt
+# Path đặt tên PNG và cung cấp is_file()/stat() để kiểm kết quả lưu.
 from pathlib import Path
 
+# NumPy giúp tính reference, residual và mask cảnh báo đồng thời trên 20 mẫu.
 import numpy as np
+# Tạo x mảng float từ 1 đến 20, mỗi phần tử là mức đầu vào tương ứng một lượt đo.
 x = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], dtype=float)
+# 20 tín hiệu thực đo, cùng thứ tự với x; một giá trị 71 cao bất thường ở lượt 18.
 observed = np.array([7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,71,43,45], dtype=float)
+# NumPy broadcast phép nhân và cộng cho mọi x để dựng đường chuẩn y=2x+5.
 reference = 2*x + 5
+# Trừ THEO TỪNG VỊ TRÍ để tạo residual (đo trừ chuẩn), giữ đơn vị của tín hiệu.
 residual = observed - reference
+# abs() bỏ dấu sai số, >10 tạo mask True cho lượt đo cách đường chuẩn hơn 10 đơn vị.
 flagged = np.abs(residual) > 10
+# subplots(1,2) tạo MỘT Figure có hai Axes nằm ngang; figsize=(10,4) đặt kích thước hình theo inch, không phải số quan sát.
 fig, (left,right) = plt.subplots(1,2,figsize=(10,4))
+# Vẽ 20 điểm đo trên Axes trái; label dùng cho legend.
 left.scatter(x,observed,label="Observed")
+# Vẽ đường tham chiếu y=2x+5 để so với các chấm quan sát.
 left.plot(x,reference,label="Reference")
+# Boolean indexing chỉ lấy các điểm có mask True; marker='x' là dấu nhân, s=90 là diện tích marker tính pt², không phải giới hạn số điểm.
 left.scatter(x[flagged],observed[flagged],marker="x",s=90,label="Review")
+# Đặt nhãn và đơn vị biểu đồ trái: input và signal.
 left.set(xlabel="Input level",ylabel="Signal (units)",title="Measured vs reference")
+# Hiện chú giải Observed/Reference/Review theo label từng đối tượng.
 left.legend()
+# Histogram residual chia vào bốn khoảng từ -1 tới 40; bins là các BIÊN do người soạn chọn, edgecolor vẽ viền đen; cần bảo đảm dữ liệu nằm trong phạm vi này.
 right.hist(residual,bins=[-1,1,10,20,40],edgecolor="black")
+# Nhãn biểu đồ phải là residual (đơn vị tín hiệu) và Count (số lượt trong từng khoảng).
 right.set(xlabel="Residual (units)",ylabel="Count",title="Residual distribution")
+# Căn cả hai Axes để nhãn không chồng khi lưu.
 fig.tight_layout()
+# Tên PNG tương đối so với working directory.
 path = Path("sensor_review_20.png")
+# Ghi Figure chứa cả hai đồ thị ra PNG với dpi=130.
 fig.savefig(path,dpi=130)
+# Đóng Figure sau ghi, thu hồi bộ nhớ; file PNG không bị xóa.
 plt.close(fig)
+# Kiểm đủ 20 mức đầu vào và 20 số đo theo cùng thứ tự.
 if len(x) != 20 or len(observed) != 20:
+    # Dừng nếu thiếu số đo để tránh đánh dấu sai.
     raise ValueError("Cần đủ 20 mức đầu vào và tín hiệu đo.")
 print("Lượt đo:", len(x))
 print("Biểu đồ trong hình:", 2)
+# sum() trên mask Boolean đếm các giá trị True (lượt cảnh báo); int() đổi sang số nguyên Python.
 print("Điểm cần kiểm:", int(flagged.sum()))
 flagged_ids = []
+# flatnonzero() trả chỉ số 0-based của các ô True trong mask phẳng, dùng tìm mã lượt cần kiểm.
 for i in np.flatnonzero(flagged):
+    # Chỉ số NumPy bắt đầu từ 0 nên +1 ra số lượt, :02d định dạng M01..M20.
+    # append() lưu mã của lượt cảnh báo vào list.
     flagged_ids.append(f"M{i+1:02d}")
+# join() ghép các mã cần kiểm bằng dấu phẩy/không gian.
 print("Mã cần kiểm:", ", ".join(flagged_ids))
+# Kiểm PNG đã tồn tại và có dữ liệu byte >0, không chỉ giả định savefig luôn thành công.
 print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
 ```
 
