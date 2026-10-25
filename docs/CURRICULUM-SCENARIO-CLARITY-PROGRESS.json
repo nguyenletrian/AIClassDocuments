@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "BATCH_07_IN_PROGRESS",
-  "last_completed_batch": 6,
+  "status": "READY_FOR_BATCH_08",
+  "last_completed_batch": 7,
   "batches": [
     {
       "batch": 1,
@@ -195,7 +195,7 @@
         "PY-34",
         "PY-35"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-31",
         "PY-32",
@@ -203,9 +203,9 @@
         "PY-34",
         "PY-35"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 161,
+      "merged_commit": "158d036062fa9d155f28945b9c4f1d816096fdcc",
+      "ci_run": 40182419389,
       "branch": "feat/scenario-clarity-batch-07-20261025",
       "lesson_commits": {
         "PY-31": "c01cc97202bf5f02a84126ec4d4680bc6c257216",
@@ -214,7 +214,7 @@
         "PY-34": "3a9599746082b049b73f813396b7a0ad08aa088b",
         "PY-35": "cc848aa07a32a15bf30646872b5e244de8ec5942"
       },
-      "notes": "Batch07 five independent lesson commits for PY-31..35; rewrote 5 Tình huống thực tế + 5 Vì sao chọn cách này paragraphs per chapter (50 total), explaining limits/derivatives, gradient descent, Jacobian/Hessian, weighted probability and Bayes simply while preserving units/assumptions and seed=42/5000 simulated draws. Strict full-file compare against main with only those two approved single-line paragraph types masked: all other bytes identical, including 45 original Python fences, exact documented stdout, definitions, 20 MCQ per chapter and all chapter structure. GitHub CI and merge pending. Windows/PowerShell and CDP 9224 worker identity unverified; no Windows PASS."
+      "notes": "PY-31..35 five independent lesson commits, 50 approved scenario/why prose paragraphs revised. Full-file byte comparison to main after masking only two allowed single-line paragraph types confirms all other material unchanged: 45 executable Python fences, exact documented stdout, lesson definitions, 100 MCQ and answers. Explained limits, gradient descent epochs, Jacobian/Hessian, weighted probabilities with 5000 seeded draws, and conditional/Bayes populations. PR #161 final head 2c97f6e4b30198932a7ad140e683acda9a04fe5b GitHub CI #40182419389 COMPLETED SUCCESS for 46-chapter structure/MCQ, AST explicit Python, independent scenario execution/exact stdout, Markdown. Squash merged 158d036062fa9d155f28945b9c4f1d816096fdcc. Windows/PowerShell unverified; next batch08 PY-36..40."
     },
     {
       "batch": 8,
