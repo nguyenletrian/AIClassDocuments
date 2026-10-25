@@ -131,7 +131,8 @@ print(type(2.5))
 ```python
 names = ["An","Bình","Chi","Dung","Hà","Khánh","Lan","Minh","Nam","Trang"]
 student_count = len(names)
-assert student_count == 10
+if student_count != 10:
+    raise ValueError("Danh sách đăng ký phải có đúng 10 học viên.")
 print("Số học viên:", student_count)
 print("Học viên đầu:", names[0])
 print("Học viên cuối:", names[-1])
@@ -180,7 +181,8 @@ for order_id, raw_price, raw_quantity in orders:
     price_vnd = int(raw_price)
     quantity = int(raw_quantity)
     total_vnd += price_vnd * quantity
-assert len(orders) == 12
+if len(orders) != 12:
+    raise ValueError("Cần có đủ 12 đơn hàng để tổng hợp.")
 print("Số đơn:", len(orders))
 print("Tổng tiền (đồng):", total_vnd)
 ```
@@ -212,7 +214,8 @@ temperatures = [26.2,27,28.5,29.1,30,27.5,28.2,29.9,31.1,30.5,29,28.4,27.7,30.2,
 reports = []
 for index, temperature in enumerate(temperatures, 1):
     reports.append(f"T{index:02d}: {temperature:.1f} °C")
-assert len(reports) == 15
+if len(reports) != 15:
+    raise ValueError("Bản tin phải có đúng 15 cảm biến.")
 print("Số cảm biến:", len(reports))
 print("Dòng đầu:", reports[0])
 print("Dòng cuối:", reports[-1])
@@ -252,7 +255,8 @@ for raw in raw_readings:
         continue
     valid_temperatures.append(float(value))
 average_celsius = sum(valid_temperatures) / len(valid_temperatures)
-assert len(raw_readings) == 18
+if len(raw_readings) != 18:
+    raise ValueError("Dữ liệu đầu vào phải có đúng 18 lượt đo.")
 print("Hợp lệ:", len(valid_temperatures))
 print("Thiếu:", missing_count)
 print(f"Trung bình: {average_celsius:.2f} °C")
@@ -284,7 +288,12 @@ Trung bình: 28.84 °C
 ```python
 raw_prices = ["12000","14000","16000","18000","20000","22000","?","26000","28000","30000","32000","34000","36000","38000","40000","42000","44000","?","48000","50000"]
 raw_quantities = ["1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4"]
-orders = [(f"O{i:02d}", raw_prices[i - 1], raw_quantities[i - 1]) for i in range(1, 21)]
+orders = []
+for i in range(1, 21):
+    order_id = f"O{i:02d}"
+    price = raw_prices[i - 1]
+    quantity = raw_quantities[i - 1]
+    orders.append((order_id, price, quantity))
 total_vnd = 0
 missing_ids = []
 paid_count = 0
@@ -294,7 +303,8 @@ for order_id, raw_price, raw_qty in orders:
         continue
     total_vnd += int(raw_price) * int(raw_qty)
     paid_count += 1
-assert paid_count + len(missing_ids) == len(orders) == 20
+if len(orders) != 20 or paid_count + len(missing_ids) != 20:
+    raise ValueError("Phải đối chiếu đủ 20 phiếu, gồm cả phiếu thiếu giá.")
 print("Số phiếu:", len(orders))
 print("Phiếu hợp lệ:", paid_count)
 print("Tổng tiền (đồng):", total_vnd)
