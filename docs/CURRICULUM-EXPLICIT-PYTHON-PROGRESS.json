@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "BATCH_09_IN_PROGRESS",
-  "last_completed_batch": 8,
+  "status": "READY_FOR_BATCH_10",
+  "last_completed_batch": 9,
   "batches": [
     {
       "batch": 1,
@@ -257,7 +257,7 @@
         "PY-44",
         "PY-45"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-41",
         "PY-42",
@@ -265,9 +265,9 @@
         "PY-44",
         "PY-45"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 153,
+      "merged_commit": "ce98489a525eabe6317df2698c83ca5356c56da5",
+      "ci_run": 40175887889,
       "branch": "feat/explicit-python-batch-09-20261025",
       "lesson_commits": {
         "PY-41": "4f426970172dc2f7d6ea74c06f0b6598e968e67c",
@@ -276,7 +276,7 @@
         "PY-44": "dcd32999a0e6dee74a35f4027be7473b2a2c0a33",
         "PY-45": "8b46ed9f466a33a0002c0f10b6327c330b62f33d"
       },
-      "notes": "PY-41..45 five independent commits plus focused AST test fix for Git lesson PY-43 which has 5 Python code fences plus shell examples (all 5 checked; other lessons retain minimum 9). No asserts/comprehensions/generator ternaries in Python examples. Preserve stdout, original 5 progressive scenarios per lesson, data 10/12/15/18/20, all MCQs; CI and merge pending. Windows unverified. Deferred scenario prose goal remains APPROVED_DEFERRED."
+      "notes": "PY-41..45 five separate lesson commits and narrow PY-43 Git Python snippet-count test correction. PR #153 final-head 84b8739094a94ebb0a46c7739b9b9340a63e4bbb GitHub CI #40175887889 COMPLETED SUCCESS, 25 PY-41..45 situations executed exact stdout, full structure/MCQ/Markdown regression, AST shortcut ban for batches01..09 PASS. Squash merge ce98489a525eabe6317df2698c83ca5356c56da5. Windows worker not verified; next batch10 PY-46 only. Scenario prose clarity goal still APPROVED_DEFERRED."
     },
     {
       "batch": 10,
