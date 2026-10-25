@@ -1187,13 +1187,13 @@
     "reason": "Owner-approved shared AIBrigde ChatGPT Conversation Reliability task. Load merged AIBrigde main PR #26 fae2617706314b2a600f9e0044827b4cddcb1f68 before running pending v2 browser:conversation_structure_probe with payload.detail_level=contexts. Managed restart barrier is processed first, before task dispatch. Preserve Edge session, current ChatGPT conversation, 17 completed task ACKs and Jetking goal_review.enabled=false. Read-only context counts only; do not replay the older v1 task or create/move ChatGPT conversation. A stale v1 result instead of v2 is NOT acceptable; report runtime freshness mismatch."
   },
   "goal_review": {
-    "enabled": true,
+    "enabled": false,
     "approval": "approved",
-    "status": "active",
+    "status": "completed",
     "goal_id": "aiclassdocuments-no-note-comparison-copies-20261025",
-    "revision": "2026-10-25-no-note-46-lessons-batch10",
+    "revision": "2026-10-25-no-note-46-lessons-completed",
     "title": "Thêm bản No Note ngay trước bản code có chú thích trong 46 bài",
-    "phase": "READY_FOR_BATCH_10",
+    "phase": "COMPLETED",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-NO-NOTE-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-NO-NOTE-PROGRESS.json",
@@ -1201,13 +1201,11 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Owner-approved No Note goal: Batch09 PY-41..PY-45 COMPLETED, merged PR #183 (89fff6b0f8920644a0da8d141654f3e414087528), final PR HEAD ee27fa67f9ec2011d6718239c89058761c9574f5, GitHub CI #40206691009 SUCCESS. Added 50 pairs (41 Python and 9 Bash/Git). Existing annotated snippets byte-identical; original five Markdown sources reconstructed exactly, exact stdout scenario tests preserved. Ledger 9/10 batches completed, 413 pairs. Final approved Batch10 ONLY PY-46; do not overlap or invent lessons. Read current main TaskSource, goal spec, ledger, AGENTS, guide, PY-46 source, and Batch10 tests. Pair every executable snippet, preserve original annotated code byte-for-byte, source prose/output/MCQ; check shell quoting and Python AST/tokenizer. One lesson commit and one PR for PY-46, exact final PR HEAD GitHub CI SUCCESS before merge. After merge, record complete 10/10 ledger with count/PR/head/CI, update task goal status completed only after all evidence, no new goal without owner approval. Windows/PowerShell and CDP9224 still UNVERIFIED. No duplicate Bridge tasks, ACK or ChatGPT New Chat due to heartbeat.",
-    "review_hold": "Batches01-09 merged with 413 No Note pairs verified by GitHub CI. Final Batch10 only PY-46 pending, no extra task/next goal.",
-    "active_batch": 10,
-    "active_lessons": [
-      "PY-46"
-    ],
-    "batch_boundary": "FINAL_BATCH_10_ONLY_PY46; prior Batch09 PR183 CI SUCCESS ledger 9/10; do not start new successor goal without owner approval."
+    "next_review": "Goal COMPLETED: All 46 lessons PY-01..PY-46 now contain 422 adjacent pairs of No Note and original commented executable code; 10/10 sequential batches merged, each with final PR HEAD CI SUCCESS. Last Batch10 PY-46 merged PR #184 (d007d7eb6ba76cd68456d321e7d2384e964cec05), final HEAD a8c0dc3a51c02a5fe7e205c2858c135096c258bc, CI run #40207251327 SUCCESS. Ledger docs/CURRICULUM-NO-NOTE-PROGRESS.json status COMPLETED and goal spec docs/CURRICULUM-NO-NOTE-GOAL.json status COMPLETED. 920 MCQs and 230 scenarios retained; original canonical code preserved and pair regression / scenario stdout checked by GitHub Actions. No open PR or unACKed task. Goal review disabled and no new goal authorized. Windows/PowerShell worker verification and CDP 9224 identity UNVERIFIED; do not claim Windows PASS.",
+    "review_hold": "Owner-approved No Note work is DONE (46/46 lessons, 10/10 merged batches, 422 pairs). Goal review DISABLED; do not create tasks or restart on informational heartbeat. No new goal without explicit owner approval.",
+    "active_batch": null,
+    "active_lessons": [],
+    "batch_boundary": "GOAL_COMPLETED; 10/10 batches merged, 422 pairs, active none; owner approval required for any successor goal."
   },
   "goal_review_history": [
     {
@@ -1336,7 +1334,7 @@
     }
   ],
   "owner_pause": {
-    "suppress_idle_reminders": false,
-    "reason": "Approved No Note final Batch10 PY-46 dependency ready; previous Batch09 PR183 merged with exact-head CI SUCCESS and ledger 9/10, no outstanding PR/task."
+    "suppress_idle_reminders": true,
+    "reason": "No Note goal completed with 46/46 chapters, 422 paired executable code snippets, 10/10 merged CI-successful batches. No active approved successor goal; idle reminders suppressed."
   }
 }
