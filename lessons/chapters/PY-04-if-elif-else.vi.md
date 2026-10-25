@@ -134,9 +134,9 @@ Số 2 vừa dương vừa chia hết cho 2, nên chương trình đi vào cả 
 
 **Từ vựng trong mục:** **If** — nếu; **Else** — nếu không; **Threshold** — ngưỡng.
 
-**Tình huống thực tế:** Giáo vụ nhận **10 bài kiểm tra**, mỗi dòng là một học viên với điểm trên thang 100; từ **50 điểm** được tính là đạt. Cần phân loại từng người và in tổng số đạt, chưa đạt, xác nhận rằng điểm 50 thuộc nhóm đạt.
+**Tình huống thực tế:** Giáo vụ đang chấm **10 bài kiểm tra**, mỗi bài có một điểm trên thang **0 đến 100**; điểm theo thứ tự gồm cả một bài đúng 50 điểm. Nhà trường quy định **từ 50 điểm là đạt**. Người phụ trách cần đếm bao nhiêu học viên đạt, bao nhiêu người chưa đạt, đồng thời xác nhận kết quả của học viên H02, người được 50 điểm.
 
-**Vì sao chọn cách này?** `if` chọn nhánh khi điều kiện đúng; `else` nhận phần còn lại. Một ngưỡng có hai kết quả, không cần `elif`. Ví dụ dùng vòng `for` chỉ để áp dụng cùng quy tắc cho đủ 10 học viên.
+**Vì sao chọn cách này?** `if` nghĩa là **nếu** điều kiện đúng thì thực hiện một nhóm lệnh; `else` nghĩa là **nếu không** thì đi sang nhóm lệnh còn lại. Vì trường chỉ có hai kết quả đạt/chưa đạt ở một ngưỡng, không cần `elif` (nhánh bổ sung). Chương trình đọc từng điểm bằng `for`, thử `score >= 50`, rồi tăng một trong hai bộ đếm; `>=` tính cả người đúng 50. Sau cùng, kiểm số đạt cộng số chưa đạt phải đúng 10 để bảo đảm không bỏ quên bài.
 
 **Quy trình:**
 1. Lưu mười điểm theo thứ tự học viên H01…H10.
@@ -181,9 +181,9 @@ Quy tắc dùng `>=` nên giá trị 50 nằm trong nhóm đạt. Không có tr�
 
 **Từ vựng trong mục:** **Elif** — điều kiện khác; **Branch** — nhánh; **Stock** — tồn kho.
 
-**Tình huống thực tế:** Cửa hàng có **12 mã sản phẩm**, mỗi dòng là số lượng còn lại (món). Quy tắc: số lượng `0` là `Out`, từ `1` đến `5` là `Low`, từ `6` trở lên là `OK`. Hãy đếm số SKU ở mỗi mức và kiểm tra lượng tồn `5` vẫn thuộc mức `Low`.
+**Tình huống thực tế:** Nhân viên kho cần kiểm tra **12 loại sản phẩm**. Mỗi loại có một số lượng còn lại trong kho, tính bằng **món**; có loại còn 0 món, loại còn 5 món và loại còn nhiều hơn. Kho dùng ba tên trạng thái: `Out` = hết hàng, `Low` = còn từ 1 đến 5 món, `OK` = còn từ 6 món trở lên. Nhân viên muốn biết có bao nhiêu loại nằm trong từng trạng thái.
 
-**Vì sao chọn cách này?** Thứ tự nhánh quan trọng: xét hết hàng trước, sau đó xét gần hết; các giá trị còn lại rơi vào `else`. Nhờ `elif`, mỗi SKU chỉ được đếm **một trạng thái**.
+**Vì sao chọn cách này?** Trước hết cần hiểu **trạng thái** là tên tóm tắt tình hình tồn kho của một loại hàng. Chương trình xét `quantity == 0` trước để đưa vào `Out`. Nếu không phải 0 thì xét `quantity <= 5` và đưa vào `Low`; phần còn lại tự động là `OK`. `elif` chỉ được thử khi nhánh phía trước không đúng, còn `else` nhận các trường hợp chưa rơi vào nhánh nào, vì vậy mỗi sản phẩm chỉ được đếm **một lần**. Nếu đặt điều kiện `<= 5` trước, lượng 0 cũng bị gộp nhầm vào nhóm gần hết.
 
 **Quy trình:**
 1. Duyệt danh sách 12 giá trị tồn.
@@ -224,9 +224,9 @@ Cấp này khó hơn vì có ba nhánh không chồng lấn. Học viên có th�
 
 **Từ vựng trong mục:** **Nested condition** — điều kiện phối hợp; **Comparison** — so sánh; **Tier** — hạng.
 
-**Tình huống thực tế:** Đội chăm sóc quản lý **15 khách hàng**; mỗi hàng có thời gian thành viên (năm) và chi tiêu tích lũy (đồng). Khách **Gold** nếu ít nhất 5 năm và đã chi từ 2.000.000 đồng, **Silver** nếu ít nhất 5 năm và chi từ 1.000.000 đến dưới 2.000.000 đồng; những khách khác là **Standard**. Cần thống kê từng hạng.
+**Tình huống thực tế:** Bộ phận chăm sóc có dữ liệu của **15 khách**. Mỗi người có số năm gắn bó (**năm**) và tổng tiền đã mua (**đồng**) để xét ba hạng ưu đãi: **Gold** khi từ 5 năm và từ 2.000.000 đồng; **Silver** khi từ 5 năm và từ 1.000.000 đến dưới 2.000.000 đồng; còn lại là **Standard**. Nhân viên cần thống kê số khách ở từng hạng, mỗi người chỉ được nằm trong một hạng.
 
-**Vì sao chọn cách này?** Nếu xét Silver trước, khách Gold cũng khớp điều kiện Silver và bị phân loại sai. Phải ưu tiên ngưỡng cao hơn, sau đó mới rẽ sang ngưỡng thấp; hai phép so sánh trong mỗi nhánh nối bằng `and`.
+**Vì sao chọn cách này?** Ba hạng không phải ba câu hỏi độc lập: mỗi khách phải nhận **một hạng cao nhất phù hợp**. Vì vậy chương trình thử Gold trước bằng hai điều kiện nối `and` (đều phải đúng). Nếu không đạt Gold mới thử Silver; người không đạt cả hai được gán Standard. Với khách 6 năm và 2.500.000 đồng, cả ngưỡng của Gold lẫn mức tối thiểu của Silver đều có thể đúng, nhưng chỉ Gold được chọn. Nếu dùng ba lệnh `if` riêng, một người có thể bị cộng vào nhiều hạng. Sau mỗi khách tăng đúng một bộ đếm và đối chiếu tổng 15.
 
 **Quy trình:**
 1. Ghép 15 cặp năm và số tiền đúng khách.
@@ -268,9 +268,9 @@ Không suy ra khách Gold từ tiền chi tiêu đơn lẻ: khách cũng phải 
 
 **Từ vựng trong mục:** **Validation** — kiểm tra đầu vào; **Online** — kết nối; **Missing** — thiếu số đo.
 
-**Tình huống thực tế:** Trạm giám sát có **18 cảm biến**, mỗi dòng gồm nhiệt độ (°C hoặc `None`) và trạng thái kết nối. Hệ thống ưu tiên `Offline` khi mất kết nối; nếu online nhưng chưa có số đo thì `Missing`; nếu online có nhiệt độ **từ 80 °C** thì `Hot`, ngược lại `Normal`. Hãy đếm số cảm biến của bốn trạng thái.
+**Tình huống thực tế:** Trạm giám sát theo dõi **18 cảm biến nhiệt độ**, mỗi cảm biến có hai thông tin: đã kết nối hay chưa và số nhiệt độ tính bằng **°C**. Một số máy có thể mất kết nối, hoặc vẫn kết nối nhưng chưa gửi được số (`None`). Quy định phân loại là: mất kết nối `Offline`; vẫn kết nối nhưng thiếu nhiệt độ `Missing`; vẫn kết nối và nhiệt độ từ 80 °C `Hot`; các trường hợp còn lại `Normal`. Trực ca muốn biết số cảm biến của mỗi loại.
 
-**Vì sao chọn cách này?** Kiểm tra mất kết nối **trước** khi so nhiệt độ, vì một thiết bị đã offline có thể còn giữ số đo cũ. Phải xử lý `None` trước phép `>=` để tránh lỗi kiểu và không biến mất dữ liệu thành bình thường.
+**Vì sao chọn cách này?** `None` là dấu hiệu **chưa có số đo**, không có nghĩa là 0 °C. Đồng thời một máy mất kết nối có thể vẫn lưu nhiệt độ của lần trước, nên phải xét `Offline` **trước tiên**. Nếu máy đang kết nối, xét tiếp có số đo hay không; chỉ khi nhiệt độ tồn tại mới được so với 80 °C. `if`/`elif`/`else` đảm bảo lần lượt một trong bốn trạng thái được chọn. So ngay `None >= 80` sẽ gây lỗi; coi `None` là số 0 sẽ giấu đi sự cố thiếu thông tin.
 
 **Quy trình:**
 1. Ghép đủ 18 cặp kết nối/nhiệt độ.
@@ -314,9 +314,9 @@ Những trạng thái này loại trừ nhau theo thứ tự: số đo 80 °C đ
 
 **Từ vựng trong mục:** **Decision tree** — cây quyết định; **Validation** — kiểm tra hợp lệ; **Priority** — thứ tự xét.
 
-**Tình huống thực tế:** Cửa hàng có **20 đơn giao**, mỗi hàng gồm mã O01…O20, giá trị đơn (đồng), khoảng cách giao (km) và cờ có hàng trong kho. Nếu thiếu/sai số tiền hoặc km thì `INVALID`; nếu hợp lệ nhưng hết hàng thì `HOLD`; nếu có hàng và đơn **từ 1.000.000 đồng** thì `FREE`; các đơn khác giao **không quá 5 km** phí 15.000 đồng (`LOCAL`) hoặc xa hơn phí 30.000 đồng (`FAR`). Hãy in số đơn mỗi loại, tổng phí và mã chưa thể giao.
+**Tình huống thực tế:** Cửa hàng có **20 đơn giao hàng O01 đến O20**. Mỗi đơn có số tiền (**đồng**), quãng đường giao (**km**) và thông tin còn hàng (`True`/`False`). Một số đơn bị thiếu tiền, thiếu km hoặc có tiền âm. Quy định: đơn thiếu/sai dữ liệu là `INVALID` (không hợp lệ); đơn hợp lệ nhưng hết hàng là `HOLD` (tạm giữ); đơn còn hàng trị giá từ 1.000.000 đồng là `FREE` (miễn phí giao); những đơn còn lại giao đến 5 km thu 15.000 đồng (`LOCAL`), xa hơn thu 30.000 đồng (`FAR`). Quản lý cần số đơn mỗi nhóm, tổng tiền phí giao thực thu và mã những đơn chưa thể giao.
 
-**Vì sao chọn cách này?** Đây là quy trình rẽ nhánh nhiều tầng: nếu ưu tiên kiểm khuyến mại trước kiểm lỗi thì phiếu âm tiền có thể lọt vào báo cáo. Phải kiểm hợp lệ → khả năng giao → ưu đãi → vùng giao, và chỉ tính phí của đơn giao có thu phí.
+**Vì sao chọn cách này?** Đây là **quy trình ưu tiên kiểm tra**, không phải năm nhóm tùy chọn ngang nhau. Trước hết phát hiện thiếu dữ liệu (`None`), tiền âm hoặc km âm để đưa vào `INVALID`; không thể quyết định phí khi chưa biết giá trị đúng. Với đơn hợp lệ, kiểm tra có hàng không; hết hàng thì `HOLD`. Chỉ đơn còn hàng mới xét miễn phí nếu đủ 1.000.000 đồng; nếu không, dùng mốc 5 km để chọn `LOCAL` hay `FAR`. Cách đi từ dữ liệu hợp lệ → có hàng → được miễn phí → khoảng cách giúp tránh tính phí sai hoặc giao đơn không thể thực hiện. Chỉ cộng 15.000 hay 30.000 đồng khi đơn thực sự thuộc nhóm thu phí; `INVALID`, `HOLD`, `FREE` có phí 0 trong báo cáo. Cuối cùng kiểm tổng các nhóm đúng 20.
 
 **Quy trình:**
 1. Đọc 20 đơn và kiểm tra giá trị/ khoảng cách trước khi so ngưỡng.
