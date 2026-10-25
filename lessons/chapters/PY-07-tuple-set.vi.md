@@ -461,7 +461,7 @@ D. Set intersection | Phép giao Set
 
 **Đáp án: C**
 
-**Giải thích:** Với Set, `a &#124; b` thực hiện phép hợp, giữ phần tử khác nhau thuộc `a`, `b` hoặc cả hai. Nếu `a={1,2}` và `b={2,3}`, kết quả chứa 1, 2, 3, khác giao vốn chỉ giữ 2.
+**Giải thích:** Với Set, `a | b` thực hiện phép hợp, giữ phần tử khác nhau thuộc `a`, `b` hoặc cả hai. Nếu `a={1,2}` và `b={2,3}`, kết quả chứa 1, 2, 3, khác giao vốn chỉ giữ 2.
 
 
 **Q10. What does `a & b` do for sets? | `a & b` làm gì với hai Set?**

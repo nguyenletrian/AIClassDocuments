@@ -3,7 +3,7 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "READY_FOR_BATCH_02",
+  "status": "BATCH_02_QA_PASSED_WAIT_MERGE",
   "last_completed_batch": 1,
   "batches": [
     {
@@ -33,11 +33,18 @@
         "PY-09",
         "PY-10"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
-      "pr": null,
+      "status": "QA_PASSED",
+      "changed_lessons": [
+        "PY-07"
+      ],
+      "pr": 134,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": 40165967753,
+      "branch": "fix/markdown-render-batch-02-20261025",
+      "lesson_commits": {
+        "PY-07": "b1f79d00e340b08d55c1c1e746c88d85bbb3d2d4"
+      },
+      "notes": "PR #134 initial CI 40165967753 PASS. Batch02 PY-06..10 reviewed, only PY-07 Markdown explanation corrected one literal `&#124;` to real union operator `|`; other four files untouched. Rendering regression and existing curriculum checks PASS; final CI on QA update and merge still pending."
     },
     {
       "batch": 3,
