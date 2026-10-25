@@ -118,7 +118,10 @@ with tempfile.TemporaryDirectory() as temp:
     for i in range(1, 11):
         (root / f"lesson{i:02d}.py").write_text(f"print({i})\n", encoding="utf-8")
     lines = git(root, "status", "--porcelain").splitlines()
-    untracked = sum(line.startswith("?? ") for line in lines)
+    untracked = 0
+    for line in lines:
+        if line.startswith("?? "):
+            untracked += 1
     staged = git(root, "diff", "--cached", "--name-only").splitlines()
     print("Script:", 10)
     print("Untracked:", untracked)
@@ -170,7 +173,9 @@ with tempfile.TemporaryDirectory() as temp:
     git(root, "init", "-q", "-b", "main")
     for i in range(1, 13):
         (root / f"module{i:02d}.py").write_text(f"VALUE = {i}\n", encoding="utf-8")
-    chosen = [f"module{i:02d}.py" for i in range(1, 6)]
+    chosen = []
+    for i in range(1, 6):
+        chosen.append(f"module{i:02d}.py")
     git(root, "add", "--", *chosen)
     staged = git(root, "diff", "--cached", "--name-only").splitlines()
     others = git(root, "ls-files", "--others", "--exclude-standard").splitlines()
