@@ -143,7 +143,8 @@ Chương trình lấy vị trí 0 và 2 mà không phải lấy cả đoạn 0�
 ```python
 import numpy as np
 scores = np.array([[8,9],[7,8],[6,7],[9,9],[10,7],[7,6],[8,8],[5,7],[9,10],[8,6]])
-assert scores.shape == (10, 2)
+if scores.shape != (10, 2):
+    raise ValueError("Bảng cần đúng 10 học viên, 2 môn.")
 print("Học viên:", scores.shape[0])
 print("Python của H04:", int(scores[3, 1]))
 ```
@@ -174,7 +175,8 @@ Giá trị `scores[3,1]` là 9 điểm trên thang 10; đây là một ô, khôn
 import numpy as np
 sales = np.array([[100,50,25],[110,55,27],[120,60,29],[130,65,31],[140,70,33],[150,75,35],[160,80,37],[170,85,39],[180,90,41],[190,95,43],[200,100,45],[210,105,47]], dtype=int)
 first_four_food = sales[:4, 0]
-assert sales.shape == (12, 3) and first_four_food.shape == (4,)
+if sales.shape != (12, 3) or first_four_food.shape != (4,):
+    raise ValueError("Cần đủ 12 ngày và 4 doanh thu thực phẩm đầu.")
 print("Ngày:", sales.shape[0])
 print("Thực phẩm 4 ngày (nghìn đồng):", int(first_four_food.sum()))
 print("Đồ dùng ngày 12:", int(sales[-1, 2]))
@@ -208,11 +210,18 @@ import numpy as np
 scores = np.array([[5,7,4],[6,9,5],[7,7,6],[8,9,7],[9,7,8],[10,9,9],[5,7,10],[6,9,4],[7,7,5],[8,9,6],[9,7,7],[10,9,8],[5,7,9],[6,9,10],[7,7,4]], dtype=int)
 mask = (scores[:, 0] >= 8) & (scores[:, 2] >= 8)
 selected = np.flatnonzero(mask)
-ids = [f"H{i+1:02d}" for i in selected]
-assert scores.shape == (15, 3)
+ids = []
+for i in selected:
+    ids.append(f"H{i+1:02d}")
+if scores.shape != (15, 3):
+    raise ValueError("Bảng cần đúng 15 học viên và 3 điểm.")
 print("Học viên:", scores.shape[0])
 print("Đủ điều kiện:", len(ids))
-print("Mã:", ", ".join(ids) if ids else "Không có")
+if ids:
+    labels = ", ".join(ids)
+else:
+    labels = "Không có"
+print("Mã:", labels)
 ```
 
 **Kết quả khi chạy:**
@@ -246,7 +255,8 @@ selected = orders[indices]
 query_total = int((selected[:, 0] * selected[:, 1]).sum())
 original_price = int(orders[17, 0])
 selected[0, 0] = 0
-assert orders.shape == (18, 3) and selected.shape == (4, 3)
+if orders.shape != (18, 3) or selected.shape != (4, 3):
+    raise ValueError("Bảng gốc phải có 18 đơn và truy vấn có 4 dòng.")
 print("Đơn nguồn:", orders.shape[0])
 print("Dòng truy vấn:", selected.shape[0])
 print("Tổng dòng truy vấn (nghìn đồng):", query_total)
@@ -281,21 +291,35 @@ Sửa bản chọn không đổi mảng gốc, vì fancy indexing tạo copy. Ha
 import numpy as np
 raw_temp = [24,25,26,27,28,None,30,31,24,25,26,27,28,29,None,31,24,25,26,27]
 humidity = [50,51,52,53,54,55,56,57,58,59,50,51,52,53,54,55,56,57,58,59]
-rows = [[np.nan if temp is None else temp, h]
-        for temp, h in zip(raw_temp, humidity)]
+rows = []
+for temp, h in zip(raw_temp, humidity):
+    if temp is None:
+        clean_temp = np.nan
+    else:
+        clean_temp = temp
+    rows.append([clean_temp, h])
 data = np.array(rows, dtype=float)
 mask = np.isfinite(data[:, 0]) & (data[:, 0] >= 28) & (data[:, 1] >= 55)
 selected = data[mask]
-selected_ids = [f"S{i+1:02d}" for i in np.flatnonzero(mask)]
+selected_ids = []
+for i in np.flatnonzero(mask):
+    selected_ids.append(f"S{i+1:02d}")
 if len(selected):
     selected[0, 0] = 0
-assert data.shape == (20, 2)
-assert int(np.isnan(data[:, 0]).sum()) == 2
-assert not np.any((data[mask, 0] == 0))
+if data.shape != (20, 2):
+    raise ValueError("Cần 20 cảm biến với hai trường đo.")
+if int(np.isnan(data[:, 0]).sum()) != 2:
+    raise ValueError("Phải ghi nhận đúng hai nhiệt độ bị thiếu.")
+if np.any(data[mask, 0] == 0):
+    raise ValueError("Truy vấn không được thay đổi dữ liệu cảm biến gốc.")
 print("Cảm biến:", data.shape[0])
 print("Thiếu nhiệt độ:", int(np.isnan(data[:, 0]).sum()))
 print("Cần kiểm tra:", len(selected_ids))
-print("Mã:", ", ".join(selected_ids) if selected_ids else "Không có")
+if selected_ids:
+    labels = ", ".join(selected_ids)
+else:
+    labels = "Không có"
+print("Mã:", labels)
 ```
 
 **Kết quả khi chạy:**
