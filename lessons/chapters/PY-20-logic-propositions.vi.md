@@ -122,7 +122,7 @@ Có 12 cách chọn một màu và một cỡ khi mọi màu đều có đủ b�
 
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Điều kiện đăng nhập
+### Tình huống 1 — Điều kiện đăng nhập · Cấp 1: Phép đơn
 
 **Từ vựng trong mục:** **Proposition** — mệnh đề; **AND** — và.
 
@@ -146,7 +146,19 @@ False
 
 **Giải thích kết quả:** `False` — tài khoản đã đăng nhập nhưng chưa xác minh.
 
-### Tình huống 2 — Bảng chân trị
+**Bài thực hành nâng cấp — cấp 1/5:** Hệ thống có **10 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy đánh giá một yêu cầu đăng nhập bằng AND. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"U{k:02d}","approved":(x is not None and x>=60),"verified":None if x is None else k%3!=0} for k,x in enumerate(values,1)]
+result = rows[0]['approved'] and rows[0]['verified']
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 10 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
+
+### Tình huống 2 — Bảng chân trị · Cấp 2: Tập dữ liệu
 
 **Từ vựng trong mục:** **Truth table** — bảng chân trị; **OR** — hoặc.
 
@@ -174,7 +186,19 @@ False False False False
 
 **Giải thích kết quả:** Bốn dòng cho đủ các trường hợp; `and` chỉ đúng khi cả hai đúng, `or` đúng khi ít nhất một đúng.
 
-### Tình huống 3 — Kiểm quy tắc kéo theo
+**Bài thực hành nâng cấp — cấp 2/5:** Hệ thống có **12 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy lập bảng hai điều kiện trên 12 hồ sơ. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"U{k:02d}","approved":(x is not None and x>=60),"verified":None if x is None else k%3!=0} for k,x in enumerate(values,1)]
+result = sum(r['approved'] and r['verified'] for r in rows)
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 12 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
+
+### Tình huống 3 — Kiểm quy tắc kéo theo · Cấp 3: Kết hợp điều kiện
 
 **Từ vựng trong mục:** **Implication** — kéo theo; **Premise** — tiền đề.
 
@@ -198,7 +222,19 @@ False
 
 **Giải thích kết quả:** `False` — trường hợp này vi phạm quy tắc.
 
-### Tình huống 4 — Cấu hình áo
+**Bài thực hành nâng cấp — cấp 3/5:** Hệ thống có **15 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy đếm hồ sơ vi phạm quy tắc kéo theo p ⇒ q. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"U{k:02d}","approved":(x is not None and x>=60),"verified":None if x is None else k%3!=0} for k,x in enumerate(values,1)]
+result = [r['id'] for r in rows if r['approved'] and not r['verified']]
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 15 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
+
+### Tình huống 4 — Cấu hình áo · Cấp 4: Trường hợp chưa xác định
 
 **Từ vựng trong mục:** **Counting** — nguyên lý đếm; **Combination** — cách kết hợp.
 
@@ -221,7 +257,19 @@ print(3 * 4)
 
 **Giải thích kết quả:** `12` cách chọn.
 
-### Tình huống 5 — Ghép các tùy chọn
+**Bài thực hành nâng cấp — cấp 4/5:** Hệ thống có **18 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy tách hồ sơ chưa xác minh khỏi trường hợp False. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"U{k:02d}","approved":(x is not None and x>=60),"verified":None if x is None else k%3!=0} for k,x in enumerate(values,1)]
+result = [r['id'] for r in rows if r['verified'] is None]
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 18 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
+
+### Tình huống 5 — Ghép các tùy chọn · Cấp 5: Tổng hợp có phân loại
 
 **Từ vựng trong mục:** **Cartesian product** — tích Descartes; **Option** — lựa chọn.
 
@@ -244,6 +292,18 @@ print(list(product(["red", "blue"], ["S", "M"])))
 ```
 
 **Giải thích kết quả:** Bốn cặp: `(red,S)`, `(red,M)`, `(blue,S)`, `(blue,M)`.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Hệ thống có **20 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy báo số hồ sơ được truy cập, bị từ chối và thiếu thông tin. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"U{k:02d}","approved":(x is not None and x>=60),"verified":None if x is None else k%3!=0} for k,x in enumerate(values,1)]
+result = {'allowed':sum(r['approved'] and r['verified'] is True for r in rows),'denied':sum(r['verified'] is False or not r['approved'] for r in rows),'unknown':[r['id'] for r in rows if r['verified'] is None]}
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 20 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
 
 ## 6. Sai lầm thường gặp
 
