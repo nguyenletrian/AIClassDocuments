@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "BATCH_01_IN_PROGRESS",
-  "last_completed_batch": 0,
+  "status": "READY_FOR_BATCH_02",
+  "last_completed_batch": 1,
   "batches": [
     {
       "batch": 1,
@@ -15,7 +15,7 @@
         "PY-04",
         "PY-05"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-01",
         "PY-02",
@@ -23,9 +23,9 @@
         "PY-04",
         "PY-05"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 145,
+      "merged_commit": "a19ee224a7a722b7c0d06a44182c49761df6f7f8",
+      "ci_run": 40171054992,
       "branch": "feat/explicit-python-batch-01-20261025",
       "lesson_commits": {
         "PY-01": "40dc55b89c9ec2c9d1376db0d8b50caffa6bc712",
@@ -34,7 +34,7 @@
         "PY-04": "d74aa67c65fad039abd8abfe21bae62d4908d582",
         "PY-05": "975254608ba906f3ae572b728c8092d0c05bcb56"
       },
-      "notes": "Five PY-01..PY-05 lessons updated separately: all assert checks replaced with if and clear errors, list/gen comprehensions rewritten as explicit for loops and accumulators, inline ternary removed; executable QA pending. Tests enforce AST syntax and exact documented stdout."
+      "notes": "PR #145 merged a19ee224a7a722b7c0d06a44182c49761df6f7f8 after final-head GitHub CI #40171054992 PASS on 72b343c8a50ae1726840905e9a7e2b6071703f78. Five lesson commits PY-01..05, explicit if/raise, for loops instead of assert/comprehensions, 25 scenarios stdout and 20 MCQ per lesson unchanged. Python AST regression test added, all curriculum/Markdown CI checks passed. Windows runner not claimed. Next batch02 PY-06..10."
     },
     {
       "batch": 2,
