@@ -147,7 +147,8 @@ before = np.mean((w - targets)**2)
 gradient = 2 * np.mean(w - targets)
 w = w - 0.1 * gradient
 after = np.mean((w - targets)**2)
-assert len(targets) == 10
+if len(targets) != 10:
+    raise ValueError("Cần đúng 10 bản ghi mục tiêu.")
 print("Bản ghi:", len(targets))
 print(f"Trọng số sau bước: {w:.2f}")
 print("Loss giảm:", bool(after < before))
@@ -185,7 +186,8 @@ before = np.mean((w*x + 1 - y)**2)
 gradient = 2*np.mean((w*x + 1 - y)*x)
 w -= 0.005*gradient
 after = np.mean((w*x + 1 - y)**2)
-assert x.shape == y.shape == (12,)
+if x.shape != (12,) or y.shape != (12,):
+    raise ValueError("Cần 12 cặp x và y.")
 print("Mẫu:", len(x))
 print(f"Gradient ban đầu: {gradient:.2f}")
 print(f"Hệ số sau bước: {w:.3f}")
@@ -226,12 +228,18 @@ for step in range(6):
     error = w*x - y
     history.append(float(np.mean(error**2)))
     w -= 0.2*2*np.mean(error*x)
-assert len(x) == 15 and len(history) == 6
+if len(x) != 15 or len(history) != 6:
+    raise ValueError("Cần 15 mẫu và 6 bước kiểm tra Loss.")
 print("Mẫu:", len(x))
 print("Bước cập nhật:", len(history))
 print(f"Loss đầu: {history[0]:.3f}")
 print(f"Loss bước 6: {history[-1]:.3f}")
-print("Giảm từng bước:", all(a > b for a, b in zip(history, history[1:])))
+decreases = True
+for before, after in zip(history, history[1:]):
+    if before <= after:
+        decreases = False
+        break
+print("Giảm từng bước:", decreases)
 ```
 
 **Kết quả khi chạy:**
@@ -271,7 +279,8 @@ def train(lr):
 initial = float(np.mean(targets**2))
 small = train(0.1)
 large = train(1.1)
-assert len(targets) == 18
+if len(targets) != 18:
+    raise ValueError("Cần 18 giá trị mục tiêu khi so learning rate.")
 print("Mẫu:", len(targets))
 print(f"Loss đầu: {initial:.2f}")
 print(f"Loss sau lr=0.1: {small:.2f}")
@@ -317,7 +326,8 @@ for epoch in range(300):
     w -= 0.1*dw
     b -= 0.1*db
 mse = float(np.mean((w*x+b-y)**2))
-assert x.size == 20
+if x.size != 20:
+    raise ValueError("Cần đủ 20 điểm train.")
 print("Mẫu:", len(x))
 print("Epoch:", 300)
 print(f"Trọng số w: {w:.2f}")
