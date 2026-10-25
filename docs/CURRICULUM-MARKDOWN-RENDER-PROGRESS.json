@@ -3,8 +3,8 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_06_QA_PASSED_WAIT_MERGE",
-  "last_completed_batch": 5,
+  "status": "READY_FOR_BATCH_07",
+  "last_completed_batch": 6,
   "batches": [
     {
       "batch": 1,
@@ -142,11 +142,11 @@
         "PY-29",
         "PY-30"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "changed_lessons": [],
       "pr": 139,
-      "merged_commit": null,
-      "ci_run": 40168348655,
+      "merged_commit": "abe0a2b3b37b66dacb3f7a36d115cdc3f9fde7f1",
+      "ci_run": 40168462635,
       "branch": "fix/markdown-render-batch-06-20261025",
       "reviewed_lessons": [
         "PY-26",
@@ -160,7 +160,7 @@
         "unescaped_pipes_in_markdown_tables": 0,
         "malformed_table_rows": 0
       },
-      "notes": "Reviewed PY-26..PY-30 and found 0 leaked HTML pipe entities, 0 unescaped Markdown table pipes, 0 malformed rows, so no lesson edits. PR #139 CI run 40168348655 PASS on initial PR head; all prior batch formatting regression and curriculum tests PASS. Final-head CI and merge pending. Deferred owner-approved Python simplification goal stays inactive."
+      "notes": "PR #139 squash merged abe0a2b3b37b66dacb3f7a36d115cdc3f9fde7f1, final-head GitHub CI run #40168462635 PASS. All five PY-26..30 inspected and clean: no HTML pipe leaks, unescaped inline-code table pipes or malformed table column counts. Zero changes to lesson files. Next PY-31..35. Approved explicit-Python code style goal stays deferred."
     },
     {
       "batch": 7,
