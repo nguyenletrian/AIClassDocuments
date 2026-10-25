@@ -1201,7 +1201,13 @@
     "expected_lessons": 46,
     "expected_batches": 10,
     "next_review": "Markdown batch05 PY-21..PY-25 completed: PR #138 squash merge ae022fd6612e7e264858a152b72f2197aba13f25 and final-head CI #40167735800 PASS. Formatting ledger docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json last_completed_batch=5 status READY_FOR_BATCH_06. On next approved goal/idle review verify authoritative current main/ledger/open PRs and queue/ACK, then inspect ONLY batch06 PY-26..PY-30 for literal &#124; entity leaks, unescaped pipe within Markdown table cells and malformed tables. Fix verified formatting errors only, preserve educational content, 20 MCQs and meaning. Commit only needed changes, CI PASS, merge PR, update ledger and Bridge before next batch. No duplicate tasks, no archived Jetking probe replay, no new ChatGPT conversation just from heartbeat; Windows Bridge verification only with real worker evidence.",
-    "review_hold": "Owner-approved 10-batch Markdown formatting review. Batches01–05 MERGED, batch06 PY-26..30 is next. No unapproved work or duplicate heartbeat task requests."
+    "review_hold": "Owner-approved Markdown rendering goal remains ACTIVE, batch06 PY-26..30. Separately owner approved deferred explicit-Python simplification (replace assert with if, replace comprehension/terse expressions with readable for/if) documented in docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json. DO NOT start new goal or change chapter code until ALL ten Markdown batches MERGED and current goal COMPLETED. Never duplicate requests from a heartbeat.",
+    "approved_deferred_goal": {
+      "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
+      "spec_path": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
+      "status": "APPROVED_DEFERRED",
+      "start_only_after": "Markdown formatting ledger COMPLETED, last_completed_batch=10, no outstanding PR/task"
+    }
   },
   "goal_review_history": [
     {
