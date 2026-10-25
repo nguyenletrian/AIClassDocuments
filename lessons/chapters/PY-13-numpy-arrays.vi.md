@@ -42,14 +42,18 @@
 **NumPy** là thư viện hỗ trợ tính toán trên nhiều số cùng lúc. Kiểu dữ liệu chính là `ndarray` — một **mảng nhiều chiều**. Ví dụ trung tâm có ba học viên An, Bình, Lan (theo thứ tự ba hàng) và hai môn Toán, Python (theo thứ tự hai cột). Các điểm `[8,9]`, `[6,7]`, `[9,8]` nằm cùng một bảng. **Mỗi hàng** là một người, **mỗi cột** là một môn, **mỗi ô** là điểm của người đó ở môn đó trên thang 10.
 
 ```python
-# Mục đích: Mảng số cho nhiều học viên.
+# Mục đích: Tạo mảng NumPy 3 học viên × 2 môn để xem dữ liệu điểm dạng bảng.
+# Dữ liệu: Mỗi hàng là một học viên, hai cột là điểm môn 1 và môn 2 (thang 10).
+# NumPy là thư viện mảng số; as np tạo tên ngắn cho lời gọi np.array.
 import numpy as np
 
+# np.array() tạo ndarray 2 chiều từ list lồng; mỗi list con là một hàng học viên.
 scores = np.array([
     [8, 9],
     [6, 7],
     [9, 8],
 ])
+# print() hiển thị mảng hai chiều thành các hàng và cột.
 print(scores)
 ```
 
@@ -70,10 +74,14 @@ Hàng đầu là điểm của An, hàng thứ hai của Bình, hàng thứ ba c
 Thuộc tính `shape` cho biết **số phần tử ở từng chiều** của mảng. Với bảng điểm ba học viên, hai môn, `shape == (3, 2)`: con số 3 là **số hàng/học viên**, con số 2 là **số cột/môn**. Thuộc tính `size` là số ô dữ liệu (3 × 2 = 6), còn `ndim` là số chiều (2). Không nhầm mảng `(3,2)` với ba môn của hai học viên.
 
 ```python
-# Mục đích: Kích thước của mảng.
+# Mục đích: Phân biệt shape là kích thước theo chiều và size là tổng số ô của mảng.
+# Dữ liệu: Mảng 3 hàng học viên × 2 cột điểm; có tổng cộng 6 giá trị.
+# NumPy quản lý số liệu dạng mảng nhiều chiều.
 import numpy as np
 
+# np.array() ghép các hàng điểm thành ndarray.
 scores = np.array([[8, 9], [6, 7], [9, 8]])
+# shape là tuple (số hàng, số cột), ở đây (3,2); size là tổng ô 6.
 print(scores.shape, scores.size)
 ```
 
@@ -92,10 +100,14 @@ Bảng có 3 người × 2 môn = 6 giá trị điểm; đây là mảng hai chi
 Một `ndarray` thông thường lưu các phần tử bằng một kiểu dữ liệu chung (`dtype`). Với điểm có phần thập phân như 8,5, ta dùng `dtype=float` khi tạo mảng để giữ phần lẻ và thuận tiện tính trung bình. NumPy trên môi trường thông dụng dùng `float64` cho lựa chọn `float`. Ngược lại, nếu ép điểm thập phân thành số nguyên, phần lẻ có thể mất.
 
 ```python
-# Mục đích: Kiểu của các phần tử.
+# Mục đích: Dùng dtype=float tạo số thực và đọc dtype/size của mảng.
+# Dữ liệu: 2 điểm số thực của hai học viên, dtype là kiểu các ô.
+# np là tên tắt của NumPy.
 import numpy as np
 
+# dtype=float ép các ô sang số thực để có thể lưu số thập phân.
 scores = np.array([8.5, 7.0], dtype=float)
+# dtype là kiểu ô (float64 thông thường), size là số phần tử, không phải byte.
 print(scores.dtype, scores.size)
 ```
 
@@ -114,10 +126,14 @@ Mảng có hai điểm dạng số thực; `8.5` được giữ chứ không b�
 Khi tổng hợp dữ liệu hai chiều, **`axis=0` gom các hàng để cho ra một kết quả trên mỗi cột**; **`axis=1` gom các cột để cho ra một kết quả trên mỗi hàng**. Trong bảng ba học viên × hai môn, `scores.mean(axis=0)` tính điểm trung bình **từng môn**: môn Toán `(8+6+9)/3 ≈ 7,67`, môn Python `(9+7+8)/3 = 8`. Nếu đổi sang `axis=1`, sẽ ra ba điểm trung bình tương ứng ba học viên.
 
 ```python
-# Mục đích: Tính theo hàng hoặc cột.
+# Mục đích: Tính điểm trung bình theo từng môn bằng mean(axis=0).
+# Dữ liệu: Mảng 3 học viên × 2 môn; axis=0 gom theo cột môn, không phải theo từng học viên.
+# NumPy cung cấp np.array() và hàm trung bình ndarray.mean().
 import numpy as np
 
+# dtype=float giữ các điểm là số thực; ba hàng học viên, hai cột môn.
 scores = np.array([[8, 9], [6, 7], [9, 8]], dtype=float)
+# axis=0 gộp theo hàng để tạo một trung bình cho MỖI CỘT môn; khác axis=1 tính cho từng hàng học viên.
 print(scores.mean(axis=0))
 ```
 
@@ -145,14 +161,25 @@ Mảng đầu ra có hai số vì bảng có hai **cột/môn**; kết quả l�
 3. Đọc `shape`, `size` và kiểu phần tử.
 
 ```python
+# Mục đích: Kiểm kích thước và kiểu dữ liệu bảng 10 học viên học hai môn.
+# Dữ liệu: 10 hàng học viên, hai cột điểm các môn; kiểu float lưu cả giá trị thập phân.
+# np.array từ thư viện NumPy lưu bảng số theo hàng/cột.
 import numpy as np
+# 10 list con là 10 học viên, mỗi list có 2 điểm môn 1/2.
 rows = [[8,9],[7,8],[9,10],[6,7],[8,7],[5,8],[9,9],[7,6],[10,8],[8,9]]
+# Chuyển list lồng thành ndarray số thực; dtype=float ép kiểu để tính tiếp.
 scores = np.array(rows, dtype=float)
+# shape (10,2) yêu cầu đúng mười học viên và hai môn.
 if scores.shape != (10, 2):
+    # raise ValueError thông báo đầu vào sai và dừng để không xử lý kết quả thiếu hàng/cột.
     raise ValueError("Bảng phải có đúng 10 học viên và 2 môn.")
+# shape[0] là số hàng (học viên), shape[1] số cột (môn).
 print("Số học viên:", scores.shape[0])
+# int() đổi số NumPy sang số nguyên Python để in hoặc dùng làm chỉ số.
 print("Số môn:", scores.shape[1])
+# size = 10×2 ô điểm toàn mảng.
 print("Số ô:", scores.size)
+# dtype.kind == 'f' kiểm kiểu thuộc nhóm floating-point chứ không phải một tên float cụ thể.
 print("Kiểu số thực:", scores.dtype.kind == "f")
 ```
 
@@ -181,14 +208,25 @@ Một hàng đại diện cho một học viên; `dtype=float` cho phép mở r�
 3. In ba giá trị theo nhãn đã định và xác nhận shape đầu ra.
 
 ```python
+# Mục đích: Tính doanh thu trung bình mỗi nhóm theo 12 ngày bán hàng.
+# Dữ liệu: 12 hàng là 12 ngày, ba cột là doanh thu Thực phẩm/Sách/Đồ dùng (đơn vị minh họa).
+# NumPy lưu và tính trung bình bảng doanh thu số.
 import numpy as np
+# 12 hàng ngày, 3 cột nhóm hàng; dtype=float cho phép trung bình có phần lẻ.
 sales = np.array([[10,20,30],[11,21,31],[12,22,32],[13,23,33],[14,24,34],[15,25,35],[16,26,36],[17,27,37],[18,28,38],[19,29,39],[20,30,40],[21,31,41]], dtype=float)
+# mean(axis=0) tính trung bình theo cột, kết quả gồm 3 giá trị theo thứ tự các nhóm hàng.
 average = sales.mean(axis=0)
+# shape (3,) là vector 1 chiều gồm ba trung bình, dấu phẩy không tạo cột thứ hai.
 if sales.shape != (12, 3) or average.shape != (3,):
+    # raise ValueError thông báo đầu vào sai và dừng để không xử lý kết quả thiếu hàng/cột.
     raise ValueError("Bảng bán hàng phải có 12 ngày, 3 nhóm.")
+# int() đổi số NumPy sang số nguyên Python để in hoặc dùng làm chỉ số.
 print("Ngày:", sales.shape[0])
+# [0] lấy trung bình nhóm Thực phẩm, [1] Sách, [2] Đồ dùng; :.1f in một số lẻ.
 print("Thực phẩm:", f"{average[0]:.1f}")
+# int() đổi số NumPy sang số nguyên Python để in hoặc dùng làm chỉ số.
 print("Sách:", f"{average[1]:.1f}")
+# int() đổi số NumPy sang số nguyên Python để in hoặc dùng làm chỉ số.
 print("Đồ dùng:", f"{average[2]:.1f}")
 ```
 
@@ -217,15 +255,27 @@ Mỗi kết quả là mức trung bình ngày của **một cột** (nghìn đ�
 3. Dùng `argmax()` và chuyển chỉ số bắt đầu từ 0 thành mã cửa hàng.
 
 ```python
+# Mục đích: Tìm cửa hàng có tổng doanh thu cao nhất trong 15 cửa hàng.
+# Dữ liệu: 15 hàng cửa hàng S01..S15, hai cột doanh thu nhóm 1 và nhóm 2 (nghìn đồng).
+# NumPy cung cấp sum(axis) và argmax() cho bảng dữ liệu.
 import numpy as np
+# 15 hàng cửa hàng × 2 cột nhóm doanh thu; dtype=int lưu số nguyên nghìn đồng.
 sales = np.array([[50,30],[52,31],[54,32],[56,33],[58,34],[60,35],[62,36],[64,37],[66,38],[68,39],[70,40],[72,41],[74,42],[76,43],[78,44]], dtype=int)
+# axis=1 gộp các CỘT trong từng hàng để tính tổng mỗi cửa hàng; khác axis=0 cộng mỗi nhóm trên mọi cửa hàng.
 per_store = sales.sum(axis=1)
+# argmax() trả CHỈ SỐ phần tử tổng lớn nhất (bắt đầu 0), không phải giá trị doanh thu.
+# int() đổi chỉ số NumPy thành số nguyên Python để dùng làm chỉ số.
 peak = int(per_store.argmax())
 if sales.shape != (15, 2):
+    # raise ValueError thông báo đầu vào sai và dừng để không xử lý kết quả thiếu hàng/cột.
     raise ValueError("Bảng phải có 15 cửa hàng và 2 nhóm doanh thu.")
+# shape[0] đếm 15 hàng cửa hàng.
 print("Cửa hàng:", sales.shape[0])
+# int() đổi số NumPy sang số nguyên Python để in hoặc dùng làm chỉ số.
 print("Tổng S01 (nghìn đồng):", int(per_store[0]))
+# Vì chỉ số bắt đầu 0 nên peak+1 là số cửa hàng; :02d thêm 0 trước mã nhỏ hơn 10.
 print("Cửa hàng cao nhất:", f"S{peak+1:02d}")
+# Lấy doanh thu lớn nhất tại vị trí tìm được; int() đưa về số nguyên để in.
 print("Doanh thu cao nhất:", int(per_store[peak]))
 ```
 
@@ -254,22 +304,37 @@ Mảng tổng có 15 phần tử, bằng số cửa hàng; giá trị trong mỗ
 3. Tính trung bình chỉ các giá trị độ ẩm không phải NaN.
 
 ```python
+# Mục đích: Chuyển hai độ ẩm thiếu thành np.nan, vẫn tính trung bình hợp lệ từ 18 lượt.
+# Dữ liệu: 18 hàng lần đo; cột 0 nhiệt độ °C, cột 1 độ ẩm %; None xuất hiện ở độ ẩm.
+# NumPy có NaN và hàm thống kê bỏ giá trị thiếu.
 import numpy as np
+# 18 hàng lần đo, cột nhiệt độ °C và độ ẩm %, hai None ở độ ẩm.
 raw = [[24,50],[24.25,51],[24.5,52],[24.75,53],[25,54],[25.25,None],[25.5,56],[25.75,57],[26,58],[26.25,59],[26.5,60],[26.75,61],[27,62],[27.25,63],[27.5,None],[27.75,65],[28,66],[28.25,67]]
 rows = []
 for temperature, humidity in raw:
+    # is None xác định độ ẩm thiếu, không được tùy tiện đổi thành 0%.
     if humidity is None:
+        # np.nan là marker số thực 'Not a Number' biểu thị thiếu, cho phép ndarray có dtype=float.
         cleaned_humidity = np.nan
     else:
         cleaned_humidity = humidity
+    # append() lưu mỗi cặp nhiệt độ và độ ẩm đã làm sạch theo hàng.
     rows.append((temperature, cleaned_humidity))
+# Ép mảng (18,2) sang float để chứa np.nan.
 measurements = np.array(rows, dtype=float)
+# [:,1] lấy cột độ ẩm của MỌI hàng; np.isnan() tạo mask True ở các ô NaN.
 missing = np.isnan(measurements[:, 1])
+# shape (18,2) kiểm đủ hàng và cột; shape[0] là 18 lần đo.
 if measurements.shape != (18, 2):
+    # raise ValueError thông báo đầu vào sai và dừng để không xử lý kết quả thiếu hàng/cột.
     raise ValueError("Cần đủ 18 lượt đo, mỗi lượt hai giá trị.")
+# shape (18,2) kiểm đủ hàng và cột; shape[0] là 18 lần đo.
 print("Lượt đo:", measurements.shape[0])
+# sum() trên mask Boolean đếm số True, tức số lượt thiếu độ ẩm.
 print("Thiếu độ ẩm:", int(missing.sum()))
+# [:,0] lấy cột nhiệt độ; isfinite() nhận số hữu hạn, loại NaN/±inf; sum() đếm lượt hợp lệ.
 print("Nhiệt độ vẫn đủ:", int(np.isfinite(measurements[:, 0]).sum()))
+# nanmean() lấy trung bình độ ẩm trên các giá trị KHÔNG NaN, không để hai lượt thiếu kéo kết quả về 0.
 print(f"Độ ẩm trung bình: {np.nanmean(measurements[:, 1]):.2f} %")
 ```
 
@@ -298,24 +363,43 @@ Nhiệt độ vẫn đủ: 18
 3. Tổng hợp theo `axis=0` và in ba trung bình có nhãn/đơn vị.
 
 ```python
+# Mục đích: Tổng hợp 20 ngày ngủ/vận động/nhịp tim, bỏ NaN theo từng cột.
+# Dữ liệu: 20 hàng ngày, cột 0 ngủ giờ, cột 1 vận động phút, cột 2 nhịp tim nhịp/phút; hai None ở cột 2.
+# NumPy cho phép mảng số thực chứa NaN và thống kê theo cột.
 import numpy as np
+# 20 ngày, mỗi hàng gồm (giờ ngủ, phút vận động, nhịp tim nhịp/phút).
 raw = [[6,40,60],[7,43,62],[8,46,64],[9,49,None],[10,52,68],[6,55,70],[7,58,72],[8,41,74],[9,44,76],[10,47,78],[6,50,80],[7,53,82],[8,56,84],[9,59,61],[10,42,63],[6,45,65],[7,48,67],[8,51,None],[9,54,71],[10,57,73]]
 records = []
 for sleep, movement, heart in raw:
+    # None là nhịp tim không được ghi nhận, không được hiểu là 0 nhịp/phút.
     if heart is None:
+        # np.nan thay dữ liệu thiếu để tạo mảng float nhưng vẫn nhận biết được sự thiếu.
         cleaned_heart = np.nan
     else:
         cleaned_heart = heart
+    # append() thêm một hàng 3 đặc trưng có đơn vị riêng.
     records.append([sleep, movement, cleaned_heart])
+# dtype=float tạo ndarray (20,3) để tính mean và lưu nan.
 data = np.array(records, dtype=float)
+# shape (20,3) kiểm 20 ngày × 3 cột; dtype.kind 'f' xác minh nhóm số thực.
 if data.shape != (20, 3) or data.dtype.kind != "f":
+    # raise ValueError thông báo đầu vào sai và dừng để không xử lý kết quả thiếu hàng/cột.
     raise ValueError("Cần đủ 20 ngày, ba cột dữ liệu dạng số thực.")
+# nanmean(...,axis=0) lấy một trung bình cho mỗi cột, tự bỏ NaN từng cột thay vì bỏ cả ngày.
 means = np.nanmean(data, axis=0)
+# int() đổi số NumPy sang số nguyên Python để in hoặc dùng làm chỉ số.
 print("Số ngày:", data.shape[0])
+# int() đổi số NumPy sang số nguyên Python để in hoặc dùng làm chỉ số.
 print("Số cột:", data.shape[1])
+# [:,2] chọn toàn bộ cột nhịp tim (cột thứ 3); isnan() đánh dấu thiếu, sum() đếm lượt.
 print("Thiếu nhịp tim:", int(np.isnan(data[:, 2]).sum()))
+# means[0] là giờ ngủ, [1] là phút vận động, [2] là nhịp tim/phút; :.2f in hai số thập phân.
 print(f"Ngủ (giờ): {means[0]:.2f}")
+# int() đổi số NumPy sang số nguyên Python để in hoặc dùng làm chỉ số.
+# :.2f là định dạng chỉ để hiển thị hai chữ số sau dấu thập phân.
 print(f"Vận động (phút): {means[1]:.2f}")
+# int() đổi số NumPy sang số nguyên Python để in hoặc dùng làm chỉ số.
+# :.2f là định dạng chỉ để hiển thị hai chữ số sau dấu thập phân.
 print(f"Nhịp tim (nhịp/phút): {means[2]:.2f}")
 ```
 

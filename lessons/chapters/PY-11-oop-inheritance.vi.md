@@ -42,17 +42,26 @@
 Cửa hàng có nhiều loại sản phẩm, nhưng mỗi món đều có tên. Lớp cha `Product` giữ tên chung, còn lớp con `Electronic(Product)` nhận lại cách lưu tên và có thêm thuộc tính riêng `warranty_months` (tháng bảo hành). `super().__init__(name)` gọi phương thức khởi tạo của lớp cha; nhờ vậy không phải viết lại cách lưu tên ở mọi loại sản phẩm. Đây là **kế thừa**: lớp con dùng lại và mở rộng hành vi, thuộc tính từ lớp cha.
 
 ```python
-# Mục đích: Kế thừa từ lớp cha.
+# Mục đích: Dùng Electronic kế thừa Product để tái sử dụng tên và bổ sung tháng bảo hành.
+# Dữ liệu: Object Phone có bảo hành 12 tháng.
+# class định nghĩa kiểu object và các phương thức của nó.
 class Product:
+    # __init__ chạy khi tạo instance; self trỏ đối tượng hiện tại và các tham số sau self là dữ liệu đầu vào.
     def __init__(self, name):
+        # self.thuộc_tính lưu trạng thái riêng của object hiện tại.
         self.name = name
 
+# Cú pháp (Product) cho Electronic kế thừa Product.
 class Electronic(Product):
+    # __init__ chạy khi tạo instance; self trỏ đối tượng hiện tại và các tham số sau self là dữ liệu đầu vào.
     def __init__(self, name, warranty_months):
+        # super() gọi hàm __init__ của cha để lưu name.
         super().__init__(name)
+        # Thuộc tính warranty_months giữ số tháng bảo hành riêng của object.
         self.warranty_months = warranty_months
 
 phone = Electronic('Phone', 12)
+# Truy cập thuộc tính name do lớp cha khởi tạo bằng dấu chấm.
 print(phone.name, phone.warranty_months)
 ```
 
@@ -71,16 +80,25 @@ Phone 12
 Giả sử ứng dụng có thông báo bằng email và tin nhắn. Cả hai đều có phương thức `send(message)`, nhưng kết quả khác nhau tùy loại. **Đa hình** nghĩa là code gọi cùng một tên phương thức trên các đối tượng khác nhau mà mỗi đối tượng tự quyết định cách xử lý. Vòng `for` phía dưới không cần viết hai nhánh kiểm tra loại thông báo.
 
 ```python
-# Mục đích: Đa hình.
+# Mục đích: Cùng lời gọi send() trên Email và SMS tạo kết quả theo loại đối tượng.
+# Dữ liệu: Chuỗi Hello được chuyển qua hai loại object; không gửi ra mạng.
+# Class Email có hành vi gửi dạng chuỗi bắt đầu bằng Email:.
 class Email:
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def send(self, message):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return 'Email: ' + message
 
+# Class SMS có cùng tên method send(), nhưng kết quả có tiền tố SMS:.
 class SMS:
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def send(self, message):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return 'SMS: ' + message
 
+# Lần lượt tạo Email() và SMS(); đa hình tự chọn send của từng object.
 for sender in [Email(), SMS()]:
+    # Cùng lệnh .send('Hello') cho kết quả theo loại thật của sender, rồi print().
     print(sender.send('Hello'))
 ```
 
@@ -100,18 +118,28 @@ Cùng lời gọi `send('Hello')` nhưng hai loại đối tượng trả về h
 Khi mọi bộ gửi thông báo **bắt buộc** phải có `send()`, ta tạo lớp trừu tượng `Notifier(ABC)` và đánh dấu `@abstractmethod`. Lớp này quy định hợp đồng nhưng chưa đưa ra cách gửi cụ thể. Lớp `Console` phải cài đặt `send()` mới tạo đối tượng được. Chỉ kế thừa `ABC` mà **không có phương thức trừu tượng** thì chưa áp đặt yêu cầu đó.
 
 ```python
-# Mục đích: Lớp trừu tượng.
+# Mục đích: Quy định phương thức send bắt buộc bằng lớp trừu tượng ABC.
+# Dữ liệu: Console hiện thực hóa giao diện Notifier.
+# Thư viện abc cung cấp ABC (lớp trừu tượng) và abstractmethod (đánh dấu method bắt buộc).
 from abc import ABC, abstractmethod
 
+# Kế thừa ABC quy định giao diện không thể tạo nếu còn phương thức trừu tượng.
 class Notifier(ABC):
+    # Decorator bắt lớp con cụ thể cài send().
     @abstractmethod
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def send(self, message):
+        # pass là chỗ giữ lệnh rỗng, chưa cung cấp cách xử lý.
         pass
 
+# Console hiện thực hóa send() nên tạo object được.
 class Console(Notifier):
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def send(self, message):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return 'Console: ' + message
 
+# Console() tạo object, .send() trả chuỗi, print() hiển thị.
 print(Console().send('Hello'))
 ```
 
@@ -130,15 +158,23 @@ Console: Hello
 Lớp cha `Shipping` có phí mặc định 0 đồng, nhưng giao hàng nhanh cần phí 35.000 đồng. Lớp con `Express` **ghi đè (override)** phương thức `fee()` bằng định nghĩa mới cùng tên. Khi gọi `Express().fee()`, Python dùng bản của `Express`, không dùng bản của `Shipping`. Đây là một cách để đa hình xuất hiện thông qua quan hệ kế thừa.
 
 ```python
-# Mục đích: Ghi đè phương thức.
+# Mục đích: Lớp Express ghi đè phương thức fee của lớp Shipping.
+# Dữ liệu: Phí thông thường 0 đồng, express 35.000 đồng.
+# class định nghĩa kiểu object và các phương thức của nó.
 class Shipping:
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def fee(self):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return 0
 
+# Express kế thừa Shipping, ghi đè fee() để trả mức phí riêng.
 class Express(Shipping):
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def fee(self):
+        # Phí 35.000 đồng thay cho 0 đồng mặc định của lớp cha.
         return 35000
 
+# Gọi fee trên hai instance khác loại, method của mỗi loại quyết định kết quả.
 print(Shipping().fee(), Express().fee())
 ```
 
@@ -165,34 +201,56 @@ Hai đối tượng gọi cùng `fee()` nhưng phí khác nhau: gói thường 0
 3. Tạo 10 đối tượng và đếm mỗi kiểu.
 
 ```python
+# Mục đích: Tạo 10 sản phẩm Digital/Physical và đếm qua cùng phương thức category.
+# Dữ liệu: 10 tuple (tên hàng, nhãn digital/physical).
+# 10 bản ghi gồm tên hàng và loại sản phẩm.
 data = [("Laptop","digital"),("Bàn","physical"),("Chuột","digital"),("Ghế","physical"),("Màn hình","digital"),("Sổ","physical"),("Bàn phím","digital"),("Bút","physical"),("Tablet","digital"),("Tủ","physical")]
+# class định nghĩa kiểu object và các phương thức của nó.
 class Product:
+    # __init__ chạy khi tạo instance; self trỏ đối tượng hiện tại và các tham số sau self là dữ liệu đầu vào.
     def __init__(self, name):
+        # self.thuộc_tính lưu trạng thái riêng của object hiện tại.
         self.name = name
+    # Method đa hình: cùng tên nhưng giá trị trả tùy lớp con.
     def category(self):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return "other"
+# Digital kế thừa Product, ghi đè category trả 'digital'.
 class Digital(Product):
+    # Method đa hình: cùng tên nhưng giá trị trả tùy lớp con.
     def category(self):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return "digital"
+# Physical cũng kế thừa Product, category trả 'physical'.
 class Physical(Product):
+    # Method đa hình: cùng tên nhưng giá trị trả tùy lớp con.
     def category(self):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return "physical"
 items = []
+# Tách tên và nhãn của từng bản ghi.
 for name, kind in data:
     if kind == "digital":
         product = Digital(name)
     else:
         product = Physical(name)
+    # append() đưa object vào list.
     items.append(product)
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 if len(items) != 10:
+    # raise ValueError báo đầu vào sai rồi dừng nhánh hiện tại.
     raise ValueError("Cần tạo đủ 10 mặt hàng.")
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 print("Sản phẩm:", len(items))
+# [0] là object đầu; .name là thuộc tính và category() là method.
 print("Đầu tiên:", items[0].name, items[0].category())
 digital_count = 0
 physical_count = 0
 for product in items:
+    # Gọi category() trên object thực tế, không cần ép kiểu về class con.
     if product.category() == "digital":
         digital_count += 1
+    # Gọi category() trên object thực tế, không cần ép kiểu về class con.
     if product.category() == "physical":
         physical_count += 1
 print("Thiết bị:", digital_count)
@@ -224,35 +282,57 @@ Lớp con không cần viết lại `__init__()` vì dùng được hành vi kh�
 3. Duyệt 12 yêu cầu, chọn đối tượng và tổng hợp theo kênh.
 
 ```python
+# Mục đích: Dùng giao diện Notifier chung để tạo 12 thông báo email/screen giả lập.
+# Dữ liệu: 12 loại kênh email/screen, mã thông báo N01..N12.
+# ABC/abstractmethod xác định giao diện send() bắt buộc.
 from abc import ABC, abstractmethod
 channels = ["email","screen","email","screen","screen","email","screen","email","email","screen","email","screen"]
 class Notifier(ABC):
+    # Đánh dấu send là method bắt buộc cho lớp con.
     @abstractmethod
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def send(self, message):
+        # pass là chỗ giữ lệnh rỗng, chưa cung cấp cách xử lý.
         pass
 class EmailNotifier(Notifier):
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def send(self, message):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return "email:" + message
+# class định nghĩa kiểu object và các phương thức của nó.
 class ScreenNotifier(Notifier):
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def send(self, message):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return "screen:" + message
+# Dictionary ánh xạ chuỗi tên kênh tới object gửi tương ứng.
 notifiers = {"email": EmailNotifier(), "screen": ScreenNotifier()}
 results = []
+# enumerate(...,1) đánh số kênh bắt đầu từ 1.
 for i, channel in enumerate(channels, 1):
+    # Tra dictionary lấy instance, .send() trả chuỗi tương ứng kênh.
+    # f-string :02d tạo mã N01..N12, thêm số 0 ở đầu.
     message = notifiers[channel].send(f"N{i:02d}")
+    # append() lưu chuỗi đầu ra mô phỏng.
     results.append(message)
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 if len(results) != 12:
+    # raise ValueError báo đầu vào sai rồi dừng nhánh hiện tại.
     raise ValueError("Cần xử lý đủ 12 thông báo.")
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 print("Yêu cầu:", len(results))
 email_count = 0
 screen_count = 0
 for text in results:
+    # startswith(prefix) kiểm chuỗi có bắt đầu bằng tiền tố email:/screen: hay không.
     if text.startswith("email:"):
         email_count += 1
+    # startswith(prefix) kiểm chuỗi có bắt đầu bằng tiền tố email:/screen: hay không.
     if text.startswith("screen:"):
         screen_count += 1
 print("Kênh email:", email_count)
 print("Kênh màn hình:", screen_count)
+# [0] lấy dòng thông báo đầu.
 print("Ví dụ:", results[0])
 ```
 
@@ -281,38 +361,63 @@ Có hai lớp con nhưng chỉ một lời gọi `send()`. Trả chuỗi xác nh
 3. Tạo 15 đối tượng, cộng kết quả gọi cùng một phương thức.
 
 ```python
+# Mục đích: Tạo 15 kiểu vận chuyển bằng factory và tính phí theo lớp con.
+# Dữ liệu: 15 nhãn standard/express/cold; phí lần lượt 0/35.000/50.000 đồng.
 types = ["standard","express","cold","standard","express","standard","cold","express","express","standard","cold","standard","express","cold","standard"]
+# Lớp cha lưu kind và cung cấp fee() mặc định.
 class Shipping:
+    # __init__ chạy khi tạo instance; self trỏ đối tượng hiện tại và các tham số sau self là dữ liệu đầu vào.
     def __init__(self, kind):
+        # self.thuộc_tính lưu trạng thái riêng của object hiện tại.
         self.kind = kind
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def fee(self):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return 0
+# Express là dịch vụ nhanh, cài phí 35.000 đồng.
 class Express(Shipping):
+    # __init__ chạy khi tạo instance; self trỏ đối tượng hiện tại và các tham số sau self là dữ liệu đầu vào.
     def __init__(self):
+        # super() gọi __init__ của lớp cha để lưu đúng nhãn kind.
         super().__init__("express")
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def fee(self):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return 35000
+# Cold là dịch vụ lạnh, cài phí 50.000 đồng.
 class Cold(Shipping):
+    # __init__ chạy khi tạo instance; self trỏ đối tượng hiện tại và các tham số sau self là dữ liệu đầu vào.
     def __init__(self):
+        # super() gọi __init__ của lớp cha để lưu đúng nhãn kind.
         super().__init__("cold")
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def fee(self):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return 50000
+# Factory tạo Shipping('standard') khi cần.
 def create_standard_shipping():
+    # return đưa kết quả trở lại nơi gọi và kết thúc method.
     return Shipping("standard")
 
+# Dictionary chứa callable: hàm factory hoặc class có thể gọi để tạo object.
 factory = {"standard": create_standard_shipping,
            "express": Express, "cold": Cold}
 orders = []
 for kind in types:
+    # Lấy callable theo nhãn rồi gọi () tạo instance phù hợp.
     orders.append(factory[kind]())
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 if len(orders) != 15:
+    # raise ValueError báo đầu vào sai rồi dừng nhánh hiện tại.
     raise ValueError("Cần xử lý đủ 15 đơn vận chuyển.")
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 print("Đơn:", len(orders))
 cold_count = 0
 total_fee = 0
 for order in orders:
     if order.kind == "cold":
         cold_count += 1
+    # Cùng method fee() nhưng tính phí khác nhau theo object; += cộng tổng đồng.
     total_fee += order.fee()
 print("Giao lạnh:", cold_count)
 print("Tổng phí (đồng):", total_fee)
@@ -342,21 +447,38 @@ Phí giao lạnh và nhanh cao hơn loại thường vì chính sách giả đ�
 3. Duyệt 18 đối tượng, loại dòng thiếu và đếm kết quả.
 
 ```python
+# Mục đích: Nhận 18 mẫu nhiệt độ/độ ẩm bằng class đa hình, giữ None là dữ liệu thiếu.
+# Dữ liệu: 18 bộ (loại temp/humidity, giá trị °C/%), None là mất số đo.
 records = [("temp",24),("humidity",56),("temp",25),("humidity",58),("temp",None),("humidity",60),("temp",27),("humidity",62),("temp",28),("humidity",64),("temp",29),("humidity",66),("temp",30),("humidity",None),("temp",31),("humidity",70),("temp",32),("humidity",72)]
+# Lớp cha chứa giá trị gốc và khai giao diện read().
 class Sensor:
+    # __init__ chạy khi tạo instance; self trỏ đối tượng hiện tại và các tham số sau self là dữ liệu đầu vào.
     def __init__(self, value):
+        # self.thuộc_tính lưu trạng thái riêng của object hiện tại.
         self.value = value
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def read(self):
+        # Thông báo read của lớp cha chưa cài, buộc class con ghi đè.
         raise NotImplementedError
+# Class đọc nhiệt độ theo đơn vị °C.
 class Temperature(Sensor):
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def read(self):
+        # is None nhận dữ liệu thiếu, không biến thành 0.
         if self.value is None:
+            # return đưa kết quả trở lại nơi gọi và kết thúc method.
             return None
+        # f-string :.1f định dạng số với một chữ số thập phân.
         return f"{self.value:.1f} °C"
+# Class đọc độ ẩm theo đơn vị %.
 class Humidity(Sensor):
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def read(self):
+        # is None nhận dữ liệu thiếu, không biến thành 0.
         if self.value is None:
+            # return đưa kết quả trở lại nơi gọi và kết thúc method.
             return None
+        # f-string :.1f định dạng số với một chữ số thập phân.
         return f"{self.value:.1f} %"
 sensors = []
 for kind, value in records:
@@ -364,18 +486,26 @@ for kind, value in records:
         sensor = Temperature(value)
     else:
         sensor = Humidity(value)
+    # append() thêm instance của class cảm biến thích hợp.
     sensors.append(sensor)
 results = []
 valid = []
 for sensor in sensors:
+    # Đa hình gọi read() theo loại class thực tế.
     text = sensor.read()
     results.append(text)
+    # Giữ những dòng read() cho chuỗi hợp lệ; loại None.
     if text is not None:
         valid.append(text)
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 if len(results) != 18:
+    # raise ValueError báo đầu vào sai rồi dừng nhánh hiện tại.
     raise ValueError("Cần nhận đủ 18 bản ghi cảm biến.")
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 print("Cảm biến:", len(results))
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 print("Hợp lệ:", len(valid))
+# Số thiếu bằng tổng 18 bản ghi trừ số hợp lệ.
 print("Thiếu:", len(results) - len(valid))
 print("Mẫu đầu:", results[0])
 ```
@@ -405,40 +535,66 @@ Cùng lời gọi `read()` nhưng cách tạo chuỗi khác nhau tùy lớp con;
 3. Duyệt 20 giao dịch, ghi mã sai, cộng phí các đối tượng hợp lệ và đối chiếu số bản ghi.
 
 ```python
+# Mục đích: Xử lý 20 thanh toán, chặn số tiền sai và tính phí Bank/Card.
+# Dữ liệu: 20 số tiền đồng ghép vị trí với 20 loại thanh toán bank/card; None, -10.000 là lỗi.
+# ABC và abstractmethod thiết lập hợp đồng cho các phương thức phí.
 from abc import ABC, abstractmethod
 amounts = [100000,125000,150000,175000,200000,225000,None,100000,125000,150000,175000,200000,225000,250000,100000,-10000,150000,175000,200000,225000]
 methods = ["bank","card","card","bank","card","card","bank","card","card","bank","card","card","bank","card","card","bank","card","card","bank","card"]
+# Class cha trừu tượng kiểm số tiền hợp lệ.
 class Payment(ABC):
+    # __init__ chạy khi tạo instance; self trỏ đối tượng hiện tại và các tham số sau self là dữ liệu đầu vào.
     def __init__(self, amount):
+        # isinstance() xác minh là số; not/or loại None, số âm và tránh so None với 0.
         if not isinstance(amount, (int, float)) or amount < 0:
+            # raise ValueError báo đầu vào sai rồi dừng nhánh hiện tại.
             raise ValueError("Số tiền không hợp lệ")
+        # self.thuộc_tính lưu trạng thái riêng của object hiện tại.
         self.amount = amount
+    # Decorator yêu cầu Bank/Card phải có fee().
     @abstractmethod
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def fee(self):
+        # pass là chỗ giữ lệnh rỗng, chưa cung cấp cách xử lý.
         pass
+# Bank có phí cố định 2.500 đồng.
 class Bank(Payment):
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def fee(self):
+        # return đưa kết quả trở lại nơi gọi và kết thúc method.
         return 2500
+# Card tính phí 2% số tiền giao dịch.
 class Card(Payment):
+    # Phương thức dùng self để truy cập đúng instance, return trả dữ liệu cho bên gọi.
     def fee(self):
+        # 0.02 là 2%, round() làm tròn thành tiền đồng.
         return round(self.amount * 0.02)
 valid, invalid = [], []
+# zip() ghép tiền và phương thức theo vị trí; enumerate(...,1) đánh thứ tự P01..P20.
 for i, (amount, method) in enumerate(zip(amounts, methods), 1):
+    # try bao đoạn khởi tạo có thể báo lỗi để except xử lý riêng.
     try:
         if method == "bank":
             payment = Bank(amount)
         else:
             payment = Card(amount)
         valid.append(payment)
+    # Bắt ValueError khi tiền sai để tiếp tục xét giao dịch khác.
     except ValueError:
+        # append() lưu mã lỗi với f-string :02d.
         invalid.append(f"P{i:02d}")
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 if len(amounts) != 20 or len(valid) + len(invalid) != 20:
+    # raise ValueError báo đầu vào sai rồi dừng nhánh hiện tại.
     raise ValueError("Cần đối chiếu đủ 20 giao dịch, kể cả giao dịch sai.")
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 print("Giao dịch:", len(amounts))
+# len() đếm số phần tử, dùng kiểm đủ bản ghi hoặc báo số lượt.
 print("Hợp lệ:", len(valid))
 print("Cần sửa:", ", ".join(invalid))
 total_fee = 0
 for item in valid:
+    # Gọi fee theo class Bank/Card rồi cộng dồn phí đồng.
     total_fee += item.fee()
 print("Phí tổng (đồng):", total_fee)
 ```
