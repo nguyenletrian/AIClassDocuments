@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
-    "revision": "2026-10-25-scenario-clarity-10-batches-resume-batch06",
+    "revision": "2026-10-25-scenario-clarity-10-batches-resume-batch07",
     "title": "Viết lại tình huống thực tế dễ hiểu và giải thích kỹ vì sao chọn cách này",
-    "phase": "READY_FOR_BATCH_06",
+    "phase": "READY_FOR_BATCH_07",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json",
@@ -1201,8 +1201,8 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Owner-approved scenario clarity batch05 PY-21..25 merged PR #159 SHA 10d65828baf72d0f7f6bc1351e71c496c46634c6 after final-head GitHub Actions #40180735375 SUCCESS. Ledger last_completed_batch=5/10 READY_FOR_BATCH_06; no open PR/pending task at transition. On next review check fresh authoritative main, PRs, TaskSource/ACK. Only batch06 PY-26..PY-30 allowed. Revise exactly 5 Tình huống thực tế and 5 Vì sao chọn cách này paragraphs per lesson to explain data meaning/units, beginner terminology, how and why each mathematical/AI method is chosen, assumptions and mistakes. Do NOT modify executable Python, exact expected stdout, definitions, lesson titles or order, progressive 5 scenarios with datasets 10/12/15/18/20, 20 MCQ answers/lesson. One commit per lesson, byte-compare all content outside the two approved single-line paragraph types with main, run 46-chapter structure/MCQ/AST, independent code scenario execution exact stdout and Markdown regressions. Merge only final-head CI SUCCESS, durably advance ledger. Never replay historical Jetking tasks, duplicate heartbeat probes or open ChatGPT conversations solely for idle reminders. CDP 9224 ownership unverified, no browser control or rebind. Windows PowerShell canary unavailable, no Windows PASS.",
-    "review_hold": "APPROVED active scenario prose clarity batch05 MERGED PR #159 CI PASS; only batch06 PY-26..30 next. pending 0, CDP 9224 ownership unverified, Windows PowerShell unavailable. No stale replay."
+    "next_review": "Owner-approved scenario clarity batch06 PY-26..30 merged PR #160 SHA c57a1ac33975f90446c14999ec7526dc0de5ca8f after final-head GitHub CI #40181485975 COMPLETED SUCCESS. Durable ledger last_completed_batch=6/10 READY_FOR_BATCH_07, with no open PR or TaskSource pending at transition. Recheck fresh main, current PRs and task source/ACK before work. Next ONLY batch07 PY-31..PY-35. Rewrite exactly five Tình huống thực tế and five Vì sao chọn cách này paragraphs per lesson to explain samples, units, terms, method reasoning, assumptions and pitfalls simply in Vietnamese. Preserve all executable Python, exact expected stdout, original definitions, 5 progressive scenarios with 10/12/15/18/20 rows, 20 MCQ+answers per lesson, lesson order. One commit per lesson; full-file byte comparison after masking only approved two prose types; run 46-chapter structure/MCQ/AST, independent scenario Python execution and exact stdout and Markdown regression. Merge PR only on final-head CI SUCCESS, then durable ledger+phase advance. Do not replay historical Jetking tasks, duplicate heartbeat probes or create a new ChatGPT conversation merely for idle reminder. CDP port 9224 identity unverified; no silent rebind or browser automation. PowerShell canary unavailable: Windows PASS remains UNVERIFIED.",
+    "review_hold": "ACTIVE owner-approved scenario prose clarity batch06 MERGED PR #160 GitHub CI PASS; next ONLY batch07 PY-31..35. pending=0. CDP 9224 identity unverified and Windows PowerShell canary unavailable. No stale replay."
   },
   "goal_review_history": [
     {
