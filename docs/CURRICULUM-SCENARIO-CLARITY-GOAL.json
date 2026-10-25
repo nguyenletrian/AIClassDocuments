@@ -1,0 +1,139 @@
+{
+  "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
+  "title": "Viết lại tình huống dễ hiểu và giải thích kỹ lý do, thuật ngữ, dữ liệu, lựa chọn phương pháp",
+  "approval": "owner_approved",
+  "status": "APPROVED_DEFERRED",
+  "progress": "NOT_STARTED",
+  "activation_condition": {
+    "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
+    "progress_ledger": "docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json",
+    "requires_status": "COMPLETED",
+    "requires_last_completed_batch": 10,
+    "requires_no_pending_tasks": true,
+    "requires_no_open_prs_for_old_goal": true
+  },
+  "scope": {
+    "repository": "nguyenletrian/AIClassDocuments",
+    "chapters": "PY-01 through PY-46",
+    "batches": [
+      {
+        "batch": 1,
+        "lessons": [
+          "PY-01",
+          "PY-02",
+          "PY-03",
+          "PY-04",
+          "PY-05"
+        ]
+      },
+      {
+        "batch": 2,
+        "lessons": [
+          "PY-06",
+          "PY-07",
+          "PY-08",
+          "PY-09",
+          "PY-10"
+        ]
+      },
+      {
+        "batch": 3,
+        "lessons": [
+          "PY-11",
+          "PY-12",
+          "PY-13",
+          "PY-14",
+          "PY-15"
+        ]
+      },
+      {
+        "batch": 4,
+        "lessons": [
+          "PY-16",
+          "PY-17",
+          "PY-18",
+          "PY-19",
+          "PY-20"
+        ]
+      },
+      {
+        "batch": 5,
+        "lessons": [
+          "PY-21",
+          "PY-22",
+          "PY-23",
+          "PY-24",
+          "PY-25"
+        ]
+      },
+      {
+        "batch": 6,
+        "lessons": [
+          "PY-26",
+          "PY-27",
+          "PY-28",
+          "PY-29",
+          "PY-30"
+        ]
+      },
+      {
+        "batch": 7,
+        "lessons": [
+          "PY-31",
+          "PY-32",
+          "PY-33",
+          "PY-34",
+          "PY-35"
+        ]
+      },
+      {
+        "batch": 8,
+        "lessons": [
+          "PY-36",
+          "PY-37",
+          "PY-38",
+          "PY-39",
+          "PY-40"
+        ]
+      },
+      {
+        "batch": 9,
+        "lessons": [
+          "PY-41",
+          "PY-42",
+          "PY-43",
+          "PY-44",
+          "PY-45"
+        ]
+      },
+      {
+        "batch": 10,
+        "lessons": [
+          "PY-46"
+        ]
+      }
+    ],
+    "work_style": "10 sequential batches, <=5 lessons per batch, test/CI/merge/ledger then next",
+    "target_sections": [
+      "**Tình huống thực tế:**",
+      "**Vì sao chọn cách này?**"
+    ],
+    "rules": [
+      "Tình huống thực tế phải thật dễ hiểu, tự đủ thông tin: ai đang gặp vấn đề, mỗi bản ghi là gì, số liệu đến từ đâu hoặc giả định thế nào, đơn vị và ý nghĩa; câu hỏi đầu ra cụ thể. Không bắt đầu bằng khái niệm chuyên ngành chưa giải nghĩa, không nhồi kỹ thuật lựa chọn giải pháp hoặc hướng dẫn code vào đề bài.",
+      "Giải nghĩa từ/cụm mới ngay tại nơi dùng bằng câu đơn giản và ví dụ nhỏ (ví dụ trọng số là mức ưu tiên hoặc sức ảnh hưởng tương đối, không mặc nhiên là số lượt đếm); phân biệt dữ liệu quan sát thực tế với dữ liệu giả lập và giả định mô hình.",
+      "Tình huống chỉ nêu yêu cầu kết quả; chuyển phần phương pháp/chiến lược, lý do chọn, vì sao không dùng đường tắt sai, cách hiểu kết quả, giới hạn và lựa chọn số lượt mô phỏng sang Vì sao chọn cách này.",
+      "Trong Vì sao chọn cách này, giải thích thuật ngữ và thao tác theo tiến trình: vì sao bài toán cần khái niệm ấy, nó hoạt động ra sao bằng ngôn ngữ bình dân, được suy ra hoặc tính bằng cách nào bằng lời, không đưa công thức toán vào phần định nghĩa; nếu có công thức minh họa trong phần code/chỗ thích hợp thì diễn giải từng bước.",
+      "Nếu có tham số tự chọn như seed, cỡ mẫu/số lần chạy (ví dụ 5000) phải giải thích trade-off và tại sao chọn giá trị đó cho ví dụ; không coi đó là hằng số bắt buộc hoặc kết quả đảm bảo. Seed cho tái lập, không bảo đảm quan sát bằng lý thuyết.",
+      "Đặt sự dễ hiểu cho người mới lên trước; tránh câu chữ hàn lâm, câu dài chứa nhiều tầng giả định, nhãn chung chung và thuật ngữ không giải thích; rà lại 5 tình huống trên từng bài để tăng độ khó về yêu cầu mà vẫn dễ đọc.",
+      "Giữ nguyên 46 bài theo thứ tự, 5 cấp tình huống 10/12/15/18/20 bản ghi có ý nghĩa, cấu trúc bài, tất cả 20 câu trắc nghiệm/bài và đáp án, API/đầu ra code; nếu cần đổi code do giải thích sai, phải có kiểm thử độc lập và lý do bằng chứng rõ ràng. Không tự ý trộn với goal Python tường minh đang chạy.",
+      "Sau mỗi batch kiểm chứng tình huống, kiểm tra cấu trúc và MCQ, chạy ví dụ và so stdout, GitHub CI cuối PASS, PR merge, ghi ledger bền vững; Windows PASS chỉ khi có evidence thật."
+    ]
+  },
+  "example": {
+    "topic": "PY-34 xác suất",
+    "original_issue": "Máy nhận 20 trạng thái S01…S20, trọng số 1..20 chưa giải nghĩa; nội dung 5000 lượt rút, seed và cấm chia 5/20 trộn trong tình huống; chuẩn hóa mơ hồ.",
+    "desired_situation": "Một máy có 20 loại trạng thái đặt tên S01 đến S20. Nhóm nghiên cứu gán mỗi trạng thái một con số từ 1 đến 20 để biểu thị khả năng tương đối trong ví dụ: S01 nhận mức 1, S02 nhận mức 2, ... S20 nhận mức 20. Các con số do nhóm giả định cho mô phỏng, không phải số lần máy xảy ra trạng thái đó. Họ muốn biết khả năng máy rơi vào một trong năm trạng thái S16 đến S20 là bao nhiêu.",
+    "desired_why": "Trọng số là con số biểu thị trạng thái được ưu tiên/có khả năng cao tương đối; 20 trọng số này do nhóm tự đặt chứ không được đo từ thiết bị. Để chuyển các trọng số thành xác suất, cộng tất cả mức lại (210) rồi chia từng mức cho tổng này, để xác suất các trạng thái cộng lại bằng 100%; năm trạng thái cuối có tổng trọng số 90 nên xác suất chung là 90/210 ≈ 42,86%, không phải 5/20=25% vì 20 trạng thái không đồng khả năng. Có thể rút ngẫu nhiên 5000 lần để so kết quả thực nghiệm với 42,86%; 5000 là lựa chọn minh họa cân bằng độ dao động và thời gian chạy, không phải yêu cầu bắt buộc. Seed 42 giúp máy tạo cùng dãy ngẫu nhiên khi chạy lại, không làm tỷ lệ thực nghiệm chắc chắn bằng 42,86%; kết quả mô phỏng chỉ xấp xỉ."
+  },
+  "note": "Owner explicitly said add as a separate future goal after currently active explicit Python readability goal; document this in guide now; do not run any of these lesson prose changes until activation prerequisites are met."
+}
