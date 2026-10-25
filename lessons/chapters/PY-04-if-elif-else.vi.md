@@ -42,16 +42,20 @@
 Giả sử một cảm biến có nhiệt độ 30 °C: từ 35 °C trở lên gọi là `Hot`, từ 20 đến dưới 35 °C gọi là `Warm`, còn thấp hơn gọi là `Cold`. Chương trình kiểm tra điều kiện từ trên xuống: `if` xét ngưỡng cao, `elif` xét ngưỡng tiếp theo khi nhánh trước sai, còn `else` nhận các trường hợp còn lại. Chỉ một nhánh trong chuỗi này được chạy.
 
 ```python
-# Mục đích: Cấu trúc rẽ nhánh.
+# Mục đích: Phân loại nhiệt độ thành Hot, Warm hoặc Cold qua if/elif/else.
 temperature = 30
 
+# if được thử trước: từ 35 °C trở lên là Hot.
 if temperature >= 35:
     state = 'Hot'
+# elif chỉ thử khi if trước sai: 20..34 °C thuộc Warm.
 elif temperature >= 20:
     state = 'Warm'
+# else nhận mọi giá trị còn lại dưới 20 °C (Cold).
 else:
     state = 'Cold'
 
+# print() in đúng nhãn của nhánh đã được chọn.
 print(state)
 ```
 
@@ -70,11 +74,13 @@ Nhiệt độ 30 °C không đạt mức `Hot` nhưng đạt mức `Warm`, nên 
 Một nhánh là nhóm câu lệnh được thụt vào dưới `if` hoặc `else`; nó chỉ chạy khi chương trình chọn nhánh ấy. Ví dụ kho có `0` sản phẩm: nếu số lượng dương thì in `Còn hàng`, ngược lại in `Hết hàng`. Dấu `:` mở đầu nhánh; bốn dấu cách cho biết câu lệnh nào thuộc nhánh.
 
 ```python
-# Mục đích: Nhánh lệnh.
+# Mục đích: Thông báo còn hàng hay hết hàng dựa vào số tồn.
 stock = 0
 
+# if kiểm tra tồn kho dương để xác nhận còn hàng.
 if stock > 0:
     print('Còn hàng')
+# else thực hiện khi stock không lớn hơn 0, ở đây stock=0.
 else:
     print('Hết hàng')
 ```
@@ -94,7 +100,8 @@ Vì `stock > 0` sai, chương trình bỏ nhánh `if` và chạy nhánh `else`.
 Ngưỡng là ranh giới dùng để chia dữ liệu thành các nhóm. Chẳng hạn trung tâm yêu cầu từ 80 điểm trở lên để đạt mức B. Với điểm 85, `85 >= 80` là đúng. Dấu `>=` có nghĩa **lớn hơn hoặc bằng**, nên đúng cả khi điểm bằng chính mốc 80; điều này quan trọng khi phân loại các giá trị ở ranh giới.
 
 ```python
-# Mục đích: Ngưỡng.
+# Mục đích: Kiểm tra điểm số có chạm ngưỡng đạt 80 hay không.
+# >= trả True nếu 85 lớn hơn hoặc bằng 80; print in kết quả so sánh.
 print(85 >= 80)
 ```
 
@@ -113,10 +120,12 @@ True
 Đôi khi chỉ nên kiểm tra điều kiện thứ hai khi điều kiện đầu tiên đúng. Ví dụ chỉ phân loại số chẵn sau khi xác định số đó dương. `x > 0` mở nhánh ngoài; bên trong, `x % 2 == 0` hỏi phép chia cho 2 có dư 0 không. Với `x = 2`, cả hai điều kiện đúng nên in `even`.
 
 ```python
-# Mục đích: Điều kiện lồng nhau.
+# Mục đích: Kiểm tra số vừa dương vừa chẵn bằng if lồng nhau.
 x = 2
 
+# Nhánh ngoài yêu cầu x là số dương, nếu sai sẽ không kiểm tra chẵn.
 if x > 0:
+    # % lấy phần dư chia 2; == 0 nghĩa số chẵn. Nhánh trong chỉ chạy khi số dương.
     if x % 2 == 0:
         print('even')
 ```
@@ -144,25 +153,37 @@ Số 2 vừa dương vừa chia hết cho 2, nên chương trình đi vào cả 
 3. Cộng số lượng từng nhánh và in trạng thái học viên H02 ở đúng biên.
 
 ```python
+# Mục đích: Chia điểm của 10 học viên thành đạt/chưa đạt, kiểm riêng H02.
+# Dữ liệu: 10 điểm trên thang 100, mỗi phần tử là một học viên theo thứ tự.
 points = [48,50,72,30,85,90,49,61,44,100]
 passed = 0
 failed = 0
+# Mỗi vòng for duyệt điểm của một học viên.
 for score in points:
+    # Điểm >=50 được xem là đạt, kể cả đúng bằng 50.
     if score >= 50:
+        # += 1 tăng bộ đếm học viên đạt.
         passed += 1
     else:
+        # += 1 tăng bộ đếm chưa đạt.
         failed += 1
+# len() đếm số bản ghi; != và or kiểm tra tổng quan sát đúng kỳ vọng.
 if len(points) != 10:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Phải có đúng 10 điểm học viên.")
+# Đối chiếu số đạt và chưa đạt với tổng 10 học viên.
 if passed + failed != 10:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Tổng học viên đạt và chưa đạt phải bằng 10.")
 print("Số học viên:", len(points))
 print("Đạt:", passed)
 print("Chưa đạt:", failed)
+# [1] là học viên thứ hai H02, vì list đánh số từ 0.
 if points[1] >= 50:
     h02_result = "Đạt"
 else:
     h02_result = "Chưa đạt"
+# In nhãn đạt/chưa đạt được đặt bởi nhánh if/else.
 print("H02:", h02_result)
 ```
 
@@ -191,19 +212,30 @@ Quy tắc dùng `>=` nên giá trị 50 nằm trong nhóm đạt. Không có tr�
 3. Kiểm tra số lượng ba trạng thái cộng lại bằng 12.
 
 ```python
+# Mục đích: Phân loại 12 tồn kho thành Out, Low hoặc OK theo mức số lượng.
+# Dữ liệu: 12 số tồn theo mã sản phẩm, đơn vị món.
 stocks = [0,1,4,7,12,5,3,0,8,2,16,5]
+# dict lưu bộ đếm theo từng mức Out (hết), Low (ít), OK (đủ).
 count = {"Out": 0, "Low": 0, "OK": 0}
 for quantity in stocks:
+    # == kiểm tra không còn món nào nên Out.
     if quantity == 0:
         state = "Out"
+    # elif chỉ xét sau khi loại 0: tồn từ 1 đến 5 là Low.
     elif quantity <= 5:
         state = "Low"
+    # Các mức còn lại lớn hơn 5 là OK.
     else:
         state = "OK"
+    # Dùng state làm khóa dictionary rồi tăng bộ đếm của mức đó.
     count[state] += 1
+# len() đếm số bản ghi; != và or kiểm tra tổng quan sát đúng kỳ vọng.
 if len(stocks) != 12:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Cần có đủ 12 mã sản phẩm.")
+# values() lấy các số đếm từ dictionary; sum() cộng lại để đối chiếu 12 sản phẩm.
 if sum(count.values()) != 12:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Phải phân loại đủ 12 mã vào ba mức tồn kho.")
 print("Out:", count["Out"])
 print("Low:", count["Low"])
@@ -234,20 +266,31 @@ Cấp này khó hơn vì có ba nhánh không chồng lấn. Học viên có th�
 3. Thống kê đúng một hạng mỗi khách và kiểm tra tổng 15.
 
 ```python
+# Mục đích: Chia hạng 15 khách thành Gold, Silver và Standard bằng điều kiện ưu tiên.
+# Dữ liệu: 15 năm thành viên và 15 khoản chi VND khớp theo vị trí.
 years = [1,5,6,8,2,5,10,3,7,5,9,6,2,4,8]
 spending = [800000,1000000,900000,2000000,1800000,2500000,1100000,900000,500000,700000,3500000,1200000,1700000,4000000,1500000]
 counts = {"Gold": 0, "Silver": 0, "Standard": 0}
+# zip() ghép từng năm và số tiền ở cùng vị trí thành cặp của một khách.
 for year, amount in zip(years, spending):
+    # and yêu cầu cả hai: thành viên ít nhất 5 năm, chi >=2 triệu đồng, xếp Gold.
     if year >= 5 and amount >= 2000000:
         category = "Gold"
+    # elif chỉ đến nếu không Gold; đủ 5 năm và chi >=1 triệu thì Silver.
     elif year >= 5 and amount >= 1000000:
         category = "Silver"
+    # Khách không đạt hai mức ưu tiên trên thuộc Standard.
     else:
         category = "Standard"
+    # Tra khóa hạng khách trong dict rồi cộng 1.
     counts[category] += 1
+# len() đếm số bản ghi; != và or kiểm tra tổng quan sát đúng kỳ vọng.
 if len(years) != 15 or len(spending) != 15:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Cần có đủ 15 cặp năm thành viên và chi tiêu.")
+# values() lấy số khách từng hạng, sum() kiểm tổng bằng 15.
 if sum(counts.values()) != 15:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Phải phân hạng đủ 15 khách hàng.")
 print("Gold:", counts["Gold"])
 print("Silver:", counts["Silver"])
@@ -278,23 +321,36 @@ Không suy ra khách Gold từ tiền chi tiêu đơn lẻ: khách cũng phải 
 3. Đếm từng trạng thái, kiểm tra tổng bằng 18.
 
 ```python
+# Mục đích: Phân loại 18 cảm biến theo trạng thái kết nối, thiếu dữ liệu và nhiệt độ.
+# Dữ liệu: 18 nhiệt độ °C (None là thiếu) và 18 cờ online khớp theo vị trí.
 temperatures = [26,35,80,81,79,20,None,85,95,32,80,70,90,None,18,40,79,88]
 online = [True,True,True,True,False,True,True,True,False,True,True,True,True,True,True,True,False,True]
 counts = {"Offline": 0, "Missing": 0, "Hot": 0, "Normal": 0}
+# zip() ghép trạng thái online và nhiệt độ cùng vị trí của một cảm biến.
 for active, temp in zip(online, temperatures):
+    # not đảo cờ: nếu mất kết nối thì Offline, ưu tiên trước kiểm tra dữ liệu thiếu.
     if not active:
         state = "Offline"
+    # is None phát hiện nhiệt độ thiếu, chỉ xét khi cảm biến online.
     elif temp is None:
         state = "Missing"
+    # Nhiệt độ >=80 °C là Hot, chỉ khi có dữ liệu và cảm biến online.
     elif temp >= 80:
         state = "Hot"
+    # Nhánh còn lại có trạng thái Normal.
     else:
         state = "Normal"
+    # Đếm thêm một cảm biến ở hạng đã chọn trong dictionary.
     counts[state] += 1
+# len() đếm số bản ghi; != và or kiểm tra tổng quan sát đúng kỳ vọng.
 if len(temperatures) != 18 or len(online) != 18:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Phải có đủ 18 nhiệt độ và trạng thái kết nối.")
+# values() lấy các bộ đếm, sum() phải đủ 18 cảm biến.
 if sum(counts.values()) != 18:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Phải phân loại đủ 18 cảm biến.")
+# Duyệt các hạng theo thứ tự cố định để in bảng tóm tắt.
 for state in ("Offline", "Missing", "Hot", "Normal"):
     print(state + ":", counts[state])
 ```
@@ -324,39 +380,56 @@ Những trạng thái này loại trừ nhau theo thứ tự: số đo 80 °C đ
 3. Đối chiếu tổng năm trạng thái bằng 20 và báo mã `HOLD`/`INVALID` cần xử lý.
 
 ```python
+# Mục đích: Phân 20 đơn giao theo dữ liệu lỗi, giữ hàng, miễn phí hoặc phí địa phương/xa.
+# Dữ liệu: 20 số tiền đơn vị đồng, 20 khoảng cách km (None là thiếu), 20 cờ tồn kho; ba list ứng với cùng đơn.
 amount_vnd = [350000,530000,710000,890000,None,1250000,350000,530000,710000,890000,1070000,1250000,-5000,530000,710000,890000,1070000,1250000,350000,530000]
 distance_km = [1,2,3,4,5,6,7,None,1,2,3,4,5,6,7,8,1,2,3,4]
 in_stock = [True,True,False,True,True,True,True,True,True,False,True,True,True,True,True,True,True,False,True,True]
 counts = {"INVALID": 0, "HOLD": 0, "FREE": 0, "LOCAL": 0, "FAR": 0}
 blocked_ids = []
 total_fee_vnd = 0
+# zip() ghép ba thuộc tính một đơn; enumerate(...,1) đánh số đơn từ 1 để tạo mã O01..O20.
 for idx, (amount, km, available) in enumerate(zip(amount_vnd, distance_km, in_stock), 1):
+    # or báo dữ liệu lỗi nếu thiếu tiền/khoảng cách hoặc có số âm; ưu tiên xử lý trước phí.
     if amount is None or km is None or amount < 0 or km < 0:
         state = "INVALID"
         fee = 0
+    # not available là hết hàng nên HOLD, chưa thu phí.
     elif not available:
         state = "HOLD"
         fee = 0
+    # Đơn từ 1 triệu đồng trở lên được miễn phí vận chuyển (FREE).
     elif amount >= 1000000:
         state = "FREE"
         fee = 0
+    # Khoảng cách tối đa 5 km nhận phí LOCAL 15.000 đồng.
     elif km <= 5:
         state = "LOCAL"
         fee = 15000
+    # Đơn còn lại thuộc FAR và thu phí 30.000 đồng.
     else:
         state = "FAR"
         fee = 30000
+    # Dictionary counts đếm số đơn của loại trạng thái đã chọn.
     counts[state] += 1
+    # += cộng phí của từng đơn, kể cả phí 0 đồng cho đơn bị chặn.
     total_fee_vnd += fee
+    # in kiểm tra đơn nằm trong hai hạng không được xử lý giao hàng.
     if state in ("INVALID", "HOLD"):
+        # append() lưu mã đơn chặn; f-string :02d hiển thị số thứ tự hai chữ số.
         blocked_ids.append(f"O{idx:02d}")
+# len() đếm số bản ghi; != và or kiểm tra tổng quan sát đúng kỳ vọng.
 if len(amount_vnd) != 20 or len(distance_km) != 20 or len(in_stock) != 20:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Phải có đúng 20 đơn, khoảng cách và cờ tồn kho.")
+# values() lấy bộ đếm từng loại và sum() xác nhận đủ 20 đơn.
 if sum(counts.values()) != 20:
+    # raise ValueError(...) báo lỗi và dừng nếu kiểm tra dữ liệu không đạt.
     raise ValueError("Phải phân loại đủ 20 đơn giao.")
 for name in ("INVALID", "HOLD", "FREE", "LOCAL", "FAR"):
     print(name + ":", counts[name])
 print("Phí thu (đồng):", total_fee_vnd)
+# join() nối các mã cần xử lý bằng dấu phẩy và khoảng trắng.
 print("Cần xử lý:", ", ".join(blocked_ids))
 ```
 
