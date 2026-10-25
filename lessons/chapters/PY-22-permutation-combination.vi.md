@@ -120,7 +120,7 @@ print([math.comb(4, k) for k in range(5)])
 Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
 ## 5. Năm vấn đề thực tế
 
-### Tình huống 1 — Chọn trưởng và phó nhóm
+### Tình huống 1 — Chọn trưởng và phó nhóm · Cấp 1: Vai trò đơn
 
 **Từ vựng trong mục:** **Permutation** — hoán vị.
 
@@ -147,7 +147,21 @@ print(math.perm(5, 2))
 20
 ```
 
-### Tình huống 2 — Chọn đội thi
+**Bài thực hành nâng cấp — cấp 1/5:** Ban tổ chức có **10 hồ sơ ứng viên** với mã `id` và chỉ số sẵn sàng `x`. Hãy chọn trưởng và phó từ 10 người; hai vai trò có thứ tự. Các cấp sau có nhiều hồ sơ hơn và thêm điều kiện; `None` nghĩa là chưa có hồ sơ hợp lệ, không phải ứng viên đạt điểm 0.
+
+```python
+import math
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"C{k:02d}","x":x} for k,x in enumerate(values,1)]
+eligible = [r for r in rows if r['x'] is not None]
+result = math.perm(len(eligible),2)
+print("Số ứng viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số hồ sơ đầu vào là 10; khác biệt quan trọng là khi nào thứ tự được tính là cách chọn mới.
+
+### Tình huống 2 — Chọn đội thi · Cấp 2: Chọn nhóm
 
 **Từ vựng trong mục:** **Combination** — tổ hợp.
 
@@ -174,7 +188,21 @@ print(math.comb(12, 5))
 792
 ```
 
-### Tình huống 3 — Sắp thứ tự kiểm thử
+**Bài thực hành nâng cấp — cấp 2/5:** Ban tổ chức có **12 hồ sơ ứng viên** với mã `id` và chỉ số sẵn sàng `x`. Hãy lập đội 3 người từ 12 ứng viên, thứ tự không quan trọng. Các cấp sau có nhiều hồ sơ hơn và thêm điều kiện; `None` nghĩa là chưa có hồ sơ hợp lệ, không phải ứng viên đạt điểm 0.
+
+```python
+import math
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"C{k:02d}","x":x} for k,x in enumerate(values,1)]
+eligible = [r for r in rows if r['x'] is not None]
+result = math.comb(len(eligible),3)
+print("Số ứng viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số hồ sơ đầu vào là 12; khác biệt quan trọng là khi nào thứ tự được tính là cách chọn mới.
+
+### Tình huống 3 — Sắp thứ tự kiểm thử · Cấp 3: Phân vai có thứ tự
 
 **Từ vựng trong mục:** **Factorial** — giai thừa.
 
@@ -201,7 +229,21 @@ print(list(permutations(['A', 'B', 'C'])))
 [('A', 'B', 'C'), ('A', 'C', 'B'), ('B', 'A', 'C'), ('B', 'C', 'A'), ('C', 'A', 'B'), ('C', 'B', 'A')]
 ```
 
-### Tình huống 4 — Đề xuất cặp môn học
+**Bài thực hành nâng cấp — cấp 3/5:** Ban tổ chức có **15 hồ sơ ứng viên** với mã `id` và chỉ số sẵn sàng `x`. Hãy phân 3 chức danh khác nhau cho 15 ứng viên. Các cấp sau có nhiều hồ sơ hơn và thêm điều kiện; `None` nghĩa là chưa có hồ sơ hợp lệ, không phải ứng viên đạt điểm 0.
+
+```python
+import math
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"C{k:02d}","x":x} for k,x in enumerate(values,1)]
+eligible = [r for r in rows if r['x'] is not None]
+result = math.perm(len(eligible),3)
+print("Số ứng viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số hồ sơ đầu vào là 15; khác biệt quan trọng là khi nào thứ tự được tính là cách chọn mới.
+
+### Tình huống 4 — Đề xuất cặp môn học · Cấp 4: Rà điều kiện đầu vào
 
 **Từ vựng trong mục:** **Binomial coefficient** — hệ số nhị thức.
 
@@ -228,7 +270,21 @@ print(list(combinations(["Python", "AI", "SQL"], 2)))
 [('Python', 'AI'), ('Python', 'SQL'), ('AI', 'SQL')]
 ```
 
-### Tình huống 5 — Tính hàng Pascal
+**Bài thực hành nâng cấp — cấp 4/5:** Ban tổ chức có **18 hồ sơ ứng viên** với mã `id` và chỉ số sẵn sàng `x`. Hãy loại hồ sơ thiếu số đo trước khi tính số đội 4 người. Các cấp sau có nhiều hồ sơ hơn và thêm điều kiện; `None` nghĩa là chưa có hồ sơ hợp lệ, không phải ứng viên đạt điểm 0.
+
+```python
+import math
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"C{k:02d}","x":x} for k,x in enumerate(values,1)]
+eligible = [r for r in rows if r['x'] is not None]
+result = {'eligible':len(eligible),'teams4':math.comb(len(eligible),4)}
+print("Số ứng viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số hồ sơ đầu vào là 18; khác biệt quan trọng là khi nào thứ tự được tính là cách chọn mới.
+
+### Tình huống 5 — Tính hàng Pascal · Cấp 5: So sánh nhiều phương án
 
 **Từ vựng trong mục:** **Permutation** — hoán vị.
 
@@ -254,6 +310,20 @@ print([math.comb(4, k) for k in range(5)])
 ```text
 [1, 4, 6, 4, 1]
 ```
+
+**Bài thực hành nâng cấp — cấp 5/5:** Ban tổ chức có **20 hồ sơ ứng viên** với mã `id` và chỉ số sẵn sàng `x`. Hãy so sánh tổ hợp, chỉnh hợp và các phương án đội khác nhau từ 20 người. Các cấp sau có nhiều hồ sơ hơn và thêm điều kiện; `None` nghĩa là chưa có hồ sơ hợp lệ, không phải ứng viên đạt điểm 0.
+
+```python
+import math
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"C{k:02d}","x":x} for k,x in enumerate(values,1)]
+eligible = [r for r in rows if r['x'] is not None]
+result = {'teams3':math.comb(len(eligible),3),'roles3':math.perm(len(eligible),3),'teams5':math.comb(len(eligible),5),'excluded':[r['id'] for r in rows if r['x'] is None]}
+print("Số ứng viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số hồ sơ đầu vào là 20; khác biệt quan trọng là khi nào thứ tự được tính là cách chọn mới.
 
 ## 6. Sai lầm thường gặp
 
