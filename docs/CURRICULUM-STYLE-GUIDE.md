@@ -7,7 +7,6 @@ Trong mỗi ví dụ có code thực thi, đặt **bản sạch trước, bản 
 **No Note — Không chú thích**
 
 ```python
-# Chỉ minh họa bố cục: ở sản phẩm thật, bỏ dòng chú thích này.
 print("Hello")
 ```
 
@@ -19,7 +18,7 @@ print("Hello")
 print("Hello")
 ```
 
-**Lưu ý ví dụ trên chỉ cho thấy vị trí nhãn; phần No Note THỰC PHẢI không có dòng comment.** Sao chép phần code có chú thích hiện có giữ nguyên 100%, bản No Note loại comment theo cú pháp ngôn ngữ mà không làm thay đổi lệnh chạy. Áp dụng cho mọi Python, Bash/Git CLI và ngôn ngữ lập trình/lệnh thực thi khác nếu có; **không nhân đôi output trong `text` fence, bảng, sơ đồ, hình, câu hỏi**.
+Sao chép phần code có chú thích hiện có giữ nguyên 100%, bản No Note loại comment theo cú pháp ngôn ngữ mà không làm thay đổi lệnh chạy. Áp dụng cho mọi Python, Bash/Git CLI và ngôn ngữ lập trình/lệnh thực thi khác nếu có; **không nhân đôi output trong `text` fence, bảng, sơ đồ, hình, câu hỏi**.
 
 Bảo đảm từng cặp code cùng ngôn ngữ, mỗi bản xuất hiện đúng một lần, sát nhau, không thay đổi lời giảng, dữ liệu, stdout hay 920 MCQ. Test mới phải kiểm comment không xuất hiện ở No Note, AST Python bằng nhau, script chạy cho stdout cũ và các scenario test không được vô hiệu hóa chỉ vì có hai fence. Nếu shell có ký tự `#` nằm trong chuỗi, không được xóa sai hoặc chỉnh lệnh.
 
