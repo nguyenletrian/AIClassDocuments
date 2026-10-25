@@ -138,9 +138,9 @@ Tổng số tiền hai đơn là 300 đồng. `read_csv` đọc bảng từ văn
 
 **Từ vựng trong mục:** **Series** — dãy có nhãn; **Index** — nhãn hàng; **loc** — tra theo nhãn.
 
-**Tình huống thực tế:** Trung tâm có **10 học viên** H01…H10, mỗi dòng là tuổi (năm) của một học viên. Giáo vụ cần đọc tuổi H07 theo mã, không phụ thuộc thứ tự dòng hiển thị, rồi tính tuổi trung bình.
+**Tình huống thực tế:** Phòng giáo vụ có **10 học viên H01 đến H10**, mỗi người được ghi một tuổi tính bằng **năm**, ví dụ H01 18 tuổi. Giáo vụ muốn tra chính xác tuổi của **H07** bằng mã học viên, dù sau này bảng có thể được sắp xếp lại, và tính tuổi trung bình của cả 10 người; không được nhầm mã H07 với hàng có chỉ số 7.
 
-**Vì sao chọn cách này?** `pd.Series(values,index=ids)` gắn mã học viên cho từng số, `loc` tra theo nhãn thay vì vị trí list. Điều này quan trọng khi bảng được sắp lại.
+**Vì sao chọn cách này?** **Series** của Pandas có thể hiểu là **một cột số liệu kèm nhãn cho từng dòng**. `pd.Series(ages, index=ids)` gắn các tuổi với H01, H02… một cách rõ ràng. `series.loc['H07']` tìm theo **nhãn H07**, không phải vị trí số 7; nếu danh sách sắp xếp lại, mã vẫn xác định đúng người. `series.mean()` tính trung bình 10 tuổi hợp lệ và kết quả vẫn có đơn vị năm. Chỉ dùng `ages[6]` có thể đúng với thứ tự ban đầu nhưng dễ nhầm khi thứ tự dòng thay đổi.
 
 **Quy trình:**
 1. Tạo 10 mã đúng thứ tự tuổi đã ghi.
@@ -175,9 +175,9 @@ Nhãn H07 là mã học viên, không phải vị trí 7. Tuổi trung bình là
 
 **Từ vựng trong mục:** **DataFrame** — bảng dữ liệu; **Column** — cột; **Calculated field** — cột tính.
 
-**Tình huống thực tế:** Quầy sách nhập **12 mặt hàng** P01…P12, mỗi hàng gồm giá (nghìn đồng/món) và số lượng (món). Cần tạo bảng với ba cột gốc, thêm cột thành tiền theo dòng và in tổng toàn giỏ; không nhầm tổng đơn giá với số tiền phải trả.
+**Tình huống thực tế:** Quầy sách có **12 dòng mặt hàng P01 đến P12** trong giỏ mua hàng. Mỗi dòng ghi **giá một món** tính bằng **nghìn đồng/món** và **số lượng món** mua. Ví dụ một món giá 10 nghìn đồng, mua hai món thì thành tiền 20 nghìn đồng. Thu ngân cần thêm cột thành tiền cho mỗi dòng và tính tổng phải trả của cả giỏ; không được cộng giá từng món mà quên số lượng.
 
-**Vì sao chọn cách này?** DataFrame giữ từng thuộc tính trong cột có tên rõ ràng; phép nhân `df['price'] * df['qty']` chạy đúng trên từng dòng, tạo cột thành tiền trước khi cộng.
+**Vì sao chọn cách này?** **DataFrame** là bảng có **hàng và cột đặt tên**: mỗi hàng là một mặt hàng, các cột chứa mã `sku`, đơn giá và số lượng. Pandas tính `df['price_thousand'] * df['quantity']` **theo từng hàng**, tạo cột tiền tương ứng với đúng món và số lượng, không lấy giá P01 nhân nhầm với lượng P02. Sau đó `sum()` cộng **cột thành tiền**, không cộng cột đơn giá, để ra số tiền cả giỏ. Vì giá dùng nghìn đồng/món còn số lượng dùng món, cột thành tiền là **nghìn đồng**.
 
 **Quy trình:**
 1. Ghép ba danh sách mã hàng, giá, số lượng đồng hàng.
@@ -215,9 +215,9 @@ Một hàng tương ứng một mặt hàng của giỏ; đơn giá tính theo n
 
 **Từ vựng trong mục:** **read_csv** — đọc CSV; **Schema** — cấu trúc dữ liệu; **dtype** — kiểu cột.
 
-**Tình huống thực tế:** Cửa hàng xuất **15 đơn** từ CSV giả lập; mỗi dòng gồm mã đơn, kênh bán `web/store/phone` và doanh số (đồng/đơn). Người quản lý cần kiểm tra số dòng, tên cột và tổng doanh số, tránh coi `order_id` là số khiến số 0 đầu mã bị mất.
+**Tình huống thực tế:** Cửa hàng tạo **15 đơn O01 đến O15** trong một bảng **CSV giả lập**. Mỗi dòng có mã đơn `id` (chẳng hạn O01), kênh nhận đơn `web`, `store` hoặc `phone`, và tiền đơn tính bằng **đồng**. Người quản lý muốn đọc bảng, xem đủ 15 đơn và các tên cột, đếm đơn qua web và tổng doanh thu; mã đơn phải được giữ dưới dạng chữ, không bị đổi thành số.
 
-**Vì sao chọn cách này?** `pd.read_csv(StringIO(...), dtype={'id': 'string'})` giữ mã định danh như chuỗi, còn cột doanh số được đọc thành số cho tính tổng; dùng bộ đệm văn bản để chạy ngay không cần file bên ngoài.
+**Vì sao chọn cách này?** **CSV** là dữ liệu dạng văn bản với các cột được đặt tên và ngăn cách, ví dụ `id,channel,amount_vnd`. `StringIO` giả làm một tệp trong bộ nhớ, để học viên chạy ví dụ không cần tải file ngoài. `pd.read_csv(..., dtype={'id': 'string'})` yêu cầu giữ mã đơn như **chuỗi định danh**, kể cả khi một hệ thống khác có mã bắt đầu bằng số 0; không nên coi mã là giá trị để cộng. Cột `amount_vnd` được đọc thành số để cộng tiền, còn điều kiện bằng `web` cho phép đếm kênh bán. Đếm dòng dữ liệu, không tính tiêu đề CSV như một đơn.
 
 **Quy trình:**
 1. Tạo CSV với một dòng tiêu đề và 15 đơn hàng.
@@ -256,9 +256,9 @@ Mã `O01` được giữ nguyên ký tự; phần cộng chỉ áp dụng cho do
 
 **Từ vựng trong mục:** **info** — mô tả cột; **to_numeric** — đổi sang số; **Missing value** — giá trị thiếu.
 
-**Tình huống thực tế:** Biểu mẫu đăng ký có **18 hồ sơ**, mỗi hàng gồm tuổi (năm) và mức chi (đồng). Hai mức chi chưa được ghi đúng (`''` và `N/A`), nhưng tuổi của hai người vẫn hợp lệ. Cần kiểm tra cột, chuyển mức chi sang số có kiểm soát, báo số ô thiếu và tổng mức chi **chỉ trên 16 dòng có số**.
+**Tình huống thực tế:** Một biểu mẫu có **18 hồ sơ khách hàng**; mỗi dòng ghi tuổi (**năm**) và mức tiền đã chi (**đồng**). Hai dòng mức chi chưa có số hợp lệ: một để trống và một nhập `N/A`; tuổi của những người đó vẫn có. Nhân viên cần biết cột tuổi và cột mức chi đã là kiểu số hay chưa, có bao nhiêu mức chi bị thiếu và tổng tiền chỉ tính từ các dòng có số.
 
-**Vì sao chọn cách này?** Pandas có thể lưu giá đầu vào là chuỗi; `pd.to_numeric(errors='coerce')` biến chuỗi sai thành NaN để đếm riêng, thay vì gây lỗi hoặc đưa vào tổng như 0. `dtypes` xác nhận sau chuyển đổi cột có dạng số.
+**Vì sao chọn cách này?** `DataFrame` ban đầu có thể chứa **chữ và số trộn lẫn**, dù cột ấy vốn được dùng để tính tiền. `pd.to_numeric(errors='coerce')` thử chuyển mức chi sang số; các chuỗi `''` và `N/A` không phải số hợp lệ sẽ thành **NaN**, dấu hiệu thiếu dữ liệu, thay vì làm báo cáo dừng. `isna()` đếm các ô cần bổ sung; `dtypes`/`is_numeric_dtype` kiểm tra kiểu dữ liệu của cột sau khi chuyển. Tổng `sum()` chỉ cộng các giá trị có số, không tự coi hai khoản chưa khai bằng 0 đồng, vì chúng vẫn phải được báo là thiếu.
 
 **Quy trình:**
 1. Tạo bảng 18 dòng từ danh sách tuổi và mức chi dạng chữ.
@@ -296,9 +296,9 @@ Pandas tự bỏ NaN khi tính `sum`, nhưng báo cáo vẫn phải hiển thị
 
 **Từ vựng trong mục:** **Feature** — đặc trưng; **Target** — nhãn dự đoán; **DataFrame schema** — cấu trúc bảng.
 
-**Tình huống thực tế:** Một khóa học ghi **20 học viên** H01…H20; mỗi dòng có tuổi (năm), số giờ tự học trong tuần (giờ/tuần) và nhãn đã hoàn thành (1) / chưa hoàn thành (0). Hai học viên **chưa được chấm kết quả**, nên nhãn là `None`. Trước khi chuyển bảng cho bước xử lý dữ liệu tiếp theo, cần kiểm tra cột, kiểu số, tách danh sách **18 dòng có nhãn** và số dòng chờ nhãn; không tự đoán nhãn từ tuổi hoặc giờ học.
+**Tình huống thực tế:** Một khóa học có **20 học viên H01 đến H20**. Mỗi dòng ghi mã, tuổi (**năm**), số giờ tự học trong tuần (**giờ/tuần**) và nhãn kết quả: `1` là đã hoàn thành, `0` là chưa hoàn thành. Hai người chưa được xác nhận kết quả nên nhãn để `None`. Trước khi đưa dữ liệu sang bước phân tích, giáo viên muốn tách 18 dòng đã có nhãn, đếm hai dòng chờ và số người đã hoàn thành; không được suy đoán nhãn từ tuổi hay giờ học.
 
-**Vì sao chọn cách này?** DataFrame giữ ba thuộc tính theo tên cột; `isna()` giúp nhận biết người thiếu nhãn, còn `loc` chọn bảng có nhãn mà không xóa hay điền dữ liệu nguyên bản. Đây mới là giai đoạn chuẩn bị bảng, chưa học/đánh giá mô hình AI.
+**Vì sao chọn cách này?** **Đặc trưng** là thông tin đầu vào như tuổi và giờ tự học; **nhãn** là kết quả đã biết để đối chiếu khi học máy, ở đây là 0 hoặc 1. DataFrame giữ từng trường trong cột có tên để không nhầm nhãn với giờ học. `notna()` tạo điều kiện chọn đúng những hàng **đã có nhãn**; `loc` lấy 18 hàng đó thành bảng làm việc, còn bản gốc vẫn giữ cả hai hàng chờ. Kiểm tra `isin([0, 1])` giúp tránh vô tình cho nhãn 2 hoặc chữ lạ vào bộ dữ liệu. Đây mới là **chuẩn bị và kiểm tra bảng**, chưa huấn luyện hay đánh giá AI; không được tự gán nhãn chưa biết.
 
 **Quy trình:**
 1. Tạo 20 bản ghi với mã, tuổi, số giờ học và nhãn hoàn thành.
