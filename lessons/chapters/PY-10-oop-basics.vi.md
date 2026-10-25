@@ -142,176 +142,233 @@ print(score.get_value())
 ```
 
 Điểm 9 hợp lệ nên được lưu và đọc lại. Với điểm 11, `set_value` sẽ báo `ValueError` thay vì ghi dữ liệu sai.
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống OOP — từ đối tượng đến quản lý trạng thái
 
-### Tình huống 1 — Tạo hồ sơ học viên
+### Tình huống 1 — Cấp 1: Tạo 10 đối tượng học viên có trạng thái riêng
 
-**Từ vựng trong mục:** **Class** — lớp.
+**Từ vựng trong mục:** **Class** — lớp; **Object** — đối tượng; **Constructor** — hàm khởi tạo.
 
-**Tình huống thực tế:** Trung tâm tạo hồ sơ học viên An, có điểm 8 trên thang 10. In tên và điểm của học viên.
+**Tình huống thực tế:** Một lớp học có **10 học viên** mã S01…S10 với điểm theo thang 10. Giáo viên muốn tạo đối tượng cho từng người, rồi đọc điểm S01 và S10 mà không phải lưu riêng mười biến điểm.
 
-**Vì sao chọn cách giải này?** Dùng class `Student` để gom tên và điểm của một học viên.
+**Vì sao chọn cách này?** Lớp Student gom mã và điểm vào `self`; mỗi lần gọi `Student(...)` tạo một đối tượng riêng. Đây là mức nhập môn OOP, chỉ khởi tạo và đọc thuộc tính.
 
-**Quy trình giải:**
-
-1. Tạo lớp `Student` với phương thức `__init__` nhận `name` và `score`.
-2. Lưu hai đối số vào thuộc tính của đối tượng bằng `self`.
-3. Tạo hồ sơ An với điểm 8 rồi in tên và điểm.
+**Quy trình:**
+1. Định nghĩa lớp có hàm `__init__` lưu mã và điểm.
+2. Tạo 10 đối tượng từ bảng điểm, mỗi hàng là một người.
+3. In số đối tượng và điểm đầu/cuối.
 
 ```python
-# Mục đích: Tạo hồ sơ học viên.
+scores = [8,7,9,6,8.5,10,4,7.5,6.5,9.5]
 class Student:
-    def __init__(self, name, score):
-        self.name = name
+    def __init__(self, code, score):
+        self.code = code
         self.score = score
 
-s = Student('An', 8)
-print(s.name, s.score)
+students = [Student(f"S{i:02d}", score) for i, score in enumerate(scores, 1)]
+assert len(students) == 10
+print("Học viên:", len(students))
+print("S01:", students[0].score)
+print("S10:", students[-1].score)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-An 8
+Học viên: 10
+S01: 8
+S10: 9.5
 ```
 
-### Tình huống 2 — Giỏ hàng có phương thức
+Thuộc tính `self.score` thuộc về từng đối tượng, không phải biến dùng chung cho toàn bộ lớp.
 
-**Từ vựng trong mục:** **Object** — đối tượng.
+### Tình huống 2 — Cấp 2: Giỏ hàng có phương thức add và total cho 12 món
 
-**Tình huống thực tế:** Một khách đưa hai món giá 100 và 200 đơn vị tiền vào giỏ hàng. Tính tổng tiền trong giỏ.
+**Từ vựng trong mục:** **Method** — phương thức; **Self** — đối tượng hiện tại; **Encapsulation** — đóng gói.
 
-**Vì sao chọn cách giải này?** Đối tượng `Cart` giữ list giá và có phương thức `add`, `total`.
+**Tình huống thực tế:** Một khách chọn **12 mặt hàng**, mỗi dòng là đơn giá (nghìn đồng/món), mua mỗi loại một món. Bộ phận thu ngân cần đối tượng `Cart` tự quản lý danh sách giá và đưa ra tổng tiền, không để bên ngoài phải tự cộng giá.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Phương thức `add()` phụ trách thay đổi danh sách của đúng giỏ hàng, `total()` trả kết quả; danh sách giá được tạo **bên trong** `__init__` nên không bị chia sẻ giữa nhiều giỏ.
 
-1. Tạo giỏ hàng `Cart` có danh sách `prices` ban đầu rỗng.
-2. Dùng phương thức `add` thêm hai giá 100 và 200.
-3. Dùng phương thức `total` cộng các giá và in 300.
+**Quy trình:**
+1. Tạo lớp `Cart` với thuộc tính `prices` khởi tạo riêng.
+2. Lần lượt gọi `add()` với 12 đơn giá.
+3. Gọi `total()` và kiểm tra một giỏ mới không chứa hàng cũ.
 
 ```python
-# Mục đích: Giỏ hàng có phương thức.
+prices = [20,30,10,15,40,25,35,20,30,10,50,45]
 class Cart:
     def __init__(self):
         self.prices = []
-
     def add(self, price):
         self.prices.append(price)
-
     def total(self):
         return sum(self.prices)
 
-c = Cart()
-c.add(100)
-c.add(200)
-print(c.total())
+cart = Cart()
+for price in prices:
+    cart.add(price)
+assert len(cart.prices) == 12
+assert Cart().total() == 0
+print("Mặt hàng:", len(cart.prices))
+print("Tổng (nghìn đồng):", cart.total())
+print("Giỏ mới (nghìn đồng):", Cart().total())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-300
+Mặt hàng: 12
+Tổng (nghìn đồng): 330
+Giỏ mới (nghìn đồng): 0
 ```
 
-### Tình huống 3 — Ràng buộc điểm nhập
+Phương thức được gọi trên một đối tượng cụ thể; việc tạo giỏ mới không kéo theo các mặt hàng của giỏ cũ.
 
-**Từ vựng trong mục:** **Constructor** — hàm khởi tạo.
+### Tình huống 3 — Cấp 3: Đóng gói quy tắc lưu điểm cho 15 hồ sơ
 
-**Tình huống thực tế:** Hệ thống chỉ cho phép lưu điểm trong khoảng 0 đến 10. Một học viên có điểm 9. Lưu và in điểm hợp lệ.
+**Từ vựng trong mục:** **Setter** — phương thức gán; **Validation** — kiểm tra; **Exception** — ngoại lệ.
 
-**Vì sao chọn cách giải này?** Phương thức `set` kiểm tra giới hạn trước khi cập nhật.
+**Tình huống thực tế:** Phòng đào tạo nhận **15 điểm** theo thứ tự học viên S01…S15 (thang 10). Trong đó S06 đạt 11 và S10 đạt -1 là dữ liệu sai. Để tránh vô tình lưu điểm không hợp lệ, mỗi đối tượng `ScoreRecord` phải kiểm tra trong phương thức `set_score()` trước khi cập nhật.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Đặt quy tắc kiểm tra trong lớp để mọi lời gọi đều theo cùng ngưỡng. Khi không hợp lệ, `ValueError` ngăn đối tượng giữ điểm sai; chương trình tổng hợp bắt lỗi theo từng mã để tiếp tục xử lý các hồ sơ khác.
 
-1. Khởi tạo đối tượng `Score` với giá trị ban đầu bằng 0.
-2. Gọi `set(9)` để kiểm tra điểm thuộc khoảng 0–10 rồi lưu giá trị.
-3. In điểm đã được lưu; nếu truyền 11, phương thức sẽ báo lỗi.
+**Quy trình:**
+1. Tạo lớp với trạng thái điểm ban đầu `None`.
+2. Gọi setter với mỗi trong 15 điểm, bắt lỗi cho đúng mã hồ sơ.
+3. Đếm số hồ sơ lưu được và mã cần sửa.
 
 ```python
-# Mục đích: Ràng buộc điểm nhập.
-class Score:
-    def __init__(self):
-        self.value = 0
-
-    def set(self, x):
-        if not 0 <= x <= 10:
-            raise ValueError('score')
-        self.value = x
-
-s = Score()
-s.set(9)
-print(s.value)
-```
-
-**Kết quả khi chạy:**
-
-```text
-9
-```
-
-### Tình huống 4 — In hóa đơn dễ đọc
-
-**Từ vựng trong mục:** **Encapsulation** — đóng gói.
-
-**Tình huống thực tế:** Một hóa đơn có mã O01 và số tiền 150.000 VND. In hóa đơn ở dạng dễ đọc.
-
-**Vì sao chọn cách giải này?** `__str__` quy định cách đối tượng hiển thị khi truyền vào `print`.
-
-**Quy trình giải:**
-
-1. Lưu mã `O01` và số tiền 150000 trong đối tượng `Order`.
-2. Định nghĩa `__str__` để tạo chuỗi hiển thị mã đơn và số tiền.
-3. Gọi `print(Order(...))` để Python tự dùng `__str__`.
-
-```python
-# Mục đích: In hóa đơn dễ đọc.
-class Order:
-    def __init__(self, code, total):
+raw_scores = [4,8,7,10,6,11,9,5,7.5,-1,0,8.5,3,9,10]
+class ScoreRecord:
+    def __init__(self, code):
         self.code = code
-        self.total = total
+        self._score = None
+    def set_score(self, value):
+        if not (0 <= value <= 10):
+            raise ValueError("score must be within 0..10")
+        self._score = value
+    def get_score(self):
+        return self._score
 
-    def __str__(self):
-        return f'{self.code}: {self.total} VND'
-
-print(Order('O01', 150000))
+records, errors = [], []
+for index, score in enumerate(raw_scores, 1):
+    record = ScoreRecord(f"S{index:02d}")
+    try:
+        record.set_score(score)
+    except ValueError:
+        errors.append(record.code)
+    records.append(record)
+assert len(records) == 15
+print("Hồ sơ:", len(records))
+print("Đã lưu điểm:", sum(rec.get_score() is not None for rec in records))
+print("Sai:", ", ".join(errors))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-O01: 150000 VND
+Hồ sơ: 15
+Đã lưu điểm: 13
+Sai: S06, S10
 ```
 
-### Tình huống 5 — Hai cảm biến độc lập
+Điểm 0 là hợp lệ, khác với điểm chưa nhập (`None`). Cấp này thêm ràng buộc và xử lý lỗi mà không kết thúc toàn bộ lượt nhập.
 
-**Từ vựng trong mục:** **Class** — lớp.
+### Tình huống 4 — Cấp 4: Định dạng 18 hóa đơn qua __str__ và xử lý tiền thiếu
 
-**Tình huống thực tế:** Hai cảm biến có giá trị ban đầu lần lượt 20 và 40. Cảm biến đầu được cập nhật thành 25. Kiểm tra hai cảm biến có lưu giá trị độc lập hay không.
+**Từ vựng trong mục:** **Dunder method** — phương thức đặc biệt; **__str__** — chuỗi hiển thị; **Missing value** — giá trị thiếu.
 
-**Vì sao chọn cách giải này?** Mỗi lần gọi `Sensor()` tạo một đối tượng có thuộc tính `value` riêng.
+**Tình huống thực tế:** Ứng dụng nhận **18 hóa đơn** O01…O18; mỗi dòng chứa số tiền thanh toán (đồng). Hai hóa đơn O06 và O15 chưa được nhập số tiền (`None`). Cần định nghĩa cách một đối tượng hóa đơn hiển thị, nhưng **không** hiển thị dòng thiếu như 0 đồng; báo tổng của các hóa đơn đủ tiền và hai mã cần nhập lại.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Phương thức `__str__()` đặt quy tắc hiển thị ở chính đối tượng. Phương thức `is_ready()` tách điều kiện được phép tính tổng; lỗi thiếu được xử lý trước khi dùng số học.
 
-1. Tạo hai đối tượng `Sensor(20)` và `Sensor(40)` độc lập.
-2. Cập nhật `a.value` thành 25, không sửa `b.value`.
-3. In giá trị của cả hai để thấy `25 40`.
+**Quy trình:**
+1. Tạo đối tượng `Invoice` cho đủ 18 dòng và lưu mã/số tiền.
+2. Định nghĩa `is_ready()` và `__str__()` theo trạng thái có/thiếu tiền.
+3. In hóa đơn mẫu, thống kê số hợp lệ, số thiếu và tổng giá trị.
 
 ```python
-# Mục đích: Hai cảm biến độc lập.
-class Sensor:
-    def __init__(self, value):
-        self.value = value
+amounts = [100000,125000,150000,175000,200000,None,125000,150000,175000,200000,100000,125000,150000,175000,None,100000,125000,150000]
+class Invoice:
+    def __init__(self, code, amount):
+        self.code, self.amount = code, amount
+    def is_ready(self):
+        return isinstance(self.amount, (int, float)) and self.amount >= 0
+    def __str__(self):
+        value = f"{self.amount:,} đồng" if self.is_ready() else "Chưa có số tiền"
+        return f"{self.code}: {value}"
 
-a, b = Sensor(20), Sensor(40)
-a.value = 25
-print(a.value, b.value)
+invoices = [Invoice(f"O{i:02d}", amount) for i, amount in enumerate(amounts, 1)]
+ready = [order for order in invoices if order.is_ready()]
+missing = [order.code for order in invoices if not order.is_ready()]
+assert len(invoices) == 18
+print("Số hóa đơn:", len(invoices))
+print("Sẵn sàng:", len(ready))
+print("Thiếu:", ", ".join(missing))
+print("Tổng (đồng):", sum(order.amount for order in ready))
+print("Mẫu:", str(invoices[0]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-25 40
+Số hóa đơn: 18
+Sẵn sàng: 16
+Thiếu: O06, O15
+Tổng (đồng): 2325000
+Mẫu: O01: 100,000 đồng
 ```
+
+Chỉ tính tổng trên các đối tượng `is_ready() == True`. Giá trị `None` là một trạng thái thiếu cần sửa, không phải số tiền 0.
+
+### Tình huống 5 — Cấp 5: Xây đối tượng tồn kho độc lập và xử lý 20 lượt xuất
+
+**Từ vựng trong mục:** **State** — trạng thái; **Encapsulation** — đóng gói; **Instance method** — phương thức đối tượng.
+
+**Tình huống thực tế:** Kho có **5 sản phẩm** P01…P05 với tồn đầu ngày lần lượt 10, 9, 8, 7, 5 món. Trong ngày phát sinh **20 yêu cầu xuất**, mỗi hàng là mã sản phẩm và số món muốn lấy. Có lượt vượt số tồn, một lượt chưa có số lượng (`None`) và một lượt yêu cầu 0 món. Hãy dùng đối tượng cho từng sản phẩm để **không bao giờ cho tồn âm**, trả danh sách yêu cầu bị từ chối và số tồn cuối từng sản phẩm.
+
+**Vì sao chọn cách này?** Đối tượng `StockItem` giữ số tồn của **một sản phẩm**; phương thức `reserve` quyết định thành công và chỉ thay đổi `self.quantity` khi đủ điều kiện. Tách trạng thái mỗi sản phẩm tránh tình trạng một yêu cầu của P01 làm thay đổi P02. Đây là bước tổng hợp OOP và kiểm tra đầu vào.
+
+**Quy trình:**
+1. Khởi tạo 5 đối tượng độc lập từ tồn đầu ngày.
+2. Duyệt 20 yêu cầu theo thứ tự; `reserve()` trả True/False thay vì trừ vô điều kiện.
+3. Đếm số yêu cầu thành công, ghi mã lỗi và đối chiếu tồn không âm.
+
+```python
+initial = {"P01":10,"P02":9,"P03":8,"P04":7,"P05":5}
+requests = [("P01",2),("P02",1),("P03",3),("P01",4),("P02",5),("P03",2),("P04",1),("P01",3),("P03",6),("P04",3),("P02",2),("P01",7),("P05",1),("P03",1),("P04",4),("P05",2),("P01",None),("P02",0),("P04",2),("P05",8)]
+class StockItem:
+    def __init__(self, code, quantity):
+        self.code, self.quantity = code, quantity
+    def reserve(self, requested):
+        if not isinstance(requested, int) or requested <= 0 or requested > self.quantity:
+            return False
+        self.quantity -= requested
+        return True
+
+items = {code: StockItem(code, qty) for code, qty in initial.items()}
+rejected = []
+for index, (code, requested) in enumerate(requests, 1):
+    if not items[code].reserve(requested):
+        rejected.append(f"T{index:02d}")
+assert len(requests) == 20
+assert all(item.quantity >= 0 for item in items.values())
+print("Yêu cầu:", len(requests))
+print("Chấp nhận:", len(requests) - len(rejected))
+print("Từ chối:", ", ".join(rejected))
+print("Tồn cuối:", ", ".join(f"{code}={items[code].quantity}" for code in sorted(items)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Yêu cầu: 20
+Chấp nhận: 14
+Từ chối: T09, T12, T15, T17, T18, T20
+Tồn cuối: P01=1, P02=1, P03=2, P04=1, P05=2
+```
+
+Người học cần theo dõi trạng thái thay đổi **qua 20 yêu cầu nối tiếp**, không chỉ tính một đơn hàng. Khi một yêu cầu bị từ chối, tồn kho phải giữ nguyên trước khi xét yêu cầu tiếp theo.
 
 ## 6. Sai lầm thường gặp
 

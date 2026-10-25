@@ -122,162 +122,199 @@ print(orders['O2']['amount'])
 ```
 
 Kết quả `200` là số tiền của đơn O2 (đơn vị tiền theo quy định của cửa hàng), không phải mã đơn hay chỉ số dòng.
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống Dictionary — từ tra cứu đến nhập/xuất có kiểm chứng
 
-### Tình huống 1 — Tra cứu đơn theo mã
+### Tình huống 1 — Cấp 1: Tra cứu 10 đơn không phát sinh KeyError
 
-**Từ vựng trong mục:** **Dictionary** — từ điển; **Key** — khóa.
+**Từ vựng trong mục:** **Dictionary** — từ điển; **Key** — khóa; **Get** — tra cứu.
 
-**Tình huống thực tế:** Cửa hàng đang lưu trạng thái hai đơn hàng: `O1` đã thanh toán (`paid`) và `O2` đang chờ (`pending`). Khách nhập mã `O3`, chưa có trong hệ thống.
+**Tình huống thực tế:** Cửa hàng có **10 mã đơn** O01…O10, mỗi dòng có trạng thái `paid`, `pending` hoặc `cancelled`. Nhân viên muốn biết tình trạng O04 và O11 (mã chưa tồn tại), đồng thời đếm số đơn đã thanh toán. Đừng để một mã lạ làm chương trình dừng.
 
-**Yêu cầu:** Tra cứu mã `O3` và in thông báo nếu không tìm thấy.
+**Vì sao chọn cách này?** Mỗi mã là khóa duy nhất trong Dictionary, `get()` trả giá trị mặc định khi chưa có mã. Truy cập trực tiếp `orders['O11']` sẽ báo lỗi; ở cấp đầu chỉ cần dùng get và đếm giá trị.
 
-**Vì sao chọn cách giải này?** `get(key, default)` tìm theo mã đơn và trả về `Not found` khi khóa chưa tồn tại, thay vì phát sinh `KeyError`.
-
-**Quy trình giải:**
-
-1. Lưu trạng thái đơn theo từng mã.
-2. Tra `O3` bằng `get()` và truyền vào câu báo `Not found`.
-3. In kết quả.
+**Quy trình:**
+1. Tạo Dictionary 10 mã và trạng thái.
+2. Tra cứu O04 và O11 bằng `get`.
+3. Đếm trạng thái paid và kiểm tra số khóa.
 
 ```python
-# Mục đích: Tra cứu đơn theo mã.
-orders={"O1":"paid","O2":"pending"}
-print(orders.get("O3","Not found"))
+orders = {"O01":"paid","O02":"pending","O03":"paid","O04":"cancelled","O05":"pending","O06":"paid","O07":"pending","O08":"paid","O09":"cancelled","O10":"paid"}
+assert len(orders) == 10
+print("Số đơn:", len(orders))
+print("O04:", orders.get("O04", "Not found"))
+print("O11:", orders.get("O11", "Not found"))
+print("Đã trả:", sum(value == "paid" for value in orders.values()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Not found
+Số đơn: 10
+O04: cancelled
+O11: Not found
+Đã trả: 5
 ```
 
-**Kết quả:** `Not found` — không có mã đơn `O3` trong dữ liệu.
+O11 không có khóa trong bảng, nên `Not found` là thông báo tra cứu, không phải một trạng thái đơn hàng thật.
 
-### Tình huống 2 — Cập nhật tồn kho
+### Tình huống 2 — Cấp 2: Cập nhật tồn của 12 SKU theo số đã bán
 
-**Từ vựng trong mục:** **Key** — khóa; **Value** — giá trị.
+**Từ vựng trong mục:** **Key-value** — cặp khóa–giá trị; **Update** — cập nhật.
 
-**Tình huống thực tế:** Kho có sản phẩm mã `SKU01` với 5 món. Sau khi bán 2 món, nhân viên cần cập nhật số lượng còn lại.
+**Tình huống thực tế:** Kho theo dõi **12 SKU** P01…P12. Mỗi hàng là số món hiện có và số món vừa bán; số lượng sau bán phải cập nhật **theo đúng mã**, không tính nhầm sang mã bên cạnh. Hãy báo tổng số món sau bán và số tồn của P05.
 
-**Yêu cầu:** Trừ 2 khỏi tồn kho của `SKU01` rồi in Dictionary.
+**Vì sao chọn cách này?** Dùng mã SKU để tìm nhanh số lượng trong Dictionary; thao tác `stock[sku] -= qty` cập nhật ngay khóa đó. Kiểm tra trước số bán không vượt tồn kho để tránh xuất hiện số âm.
 
-**Vì sao chọn cách giải này?** Mã SKU là khóa của sản phẩm; `stock['SKU01'] -= 2` thay đổi số lượng ngay tại khóa tương ứng.
-
-**Quy trình giải:**
-
-1. Lưu số lượng ban đầu theo mã SKU.
-2. Lấy số lượng ở khóa `SKU01` và trừ 2.
-3. In tồn kho đã cập nhật.
+**Quy trình:**
+1. Khởi tạo 12 mã và số tồn đầu ngày.
+2. Duyệt đúng cặp mã–số bán; kiểm tra rồi trừ vào từng khóa.
+3. In số SKU, tồn tổng cộng, số tồn P05.
 
 ```python
-# Mục đích: Cập nhật tồn kho.
-stock={"SKU01":5}
-stock["SKU01"]-=2
-print(stock)
+starting = [10,8,12,5,20,9,13,6,7,11,14,4]
+sold = [2,1,3,0,4,1,2,2,1,3,4,0]
+stock = {f"P{i:02d}": amount for i, amount in enumerate(starting, 1)}
+for i, quantity in enumerate(sold, 1):
+    sku = f"P{i:02d}"
+    assert quantity <= stock[sku]
+    stock[sku] -= quantity
+assert len(stock) == 12
+print("SKU:", len(stock))
+print("Tồn tổng:", sum(stock.values()))
+print("P05 còn:", stock["P05"])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'SKU01': 3}
+SKU: 12
+Tồn tổng: 96
+P05 còn: 16
 ```
 
-**Kết quả:** `{'SKU01': 3}` — sản phẩm còn 3 món.
+Dictionary được cập nhật theo mã thay vì dựa vào vị trí số khi xử lý các lần nhập dữ liệu sau.
 
-### Tình huống 3 — Đếm nhãn
+### Tình huống 3 — Cấp 3: Đếm 15 nhãn và xếp thứ hạng bằng Dictionary
 
-**Từ vựng trong mục:** **Dictionary** — từ điển; **Count** — số lần.
+**Từ vựng trong mục:** **Frequency** — tần suất; **Items** — cặp khóa và giá trị; **Ranking** — xếp hạng.
 
-**Tình huống thực tế:** Một hệ thống phân loại ghi ba nhãn theo thứ tự `AI`, `Math`, `AI`. Người quản lý muốn biết mỗi nhãn xuất hiện bao nhiêu lần.
+**Tình huống thực tế:** Trung tâm gán **15 nhãn** cho các yêu cầu học tập. Mỗi phần tử là một nhãn môn (`AI`, `Python`, `SQL`, `Math`). Nhân viên cần đếm mỗi nhãn xuất hiện bao nhiêu lần, xác định hai nhãn được yêu cầu nhiều nhất, và xác minh tổng số nhãn bằng số lượt nhận.
 
-**Yêu cầu:** Tạo Dictionary đếm số lượt của từng nhãn.
+**Vì sao chọn cách này?** `get(label, 0) + 1` vừa hỗ trợ nhãn mới vừa cộng dồn nhãn cũ. `items()` cung cấp cặp `(nhãn, số lượt)` để sắp theo số lượt giảm, sau đó theo tên nhằm phân xử hòa điểm.
 
-**Vì sao chọn cách giải này?** `get(x, 0)` lấy số đếm cũ hoặc 0 nếu nhãn mới xuất hiện, sau đó cộng thêm 1.
-
-**Quy trình giải:**
-
-1. Tạo list nhãn và Dictionary `count` rỗng.
-2. Duyệt từng nhãn bằng `for`.
-3. Tăng bộ đếm của nhãn và in kết quả.
+**Quy trình:**
+1. Tạo Dictionary đếm ban đầu rỗng.
+2. Duyệt 15 nhãn, tăng bộ đếm theo khóa.
+3. Sắp danh sách cặp số đếm và in hai nhãn đứng đầu.
 
 ```python
-# Mục đích: Đếm nhãn.
-labels=["AI","Math","AI"]
-count={}
-for x in labels:
-    count[x]=count.get(x,0)+1
-print(count)
+labels = ["AI","Python","SQL","AI","Math","Python","AI","SQL","Python","Math","SQL","AI","Python","Math","AI"]
+counts = {}
+for label in labels:
+    counts[label] = counts.get(label, 0) + 1
+ranking = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+assert len(labels) == 15 and sum(counts.values()) == 15
+print("Lượt:", len(labels))
+print("Đếm:", ", ".join(f"{name}={counts[name]}" for name in sorted(counts)))
+print("Top 2:", ", ".join(name for name, count in ranking[:2]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'AI': 2, 'Math': 1}
+Lượt: 15
+Đếm: AI=5, Math=3, Python=4, SQL=3
+Top 2: AI, Python
 ```
 
-**Kết quả:** `{'AI': 2, 'Math': 1}` — AI xuất hiện hai lần, Math một lần.
+Mỗi nhãn là một khóa. Việc có hai nhãn cùng tần suất chỉ ảnh hưởng thứ tự in; số đếm từng nhãn vẫn phải đúng.
 
-### Tình huống 4 — Hồ sơ lồng nhau
+### Tình huống 4 — Cấp 4: Kiểm tra 18 hồ sơ học viên lồng nhau
 
-**Từ vựng trong mục:** **Nested dict** — từ điển lồng; **Key** — khóa.
+**Từ vựng trong mục:** **Nested dictionary** — Dictionary lồng nhau; **Missing** — thiếu điểm; **Validation** — kiểm tra hợp lệ.
 
-**Tình huống thực tế:** Trung tâm có hồ sơ `SV1` tên An, điểm 8 và `SV2` tên Lan, điểm 9. Hồ sơ lưu theo mã sinh viên, bên trong chứa tên và điểm.
+**Tình huống thực tế:** Giáo vụ lưu **18 hồ sơ** S01…S18; mỗi mã ứng với một Dictionary gồm tên giả lập và điểm trên thang 10. Có hai học viên chưa có điểm (`None`) và một điểm 11 vượt thang. Cần lấy được số hồ sơ có điểm hợp lệ, số thiếu và số sai mà **không gây TypeError**.
 
-**Yêu cầu:** Lấy điểm của `SV2` và in kết quả.
+**Vì sao chọn cách này?** Mỗi học viên có nhiều thuộc tính nên Dictionary lồng nhau dễ cập nhật; phải kiểm tra `None` trước phép so sánh `0 <= score <= 10`. Nếu điểm ngoài biên vẫn cộng vào nhóm đạt, báo cáo sẽ sai.
 
-**Vì sao chọn cách giải này?** Dictionary lồng nhau giúp tìm sinh viên bằng mã rồi lấy đúng trường `score` của người đó.
-
-**Quy trình giải:**
-
-1. Lưu hai hồ sơ trong `students`.
-2. Chọn sinh viên bằng khóa `SV2`.
-3. Lấy khóa `score` trong hồ sơ con và in điểm.
+**Quy trình:**
+1. Tạo 18 mã và các thuộc tính có ý nghĩa.
+2. Kiểm tra giá trị thiếu trước, sau đó kiểm tra khoảng điểm hợp lệ.
+3. Thống kê ba nhóm và xác minh tổng số hồ sơ.
 
 ```python
-# Mục đích: Hồ sơ lồng nhau.
-students={"SV1":{"name":"An","score":8},"SV2":{"name":"Lan","score":9}}
-print(students["SV2"]["score"])
+scores = [8,7,9,None,6.5,10,4,7.5,8.5,9,5,6,8,11,7,None,4.5,9]
+students = {f"S{i:02d}": {"name": f"Học viên {i:02d}", "score": value}
+            for i, value in enumerate(scores, 1)}
+valid, missing, invalid = [], [], []
+for code, info in students.items():
+    score = info["score"]
+    if score is None:
+        missing.append(code)
+    elif not (0 <= score <= 10):
+        invalid.append(code)
+    else:
+        valid.append(code)
+assert len(students) == len(valid) + len(missing) + len(invalid) == 18
+print("Hồ sơ:", len(students))
+print("Hợp lệ:", len(valid))
+print("Thiếu:", ", ".join(missing))
+print("Sai thang:", ", ".join(invalid))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-9
+Hồ sơ: 18
+Hợp lệ: 15
+Thiếu: S04, S16
+Sai thang: S14
 ```
 
-**Kết quả:** `9` — điểm của học viên Lan (`SV2`).
+Một giá trị 11 không phải thiếu nhưng vẫn không hợp lệ. Hai nguyên nhân cần được phân biệt để hướng dẫn nhân viên sửa đúng hồ sơ.
 
-### Tình huống 5 — Xóa SKU không có
+### Tình huống 5 — Cấp 5: Xử lý 20 giao dịch nhập/xuất kho có kiểm chứng
 
-**Từ vựng trong mục:** **Dictionary** — từ điển; **Pop** — lấy và xóa.
+**Từ vựng trong mục:** **CRUD** — thêm/đọc/sửa/xóa; **Dictionary get** — tra cứu mặc định; **Transaction** — giao dịch.
 
-**Tình huống thực tế:** Kho đang có sản phẩm `P01` với 10 món. Nhân viên muốn xóa mã `P02`, nhưng mã này không có trong Dictionary.
+**Tình huống thực tế:** Một kho nhận **20 giao dịch** theo thứ tự, mỗi hàng gồm SKU, thao tác `add` (nhập hàng) hoặc `sell` (xuất hàng), và số món. Có lượt xuất vượt tồn, xuất SKU chưa được nhập, và một lượt thiếu số lượng. Cần cập nhật tồn theo đúng thứ tự, **từ chối giao dịch không hợp lệ**, và báo số giao dịch thành công/thất bại cùng tồn cuối từng SKU.
 
-**Yêu cầu:** Thử xóa `P02` và in kết quả thao tác, không làm chương trình lỗi.
+**Vì sao chọn cách này?** Dictionary lưu trạng thái cuối theo mã SKU. `get()` giúp đọc mã mới khi nhập; xuất kho phải kiểm tra mã có tồn tại và số tồn đủ trước khi trừ. Các giao dịch bị bác bỏ không được thay đổi kho; đây là cấp tổng hợp bao gồm nhiều lần cập nhật có ràng buộc.
 
-**Vì sao chọn cách giải này?** `pop('P02', None)` trả về `None` nếu không có mã, thay vì gây `KeyError`. Không có phần tử nào bị xóa.
-
-**Quy trình giải:**
-
-1. Lưu mã hàng đang có.
-2. Gọi `pop()` với mã `P02` và giá trị mặc định `None`.
-3. In biến `removed`.
+**Quy trình:**
+1. Khởi tạo kho rỗng, duyệt lần lượt 20 tuple giao dịch.
+2. Với nhập, cộng tồn; với xuất, kiểm tra số dương, SKU tồn tại và đủ số món.
+3. Ghi lại số thứ tự giao dịch lỗi, đối chiếu số lượt và in bảng tồn đã sắp mã.
 
 ```python
-# Mục đích: Xóa SKU không có.
-items={"P01":10}
-removed=items.pop("P02",None)
-print(removed)
+events = [("P01","add",12),("P02","add",9),("P03","add",8),("P01","sell",2),("P02","sell",3),("P04","add",5),("P05","add",7),("P03","sell",1),("P01","sell",20),("P06","add",15),("P04","sell",2),("P02","sell",1),("P07","add",4),("P05","sell",2),("P08","add",6),("P03","sell",3),("P02","add",5),("P09","sell",1),("P06","sell",4),("P07","sell",None)]
+stock, rejected = {}, []
+for index, (sku, action, quantity) in enumerate(events, 1):
+    if quantity is None or quantity <= 0:
+        rejected.append(index)
+    elif action == "add":
+        stock[sku] = stock.get(sku, 0) + quantity
+    elif action == "sell" and sku in stock and stock[sku] >= quantity:
+        stock[sku] -= quantity
+    else:
+        rejected.append(index)
+assert len(events) == 20
+print("Giao dịch:", len(events))
+print("Đã nhận:", len(events) - len(rejected))
+print("Từ chối lượt:", ", ".join(str(i) for i in rejected))
+print("Tồn cuối:", ", ".join(f"{sku}={stock[sku]}" for sku in sorted(stock)))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-None
+Giao dịch: 20
+Đã nhận: 17
+Từ chối lượt: 9, 18, 20
+Tồn cuối: P01=10, P02=10, P03=4, P04=3, P05=5, P06=11, P07=4, P08=6
 ```
 
-**Kết quả:** `None` — không có mã `P02` để xóa; `P01` vẫn còn trong Dictionary.
+Phiếu bị từ chối giữ nguyên số tồn trước đó. Không được âm thầm tạo SKU P09 tồn 0 rồi trừ thành -1, vì kho chưa hề nhận mặt hàng này.
 
 ## 6. Nhầm lẫn dễ gặp
 

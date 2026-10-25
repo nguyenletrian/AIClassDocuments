@@ -147,161 +147,216 @@ print(final_price)
 ```
 
 Số 105 là tổng giá và phí, đơn vị nghìn đồng. Biến `fee` ở trong hàm; nếu gọi `print(fee)` ở ngoài, Python sẽ báo `NameError`.
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống hàm — từ return cơ bản đến pipeline 20 đơn
 
-### Tình huống 1 — Tính thuế giá trị gia tăng
+### Tình huống 1 — Cấp 1: Dùng một hàm tính giá đã cộng thuế của 10 món
 
-**Từ vựng trong mục:** **Function** — hàm.
+**Từ vựng trong mục:** **Function** — hàm; **Return** — trả về; **Default argument** — đối số mặc định.
 
-**Tình huống thực tế:** Một cửa hàng bán sản phẩm giá 100.000 đồng chưa có thuế. Để minh họa cách tính, cửa hàng dùng mức VAT giả định 10% cho sản phẩm này.
+**Tình huống thực tế:** Quầy văn phòng phẩm bán **10 mặt hàng** với đơn giá trước thuế (đồng/món). Trong bài giả lập này dùng thuế suất **10%** cho mọi món và mua một món mỗi loại. Hãy viết một hàm tính giá sau thuế để gọi lại trên cả mười món, sau đó báo tổng tiền.
 
-**Yêu cầu:** Viết hàm tính giá sau thuế và in số tiền cần thanh toán.
+**Vì sao chọn cách này?** Định nghĩa hàm một lần giúp không viết phép tính thuế mười lần khác nhau; `return` trả số tiền để có thể cộng tiếp. Thuế suất 10% là giả định của bài, không phải kết luận về quy định thuế hiện hành.
 
-**Vì sao chọn cách giải này?** Hàm `with_vat` nhận giá và mức thuế, với `rate=0.10` là mức mặc định. `return` trả tổng tiền đã làm tròn.
-
-**Quy trình giải:**
-
-1. Định nghĩa hàm với tham số giá và thuế mặc định.
-2. Nhân giá với `1 + rate`.
-3. Gọi hàm bằng giá 100.000 và in kết quả.
+**Quy trình:**
+1. Định nghĩa hàm `with_tax(price, rate=0.10)` có tham số mặc định.
+2. Gọi hàm cho mỗi trong 10 đơn giá.
+3. Tổng hợp, kiểm tra số lượng và in tổng.
 
 ```python
-# Mục đích: Tính thuế giá trị gia tăng.
-def with_vat(price, rate=0.10):
-    return round(price*(1+rate))
-print(with_vat(100000))
+prices_vnd = [50000,72000,90000,110000,85000,60000,95000,120000,140000,100000]
+def with_tax(price, rate=0.10):
+    return round(price * (1 + rate))
+prices_after_tax = [with_tax(price) for price in prices_vnd]
+assert len(prices_after_tax) == 10
+print("Mặt hàng:", len(prices_vnd))
+print("Giá món đầu:", prices_after_tax[0])
+print("Tổng tiền (đồng):", sum(prices_after_tax))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-110000
+Mặt hàng: 10
+Giá món đầu: 55000
+Tổng tiền (đồng): 1014200
 ```
 
-**Kết quả:** `110000` đồng — giá 100.000 đồng cộng 10% thuế.
+Hàm trả về số, không tự in ra; có thể dùng tiếp trong các phép tính khác mà không phải sao chép biểu thức.
 
-### Tình huống 2 — Sắp điểm theo thứ hạng
+### Tình huống 2 — Cấp 2: Dùng lambda sắp 12 học viên giữ thứ tự hòa điểm
 
-**Từ vựng trong mục:** **Parameter** — tham số.
+**Từ vựng trong mục:** **Lambda** — hàm ngắn; **Key function** — hàm chọn khóa; **Sorted** — sắp xếp.
 
-**Tình huống thực tế:** Trung tâm có hai hồ sơ học viên: A đạt 8 điểm và B đạt 10 điểm trên thang 10. Cần ưu tiên hiển thị người có điểm cao hơn.
+**Tình huống thực tế:** Trung tâm có **12 hồ sơ** theo thứ tự nộp đăng ký; mỗi bản ghi gồm tên và điểm (thang 10). Người phụ trách muốn xếp điểm giảm dần và chọn **bốn học viên ưu tiên phỏng vấn**. Hai người đồng điểm phải giữ thứ tự nộp trước.
 
-**Yêu cầu:** In danh sách hồ sơ theo điểm giảm dần.
+**Vì sao chọn cách này?** `sorted(..., key=lambda item: item['score'], reverse=True)` sắp xếp bằng đúng cột điểm; thuật toán sắp xếp của Python ổn định, vì vậy người có điểm bằng nhau giữ thứ tự đã có.
 
-**Vì sao chọn cách giải này?** `sorted()` tạo danh sách đã sắp xếp; `lambda r: r['score']` cho biết phải dùng trường điểm để so sánh.
-
-**Quy trình giải:**
-
-1. Tạo hai Dictionary học viên.
-2. Dùng `sorted` với `key` lấy điểm và `reverse=True`.
-3. In danh sách sau khi sắp xếp.
+**Quy trình:**
+1. Lưu 12 Dictionary theo thứ tự tiếp nhận.
+2. Viết lambda đọc cột `score` làm khóa cho `sorted`.
+3. Lấy bốn tên đầu và kiểm tra danh sách nguồn không đổi.
 
 ```python
-# Mục đích: Sắp điểm theo thứ hạng.
-people=[{"name":"A","score":8},{"name":"B","score":10}]
-print(sorted(people,key=lambda r:r["score"],reverse=True))
+students = [{"name":"An","score":8},{"name":"Bình","score":9},{"name":"Chi","score":7},{"name":"Dung","score":9},{"name":"Hà","score":6},{"name":"Khánh","score":10},{"name":"Lan","score":8},{"name":"Minh","score":9},{"name":"Nam","score":5},{"name":"Trang","score":10},{"name":"Vy","score":7},{"name":"Yến","score":9}]
+ranked = sorted(students, key=lambda item: item["score"], reverse=True)
+assert len(students) == 12
+assert students[0]["name"] == "An"
+print("Học viên:", len(students))
+print("Phỏng vấn trước:", ", ".join(student["name"] for student in ranked[:4]))
+print("Nguồn đầu:", students[0]["name"])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[{'name': 'B', 'score': 10}, {'name': 'A', 'score': 8}]
+Học viên: 12
+Phỏng vấn trước: Khánh, Trang, Bình, Dung
+Nguồn đầu: An
 ```
 
-**Kết quả:** `[{'name': 'B', 'score': 10}, {'name': 'A', 'score': 8}]` — B đứng trước A.
+Lambda chỉ định trường điểm để so, không làm thay đổi thứ tự ban đầu của hồ sơ khi các điểm bằng nhau.
 
-### Tình huống 3 — Kiểm tra điểm hợp lệ
+### Tình huống 3 — Cấp 3: Tách hàm kiểm tra điểm và hàm xét đạt cho 15 lượt
 
-**Từ vựng trong mục:** **Return** — trả về.
+**Từ vựng trong mục:** **Parameter** — tham số; **Boolean return** — trả về đúng/sai; **Composition** — phối hợp hàm.
 
-**Tình huống thực tế:** Một trung tâm chỉ chấp nhận điểm kiểm tra từ 0 đến 10. Nhân viên cần kiểm tra điểm nhập vào là 11.
+**Tình huống thực tế:** Giáo vụ nhận **15 kết quả kiểm tra**; điểm hợp lệ thuộc **0 đến 10**, trong đó 5 trở lên là đạt. Dữ liệu có một điểm 11, một điểm -1 và một lượt chưa nhận (`None`). Cần viết **hai hàm**: kiểm tra hợp lệ và xét đạt; sau đó đếm số điểm hợp lệ, số đạt và số không thể phân loại.
 
-**Yêu cầu:** Viết hàm trả về `True` khi điểm nằm trong khoảng hợp lệ, ngược lại trả về `False`.
+**Vì sao chọn cách này?** Tách hai chức năng giữ quy tắc độc lập: điểm không hợp lệ bị loại trước khi hỏi có đạt hay không. Hàm `passed()` tái sử dụng kết quả từ `valid_score()` để không lặp điều kiện ở nhiều chỗ.
 
-**Vì sao chọn cách giải này?** Hàm `valid_score()` kết hợp hai phép so sánh trong một biểu thức, nên có thể gọi lại cho nhiều học viên.
-
-**Quy trình giải:**
-
-1. Định nghĩa hàm nhận điểm `x`.
-2. Kiểm tra `0 <= x <= 10`.
-3. Truyền điểm 11 vào hàm và in kết quả.
+**Quy trình:**
+1. Định nghĩa `valid_score()` trả `True/False` trên dữ liệu đầu vào.
+2. Định nghĩa `passed()` dùng kết quả kiểm tra để xét ngưỡng 5.
+3. Duyệt đủ 15 lượt và báo các nhóm không chồng lấn.
 
 ```python
-# Mục đích: Kiểm tra điểm hợp lệ.
-def valid_score(x):
-    return 0<=x<=10
-print(valid_score(11))
+scores = [4,7,9,10,2,5,11,8,None,6,0,3,7.5,9.5,-1]
+def valid_score(value):
+    return isinstance(value, (int, float)) and 0 <= value <= 10
+
+def passed(value):
+    return valid_score(value) and value >= 5
+valid = [score for score in scores if valid_score(score)]
+passed_scores = [score for score in scores if passed(score)]
+assert len(scores) == 15
+print("Lượt nhận:", len(scores))
+print("Hợp lệ:", len(valid))
+print("Đạt:", len(passed_scores))
+print("Không hợp lệ:", len(scores) - len(valid))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-False
+Lượt nhận: 15
+Hợp lệ: 12
+Đạt: 8
+Không hợp lệ: 3
 ```
 
-**Kết quả:** `False` — điểm 11 vượt quá thang điểm 10.
+Điểm 0 là điểm thật nhưng chưa đạt, không bị hiểu là dữ liệu thiếu. Phân biệt hai bước kiểm tra là trọng tâm của cấp 3.
 
-### Tình huống 4 — Trả thống kê đơn giản
+### Tình huống 4 — Cấp 4: Hàm trả cả thống kê và các dòng lỗi trong 18 giao dịch
 
-**Từ vựng trong mục:** **Lambda** — hàm ẩn danh.
+**Từ vựng trong mục:** **Return tuple** — trả nhiều giá trị; **Validation** — kiểm tra hợp lệ; **Scope** — phạm vi biến.
 
-**Tình huống thực tế:** Một cửa hàng ghi số lượng sản phẩm bán được trong ba ngày lần lượt là 7, 8 và 9 món.
+**Tình huống thực tế:** Nhóm vận hành có **18 khoản chi** (nghìn đồng), mỗi dòng là một giao dịch. Hai dòng chưa nhập (`None`) và một khoản âm -20 không được phép vì đây là trường **chi phí không âm**. Hãy viết một hàm trả lại số lượng hợp lệ, tổng tiền, trung bình và **mã giao dịch cần sửa** mà không thay đổi list nguồn.
 
-**Yêu cầu:** Viết hàm trả về cả tổng số món lẫn số món trung bình mỗi ngày.
+**Vì sao chọn cách này?** Hàm trả tuple nhiều giá trị để người gọi có thể dùng kết quả cho báo cáo; các biến tổng/tập lỗi là biến cục bộ, không dựa vào biến toàn cục và không thay đổi dữ liệu ban đầu.
 
-**Vì sao chọn cách giải này?** `return` có thể gửi về hai kết quả trong một tuple, sau đó dùng hai biến để nhận tổng và trung bình.
-
-**Quy trình giải:**
-
-1. Truyền list `[7, 8, 9]` vào hàm.
-2. Dùng `sum()` tính tổng và chia cho số ngày để tính trung bình.
-3. Nhận hai kết quả và in ra.
+**Quy trình:**
+1. Xác định dữ liệu hợp lệ: là số và không âm.
+2. Duyệt trong hàm, tích lũy các số hợp lệ và ghi mã lỗi.
+3. Trả tuple chứa thống kê và danh sách lỗi, in kết quả.
 
 ```python
-# Mục đích: Trả thống kê đơn giản.
-def summary(values):
-    return sum(values), sum(values)/len(values)
-total,average=summary([7,8,9])
-print(total,average)
+amounts = [120,200,150,300,None,180,220,0,400,350,-20,280,310,130,260,140,None,230]
+def summarize(values):
+    accepted = []
+    bad_ids = []
+    for index, amount in enumerate(values, 1):
+        if not isinstance(amount, (int, float)) or amount < 0:
+            bad_ids.append(f"G{index:02d}")
+        else:
+            accepted.append(amount)
+    total = sum(accepted)
+    average = total / len(accepted) if accepted else None
+    return len(accepted), total, average, bad_ids
+
+count, total, average, errors = summarize(amounts)
+assert len(amounts) == 18
+print("Giao dịch:", len(amounts))
+print("Hợp lệ:", count)
+print("Tổng (nghìn đồng):", total)
+print(f"Trung bình (nghìn đồng): {average:.1f}")
+print("Cần sửa:", ", ".join(errors))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-24 8.0
+Giao dịch: 18
+Hợp lệ: 15
+Tổng (nghìn đồng): 3270
+Trung bình (nghìn đồng): 218.0
+Cần sửa: G05, G11, G17
 ```
 
-**Kết quả:** `24 8.0` — bán tổng cộng 24 món, trung bình 8 món/ngày.
+Trường có giá trị 0 vẫn là một chi phí hợp lệ và được tính vào mẫu số. `None` và âm có nguyên nhân khác nhau nhưng đều không được đưa vào tổng của bài toán này.
 
-### Tình huống 5 — Lọc yêu cầu ưu tiên
+### Tình huống 5 — Cấp 5: Xây pipeline các hàm xử lý 20 hóa đơn theo vùng
 
-**Từ vựng trong mục:** **Function** — hàm.
+**Từ vựng trong mục:** **Pipeline** — chuỗi xử lý; **Reusable function** — hàm tái sử dụng; **Lambda** — hàm ngắn.
 
-**Tình huống thực tế:** Bộ phận vận hành có bốn yêu cầu với điểm ưu tiên `[1, 5, 2, 4]`. Chỉ các yêu cầu có điểm từ 4 trở lên cần được xử lý trước.
+**Tình huống thực tế:** Bộ phận kế toán ghi **20 dòng hóa đơn**, mỗi dòng gồm mã đơn, vùng A/B/C, đơn giá **nghìn đồng/món** và số lượng. O07 chưa có giá và O15 có giá -1 không hợp lệ. Cần thiết kế chuỗi hàm nhỏ để **kiểm tra → tính tiền → tổng hợp theo vùng**, trả doanh thu từng vùng, hai mã lỗi và chứng minh số dòng đầu vào không bị mất.
 
-**Yêu cầu:** In danh sách các điểm ưu tiên đạt ngưỡng.
+**Vì sao chọn cách này?** Không dùng một hàm dài ôm mọi việc: hàm kiểm tra có thể được test riêng, hàm tính tiền chỉ chạy khi đầu vào hợp lệ; hàm `summarize` phối hợp chúng. Dùng `lambda` sắp xếp tên vùng khi in mà không đổi số liệu.
 
-**Vì sao chọn cách giải này?** `filter()` áp dụng điều kiện do `lambda` định nghĩa cho từng điểm; `list()` chuyển các kết quả được giữ lại thành danh sách.
-
-**Quy trình giải:**
-
-1. Lưu bốn điểm ưu tiên.
-2. Lọc từng điểm bằng điều kiện `x >= 4`.
-3. Chuyển kết quả lọc thành list rồi in ra.
+**Quy trình:**
+1. Định nghĩa `valid_order` kiểm tra dữ liệu có giá/số lượng hợp lệ.
+2. Tạo hàm `amount` tính doanh thu dòng và hàm `report` gom theo vùng.
+3. Xử lý 20 hóa đơn, in số hợp lệ, mã lỗi và doanh thu đúng đơn vị.
 
 ```python
-# Mục đích: Lọc yêu cầu ưu tiên.
-priorities=[1,5,2,4]
-print(list(filter(lambda x:x>=4,priorities)))
+orders = [{"id":"O01","area":"A","price":50,"qty":1},{"id":"O02","area":"B","price":60,"qty":2},{"id":"O03","area":"C","price":70,"qty":3},{"id":"O04","area":"A","price":80,"qty":4},{"id":"O05","area":"B","price":90,"qty":1},{"id":"O06","area":"C","price":50,"qty":2},{"id":"O07","area":"A","price":None,"qty":3},{"id":"O08","area":"B","price":70,"qty":4},{"id":"O09","area":"C","price":80,"qty":1},{"id":"O10","area":"A","price":90,"qty":2},{"id":"O11","area":"B","price":50,"qty":3},{"id":"O12","area":"C","price":60,"qty":4},{"id":"O13","area":"A","price":70,"qty":1},{"id":"O14","area":"B","price":80,"qty":2},{"id":"O15","area":"C","price":-1,"qty":3},{"id":"O16","area":"A","price":50,"qty":4},{"id":"O17","area":"B","price":60,"qty":1},{"id":"O18","area":"C","price":70,"qty":2},{"id":"O19","area":"A","price":80,"qty":3},{"id":"O20","area":"B","price":90,"qty":4}]
+def valid_order(order):
+    return isinstance(order["price"], (int, float)) and order["price"] >= 0 and order["qty"] > 0
+
+def amount(order):
+    return order["price"] * order["qty"]
+
+def report(items):
+    totals = {"A": 0, "B": 0, "C": 0}
+    invalid = []
+    for order in items:
+        if valid_order(order):
+            totals[order["area"]] += amount(order)
+        else:
+            invalid.append(order["id"])
+    return totals, invalid
+
+totals, invalid = report(orders)
+assert len(orders) == 20
+assert len(orders) - len(invalid) == 18
+print("Số hóa đơn:", len(orders))
+print("Hợp lệ:", len(orders) - len(invalid))
+print("Cần sửa:", ", ".join(invalid))
+for area in sorted(totals, key=lambda name: name):
+    print(f"Vùng {area} (nghìn đồng): {totals[area]}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[5, 4]
+Số hóa đơn: 20
+Hợp lệ: 18
+Cần sửa: O07, O15
+Vùng A (nghìn đồng): 1060
+Vùng B (nghìn đồng): 1220
+Vùng C (nghìn đồng): 770
 ```
 
-**Kết quả:** `[5, 4]` — chỉ hai yêu cầu đạt ngưỡng ưu tiên.
+Đây là ví dụ tích hợp: mỗi hàm làm một việc, phép biến đổi dễ kiểm thử. Giá âm và thiếu được tách riêng trước khi tổng doanh thu theo vùng.
 
 ## 6. Sai lầm thường gặp
 
