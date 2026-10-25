@@ -122,7 +122,7 @@ print(round(len(a & b) / len(a | b), 3))
 Hai hồ sơ giống nhau khoảng 33,3% theo Jaccard vì chỉ chung một trên ba kỹ năng khác nhau.
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Bạn bè trực tiếp
+### Tình huống 1 — Bạn bè trực tiếp · Cấp 1: Danh sách kề
 
 **Từ vựng trong mục:** **Graph** — đồ thị.
 
@@ -149,7 +149,34 @@ print(sorted(graph['An']))
 ['Binh', 'Lan']
 ```
 
-### Tình huống 2 — So trùng sở thích
+**Bài thực hành nâng cấp — cấp 1/5:** Trạm vận tải ghi **10 liên kết** giữa các trạm; một dòng là cạnh có đầu và cuối (mã N01, N02...). Hãy liệt kê các trạm nối trực tiếp với N01. Quy mô tăng đều từ 10 lên 20 liên kết, phép giải tiến từ danh sách kề đến đường đi nhiều bước.
+
+```python
+from collections import deque
+edges = [(f"N{i:02d}",f"N{i+1:02d}") for i in range(1,11)]
+adj, directed = {}, {}
+for source,target in edges:
+    adj.setdefault(source,set()).add(target)
+    adj.setdefault(target,set()).add(source)
+    directed.setdefault(source,set()).add(target)
+def bfs(start,end):
+    queue=deque([(start,[start])])
+    visited={start}
+    while queue:
+        node,path=queue.popleft()
+        if node==end: return path
+        for nxt in sorted(adj[node]-visited):
+            visited.add(nxt)
+            queue.append((nxt,path+[nxt]))
+    return []
+result = sorted(adj['N01'])
+print("Số cạnh:",len(edges))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số bản ghi cạnh 10; danh sách kề của đồ thị vô hướng và cạnh có hướng được lưu riêng để không nhầm ý nghĩa.
+
+### Tình huống 2 — So trùng sở thích · Cấp 2: Tính độ giống Jaccard
 
 **Từ vựng trong mục:** **Jaccard similarity** — độ tương đồng tập hợp.
 
@@ -177,7 +204,34 @@ print(len(a&b)/len(a|b))
 0.3333333333333333
 ```
 
-### Tình huống 3 — Gợi ý đối tác học
+**Bài thực hành nâng cấp — cấp 2/5:** Trạm vận tải ghi **12 liên kết** giữa các trạm; một dòng là cạnh có đầu và cuối (mã N01, N02...). Hãy tính Jaccard giữa hai bộ láng giềng N02 và N03. Quy mô tăng đều từ 10 lên 20 liên kết, phép giải tiến từ danh sách kề đến đường đi nhiều bước.
+
+```python
+from collections import deque
+edges = [(f"N{i:02d}",f"N{i+1:02d}") for i in range(1,13)]
+adj, directed = {}, {}
+for source,target in edges:
+    adj.setdefault(source,set()).add(target)
+    adj.setdefault(target,set()).add(source)
+    directed.setdefault(source,set()).add(target)
+def bfs(start,end):
+    queue=deque([(start,[start])])
+    visited={start}
+    while queue:
+        node,path=queue.popleft()
+        if node==end: return path
+        for nxt in sorted(adj[node]-visited):
+            visited.add(nxt)
+            queue.append((nxt,path+[nxt]))
+    return []
+result = len(adj['N02']&adj['N03'])/len(adj['N02']|adj['N03'])
+print("Số cạnh:",len(edges))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số bản ghi cạnh 12; danh sách kề của đồ thị vô hướng và cạnh có hướng được lưu riêng để không nhầm ý nghĩa.
+
+### Tình huống 3 — Gợi ý đối tác học · Cấp 3: Tìm trạm nhiều kết nối
 
 **Từ vựng trong mục:** **Jaccard similarity** — độ tương đồng tập hợp.
 
@@ -206,7 +260,34 @@ print(max(scores, key=scores.get))
 C
 ```
 
-### Tình huống 4 — Quan hệ có hướng
+**Bài thực hành nâng cấp — cấp 3/5:** Trạm vận tải ghi **15 liên kết** giữa các trạm; một dòng là cạnh có đầu và cuối (mã N01, N02...). Hãy đếm bậc của từng đỉnh và xếp năm đỉnh nổi bật. Quy mô tăng đều từ 10 lên 20 liên kết, phép giải tiến từ danh sách kề đến đường đi nhiều bước.
+
+```python
+from collections import deque
+edges = [(f"N{i:02d}",f"N{i+1:02d}") for i in range(1,16)]
+adj, directed = {}, {}
+for source,target in edges:
+    adj.setdefault(source,set()).add(target)
+    adj.setdefault(target,set()).add(source)
+    directed.setdefault(source,set()).add(target)
+def bfs(start,end):
+    queue=deque([(start,[start])])
+    visited={start}
+    while queue:
+        node,path=queue.popleft()
+        if node==end: return path
+        for nxt in sorted(adj[node]-visited):
+            visited.add(nxt)
+            queue.append((nxt,path+[nxt]))
+    return []
+result = sorted([(node,len(neighbors)) for node,neighbors in adj.items()],key=lambda t:(-t[1],t[0]))[:5]
+print("Số cạnh:",len(edges))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số bản ghi cạnh 15; danh sách kề của đồ thị vô hướng và cạnh có hướng được lưu riêng để không nhầm ý nghĩa.
+
+### Tình huống 4 — Quan hệ có hướng · Cấp 4: Phân biệt hướng của cạnh
 
 **Từ vựng trong mục:** **Directed edge** — cạnh có hướng.
 
@@ -233,7 +314,34 @@ print("B" in graph["A"], "A" in graph["B"])
 True False
 ```
 
-### Tình huống 5 — Tìm đường trong mạng
+**Bài thực hành nâng cấp — cấp 4/5:** Trạm vận tải ghi **18 liên kết** giữa các trạm; một dòng là cạnh có đầu và cuối (mã N01, N02...). Hãy kiểm tra A→B không tự suy ra B→A trên 18 cạnh có hướng. Quy mô tăng đều từ 10 lên 20 liên kết, phép giải tiến từ danh sách kề đến đường đi nhiều bước.
+
+```python
+from collections import deque
+edges = [(f"N{i:02d}",f"N{i+1:02d}") for i in range(1,19)]
+adj, directed = {}, {}
+for source,target in edges:
+    adj.setdefault(source,set()).add(target)
+    adj.setdefault(target,set()).add(source)
+    directed.setdefault(source,set()).add(target)
+def bfs(start,end):
+    queue=deque([(start,[start])])
+    visited={start}
+    while queue:
+        node,path=queue.popleft()
+        if node==end: return path
+        for nxt in sorted(adj[node]-visited):
+            visited.add(nxt)
+            queue.append((nxt,path+[nxt]))
+    return []
+result = {'N01_to_N02':('N02' in directed.get('N01',set())),'N02_to_N01':('N01' in directed.get('N02',set()))}
+print("Số cạnh:",len(edges))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số bản ghi cạnh 18; danh sách kề của đồ thị vô hướng và cạnh có hướng được lưu riêng để không nhầm ý nghĩa.
+
+### Tình huống 5 — Tìm đường trong mạng · Cấp 5: Tìm tuyến đường bằng BFS
 
 **Từ vựng trong mục:** **Graph** — đồ thị.
 
@@ -261,6 +369,33 @@ print(nx.shortest_path(G, "A", "C"))
 ```text
 ['A', 'B', 'C']
 ```
+
+**Bài thực hành nâng cấp — cấp 5/5:** Trạm vận tải ghi **20 liên kết** giữa các trạm; một dòng là cạnh có đầu và cuối (mã N01, N02...). Hãy dùng BFS đi từ N01 đến trạm cuối trên 20 liên kết. Quy mô tăng đều từ 10 lên 20 liên kết, phép giải tiến từ danh sách kề đến đường đi nhiều bước.
+
+```python
+from collections import deque
+edges = [(f"N{i:02d}",f"N{i+1:02d}") for i in range(1,21)]
+adj, directed = {}, {}
+for source,target in edges:
+    adj.setdefault(source,set()).add(target)
+    adj.setdefault(target,set()).add(source)
+    directed.setdefault(source,set()).add(target)
+def bfs(start,end):
+    queue=deque([(start,[start])])
+    visited={start}
+    while queue:
+        node,path=queue.popleft()
+        if node==end: return path
+        for nxt in sorted(adj[node]-visited):
+            visited.add(nxt)
+            queue.append((nxt,path+[nxt]))
+    return []
+result = {'nodes':len(adj),'edges':len(edges),'route':bfs('N01',f'N{len(edges)+1:02d}')}
+print("Số cạnh:",len(edges))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số bản ghi cạnh 20; danh sách kề của đồ thị vô hướng và cạnh có hướng được lưu riêng để không nhầm ý nghĩa.
 
 ## 6. Sai lầm thường gặp
 
