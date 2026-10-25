@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
-    "revision": "2026-10-25-scenario-clarity-10-batches-start",
+    "revision": "2026-10-25-scenario-clarity-10-batches-resume-batch02",
     "title": "Viết lại tình huống thực tế dễ hiểu và giải thích kỹ vì sao chọn cách này",
-    "phase": "READY_FOR_BATCH_01",
+    "phase": "READY_FOR_BATCH_02",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json",
@@ -1201,8 +1201,8 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Previous explicit Python goal COMPLETED 10/10 (PR #154 CI #40176164004 PASS), open PR=0, pending TaskSource=0. Owner-approved scenario prose clarity goal now active, first batch ONLY PY-01..PY-05. Rewrite **Tình huống thực tế** as simple human situation with data meaning, assumptions and clear question; explain unfamiliar terms, why method, steps in words, sampling choices/seed under **Vì sao chọn cách này?**. Keep all original code/expected stdout, 5 scenarios with datasets 10/12/15/18/20, definitions, 20 MCQs per lesson and lesson structure unchanged. Commit each chapter separately, verify 25 scenario code outputs and full curriculum/MCQ/Markdown, final-head CI PASS before merge; durable batch ledger then batch02. No duplicate heartbeat tasks, historical task replay or invented Windows verification.",
-    "review_hold": "Newly active owner-approved prose clarity goal. Start only first batch PY-01..05, no more than five at once, safe task creation only with evidence. Preserve completed explicit Python artifacts; owner-approved clarity goal governs explanations. Guide section 7."
+    "next_review": "Scenario prose clarity batch01 PY-01..05 merged PR #155 commit 49607383da70d0cdcf6449382efff5abd21ec4ca, final-head GitHub CI #40177786881 PASS. Ledger docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json 1/10 MERGED last_completed_batch=1 READY_FOR_BATCH_02. Verify fresh main/PRs/pending ACK; next ONLY batch02 PY-06..PY-10. Improve five 'Tình huống thực tế' paragraphs per chapter to describe who has what real/simulated data, units and exact requested result in simple Vietnamese; rewrite five 'Vì sao chọn cách này?' paragraphs per chapter to explain new concepts and why/when/how each operation works, pitfalls and justified choices (sample size/seed when applicable). Do not modify executable Python, expected stdout, 20 MCQs/lesson, original definitions, scenario progression or 10/12/15/18/20 data counts. Each lesson separate commit; compare all non-approved sections byte-for-byte with main, CI full code/AST/curriculum/Markdown tests, PR merge only final-head PASS, record ledger then advance batch03. No duplicate historical tasks or probes. Bridge PowerShell canary unavailable: no Windows PASS, no mutation; delivery target reports 9224 in event, verify worker identity/port ownership before any future CDP activity, do not silently rebind.",
+    "review_hold": "ACTIVE owner-approved prose clarity goal, batch01 MERGED; only batch02 PY-06..10 next. Bridge PowerShell canary unavailable and identity on CDP 9224 unverified; do not claim local Windows execution, no old Jetking task replay."
   },
   "goal_review_history": [
     {
