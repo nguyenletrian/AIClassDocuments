@@ -14,8 +14,8 @@
     18,
     20
   ],
-  "last_completed_batch": 3,
-  "status": "BATCH_04_QA_PASSED_WAIT_MERGE",
+  "last_completed_batch": 4,
+  "status": "READY_FOR_BATCH_05",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -108,14 +108,14 @@
         "PY-19",
         "PY-20"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "branch": "feat/curriculum-scenarios-batch-04-20261025",
       "pr_number": 126,
-      "merged_commit": null,
-      "ci_run": 40158917345,
+      "merged_commit": "ed508413041ee82a8cf587148423f961f5f2528d",
+      "ci_run": 40158963511,
       "windows_test": null,
       "updated_at": "2026-10-25",
-      "notes": "GitHub CI 40158917345 PASS after fixing actual Python repr spaces in PY-16 cases 2,4. 25 batch04 code examples executed and exact stdout matched with NumPy/Pandas installed; all earlier batches, curriculum structure/MCQs/syntax/ledger checks passed. PR merge pending; no Bridge Windows result.",
+      "notes": "PR #126 squash-merged ed508413041ee82a8cf587148423f961f5f2528d after final CI #40158963511 PASS; Python 3.12, NumPy and Pandas, 25 batch04 cases executed with exact stdout, prior batches 01-03 and all structure/MCQ/syntax/ledger checks PASS. Windows Bridge verification not yet evidenced. Next batch PY-21..25.",
       "lesson_commits": {
         "PY-16": "92b5d605fe11df25750f08637f7a828f9566afff",
         "PY-17": "9cb9cd6d6e14025fd974b5f32c6f85c5941fd552",
