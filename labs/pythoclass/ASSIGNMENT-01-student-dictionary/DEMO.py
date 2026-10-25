@@ -41,8 +41,8 @@ def add():
     global data
     print("""          
 *************************** THEM SINH VIEN ********************************
-- Thong tin nhap vao cach nhau bang dau ";". Vi du: FGS00008;Phan The Duy;3
-  Trong do FGS00008 la MSSV, Phan The Duy la ten, 3 la diem so.
+- Thong tin nhap vao cach nhau bang dau ";". Vi du: FGS00008;Learner 08;3
+  Trong do FGS00008 la MSSV, Learner 08 la ten, 3 la diem so.
 - Diem so phai <=0 va >=10 va la so nguyen.
 - De trong thong tin va enter de quay lai menu chinh.
 *************************** THEM SINH VIEN ********************************""")
@@ -95,8 +95,8 @@ def update():
     global data
     print("""          
 ************************** CAP NHAT THONG TIN *****************************
-- Thong tin nhap vao cach nhau bang dau ";". Vi du: FGS00008;Phan The Duy;3
-  Trong do FGS00008 la MSSV, Phan The Duy la ten, 3 la diem so
+- Thong tin nhap vao cach nhau bang dau ";". Vi du: FGS00008;Learner 08;3
+  Trong do FGS00008 la MSSV, Learner 08 la ten, 3 la diem so
 - Diem so phai <=0 va >=10 va la so nguyen.
 - De trong thong tin va enter de quay lai menu chinh.
 ************************** CAP NHAT THONG TIN *****************************""")
