@@ -1190,24 +1190,19 @@
     "enabled": true,
     "approval": "approved",
     "status": "active",
-    "goal_id": "aiclassdocuments-markdown-render-46-lessons-20261025",
-    "revision": "2026-10-25-markdown-10-batches-resume-batch10",
-    "title": "Rà và sửa lỗi hiển thị Markdown trong 46 bài, mỗi đợt tối đa 5 bài",
-    "phase": "READY_FOR_BATCH_10",
+    "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
+    "revision": "2026-10-25-explicit-python-10-batches-start",
+    "title": "Chuyển ví dụ Python sang cú pháp tường minh cho học viên mới",
+    "phase": "READY_FOR_BATCH_01",
     "chapter_index": "lessons/chapters/README.md",
-    "progress_ledger": "docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json",
+    "goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
+    "progress_ledger": "docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json",
     "workflow_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Markdown batch09 PY-41..45 merged PR #142 commit dffc7a8a257545972b9312dc6d1600bd09de1924, final-head CI #40169811497 PASS. Ledger last_completed_batch=9 READY_FOR_BATCH_10. Verify fresh main/open PRs/queue, inspect ONLY final batch10 PY-46 for visible HTML pipe entities, unescaped Markdown table delimiters and malformed tables; preserve educational content and MCQ. PR, final CI, merge and update ledger COMPLETED before closing goal. APPROVED_DEFERRED explicit Python goal must not activate before Markdown 10/10 MERGED and no old pending task/open PR. No duplicate heartbeat tasks or Jetking probes.",
-    "review_hold": "Current Markdown goal final batch10 PY-46 only. No old task replay. Deferred explicit Python code-style goal remains NOT STARTED until Markdown goal COMPLETED.",
-    "approved_deferred_goal": {
-      "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
-      "spec_path": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
-      "status": "APPROVED_DEFERRED",
-      "start_only_after": "Markdown formatting ledger COMPLETED, last_completed_batch=10, no outstanding PR/task"
-    }
+    "next_review": "Owner-approved explicit Python goal is active only after Markdown 10/10 completion. From fresh main + open PR + TaskSource check, start only batch01 PY-01..PY-05; rewrite all executable Python assert checks into readable if/raise or explicit output, comprehensions and generator expressions into explicit for/if, maintain scenarios/definitions/MCQs/output and 10/12/15/18/20 data. Commit only changed lessons, run code stdout tests and existing structure/Markdown curriculum regression plus CI, merge PR after final-head CI PASS, then durably advance ledger to batch02. Do not modify more than five chapters or replay historical Bridge tasks. Windows PASS only with actual worker result.",
+    "review_hold": "Beginner-readable Python examples, separate new goal. Preserve all previous 46-lesson content, MCQ answers and existing educational structure. Markdown goal COMPLETED and archived. No duplicate heartbeat task."
   },
   "goal_review_history": [
     {
@@ -1277,10 +1272,37 @@
         "next_review": "Owner-approved PY-01..PY-46 goal is COMPLETE: 46 lessons, 230 progressive scenarios, 920 bilingual multiple-choice questions; all ten batches MERGED. Final PR #132 merge commit 67fb35e483c35c42e2b86082af8400f1bbad5780, final-head GitHub CI 40164254257 PASS. Progress ledger docs/CURRICULUM-5-LESSON-PROGRESS.json status COMPLETED last_completed_batch=10. No further approved curriculum work or pending task; do not reopen goal, replay historical Jetking tasks, publish duplicate task or start a new ChatGPT conversation due to idle reminders. Windows Bridge verification remains unverified without a real worker result; owner can separately approve future QA goals.",
         "review_hold": "This approved goal is completed and disabled. Idle reviews and heartbeat reminders are suppressed; no more work may be activated without a new explicit owner-approved goal. Evidence: PR #132 CI 40164254257 and final progress ledger."
       }
+    },
+    {
+      "archived_on": "2026-10-25",
+      "status": "COMPLETED_REPLACED_BY_OWNER_APPROVED_EXPLICIT_PYTHON",
+      "previous": {
+        "enabled": false,
+        "approval": "approved",
+        "status": "completed",
+        "goal_id": "aiclassdocuments-markdown-render-46-lessons-20261025",
+        "revision": "2026-10-25-markdown-10-batches-resume-batch10",
+        "title": "Rà và sửa lỗi hiển thị Markdown trong 46 bài, mỗi đợt tối đa 5 bài",
+        "phase": "COMPLETED",
+        "chapter_index": "lessons/chapters/README.md",
+        "progress_ledger": "docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json",
+        "workflow_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
+        "batch_limit": 5,
+        "expected_lessons": 46,
+        "expected_batches": 10,
+        "next_review": "Markdown 46/46 completed: 10/10 batches merged, final PR #143 squash commit 0be0ad1ccf340fbdea9fd54ecc6b876da645ce8b, final CI #40170021620 PASS. Progress ledger docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json status COMPLETED. Windows verification not claimed. Owner-approved explicit Python goal unlocked after zero open PR and no TaskSource unACKed tasks.",
+        "review_hold": "COMPLETED. Do not replay historical Jetking / Markdown heartbeat tasks.",
+        "approved_deferred_goal": {
+          "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
+          "spec_path": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
+          "status": "APPROVED_DEFERRED",
+          "start_only_after": "Markdown formatting ledger COMPLETED, last_completed_batch=10, no outstanding PR/task"
+        }
+      }
     }
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "Bridge idle requests enabled for approved Markdown review. Next batch06 PY-26..PY-30; preserve completed goal and historical tasks."
+    "reason": "Owner-approved explicit Python code-readability goal active, ready batch01 PY-01..PY-05; independent durable ledger."
   }
 }
