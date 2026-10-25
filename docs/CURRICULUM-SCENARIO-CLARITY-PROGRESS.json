@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_10",
+  "status": "BATCH_10_IN_PROGRESS",
   "last_completed_batch": 9,
   "batches": [
     {
@@ -281,11 +281,18 @@
       "lessons": [
         "PY-46"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-46"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-10-20261025",
+      "lesson_commits": {
+        "PY-46": "afbb76eab38d6fcdebb82dc781ae99a38e1268ec"
+      },
+      "notes": "Final batch10 only PY-46: independent lesson commit afbb76eab38d6fcdebb82dc781ae99a38e1268ec. Rewrote exactly 5 Tình huống thực tế and 5 Vì sao chọn cách này paragraphs explaining 10/12/15/18/20 rows, train/test, baseline, imputation, PCA, recall and confusion matrix, JSON reporting, without leakage. Strict full-file byte comparison with main after masking ONLY the two approved paragraph types confirms every other byte unchanged, including 9 original Python fences, 9 documented stdout fences, 20 MCQ+answers and chapter/definition structure. CI and PR merge PENDING. CDP 9224 worker owner and Windows PowerShell canary unavailable; no Windows PASS."
     }
   ],
   "activation_evidence": {
