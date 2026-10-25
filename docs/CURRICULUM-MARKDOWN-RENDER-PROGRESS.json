@@ -3,8 +3,8 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_08_QA_PASSED_WAIT_MERGE",
-  "last_completed_batch": 7,
+  "status": "READY_FOR_BATCH_09",
+  "last_completed_batch": 8,
   "batches": [
     {
       "batch": 1,
@@ -200,13 +200,13 @@
         "PY-39",
         "PY-40"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-40"
       ],
       "pr": 141,
-      "merged_commit": null,
-      "ci_run": 40169243920,
+      "merged_commit": "c3e6d37f7182b3746e6d45279361febb100b203b",
+      "ci_run": 40169356820,
       "branch": "fix/markdown-render-batch-08-20261025",
       "reviewed_lessons": [
         "PY-36",
@@ -223,7 +223,7 @@
         "html_entities_fixed": 1,
         "table_arity_issues": 0
       },
-      "notes": "PR #141 initial CI 40169243920 PASS: PY-40 one literal &#124; corrected to conditional pipe in p-value explanation; PY-36..39 unchanged. Rendering regression and all existing curriculum tests PASS, final PR head CI/merge pending. Deferred explicit Python simplification remains inactive."
+      "notes": "PR #141 merged c3e6d37f7182b3746e6d45279361febb100b203b, final-head CI 40169356820 PASS. Only PY-40 line 525 fixed: literal &#124; shown in P(H₀|dữ liệu) conditional expression; PY-36..39 unchanged. All formatting and curriculum tests passed. Next PY-41..45. Deferred explicit-Python goal not yet activated."
     },
     {
       "batch": 9,
