@@ -46,11 +46,11 @@ class Batch09Scenarios(unittest.TestCase):
                         r"^\x60\x60\x60text\n(.*?)^\x60\x60\x60$",
                         case, flags=re.MULTILINE | re.DOTALL,
                     )
-                    self.assertEqual(len(code), 1)
+                    self.assertEqual(len(code), 2, 'No Note and annotated Python copy required')
                     self.assertEqual(len(output), 1)
                     with tempfile.TemporaryDirectory() as cwd:
                         result = subprocess.run(
-                            [sys.executable, "-I", "-B", "-c", code[0]],
+                            [sys.executable, "-I", "-B", "-c", code[1]],
                             cwd=cwd, text=True, capture_output=True,
                             encoding="utf-8", timeout=40,
                         )
