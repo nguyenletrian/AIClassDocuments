@@ -26,9 +26,9 @@
 
 | Hàm / cú pháp | Vì sao dùng |
 |---|---|
-| `a | b, a & b` | Hợp và giao các tập hợp |
+| `a \| b, a & b` | Hợp và giao các tập hợp |
 | `a - b, a ^ b` | Hiệu và hiệu đối xứng |
-| `len(a | b)` | Đếm phần tử khác nhau |
+| `len(a \| b)` | Đếm phần tử khác nhau |
 | `a.isdisjoint(b)` | Kiểm tra hai nhóm có trùng phần tử không |
 
 ## 4. Khái niệm liên quan
@@ -392,7 +392,7 @@ D. `a.isdisjoint(b)` | `a.isdisjoint(b)`
 
 **Đáp án: A**
 
-**Giải thích:** Dấu `&#124;` biểu diễn phép hợp tập hợp.
+**Giải thích:** Dấu `|` biểu diễn phép hợp tập hợp.
 
 
 **Q6. Which operator computes intersection? | Toán tử nào tính phép giao?**
