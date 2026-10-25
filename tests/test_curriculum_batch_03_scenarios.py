@@ -45,11 +45,11 @@ class ThirdBatchExamples(unittest.TestCase):
                         r"^\x60\x60\x60text\n(.*?)^\x60\x60\x60$",
                         case, flags=re.MULTILINE | re.DOTALL,
                     )
-                    self.assertEqual(len(code_blocks), 1)
+                    self.assertEqual(len(code_blocks), 2, 'No Note and annotated block required')
                     self.assertEqual(len(outputs), 1)
                     with tempfile.TemporaryDirectory() as cwd:
                         completed = subprocess.run(
-                            [sys.executable, "-I", "-B", "-c", code_blocks[0]],
+                            [sys.executable, "-I", "-B", "-c", code_blocks[1]],
                             cwd=cwd, capture_output=True, text=True,
                             encoding="utf-8", timeout=15,
                         )

@@ -42,6 +42,17 @@ Trong bảng điểm NumPy, **hàng là học viên**, **cột là môn học**,
 
 Mảng hai chiều giống một bảng có hàng và cột. Giả sử `scores` có **hai hàng học viên** An, Bình và **hai cột môn** Toán, Python, lần lượt là `[[8,9],[6,7]]`. **Chỉ số bắt đầu từ 0**; `scores[1,0]` lấy hàng thứ hai (Bình), cột đầu (Toán), cho điểm 6. Dấu phẩy trong `[row, col]` phân biệt vị trí hàng và cột.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+scores = np.array([[8, 9], [6, 7]])
+print(scores[1, 0])
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Đọc điểm ở hàng thứ hai, cột thứ nhất của mảng hai chiều.
 # Dữ liệu: 2 hàng học viên, 2 cột điểm theo hai môn; chỉ số NumPy đếm từ 0.
@@ -68,6 +79,17 @@ Chỉ số hàng 1 và cột 0 lấy điểm Toán của học viên thứ hai, 
 
 **Slicing** chọn một đoạn theo chỉ số, cú pháp `[start:stop]` lấy từ start **đến trước stop**. Với điểm `[5,6,7,8]`, `scores[1:3]` lấy vị trí 1 và 2, nghĩa là hai điểm 6, 7. Trên bảng hai chiều, `scores[:,0]` lấy tất cả hàng nhưng chỉ cột đầu; dấu `:` đứng riêng nghĩa là lấy toàn bộ chiều đó. Lát cắt NumPy cơ bản có thể là **view** dùng chung bộ nhớ với mảng gốc.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+scores = np.array([5, 6, 7, 8])
+print(scores[1:3])
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Cắt lấy hai phần tử liên tiếp bằng chỉ số bắt đầu/kết thúc.
 # Dữ liệu: Một vector 4 số 5,6,7,8; [1:3] lấy các chỉ số 1,2.
@@ -93,6 +115,18 @@ Giá trị 8 ở vị trí 3 không được lấy vì điểm stop bị loại 
 **Từ vựng trong mục:** **Boolean mask** — mặt nạ logic; **Condition** — điều kiện.
 
 Nếu các điểm là `[4,7,9]` và yêu cầu giữ điểm từ 7 trở lên, phép `scores >= 7` tạo mặt nạ `[False, True, True]`. Dùng `scores[mask]` chỉ lấy phần tử ứng với `True`. Với bảng hai chiều, `X[X[:,0] >= 8]` giữ **các hàng có điểm ở cột đầu đạt 8**, chứ không chỉ lấy các ô điểm cao.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+scores = np.array([4, 7, 9])
+mask = scores >= 7
+print(scores[mask])
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tạo mask Boolean chọn tất cả điểm từ 7 trở lên.
@@ -121,6 +155,17 @@ Hai giá trị 7 và 9 vượt hoặc bằng ngưỡng, còn 4 bị loại.
 **Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao; **Index array** — mảng chỉ số.
 
 Khác với **Slice** lấy đoạn liên tiếp, **Fancy indexing** cho phép chỉ định nhiều vị trí không liền nhau. Với `[3,5,7]`, `scores[[0,2]]` lấy phần tử đầu và cuối, bỏ phần tử giữa. Trên bảng hai chiều, `X[:, [0,2]]` lấy cột thứ nhất và thứ ba. Fancy indexing bằng mảng chỉ số thường tạo **bản sao** thay vì view của dữ liệu gốc.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+scores = np.array([3, 5, 7])
+print(scores[[0, 2]])
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Chọn hai chỉ số không liền nhau bằng fancy indexing.
@@ -156,6 +201,19 @@ Chương trình lấy vị trí 0 và 2 mà không phải lấy cả đoạn 0�
 1. Tạo mảng `(10,2)` đúng thứ tự mã người và môn.
 2. Dùng một cặp chỉ số hàng–cột để lấy H04/Python.
 3. In hình dạng dữ liệu và giá trị đã chọn.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+scores = np.array([[8,9],[7,8],[6,7],[9,9],[10,7],[7,6],[8,8],[5,7],[9,10],[8,6]])
+if scores.shape != (10, 2):
+    raise ValueError("Bảng cần đúng 10 học viên, 2 môn.")
+print("Học viên:", scores.shape[0])
+print("Python của H04:", int(scores[3, 1]))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Đọc điểm Python của H04 trong bảng 10 học viên × 2 môn.
@@ -196,6 +254,21 @@ Giá trị `scores[3,1]` là 9 điểm trên thang 10; đây là một ô, khôn
 1. Tạo mảng `(12,3)`, mỗi hàng là một ngày.
 2. Lấy cột thực phẩm của ngày 1–4 bằng `data[:4, 0]`.
 3. Cộng lát cắt và lấy ô đồ dùng ngày cuối.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+sales = np.array([[100,50,25],[110,55,27],[120,60,29],[130,65,31],[140,70,33],[150,75,35],[160,80,37],[170,85,39],[180,90,41],[190,95,43],[200,100,45],[210,105,47]], dtype=int)
+first_four_food = sales[:4, 0]
+if sales.shape != (12, 3) or first_four_food.shape != (4,):
+    raise ValueError("Cần đủ 12 ngày và 4 doanh thu thực phẩm đầu.")
+print("Ngày:", sales.shape[0])
+print("Thực phẩm 4 ngày (nghìn đồng):", int(first_four_food.sum()))
+print("Đồ dùng ngày 12:", int(sales[-1, 2]))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Cắt doanh thu thực phẩm bốn ngày đầu và đồ dùng ngày 12.
@@ -240,6 +313,29 @@ Vị trí cuối của lát cắt là **giới hạn không bao gồm**, nên `[
 1. Tạo bảng `(15,3)`, xác định cột Toán 0 và Python 2.
 2. Tạo mặt nạ `(X[:,0]>=8) & (X[:,2]>=8)`.
 3. Dùng `np.flatnonzero` lấy chỉ số hàng và tạo mã học viên.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+scores = np.array([[5,7,4],[6,9,5],[7,7,6],[8,9,7],[9,7,8],[10,9,9],[5,7,10],[6,9,4],[7,7,5],[8,9,6],[9,7,7],[10,9,8],[5,7,9],[6,9,10],[7,7,4]], dtype=int)
+mask = (scores[:, 0] >= 8) & (scores[:, 2] >= 8)
+selected = np.flatnonzero(mask)
+ids = []
+for i in selected:
+    ids.append(f"H{i+1:02d}")
+if scores.shape != (15, 3):
+    raise ValueError("Bảng cần đúng 15 học viên và 3 điểm.")
+print("Học viên:", scores.shape[0])
+print("Đủ điều kiện:", len(ids))
+if ids:
+    labels = ", ".join(ids)
+else:
+    labels = "Không có"
+print("Mã:", labels)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lọc 15 học viên đạt đồng thời ngưỡng điểm môn 1 và môn 3.
@@ -298,6 +394,26 @@ Mặt nạ đánh dấu từng **hàng học viên**, không xóa cột khác v�
 2. Chọn các vị trí 17, 4, 11, 4 bằng fancy indexing.
 3. Tính tổng tiền bốn dòng truy vấn, sửa một ô trong bản chọn rồi đối chiếu mảng gốc.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+orders = np.array([[100,1,0],[120,2,1],[140,3,2],[160,4,0],[180,5,1],[200,1,2],[220,2,0],[240,3,1],[260,4,2],[280,5,0],[300,1,1],[320,2,2],[340,3,0],[360,4,1],[380,5,2],[400,1,0],[420,2,1],[440,3,2]], dtype=int)
+indices = [17, 4, 11, 4]
+selected = orders[indices]
+query_total = int((selected[:, 0] * selected[:, 1]).sum())
+original_price = int(orders[17, 0])
+selected[0, 0] = 0
+if orders.shape != (18, 3) or selected.shape != (4, 3):
+    raise ValueError("Bảng gốc phải có 18 đơn và truy vấn có 4 dòng.")
+print("Đơn nguồn:", orders.shape[0])
+print("Dòng truy vấn:", selected.shape[0])
+print("Tổng dòng truy vấn (nghìn đồng):", query_total)
+print("Giá O18 trong nguồn:", int(orders[17, 0]))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Chọn các dòng hóa đơn rời rạc, bao gồm dòng trùng, mà không sửa mảng gốc.
 # Dữ liệu: 18 đơn, cột 0 giá (nghìn đồng), cột 1 số món, cột 2 mã loại; chỉ số [17,4,11,4] truy vấn O18, O05, O12, O05.
@@ -354,6 +470,45 @@ Sửa bản chọn không đổi mảng gốc, vì fancy indexing tạo copy. Ha
 1. Tạo mảng `(20,2)` kiểu float, chuyển nhiệt độ thiếu sang NaN.
 2. Lọc theo ba điều kiện hợp lệ, nhiệt độ và độ ẩm.
 3. Lấy mã từ chỉ số hàng, thay thử một giá trị trên mảng được chọn và xác nhận nguồn không đổi.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+raw_temp = [24,25,26,27,28,None,30,31,24,25,26,27,28,29,None,31,24,25,26,27]
+humidity = [50,51,52,53,54,55,56,57,58,59,50,51,52,53,54,55,56,57,58,59]
+rows = []
+for temp, h in zip(raw_temp, humidity):
+    if temp is None:
+        clean_temp = np.nan
+    else:
+        clean_temp = temp
+    rows.append([clean_temp, h])
+data = np.array(rows, dtype=float)
+mask = np.isfinite(data[:, 0]) & (data[:, 0] >= 28) & (data[:, 1] >= 55)
+selected = data[mask]
+selected_ids = []
+for i in np.flatnonzero(mask):
+    selected_ids.append(f"S{i+1:02d}")
+if len(selected):
+    selected[0, 0] = 0
+if data.shape != (20, 2):
+    raise ValueError("Cần 20 cảm biến với hai trường đo.")
+if int(np.isnan(data[:, 0]).sum()) != 2:
+    raise ValueError("Phải ghi nhận đúng hai nhiệt độ bị thiếu.")
+if np.any(data[mask, 0] == 0):
+    raise ValueError("Truy vấn không được thay đổi dữ liệu cảm biến gốc.")
+print("Cảm biến:", data.shape[0])
+print("Thiếu nhiệt độ:", int(np.isnan(data[:, 0]).sum()))
+print("Cần kiểm tra:", len(selected_ids))
+if selected_ids:
+    labels = ", ".join(selected_ids)
+else:
+    labels = "Không có"
+print("Mã:", labels)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lọc 20 cảm biến theo nhiệt độ và độ ẩm, kiểm bản sao không sửa nguồn.
