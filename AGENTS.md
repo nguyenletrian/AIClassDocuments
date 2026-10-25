@@ -1,5 +1,15 @@
 # AIClassDocuments — Hướng dẫn agent (PythoClass-first)
 
+## Chỉ đạo owner 2026-10-25 — GOAL MỚI: CHÚ THÍCH CODE ĐẦY ĐỦ 46 BÀI
+
+**Sau khi đã xuất bộ 920 MCQ PDF** và hoàn thành goal diễn giải tình huống 10/10, chủ dự án duyệt goal `aiclassdocuments-full-code-annotations-20261025` để bổ sung các dòng `#` giải thích code trên **toàn bộ PY-01–PY-46**. Trước mỗi đợt phải đọc `docs/CURRICULUM-CODE-ANNOTATION-GOAL.json`, `docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json` và mục **Quy tắc mới — owner 2026-10-25** của `docs/CURRICULUM-STYLE-GUIDE.md`.
+
+- Mỗi khối Python cần `# Mục đích:` chính xác và các giải thích trực tiếp cạnh **mọi API, thuộc tính, tham số hoặc phép xử lý không hiển nhiên**. Không chỉ ghi một câu mục đích rồi để lại chuỗi code khó đọc. Ví dụ cần giải nghĩa riêng `matplotlib.use('Agg')` (không cần GUI, chọn trước `pyplot`), `plt.gca()` (Axes hiện tại), `.lines[0]` (đường đầu tiên), `.get_xdata()` (dãy tọa độ x), `len()` (số mốc) và `plt.close()` (đóng hình/giải phóng bộ nhớ).
+- **Chỉ sửa comment Python, giữ nguyên AST chạy thật, stdout, toàn bộ 920 MCQ, giải thích tình huống và dữ liệu**. Kiểm AST tương đương từng code fence, test script/stdout, kiểm Markdown; không điền chú thích sai hoặc dài dòng vô ích.
+- 10 batch tuần tự, mỗi batch tối đa 5 bài; commit mỗi bài, PR/CI cuối PASS rồi merge và cập nhật ledger. Không tự nhận Windows PASS; CDP `9224` chưa xác minh danh tính; không khởi động lại Jetking, replay task cũ hoặc gửi nhắc trùng.
+- Sau batch 10/10 mới đánh dấu `COMPLETED` và vô hiệu goal review; không tự kích hoạt goal tiếp theo khi chưa được duyệt.
+
+
 ## Chỉ đạo mới — owner 2026-10-25 — BẮT BUỘC CHO VIỆC NÂNG CẤP 46 BÀI
 
 **Thay thế mọi cách làm hàng loạt cũ:** Nâng cấp mục 5 của PY-01…PY-46 thành **5 tình huống khó tăng dần** (cấp 1–5 với khoảng **10, 12, 15, 18, 20 quan sát**); cập nhật **tối đa 5 bài liên tiếp mỗi đợt**, test/commit/PR/merge xong và ghi sổ rồi mới làm đợt kế. Đợt cuối PY-46 chỉ 1 bài. **Không sửa cả 46 bài trong một đợt** và không chỉ tăng dòng dữ liệu mà giữ nguyên độ khó.
