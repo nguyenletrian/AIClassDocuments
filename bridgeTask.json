@@ -1187,22 +1187,31 @@
     "reason": "Owner-approved shared AIBrigde ChatGPT Conversation Reliability task. Load merged AIBrigde main PR #26 fae2617706314b2a600f9e0044827b4cddcb1f68 before running pending v2 browser:conversation_structure_probe with payload.detail_level=contexts. Managed restart barrier is processed first, before task dispatch. Preserve Edge session, current ChatGPT conversation, 17 completed task ACKs and Jetking goal_review.enabled=false. Read-only context counts only; do not replay the older v1 task or create/move ChatGPT conversation. A stale v1 result instead of v2 is NOT acceptable; report runtime freshness mismatch."
   },
   "goal_review": {
-    "enabled": false,
+    "enabled": true,
     "approval": "approved",
-    "status": "completed",
-    "goal_id": "aiclassdocuments-full-code-annotations-20261025",
-    "revision": "2026-10-25-full-code-annotations-46-lessons-completed",
-    "title": "Chú thích đầy đủ code Python, giải thích mọi API/phương thức khó hiểu trong 46 bài",
-    "phase": "COMPLETED",
+    "status": "active",
+    "goal_id": "aiclassdocuments-no-note-comparison-copies-20261025",
+    "revision": "2026-10-25-no-note-46-lessons-batch01",
+    "title": "Thêm bản No Note ngay trước bản code có chú thích trong 46 bài",
+    "phase": "READY_FOR_BATCH_01",
     "chapter_index": "lessons/chapters/README.md",
-    "goal_spec": "docs/CURRICULUM-CODE-ANNOTATION-GOAL.json",
-    "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
+    "goal_spec": "docs/CURRICULUM-NO-NOTE-GOAL.json",
+    "progress_ledger": "docs/CURRICULUM-NO-NOTE-PROGRESS.json",
     "workflow_guide": "docs/CURRICULUM-STYLE-GUIDE.md",
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "COMPLETED all 46 lessons and 10/10 code-annotation batches. PY-46 final Batch10 merged PR #174 (1ac083b1b14e4076df0128d211204c1fa9210f69), PR HEAD b5696cb0b48c073650f8c1452f1fc86383338adc; GitHub CI #40199916125 SUCCESS. Code comment-only checks and ledger completed; Windows/PowerShell verification and CDP 9224 identity UNVERIFIED. No work or new goal to activate without independently verified owner approval.",
-    "review_hold": "Goal complete and archived. Do not schedule duplicate work, replay Jetking tasks, create new ChatGPT conversation or idle reminders. Future approved work must be handled as a separate goal."
+    "next_review": "OWNER APPROVED NEW goal aiclassdocuments-no-note-comparison-copies-20261025, Batch01 ONLY PY-01..PY-05. Predecessor annotation goal is COMPLETED 10/10, PR174 merge 1ac083b1b14e4076df0128d211204c1fa9210f69, final-head CI40199916125 SUCCESS. Read authoritative current main TaskSource/ACK, docs/CURRICULUM-NO-NOTE-GOAL.json, docs/CURRICULUM-NO-NOTE-PROGRESS.json, AGENTS.md, docs/CURRICULUM-STYLE-GUIDE.md, lessons and TESTS. Insert exactly one **No Note — Không chú thích** code fence immediately BEFORE EACH original executable/instructional code fence (Python AND Bash/Git CLI and other code languages), then original **Code có chú thích — Giải thích từng bước** code fence preserved byte-for-byte. Strip comments safely in No Note using Python tokenizer/AST; do not remove # inside quoted strings, regex, or Git/shell commands, do not alter executable code/argv/imports/data/stdout. Preserve EVERY annotated code fence exactly, all outside-pair material, 920 bilingual MCQs, 5 scenarios per lesson and stdout text fences unchanged. Exclude text output, diagrams, figures. IMPORTANT existing tests/test_curriculum_batch_01..10_scenarios.py each expects ONE code fence per scenario: carefully update tests/helper in Batch01 PR so exactly TWO related fences are asserted and canonical annotated code executes ONCE against original expected stdout; keep all old assertions, run clean-code AST/behavior validation, do not disable/skip test. PY-43 contains five Python blocks plus Bash examples; later batches must include shell. Only 5 lessons and one commit/lesson (plus focused tests if needed), one PR, GitHub all-46 CI SUCCESS at exact final PR HEAD, merge, then record SHA/run/counts ledger and rearm ONLY Batch02. Do not create 46 simultaneous tasks, duplicate this idle heartbeat, or publish unsupported Bridge action. Windows/PowerShell and CDP 9224 ownership UNVERIFIED.",
+    "review_hold": "Only approved successor No Note Batch01 PY-01..PY-05. Old code-comment goal is closed 10/10; new goal documents and ledger committed; at activation zero open PR and zero unresolved TaskSource ACK. 15s heartbeat informational, not multiple approvals; no runtime Windows/CDP proof.",
+    "active_batch": 1,
+    "active_lessons": [
+      "PY-01",
+      "PY-02",
+      "PY-03",
+      "PY-04",
+      "PY-05"
+    ],
+    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_5; predecessor full-code-annotations COMPLETED 46/46; all successor ledger batches pending; no next-batch activation until merged final-head CI SUCCESS + durable ledger."
   },
   "goal_review_history": [
     {
@@ -1332,6 +1341,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": true,
-    "reason": "Code-annotation goal 10/10 completed, PR174 merged and CI success. No current active review."
+    "reason": "Successor No Note code-view goal explicitly owner-approved after annotation 46/46; active Batch01 PY-01..PY-05 only. Do not create overlapping batches or duplicate old work."
   }
 }
