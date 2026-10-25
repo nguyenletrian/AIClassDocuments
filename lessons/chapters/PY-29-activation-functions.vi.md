@@ -41,6 +41,17 @@
 
 **Activation function (hàm kích hoạt)** biến đổi đầu ra của một nơ-ron trước khi chuyển sang bước kế tiếp. **ReLU** tính `max(0,x)`: đầu vào âm được chuyển về 0, đầu vào dương được giữ. Ví dụ các tín hiệu `[-2,0,3]` thành `[0,0,3]`. Đây là hàm gấp khúc tại 0, giúp mạng có quan hệ phi tuyến; song nơ-ron có thể ngừng cập nhật nếu liên tục nhận vùng âm.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+signals = np.array([-2, 0, 3])
+print(np.maximum(0, signals).tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Áp dụng ReLU để giữ tín hiệu không âm và thay mọi tín hiệu âm bằng 0.
 # Dữ liệu: Vector ba tín hiệu đầu vào -2, 0, 3, mỗi ô là một nơ-ron giả lập.
@@ -67,6 +78,18 @@ ReLU không giữ phần âm; đầu vào dương bằng 3 đi qua không đổi
 **Từ vựng trong mục:** **Sigmoid** — hàm chữ S; **Logit** — điểm thô.
 
 **Sigmoid** là `1/(1+exp(-x))`, đổi một **logit** (điểm thô có thể âm hoặc dương) thành số trong khoảng **(0,1)**. Ở x=0 đầu ra đúng 0.5; x âm dưới 0.5 và x dương trên 0.5. Trong phân loại nhị phân, thường dùng sigmoid cho lớp dương, nhưng bản thân giá trị đầu ra **không bảo đảm là xác suất đã hiệu chuẩn**. Khi x quá lớn về độ lớn, cần triển khai số học ổn định hơn công thức trực tiếp.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+x = np.array([-1.0, 0.0, 1.0])
+scores = 1 / (1 + np.exp(-x))
+print(np.round(scores, 3).tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng Sigmoid biến ba logit âm, không, dương thành giá trị nằm giữa 0 và 1.
@@ -98,6 +121,17 @@ print(np.round(scores, 3).tolist())
 
 **Tanh** cũng cong chữ S nhưng đầu ra nằm trong **(−1,1)** thay vì (0,1). Đầu vào âm cho đầu ra âm, đầu vào 0 cho 0, đầu vào dương cho dương. Vì cân quanh 0, tanh có thể thích hợp khi cần giữ dấu tín hiệu. Với x=−1,0,1 kết quả khoảng −0.762, 0, 0.762. Khi |x| rất lớn, tanh bão hòa gần ±1 nên độ dốc nhỏ.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+x = np.array([-1.0, 0.0, 1.0])
+print(np.round(np.tanh(x), 3).tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Áp tanh để nén tín hiệu về khoảng -1 đến 1 và giữ dấu.
 # Dữ liệu: Ba đầu vào -1,0,1, điểm dương/âm vẫn được phân biệt.
@@ -125,6 +159,19 @@ Hàm giữ dấu âm/dương và bằng 0 tại đầu vào 0.
 **Từ vựng trong mục:** **Softmax** — chuẩn hóa điểm nhiều lớp; **Class logit** — điểm thô theo lớp.
 
 Khi mô hình phân loại **một nhãn trong ba lớp loại trừ nhau**, nó có ba logit (điểm thô) `z=[2,1,0.1]`. Softmax dùng `exp(z_i)/sum(exp(z_j))` để mỗi lớp nhận giá trị trong (0,1) và **tổng các lớp bằng 1**. Trừ `max(z)` trước khi tính exp giúp giảm nguy cơ tràn số mà không đổi kết quả. Khác sigmoid áp riêng từng giá trị, softmax ràng buộc các lớp cạnh tranh nhau.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+z = np.array([2.0, 1.0, 0.1])
+e = np.exp(z - z.max())
+p = e / e.sum()
+print(np.round(p, 3).tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng Softmax chuyển ba điểm lớp thô thành tỷ lệ dương tổng bằng 1.
@@ -166,6 +213,22 @@ Lớp đầu có điểm chuẩn hóa cao nhất; tổng ba điểm trước là
 1. Lưu 10 giá trị gồm âm, 0 và dương.
 2. Áp ReLU cho toàn bộ mảng.
 3. Đếm phần tử có đầu ra bằng 0, đối chiếu đầu ra đầu/cuối.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+signals = np.array([-5,-3,-1,0,1,2,4,-2,3,5], dtype=float)
+activated = np.maximum(0, signals)
+if activated.shape != (10,) or signals.shape != (10,):
+    raise ValueError("Cần đúng 10 tín hiệu và 10 giá trị ReLU.")
+print("Nơ-ron:", len(activated))
+print("Đầu ra bằng 0:", int((activated == 0).sum()))
+print("Đầu ra dương:", int((activated > 0).sum()))
+print("Mẫu đầu/cuối:", int(activated[0]), int(activated[-1]))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Kiểm đầu ra ReLU trên 10 tín hiệu và đếm số bị chặn ở 0.
@@ -213,6 +276,22 @@ Mẫu đầu/cuối: 0 5
 1. Tạo 12 điểm thô gồm số âm và dương.
 2. Tính vector sigmoid và đối chiếu đầu ra của logit 0.
 3. Đếm số điểm đạt ngưỡng 0,5, xác nhận tất cả đầu ra nằm trong (0,1).
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+logits = np.array([-3,-2,-1.5,-1,0,0.2,0.8,1,2,3,4,-0.5], dtype=float)
+probabilities = 1 / (1 + np.exp(-logits))
+if logits.size != 12 or not np.all((probabilities > 0) & (probabilities < 1)):
+    raise ValueError("Cần 12 mẫu Sigmoid, mỗi xác suất phải nằm giữa 0 và 1.")
+print("Mẫu:", len(logits))
+print("Từ 0.5:", int((probabilities >= 0.5).sum()))
+print("Logit 0:", f"{probabilities[logits == 0][0]:.3f}")
+print("Logit -3:", f"{probabilities[0]:.3f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Đánh giá Sigmoid trên 12 logit và dùng ngưỡng 0.5 để đếm nhãn dương.
@@ -262,6 +341,22 @@ Ngưỡng 0,5 là lựa chọn minh họa; dùng ngưỡng thật cần xét chi
 2. Dùng `np.tanh` và kiểm dấu bằng so sánh.
 3. Đếm các trường hợp đầu ra có độ lớn trên 0,99.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+signals = np.array([-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7], dtype=float)
+activated = np.tanh(signals)
+if signals.size != 15:
+    raise ValueError("Cần đủ 15 tín hiệu Tanh.")
+print("Tín hiệu:", len(signals))
+print("Tanh(0):", f"{activated[signals == 0][0]:.3f}")
+print("Bão hòa |y| > 0.99:", int((np.abs(activated) > 0.99).sum()))
+print("Giữ dấu:", bool(np.all(np.sign(activated) == np.sign(signals))))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Kiểm Tanh trên 15 tín hiệu, số tín hiệu bão hòa và khả năng giữ dấu.
 # Dữ liệu: 15 logit -7..7, điểm không bằng 0 có dấu âm hoặc dương.
@@ -308,6 +403,28 @@ Không được coi đầu ra gần ±1 là tín hiệu ban đầu cũng chỉ c
 1. Tạo mảng 18×3 có một hàng logit rất lớn.
 2. Trừ max theo `axis=1`, lấy mũ rồi chia tổng hàng.
 3. Kiểm tra tổng xác suất từng hàng, đếm nhãn dự đoán A/B/C.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+logits = np.array([[3,1,0],[0,3,1],[1,0,3],[1000,999,998],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3]], dtype=float)
+shifted = logits - logits.max(axis=1, keepdims=True)
+exp_values = np.exp(shifted)
+probs = exp_values / exp_values.sum(axis=1, keepdims=True)
+predictions = probs.argmax(axis=1)
+if logits.shape != (18, 3) or probs.shape != (18, 3):
+    raise ValueError("Cần đủ 18 mẫu, mỗi mẫu có 3 lớp.")
+print("Mẫu:", len(logits))
+print("Tổng hàng đều là 1:", bool(np.allclose(probs.sum(axis=1), 1)))
+counts = []
+for k in range(3):
+    counts.append(int((predictions == k).sum()))
+print("Nhãn A/B/C:", *counts)
+print("Mẫu logit lớn hữu hạn:", bool(np.isfinite(probs[3]).all()))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính Softmax ổn định cho 18 dòng ba lớp và thống kê lớp dự đoán.
@@ -367,6 +484,27 @@ Softmax xử lý **ba lớp cạnh tranh trong mỗi mẫu**, không dùng một
 1. Tạo 20 hàng hai tín hiệu cùng 20 nhãn được định nghĩa rõ.
 2. Áp ReLU, tính logit tổng và sigmoid, chuyển điểm thành nhãn theo ngưỡng 0,5.
 3. Đếm số dự đoán đúng/sai và kiểm tổng bằng 20.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+X = np.array([[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-2,2],[-1,2],[0,2],[1,2],[2,2]], dtype=float)
+labels = np.array([0,0,0,0,1,0,0,0,1,1,0,0,1,1,1,0,1,1,1,1], dtype=int)
+hidden = np.maximum(0, X)
+logits = hidden.sum(axis=1) - 1
+scores = 1 / (1 + np.exp(-logits))
+predicted = (scores >= 0.5).astype(int)
+correct = int((predicted == labels).sum())
+if X.shape != (20, 2) or labels.shape != (20,) or predicted.shape != (20,):
+    raise ValueError("Cần đủ 20 mẫu, hai đặc trưng và 20 nhãn đối chiếu.")
+print("Mẫu:", len(labels))
+print("Dự đoán đúng:", correct)
+print("Dự đoán sai:", len(labels) - correct)
+print("Có nhãn dương:", int(labels.sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng ReLU hai đặc trưng, tổng tín hiệu và Sigmoid để dự đoán 20 nhãn 0/1.
