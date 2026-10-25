@@ -126,6 +126,12 @@ with tempfile.TemporaryDirectory() as temp:
     print("Đúng repository tạm:", (root / ".git").exists())
 ```
 
+**Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
+
+```bash
+git status --short
+```
+
 **Kết quả khi chạy:**
 
 ```text
@@ -172,6 +178,12 @@ with tempfile.TemporaryDirectory() as temp:
     print("Đã stage:", len(staged))
     print("Chưa stage:", len(others))
     print("module06 chưa stage:", "module06.py" in others)
+```
+
+**Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
+
+```bash
+git add -- module01.py module02.py module03.py module04.py module05.py
 ```
 
 **Kết quả khi chạy:**
@@ -232,6 +244,12 @@ with tempfile.TemporaryDirectory() as temp:
     print("Feature:", feature_version)
 ```
 
+**Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
+
+```bash
+git switch -c feature
+```
+
 **Kết quả khi chạy:**
 
 ```text
@@ -283,6 +301,12 @@ with tempfile.TemporaryDirectory() as temp:
     print("Script:", len(tracked))
     print("Commit:", git(root, "rev-list", "--count", "HEAD"))
     print("Lịch sử gần nhất:", ", ".join(messages))
+```
+
+**Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
+
+```bash
+git log -3 --format=%s
 ```
 
 **Kết quả khi chạy:**
@@ -344,6 +368,12 @@ with tempfile.TemporaryDirectory() as temp:
     print("Sửa feature giữ lại:", (root / "tool01.py").read_text().strip() == "VERSION = 2")
     print("Sửa main giữ lại:", (root / "tool20.py").read_text().strip() == "VERSION = 3")
     print("Working tree sạch:", git(root, "status", "--porcelain") == "")
+```
+
+**Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
+
+```bash
+git merge --no-ff feature
 ```
 
 **Kết quả khi chạy:**
