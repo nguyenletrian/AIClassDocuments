@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "BATCH_05_IN_PROGRESS",
-  "last_completed_batch": 4,
+  "status": "READY_FOR_BATCH_06",
+  "last_completed_batch": 5,
   "batches": [
     {
       "batch": 1,
@@ -136,7 +136,7 @@
         "PY-24",
         "PY-25"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-21",
         "PY-22",
@@ -144,9 +144,9 @@
         "PY-24",
         "PY-25"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 149,
+      "merged_commit": "8e8a8b4e3ee5fe9d357da9be23290aa53477519c",
+      "ci_run": 40174201937,
       "branch": "feat/explicit-python-batch-05-20261025",
       "lesson_commits": {
         "PY-21": "38b360495db287249ae83a26f46f11c07f07a550",
@@ -156,7 +156,7 @@
         "PY-24": "9a7bbe347617b1c311adb97fb58525af02177bef",
         "PY-25": "b2bf887b9dfa1d3847e67bac61ace3b808414b56"
       },
-      "notes": "PY-21..25 separately committed including PY-22 conceptual listcomp to explicit loop. 9 Python code blocks and corresponding stdout outputs per lesson retained. Assertions, list/set/dict comprehensions, generators and ternaries replaced with beginner-readable if/for; NumPy vectorized and itertools combinations/permutations retained because pedagogical core. Full AST, 25 scenario stdout, curriculum MCQ and Markdown GitHub CI pending; do not mark MERGED or Windows PASS yet."
+      "notes": "Batch05 PY-21..25 individual lesson commits; PR #149 final-head 817264b74aa8d2644f7ec7f86d8e29d22d0f004a GitHub CI run 40174201937 completed SUCCESS. 25 batch05 scenarios executed and exact stdout matched docs, Python AST explicit syntax for batches01..05, full 46 lesson structure and MCQs, Markdown and previous batch scenarios PASS. PR squash merged commit 8e8a8b4e3ee5fe9d357da9be23290aa53477519c. No Windows worker PASS asserted. Next batch06 PY-26..30. Scenario clarity goal remains separately APPROVED_DEFERRED."
     },
     {
       "batch": 6,
