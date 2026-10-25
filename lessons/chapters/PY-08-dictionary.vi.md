@@ -128,9 +128,9 @@ Kết quả `200` là số tiền của đơn O2 (đơn vị tiền theo quy đ�
 
 **Từ vựng trong mục:** **Dictionary** — từ điển; **Key** — khóa; **Get** — tra cứu.
 
-**Tình huống thực tế:** Cửa hàng có **10 mã đơn** O01…O10, mỗi dòng có trạng thái `paid`, `pending` hoặc `cancelled`. Nhân viên muốn biết tình trạng O04 và O11 (mã chưa tồn tại), đồng thời đếm số đơn đã thanh toán. Đừng để một mã lạ làm chương trình dừng.
+**Tình huống thực tế:** Một cửa hàng quản lý **10 đơn hàng O01 đến O10**. Mỗi mã gắn với một trạng thái: `paid` nghĩa là đã trả tiền, `pending` đang chờ và `cancelled` đã hủy. Nhân viên cần xem trạng thái O04, thử tra O11 là mã chưa có trong bảng, rồi đếm số đơn đã thanh toán; việc tra mã lạ không được làm cả báo cáo dừng lại.
 
-**Vì sao chọn cách này?** Mỗi mã là khóa duy nhất trong Dictionary, `get()` trả giá trị mặc định khi chưa có mã. Truy cập trực tiếp `orders['O11']` sẽ báo lỗi; ở cấp đầu chỉ cần dùng get và đếm giá trị.
+**Vì sao chọn cách này?** **Dictionary** là bảng ghép **khóa** với **giá trị**: ở đây khóa là mã đơn O01, O02..., giá trị là trạng thái thanh toán. Từ mã có thể tra đúng trạng thái mà không cần dò từng hàng. `orders.get('O11', 'unknown')` trả về giá trị dự phòng khi mã chưa có, nên chương trình không bị lỗi `KeyError`. Truy cập thẳng `orders['O11']` chỉ phù hợp khi chắc chắn khóa tồn tại; trường hợp này không chắc. Muốn đếm đơn `paid`, duyệt các trạng thái và tăng bộ đếm chỉ khi trạng thái bằng `paid`.
 
 **Quy trình:**
 1. Tạo Dictionary 10 mã và trạng thái.
@@ -166,9 +166,9 @@ O11 không có khóa trong bảng, nên `Not found` là thông báo tra cứu, k
 
 **Từ vựng trong mục:** **Key-value** — cặp khóa–giá trị; **Update** — cập nhật.
 
-**Tình huống thực tế:** Kho theo dõi **12 SKU** P01…P12. Mỗi hàng là số món hiện có và số món vừa bán; số lượng sau bán phải cập nhật **theo đúng mã**, không tính nhầm sang mã bên cạnh. Hãy báo tổng số món sau bán và số tồn của P05.
+**Tình huống thực tế:** Kho có **12 loại hàng P01 đến P12**. Với mỗi mã, bảng ghi số món đang còn và số món vừa bán; các con số đều là **số lượng món**, không phải tiền. Nhân viên muốn trừ đúng lượng đã bán ở từng mã, báo tồn cuối của P05 và tổng số món còn lại trên cả 12 mã. Nếu ai đó bán nhiều hơn tồn thì không được tạo số tồn âm.
 
-**Vì sao chọn cách này?** Dùng mã SKU để tìm nhanh số lượng trong Dictionary; thao tác `stock[sku] -= qty` cập nhật ngay khóa đó. Kiểm tra trước số bán không vượt tồn kho để tránh xuất hiện số âm.
+**Vì sao chọn cách này?** **SKU** là mã nhận biết một loại hàng, chẳng hạn P05. Dictionary lưu tồn kho theo khóa là SKU, nên `stock[sku]` luôn tham chiếu đúng loại hàng đó. Với mỗi lượt bán, trước tiên kiểm tra số món có đủ không; nếu đủ mới trừ và lưu tồn còn lại. Dấu `-=` nghĩa là lấy giá trị đang có trừ số đã bán rồi cập nhật lại cùng khóa. Nếu trừ mà không kiểm tra, một loại có thể còn -2 món, vốn không phải tồn kho thực tế. Sau khi xử lý, cộng tồn của 12 khóa và đọc riêng khóa P05.
 
 **Quy trình:**
 1. Khởi tạo 12 mã và số tồn đầu ngày.
@@ -208,9 +208,9 @@ Dictionary được cập nhật theo mã thay vì dựa vào vị trí số khi
 
 **Từ vựng trong mục:** **Frequency** — tần suất; **Items** — cặp khóa và giá trị; **Ranking** — xếp hạng.
 
-**Tình huống thực tế:** Trung tâm gán **15 nhãn** cho các yêu cầu học tập. Mỗi phần tử là một nhãn môn (`AI`, `Python`, `SQL`, `Math`). Nhân viên cần đếm mỗi nhãn xuất hiện bao nhiêu lần, xác định hai nhãn được yêu cầu nhiều nhất, và xác minh tổng số nhãn bằng số lượt nhận.
+**Tình huống thực tế:** Trung tâm nhận **15 yêu cầu học tập**, mỗi lượt được gắn một nhãn môn trong các môn **AI, Python, SQL và Math**. Người điều phối muốn biết mỗi môn được yêu cầu bao nhiêu lượt và hai môn phổ biến nhất. Nếu hai môn bằng số lượt thì xếp theo tên môn để báo cáo luôn có thứ tự giống nhau.
 
-**Vì sao chọn cách này?** `get(label, 0) + 1` vừa hỗ trợ nhãn mới vừa cộng dồn nhãn cũ. `items()` cung cấp cặp `(nhãn, số lượt)` để sắp theo số lượt giảm, sau đó theo tên nhằm phân xử hòa điểm.
+**Vì sao chọn cách này?** **Đếm tần suất** nghĩa là tính một nhãn xuất hiện bao nhiêu lần. Dictionary `counts` ghi số lượt theo tên nhãn; `get(label, 0)` lấy số đếm cũ hoặc 0 nếu chưa thấy môn đó, rồi cộng 1 cho lượt mới. Nhờ vậy, 15 lượt được đếm đủ mà không phải chuẩn bị riêng biến cho từng môn. Để chọn hai môn phổ biến nhất, sắp các cặp `(tên môn, số lượt)` theo số lượt **giảm dần**, nếu bằng nhau theo tên môn **tăng dần**; chỉ lấy hai cặp đầu. Không lấy nhãn xuất hiện đầu tiên vì thứ tự tiếp nhận không cho biết môn phổ biến.
 
 **Quy trình:**
 1. Tạo Dictionary đếm ban đầu rỗng.
@@ -252,9 +252,9 @@ Mỗi nhãn là một khóa. Việc có hai nhãn cùng tần suất chỉ ảnh
 
 **Từ vựng trong mục:** **Nested dictionary** — Dictionary lồng nhau; **Missing** — thiếu điểm; **Validation** — kiểm tra hợp lệ.
 
-**Tình huống thực tế:** Giáo vụ lưu **18 hồ sơ** S01…S18; mỗi mã ứng với một Dictionary gồm tên giả lập và điểm trên thang 10. Có hai học viên chưa có điểm (`None`) và một điểm 11 vượt thang. Cần lấy được số hồ sơ có điểm hợp lệ, số thiếu và số sai mà **không gây TypeError**.
+**Tình huống thực tế:** Phòng đào tạo có **18 hồ sơ S01 đến S18**. Mỗi hồ sơ gồm mã, tên giả lập và điểm của học viên trên thang **0 đến 10**. Hai học viên chưa được nhập điểm nên để `None`; một học viên có điểm 11 là sai thang. Giáo vụ cần đếm riêng số hồ sơ có điểm hợp lệ, số chưa có điểm và số nhập sai, mà không dừng khi gặp dữ liệu thiếu.
 
-**Vì sao chọn cách này?** Mỗi học viên có nhiều thuộc tính nên Dictionary lồng nhau dễ cập nhật; phải kiểm tra `None` trước phép so sánh `0 <= score <= 10`. Nếu điểm ngoài biên vẫn cộng vào nhóm đạt, báo cáo sẽ sai.
+**Vì sao chọn cách này?** Một hồ sơ có nhiều thông tin đi với cùng mã học viên nên lưu thành **dictionary bên trong dictionary**: tìm đúng mã trước rồi mới đọc trường điểm. `None` nghĩa là chưa nhập điểm, khác với 0 điểm là bài làm đã có kết quả. Chương trình phải kiểm tra `None` trước khi so với khoảng 0–10, vì không thể so sánh trực tiếp số với `None`. Điểm 11 phải đếm vào nhóm sai chứ không cho vào nhóm hợp lệ hay tự sửa thành 10. Cuối cùng ba nhóm hợp lệ, thiếu và sai phải khớp tổng 18 hồ sơ.
 
 **Quy trình:**
 1. Tạo 18 mã và các thuộc tính có ý nghĩa.
@@ -299,9 +299,9 @@ Một giá trị 11 không phải thiếu nhưng vẫn không hợp lệ. Hai ng
 
 **Từ vựng trong mục:** **CRUD** — thêm/đọc/sửa/xóa; **Dictionary get** — tra cứu mặc định; **Transaction** — giao dịch.
 
-**Tình huống thực tế:** Một kho nhận **20 giao dịch** theo thứ tự, mỗi hàng gồm SKU, thao tác `add` (nhập hàng) hoặc `sell` (xuất hàng), và số món. Có lượt xuất vượt tồn, xuất SKU chưa được nhập, và một lượt thiếu số lượng. Cần cập nhật tồn theo đúng thứ tự, **từ chối giao dịch không hợp lệ**, và báo số giao dịch thành công/thất bại cùng tồn cuối từng SKU.
+**Tình huống thực tế:** Một cửa hàng ghi lại **20 giao dịch kho** theo đúng thứ tự xảy ra. Mỗi dòng có mã sản phẩm, thao tác `add` (nhập thêm) hoặc `sell` (bán/xuất), và số món muốn nhập hoặc xuất. Có lượt bán vượt số lượng hiện có, lượt bán một mã chưa từng nhập và lượt thiếu số món. Người quản lý muốn biết giao dịch nào được chấp nhận hay bị từ chối, tổng số lần thành công/thất bại và tồn cuối của từng loại hàng.
 
-**Vì sao chọn cách này?** Dictionary lưu trạng thái cuối theo mã SKU. `get()` giúp đọc mã mới khi nhập; xuất kho phải kiểm tra mã có tồn tại và số tồn đủ trước khi trừ. Các giao dịch bị bác bỏ không được thay đổi kho; đây là cấp tổng hợp bao gồm nhiều lần cập nhật có ràng buộc.
+**Vì sao chọn cách này?** Tồn kho là **trạng thái thay đổi theo từng giao dịch**, vì thế thứ tự 20 lượt rất quan trọng: một lượt nhập trước có thể giúp lượt bán sau đủ hàng. Dictionary giữ số món hiện tại của mỗi mã. Với `add`, kiểm tra mã và lượng nhập rồi cộng; với `sell`, chỉ trừ khi mã đã có và còn đủ món. Dòng thiếu số lượng, bán SKU chưa tồn tại hay bán quá số tồn đều bị **từ chối và không làm thay đổi kho**. Sau mỗi lượt tăng bộ đếm thành công hoặc thất bại, rồi đọc dictionary để có tồn cuối. Không thể cộng tất cả lượt nhập rồi trừ tất cả lượt bán trước, vì cách đó bỏ qua những giao dịch bị từ chối ở thời điểm chúng xảy ra.
 
 **Quy trình:**
 1. Khởi tạo kho rỗng, duyệt lần lượt 20 tuple giao dịch.
