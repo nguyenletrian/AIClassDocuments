@@ -41,6 +41,18 @@
 
 **Lọc dữ liệu** là giữ các hàng thỏa một điều kiện. Ví dụ bảng có ba mặt hàng A, B, C, giá lần lượt 300, 900, 1200 (nghìn đồng). **Mỗi hàng** là một sản phẩm, **cột price** là giá. `df['price'] >= 800` tạo một Series Boolean; `df.loc[mask, ['name','price']]` chỉ giữ các hàng có giá từ 800 và hai cột muốn xem. `.loc` cũng chọn trực tiếp theo **nhãn index**, khác chọn vị trí số.
 
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+
+products = pd.DataFrame({'name': ['A', 'B', 'C'], 'price': [300, 900, 1200]})
+selected = products.loc[products['price'] >= 800, 'name']
+print(selected.tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Chọn sản phẩm có giá từ 800 trở lên bằng .loc với điều kiện Boolean.
 # Dữ liệu: Ba hàng sản phẩm A/B/C và giá 300/900/1200 (đơn vị minh họa).
@@ -70,6 +82,17 @@ Sản phẩm B, C thỏa mức giá; A giá 300 thấp hơn 800 nên bị loại
 
 `.iloc` chọn **vị trí số nguyên**, tính từ 0, bất kể nhãn index của bảng. Với ba khách A, B, C theo thứ tự hàng, `df.iloc[1]` là khách ở **hàng thứ hai**. Cú pháp `df.iloc[row, col]` lấy một ô, ví dụ `[1, 0]` là cột đầu của hàng hai. Trái lại `.loc['B']` chỉ hoạt động khi **nhãn index thực sự là B**, không phải chỉ vì cột `id` có chữ B.
 
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+
+people = pd.DataFrame({'id': ['A', 'B', 'C']})
+print(people.iloc[1, 0])
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Dùng .iloc đọc ô theo vị trí hàng 1, cột 0 của DataFrame.
 # Dữ liệu: Ba mã A, B, C; thứ tự hàng bắt đầu từ vị trí 0.
@@ -95,6 +118,17 @@ Chỉ số 1 lấy hàng thứ hai và chỉ số cột 0 lấy trường `id`, 
 **Từ vựng trong mục:** **GroupBy** — nhóm theo khóa; **Aggregation** — phép tổng hợp.
 
 `groupby` gom những hàng có **cùng giá trị ở một cột khóa**, rồi tính thống kê riêng cho từng nhóm. Giả sử ba giao dịch có `city = A,A,B` và `sale = 10,20,8` nghìn đồng. **Mỗi hàng** là một giao dịch; **cột city** là vùng, **sale** là tiền. `groupby('city')['sale'].sum()` cộng doanh thu của A thành 30 và B thành 8. Không nhầm GroupBy với lọc: lọc loại hàng, còn groupby kết hợp các hàng thành thống kê nhóm.
+
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+
+sales = pd.DataFrame({'city': ['A', 'A', 'B'], 'sale': [10, 20, 8]})
+print(sales.groupby('city')['sale'].sum().to_dict())
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Gộp các đơn theo city rồi cộng cột sale riêng từng thành phố.
@@ -123,6 +157,19 @@ Vùng A có hai giao dịch nên tổng 30 nghìn đồng; vùng B chỉ có m�
 **Từ vựng trong mục:** **Merge** — ghép bảng; **Join key** — khóa ghép.
 
 Khi thông tin nằm trong hai bảng, `merge` dùng cột **khóa chung** để ghép các hàng liên quan. Bảng `orders` có đơn của khách `id=1` và `id=2`, cột `sale` là giá trị đơn; bảng `customers` có tên An, Lan theo cùng id. `merge(on='id', how='left')` giữ mọi dòng bên trái và bổ sung tên nếu tìm thấy. Nếu bảng bên phải có nhiều dòng trùng khóa, một dòng đơn hàng có thể bị nhân bản; dùng `validate='many_to_one'` để kiểm tra mỗi id bên phải là duy nhất.
+
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+
+orders = pd.DataFrame({'id': [1, 2], 'sale': [10, 20]})
+customers = pd.DataFrame({'id': [1, 2], 'name': ['An', 'Lan']})
+merged = orders.merge(customers, on='id', how='left', validate='many_to_one')
+print(merged['name'].tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Ghép bảng đơn với bảng khách theo id, giữ tất cả đơn và xác minh mỗi id chỉ có một khách.
@@ -162,6 +209,25 @@ Hai tên khách được ghép đúng theo id, không phải dựa vào vị tr�
 1. Tạo bảng mã/giá của 10 sản phẩm.
 2. Lọc bằng `price_thousand >= 800` và chọn cột mã.
 3. In số sản phẩm phù hợp và danh sách mã.
+
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+prices = [300,900,1200,400,850,2000,500,700,1500,650]
+ids = []
+for i in range(1, 11):
+    ids.append(f"P{i:02d}")
+df = pd.DataFrame({"id": ids, "price_thousand": prices})
+selected = df.loc[df["price_thousand"] >= 800, ["id", "price_thousand"]]
+if len(df) != 10:
+    raise ValueError("Cần đủ 10 sản phẩm trong bảng giá.")
+print("Sản phẩm:", len(df))
+print("Giá cao:", len(selected))
+print("Mã:", ", ".join(selected["id"]))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lọc 10 sản phẩm có giá từ 800 nghìn đồng bằng .loc và in mã.
@@ -211,6 +277,27 @@ Ngưỡng **bao gồm** 800 do dùng `>=`. Mã hàng được giữ riêng để
 1. Ghi 12 phiếu theo thứ tự phát sinh.
 2. Cắt các vị trí 3–6 bằng `iloc[3:7]`.
 3. In mã đầu/cuối, số dòng và tổng món của lát cắt.
+
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+quantities = [1,2,3,4,1,2,3,4,1,2,3,4]
+ids = []
+for i in range(1, 13):
+    ids.append(f"K{i:02d}")
+df = pd.DataFrame({"id": ids,
+                   "quantity": quantities})
+portion = df.iloc[3:7]
+if len(df) != 12 or len(portion) != 4:
+    raise ValueError("Cần 12 phiếu và đúng 4 phiếu được chọn.")
+print("Phiếu:", len(df))
+print("Đã chọn:", len(portion))
+print("Mã đầu/cuối:", portion["id"].iloc[0], portion["id"].iloc[-1])
+print("Món xuất:", int(portion["quantity"].sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng .iloc chọn đúng bốn phiếu liên tiếp trong 12 phiếu và tính số món.
@@ -262,6 +349,25 @@ Lát cắt vẫn là bốn dòng thật từ bảng 12 phiếu; không tạo th�
 1. Tạo 15 dòng với đơn vị doanh thu rõ ràng.
 2. Nhóm theo vùng, đếm số giao dịch và cộng doanh thu.
 3. Sắp theo doanh thu giảm rồi theo tên vùng để khi hòa điểm vẫn ổn định.
+
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+rows = [{"area":"Bắc","amount":10},{"area":"Nam","amount":15},{"area":"Trung","amount":20},{"area":"Bắc","amount":25},{"area":"Nam","amount":30},{"area":"Trung","amount":10},{"area":"Bắc","amount":15},{"area":"Nam","amount":20},{"area":"Trung","amount":25},{"area":"Bắc","amount":30},{"area":"Nam","amount":10},{"area":"Trung","amount":15},{"area":"Bắc","amount":20},{"area":"Nam","amount":25},{"area":"Trung","amount":30}]
+df = pd.DataFrame(rows)
+grouped = df.groupby("area", as_index=False).agg(
+    orders=("amount", "size"), total_million=("amount", "sum"))
+grouped = grouped.sort_values(["total_million", "area"], ascending=[False, True])
+if len(df) != 15 or grouped["orders"].sum() != 15:
+    raise ValueError("Cần tổng hợp đủ 15 phiếu theo vùng.")
+print("Giao dịch:", len(df))
+print("Số vùng:", len(grouped))
+for record in grouped.to_dict("records"):
+    print(f"{record['area']}: {record['orders']} phiếu, {record['total_million']} triệu")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: GroupBy 15 giao dịch theo ba vùng, đếm phiếu và cộng tiền rồi xếp hạng.
@@ -315,6 +421,25 @@ Từng giá trị là **doanh thu tổng** trong một vùng, không phải doan
 2. Left-merge theo khóa `customer_id`; kiểm tra quan hệ nhiều–một.
 3. Đếm số dòng không khớp và xác nhận không mất đơn hàng.
 
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+orders = pd.DataFrame([{"id":"O01","customer_id":"C01","amount":100},{"id":"O02","customer_id":"C02","amount":125},{"id":"O03","customer_id":"C03","amount":150},{"id":"O04","customer_id":"C04","amount":175},{"id":"O05","customer_id":"C05","amount":200},{"id":"O06","customer_id":"C06","amount":100},{"id":"O07","customer_id":"C07","amount":125},{"id":"O08","customer_id":"C08","amount":150},{"id":"O09","customer_id":"C09","amount":175},{"id":"O10","customer_id":"C10","amount":200},{"id":"O11","customer_id":"C11","amount":100},{"id":"O12","customer_id":"C12","amount":125},{"id":"O13","customer_id":"C01","amount":150},{"id":"O14","customer_id":"C02","amount":175},{"id":"O15","customer_id":"C03","amount":200},{"id":"O16","customer_id":"C04","amount":100},{"id":"O17","customer_id":"C99","amount":125},{"id":"O18","customer_id":"C06","amount":150}])
+customers = pd.DataFrame([{"customer_id":"C01","city":"Hà Nội"},{"customer_id":"C02","city":"Đà Nẵng"},{"customer_id":"C03","city":"TP.HCM"},{"customer_id":"C04","city":"Hà Nội"},{"customer_id":"C05","city":"Đà Nẵng"},{"customer_id":"C06","city":"TP.HCM"},{"customer_id":"C07","city":"Hà Nội"},{"customer_id":"C08","city":"Đà Nẵng"},{"customer_id":"C09","city":"TP.HCM"},{"customer_id":"C10","city":"Hà Nội"},{"customer_id":"C11","city":"Đà Nẵng"},{"customer_id":"C12","city":"TP.HCM"}])
+merged = orders.merge(customers, on="customer_id", how="left",
+                      validate="many_to_one", indicator=True)
+unmatched = merged.loc[merged["_merge"] == "left_only", "id"].tolist()
+if len(orders) != 18 or len(merged) != 18 or not customers["customer_id"].is_unique:
+    raise ValueError("Cần đủ 18 đơn sau ghép và mã khách hàng duy nhất.")
+print("Đơn:", len(orders))
+print("Khách danh mục:", len(customers))
+print("Đơn sau ghép:", len(merged))
+print("Chưa tìm thấy khách:", ", ".join(unmatched))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Ghép 18 đơn với danh mục 12 khách, giữ đơn thiếu khách và phát hiện mã C99.
 # Dữ liệu: 18 đơn có id/customer_id/amount và danh mục 12 khách customer_id/city; C99 không tồn tại ở bảng khách.
@@ -366,6 +491,29 @@ O17 vẫn ở bảng kết quả với thành phố thiếu, nhờ đó lỗi kh
 1. Tạo 20 dòng bán và bảng giá 5 SKU duy nhất.
 2. Left-merge theo `sku`, tách các dòng có giá thiếu để báo lỗi.
 3. Tính doanh thu theo dòng `price * qty`, groupby theo SKU, sắp top; xác nhận 19 + 1 = 20.
+
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+sales = pd.DataFrame([{"invoice_id":"O01","sku":"P01","qty":1},{"invoice_id":"O02","sku":"P02","qty":2},{"invoice_id":"O03","sku":"P03","qty":3},{"invoice_id":"O04","sku":"P04","qty":4},{"invoice_id":"O05","sku":"P05","qty":1},{"invoice_id":"O06","sku":"P01","qty":2},{"invoice_id":"O07","sku":"P02","qty":3},{"invoice_id":"O08","sku":"P03","qty":4},{"invoice_id":"O09","sku":"P04","qty":1},{"invoice_id":"O10","sku":"P05","qty":2},{"invoice_id":"O11","sku":"P01","qty":3},{"invoice_id":"O12","sku":"P02","qty":4},{"invoice_id":"O13","sku":"P03","qty":1},{"invoice_id":"O14","sku":"P04","qty":2},{"invoice_id":"O15","sku":"P05","qty":3},{"invoice_id":"O16","sku":"P01","qty":4},{"invoice_id":"O17","sku":"P02","qty":1},{"invoice_id":"O18","sku":"P03","qty":2},{"invoice_id":"O19","sku":"P99","qty":3},{"invoice_id":"O20","sku":"P05","qty":4}])
+prices = pd.DataFrame([["P01",10],["P02",20],["P03",30],["P04",15],["P05",25]], columns=["sku", "price_thousand"])
+merged = sales.merge(prices, on="sku", how="left", validate="many_to_one")
+missing = merged.loc[merged["price_thousand"].isna(), "invoice_id"].tolist()
+valid = merged.loc[merged["price_thousand"].notna()].copy()
+valid["revenue_thousand"] = valid["qty"] * valid["price_thousand"]
+by_sku = valid.groupby("sku", as_index=False)["revenue_thousand"].sum()
+ranking = by_sku.sort_values(["revenue_thousand", "sku"], ascending=[False, True])
+if len(sales) != 20 or len(merged) != 20 or len(valid) + len(missing) != 20:
+    raise ValueError("Cần đối chiếu đủ 20 dòng bán, gồm cả SKU chưa có giá.")
+print("Dòng bán:", len(sales))
+print("Có giá:", len(valid))
+print("Chưa có giá:", ", ".join(missing))
+print("Doanh thu (nghìn đồng):", int(valid["revenue_thousand"].sum()))
+print("SKU cao nhất:", ranking.iloc[0]["sku"])
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Ghép 20 lượt bán với bảng giá theo SKU, bỏ dòng thiếu giá và xếp doanh thu theo mặt hàng.
