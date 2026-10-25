@@ -119,156 +119,201 @@ print(round(float(np.linalg.det(A)), 6))
 
 Định thức 3 khác 0, nên ma trận vuông này khả nghịch.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống ma trận — từ chuyển vị đến kiểm tra hệ suy biến
 
-### Tình huống 1 — Đổi bố cục dữ liệu báo cáo
+### Tình huống 1 — Cấp 1: Lập ma trận bán hàng từ 10 lượt ghi
 
-**Từ vựng trong mục:** **Matrix** — ma trận.
+**Từ vựng trong mục:** **Matrix** — ma trận; **Transpose** — chuyển vị; **Shape** — số hàng/cột.
 
-**Tình huống thực tế:** Báo cáo bán hàng có 2 cửa hàng và 3 ngày, mỗi hàng là một cửa hàng. Đổi thành 3 hàng ngày và 2 cột cửa hàng.
+**Tình huống thực tế:** Quầy bán ghi **10 lượt doanh thu**, gồm hai ngày liên tiếp của **5 cửa hàng** S01…S05 (đơn vị triệu đồng/ngày). Dữ liệu đang ở dạng một dãy [S01 ngày 1, S01 ngày 2, S02 ngày 1, …]. Cần chuyển thành bảng **5 hàng cửa hàng × 2 cột ngày**, tính tổng của S03, rồi chuyển vị thành bảng theo ngày.
 
-**Vì sao chọn cách giải này?** Chuyển vị đổi bảng hai hàng cửa hàng × ba cột ngày thành ba hàng ngày × hai cột cửa hàng.
+**Vì sao chọn cách này?** Ma trận giúp mỗi hàng/cột có ý nghĩa cố định. `reshape(5,2)` sắp dữ liệu theo đúng thứ tự đã ghi, `.T` đổi góc nhìn từ cửa hàng sang ngày mà không làm mất ô.
 
-
-**Quy trình giải:**
-
-1. Lưu bảng hai cửa hàng × ba ngày.
-2. Chuyển vị bằng `.T`.
-3. In shape `(3,2)` tương ứng ngày × cửa hàng.
+**Quy trình:**
+1. Lưu 10 số liệu theo thứ tự cửa hàng–ngày.
+2. Reshape thành ma trận `(5,2)`, tổng hai ngày của S03.
+3. Chuyển vị sang `(2,5)` và đối chiếu tổng số phần tử.
 
 ```python
-# Mục đích: Đổi bố cục dữ liệu báo cáo.
 import numpy as np
-X = np.array([[10, 20, 30], [12, 8, 5]])
-print(X.T.shape)
+raw = np.array([10,12,9,14,11,13,15,16,12,18], dtype=float)
+sales = raw.reshape(5, 2)
+by_day = sales.T
+assert raw.size == sales.size == by_day.size == 10
+print("Lượt ghi:", raw.size)
+print("Bảng cửa hàng:", sales.shape)
+print("Bảng theo ngày:", by_day.shape)
+print("S03 (triệu đồng):", int(sales[2].sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(3, 2)
+Lượt ghi: 10
+Bảng cửa hàng: (5, 2)
+Bảng theo ngày: (2, 5)
+S03 (triệu đồng): 24
 ```
 
+Đầu ra tổng của S03 là doanh thu **hai ngày** theo đơn vị triệu đồng, không phải trung bình ngày.
 
-### Tình huống 2 — Nhân bảng điểm và trọng số
+### Tình huống 2 — Cấp 2: Nhân ma trận 12 học viên × 3 tiêu chí với 2 thang đánh giá
 
-**Từ vựng trong mục:** **Matrix multiplication** — nhân ma trận.
+**Từ vựng trong mục:** **Matrix multiplication** — nhân ma trận; **Weights** — trọng số; **Dimension** — kích thước.
 
-**Tình huống thực tế:** Hai học viên có điểm theo ba môn lần lượt (8,7,9) và (6,5,8); hệ số là (0.2,0.3,0.5). Tính điểm có trọng số.
+**Tình huống thực tế:** Một trung tâm ghi **12 học viên**, mỗi hàng có ba điểm lý thuyết, thực hành, dự án (thang 10). Cần tạo **hai điểm đánh giá khác nhau**: chuyên môn (trọng số 50%, 20%, 30%) và hợp tác (10%, 30%, 60%). Hãy tính cho đủ 12 học viên và đếm số người có điểm hợp tác **từ 8**.
 
-**Vì sao chọn cách giải này?** Nhân bảng điểm 2×3 với trọng số 3×1 tạo mỗi học viên một điểm tổng.
+**Vì sao chọn cách này?** Ma trận điểm `(12,3)` nhân ma trận trọng số `(3,2)` cho bảng `(12,2)`; mỗi cột đầu ra là một thang đánh giá. Không được nhầm nhân từng phần tử với nhân ma trận.
 
-
-**Quy trình giải:**
-
-1. Tạo bảng hai học viên × ba môn.
-2. Đặt trọng số ba môn theo một cột (3×1).
-3. Nhân `X @ W` và in hai điểm tổng.
+**Quy trình:**
+1. Ghi rõ thứ tự ba tiêu chí và hai nhóm trọng số.
+2. Kiểm tra kích thước 12×3 và 3×2; dùng `@`.
+3. In hai điểm của người đầu tiên và đếm ngưỡng hợp tác.
 
 ```python
-# Mục đích: Nhân bảng điểm và trọng số.
 import numpy as np
-X = np.array([[8, 7, 9], [6, 5, 8]])
-W = np.array([[.2], [.3], [.5]])
-print(X@W)
+scores = np.array([[5,6,7],[6,8,10],[7,10,9],[8,7,8],[9,9,7],[5,6,10],[6,8,9],[7,10,8],[8,7,7],[9,9,10],[5,6,9],[6,8,8]], dtype=float)
+weights = np.array([[0.5, 0.1], [0.2, 0.3], [0.3, 0.6]])
+ratings = scores @ weights
+assert scores.shape == (12, 3) and weights.shape == (3, 2)
+assert ratings.shape == (12, 2)
+print("Học viên:", ratings.shape[0])
+print("Cột đánh giá:", ratings.shape[1])
+print(f"H01 chuyên môn: {ratings[0,0]:.2f}")
+print(f"H01 hợp tác: {ratings[0,1]:.2f}")
+print("Hợp tác >=8:", int((ratings[:,1] >= 8).sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[8.2]
- [6.7]]
+Học viên: 12
+Cột đánh giá: 2
+H01 chuyên môn: 5.80
+H01 hợp tác: 6.50
+Hợp tác >=8: 6
 ```
 
+Đầu ra có hai cột **với ý nghĩa khác nhau**; tỷ lệ đạt là yêu cầu giả lập, không phải thang chấm chính thức.
 
-### Tình huống 3 — Kiểm tra ma trận khả nghịch
+### Tình huống 3 — Cấp 3: Đổi hệ trục 15 tọa độ bằng ma trận quay khả nghịch
 
-**Từ vựng trong mục:** **Determinant** — định thức.
+**Từ vựng trong mục:** **Transformation** — phép biến đổi; **Determinant** — định thức; **Inverse** — ma trận nghịch đảo.
 
-**Tình huống thực tế:** Ma trận hệ số [[2,1],[1,2]] có thể khả nghịch nếu định thức khác 0. Tính định thức để kiểm tra.
+**Tình huống thực tế:** Một robot ghi **15 điểm tọa độ** trong mặt phẳng (mét); mỗi hàng có tọa độ x/y. Hệ thống muốn đổi các điểm sang hệ trục quay 90° (quy ước véc-tơ hàng của bài), **không làm thay đổi khoảng cách tới gốc**. Cần xác minh ma trận quay có thể đảo ngược bằng định thức và so độ dài trước/sau cho cả 15 điểm.
 
-**Vì sao chọn cách giải này?** Định thức khác 0 xác định ma trận vuông khả nghịch; làm tròn hạn chế nhiễu số cuối.
+**Vì sao chọn cách này?** Nhân tọa độ với ma trận quay cho vị trí ở hệ trục mới; định thức khác 0 chứng tỏ có phép biến đổi ngược. Kiểm tra norm giúp học viên hiểu đây là phép quay chứ không phải tùy ý làm co giãn.
 
-
-**Quy trình giải:**
-
-1. Tạo ma trận vuông hệ số `[[2,1],[1,2]]`.
-2. Tính định thức và làm tròn sáu chữ số.
-3. Kiểm tra giá trị 3 khác 0 để kết luận khả nghịch.
+**Quy trình:**
+1. Tạo ma trận 15×2 chứa các điểm có đơn vị mét.
+2. Nhân với ma trận xoay 2×2, kiểm tra định thức khác 0.
+3. Dùng `np.allclose` kiểm độ dài và in điểm đầu trước/sau.
 
 ```python
-# Mục đích: Kiểm tra ma trận khả nghịch.
 import numpy as np
-A = np.array([[2, 1], [1, 2]], dtype=float)
-print(round(np.linalg.det(A), 6))
+points = np.array([[1,2],[2,2],[3,2],[4,2],[5,2],[1,3],[2,3],[3,3],[4,3],[5,3],[1,4],[2,4],[3,4],[4,4],[5,4]], dtype=float)
+rotate = np.array([[0.0, -1.0], [1.0, 0.0]])
+converted = points @ rotate
+assert points.shape == converted.shape == (15, 2)
+assert np.allclose(np.linalg.norm(points, axis=1), np.linalg.norm(converted, axis=1))
+print("Điểm:", len(points))
+print(f"Định thức: {np.linalg.det(rotate):.1f}")
+print("Điểm đầu (gốc):", ", ".join(f"{x:.1f}" for x in points[0]))
+print("Điểm đầu (mới):", ", ".join(f"{x:.1f}" for x in converted[0]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-3.0
+Điểm: 15
+Định thức: 1.0
+Điểm đầu (gốc): 1.0, 2.0
+Điểm đầu (mới): 2.0, -1.0
 ```
 
+Độ dài giữ nguyên nhưng tọa độ trục mới khác, thể hiện tính chất của phép quay. `np.linalg.det` là **một số** dùng kiểm tra khả nghịch, không phải tọa độ.
 
-### Tình huống 4 — Kiểm tra nghịch đảo
+### Tình huống 4 — Cấp 4: Giải hệ cảm biến 2 kênh cho 18 lượt đo
 
-**Từ vựng trong mục:** **Inverse** — ma trận nghịch đảo.
+**Từ vựng trong mục:** **Linear system** — hệ tuyến tính; **np.linalg.solve** — giải hệ; **Residual** — sai số đối chiếu.
 
-**Tình huống thực tế:** Với ma trận đường chéo diag(2,4), kiểm tra tích ma trận và nghịch đảo có gần ma trận đơn vị không.
+**Tình huống thực tế:** Máy đo có **18 lượt đo** của hai nguồn x/y (đơn vị gốc là đơn vị tín hiệu); mỗi hàng cho hai giá trị pha trộn bởi cảm biến: kênh A nhận hai phần x và một phần y, kênh B nhận một phần x và ba phần y. Cần **phục hồi hai giá trị gốc cho từng lượt** dựa trên ma trận hệ số cố định 2×2, rồi xác nhận khi ghép lại tín hiệu kênh thì trùng số đã nhận.
 
-**Vì sao chọn cách giải này?** Nhân ma trận với nghịch đảo gần ma trận đơn vị; `allclose` chấp nhận sai số dấu phẩy động.
+**Vì sao chọn cách này?** `np.linalg.solve` giải hệ trực tiếp từ ma trận hệ số và giá trị đo, thường tốt hơn tự tính nghịch đảo chỉ để tìm nghiệm. Trước khi giải, kiểm tra ma trận vuông và không suy biến; sau khi giải, đối chiếu bằng `allclose`.
 
-
-**Quy trình giải:**
-
-1. Tạo ma trận đường chéo `diag(2,4)`.
-2. Tính nghịch đảo rồi nhân `A @ inv(A)`.
-3. So với ma trận đơn vị bằng `np.allclose`.
+**Quy trình:**
+1. Lưu ma trận hệ số 2×2 và 18 cặp số đo theo kênh.
+2. Dùng `solve` trên ma trận kênh đã chuyển vị để giải 18 lượt cùng lúc.
+3. Ghép nghiệm trở lại số đo, xác nhận sai số số học nhỏ và in nghiệm đầu.
 
 ```python
-# Mục đích: Kiểm tra nghịch đảo.
 import numpy as np
-A = np.diag([2., 4.])
-print(np.allclose(A@np.linalg.inv(A), np.eye(2)))
+mix = np.array([[2.0, 1.0], [1.0, 3.0]])
+measured = np.array([[4,7],[6,8],[8,9],[10,10],[12,11],[14,12],[5,10],[7,11],[9,12],[11,13],[13,14],[15,15],[6,13],[8,14],[10,15],[12,16],[14,17],[16,18]], dtype=float)
+restored = np.linalg.solve(mix, measured.T).T
+reconstructed = restored @ mix.T
+assert measured.shape == restored.shape == (18, 2)
+assert np.allclose(reconstructed, measured)
+print("Lượt đo:", len(measured))
+print(f"Định thức: {np.linalg.det(mix):.1f}")
+print("Nguồn đầu:", ", ".join(f"{v:.1f}" for v in restored[0]))
+print("Khôi phục đúng:", bool(np.allclose(reconstructed, measured)))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Lượt đo: 18
+Định thức: 5.0
+Nguồn đầu: 1.0, 2.0
+Khôi phục đúng: True
 ```
 
+Mỗi hàng là một bài toán hai ẩn, cùng chung ma trận hệ số. Ví dụ đo lý tưởng không có nhiễu; đo thật còn cần đánh giá sai số và độ nhạy.
 
-### Tình huống 5 — Kiểm tra shape trước nhân
+### Tình huống 5 — Cấp 5: Kiểm tra 20 ma trận hiệu chuẩn và không giải hệ suy biến
 
-**Từ vựng trong mục:** **Matrix** — ma trận.
+**Từ vựng trong mục:** **Singular matrix** — ma trận suy biến; **Determinant** — định thức; **Numerical stability** — ổn định số.
 
-**Tình huống thực tế:** Một ma trận 2×3 nhân một ma trận 3×2. Kiểm tra kích thước tích kết quả.
+**Tình huống thực tế:** Nhà máy ghi **20 lượt hiệu chuẩn**, mỗi bản ghi có mã M01…M20, một ma trận hệ số 2×2 và hai số đo. Ba lượt M06, M12, M18 có hai hàng hệ số tỷ lệ nhau nên **không thể phục hồi duy nhất hai nguồn tín hiệu**. Cần tự động xác định lượt không thể giải, chỉ giải các hệ khả nghịch, kiểm tra bằng ghép lại phép nhân và báo số lượt thành công. Không thay kết quả thất bại bằng số 0.
 
-**Vì sao chọn cách giải này?** Kiểm tra chiều trong bằng nhau để xác định phép nhân hợp lệ và shape kết quả.
+**Vì sao chọn cách này?** Định thức gần 0 cho thấy ma trận không có nghịch đảo duy nhất; cố `solve()` vô điều kiện sẽ gặp lỗi. Đối với hệ đủ điều kiện, giải và kiểm tra lại số đo bằng `allclose` trước khi nhận kết quả.
 
-
-**Quy trình giải:**
-
-1. Tạo A shape 2×3 và B shape 3×2.
-2. So số cột A với số hàng B.
-3. Nhân A@B và in shape `(2,2)`.
+**Quy trình:**
+1. Tạo 20 bản ghi với ID, ma trận 2×2 và vector quan sát.
+2. Kiểm tra định thức theo ngưỡng nhỏ đã nêu, đưa trường hợp suy biến vào nhóm cần xem.
+3. Chỉ gọi `np.linalg.solve()` trên trường hợp đạt, ghép kết quả lại để xác nhận và đối chiếu số lượt.
 
 ```python
-# Mục đích: Kiểm tra shape trước nhân.
 import numpy as np
-A = np.ones((2, 3))
-B = np.ones((3, 2))
-assert A.shape[1]==B.shape[0]
-print((A@B).shape)
+records = [{"id":"M01","coeff":[[2,1],[1,2]],"measurement":[4,5],"original":[1,2]},{"id":"M02","coeff":[[3,1],[1,3]],"measurement":[9,11],"original":[2,3]},{"id":"M03","coeff":[[4,1],[1,4]],"measurement":[16,19],"original":[3,4]},{"id":"M04","coeff":[[2,1],[1,5]],"measurement":[13,29],"original":[4,5]},{"id":"M05","coeff":[[3,1],[1,2]],"measurement":[17,9],"original":[5,2]},{"id":"M06","coeff":[[2,1],[4,2]],"measurement":[5,10],"original":[1,3]},{"id":"M07","coeff":[[2,1],[1,4]],"measurement":[8,18],"original":[2,4]},{"id":"M08","coeff":[[3,1],[1,5]],"measurement":[14,28],"original":[3,5]},{"id":"M09","coeff":[[4,1],[1,2]],"measurement":[18,8],"original":[4,2]},{"id":"M10","coeff":[[2,1],[1,3]],"measurement":[13,14],"original":[5,3]},{"id":"M11","coeff":[[3,1],[1,4]],"measurement":[7,17],"original":[1,4]},{"id":"M12","coeff":[[2,1],[4,2]],"measurement":[9,18],"original":[2,5]},{"id":"M13","coeff":[[2,1],[1,2]],"measurement":[8,7],"original":[3,2]},{"id":"M14","coeff":[[3,1],[1,3]],"measurement":[15,13],"original":[4,3]},{"id":"M15","coeff":[[4,1],[1,4]],"measurement":[24,21],"original":[5,4]},{"id":"M16","coeff":[[2,1],[1,5]],"measurement":[7,26],"original":[1,5]},{"id":"M17","coeff":[[3,1],[1,2]],"measurement":[8,6],"original":[2,2]},{"id":"M18","coeff":[[2,1],[4,2]],"measurement":[9,18],"original":[3,3]},{"id":"M19","coeff":[[2,1],[1,4]],"measurement":[12,20],"original":[4,4]},{"id":"M20","coeff":[[3,1],[1,5]],"measurement":[20,30],"original":[5,5]}]
+solved, singular = [], []
+for record in records:
+    matrix = np.array(record["coeff"], dtype=float)
+    measured = np.array(record["measurement"], dtype=float)
+    if abs(np.linalg.det(matrix)) < 1e-9:
+        singular.append(record["id"])
+        continue
+    values = np.linalg.solve(matrix, measured)
+    assert np.allclose(matrix @ values, measured)
+    solved.append(record["id"])
+assert len(records) == len(solved) + len(singular) == 20
+print("Lượt hiệu chuẩn:", len(records))
+print("Giải được:", len(solved))
+print("Không thể giải:", ", ".join(singular))
+print("Đối chiếu đủ:", len(solved) + len(singular) == len(records))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(2, 2)
+Lượt hiệu chuẩn: 20
+Giải được: 17
+Không thể giải: M06, M12, M18
+Đối chiếu đủ: True
 ```
 
+Ngưỡng định thức trong ví dụ dùng để phát hiện ma trận suy biến rõ ràng, chưa phải quy tắc số học tổng quát cho mọi ma trận rất lớn hoặc có thang đo chênh lệch; những hệ gần suy biến cần kiểm tra điều kiện số kỹ hơn.
 
 ## 6. Sai lầm thường gặp
 
