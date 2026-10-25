@@ -40,8 +40,11 @@ Bài học nối bốn ý: **scalar** là số đơn lẻ, **vector** chứa t�
 Scalar là một giá trị số như vận tốc 2,5 mét/giây. Python lưu số, còn ý nghĩa và đơn vị phải do người lập trình nêu. Scalar khác vector vì không chứa nhiều thành phần tọa độ.
 
 ```python
-# Mục đích: Số đơn lẻ và đơn vị.
+# Mục đích: Phân biệt một giá trị vô hướng với đại lượng có nhiều thành phần.
+# Dữ liệu: speed=2.5 là một giá trị tốc độ giả lập; chưa biểu diễn hướng hay các trục tọa độ.
+# 2.5 là scalar (số đơn) mô tả độ lớn; chưa phải vector hướng trong không gian.
 speed = 2.5
+# print() hiển thị số đang lưu để phân biệt scalar với mảng tọa độ.
 print(speed)
 ```
 
@@ -58,10 +61,14 @@ Số 2.5 đại diện vận tốc m/s, không phải tọa độ.
 Vector là dãy tọa độ theo một hệ trục. Robot đi 3 m theo x và 4 m theo y nên dùng vector `[3,4]`. Phần tử đầu là x, phần tử sau là y. Đổi `[3,4]` thành `[4,3]` sẽ đổi ý nghĩa hai trục.
 
 ```python
-# Mục đích: Các tọa độ có thứ tự.
+# Mục đích: Biểu diễn độ dịch chuyển hai chiều bằng vector các tọa độ x,y có thứ tự.
+# Dữ liệu: Vector [3,4] gồm hai thành phần tọa độ x và y, không phải hai mẫu dữ liệu độc lập.
+# NumPy tạo vector từ list và thực hiện các phép toán theo phần tử.
 import numpy as np
 
+# np.array() tạo ndarray một chiều shape (2,); vị trí 0 là x=3, vị trí 1 là y=4.
 movement = np.array([3, 4])
+# In hai tọa độ theo thứ tự, không tự tính độ dài.
 print(movement)
 ```
 
@@ -78,10 +85,14 @@ Hai phần tử lần lượt là độ dịch chuyển theo x và y (mét).
 Chuẩn Euclid là độ dài `sqrt(x²+y²)`. Với vector `(3,4)`, độ dài bằng `sqrt(9+16)=5` m. Vector đơn vị giữ hướng và có norm bằng 1; muốn chuẩn hóa phải chia các thành phần cho norm, trừ trường hợp norm bằng 0.
 
 ```python
-# Mục đích: Độ dài vector.
+# Mục đích: Tính độ dài Euclid của vector chuyển động (3,4) bằng NumPy.
+# Dữ liệu: Hai thành phần x=3, y=4 theo cùng đơn vị khoảng cách.
+# NumPy hỗ trợ phép tính độ dài vector trong np.linalg.
 import numpy as np
 
+# dtype suy ra số thực vì tọa độ có dấu thập phân; mỗi ô là một trục.
 movement = np.array([3.0, 4.0])
+# linalg.norm(vector) mặc định tính độ dài Euclid: căn tổng bình phương các thành phần, ở đây 5 đơn vị.
 print(np.linalg.norm(movement))
 ```
 
@@ -98,11 +109,16 @@ Robot cách gốc tọa độ 5 mét theo đường thẳng.
 Tích vô hướng của hai vector cùng số chiều bằng tổng các tích từng thành phần: `(1,2)·(3,4)=1×3+2×4=11`. Dùng để tính điểm có trọng số hoặc kiểm tra hai vector khác không vuông góc (khi tích vô hướng bằng 0).
 
 ```python
-# Mục đích: Nhân và cộng cùng vị trí.
+# Mục đích: Tính tích vô hướng của hai vector hai chiều bằng toán tử @.
+# Dữ liệu: a=[1,2], b=[3,4]; các thành phần cùng trục được nhân rồi cộng.
+# NumPy định nghĩa @ cho nhân ma trận/tích vô hướng tùy kích thước.
 import numpy as np
 
+# Vector a có hai tọa độ theo thứ tự x,y.
 a = np.array([1, 2])
+# Vector b phải có cùng số thành phần với a để tính tích vô hướng.
 b = np.array([3, 4])
+# Với hai vector 1 chiều, @ trả scalar 1×3 + 2×4 = 11; khác * tạo vector nhân từng vị trí.
 print(a @ b)
 ```
 
@@ -130,14 +146,24 @@ Tích vô hướng trả một scalar bằng 11.
 3. Tính norm của véc-tơ tổng và in đơn vị.
 
 ```python
+# Mục đích: Cộng 10 bước chuyển động hai chiều thành độ lệch x/y và khoảng cách tới gốc.
+# Dữ liệu: 10 hàng bước [dx,dy], đơn vị mét; bước âm là đi ngược chiều trục.
+# NumPy cho phép cộng vector từng cột theo nhiều hàng.
 import numpy as np
+# 10 cặp dx/dy, dtype=float tạo bảng hai cột số thực.
 steps = np.array([[3,4],[0,2],[-2,0],[1,-1],[2,2],[-3,1],[0,-4],[4,0],[-1,3],[2,-2]], dtype=float)
+# sum(axis=0) cộng THEO HÀNG, trả hai tổng cột dx/dy, là vị trí cuối so với gốc.
 ending = steps.sum(axis=0)
+# shape (10,2) kiểm 10 bước và 2 tọa độ mỗi bước.
 if steps.shape != (10, 2):
+    # raise ValueError() chặn kết luận nếu số bản ghi hoặc shape không đạt yêu cầu.
     raise ValueError("Cần đủ 10 bước chuyển động hai chiều.")
+# len() đếm số hàng bước, ở đây 10, không phải tổng ô.
 print("Bước:", len(steps))
+# [0] là độ lệch x, [1] độ lệch y; int() đưa giá trị NumPy về int để in.
 print("Lệch x (m):", int(ending[0]))
 print("Lệch y (m):", int(ending[1]))
+# norm() lấy khoảng cách thẳng từ gốc đến tọa độ cuối; :.2f chỉ định in hai chữ số sau dấu thập phân, đơn vị mét.
 print(f"Cách gốc (m): {np.linalg.norm(ending):.2f}")
 ```
 
@@ -166,20 +192,34 @@ Véc-tơ tổng có thể nhỏ hơn tổng quãng đường đi, vì các bư�
 3. Đếm số hướng hợp lệ, in véc-tơ đầu sau chuẩn hóa.
 
 ```python
+# Mục đích: Chuẩn hóa 12 vector về hướng dài một đơn vị, tránh chia cho 0 ở vector rỗng.
+# Dữ liệu: 12 hàng vector hai trục, gồm hai vector [0,0] không có hướng xác định.
+# NumPy áp dụng phép toán vector hóa trên toàn bộ mảng 12×2.
 import numpy as np
+# dtype=float để phép chia ra thành phần hướng thực; hai cột x/y.
 vectors = np.array([[3,4],[0,0],[5,0],[-3,4],[0,5],[6,8],[1,1],[-4,0],[2,-2],[0,-2],[4,3],[0,0]], dtype=float)
+# norm(...,axis=1) tính độ dài riêng cho TỪNG HÀNG vector, trả 12 độ dài; axis=0 sẽ gom theo cột.
 lengths = np.linalg.norm(vectors, axis=1)
+# Tạo mặt nạ True tại những vector có độ dài khác 0; vector [0,0] không chia được.
 valid = lengths > 0
+# zeros_like() tạo mảng 12×2 toàn 0 cùng shape/dtype làm vùng chứa kết quả.
 normalized = np.zeros_like(vectors)
+# vectors[valid] chọn những hàng có hướng; lengths[valid,None] đổi vector độ dài thành cột (n,1) để broadcast chia cả x,y theo độ dài từng hàng.
+# Chỉ cập nhật hàng hợp lệ; hàng vector 0 vẫn giữ [0,0] làm giá trị thay thế không có hướng.
 normalized[valid] = vectors[valid] / lengths[valid, None]
 if len(vectors) != 12:
+    # raise ValueError() chặn kết luận nếu số bản ghi hoặc shape không đạt yêu cầu.
     raise ValueError("Cần đủ 12 véc-tơ cần chuẩn hóa.")
 print("Yêu cầu:", len(vectors))
 print("Hướng hợp lệ:", int(valid.sum()))
+# ~ đảo mặt nạ Boolean, .sum() đếm hàng có độ dài 0; valid.sum() đếm hàng có hướng.
 print("Hướng chưa xác định:", int((~valid).sum()))
 values = []
+# [0] lấy hai thành phần hướng đã chuẩn hóa của vector đầu tiên.
 for x in normalized[0]:
+    # f-string :.2f hiển thị mỗi thành phần với hai chữ số thập phân.
     values.append(f"{x:.2f}")
+# join() nối hai tọa độ dạng chuỗi bằng ', ' thành một dòng báo cáo.
 print("Véc-tơ đầu:", ", ".join(values))
 ```
 
@@ -208,15 +248,26 @@ Véc-tơ không vẫn được bảo toàn trên bản dữ liệu xử lý như
 3. Đếm người đạt ngưỡng 7,5; in điểm đầu và cuối để đối chiếu.
 
 ```python
+# Mục đích: Tính điểm tổng hợp có trọng số cho 15 học viên bằng tích vector theo mỗi hàng.
+# Dữ liệu: 15 hàng học viên × 3 môn; trọng số giả định 20%, 30%, 50% tương ứng theo ba cột, tổng 100%.
+# NumPy thực hiện phép nhân bảng điểm với vector trọng số qua @.
 import numpy as np
+# dtype=float lưu bảng 15×3, một người mỗi hàng, một môn mỗi cột.
 scores = np.array([[5,6,7],[6,8,10],[7,10,9],[8,7,8],[9,9,7],[5,6,10],[6,8,9],[7,10,8],[8,7,7],[9,9,10],[5,6,9],[6,8,8],[7,10,7],[8,7,10],[9,9,9]], dtype=float)
+# Vector [0.2,0.3,0.5] là mức đóng góp TỪNG MÔN; không phải tần suất học viên.
 weights = np.array([0.2, 0.3, 0.5])
+# @ nhân từng hàng ba điểm với ba trọng số rồi cộng, trả 15 điểm tổng hợp một chiều.
 final_scores = scores @ weights
+# shape (15,3) và final_scores (15,) xác nhận một kết quả cho mỗi học viên.
 if scores.shape != (15, 3) or final_scores.shape != (15,):
+    # raise ValueError() chặn kết luận nếu số bản ghi hoặc shape không đạt yêu cầu.
     raise ValueError("Cần đủ 15 học viên với 3 môn và 15 điểm cuối.")
 print("Học viên:", len(final_scores))
+# [0] là H01, [-1] H15; :.2f hiển thị điểm hai chữ số lẻ.
 print(f"H01: {final_scores[0]:.2f}")
+# [-1] lấy điểm học viên cuối mà không phải ghi chỉ số 14.
 print(f"H15: {final_scores[-1]:.2f}")
+# >= 7.5 tạo mask Boolean theo từng người; sum() đếm số True đạt ngưỡng.
 print("Đạt 7.5:", int((final_scores >= 7.5).sum()))
 ```
 
@@ -245,15 +296,26 @@ Trọng số phản ánh quy định giả lập của lớp; dot product tạo 
 3. Đếm trường hợp âm, 0 và dương; xác minh tổng bằng 18.
 
 ```python
+# Mục đích: Dùng tích vô hướng để phân loại 18 hướng so với trục +x: ngược, vuông góc, cùng hướng.
+# Dữ liệu: 18 lệnh (dx,dy), trục tham chiếu [1,0] hướng +x; các giá trị chưa nhất thiết là vector đơn vị.
+# NumPy hỗ trợ tích vô hướng theo từng hàng của ma trận hướng.
 import numpy as np
+# 18 hàng là các hướng di chuyển 2 chiều x,y, dtype=float.
 directions = np.array([[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1],[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1],[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1]], dtype=float)
+# Vector tham chiếu nằm trên trục x dương, chiều dài 1; cùng thứ tự thành phần x,y.
 reference = np.array([1.0, 0.0])
+# @ lấy tích vô hướng với tham chiếu cho từng hàng, trả 18 scalar; vì reference=[1,0], chính là thành phần x của hướng.
 projections = directions @ reference
+# shape (18,2) kiểm đủ lệnh và hai tọa độ.
 if directions.shape != (18, 2):
+    # raise ValueError() chặn kết luận nếu số bản ghi hoặc shape không đạt yêu cầu.
     raise ValueError("Cần đủ 18 lệnh chuyển động hai chiều.")
 print("Lệnh:", len(directions))
+# Tích âm nghĩa ngược chiều x dương; sum() đếm số mask True.
 print("Ngược chiều:", int((projections < 0).sum()))
+# Tích bằng 0 nghĩa vuông góc với trục x (đối với vector khác 0), đếm lượt bằng 0.
 print("Vuông góc:", int((projections == 0).sum()))
+# Tích dương nghĩa có thành phần cùng chiều x dương, không nhất thiết vector song song trục.
 print("Cùng chiều:", int((projections > 0).sum()))
 ```
 
@@ -282,18 +344,32 @@ Phân loại bằng tích vô hướng là về **thành phần hướng so vớ
 3. Đếm vượt ngưỡng 2 mm, tìm mã lượt lớn nhất và báo trung bình.
 
 ```python
+# Mục đích: Tính vector sai lệch 3D và độ dài sai số của 20 lượt đo, tìm lượt sai nhất.
+# Dữ liệu: 20 hàng quan sát và 20 hàng kỳ vọng theo 3 trục tọa độ cùng thứ tự, đơn vị mm.
+# NumPy cho phép trừ bảng theo từng ô và tính độ dài sai lệch vector.
 import numpy as np
+# 20 hàng đo thực tế, mỗi hàng [x,y,z] mm, dtype=float.
 observed = np.array([[10,20,30],[11,21,31],[12,22,32],[13,23,30],[14,20,31],[10,21,32],[11,22,30],[12,23,31],[13,20,32],[14,21,30],[10,22,31],[11,23,32],[12,20,30],[13,21,31],[14,22,32],[10,23,30],[11,20,31],[12,21,32],[13,22,30],[14,23,31]], dtype=float)
+# 20 hàng tọa độ kỳ vọng cùng thứ tự với observed, cũng đơn vị mm.
 expected = np.array([[11,19,33],[12,20,31],[13,21,32],[14,22,30],[15,19,31],[11,20,32],[12,21,30],[13,22,34],[14,19,32],[15,20,30],[11,21,31],[12,22,32],[13,19,30],[14,20,31],[15,21,35],[11,22,30],[12,19,31],[13,20,32],[14,21,30],[15,22,31]], dtype=float)
+# Trừ THEO TỪNG Ô cùng hàng/cột để lấy vector sai số tọa độ của mỗi lượt.
 residual = observed - expected
+# norm(...,axis=1) tính độ dài Euclid vector sai số ba trục cho từng hàng, trả 20 khoảng cách mm.
 errors = np.linalg.norm(residual, axis=1)
+# argmax() trả CHỈ SỐ 0-based có sai số lớn nhất, không trả trị số sai số; int() chuyển thành int Python.
 worst = int(errors.argmax())
+# shape (20,3) của cả hai bảng bảo đảm so đúng số lượt và số trục.
 if observed.shape != (20, 3) or expected.shape != (20, 3):
+    # raise ValueError() chặn kết luận nếu số bản ghi hoặc shape không đạt yêu cầu.
     raise ValueError("Cần 20 lượt đo, mỗi lượt có ba tọa độ nguồn và kỳ vọng.")
 print("Lượt đo:", len(errors))
+# So từng sai số với ngưỡng 2 mm, sum() trên Boolean đếm lượt vượt ngưỡng.
 print("Vượt 2 mm:", int((errors > 2).sum()))
+# Chỉ số argmax bắt đầu 0 nên +1 lấy số lượt, :02d tạo mã M01..M20.
 print("Lượt sai nhất:", f"M{worst+1:02d}")
+# Lấy sai số đúng lượt lớn nhất, :.2f hiển thị mm hai chữ số lẻ.
 print(f"Sai số lớn nhất (mm): {errors[worst]:.2f}")
+# mean() lấy độ dài sai số trung bình của 20 lượt, không phải trung bình từng tọa độ.
 print(f"Sai số TB (mm): {errors.mean():.2f}")
 ```
 
