@@ -42,11 +42,16 @@
 Một mô hình có hai tham số x,y và loss `f(x,y)=x²+3xy+y²`. **Đạo hàm riêng theo x** giả sử y giữ nguyên, được `2x+3y`, còn theo y là `3x+2y`. Ở điểm `(1,2)`, hai độ dốc lần lượt 8 và 7. Đạo hàm riêng khác đạo hàm hàm một biến vì ta phải chỉ rõ **biến đang thay đổi**.
 
 ```python
-# Mục đích: Độ dốc theo một tham số.
+# Mục đích: Tìm đạo hàm riêng của hàm có hai tham số, chỉ xét thay đổi theo x.
+# Dữ liệu: f=x²+3xy+y²; x và y là hai biến độc lập, tính đạo hàm theo x khi y được giữ cố định.
+# SymPy tính đạo hàm biểu thức có nhiều biến bằng ký hiệu.
 import sympy as sp
 
+# Tạo hai biến x, y tượng trưng; có thể đạo hàm theo một biến trong khi giữ biến kia.
 x, y = sp.symbols('x y')
+# Biểu thức có phần x², tương tác xy và y².
 f = x ** 2 + 3 * x * y + y ** 2
+# diff(f,x) tính ĐẠO HÀM RIÊNG theo x, xem y như hằng số; kết quả 2x+3y, không phải đạo hàm theo cả hai.
 print(sp.diff(f, x))
 ```
 
@@ -65,10 +70,15 @@ print(sp.diff(f, x))
 Nếu loss phụ thuộc nhiều tham số, **gradient** gom các đạo hàm riêng **theo đúng thứ tự tham số**: `∇f=(∂f/∂x, ∂f/∂y)`. Với `f=x²+y²` tại `(3,4)`, gradient `[6,8]` là vector hai chiều. Gradient chỉ **hướng tăng nhanh nhất cục bộ** của f; đi theo **gradient âm** giúp thử giảm loss khi bước đủ nhỏ.
 
 ```python
-# Mục đích: Tập hợp độ dốc của tất cả tham số.
+# Mục đích: Tính gradient của tổng bình phương hai tham số qua phép toán vector hóa.
+# Dữ liệu: Tham số [3,4], hàm mục tiêu ngầm f=w1²+w2², gradient là hai đạo hàm riêng.
+# NumPy cho tính trực tiếp theo từng phần tử của vector.
 import numpy as np
 
+# Vector hai tham số w1=3, w2=4, dtype float.
 params = np.array([3.0, 4.0])
+# Với loss là tổng bình phương tham số, gradient là 2*w ở từng thành phần, không phải một độ dốc scalar.
+# tolist() chuyển ndarray gradient thành list Python [6,8] để hiển thị.
 print((2 * params).tolist())
 ```
 
@@ -87,10 +97,15 @@ Gradient tại (3,4) có hai thành phần: đạo hàm theo x bằng 6, theo y 
 Gradient descent cập nhật tham số bằng `w_new = w − lr × gradient`. Với `L(w)=w²`, ta có đạo hàm `2w`. Bắt đầu w=3 và lr=0.1, gradient=6 nên w mới bằng `3−0.1×6=2.4`. **Learning rate** không phải một đạo hàm; nó quyết định bước đi. Quá lớn có thể dao động/phân kỳ, quá nhỏ có thể rất chậm.
 
 ```python
-# Mục đích: Độ dài bước cập nhật.
+# Mục đích: Thực hiện một bước gradient descent với learning rate 0.1 trên hàm w².
+# Dữ liệu: Trọng số w=3 ban đầu, độ dốc là 2w; learning_rate=0.1 là độ lớn bước đi theo hướng giảm.
+# w là một tham số cần tối ưu, ban đầu bằng 3.
 w = 3.0
+# Tốc độ học 0.1 nhân với gradient để quyết định kích thước mỗi bước; quá lớn có thể vượt điểm tối ưu.
 learning_rate = 0.1
+# Đạo hàm w² là 2w; lấy w trừ learning_rate×gradient để đi NGƯỢC chiều tăng loss.
 w = w - learning_rate * 2 * w
+# round(...,2) làm tròn trọng số mới để in, không phải số epoch hoặc loss.
 print(round(w, 2))
 ```
 
@@ -109,8 +124,12 @@ Một bước đi ngược gradient đưa tham số từ 3 xuống 2.4, gần c�
 **Epoch** thường là một lượt xử lý toàn bộ dữ liệu train. Nó **không bằng một bước gradient** trong mọi trường hợp: khi huấn luyện minibatch, một epoch có nhiều batch và nhiều lần cập nhật. Để minh họa vòng lặp, có thể in số thứ tự epoch 1, 2, 3. Với **gradient descent một batch toàn bộ dữ liệu**, mỗi epoch thường tương ứng một lần cập nhật; cách đếm và kiểm tra loss cần nhất quán.
 
 ```python
-# Mục đích: Một lượt qua dữ liệu train.
+# Mục đích: Minh họa epoch là một vòng huấn luyện qua dữ liệu, bằng ba lần đếm.
+# Dữ liệu: Ba epoch đánh số 1..3; ví dụ chỉ in thứ tự, chưa thật sự fit mô hình.
+# range(start,stop) sinh 1,2,3; cận cuối 4 bị loại.
+# Mỗi vòng tượng trưng một epoch, tức một lượt học trọn bộ train trong ứng dụng thật.
 for epoch in range(1, 4):
+    # Ở đây chỉ hiển thị số epoch, không có bước cập nhật mô hình hay dữ liệu train.
     print(epoch)
 ```
 
@@ -140,17 +159,30 @@ Có ba lượt epoch được đánh số 1 đến 3; đây mới là bộ đế
 3. So MSE trước/sau và in giá trị w mới.
 
 ```python
+# Mục đích: Giảm MSE dự đoán một hằng w trên 10 mục tiêu bằng một bước gradient.
+# Dữ liệu: 10 số mục tiêu 2..11, w khởi tạo 0; hàm loss là trung bình bình phương (w-target).
+# NumPy vector hóa hiệu dự đoán và mục tiêu cho toàn bộ train.
 import numpy as np
+# Mảng 10 mục tiêu số thực, một giá trị trên mỗi bản ghi.
 targets = np.array([2,3,4,5,6,7,8,9,10,11], dtype=float)
+# Khởi tạo dự đoán hằng cho mọi mẫu bằng 0 trước học.
 w = 0.0
+# Trừ w cho từng target, **2 bình phương và mean() lấy MSE ban đầu.
 before = np.mean((w - targets)**2)
+# Gradient theo tham số hằng w của MSE bằng hai lần trung bình sai lệch; không dùng độ lệch tuyệt đối.
 gradient = 2 * np.mean(w - targets)
+# Cập nhật w ngược chiều gradient với learning rate=0.1, chỉ MỘT bước.
 w = w - 0.1 * gradient
+# Trừ w cho từng target, **2 bình phương và mean() lấy MSE ban đầu.
+# Tính lại MSE với w mới để so sau bước cập nhật.
 after = np.mean((w - targets)**2)
+# len() xác minh đủ 10 mẫu huấn luyện.
 if len(targets) != 10:
+    # raise ValueError dừng khi số mẫu hoặc số lần cập nhật không đúng điều kiện kiểm tra.
     raise ValueError("Cần đúng 10 bản ghi mục tiêu.")
 print("Bản ghi:", len(targets))
 print(f"Trọng số sau bước: {w:.2f}")
+# So loss sau với trước; bool() đưa kết quả NumPy thành Boolean Python.
 print("Loss giảm:", bool(after < before))
 ```
 
@@ -178,18 +210,33 @@ Một bước chưa đưa w tới giá trị tối ưu, nhưng cho thấy hướ
 3. Cập nhật một bước, xác nhận MSE sau cập nhật nhỏ hơn trước.
 
 ```python
+# Mục đích: Điều chỉnh hệ số dốc w của mô hình y≈w*x+1 bằng một bước gradient trên 12 mẫu.
+# Dữ liệu: 12 đầu vào x=1..12, nhãn y=2x+1; chặn b=1 đã cố định, chỉ cần học w.
+# NumPy hỗ trợ lấy mean của lỗi theo 12 mẫu.
 import numpy as np
+# 12 đặc trưng x số thực tương ứng với từng nhãn y.
 x = np.array([1,2,3,4,5,6,7,8,9,10,11,12], dtype=float)
+# Tạo nhãn giả lập đúng từ đường thẳng độ dốc 2, chặn 1.
 y = 2*x + 1
+# w khởi tạo 0, trong khi hệ số thực là 2.
 w = 0.0
+# MSE của dự đoán w*x+1 so với y, dùng lỗi theo từng hàng.
 before = np.mean((w*x + 1 - y)**2)
+# Gradient MSE theo w: sai lệch nhân thêm x (vì dự đoán phụ thuộc w qua w*x), rồi mean×2.
 gradient = 2*np.mean((w*x + 1 - y)*x)
+# -= là gán w mới bằng w cũ trừ learning rate 0.005 nhân gradient; tốc độ nhỏ vì x có thể lớn.
 w -= 0.005*gradient
+# MSE của dự đoán w*x+1 so với y, dùng lỗi theo từng hàng.
+# Tính lại MSE sau cập nhật để xem một bước có giảm lỗi không.
 after = np.mean((w*x + 1 - y)**2)
+# shape (12,) bảo đảm cả x và y có 12 mẫu khớp vị trí.
 if x.shape != (12,) or y.shape != (12,):
+    # raise ValueError dừng khi số mẫu hoặc số lần cập nhật không đúng điều kiện kiểm tra.
     raise ValueError("Cần 12 cặp x và y.")
 print("Mẫu:", len(x))
+# f-string :.2f định dạng gradient hai số thập phân.
 print(f"Gradient ban đầu: {gradient:.2f}")
+# f-string :.3f định dạng trọng số mới ba số thập phân.
 print(f"Hệ số sau bước: {w:.3f}")
 print("Loss giảm:", bool(after < before))
 ```
@@ -219,23 +266,40 @@ Gradient của w không phải hệ số w: gradient phụ thuộc **tất cả 
 3. Kiểm lịch sử loss giảm, in bước đầu/cuối và hệ số mới.
 
 ```python
+# Mục đích: Theo dõi 6 giá trị MSE trong quá trình học trọng số trên 15 điểm của y=2x.
+# Dữ liệu: 15 x trong (0,1], nhãn y=2x; w từ 0, learning rate 0.2 và 6 lần cập nhật.
+# NumPy thực hiện vector hóa tính dự đoán/lỗi cho cả 15 mẫu.
 import numpy as np
+# 15 đầu vào x từ 1/15 đến 1 (số thực), giúp mức gradient vừa phải.
 x = np.array([0.06666666666666667,0.13333333333333333,0.2,0.26666666666666666,0.3333333333333333,0.4,0.4666666666666667,0.5333333333333333,0.6,0.6666666666666666,0.7333333333333333,0.8,0.8666666666666667,0.9333333333333333,1], dtype=float)
+# Nhãn đích là đường thẳng hệ số thực 2, không có chặn.
 y = 2*x
+# Trọng số dự đoán ban đầu bằng 0.
 w = 0.0
+# List lưu loss TRƯỚC mỗi bước cập nhật, tương ứng 6 lần kiểm.
 history = []
+# range(6) có 6 lượt step=0..5, không lấy 6.
 for step in range(6):
+    # Dự đoán vector w*x trừ nhãn y để được sai số từng mẫu.
     error = w*x - y
+    # **2 bình phương lỗi rồi mean() tính MSE tại w hiện tại.
+    # float() đổi NumPy scalar loss thành số Python; append() lưu trước khi đổi w.
     history.append(float(np.mean(error**2)))
+    # Gradient theo w là 2×mean(error*x); -= cập nhật ngược chiều với learning rate=0.2.
     w -= 0.2*2*np.mean(error*x)
+# Kiểm đúng 15 mẫu và 6 bản ghi loss.
 if len(x) != 15 or len(history) != 6:
+    # raise ValueError dừng khi số mẫu hoặc số lần cập nhật không đúng điều kiện kiểm tra.
     raise ValueError("Cần 15 mẫu và 6 bước kiểm tra Loss.")
 print("Mẫu:", len(x))
 print("Bước cập nhật:", len(history))
+# [0] là loss trước bước 1, [-1] loss ngay TRƯỚC bước 6 (không phải loss sau bước 6).
 print(f"Loss đầu: {history[0]:.3f}")
 print(f"Loss bước 6: {history[-1]:.3f}")
 decreases = True
+# Ghép từng loss với loss tiếp theo nhờ [1:] bỏ mục đầu để so mức giảm.
 for before, after in zip(history, history[1:]):
+    # Nếu loss mới không nhỏ hơn loss trước, đặt cờ False và break sớm.
     if before <= after:
         decreases = False
         break
@@ -268,23 +332,38 @@ Sáu **bước full-batch** ở đây cũng tương ứng sáu lượt xem toàn
 3. Báo loss ban đầu, hai loss cuối và kiểm bản tốc độ học lớn bị tăng loss.
 
 ```python
+# Mục đích: So learning rate nhỏ 0.1 với quá lớn 1.1 khi fit 18 mục tiêu bằng một tham số hằng.
+# Dữ liệu: 18 mục tiêu số thực 10..15 lặp ba lần, mỗi thử nghiệm học 5 bước từ w=0.
+# NumPy hỗ trợ MSE và gradient trung bình.
 import numpy as np
+# 18 mục tiêu cùng đơn vị giả lập, dùng chung cho hai tốc độ học.
 targets = np.array([10,11,12,13,14,15,10,11,12,13,14,15,10,11,12,13,14,15], dtype=float)
+# Định nghĩa hàm thử nghiệm nhận learning rate lr, trả loss sau 5 bước, mỗi lần khởi động w=0.
 def train(lr):
+    # Khởi tạo w lại trong hàm để so hai lr công bằng.
     w = 0.0
+    # Năm lượt cập nhật liên tục, không tạo dữ liệu mới.
     for step in range(5):
+        # Gradient của trung bình bình phương sai lệch theo hằng w; còn dấu cho biết chiều giảm.
         gradient = 2*np.mean(w - targets)
+        # Learning rate nhân độ dốc rồi trừ; với lr=1.1, bước có thể vượt qua điểm tối ưu và dao động tăng.
         w -= lr*gradient
+    # Hàm train trả MSE cuối dưới dạng float Python.
     return float(np.mean((w - targets)**2))
+# Vì w=0, MSE trước học bằng mean(target²); dùng làm mốc ban đầu.
 initial = float(np.mean(targets**2))
+# Chạy năm bước với lr nhỏ, thường giảm dần loss.
 small = train(0.1)
+# Chạy từ đầu với lr=1.1; lớn hơn ngưỡng ổn định cho bài toán hằng w, có thể làm loss tăng.
 large = train(1.1)
 if len(targets) != 18:
+    # raise ValueError dừng khi số mẫu hoặc số lần cập nhật không đúng điều kiện kiểm tra.
     raise ValueError("Cần 18 giá trị mục tiêu khi so learning rate.")
 print("Mẫu:", len(targets))
 print(f"Loss đầu: {initial:.2f}")
 print(f"Loss sau lr=0.1: {small:.2f}")
 print(f"Loss sau lr=1.1: {large:.2f}")
+# Cờ True báo loss lr lớn vượt loss trước học, không phải cứ lr lớn luôn xấu với mọi bài toán.
 print("lr lớn làm loss tăng:", bool(large > initial))
 ```
 
@@ -314,25 +393,47 @@ Learning rate lớn không **luôn** gây phân kỳ, nhưng ở hàm và bướ
 3. So loss đầu/cuối, in hai tham số cuối và xác nhận MSE giảm.
 
 ```python
+# Mục đích: Huấn luyện hai tham số w,b qua 300 epoch để khớp đường y=2x+1 trên 20 mẫu.
+# Dữ liệu: 20 đầu vào x=0..1.9, y=2x+1; tham số w,b đều khởi tạo 0 và learning rate 0.1.
+# NumPy cho phép tính gradient trên toàn bộ 20 mẫu mỗi epoch (batch gradient descent).
 import numpy as np
+# 20 x thực từ 0 đến 1.9, mỗi giá trị gắn một y tương ứng.
 x = np.array([0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9], dtype=float)
+# Sinh nhãn mục tiêu từ độ dốc 2 và chặn 1.
 y = 2*x + 1
+# Hai tham số ban đầu: w là độ dốc, b là hệ số chặn.
 w, b = 0.0, 0.0
+# Tính MSE đầu với w=b=0 trước khi học.
+# Tính MSE cuối sau 300 cập nhật và đổi thành float Python.
 initial = float(np.mean((w*x+b-y)**2))
+# 300 epoch; mỗi vòng cập nhật dùng tất cả mẫu, không phải 300 bản ghi khác nhau.
 for epoch in range(300):
+    # Dự đoán hiện tại trừ nhãn thật tại từng điểm; error là vector 20 phần tử.
     error = w*x+b-y
+    # dw là đạo hàm MSE theo w: nhân mỗi sai số với x, lấy trung bình rồi ×2.
     dw = 2*np.mean(error*x)
+    # db là đạo hàm MSE theo b vì dự đoán phụ thuộc b với hệ số 1.
     db = 2*np.mean(error)
+    # Trừ 0.1×gradient để đi theo hướng giảm loss, cập nhật độ dốc.
     w -= 0.1*dw
+    # Cập nhật chặn b bằng learning rate 0.1 và gradient riêng db.
     b -= 0.1*db
+# Tính MSE đầu với w=b=0 trước khi học.
+# Tính MSE cuối sau 300 cập nhật và đổi thành float Python.
 mse = float(np.mean((w*x+b-y)**2))
+# size đếm đúng 20 mẫu train.
 if x.size != 20:
+    # raise ValueError dừng khi số mẫu hoặc số lần cập nhật không đúng điều kiện kiểm tra.
     raise ValueError("Cần đủ 20 điểm train.")
 print("Mẫu:", len(x))
 print("Epoch:", 300)
+# f-string :.2f in độ dốc gần 2, có làm tròn hiển thị.
 print(f"Trọng số w: {w:.2f}")
+# In hệ số chặn gần 1 với hai chữ số thập phân.
 print(f"Chặn b: {b:.2f}")
+# In MSE cuối với sáu chữ số thập phân để thấy độ lỗi nhỏ.
 print(f"MSE cuối: {mse:.6f}")
+# So loss cuối với trước học, không đồng nghĩa đã kiểm mô hình trên tập test độc lập.
 print("MSE giảm:", mse < initial)
 ```
 

@@ -42,12 +42,19 @@
 Khi một hàm có **n đầu vào và m đầu ra**, Jacobian là bảng kích thước **m hàng đầu ra × n cột đầu vào**, tại mỗi ô là đạo hàm riêng của đầu ra hàng đó theo đầu vào cột đó. Với `F1=x+y`, `F2=xy`, các hàng lần lượt đại diện F1, F2; các cột theo x,y. Tại `(x,y)=(3,2)`, Jacobian bằng `[[1,1],[2,3]]`. Đây là độ nhạy cục bộ, không phải ma trận số liệu gốc.
 
 ```python
-# Mục đích: Đầu ra thay đổi theo từng đầu vào.
+# Mục đích: Lập Jacobian để đo mức thay đổi của hai đầu ra theo hai đầu vào x,y.
+# Dữ liệu: F=(x+y, x*y), điểm kiểm x=3,y=2; Jacobian có hai hàng đầu ra × hai cột đầu vào.
+# SymPy xây hàm nhiều biến và đạo hàm riêng bằng ký hiệu.
 import sympy as sp
 
+# Tạo hai biến tượng trưng x,y; chưa thế bằng dữ liệu số.
 x, y = sp.symbols('x y')
+# Matrix tạo vector CỘT gồm hai biểu thức đầu ra: tổng và tích của x,y.
 F = sp.Matrix([x + y, x * y])
+# jacobian([x,y]) tạo bảng đạo hàm riêng, mỗi HÀNG cho một đầu ra, mỗi CỘT cho một biến; shape (2,2).
 J = F.jacobian([x, y])
+# subs({x:3,y:2}) thế đồng thời hai tọa độ để có Jacobian số tại điểm đó.
+# tolist() chuyển ma trận SymPy thành list hai hàng để hiển thị dễ đọc.
 print(J.subs({x: 3, y: 2}).tolist())
 ```
 
@@ -66,11 +73,17 @@ Hàng 1 là độ nhạy của F1 theo x,y; hàng 2 là độ nhạy của F2 th
 **Hessian** là ma trận các đạo hàm riêng **bậc hai** của một hàm **đầu ra vô hướng**. Hàm loss `L(x,y)=x²+2y²` có Hessian `[[2,0],[0,4]]`. Hàng/cột đều tương ứng thứ tự **tham số x, y**; số 4 theo y lớn hơn 2 theo x nghĩa là độ cong theo y lớn hơn trong mô hình này. Khác Jacobian cho hàm nhiều đầu ra, Hessian giúp xem gradient đổi nhanh thế nào.
 
 ```python
-# Mục đích: Độ thay đổi của gradient.
+# Mục đích: Tính Hessian của hàm loss hai biến để biết độ cong ở từng hướng.
+# Dữ liệu: Loss=x²+2y², độ cong theo y lớn gấp đôi độ cong x.
+# SymPy sp.hessian() tính đạo hàm riêng cấp hai.
 import sympy as sp
 
+# x,y là hai tham số cần khảo sát độ cong.
 x, y = sp.symbols('x y')
+# Hàm loss parabol hai chiều, hệ số y lớn hơn làm bề mặt dốc hơn theo y.
 loss = x ** 2 + 2 * y ** 2
+# hessian(f,[x,y]) tạo ma trận các đạo hàm riêng bậc hai, gồm ∂²f/∂x², ∂²f/∂x∂y,...; ở đây [[2,0],[0,4]].
+# Chuyển SymPy Matrix thành list lồng để in hai hàng.
 print(sp.hessian(loss, [x, y]).tolist())
 ```
 
@@ -89,12 +102,20 @@ Hàm cong mạnh hơn theo y; hai đạo hàm chéo bằng 0.
 **Điểm dừng** của hàm khả vi có gradient bằng vector 0, tức không còn hướng tăng tuyến tính ngay tại điểm. Với `L(x,y)=(x−3)²+(y−2)²`, các đạo hàm `2(x−3)`, `2(y−2)` đều bằng 0 khi `(3,2)`. Đây là **ứng viên cực trị**, chưa đủ để nói là cực tiểu: hàm hình yên ngựa cũng có thể có gradient 0. Khái niệm critical point rộng hơn còn có điểm không khả vi ở miền trong.
 
 ```python
-# Mục đích: Điểm cần kiểm tra cực trị.
+# Mục đích: Giải hệ gradient bằng 0 để tìm điểm dừng của hàm loss hai biến.
+# Dữ liệu: Loss=(x-3)²+(y-2)², kỳ vọng điểm tối thiểu tại (3,2).
+# SymPy tạo phương trình ký hiệu và giải đồng thời.
 import sympy as sp
 
+# Khai báo hai biến đầu vào x,y.
 x, y = sp.symbols('x y')
+# Hai bình phương không âm, bằng 0 tại x=3, y=2.
 loss = (x - 3) ** 2 + (y - 2) ** 2
+# diff(loss,x) lấy đạo hàm riêng theo x để xét điểm dừng.
+# diff(loss,y) lấy đạo hàm riêng theo y.
+# solve(danh_sách_phương_trình,[x,y]) tìm nghiệm đồng thời khi cả hai thành phần gradient bằng 0.
 solution = sp.solve([sp.diff(loss, x), sp.diff(loss, y)], [x, y])
+# solution là dictionary nghiệm theo ký hiệu; [x] là giá trị x, [y] là giá trị y.
 print(solution[x], solution[y])
 ```
 
@@ -113,10 +134,14 @@ Gradient bằng 0 tại (3,2); cần xét độ cong để phân loại điểm 
 Tại một **điểm dừng** của hàm đủ trơn, dấu trị riêng Hessian giúp phân loại: **tất cả dương** → cực tiểu địa phương nghiêm ngặt; **tất cả âm** → cực đại địa phương nghiêm ngặt; **vừa dương vừa âm** → điểm yên ngựa. Ví dụ `x²−y²` có Hessian `diag(2,−2)`, nên tại (0,0) đi theo x hàm tăng nhưng đi theo y hàm giảm. Nếu có trị riêng bằng 0, phép thử Hessian đơn giản **chưa kết luận**.
 
 ```python
-# Mục đích: Phân biệt cực tiểu, cực đại, yên ngựa.
+# Mục đích: Quan sát dấu của trị riêng Hessian để nhận diện bề mặt có hướng lên và hướng xuống.
+# Dữ liệu: Hessian H=diag(2,-2), một hướng cong lên và một hướng cong xuống: dạng yên ngựa.
+# NumPy eigvalsh() lấy trị riêng của ma trận thực đối xứng.
 import numpy as np
 
+# Ma trận Hessian đối xứng 2×2 với một trị riêng dương và một âm.
 H = np.array([[2.0, 0.0], [0.0, -2.0]])
+# eigvalsh() trả trị riêng tăng dần [-2,2]; trái dấu nghĩa Hessian bất định, chỉ dạng yên ngựa tại điểm dừng tương ứng.
 print(np.linalg.eigvalsh(H))
 ```
 
@@ -144,16 +169,29 @@ Một trị riêng âm, một dương nên Hessian bất định; (0,0) là đi�
 3. Thay cặp đầu tiên vào Jacobian và in ma trận 2×2.
 
 ```python
+# Mục đích: Tính Jacobian tại cặp đầu tiên trong 10 cặp (x,y) với hai đầu ra.
+# Dữ liệu: 10 cặp điểm trên lưới x=2..6, y=3..4; đầu ra là x+y và x*y.
+# SymPy xây biểu thức vector và Jacobian có thể thế tại nhiều điểm.
 import sympy as sp
+# Khai báo x,y là hai biến ký hiệu.
 x, y = sp.symbols("x y")
+# 10 list con, mỗi list là cặp [x,y], không phải 10 biến độc lập.
 inputs = [[2,3],[3,3],[4,3],[5,3],[6,3],[2,4],[3,4],[4,4],[5,4],[6,4]]
+# Matrix chứa hai hàm đầu ra theo thứ tự tổng, tích.
 outputs = sp.Matrix([x+y, x*y])
+# jacobian() cho ma trận 2 đầu ra × 2 đầu vào, hàng thể hiện đầu ra, cột thể hiện biến.
 J = outputs.jacobian([x, y])
+# [0] ngoài lấy cặp đầu tiên, [0] trong lấy x, [1] lấy y của cặp đó.
+# subs() thế cả x và y của cặp đầu vào thứ nhất vào Jacobian ký hiệu.
 first = J.subs({x: inputs[0][0], y: inputs[0][1]})
+# shape là kích thước (2,2) của Jacobian, không phải 10 cặp điểm.
 if len(inputs) != 10 or J.shape != (2, 2):
+    # raise ValueError báo điều kiện số mẫu, shape hoặc phép đối chiếu thất bại.
     raise ValueError("Cần 10 cặp đầu vào và Jacobian 2×2.")
 print("Cặp đầu vào:", len(inputs))
+# tolist() đổi ma trận SymPy đã thế số thành list lồng hai hàng.
 print("Jacobian cặp đầu:", first.tolist())
+# shape là kích thước (2,2) của Jacobian, không phải 10 cặp điểm.
 print("Shape Jacobian:", J.shape)
 ```
 
@@ -181,18 +219,32 @@ Hàng đầu của Jacobian nói về F1, hàng thứ hai về F2; số `3` ở 
 3. Đánh giá Hessian tại điểm đầu/cuối và kiểm hai ma trận giống nhau.
 
 ```python
+# Mục đích: Xem Hessian không đổi theo 12 điểm vì hàm chi phí là đa thức bậc hai.
+# Dữ liệu: 12 cấu hình (x,y), loss=x²+2y² nên Hessian luôn [[2,0],[0,4]].
+# SymPy tính đạo hàm bậc hai chính xác trên biểu thức.
 import sympy as sp
+# Tạo hai biến ký hiệu.
 x, y = sp.symbols("x y")
+# 12 điểm là 12 cấu hình, mỗi list gồm hai tọa độ x/y.
 points = [[-1,-1],[0,-1],[1,-1],[2,-1],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1]]
+# Bậc hai có độ cong không phụ thuộc vị trí: theo x hệ số cong 2, y hệ số cong 4.
 loss = x**2 + 2*y**2
+# hessian() tạo bảng các đạo hàm riêng cấp hai, theo thứ tự biến [x,y].
 H = sp.hessian(loss, [x, y])
+# Hai chỉ số chọn x/y của điểm ĐẦU; [-1] chọn điểm CUỐI.
+# Thế tọa độ đầu vào Hessian để kiểm giá trị tại điểm đó.
 first = H.subs({x: points[0][0], y: points[0][1]})
+# [-1] chọn cấu hình cuối, [0]/[1] chọn x/y của cấu hình.
 last = H.subs({x: points[-1][0], y: points[-1][1]})
 if len(points) != 12:
+    # raise ValueError báo điều kiện số mẫu, shape hoặc phép đối chiếu thất bại.
     raise ValueError("Cần đủ 12 cấu hình Hessian.")
 print("Cấu hình:", len(points))
+# tolist() trình bày Hessian thành list 2×2.
 print("Hessian:", H.tolist())
+# So hai SymPy Matrix bằng == để kiểm Hessian không đổi giữa hai cấu hình.
 print("Hessian không đổi:", first == last)
+# [1,1] là đạo hàm riêng bậc hai theo y, [0,0] theo x; so xem bề mặt cong hơn theo y.
 print("Cong hơn theo y:", H[1,1] > H[0,0])
 ```
 
@@ -221,22 +273,42 @@ Cong hơn theo y: True
 3. So loss của 15 ứng viên, in mã ứng viên tốt nhất và nghiệm chính xác.
 
 ```python
+# Mục đích: Tìm điểm dừng tối thiểu trong 15 ứng viên và xác nhận Hessian dương xác định.
+# Dữ liệu: 15 điểm ứng viên x=1..5, y=1..3; loss=(x-3)²+2(y-2)².
+# SymPy giải gradient bằng 0 và tính Hessian ký hiệu.
 import sympy as sp
+# NumPy kiểm trị riêng của Hessian, argmin() chọn ứng viên.
 import numpy as np
+# x,y là hai tham số mục tiêu.
 x, y = sp.symbols("x y")
+# 15 list điểm ứng viên, mỗi hàng một cặp x,y.
 points = [[1,1],[2,1],[3,1],[4,1],[5,1],[1,2],[2,2],[3,2],[4,2],[5,2],[1,3],[2,3],[3,3],[4,3],[5,3]]
+# Hàm không âm, bằng 0 ở (3,2); hệ số y khiến hướng y cong mạnh hơn.
 loss = (x-3)**2 + 2*(y-2)**2
+# Đạo hàm riêng theo x, kết hợp đạo hàm y thành hệ điều kiện điểm dừng.
+# solve() giải đồng thời gradient_x=0 và gradient_y=0, cho nghiệm theo x,y.
 solution = sp.solve([sp.diff(loss,x), sp.diff(loss,y)], [x,y])
+# hessian() trả ma trận đạo hàm riêng bậc hai của loss theo [x,y].
+# Đổi SymPy Hessian thành NumPy array để tính trị riêng bằng numpy.linalg.
+# astype(float) ép giá trị ký hiệu sang float để eigvalsh() xử lý ma trận số.
 H = np.array(sp.hessian(loss,[x,y])).astype(float)
+# eigvalsh() trả trị riêng Hessian tăng dần; tất cả dương nghĩa cong lên ở mọi hướng.
 eigenvalues = np.linalg.eigvalsh(H)
 losses = []
+# Duyệt từng cặp ứng viên, tách x/y.
 for px, py in points:
+    # append() lưu giá trị loss của mỗi ứng viên theo thứ tự points.
     losses.append((px-3)**2 + 2*(py-2)**2)
 if len(points) != 15:
+    # raise ValueError báo điều kiện số mẫu, shape hoặc phép đối chiếu thất bại.
     raise ValueError("Cần đủ 15 ứng viên cần đánh giá.")
 print("Ứng viên:", len(points))
+# Lấy tọa độ điểm dừng đã giải từ dictionary SymPy.
 print("Điểm dừng:", solution[x], solution[y])
+# Mask trị riêng >0; np.all() yêu cầu TẤT CẢ dương, xác nhận Hessian dương xác định.
 print("Hessian dương:", bool(np.all(eigenvalues > 0)))
+# argmin() trả vị trí 0-based của loss nhỏ nhất trong 15 ứng viên, không trả chính trị loss.
+# int() chuyển chỉ số, +1 đổi sang số thứ tự 1-based và :02d tạo mã hai chữ số.
 print("Ứng viên tốt nhất:", f"T{int(np.argmin(losses))+1:02d}")
 ```
 
@@ -265,27 +337,45 @@ Tên 'tốt nhất' ở đây có nghĩa **loss nhỏ nhất trên đúng 15 ph�
 3. Đếm ba loại, xác nhận tổng 18.
 
 ```python
+# Mục đích: Phân nhóm 18 hàm bậc hai theo trị riêng Hessian: cực tiểu, cực đại, yên ngựa.
+# Dữ liệu: 18 mô hình lặp ba dạng loss: x²+2y², -x²-2y², x²-y², mỗi dạng sáu lượt.
+# NumPy chuyển Hessian SymPy thành số và kiểm trị riêng.
 import numpy as np
+# SymPy tạo ba hàm bậc hai và tính Hessian.
 import sympy as sp
+# Hai biến x,y cho mỗi bề mặt.
 x,y = sp.symbols("x y")
+# 18 dictionary với id và type mô hình; type chỉ tên kiểm thử, phân loại vẫn dựa Hessian.
 models = [{"id":"M01","type":"minimum"},{"id":"M02","type":"maximum"},{"id":"M03","type":"saddle"},{"id":"M04","type":"minimum"},{"id":"M05","type":"maximum"},{"id":"M06","type":"saddle"},{"id":"M07","type":"minimum"},{"id":"M08","type":"maximum"},{"id":"M09","type":"saddle"},{"id":"M10","type":"minimum"},{"id":"M11","type":"maximum"},{"id":"M12","type":"saddle"},{"id":"M13","type":"minimum"},{"id":"M14","type":"maximum"},{"id":"M15","type":"saddle"},{"id":"M16","type":"minimum"},{"id":"M17","type":"maximum"},{"id":"M18","type":"saddle"}]
+# Dictionary gắn type với ba công thức bậc hai tương ứng.
 functions = {"minimum": x*x+2*y*y,
              "maximum": -x*x-2*y*y,
              "saddle": x*x-y*y}
 results = []
+# Duyệt từng mô hình và lấy đúng công thức qua khóa type.
 for row in models:
+    # sp.hessian() tính ma trận độ cong bậc hai của công thức đang xét.
+    # Chuyển Hessian sang ndarray float cho eigvalsh.
     H = np.array(sp.hessian(functions[row["type"]],[x,y]), dtype=float)
+    # eigvalsh() trả trị riêng của Hessian đối xứng; dấu trị riêng phân biệt các dạng cong.
     eig = np.linalg.eigvalsh(H)
+    # Tất cả trị riêng dương nghĩa cực tiểu tại điểm dừng (Hessian dương xác định).
     if np.all(eig > 0):
         kind = "minimum"
+    # Tất cả trị riêng âm nghĩa cực đại tại điểm dừng.
     elif np.all(eig < 0):
         kind = "maximum"
     else:
+        # Với ba loại mô hình đã dựng, trường hợp còn lại có trị riêng trái dấu nên là yên ngựa; quy tắc else này không đủ phân loại Hessian có trị riêng bằng 0 nói chung.
         kind = "saddle"
+    # append() lưu nhãn kết quả để đếm thống kê.
     results.append(kind)
+# Kiểm đủ 18 mô hình trước khi báo cáo.
 if len(models) != 18:
+    # raise ValueError báo điều kiện số mẫu, shape hoặc phép đối chiếu thất bại.
     raise ValueError("Cần đủ 18 mô hình cực trị.")
 print("Mô hình:", len(models))
+# count() đếm số chuỗi 'minimum'; tương tự 'maximum','saddle' trong list nhãn.
 print("Cực tiểu:", results.count("minimum"))
 print("Cực đại:", results.count("maximum"))
 print("Yên ngựa:", results.count("saddle"))
@@ -316,22 +406,42 @@ Trị riêng bằng 0 sẽ khiến **phép thử Hessian cơ bản không đủ 
 3. In mã suy biến, số cấu hình còn khả nghịch cục bộ và Jacobian mẫu.
 
 ```python
+# Mục đích: Kiểm 20 Jacobian hai biến để tìm cấu hình gần suy biến theo định thức.
+# Dữ liệu: 20 điểm (x,y), F=(x²+y,xy+3y); ngưỡng |det(J)|<1e-9 là tiêu chí gần suy biến.
+# NumPy linalg.det() tính định thức của Jacobian số tại từng cấu hình.
 import numpy as np
+# SymPy lập ma trận Jacobian ký hiệu từ hàm vector F.
 import sympy as sp
+# Hai đầu vào ký hiệu cho hàm F.
 x,y = sp.symbols("x y")
+# 20 cấu hình [x,y], mỗi cặp một trường hợp kiểm đạo hàm.
 points = [[1,8],[2,2],[3,2],[4,2],[5,2],[1,3],[2,3],[3,36],[4,3],[5,3],[1,4],[2,4],[3,4],[4,4],[5,80],[1,5],[2,5],[3,5],[4,5],[5,5]]
+# Hai đầu ra phi tuyến làm mỗi hàng Jacobian tương ứng một hàm.
 F = sp.Matrix([x*x+y, x*y+3*y])
+# jacobian() tạo ma trận đạo hàm riêng 2×2 theo thứ tự biến [x,y].
 J = F.jacobian([x,y])
+# List lưu mã cấu hình có định thức gần 0.
 singular = []
+# enumerate(...,1) cung cấp số thứ tự 1..20 cho mã C01..C20; cặp (px,py) là tọa độ.
 for i,(px,py) in enumerate(points,1):
+    # subs() thế tọa độ cụ thể vào các đạo hàm ký hiệu.
+    # Đổi Jacobian tại điểm thành ndarray số thực float trước khi lấy det().
     matrix = np.array(J.subs({x:px,y:py}),dtype=float)
+    # det() lấy định thức Jacobian 2×2; bằng 0 là suy biến, không có nghịch đảo cục bộ.
+    # abs() bỏ dấu định thức, so ngưỡng gần 0 để tránh sai số floating-point; ngưỡng này tùy thang dữ liệu.
     if abs(np.linalg.det(matrix)) < 1e-9:
+        # f-string :02d tạo mã cấu hình hai chữ số.
+        # append() lưu mã của cấu hình gần suy biến.
         singular.append(f"C{i:02d}")
+# Kiểm đủ 20 cấu hình đầu vào.
 if len(points) != 20:
+    # raise ValueError báo điều kiện số mẫu, shape hoặc phép đối chiếu thất bại.
     raise ValueError("Cần đủ 20 cấu hình Jacobian.")
 print("Cấu hình:", len(points))
 print("Suy biến:", ", ".join(singular))
+# Số cấu hình không bị đánh dấu = tổng 20 trừ số gần suy biến.
 print("Còn định thức khác 0:", len(points)-len(singular))
+# shape (2,2) là số đầu ra × số đầu vào, không phải 20 điểm.
 print("Kích thước Jacobian:", J.shape)
 ```
 
