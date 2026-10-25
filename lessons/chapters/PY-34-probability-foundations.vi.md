@@ -41,6 +41,17 @@
 
 **Phép thử ngẫu nhiên** là thao tác có những kết quả khả dĩ biết trước, nhưng không biết chắc kết quả của **một lần thử**. Tung một đồng xu công bằng là ví dụ: kết quả có thể là ngửa hoặc sấp; mỗi lần chỉ xuất hiện một mặt. Để minh họa mà không in kết quả thất thường, tạo số ngẫu nhiên bằng `np.random.default_rng(seed)` giúp **tái lập cùng chuỗi giả ngẫu nhiên**, nhưng seed không biến thử nghiệm thành không ngẫu nhiên trong lý thuyết.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+rng = np.random.default_rng(42)
+print(rng.integers(0, 2, size=5).tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Mô phỏng năm phép thử 0/1 với seed cố định để học cách tái lập thí nghiệm.
 # Dữ liệu: Mỗi lượt nhận 0 hoặc 1; seed 42 để chạy lại dãy số giả ngẫu nhiên.
@@ -68,6 +79,15 @@ Năm kết quả mô phỏng 0/1 với seed 42 tái lập được trong phiên 
 
 **Không gian mẫu** Ω chứa toàn bộ kết quả có thể của phép thử. Với xúc xắc sáu mặt chuẩn, Ω=`{1,2,3,4,5,6}`; mỗi số chỉ là **một kết quả**, chưa phải xác suất. Đếm `len(Ω)=6` cho biết số trường hợp khả dĩ. Chỉ khi xúc xắc **công bằng** ta mới giả định cả sáu mặt đồng xác suất `1/6`. Set không bảo đảm thứ tự hiển thị nên in qua `sorted()`.
 
+**No Note — Không chú thích**
+
+```python
+space = set(range(1, 7))
+print(sorted(space))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Liệt kê không gian mẫu sáu mặt của xúc xắc.
 # Dữ liệu: Không gian mẫu là các mặt 1,2,3,4,5,6; giả định đồng khả năng.
@@ -92,6 +112,15 @@ Không gian mẫu của một lần gieo có sáu mặt, được sắp thứ t�
 
 **Biến cố** là một tập con của không gian mẫu. Khi gieo xúc xắc, biến cố `E = ra số chẵn` gồm `{2,4,6}`. Nó không phải một kết quả duy nhất: trong một lần gieo, E xảy ra nếu số được gieo **thuộc** Set E. Gọi `sorted(E)` để hiển thị rõ ba trường hợp; phép kiểm tra `4 in E` cho True.
 
+**No Note — Không chú thích**
+
+```python
+even = {2, 4, 6}
+print(sorted(even))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Biểu diễn tập biến cố các mặt chẵn của xúc xắc.
 # Dữ liệu: Biến cố mặt chẵn gồm 2,4,6 trên tổng sáu mặt.
@@ -114,6 +143,16 @@ Biến cố ra số chẵn có ba kết quả thuận lợi trong sáu mặt xú
 **Từ vựng:** **Probability** — xác suất; **Equally likely** — đồng khả năng.
 
 **Xác suất** P(E) là số trong `[0,1]` đo khả năng của biến cố E. Khi các phần tử không gian mẫu **đồng khả năng**, `P(E)=số kết quả thuận lợi / số kết quả có thể`. Với xúc xắc công bằng, E là các mặt chẵn `{2,4,6}` nên `P(E)=3/6=0.5`. Nếu xúc xắc lệch, không thể dùng số mặt thuận lợi chia số mặt một cách máy móc: cần xác suất của từng mặt.
+
+**No Note — Không chú thích**
+
+```python
+space = set(range(1, 7))
+even = {2, 4, 6}
+print(len(even) / len(space))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính xác suất lý thuyết gieo mặt chẵn trong sáu mặt đồng khả năng.
@@ -149,6 +188,23 @@ Một lần gieo xúc xắc công bằng có xác suất 50% ra mặt chẵn.
 1. Lưu màu trên mười vé theo thứ tự mã.
 2. Xác định biến cố `vé Xanh`, đếm vé thuộc biến cố.
 3. Chia số vé thuận lợi cho tổng số vé khi giả định mọi vé như nhau.
+
+**No Note — Không chú thích**
+
+```python
+colors = ["Xanh","Đỏ","Xanh","Vàng","Đỏ","Xanh","Đỏ","Vàng","Xanh","Đỏ"]
+blue = []
+for i, color in enumerate(colors, 1):
+    if color == "Xanh":
+        blue.append(i)
+if len(colors) != 10:
+    raise ValueError("Cần đúng 10 vé theo màu.")
+print("Vé:", len(colors))
+print("Vé xanh:", len(blue))
+print(f"P(rút xanh): {len(blue)/len(colors):.2f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Đếm vé màu xanh trong mười vé và tìm xác suất rút xanh.
@@ -197,6 +253,24 @@ Nếu quay thưởng thiên vị một vé, phép đếm tỷ lệ này không c
 1. Lưu đúng 12 lượt kết quả.
 2. Đếm ký hiệu N, lấy tỷ lệ chia 12.
 3. In tỷ lệ quan sát và giả định lý thuyết để so sánh.
+
+**No Note — Không chú thích**
+
+```python
+observed = ["N","S","N","N","S","N","S","S","N","N","S","N"]
+heads = 0
+for item in observed:
+    if item == "N":
+        heads += 1
+if len(observed) != 12:
+    raise ValueError("Cần đủ 12 lượt quan sát tung đồng xu.")
+print("Lượt tung:", len(observed))
+print("Ngửa:", heads)
+print(f"Tỷ lệ ngửa quan sát: {heads/len(observed):.3f}")
+print("Xác suất lý thuyết: 0.500")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Phân biệt tỷ lệ ngửa quan sát trong 12 lần tung và xác suất đồng xu công bằng.
@@ -248,6 +322,30 @@ Mẫu 12 lần chỉ minh họa **tần suất**, không thay thế toàn bộ x
 1. Lưu 15 cặp kết quả được quan sát và đếm tổng >=9.
 2. Liệt kê 36 cặp khả dĩ khi hai xúc xắc độc lập/công bằng.
 3. Báo tỷ lệ quan sát và xác suất lý thuyết có nhãn riêng.
+
+**No Note — Không chú thích**
+
+```python
+from itertools import product
+observations = [[1,1],[2,5],[3,6],[4,5],[6,6],[1,4],[5,5],[2,2],[4,6],[3,3],[6,2],[5,4],[1,6],[6,5],[2,4]]
+space = list(product(range(1, 7), repeat=2))
+observed_hits = 0
+for a, b in observations:
+    if a + b >= 9:
+        observed_hits += 1
+possible_hits = 0
+for a, b in space:
+    if a + b >= 9:
+        possible_hits += 1
+if len(observations) != 15 or len(space) != 36:
+    raise ValueError("Cần 15 lượt quan sát và 36 khả năng khi tung hai xúc xắc.")
+print("Lượt quan sát:", len(observations))
+print("Quan sát tổng >=9:", observed_hits)
+print(f"Tỷ lệ quan sát: {observed_hits/len(observations):.3f}")
+print(f"Xác suất lý thuyết: {possible_hits/len(space):.3f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Đếm biến cố tổng hai xúc xắc từ 9 trở lên trong 15 quan sát và 36 khả năng lý thuyết.
@@ -311,6 +409,34 @@ Mười lăm lượt có thể có nhiều cặp lặp lại. Một phép thử 
 1. Đếm số khách có từng cờ và số khách có cả hai.
 2. Dùng `app or email` cho biến cố hợp, `app and email` cho giao.
 3. So xác suất hợp trực tiếp với công thức hợp bằng hai tỷ lệ trừ giao.
+
+**No Note — Không chú thích**
+
+```python
+records = [{"id":"U01","app":False,"email":False},{"id":"U02","app":True,"email":True},{"id":"U03","app":True,"email":True},{"id":"U04","app":False,"email":True},{"id":"U05","app":True,"email":False},{"id":"U06","app":True,"email":True},{"id":"U07","app":False,"email":True},{"id":"U08","app":True,"email":True},{"id":"U09","app":True,"email":False},{"id":"U10","app":False,"email":True},{"id":"U11","app":True,"email":True},{"id":"U12","app":True,"email":True},{"id":"U13","app":False,"email":False},{"id":"U14","app":True,"email":True},{"id":"U15","app":True,"email":True},{"id":"U16","app":False,"email":True},{"id":"U17","app":True,"email":False},{"id":"U18","app":True,"email":True}]
+app = 0
+email = 0
+both = 0
+either = 0
+for row in records:
+    if row["app"]:
+        app += 1
+    if row["email"]:
+        email += 1
+    if row["app"] and row["email"]:
+        both += 1
+    if row["app"] or row["email"]:
+        either += 1
+if len(records) != 18 or app + email - both != either:
+    raise ValueError("Cần 18 khách và phép đếm hợp tập hợp phải nhất quán.")
+print("Khách:", len(records))
+print("Cả hai kênh:", both)
+print("Ít nhất một kênh:", either)
+print(f"P(hợp): {either/len(records):.3f}")
+print("Kiểm công thức:", either == app+email-both)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính xác suất khách dùng ít nhất một kênh app/email bằng nguyên lý cộng-trừ giao.
@@ -379,6 +505,26 @@ Kiểm công thức: True
 1. Tạo 20 trạng thái với trọng số 1–20, chuẩn hóa thành xác suất.
 2. Cộng trọng số 5 trạng thái quan tâm rồi chia tổng.
 3. Lấy 5.000 mẫu có seed 42, kiểm tần suất gần xác suất có trọng số.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+weights = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], dtype=float)
+probs = weights / weights.sum()
+theoretical = float(probs[15:].sum())
+rng = np.random.default_rng(42)
+sampled = rng.choice(np.arange(20), size=5000, p=probs)
+frequency = float(np.mean(sampled >= 15))
+if len(weights) != 20 or not np.isclose(probs.sum(), 1):
+    raise ValueError("Cần 20 trọng số và tổng xác suất bằng 1.")
+print("Trạng thái:", len(weights))
+print(f"P(S16–S20): {theoretical:.3f}")
+print("Đồng khả năng 5/20:", f"{5/20:.3f}")
+print("Mô phỏng gần lý thuyết:", abs(frequency-theoretical) < 0.03)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lấy mẫu từ 20 trạng thái có xác suất không đều và so tần suất mô phỏng với lý thuyết.
