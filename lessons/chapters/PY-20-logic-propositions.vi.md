@@ -42,7 +42,9 @@
 **Mệnh đề** là một phát biểu có giá trị đúng hoặc sai xác định. Chẳng hạn `3 > 1` là đúng, còn `3 < 1` là sai; trong Python, hai kết quả được biểu diễn bằng `True` và `False`. Không phải mọi câu đều là mệnh đề: câu hỏi “Bạn khỏe không?” chưa mang một giá trị đúng/sai để tính toán. Ta dùng mệnh đề khi viết điều kiện kiểm tra truy cập hoặc quy tắc vận hành.
 
 ```python
-# Mục đích: Phát biểu đúng hoặc sai.
+# Mục đích: Kiểm một phát biểu logic bằng phép so sánh lớn hơn.
+# Dữ liệu: Phát biểu 3 lớn hơn 1 là đúng (True), không phải phép gán.
+# Toán tử > so sánh 3 với 1 và trả giá trị Boolean True; print() hiển thị kết quả.
 print(3 > 1)
 ```
 
@@ -61,9 +63,13 @@ Mệnh đề `3 > 1` đúng vì số 3 lớn hơn 1; `print` hiển thị Boolea
 **Bảng chân trị** liệt kê mọi kết hợp đúng/sai có thể có của các điều kiện. Với hai biến p, q, mỗi biến có hai trạng thái nên có `2×2 = 4` cặp. `p and q` chỉ đúng khi cả hai đúng; `p or q` đúng nếu **ít nhất một** đúng; `not p` đảo đúng thành sai và ngược lại. Bảng giúp kiểm tra quy tắc ngay cả ở trường hợp khó nhận ra bằng trực giác.
 
 ```python
-# Mục đích: Bảng chân trị.
+# Mục đích: Liệt kê bảng chân trị đủ bốn cặp p/q và kết quả AND, OR.
+# Dữ liệu: Hai mệnh đề p và q, mỗi mệnh đề có hai giá trị True/False.
+# Vòng ngoài lần lượt đặt p=True rồi p=False.
 for p in [True, False]:
+    # Vòng trong thử q=True và q=False cho MỖI p, tạo 2×2=4 cặp.
     for q in [True, False]:
+        # and chỉ True khi CẢ p và q đều đúng; or True nếu ÍT NHẤT một trong hai đúng.
         print(p, q, p and q, p or q)
 ```
 
@@ -85,9 +91,13 @@ Hai cột đầu là đầu vào p, q; cột thứ ba là AND; cột cuối là 
 **Mệnh đề kéo theo** `p ⇒ q` diễn đạt “nếu p thì q”, trong đó p là tiền đề và q là kết luận. Nó **chỉ sai** khi p đúng mà q sai. Ví dụ quy định “nếu đơn được phê duyệt (p), đơn phải có chữ ký (q)”: phê duyệt `True` nhưng có chữ ký `False` là vi phạm. Trong Python ta viết `(not p) or q`. Lưu ý đây là cách kiểm tra logic, không tự chứng minh quan hệ nguyên nhân.
 
 ```python
-# Mục đích: Nếu p thì q.
+# Mục đích: Biểu diễn quy tắc nếu được duyệt thì phải ký bằng (not p) or q.
+# Dữ liệu: p là approved (đã duyệt), q là signed (đã ký); p=True, q=False vi phạm điều kiện.
+# Giả định hồ sơ đã được duyệt (p đúng).
 approved = True
+# Giả định hồ sơ chưa ký (q sai).
 signed = False
+# Mệnh đề kéo theo p→q tương đương (not p) or q: chỉ False khi p đúng mà q sai.
 print((not approved) or signed)
 ```
 
@@ -106,9 +116,13 @@ False
 **Nguyên lý nhân**: nếu có 3 cách chọn màu và mỗi màu đều có 4 cỡ, số cặp (màu, cỡ) là `3×4 = 12`. **Nguyên lý cộng** áp dụng cho lựa chọn thuộc **một trong các nhóm không trùng nhau**: có 3 mẫu áo hoặc 4 mẫu quần để chọn **một món**, tổng cộng 7 cách. Nếu các nhóm có phần giao, phải trừ phần bị đếm lặp; bài tiếp theo sẽ học kỹ phép bao hàm–loại trừ. `itertools.product` liệt kê từng cặp thay vì chỉ đếm.
 
 ```python
-# Mục đích: Nguyên lý cộng và nhân.
+# Mục đích: Áp dụng nguyên lý nhân: số kết hợp màu sắc và kích cỡ sản phẩm.
+# Dữ liệu: Có 3 màu và 4 cỡ độc lập; mỗi màu kết hợp được với từng cỡ.
+# Có ba lựa chọn màu, không phải ba sản phẩm đã sản xuất.
 colors = 3
+# Có bốn lựa chọn kích cỡ cho mỗi màu.
 sizes = 4
+# Nguyên lý nhân cho 3×4=12 cặp cấu hình, giả sử mọi cặp đều hợp lệ.
 print(colors * sizes)
 ```
 
@@ -136,15 +150,29 @@ Có 12 cách chọn một màu và một cỡ khi mọi màu đều có đủ b�
 3. Báo số được phép và số từ chối, đối chiếu tổng là 10.
 
 ```python
+# Mục đích: Kiểm quyền 10 tài khoản: chỉ tài khoản vừa đăng nhập vừa xác minh mới được phép.
+# Dữ liệu: 10 trạng thái logged_in True/False và 10 verified True/False cùng vị trí tài khoản.
+# List 10 cờ đăng nhập theo thứ tự tài khoản.
 logged_in = [True,True,False,True,False,True,True,False,True,True]
+# List 10 cờ xác minh khớp từng vị trí với logged_in.
 verified = [True,False,True,True,False,False,True,True,True,False]
+# List rỗng lưu kết quả cho phép True/False của từng tài khoản.
 allowed = []
+# zip() ghép hai cờ ở CÙNG vị trí thành một tài khoản, không tạo mọi tổ hợp.
 for logged, verified_status in zip(logged_in, verified):
+    # and chỉ True nếu đăng nhập và xác minh đều True; append() giữ đúng một kết quả mỗi tài khoản.
     allowed.append(logged and verified_status)
+# len() đếm đủ 10 tài khoản đã kiểm.
 if len(allowed) != 10:
+    # ValueError dừng khi số lượng hoặc quy tắc logic không nhất quán với dữ liệu đầu vào.
     raise ValueError("Cần kiểm tra đủ 10 tài khoản.")
+# len() đếm đủ 10 tài khoản đã kiểm.
 print("Tài khoản:", len(allowed))
+# Trong Python True đếm như 1 và False như 0; sum() đếm tài khoản được phép.
 print("Cho phép:", sum(allowed))
+# len() đếm đủ 10 tài khoản đã kiểm.
+# Trong Python True đếm như 1 và False như 0; sum() đếm tài khoản được phép.
+# Tổng trừ được phép ra số tài khoản bị từ chối.
 print("Từ chối:", len(allowed) - sum(allowed))
 ```
 
@@ -172,24 +200,37 @@ Tài khoản chỉ đăng nhập nhưng chưa xác minh bị từ chối, vì m�
 3. Đếm số lần hai phép AND/OR nhận True và báo độ phủ bảng chân trị.
 
 ```python
+# Mục đích: Dùng itertools.product sinh bảng chân trị bốn cặp, lặp ba ngày tạo 12 lượt kiểm.
+# Dữ liệu: p,q là hai mệnh đề Boolean; đủ 4 tổ hợp mỗi ngày × 3 ngày.
+# product() của itertools tạo tích Descartes: mọi tổ hợp từ các nhóm lựa chọn.
 from itertools import product
+# repeat=2 dùng cùng tập hai giá trị cho p và q, sinh 4 cặp; list() lưu lại.
 truth_table = list(product([True, False], repeat=2))
 checks = []
+# range(1,4) sinh ngày 1,2,3, không lấy 4.
 for day in range(1, 4):
+    # Tách mỗi tuple (p,q) của bảng chân trị cho từng ngày.
     for p, q in truth_table:
+        # append() thêm bộ (ngày,p,q) vào list, tổng 12 bộ.
         checks.append((day, p, q))
+# set() tập rỗng chỉ lưu cặp logic không trùng, bỏ thông tin ngày.
 pairs = set()
 for day, p, q in checks:
+    # add() tự loại cặp trùng giữa ba ngày để còn bốn tổ hợp duy nhất.
     pairs.add((p, q))
+# Kiểm đúng 12 lượt và đủ bốn cặp logic trước khi kết luận.
 if len(checks) != 12 or len(pairs) != 4:
+    # ValueError dừng khi số lượng hoặc quy tắc logic không nhất quán với dữ liệu đầu vào.
     raise ValueError("Cần có 12 lượt kiểm tra với đủ bốn tổ hợp logic.")
 print("Lượt kiểm tra:", len(checks))
 print("Tổ hợp logic:", len(truth_table))
 and_count = 0
 or_count = 0
 for day, p, q in checks:
+    # AND chỉ đúng khi cả p và q cùng True; += 1 đếm lượt thỏa.
     if p and q:
         and_count += 1
+    # OR đúng khi ít nhất một mệnh đề đúng; += 1 đếm lượt thỏa.
     if p or q:
         or_count += 1
 print("AND đúng:", and_count)
@@ -221,19 +262,32 @@ Bảng chân trị chỉ có bốn tổ hợp **khác nhau**; 12 là số lượ
 3. Liệt kê phản ví dụ và số hồ sơ tuân thủ.
 
 ```python
+# Mục đích: Kiểm 15 hồ sơ tuân thủ mệnh đề 'nếu duyệt thì phải có chứng nhận'.
+# Dữ liệu: 15 cờ approved/certified theo cùng vị trí, quy tắc p→q chỉ sai khi p=True và q=False.
+# 15 cờ hồ sơ đã duyệt; True nghĩa điều kiện tiền đề p đúng.
 approved = [True,False,True,True,False,True,False,True,True,False,True,False,True,True,True]
+# 15 cờ có chứng nhận tương ứng từng hồ sơ; True nghĩa hệ quả q đúng.
 certified = [True,False,False,True,False,True,True,False,True,True,True,False,True,False,True]
 compliant = []
+# zip() ghép cờ duyệt và chứng nhận của chính một hồ sơ theo vị trí.
 for approved_status, certificate_status in zip(approved, certified):
+    # Quy tắc p→q: khi không duyệt thì không vi phạm; nếu đã duyệt phải có chứng nhận.
+    # append() lưu Boolean tuân thủ của mỗi hồ sơ theo thứ tự.
     compliant.append((not approved_status) or certificate_status)
 violations = []
+# enumerate(...,1) đánh số hồ sơ R01..R15 (không dùng chỉ số 0 làm mã).
 for i, ok in enumerate(compliant, 1):
+    # not tìm những kết quả tuân thủ bằng False.
     if not ok:
+        # append() lưu mã vi phạm; f-string :02d tạo số thứ tự hai chữ số.
         violations.append(f"R{i:02d}")
 if len(compliant) != 15:
+    # ValueError dừng khi số lượng hoặc quy tắc logic không nhất quán với dữ liệu đầu vào.
     raise ValueError("Cần kiểm tra đủ 15 hồ sơ.")
 print("Hồ sơ:", len(compliant))
+# sum() đếm số True (tuân thủ) trong list Boolean.
 print("Tuân thủ:", sum(compliant))
+# join() ghép mã vi phạm bằng dấu phẩy và khoảng trắng.
 print("Vi phạm:", ", ".join(violations))
 ```
 
@@ -261,20 +315,33 @@ Việc chưa phê duyệt khiến tiền đề sai; với một phép kéo theo,
 3. Đối chiếu số hợp lệ + số loại = 18 và in kết quả.
 
 ```python
+# Mục đích: Sinh 18 cấu hình màu/cỡ/chất liệu, loại mọi cấu hình Đỏ + Poly.
+# Dữ liệu: 3 màu Đỏ/Xanh/Trắng × 3 cỡ S/M/L × 2 chất liệu Cotton/Poly = 18 cấu hình.
+# itertools.product sinh tất cả tổ hợp giữa nhiều danh sách độc lập.
 from itertools import product
+# Ba màu là ba lựa chọn của thành phần thứ nhất.
 colors = ["Đỏ", "Xanh", "Trắng"]
+# Ba cỡ là ba lựa chọn thành phần thứ hai.
 sizes = ["S", "M", "L"]
+# Hai chất liệu tạo chiều lựa chọn thứ ba.
 materials = ["Cotton", "Poly"]
+# product() tạo 3×3×2=18 tuple (màu,cỡ,chất liệu), list() giữ toàn bộ.
 options = list(product(colors, sizes, materials))
 valid = []
+# Duyệt từng tuple cấu hình.
 for item in options:
+    # [0] là màu, [2] chất liệu; and nhận tổ hợp Đỏ cùng Poly, not đảo để chỉ giữ tổ hợp KHÔNG bị cấm.
     if not (item[0] == "Đỏ" and item[2] == "Poly"):
+        # append() lưu tuple hợp lệ; không sửa list gốc options.
         valid.append(item)
+# Nguyên lý nhân xác minh phải có 18 tổ hợp trước khi lọc.
 if len(options) != 18 or len(colors) * len(sizes) * len(materials) != 18:
+    # ValueError dừng khi số lượng hoặc quy tắc logic không nhất quán với dữ liệu đầu vào.
     raise ValueError("Cần liệt kê đúng 18 tổ hợp sản phẩm.")
 print("Cấu hình:", len(options))
 print("Hợp lệ:", len(valid))
 print("Loại:", len(options) - len(valid))
+# valid[0] là tuple cấu hình hợp lệ đầu; join() nối ba trường thành chuỗi dễ đọc.
 print("Ví dụ đầu:", " - ".join(valid[0]))
 ```
 
@@ -303,23 +370,40 @@ Tích Descartes liệt kê **toàn bộ cấu hình**; trong bài này ràng bu�
 3. Đếm kết quả, kiểm tra tổng 20 và khẳng định mọi yêu cầu bị khóa đều bị từ chối.
 
 ```python
+# Mục đích: Kiểm 20 yêu cầu truy cập theo tuổi hoặc đồng ý, đồng thời đã xác minh và không bị khóa.
+# Dữ liệu: 20 dict gồm age năm, consent/verified/blocked là cờ Boolean; quy tắc chỉ mang tính ví dụ, không phải chính sách pháp luật.
+# Mỗi dict là một yêu cầu: tuổi (năm), cờ đồng ý, cờ xác minh và cờ bị khóa.
 requests = [{"age":16,"consent":False,"verified":True,"blocked":False},{"age":17,"consent":True,"verified":True,"blocked":False},{"age":18,"consent":True,"verified":False,"blocked":False},{"age":19,"consent":True,"verified":True,"blocked":False},{"age":20,"consent":True,"verified":True,"blocked":False},{"age":21,"consent":False,"verified":True,"blocked":False},{"age":22,"consent":True,"verified":False,"blocked":False},{"age":23,"consent":True,"verified":True,"blocked":True},{"age":16,"consent":True,"verified":True,"blocked":False},{"age":17,"consent":True,"verified":True,"blocked":False},{"age":18,"consent":False,"verified":False,"blocked":False},{"age":19,"consent":True,"verified":True,"blocked":False},{"age":20,"consent":True,"verified":True,"blocked":False},{"age":21,"consent":True,"verified":True,"blocked":False},{"age":22,"consent":True,"verified":False,"blocked":False},{"age":23,"consent":False,"verified":True,"blocked":False},{"age":16,"consent":True,"verified":True,"blocked":False},{"age":17,"consent":True,"verified":True,"blocked":False},{"age":18,"consent":True,"verified":False,"blocked":True},{"age":19,"consent":True,"verified":True,"blocked":False}]
+# List kết quả giữ một giá trị cho phép True/False trên mỗi yêu cầu.
 allowed = []
+# Duyệt từng dict, lấy trường qua item['tên_trường'].
 for item in requests:
+    # or chỉ đòi từ 18 tuổi HOẶC đã có đồng ý; đây là giả định bài học, không phải quy định truy cập thực tế.
     age_or_consent_ok = item["age"] >= 18 or item["consent"]
+    # and yêu cầu đủ ba điều kiện: tuổi/đồng ý đạt, đã xác minh, không bị khóa; not đảo cờ blocked.
     can_access = age_or_consent_ok and item["verified"] and not item["blocked"]
+    # append() lưu kết quả của đúng một yêu cầu sau kiểm.
     allowed.append(can_access)
+# Kiểm đủ 20 yêu cầu và 20 kết quả tương ứng để không bỏ bản ghi.
 if len(requests) != 20 or len(allowed) != 20:
+    # ValueError dừng khi số lượng hoặc quy tắc logic không nhất quán với dữ liệu đầu vào.
     raise ValueError("Cần kiểm tra đủ 20 yêu cầu truy cập.")
+# enumerate() không có start mặc định đánh số từ 0 để cùng index với allowed[i].
 for i, item in enumerate(requests):
+    # Phát hiện lỗi logic nếu bất kỳ yêu cầu đã khóa nào lại được cho phép.
     if item["blocked"] and allowed[i]:
+        # ValueError dừng khi số lượng hoặc quy tắc logic không nhất quán với dữ liệu đầu vào.
         raise ValueError("Yêu cầu bị khóa không được phép truy cập.")
 print("Yêu cầu:", len(requests))
+# sum() trên Boolean đếm số True (cho phép); số từ chối = tổng - True.
 print("Cho phép:", sum(allowed))
+# sum() trên Boolean đếm số True (cho phép); số từ chối = tổng - True.
 print("Từ chối:", len(allowed) - sum(allowed))
 blocked_count = 0
+# Duyệt từng dict, lấy trường qua item['tên_trường'].
 for item in requests:
     if item["blocked"]:
+        # += 1 đếm riêng các yêu cầu có cờ bị khóa, không đồng nhất với mọi lý do từ chối.
         blocked_count += 1
 print("Yêu cầu bị khóa:", blocked_count)
 ```
