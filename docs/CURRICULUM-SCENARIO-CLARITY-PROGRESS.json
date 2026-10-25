@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_01",
+  "status": "BATCH_01_IN_PROGRESS",
   "last_completed_batch": 0,
   "batches": [
     {
@@ -15,11 +15,26 @@
         "PY-04",
         "PY-05"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-01",
+        "PY-02",
+        "PY-03",
+        "PY-04",
+        "PY-05"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-01-20261025",
+      "lesson_commits": {
+        "PY-01": "aafe9f297a813ceae61025985e80b9111ffd7bdb",
+        "PY-02": "e1d931d4bc4822961e047570aa138e5aa63b93d8",
+        "PY-03": "3f3373cec3c756f737819ee07ee3f28093d3ccf0",
+        "PY-04": "536015aaafd4148796eb0904cee4d3c67e75dc48",
+        "PY-05": "977b8ea542dc48307650234086a97bb709ff43fc"
+      },
+      "notes": "PY-01..05 each independently committed. Exactly 5 real-life-scenario and 5 why-method paragraphs revised per lesson. Source comparison against main confirms all content outside those two per-scenario prose fields byte-for-byte unchanged, including executable Python, stdout, 20 MCQs per chapter and definitions. All 5 chapters retain 9 Python blocks. Full GitHub CI tests and merge pending; no Windows runtime validation claimed."
     },
     {
       "batch": 2,

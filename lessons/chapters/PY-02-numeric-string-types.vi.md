@@ -121,9 +121,9 @@ Hai ký tự đầu được tách ra mà chuỗi ban đầu vẫn giữ nguyên
 
 **Từ vựng trong mục:** **String** — chuỗi; **Strip** — bỏ khoảng trắng; **Lower** — chữ thường.
 
-**Tình huống thực tế:** Nhóm hỗ trợ tiếp nhận **10 email giả lập** để đăng ký nhận thông báo. Mỗi dòng là email của một tài khoản nội bộ dạng `Member01@Example.INVALID`, có hai khoảng trắng ở đầu/cuối. Hãy trả về số email và địa chỉ đầu/cuối sau chuẩn hóa.
+**Tình huống thực tế:** Một nhóm hỗ trợ muốn gửi thông báo cho **10 tài khoản thử nghiệm**. Danh sách email được nhập với khoảng trắng ở đầu hoặc cuối và chữ hoa không thống nhất, như `  Member01@Example.INVALID  `. Mỗi dòng là một địa chỉ; nhóm cần nhận lại danh sách có cách viết thống nhất, số địa chỉ và địa chỉ đầu/ cuối sau khi xử lý.
 
-**Vì sao chọn cách này?** Chuỗi phải được xử lý bằng `strip()` và `lower()` theo đúng thứ tự; bước này chuẩn hóa cách so sánh và hiển thị, **không thay thế kiểm tra địa chỉ email hợp lệ**.
+**Vì sao chọn cách này?** `strip()` bỏ khoảng trắng **chỉ ở hai đầu** chuỗi, còn `lower()` đổi chữ hoa thành chữ thường. Ví dụ `" Member01@Example.INVALID "` trở thành `member01@example.invalid`, nên cùng một địa chỉ sẽ có cách viết nhất quán khi đối chiếu. Vòng `for` tạo danh sách đã xử lý từng dòng để dễ nhìn bước làm. Lưu ý đây mới là **chuẩn hóa cách viết**, không phải kiểm tra một email có tồn tại hoặc nhận được thư hay không; đuôi `.invalid` dùng cho dữ liệu minh họa.
 
 **Quy trình:**
 1. Lưu mười chuỗi email thử nghiệm.
@@ -157,9 +157,9 @@ Toàn bộ 10 email đã được chuyển đổi. Miền `.invalid` được d�
 
 **Từ vựng trong mục:** **Split** — tách chuỗi; **Delimiter** — dấu phân cách; **Normalization** — chuẩn hóa.
 
-**Tình huống thực tế:** Thư viện lưu **12 thẻ môn học**, mỗi dòng có hai nhãn cách nhau bằng dấu phẩy, chẳng hạn `"python, AI"` và `"SQL, python"`. Nhân viên cần tách nhãn, chuẩn hóa chữ hoa/thường, rồi đếm **mỗi nhãn xuất hiện bao nhiêu lần** trong cả 12 dòng.
+**Tình huống thực tế:** Thư viện có **12 dòng ghi tên môn học** trên các thẻ đăng ký. Mỗi dòng chứa **hai nhãn** ngăn bằng dấu phẩy, ví dụ `python, AI`, nên 12 thẻ tạo ra nhiều hơn 12 lượt ghi nhãn. Nhân viên muốn biết từng môn như Python, AI, SQL xuất hiện bao nhiêu lần, dù người nhập có dùng chữ hoa hoặc khoảng trắng khác nhau.
 
-**Vì sao chọn cách này?** Không được coi `Python` và `python` là hai nhãn khác nhau; `split(',')` tách đúng dấu ngăn cách, `strip()` bỏ khoảng trắng quanh từng nhãn và `lower()` quy về một cách viết.
+**Vì sao chọn cách này?** Dấu phẩy đang có nhiệm vụ ngăn hai nhãn trong một dòng, vì vậy `split(',')` tách dòng thành từng phần. Sau đó `strip()` xóa khoảng trắng thừa và `lower()` giúp `Python` và `python` được đếm là **cùng một nhãn**. Dictionary `counts` lưu số lần xuất hiện của từng nhãn; mỗi khi gặp nhãn, tăng số đếm lên một. Không thể đếm số dòng thay cho số nhãn, vì một dòng chứa tới hai nhãn.
 
 **Quy trình:**
 1. Duyệt đủ 12 dòng, tách mỗi dòng thành hai nhãn.
@@ -197,9 +197,9 @@ Mỗi dòng đóng góp hai nhãn, tổng tất cả số đếm phải bằng 2
 
 **Từ vựng trong mục:** **Identifier** — mã định danh; **Slice** — cắt chuỗi; **Integer** — số nguyên.
 
-**Tình huống thực tế:** Kho nhận **15 mã đơn hàng**, mỗi mã đúng **5 chữ số**, như `00001` đến `00015`, có khoảng trắng khi nhập. Mỗi mã là **định danh**, không phải số lượng hàng. Hãy chuẩn hóa, kiểm tra độ dài và tìm hai mã đầu/cuối mà không làm mất những số 0.
+**Tình huống thực tế:** Kho nhận **15 mã đơn hàng** gồm đúng **5 chữ số**, ví dụ `00001`. Đây là **mã nhận diện** dùng để tìm đơn, không phải số lượng, và lúc nhập có thể có khoảng trắng ở hai đầu. Người quản lý muốn kiểm tra từng mã còn đủ 5 chữ số, đồng thời hiển thị mã đầu và cuối mà vẫn giữ số 0 ở đầu.
 
-**Vì sao chọn cách này?** Đổi mã sang `int` sẽ loại các số 0 ở đầu; dùng chuỗi giữ nguyên ký tự, `strip()` bỏ khoảng trắng và `len()` xác nhận đúng độ dài. Sau đó có thể dùng slicing để đọc từng phần mã.
+**Vì sao chọn cách này?** Chữ số 0 đầu tiên trong `00001` là **một phần của mã**. Nếu đổi sang số nguyên `int`, chương trình sẽ chỉ còn `1`, làm mất dạng mã khi đối chiếu chứng từ. Giữ mã là **chuỗi**, dùng `strip()` bỏ khoảng trắng, `isdigit()` kiểm tra có đúng toàn chữ số, rồi `len()` kiểm tra đúng năm ký tự. Slicing như `code[:3]` chỉ lấy một phần ký tự để xem, không đổi mã gốc.
 
 **Quy trình:**
 1. Lưu 15 mã chuỗi.
@@ -240,9 +240,9 @@ Mã cuối: 00015
 
 **Từ vựng trong mục:** **Float** — số thực; **Conversion** — đổi kiểu; **Invalid input** — đầu vào sai.
 
-**Tình huống thực tế:** Nhà cung cấp gửi **18 đơn giá** (nghìn đồng/món), mỗi dòng là một mã giá theo thứ tự P01…P18. Trong đó P03 ghi `bad` và P14 là chuỗi rỗng. Hãy kiểm tra kiểu trước khi cộng tổng các giá hợp lệ, đồng thời nêu hai mã cần sửa.
+**Tình huống thực tế:** Nhà cung cấp gửi bảng **18 đơn giá** tính bằng **nghìn đồng/món**, tương ứng lần lượt các mã P01 đến P18. Mỗi giá đang được lưu ở dạng chữ để mô phỏng nội dung đọc từ CSV; dòng P03 ghi `bad`, dòng P14 để trống. Nhân viên cần cộng tổng các giá có thể đọc thành số, đếm các giá hợp lệ và báo đúng mã phải sửa; không được cộng các dòng lỗi như số 0.
 
-**Vì sao chọn cách này?** Không gọi `float()` trực tiếp trên toàn bộ chuỗi: dữ liệu `bad` và rỗng sẽ gây lỗi. Ở ví dụ này, giá chỉ nhận số không âm và tối đa một dấu chấm, nên có thể kiểm tra ký tự trước khi đổi.
+**Vì sao chọn cách này?** Không phải chuỗi nào cũng đổi được thành số: `"12.5"` là giá có thể đọc, còn `bad` hoặc chuỗi rỗng là thông tin cần sửa. Chương trình làm sạch khoảng trắng rồi kiểm tra xem nội dung có chữ số và nhiều nhất một dấu chấm trước khi dùng `float()`. Phải **tách mã lỗi** và chỉ cộng các giá hợp lệ; nếu cố đổi `bad`, chương trình có thể dừng vì lỗi. Giá ở đây có đơn vị nghìn đồng, vì vậy tổng cũng là nghìn đồng, không tự hiểu thành đồng.
 
 **Quy trình:**
 1. Gán 18 mã giá theo thứ tự.
@@ -280,9 +280,9 @@ Tổng giá (nghìn đồng): 194.0
 
 **Từ vựng trong mục:** **Boolean** — đúng/sai; **String validation** — kiểm tra chuỗi; **Masking** — che thông tin.
 
-**Tình huống thực tế:** Một hệ thống nội bộ nhận **20 mã hồ sơ giả lập**, mỗi dòng phải có mẫu `ID-` theo sau bằng đúng bốn chữ số. Trong dữ liệu có một mã sai tiền tố, một mã thiếu phần số và một mã lặp. Cần chuẩn hóa khoảng trắng, phân loại mã hợp lệ/trùng/sai rồi chỉ hiển thị hai chữ số cuối của mã hợp lệ khi gửi báo cáo.
+**Tình huống thực tế:** Hệ thống nhận **20 mã hồ sơ thử nghiệm**. Mã đúng có dạng `ID-` rồi tới **bốn chữ số**, chẳng hạn `ID-0001`; khoảng trắng đầu/cuối không mang ý nghĩa của mã. Trong dữ liệu có mã sai tiền tố, mã thiếu chữ số và mã xuất hiện hai lần. Nhân viên cần đếm số mã hợp lệ duy nhất, tách danh sách lỗi và trùng, sau đó hiển thị một mã dưới dạng che bớt phần đầu khi báo cáo.
 
-**Vì sao chọn cách này?** Đây là bài tổng hợp các phép toán chuỗi và Boolean đã học: không thể chỉ dùng `lower()` hoặc chuyển `int` khi mã có tiền tố và ký tự 0. Dùng Set để phát hiện trùng là phần mở rộng của PY-07.
+**Vì sao chọn cách này?** Đầu tiên `strip().upper()` đưa mọi mã về cách viết thống nhất, rồi chương trình kiểm tra phần tiền tố `ID-` và bốn chữ số cuối. Một mã xuất hiện lần thứ hai là **trùng**, khác với mã nhập sai định dạng; nên chia chúng thành các nhóm riêng. Set `seen` ghi nhớ mã đã gặp: trước khi thêm mã mới, kiểm tra nó đã có trong set chưa. Việc chỉ hiển thị hai chữ số cuối giúp báo cáo không đưa nguyên mã ra màn hình; đây là ví dụ **che bớt ký tự**, chưa phải giải pháp bảo mật dữ liệu đầy đủ.
 
 **Quy trình:**
 1. Chuẩn hóa 20 chuỗi, tách tiền tố và hậu tố.

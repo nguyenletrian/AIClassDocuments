@@ -117,9 +117,9 @@ Số `1` là kết quả phép AND theo bit giữa 5 và 3.
 
 **Từ vựng trong mục:** **Arithmetic** — toán tử số học; **Discount** — giảm giá.
 
-**Tình huống thực tế:** Quầy đồ dùng học tập có **10 mặt hàng**, mỗi phần tử trong bảng giá là giá của một món, đơn vị **nghìn đồng**; giá lần lượt là 100, 150, 200, 250, 300, 120, 180, 220, 400 và 160. Hôm nay tất cả cùng giảm 10%. Cần tính tổng giá gốc và tổng tiền sau ưu đãi nếu khách mua một món mỗi loại.
+**Tình huống thực tế:** Một cửa hàng bán đồ dùng học tập đang áp dụng giảm giá **10% cho mọi mặt hàng**. Bảng có **10 giá bán**, lần lượt 100, 150, 200, 250, 300, 120, 180, 220, 400 và 160, đơn vị **nghìn đồng/món**. Một khách mua đúng một món của mỗi loại. Thu ngân cần báo tổng tiền nếu không giảm và tổng tiền khách thực trả sau chương trình giảm giá.
 
-**Vì sao chọn cách này?** Phép nhân theo tỷ lệ 90% cho biết giá sau giảm; dùng tổng sau giảm của đủ 10 mặt hàng, không áp giảm hai lần. Đây là phép toán số học trực tiếp, chưa cần nhánh ưu tiên.
+**Vì sao chọn cách này?** **Giảm 10%** nghĩa là mỗi món bớt đi một phần mười giá gốc, nên khách trả 90% giá ban đầu. Chương trình dùng `sum()` cộng 10 giá gốc, sau đó dùng `for` lấy từng giá nhân với phần còn phải trả và cộng dồn vào tổng mới. Ví dụ món giá 100 nghìn đồng sẽ còn 90 nghìn đồng; làm giống vậy cho đủ 10 món thì không bị bỏ sót. Không trừ thẳng 10 nghìn đồng ở mỗi món, vì đó là mức giảm cố định, không phải 10%. Cũng không giảm hai lần vì cả bảng chỉ có một ưu đãi.
 
 **Quy trình:**
 1. Lưu 10 đơn giá và tỷ lệ giảm 10%.
@@ -155,9 +155,9 @@ Sau giảm (nghìn đồng): 1872
 
 **Từ vựng trong mục:** **Comparison** — so sánh; **Logical AND** — phép và.
 
-**Tình huống thực tế:** Chương trình xét **12 khách hàng**; mỗi hàng gồm mã C01…C12, số năm gắn bó (năm) và tổng mua hàng (đồng). Cửa hàng chỉ xếp VIP khi khách có **ít nhất 5 năm** và đã chi **từ 1.000.000 đồng**. Hãy trả về mã tất cả khách đạt chuẩn và tổng số VIP, lưu ý người chỉ đạt một trong hai ngưỡng không được tính.
+**Tình huống thực tế:** Cửa hàng muốn chọn khách được ưu đãi VIP trong danh sách **12 khách C01 đến C12**. Mỗi người có số năm mua hàng tại cửa hàng (đơn vị **năm**) và tổng tiền đã chi (đơn vị **đồng**); chẳng hạn một người có 5 năm và đã chi 900.000 đồng. Theo quy định, khách VIP phải mua hàng **ít nhất 5 năm** và đã chi **ít nhất 1.000.000 đồng**. Nhân viên cần biết có bao nhiêu VIP và mã của từng người.
 
-**Vì sao chọn cách này?** Toán tử `>=` bảo toàn các trường hợp nằm đúng biên. Hai điều kiện buộc đúng cùng lúc nên phải dùng `and`, không dùng `or`.
+**Vì sao chọn cách này?** **Điều kiện** là một yêu cầu cần được kiểm tra đúng hoặc sai. `>=` có nghĩa **lớn hơn hoặc bằng**: khách đúng 5 năm vẫn đủ điều kiện thời gian; đúng 1.000.000 đồng vẫn đạt mức chi. `and` yêu cầu **cả hai điều kiện cùng đúng**, nên khách có 8 năm nhưng chỉ chi 850.000 đồng không được xếp VIP. Nếu dùng `or` (chỉ cần một điều kiện), hệ thống sẽ ưu đãi nhầm. Vòng `for` kiểm từng khách, ghi mã đạt yêu cầu vào danh sách và đếm số mã.
 
 **Quy trình:**
 1. Ghép năm thành viên với số tiền của đúng khách ở cùng hàng.
@@ -196,9 +196,9 @@ Mẫu C06 nằm **đúng cả hai ngưỡng** nên vẫn là VIP; C02 chỉ đ�
 
 **Từ vựng trong mục:** **Integer division** — chia nguyên; **Modulo** — chia lấy dư; **Check** — đối chiếu.
 
-**Tình huống thực tế:** Kho có **15 mã hàng**, mỗi hàng thể hiện số món tồn kho của một SKU. Một thùng chỉ chứa **6 món cùng mã** để không trộn loại. Hãy tính tổng số thùng đầy và tổng món còn rời; kiểm tra lại bằng cách cộng món trong thùng với món rời.
+**Tình huống thực tế:** Kho kiểm kê **15 loại hàng**; mỗi con số là số món hiện còn của một loại, ví dụ loại đầu có 16 món. Kho chỉ đóng **6 món cùng loại trong một thùng**, không trộn các loại khác nhau. Nhân viên cần tính có thể đóng được tổng cộng bao nhiêu thùng đầy và còn bao nhiêu món lẻ chưa đủ thùng, để đối chiếu tổng số món trong kho.
 
-**Vì sao chọn cách này?** Chia nguyên `//` đếm thùng đủ sáu món trên từng SKU; phép `%` đếm số món chưa đóng đầy. Không được cộng tất cả tồn kho rồi chia 6 một lần, vì mỗi thùng chỉ nhận một mã.
+**Vì sao chọn cách này?** **SKU** ở đây chỉ là một mã đại diện cho **một loại hàng**. Với loại có 16 món, cứ đủ 6 món thì được một thùng: đóng hai thùng và còn bốn món. Phép chia nguyên `//` lấy số thùng đủ, phép `%` lấy số món dư; lặp qua 15 loại rồi cộng số thùng và số dư riêng. Không cộng tất cả tồn kho trước rồi mới chia, vì như vậy có thể lấy món dư của loại này ghép với loại khác, trái quy định. Đối chiếu bằng cách nhân tổng thùng với 6 rồi cộng món dư: phải ra đúng tổng món ban đầu.
 
 **Quy trình:**
 1. Tính `stock // 6` và `stock % 6` cho từng SKU.
@@ -236,9 +236,9 @@ Số dư được giữ **riêng cho từng mã hàng**. Điều kiện đối c
 
 **Từ vựng trong mục:** **Bitwise AND** — phép và theo bit; **Mask** — mặt nạ bit; **Missing** — thiếu dữ liệu.
 
-**Tình huống thực tế:** Hệ thống nhận **18 trạng thái thiết bị**, một hàng là mã cờ nhị phân của thiết bị; bit `0b0010` báo cảnh báo, bit `0b1000` báo có kết nối gửi dữ liệu. Thiết bị thứ 17 chưa gửi trạng thái (`None`). Hãy đếm số thiết bị báo cảnh báo và số thiết bị có cờ gửi, đồng thời báo bao nhiêu giá trị thiếu.
+**Tình huống thực tế:** Một phòng điều hành nhận **18 mã trạng thái** từ các thiết bị. Mỗi mã là một số mà thiết bị dùng để lưu nhiều tín hiệu bật/tắt trong cùng một giá trị: tín hiệu cảnh báo nằm tại vị trí `0b0010`, còn tín hiệu đang gửi dữ liệu tại `0b1000`. Thiết bị thứ 17 không gửi mã nên được ghi `None`. Người trực cần biết có bao nhiêu mã hợp lệ, bao nhiêu thiết bị phát cảnh báo, bao nhiêu thiết bị báo đang gửi dữ liệu và bao nhiêu lượt thiếu thông tin.
 
-**Vì sao chọn cách này?** Bitwise `&` chỉ kiểm tra đúng bit được chọn, không nhầm với `and` (kết hợp biểu thức Boolean). Trước khi làm phép bit, cần bỏ `None` vì đó là mất tín hiệu chứ không phải trạng thái `0`.
+**Vì sao chọn cách này?** **Bit** có thể hình dung là một công tắc chỉ có hai trạng thái 0 (tắt) và 1 (bật). Một mã như `10` có thể chứa nhiều công tắc cùng lúc; `0b0010` và `0b1000` là cách viết **nhị phân** để chỉ đúng hai vị trí cần xem. Toán tử `&` giữ lại các bit đang bật ở **cả mã trạng thái và mặt nạ cần kiểm tra**; kết quả khác 0 tức là tín hiệu đó đang bật. Cần kiểm tra `None` trước, vì đây là **chưa nhận mã** chứ không phải thiết bị báo tất cả công tắc đều tắt. `and` không dùng để đọc từng bit, nó chỉ kết hợp các điều kiện đúng/sai.
 
 **Quy trình:**
 1. Đọc 18 giá trị cờ, tách những dòng chưa gửi.
@@ -281,9 +281,9 @@ Một thiết bị có thể vừa cảnh báo vừa đang gửi, nên hai tập
 
 **Từ vựng trong mục:** **Logical OR** — phép hoặc; **Logical AND** — phép và; **Boolean** — đúng/sai.
 
-**Tình huống thực tế:** Điều phối viên có **20 đơn hàng** O01…O20; mỗi hàng gồm giá trị đơn (đồng), số ngày trễ (ngày) và cờ còn hàng trong kho (`True`/`False`). Đơn được ưu tiên nếu **giá trị từ 2.000.000 đồng hoặc trễ từ 3 ngày**, **đồng thời còn hàng**. Cần trả số đơn ưu tiên, danh sách mã và tổng giá trị các đơn được phép ưu tiên; đơn chưa có hàng phải đứng ngoài danh sách dù tiền cao.
+**Tình huống thực tế:** Đội giao hàng nhận **20 đơn O01 đến O20**. Mỗi đơn ghi số tiền khách mua (**đồng**), số ngày đã giao trễ (**ngày**) và tình trạng hàng còn trong kho (`True` nghĩa là còn, `False` là hết). Cửa hàng quy định chỉ ưu tiên đơn **còn hàng** và thỏa **ít nhất một** trong hai điều kiện: giá trị từ 2.000.000 đồng hoặc đã trễ từ 3 ngày. Điều phối viên cần thống kê số đơn được ưu tiên, liệt kê mã của chúng và cộng tổng giá trị các đơn đó.
 
-**Vì sao chọn cách này?** Dùng ngoặc quanh hai điều kiện `or` trước khi kết hợp với `and` để quy tắc kinh doanh không đổi do thứ tự ưu tiên toán tử. Đây là một quyết định tổng hợp nhiều cột, không phải chỉ so một con số.
+**Vì sao chọn cách này?** Trước tiên kiểm **còn hàng** vì đơn hết hàng chưa thể được ưu tiên xử lý, dù giá trị cao hay đã trễ. Sau đó xét hai lý do ưu tiên: đơn có số tiền đạt ngưỡng **hoặc** số ngày trễ đạt ngưỡng; `or` chỉ cần một lý do đúng. Cuối cùng dùng `and` kết hợp kết quả ấy với trạng thái còn hàng, nên đơn phải vừa **đủ lý do ưu tiên vừa còn hàng**. Dấu ngoặc trong `(amount >= 2000000 or delay >= 3) and available` giúp nhìn rõ quy định, không bị nhầm với việc ưu tiên mọi đơn giá cao dù hết hàng. Vòng `for` lưu mã và số tiền những đơn đạt yêu cầu để vừa đếm vừa cộng tổng, thay vì cộng cả 20 đơn.
 
 **Quy trình:**
 1. Ghép dữ liệu theo đúng mã đơn và xác nhận ba cột đồng hàng.

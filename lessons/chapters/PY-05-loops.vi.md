@@ -131,9 +131,9 @@ Số 0 bị bỏ qua bởi `continue`; khi đến 3, `break` dừng hẳn nên k
 
 **Từ vựng trong mục:** **For loop** — vòng lặp for; **Accumulator** — biến cộng dồn.
 
-**Tình huống thực tế:** Một cửa hàng ghi **10 đơn bán hàng** trong ca chiều. Mỗi phần tử là số tiền thanh toán của một đơn, đơn vị **nghìn đồng**: 120, 80, 200, 150, 90, 70, 180, 210, 130, 160. Thu ngân cần biết tổng tiền để đối chiếu sổ, không muốn viết 10 phép cộng riêng.
+**Tình huống thực tế:** Cuối ca, thu ngân cần tổng kết **10 đơn bán hàng**. Danh sách lưu số tiền của từng đơn, theo đơn vị **nghìn đồng**: 120, 80, 200, 150, 90, 70, 180, 210, 130 và 160. Mỗi số là tiền của đúng một đơn. Người quản lý chỉ cần biết có bao nhiêu đơn và tổng số tiền cả ca để so với sổ thu ngân.
 
-**Vì sao chọn cách này?** Vòng `for` duyệt từng giá trị trong danh sách 10 đơn, còn biến `total` giữ tổng lũy kế. Đây là bài lặp cơ bản chỉ có một phép cộng trong thân vòng.
+**Vì sao chọn cách này?** `for` có nghĩa là **làm lần lượt cho từng phần tử**: chương trình lấy tiền đơn đầu, đơn thứ hai... đến đơn thứ mười. Biến `total` ban đầu bằng 0; mỗi lần đọc một đơn thì cộng số tiền ấy vào tổng đang có. Cách này phù hợp khi đã có danh sách 10 đơn và giúp không phải viết 10 phép cộng riêng. `len(orders)` đếm số đơn, còn `total` là tổng doanh số **nghìn đồng**, nên không được nhầm số đơn với số tiền.
 
 **Quy trình:**
 1. Khởi tạo `total = 0` trước khi lặp.
@@ -164,9 +164,9 @@ Mỗi lượt lặp đưa vào tổng **một đơn**; tổng chỉ đúng nếu
 
 **Từ vựng trong mục:** **Continue** — bỏ qua lượt lặp; **Missing** — số liệu thiếu; **Average** — trung bình.
 
-**Tình huống thực tế:** Trạm đo ghi **12 lần nhiệt độ** (°C), mỗi hàng là một phút. Phút thứ 3 và phút thứ 8 mất tín hiệu nên lưu `None`. Nhân viên cần tính nhiệt độ trung bình từ số đo có thật và in số lượt phải bỏ qua.
+**Tình huống thực tế:** Trạm thời tiết ghi **12 lượt nhiệt độ** tính bằng **°C**, mỗi lượt ứng với một phút. Ở lượt thứ 3 và thứ 8, thiết bị không gửi được kết quả nên bảng ghi `None`; đây là thông tin thiếu chứ không phải 0 °C. Người trực muốn đếm số lượt có kết quả, số lượt thiếu và nhiệt độ trung bình của các lượt có số.
 
-**Vì sao chọn cách này?** `continue` giúp không đưa `None` vào phép cộng hay đếm số đo hợp lệ. Phân biệt giữa lượt thiếu và phép đo thật bằng 0 °C là điều bắt buộc.
+**Vì sao chọn cách này?** `continue` nghĩa là **bỏ phần còn lại của lượt lặp hiện tại rồi chuyển sang lượt kế tiếp**. Khi gặp `None`, chương trình tăng số lượt thiếu và chuyển qua phút sau, không cộng hay đếm lượt này là nhiệt độ hợp lệ. Các giá trị có số được cộng vào `total` và tăng `valid_count`; cuối cùng lấy tổng nhiệt độ chia cho **số lượt có giá trị**, không chia cho cả 12. Nếu thay `None` bằng 0 thì sẽ làm thấp nhiệt độ trung bình và che giấu hai lần thiết bị mất tín hiệu.
 
 **Quy trình:**
 1. Khởi tạo tổng, số lượt hợp lệ và số lượt thiếu.
@@ -205,9 +205,9 @@ Vòng lặp đã đọc 12 lượt nhưng chỉ 10 lượt được tính trung 
 
 **Từ vựng trong mục:** **Enumerate** — duyệt kèm vị trí; **Break** — dừng vòng lặp.
 
-**Tình huống thực tế:** Kho có **15 kệ** K01…K15, mỗi số là tồn kho (món). Nhân viên cần tìm **kệ đầu tiên có số lượng 0** và dừng ngay để chuyển cho đội bổ sung hàng, chứ không cần liệt kê tất cả kệ đang trống.
+**Tình huống thực tế:** Người quản lý đi kiểm kê **15 kệ K01 đến K15** theo thứ tự từ đầu kho tới cuối kho. Mỗi kệ có một số món đang còn; một kệ có **0 món** nghĩa là đã hết hàng. Họ cần tìm **mã kệ đầu tiên** hết hàng để giao nhân viên đi bổ sung ngay, không cần liệt kê mọi kệ trống.
 
-**Vì sao chọn cách này?** `enumerate(..., 1)` gán số kệ bắt đầu từ 1. `break` dừng sau khi tìm thấy lần khớp đầu tiên; khác với `continue`, vốn chỉ bỏ qua một lượt rồi vẫn tìm tiếp.
+**Vì sao chọn cách này?** `enumerate(stocks, 1)` giúp đọc cùng lúc **vị trí kệ** và **số món trên kệ**, bắt đầu đếm từ 1 để khớp K01, K02... Khi gặp tồn kho bằng 0, chương trình tạo mã kệ đó rồi dùng `break`. `break` là **thoát hẳn vòng lặp**, khác `continue` chỉ bỏ một lượt và vẫn tiếp tục. Vì yêu cầu chỉ tìm kệ trống đầu tiên, dừng ngay sẽ không vô tình chọn kệ trống thứ hai ở phía sau.
 
 **Quy trình:**
 1. Ghi 15 số lượng theo thứ tự kệ.
@@ -244,9 +244,9 @@ K09 trống sớm hơn 1 kệ trống còn lại, nhưng chương trình chủ �
 
 **Từ vựng trong mục:** **While** — lặp theo điều kiện; **Retry** — thử lại; **Termination** — điều kiện dừng.
 
-**Tình huống thực tế:** Một dịch vụ phải kết nối **18 thiết bị** D01…D18, mỗi thiết bị có thời điểm thành công mô phỏng (`1`, `2` hoặc `3`) hoặc không thể kết nối trong ba lượt (`0`/`4`). Mỗi thiết bị được thử **tối đa 3 lần**; cần in số kết nối thành công/thất bại và tổng số lượt thử, tránh `while` chạy vô hạn.
+**Tình huống thực tế:** Đội kỹ thuật thử kết nối **18 thiết bị D01 đến D18**. Đây là dữ liệu mô phỏng: với mỗi thiết bị, một số từ 1 đến 3 chỉ lần thử mà kết nối sẽ thành công; số 0 hoặc 4 nghĩa là không thành công trong ba lần đầu. Mỗi thiết bị được phép thử **tối đa ba lần**. Nhóm cần biết có bao nhiêu thiết bị kết nối được, bao nhiêu thất bại và tổng số lần đã thử.
 
-**Vì sao chọn cách này?** Khác `for` duyệt dữ liệu đã có, vòng `while` dừng khi đã thành công **hoặc** chạm giới hạn thử. Điều kiện dùng `and` đảm bảo nếu một vế không còn đúng, máy thoát vòng.
+**Vì sao chọn cách này?** `while` nghĩa là **còn đúng điều kiện thì còn thử tiếp**; nó hợp với việc chưa biết mỗi thiết bị sẽ thành công ở lần thứ mấy. Biến `attempts` bắt đầu từ 0 và tăng sau mỗi lần thử. Vòng lặp chỉ tiếp tục khi **chưa thử đủ 3 lần** `and` **chưa kết nối được**; nếu một điều kiện không còn đúng thì dừng. Các mã 0 và 4 là giả định mô phỏng rằng ba lần đầu đều thất bại, không phải kết quả kết nối thực tế. Đặt giới hạn ba lần giúp tránh vòng chạy mãi và cho phép cộng tổng số lượt thử của mọi thiết bị.
 
 **Quy trình:**
 1. Duyệt 18 thiết bị, mỗi thiết bị khởi tạo lại số lần thử và cờ kết nối.
@@ -296,9 +296,9 @@ Tổng lượt thử: 45
 
 **Từ vựng trong mục:** **Nested loop** — vòng lặp lồng; **Continue** — bỏ lượt; **Validation** — kiểm tra dữ liệu.
 
-**Tình huống thực tế:** Trung tâm có **20 học viên** H01…H20. Mỗi người đăng ký **2 ca** thực hành (`Sáng`, `Chiều`), tổng cộng phải tạo 40 lượt. Ba học viên H04, H11, H19 vắng ca Chiều; ca Sáng của họ vẫn được tính. Hãy lập danh sách lượt hợp lệ, số lượt vắng và số lượt mỗi ca, rồi kiểm tra không bị trùng lịch.
+**Tình huống thực tế:** Trung tâm có **20 học viên H01 đến H20**, mỗi người đăng ký hai ca thực hành là **Sáng** và **Chiều**. Như vậy có 40 lượt học theo lịch trước khi điểm danh. Ba học viên H04, H11 và H19 vắng đúng ca Chiều, nhưng vẫn đi học ca Sáng. Giáo vụ muốn lập danh sách lượt có mặt, biết có bao nhiêu lượt vắng và đếm số lượt có mặt của từng ca, bảo đảm không ghi trùng một học viên trong cùng một ca.
 
-**Vì sao chọn cách này?** Vòng ngoài duyệt học viên, vòng trong duyệt hai ca; `continue` bỏ đúng **một tổ hợp học viên–ca**, không loại cả học viên. Dùng cặp `(id, session)` để phát hiện trùng và đối chiếu tổng lượt dự kiến.
+**Vì sao chọn cách này?** Vòng `for` **bên ngoài** chọn lần lượt 20 học viên; vòng `for` **bên trong** chọn hai ca của đúng học viên ấy, nên mỗi người tạo hai lượt dự kiến. Chương trình chỉ dùng `continue` khi gặp ba cặp cụ thể (H04, Chiều), (H11, Chiều), (H19, Chiều); vì thế ca Sáng của họ không bị xóa. Một **cặp (mã học viên, ca)** xác định một lượt duy nhất: ví dụ H04-Sáng và H04-Chiều là hai lượt khác nhau. Chuyển danh sách cặp thành `set` giúp kiểm tra có trùng lượt không; số lượt có mặt cộng số lượt vắng phải bằng 40, nếu không thì lịch đang bị ghi thiếu hoặc ghi thừa.
 
 **Quy trình:**
 1. Tạo 20 mã học viên và hai ca mỗi ngày.
