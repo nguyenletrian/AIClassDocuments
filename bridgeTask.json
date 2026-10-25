@@ -1191,17 +1191,17 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-markdown-render-46-lessons-20261025",
-    "revision": "2026-10-25-markdown-10-batches-resume-batch04",
+    "revision": "2026-10-25-markdown-10-batches-resume-batch05",
     "title": "Rà và sửa lỗi hiển thị Markdown trong 46 bài, mỗi đợt tối đa 5 bài",
-    "phase": "READY_FOR_BATCH_04",
+    "phase": "READY_FOR_BATCH_05",
     "chapter_index": "lessons/chapters/README.md",
     "progress_ledger": "docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json",
     "workflow_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Markdown batch03 PY-11..15 complete with no lesson edits: PR #135 merged commit 5122031de9e5d4ceb4b7d539f950576507c1a8b8, final CI run #40166604672 PASS; formatting ledger last_completed_batch=3 status READY_FOR_BATCH_04. Next approved review only batch04 PY-16..PY-20: verify current main and ledger, pending tasks and PRs, inspect for broken Markdown table cells and literal `&#124;` entities, preserve code/theory/MCQs, fix only verified problems, QA and merge then update ledger. No duplicate old task sends, restart, or new chat due solely to heartbeat.",
-    "review_hold": "Active owner-approved 10-batch formatting QA goal. Continue only the next five chapters in the ledger. Informational heartbeat is not authorization for duplicate sends or unapproved work. Suppress idle reminders again only when this new goal is completed."
+    "next_review": "Markdown batch04 PY-16..PY-20 PR #137 merged 6a836dada8ee846d8bbc5d370c2eb718db59e6e6, GitHub final-head CI #40167076193 PASS; formatting ledger last_completed_batch=4 READY_FOR_BATCH_05. In next approved idle goal review verify current main, ledger, open PRs and queue/ACK first; inspect ONLY batch05 PY-21..PY-25 for literal &#124; entities, unescaped Markdown table pipes, malformed table cells. Fix verified display errors only, preserving teaching content and MCQ semantics; commit necessary lesson files individually, CI PASS, PR merge and ledger update before batch06. No replay of legacy Jetking work or duplicate task; do not force a new ChatGPT chat from heartbeat.",
+    "review_hold": "Owner-approved 10-batch Markdown rendering QA; batches 01–04 reviewed and merged. Only next PY-21..PY-25 approved at this phase. Informational heartbeat is not a reason to send duplicate tasks; Windows Bridge tests not presumed."
   },
   "goal_review_history": [
     {
@@ -1275,6 +1275,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "Owner requested Bridge request flow restored for active, approved sequential Markdown-rendering fixes. No legacy task replay; batch02 PY-06..10 is next."
+    "reason": "Idle requests restored for active Markdown rendering review. Batch05 PY-21..25 next; no legacy task replay."
   }
 }
