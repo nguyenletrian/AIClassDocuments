@@ -88,115 +88,276 @@ git remote -v
 
 **Kết quả có thể quan sát:** Lệnh hiển thị tên và URL remote đã cấu hình; repository không có remote sẽ không in dòng nào.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống Git thực thi an toàn — từ 10 file đến merge 20 file
 
-### Tình huống 1 — Kiểm file trước khi commit
+### Tình huống 1 — Cấp 1: Kiểm trạng thái 10 script trước khi đưa vào Git
 
-**Từ vựng trong mục:** **Git** — quản lý phiên bản; **Terminal** — cửa sổ lệnh.
+**Từ vựng trong mục:** **Repository** — kho phiên bản; **Untracked** — chưa được theo dõi; **Status** — trạng thái.
 
-**Tình huống thực tế:** Học viên vừa chỉnh `lesson.py` trong repository Git của bài tập và muốn biết file đang thay đổi hay đã được stage. Thao tác phải không sửa file và không tạo commit.
+**Tình huống thực tế:** Bạn nhận **10 script Python** từ đồng nghiệp, mỗi script là một file `lesson01.py`…`lesson10.py`. Trước khi ghi lịch sử, cần xem Git đã nhận biết những file nào và kiểm chứng lệnh `status` chưa tự tạo commit. Ví dụ tạo repository **tạm riêng trong thư mục thử**, không đụng dự án đang làm.
 
-**Vì sao chọn cách giải này?** `git status` chỉ đọc trạng thái làm việc và staging area, an toàn để kiểm trước khi lưu.
+**Vì sao chọn cách này?** `git status --porcelain` trả thông tin máy đọc được, mỗi file chưa theo dõi bắt đầu bằng `??`. `git init` tạo repo chứ **không tự đưa code vào lịch sử**; tất cả 10 file còn untracked cho đến khi stage.
 
-**Quy trình giải:**
+**Quy trình:**
+1. Tạo repository tạm và 10 file script có nội dung độc lập.
+2. Chạy status, đếm dòng `??` và số file Git đã stage.
+3. Báo cả hai số để phân biệt untracked và staged.
 
-1. Mở terminal tại root repository.
-2. Chạy `git status` và đọc phần Changes not staged / Changes to be committed.
-3. Nếu thấy file ngoài dự kiến, kiểm tra trước khi stage.
+```python
+import subprocess
+import tempfile
+from pathlib import Path
 
-```bash
-# Mục đích: Kiểm file trước khi commit.
-git status
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    for i in range(1, 11):
+        (root / f"lesson{i:02d}.py").write_text(f"print({i})\n", encoding="utf-8")
+    lines = git(root, "status", "--porcelain").splitlines()
+    untracked = sum(line.startswith("?? ") for line in lines)
+    staged = git(root, "diff", "--cached", "--name-only").splitlines()
+    print("Script:", 10)
+    print("Untracked:", untracked)
+    print("Đã stage:", len(staged))
+    print("Đúng repository tạm:", (root / ".git").exists())
 ```
 
-**Kết quả có thể quan sát:** Thông báo trạng thái phụ thuộc repository; lệnh không tự lưu thay đổi.
+**Kết quả khi chạy:**
 
-### Tình huống 2 — Chỉ lưu script đã sửa
-
-**Từ vựng trong mục:** **Git** — quản lý phiên bản; **Terminal** — cửa sổ lệnh.
-
-**Tình huống thực tế:** Dự án có `lesson.py` mới được chỉnh và các file khác chưa sẵn sàng. Học viên chỉ muốn tạo commit chứa thay đổi của `lesson.py`.
-
-**Vì sao chọn cách giải này?** Stage cụ thể file trước để tránh commit nhầm thay đổi ngoài phạm vi.
-
-**Quy trình giải:**
-
-1. Chạy `git diff -- lesson.py` xem nội dung thay đổi.
-2. Stage `lesson.py`, kiểm `git diff --cached -- lesson.py`.
-3. Commit với thông điệp ngắn rồi kiểm lịch sử.
-
-```bash
-# Mục đích: Chỉ lưu script đã sửa.
-git add lesson.py
-git diff --cached -- lesson.py
-git commit -m "lesson: update practice"
+```text
+Script: 10
+Untracked: 10
+Đã stage: 0
+Đúng repository tạm: True
 ```
 
-**Kết quả có thể quan sát:** Nếu file có thay đổi staged, commit được tạo; mã hash và thống kê file phụ thuộc repository.
+Thư mục tạm sẽ tự bị xóa sau ví dụ; script chỉ nghiên cứu Git **cục bộ**, không có lệnh đẩy lên GitHub.
 
-### Tình huống 3 — Tạo nhánh thử thuật toán mới
+### Tình huống 2 — Cấp 2: Chỉ stage năm trong 12 file của bản cập nhật
 
-**Từ vựng trong mục:** **Git** — quản lý phiên bản; **Terminal** — cửa sổ lệnh.
+**Từ vựng trong mục:** **Staging area** — vùng chuẩn bị; **git add** — chọn file; **Diff cached** — khác biệt đã stage.
 
-**Tình huống thực tế:** Nhóm thực hành muốn làm bản thử PCA mà vẫn giữ `main` ổn định; dự án hiện đang ở nhánh main và tên `experiment/pca` chưa tồn tại.
+**Tình huống thực tế:** Trước kỳ phát hành có **12 file mã nguồn** `module01.py`…`module12.py`; quản lý chỉ chấp nhận **năm file đầu** thuộc phần chức năng đã kiểm thử. Cần đưa đúng năm file vào stage và chứng minh bảy file còn lại chưa bị đưa vào commit.
 
-**Vì sao chọn cách giải này?** `git switch -c` tạo nhánh riêng từ vị trí hiện tại và chuyển sang nhánh đó.
+**Vì sao chọn cách này?** `git add` có thể chọn file cụ thể; khác `git add .` sẽ đưa cả 12 file vào stage. `git diff --cached --name-only` liệt kê phần đã chọn, `git ls-files --others` liệt kê file còn untracked.
 
-**Quy trình giải:**
+**Quy trình:**
+1. Tạo repo tạm và 12 file có dữ liệu riêng.
+2. Stage đúng năm tên, không dùng ký tự chọn toàn bộ.
+3. Đếm số staged/untracked và kiểm module06 chưa stage.
 
-1. Kiểm tra nhánh đang đứng.
-2. Tạo và chuyển nhánh thử với tên chưa tồn tại.
-3. Kiểm tên nhánh hiện tại trước khi sửa code.
+```python
+import subprocess
+import tempfile
+from pathlib import Path
 
-```bash
-# Mục đích: Tạo nhánh thử thuật toán mới.
-git switch -c experiment/pca
-git branch --show-current
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    for i in range(1, 13):
+        (root / f"module{i:02d}.py").write_text(f"VALUE = {i}\n", encoding="utf-8")
+    chosen = [f"module{i:02d}.py" for i in range(1, 6)]
+    git(root, "add", "--", *chosen)
+    staged = git(root, "diff", "--cached", "--name-only").splitlines()
+    others = git(root, "ls-files", "--others", "--exclude-standard").splitlines()
+    print("File:", 12)
+    print("Đã stage:", len(staged))
+    print("Chưa stage:", len(others))
+    print("module06 chưa stage:", "module06.py" in others)
 ```
 
-**Kết quả có thể quan sát:** Lệnh thứ hai in `experiment/pca` nếu tạo nhánh thành công.
+**Kết quả khi chạy:**
 
-### Tình huống 4 — Đọc năm commit gần nhất
-
-**Từ vựng trong mục:** **Git** — quản lý phiên bản; **Terminal** — cửa sổ lệnh.
-
-**Tình huống thực tế:** Repository bài học đã có ít nhất năm commit. Người phụ trách muốn xem những thay đổi gần nhất để tìm mã commit cần đối chiếu.
-
-**Vì sao chọn cách giải này?** `git log --oneline -5` hiển thị commit rút gọn theo thời gian, không thay đổi code.
-
-**Quy trình giải:**
-
-1. Vào đúng repository.
-2. Chạy log tối đa năm commit.
-3. Đọc hash và thông điệp để chọn bản cần kiểm tra.
-
-```bash
-# Mục đích: Đọc năm commit gần nhất.
-git log --oneline -5
+```text
+File: 12
+Đã stage: 5
+Chưa stage: 7
+module06 chưa stage: True
 ```
 
-**Kết quả có thể quan sát:** In tối đa năm dòng hash và thông điệp; giá trị thay đổi theo lịch sử thật.
+Stage là **lựa chọn nội dung cho commit tiếp theo**, không phải đã commit. Khi sửa file sau stage, cần stage lại phần sửa muốn ghi.
 
-### Tình huống 5 — So nội dung chưa stage
+### Tình huống 3 — Cấp 3: Tách nhánh thay đổi ba trong 15 script
 
-**Từ vựng trong mục:** **Git** — quản lý phiên bản; **Terminal** — cửa sổ lệnh.
+**Từ vựng trong mục:** **Branch** — nhánh; **Commit** — bản ghi lịch sử; **Switch** — chuyển nhánh.
 
-**Tình huống thực tế:** Một sinh viên mới sửa `lesson.py` nhưng chưa stage. Trước khi commit cần xem chính xác dòng nào bị thêm hoặc xóa.
+**Tình huống thực tế:** Một nhóm học tập có **15 script** đang chạy trên nhánh `main`. Người thực tập cần thử sửa **ba script** ở nhánh `feature`, tạo commit và quay lại `main` mà nội dung ở nhánh chính vẫn là phiên bản trước.
 
-**Vì sao chọn cách giải này?** `git diff -- lesson.py` so working tree với phần đã stage, tránh đưa nhầm sửa đổi vào lịch sử.
+**Vì sao chọn cách này?** Nhánh trỏ tới lịch sử commit riêng. Khi commit chỉ trên `feature`, `main` chưa bị đổi; kiểm tra nội dung cùng file ở hai nhánh sẽ dễ thấy hơn chỉ in tên nhánh.
 
-**Quy trình giải:**
+**Quy trình:**
+1. Tạo 15 script v1 và commit ban đầu với thông tin tác giả test.
+2. Tạo nhánh `feature`, sửa ba script thành v2, commit.
+3. Chuyển giữa hai nhánh, kiểm tra nội dung khác nhau và số file diff.
 
-1. Đảm bảo file đang có thay đổi chưa stage.
-2. Chạy `git diff` giới hạn theo đường dẫn.
-3. Đọc các dòng dấu +/− rồi quyết định có stage không.
+```python
+import subprocess
+import tempfile
+from pathlib import Path
 
-```bash
-# Mục đích: So nội dung chưa stage.
-git diff -- lesson.py
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    git(root, "config", "user.name", "Lesson Tester")
+    git(root, "config", "user.email", "lesson@example.invalid")
+    for i in range(1,16):
+        (root / f"lesson{i:02d}.py").write_text("VERSION = 1\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "base")
+    git(root, "switch", "-q", "-c", "feature")
+    for i in range(1,4):
+        (root / f"lesson{i:02d}.py").write_text("VERSION = 2\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "update three scripts")
+    difference = git(root, "diff", "--name-only", "main", "feature").splitlines()
+    git(root, "switch", "-q", "main")
+    main_version = (root / "lesson01.py").read_text().strip()
+    git(root, "switch", "-q", "feature")
+    feature_version = (root / "lesson01.py").read_text().strip()
+    print("File ban đầu:", 15)
+    print("File thay đổi:", len(difference))
+    print("Main:", main_version)
+    print("Feature:", feature_version)
 ```
 
-**Kết quả có thể quan sát:** Hiển thị diff nếu có phần chưa stage; không in gì nếu không có khác biệt tương ứng.
+**Kết quả khi chạy:**
+
+```text
+File ban đầu: 15
+File thay đổi: 3
+Main: VERSION = 1
+Feature: VERSION = 2
+```
+
+Commit lưu ảnh chụp **file đã stage**. Quay về `main` không cần xóa thay đổi ở nhánh feature và cũng không tạo commit trên main.
+
+### Tình huống 4 — Cấp 4: Chia 18 file thành ba commit có thể kiểm tra
+
+**Từ vựng trong mục:** **Commit history** — lịch sử; **Log** — nhật ký commit; **Tracked file** — file đang theo dõi.
+
+**Tình huống thực tế:** Nhóm bảo trì chuẩn bị **18 file** script cho ba giai đoạn, mỗi giai đoạn gồm sáu file độc lập. Thay vì ghi một commit khó rà soát, nhóm muốn tạo **ba commit riêng**, kiểm xem mỗi commit có thông điệp nhận diện và tổng 18 file đều đã được Git theo dõi.
+
+**Vì sao chọn cách này?** Commit theo nhóm thay đổi giúp khôi phục và review dễ hơn. `git log --format=%s` in **tiêu đề commit** ổn định, tránh đưa mã hash (không cố định theo thời gian) vào đáp án mẫu.
+
+**Quy trình:**
+1. Tạo lần lượt ba nhóm, mỗi nhóm sáu file trong repository tạm.
+2. Sau mỗi nhóm stage riêng các file và commit với thông điệp riêng.
+3. Kiểm số file Git theo dõi, số commit và thứ tự ba thông điệp gần nhất.
+
+```python
+import subprocess
+import tempfile
+from pathlib import Path
+
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    git(root, "config", "user.name", "Lesson Tester")
+    git(root, "config", "user.email", "lesson@example.invalid")
+    for batch in range(1,4):
+        filenames = []
+        for i in range((batch-1)*6+1, batch*6+1):
+            filename = f"tool{i:02d}.py"
+            (root / filename).write_text(f"VALUE = {i}\n", encoding="utf-8")
+            filenames.append(filename)
+        git(root, "add", "--", *filenames)
+        git(root, "commit", "-q", "-m", f"batch {batch}")
+    tracked = git(root, "ls-files").splitlines()
+    messages = git(root, "log", "-3", "--format=%s").splitlines()
+    print("Script:", len(tracked))
+    print("Commit:", git(root, "rev-list", "--count", "HEAD"))
+    print("Lịch sử gần nhất:", ", ".join(messages))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Script: 18
+Commit: 3
+Lịch sử gần nhất: batch 3, batch 2, batch 1
+```
+
+Chỉ có ba commit vì mỗi commit chứa **sáu file**. Số file và số commit trả lời hai câu hỏi khác nhau.
+
+### Tình huống 5 — Cấp 5: Merge nhánh an toàn khi hai người sửa khác file trong 20 script
+
+**Từ vựng trong mục:** **Merge** — hợp nhất lịch sử; **Merge commit** — commit có hai cha; **Clean working tree** — cây làm việc sạch.
+
+**Tình huống thực tế:** Một dự án mô phỏng có **20 file Python**. Hai người bắt đầu từ cùng một commit: một người sửa `tool01.py` và `tool02.py` trên nhánh `feature`, người còn lại sửa `tool19.py` và `tool20.py` trên `main`. Cần hợp nhất để cả bốn sửa đổi có mặt, không mất file, rồi kiểm merge có **hai parent commit**. Không tạo remote hoặc push ra ngoài.
+
+**Vì sao chọn cách này?** Git có thể tự merge nếu các sửa đổi ở những file không giao nhau. `--no-ff` tạo merge commit rõ ràng cho mục tiêu học về lịch sử; nếu cả hai sửa cùng một dòng sẽ cần xử lý conflict, không được tự ghi đè.
+
+**Quy trình:**
+1. Tạo 20 file và commit bản gốc.
+2. Từ cùng commit gốc, tạo nhánh feature rồi sửa/commit hai file đầu; quay main sửa/commit hai file cuối.
+3. Merge không fast-forward, xác minh nội dung bốn file, 20 file tracked và hai parent.
+
+```python
+import subprocess
+import tempfile
+from pathlib import Path
+
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    git(root, "config", "user.name", "Lesson Tester")
+    git(root, "config", "user.email", "lesson@example.invalid")
+    for i in range(1,21):
+        (root / f"tool{i:02d}.py").write_text("VERSION = 1\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "base")
+    git(root, "switch", "-q", "-c", "feature")
+    for i in (1,2):
+        (root / f"tool{i:02d}.py").write_text("VERSION = 2\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "feature edits")
+    git(root, "switch", "-q", "main")
+    for i in (19,20):
+        (root / f"tool{i:02d}.py").write_text("VERSION = 3\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "main edits")
+    git(root, "merge", "-q", "--no-ff", "feature", "-m", "merge feature")
+    parents = git(root, "rev-list", "--parents", "-n", "1", "HEAD").split()
+    print("File:", len(git(root, "ls-files").splitlines()))
+    print("Commit trong lịch sử:", git(root, "rev-list", "--count", "HEAD"))
+    print("Merge có hai cha:", len(parents) == 3)
+    print("Sửa feature giữ lại:", (root / "tool01.py").read_text().strip() == "VERSION = 2")
+    print("Sửa main giữ lại:", (root / "tool20.py").read_text().strip() == "VERSION = 3")
+    print("Working tree sạch:", git(root, "status", "--porcelain") == "")
+```
+
+**Kết quả khi chạy:**
+
+```text
+File: 20
+Commit trong lịch sử: 4
+Merge có hai cha: True
+Sửa feature giữ lại: True
+Sửa main giữ lại: True
+Working tree sạch: True
+```
+
+Toàn bộ thí nghiệm chạy trong **thư mục tạm có repo Git riêng**; lệnh không thao tác lên repository dự án của người học. Khi merge xảy ra conflict, phải dừng xử lý dựa trên bằng chứng thay vì tự bỏ thay đổi.
 
 ## 6. Sai lầm thường gặp
 
