@@ -148,7 +148,8 @@ Mảng đầu ra có hai số vì bảng có hai **cột/môn**; kết quả l�
 import numpy as np
 rows = [[8,9],[7,8],[9,10],[6,7],[8,7],[5,8],[9,9],[7,6],[10,8],[8,9]]
 scores = np.array(rows, dtype=float)
-assert scores.shape == (10, 2)
+if scores.shape != (10, 2):
+    raise ValueError("Bảng phải có đúng 10 học viên và 2 môn.")
 print("Số học viên:", scores.shape[0])
 print("Số môn:", scores.shape[1])
 print("Số ô:", scores.size)
@@ -183,7 +184,8 @@ Một hàng đại diện cho một học viên; `dtype=float` cho phép mở r�
 import numpy as np
 sales = np.array([[10,20,30],[11,21,31],[12,22,32],[13,23,33],[14,24,34],[15,25,35],[16,26,36],[17,27,37],[18,28,38],[19,29,39],[20,30,40],[21,31,41]], dtype=float)
 average = sales.mean(axis=0)
-assert sales.shape == (12, 3) and average.shape == (3,)
+if sales.shape != (12, 3) or average.shape != (3,):
+    raise ValueError("Bảng bán hàng phải có 12 ngày, 3 nhóm.")
 print("Ngày:", sales.shape[0])
 print("Thực phẩm:", f"{average[0]:.1f}")
 print("Sách:", f"{average[1]:.1f}")
@@ -219,7 +221,8 @@ import numpy as np
 sales = np.array([[50,30],[52,31],[54,32],[56,33],[58,34],[60,35],[62,36],[64,37],[66,38],[68,39],[70,40],[72,41],[74,42],[76,43],[78,44]], dtype=int)
 per_store = sales.sum(axis=1)
 peak = int(per_store.argmax())
-assert sales.shape == (15, 2)
+if sales.shape != (15, 2):
+    raise ValueError("Bảng phải có 15 cửa hàng và 2 nhóm doanh thu.")
 print("Cửa hàng:", sales.shape[0])
 print("Tổng S01 (nghìn đồng):", int(per_store[0]))
 print("Cửa hàng cao nhất:", f"S{peak+1:02d}")
@@ -253,11 +256,17 @@ Mảng tổng có 15 phần tử, bằng số cửa hàng; giá trị trong mỗ
 ```python
 import numpy as np
 raw = [[24,50],[24.25,51],[24.5,52],[24.75,53],[25,54],[25.25,None],[25.5,56],[25.75,57],[26,58],[26.25,59],[26.5,60],[26.75,61],[27,62],[27.25,63],[27.5,None],[27.75,65],[28,66],[28.25,67]]
-rows = [(temperature, np.nan if humidity is None else humidity)
-        for temperature, humidity in raw]
+rows = []
+for temperature, humidity in raw:
+    if humidity is None:
+        cleaned_humidity = np.nan
+    else:
+        cleaned_humidity = humidity
+    rows.append((temperature, cleaned_humidity))
 measurements = np.array(rows, dtype=float)
 missing = np.isnan(measurements[:, 1])
-assert measurements.shape == (18, 2)
+if measurements.shape != (18, 2):
+    raise ValueError("Cần đủ 18 lượt đo, mỗi lượt hai giá trị.")
 print("Lượt đo:", measurements.shape[0])
 print("Thiếu độ ẩm:", int(missing.sum()))
 print("Nhiệt độ vẫn đủ:", int(np.isfinite(measurements[:, 0]).sum()))
@@ -291,10 +300,16 @@ Nhiệt độ vẫn đủ: 18
 ```python
 import numpy as np
 raw = [[6,40,60],[7,43,62],[8,46,64],[9,49,None],[10,52,68],[6,55,70],[7,58,72],[8,41,74],[9,44,76],[10,47,78],[6,50,80],[7,53,82],[8,56,84],[9,59,61],[10,42,63],[6,45,65],[7,48,67],[8,51,None],[9,54,71],[10,57,73]]
-records = [[sleep, movement, np.nan if heart is None else heart]
-           for sleep, movement, heart in raw]
+records = []
+for sleep, movement, heart in raw:
+    if heart is None:
+        cleaned_heart = np.nan
+    else:
+        cleaned_heart = heart
+    records.append([sleep, movement, cleaned_heart])
 data = np.array(records, dtype=float)
-assert data.shape == (20, 3) and data.dtype.kind == "f"
+if data.shape != (20, 3) or data.dtype.kind != "f":
+    raise ValueError("Cần đủ 20 ngày, ba cột dữ liệu dạng số thực.")
 means = np.nanmean(data, axis=0)
 print("Số ngày:", data.shape[0])
 print("Số cột:", data.shape[1])
