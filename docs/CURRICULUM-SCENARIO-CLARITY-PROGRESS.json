@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "BATCH_02_IN_PROGRESS",
-  "last_completed_batch": 1,
+  "status": "READY_FOR_BATCH_03",
+  "last_completed_batch": 2,
   "batches": [
     {
       "batch": 1,
@@ -45,7 +45,7 @@
         "PY-09",
         "PY-10"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-06",
         "PY-07",
@@ -53,9 +53,9 @@
         "PY-09",
         "PY-10"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 156,
+      "merged_commit": "f47d697ded701facec4d0cbe71d7f8b90765fecb",
+      "ci_run": 40178443857,
       "branch": "feat/scenario-clarity-batch-02-20261025",
       "lesson_commits": {
         "PY-06": "dee9496be4cdec1cb41bce33e90414afdbaebfd7",
@@ -64,7 +64,7 @@
         "PY-09": "1d33981eb56c58ac39af28ccb07a094384b94050",
         "PY-10": "88369831d1f3cbaca5a86c56c905fa07e26a316e"
       },
-      "notes": "Five individually committed lessons PY-06..10. Rewrote exactly 5 Tình huống thực tế and 5 Vì sao chọn cách này paragraphs for each (50 paragraphs total), grounding data meaning, units, expected results, plain-language why, corner cases and alternatives. Compared revised files to main after masking only these 2 field types: all other bytes unchanged, including all executable Python blocks (counts PY06 10, PY07 10, PY08 9, PY09 10, PY10 9), exact expected stdout, definitions, 100 MCQs and five progressing situations/chapter. CI / merge pending. Windows PowerShell canary unavailable; no Windows PASS."
+      "notes": "PY-06..10 five separate lesson commits; rewrote only 5 realistic situations and 5 why-method explanations each (50 paragraphs). Verified all changes outside those paragraph types unchanged byte-for-byte versus main; preserved original executable code, expected stdout, 100 MCQs, lesson definitions and 5 progressive scenarios each. Python fence counts PY06=10 PY07=10 PY08=9 PY09=10 PY10=9 unchanged. PR #156 final head 615c7dae84691aee5743dc0b12a4f802c09e88ba GitHub Actions CI run #40178443857 COMPLETED SUCCESS: 46-chapter structure, AST explicit syntax, previous and current scenarios stdout and Markdown. Merged squash f47d697ded701facec4d0cbe71d7f8b90765fecb. No Windows/PowerShell verification claimed. Next batch03 PY-11..15."
     },
     {
       "batch": 3,
