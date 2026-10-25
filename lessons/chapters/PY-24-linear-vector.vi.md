@@ -114,157 +114,192 @@ print(a @ b)
 
 Tích vô hướng trả một scalar bằng 11.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống véc-tơ — từ khoảng cách đến kiểm tra sai số đa trục
 
-### Tình huống 1 — Tính khoảng cách 2D
+### Tình huống 1 — Cấp 1: Cộng 10 bước di chuyển và đo độ lệch cuối
 
-**Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
+**Từ vựng trong mục:** **Vector** — véc-tơ có thứ tự; **Scalar** — số đơn lẻ; **Norm** — độ dài.
 
-**Tình huống thực tế:** Robot di chuyển từ (0,0) tới (3,4) mét. Tính khoảng cách theo đường thẳng.
+**Tình huống thực tế:** Robot ghi **10 bước dịch chuyển**, mỗi bản ghi là cặp `(đi theo trục x, đi theo trục y)` tính bằng mét. Có bước đi âm vì robot có thể đi ngược chiều trục. Cần biết vị trí lệch so với điểm xuất phát và khoảng cách **đường thẳng từ điểm xuất phát**, không nhầm với tổng quãng đường đã đi.
 
-**Vì sao chọn cách giải này?** Norm của vector dịch chuyển là khoảng cách tới gốc.
+**Vì sao chọn cách này?** Véc-tơ lưu hướng và độ dịch chuyển theo hai trục, còn `np.linalg.norm` biến véc-tơ tổng thành **một số** khoảng cách đường thẳng. Nếu chỉ cộng độ dài mỗi bước sẽ tính tổng quãng đường, là một yêu cầu khác.
 
-
-**Quy trình giải:**
-
-1. Tạo vector từ (0,0) đến (3,4) mét.
-2. Tính norm Euclid.
-3. In khoảng cách 5 mét.
+**Quy trình:**
+1. Tạo 10 véc-tơ 2 chiều với đơn vị mét.
+2. Cộng theo trục x/y bằng `sum(axis=0)`.
+3. Tính norm của véc-tơ tổng và in đơn vị.
 
 ```python
-# Mục đích: Tính khoảng cách 2D.
 import numpy as np
-v = np.array([3, 4], dtype=float)
-print(np.linalg.norm(v))
+steps = np.array([[3,4],[0,2],[-2,0],[1,-1],[2,2],[-3,1],[0,-4],[4,0],[-1,3],[2,-2]], dtype=float)
+ending = steps.sum(axis=0)
+assert steps.shape == (10, 2)
+print("Bước:", len(steps))
+print("Lệch x (m):", int(ending[0]))
+print("Lệch y (m):", int(ending[1]))
+print(f"Cách gốc (m): {np.linalg.norm(ending):.2f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-5.0
+Bước: 10
+Lệch x (m): 6
+Lệch y (m): 5
+Cách gốc (m): 7.81
 ```
 
+Véc-tơ tổng có thể nhỏ hơn tổng quãng đường đi, vì các bước di chuyển ngược chiều triệt tiêu nhau.
 
-### Tình huống 2 — Chuẩn hóa hướng di chuyển
+### Tình huống 2 — Cấp 2: Chuẩn hóa 12 hướng robot nhưng không chia cho 0
 
-**Từ vựng trong mục:** **Vector** — véc-tơ.
+**Từ vựng trong mục:** **Unit vector** — véc-tơ đơn vị; **Zero vector** — véc-tơ không; **Normalization** — chuẩn hóa.
 
-**Tình huống thực tế:** Robot nhận vector hướng (3,4). Chuẩn hóa thành vector đơn vị để chỉ biểu thị hướng.
+**Tình huống thực tế:** Bộ điều hướng nhận **12 véc-tơ hướng** `(x,y)` không đơn vị, mỗi hàng là một yêu cầu hướng đi. Hai hàng có `(0,0)` nghĩa là **chưa có hướng hợp lệ**. Cần chuẩn hóa mười hướng khác không về độ dài 1, đồng thời báo đúng hai hàng không thể chuẩn hóa, thay vì thực hiện phép chia cho 0.
 
-**Vì sao chọn cách giải này?** Chia vector cho norm tạo hướng có độ dài bằng 1.
+**Vì sao chọn cách này?** Chia véc-tơ cho norm chỉ thực hiện được khi độ dài lớn hơn 0. Dùng mặt nạ chọn những véc-tơ khác 0, không đoán một hướng mặc định khi dữ liệu chưa xác định.
 
-
-**Quy trình giải:**
-
-1. Tạo vector hướng (3,4) dạng float.
-2. Tính norm và chia nếu norm khác 0.
-3. In vector đơn vị [0.6,0.8].
+**Quy trình:**
+1. Tạo mảng `(12,2)` và tính norm riêng từng hàng.
+2. Chỉ chia các hàng có norm dương; giữ véc-tơ không cho kiểm tra.
+3. Đếm số hướng hợp lệ, in véc-tơ đầu sau chuẩn hóa.
 
 ```python
-# Mục đích: Chuẩn hóa hướng di chuyển.
 import numpy as np
-v = np.array([3., 4.])
-norm = np.linalg.norm(v)
-u = v/norm if norm else v
-print(u)
+vectors = np.array([[3,4],[0,0],[5,0],[-3,4],[0,5],[6,8],[1,1],[-4,0],[2,-2],[0,-2],[4,3],[0,0]], dtype=float)
+lengths = np.linalg.norm(vectors, axis=1)
+valid = lengths > 0
+normalized = np.zeros_like(vectors)
+normalized[valid] = vectors[valid] / lengths[valid, None]
+assert len(vectors) == 12
+print("Yêu cầu:", len(vectors))
+print("Hướng hợp lệ:", int(valid.sum()))
+print("Hướng chưa xác định:", int((~valid).sum()))
+print("Véc-tơ đầu:", ", ".join(f"{x:.2f}" for x in normalized[0]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0.6 0.8]
+Yêu cầu: 12
+Hướng hợp lệ: 10
+Hướng chưa xác định: 2
+Véc-tơ đầu: 0.60, 0.80
 ```
 
+Véc-tơ không vẫn được bảo toàn trên bản dữ liệu xử lý nhưng **không** được coi là hướng di chuyển có độ dài 1.
 
-### Tình huống 3 — Điểm tổng kết có trọng số
+### Tình huống 3 — Cấp 3: Dot product cho 15 điểm tổng kết theo ba tiêu chí
 
-**Từ vựng trong mục:** **Dot product** — tích vô hướng.
+**Từ vựng trong mục:** **Dot product** — tích vô hướng; **Weight** — trọng số; **Threshold** — ngưỡng.
 
-**Tình huống thực tế:** Điểm ba môn của học viên là [8,7,9] theo trọng số [20%,30%,50%]. Tính điểm tổng kết.
+**Tình huống thực tế:** Giáo viên ghi **15 học viên** H01…H15; mỗi hàng có ba điểm lý thuyết, thực hành, dự án (thang 10). Quy tắc nội bộ cho ba trọng số tương ứng 20%, 30%, 50%, học viên đạt từ **7,5 điểm tổng kết**. Hãy tính một điểm cho mỗi người và đếm số người đạt, giữ đúng thứ tự trọng số so với cột.
 
-**Vì sao chọn cách giải này?** Tích vô hướng kết hợp điểm số và trọng số từng môn.
+**Vì sao chọn cách này?** Tích vô hướng nhân mỗi điểm của **cùng học viên** với trọng số cột tương ứng rồi cộng lại. Thay trọng số sai cột sẽ cho kết quả khác dù dữ liệu không đổi.
 
-
-**Quy trình giải:**
-
-1. Lưu ba điểm và ba trọng số theo cùng thứ tự môn.
-2. Nhân bằng `@` để tính tổng có trọng số.
-3. In 8.2 điểm trên thang 10.
+**Quy trình:**
+1. Tạo ma trận 15 × 3 và véc-tơ ba trọng số.
+2. Nhân `scores @ weights` để có 15 kết quả.
+3. Đếm người đạt ngưỡng 7,5; in điểm đầu và cuối để đối chiếu.
 
 ```python
-# Mục đích: Điểm tổng kết có trọng số.
 import numpy as np
-scores = np.array([8, 7, 9])
-weights = np.array([.2, .3, .5])
-print(scores@weights)
+scores = np.array([[5,6,7],[6,8,10],[7,10,9],[8,7,8],[9,9,7],[5,6,10],[6,8,9],[7,10,8],[8,7,7],[9,9,10],[5,6,9],[6,8,8],[7,10,7],[8,7,10],[9,9,9]], dtype=float)
+weights = np.array([0.2, 0.3, 0.5])
+final_scores = scores @ weights
+assert scores.shape == (15, 3) and final_scores.shape == (15,)
+print("Học viên:", len(final_scores))
+print(f"H01: {final_scores[0]:.2f}")
+print(f"H15: {final_scores[-1]:.2f}")
+print("Đạt 7.5:", int((final_scores >= 7.5).sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-8.2
+Học viên: 15
+H01: 6.30
+H15: 9.00
+Đạt 7.5: 12
 ```
 
+Trọng số phản ánh quy định giả lập của lớp; dot product tạo một số theo mỗi học viên, không phải một bảng 15 × 3 sau khi tính.
 
-### Tình huống 4 — Tìm hai hướng vuông góc
+### Tình huống 4 — Cấp 4: Phân 18 hướng vuông góc và ngược chiều với hướng chuẩn
 
-**Từ vựng trong mục:** **Dot product** — tích vô hướng.
+**Từ vựng trong mục:** **Orthogonality** — vuông góc; **Dot product** — tích vô hướng; **Projection** — chiếu theo trục.
 
-**Tình huống thực tế:** Hai hướng [1,0] và [0,1] cần kiểm tra vuông góc bằng tích vô hướng.
+**Tình huống thực tế:** Robot cần so **18 véc-tơ hướng điều khiển** `(x,y)` với hướng chuẩn đi sang phải `(1,0)`, mỗi dòng là một lệnh. Nếu tích vô hướng bằng 0, lệnh vuông góc; nếu âm, lệnh có thành phần ngược chiều; nếu dương, có thành phần cùng chiều. Cần đếm ba nhóm mà không chỉ nhìn dấu một tọa độ trên hình.
 
-**Vì sao chọn cách giải này?** Tích vô hướng bằng 0 với hai vector khác không chứng tỏ vuông góc.
+**Vì sao chọn cách này?** Tích vô hướng so hướng của véc-tơ với hướng chuẩn. Trong dữ liệu ví dụ mọi véc-tơ đều khác không; phép so bằng 0 được áp trên các số nguyên nên không có nhiễu dấu phẩy động.
 
-
-**Quy trình giải:**
-
-1. Tạo hai vector khác không [1,0] và [0,1].
-2. Tính tích vô hướng.
-3. In 0 và xác định hai vector vuông góc.
+**Quy trình:**
+1. Tạo mảng 18 hàng × 2 cột và véc-tơ chuẩn.
+2. Tính 18 tích vô hướng `directions @ reference`.
+3. Đếm trường hợp âm, 0 và dương; xác minh tổng bằng 18.
 
 ```python
-# Mục đích: Tìm hai hướng vuông góc.
 import numpy as np
-a = np.array([1, 0])
-b = np.array([0, 1])
-print(a@b)
+directions = np.array([[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1],[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1],[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1]], dtype=float)
+reference = np.array([1.0, 0.0])
+projections = directions @ reference
+assert directions.shape == (18, 2)
+print("Lệnh:", len(directions))
+print("Ngược chiều:", int((projections < 0).sum()))
+print("Vuông góc:", int((projections == 0).sum()))
+print("Cùng chiều:", int((projections > 0).sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0
+Lệnh: 18
+Ngược chiều: 6
+Vuông góc: 6
+Cùng chiều: 6
 ```
 
+Phân loại bằng tích vô hướng là về **thành phần hướng so với véc-tơ chuẩn**, không suy ra robot đã thực sự di chuyển bao xa.
 
-### Tình huống 5 — Tính sai khác cảm biến
+### Tình huống 5 — Cấp 5: Xếp hạng sai số 20 cảm biến ba trục bằng độ dài véc-tơ
 
-**Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
+**Từ vựng trong mục:** **Residual vector** — véc-tơ sai lệch; **Norm** — độ lớn sai số; **Ranking** — xếp hạng.
 
-**Tình huống thực tế:** Hai lần đo cảm biến theo cặp cùng đơn vị là (20,30) và (23,34). Tính độ lệch Euclid.
+**Tình huống thực tế:** Nhà máy có **20 lượt đo 3 trục** X/Y/Z, mỗi hàng gồm véc-tơ dự kiến và véc-tơ cảm biến (đơn vị mm trên mỗi trục). Một số lượt lệch nhiều hơn ở Z. Kỹ thuật viên cần tính độ lớn sai lệch của từng lượt, đánh dấu khi độ lớn **lớn hơn 2 mm**, tìm lượt sai nhất và trung bình độ lớn sai lệch. Đây là phép đối chiếu hình học, không phải chẩn đoán hỏng thiết bị.
 
-**Vì sao chọn cách giải này?** Norm của hiệu vector đo khoảng cách giữa hai lần đo.
+**Vì sao chọn cách này?** Trừ từng véc-tơ quan sát với chuẩn tạo véc-tơ sai lệch ba chiều; `norm(axis=1)` trả một số mm cho từng lượt. Tính tổng sai số từng trục có dấu có thể triệt tiêu nhau, nên dùng norm khi hỏi độ lệch tổng thể.
 
-
-**Quy trình giải:**
-
-1. Lưu hai cặp đo cùng đơn vị.
-2. Tính hiệu vector và norm của hiệu.
-3. In chênh lệch Euclid là 5.
+**Quy trình:**
+1. Lưu 20 cặp véc-tơ 3D theo đúng thứ tự trục.
+2. Tính sai lệch từng hàng, sau đó norm của 20 véc-tơ.
+3. Đếm vượt ngưỡng 2 mm, tìm mã lượt lớn nhất và báo trung bình.
 
 ```python
-# Mục đích: Tính sai khác cảm biến.
 import numpy as np
-a = np.array([20, 30])
-b = np.array([23, 34])
-print(np.linalg.norm(a-b))
+observed = np.array([[10,20,30],[11,21,31],[12,22,32],[13,23,30],[14,20,31],[10,21,32],[11,22,30],[12,23,31],[13,20,32],[14,21,30],[10,22,31],[11,23,32],[12,20,30],[13,21,31],[14,22,32],[10,23,30],[11,20,31],[12,21,32],[13,22,30],[14,23,31]], dtype=float)
+expected = np.array([[11,19,33],[12,20,31],[13,21,32],[14,22,30],[15,19,31],[11,20,32],[12,21,30],[13,22,34],[14,19,32],[15,20,30],[11,21,31],[12,22,32],[13,19,30],[14,20,31],[15,21,35],[11,22,30],[12,19,31],[13,20,32],[14,21,30],[15,22,31]], dtype=float)
+residual = observed - expected
+errors = np.linalg.norm(residual, axis=1)
+worst = int(errors.argmax())
+assert observed.shape == expected.shape == (20, 3)
+print("Lượt đo:", len(errors))
+print("Vượt 2 mm:", int((errors > 2).sum()))
+print("Lượt sai nhất:", f"M{worst+1:02d}")
+print(f"Sai số lớn nhất (mm): {errors[worst]:.2f}")
+print(f"Sai số TB (mm): {errors.mean():.2f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-5.0
+Lượt đo: 20
+Vượt 2 mm: 3
+Lượt sai nhất: M01
+Sai số lớn nhất (mm): 3.32
+Sai số TB (mm): 1.70
 ```
 
+Mỗi hàng là một lượt đo 3 trục có cùng đơn vị mm. Mức 2 mm là **ngưỡng ví dụ**, phải do chuyên gia thiết bị quyết định khi ứng dụng thật.
 
 ## 6. Sai lầm thường gặp
 
