@@ -128,7 +128,7 @@ print(slope.subs(x, 3))
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Giới hạn tại điểm khuyết của biểu thức
+### Tình huống 1 — Giới hạn tại điểm khuyết của biểu thức · Cấp 1: Giới hạn cơ bản
 
 **Tình huống thực tế:** Một công thức chuẩn hóa cho ra `f(x)=(x²−4)/(x−2)`; tại x=2 mẫu số bằng 0. Nhóm phân tích muốn biết **giá trị mà công thức tiến gần**, không cố tính f(2).
 
@@ -157,7 +157,23 @@ print(sp.limit(f, x, 2))
 
 Giới hạn là 4; biểu thức gốc vẫn không xác định tại x=2.
 
-### Tình huống 2 — Tính vận tốc từ mô hình quãng đường
+**Bài thực hành nâng cấp — cấp 1/5:** Robot lưu **10 mốc thời gian** (giây) và suy ra quãng đường từ hàm mô tả. Hãy tính giới hạn tại một vị trí không thể thay trực tiếp. Các cấp tăng dần từ giới hạn/đạo hàm đơn đến dãy thời gian có phép đo thiếu và đối chiếu đạo hàm lý thuyết.
+
+```python
+import numpy as np
+import sympy as sp
+# Một mẫu = một thời điểm t (giây) trong dãy theo dõi chuyển động.
+t = sp.symbols("t")
+times = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10],dtype=float)
+valid = times[np.isfinite(times)]
+result = float(sp.limit((t*t-1)/(t-1),t,1))
+print("Số thời điểm:",len(times))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số mốc ghi ban đầu là 10; ước lượng vận tốc từ các mốc hợp lệ, phân biệt giá trị gần điểm khuyết với giá trị tại chính điểm đó.
+
+### Tình huống 2 — Tính vận tốc từ mô hình quãng đường · Cấp 2: Đạo hàm tốc độ
 
 **Tình huống thực tế:** Một robot được mô phỏng theo `s(t)=t²` mét, t tính bằng giây. Cần tìm vận tốc tức thời tại t=3 giây, thay vì vận tốc trung bình trên cả hành trình.
 
@@ -187,7 +203,23 @@ print(v.subs(t, 3))
 
 Vận tốc tức thời theo mô hình là 6 m/s.
 
-### Tình huống 3 — Độ dốc của hàm doanh thu
+**Bài thực hành nâng cấp — cấp 2/5:** Robot lưu **12 mốc thời gian** (giây) và suy ra quãng đường từ hàm mô tả. Hãy tính vận tốc đạo hàm tại 12 thời điểm. Các cấp tăng dần từ giới hạn/đạo hàm đơn đến dãy thời gian có phép đo thiếu và đối chiếu đạo hàm lý thuyết.
+
+```python
+import numpy as np
+import sympy as sp
+# Một mẫu = một thời điểm t (giây) trong dãy theo dõi chuyển động.
+t = sp.symbols("t")
+times = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],dtype=float)
+valid = times[np.isfinite(times)]
+result = [float(sp.diff(t*t+3*t,t).subs(t,z)) for z in valid[:5]]
+print("Số thời điểm:",len(times))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số mốc ghi ban đầu là 12; ước lượng vận tốc từ các mốc hợp lệ, phân biệt giá trị gần điểm khuyết với giá trị tại chính điểm đó.
+
+### Tình huống 3 — Độ dốc của hàm doanh thu · Cấp 3: Tính độ dốc nhiều điểm
 
 **Tình huống thực tế:** Mô hình doanh thu giả định `R(x)=2x²+3x` nghìn đồng, x là số đơn vị hàng. Đội vận hành muốn biết mức doanh thu thay đổi cục bộ quanh x=4, chưa xét việc x chỉ nhận số nguyên trong giao dịch thực tế.
 
@@ -216,7 +248,23 @@ print(sp.diff(revenue, x).subs(x, 4))
 
 Độ dốc là 19 nghìn đồng mỗi đơn vị hàng theo mô hình liên tục.
 
-### Tình huống 4 — Kiểm tra tính liên tục của hàm số
+**Bài thực hành nâng cấp — cấp 3/5:** Robot lưu **15 mốc thời gian** (giây) và suy ra quãng đường từ hàm mô tả. Hãy dùng đạo hàm của một hàm doanh thu phi tuyến trên 15 điểm. Các cấp tăng dần từ giới hạn/đạo hàm đơn đến dãy thời gian có phép đo thiếu và đối chiếu đạo hàm lý thuyết.
+
+```python
+import numpy as np
+import sympy as sp
+# Một mẫu = một thời điểm t (giây) trong dãy theo dõi chuyển động.
+t = sp.symbols("t")
+times = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],dtype=float)
+valid = times[np.isfinite(times)]
+result = [float(sp.diff(3*t*t+5*t,t).subs(t,z)) for z in valid[:5]]
+print("Số thời điểm:",len(times))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số mốc ghi ban đầu là 15; ước lượng vận tốc từ các mốc hợp lệ, phân biệt giá trị gần điểm khuyết với giá trị tại chính điểm đó.
+
+### Tình huống 4 — Kiểm tra tính liên tục của hàm số · Cấp 4: Đạo hàm số có mẫu thiếu
 
 **Tình huống thực tế:** Mô hình tính vị trí `f(x)=x²` tại x=2 mét đầu vào. Cần xem giới hạn của hàm tại điểm này có bằng chính giá trị f(2) hay không.
 
@@ -245,7 +293,23 @@ True
 
 Mô hình liên tục tại x=2 vì giới hạn và giá trị thực của hàm đều là 4.
 
-### Tình huống 5 — Ước lượng vận tốc từ năm lần đo
+**Bài thực hành nâng cấp — cấp 4/5:** Robot lưu **18 mốc thời gian** (giây) và suy ra quãng đường từ hàm mô tả. Hãy loại thời điểm chưa đo trước khi ước lượng sai phân. Các cấp tăng dần từ giới hạn/đạo hàm đơn đến dãy thời gian có phép đo thiếu và đối chiếu đạo hàm lý thuyết.
+
+```python
+import numpy as np
+import sympy as sp
+# Một mẫu = một thời điểm t (giây) trong dãy theo dõi chuyển động.
+t = sp.symbols("t")
+times = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, np.nan, 17, 18],dtype=float)
+valid = times[np.isfinite(times)]
+result = {'valid':len(valid),'missing':len(times)-len(valid),'estimated':np.gradient(valid**2,valid).round(3).tolist()[:5]}
+print("Số thời điểm:",len(times))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số mốc ghi ban đầu là 18; ước lượng vận tốc từ các mốc hợp lệ, phân biệt giá trị gần điểm khuyết với giá trị tại chính điểm đó.
+
+### Tình huống 5 — Ước lượng vận tốc từ năm lần đo · Cấp 5: Kiểm chứng vận tốc thực nghiệm
 
 **Tình huống thực tế:** Cảm biến ghi quãng đường theo mô hình `s=t²` mét ở thời điểm 0,1,2,3,4 giây. Chỉ có năm mẫu rời rạc, nên cần **ước lượng** đạo hàm thay vì dùng biểu thức ký hiệu.
 
@@ -273,6 +337,22 @@ print(np.gradient(distance, time))
 ```
 
 Ở các điểm giữa, ước lượng bằng đạo hàm 2t; hai đầu dùng sai phân một phía nên khác giá trị tức thời chính xác.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Robot lưu **20 mốc thời gian** (giây) và suy ra quãng đường từ hàm mô tả. Hãy so sánh vận tốc ước lượng từ 20 điểm với đạo hàm chính xác. Các cấp tăng dần từ giới hạn/đạo hàm đơn đến dãy thời gian có phép đo thiếu và đối chiếu đạo hàm lý thuyết.
+
+```python
+import numpy as np
+import sympy as sp
+# Một mẫu = một thời điểm t (giây) trong dãy theo dõi chuyển động.
+t = sp.symbols("t")
+times = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, np.nan, 17, 18, 19, np.nan],dtype=float)
+valid = times[np.isfinite(times)]
+result = {'measured':np.gradient(valid**2+3*valid,valid).round(3).tolist()[:5],'exact':(2*valid+3).tolist()[:5],'missing':len(times)-len(valid)}
+print("Số thời điểm:",len(times))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số mốc ghi ban đầu là 20; ước lượng vận tốc từ các mốc hợp lệ, phân biệt giá trị gần điểm khuyết với giá trị tại chính điểm đó.
 
 ## 6. Sai lầm thường gặp
 
