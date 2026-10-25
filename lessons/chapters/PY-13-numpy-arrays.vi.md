@@ -131,7 +131,7 @@ Mảng đầu ra có hai số vì bảng có hai **cột/môn**; kết quả l�
 
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Gom bảng điểm học viên
+### Tình huống 1 — Gom bảng điểm học viên · Cấp 1: Nhận biết
 
 **Từ vựng trong mục:** **ndarray** — mảng NumPy; **Shape** — kích thước.
 
@@ -161,7 +161,23 @@ print(scores.shape)
 
 Kết quả cho biết 3 hàng học viên và 2 cột môn học.
 
-### Tình huống 2 — Trung bình theo từng môn
+**Bài thực hành nâng cấp — cấp 1/5:** Trung tâm thu **10 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy tạo ndarray và đọc shape/dtype. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,11)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = array.shape, str(array.dtype)
+assert array.shape==(10,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 10 và hai cột; phép toán tạo ndarray và đọc shape/dtype phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
+
+### Tình huống 2 — Trung bình theo từng môn · Cấp 2: Áp dụng trọn bảng
 
 **Từ vựng trong mục:** **Axis** — trục tính toán; **Mean** — trung bình.
 
@@ -191,7 +207,23 @@ print(scores.mean(axis=0))
 
 Toán trung bình khoảng 7,67; Python trung bình 8,00 điểm.
 
-### Tình huống 3 — Tính tổng doanh thu mỗi cửa hàng
+**Bài thực hành nâng cấp — cấp 2/5:** Trung tâm thu **12 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy xếp hai điểm mỗi học viên thành ma trận 12×2. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,13)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = array.mean(axis=0).round(2).tolist()
+assert array.shape==(12,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 12 và hai cột; phép toán xếp hai điểm mỗi học viên thành ma trận 12×2 phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
+
+### Tình huống 3 — Tính tổng doanh thu mỗi cửa hàng · Cấp 3: Kết hợp phép toán
 
 **Từ vựng trong mục:** **Axis** — trục tính toán; **Sum** — phép cộng tổng.
 
@@ -221,7 +253,23 @@ print(sales.sum(axis=1))
 
 Cửa hàng A thu 60 triệu đồng; cửa hàng B thu 36 triệu đồng.
 
-### Tình huống 4 — Tạo bảng dự báo khởi tạo
+**Bài thực hành nâng cấp — cấp 3/5:** Trung tâm thu **15 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy tính điểm trung bình hai cột bằng axis=0. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,16)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = array.sum(axis=1)[:5].tolist()
+assert array.shape==(15,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 15 và hai cột; phép toán tính điểm trung bình hai cột bằng axis=0 phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
+
+### Tình huống 4 — Tạo bảng dự báo khởi tạo · Cấp 4: Xử lý dữ liệu không đầy đủ
 
 **Từ vựng trong mục:** **Shape** — kích thước; **Zero array** — mảng số 0.
 
@@ -251,7 +299,23 @@ print(forecast.shape)
 
 Bảng dành cho hai cửa hàng, ba ngày, tổng cộng sáu vị trí chưa có dự báo thực.
 
-### Tình huống 5 — Kiểm tra kiểu và số lượng điểm
+**Bài thực hành nâng cấp — cấp 4/5:** Trung tâm thu **18 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy phân biệt giá trị khuyết NaN và đếm phần tử hợp lệ. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,19)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = int(np.isnan(array).sum())
+assert array.shape==(18,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 18 và hai cột; phép toán phân biệt giá trị khuyết nan và đếm phần tử hợp lệ phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
+
+### Tình huống 5 — Kiểm tra kiểu và số lượng điểm · Cấp 5: Báo cáo có kiểm chứng
 
 **Từ vựng trong mục:** **dtype** — kiểu phần tử; **size** — số phần tử.
 
@@ -280,6 +344,22 @@ float64 2
 ```
 
 Dữ liệu gồm hai điểm kiểu `float64`, không phải chuỗi.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Trung tâm thu **20 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy lập báo cáo shape/dtype, trung bình từng môn và số thiếu. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39, 85, np.nan]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,21)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = {'shape':array.shape,'mean':np.nanmean(array,axis=0).round(2).tolist(),'missing':int(np.isnan(array).sum())}
+assert array.shape==(20,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 20 và hai cột; phép toán lập báo cáo shape/dtype, trung bình từng môn và số thiếu phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
 
 ## 6. Sai lầm thường gặp
 
