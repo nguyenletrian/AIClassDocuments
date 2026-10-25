@@ -148,9 +148,9 @@ print(score.get_value())
 
 **Từ vựng trong mục:** **Class** — lớp; **Object** — đối tượng; **Constructor** — hàm khởi tạo.
 
-**Tình huống thực tế:** Một lớp học có **10 học viên** mã S01…S10 với điểm theo thang 10. Giáo viên muốn tạo đối tượng cho từng người, rồi đọc điểm S01 và S10 mà không phải lưu riêng mười biến điểm.
+**Tình huống thực tế:** Một lớp có **10 học viên S01 đến S10**, mỗi người có một điểm kiểm tra theo thang **10 điểm**. Giáo viên cần lưu mã và điểm gắn với đúng từng người, rồi xem điểm của S01 và S10. Họ không muốn phải tạo 10 cặp biến rời rạc dễ nhập nhầm giữa học viên này với học viên khác.
 
-**Vì sao chọn cách này?** Lớp Student gom mã và điểm vào `self`; mỗi lần gọi `Student(...)` tạo một đối tượng riêng. Đây là mức nhập môn OOP, chỉ khởi tạo và đọc thuộc tính.
+**Vì sao chọn cách này?** **OOP** (lập trình hướng đối tượng) là cách tổ chức thông tin cùng hành động của một sự vật vào một chỗ. **Class** `Student` giống một mẫu để tạo học viên, còn **object** là học viên cụ thể được tạo từ mẫu ấy. Trong `__init__`, `self.id` và `self.score` giữ mã và điểm thuộc **đúng đối tượng đang tạo**. Vì thế sửa điểm một học viên không tự làm đổi điểm học viên khác. Chương trình tạo 10 đối tượng từ các cặp mã–điểm, rồi đọc thuộc tính của S01 và S10; bài này chưa cần những kỹ thuật OOP phức tạp hơn.
 
 **Quy trình:**
 1. Định nghĩa lớp có hàm `__init__` lưu mã và điểm.
@@ -188,9 +188,9 @@ Thuộc tính `self.score` thuộc về từng đối tượng, không phải bi
 
 **Từ vựng trong mục:** **Method** — phương thức; **Self** — đối tượng hiện tại; **Encapsulation** — đóng gói.
 
-**Tình huống thực tế:** Một khách chọn **12 mặt hàng**, mỗi dòng là đơn giá (nghìn đồng/món), mua mỗi loại một món. Bộ phận thu ngân cần đối tượng `Cart` tự quản lý danh sách giá và đưa ra tổng tiền, không để bên ngoài phải tự cộng giá.
+**Tình huống thực tế:** Một khách hàng mua **12 mặt hàng**; danh sách có giá một món của từng loại, đơn vị **nghìn đồng** và mỗi loại mua một món. Thu ngân muốn lưu các món đã chọn trong một **giỏ hàng riêng** và nhờ chính giỏ ấy tính tổng số tiền, để lần sau có thể làm thêm giỏ khác mà không bị trộn giá của hai khách.
 
-**Vì sao chọn cách này?** Phương thức `add()` phụ trách thay đổi danh sách của đúng giỏ hàng, `total()` trả kết quả; danh sách giá được tạo **bên trong** `__init__` nên không bị chia sẻ giữa nhiều giỏ.
+**Vì sao chọn cách này?** **Phương thức** là một hàm thuộc về đối tượng. Với `Cart`, `add()` thêm giá một món vào danh sách của giỏ, còn `total()` cộng các giá đã nằm trong chính giỏ đó. `__init__` tạo danh sách rỗng **mỗi lần tạo giỏ mới**, thay vì để mọi giỏ dùng chung một danh sách. Nếu dùng dữ liệu chung, thêm món của khách B có thể làm tổng tiền khách A tăng sai. Giữ cách tính tổng trong `Cart` giúp người dùng giỏ chỉ cần gọi `cart.total()` mà không viết phép cộng bên ngoài.
 
 **Quy trình:**
 1. Tạo lớp `Cart` với thuộc tính `prices` khởi tạo riêng.
@@ -233,9 +233,9 @@ Phương thức được gọi trên một đối tượng cụ thể; việc t�
 
 **Từ vựng trong mục:** **Setter** — phương thức gán; **Validation** — kiểm tra; **Exception** — ngoại lệ.
 
-**Tình huống thực tế:** Phòng đào tạo nhận **15 điểm** theo thứ tự học viên S01…S15 (thang 10). Trong đó S06 đạt 11 và S10 đạt -1 là dữ liệu sai. Để tránh vô tình lưu điểm không hợp lệ, mỗi đối tượng `ScoreRecord` phải kiểm tra trong phương thức `set_score()` trước khi cập nhật.
+**Tình huống thực tế:** Phòng đào tạo tiếp nhận **15 điểm của học viên S01 đến S15**, theo thang **0 đến 10**. Trong danh sách có S06 ghi 11 và S10 ghi -1, đều ngoài thang điểm hợp lệ. Giáo viên muốn lưu điểm riêng cho từng hồ sơ, biết những mã nào không thể ghi điểm và tránh đưa điểm sai vào kết quả học tập.
 
-**Vì sao chọn cách này?** Đặt quy tắc kiểm tra trong lớp để mọi lời gọi đều theo cùng ngưỡng. Khi không hợp lệ, `ValueError` ngăn đối tượng giữ điểm sai; chương trình tổng hợp bắt lỗi theo từng mã để tiếp tục xử lý các hồ sơ khác.
+**Vì sao chọn cách này?** **Đóng gói** ở đây có nghĩa là đặt quy tắc kiểm tra ngay nơi dữ liệu được thay đổi. Đối tượng `ScoreRecord` giữ điểm của một học viên; khi `set_score()` được gọi, nó kiểm tra điểm phải là số nằm từ 0 đến 10 rồi mới lưu. `ValueError` là thông báo lỗi khi giá trị nhập không được chấp nhận; chương trình xử lý lỗi theo từng học viên nên điểm sai của S06, S10 không khiến 13 hồ sơ còn lại bị bỏ qua. Không nên gán thẳng điểm sai vào thuộc tính rồi mới kiểm tra sau, vì lúc đó đối tượng đã giữ thông tin không hợp lệ.
 
 **Quy trình:**
 1. Tạo lớp với trạng thái điểm ban đầu `None`.
@@ -288,9 +288,9 @@ Sai: S06, S10
 
 **Từ vựng trong mục:** **Dunder method** — phương thức đặc biệt; **__str__** — chuỗi hiển thị; **Missing value** — giá trị thiếu.
 
-**Tình huống thực tế:** Ứng dụng nhận **18 hóa đơn** O01…O18; mỗi dòng chứa số tiền thanh toán (đồng). Hai hóa đơn O06 và O15 chưa được nhập số tiền (`None`). Cần định nghĩa cách một đối tượng hóa đơn hiển thị, nhưng **không** hiển thị dòng thiếu như 0 đồng; báo tổng của các hóa đơn đủ tiền và hai mã cần nhập lại.
+**Tình huống thực tế:** Ứng dụng kế toán có **18 hóa đơn O01 đến O18**, mỗi hóa đơn cần lưu số tiền thanh toán tính bằng **đồng**. Hai hóa đơn O06 và O15 chưa được nhập tiền nên có giá trị `None`. Nhân viên muốn in hóa đơn theo mẫu dễ đọc, đồng thời báo tổng tiền của những hóa đơn đã có số và mã hai hóa đơn còn thiếu; không được hiển thị thiếu tiền như 0 đồng.
 
-**Vì sao chọn cách này?** Phương thức `__str__()` đặt quy tắc hiển thị ở chính đối tượng. Phương thức `is_ready()` tách điều kiện được phép tính tổng; lỗi thiếu được xử lý trước khi dùng số học.
+**Vì sao chọn cách này?** `__str__()` là phương thức cho biết **đối tượng được hiển thị thành dòng chữ như thế nào**, chẳng hạn khi in một hóa đơn. Còn `is_ready()` kiểm tra hóa đơn đã có số tiền để tính tổng chưa. Hai việc khác nhau: hóa đơn thiếu tiền vẫn có mã nhưng chưa đủ dữ liệu để tính doanh thu; `None` không đồng nghĩa 0 đồng. Chương trình tạo đối tượng cho 18 hóa đơn, chỉ cộng tiền của các đối tượng sẵn sàng và ghi riêng mã thiếu. Đặt quy tắc hiển thị và kiểm tra trong đối tượng giúp mọi nơi in hóa đơn theo cùng một cách.
 
 **Quy trình:**
 1. Tạo đối tượng `Invoice` cho đủ 18 dòng và lưu mã/số tiền.
@@ -349,9 +349,9 @@ Chỉ tính tổng trên các đối tượng `is_ready() == True`. Giá trị `
 
 **Từ vựng trong mục:** **State** — trạng thái; **Encapsulation** — đóng gói; **Instance method** — phương thức đối tượng.
 
-**Tình huống thực tế:** Kho có **5 sản phẩm** P01…P05 với tồn đầu ngày lần lượt 10, 9, 8, 7, 5 món. Trong ngày phát sinh **20 yêu cầu xuất**, mỗi hàng là mã sản phẩm và số món muốn lấy. Có lượt vượt số tồn, một lượt chưa có số lượng (`None`) và một lượt yêu cầu 0 món. Hãy dùng đối tượng cho từng sản phẩm để **không bao giờ cho tồn âm**, trả danh sách yêu cầu bị từ chối và số tồn cuối từng sản phẩm.
+**Tình huống thực tế:** Một kho có **5 loại sản phẩm P01 đến P05**, tồn đầu ngày lần lượt là **10, 9, 8, 7, 5 món**. Trong ngày có **20 lượt yêu cầu xuất hàng**; mỗi lượt chứa mã sản phẩm và số món muốn lấy. Có yêu cầu lấy quá số đang còn, một yêu cầu chưa nhập số lượng (`None`) và một yêu cầu lấy 0 món. Nhân viên cần biết yêu cầu nào bị từ chối và số tồn cuối của từng loại, bảo đảm không loại nào bị trừ xuống số âm.
 
-**Vì sao chọn cách này?** Đối tượng `StockItem` giữ số tồn của **một sản phẩm**; phương thức `reserve` quyết định thành công và chỉ thay đổi `self.quantity` khi đủ điều kiện. Tách trạng thái mỗi sản phẩm tránh tình trạng một yêu cầu của P01 làm thay đổi P02. Đây là bước tổng hợp OOP và kiểm tra đầu vào.
+**Vì sao chọn cách này?** **Trạng thái của đối tượng** là dữ liệu hiện tại được giữ bên trong nó; ở đây `StockItem` giữ số món còn của **một mã sản phẩm**. Phương thức `reserve()` kiểm tra số muốn xuất có phải lượng hợp lệ và có vượt tồn không. Chỉ khi yêu cầu được chấp nhận mới trừ vào `self.quantity`; nếu thiếu số lượng, lấy 0 món hoặc lấy nhiều hơn tồn thì từ chối và **giữ nguyên số tồn**. Cần xử lý 20 lượt **đúng thứ tự** vì sau khi xuất một lượt, số còn lại cho lượt tiếp theo đã khác. Mỗi SKU có đối tượng riêng nên xuất P01 không thể vô tình trừ tồn của P02.
 
 **Quy trình:**
 1. Khởi tạo 5 đối tượng độc lập từ tồn đầu ngày.

@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_02",
+  "status": "BATCH_02_IN_PROGRESS",
   "last_completed_batch": 1,
   "batches": [
     {
@@ -45,11 +45,26 @@
         "PY-09",
         "PY-10"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-06",
+        "PY-07",
+        "PY-08",
+        "PY-09",
+        "PY-10"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-02-20261025",
+      "lesson_commits": {
+        "PY-06": "dee9496be4cdec1cb41bce33e90414afdbaebfd7",
+        "PY-07": "ef40f1e564aced0df7363d5ffd7a8f2abc9b59a1",
+        "PY-08": "1e560460b632fb158b423af6a99b1bf44a4d0120",
+        "PY-09": "1d33981eb56c58ac39af28ccb07a094384b94050",
+        "PY-10": "88369831d1f3cbaca5a86c56c905fa07e26a316e"
+      },
+      "notes": "Five individually committed lessons PY-06..10. Rewrote exactly 5 Tình huống thực tế and 5 Vì sao chọn cách này paragraphs for each (50 paragraphs total), grounding data meaning, units, expected results, plain-language why, corner cases and alternatives. Compared revised files to main after masking only these 2 field types: all other bytes unchanged, including all executable Python blocks (counts PY06 10, PY07 10, PY08 9, PY09 10, PY10 9), exact expected stdout, definitions, 100 MCQs and five progressing situations/chapter. CI / merge pending. Windows PowerShell canary unavailable; no Windows PASS."
     },
     {
       "batch": 3,

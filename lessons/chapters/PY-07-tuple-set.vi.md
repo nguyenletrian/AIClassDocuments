@@ -143,9 +143,9 @@ Kết quả là một **List đã sắp xếp**, gồm hai kỹ năng cần họ
 
 **Từ vựng trong mục:** **Tuple** — bộ giá trị; **Unpacking** — tách bộ.
 
-**Tình huống thực tế:** Robot ghi **10 vị trí** trên mặt phẳng (mét), mỗi vị trí là cặp tọa độ `(x, y)` không muốn sửa khi dùng để đối chiếu đường đi. Hãy lưu các cặp bằng tuple, tách tọa độ điểm đầu và đếm những điểm có bình phương khoảng cách tới gốc từ 25 m² trở lên.
+**Tình huống thực tế:** Một robot di chuyển trên sàn và ghi lại **10 vị trí** theo đơn vị **mét**. Mỗi vị trí gồm hai số `(x, y)`: `x` là khoảng dịch sang ngang, `y` là khoảng dịch theo chiều dọc so với điểm xuất phát `(0, 0)`. Nhóm vận hành muốn lưu nguyên từng cặp tọa độ, đọc cặp đầu tiên và đếm bao nhiêu điểm cách điểm xuất phát ít nhất 5 mét.
 
-**Vì sao chọn cách này?** Tuple giữ cấu trúc cố định của từng cặp số, cho phép tách `x, y = point`. Kiểm tra bình phương khoảng cách tránh cần thêm thư viện tính căn cho bài này.
+**Vì sao chọn cách này?** **Tuple** là cách giữ hai giá trị đi cùng nhau như một cặp tọa độ, ví dụ `(3, 4)` là vị trí sang ngang 3 mét và đi dọc 4 mét. Có thể viết `x, y = point` để lấy hai số ra; bản thân tuple không cho sửa trực tiếp từng phần tử nên phù hợp với việc giữ nguyên tọa độ ghi nhận. Muốn biết một điểm cách gốc ít nhất 5 mét, so tổng **bình phương hai độ dịch chuyển** với 25; ví dụ `(3, 4)` có các phần 9 và 16, cộng thành 25 nên vừa chạm ngưỡng. Cách so này tránh phải tính căn bậc hai nhưng vẫn cho đúng kết quả.
 
 **Quy trình:**
 1. Lưu mười tuple tọa độ, mỗi hàng là một vị trí.
@@ -180,9 +180,9 @@ Mỗi tuple là một điểm đo có hai thành phần. Số 25 mang đơn vị
 
 **Từ vựng trong mục:** **Set** — tập hợp; **Duplicate** — trùng; **Normalization** — chuẩn hóa.
 
-**Tình huống thực tế:** Một chương trình chuẩn bị gửi thư cho **12 địa chỉ giả lập**, mỗi dòng là một tài khoản. Có email giống nhau nhưng khác chữ hoa/thường và khoảng trắng; cần thống kê số tài khoản duy nhất **sau chuẩn hóa**, không gửi trùng.
+**Tình huống thực tế:** Một tổ chức chuẩn bị gửi thông báo cho **12 dòng email thử nghiệm**. Mỗi dòng là email đã được một người điền, nhưng cùng một địa chỉ có thể xuất hiện vài lần hoặc khác chữ hoa/thường và khoảng trắng, chẳng hạn ` Test@Example.INVALID ` với `test@example.invalid`. Trước khi gửi, nhân viên muốn biết có bao nhiêu địa chỉ khác nhau và xem danh sách không lặp, theo thứ tự dễ kiểm tra.
 
-**Vì sao chọn cách này?** `set()` chỉ tự loại các chuỗi giống nhau hoàn toàn; cần `strip().lower()` trước để so sánh nhất quán. Tập hợp không bảo đảm thứ tự, nên `sorted()` tạo danh sách hiển thị ổn định.
+**Vì sao chọn cách này?** `set` là **tập hợp** chỉ giữ mỗi giá trị khác nhau một lần. Tuy nhiên `set` không tự hiểu `Test@Example.INVALID` và `test@example.invalid` là cùng một chuỗi, nên phải làm sạch khoảng trắng bằng `strip()` và thống nhất chữ thường bằng `lower()` trước. Sau đó thêm từng email vào set để xóa bản ghi lặp. Vì set không giữ thứ tự ổn định cho việc in báo cáo, dùng `sorted()` để sắp danh sách. Đây là phép lọc **địa chỉ trùng theo cách viết**, không chứng minh địa chỉ thật sự tồn tại.
 
 **Quy trình:**
 1. Chuẩn hóa mười hai email sang chữ thường, bỏ khoảng trắng biên.
@@ -216,9 +216,9 @@ Tên miền `.invalid` chỉ dành cho dữ liệu minh họa. Không dùng số
 
 **Từ vựng trong mục:** **Intersection** — phép giao; **Union** — phép hợp; **Membership** — thành viên.
 
-**Tình huống thực tế:** Trung tâm nhận **15 lượt đăng ký môn**; mỗi hàng gồm mã học viên và tên môn `Python` hoặc `AI`. Một người có thể xuất hiện trong hai hàng vì đăng ký cả hai môn. Cần biết những ai học **cả hai**, có bao nhiêu học viên riêng biệt và vì sao số lượt không bằng số người.
+**Tình huống thực tế:** Trung tâm có **15 lượt đăng ký môn**, mỗi dòng chứa mã học viên cùng tên môn **Python** hoặc **AI**. Một học viên đăng ký cả hai môn sẽ có hai dòng, vì thế số dòng không bằng số người. Giáo vụ cần danh sách những người học **cả Python và AI**, cùng tổng số học viên khác nhau đã đăng ký ít nhất một môn.
 
-**Vì sao chọn cách này?** Đưa mã của từng môn vào hai Set. Phép giao `&` tìm người nằm trong cả hai; phép hợp `|` đếm người có ít nhất một môn. Đây là hai yêu cầu khác nhau nên không thể dùng một phép đếm list.
+**Vì sao chọn cách này?** Mỗi môn cần một tập mã học viên: tập Python và tập AI. Với một người H03 có mặt trong cả hai tập, phép **giao** `&` sẽ giữ H03 vì người ấy xuất hiện ở cả hai; phép **hợp** `|` giữ những ai đăng ký ít nhất một môn. Số người khác nhau được đếm từ hợp, chứ không phải đếm 15 lượt vì một người có thể ghi hai lần. Set phù hợp ở đây vì mục tiêu là kiểm tra **sự có mặt của một mã**, không phải đếm số lần học lại cùng môn.
 
 **Quy trình:**
 1. Lưu 15 cặp `(mã học viên, môn)` có nghĩa rõ.
@@ -257,9 +257,9 @@ Cùng một mã xuất hiện hai lần là hai lượt đăng ký hợp lệ, k
 
 **Từ vựng trong mục:** **Difference** — hiệu tập hợp; **Intersection** — phép giao; **Invalid ID** — mã lỗi.
 
-**Tình huống thực tế:** Có **18 lượt ghi danh** vào nhóm A hoặc B, mỗi hàng là `(mã thành viên, nhóm)`; cùng một người được phép vào cả hai nhóm. Lượt thứ 15 bị thiếu ID (`None`), nên không biết thuộc về ai. Cần tách lượt lỗi và tìm người **chỉ ở A** và người ở **cả A lẫn B**.
+**Tình huống thực tế:** Hai câu lạc bộ A và B nhận **18 lượt đăng ký**, mỗi lượt có mã thành viên và tên câu lạc bộ. Một người có thể tham gia cả hai, nhưng lượt thứ 15 không có mã người (`None`) nên chưa thể xác định ai đăng ký. Người quản lý muốn tách lượt thiếu mã, liệt kê người **chỉ tham gia A**, và người **tham gia cả A lẫn B**.
 
-**Vì sao chọn cách này?** Set chỉ dùng trên các mã hợp lệ; nếu đưa `None` vào tập, đó sẽ bị coi là một thành viên giả. Phép hiệu `A - B` và giao `A & B` trả hai câu trả lời khác nhau.
+**Vì sao chọn cách này?** Trước tiên kiểm tra mã thành viên có bị thiếu không. `None` nghĩa là **chưa biết người đăng ký**, nên không thêm vào tập; nếu thêm, hệ thống sẽ xem `None` như một thành viên giả và đếm sai. Từ các mã hợp lệ, tạo tập A và tập B. **Hiệu** `A - B` nghĩa là người có ở A nhưng không có ở B, còn **giao** `A & B` là người có ở cả hai. Hai phép trả lời hai câu hỏi khác nhau; số lượt đăng ký không dùng thay số người vì người có thể đăng ký hai nhóm.
 
 **Quy trình:**
 1. Kiểm tra từng cặp, bỏ lượt có ID None và đếm lỗi.
@@ -302,9 +302,9 @@ Không gộp hai lượt của cùng người thành một lỗi: cùng ID ở A
 
 **Từ vựng trong mục:** **Set difference** — hiệu tập hợp; **Data validation** — kiểm dữ liệu; **Tuple** — cặp giá trị.
 
-**Tình huống thực tế:** Khóa học yêu cầu mỗi người hoàn tất **ba kỹ năng Python, SQL và AI**. Hệ thống nhận **20 lượt ghi kết quả**, mỗi hàng là cặp `(mã học viên, kỹ năng đã học)` của 8 người S01…S08. Có một lượt `S06–Python` ghi trùng và một lượt `S06–None` chưa xác định kỹ năng. Cần xác định học viên đủ cả ba, các kỹ năng còn thiếu của S06, số lượt lỗi và số lượt trùng sau chuẩn hóa.
+**Tình huống thực tế:** Một khóa học theo dõi **8 học viên S01 đến S08** qua **20 lượt ghi nhận kỹ năng**. Mỗi lượt là cặp `(mã học viên, tên kỹ năng)`; khóa học yêu cầu đủ ba kỹ năng **Python, SQL và AI**. Trong các lượt ghi có một lần S06–Python bị lặp và một lần S06 chưa có tên kỹ năng (`None`). Giáo viên muốn biết ai đã học đủ ba kỹ năng, riêng S06 còn thiếu kỹ năng nào, và số lượt ghi trùng hoặc thiếu thông tin.
 
-**Vì sao chọn cách này?** Tuple `(người, kỹ năng)` lưu chính xác ý nghĩa của một lượt; dùng set các cặp để khử trùng **cùng người–cùng kỹ năng**, không gộp tất cả kỹ năng theo người mà làm mất thông tin. Hiệu `required - done` tìm từng kỹ năng thiếu.
+**Vì sao chọn cách này?** Tuple `(người, kỹ năng)` giúp ghi rõ **ai đã học gì**; hai dòng chỉ là trùng khi **cả người lẫn kỹ năng đều giống nhau**. Set các cặp loại bỏ lần ghi S06–Python bị lặp nhưng vẫn giữ S06–SQL nếu có. `None` là **kỹ năng chưa xác định**, không thể tự coi là một môn đã hoàn thành, nên tách sang nhóm cần bổ sung thông tin. Với từng học viên, so tập kỹ năng đã ghi với tập yêu cầu `{Python, SQL, AI}`: **hiệu** `required - done` chính là các môn còn thiếu. Chỉ học viên có đủ cả ba mới được tính hoàn thành.
 
 **Quy trình:**
 1. Đọc đủ 20 lượt và tách những lượt chưa biết tên kỹ năng.

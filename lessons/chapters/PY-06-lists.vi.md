@@ -142,9 +142,9 @@ Danh sách kết quả được sắp theo điểm giảm dần. Các điểm s�
 
 **Từ vựng trong mục:** **List** — danh sách; **Append** — thêm cuối; **Index** — chỉ số.
 
-**Tình huống thực tế:** Giỏ hàng bán lẻ chứa **10 mặt hàng** theo thứ tự quét mã (mỗi phần tử là tên một món), từ `Gạo` đến `Táo`. Khách chọn thêm `Bánh` trước khi thanh toán. Nhân viên cần xem số mặt hàng ban đầu, số mặt hàng sau khi thêm và tên món cuối mà không xóa dữ liệu cũ.
+**Tình huống thực tế:** Ở quầy thanh toán, nhân viên đã quét **10 mặt hàng**, mỗi tên nằm trong danh sách theo đúng thứ tự quét, bắt đầu từ `Gạo` và kết thúc bằng `Táo`. Khách muốn mua thêm một món `Bánh` trước khi chốt hóa đơn. Nhân viên cần biết giỏ có bao nhiêu món trước và sau khi thêm, và tên món nằm cuối danh sách mới; không được làm mất mười món ban đầu.
 
-**Vì sao chọn cách này?** `append()` thêm đúng một phần tử vào cuối list; `len()` kiểm tra độ dài trước/sau. Chưa cần lọc hay sắp xếp vì khách muốn giữ nguyên thứ tự đã quét.
+**Vì sao chọn cách này?** **List** là một danh sách có thứ tự: vị trí của tên cho biết món nào được quét trước. `append('Bánh')` thêm một phần tử vào **cuối** danh sách, không thay thế các món cũ. `len()` đếm số phần tử, vì thế sau khi thêm phải nhiều hơn ban đầu đúng một món; dùng chỉ số `[-1]` để đọc món cuối. Không cần sắp xếp theo chữ cái, vì khách muốn giữ thứ tự quét để đối chiếu hóa đơn.
 
 **Quy trình:**
 1. Lưu đúng 10 tên món trong list.
@@ -176,9 +176,9 @@ Món cuối: Bánh
 
 **Từ vựng trong mục:** **Sort** — sắp xếp; **Slice** — cắt lát; **Stable** — ổn định thứ tự.
 
-**Tình huống thực tế:** Đội kỹ thuật tiếp nhận **12 phiếu** T01…T12; mỗi phần tử là mức ưu tiên từ 1 đến 10 (càng lớn càng gấp). Có phiếu bằng điểm nhau. Cần lấy ba phiếu ưu tiên cao nhất, **giữ thứ tự đến trước khi đồng điểm**, và không thay đổi danh sách điểm ban đầu.
+**Tình huống thực tế:** Đội sửa chữa có **12 phiếu yêu cầu T01 đến T12** theo thứ tự tiếp nhận. Mỗi phiếu được chấm một mức độ gấp từ **1 đến 10**, số càng lớn thì cần xử lý sớm; nhiều phiếu có thể bằng điểm. Quản lý muốn chọn ba phiếu cần làm trước, nhưng khi đồng điểm phải ưu tiên phiếu gửi tới sớm hơn và vẫn giữ nguyên bảng điểm ban đầu để đối chiếu.
 
-**Vì sao chọn cách này?** List cho phép tạo danh sách các cặp `(điểm, thứ tự)`; `sorted()` trả danh sách mới và phép `[:3]` chọn đúng ba phiếu. Kết hợp điểm giảm và vị trí tăng để xử lý hòa điểm một cách minh bạch.
+**Vì sao chọn cách này?** **Mức ưu tiên** là số do đội kỹ thuật quy ước để biểu thị độ gấp, không phải số lần phiếu được gửi. Trước tiên ghép mỗi điểm với vị trí phiếu để biết phiếu nào đến trước. `sorted()` tạo danh sách **được sắp xếp mới**, không sửa điểm gốc: xếp điểm từ lớn xuống nhỏ, nếu điểm bằng nhau thì dùng thứ tự nhận từ nhỏ đến lớn. Cuối cùng `[:3]` chỉ lấy ba phiếu đầu; lấy ba dòng đầu của danh sách chưa sắp xếp sẽ chọn theo giờ đến chứ không đúng mức gấp.
 
 **Quy trình:**
 1. Đánh số phiếu theo vị trí list (bắt đầu từ 1).
@@ -217,9 +217,9 @@ Dùng chỉ số gốc để phân xử hòa điểm giúp kết quả ổn đ�
 
 **Từ vựng trong mục:** **Comprehension** — tạo list ngắn gọn; **Slicing** — cắt lát; **Threshold** — ngưỡng.
 
-**Tình huống thực tế:** Trung tâm có **15 học viên** H01…H15 với điểm cuối kỳ theo thứ tự, thang 10. Điểm từ **5** được tính là đạt. Giáo viên cần danh sách mã đạt, số học viên chưa đạt và ba mã đầu tiên trong nhóm chưa đạt để sắp lịch hỗ trợ.
+**Tình huống thực tế:** Giáo viên có điểm cuối kỳ của **15 học viên H01 đến H15**, ghi theo thứ tự lớp và chấm trên thang **10 điểm**. Điểm từ **5 trở lên** là đạt, dưới 5 cần hỗ trợ. Giáo viên muốn biết mã học viên đạt, có bao nhiêu người chưa đạt, và ba học viên chưa đạt xuất hiện sớm nhất trong danh sách để liên hệ trước.
 
-**Vì sao chọn cách này?** Vòng `for` đọc từng cặp vị trí–điểm; câu lệnh `if` tách nhóm đạt và nhóm chưa đạt. Viết tường minh giúp học viên nhìn thấy cách mỗi phần tử được thêm vào list. Cắt `[:3]` giới hạn số người cần gọi trước mà vẫn giữ thứ tự lớp.
+**Vì sao chọn cách này?** Vòng `for` xét lần lượt từng điểm cùng mã học viên tương ứng. Điều kiện `score >= 5` đưa người đạt vào một danh sách, còn các điểm thấp hơn vào danh sách cần hỗ trợ. `len()` đếm nhóm chưa đạt, còn `[:3]` lấy ba mã đầu của chính nhóm đó, theo thứ tự lớp. Không được sắp điểm từ thấp nhất rồi lấy ba người nếu yêu cầu là **ba người xuất hiện trước**; đây là hai cách chọn khác nhau.
 
 **Quy trình:**
 1. Dùng `enumerate(..., 1)` để liên kết điểm với mã học viên.
@@ -261,9 +261,9 @@ Gọi trước: H01, H04, H08
 
 **Từ vựng trong mục:** **Mutable** — có thể thay đổi; **Copy** — sao chép; **Missing** — dữ liệu thiếu.
 
-**Tình huống thực tế:** Kho có **18 mã SKU** theo thứ tự K01…K18, mỗi hàng là số món còn trong kho. Sau kiểm kê, K02 phải sửa từ 6 thành 4 và K08 từ 7 thành 5; K18 chưa có số liệu (`None`). Cần sửa trên **bản sao** của list, không làm thay đổi bản chụp cũ; báo hai giá trị đã sửa và số mã chưa có số liệu.
+**Tình huống thực tế:** Kho lưu một bản kiểm kê của **18 mã hàng K01 đến K18**; mỗi vị trí chứa số món còn lại, riêng K18 chưa đo được nên ghi `None` (chưa có dữ liệu). Sau khi kiểm tra lại, nhân viên phát hiện số lượng K02 cần sửa từ 6 thành 4 và K08 từ 7 thành 5. Quản lý muốn tạo bản số liệu đã sửa để dùng tiếp, nhưng vẫn giữ nguyên bản kiểm kê đầu tiên làm chứng cứ, đồng thời báo các thay đổi và mã còn thiếu số liệu.
 
-**Vì sao chọn cách này?** Nếu gán `edited = original` thì cả hai tên cùng trỏ vào một list: sửa bản mới sẽ làm hỏng chứng cứ kiểm kê cũ. `copy()` tạo list khác; chỉ số bắt đầu bằng 0 nên K02 là phần tử 1.
+**Vì sao chọn cách này?** `original` là **bản ghi gốc**, cần giữ lại để so với số liệu sau sửa. Nếu dùng `edited = original`, hai tên cùng chỉ tới **một list**, sửa bản mới sẽ vô tình sửa cả bản gốc. `copy()` tạo một list khác rồi mới thay số của K02 và K08. Vì chỉ số Python bắt đầu từ **0**, K02 ở vị trí 1, K08 ở vị trí 7. `None` của K18 phải được giữ là **chưa có số lượng**, không tự đổi thành 0 món vì 0 có nghĩa là kiểm đếm thấy hết hàng.
 
 **Quy trình:**
 1. Tạo list 18 giá trị và sao chép bằng `copy()`.
@@ -304,9 +304,9 @@ Chưa kiểm kê: K18
 
 **Từ vựng trong mục:** **Queue** — hàng đợi; **Stable sort** — sắp xếp ổn định; **Validation** — kiểm tra.
 
-**Tình huống thực tế:** Bàn hỗ trợ nhận **20 phiếu** R01…R20, mỗi hàng chứa mức ưu tiên 1–3 (3 khẩn cấp nhất). R12 chưa được chấm ưu tiên (`None`) nên phải chờ xác nhận. Cần tạo danh sách xử lý phiếu đã đủ dữ liệu: ưu tiên 3 trước 2 trước 1, **nếu cùng điểm thì phiếu đến trước xử lý trước**. In năm mã xử lý đầu tiên và số phiếu đang chờ bổ sung.
+**Tình huống thực tế:** Bàn hỗ trợ có **20 phiếu R01 đến R20**, xếp theo thời điểm gửi đến. Mỗi phiếu đã được đánh mức gấp từ **1 đến 3**, trong đó 3 là gấp nhất; riêng R12 chưa được chấm nên ghi `None`. Trưởng nhóm muốn biết năm phiếu đủ thông tin cần xử lý đầu tiên và số phiếu phải chờ xác nhận. Khi hai phiếu có cùng mức gấp, phiếu gửi trước phải đứng trước.
 
-**Vì sao chọn cách này?** Danh sách ban đầu giữ thứ tự nhận. Khi sắp xếp, dùng cặp `(-ưu tiên, thứ tự tới)`; không đặt `None` bằng 0 vì đó là phiếu chưa đủ thông tin. Slicing chọn đúng năm việc đầu, không loại bỏ phiếu còn lại.
+**Vì sao chọn cách này?** **FIFO** nghĩa là *đến trước, xử lý trước*; ở đây quy tắc ấy chỉ áp dụng khi các phiếu **bằng mức ưu tiên**. Mỗi phiếu đủ dữ liệu được ghép với số thứ tự nhận. Khi sắp, dùng mức ưu tiên âm để đưa mức 3 lên trước mức 2 và 1, rồi dùng thứ tự nhận tăng dần để xử lý hòa điểm. Phiếu R12 có `None` phải tách vào nhóm chờ: tự đổi thành mức 0 sẽ khiến người xem tưởng phiếu đã được đánh giá. Slicing `[:5]` chỉ chọn năm việc đầu, không xóa các việc khác trong hàng đợi.
 
 **Quy trình:**
 1. Tạo 20 bản ghi vị trí–mức ưu tiên và xác nhận hàng R12 thiếu điểm.
