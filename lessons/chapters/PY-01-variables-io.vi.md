@@ -119,9 +119,9 @@ print(type(2.5))
 
 **Từ vựng trong mục:** **Variable** — biến; **Output** — đầu ra.
 
-**Tình huống thực tế:** Quầy ghi danh nhận **10 tên học viên** trong một buổi. Mỗi vị trí trong danh sách là một người; nhân viên cần in số người đã ghi, tên đầu tiên và tên cuối cùng để đối chiếu sổ.
+**Tình huống thực tế:** Quầy ghi danh đang kiểm tra danh sách của một buổi học. Nhân viên đã nhập **10 tên**, theo đúng thứ tự từng người đến quầy; mỗi tên ứng với một học viên. Họ cần biết đã ghi được bao nhiêu người, ai đứng đầu danh sách và ai đứng cuối để đối chiếu với sổ giấy.
 
-**Vì sao chọn cách này?** Biến giữ lại dữ liệu, `print()` hiển thị thông tin và `len()` đếm tên. Ở đây chỉ đọc dữ liệu; cấu trúc list sẽ được học chi tiết ở PY-06.
+**Vì sao chọn cách này?** Một **biến** là tên đặt cho thông tin cần dùng lại, chẳng hạn `names` giữ danh sách tên và `student_count` giữ số học viên. `len(names)` đếm số phần tử trong danh sách nên không phải tự đếm bằng mắt; `print()` gắn nhãn cho kết quả để người đọc biết con số nói về điều gì. Lấy `names[0]` đọc tên đầu tiên; `names[-1]` đọc tên cuối cùng. Bài này chỉ giới thiệu cách lưu và hiển thị, danh sách sẽ được học kỹ hơn ở PY-06.
 
 **Quy trình:**
 1. Ghi 10 tên theo thứ tự tiếp nhận.
@@ -152,9 +152,9 @@ Mỗi phần tử là một học viên, không phải một ký tự. Chỉ s�
 
 **Từ vựng trong mục:** **Input** — đầu vào; **Integer** — số nguyên; **Conversion** — chuyển kiểu.
 
-**Tình huống thực tế:** Cửa hàng nhập **12 đơn hàng**; mỗi hàng biểu diễn một đơn, có mã, đơn giá (đồng/món) và số lượng (món). Hệ thống tiếp nhận giá, số lượng dưới dạng **chuỗi** để mô phỏng dữ liệu biểu mẫu. Cần đổi đúng kiểu và tính tổng tiền toàn bộ 12 đơn.
+**Tình huống thực tế:** Cửa hàng nhận **12 đơn mua hàng** từ một biểu mẫu. Mỗi đơn có mã riêng, giá một món tính bằng **đồng** và số món khách mua; ví dụ giá `12000` đồng và số lượng `2` nghĩa là mua hai món cùng giá. Biểu mẫu gửi các số dưới dạng chữ. Thu ngân cần tính tổng tiền của cả 12 đơn mà không ghép nhầm chữ với số.
 
-**Vì sao chọn cách này?** Không thể cộng tiền chính xác nếu giữ giá ở dạng chuỗi. `int()` biến chữ số thành số, sau đó nhân giá với số lượng. Vòng `for` là phần mở rộng để áp dụng cùng thao tác cho mọi đơn (sẽ học ở PY-05).
+**Vì sao chọn cách này?** Ở biểu mẫu, chuỗi `"12000"` trông giống số nhưng là **chữ**, nên chưa thể dùng như giá tiền trong phép tính. `int()` chuyển những chữ số hợp lệ thành số nguyên: chuyển cả đơn giá và số lượng rồi nhân để ra tiền từng đơn, sau đó cộng dần 12 đơn. Vòng `for` cho phép lặp lại cùng bước xử lý mà không viết 12 đoạn code giống nhau. Việc chuyển kiểu cần làm trước phép tính; nếu ô nhập có chữ không phải số thì phải xử lý lỗi thay vì tự tính thành 0.
 
 **Quy trình:**
 1. Tạo 12 bản ghi chuỗi và in thử mẫu đầu.
@@ -200,9 +200,9 @@ Mỗi hàng là **một đơn**; phép nhân tính tiền từng đơn, phép c�
 
 **Từ vựng trong mục:** **Float** — số thực; **F-string** — chuỗi định dạng; **Precision** — số chữ số thập phân.
 
-**Tình huống thực tế:** Trung tâm giám sát nhận **15 nhiệt độ** (°C), mỗi hàng tương ứng một cảm biến mã T01…T15. Nhân viên cần một bản tin thống nhất hiển thị mã và nhiệt độ đến **một chữ số thập phân**, kèm số cảm biến đã nhận.
+**Tình huống thực tế:** Phòng giám sát có **15 cảm biến nhiệt độ**, đánh mã T01 đến T15. Mỗi cảm biến gửi một giá trị tính bằng **°C**; có giá trị là số lẻ như 26,2 °C. Nhân viên muốn tạo bản tin gồm mã cảm biến và nhiệt độ hiển thị thống nhất với **một chữ số sau dấu thập phân**, đồng thời báo đã nhận bao nhiêu cảm biến.
 
-**Vì sao chọn cách này?** Biến lưu giá trị kiểu `float`; f-string định dạng `:.1f` để mọi dòng có cùng cách đọc. Danh sách kết quả được tạo từ từng cảm biến, thay vì viết thủ công 15 dòng không thống nhất.
+**Vì sao chọn cách này?** Nhiệt độ có thể có phần lẻ nên chương trình giữ ở dạng số thực `float`. **f-string** là cách đưa giá trị biến vào một dòng chữ; phần `:.1f` yêu cầu hiển thị đúng một chữ số thập phân, ví dụ 27 thành `27.0`. Như vậy 15 dòng có cùng kiểu trình bày, không làm người trực trạm nhầm cách ghi số. Dùng `enumerate(..., 1)` đánh số cảm biến từ 1 để ghép với mã T01, T02... mà không phải tạo từng câu riêng.
 
 **Quy trình:**
 1. Lưu đủ 15 giá trị °C theo thứ tự cảm biến.
@@ -235,9 +235,9 @@ Tất cả 15 bản tin đã được tạo; hiển thị hai dòng biên để 
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu; **Type** — kiểu dữ liệu; **Validation** — kiểm tra hợp lệ.
 
-**Tình huống thực tế:** Trạm đo nhận **18 dòng** dữ liệu nhiệt độ (°C) qua ô nhập liệu; mỗi dòng là một lượt đo. Có một chuỗi rỗng và một mã `N/A` do thiết bị mất tín hiệu. Cần báo có bao nhiêu số hợp lệ, bao nhiêu lượt chưa có dữ liệu và nhiệt độ trung bình từ **chỉ lượt hợp lệ**.
+**Tình huống thực tế:** Một trạm khí tượng nhận **18 lượt đo nhiệt độ** tính bằng °C. Mỗi dòng ứng với một lần thiết bị gửi số liệu, nhưng một dòng trống và một dòng ghi `N/A` vì chưa nhận được kết quả. Người trực trạm cần biết có bao nhiêu lượt đo được, bao nhiêu lượt thiếu và nhiệt độ trung bình của những lượt thật sự có số; thông tin thiếu không được hiểu là 0 °C.
 
-**Vì sao chọn cách này?** Chuỗi trống hoặc `N/A` không phải 0 °C, vì vậy cần tách trước khi chuyển sang `float`. Việc kiểm tra đầu vào và vòng lặp là phần mở rộng, mục tiêu bài này vẫn là nhận đầu vào → lưu bằng biến đúng kiểu → in kết quả.
+**Vì sao chọn cách này?** `None`, chuỗi rỗng và `N/A` đều báo **chưa có dữ liệu**, không phải nhiệt độ bằng 0: 0 °C là một phép đo hợp lệ. Vì thế chương trình đọc từng dòng, kiểm tra dấu hiệu thiếu trước, chỉ chuyển những dòng có số sang `float`, rồi cộng và chia theo **số lượt hợp lệ**. Nếu chia cho cả 18 lượt hoặc biến `N/A` thành 0, kết quả trung bình sẽ bị kéo sai. `continue` chỉ bỏ qua dòng thiếu và vẫn xử lý những dòng còn lại.
 
 **Quy trình:**
 1. Duyệt lần lượt 18 chuỗi, bỏ khoảng trắng ở hai đầu.
@@ -276,9 +276,9 @@ Trung bình: 28.84 °C
 
 **Từ vựng trong mục:** **Input** — đầu vào; **Conversion** — chuyển kiểu; **Report** — báo cáo.
 
-**Tình huống thực tế:** Cửa hàng tổng kết **20 phiếu** cuối ngày; mỗi dòng có mã phiếu O01…O20, giá (đồng/món) ở dạng chữ và số lượng (món) ở dạng chữ. Hai phiếu O07 và O18 có giá `?` do nhân viên chưa nhập. Cần in số phiếu, số phiếu tính tiền được, tổng tiền và danh sách mã cần bổ sung dữ liệu; tuyệt đối không coi `?` là 0 đồng.
+**Tình huống thực tế:** Cuối ngày, cửa hàng nhận **20 phiếu thanh toán** O01 đến O20. Mỗi phiếu ghi giá của một món (**đồng/món**) và số món mua; cả hai ban đầu là chữ do phần mềm nhập liệu gửi đến. Phiếu O07 và O18 có dấu `?` thay cho giá vì chưa nhập. Chủ cửa hàng muốn biết tổng số phiếu, số phiếu có thể tính tiền, tổng tiền từ những phiếu đó và hai mã phải bổ sung giá.
 
-**Vì sao chọn cách này?** Kết hợp lưu biến, chuyển kiểu và định dạng đầu ra giúp chương trình tự kiểm tra trước khi báo cáo. Vòng lặp, `isdigit()` và `continue` là phần mở rộng có thể đọc lại sau PY-04/PY-05.
+**Vì sao chọn cách này?** Báo cáo cần tách **phiếu hợp lệ** khỏi **phiếu chưa có giá**. `isdigit()` kiểm tra chuỗi giá có toàn chữ số hay chưa trước khi dùng `int()`; dấu `?` sẽ không qua bước này. Với phiếu hợp lệ, nhân giá một món với số lượng và cộng vào tổng. Với O07, O18, chương trình ghi mã cần sửa rồi dùng `continue` để chuyển sang phiếu kế tiếp; không được coi giá thiếu là 0 vì như vậy sẽ báo doanh thu thấp hơn thực tế mà không ai biết đang thiếu dữ liệu. Cuối cùng kiểm tra số phiếu tính được cộng số phiếu thiếu có đúng 20.
 
 **Quy trình:**
 1. Ghi đầy đủ 20 phiếu và giữ mã gồm hai chữ số cuối.
