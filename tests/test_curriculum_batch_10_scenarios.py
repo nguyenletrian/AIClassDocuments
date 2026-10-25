@@ -43,11 +43,11 @@ class Batch10ExecutableScenarios(unittest.TestCase):
                     r"^\x60\x60\x60text\n(.*?)^\x60\x60\x60$",
                     case, flags=re.MULTILINE | re.DOTALL,
                 )
-                self.assertEqual(len(snippets), 1)
+                self.assertEqual(len(snippets), 2, 'Require exactly one No Note and one annotated example')
                 self.assertEqual(len(expected), 1)
                 with tempfile.TemporaryDirectory() as cwd:
                     completed = subprocess.run(
-                        [sys.executable, "-I", "-B", "-c", snippets[0]],
+                        [sys.executable, "-I", "-B", "-c", snippets[1]],
                         cwd=cwd, capture_output=True, text=True,
                         encoding="utf-8", timeout=45,
                     )
