@@ -42,10 +42,14 @@
 Trong bài, **hàm tuyến tính dạng affine** `y=m*x+b` mô tả đầu ra thay đổi đều theo đầu vào. Dịch vụ thu 10 nghìn đồng ban đầu và 5 nghìn mỗi km: x là số km, m=5 nghìn/km, b=10 nghìn. Đi 3 km hết 25 nghìn đồng. Đồ thị là đường thẳng; m nói **mỗi km thêm bao nhiêu**, b nói **giá ở x=0**. Trong toán tuyến tính thuần túy, `mx+b` với b khác 0 gọi chính xác là hàm affine.
 
 ```python
-# Mục đích: Mỗi bước tăng một mức cố định.
+# Mục đích: Dùng hàm bậc nhất để tính phí giao hàng tăng đều theo quãng đường.
+# Dữ liệu: km là số kilômét, phí có đơn vị minh họa nghìn đồng, phí nền 10 và thêm 5 mỗi km.
+# def định nghĩa hàm nhận quãng đường km; return trả phí để nơi gọi sử dụng.
 def delivery_fee(km):
+    # 5 là phí mỗi km, +10 là phần cố định; mỗi km tăng thêm đúng 5 nên đây là quan hệ tuyến tính.
     return 5 * km + 10
 
+# Gọi hàm với quãng đường 3 km, print() hiển thị 25 nghìn đồng.
 print(delivery_fee(3))
 ```
 
@@ -64,10 +68,15 @@ Phí là 25 nghìn đồng, gồm phí gốc 10 và 3×5 nghìn theo khoảng c�
 Hàm bậc hai `y=ax²+bx+c` (a khác 0) có đồ thị **parabol**, khác đường thẳng vì tốc độ thay đổi không cố định. Ví dụ chi phí mẫu `2x² + 3x + 10` với x là mức tải (đơn vị tải đã quy định), 2 có đơn vị chi phí/tải², 3 là chi phí/tải và 10 là chi phí cố định. Khi x=4, giá trị bằng 54. Không hiểu hệ số bình phương là chi phí thực nếu mô hình mới chỉ là giả định.
 
 ```python
-# Mục đích: Mức thay đổi không cố định.
+# Mục đích: Minh họa chi phí bậc hai tăng nhanh hơn khi tải ngày càng lớn.
+# Dữ liệu: load là mức tải không âm theo đơn vị giả lập, cost là điểm chi phí giả lập.
+# Định nghĩa hàm nhận mức tải, trả giá trị chi phí tương ứng.
 def cost(load):
+    # **2 bình phương mức tải tạo độ cong: tăng thêm 1 tải về sau tốn nhiều hơn lúc đầu.
+    # Gồm chi phí bậc hai, thành phần tăng đều và chi phí nền 10.
     return 2 * load ** 2 + 3 * load + 10
 
+# Gọi mức tải 4; print() cho chi phí của đúng đầu vào này.
 print(cost(4))
 ```
 
@@ -86,10 +95,14 @@ Với tải 4, mô hình cho chi phí 54 đơn vị tiền; đây là kết qu�
 **Đa thức** cộng các hạng `a_n*x^n` theo lũy thừa nguyên không âm. Tuyến tính là bậc 1, bậc hai là bậc 2, và còn có đa thức bậc cao hơn. `np.polyval([1,0,2], x)` biểu diễn `x² + 0*x + 2`; **hệ số đặt từ bậc cao xuống bậc thấp**, rất dễ viết ngược. Với ba đầu vào 0,1,2, hàm cho kết quả 2,3,6.
 
 ```python
-# Mục đích: Nhiều lũy thừa của một biến.
+# Mục đích: Dùng np.polyval() tính một đa thức bậc hai trên ba đầu vào cùng lúc.
+# Dữ liệu: x là vector [0,1,2], hệ số [1,0,2] biểu diễn x² + 0*x +2 theo thứ tự bậc cao xuống thấp.
+# NumPy hỗ trợ tính đa thức vector hóa trên nhiều x.
 import numpy as np
 
+# Mảng x chứa ba điểm cần tính chung.
 x = np.array([0, 1, 2])
+# polyval(hệ_số,x) tính đa thức; hệ số theo LŨY THỪA GIẢM DẦN (x², x, hằng), trả mảng kết quả cho từng x.
 print(np.polyval([1, 0, 2], x))
 ```
 
@@ -108,10 +121,16 @@ Hệ số `[1,0,2]` nghĩa là x²+2, không phải 1+2x².
 **Hàm mũ** có biến ở **số mũ**, ví dụ `y=y0*(1+r)^t`. Với một chỉ số ban đầu 1.000 đơn vị và tỷ lệ tăng 5% mỗi kỳ, sau 3 kỳ là `1000×1.05³ = 1157.625`. Làm tròn hai chữ số được 1157.63. Hàm mũ khác tuyến tính vì mỗi kỳ tăng 5% của **giá trị mới**, không phải luôn tăng 50 đơn vị. Mô hình này chỉ mô phỏng một giả định tăng trưởng đều.
 
 ```python
-# Mục đích: Nhân tỷ lệ lặp qua mỗi kỳ.
+# Mục đích: Minh họa tăng trưởng lũy kế khi mỗi kỳ cộng cùng một tỷ lệ trên tổng mới.
+# Dữ liệu: Giá trị đầu 1000 đơn vị, rate=0.05 là 5%/kỳ, periods=3 kỳ.
+# Số dư ban đầu trước khi nhân theo từng kỳ.
 initial = 1000
+# 0.05 tương ứng 5% mỗi kỳ, không phải tăng 5 đơn vị.
 rate = 0.05
+# Ba lần áp dụng tỷ lệ tăng trên giá trị vừa có được.
 periods = 3
+# 1+rate là hệ số tăng 1.05 mỗi kỳ; **3 nhân lặp hệ số ba lần (lãi kép).
+# round(...,2) làm tròn kết quả HIỂN THỊ hai chữ số thập phân, không ảnh hưởng đầu vào.
 print(round(initial * (1 + rate) ** periods, 2))
 ```
 
@@ -139,16 +158,28 @@ Sau ba kỳ tăng trưởng lũy kế, chỉ số khoảng 1157,63 đơn vị, k
 3. Báo số chuyến, phí đầu và tổng cộng.
 
 ```python
+# Mục đích: Tính giá giao hàng cho 10 chuyến theo km bằng hàm phí tuyến tính.
+# Dữ liệu: 10 chuyến có quãng đường 1..10 km, giá nền 10 và giá theo km 5 nghìn đồng.
+# List khoảng cách 10 chuyến, mỗi số là km của một đơn.
 distances_km = [1,2,3,4,5,6,7,8,9,10]
+# Hàm trả phí nghìn đồng cho quãng đường km; không tự in kết quả.
 def delivery_fee(km):
+    # Tiền nền 10 nghìn đồng và 5 nghìn đồng cho mỗi km.
     return 10 + 5 * km
+# List kết quả phí mỗi chuyến, theo cùng thứ tự nguồn.
 fees = []
+# Duyệt 10 khoảng cách, gọi một lần mỗi chuyến.
 for km in distances_km:
+    # append() nhận giá trị return của hàm và lưu vào list.
     fees.append(delivery_fee(km))
+# len() kiểm đã tính đủ 10 lượt, ValueError báo thiếu chuyến.
 if len(fees) != 10:
+    # ValueError báo số lượng hoặc shape không đủ yêu cầu, tránh dùng kết quả chưa kiểm chứng.
     raise ValueError("Cần tính phí đủ 10 chuyến.")
 print("Chuyến:", len(fees))
+# [0] là tiền chuyến đầu tiên, không phải tổng mọi chuyến.
 print("Phí chuyến đầu (nghìn đồng):", fees[0])
+# sum() cộng phí của tất cả 10 chuyến, đơn vị nghìn đồng.
 print("Tổng phí (nghìn đồng):", sum(fees))
 ```
 
@@ -176,18 +207,31 @@ Hệ số 5 có đơn vị **nghìn đồng/km**, không phải 5 km; chính sá
 3. In chi phí ở hai đầu và hai mức tăng để giải thích độ cong.
 
 ```python
+# Mục đích: Cho thấy hàm bậc hai làm chi phí tăng theo mức tải nhanh dần trên 12 mức.
+# Dữ liệu: 12 mức tải nguyên 1..12; output là chi phí số giả lập, không phải hóa đơn thực tế.
+# List 12 mức tải ngày càng tăng để so mức tăng chi phí.
 loads = [1,2,3,4,5,6,7,8,9,10,11,12]
+# Hàm tự định nghĩa nhận một mức tải và trả chi phí tại mức đó.
 def expense(load):
+    # Bình phương load làm phần chi phí tăng theo độ lớn của tải, khác hàm bậc nhất tăng cố định.
+    # Gồm phần bậc hai, phần tuyến tính và mức nền 10.
     return 2 * load ** 2 + 3 * load + 10
 costs = []
 for load in loads:
+    # append() giữ chi phí từng tải theo thứ tự loads.
     costs.append(expense(load))
 if len(costs) != 12:
+    # ValueError báo số lượng hoặc shape không đủ yêu cầu, tránh dùng kết quả chưa kiểm chứng.
     raise ValueError("Cần tính chi phí đủ 12 mức tải.")
 print("Mức tải:", len(loads))
+# [0] phí mức tải 1; [-1] phí tải 12 (chỉ số âm lấy phần tử cuối).
 print("Tải 1:", costs[0])
+# [-1] là phí cuối, [-2] phí áp chót; hiệu hai ô cho mức tăng tải 11→12.
 print("Tải 12:", costs[-1])
+# [0] phí mức tải 1; [-1] phí tải 12 (chỉ số âm lấy phần tử cuối).
+# Chênh lệch tải 1→2 để đối chiếu với mức 11→12: không cố định vì hàm bậc hai.
 print("Tăng 1→2:", costs[1] - costs[0])
+# [-1] là phí cuối, [-2] phí áp chót; hiệu hai ô cho mức tăng tải 11→12.
 print("Tăng 11→12:", costs[-1] - costs[-2])
 ```
 
@@ -217,15 +261,25 @@ Chi phí trong bài là số **giả lập**, không phải quy luật tiêu hao
 3. Tra đầu ra tại x=0, xác định vị trí cho giá trị nhỏ nhất.
 
 ```python
+# Mục đích: Khảo sát 15 vị trí x từ -7 đến 7 để tìm giá trị nhỏ nhất của đa thức.
+# Dữ liệu: x có đơn vị vị trí giả lập, output của đa thức x²+2x+3 là thang điểm chi phí giả lập.
+# NumPy polyVal và argmin cho phép xử lý một vector vị trí.
 import numpy as np
+# 15 x từ -7..7, dtype=float tạo mảng số thực.
 positions = np.array([-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7], dtype=float)
+# polyval() tính x²+2x+3 theo hệ số bậc cao→thấp tại từng phần tử positions.
 output = np.polyval([1, 2, 3], positions)
+# argmin() trả CHỈ SỐ 0-based của giá trị nhỏ nhất, không trả chính giá trị; int() đổi scalar sang số nguyên.
 minimum = int(np.argmin(output))
 if len(output) != 15:
+    # ValueError báo số lượng hoặc shape không đủ yêu cầu, tránh dùng kết quả chưa kiểm chứng.
     raise ValueError("Cần đúng 15 vị trí tính hàm.")
 print("Vị trí:", len(positions))
+# positions==0 tạo mask; output[mask] lọc giá trị tại x=0; [0] chọn phần tử đầu trong kết quả lọc.
 print("Tại x=0:", int(output[positions == 0][0]))
+# Trả giá trị đầu ra ở chỉ số minimum tìm thấy.
 print("Đầu ra nhỏ nhất:", int(output[minimum]))
+# Dùng cùng chỉ số minimum truy ngược vị trí x ứng với giá trị nhỏ nhất.
 print("Vị trí nhỏ nhất:", int(positions[minimum]))
 ```
 
@@ -254,15 +308,29 @@ Giá trị nhỏ nhất xảy ra tại x=-1, không phải nhất thiết tại 
 3. In kỳ cuối của hai mô hình và chênh lệch.
 
 ```python
+# Mục đích: So giá trị tích lũy tuyến tính và tăng lũy kế 3% qua 18 kỳ.
+# Dữ liệu: 18 kỳ được đánh số từ 0 đến 17, ban đầu 1000 đơn vị, lũy kế tăng 3%/kỳ.
+# NumPy arange tạo chuỗi kỳ và lũy thừa theo từng phần tử.
 import numpy as np
+# arange(18) sinh vector 18 số 0..17, không chứa 18; kỳ 0 là thời điểm ban đầu.
 periods = np.arange(18)
+# Broadcast phép lũy thừa: mỗi kỳ t dùng hệ số 1.03^t, lãi kép trên số dư mới.
+# Nhân giá trị gốc 1000 để có lũy kế từng kỳ.
 compound = 1000 * (1.03 ** periods)
+# Tăng tuyến tính đúng 30 đơn vị mỗi kỳ, KHÔNG tái đầu tư lãi tăng.
 linear = 1000 + 30 * periods
+# size đếm đủ 18 phần tử của mỗi vector, không phải giá trị cuối.
 if compound.size != 18 or linear.size != 18:
+    # ValueError báo số lượng hoặc shape không đủ yêu cầu, tránh dùng kết quả chưa kiểm chứng.
     raise ValueError("Cần đủ 18 kỳ của cả hai cách tính.")
 print("Kỳ:", len(periods))
+# [-1] là kỳ cuối số 17; :.2f làm tròn hiển thị hai chữ số thập phân.
 print(f"Lũy kế cuối: {compound[-1]:.2f}")
+# Đọc mức tuyến tính tại cùng kỳ cuối để so công bằng.
 print(f"Tuyến tính cuối: {linear[-1]:.2f}")
+# [-1] là kỳ cuối số 17; :.2f làm tròn hiển thị hai chữ số thập phân.
+# Đọc mức tuyến tính tại cùng kỳ cuối để so công bằng.
+# Chênh lệch ở kỳ cuối biểu thị ảnh hưởng của cộng dồn tỷ lệ so với tăng cố định.
 print(f"Chênh lệch: {compound[-1]-linear[-1]:.2f}")
 ```
 
@@ -291,18 +359,32 @@ Không suy ra giá trị tăng trưởng chắc chắn từ mô hình giả lậ
 3. Đối chiếu MSE, chọn mô hình có sai số nhỏ nhất và báo quy mô dữ liệu.
 
 ```python
+# Mục đích: So mô hình tuyến tính và bậc hai khi dữ liệu thật được sinh theo quan hệ bậc hai.
+# Dữ liệu: 20 mức tải từ 0..19; observed có bậc hai, linear chỉ có thành phần bậc nhất, quadratic mô phỏng đúng.
+# NumPy hỗ trợ arange(), polyval(), mean() để so mô hình.
 import numpy as np
+# Tạo 20 đầu vào 0..19 ở dạng float, mỗi giá trị một lượt tải.
 loads = np.arange(20, dtype=float)
+# Giá trị observed tuân đa thức bậc hai; **2 lấy bình phương từng phần tử.
+# Mô hình linear bỏ qua ảnh hưởng bình phương nên sai nhiều ở tải lớn.
 observed = 2 * loads**2 + 3 * loads + 10
+# Mô hình linear bỏ qua ảnh hưởng bình phương nên sai nhiều ở tải lớn.
 linear = 3 * loads + 10
+# polyval áp bộ hệ số 2*x²+3*x+10 đúng thứ tự bậc cao→thấp.
 quadratic = np.polyval([2, 3, 10], loads)
+# Trừ từng dự đoán khỏi quan sát, bình phương để phạt lệch lớn, giữ đơn vị đầu ra bình phương.
+# np.mean() lấy trung bình sai số bình phương của 20 lượt, chính là MSE.
 mse_linear = np.mean((observed - linear) ** 2)
+# MSE của mô hình đa thức so với observed, gần 0 vì công thức trùng nhau.
 mse_quadratic = np.mean((observed - quadratic) ** 2)
+# shape (20,) kiểm mỗi vector đầu ra có đúng 20 giá trị, không mất lượt.
 if observed.shape != (20,) or linear.shape != (20,) or quadratic.shape != (20,):
+    # ValueError báo số lượng hoặc shape không đủ yêu cầu, tránh dùng kết quả chưa kiểm chứng.
     raise ValueError("Cần 20 quan sát để đối chiếu hai mô hình.")
 print("Quan sát:", len(loads))
 print(f"MSE tuyến tính: {mse_linear:.2f}")
 print(f"MSE bậc hai: {mse_quadratic:.2f}")
+# So MSE nhỏ hơn để chọn mô hình khớp dữ liệu đã giả lập tốt hơn; không có nghĩa luôn tốt nhất khi gặp dữ liệu mới.
 if mse_quadratic < mse_linear:
     best_model = "bậc hai"
 else:

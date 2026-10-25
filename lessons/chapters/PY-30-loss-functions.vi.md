@@ -42,11 +42,18 @@
 **Loss function** là hàm cho biết dự báo sai lệch đến mức nào so với mục tiêu, để ta đánh giá hoặc tối ưu mô hình. **MSE** lấy sai số `(dự báo−thực tế)`, bình phương từng sai số rồi **trung bình**. Với thực tế `[2,3]` và dự báo `[1,4]`, sai số là `[-1,+1]`, bình phương thành `[1,1]` và MSE bằng 1. Đơn vị MSE là **bình phương đơn vị đầu ra**, không phải cùng đơn vị như giá nhà.
 
 ```python
-# Mục đích: Sai số bình phương trung bình.
+# Mục đích: Tính MSE bằng cách bình phương sai lệch từng dự đoán rồi lấy trung bình.
+# Dữ liệu: Hai giá trị thật [2,3] và dự đoán [1,4] theo cùng thứ tự, cùng đơn vị giả lập.
+# NumPy thực hiện phép trừ, lũy thừa và trung bình trên mảng.
 import numpy as np
 
+# Vector giá trị thật của hai mẫu.
 y_true = np.array([2, 3])
+# Vector dự đoán tương ứng từng mẫu, không thay đổi thứ tự.
 y_pred = np.array([1, 4])
+# Trừ THEO TỪNG VỊ TRÍ tạo vector lỗi, dấu âm/dương không ảnh hưởng khi bình phương.
+# **2 bình phương lỗi từng mẫu để lỗi lớn bị phạt nặng hơn; đơn vị thành đơn vị đầu ra bình phương.
+# mean() tính trung bình của hai lỗi bình phương, đó là MSE; không phải tổng hoặc căn bậc hai.
 print(np.mean((y_true - y_pred) ** 2))
 ```
 
@@ -65,11 +72,19 @@ MSE bằng 1 đơn vị bình phương. Sai số lớn được phạt mạnh h�
 **MAE** lấy trị tuyệt đối của từng sai số rồi chia cho số quan sát. Ví dụ thực tế `[10,20,30]` và dự báo `[9,19,50]` có sai lệch tuyệt đối `[1,1,20]`, nên MAE bằng `22/3≈7.333`. Khác MSE, MAE có **cùng đơn vị** với đầu ra và không bình phương để khuếch đại lỗi lớn. Nó không có nghĩa là loại bỏ ảnh hưởng của ngoại lệ hoàn toàn.
 
 ```python
-# Mục đích: Sai số tuyệt đối trung bình.
+# Mục đích: Tính MAE: lấy trị tuyệt đối từng lỗi rồi trung bình, ít khuếch đại lỗi lớn hơn MSE.
+# Dữ liệu: Ba giá trị thật [10,20,30] và đoán [9,19,50], lỗi mẫu cuối lớn hơn nhiều.
+# NumPy có abs() cho trị tuyệt đối và mean() cho trung bình.
 import numpy as np
 
+# Vector ba giá trị thật cùng thang với dự đoán.
 y_true = np.array([10, 20, 30])
+# Vector ba dự đoán cùng vị trí với y_true.
 y_pred = np.array([9, 19, 50])
+# Tính lỗi theo từng mẫu, chênh lệch dương/âm đều là sai số.
+# np.abs() bỏ dấu âm của mỗi lỗi, nên lỗi không tự triệt tiêu khi cộng.
+# mean() lấy trung bình độ lớn lỗi, kết quả là MAE cùng đơn vị với giá trị gốc.
+# float() đổi NumPy scalar thành float Python; round(...,3) làm tròn kết quả hiển thị 3 chữ số lẻ.
 print(round(float(np.mean(np.abs(y_true - y_pred))), 3))
 ```
 
@@ -88,16 +103,25 @@ Sai lệch trung bình tuyệt đối khoảng 7,333 đơn vị đo.
 **Huber** dùng mức phạt giống **bình phương** khi `|e|≤δ` và chuyển sang **tuyến tính** khi lỗi vượt δ. Với δ=1: lỗi có độ lớn 1 mất 0.5, độ lớn 2 mất 1.5, độ lớn 5 mất 4.5. Trung bình ba lỗi `[-1,2,5]` là `6.5/3≈2.167`. Huber là cách cân bằng giữa MSE nhạy với lỗi lớn và MAE tăng tuyến tính; δ quyết định điểm chuyển và mang cùng đơn vị với sai số.
 
 ```python
-# Mục đích: Trộn bình phương và tuyến tính theo ngưỡng.
+# Mục đích: Minh họa Huber loss: lỗi nhỏ bình phương, lỗi lớn tăng tuyến tính theo ngưỡng δ.
+# Dữ liệu: Ba lỗi [-1,2,5] đơn vị giả lập; delta=1 quy định điểm chuyển chế độ.
+# NumPy np.where() cho phép chọn công thức khác nhau cho từng lỗi trong mảng.
 import numpy as np
 
+# Ba số lỗi có dấu; np.abs(e) dùng độ lớn để phân biệt ngưỡng.
 e = np.array([-1.0, 2.0, 5.0])
+# delta (δ) là ngưỡng chuyển từ vùng bình phương sang tuyến tính, cùng đơn vị lỗi.
 delta = 1.0
+# where(điều_kiện,giá_trị_nếu_đúng,giá_trị_nếu_sai) trả phần tử phù hợp từng vị trí, không phải một if duy nhất cho cả mảng.
 loss = np.where(
+    # abs() lấy độ lớn lỗi; <= delta kiểm lỗi nhỏ/đúng ngưỡng.
     np.abs(e) <= delta,
+    # Với lỗi nhỏ, loss bằng nửa bình phương lỗi để hàm mượt gần 0.
     0.5 * e ** 2,
+    # Với lỗi lớn, loss tăng tuyến tính theo độ lớn, bớt bị ngoại lệ kéo mạnh hơn MSE.
     delta * (np.abs(e) - 0.5 * delta),
 )
+# mean() lấy Huber trung bình ba lỗi; float() chuyển scalar, round(...,3) chỉ làm tròn để in.
 print(round(float(loss.mean()), 3))
 ```
 
@@ -116,13 +140,23 @@ Tổn thất trung bình xấp xỉ 2,167 theo Huber δ=1; lỗi lớn không b�
 **Cross-entropy** đánh giá phân phối dự báo so với phân phối nhãn/đích. Với phân loại một nhãn đúng, dự báo xác suất cho nhãn đúng là 0.8 thì loss bằng `−ln(0.8)≈0.2231`: xác suất cho nhãn đúng càng thấp, phạt càng lớn. **KL divergence** `D_KL(P||Q)=Σ P_i ln(P_i/Q_i)` so sự khác nhau giữa **hai phân phối** P và Q; với `P=[0.5,0.5]`, `Q=[0.6,0.4]`, KL≈0.0204. KL **không đối xứng** và không phải khoảng cách hình học. Các xác suất trong log cần dương; trong code thực tế có thể clip hoặc xử lý giá trị 0 đúng quy ước.
 
 ```python
-# Mục đích: So nhãn hoặc phân phối.
+# Mục đích: So negative log-likelihood cho nhãn đúng với độ lệch KL giữa hai phân phối.
+# Dữ liệu: p_true=0.8 là xác suất gán cho nhãn thật; P=[0.5,0.5], Q=[0.6,0.4] là hai phân phối 2 lớp.
+# NumPy log() là log tự nhiên, sum() tổng hợp phần tử.
 import numpy as np
 
+# Xác suất mô hình cấp cho đúng nhãn (không phải nhãn 0/1).
 p_true = 0.8
+# P là phân phối mục tiêu hai lớp, tổng xác suất bằng 1.
 P = np.array([0.5, 0.5])
+# Q là phân phối so sánh hai lớp, khác P nhưng cũng tổng bằng 1.
 Q = np.array([0.6, 0.4])
+# -log(p) là loss khi nhãn đúng có xác suất p; xác suất thấp hơn thì loss lớn hơn.
+# float() đổi NumPy scalar thành float Python; round(...,4) giới hạn bốn chữ số thập phân khi in.
 print(round(float(-np.log(p_true)), 4))
+# P/Q lấy tỷ lệ từng lớp; log() là log tự nhiên; nhân P là đóng góp KL(P||Q) của từng lớp.
+# np.sum() cộng đóng góp các lớp để ra KL(P||Q), đơn vị nat; thứ tự P/Q quan trọng và KL không đối xứng.
+# float() đổi NumPy scalar thành float Python; round(...,4) giới hạn bốn chữ số thập phân khi in.
 print(round(float(np.sum(P * np.log(P / Q))), 4))
 ```
 
@@ -151,14 +185,26 @@ Dòng đầu là cross-entropy của nhãn đúng; dòng sau là KL từ phân p
 3. In MSE và sai lệch tuyệt đối lớn nhất để đối chiếu.
 
 ```python
+# Mục đích: Tính MSE thời gian giao hàng 10 chuyến và độ lệch lớn nhất tính bằng phút.
+# Dữ liệu: 10 thời gian thực tế và dự đoán (phút), mỗi ô cùng vị trí là một chuyến.
+# NumPy hỗ trợ tính lỗi trên hai vector thời gian.
 import numpy as np
+# 10 thời gian thực tế tính bằng phút, dtype=float.
 actual_minutes = np.array([20,23,25,28,30,32,34,35,37,40], dtype=float)
+# 10 thời gian dự đoán phút theo cùng thứ tự chuyến.
 predicted_minutes = np.array([21,22,24,30,31,30,36,35,39,38], dtype=float)
+# Trừ THEO VỊ TRÍ để ra lỗi có dấu (phút) của từng chuyến.
 errors = predicted_minutes - actual_minutes
+# shape (10,) xác minh hai vector đều có 10 mẫu.
 if actual_minutes.shape != (10,) or predicted_minutes.shape != (10,):
+    # ValueError báo dữ liệu thiếu, sai kích thước hoặc vi phạm điều kiện hợp lệ.
     raise ValueError("Cần đủ 10 thời gian thực tế và dự đoán.")
 print("Chuyến:", len(actual_minutes))
+# Bình phương lỗi làm đơn vị thành phút², phạt nặng chuyến dự đoán sai nhiều.
+# mean() lấy lỗi bình phương trung bình trên 10 chuyến, chính là MSE phút²; :.2f in 2 số thập phân.
 print(f"MSE (phút²): {np.mean(errors ** 2):.2f}")
+# abs() bỏ dấu trước khi chọn độ lệch lớn nhất, tránh bỏ sót lỗi âm lớn.
+# max() lấy lỗi tuyệt đối lớn nhất (phút); int() chuyển scalar về số nguyên Python.
 print("Sai số lớn nhất (phút):", int(np.max(np.abs(errors))))
 ```
 
@@ -186,15 +232,29 @@ MSE tính trên **cùng 10 chuyến**; không được trộn sai thứ tự th�
 3. Báo MAE, MSE và số điểm có lỗi lớn hơn 10 g.
 
 ```python
+# Mục đích: So MAE và MSE của 12 lượt cân, đếm sai số cân vượt 10 g.
+# Dữ liệu: 12 khối lượng thực tế và dự đoán tính gram; một dự đoán 230 g tạo lỗi lớn bất thường.
+# NumPy cho vector lỗi, abs(), mean() và mask.
 import numpy as np
+# 12 khối lượng thật (gram), dtype=float.
 actual_g = np.array([100,110,120,130,140,150,160,170,180,190,200,210], dtype=float)
+# 12 giá trị cân dự đoán (gram), theo đúng vị trí actual_g.
 predicted_g = np.array([102,108,122,128,142,148,162,168,230,188,202,208], dtype=float)
+# Trừ từng cặp để lấy sai số có dấu theo gram.
 e = predicted_g - actual_g
+# len() đếm 12 lượt cân, tránh dùng thống kê trên dữ liệu thiếu.
 if len(e) != 12:
+    # ValueError báo dữ liệu thiếu, sai kích thước hoặc vi phạm điều kiện hợp lệ.
     raise ValueError("Cần đúng 12 lỗi cân đo.")
+# len() đếm 12 lượt cân, tránh dùng thống kê trên dữ liệu thiếu.
 print("Lượt đo:", len(e))
+# abs() lấy độ lớn lỗi mà không bị lỗi âm và dương triệt tiêu.
+# MAE là trung bình độ lớn lỗi, giữ đơn vị g; :.2f định dạng số.
 print(f"MAE (g): {np.mean(np.abs(e)):.2f}")
+# MSE lấy trung bình bình phương lỗi, đơn vị g²; nhạy hơn với lỗi 230 g bất thường.
 print(f"MSE (g²): {np.mean(e ** 2):.2f}")
+# abs() lấy độ lớn lỗi mà không bị lỗi âm và dương triệt tiêu.
+# Tạo mask những sai lệch lớn hơn 10 g, sum() Boolean đếm lượt vượt ngưỡng.
 print("Lỗi > 10 g:", int((np.abs(e) > 10).sum()))
 ```
 
@@ -223,18 +283,32 @@ MAE không loại bỏ sự cố ngoại lệ; nó chỉ **không bình phương
 3. In Huber, MAE và số lượt có trị lỗi vượt δ.
 
 ```python
+# Mục đích: So Huber loss với MAE của 15 sai số nhiệt độ, ngưỡng chuyển chế độ δ=1 °C.
+# Dữ liệu: 15 sai số nhiệt độ °C có dấu; có hai lỗi lớn +8 và -7 °C.
+# NumPy np.where() tính loss theo điều kiện từng phần tử.
 import numpy as np
+# 15 sai số nhiệt độ °C gồm các lỗi nhỏ và ngoại lệ lớn.
 errors_c = np.array([-1,1,-2,0,0.5,-0.5,1.5,-1.5,2,0,0.2,-0.2,8,-7,1], dtype=float)
+# Ngưỡng δ=1 °C quyết định khi nào chuyển từ mất mát bậc hai sang tuyến tính.
 delta = 1.0
+# abs() lấy độ lớn lỗi, bỏ dấu trước khi so δ.
 abserr = np.abs(errors_c)
+# where() chọn công thức bình phương khi |lỗi|<=δ, ngược lại chọn nhánh tuyến tính.
 huber = np.where(abserr <= delta,
+                 # Nhánh nhỏ = 0.5×lỗi², phạt mượt gần 0.
                  0.5 * errors_c**2,
+                 # Nhánh lớn tăng theo |lỗi| thay vì bình phương, giảm ảnh hưởng của ngoại lệ ±8/7 °C.
                  delta * (abserr - 0.5 * delta))
+# size đếm đúng 15 đầu vào.
 if errors_c.size != 15:
+    # ValueError báo dữ liệu thiếu, sai kích thước hoặc vi phạm điều kiện hợp lệ.
     raise ValueError("Cần đúng 15 sai số nhiệt độ.")
 print("Số đo:", len(errors_c))
+# So |lỗi| với δ, sum() trên mask đếm số sai số vượt ngưỡng.
 print("Lỗi > δ:", int((abserr > delta).sum()))
+# mean() lấy Huber trung bình; đơn vị giá trị loss theo cách định nghĩa của ngưỡng δ, không trực tiếp là MAE.
 print(f"Huber trung bình: {huber.mean():.3f}")
+# Trung bình lỗi tuyệt đối là MAE có đơn vị °C, dùng so cách đánh giá khác Huber.
 print(f"MAE (°C): {abserr.mean():.3f}")
 ```
 
@@ -263,18 +337,33 @@ Ví dụ chỉ minh họa lựa chọn loss; dữ liệu thực cần điều ch
 3. Tìm mất mát trung bình và mã mẫu có loss lớn nhất.
 
 ```python
+# Mục đích: Tính cross-entropy cho 18 dự đoán xác suất nhãn đúng và tìm mẫu gây mất mát lớn nhất.
+# Dữ liệu: 18 nhãn thật 0/1/2, mỗi mẫu đi kèm xác suất riêng gán cho CHÍNH nhãn đúng, hai xác suất rất thấp 0.05 và 0.01.
+# NumPy log(), clip() và argmax() xử lý vector mất mát.
 import numpy as np
+# Vector nhãn 0/1/2 của 18 mẫu, dtype=int.
 labels = np.array([0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2], dtype=int)
+# 18 xác suất mô hình gán cho nhãn ĐÚNG tương ứng từng mẫu, chưa phải ma trận 3 lớp.
 true_class_scores = np.array([0.55,0.6000000000000001,0.65,0.7000000000000001,0.75,0.05,0.6000000000000001,0.65,0.7000000000000001,0.75,0.55,0.6000000000000001,0.65,0.7000000000000001,0.01,0.55,0.6000000000000001,0.65], dtype=float)
+# clip(min,max) chặn xác suất bên dưới 1e-12 để tránh log(0)=-inf và phía trên 1 để giữ miền xác suất hợp lệ.
+# -log(p_nhãn_đúng) tạo loss từng mẫu; xác suất thấp như 0.01 bị phạt lớn, log là log tự nhiên.
 losses = -np.log(np.clip(true_class_scores, 1e-12, 1.0))
+# argmax() trả CHỈ SỐ 0-based của mẫu có loss lớn nhất, không phải giá trị loss; int() đổi scalar.
 worst = int(losses.argmax())
+# shape (18,) của cả labels/scores bảo đảm cặp nhãn/xác suất không mất mẫu.
 if labels.shape != (18,) or true_class_scores.shape != (18,):
+    # ValueError báo dữ liệu thiếu, sai kích thước hoặc vi phạm điều kiện hợp lệ.
     raise ValueError("Cần 18 nhãn và 18 xác suất của nhãn đúng.")
+# & so Boolean theo từng ô, chỉ cho nhãn 0,1,2; np.all() bắt mọi ô hợp lệ.
 if not np.all((labels >= 0) & (labels < 3)):
+    # ValueError báo dữ liệu thiếu, sai kích thước hoặc vi phạm điều kiện hợp lệ.
     raise ValueError("Nhãn chỉ được là 0, 1 hoặc 2.")
 print("Mẫu:", len(labels))
+# mean() lấy mất mát cross-entropy trung bình trên 18 mẫu; :.3f in ba số lẻ.
 print(f"Cross-entropy TB: {losses.mean():.3f}")
+# worst là vị trí bắt đầu 0, +1 đổi thành số thứ tự mẫu, :02d thêm 0 đầu mã.
 print("Loss lớn nhất:", f"M{worst+1:02d}")
+# Tra loss mẫu sai nhất bằng chỉ số argmax đã tìm.
 print(f"Loss mẫu lớn nhất: {losses[worst]:.3f}")
 ```
 
@@ -303,19 +392,38 @@ Loss mẫu lớn nhất: 4.605
 3. Đối chiếu dòng Q=P, trung bình và hai chiều trên dòng khác P.
 
 ```python
+# Mục đích: So KL(P||Q) và KL(Q||P) trên 20 phân phối ba nhãn, kiểm tổng xác suất và tính không âm.
+# Dữ liệu: P là phân phối chuẩn ba lớp [0.5,0.3,0.2]; Q gồm 20 hàng ba xác suất dương tổng 1, đơn vị KL là nat.
+# NumPy hỗ trợ log, phép toán broadcast, sum(axis) và allclose kiểm xác suất.
 import numpy as np
+# Vector phân phối tham chiếu ba lớp, tổng đúng 1; dtype=float.
 P = np.array([0.5,0.3,0.2], dtype=float)
+# 20 hàng, mỗi hàng phân phối ba lớp (Q_i), đã dựng để tổng 1; không phải 20 nhãn đơn.
 Q = np.array([[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002],[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002],[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002],[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002]], dtype=float)
+# shape (20,3) kiểm đủ 20 bộ, mỗi bộ ba lớp.
+# Q>0 tạo mask cho từng xác suất; np.all() buộc mọi xác suất dương để log(P/Q) hữu hạn.
 if Q.shape != (20, 3) or not np.all(Q > 0):
+    # ValueError báo dữ liệu thiếu, sai kích thước hoặc vi phạm điều kiện hợp lệ.
     raise ValueError("Cần 20 phân phối ba nhãn có xác suất dương.")
+# axis=1 cộng các CỘT lớp cho TỪNG HÀNG, trả 20 tổng xác suất.
+# allclose() kiểm mỗi hàng gần 1 với dung sai float, không dùng == tuyệt đối.
 if not np.allclose(Q.sum(axis=1), 1.0):
+    # ValueError báo dữ liệu thiếu, sai kích thước hoặc vi phạm điều kiện hợp lệ.
     raise ValueError("Tổng xác suất của mỗi phân phối phải gần bằng 1.")
+# Broadcast P shape (3,) qua 20 hàng Q (20,3), chia xác suất từng lớp.
+# log là log tự nhiên của tỷ số từng lớp; giá trị thành phần có thể âm.
+# Nhân từng lớp với P rồi sum(axis=1) cho 20 KL(P||Q), một giá trị mỗi hàng, đơn vị nat.
 kl_pq = np.sum(P * np.log(P / Q), axis=1)
+# Đảo P/Q để tính KL(Q||P); KL nói chung KHÔNG đối xứng.
 kl_qp = np.sum(Q * np.log(Q / P), axis=1)
 print("Bộ phân phối:", len(Q))
+# [0] là KL cho phân phối Q đầu tiên trùng P nên gần 0; :.4f in bốn số thập phân.
 print(f"KL đầu (P||Q): {kl_pq[0]:.4f}")
+# mean() trung bình KL(P||Q) trên 20 phân phối.
 print(f"KL TB (P||Q): {kl_pq.mean():.4f}")
+# abs() so chênh hai chiều ở bộ thứ hai; 1e-9 là dung sai tránh nhiễu float khi kiểm khác nhau.
 print("Hai chiều có thể khác:", bool(abs(kl_pq[1] - kl_qp[1]) > 1e-9))
+# KL lý thuyết >=0; cho sai số âm nhỏ -1e-12 do tính float, np.all() kiểm mọi bộ.
 print("Không âm:", bool(np.all(kl_pq >= -1e-12)))
 ```
 
