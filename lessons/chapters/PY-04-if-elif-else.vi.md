@@ -152,12 +152,18 @@ for score in points:
         passed += 1
     else:
         failed += 1
-assert len(points) == 10
-assert passed + failed == 10
+if len(points) != 10:
+    raise ValueError("Phải có đúng 10 điểm học viên.")
+if passed + failed != 10:
+    raise ValueError("Tổng học viên đạt và chưa đạt phải bằng 10.")
 print("Số học viên:", len(points))
 print("Đạt:", passed)
 print("Chưa đạt:", failed)
-print("H02:", "Đạt" if points[1] >= 50 else "Chưa đạt")
+if points[1] >= 50:
+    h02_result = "Đạt"
+else:
+    h02_result = "Chưa đạt"
+print("H02:", h02_result)
 ```
 
 **Kết quả khi chạy:**
@@ -195,8 +201,10 @@ for quantity in stocks:
     else:
         state = "OK"
     count[state] += 1
-assert len(stocks) == 12
-assert sum(count.values()) == 12
+if len(stocks) != 12:
+    raise ValueError("Cần có đủ 12 mã sản phẩm.")
+if sum(count.values()) != 12:
+    raise ValueError("Phải phân loại đủ 12 mã vào ba mức tồn kho.")
 print("Out:", count["Out"])
 print("Low:", count["Low"])
 print("OK:", count["OK"])
@@ -237,8 +245,10 @@ for year, amount in zip(years, spending):
     else:
         category = "Standard"
     counts[category] += 1
-assert len(years) == len(spending) == 15
-assert sum(counts.values()) == 15
+if len(years) != 15 or len(spending) != 15:
+    raise ValueError("Cần có đủ 15 cặp năm thành viên và chi tiêu.")
+if sum(counts.values()) != 15:
+    raise ValueError("Phải phân hạng đủ 15 khách hàng.")
 print("Gold:", counts["Gold"])
 print("Silver:", counts["Silver"])
 print("Standard:", counts["Standard"])
@@ -281,8 +291,10 @@ for active, temp in zip(online, temperatures):
     else:
         state = "Normal"
     counts[state] += 1
-assert len(temperatures) == len(online) == 18
-assert sum(counts.values()) == 18
+if len(temperatures) != 18 or len(online) != 18:
+    raise ValueError("Phải có đủ 18 nhiệt độ và trạng thái kết nối.")
+if sum(counts.values()) != 18:
+    raise ValueError("Phải phân loại đủ 18 cảm biến.")
 for state in ("Offline", "Missing", "Hot", "Normal"):
     print(state + ":", counts[state])
 ```
@@ -320,21 +332,28 @@ blocked_ids = []
 total_fee_vnd = 0
 for idx, (amount, km, available) in enumerate(zip(amount_vnd, distance_km, in_stock), 1):
     if amount is None or km is None or amount < 0 or km < 0:
-        state, fee = "INVALID", 0
+        state = "INVALID"
+        fee = 0
     elif not available:
-        state, fee = "HOLD", 0
+        state = "HOLD"
+        fee = 0
     elif amount >= 1000000:
-        state, fee = "FREE", 0
+        state = "FREE"
+        fee = 0
     elif km <= 5:
-        state, fee = "LOCAL", 15000
+        state = "LOCAL"
+        fee = 15000
     else:
-        state, fee = "FAR", 30000
+        state = "FAR"
+        fee = 30000
     counts[state] += 1
     total_fee_vnd += fee
     if state in ("INVALID", "HOLD"):
         blocked_ids.append(f"O{idx:02d}")
-assert len(amount_vnd) == len(distance_km) == len(in_stock) == 20
-assert sum(counts.values()) == 20
+if len(amount_vnd) != 20 or len(distance_km) != 20 or len(in_stock) != 20:
+    raise ValueError("Phải có đúng 20 đơn, khoảng cách và cờ tồn kho.")
+if sum(counts.values()) != 20:
+    raise ValueError("Phải phân loại đủ 20 đơn giao.")
 for name in ("INVALID", "HOLD", "FREE", "LOCAL", "FAR"):
     print(name + ":", counts[name])
 print("Phí thu (đồng):", total_fee_vnd)
