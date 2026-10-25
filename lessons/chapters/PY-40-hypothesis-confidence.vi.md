@@ -126,7 +126,7 @@ Khoảng ước lượng mean theo t từ khoảng 1,761 đến 3,839 ngày; đ�
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Kiểm định điểm trung bình so với chuẩn 50
+### Tình huống 1 — Kiểm định điểm trung bình so với chuẩn 50 · Cấp 1: Giá trị trung bình mẫu
 
 **Tình huống thực tế:** Trung tâm có bảy điểm `[48,52,55,49,51,47,53]`, cùng thang 100 và giả định độc lập. Cần kiểm tra trung bình quần thể có khác chuẩn 50 theo kiểm định hai phía ở mức α=0.05 không.
 
@@ -155,7 +155,22 @@ print(round(float(p), 4))
 
 Vì p lớn hơn 0,05 nên chưa đủ bằng chứng bác bỏ H₀; không khẳng định H₀ đúng.
 
-### Tình huống 2 — Tính khoảng tin cậy thời gian giao
+**Bài thực hành nâng cấp — cấp 1/5:** Nhóm sản phẩm ghi **10 ngày dùng ứng dụng** (đơn vị phút/ngày) để đánh giá tuyên bố thời gian sử dụng trung bình là 120 phút. Hãy tính mean 10 ngày để so với mức chuẩn 120 phút. Các cấp tăng dần từ đọc trung bình đến p-value, dữ liệu thiếu và khoảng tin cậy; `p >= 0.05` không có nghĩa đã chứng minh H0 đúng.
+
+```python
+import numpy as np
+from scipy import stats
+# Một hàng = số phút dùng ứng dụng/ngày, chuẩn giả thuyết 120 phút.
+values = np.array([100, 105, 110, 115, 120, 125, 130, 135, 140, 145],dtype=float)
+valid = values[np.isfinite(values)]
+result = round(float(valid.mean()),2)
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ghi rõ 10 quan sát ban đầu, cỡ mẫu hợp lệ và kết luận có điều kiện theo alpha 0.05. Khoảng tin cậy dùng đơn vị phút/ngày.
+
+### Tình huống 2 — Tính khoảng tin cậy thời gian giao · Cấp 2: Thống kê t
 
 **Tình huống thực tế:** Năm đơn giao mất `[2,3,3,4,2]` ngày, giả định độc lập và mô hình suy luận t phù hợp. Doanh nghiệp muốn khoảng tin cậy 95% cho **trung bình số ngày** của tổng thể.
 
@@ -185,7 +200,22 @@ print(np.round(ci, 3).tolist())
 
 Khoảng t 95% ước lượng trung bình quần thể từ 1,761 đến 3,839 ngày.
 
-### Tình huống 3 — Tính SE của thời gian giao trung bình
+**Bài thực hành nâng cấp — cấp 2/5:** Nhóm sản phẩm ghi **12 ngày dùng ứng dụng** (đơn vị phút/ngày) để đánh giá tuyên bố thời gian sử dụng trung bình là 120 phút. Hãy tính t-statistic kiểm định H0: mean=120. Các cấp tăng dần từ đọc trung bình đến p-value, dữ liệu thiếu và khoảng tin cậy; `p >= 0.05` không có nghĩa đã chứng minh H0 đúng.
+
+```python
+import numpy as np
+from scipy import stats
+# Một hàng = số phút dùng ứng dụng/ngày, chuẩn giả thuyết 120 phút.
+values = np.array([100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155],dtype=float)
+valid = values[np.isfinite(values)]
+result = round(float(stats.ttest_1samp(valid,popmean=120).statistic),4)
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ghi rõ 12 quan sát ban đầu, cỡ mẫu hợp lệ và kết luận có điều kiện theo alpha 0.05. Khoảng tin cậy dùng đơn vị phút/ngày.
+
+### Tình huống 3 — Tính SE của thời gian giao trung bình · Cấp 3: Đọc p-value
 
 **Tình huống thực tế:** Với đúng năm thời gian giao `[2,3,3,4,2]` ngày, quản lý muốn báo sai số chuẩn của **ước lượng mean**, không phải mức phân tán từng đơn.
 
@@ -213,7 +243,22 @@ print(round(float(sem(days)), 3))
 
 SE ước lượng khoảng 0,374 ngày của mean, không phải std của thời gian từng đơn.
 
-### Tình huống 4 — Ra quyết định với kiểm định hai phía
+**Bài thực hành nâng cấp — cấp 3/5:** Nhóm sản phẩm ghi **15 ngày dùng ứng dụng** (đơn vị phút/ngày) để đánh giá tuyên bố thời gian sử dụng trung bình là 120 phút. Hãy dựa trên p-value và alpha 0.05 đưa ra kết luận có/không bác bỏ H0. Các cấp tăng dần từ đọc trung bình đến p-value, dữ liệu thiếu và khoảng tin cậy; `p >= 0.05` không có nghĩa đã chứng minh H0 đúng.
+
+```python
+import numpy as np
+from scipy import stats
+# Một hàng = số phút dùng ứng dụng/ngày, chuẩn giả thuyết 120 phút.
+values = np.array([100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'p':round(float(stats.ttest_1samp(valid,popmean=120).pvalue),6),'decision':'reject H0' if stats.ttest_1samp(valid,popmean=120).pvalue<0.05 else 'fail to reject H0'}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ghi rõ 15 quan sát ban đầu, cỡ mẫu hợp lệ và kết luận có điều kiện theo alpha 0.05. Khoảng tin cậy dùng đơn vị phút/ngày.
+
+### Tình huống 4 — Ra quyết định với kiểm định hai phía · Cấp 4: Loại dữ liệu thiếu
 
 **Tình huống thực tế:** Dữ liệu năm số đo `[5,6,7,8,9]` được dùng kiểm định trung bình với mốc μ₀=6, α=0.05. Nhóm phân tích muốn chương trình đưa ra quyết định theo ngưỡng này.
 
@@ -242,7 +287,22 @@ Fail to reject H0
 
 Không bác bỏ H₀ tại α=0.05, chứ không có nghĩa đã chứng minh μ=6.
 
-### Tình huống 5 — Thấy vai trò của mức ý nghĩa alpha
+**Bài thực hành nâng cấp — cấp 4/5:** Nhóm sản phẩm ghi **18 ngày dùng ứng dụng** (đơn vị phút/ngày) để đánh giá tuyên bố thời gian sử dụng trung bình là 120 phút. Hãy lọc ngày chưa có dữ liệu trước khi kiểm định. Các cấp tăng dần từ đọc trung bình đến p-value, dữ liệu thiếu và khoảng tin cậy; `p >= 0.05` không có nghĩa đã chứng minh H0 đúng.
+
+```python
+import numpy as np
+from scipy import stats
+# Một hàng = số phút dùng ứng dụng/ngày, chuẩn giả thuyết 120 phút.
+values = np.array([100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, np.nan, 180, 185],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'valid':len(valid),'missing':len(values)-len(valid),'p':round(float(stats.ttest_1samp(valid,popmean=120).pvalue),6)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ghi rõ 18 quan sát ban đầu, cỡ mẫu hợp lệ và kết luận có điều kiện theo alpha 0.05. Khoảng tin cậy dùng đơn vị phút/ngày.
+
+### Tình huống 5 — Thấy vai trò của mức ý nghĩa alpha · Cấp 5: Kiểm định và khoảng tin cậy
 
 **Tình huống thực tế:** Một phép kiểm định đã tính được p-value=0.04. Đội kiểm thử muốn so hai mức ý nghĩa **0.01 và 0.05** trên cùng bằng chứng, không thay đổi dữ liệu.
 
@@ -269,6 +329,21 @@ for alpha in [0.01, 0.05]:
 ```
 
 Với α=0.01 chưa bác bỏ, với α=0.05 thì bác bỏ; không suy ra xác suất H₀ đúng là 4%.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhóm sản phẩm ghi **20 ngày dùng ứng dụng** (đơn vị phút/ngày) để đánh giá tuyên bố thời gian sử dụng trung bình là 120 phút. Hãy tính CI 95% và quyết định kiểm định từ 20 mẫu. Các cấp tăng dần từ đọc trung bình đến p-value, dữ liệu thiếu và khoảng tin cậy; `p >= 0.05` không có nghĩa đã chứng minh H0 đúng.
+
+```python
+import numpy as np
+from scipy import stats
+# Một hàng = số phút dùng ứng dụng/ngày, chuẩn giả thuyết 120 phút.
+values = np.array([100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, np.nan, 180, 185, 190, np.nan],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'mean':round(float(valid.mean()),2),'p':round(float(stats.ttest_1samp(valid,popmean=120).pvalue),6),'CI_95':tuple(round(float(x),2) for x in stats.t.interval(0.95,df=len(valid)-1,loc=valid.mean(),scale=stats.sem(valid))),'decision':'reject H0' if stats.ttest_1samp(valid,popmean=120).pvalue<0.05 else 'fail to reject H0'}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ghi rõ 20 quan sát ban đầu, cỡ mẫu hợp lệ và kết luận có điều kiện theo alpha 0.05. Khoảng tin cậy dùng đơn vị phút/ngày.
 
 ## 6. Sai lầm thường gặp
 
