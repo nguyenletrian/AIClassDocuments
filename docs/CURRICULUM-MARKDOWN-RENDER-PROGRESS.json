@@ -3,7 +3,7 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_06_IN_PROGRESS",
+  "status": "BATCH_06_QA_PASSED_WAIT_MERGE",
   "last_completed_batch": 5,
   "batches": [
     {
@@ -142,11 +142,11 @@
         "PY-29",
         "PY-30"
       ],
-      "status": "IN_PROGRESS",
+      "status": "QA_PASSED",
       "changed_lessons": [],
-      "pr": null,
+      "pr": 139,
       "merged_commit": null,
-      "ci_run": null,
+      "ci_run": 40168348655,
       "branch": "fix/markdown-render-batch-06-20261025",
       "reviewed_lessons": [
         "PY-26",
@@ -160,7 +160,7 @@
         "unescaped_pipes_in_markdown_tables": 0,
         "malformed_table_rows": 0
       },
-      "notes": "Reviewed only PY-26–30: zero visible HTML pipe entities, zero unescaped pipes in Markdown tables, zero malformed table-column counts. No chapter changes needed. Test CI and PR verification pending. Separately owner-approved explicit Python code style goal remains deferred until all 10 Markdown batches complete."
+      "notes": "Reviewed PY-26..PY-30 and found 0 leaked HTML pipe entities, 0 unescaped Markdown table pipes, 0 malformed rows, so no lesson edits. PR #139 CI run 40168348655 PASS on initial PR head; all prior batch formatting regression and curriculum tests PASS. Final-head CI and merge pending. Deferred owner-approved Python simplification goal stays inactive."
     },
     {
       "batch": 7,
