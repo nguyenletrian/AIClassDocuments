@@ -153,9 +153,9 @@ Số 105 là tổng giá và phí, đơn vị nghìn đồng. Biến `fee` ở t
 
 **Từ vựng trong mục:** **Function** — hàm; **Return** — trả về; **Default argument** — đối số mặc định.
 
-**Tình huống thực tế:** Quầy văn phòng phẩm bán **10 mặt hàng** với đơn giá trước thuế (đồng/món). Trong bài giả lập này dùng thuế suất **10%** cho mọi món và mua một món mỗi loại. Hãy viết một hàm tính giá sau thuế để gọi lại trên cả mười món, sau đó báo tổng tiền.
+**Tình huống thực tế:** Một cửa hàng văn phòng phẩm có bảng giá trước thuế của **10 mặt hàng**, mỗi giá tính bằng **đồng/món**. Trong ví dụ giả lập, cửa hàng áp dụng mức thuế **10%** đồng đều và khách mua một món mỗi loại. Thu ngân muốn tính giá sau thuế từng món rồi cộng tổng số tiền phải trả, không phải nhập lại cùng cách tính cho cả mười món.
 
-**Vì sao chọn cách này?** Định nghĩa hàm một lần giúp không viết phép tính thuế mười lần khác nhau; `return` trả số tiền để có thể cộng tiếp. Thuế suất 10% là giả định của bài, không phải kết luận về quy định thuế hiện hành.
+**Vì sao chọn cách này?** **Hàm** là một đoạn xử lý được đặt tên để dùng lại nhiều lần. `def` tạo hàm tính giá một món sau thuế; **tham số** nhận đơn giá của từng mặt hàng. `return` trả số tiền mới về nơi gọi, nên vòng `for` có thể lấy kết quả của 10 món để cộng tổng. Nếu chỉ dùng `print()` trong hàm thì màn hình có thể hiện số nhưng chỗ tính tổng không nhận được giá trị để cộng. Thuế 10% chỉ là giả định cho dữ liệu minh họa, không khẳng định mọi sản phẩm ngoài đời đều chịu mức này.
 
 **Quy trình:**
 1. Định nghĩa hàm `with_tax(price, rate=0.10)` có tham số mặc định.
@@ -190,9 +190,9 @@ Hàm trả về số, không tự in ra; có thể dùng tiếp trong các phép
 
 **Từ vựng trong mục:** **Lambda** — hàm ngắn; **Key function** — hàm chọn khóa; **Sorted** — sắp xếp.
 
-**Tình huống thực tế:** Trung tâm có **12 hồ sơ** theo thứ tự nộp đăng ký; mỗi bản ghi gồm tên và điểm (thang 10). Người phụ trách muốn xếp điểm giảm dần và chọn **bốn học viên ưu tiên phỏng vấn**. Hai người đồng điểm phải giữ thứ tự nộp trước.
+**Tình huống thực tế:** Trung tâm nhận **12 hồ sơ học viên** theo thứ tự gửi đơn. Mỗi hồ sơ có tên và điểm trên thang **10**; vài học viên có cùng điểm. Người phụ trách muốn xếp học viên theo điểm từ cao xuống thấp để chọn **bốn người phỏng vấn trước**. Khi hai người đồng điểm, ai gửi hồ sơ trước phải đứng trước, không được đảo ngẫu nhiên thứ tự.
 
-**Vì sao chọn cách này?** `sorted(..., key=lambda item: item['score'], reverse=True)` sắp xếp bằng đúng cột điểm; thuật toán sắp xếp của Python ổn định, vì vậy người có điểm bằng nhau giữ thứ tự đã có.
+**Vì sao chọn cách này?** **Sắp xếp** là thay đổi thứ tự hiển thị, còn **khóa sắp xếp** (`key`) cho Python biết cần nhìn vào thông tin nào. Ở đây khóa là trường `score`, không phải tên. `lambda item: item['score']` là một hàm nhỏ chỉ dùng tại chỗ để lấy điểm của từng hồ sơ; `reverse=True` cho điểm cao đứng trước. `sorted()` tạo danh sách mới; Python giữ thứ tự ban đầu của các phần tử có **khóa bằng nhau**, nên người nộp trước vẫn trước khi hòa điểm. Sau đó chỉ chọn bốn hồ sơ đầu, không dùng thứ tự tên hay thời gian nộp để thay thế điểm.
 
 **Quy trình:**
 1. Lưu 12 Dictionary theo thứ tự tiếp nhận.
@@ -228,9 +228,9 @@ Lambda chỉ định trường điểm để so, không làm thay đổi thứ t
 
 **Từ vựng trong mục:** **Parameter** — tham số; **Boolean return** — trả về đúng/sai; **Composition** — phối hợp hàm.
 
-**Tình huống thực tế:** Giáo vụ nhận **15 kết quả kiểm tra**; điểm hợp lệ thuộc **0 đến 10**, trong đó 5 trở lên là đạt. Dữ liệu có một điểm 11, một điểm -1 và một lượt chưa nhận (`None`). Cần viết **hai hàm**: kiểm tra hợp lệ và xét đạt; sau đó đếm số điểm hợp lệ, số đạt và số không thể phân loại.
+**Tình huống thực tế:** Giáo vụ có **15 lượt ghi điểm kiểm tra**, mỗi lượt là một giá trị trên thang **0 đến 10** hoặc dữ liệu chưa có. Danh sách có điểm 11 (quá cao), -1 (không hợp lệ) và `None` (chưa nhập). Điểm hợp lệ từ 5 trở lên được tính là đạt. Giáo vụ muốn biết có bao nhiêu điểm hợp lệ, bao nhiêu người đạt và bao nhiêu lượt chưa thể xét.
 
-**Vì sao chọn cách này?** Tách hai chức năng giữ quy tắc độc lập: điểm không hợp lệ bị loại trước khi hỏi có đạt hay không. Hàm `passed()` tái sử dụng kết quả từ `valid_score()` để không lặp điều kiện ở nhiều chỗ.
+**Vì sao chọn cách này?** Để tránh xét sai, tách thành **hai câu hỏi**: giá trị này có phải điểm hợp lệ 0–10 không, và nếu hợp lệ thì có đạt mức 5 không. Hàm `valid_score()` trả kết quả đúng/sai cho câu hỏi đầu; hàm `passed()` dùng lại kiểm tra đó trước khi xét ngưỡng. Như vậy 11, -1 và `None` không bị nhầm thành điểm đạt hoặc trượt bình thường. Hàm nhỏ dễ thử bằng nhiều dữ liệu; viết riêng quy tắc ở từng nơi sẽ dễ có chỗ quên kiểm tra số thiếu.
 
 **Quy trình:**
 1. Định nghĩa `valid_score()` trả `True/False` trên dữ liệu đầu vào.
@@ -274,9 +274,9 @@ Không hợp lệ: 3
 
 **Từ vựng trong mục:** **Return tuple** — trả nhiều giá trị; **Validation** — kiểm tra hợp lệ; **Scope** — phạm vi biến.
 
-**Tình huống thực tế:** Nhóm vận hành có **18 khoản chi** (nghìn đồng), mỗi dòng là một giao dịch. Hai dòng chưa nhập (`None`) và một khoản âm -20 không được phép vì đây là trường **chi phí không âm**. Hãy viết một hàm trả lại số lượng hợp lệ, tổng tiền, trung bình và **mã giao dịch cần sửa** mà không thay đổi list nguồn.
+**Tình huống thực tế:** Bộ phận kế toán nhận **18 khoản chi** tính bằng **nghìn đồng**. Trong dữ liệu có hai khoản chưa nhập (`None`) và một khoản -20, không hợp lệ vì chi phí của bài này phải là số không âm. Nhân viên muốn một kết quả báo cáo chung: có bao nhiêu dòng đúng, tổng chi phí hợp lệ, chi phí trung bình và mã các khoản cần sửa, trong khi giữ nguyên bảng gốc.
 
-**Vì sao chọn cách này?** Hàm trả tuple nhiều giá trị để người gọi có thể dùng kết quả cho báo cáo; các biến tổng/tập lỗi là biến cục bộ, không dựa vào biến toàn cục và không thay đổi dữ liệu ban đầu.
+**Vì sao chọn cách này?** **Hàm trả nhiều giá trị** có thể gom thông tin báo cáo thành một tuple, ví dụ `(số khoản hợp lệ, tổng chi, trung bình, danh sách mã lỗi)`. Chương trình lặp qua đủ 18 dòng; `None` là chưa biết chi phí, còn -20 vi phạm quy định không âm, nên đều được ghi vào nhóm cần sửa, không đưa vào tổng. Biến tổng và danh sách lỗi được tạo **bên trong hàm** (biến cục bộ), không làm sửa dữ liệu đầu vào. Trung bình phải được tính từ **số dòng hợp lệ**, nếu lấy cả 18 dòng làm mẫu số thì kết quả sẽ sai.
 
 **Quy trình:**
 1. Xác định dữ liệu hợp lệ: là số và không âm.
@@ -326,9 +326,9 @@ Trường có giá trị 0 vẫn là một chi phí hợp lệ và được tín
 
 **Từ vựng trong mục:** **Pipeline** — chuỗi xử lý; **Reusable function** — hàm tái sử dụng; **Lambda** — hàm ngắn.
 
-**Tình huống thực tế:** Bộ phận kế toán ghi **20 dòng hóa đơn**, mỗi dòng gồm mã đơn, vùng A/B/C, đơn giá **nghìn đồng/món** và số lượng. O07 chưa có giá và O15 có giá -1 không hợp lệ. Cần thiết kế chuỗi hàm nhỏ để **kiểm tra → tính tiền → tổng hợp theo vùng**, trả doanh thu từng vùng, hai mã lỗi và chứng minh số dòng đầu vào không bị mất.
+**Tình huống thực tế:** Một doanh nghiệp nhận **20 dòng hóa đơn** thuộc ba vùng **A, B, C**. Mỗi dòng ghi mã hóa đơn, vùng, giá một món tính bằng **nghìn đồng/món** và số món mua. Hóa đơn O07 chưa có giá; O15 có giá -1 nên không được tính. Kế toán muốn doanh thu của từng vùng, danh sách mã cần sửa và xác nhận cả 20 dòng đã được xem xét, kể cả những dòng không thể cộng tiền.
 
-**Vì sao chọn cách này?** Không dùng một hàm dài ôm mọi việc: hàm kiểm tra có thể được test riêng, hàm tính tiền chỉ chạy khi đầu vào hợp lệ; hàm `summarize` phối hợp chúng. Dùng `lambda` sắp xếp tên vùng khi in mà không đổi số liệu.
+**Vì sao chọn cách này?** **Pipeline** nghĩa là một chuỗi bước xử lý theo thứ tự, giống kế toán nhận phiếu → kiểm tra → tính tiền → cộng báo cáo. Hàm kiểm tra quyết định một dòng có đủ giá, số lượng và thông tin vùng hay chưa. Chỉ khi hợp lệ mới nhân giá với số món để tính tiền, rồi cộng vào vùng tương ứng. Tách các bước thành hàm nhỏ giúp tìm lỗi và kiểm thử từng phần, thay vì một hàm dài vừa kiểm tra vừa tính. O07 thiếu giá và O15 có giá âm phải được ghi là lỗi, không biến thành hóa đơn 0 đồng; dù không cộng doanh thu, cả hai vẫn thuộc **20 dòng đã xét**. `lambda` trong phần sắp tên vùng chỉ hỗ trợ thứ tự in, không được làm đổi tổng doanh thu.
 
 **Quy trình:**
 1. Định nghĩa `valid_order` kiểm tra dữ liệu có giá/số lượng hợp lệ.
