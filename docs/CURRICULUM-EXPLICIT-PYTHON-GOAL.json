@@ -37,13 +37,14 @@
       "    raise ValueError(\"Dữ liệu phải có đúng 10 vé\")"
     ]
   },
-  "reason": "User specifically requested new goal but ONLY AFTER existing Markdown formatting goal is fully completed; do not start now, do not change lessons outside active batch, do not activate duplicate tasks from idle heartbeats.",
+  "reason": "Owner-approved successor goal activated after completion of all ten Markdown display batches. Batch01 PY-01..05 merged PR #145, CI PASS; next batch02 PY-06..10. Process up to five chapters per PR and preserve all educational content and exact stdout.",
   "created_on": "2026-10-25",
-  "progress": "READY_FOR_BATCH_01",
+  "progress": "READY_FOR_BATCH_02",
   "activated_after": {
     "markdown_ledger": "COMPLETED",
     "markdown_batches_merged": 10,
     "open_prs": 0,
     "pending_tasks": 0
-  }
+  },
+  "progress_ledger": "docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json"
 }
