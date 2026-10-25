@@ -130,9 +130,9 @@ Excess kurtosis dương lớn cho thấy mẫu này có hành vi đuôi bất th
 
 **Từ vựng trong mục:** **Quantile** — phân vị; **Interpolation** — nội suy.
 
-**Tình huống thực tế:** Cửa hàng có **10 hóa đơn**, mỗi hàng là giá trị một đơn tính bằng nghìn đồng. Người quản lý muốn mốc Q1, median (Q2), Q3 để biết vùng trung tâm của chi tiêu, thay vì chỉ biết số lớn nhất và nhỏ nhất.
+**Tình huống thực tế:** Cửa hàng lập bảng **10 hóa đơn**, mỗi đơn có giá trị tính bằng **nghìn đồng**, từ 10 đến 28 theo thứ tự tăng dần. Chủ cửa hàng muốn tìm ba **mốc chia dữ liệu** là Q1, trung vị Q2 và Q3 để hiểu nhóm hóa đơn nằm ở vùng giá thấp, giữa và cao, thay vì chỉ xem đơn rẻ nhất và đắt nhất.
 
-**Vì sao chọn cách này?** `np.quantile()` tìm mốc vị trí trong dãy; với **10 số**, một số mốc nằm giữa hai giá trị gốc và được nội suy. Chúng không bắt buộc trùng với một hóa đơn có thật.
+**Vì sao chọn cách này?** **Phân vị** là các mốc dùng để nhìn vị trí của giá trị trong **danh sách đã sắp thứ tự**. **Q1** đại diện vùng khoảng một phần tư thấp, **median/Q2** chia dữ liệu thành nửa thấp và nửa cao, **Q3** đại diện vùng khoảng ba phần tư. `np.quantile(amounts, [0.25, 0.5, 0.75])` lấy ba mốc này từ **10 khoản tiền có cùng đơn vị**. Vì vị trí phân vị có thể nằm **giữa hai hóa đơn thật**, NumPy có thể **nội suy** ra một mức không xuất hiện nguyên vẹn trong dữ liệu; đây là mốc mô tả, không phải một hóa đơn bị bỏ sót.
 
 **Quy trình:**
 1. Ghi đúng 10 giá trị cùng đơn vị.
@@ -166,9 +166,9 @@ Mốc Q1=14,5 nghìn đồng không phải một đơn giá gốc; đó là kế
 
 **Từ vựng trong mục:** **IQR** — khoảng tứ phân vị; **Fence** — ngưỡng gắn cờ; **Outlier** — điểm bất thường.
 
-**Tình huống thực tế:** Quầy bán có **12 hóa đơn** (nghìn đồng); đơn cao nhất lên tới 500 trong khi 11 đơn còn lại trong vùng 100–145. Kế toán muốn biết hóa đơn nào nằm ngoài ngưỡng rà soát IQR, **không tự xóa** đơn đó.
+**Tình huống thực tế:** Một quầy bán hàng có **12 hóa đơn** tính bằng **nghìn đồng**; **11 hóa đơn từ 100 đến 145**, còn một hóa đơn giá **500**. Nhân viên muốn tìm xem hóa đơn nào **nằm xa vùng mua hàng thường gặp** theo quy tắc IQR để đưa vào danh sách kiểm tra chứng từ. Họ không được xóa hóa đơn 500 vì chưa có bằng chứng đó là số tiền sai.
 
-**Vì sao chọn cách này?** IQR dựa vào nửa giữa của dữ liệu, ít bị kéo theo điểm 500 như mean; quy tắc 1,5×IQR **gắn cờ để kiểm tra**, chứ không kết luận đơn bị nhập sai.
+**Vì sao chọn cách này?** **IQR** là độ rộng của **vùng dữ liệu từ Q1 tới Q3**, tức phần nằm giữa của bảng đã sắp xếp. Chương trình lấy Q1/Q3, rồi tạo hai **hàng rào kiểm tra** ở phía thấp và cao, cách mỗi đầu thêm **1,5 lần IQR**. Số nào ngoài hàng rào được **gắn cờ ngoại lệ**; với 12 hóa đơn này, khoản 500 nghìn đồng quá cao so với nhóm còn lại nên đáng kiểm tra. `np.quantile()` và phép lọc chỉ tìm **điểm khác thường theo quy tắc thống kê**, không chứng minh khoản 500 là gian lận hay sai dữ liệu. 1,5 là ngưỡng quy ước thường dùng, không phải luật kinh doanh.
 
 **Quy trình:**
 1. Tìm Q1 và Q3 của đúng 12 đơn.
@@ -205,9 +205,9 @@ Một hóa đơn thật có thể vượt ngưỡng IQR hợp lệ; cần đối
 
 **Từ vựng trong mục:** **Skewness** — độ lệch bất đối xứng; **Right tail** — đuôi phải.
 
-**Tình huống thực tế:** Trung tâm tiếp nhận **15 thời gian phục vụ** (phút), mỗi hàng là một lượt; 14 lượt quanh 10–16 phút nhưng có một lượt 90 phút. Giám sát cần biết **hướng bất đối xứng** và xem mean bị kéo lệch ra sao so với median, thay vì gọi mọi lượt trên 16 phút là lỗi.
+**Tình huống thực tế:** Trung tâm chăm sóc đo **15 lượt thời gian phục vụ**, đơn vị **phút**; 14 lượt kéo dài khoảng **10–16 phút**, có một lượt **90 phút**. Quản lý muốn xem mức thời gian thông thường, tính trung bình so với trung vị và hiểu bảng thời gian có **đuôi kéo dài về phía các lượt rất lâu** hay không. Phiếu 90 phút có thể là ca phức tạp thật, không nhất thiết lỗi nhập.
 
-**Vì sao chọn cách này?** `pd.Series.skew()` đo mức lệch của mẫu và dấu dương gợi ý đuôi phải. Khi có một lượt rất dài, mean tăng, còn median phản ánh nhóm giữa; phải nêu rõ số mẫu ít khiến skew không ổn định.
+**Vì sao chọn cách này?** **Skewness (độ lệch)** mô tả hình dạng phân phối có **đuôi kéo dài về bên cao hay bên thấp**. Khi 14 lượt từ 10–16 phút nhưng một lượt 90 phút, **mean** bị kéo lên mạnh hơn **median**, và độ lệch thường **dương** do đuôi kéo về phía thời gian cao. `pd.Series.skew()` đo đặc điểm bất đối xứng từ chính **15 lượt**; kiểm `> 0` giúp giải thích hướng của đuôi. Không dùng kết quả này để tự xóa phiếu 90 phút: mẫu nhỏ và một trường hợp rất lâu có thể là sự kiện thực.
 
 **Quy trình:**
 1. Tạo 15 số phút phục vụ.
@@ -242,9 +242,9 @@ Skew dương chỉ mô tả phân bố dữ liệu đang có; không kết luậ
 
 **Từ vựng trong mục:** **Kurtosis** — mô tả đuôi; **Excess kurtosis** — kurtosis dư; **Skewness** — bất đối xứng.
 
-**Tình huống thực tế:** Phòng thử nghiệm ghi **18 mức dao động** (đơn vị tín hiệu), hầu hết từ 20–36 nhưng có một mức 120. Trưởng nhóm cần cùng lúc báo skew và **excess kurtosis**, tránh cách hiểu đơn giản rằng kurtosis chỉ là 'đỉnh cao' của biểu đồ.
+**Tình huống thực tế:** Phòng thí nghiệm ghi **18 lần đo mức tín hiệu**, cùng một đơn vị chỉ số; 17 lần nằm khoảng **20–36**, một lần lên tới **120**. Kỹ thuật viên muốn biết dữ liệu có **bất đối xứng về phía giá trị cao** không, số đo cực lớn làm hình dạng phân phối thay đổi ra sao và cờ cảnh báo IQR có chỉ ra 120 để kiểm tra lại thiết bị hay không.
 
-**Vì sao chọn cách này?** Skew mô tả bất đối xứng trái/phải; kurtosis theo Pandas đo đặc điểm moment bậc bốn với mốc chuẩn quy ước bằng 0. Một điểm 120 ảnh hưởng mạnh đến cả hai hệ số trên mẫu nhỏ.
+**Vì sao chọn cách này?** **Skew** cho biết phân phối lệch trái/phải, còn **excess kurtosis** đo đặc điểm liên quan đến **mức nhạy với các độ lệch lớn/đuôi cực trị** so với chuẩn tham chiếu; đây không đơn thuần là độ nhọn ở đỉnh biểu đồ. `pd.Series.kurt()` trả excess kurtosis, với mốc tham chiếu của phân phối chuẩn là **0**. Một giá trị 120 so với 17 giá trị quanh 20–36 ảnh hưởng mạnh đến cả hai thống kê. Chương trình đồng thời dùng **hàng rào IQR phía trên** để liệt kê số đo cần xem; phát hiện điểm lạ là **đầu mối kiểm tra**, không phải bằng chứng cảm biến đã hỏng.
 
 **Quy trình:**
 1. Tạo 18 mức tín hiệu, giữ lại số đo 120 để rà soát.
@@ -280,9 +280,9 @@ Chỉ số độ lệch và kurtosis nhạy với giá trị rất lớn, vì v�
 
 **Từ vựng trong mục:** **Group-wise IQR** — IQR theo nhóm; **Missing data** — dữ liệu thiếu; **Data integrity** — tính toàn vẹn.
 
-**Tình huống thực tế:** Kho lưu **20 sản phẩm**, mỗi dòng gồm nhóm A/B và khối lượng (g): nhóm A chủ yếu 50–57 g, nhóm B chủ yếu 150–158 g. Một ô khối lượng A bị thiếu, một sản phẩm A nặng 110 g và một sản phẩm B nặng 220 g. Cần **gắn cờ riêng trong từng nhóm** vì nếu tính ngưỡng chung cho hai nhóm chênh nhau về mức nền, có thể bỏ sót bất thường.
+**Tình huống thực tế:** Kho chứa **20 sản phẩm P01–P20** thuộc hai loại A và B, mỗi loại 10 sản phẩm. **Khối lượng** đo bằng **gam**: nhóm A chủ yếu **50–57 g**, nhóm B chủ yếu **150–158 g**. P09 của nhóm A chưa cân, P10 nặng **110 g** và P20 nặng **220 g**. Nhân viên muốn biết số mẫu thiếu và **mã khối lượng bất thường so với chính nhóm của nó**, không so sản phẩm A với giá trị bình thường của nhóm B.
 
-**Vì sao chọn cách này?** Tính IQR theo từng nhóm giữ đúng mặt bằng khối lượng của nhóm; với 20 hàng cần **đếm thiếu trước**, không coi None là 0. Giữ ID bị gắn cờ để người kiểm tra đối chiếu mẫu thực.
+**Vì sao chọn cách này?** Mỗi loại sản phẩm có **mức khối lượng thông thường khác nhau**, nên phải tính **Q1, Q3 và IQR riêng cho nhóm A và B** bằng `groupby('group')`. `dropna()` bỏ riêng ô khối lượng **chưa cân** khi tính mốc, còn `isna()` vẫn giúp báo rõ số mẫu thiếu. Trong mỗi nhóm, quy tắc **1,5 lần IQR** gắn cờ những mã ở quá xa vùng giữa, như P10 hoặc P20; **mã sản phẩm** được giữ để kiểm lại hàng thật. Nếu gộp A và B thành một bảng trước khi tính ngưỡng, hai cụm khối lượng 50 g và 150 g có thể làm ngưỡng chung trở nên vô ích, che các trường hợp bất thường trong từng loại.
 
 **Quy trình:**
 1. Tạo 20 hàng, ghi đơn vị g và tên nhóm.

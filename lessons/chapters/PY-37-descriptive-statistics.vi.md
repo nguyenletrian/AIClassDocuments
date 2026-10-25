@@ -129,9 +129,9 @@ print(round(float(np.std(celsius, ddof=0)), 3))
 
 **Từ vựng trong mục:** **Mean** — trung bình; **Observation** — một lượt quan sát.
 
-**Tình huống thực tế:** Nhân viên đo thời gian xử lý **10 yêu cầu hỗ trợ**, mỗi hàng một yêu cầu và thời gian tính bằng phút. Cần tổng số phút, trung bình mỗi yêu cầu và thời gian ngắn nhất/dài nhất để ước lượng công việc trong ca.
+**Tình huống thực tế:** Nhóm hỗ trợ có **10 phiếu yêu cầu**, mỗi phiếu ghi thời gian xử lý thực tế tính bằng **phút**. Các lượt mất từ **2 đến 5 phút** và dữ liệu gồm đủ mười phiếu trong ca thử nghiệm. Quản lý muốn biết **tổng số phút** đã dùng, **trung bình mỗi phiếu** và phiếu ngắn nhất/dài nhất để có bức tranh sơ bộ về khối lượng công việc; không được tưởng tất cả phiếu đều bằng thời gian trung bình.
 
-**Vì sao chọn cách này?** Mean gộp **toàn bộ 10 thời gian có cùng đơn vị**; thống kê min/max giúp không lầm rằng mọi yêu cầu đều mất thời gian bằng mean.
+**Vì sao chọn cách này?** **Thống kê mô tả** là cách tóm tắt những giá trị đã quan sát, chưa phải dự báo tương lai. `sum()` cho **tổng thời gian 10 phiếu**, đơn vị **phút**, còn `mean()` chia đều tổng ấy trên **10 phiếu** để mô tả một phiếu trung bình. `min()` và `max()` cho hai mức biên, giúp thấy có phiếu nhanh hơn hoặc chậm hơn mức trung bình. Cả mười số đo có cùng đơn vị nên có thể cộng được; đừng hiểu mean là thời gian cố định bắt buộc cho mọi yêu cầu.
 
 **Quy trình:**
 1. Lưu 10 số phút xử lý theo thứ tự yêu cầu.
@@ -164,9 +164,9 @@ Trung bình 3,2 phút là kết quả trên đúng mười yêu cầu đã ghi, 
 
 **Từ vựng trong mục:** **Median** — trung vị; **Outlier** — giá trị khác biệt.
 
-**Tình huống thực tế:** Một cửa hàng có **12 hóa đơn**, mỗi dòng là thành tiền của một đơn, đơn vị nghìn đồng. Có một hóa đơn 1.000 nghìn đồng hợp lệ, cao hơn hẳn 11 đơn còn lại. Muốn có chỉ số đại diện cho mức chi phổ biến, quản lý cần xem **cả mean lẫn median**, không tự xóa đơn lớn.
+**Tình huống thực tế:** Cửa hàng ghi **12 hóa đơn**, mỗi dòng là tổng số tiền của một khách trong lần mua đó, tính bằng **nghìn đồng**. Mười một đơn trong khoảng **100–140 nghìn đồng**, nhưng một đơn hợp lệ lên tới **1.000 nghìn đồng**. Chủ cửa hàng muốn chọn con số mô tả mức chi tiêu thường gặp và xem vì sao **trung bình cộng** có thể khác **trung vị** rất nhiều mà không được xóa đơn lớn.
 
-**Vì sao chọn cách này?** Mean sử dụng mọi số và bị kéo về phía hóa đơn lớn; median chọn vị trí giữa đã sắp nên ít biến động khi có một giá trị cực cao. Hai chỉ số phản ánh **hai cách mô tả khác nhau**, không có cái nào luôn đúng hơn.
+**Vì sao chọn cách này?** **Mean** là giá trị cân bằng từ **toàn bộ 12 khoản tiền**, nên một đơn 1.000 nghìn đồng kéo nó lên rõ rệt. **Median (trung vị)** là mức **nằm giữa danh sách đã sắp xếp**; với 12 giá trị, lấy mức giữa hai hóa đơn ở trung tâm, nên ít bị ảnh hưởng bởi một khoản lớn. `np.mean()` và `np.median()` trả hai cách nhìn khác nhau, đều có đơn vị **nghìn đồng**. Đơn lớn chưa chắc là sai; nếu tự xóa chỉ để mean đẹp hơn thì báo cáo không còn trung thực. Dùng cả hai chỉ số và nêu mục tiêu khi chọn số đại diện.
 
 **Quy trình:**
 1. Ghi đủ 12 hóa đơn, giữ cả đơn lớn.
@@ -199,9 +199,9 @@ Median là trung bình của hai giá trị giữa vì có số hóa đơn chẵ
 
 **Từ vựng trong mục:** **Mode** — giá trị phổ biến nhất; **Frequency** — số lần xuất hiện.
 
-**Tình huống thực tế:** Quầy văn phòng phẩm ghi **15 lượt chọn sản phẩm**, mỗi hàng là nhãn nhóm sản phẩm như Bút, Vở, Thước hoặc Tẩy. Nhân viên cần biết loại nào được chọn nhiều nhất, đồng thời báo lượt chọn của từng loại. Không tính mean của nhãn vì nhãn không phải đại lượng số.
+**Tình huống thực tế:** Quầy văn phòng phẩm ghi **15 lượt chọn nhóm hàng**, như Bút, Vở, Thước, Tẩy; mỗi lượt là **một lựa chọn** chứ không phải giá tiền. Nhân viên muốn biết nhóm nào được chọn nhiều nhất và có bao nhiêu lượt của nhóm đó, để chuẩn bị hàng lên kệ. Họ không thể cộng chữ 'Bút' với chữ 'Vở' rồi tính trung bình số học.
 
-**Vì sao chọn cách này?** `value_counts()` đếm số lượt mỗi nhãn, `mode()` hoặc dòng đầu của bảng tần suất cho nhãn nhiều nhất. Đây là bài toán nhãn phân loại, không dùng phương sai hay trung bình.
+**Vì sao chọn cách này?** **Mode (mốt)** là **giá trị hoặc nhãn xuất hiện nhiều nhất**. Vì đây là dữ liệu **phân loại** (tên nhóm hàng), `pd.Series(...).value_counts()` đếm số lượt theo từng nhãn; dòng có số đếm cao nhất cho biết nhóm được chọn nhiều nhất. **Mean** và phương sai đòi dữ liệu số có ý nghĩa tính toán, không phù hợp với chữ 'Bút' hay 'Tẩy'. Một nhãn được chọn nhiều nhất trong đúng **15 lượt mẫu** chưa đủ chứng minh nó luôn bán chạy nhất trong mọi ca.
 
 **Quy trình:**
 1. Ghi 15 nhãn sản phẩm theo thứ tự lượt.
@@ -235,9 +235,9 @@ Mode cho biết nhãn thường thấy nhất **trong 15 lượt**, không kết
 
 **Từ vựng trong mục:** **Variance** — phương sai; **Standard deviation** — độ lệch chuẩn; **ddof** — hiệu chỉnh mẫu.
 
-**Tình huống thực tế:** Phòng máy đo **18 lần nhiệt độ** (°C), mỗi hàng một lượt. Nếu xem đây là **toàn bộ ca** thì dùng phương sai quần thể `ddof=0`; nếu xem đây là mẫu để ước lượng ca tương tự thì dùng `ddof=1`. Hãy tính cả hai và độ lệch chuẩn của mẫu để thấy mẫu số khác nhau.
+**Tình huống thực tế:** Phòng máy có **18 lượt đo nhiệt độ**, tính bằng **°C**. Kỹ thuật viên muốn biết nhiệt độ **dao động quanh trung bình** nhiều hay ít. Họ muốn so hai cách tính: nếu 18 lượt là **toàn bộ dữ liệu của ca này** và nếu chúng chỉ là **mẫu để ước lượng các ca tương tự**, đồng thời đổi kết quả dao động về đơn vị °C để dễ đọc.
 
-**Vì sao chọn cách này?** Phương sai bình phương các sai lệch nên có đơn vị °C²; độ lệch chuẩn lấy căn để trở về °C. Nêu rõ ddof giúp người đọc không lấy hai kết quả khác nhau làm lỗi code.
+**Vì sao chọn cách này?** **Phương sai** mô tả mức các số đo phân tán quanh trung bình, bằng cách dùng **độ lệch đã bình phương**; vì nhiệt độ tính bằng °C nên phương sai có đơn vị **°C²**. **Độ lệch chuẩn** là căn của phương sai để trở về **°C**, dễ so với chênh lệch nhiệt độ trong thực tế hơn. `ddof=0` dùng mẫu số theo **18 lượt như toàn bộ nhóm đang xét**; `ddof=1` dùng **hiệu chỉnh khi 18 lượt là mẫu ước lượng phương sai quần thể**, nên với cùng dữ liệu thường cho phương sai lớn hơn một chút. Chọn `ddof` theo câu hỏi thống kê, không tùy chọn chỉ để ra con số mong muốn.
 
 **Quy trình:**
 1. Lưu 18 nhiệt độ và ghi rõ đơn vị °C.
@@ -274,9 +274,9 @@ Khác biệt do **quy ước đang thống kê toàn bộ hay ước lượng t�
 
 **Từ vựng trong mục:** **Missingness** — dữ liệu thiếu; **Describe** — bảng mô tả; **Median** — trung vị.
 
-**Tình huống thực tế:** Nhà vận chuyển có **20 phiếu giao**, mỗi phiếu một thời gian xử lý (phút); phiếu cuối chưa ghi nên là `None`, **không phải 0 phút**. Cần lập thống kê cho 19 phiếu có số, đếm riêng một phiếu thiếu, so mean/median và phương sai mẫu. Không bỏ cả phiếu khỏi tổng số bản ghi.
+**Tình huống thực tế:** Đơn vị vận chuyển thu **20 phiếu thời gian giao**, đơn vị **phút**, nhưng **phiếu thứ 20** chưa được điền nên lưu `None`. Người quản lý cần giữ đủ **20 phiếu gốc**, đếm được **19 phiếu có thời gian** và **1 phiếu thiếu**, rồi tính trung bình, trung vị và độ lệch chuẩn từ đúng 19 phiếu có số. Phiếu thiếu không có nghĩa người giao mất 0 phút.
 
-**Vì sao chọn cách này?** Chuyển thiếu sang NaN rồi dùng `dropna()` hoặc `describe()` giữ số phiếu nguồn và số có dữ liệu tách biệt. Phương sai mẫu chỉ tính trên 19 giá trị, tránh kéo mean xuống do điền 0 sai.
+**Vì sao chọn cách này?** `None` hoặc **NaN** nghĩa là **chưa biết thời gian**, khác 0 phút là một số đo cụ thể. `pd.Series(raw, dtype='float64')` giữ được cả những giá trị có số và ô thiếu; `dropna()` tạo danh sách **19 giá trị hợp lệ** để tính, còn `isna()` đếm **một phiếu chưa ghi**. `mean()` tính thời gian bình quân, `median()` là mức giữa và `std(ddof=1)` cho độ lệch chuẩn mẫu, tất cả đều dựa trên dữ liệu có số. Không xóa phiếu thiếu khỏi báo cáo gốc hoặc thay bằng 0, vì như vậy có thể làm thời gian trung bình thấp đi và giấu mất việc cần bổ sung dữ liệu.
 
 **Quy trình:**
 1. Tạo 20 dòng và đổi giá trị thiếu thành NaN.

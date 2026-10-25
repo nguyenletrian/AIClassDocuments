@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_08",
+  "status": "BATCH_08_IN_PROGRESS",
   "last_completed_batch": 7,
   "batches": [
     {
@@ -225,11 +225,26 @@
         "PY-39",
         "PY-40"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-36",
+        "PY-37",
+        "PY-38",
+        "PY-39",
+        "PY-40"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-08-20261025",
+      "lesson_commits": {
+        "PY-36": "2019334c45f2b134fab7797c7ff2da0fd29bc844",
+        "PY-37": "5f6288afb872db282c4b35edc33f317355b6aa82",
+        "PY-38": "c5f9dcdce87722ee0c411dc16a67d75fb51d7bf6",
+        "PY-39": "7a6f515f48c69ab9b1f101c43abfcb565e10d5c7",
+        "PY-40": "e8ea1376cb08a1bb352e44b80dd620ef42cb5bd8"
+      },
+      "notes": "Five independent lesson commits PY-36..40. Exactly 5 real-life scenarios and 5 why-method paragraphs per chapter revised, 50 total, explaining PMF/CDF/PDF, descriptive statistics, quantiles/IQR, sampling/CLT, bootstrap with 2000 seeded resamples, hypothesis testing and CI. Full-file comparison to main after masking ONLY two approved single-line paragraph types confirms every other byte unchanged: all 45 Python fences, documented stdout, definitions, 100 MCQs and original structure. CI and merge PENDING. CDP 9224 ownership and PowerShell/Windows verification unavailable; no Windows PASS."
     },
     {
       "batch": 9,

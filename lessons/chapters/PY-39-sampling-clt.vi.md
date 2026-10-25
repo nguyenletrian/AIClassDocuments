@@ -131,9 +131,9 @@ SE của trung bình mẫu xấp xỉ 0,707 điểm; nó không phải SD của 
 
 **Từ vựng trong mục:** **Population** — tổng thể; **Sample** — mẫu; **Without replacement** — không hoàn lại.
 
-**Tình huống thực tế:** Kho lưu **40 hóa đơn** mang số tiền từ 100 đến 139 nghìn đồng, mỗi hóa đơn là một đơn vị trong tổng thể. Kiểm toán viên không thể kiểm từng phiếu nên chọn ngẫu nhiên **10 hóa đơn**, không được kiểm trùng một phiếu. Cần xem trung bình mẫu so với trung bình thật của 40 hóa đơn.
+**Tình huống thực tế:** Kiểm toán viên có danh sách **40 hóa đơn của cả ca**, giá trị từ **100 đến 139 nghìn đồng**, mỗi số tương ứng một hóa đơn. Nhân viên chỉ đủ sức kiểm tra **10 hóa đơn**, nên chọn ngẫu nhiên **10 phiếu khác nhau**, không lấy một phiếu hai lần. Họ muốn xem **số tiền trung bình của 10 phiếu được chọn** có gần **mức trung bình đã biết của cả 40 phiếu** không và hiểu vì sao có thể lệch dù cách lấy mẫu đúng.
 
-**Vì sao chọn cách này?** `rng.choice(..., replace=False)` đảm bảo **mười mã khác nhau** và seed giúp kiểm lại. Trung bình mẫu có thể khác trung bình tổng thể do chọn mẫu, kể cả khi không trùng phiếu.
+**Vì sao chọn cách này?** **Tổng thể** là cả **40 hóa đơn** mà quản lý muốn mô tả, còn **mẫu** chỉ là **10 hóa đơn được chọn** để kiểm tra. `rng.choice(population, size=10, replace=False)` chọn **không hoàn lại**, bảo đảm không xem hai lần cùng một phiếu. `default_rng(31)` đặt **seed 31** để người khác chạy lại ví dụ có thể đối chiếu danh sách đã chọn. `sample.mean()` đo trung bình mẫu, còn `population.mean()` đo trung bình cả 40 khoản; hai số **không buộc bằng nhau** vì mẫu chỉ là một phần. Kết quả gần nhau giúp minh họa phương pháp, chưa bảo đảm mọi lần chọn 10 phiếu đều đại diện tốt.
 
 **Quy trình:**
 1. Tạo 40 giá trị hóa đơn làm tổng thể, chọn 10 không hoàn lại.
@@ -168,9 +168,9 @@ Chọn mẫu ngẫu nhiên không có nghĩa mean luôn bằng mean tổng thể
 
 **Từ vựng trong mục:** **Stratified sampling** — lấy mẫu phân tầng; **Allocation** — phân bổ cỡ mẫu.
 
-**Tình huống thực tế:** Kho có tổng thể **60 phiếu**: 30 phiếu nhóm A và 30 phiếu nhóm B, mỗi phiếu là một đơn vị. Kiểm toán chỉ xem được **12 phiếu** và cần đại diện cả hai nhóm, nên chọn ngẫu nhiên **sáu phiếu khác nhau trong từng nhóm**. Cần đối chiếu đúng số chọn và tỷ trọng, không rút cả 12 từ nhóm A.
+**Tình huống thực tế:** Kho có **60 phiếu kiểm hàng**, chia đều **30 phiếu nhóm A** và **30 phiếu nhóm B**. Nhân viên chỉ xem được **12 phiếu** nhưng cần bảo đảm nhóm nào cũng có đại diện, nên kế hoạch là rút **6 mã khác nhau ở A và 6 mã khác nhau ở B**. Họ muốn xác nhận danh sách 12 mã không có trùng lặp và không vô tình chọn cả 12 từ cùng một nhóm.
 
-**Vì sao chọn cách này?** Lấy mẫu phân tầng đảm bảo hai khu vực đều có đại diện. `replace=False` ngăn lặp trong nhóm; ghi cỡ mỗi tầng giúp dễ kiểm toán quy trình chọn.
+**Vì sao chọn cách này?** **Lấy mẫu phân tầng** nghĩa là chia tổng thể thành các nhóm có ý nghĩa **trước khi rút**, rồi rút trong từng nhóm thay vì rút cả 60 phiếu chung không kiểm soát. Hai tầng A/B đều có 30 phiếu nên kế hoạch **mỗi tầng 6 phiếu** vừa đảm bảo hiện diện, vừa giữ tỷ lệ chọn giống tỷ lệ tổng thể. `rng.choice(..., replace=False)` rút không trùng **trong mỗi tầng**; mã A và B cũng khác tiền tố, nên có thể kiểm tra danh sách chung không trùng. `default_rng(12)` giúp tái lập lần rút; phương pháp này không tự sửa dữ liệu ghi sai ở từng phiếu.
 
 **Quy trình:**
 1. Tạo 30 ID A và 30 ID B.
@@ -211,9 +211,9 @@ Phân tầng đảm bảo đại diện từng khu vực **theo thiết kế**, 
 
 **Từ vựng trong mục:** **Sampling distribution** — phân phối trung bình mẫu; **CLT** — định lý giới hạn trung tâm.
 
-**Tình huống thực tế:** Để nghiên cứu thời gian xử lý lệch phải, nhóm tạo **15 lần lấy mẫu độc lập**, mỗi lần có **40 thời gian giả lập** (phút) theo phân phối mũ với mean lý thuyết 2 phút. Một **hàng** là một lần lấy mẫu chứa 40 quan sát; muốn xem 15 **trung bình mẫu** dao động ra sao so với dữ liệu đơn lẻ.
+**Tình huống thực tế:** Nhóm dịch vụ muốn hiểu **thời gian xử lý** tính bằng **phút** khi các lượt riêng lẻ thường rất ngắn nhưng đôi lúc kéo dài. Họ tạo **15 bộ mẫu giả lập độc lập**, mỗi bộ gồm **40 thời gian**, theo phân phối mũ có mức trung bình lý thuyết **2 phút**. Họ muốn tính **trung bình của từng bộ**, rồi so độ dao động của **15 số trung bình** với độ dao động của tất cả **600 thời gian đơn lẻ**, chứ không gọi mỗi lượt thời gian là một trung bình mẫu.
 
-**Vì sao chọn cách này?** Định lý giới hạn trung tâm mô tả xu hướng phân phối trung bình khi mỗi mẫu lớn và điều kiện phù hợp. Mô phỏng 15 lần chỉ **minh họa** rằng các trung bình thường ít phân tán hơn các thời gian đơn lẻ, chưa đủ để chứng minh phân phối chính xác là chuẩn.
+**Vì sao chọn cách này?** **Định lý giới hạn trung tâm (CLT)** nói về cách **phân phối các trung bình mẫu** có xu hướng gần hình chuông hơn khi mỗi mẫu đủ lớn và các điều kiện phù hợp, **không có nghĩa từng thời gian xử lý sẽ thành phân phối chuẩn**. `rng.exponential(scale=2, size=(15, 40))` tạo **15 hàng mẫu**, mỗi hàng **40 thời gian giả lập** có phân phối lệch phải và mức trung bình lý thuyết 2 phút. `mean(axis=1)` lấy một trung bình **cho từng hàng**, tạo đúng 15 trung bình. So độ lệch chuẩn của 15 trung bình với độ lệch chuẩn các thời gian đơn lẻ cho thấy trung bình thường dao động ít hơn. **Seed 12** giúp tái lập; 15 bộ mẫu chỉ là minh họa nhỏ, không đủ kiểm chứng hoàn toàn hình dạng phân phối.
 
 **Quy trình:**
 1. Tạo ma trận 15×40 theo cùng seed để tái lập.
@@ -248,9 +248,9 @@ SD mean nhỏ hơn SD dữ liệu: True
 
 **Từ vựng trong mục:** **Standard error** — sai số chuẩn; **Sample SD** — độ lệch chuẩn mẫu.
 
-**Tình huống thực tế:** Giảng viên có **18 điểm thực hành** (thang điểm 30) và muốn ước lượng độ bất định của mean cả 18 điểm. Để thấy tác động số người lên SE, cũng tính SE của **chín người đầu**; hai nhóm có phân bố và mean khác nhau nên **không được kết luận** chỉ từ hai SE rằng cỡ mẫu lớn hơn luôn làm SE nhỏ hơn trên mọi dữ liệu.
+**Tình huống thực tế:** Giảng viên có **18 điểm thực hành** trên **thang 30 điểm**, một số tương ứng một học viên. Để hiểu độ chính xác của **trung bình điểm**, giáo viên thử tính **sai số chuẩn SE** từ **9 học viên đầu tiên**, rồi từ **cả 18 người**. Hai tập không có đúng cùng mức phân tán điểm, nên cần xem cả số người và độ trải rộng của điểm trước khi kết luận về sự khác nhau của SE.
 
-**Vì sao chọn cách này?** SE thường được tính bằng SD mẫu chia căn số quan sát cho dữ liệu độc lập phù hợp. Đối chiếu hai tập cụ thể cần lưu ý SD của chúng khác nhau — cỡ mẫu không phải yếu tố duy nhất.
+**Vì sao chọn cách này?** **SE (sai số chuẩn của trung bình)** mô tả **mức trung bình mẫu có thể thay đổi giữa những lần chọn mẫu tương tự**, khác với **độ lệch chuẩn SD** mô tả các điểm **của từng học viên** trải rộng đến đâu. `std(ddof=1)` ước lượng SD từ các điểm trong mẫu; chương trình tính SE từ SD ấy và **số người** của từng nhóm. Khi số người tăng mà mức phân tán giữ tương đương, SE thường giảm; nhưng chín người đầu và 18 người trong ví dụ có **SD khác nhau**, nên không thể chỉ nhìn cỡ mẫu rồi suy ra chắc chắn mức SE nào. Đây là phép minh họa từ điểm thang 30, không có dữ liệu quần thể thật để xác nhận độ chính xác tuyệt đối.
 
 **Quy trình:**
 1. Tạo 18 điểm gốc, lấy thêm tập con 9 điểm đầu.
@@ -288,9 +288,9 @@ SE của 18 người **lớn hơn** trong dữ liệu cụ thể này vì độ 
 
 **Từ vựng trong mục:** **Bootstrap** — lấy mẫu lặp có hoàn lại; **Percentile interval** — khoảng phân vị.
 
-**Tình huống thực tế:** Cửa hàng đo **20 thời gian hoàn tất phiếu giao** (phút), mỗi số là một phiếu. Quản lý muốn biết mean có thể dao động thế nào nếu lấy lại mẫu tương tự, nên tạo **2.000 mẫu bootstrap**, mỗi mẫu **20 phiếu có hoàn lại** từ chính 20 phiếu hiện tại. Cần tính khoảng phân vị 2,5%–97,5% của **trung bình bootstrap** và so với mean gốc.
+**Tình huống thực tế:** Đơn vị vận chuyển có **20 thời gian hoàn tất phiếu giao**, tính bằng **phút**, từ 30 đến 55. Người quản lý muốn hình dung **trung bình của 20 phiếu có thể dao động bao nhiêu** nếu khảo sát những bộ mẫu tương tự. Vì chưa có dữ liệu bổ sung, nhóm dựng **2.000 mẫu bootstrap giả lập**, mỗi mẫu gồm **20 lần chọn lại từ đúng 20 phiếu hiện có, cho phép chọn trùng**, rồi xem vùng trung bình thấp/cao của 2.000 mẫu.
 
-**Vì sao chọn cách này?** Bootstrap mô phỏng phân phối của ước lượng bằng cách rút lại từ mẫu có sẵn; dùng `replace=True` là bắt buộc ở cách làm này. Khoảng percentile có giới hạn và không tự đảm bảo 95% bao phủ cho mọi phân phối/mẫu.
+**Vì sao chọn cách này?** **Bootstrap** là cách **rút lại từ mẫu đã có**, tạo nhiều bộ mẫu giả để xem một thống kê như trung bình có thể biến động. `replace=True` cho phép cùng một phiếu xuất hiện **nhiều lần trong một bộ 20 lượt**, đúng chủ đích bootstrap chứ không phải lỗi trùng hồ sơ; nếu không hoàn lại, mọi bộ đủ 20 phiếu sẽ giống hệt bộ ban đầu về trung bình. `rng.choice(..., size=(2000, 20))` tạo **2.000 bộ giả lập**, rồi `mean(axis=1)` cho 2.000 trung bình; `np.quantile` lấy **mốc 2,5% và 97,5%** để tạo khoảng percentile minh họa. **Seed 18** cho kết quả tái lập, còn số 2.000 là số lượt mô phỏng được chọn để ổn định ước lượng chứ không phải có 2.000 phiếu thật hoặc bảo đảm khoảng luôn bao phủ đúng 95%.
 
 **Quy trình:**
 1. Tạo 20 phiếu có thời gian hợp lệ.

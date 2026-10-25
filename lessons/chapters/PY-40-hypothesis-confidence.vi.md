@@ -130,9 +130,9 @@ Khoảng ước lượng mean theo t từ khoảng 1,761 đến 3,839 ngày; đ�
 
 **Từ vựng trong mục:** **Null hypothesis** — giả thuyết H₀; **p-value** — giá trị p; **Two-sided t-test** — kiểm định hai phía.
 
-**Tình huống thực tế:** Giảng viên nhận **10 điểm kiểm tra** (thang 100), mỗi hàng tương ứng một học viên. Quy chuẩn tham khảo giả định trung bình quần thể bằng 50 điểm. Cần kiểm H₀: μ=50 so với H₁: μ khác 50 bằng t-test một mẫu, báo p-value và quyết định ở α=0,05.
+**Tình huống thực tế:** Giảng viên có **10 bài kiểm tra**, mỗi bài một điểm **trên thang 100**; điểm đều quanh 50. Nhà trường đưa **mốc tham khảo 50 điểm** và muốn xem số liệu có cho bằng chứng rằng **điểm trung bình của nhóm học viên tương tự khác 50** hay không. Nhóm dùng **kiểm định t hai phía** với ngưỡng quyết định **5%**, chứ không tìm cách chứng minh mốc 50 chắc chắn đúng.
 
-**Vì sao chọn cách này?** Kiểm định t dùng mean và độ phân tán của chính 10 quan sát để đánh giá dữ liệu có bất thường **nếu H₀ đúng**. p-value không phải xác suất H₀ đúng. Mẫu nhỏ cần xem giả định độc lập và hình dạng phân phối.
+**Vì sao chọn cách này?** **Giả thuyết không H₀** là mốc đang được thử, ở đây trung bình quần thể bằng **50 điểm**; **H₁ hai phía** là trung bình **khác 50**, có thể cao hơn hoặc thấp hơn. `ttest_1samp` dùng **10 điểm mẫu**, mức trung bình và độ phân tán của chúng để tính **p-value**: mức độ bất thường của kết quả như quan sát **nếu H₀ đúng**. So p-value với **α = 0,05** để quyết định có **bác bỏ H₀** hay chưa; p lớn không chứng minh H₀ chắc chắn đúng, và p nhỏ **không phải xác suất H₀ sai**. Với mẫu nhỏ cần xem giả định các điểm đủ độc lập và phân phối phù hợp.
 
 **Quy trình:**
 1. Ghi 10 điểm có cùng thang đo.
@@ -166,9 +166,9 @@ p-value lớn không chứng minh mean quần thể **chính xác** 50; chỉ l�
 
 **Từ vựng trong mục:** **Confidence interval** — khoảng tin cậy; **Standard error** — sai số chuẩn.
 
-**Tình huống thực tế:** Cửa hàng đo **12 chuyến giao hàng** với thời gian (ngày) của từng chuyến, từ 2,7 tới 3,3 ngày. Cần ước lượng **trung bình quần thể** của thời gian giao qua khoảng tin cậy t 95%, đồng thời nêu mean mẫu và SE. Đây **không phải** khoảng chứa 95% thời gian của từng chuyến.
+**Tình huống thực tế:** Đơn vị giao hàng ghi **12 thời gian giao**, tính bằng **ngày**, đa số từ 2,7 tới 3,3 ngày. Người quản lý muốn ước lượng **thời gian giao trung bình của nhiều chuyến tương tự** và mức bất định của con số ấy, nên yêu cầu **khoảng tin cậy 95%** cho **trung bình**, cùng số trung bình và sai số chuẩn. Họ không hỏi khoảng mà 95% **chuyến riêng lẻ** sẽ nằm trong đó.
 
-**Vì sao chọn cách này?** Phương sai quần thể chưa biết và cỡ mẫu 12 nhỏ nên dùng khoảng t với **11 bậc tự do**, dựa trên giả định những thời gian tương đối độc lập và phân phối phù hợp. SE dùng std mẫu, không phải std quần thể.
+**Vì sao chọn cách này?** **Khoảng tin cậy (CI)** ở đây nhằm ước lượng **trung bình quần thể**, không phải dự đoán thời gian của từng chuyến. Vì chỉ có **12 chuyến** và chưa biết độ lệch chuẩn quần thể, bài dùng **phân phối t** với **11 bậc tự do**, dựa trên độ phân tán mẫu. `sem(values)` tính **SE**, tức mức bất định của trung bình ước lượng, còn `t.interval(0.95, ...)` dựng khoảng hai phía quanh mean mẫu với mức 95%. Diễn giải theo **phương pháp lặp lại lấy mẫu**, khoảng được tạo bằng cách này có mục tiêu bao phủ trung bình thật trong 95% lần khi giả định đúng; không nói mỗi chuyến riêng lẻ có 95% khả năng nằm trong khoảng này.
 
 **Quy trình:**
 1. Tạo đủ 12 thời gian theo cùng đơn vị ngày.
@@ -204,9 +204,9 @@ CI 95% (ngày): 2.872 – 3.094
 
 **Từ vựng trong mục:** **Outlier sensitivity** — nhạy với ngoại lệ; **Robust review** — rà soát chắc chắn.
 
-**Tình huống thực tế:** Bộ phận đánh giá nhận **15 điểm kiểm tra** (thang 100), trong đó 14 điểm khoảng 49–51 và một điểm 70. Cần tính p-value hai phía so mốc μ=50 trên đủ 15 điểm; đồng thời thử phân tích **nếu tạm bỏ điểm 70 để đối chiếu**. Không tự xóa điểm 70 vì có thể hợp lệ.
+**Tình huống thực tế:** Trung tâm khảo thí có **15 điểm bài kiểm tra trên thang 100**. **14 điểm quanh 49–51**, nhưng một bài được **70 điểm**, có thể là thành tích thật hoặc cần kiểm tra cách nhập. Nhóm muốn kiểm định trung bình có khác **mốc 50** không bằng đủ 15 bài, rồi thử tính thêm kết quả trên **14 bài đầu** để biết con số 70 ảnh hưởng kết luận thế nào. Bản gốc 15 bài vẫn phải được giữ nguyên.
 
-**Vì sao chọn cách này?** t-test dựa trên mean và độ phân tán nên một quan sát rất lớn có thể ảnh hưởng cả hai. Việc phân tích nhạy cảm có/không có điểm 70 giúp đặt câu hỏi về dữ liệu, **không cho phép chọn kết quả p thuận ý**.
+**Vì sao chọn cách này?** **Kiểm tra độ nhạy** hỏi rằng kết quả phân tích **thay đổi bao nhiêu nếu một quan sát đặc biệt được xem riêng**. `ttest_1samp(scores, 50)` tính kiểm định hai phía trên **đủ 15 bài**, còn `scores[:-1]` tạo dữ liệu làm việc **14 bài đầu** để thử một phép so sánh phụ. Điểm 70 ảnh hưởng **cả trung bình và độ phân tán**, nên p-value có thể thay đổi, nhưng điểm 70 chưa phải nhập sai. Phải **giữ báo cáo chính của 15 bài**, giải thích lý do phân tích phụ và không chỉ công bố p-value mình thích; nếu cố xóa điểm cao để đạt ngưỡng, kết luận có thể bị thiên lệch.
 
 **Quy trình:**
 1. Lưu 15 điểm, chạy t-test đầy đủ.
@@ -244,9 +244,9 @@ Cùng bộ dữ liệu nhưng lựa chọn quan sát đem vào kiểm định c�
 
 **Từ vựng trong mục:** **Significance level** — mức ý nghĩa α; **Decision rule** — quy tắc quyết định.
 
-**Tình huống thực tế:** Cơ sở đào tạo có **18 điểm bài kiểm tra** (thang 100). Đội đánh giá kiểm H₀: mean quần thể bằng 50 so với H₁ khác 50. Cần tính cùng một p-value, rồi so với **α=0,05** và **α=0,01**; hai ngưỡng có thể dẫn tới hai quyết định khác nhau, không được chọn ngưỡng sau khi biết p để đạt kết luận mong muốn.
+**Tình huống thực tế:** Phòng đào tạo có **18 điểm kiểm tra thang 100**, mỗi điểm thuộc một học viên. Giảng viên đang kiểm **trung bình điểm có khác mốc 50** hay không. Nhóm phải xem **cùng một p-value** với hai mức ý nghĩa **0,05 (5%)** và **0,01 (1%)**, để hiểu vì sao mức yêu cầu bằng chứng khắt khe hơn có thể đưa tới quyết định khác dù dữ liệu không đổi.
 
-**Vì sao chọn cách này?** α là ngưỡng quyết định đã xác lập trước, còn p được tính từ dữ liệu và kiểm định. Với mẫu này, p nằm giữa 0,01 và 0,05 nên quy tắc ở hai ngưỡng khác nhau.
+**Vì sao chọn cách này?** **Mức ý nghĩa α** là ngưỡng nhóm nghiên cứu **đặt trước khi xem kết quả kiểm định**, biểu thị mức chấp nhận nguy cơ **bác bỏ H₀ khi H₀ thật sự đúng** theo quy trình. **p-value** được tính từ **18 điểm dữ liệu và cùng một kiểm định t hai phía**, nên **không đổi** khi chỉ đổi ngưỡng. Nếu p nằm giữa **0,01 và 0,05**, nó đủ nhỏ để bác bỏ ở 5% nhưng **chưa đủ nhỏ** để bác bỏ ở 1%. Hai quyết định không mâu thuẫn vì dùng **tiêu chuẩn bằng chứng khác nhau**; không chọn ngưỡng sau khi nhìn p-value để đạt kết luận thuận ý.
 
 **Quy trình:**
 1. Tạo 18 điểm và chạy kiểm định hai phía một mẫu.
@@ -280,9 +280,9 @@ Chưa bác bỏ ở α=0,01 **không đồng nghĩa** chứng minh H₀ đúng; 
 
 **Từ vựng trong mục:** **Welch t-test** — kiểm định hai mẫu không cần giả định phương sai bằng nhau; **Difference CI** — khoảng chênh lệch mean.
 
-**Tình huống thực tế:** Trung tâm ghi **20 học viên** thuộc hai nhóm A và B, **mỗi nhóm 10 người**, một hàng là điểm kỹ năng (thang 100). Cần so trung bình B với A, kiểm H₀: hai trung bình quần thể bằng nhau theo kiểm định hai phía, và xây **khoảng tin cậy 95% cho chênh lệch mean B–A**. Hai nhóm phải là người khác nhau, không phải cặp trước/sau.
+**Tình huống thực tế:** Trung tâm tổ chức kiểm tra kỹ năng cho **20 học viên**, chia **hai nhóm độc lập A và B, mỗi nhóm 10 người**, điểm trên thang **100**. Nhóm B có điểm nhìn chung cao hơn A. Người đánh giá muốn biết **trung bình B cao hơn A bao nhiêu điểm**, kiểm định liệu trung bình của hai nhóm quần thể có thể khác nhau hay không và lập **khoảng tin cậy 95% cho chênh lệch B trừ A**. Hai nhóm là những người khác nhau, không phải một người làm bài trước rồi làm lại.
 
-**Vì sao chọn cách này?** Welch t-test phù hợp với hai nhóm độc lập mà không buộc phương sai hai nhóm giống nhau. CI cho chênh lệch dùng SE ghép từ hai nhóm và bậc tự do Welch, phản ánh **khoảng bất định của hiệu trung bình**, không phải khoảng điểm từng người.
+**Vì sao chọn cách này?** **Hai mẫu độc lập** nghĩa là mỗi học viên thuộc **A hoặc B**, không có ghép cặp cùng người; vì vậy không dùng kiểm định cặp trước–sau. `ttest_ind(B, A, equal_var=False)` thực hiện **Welch t-test**, kiểm trung bình quần thể hai nhóm mà **không buộc phương sai bằng nhau**. Chương trình tính **chênh lệch trung bình B–A**, rồi **SE cho hiệu** từ độ phân tán và số người của cả hai nhóm, cùng **bậc tự do Welch** để dựng **CI 95% cho hiệu trung bình**. Khoảng không chứa **0** là bằng chứng chênh lệch theo mức tin cậy đang xét; nó **không phải khoảng chứa điểm của 95% học viên** và cũng không chứng minh nhóm B tốt hơn vì một nguyên nhân cụ thể.
 
 **Quy trình:**
 1. Tạo hai nhóm 10 điểm, kiểm không trộn thứ tự giữa nhóm.
