@@ -2,8 +2,8 @@
   "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
   "title": "Viết lại tình huống dễ hiểu và giải thích kỹ lý do, thuật ngữ, dữ liệu, lựa chọn phương pháp",
   "approval": "owner_approved",
-  "status": "ACTIVE",
-  "progress": "READY_FOR_BATCH_01",
+  "status": "COMPLETED",
+  "progress": "COMPLETED",
   "activation_condition": {
     "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
     "progress_ledger": "docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json",
@@ -144,5 +144,17 @@
     "explicit_python_final_ci": 40176164004,
     "open_prs": 0,
     "pending_tasks": 0
+  },
+  "completion_evidence": {
+    "completed_batches": 10,
+    "completed_lessons": 46,
+    "final_pr": 164,
+    "final_merge_commit": "0801e42bc82cb0e31561200ae96bd6c88c7e7835",
+    "final_head_commit": "ab9cb98b6e8b703c4066b21f98baa9fea24e06b7",
+    "final_ci_run": 40184711415,
+    "final_ci_status": "SUCCESS",
+    "progress_ledger": "docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json",
+    "windows_verification": "UNVERIFIED",
+    "unapproved_followup": "NONE"
   }
 }
