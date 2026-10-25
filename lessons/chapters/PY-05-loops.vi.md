@@ -127,7 +127,7 @@ for x in [0, 1, 2, 3]:
 Số 0 bị bỏ qua bởi `continue`; khi đến 3, `break` dừng hẳn nên không in 3.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Tổng hợp doanh thu
+### Tình huống 1 — Tổng hợp doanh thu · Cấp 1: Một phép xử lý
 
 **Từ vựng trong mục:** **Iteration** — lần lặp.
 
@@ -160,7 +160,20 @@ print(total)
 
 **Kết quả:** `400` nghìn đồng, tương đương 400.000 đồng.
 
-### Tình huống 2 — Loại dòng trống
+**Bài thực hành nâng cấp — cấp 1/5:** Tập dữ liệu tăng lên **10 lượt kiểm kê, x là số sản phẩm và y là số kiện**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy duyệt 10 lượt bằng for và tính tổng. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = sum(r['x'] for r in rows)
+assert len(rows)==10
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 10 dòng, in kết quả theo đúng quy tắc một phép xử lý; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
+
+### Tình huống 2 — Loại dòng trống · Cấp 2: Áp dụng cho nhiều dòng
 
 **Từ vựng trong mục:** **For loop** — vòng for.
 
@@ -196,7 +209,20 @@ print(valid)
 
 **Kết quả:** `[30, 35, 33]` — chỉ còn ba lần đo có số liệu.
 
-### Tình huống 3 — Tìm hàng hết tồn
+**Bài thực hành nâng cấp — cấp 2/5:** Tập dữ liệu tăng lên **12 lượt kiểm kê, x là số sản phẩm và y là số kiện**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy lọc các lượt vượt 70 sản phẩm bằng vòng lặp. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = [r['id'] for r in rows if r['x']>=70]
+assert len(rows)==12
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 12 dòng, in kết quả theo đúng quy tắc áp dụng cho nhiều dòng; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
+
+### Tình huống 3 — Tìm hàng hết tồn · Cấp 3: Kết hợp nhiều quy tắc
 
 **Từ vựng trong mục:** **While loop** — vòng while.
 
@@ -229,7 +255,20 @@ Hết hàng: 2
 
 **Kết quả:** `Hết hàng: 2` — vị trí thứ ba trong danh sách (chỉ số 2) đã hết hàng.
 
-### Tình huống 4 — Giới hạn kết nối
+**Bài thực hành nâng cấp — cấp 3/5:** Tập dữ liệu tăng lên **15 lượt kiểm kê, x là số sản phẩm và y là số kiện**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy dừng tại lần đo đầu tiên vượt ngưỡng 90. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = next((r['id'] for r in rows if r['x']>=90),None)
+assert len(rows)==15
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 15 dòng, in kết quả theo đúng quy tắc kết hợp nhiều quy tắc; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
+
+### Tình huống 4 — Giới hạn kết nối · Cấp 4: Xử lý dữ liệu thiếu
 
 **Từ vựng trong mục:** **Break/continue** — dừng/bỏ qua.
 
@@ -263,7 +302,20 @@ print(attempts,connected)
 
 **Kết quả:** `2 True` — chương trình thử hai lần rồi dừng vì đã kết nối. Đây là mô phỏng, không tạo kết nối mạng thật.
 
-### Tình huống 5 — Lập bảng lịch học
+**Bài thực hành nâng cấp — cấp 4/5:** Tập dữ liệu tăng lên **18 lượt kiểm kê, x là số sản phẩm và y là số kiện**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy dùng continue để bỏ qua lượt đo thiếu. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = [r['id'] for r in rows if r['x'] is not None and r['x']<60]
+assert len(rows)==18
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 18 dòng, in kết quả theo đúng quy tắc xử lý dữ liệu thiếu; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
+
+### Tình huống 5 — Lập bảng lịch học · Cấp 5: Báo cáo tích hợp
 
 **Từ vựng trong mục:** **Iteration** — lần lặp.
 
@@ -300,6 +352,19 @@ Lan 3
 ```
 
 **Kết quả:** Sáu dòng: `An 1`, `An 2`, `An 3`, `Lan 1`, `Lan 2`, `Lan 3`.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Tập dữ liệu tăng lên **20 lượt kiểm kê, x là số sản phẩm và y là số kiện**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy lập báo cáo 20 lượt theo cả khu vực và trạng thái. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = {g:{'pass':sum(r['group']==g and r['x'] is not None and r['x']>=60 for r in rows),'missing':sum(r['group']==g and r['x'] is None for r in rows)} for g in 'ABC'}
+assert len(rows)==20
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 20 dòng, in kết quả theo đúng quy tắc báo cáo tích hợp; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
 
 ## 6. Nhầm lẫn dễ gặp
 
