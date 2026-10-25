@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-full-code-annotations-20261025",
-    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch06",
+    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch07",
     "title": "Chú thích đầy đủ code Python, giải thích mọi API/phương thức khó hiểu trong 46 bài",
-    "phase": "READY_FOR_BATCH_06",
+    "phase": "READY_FOR_BATCH_07",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-CODE-ANNOTATION-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
@@ -1201,15 +1201,15 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "OWNER APPROVED Batch06 ONLY: PY-26..PY-30. Approved goal aiclassdocuments-full-code-annotations-20261025. Batch05 PY-21..PY-25 completed 5/5 via PR #169, merge SHA b3b0de59f9e57738a737d9a7b852862fba524fb5, final-head GitHub CI #40192307610 SUCCESS, 45 Python fences annotated; ledger last_completed_batch=5 READY_FOR_BATCH_06. Before work inspect authoritative main, AGENTS.md/style/template, TaskSource pending/ACK, open PR and code-annotation goal/ledger. Only annotate these FIVE sequential lessons, one commit per lesson, Vietnamese # Mục đích and nearby notes explaining non-obvious Python/math/stats/data/ML APIs, parameters, units, axes, flags, plots and resource cleanup; preserve executable AST/stdout and non-code-fence markdown incl all 920 MCQs/scenarios. Compare each code block, test exact example stdout and full 46 chapter regression, create one PR, require final-head GitHub CI SUCCESS BEFORE merge. Record Batch06 PR/merged SHA/CI durably in ledger and rearm Batch07 only AFTER merger+ledger; do not open Batch07 concurrently. Do not publish 46 tasks, duplicate prior work, replay Jetking, silently rebind CDP 9224 or claim Windows PASS without worker result. If any PR/task/ACK unresolved, inspect actual saved evidence first and do not duplicate. One unchanged goal-review revision is an idle boundary.",
-    "review_hold": "Single active Batch06 (PY-26..PY-30), no concurrent Batch07; Batch05 PR169 CI40192307610 SUCCESS merged and ledger advanced, open PR=0, unresolved TaskSource task/ACK=0 at activation. GitHub change re-arms goal-review request but does NOT launch or verify Windows Bridge runtime/CDP.",
-    "active_batch": 6,
+    "next_review": "OWNER APPROVED Batch 07 ONLY: PY-31..PY-35 for goal aiclassdocuments-full-code-annotations-20261025. Evidence Batch06 PY-26..PY-30 was merged PR #170 SHA 171b893cece23e1d5496ed018050d44f1d4cdb84, final PR-head GitHub CI #40193386355 SUCCESS at 85e4f91c40fb6ce828945489f2ed62ed9ef4b7d3; ledger last_completed_batch=6 and READY_FOR_BATCH_07. Before any work fetch authoritative current main, TaskSource/ACK, open PR, AGENTS.md, style guide, template, goal and ledger. Do not duplicate tasks or replay Jetking. Work on ONLY these 5 lessons, with a commit per lesson: add clear # Mục đích, # Dữ liệu and nearby Vietnamese comments explaining unfamiliar APIs/flags/parameters/methods/indexing/units/outputs without changing executable Python/AST/stdout or ANY outside-fence Markdown (including 920 MCQs). Compare every Python block source after stripping full-line comments, check syntax, execute 25 scenarios and exact printed output plus full 46 chapter CI; one PR, merge ONLY after final HEAD CI SUCCESS. Record merged PR/CI SHA and counts in progress ledger FIRST; then rearm Batch 08 revision ONCE for next heartbeat. Do not begin PY-36+ here or create 46 simultaneous Bridge tasks. CDP port 9224 ownership and Windows PowerShell canary UNVERIFIED; never silently rebind or claim Windows PASS. If any PR/task/ACK is unresolved, inspect saved evidence and stop duplicate publication.",
+    "review_hold": "One approved active batch at a time: PY-31..PY-35 only, with Batch06 PR170 and CI40193386355 SUCCESS merged and ledger confirmed. At activation open PR=0, unresolved task/ACK=0. GitHub update re-arms goal-review revision; does not launch or confirm Windows AIBridge runtime/CDP.",
+    "active_batch": 7,
     "active_lessons": [
-      "PY-26",
-      "PY-27",
-      "PY-28",
-      "PY-29",
-      "PY-30"
+      "PY-31",
+      "PY-32",
+      "PY-33",
+      "PY-34",
+      "PY-35"
     ],
     "batch_boundary": "SINGLE_ACTIVE_BATCH_MAX_5; ledger must show prior completed/merged before this batch; do not open another batch while PR/task/ACK pending."
   },
@@ -1341,6 +1341,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "Owner-approved code annotations 5/10 batches merged; Batch06 PY-26..PY-30 only next; one at a time and no duplicate tasks."
+    "reason": "Owner-approved code annotations 6/10 batches merged; current next Batch07 PY-31..PY-35 only, keep single-batch boundary and no duplicate tasks."
   }
 }
