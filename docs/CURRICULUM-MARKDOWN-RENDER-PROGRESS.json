@@ -3,8 +3,8 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_01_QA_PASSED_WAIT_MERGE",
-  "last_completed_batch": 0,
+  "status": "READY_FOR_BATCH_02",
+  "last_completed_batch": 1,
   "batches": [
     {
       "batch": 1,
@@ -15,14 +15,14 @@
         "PY-04",
         "PY-05"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-03"
       ],
       "pr": 133,
-      "merged_commit": null,
-      "ci_run": 40165119844,
-      "notes": "Only PY-03 required fixing the bitwise pipe in a 2-column Markdown table; PY-01,02,04,05 examined and unchanged. GitHub Actions run 40165119844 passed rendering regression tests and existing curriculum suite. Merge pending."
+      "merged_commit": "bb4a8474a05e9ed62219f298a42c5ced034bae20",
+      "ci_run": 40165216899,
+      "notes": "Final PR #133 merged bb4a8474a05e9ed62219f298a42c5ced034bae20. Final-head CI 40165216899 PASS: Markdown regression and existing structure/example tests. PY-03 one bitwise pipe escaped; PY-01,02,04,05 inspected, unchanged. Next batch02 PY-06..10; do not modify other lessons in this batch."
     },
     {
       "batch": 2,
