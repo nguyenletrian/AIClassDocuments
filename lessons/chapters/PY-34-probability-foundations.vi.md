@@ -118,150 +118,188 @@ print(len(even) / len(space))
 
 Một lần gieo xúc xắc công bằng có xác suất 50% ra mặt chẵn.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống xác suất — từ vé đồng khả năng đến phân phối có trọng số
 
-### Tình huống 1 — Xác suất ra mặt chẵn của xúc xắc
+### Tình huống 1 — Cấp 1: Không gian mẫu gồm 10 vé quay thưởng có xác suất bằng nhau
 
-**Tình huống thực tế:** Trò chơi sử dụng xúc xắc công bằng có sáu mặt đánh số 1 tới 6; người chơi thắng nếu ra mặt chẵn. Tính xác suất thắng trong một lần gieo.
+**Từ vựng trong mục:** **Sample space** — không gian mẫu; **Event** — biến cố; **Equally likely** — đồng khả năng.
 
-**Vì sao chọn cách giải này?** Sáu mặt đồng khả năng nên xác suất cổ điển là số mặt chẵn chia sáu.
+**Tình huống thực tế:** Quầy sự kiện chuẩn bị **10 vé** V01…V10, mỗi vé có màu Đỏ, Xanh hoặc Vàng và cơ hội được rút **bằng nhau**. Mỗi hàng là một chiếc vé cụ thể, không phải chỉ một loại màu. Người tổ chức cần tính xác suất rút trúng vé Xanh và đếm số kết quả thuận lợi.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Không gian mẫu gồm **10 vé**, kể cả khi hai vé cùng màu. Vì từng vé đồng khả năng, xác suất lấy vé Xanh bằng số vé Xanh chia tổng vé; không được chia 1/3 chỉ vì có ba màu.
 
-1. Liệt kê không gian mẫu sáu mặt và biến cố {2,4,6}.
-2. Đếm số kết quả thuận lợi, số kết quả có thể.
-3. Chia hai số và in xác suất.
+**Quy trình:**
+1. Lưu màu trên mười vé theo thứ tự mã.
+2. Xác định biến cố `vé Xanh`, đếm vé thuộc biến cố.
+3. Chia số vé thuận lợi cho tổng số vé khi giả định mọi vé như nhau.
 
 ```python
-# Mục đích: Xác suất ra mặt chẵn của xúc xắc.
-space = set(range(1, 7))
-even = {2, 4, 6}
-print(len(even) / len(space))
+colors = ["Xanh","Đỏ","Xanh","Vàng","Đỏ","Xanh","Đỏ","Vàng","Xanh","Đỏ"]
+blue = [i for i, color in enumerate(colors, 1) if color == "Xanh"]
+assert len(colors) == 10
+print("Vé:", len(colors))
+print("Vé xanh:", len(blue))
+print(f"P(rút xanh): {len(blue)/len(colors):.2f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.5
+Vé: 10
+Vé xanh: 4
+P(rút xanh): 0.40
 ```
 
-Xác suất thắng bằng 0.5 (50%) theo giả định xúc xắc công bằng.
+Nếu quay thưởng thiên vị một vé, phép đếm tỷ lệ này không còn là xác suất đúng; giả định đồng khả năng là điều kiện không thể bỏ qua.
 
-### Tình huống 2 — Mô phỏng 1.000 lần tung đồng xu
+### Tình huống 2 — Cấp 2: So tỷ lệ thực nghiệm từ 12 lần tung với lý thuyết
 
-**Tình huống thực tế:** Phòng thực hành mô phỏng 1.000 lần tung đồng xu công bằng, mã 1 là ngửa, mã 0 là sấp. Cần xem tỷ lệ ngửa quan sát được và hiểu vì sao nó có thể khác 0.5.
+**Từ vựng trong mục:** **Frequency** — tần suất; **Probability** — xác suất; **Random experiment** — phép thử ngẫu nhiên.
 
-**Vì sao chọn cách giải này?** `default_rng(seed)` giúp kết quả tái lập và trung bình của dãy 0/1 bằng tỷ lệ mặt ngửa.
+**Tình huống thực tế:** Nhóm học viên ghi **12 kết quả tung đồng xu giả lập**, mỗi hàng là một lần: `N` nghĩa là ngửa, `S` là sấp. Giả định đồng xu công bằng cho xác suất lý thuyết P(ngửa)=0,5, nhưng số lần ngửa **quan sát** trên mẫu nhỏ không nhất thiết bằng một nửa. Cần tính tỷ lệ quan sát và so với 0,5.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Xác suất lý thuyết là mô hình dài hạn, còn tần suất trên 12 thử nghiệm là dữ liệu đã xảy ra; khác biệt ở một mẫu nhỏ không tự chứng minh đồng xu bị lệch.
 
-1. Khởi tạo RNG seed 42.
-2. Sinh 1.000 số 0 hoặc 1.
-3. Tính tỷ lệ số 1 và làm tròn ba chữ số.
+**Quy trình:**
+1. Lưu đúng 12 lượt kết quả.
+2. Đếm ký hiệu N, lấy tỷ lệ chia 12.
+3. In tỷ lệ quan sát và giả định lý thuyết để so sánh.
 
 ```python
-# Mục đích: Mô phỏng 1.000 lần tung đồng xu.
-import numpy as np
+observed = ["N","S","N","N","S","N","S","S","N","N","S","N"]
+heads = sum(item == "N" for item in observed)
+assert len(observed) == 12
+print("Lượt tung:", len(observed))
+print("Ngửa:", heads)
+print(f"Tỷ lệ ngửa quan sát: {heads/len(observed):.3f}")
+print("Xác suất lý thuyết: 0.500")
+```
 
+**Kết quả khi chạy:**
+
+```text
+Lượt tung: 12
+Ngửa: 7
+Tỷ lệ ngửa quan sát: 0.583
+Xác suất lý thuyết: 0.500
+```
+
+Mẫu 12 lần chỉ minh họa **tần suất**, không thay thế toàn bộ xác suất lý thuyết của một đồng xu công bằng.
+
+### Tình huống 3 — Cấp 3: Phân biệt 15 kết quả gieo hai xúc xắc với 36 khả năng
+
+**Từ vựng trong mục:** **Outcome pair** — cặp kết quả; **Theoretical probability** — xác suất lý thuyết.
+
+**Tình huống thực tế:** Nhóm QA ghi **15 lần gieo hai xúc xắc công bằng**, mỗi hàng là `(mặt xúc xắc 1, mặt xúc xắc 2)`. Quan tâm biến cố **tổng từ 9 trở lên**. Cần đếm trên 15 lượt đã ghi và tính xác suất lý thuyết từ **36 cặp mặt đồng khả năng**, rồi so hai giá trị.
+
+**Vì sao chọn cách này?** Không gian mẫu lý thuyết của **một lần gieo hai xúc xắc** có 36 cặp, không phải 15 lượt quan sát. Phải giữ hai mẫu số khác nhau để không đánh đồng tần suất của mẫu với xác suất dựa trên 36 kết quả.
+
+**Quy trình:**
+1. Lưu 15 cặp kết quả được quan sát và đếm tổng >=9.
+2. Liệt kê 36 cặp khả dĩ khi hai xúc xắc độc lập/công bằng.
+3. Báo tỷ lệ quan sát và xác suất lý thuyết có nhãn riêng.
+
+```python
+from itertools import product
+observations = [[1,1],[2,5],[3,6],[4,5],[6,6],[1,4],[5,5],[2,2],[4,6],[3,3],[6,2],[5,4],[1,6],[6,5],[2,4]]
+space = list(product(range(1, 7), repeat=2))
+observed_hits = sum(a+b >= 9 for a,b in observations)
+possible_hits = sum(a+b >= 9 for a,b in space)
+assert len(observations) == 15 and len(space) == 36
+print("Lượt quan sát:", len(observations))
+print("Quan sát tổng >=9:", observed_hits)
+print(f"Tỷ lệ quan sát: {observed_hits/len(observations):.3f}")
+print(f"Xác suất lý thuyết: {possible_hits/len(space):.3f}")
+```
+
+**Kết quả khi chạy:**
+
+```text
+Lượt quan sát: 15
+Quan sát tổng >=9: 7
+Tỷ lệ quan sát: 0.467
+Xác suất lý thuyết: 0.278
+```
+
+Mười lăm lượt có thể có nhiều cặp lặp lại. Một phép thử có 36 cặp khả dĩ, còn bảng chỉ chứa 15 quan sát của những lần đã gieo.
+
+### Tình huống 4 — Cấp 4: Ước lượng biến cố hợp và giao từ 18 lượt tiếp cận
+
+**Từ vựng trong mục:** **Union** — phép hợp; **Intersection** — phép giao; **Inclusion–exclusion** — bao hàm–loại trừ.
+
+**Tình huống thực tế:** Một chiến dịch ghi **18 khách hàng** U01…U18, mỗi hàng có cờ đã dùng ứng dụng (`app`) và đã nhận email (`email`). Xét khách chọn đều ngẫu nhiên trong chính **18 người của bảng minh họa**; cần ước lượng xác suất thuộc ít nhất một kênh, xác suất thuộc cả hai, và kiểm tra công thức bao hàm–loại trừ.
+
+**Vì sao chọn cách này?** Biến cố app/email có thể xảy ra đồng thời trên cùng người. Cộng hai tỷ lệ mà không trừ phần giao sẽ đếm người dùng cả hai hai lần.
+
+**Quy trình:**
+1. Đếm số khách có từng cờ và số khách có cả hai.
+2. Dùng `app or email` cho biến cố hợp, `app and email` cho giao.
+3. So xác suất hợp trực tiếp với công thức hợp bằng hai tỷ lệ trừ giao.
+
+```python
+records = [{"id":"U01","app":False,"email":False},{"id":"U02","app":True,"email":True},{"id":"U03","app":True,"email":True},{"id":"U04","app":False,"email":True},{"id":"U05","app":True,"email":False},{"id":"U06","app":True,"email":True},{"id":"U07","app":False,"email":True},{"id":"U08","app":True,"email":True},{"id":"U09","app":True,"email":False},{"id":"U10","app":False,"email":True},{"id":"U11","app":True,"email":True},{"id":"U12","app":True,"email":True},{"id":"U13","app":False,"email":False},{"id":"U14","app":True,"email":True},{"id":"U15","app":True,"email":True},{"id":"U16","app":False,"email":True},{"id":"U17","app":True,"email":False},{"id":"U18","app":True,"email":True}]
+app = sum(row["app"] for row in records)
+email = sum(row["email"] for row in records)
+both = sum(row["app"] and row["email"] for row in records)
+either = sum(row["app"] or row["email"] for row in records)
+assert len(records) == 18 and app+email-both == either
+print("Khách:", len(records))
+print("Cả hai kênh:", both)
+print("Ít nhất một kênh:", either)
+print(f"P(hợp): {either/len(records):.3f}")
+print("Kiểm công thức:", either == app+email-both)
+```
+
+**Kết quả khi chạy:**
+
+```text
+Khách: 18
+Cả hai kênh: 9
+Ít nhất một kênh: 16
+P(hợp): 0.889
+Kiểm công thức: True
+```
+
+Đây là xác suất **khi chọn đều một khách từ danh sách 18 người này**, không tự suy ra tỷ lệ của tất cả khách ngoài danh sách.
+
+### Tình huống 5 — Cấp 5: Hai mươi kết quả không đồng khả năng: xác suất có trọng số
+
+**Từ vựng trong mục:** **Weighted outcome** — kết quả có trọng số; **Sampling distribution** — phân phối chọn; **Monte Carlo** — mô phỏng ngẫu nhiên.
+
+**Tình huống thực tế:** Máy kiểm tra nhận **20 loại trạng thái** S01…S20, mỗi trạng thái mang trọng số xuất hiện từ 1 tới 20 (trọng số không phải số lần đo); trong mô phỏng này xác suất tỷ lệ với trọng số. Nhóm muốn biết xác suất xảy ra một trong **năm trạng thái S16–S20**, và đối chiếu 5.000 lượt rút mô phỏng có seed cố định. Không được chia đơn thuần 5/20 vì các trạng thái không đồng khả năng.
+
+**Vì sao chọn cách này?** Phải chuẩn hóa 20 trọng số thành một phân phối có tổng 1 rồi cộng xác suất của đúng năm trạng thái. `default_rng(42)` giúp tái lập mô phỏng; tỷ lệ quan sát chỉ **xấp xỉ** xác suất lý thuyết chứ không được yêu cầu bằng chính xác.
+
+**Quy trình:**
+1. Tạo 20 trạng thái với trọng số 1–20, chuẩn hóa thành xác suất.
+2. Cộng trọng số 5 trạng thái quan tâm rồi chia tổng.
+3. Lấy 5.000 mẫu có seed 42, kiểm tần suất gần xác suất có trọng số.
+
+```python
+import numpy as np
+weights = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], dtype=float)
+probs = weights / weights.sum()
+theoretical = float(probs[15:].sum())
 rng = np.random.default_rng(42)
-tosses = rng.integers(0, 2, size=1000)
-print(round(float(tosses.mean()), 3))
+sampled = rng.choice(np.arange(20), size=5000, p=probs)
+frequency = float(np.mean(sampled >= 15))
+assert len(weights) == 20 and np.isclose(probs.sum(), 1)
+print("Trạng thái:", len(weights))
+print(f"P(S16–S20): {theoretical:.3f}")
+print("Đồng khả năng 5/20:", f"{5/20:.3f}")
+print("Mô phỏng gần lý thuyết:", abs(frequency-theoretical) < 0.03)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.509
+Trạng thái: 20
+P(S16–S20): 0.429
+Đồng khả năng 5/20: 0.250
+Mô phỏng gần lý thuyết: True
 ```
 
-Tỷ lệ mô phỏng khoảng 50.9%, không bắt buộc bằng xác suất lý thuyết 50%.
-
-### Tình huống 3 — Xác suất tổng hai xúc xắc bằng chín
-
-**Tình huống thực tế:** Hai xúc xắc công bằng được gieo độc lập. Mỗi kết quả là **cặp có thứ tự** `(a,b)`, mỗi giá trị từ 1 đến 6. Người chơi thắng nếu tổng hai mặt bằng 9.
-
-**Vì sao chọn cách giải này?** Hai xúc xắc cho 6×6=36 cặp đồng khả năng, trong đó có bốn cặp cộng thành 9.
-
-**Quy trình giải:**
-
-1. Liệt kê mọi cặp a,b bằng hai vòng for.
-2. Đếm những cặp có tổng bằng 9.
-3. Chia cho 36 và làm tròn ba chữ số.
-
-```python
-# Mục đích: Xác suất tổng hai xúc xắc bằng chín.
-pairs = [(a, b) for a in range(1, 7) for b in range(1, 7)]
-valid = sum(a + b == 9 for a, b in pairs)
-print(round(valid / len(pairs), 3))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0.111
-```
-
-Có bốn cặp thắng trên 36 cặp, xác suất bằng khoảng 11.1%.
-
-### Tình huống 4 — Ước lượng tỷ lệ sự kiện hiếm
-
-**Tình huống thực tế:** Một ứng dụng giả lập 10.000 lượt, mỗi lượt có xác suất 0.2 phát sinh sự kiện và các lượt độc lập. Đội phân tích cần biết tỷ lệ thực tế trong một lần mô phỏng.
-
-**Vì sao chọn cách giải này?** So sánh số ngẫu nhiên đều với 0.2 mô phỏng Bernoulli; trung bình Boolean là tỷ lệ sự kiện xảy ra.
-
-**Quy trình giải:**
-
-1. Khởi tạo RNG seed 1, sinh 10.000 số trong [0,1).
-2. Đánh dấu sự kiện khi số nhỏ hơn 0.2.
-3. Lấy trung bình và làm tròn ba chữ số.
-
-```python
-# Mục đích: Ước lượng tỷ lệ sự kiện hiếm.
-import numpy as np
-
-rng = np.random.default_rng(1)
-events = rng.random(10000) < 0.2
-print(round(float(events.mean()), 3))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0.2
-```
-
-Tỷ lệ mô phỏng gần 20% theo giả định; seed cho kết quả có thể tái lập.
-
-### Tình huống 5 — So mô phỏng ít lượt và nhiều lượt
-
-**Tình huống thực tế:** Một đồng xu công bằng được mô phỏng hai nhóm liên tiếp: 100 lượt rồi 10.000 lượt, cùng bộ sinh seed 7. Cần so độ chênh lệch tỷ lệ mặt ngửa so với 0.5.
-
-**Vì sao chọn cách giải này?** Số lượt lớn thường cho ước lượng ổn định hơn về mặt thống kê, nhưng không đảm bảo từng lần chạy đều gần hơn.
-
-**Quy trình giải:**
-
-1. Khởi tạo một RNG cố định seed 7.
-2. Lần lượt sinh 100 và 10.000 lần, mỗi lần tính tỷ lệ mã 1.
-3. In kích thước và tỷ lệ làm tròn ba chữ số.
-
-```python
-# Mục đích: So mô phỏng ít lượt và nhiều lượt.
-import numpy as np
-
-rng = np.random.default_rng(7)
-for count in [100, 10000]:
-    tosses = rng.integers(0, 2, size=count)
-    print(count, round(float(tosses.mean()), 3))
-```
-
-**Kết quả khi chạy:**
-
-```text
-100 0.56
-10000 0.493
-```
-
-Mẫu lớn ở lần chạy này gần 0.5 hơn, nhưng đó là quan sát mô phỏng chứ không phải định luật đúng cho mọi lần.
+Tần suất 5.000 lượt phụ thuộc seed và có dao động ngẫu nhiên; **20 bản ghi** ở đây là các trạng thái khả dĩ, không phải 20 lượt mẫu.
 
 ## 6. Sai lầm thường gặp
 
