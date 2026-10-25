@@ -150,9 +150,12 @@ Tổng số tiền hai đơn là 300 đồng. `read_csv` đọc bảng từ văn
 ```python
 import pandas as pd
 ages = [18,19,20,21,19,22,23,20,21,24]
-ids = [f"H{i:02d}" for i in range(1, 11)]
+ids = []
+for i in range(1, 11):
+    ids.append(f"H{i:02d}")
 series = pd.Series(ages, index=ids)
-assert len(series) == 10
+if len(series) != 10:
+    raise ValueError("Cần đủ 10 tuổi học viên.")
 print("Học viên:", len(series))
 print("Tuổi H07:", int(series.loc["H07"]))
 print(f"Tuổi TB: {series.mean():.1f}")
@@ -185,10 +188,14 @@ Nhãn H07 là mã học viên, không phải vị trí 7. Tuổi trung bình là
 import pandas as pd
 prices = [10,15,20,12,30,18,14,25,11,17,35,22]
 quantities = [2,1,4,3,2,5,1,2,4,2,1,3]
-df = pd.DataFrame({"sku": [f"P{i:02d}" for i in range(1, 13)],
+sku_ids = []
+for i in range(1, 13):
+    sku_ids.append(f"P{i:02d}")
+df = pd.DataFrame({"sku": sku_ids,
                    "price_thousand": prices, "quantity": quantities})
 df["amount_thousand"] = df["price_thousand"] * df["quantity"]
-assert df.shape == (12, 4)
+if df.shape != (12, 4):
+    raise ValueError("Bảng mặt hàng phải có 12 dòng và 4 cột.")
 print("Mặt hàng:", len(df))
 print("P01 thành tiền:", int(df.loc[0, "amount_thousand"]))
 print("Tổng (nghìn đồng):", int(df["amount_thousand"].sum()))
@@ -220,10 +227,14 @@ Một hàng tương ứng một mặt hàng của giỏ; đơn giá tính theo n
 ```python
 import pandas as pd
 from io import StringIO
-csv_text = "id,channel,amount_vnd\n" + "\n".join(
-    f"{row['id']},{row['channel']},{row['amount']}" for row in [{"id":"O01","channel":"web","amount":10000},{"id":"O02","channel":"store","amount":15000},{"id":"O03","channel":"phone","amount":20000},{"id":"O04","channel":"web","amount":25000},{"id":"O05","channel":"store","amount":30000},{"id":"O06","channel":"phone","amount":10000},{"id":"O07","channel":"web","amount":15000},{"id":"O08","channel":"store","amount":20000},{"id":"O09","channel":"phone","amount":25000},{"id":"O10","channel":"web","amount":30000},{"id":"O11","channel":"store","amount":10000},{"id":"O12","channel":"phone","amount":15000},{"id":"O13","channel":"web","amount":20000},{"id":"O14","channel":"store","amount":25000},{"id":"O15","channel":"phone","amount":30000}])
+source_rows = [{"id":"O01","channel":"web","amount":10000},{"id":"O02","channel":"store","amount":15000},{"id":"O03","channel":"phone","amount":20000},{"id":"O04","channel":"web","amount":25000},{"id":"O05","channel":"store","amount":30000},{"id":"O06","channel":"phone","amount":10000},{"id":"O07","channel":"web","amount":15000},{"id":"O08","channel":"store","amount":20000},{"id":"O09","channel":"phone","amount":25000},{"id":"O10","channel":"web","amount":30000},{"id":"O11","channel":"store","amount":10000},{"id":"O12","channel":"phone","amount":15000},{"id":"O13","channel":"web","amount":20000},{"id":"O14","channel":"store","amount":25000},{"id":"O15","channel":"phone","amount":30000}]
+csv_lines = []
+for row in source_rows:
+    csv_lines.append(f"{row['id']},{row['channel']},{row['amount']}")
+csv_text = "id,channel,amount_vnd\\n" + "\\n".join(csv_lines)
 df = pd.read_csv(StringIO(csv_text), dtype={"id": "string"})
-assert len(df) == 15
+if len(df) != 15:
+    raise ValueError("Cần đọc đúng 15 đơn từ CSV.")
 print("Đơn:", len(df))
 print("Cột:", ", ".join(df.columns))
 print("Kênh web:", int((df["channel"] == "web").sum()))
@@ -260,7 +271,8 @@ ages = [21,22,20,19,25,23,24,20,21,26,22,23,24,19,20,21,25,22]
 raw_spent = ["100000","110000","120000","130000","140000","","160000","170000","180000","190000","200000","210000","220000","N/A","240000","250000","260000","270000"]
 df = pd.DataFrame({"age_years": ages, "spent_vnd": raw_spent})
 df["spent_vnd"] = pd.to_numeric(df["spent_vnd"], errors="coerce")
-assert len(df) == 18
+if len(df) != 18:
+    raise ValueError("Cần đủ 18 hồ sơ với tuổi và mức chi.")
 print("Hồ sơ:", len(df))
 print("Tuổi là số:", bool(pd.api.types.is_numeric_dtype(df["age_years"])))
 print("Mức chi là số:", bool(pd.api.types.is_numeric_dtype(df["spent_vnd"])))
@@ -295,15 +307,20 @@ Pandas tự bỏ NaN khi tính `sum`, nhưng báo cáo vẫn phải hiển thị
 
 ```python
 import pandas as pd
+student_ids = []
+for i in range(1, 21):
+    student_ids.append(f"H{i:02d}")
 records = pd.DataFrame({
-    "student_id": [f"H{i:02d}" for i in range(1, 21)],
+    "student_id": student_ids,
     "age_years": [18,19,20,21,22,23,24,25,26,18,19,20,21,22,23,24,25,26,18,19],
     "study_hours": [5,7,9,11,5,7,9,11,5,7,9,11,5,7,9,11,5,7,9,11],
     "completed": [1,1,0,0,1,1,None,0,1,1,0,0,1,1,0,0,1,1,None,0],
 })
 labelled = records.loc[records["completed"].notna()].copy()
-assert len(records) == 20 and records["student_id"].is_unique
-assert labelled["completed"].isin([0, 1]).all()
+if len(records) != 20 or not records["student_id"].is_unique:
+    raise ValueError("Cần đủ 20 học viên có mã không trùng.")
+if not labelled["completed"].isin([0, 1]).all():
+    raise ValueError("Nhãn hoàn thành chỉ được bằng 0 hoặc 1.")
 print("Học viên:", len(records))
 print("Có nhãn:", len(labelled))
 print("Chờ nhãn:", int(records["completed"].isna().sum()))
