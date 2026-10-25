@@ -1,0 +1,51 @@
+name: Export 920 MCQs PDF
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/export_quiz_pdf.yml"
+      - "scripts/export_quiz_pdf.py"
+      - "lessons/chapters/**"
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Vietnamese fonts and PDF renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-core fonts-dejavu-core
+          python -m pip install --disable-pip-version-check 'mistune>=3.1,<4' 'weasyprint>=66,<69' 'pymupdf>=1.24,<2'
+      - name: Verify curriculum and question integrity
+        run: python -m unittest discover -s tests -p 'test_curriculum_structure.py' -v
+      - name: Render question collection to Markdown and PDF
+        run: |
+          python scripts/export_quiz_pdf.py
+          python - <<'PY'
+          import fitz
+          from pathlib import Path
+          markdown = Path("exports/markdown/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.md")
+          pdf_path = Path("exports/pdf/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.pdf")
+          content = markdown.read_text(encoding="utf-8")
+          assert content.count("**Đáp án:") == 920
+          assert content.count("**Giải thích:**") == 920
+          assert content.count("**Q1.") == 46
+          assert content.count("**Q20.") == 46
+          pdf = fitz.open(pdf_path)
+          assert len(pdf) >= 90
+          text = "\n".join(page.get_text() for page in pdf)
+          assert "PY-46" in text and "Giải thích" in text and "Đáp án" in text
+          print("MCQ_PDF_VERIFIED", len(pdf), "pages", pdf_path.stat().st_size, "bytes", "920 questions")
+          PY
+      - name: Commit complete MCQ bundle
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add exports/pdf/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.pdf exports/markdown/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'exports: publish 920 bilingual curriculum MCQs PDF and Markdown'
+            git push
+          fi
