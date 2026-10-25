@@ -5,7 +5,7 @@
   "expected_batches": 10,
   "batch_limit": 5,
   "last_completed_batch": 0,
-  "status": "READY_FOR_BATCH_01",
+  "status": "BATCH_01_IN_PROGRESS",
   "paired_code_fence_count_completed": 0,
   "predecessor": {
     "goal_id": "aiclassdocuments-full-code-annotations-20261025",
