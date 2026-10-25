@@ -15,7 +15,7 @@
     20
   ],
   "last_completed_batch": 8,
-  "status": "BATCH_09_IN_PROGRESS",
+  "status": "BATCH_09_QA_PASSED_WAIT_MERGE",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -233,19 +233,19 @@
         "PY-44",
         "PY-45"
       ],
-      "status": "IN_PROGRESS",
+      "status": "QA_PASSED",
       "branch": "feat/curriculum-scenarios-batch-09-20261025",
-      "pr_number": null,
+      "pr_number": 131,
       "merged_commit": null,
-      "ci_run": null,
+      "ci_run": 40163413608,
       "windows_test": null,
       "updated_at": "2026-10-25",
-      "notes": "Five PY-41..PY-45 section5 updates individually committed; cases 10/12/15/18/20 records, executable Python/ML/Git/CLI/plots; exact-output QA, PR and merge pending, Windows unverified.",
+      "notes": "PR #131 CI 40163413608 PASS after fixing PY-43 bash block count and PY-44 invalid sample scores. Python3.12 Git/NumPy/Pandas/SymPy/SciPy/scikit-learn/Matplotlib; all 25 PY-41..45 code blocks executed and exact stdout matched, 5 charts created as PNG. Earlier batches01..08, chapter/MCQ/syntax/ledger QA PASS. Not merged yet, no Windows Bridge evidence.",
       "lesson_commits": {
         "PY-41": "f217c79492bba5b106863ddae4cabb1e1e3ed495",
         "PY-42": "5532228d8bee17b6d1c2293d5721782a089a84be",
-        "PY-43": "7721b07b6dd648329fa7365e0b78cefb5abed02e",
-        "PY-44": "4173817a456d7db91cde830a83bd6a6a0d491973",
+        "PY-43": "02ef555de850310deb07ad9d5f2bbd5a906720d4",
+        "PY-44": "fc048f14123ee5bc82f88b22dd63bee33c72539d",
         "PY-45": "75a602f31eee0b3ce6e078db6c1640b93822c00a"
       }
     },
