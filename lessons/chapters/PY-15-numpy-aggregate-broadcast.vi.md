@@ -43,10 +43,16 @@ Sau khi biết tạo và chọn ô trong `ndarray`, ta cần **tổng hợp và 
 Khi quản lý doanh thu, ta thường không cần xem từng giao dịch mà muốn biết **tổng**, **trung bình** hoặc **cao nhất**. Đó là **phép tổng hợp (aggregation)**: kết hợp nhiều giá trị thành một giá trị thống kê. Với doanh thu ba ngày `[10,20,30]` triệu đồng, `sum()` cho 60 triệu đồng; `mean()` cho 20 triệu đồng/ngày; `max()` cho 30 triệu đồng. Không nhầm tổng với trung bình.
 
 ```python
-# Mục đích: Tổng hợp từ nhiều giá trị.
+# Mục đích: So sánh sum(), mean(), max() trên cùng vector doanh thu.
+# Dữ liệu: Vector ba số doanh thu 10,20,30 (đơn vị minh họa).
+# import numpy as np để sử dụng mảng và phép toán NumPy.
 import numpy as np
 
+# np.array() tạo ndarray từ list để gọi các phương thức số học vector hóa.
 sales = np.array([10, 20, 30])
+# sum() cộng toàn bộ số trong vector.
+# mean() lấy trung bình cộng, có thể là số thực.
+# max() lấy phần tử lớn nhất.
 print(sales.sum(), sales.mean(), sales.max())
 ```
 
@@ -65,10 +71,14 @@ Tổng 60 triệu đồng, trung bình 20 triệu đồng/ngày và ngày cao nh
 Trong bảng doanh thu có **hai hàng cửa hàng** A, B và **ba cột ngày**, `sales.sum(axis=1)` tính tổng ba ngày trên từng **hàng cửa hàng**; còn `sales.sum(axis=0)` tính tổng hai cửa hàng theo từng **cột ngày**. `axis=0` gom **qua các hàng**, `axis=1` gom **qua các cột**. Vì vậy trước khi chọn axis, phải biết mỗi chiều đang mô tả gì.
 
 ```python
-# Mục đích: Tổng hợp theo hàng hoặc cột.
+# Mục đích: Tính tổng của từng hàng mảng bằng sum(axis=1).
+# Dữ liệu: Hai hàng quan sát, ba cột giá trị; mỗi hàng gom thành một tổng riêng.
+# import numpy as np để sử dụng mảng và phép toán NumPy.
 import numpy as np
 
+# Mảng (2,3) có 2 hàng và 3 cột.
 sales = np.array([[10, 20, 30], [8, 12, 16]])
+# axis=1 gộp các CỘT trong từng hàng, tạo tổng cho mỗi hàng; axis=0 sẽ cộng theo từng cột.
 print(sales.sum(axis=1))
 ```
 
@@ -87,10 +97,14 @@ Kết quả có hai phần tử vì mảng có hai hàng: cửa hàng A tổng 6
 **Broadcasting** cho phép NumPy thực hiện phép toán giữa các đối tượng khác kích thước **nếu các chiều tương thích**. Ví dụ một trường cộng 1 điểm chuyên cần cho từng điểm trong bảng hai học viên × ba môn: phép `scores + 1` tự áp dụng 1 vào mọi ô, không cần vòng `for`. Khi một chiều có kích thước 1 hoặc bằng chiều tương ứng, NumPy thường mở rộng được; các chiều không tương thích sẽ báo `ValueError`.
 
 ```python
-# Mục đích: Áp dụng phép toán theo chiều tương thích.
+# Mục đích: Broadcast một số 1 lên từng ô của bảng điểm 2×3.
+# Dữ liệu: Hai hàng học viên × ba cột môn; cộng 1 cho mỗi ô điểm.
+# import numpy as np để sử dụng mảng và phép toán NumPy.
 import numpy as np
 
+# Tạo bảng điểm NumPy 2 hàng × 3 cột.
 scores = np.array([[7, 8, 9], [6, 7, 8]])
+# Broadcasting tự áp cùng scalar 1 vào TẤT CẢ ô mà không cần for; mảng gốc scores không bị sửa.
 print(scores + 1)
 ```
 
@@ -110,11 +124,16 @@ Số 1 được cộng vào cả sáu ô, nhưng shape vẫn là 2 hàng × 3 c�
 **Vectorization** là viết phép tính trực tiếp trên toàn mảng thay vì tự lặp từng ô bằng Python. Khi ba kênh cảm biến có giá trị `[10,20,30]` và hệ số hiệu chỉnh `[1.0,0.5,2.0]`, phép `signals * factors` nhân các phần tử **cùng vị trí**: 10×1, 20×0,5 và 30×2. Đây là phép **nhân từng phần tử**, khác phép nhân ma trận `@`.
 
 ```python
-# Mục đích: Tính trực tiếp trên mảng.
+# Mục đích: Nhân từng phần tử của hai vector có cùng độ dài.
+# Dữ liệu: signals có 3 giá trị, factors có 3 hệ số tương ứng từng vị trí.
+# import numpy as np để sử dụng mảng và phép toán NumPy.
 import numpy as np
 
+# Mảng gồm ba tín hiệu số với thứ tự cố định.
 signals = np.array([10, 20, 30])
+# Mỗi hệ số nhân tương ứng cùng vị trí với tín hiệu; 1 giữ nguyên, 0.5 giảm nửa, 2 tăng gấp đôi.
 factors = np.array([1.0, 0.5, 2.0])
+# Hai vector cùng chiều dài nhân THEO TỪNG VỊ TRÍ (10×1,20×0.5,30×2), không phải tích vô hướng.
 print(signals * factors)
 ```
 
@@ -142,14 +161,25 @@ Ba số là tín hiệu sau khi áp dụng hệ số riêng cho từng kênh; Nu
 3. In số quan sát và số liệu theo đơn vị đã nêu.
 
 ```python
+# Mục đích: Tổng hợp min, max, tổng và trung bình doanh số của 10 ngày.
+# Dữ liệu: 10 doanh số ngày (nghìn đồng); mảng float cho phép tính trung bình có số lẻ.
+# import numpy as np để sử dụng mảng và phép toán NumPy.
 import numpy as np
+# dtype=float tạo vector 10 ngày ở dạng số thực.
 sales = np.array([120,145,130,160,180,140,155,175,190,165], dtype=float)
+# shape (10,) là mảng một chiều 10 phần tử, khác (10,1) hai chiều.
 if sales.shape != (10,):
+    # raise ValueError báo bảng dữ liệu sai shape, ngừng xử lý nếu kiểm tra thất bại.
     raise ValueError("Cần đủ 10 ngày bán hàng.")
+# size đếm 10 ngày, không phải kích thước byte.
 print("Ngày:", sales.size)
+# sum() cộng toàn bộ doanh số (nghìn đồng); int() đổi scalar NumPy sang int Python.
 print("Tổng (nghìn đồng):", int(sales.sum()))
+# mean() tính doanh số trung bình một ngày; :.1f định dạng một số lẻ.
 print(f"Trung bình/ngày: {sales.mean():.1f}")
+# min() lấy mức bán thấp nhất của 10 ngày.
 print("Thấp nhất:", int(sales.min()))
+# max() lấy mức cao nhất trong 10 ngày.
 print("Cao nhất:", int(sales.max()))
 ```
 
@@ -179,17 +209,32 @@ Cao nhất: 190
 3. Tìm học viên có trung bình cao nhất và in kết quả có nhãn.
 
 ```python
+# Mục đích: Tính điểm trung bình theo môn/theo học viên và tìm học viên cao nhất.
+# Dữ liệu: 12 hàng học viên H01..H12, 3 cột Toán/Văn/Python, điểm trên thang 10.
+# import numpy as np để sử dụng mảng và phép toán NumPy.
 import numpy as np
+# 12 hàng học viên × 3 cột môn, dtype=float hỗ trợ trung bình thập phân.
 scores = np.array([[6,5,7],[7,6,9],[8,7,7],[9,8,9],[6,9,7],[7,5,9],[8,6,7],[9,7,9],[6,8,7],[7,9,9],[8,5,7],[9,6,9]], dtype=float)
+# axis=0 gom qua các HÀNG để lấy một trung bình cho mỗi CỘT môn.
 by_subject = scores.mean(axis=0)
+# axis=1 gom qua các CỘT, cho trung bình của mỗi HÀNG học viên.
 by_student = scores.mean(axis=1)
+# argmax() trả chỉ số 0-based học viên có trung bình cao nhất, không trả giá trị điểm.
 best = int(by_student.argmax())
+# shape (12,3) đối chiếu 12 người và 3 môn.
 if scores.shape != (12, 3):
+    # raise ValueError báo bảng dữ liệu sai shape, ngừng xử lý nếu kiểm tra thất bại.
     raise ValueError("Bảng phải có 12 học viên và 3 môn.")
+# shape (12,3) đối chiếu 12 người và 3 môn.
 print("Học viên:", scores.shape[0])
+# [0] là trung bình Toán, [1] Văn, [2] Python; :.2f in hai số thập phân.
 print(f"Toán: {by_subject[0]:.2f}")
+# int() đổi NumPy scalar sang số nguyên Python khi in.
 print(f"Văn: {by_subject[1]:.2f}")
+# int() đổi NumPy scalar sang số nguyên Python khi in.
 print(f"Python: {by_subject[2]:.2f}")
+# best là chỉ số 0-based nên +1 thành số thứ tự người, :02d thêm 0 để tạo mã H01..H12.
+# Lấy đúng điểm trung bình cao nhất tại chỉ số argmax tìm được.
 print("Điểm TB cao nhất:", f"H{best+1:02d}", f"{by_student[best]:.2f}")
 ```
 
@@ -219,15 +264,29 @@ Cả hai phép trung bình đều hợp lệ về toán nhưng **khác đối t�
 3. Đếm số hàng có ít nhất một điểm đạt 10 và kiểm tra mảng gốc không bị sửa.
 
 ```python
+# Mục đích: Broadcast điểm thưởng hai môn cho 15 học viên, giới hạn tối đa 10.
+# Dữ liệu: 15 hàng học viên và 2 môn; bonus = [1.0,0.5] là điểm cộng cho hai cột.
+# import numpy as np để sử dụng mảng và phép toán NumPy.
 import numpy as np
+# 15 hàng học viên × hai cột điểm; dtype=float giữ số lẻ.
 scores = np.array([[7,5],[8,6],[9,7],[10,8],[7,9],[8,10],[9,5],[10,6],[7,7],[8,8],[9,9],[10,10],[7,5],[8,6],[9,7]], dtype=float)
+# Vector hai điểm cộng, 1.0 cho cột 0 và 0.5 cho cột 1.
 bonus = np.array([1.0, 0.5])
+# Broadcasting vector có 2 ô qua 15 hàng: mỗi môn được cộng riêng một lượng.
+# np.minimum(...,10) chọn giá trị nhỏ hơn theo từng ô, không cho điểm mới quá 10; không sửa scores gốc.
 adjusted = np.minimum(scores + bonus, 10)
+# Kiểm shape (15,2) sau broadcast và cắt ngưỡng.
 if scores.shape != (15, 2) or adjusted.shape != (15, 2):
+    # raise ValueError báo bảng dữ liệu sai shape, ngừng xử lý nếu kiểm tra thất bại.
     raise ValueError("Cần đúng 15 học viên với hai môn trước và sau cộng điểm.")
+# int() đổi NumPy scalar sang số nguyên Python khi in.
 print("Học viên:", scores.shape[0])
+# [0,0] là điểm môn đầu của H01, [0,1] là môn thứ hai; :.1f định dạng.
 print("Điểm H01 sau cộng:", f"{adjusted[0,0]:.1f}", f"{adjusted[0,1]:.1f}")
+# == 10 tạo mask từng ô; np.any(...,axis=1) trả True nếu MỘT TRONG hai môn của cùng học viên đạt 10.
+# sum() trên mask Boolean đếm số học viên có ít nhất một môn chạm 10.
 print("Đạt 10 ít nhất một môn:", int(np.any(adjusted == 10, axis=1).sum()))
+# Đọc điểm H01 từ bảng GỐC để xác minh phép broadcast không làm thay đổi điểm ban đầu.
 print("Gốc H01:", f"{scores[0,0]:.1f}", f"{scores[0,1]:.1f}")
 ```
 
@@ -256,25 +315,43 @@ Gốc H01: 7.0 5.0
 3. Tính ba trung bình sau hiệu chỉnh, đếm chính xác hai ô thiếu.
 
 ```python
+# Mục đích: Hiệu chỉnh 18 lần đo ba cảm biến theo vector bù, tính trung bình bỏ NaN.
+# Dữ liệu: 18 hàng đo (nhiệt °C, độ ẩm %, áp suất kPa); cột áp suất có 2 None; calibration = [+0.5 °C,-2 %, +1 kPa].
+# import numpy as np để sử dụng mảng và phép toán NumPy.
 import numpy as np
+# 18 hàng (nhiệt °C, ẩm %, áp suất kPa); None chỉ 2 áp suất thiếu.
 raw = [[20,50,100],[22,53,105],[24,56,110],[26,59,115],[28,62,None],[20,65,105],[22,50,110],[24,53,115],[26,56,100],[28,59,105],[20,62,110],[22,65,115],[24,50,100],[26,53,105],[28,56,None],[20,59,115],[22,62,100],[24,65,105]]
 rows = []
 for temp, humidity, pressure in raw:
+    # is None phát hiện số đo áp suất bị thiếu.
     if pressure is None:
+        # np.nan là marker số thực cho dữ liệu thiếu, KHÔNG mặc định thành 0 kPa.
         clean_pressure = np.nan
     else:
         clean_pressure = pressure
+    # append() thêm 1 hàng ba trường theo thứ tự của bảng.
     rows.append([temp, humidity, clean_pressure])
+# dtype=float cho phép ndarray chứa cả số thực và np.nan.
 measurements = np.array(rows, dtype=float)
+# Vector hiệu chỉnh có ba ô khớp ba cột: +0.5 °C, -2 điểm phần trăm ẩm, +1 kPa.
 calibration = np.array([0.5, -2.0, 1.0])
+# Broadcasting cộng vector hiệu chỉnh (shape (3,)) vào từng hàng (18,3).
 corrected = measurements + calibration
+# nanmean bỏ NaN trong mỗi cột riêng trước khi tính trung bình; axis=0 trả 3 trung bình theo cột.
 means = np.nanmean(corrected, axis=0)
+# shape (18,3) xác minh số hàng/cột còn nguyên.
 if corrected.shape != (18, 3):
+    # raise ValueError báo bảng dữ liệu sai shape, ngừng xử lý nếu kiểm tra thất bại.
     raise ValueError("Cần đủ 18 lượt đo và 3 thông số.")
+# shape (18,3) xác minh số hàng/cột còn nguyên.
 print("Số mẫu:", corrected.shape[0])
+# [:,2] chọn cột áp suất của mọi hàng; isnan() tạo mask thiếu, sum() đếm 2 giá trị.
 print("Thiếu áp suất:", int(np.isnan(corrected[:, 2]).sum()))
+# means[0] nhiệt độ °C, [1] độ ẩm %, [2] áp suất kPa; :.2f in hai chữ số lẻ.
 print(f"Nhiệt độ (°C): {means[0]:.2f}")
+# int() đổi NumPy scalar sang số nguyên Python khi in.
 print(f"Độ ẩm (%): {means[1]:.2f}")
+# int() đổi NumPy scalar sang số nguyên Python khi in.
 print(f"Áp suất (kPa): {means[2]:.2f}")
 ```
 
@@ -304,18 +381,34 @@ Mỗi độ lệch có **đơn vị riêng** và tác động đúng cột. Khi 
 3. Cộng `axis=1` để có 20 doanh thu; chọn cửa hàng cao nhất, cộng tổng toàn chuỗi và kiểm tra kích thước.
 
 ```python
+# Mục đích: Broadcast giá và hệ số trả tiền theo ba mặt hàng để tính doanh thu 20 cửa hàng.
+# Dữ liệu: 20 hàng cửa hàng, 3 cột số món; prices nghìn đồng/món và pay_rates 1.0/0.9/0.8 cho từng mặt hàng.
+# import numpy as np để sử dụng mảng và phép toán NumPy.
 import numpy as np
+# 20 hàng cửa hàng × 3 cột số món từng loại, dtype=float giúp nhân hệ số.
 quantities = np.array([[1,2,1],[2,3,3],[3,4,5],[4,2,2],[1,3,4],[2,4,1],[3,2,3],[4,3,5],[1,4,2],[2,2,4],[3,3,1],[4,4,3],[1,2,5],[2,3,2],[3,4,4],[4,2,1],[1,3,3],[2,4,5],[3,2,2],[4,3,4]], dtype=float)
+# Vector 3 đơn giá nghìn đồng/món, tương ứng từng cột của quantities.
 prices = np.array([10, 20, 30], dtype=float)  # nghìn đồng/món
+# Hệ số tiền nhận thực tế 1.0/0.9/0.8, tương ứng 100%/90%/80% theo loại hàng.
 pay_rates = np.array([1.0, 0.9, 0.8])
+# Broadcast lần lượt hai vector (3,) qua 20 hàng: số món × giá × tỷ lệ nhận, ra doanh thu nghìn đồng theo cột.
 amounts = quantities * prices * pay_rates
+# axis=1 cộng ba mặt hàng theo từng cửa hàng, trả vector 20 tổng doanh thu.
 per_shop = amounts.sum(axis=1)
+# argmax() trả chỉ số (bắt đầu 0) của cửa hàng có doanh thu lớn nhất.
 peak = int(per_shop.argmax())
+# Kiểm shape (20,3) và per_shop (20,) sau cộng theo hàng.
 if amounts.shape != (20, 3) or per_shop.shape != (20,):
+    # raise ValueError báo bảng dữ liệu sai shape, ngừng xử lý nếu kiểm tra thất bại.
     raise ValueError("Cần đủ 20 cửa hàng, ba mặt hàng và doanh thu từng cửa hàng.")
+# int() đổi NumPy scalar sang số nguyên Python khi in.
 print("Cửa hàng:", quantities.shape[0])
+# sum() cộng doanh thu của cả 20 cửa hàng, đơn vị nghìn đồng.
 print(f"Tổng 20 cửa hàng (nghìn đồng): {per_shop.sum():.1f}")
+# peak+1 chuyển index 0-based thành số cửa hàng; :02d tạo mã hai chữ số.
+# Lấy doanh thu của cửa hàng có chỉ số cao nhất theo argmax.
 print("Doanh thu lớn nhất:", f"C{peak+1:02d}", f"{per_shop[peak]:.1f}")
+# [0] là doanh thu cửa hàng đầu C01, dùng đối chiếu.
 print(f"C01 (nghìn đồng): {per_shop[0]:.1f}")
 ```
 
