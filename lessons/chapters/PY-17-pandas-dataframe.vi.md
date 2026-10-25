@@ -231,7 +231,7 @@ source_rows = [{"id":"O01","channel":"web","amount":10000},{"id":"O02","channel"
 csv_lines = []
 for row in source_rows:
     csv_lines.append(f"{row['id']},{row['channel']},{row['amount']}")
-csv_text = "id,channel,amount_vnd\\n" + "\\n".join(csv_lines)
+csv_text = "id,channel,amount_vnd\n" + "\n".join(csv_lines)
 df = pd.read_csv(StringIO(csv_text), dtype={"id": "string"})
 if len(df) != 15:
     raise ValueError("Cần đọc đúng 15 đơn từ CSV.")
