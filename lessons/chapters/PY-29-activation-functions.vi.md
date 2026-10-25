@@ -248,7 +248,7 @@ Không được coi đầu ra gần ±1 là tín hiệu ban đầu cũng chỉ c
 
 ```python
 import numpy as np
-logits = np.array([[2,1,-1],[3,2,0],[4,1,1],[1000,999,998],[3,1,-1],[4,2,0],[2,1,1],[3,2,2],[4,1,-1],[2,2,0],[3,1,1],[4,2,2],[2,1,-1],[3,2,0],[4,1,1],[2,2,2],[3,1,-1],[4,2,0]], dtype=float)
+logits = np.array([[3,1,0],[0,3,1],[1,0,3],[1000,999,998],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3]], dtype=float)
 shifted = logits - logits.max(axis=1, keepdims=True)
 exp_values = np.exp(shifted)
 probs = exp_values / exp_values.sum(axis=1, keepdims=True)
@@ -265,7 +265,7 @@ print("Mẫu logit lớn hữu hạn:", bool(np.isfinite(probs[3]).all()))
 ```text
 Mẫu: 18
 Tổng hàng đều là 1: True
-Nhãn A/B/C: 18 0 0
+Nhãn A/B/C: 6 6 6
 Mẫu logit lớn hữu hạn: True
 ```
 
