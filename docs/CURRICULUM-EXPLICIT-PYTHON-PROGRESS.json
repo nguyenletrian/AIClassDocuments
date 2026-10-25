@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "BATCH_06_IN_PROGRESS",
-  "last_completed_batch": 5,
+  "status": "READY_FOR_BATCH_07",
+  "last_completed_batch": 6,
   "batches": [
     {
       "batch": 1,
@@ -167,7 +167,7 @@
         "PY-29",
         "PY-30"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-26",
         "PY-27",
@@ -175,9 +175,9 @@
         "PY-29",
         "PY-30"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 150,
+      "merged_commit": "790c4d54e957344726af56940ec148b7c3b2c9c9",
+      "ci_run": 40174572103,
       "branch": "feat/explicit-python-batch-06-20261025",
       "lesson_commits": {
         "PY-26": "e58a5b0d7768b3b16d77574a32f34b20e58d7ee9",
@@ -186,7 +186,7 @@
         "PY-29": "1479a074de83fd802dd151ce0a538fefa7dd4551",
         "PY-30": "9f41d177f53c4187e65ced84236413c9ca794010"
       },
-      "notes": "Five PY-26..30 lessons committed separately, 9 executable Python fences and 9 stdout sections per chapter and 5 scenarios retained. Replaced assert/comprehensions/generator expressions/ternary with clear for-if/raise; NumPy eigenvalue/PCA/activation/loss calculations unchanged. Pending full GitHub Actions 25-scenario exact stdout, AST, MCQ/structure, Markdown regression; no Windows PASS claim."
+      "notes": "PY-26..30 five lessons individually committed. PR #150 final-head ef61a72aed3934f0c520c1ce294c9a68923fabd7 CI #40174572103 COMPLETED SUCCESS: 25 batch06 situations executed and exact documented stdout; all prior 5 batches, AST explicit Python style across batches01..06, 46 lesson structure/MCQ and Markdown regression PASS. Squash merged commit 790c4d54e957344726af56940ec148b7c3b2c9c9. Windows worker result not verified. Next batch07 PY-31..35; scenario prose clarity remains APPROVED_DEFERRED."
     },
     {
       "batch": 7,
