@@ -4,9 +4,9 @@
   "expected_lessons": 46,
   "expected_batches": 10,
   "batch_limit": 5,
-  "last_completed_batch": 0,
-  "status": "BATCH_01_IN_PROGRESS",
-  "paired_code_fence_count_completed": 0,
+  "last_completed_batch": 1,
+  "status": "READY_FOR_BATCH_02",
+  "paired_code_fence_count_completed": 45,
   "predecessor": {
     "goal_id": "aiclassdocuments-full-code-annotations-20261025",
     "ledger_status": "COMPLETED",
@@ -24,7 +24,7 @@
         "PY-04",
         "PY-05"
       ],
-      "status": "IN_PROGRESS"
+      "status": "COMPLETED"
     },
     {
       "batch": 2,
