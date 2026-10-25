@@ -3,7 +3,7 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "READY_FOR_BATCH_05",
+  "status": "BATCH_05_QA_PASSED_WAIT_MERGE",
   "last_completed_batch": 4,
   "batches": [
     {
@@ -106,11 +106,32 @@
         "PY-24",
         "PY-25"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
-      "pr": null,
+      "status": "QA_PASSED",
+      "changed_lessons": [
+        "PY-21",
+        "PY-23"
+      ],
+      "pr": 138,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": 40167635926,
+      "branch": "fix/markdown-render-batch-05-20261025",
+      "reviewed_lessons": [
+        "PY-21",
+        "PY-22",
+        "PY-23",
+        "PY-24",
+        "PY-25"
+      ],
+      "lesson_commits": {
+        "PY-21": "e7b7308ef5105b040d938aeeba0fe427d772253e",
+        "PY-23": "e96abf3c024cbbb4d60fa7cc5392dce5dfaaceab"
+      },
+      "inspection": {
+        "affected_lines": 4,
+        "encoded_pipe_entities_fixed": 1,
+        "unescaped_table_delimiters_fixed": 3
+      },
+      "notes": "PR #138 initial CI #40167635926 PASS: PY-21 2 escaped table pipes + 1 HTML entity correction, PY-23 1 escaped Jaccard table pipe; PY-22,24,25 unchanged. Existing Markdown regression and curriculum CI all pass. Merge awaits final-head CI."
     },
     {
       "batch": 6,
