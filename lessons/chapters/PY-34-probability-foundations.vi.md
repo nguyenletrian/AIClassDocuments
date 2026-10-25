@@ -120,7 +120,7 @@ Một lần gieo xúc xắc công bằng có xác suất 50% ra mặt chẵn.
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Xác suất ra mặt chẵn của xúc xắc
+### Tình huống 1 — Xác suất ra mặt chẵn của xúc xắc · Cấp 1: Khái niệm và một phép đếm
 
 **Tình huống thực tế:** Trò chơi sử dụng xúc xắc công bằng có sáu mặt đánh số 1 tới 6; người chơi thắng nếu ra mặt chẵn. Tính xác suất thắng trong một lần gieo.
 
@@ -147,7 +147,21 @@ print(len(even) / len(space))
 
 Xác suất thắng bằng 0.5 (50%) theo giả định xúc xắc công bằng.
 
-### Tình huống 2 — Mô phỏng 1.000 lần tung đồng xu
+**Bài thực hành nâng cấp — cấp 1/5:** Một lớp học có **10 thẻ/bản ghi** để rút ngẫu nhiên, mỗi thẻ mang số nguyên như code; thẻ `None` chưa có mã được loại khỏi không gian kết quả hợp lệ. Hãy liệt kê sample space và xác suất lấy số chẵn. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+import numpy as np
+# Một dòng = 1 lá thẻ số trong hộp.
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+space = [x for x in values if x is not None]
+result = sorted(space)
+print("Số quan sát:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 10 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
+
+### Tình huống 2 — Mô phỏng 1.000 lần tung đồng xu · Cấp 2: Xác suất cơ bản
 
 **Tình huống thực tế:** Phòng thực hành mô phỏng 1.000 lần tung đồng xu công bằng, mã 1 là ngửa, mã 0 là sấp. Cần xem tỷ lệ ngửa quan sát được và hiểu vì sao nó có thể khác 0.5.
 
@@ -176,7 +190,21 @@ print(round(float(tosses.mean()), 3))
 
 Tỷ lệ mô phỏng khoảng 50.9%, không bắt buộc bằng xác suất lý thuyết 50%.
 
-### Tình huống 3 — Xác suất tổng hai xúc xắc bằng chín
+**Bài thực hành nâng cấp — cấp 2/5:** Một lớp học có **12 thẻ/bản ghi** để rút ngẫu nhiên, mỗi thẻ mang số nguyên như code; thẻ `None` chưa có mã được loại khỏi không gian kết quả hợp lệ. Hãy tính P(A) cho 12 lá thẻ và so với phép đếm. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+import numpy as np
+# Một dòng = 1 lá thẻ số trong hộp.
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+space = [x for x in values if x is not None]
+result = len([x for x in space if x%2==0])/len(space)
+print("Số quan sát:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 12 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
+
+### Tình huống 3 — Xác suất tổng hai xúc xắc bằng chín · Cấp 3: Sự kiện kết hợp
 
 **Tình huống thực tế:** Hai xúc xắc công bằng được gieo độc lập. Mỗi kết quả là **cặp có thứ tự** `(a,b)`, mỗi giá trị từ 1 đến 6. Người chơi thắng nếu tổng hai mặt bằng 9.
 
@@ -203,7 +231,21 @@ print(round(valid / len(pairs), 3))
 
 Có bốn cặp thắng trên 36 cặp, xác suất bằng khoảng 11.1%.
 
-### Tình huống 4 — Ước lượng tỷ lệ sự kiện hiếm
+**Bài thực hành nâng cấp — cấp 3/5:** Một lớp học có **15 thẻ/bản ghi** để rút ngẫu nhiên, mỗi thẻ mang số nguyên như code; thẻ `None` chưa có mã được loại khỏi không gian kết quả hợp lệ. Hãy tính giao, hợp của hai sự kiện từ 15 lá thẻ. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+import numpy as np
+# Một dòng = 1 lá thẻ số trong hộp.
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+space = [x for x in values if x is not None]
+result = {'A':len({x for x in space if x%2==0})/len(space),'B':len({x for x in space if x>6})/len(space),'both':len({x for x in space if x%2==0 and x>6})/len(space),'either':len({x for x in space if x%2==0 or x>6})/len(space)}
+print("Số quan sát:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 15 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
+
+### Tình huống 4 — Ước lượng tỷ lệ sự kiện hiếm · Cấp 4: Trường hợp không đủ dữ liệu
 
 **Tình huống thực tế:** Một ứng dụng giả lập 10.000 lượt, mỗi lượt có xác suất 0.2 phát sinh sự kiện và các lượt độc lập. Đội phân tích cần biết tỷ lệ thực tế trong một lần mô phỏng.
 
@@ -232,7 +274,21 @@ print(round(float(events.mean()), 3))
 
 Tỷ lệ mô phỏng gần 20% theo giả định; seed cho kết quả có thể tái lập.
 
-### Tình huống 5 — So mô phỏng ít lượt và nhiều lượt
+**Bài thực hành nâng cấp — cấp 4/5:** Một lớp học có **18 thẻ/bản ghi** để rút ngẫu nhiên, mỗi thẻ mang số nguyên như code; thẻ `None` chưa có mã được loại khỏi không gian kết quả hợp lệ. Hãy loại thẻ chưa rõ mã trước khi đếm xác suất. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+import numpy as np
+# Một dòng = 1 lá thẻ số trong hộp.
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, None, 17, 18]
+space = [x for x in values if x is not None]
+result = {'valid':len(space),'unknown':sum(x is None for x in values),'p_even':sum(x%2==0 for x in space)/len(space)}
+print("Số quan sát:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 18 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
+
+### Tình huống 5 — So mô phỏng ít lượt và nhiều lượt · Cấp 5: Mô phỏng hoặc tổng hợp
 
 **Tình huống thực tế:** Một đồng xu công bằng được mô phỏng hai nhóm liên tiếp: 100 lượt rồi 10.000 lượt, cùng bộ sinh seed 7. Cần so độ chênh lệch tỷ lệ mặt ngửa so với 0.5.
 
@@ -262,6 +318,20 @@ for count in [100, 10000]:
 ```
 
 Mẫu lớn ở lần chạy này gần 0.5 hơn, nhưng đó là quan sát mô phỏng chứ không phải định luật đúng cho mọi lần.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Một lớp học có **20 thẻ/bản ghi** để rút ngẫu nhiên, mỗi thẻ mang số nguyên như code; thẻ `None` chưa có mã được loại khỏi không gian kết quả hợp lệ. Hãy dùng mô phỏng bốc thẻ để đối chiếu xác suất lý thuyết. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+import numpy as np
+# Một dòng = 1 lá thẻ số trong hộp.
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, None, 17, 18, 19, None]
+space = [x for x in values if x is not None]
+result = {'theory':sum(x%2==0 for x in space)/len(space),'simulation':round(float((np.random.default_rng(2026).choice(space,size=5000)%2==0).mean()),3),'samples':len(values)}
+print("Số quan sát:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 20 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
 
 ## 6. Sai lầm thường gặp
 
