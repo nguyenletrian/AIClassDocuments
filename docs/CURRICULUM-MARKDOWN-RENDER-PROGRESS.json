@@ -3,7 +3,7 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "READY_FOR_BATCH_03",
+  "status": "BATCH_03_IN_PROGRESS",
   "last_completed_batch": 2,
   "batches": [
     {
@@ -55,11 +55,25 @@
         "PY-14",
         "PY-15"
       ],
-      "status": "PENDING",
+      "status": "IN_PROGRESS",
       "changed_lessons": [],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "fix/markdown-render-batch-03-20261025",
+      "reviewed_lessons": [
+        "PY-11",
+        "PY-12",
+        "PY-13",
+        "PY-14",
+        "PY-15"
+      ],
+      "inspection": {
+        "html_pipe_entity_hits": 0,
+        "malformed_table_rows": 0,
+        "unescaped_pipe_in_inline_code_table_cells": 0
+      },
+      "notes": "Reviewed PY-11..PY-15, found no escaped HTML pipe entity displayed literally, no unescaped table pipe, and no inconsistent Markdown table column counts. All five lessons are unchanged. Await CI for formatting-only batch verification."
     },
     {
       "batch": 4,
