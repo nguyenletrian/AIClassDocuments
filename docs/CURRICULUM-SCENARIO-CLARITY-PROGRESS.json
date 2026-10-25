@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "BATCH_03_IN_PROGRESS",
-  "last_completed_batch": 2,
+  "status": "READY_FOR_BATCH_04",
+  "last_completed_batch": 3,
   "batches": [
     {
       "batch": 1,
@@ -75,7 +75,7 @@
         "PY-14",
         "PY-15"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-11",
         "PY-12",
@@ -83,9 +83,9 @@
         "PY-14",
         "PY-15"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 157,
+      "merged_commit": "2761218e1212f682e4ad40909b52900649581508",
+      "ci_run": 40179084732,
       "branch": "feat/scenario-clarity-batch-03-20261025",
       "lesson_commits": {
         "PY-11": "7edee410cf0cf2449becb7d0cb23edf974707588",
@@ -94,7 +94,7 @@
         "PY-14": "d1a787ae14dc98b000e1859360e5ee63b7585e05",
         "PY-15": "5d381ea4c54a8f8b44358c592f626dad1f677697"
       },
-      "notes": "Individually committed PY-11..15 (exactly 5 'Tình huống thực tế' and 5 'Vì sao chọn cách này?' paragraphs each, 50 paragraphs total). Explain inherited classes, ABC, CSV/UTF-8/ValueError, NumPy axes/NaN/indexing/fancy indexing/broadcasting using concrete sample meanings and beginner words. For each lesson, compared full content with main after masking only 2 approved single-line prose paragraph types: everything else identical byte-for-byte (9 executable Python code fences and expected stdout sections, 5 progressive scenarios, 20 MCQs/answers and all definitions unchanged). GitHub final-head CI and merge PENDING. Windows/PowerShell not verified."
+      "notes": "Five lesson commits PY-11..PY-15, 50 prose paragraphs revised only (5 Tình huống thực tế and 5 Vì sao chọn cách này per chapter). Strict full file comparison after masking allowed paragraphs preserved every other byte: 45 executable Python blocks, documented stdout, definitions, 5 scenarios per lesson, 100 MCQ questions+answers unchanged. PR #157 final head 4729276725fff6293eeaf9a6562f359f2bc1e8da, GitHub Actions #40179084732 COMPLETED SUCCESS (46-chapter structure, AST Python rules, scenario code execution exact stdout, MCQ/Markdown). Squash merged 2761218e1212f682e4ad40909b52900649581508. Windows PowerShell/CDP verification unavailable; no Windows PASS. Next batch04 PY-16..20."
     },
     {
       "batch": 4,
