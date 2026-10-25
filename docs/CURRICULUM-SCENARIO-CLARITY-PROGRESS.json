@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "BATCH_09_IN_PROGRESS",
-  "last_completed_batch": 8,
+  "status": "READY_FOR_BATCH_10",
+  "last_completed_batch": 9,
   "batches": [
     {
       "batch": 1,
@@ -255,7 +255,7 @@
         "PY-44",
         "PY-45"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-41",
         "PY-42",
@@ -263,9 +263,9 @@
         "PY-44",
         "PY-45"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 163,
+      "merged_commit": "2cf280f843c2fa2b33cae9104ca19843e5a6e407",
+      "ci_run": 40184125115,
       "branch": "feat/scenario-clarity-batch-09-20261025",
       "lesson_commits": {
         "PY-41": "533329b9208a76d637fb24a0dc9ce8897412943c",
@@ -274,7 +274,7 @@
         "PY-44": "acb0b33bc00fdab67a9830d045b113e4239999d4",
         "PY-45": "95df3ffa11aaa033466fb4bf89854a0fe6111ffc"
       },
-      "notes": "Five independent lesson commits PY-41..PY-45, exactly 5 Tình huống thực tế and 5 Vì sao chọn cách này paragraphs per chapter (50 total). Clarify train/test and leakage, NLP token/Counter/Jaccard, Git branch/stage/merge using temp repos, CLI CRUD validation, Matplotlib charts and PNG output. Full-file compare with main with ONLY the two approved one-line prose paragraph types masked: every other byte unchanged, including 41 executable Python code fences (9+9+5+9+9), expected stdout, lesson definitions, 100 MCQ/answers and original structure. GitHub CI and merge pending; Windows/PowerShell verification unavailable and CDP 9224 identity unverified; no Windows PASS."
+      "notes": "Five independently committed PY-41..PY-45 chapters, 50 approved prose paragraphs revised. Full-file byte comparison against main masking only two approved fields proves all other material unchanged: 41 original executable Python fences (9,9,5,9,9), exact expected stdout, definitions, lesson structure and 100 MCQs/answers. PR #163 final head dae37edfbc9737eb2f84e599a7f025288c1bff81 GitHub Actions #40184125115 COMPLETED SUCCESS on 46-lesson structure/MCQ, explicit AST, scenario execution/exact stdout, Markdown and sequential ledger. Squash merged 2cf280f843c2fa2b33cae9104ca19843e5a6e407. Windows PowerShell/CDP owner unverified; next batch10 PY-46 only."
     },
     {
       "batch": 10,
