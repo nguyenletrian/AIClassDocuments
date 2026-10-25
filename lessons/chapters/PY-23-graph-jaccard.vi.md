@@ -126,9 +126,9 @@ Hai hồ sơ giống nhau khoảng 33,3% theo Jaccard vì chỉ chung một trê
 
 **Từ vựng trong mục:** **Graph** — đồ thị; **Adjacency list** — danh sách kề; **Degree** — bậc đỉnh.
 
-**Tình huống thực tế:** Mạng học tập có **10 học viên A…J** và **12 dòng kết nối hai chiều**, mỗi dòng gồm hai mã học viên được phép liên hệ trực tiếp. Cần xác định số bạn trực tiếp của A và tổng số quan hệ; không được đếm quan hệ A–B và B–A thành hai mối quan hệ riêng.
+**Tình huống thực tế:** Cộng đồng học tập gồm **10 học viên A đến J**. Danh sách có **12 mối quan hệ trực tiếp**; mỗi dòng lưu hai mã, ví dụ A–B có nghĩa A và B có thể liên hệ với nhau **theo cả hai chiều**. Nhân viên cần biết A liên hệ trực tiếp được với những ai, A có bao nhiêu bạn trực tiếp và toàn mạng có bao nhiêu mối quan hệ, không tính A–B và B–A như hai quan hệ riêng.
 
-**Vì sao chọn cách này?** Danh sách kề dùng Dictionary của các Set: khi thêm một cạnh vô hướng phải ghi ở cả hai đầu. Tổng số lượt liên kết theo đỉnh bằng hai lần số cạnh, giúp kiểm tra nhập dữ liệu.
+**Vì sao chọn cách này?** **Đồ thị** là cách biểu diễn người bằng **đỉnh** và quan hệ trực tiếp bằng **cạnh**. Vì liên hệ trong bài là **hai chiều**, khi có A–B, chương trình thêm B vào set bạn của A **và** thêm A vào set bạn của B. Dictionary `graph` ánh xạ mỗi mã với tập bạn trực tiếp; đây là **danh sách kề**, không phải bảng điểm. Set không giữ một người hai lần, còn `sorted()` giúp in mã đúng thứ tự. Khi cộng số bạn của mọi người, mỗi quan hệ được tính ở **hai đầu**, nên tổng số lượt nối gấp đôi số cạnh thật; bước kiểm tra này phát hiện việc quên ghi một chiều.
 
 **Quy trình:**
 1. Tạo 10 đỉnh, mỗi đỉnh có Set hàng xóm rỗng.
@@ -169,9 +169,9 @@ Một dòng cạnh là một quan hệ giữa hai học viên; khi danh sách k�
 
 **Từ vựng trong mục:** **Jaccard similarity** — tương đồng tập hợp; **Intersection** — phần giao.
 
-**Tình huống thực tế:** Nền tảng ghép nhóm nhận **12 hồ sơ H01…H12**, mỗi dòng là một người với Set kỹ năng như Python, AI, SQL, Math, Data, Cloud. Một kỹ năng có thể vô tình được ghi lại trong cùng hồ sơ, nhưng phải coi là một mục duy nhất. Dùng H01 làm hồ sơ tham chiếu, tính điểm Jaccard với H02 và tìm người gần H01 nhất trong 11 người còn lại.
+**Tình huống thực tế:** Ứng dụng ghép nhóm có **12 hồ sơ kỹ năng H01–H12**; mỗi hồ sơ ghi những kỹ năng người đó khai, như Python, AI, SQL, Math, Data và Cloud. H01 khai `Python` hai lần nhưng đó vẫn là **một kỹ năng**. Người quản lý chọn H01 làm hồ sơ mẫu, muốn biết mức giống nhau về kỹ năng giữa H01 và H02, đồng thời tìm học viên có bộ kỹ năng **giống H01 nhất** trong 11 người còn lại; nếu bằng điểm phải quyết định thứ tự ổn định.
 
-**Vì sao chọn cách này?** Jaccard đo tỷ lệ số kỹ năng chung so với tổng kỹ năng khác nhau. Trước khi tính phải dùng Set loại mục lặp trong từng hồ sơ, xử lý tập hợp rỗng an toàn và phân xử đồng điểm bằng mã tăng dần.
+**Vì sao chọn cách này?** **Jaccard** đo mức độ giống nhau giữa **hai tập**: xem chúng chia sẻ bao nhiêu kỹ năng so với tất cả kỹ năng khác nhau của cả hai người. `set()` loại `Python` bị lặp trong hồ sơ H01 trước khi so. Phép **giao** `&` cho kỹ năng chung, phép **hợp** `|` cho các kỹ năng thuộc ít nhất một người; ví dụ chia sẻ một kỹ năng trong tổng ba kỹ năng khác nhau nghĩa là giống một phần ba. Nếu hai tập đều rỗng, chương trình trả 0 thay vì chia cho 0. Danh sách ứng viên được sắp theo điểm từ cao xuống; nếu đồng điểm, mã học viên nhỏ hơn được xếp trước, tránh kết quả thay đổi do thứ tự dữ liệu.
 
 **Quy trình:**
 1. Tạo 12 dòng hồ sơ, mỗi hồ sơ là tập kỹ năng.
@@ -215,9 +215,9 @@ Gần H01 nhất: H07 1.00
 
 **Từ vựng trong mục:** **Connected component** — thành phần liên thông; **Traversal** — duyệt đồ thị.
 
-**Tình huống thực tế:** Một câu lạc bộ ghi **15 cạnh kết nối vô hướng** giữa các học viên A…O (15 người). Dữ liệu có hai mạng bạn bè tách biệt A…G và H…O. Điều phối viên cần biết có bao nhiêu cụm, cụm lớn nhất gồm bao nhiêu người và liệu A có liên hệ nối tiếp được với O không.
+**Tình huống thực tế:** Một câu lạc bộ có **15 học viên A đến O** và **15 mối quan hệ hai chiều** được ghi nhận. Các mối liên hệ tạo hai nhóm tách biệt: một nhóm từ A đến G và một nhóm từ H đến O. Điều phối viên muốn biết có bao nhiêu **cụm bạn bè nối được với nhau qua một hoặc nhiều người trung gian**, mỗi cụm lớn bao nhiêu người và liệu A có thể liên hệ nối tiếp tới O hay không.
 
-**Vì sao chọn cách này?** Đi từ danh sách kề, dùng duyệt DFS/BFS đánh dấu người đã gặp để tìm các thành phần liên thông. Đếm cạnh đơn thuần không cho biết có đường đi từ A tới O.
+**Vì sao chọn cách này?** **Thành phần liên thông** là một nhóm đỉnh mà từ một người có thể lần theo các liên hệ hai chiều để đến bất kỳ người nào khác trong nhóm, kể cả phải qua bạn trung gian. **DFS/BFS** là hai cách đi thăm lần lượt các người có thể tới; dùng set `visited` đánh dấu người đã gặp để không đi lòng vòng hay đếm lại. Khi hết người có thể thăm, ta hoàn thành một cụm rồi bắt đầu từ người chưa thăm của cụm khác. A và O nằm ở hai cụm riêng trong dữ liệu này nên không có đường nối; chỉ đếm số quan hệ chưa đủ để biết ai liên hệ được với ai.
 
 **Quy trình:**
 1. Dựng danh sách kề từ 15 cạnh; mỗi quan hệ ghi cả hai chiều.
@@ -285,9 +285,9 @@ Hai người có thể không có cạnh trực tiếp nhưng vẫn cùng cụm 
 
 **Từ vựng trong mục:** **Ranking** — xếp hạng; **Empty set** — tập rỗng; **Tie-break** — phân xử hòa điểm.
 
-**Tình huống thực tế:** Cộng đồng học tập có **18 hồ sơ** U01…U18 với kỹ năng mỗi người; U14 chưa nhập bất kỳ kỹ năng nào, còn các hồ sơ khác có thể có mục trùng trong cùng người. Cần gợi ý **ba người** giống U01 nhất bằng Jaccard, không chia cho 0 khi một tập rỗng và không tự coi người thiếu kỹ năng là không có năng lực.
+**Tình huống thực tế:** Hệ thống gợi ý bạn học có **18 hồ sơ U01–U18**, mỗi người nhập danh sách kỹ năng. U01 là người cần tìm bạn phù hợp; một số kỹ năng trong hồ sơ được ghi lặp, còn U14 **chưa khai kỹ năng nào**. Người quản lý cần gợi ý **ba người giống U01 nhất** theo kỹ năng, đồng thời báo còn bao nhiêu hồ sơ thiếu thông tin. Hồ sơ trống không được hiểu là người đó thực sự không có khả năng.
 
-**Vì sao chọn cách này?** Dùng một hàm tính Jaccard có điều kiện với mẫu số rỗng, sau đó xếp theo điểm giảm và ID tăng khi hòa. Không làm dữ liệu thiếu biến mất mà phải báo số hồ sơ cần bổ sung.
+**Vì sao chọn cách này?** Hàm so sánh Jaccard trong bài chuyển mỗi danh sách kỹ năng sang set, để kỹ năng bị nhập lặp chỉ được tính một lần. Sau đó nó xem **kỹ năng chung** chiếm bao nhiêu trong toàn bộ kỹ năng khác nhau của hai người; hai tập không có phần tử thì trả 0 để tránh lỗi chia cho 0. U14 có danh sách rỗng nên bài **báo là thiếu dữ liệu**, không kết luận người này không có kỹ năng. Chương trình tính điểm U01 với từng người còn lại, sắp theo **điểm giảm dần**, nếu hòa thì theo **mã tăng dần**, rồi lấy ba mã đầu; đây là gợi ý dựa trên khai báo kỹ năng, chưa phải đánh giá năng lực thực tế.
 
 **Quy trình:**
 1. Chuẩn hóa kỹ năng về Set trên 18 hồ sơ.
@@ -337,9 +337,9 @@ U03: 0.33
 
 **Từ vựng trong mục:** **Directed graph** — đồ thị có hướng; **BFS** — duyệt theo chiều rộng; **Jaccard** — tương đồng tập kề.
 
-**Tình huống thực tế:** Hệ thống chuyển tiếp thông báo ghi **20 cạnh có hướng** giữa các trạm A…S; mỗi dòng `(nguồn, đích)` chỉ cho phép gửi theo **một hướng**. Cần tìm đường đi ít bước nhất từ trạm A tới K, kiểm tra trạm R có đường tới K không, và so sánh tập trạm nhận trực tiếp của A/B bằng Jaccard. Không được đi ngược một cạnh đã cho.
+**Tình huống thực tế:** Mạng chuyển tiếp thông báo có **20 đường liên kết một chiều** giữa các trạm A đến S. Mỗi dòng `(trạm gửi, trạm nhận)` nghĩa là gửi được theo chiều đó, không mặc nhiên gửi ngược lại; riêng trạm R chỉ có đường tới S. Kỹ thuật viên cần tìm đường từ **A đến K** có ít chặng nhất, kiểm tra **R có tới được K** không, và so mức trùng nhau giữa hai tập trạm nhận trực tiếp của **A và B**.
 
-**Vì sao chọn cách này?** Dùng BFS theo từng lớp cạnh để đường đầu tới đích có **ít cạnh nhất** trong mạng không trọng số. Jaccard trên hai tập hàng xóm ra trả câu hỏi khác: mức chồng lấn các trạm nhận trực tiếp.
+**Vì sao chọn cách này?** Đây là **đồ thị có hướng**: cạnh A→B chỉ cho phép chuyển từ A sang B, không tự suy ra đường B→A. **BFS** (tìm kiếm theo chiều rộng) thử các trạm ở khoảng cách **một chặng**, rồi hai chặng, rồi ba chặng; trong mạng mà mỗi chặng tính như nhau, lần đầu tới K cho một đường **ít cạnh nhất**. `deque` giữ các điểm cần xét theo thứ tự đã vào hàng, `visited` tránh thử lại trạm và đường đã thăm. Trạm R chỉ dẫn tới S, không nối tới K nên không có đường như yêu cầu. **Jaccard** trên tập hàng xóm của A/B là câu hỏi khác: mức giống nhau của các trạm nhận **ngay trong một bước**, không phản ánh việc A và B có cùng đường nhiều chặng hay không.
 
 **Quy trình:**
 1. Tạo danh sách kề **một chiều** từ 20 cạnh và xác nhận trạm nguồn/đích.
