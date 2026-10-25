@@ -152,7 +152,8 @@ records = [{"id":"HV01","hours":1,"practice":2,"passed":0},{"id":"HV02","hours":
 df = pd.DataFrame(records)
 X = df[["hours", "practice"]]
 y = df["passed"]
-assert len(df) == 10 and X.shape == (10, 2) and len(y) == 10
+if len(df) != 10 or X.shape != (10, 2) or len(y) != 10:
+    raise ValueError("Cần 10 hồ sơ, hai đặc trưng và 10 nhãn.")
 print("Hồ sơ:", len(df))
 print("Feature:", X.shape[1])
 print("Nhãn 0/1:", int((y==0).sum()), int((y==1).sum()))
@@ -190,13 +191,19 @@ import numpy as np
 from sklearn.dummy import DummyClassifier
 from sklearn.model_selection import train_test_split
 records = [{"id":"HV01","hours":1,"practice":2,"passed":0},{"id":"HV02","hours":2,"practice":3,"passed":0},{"id":"HV03","hours":3,"practice":4,"passed":0},{"id":"HV04","hours":1,"practice":2,"passed":0},{"id":"HV05","hours":2,"practice":3,"passed":0},{"id":"HV06","hours":3,"practice":4,"passed":0},{"id":"HV07","hours":6,"practice":8,"passed":1},{"id":"HV08","hours":7,"practice":9,"passed":1},{"id":"HV09","hours":8,"practice":10,"passed":1},{"id":"HV10","hours":6,"practice":8,"passed":1},{"id":"HV11","hours":7,"practice":9,"passed":1},{"id":"HV12","hours":8,"practice":10,"passed":1}]
-X = np.array([[r["hours"],r["practice"]] for r in records],dtype=float)
-y = np.array([r["passed"] for r in records])
+features = []
+labels = []
+for row in records:
+    features.append([row["hours"], row["practice"]])
+    labels.append(row["passed"])
+X = np.array(features, dtype=float)
+y = np.array(labels)
 train,test = train_test_split(np.arange(12),test_size=4,random_state=42,stratify=y)
 model = DummyClassifier(strategy="most_frequent")
 model.fit(X[train],y[train])
 accuracy = model.score(X[test],y[test])
-assert len(records) == 12 and set(train).isdisjoint(test)
+if len(records) != 12 or not set(train).isdisjoint(test):
+    raise ValueError("Cần 12 hồ sơ và Train/Test không trùng mẫu.")
 print("Hồ sơ:", len(records))
 print("Train/test:", len(train), len(test))
 print("Nhãn test 0/1:", int((y[test]==0).sum()), int((y[test]==1).sum()))
@@ -235,8 +242,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 records = [{"id":"F01","petal_cm":1.1,"sepal_cm":3,"species":0},{"id":"F02","petal_cm":1.2000000000000002,"sepal_cm":3.03,"species":0},{"id":"F03","petal_cm":1.3,"sepal_cm":3.06,"species":0},{"id":"F04","petal_cm":None,"sepal_cm":3.09,"species":0},{"id":"F05","petal_cm":1.5,"sepal_cm":3.12,"species":0},{"id":"F06","petal_cm":4.1,"sepal_cm":4,"species":1},{"id":"F07","petal_cm":4.199999999999999,"sepal_cm":4.03,"species":1},{"id":"F08","petal_cm":4.3,"sepal_cm":4.06,"species":1},{"id":"F09","petal_cm":4.3999999999999995,"sepal_cm":4.09,"species":1},{"id":"F10","petal_cm":4.5,"sepal_cm":4.12,"species":1},{"id":"F11","petal_cm":7.1,"sepal_cm":5,"species":2},{"id":"F12","petal_cm":7.199999999999999,"sepal_cm":None,"species":2},{"id":"F13","petal_cm":7.3,"sepal_cm":5.06,"species":2},{"id":"F14","petal_cm":7.3999999999999995,"sepal_cm":5.09,"species":2},{"id":"F15","petal_cm":7.5,"sepal_cm":5.12,"species":2}]
-X = np.array([[r["petal_cm"],r["sepal_cm"]] for r in records],dtype=float)
-y = np.array([r["species"] for r in records])
+features = []
+labels = []
+for row in records:
+    features.append([row["petal_cm"], row["sepal_cm"]])
+    labels.append(row["species"])
+X = np.array(features, dtype=float)
+y = np.array(labels)
 train,test = train_test_split(np.arange(len(records)),test_size=6,
                               random_state=42,stratify=y)
 pipeline = make_pipeline(SimpleImputer(strategy="median"),
@@ -244,7 +256,8 @@ pipeline = make_pipeline(SimpleImputer(strategy="median"),
 pipeline.fit(X[train],y[train])
 predicted = pipeline.predict(X[test])
 imputer = pipeline.named_steps["simpleimputer"]
-assert X.shape == (15,2) and len(predicted) == 6
+if X.shape != (15, 2) or len(predicted) != 6:
+    raise ValueError("Cần đủ 15 mẫu hoa và 6 dự đoán test.")
 print("Hoa:", len(records))
 print("Ô thiếu ban đầu:", int(np.isnan(X).sum()))
 print("Train/test:", len(train),len(test))
@@ -287,8 +300,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 records = [{"id":"C01","hours":1,"activities":2,"completed":0},{"id":"C02","hours":2,"activities":3,"completed":0},{"id":"C03","hours":None,"activities":4,"completed":0},{"id":"C04","hours":4,"activities":2,"completed":0},{"id":"C05","hours":1,"activities":3,"completed":0},{"id":"C06","hours":2,"activities":4,"completed":0},{"id":"C07","hours":3,"activities":2,"completed":0},{"id":"C08","hours":4,"activities":3,"completed":0},{"id":"C09","hours":1,"activities":4,"completed":0},{"id":"C10","hours":2,"activities":2,"completed":0},{"id":"C11","hours":3,"activities":3,"completed":0},{"id":"C12","hours":4,"activities":4,"completed":0},{"id":"C13","hours":7,"activities":9,"completed":1},{"id":"C14","hours":8,"activities":10,"completed":1},{"id":"C15","hours":9,"activities":11,"completed":1},{"id":"C16","hours":7,"activities":None,"completed":1},{"id":"C17","hours":8,"activities":10,"completed":1},{"id":"C18","hours":None,"activities":11,"completed":1}]
-X = np.array([[r["hours"],r["activities"]] for r in records],dtype=float)
-y = np.array([r["completed"] for r in records])
+features = []
+labels = []
+for row in records:
+    features.append([row["hours"], row["activities"]])
+    labels.append(row["completed"])
+X = np.array(features, dtype=float)
+y = np.array(labels)
 train,test = train_test_split(np.arange(len(records)),test_size=6,
                               random_state=42,stratify=y)
 baseline = DummyClassifier(strategy="most_frequent").fit(X[train],y[train])
@@ -297,7 +315,8 @@ model = make_pipeline(SimpleImputer(strategy="median"),
 model.fit(X[train],y[train])
 pred = model.predict(X[test])
 cm = confusion_matrix(y[test],pred,labels=[0,1])
-assert len(records)==18 and len(train)==12 and len(test)==6
+if len(records) != 18 or len(train) != 12 or len(test) != 6:
+    raise ValueError("Cần đủ 18 hồ sơ chia 12 train và 6 test.")
 print("Hồ sơ:", len(records))
 print("Ô thiếu:", int(np.isnan(X).sum()))
 print("Nhãn test 0/1:", int((y[test]==0).sum()),int((y[test]==1).sum()))
@@ -373,7 +392,8 @@ report = {"raw_rows":len(raw),"unique_rows":len(df),"duplicates":duplicate_count
           "confusion":confusion_matrix(y[test],pred,labels=[0,1]).tolist()}
 path = Path("model_report_20.json")
 path.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
-assert len(raw)==20 and len(df)==19 and set(train).isdisjoint(test)
+if len(raw) != 20 or len(df) != 19 or not set(train).isdisjoint(test):
+    raise ValueError("Cần 20 dòng đầu vào, 19 hồ sơ duy nhất và Train/Test không trùng.")
 print("Dòng gốc/trùng/còn:",report["raw_rows"],report["duplicates"],report["unique_rows"])
 print("Ô thiếu sau chuyển kiểu:",report["missing_cells"])
 print("Train/test:",report["train_rows"],report["test_rows"])

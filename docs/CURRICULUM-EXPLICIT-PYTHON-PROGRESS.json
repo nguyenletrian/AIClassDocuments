@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_10",
+  "status": "BATCH_10_IN_PROGRESS",
   "last_completed_batch": 9,
   "batches": [
     {
@@ -283,11 +283,18 @@
       "lessons": [
         "PY-46"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-46"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-10-20261025",
+      "lesson_commits": {
+        "PY-46": "555f93614af682cd9d210cd7217c76595fb580b5"
+      },
+      "notes": "Final PY-46 chapter code rewritten: five scenario executable assert guards replaced by explicit if/raise; feature/label list comprehensions for ML baseline, iris, and review cases replaced by for loops. Model pipelines, 5 progressive scenarios, exact documented stdout and 20 MCQs unchanged. 9 Python fences and 9 corresponding expected stdout sections retained. Await full final-head GitHub CI 46/46 AST, 10 scenario batches and Markdown; Windows result not claimed."
     }
   ],
   "notes": "Owner approved on 2026-10-25, activated only after Markdown render goal ledger COMPLETED 10/10, no open PR, and no pending/undelivered Bridge TaskSource tasks. Complete only one batch of <=5 lessons at a time. Verify every code fence runs and expected stdout matches, run structure/MCQ/Markdown regression and CI, then PR merge and record SHA/CI evidence before advancing. No fabricated Windows PASS."
