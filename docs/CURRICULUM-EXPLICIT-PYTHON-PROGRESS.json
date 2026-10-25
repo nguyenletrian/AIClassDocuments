@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "BATCH_04_IN_PROGRESS",
-  "last_completed_batch": 3,
+  "status": "READY_FOR_BATCH_05",
+  "last_completed_batch": 4,
   "batches": [
     {
       "batch": 1,
@@ -105,7 +105,7 @@
         "PY-19",
         "PY-20"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-16",
         "PY-17",
@@ -113,9 +113,9 @@
         "PY-19",
         "PY-20"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 148,
+      "merged_commit": "04b6b30af4556a09f621a04d008b0deea281e1e7",
+      "ci_run": 40173788636,
       "branch": "feat/explicit-python-batch-04-20261025",
       "lesson_commits": {
         "PY-16": "d2c66d73c2ea11020ce95eb6059e604cf0cd52d6",
@@ -125,7 +125,7 @@
         "PY-19": "83c7c67da2d424608bd18141313cf30437dc63d8",
         "PY-20": "d716deca4bec92159a138ee94afe3b97f48f0e29"
       },
-      "notes": "Five chapters PY-16..20 committed separately; explicit checks and for-loops instead of assert, comprehensions/genexpr; vectorized NumPy and Pandas methods retained intentionally. Kept 9 executable blocks, 5 scenarios and 9 expected stdout blocks per chapter. GitHub CI independent execution/stdout and curriculum/Markdown/MCQ/AST QA pending; Windows not yet verified. Deferred scenario prose clarity goal unchanged."
+      "notes": "Batch04 PY-16..20 five chapters separately committed + PY-17 escaped-newline fix; final-head 3d1e478276651e732fd6d666aca09fc91065b078 GitHub Actions CI #40173788636 completed SUCCESS: 25 batch04 scenarios executed with exact stdout, existing 46-chapter structure and MCQs, previous batches 01..03 scenario tests, markdown rendering, and AST explicit Python style for active+merged batch01..04. PR #148 squash merged SHA 04b6b30af4556a09f621a04d008b0deea281e1e7. Windows worker result not obtained; do not mark Windows PASS. Next batch PY-21..25; deferred scenario explanation goal untouched."
     },
     {
       "batch": 5,
