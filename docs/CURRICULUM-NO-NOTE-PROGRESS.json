@@ -4,9 +4,9 @@
   "expected_lessons": 46,
   "expected_batches": 10,
   "batch_limit": 5,
-  "last_completed_batch": 1,
-  "status": "BATCH_02_IN_PROGRESS",
-  "paired_code_fence_count_completed": 45,
+  "last_completed_batch": 2,
+  "status": "READY_FOR_BATCH_03",
+  "paired_code_fence_count_completed": 93,
   "predecessor": {
     "goal_id": "aiclassdocuments-full-code-annotations-20261025",
     "ledger_status": "COMPLETED",
@@ -44,7 +44,16 @@
         "PY-09",
         "PY-10"
       ],
-      "status": "IN_PROGRESS"
+      "status": "COMPLETED",
+      "pr_number": 176,
+      "merged_sha": "609ee12762a92509e02d93c4cf0ad98b67f2f59a",
+      "final_pr_head_sha": "7596fa223e659fd2364648b3f0cd7a1fc7a11d61",
+      "ci_run_id": 40201909291,
+      "ci_conclusion": "SUCCESS",
+      "paired_code_fence_count": 48,
+      "annotated_python_fences_unmodified": true,
+      "original_markdown_reconstruction_verified": true,
+      "windows_validation": "UNVERIFIED"
     },
     {
       "batch": 3,
