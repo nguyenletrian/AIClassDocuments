@@ -124,7 +124,7 @@ print(orders['O2']['amount'])
 Kết quả `200` là số tiền của đơn O2 (đơn vị tiền theo quy định của cửa hàng), không phải mã đơn hay chỉ số dòng.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Tra cứu đơn theo mã
+### Tình huống 1 — Tra cứu đơn theo mã · Cấp 1: Nhận biết
 
 **Từ vựng trong mục:** **Dictionary** — từ điển; **Key** — khóa.
 
@@ -154,7 +154,20 @@ Not found
 
 **Kết quả:** `Not found` — không có mã đơn `O3` trong dữ liệu.
 
-### Tình huống 2 — Cập nhật tồn kho
+**Thực hành nâng cấp — cấp 1/5:** Bộ phận vận hành có **10 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy tra cứu mã đầu bằng get(). Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = {r['id']:r['x'] for r in rows}.get('R01')
+assert len(rows)==10
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 10 dòng và in kết quả dictionary: tra cứu, cập nhật, đếm nhóm và crud từ các dòng thực có trong bộ dữ liệu.
+
+### Tình huống 2 — Cập nhật tồn kho · Cấp 2: Áp dụng nhiều dòng
 
 **Từ vựng trong mục:** **Key** — khóa; **Value** — giá trị.
 
@@ -185,7 +198,20 @@ print(stock)
 
 **Kết quả:** `{'SKU01': 3}` — sản phẩm còn 3 món.
 
-### Tình huống 3 — Đếm nhãn
+**Thực hành nâng cấp — cấp 2/5:** Bộ phận vận hành có **12 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy tạo Dictionary từ 12 phiếu, kiểm tra mã không trùng. Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = len({r['id']:{'value':r['x'],'group':r['group']} for r in rows})
+assert len(rows)==12
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 12 dòng và in kết quả dictionary: tra cứu, cập nhật, đếm nhóm và crud từ các dòng thực có trong bộ dữ liệu.
+
+### Tình huống 3 — Đếm nhãn · Cấp 3: Kết hợp các thao tác
 
 **Từ vựng trong mục:** **Dictionary** — từ điển; **Count** — số lần.
 
@@ -218,7 +244,20 @@ print(count)
 
 **Kết quả:** `{'AI': 2, 'Math': 1}` — AI xuất hiện hai lần, Math một lần.
 
-### Tình huống 4 — Hồ sơ lồng nhau
+**Thực hành nâng cấp — cấp 3/5:** Bộ phận vận hành có **15 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy đếm số phiếu thuộc từng nhóm. Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = {g:sum(r['group']==g for r in rows) for g in 'ABC'}
+assert len(rows)==15
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 15 dòng và in kết quả dictionary: tra cứu, cập nhật, đếm nhóm và crud từ các dòng thực có trong bộ dữ liệu.
+
+### Tình huống 4 — Hồ sơ lồng nhau · Cấp 4: Xử lý đầu vào sai
 
 **Từ vựng trong mục:** **Nested dict** — từ điển lồng; **Key** — khóa.
 
@@ -248,7 +287,20 @@ print(students["SV2"]["score"])
 
 **Kết quả:** `9` — điểm của học viên Lan (`SV2`).
 
-### Tình huống 5 — Xóa SKU không có
+**Thực hành nâng cấp — cấp 4/5:** Bộ phận vận hành có **18 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy tạo bản cập nhật chỉ từ các phiếu có giá hợp lệ. Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = {r['id']:r['x'] for r in rows if r['x'] is not None}
+assert len(rows)==18
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 18 dòng và in kết quả dictionary: tra cứu, cập nhật, đếm nhóm và crud từ các dòng thực có trong bộ dữ liệu.
+
+### Tình huống 5 — Xóa SKU không có · Cấp 5: Hàm hoặc cấu trúc tổng hợp
 
 **Từ vựng trong mục:** **Dictionary** — từ điển; **Pop** — lấy và xóa.
 
@@ -278,6 +330,19 @@ None
 ```
 
 **Kết quả:** `None` — không có mã `P02` để xóa; `P01` vẫn còn trong Dictionary.
+
+**Thực hành nâng cấp — cấp 5/5:** Bộ phận vận hành có **20 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy tổng hợp Dictionary lồng nhau và mã chưa có số liệu. Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = {'orders':{r['id']:{'amount':r['x'],'group':r['group']} for r in rows if r['x'] is not None},'missing':[r['id'] for r in rows if r['x'] is None]}
+assert len(rows)==20
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 20 dòng và in kết quả dictionary: tra cứu, cập nhật, đếm nhóm và crud từ các dòng thực có trong bộ dữ liệu.
 
 ## 6. Nhầm lẫn dễ gặp
 
