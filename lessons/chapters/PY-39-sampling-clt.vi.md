@@ -41,6 +41,15 @@
 
 **Tổng thể** là toàn bộ các đối tượng mà ta muốn kết luận, như 100 hóa đơn của một cửa hàng trong một ngày. Mỗi hóa đơn là **một đơn vị quan sát**; các cột có thể là giá trị, thời gian, trạng thái giao. Nếu chỉ đo 5 hóa đơn, kết luận không tự mở rộng thành 100 hóa đơn mà không xem cách chọn mẫu. Trong ví dụ, tổng thể gồm đúng 100 mã 0–99, nên `len` bằng 100.
 
+**No Note — Không chú thích**
+
+```python
+population = list(range(100))
+print(len(population))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tạo tổng thể gồm 100 mã số khác nhau và đếm kích thước.
 # Dữ liệu: Mã 0..99 tượng trưng 100 thành viên của toàn bộ nhóm cần khảo sát.
@@ -63,6 +72,18 @@ Tổng thể có 100 mã hóa đơn; số lượng tổng thể là N=100.
 **Từ vựng:** **Sample** — mẫu; **Sampling** — lấy mẫu.
 
 **Mẫu** là một phần các đối tượng được chọn từ tổng thể. Ví dụ từ 5 mã hóa đơn `[1,2,3,4,5]`, chọn 3 mã **không hoàn lại** nghĩa là mỗi mã xuất hiện tối đa một lần trong mẫu. `rng.choice(...,replace=False)` cho chọn mẫu giả ngẫu nhiên, seed giúp tái lập. Chọn ngẫu nhiên hợp lý hỗ trợ giảm thiên lệch chọn mẫu, nhưng nếu dữ liệu nguồn đã thiếu nhóm quan trọng thì seed không thể khắc phục.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+rng = np.random.default_rng(1)
+sample = rng.choice([1, 2, 3, 4, 5], size=3, replace=False)
+print(sample.tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lấy ngẫu nhiên ba phần tử khác nhau từ năm người, không hoàn lại.
@@ -91,6 +112,19 @@ Mẫu có ba mã khác nhau vì lấy không hoàn lại; đây là một kết 
 **Từ vựng:** **CLT** — định lý giới hạn trung tâm; **Sampling distribution** — phân phối lấy mẫu.
 
 **CLT** nói rằng dưới các điều kiện phù hợp như quan sát độc lập, cùng phân phối, phương sai hữu hạn, khi **cỡ mẫu n lớn**, phân phối của **trung bình mẫu** sau chuẩn hóa thường tiến gần dạng chuẩn, ngay cả khi dữ liệu gốc không chuẩn. Nó **không** nói dữ liệu gốc trở thành chuẩn hay từng mẫu đều có mean giống nhau. Mô phỏng 200 nhóm, mỗi nhóm 40 giá trị từ phân phối mũ mean lý thuyết 2, cho trung bình các mean gần 2.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+rng = np.random.default_rng(1)
+groups = rng.exponential(scale=2, size=(200, 40))
+means = groups.mean(axis=1)
+print(round(float(means.mean()), 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Mô phỏng phân phối của trung bình mẫu để minh họa định lý giới hạn trung tâm (CLT).
@@ -122,6 +156,18 @@ print(round(float(means.mean()), 3))
 **Từ vựng:** **Standard error (SE)** — sai số chuẩn; **Standard deviation (SD)** — độ lệch chuẩn.
 
 **SD** mô tả độ phân tán của **quan sát riêng lẻ**, còn **SE của mean** mô tả mức dao động **giữa các trung bình mẫu** nếu lặp lấy mẫu cùng cách. Với n quan sát độc lập và ước lượng SD mẫu s, SE(mean) thường ước tính bằng `s/sqrt(n)` (trường hợp thích hợp). Năm điểm `[6,7,8,9,10]` có s≈1,581 điểm, nên SE≈0,707 điểm. Cỡ mẫu gấp 4 làm SE còn một nửa nếu độ phân tán giữ nguyên.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+scores = np.array([6, 7, 8, 9, 10], dtype=float)
+se = scores.std(ddof=1) / np.sqrt(len(scores))
+print(round(float(se), 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính standard error (SE) của mean từ độ lệch chuẩn mẫu của năm điểm.
@@ -161,6 +207,23 @@ SE của trung bình mẫu xấp xỉ 0,707 điểm; nó không phải SD của 
 1. Tạo 40 giá trị hóa đơn làm tổng thể, chọn 10 không hoàn lại.
 2. Kiểm tính duy nhất bằng Set và tính mean mẫu.
 3. So mean mẫu với mean tổng thể để thấy sai lệch lấy mẫu.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+population = np.arange(100, 140)
+rng = np.random.default_rng(31)
+sample = rng.choice(population, size=10, replace=False)
+if len(sample) != 10 or len(set(sample)) != 10:
+    raise ValueError("Cần chọn đủ 10 hóa đơn không trùng.")
+print("Tổng thể:", len(population))
+print("Hóa đơn chọn:", len(sample))
+print(f"Mean mẫu (nghìn đồng): {sample.mean():.1f}")
+print(f"Mean tổng thể (nghìn đồng): {population.mean():.1f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Chọn ngẫu nhiên mười hóa đơn KHÔNG trùng từ tổng thể bốn mươi hóa đơn.
@@ -211,6 +274,29 @@ Chọn mẫu ngẫu nhiên không có nghĩa mean luôn bằng mean tổng thể
 1. Tạo 30 ID A và 30 ID B.
 2. Chọn 6 từ mỗi nhóm với seed cố định và không hoàn lại.
 3. Ghép 12 ID và xác minh đủ hai nhóm, không lặp.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+rng = np.random.default_rng(12)
+A = []
+B = []
+for i in range(1, 31):
+    A.append(f"A{i:02d}")
+    B.append(f"B{i:02d}")
+selected_a = rng.choice(A, 6, replace=False).tolist()
+selected_b = rng.choice(B, 6, replace=False).tolist()
+selection = selected_a + selected_b
+if len(selection) != 12 or len(set(selection)) != 12:
+    raise ValueError("Cần đúng 12 phiếu chọn, không trùng ID.")
+print("Tổng thể:", len(A)+len(B))
+print("Phiếu lấy:", len(selection))
+print("Nhóm A/B:", len(selected_a), len(selected_b))
+print("Có trùng ID:", len(selection) != len(set(selection)))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lấy mẫu phân tầng: chọn sáu phiếu nhóm A và sáu phiếu nhóm B từ 60 phiếu.
@@ -275,6 +361,23 @@ Phân tầng đảm bảo đại diện từng khu vực **theo thiết kế**, 
 2. Tính một mean cho mỗi trong 15 hàng.
 3. So SD của 15 mean với SD của tất cả thời gian đơn lẻ và in mean chung.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+rng = np.random.default_rng(12)
+samples = rng.exponential(scale=2, size=(15, 40))
+means = samples.mean(axis=1)
+if samples.shape != (15, 40) or means.shape != (15,):
+    raise ValueError("Cần 15 lần lấy mẫu, mỗi lần 40 quan sát.")
+print("Lần lấy mẫu:", len(means))
+print("Quan sát mỗi lần:", samples.shape[1])
+print(f"Mean của các mean (phút): {means.mean():.3f}")
+print("SD mean nhỏ hơn SD dữ liệu:", bool(means.std(ddof=1) < samples.ravel().std(ddof=1)))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Quan sát CLT qua 15 lần lấy mẫu, mỗi lần 40 thời gian từ phân phối mũ.
 # Dữ liệu: Phân phối mũ scale=2 phút, 15 hàng mẫu × 40 quan sát, seed 12.
@@ -328,6 +431,25 @@ SD mean nhỏ hơn SD dữ liệu: True
 1. Tạo 18 điểm gốc, lấy thêm tập con 9 điểm đầu.
 2. Tính std mẫu (ddof=1) và SE cho cả hai tập.
 3. Báo cả hai SE kèm số người và giải thích giới hạn so sánh.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+scores = np.array([8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25], dtype=float)
+first9 = scores[:9]
+se9 = first9.std(ddof=1)/np.sqrt(len(first9))
+se18 = scores.std(ddof=1)/np.sqrt(len(scores))
+if len(scores) != 18:
+    raise ValueError("Cần đủ 18 điểm học viên.")
+print("Tất cả học viên:", len(scores))
+print("Nhóm con:", len(first9))
+print(f"SE 9 người (điểm): {se9:.3f}")
+print(f"SE 18 người (điểm): {se18:.3f}")
+print("SE của hai nhóm khác nhau:", bool(not np.isclose(se9, se18)))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: So standard error ước lượng trên 9 và 18 điểm và nêu rõ đây là hai nhóm khác nhau.
@@ -385,6 +507,26 @@ SE của 18 người **lớn hơn** trong dữ liệu cụ thể này vì độ 
 1. Tạo 20 phiếu có thời gian hợp lệ.
 2. Rút 2.000 hàng mẫu, mỗi hàng chứa 20 giá trị có hoàn lại.
 3. Tính mean của 2.000 hàng và hai phân vị biên, kiểm mean gốc ở trong khoảng minh họa.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+minutes = np.array([30,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,49,50,51,55], dtype=float)
+rng = np.random.default_rng(18)
+bootstrap = rng.choice(minutes, size=(2000, len(minutes)), replace=True)
+means = bootstrap.mean(axis=1)
+low, high = np.quantile(means, [0.025, 0.975])
+if len(minutes) != 20 or bootstrap.shape != (2000, 20):
+    raise ValueError("Cần 20 phiếu và 2000 lượt lấy mẫu bootstrap.")
+print("Phiếu gốc:", len(minutes))
+print("Mẫu bootstrap:", len(means))
+print(f"Mean gốc (phút): {minutes.mean():.2f}")
+print(f"Khoảng bootstrap (phút): {low:.2f} – {high:.2f}")
+print("Mean gốc trong khoảng:", bool(low <= minutes.mean() <= high))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Bootstrap 2.000 lần từ 20 phiếu để ước lượng khoảng phân vị của trung bình.
