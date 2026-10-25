@@ -1,3 +1,30 @@
+## Quy tắc owner 2026-10-25 — Cặp code "No Note" / "Có chú thích" cho 46 bài
+
+Goal `aiclassdocuments-no-note-comparison-copies-20261025` đã được owner phê duyệt SAU khi 46/46 bài hoàn tất bổ sung chú thích. Quy tắc chi tiết và tiến độ: `docs/CURRICULUM-NO-NOTE-GOAL.json` và `docs/CURRICULUM-NO-NOTE-PROGRESS.json`.
+
+Trong mỗi ví dụ có code thực thi, đặt **bản sạch trước, bản diễn giải sau** dưới dạng:
+
+**No Note — Không chú thích**
+
+```python
+# Chỉ minh họa bố cục: ở sản phẩm thật, bỏ dòng chú thích này.
+print("Hello")
+```
+
+**Code có chú thích — Giải thích từng bước**
+
+```python
+# Mục đích: Hiển thị một chuỗi.
+# print() ghi nội dung ra stdout.
+print("Hello")
+```
+
+**Lưu ý ví dụ trên chỉ cho thấy vị trí nhãn; phần No Note THỰC PHẢI không có dòng comment.** Sao chép phần code có chú thích hiện có giữ nguyên 100%, bản No Note loại comment theo cú pháp ngôn ngữ mà không làm thay đổi lệnh chạy. Áp dụng cho mọi Python, Bash/Git CLI và ngôn ngữ lập trình/lệnh thực thi khác nếu có; **không nhân đôi output trong `text` fence, bảng, sơ đồ, hình, câu hỏi**.
+
+Bảo đảm từng cặp code cùng ngôn ngữ, mỗi bản xuất hiện đúng một lần, sát nhau, không thay đổi lời giảng, dữ liệu, stdout hay 920 MCQ. Test mới phải kiểm comment không xuất hiện ở No Note, AST Python bằng nhau, script chạy cho stdout cũ và các scenario test không được vô hiệu hóa chỉ vì có hai fence. Nếu shell có ký tự `#` nằm trong chuỗi, không được xóa sai hoặc chỉnh lệnh.
+
+Mỗi batch tối đa 5 bài; mỗi bài một commit và chỉ một PR/batch, kiểm CI đúng final head trước merge; xong một batch mới ghi ledger và chuẩn bị lần đánh thức tiếp theo. Không tự nhận Windows PASS khi chưa có chứng cứ.
+
 # Chuẩn biên soạn bắt buộc — Curriculum v1
 
 **Áp dụng cho mọi bài mới và khi chỉnh bài cũ.** Mỗi lần tạo bài, agent **phải đọc tệp này và `templates/lesson.md` trước khi viết**, sau đó chạy checklist bên dưới. Không chỉ suy từ một ví dụ PCA hoặc tin rằng ghi nhớ lịch sử là đủ.
