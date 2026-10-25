@@ -145,7 +145,8 @@ orders = [120,80,200,150,90,70,180,210,130,160]
 total = 0
 for amount in orders:
     total += amount
-assert len(orders) == 10
+if len(orders) != 10:
+    raise ValueError("Cần đủ 10 đơn bán hàng.")
 print("Số đơn:", len(orders))
 print("Doanh số (nghìn đồng):", total)
 ```
@@ -174,14 +175,17 @@ Mỗi lượt lặp đưa vào tổng **một đơn**; tổng chỉ đúng nếu
 
 ```python
 readings = [27,28,None,29,30,31,28,None,27,32,30,29]
-total, valid_count, missing_count = 0, 0, 0
+total = 0
+valid_count = 0
+missing_count = 0
 for temperature in readings:
     if temperature is None:
         missing_count += 1
         continue
     total += temperature
     valid_count += 1
-assert valid_count + missing_count == len(readings) == 12
+if len(readings) != 12 or valid_count + missing_count != 12:
+    raise ValueError("Phải đối chiếu đủ 12 lượt nhiệt độ, kể cả dữ liệu thiếu.")
 print("Hợp lệ:", valid_count)
 print("Thiếu:", missing_count)
 print(f"Trung bình: {total / valid_count:.1f} °C")
@@ -217,8 +221,12 @@ for shelf_number, amount in enumerate(stocks, 1):
     if amount == 0:
         first_empty = f"K{shelf_number:02d}"
         break
-assert len(stocks) == 15
-assert stocks[int(first_empty[1:]) - 1] == 0
+if len(stocks) != 15:
+    raise ValueError("Cần kiểm kê đủ 15 kệ.")
+if first_empty is None:
+    raise ValueError("Không tìm thấy kệ trống cần báo cáo.")
+if stocks[int(first_empty[1:]) - 1] != 0:
+    raise ValueError("Kệ được chọn phải có tồn kho bằng 0.")
 print("Số kệ kiểm kê:", len(stocks))
 print("Kệ hết hàng đầu:", first_empty)
 ```
@@ -243,13 +251,16 @@ K09 trống sớm hơn 1 kệ trống còn lại, nhưng chương trình chủ �
 **Quy trình:**
 1. Duyệt 18 thiết bị, mỗi thiết bị khởi tạo lại số lần thử và cờ kết nối.
 2. Trong `while`, tăng số lần thử; mô phỏng thành công đúng lượt được cấu hình.
-3. Cộng kết quả thành công/thất bại và tổng lượt thử; assert không thiết bị nào vượt 3 lần.
+3. Cộng kết quả thành công/thất bại và tổng lượt thử; dùng `if` kiểm tra không thiết bị nào vượt 3 lần.
 
 ```python
 success_on_try = [0,2,3,1,4,0,1,2,4,1,0,3,4,2,3,0,4,3]
-success_count, failed_count, total_attempts = 0, 0, 0
+success_count = 0
+failed_count = 0
+total_attempts = 0
 for planned in success_on_try:
-    attempts, connected = 0, False
+    attempts = 0
+    connected = False
     while attempts < 3 and not connected:
         attempts += 1
         connected = (planned == attempts)
@@ -258,9 +269,12 @@ for planned in success_on_try:
         success_count += 1
     else:
         failed_count += 1
-    assert attempts <= 3
-assert len(success_on_try) == 18
-assert success_count + failed_count == 18
+    if attempts > 3:
+        raise RuntimeError("Mỗi thiết bị chỉ được thử kết nối tối đa 3 lần.")
+if len(success_on_try) != 18:
+    raise ValueError("Cần đúng 18 thiết bị để thống kê.")
+if success_count + failed_count != 18:
+    raise ValueError("Tổng thiết bị thành công và thất bại phải bằng 18.")
 print("Thiết bị:", len(success_on_try))
 print("Kết nối được:", success_count)
 print("Thất bại:", failed_count)
@@ -303,15 +317,25 @@ for student in students:
             absent_count += 1
             continue
         schedule.append((student, session))
-assert len(students) == 20
-assert len(schedule) == len(set(schedule))
-assert len(students) * len(sessions) == len(schedule) + absent_count
+if len(students) != 20:
+    raise ValueError("Cần đúng 20 học viên.")
+if len(schedule) != len(set(schedule)):
+    raise ValueError("Không được trùng cặp học viên và ca học.")
+if len(students) * len(sessions) != len(schedule) + absent_count:
+    raise ValueError("Lượt có mặt và lượt vắng phải khớp 40 lượt dự kiến.")
 print("Học viên:", len(students))
 print("Lượt dự kiến:", len(students) * len(sessions))
 print("Lượt có mặt:", len(schedule))
 print("Lượt vắng:", absent_count)
-print("Ca Sáng:", sum(session == "Sáng" for student, session in schedule))
-print("Ca Chiều:", sum(session == "Chiều" for student, session in schedule))
+morning_count = 0
+afternoon_count = 0
+for student, session in schedule:
+    if session == "Sáng":
+        morning_count += 1
+    elif session == "Chiều":
+        afternoon_count += 1
+print("Ca Sáng:", morning_count)
+print("Ca Chiều:", afternoon_count)
 ```
 
 **Kết quả khi chạy:**
