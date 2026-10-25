@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "BATCH_08_IN_PROGRESS",
-  "last_completed_batch": 7,
+  "status": "READY_FOR_BATCH_09",
+  "last_completed_batch": 8,
   "batches": [
     {
       "batch": 1,
@@ -227,7 +227,7 @@
         "PY-39",
         "PY-40"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-36",
         "PY-37",
@@ -235,9 +235,9 @@
         "PY-39",
         "PY-40"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 152,
+      "merged_commit": "149489b27b8db45083e2a35aa8176947170e73f0",
+      "ci_run": 40175353314,
       "branch": "feat/explicit-python-batch-08-20261025",
       "lesson_commits": {
         "PY-36": "d4f0a6206fa566e3c8fd87af7a1dcb89942ed64c",
@@ -246,7 +246,7 @@
         "PY-39": "f63cc4954d15a823f8a6f6c13ff5cfbd323a528a",
         "PY-40": "a2072cf60d548bd69fc55ecdd1dc2ace2fdea2b5"
       },
-      "notes": "Five chapters PY-36..40 individually committed; `assert` converted into informative `if`/raise and PY-38/PY-39 ID list comprehension replaced by for. Statistical calculations, documentation, 5 scenarios per lesson, 9 Python blocks and exact expected stdout untouched. Full CI and 25 batch08 scenarios exact stdout pending, Windows not claimed. Scenario prose clarity goal remains APPROVED_DEFERRED."
+      "notes": "PY-36..40 five lesson commits; PR #152 head 54dfca0a625c952271e41bdc5097e97eba883d4e CI run #40175353314 SUCCESS, 25 batch08 scenarios executed exact stdout, all prior 7 batches, AST style, 46-lesson structure/MCQs, Markdown PASS. Squash merge SHA 149489b27b8db45083e2a35aa8176947170e73f0. Windows verification not asserted. Next batch09 PY-41..45, deferred scenario prose goal not active."
     },
     {
       "batch": 9,
