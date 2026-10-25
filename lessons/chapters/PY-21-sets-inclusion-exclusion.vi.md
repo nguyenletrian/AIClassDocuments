@@ -125,9 +125,9 @@ Hai tập đều có dữ liệu, không trùng và phủ đủ toàn bộ năm 
 
 **Từ vựng trong mục:** **Set** — tập hợp; **Union** — phép hợp.
 
-**Tình huống thực tế:** Trung tâm nhận **10 lượt đăng ký môn**; mỗi hàng là cặp `(mã học viên, môn)` gồm Python hoặc AI. SV01 và SV05 đăng ký cả hai môn, nên số **lượt** nhiều hơn số **người**. Cần đếm học viên có ít nhất một môn và liệt kê những người có cả hai.
+**Tình huống thực tế:** Trung tâm ngoại ngữ nhận **10 lượt đăng ký môn học**. Mỗi lượt là một cặp gồm **mã học viên** (SV01 đến SV08) và môn **Python hoặc AI**. SV01 và SV05 đều đăng ký cả hai môn nên một người có thể tạo **hai lượt đăng ký**. Giáo vụ cần biết có bao nhiêu **người khác nhau** đã đăng ký ít nhất một môn, đồng thời liệt kê mã những người học cả hai, tránh nhầm số dòng đăng ký với số học viên.
 
-**Vì sao chọn cách này?** Set chỉ lưu mã duy nhất; phép hợp `|` trả mọi học viên thuộc ít nhất một lớp, phép giao `&` tìm người học cả hai. Dùng `sorted` vì Set không có thứ tự hiển thị ổn định.
+**Vì sao chọn cách này?** **Set** (tập hợp) là kiểu dữ liệu chỉ giữ **mỗi mã duy nhất một lần**, dù mã ấy xuất hiện ở nhiều lượt đăng ký. Chương trình duyệt 10 dòng rồi thêm mã vào `python_students` hoặc `ai_students` theo môn. Phép **hợp** `|` cho tất cả mã có ở ít nhất một tập, còn phép **giao** `&` giữ những mã có ở **cả hai tập**. `sorted()` sắp mã trước khi in vì set không đảm bảo một thứ tự hiển thị cố định. Không dùng `len(registrations)` để đếm người, vì SV01 và SV05 mỗi người được ghi hai lần.
 
 **Quy trình:**
 1. Ghi 10 bản ghi, mỗi bản ghi là một lượt đăng ký.
@@ -164,9 +164,9 @@ SV01 đăng ký hai lớp vẫn là **một người**. Đây là bài tập ph�
 
 **Từ vựng trong mục:** **Difference** — hiệu tập hợp; **Symmetric difference** — hiệu đối xứng.
 
-**Tình huống thực tế:** Quầy tư vấn nhận **12 lượt đăng ký** giữa Python và AI từ H01…H10. Những người đăng ký cả hai không cần quảng bá môn bổ sung, còn những người **chỉ học đúng một môn** cần được liên hệ. Hãy tìm riêng nhóm chỉ học Python, chỉ học AI và tổng người chỉ có một môn.
+**Tình huống thực tế:** Quầy tư vấn nhận **12 lượt đăng ký học** từ các học viên H01 đến H10. Mỗi dòng chứa **mã người đăng ký** và một trong hai môn Python hoặc AI. H01 và H07 đăng ký cả hai môn; người chỉ có một môn cần được liên hệ để giới thiệu môn còn lại. Nhân viên muốn biết ai **chỉ học Python**, ai **chỉ học AI**, và có tất cả bao nhiêu người chỉ đăng ký đúng một môn.
 
-**Vì sao chọn cách này?** Hiệu `Python - AI` và `AI - Python` phân biệt hai nhóm không trùng nhau. Hiệu đối xứng `^` trả tổng người chỉ thuộc đúng một Set, không chứa người đăng ký cả hai.
+**Vì sao chọn cách này?** Để tìm người **chỉ học Python**, lấy tập Python **trừ** tập AI bằng `pyt - ai`; chiều ngược lại `ai - pyt` cho người chỉ học AI. Đây là **phép hiệu tập hợp**, giữ mã có ở nhóm đầu nhưng không có nhóm thứ hai. Phép **hiệu đối xứng** `^` gom cả hai nhóm chỉ học một môn, đồng thời loại người học cả hai. H01 và H07 không được đưa vào danh sách cần mời học môn còn lại vì họ đã đăng ký đủ hai môn. Cần chuẩn hóa theo **mã học viên**, không so hai lượt theo số thứ tự đăng ký.
 
 **Quy trình:**
 1. Chuyển lượt đăng ký thành tập mã theo từng môn.
@@ -208,9 +208,9 @@ Một người có thể thuộc hai Set cùng lúc, nên không được dùng 
 
 **Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ; **Intersection** — phần chung.
 
-**Tình huống thực tế:** Một dịch vụ nhận **15 lượt truy cập** từ ứng dụng (`app`) và website (`web`), mỗi hàng lưu mã khách K01…K12 và kênh. Ba khách dùng cả hai kênh. Cần đếm số người không trùng, đồng thời kiểm tra kết quả đếm bằng hai cách.
+**Tình huống thực tế:** Ứng dụng dịch vụ ghi **15 lượt truy cập** của khách K01 đến K12. Mỗi dòng cho biết mã khách và **kênh truy cập** là `app` (ứng dụng) hoặc `web` (trang web). K01, K03 và K12 đã dùng cả hai kênh, nên đếm số khách trên từng kênh rồi cộng thẳng sẽ bị lặp. Bộ phận kinh doanh cần biết số **khách duy nhất** đã dùng ít nhất một kênh, số khách dùng cả hai và xác nhận phép đếm không bị tính trùng.
 
-**Vì sao chọn cách này?** Nếu cộng thẳng số khách của app và web, khách dùng hai kênh bị tính hai lần. Quy tắc bao hàm–loại trừ trừ phần giao, trong khi `len(app | web)` kiểm tra độc lập kết quả.
+**Vì sao chọn cách này?** Mỗi kênh được lưu thành một set mã khách để việc khách ghé nhiều lần không làm số người tăng lên. Khách K01 có trong **cả `app` và `web`**, vì vậy phần giao `app & web` nhận biết người bị đếm hai lần nếu cộng số khách của hai kênh. Quy tắc **bao hàm–loại trừ** diễn giải bằng lời là: cộng người của hai kênh, rồi **trừ một lần số người thuộc cả hai**. Chương trình cũng kiểm tra kết quả bằng `len(app | web)`, tức số mã khác nhau xuất hiện trên ít nhất một kênh. Đây là cách đếm **khách duy nhất**, không phải số lượt truy cập.
 
 **Quy trình:**
 1. Tạo hai Set khách hàng dựa trên 15 lượt ghi.
@@ -252,9 +252,9 @@ Số khách duy nhất khác số lượt truy cập, vì mỗi người có th�
 
 **Từ vựng trong mục:** **Partition** — phân hoạch; **Disjoint** — không giao nhau; **Coverage** — bao phủ.
 
-**Tình huống thực tế:** Đội AI có **18 mã mẫu** D01…D18. Dữ liệu phân chia nhầm `D12` vào cả train và test, đồng thời `D18` chưa nằm ở nhóm nào. Cần kiểm tra ba điều kiện của phân hoạch: không có ID trùng, các nhóm phủ toàn bộ tập nguồn và mọi ID đều thuộc nguồn; sau đó chỉ ra mã cần sửa trước khi dùng để học mô hình.
+**Tình huống thực tế:** Nhóm học máy có **18 mẫu dữ liệu D01 đến D18**, mỗi mã biểu thị một mẫu cần phân vào tập **train** (dùng để học) hoặc **test** (dùng để đánh giá). Trong danh sách được chuẩn bị sẵn, **D12 xuất hiện ở cả hai tập** và **D18 chưa được đưa vào tập nào**. Trước khi huấn luyện, nhóm cần báo rõ mã trùng, mã bị bỏ sót và xác nhận cách chia hiện tại có hợp lệ hay không, chứ không tự động sửa bằng cách xóa một mã.
 
-**Vì sao chọn cách này?** Phân hoạch cần **vừa không giao nhau vừa bao phủ nguồn**. Chỉ kiểm tra `isdisjoint()` là chưa đủ, vì tập có thể không trùng nhưng vẫn bỏ sót mẫu.
+**Vì sao chọn cách này?** Một cách chia train/test đúng phải thỏa **hai điều kiện cùng lúc**: không có mẫu nằm ở hai tập và không bỏ quên mẫu nào trong danh sách nguồn. `train & test` tìm mã **bị trùng**, còn `source - (train | test)` tìm mã **chưa thuộc nhóm nào**. `isdisjoint()` hỏi hai tập có hoàn toàn **không giao nhau** không; kết hợp thêm việc hợp hai tập phải bằng nguồn mới kiểm tra đủ. Chỉ thấy hai tập không trùng **chưa đủ**, vì vẫn có thể bỏ quên D18. Khi D12 nằm ở cả train lẫn test, kết quả đánh giá mô hình còn có nguy cơ bị lạc quan do gặp lại mẫu đã học.
 
 **Quy trình:**
 1. Tạo tập nguồn 18 ID; lưu train/test theo quyết định hiện tại.
@@ -292,9 +292,9 @@ Chỉ khi hai điều kiện cùng đúng mới sử dụng train/test: một m�
 
 **Từ vựng trong mục:** **Disjoint sets** — tập rời nhau; **Union** — phép hợp; **Data integrity** — toàn vẹn dữ liệu.
 
-**Tình huống thực tế:** Hệ thống có **20 dòng ghi nhận học viên** ở ba vùng Bắc/Nam/Trung; mỗi dòng gồm mã học viên, vùng, kênh đăng ký và điểm hoạt động (đơn vị điểm). Hai mã S04 và S07 bị ghi thêm ở vùng khác, nên **20 dòng không tương đương 20 người** và các nhóm vùng không còn là phân hoạch người. Cần phát hiện người xuất hiện nhiều vùng, số người duy nhất và số dòng trùng mã; không tự xóa hồ sơ vì còn phải xác nhận vùng đúng.
+**Tình huống thực tế:** Một chương trình học trực tuyến ghi **20 dòng hoạt động** từ người học ở ba vùng Bắc, Nam và Trung. Mỗi dòng có mã học viên, vùng, kênh truy cập và điểm hoạt động (**điểm**); một người có thể có nhiều dòng. **S04** được ghi ở Bắc và Nam, **S07** ở Bắc và Trung. Nhân viên muốn biết tổng **người khác nhau**, có bao nhiêu dòng dư do mã xuất hiện lại và danh sách học viên có mặt ở nhiều vùng, nhưng không tự đoán vùng đúng để xóa dữ liệu.
 
-**Vì sao chọn cách này?** Set theo vùng gom ID không lặp trong một vùng, sau đó `union` đếm người duy nhất. Duyệt thành viên của hợp để xác định một ID thuộc hơn một vùng; việc xóa tự động có nguy cơ chọn sai vùng.
+**Vì sao chọn cách này?** Nhóm người mỗi vùng được biểu diễn bằng một set mã, vì **một người có nhiều dòng trong cùng vùng** cũng chỉ nên được tính là một thành viên vùng đó. `set().union(*regions.values())` hợp ba nhóm để tìm toàn bộ **mã khác nhau**. Sau đó chương trình duyệt các mã này và đếm một mã nằm trong bao nhiêu set vùng; số lớn hơn một thì ghi vào danh sách **đa vùng**. Lấy số dòng gốc trừ số người duy nhất cho biết có bao nhiêu lượt ghi vượt số mã khác nhau, nhưng **không chứng minh dòng nào sai**. Việc xóa một vùng của S04 hay S07 phải dựa vào hồ sơ đối chiếu thật, không dựa vào phép tính tập hợp.
 
 **Quy trình:**
 1. Ghi 20 dòng đầy đủ ID/vùng/kênh/điểm và tạo Set cho từng vùng.

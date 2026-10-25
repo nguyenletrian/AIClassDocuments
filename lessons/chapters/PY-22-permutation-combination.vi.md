@@ -127,9 +127,9 @@ Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
 
 **Từ vựng trong mục:** **Permutation** — chọn có thứ tự; **Role** — vai trò.
 
-**Tình huống thực tế:** Câu lạc bộ nhận **10 ứng viên** U01…U10, mỗi mã là một người đủ điều kiện. Cần phân hai vai trò khác nhau là trưởng nhóm và phó nhóm; một người không được giữ cả hai vị trí. Hỏi có bao nhiêu phương án và nêu một cách phân vai đầu tiên.
+**Tình huống thực tế:** Câu lạc bộ có **10 ứng viên U01–U10** đã đủ điều kiện. Cần chọn **một trưởng nhóm** và **một phó nhóm** từ hai người khác nhau. Nếu U01 làm trưởng và U02 làm phó thì đó là phương án khác với U02 làm trưởng, U01 làm phó. Người phụ trách muốn biết tổng số cách phân vai và xem một phương án đầu tiên từ chương trình.
 
-**Vì sao chọn cách này?** Đổi trưởng với phó tạo phương án **khác**, nên dùng `math.perm(10,2)` thay vì số cách chọn không xét thứ tự. Có thể kiểm bằng việc liệt kê hai vị trí từ mười mã khi quy mô còn nhỏ.
+**Vì sao chọn cách này?** **Chỉnh hợp** phù hợp khi **vị trí, vai trò hoặc thứ tự có ý nghĩa**. Trưởng và phó không giống nhau, nên đổi hai người tạo phương án mới. `math.perm(len(candidates), 2)` đếm cách điền lần lượt hai vai bằng hai người khác nhau; `itertools.permutations(candidates, 2)` có thể liệt kê các cặp để kiểm tra. Vòng `for` lấy cặp đầu và `break` vì bài chỉ cần **một ví dụ**, không phải in toàn bộ các phương án. Nếu dùng tổ hợp không xét thứ tự thì sẽ gộp nhầm hai cách giao chức danh khác nhau.
 
 **Quy trình:**
 1. Lưu đúng 10 ID ứng viên.
@@ -167,9 +167,9 @@ Người U01 làm trưởng và U02 làm phó khác cách đảo vai; không cho
 
 **Từ vựng trong mục:** **Combination** — chọn không xét thứ tự; **Distinct** — không trùng người.
 
-**Tình huống thực tế:** Ban sự kiện có **12 tình nguyện viên** S01…S12, mỗi bản ghi là một cá nhân. Nhóm trực chỉ cần **3 người ngang vai**, không phân trưởng/phó và mỗi người chỉ xuất hiện một lần. Hãy đếm số tổ khác nhau và đối chiếu bằng liệt kê.
+**Tình huống thực tế:** Ban tổ chức sự kiện có **12 tình nguyện viên S01–S12**. Mỗi đội trực chỉ cần **3 người ngang vai**, không có vai trò trưởng hay phó; một người không được xuất hiện hai lần trong một đội. Đội gồm S01, S02, S03 vẫn là cùng một đội khi đọc tên theo thứ tự S03, S02, S01. Người quản lý muốn đếm các đội khác nhau và liệt kê một đội đầu tiên.
 
-**Vì sao chọn cách này?** Chọn cùng ba người theo thứ tự khác nhau vẫn là **một nhóm**; `math.comb(12,3)` tránh đếm lặp. Liệt kê bằng `itertools.combinations` cho phép kiểm chứng số lượng ở quy mô bài học.
+**Vì sao chọn cách này?** **Tổ hợp** dùng khi chỉ quan tâm **ai được chọn**, không quan tâm tên nào được viết trước. Đội S01–S02–S03 và S03–S01–S02 là một đội, vì cả ba người ngang vai. `math.comb(12, 3)` tính số đội khác nhau; `itertools.combinations(volunteers, 3)` liệt kê mỗi bộ ba đúng một lần để chương trình có thể đối chiếu kết quả. Không dùng chỉnh hợp, vì chỉnh hợp tính riêng các thứ tự của cùng ba người nên số đội sẽ lớn hơn thực tế.
 
 **Quy trình:**
 1. Lưu 12 mã thành viên.
@@ -204,9 +204,9 @@ Bài này khác cấp 1 ở chỗ đổi vị trí ba người **không** tạo 
 
 **Từ vựng trong mục:** **Eligibility** — đủ điều kiện; **Permutation** — phân vai; **Combination** — chọn nhóm.
 
-**Tình huống thực tế:** Phòng QA có **15 hồ sơ** T01…T15, mỗi dòng ghi kỹ năng Python/AI/SQL và cờ sẵn sàng. Dự án cần **hai vai khác nhau** (người viết kiểm thử và người duyệt), chỉ chấp nhận ứng viên sẵn sàng thuộc nhóm Python hoặc AI. Hãy đếm người đủ điều kiện, số **cặp không phân vai** và số **phương án phân vai**; không dùng 15 làm số ứng viên đủ chuẩn.
+**Tình huống thực tế:** Đội kiểm thử phần mềm có **15 hồ sơ nhân sự T01–T15**. Mỗi hồ sơ ghi kỹ năng Python, AI hoặc SQL và cờ `available` cho biết người đó có sẵn sàng hay không. Dự án cần **hai người có vai trò khác nhau**, một người viết kiểm thử và một người duyệt; chỉ người sẵn sàng và có kỹ năng **Python hoặc AI** được chọn. Nhân sự muốn đếm người đủ chuẩn, số đội hai người không phân vai và số cách giao hai vai thực tế.
 
-**Vì sao chọn cách này?** Trước hết phải lọc theo yêu cầu dự án. Từ số người hợp lệ, tổ hợp đếm đội hai người; chỉnh hợp đếm thứ tự hai vai. Hai kết quả giúp phân biệt phạm vi và mục đích của phép đếm.
+**Vì sao chọn cách này?** Đầu tiên phải **lọc người đủ điều kiện** theo `available` và kỹ năng; số 15 là tổng hồ sơ, **không phải tổng người được chọn**. Sau lọc, nếu chỉ hỏi chọn hai đồng đội thì dùng `math.comb` vì hai người ngang vai. Nếu hỏi ai viết và ai duyệt thì dùng `math.perm` vì đổi vai tạo cách giao nhiệm vụ khác. Như vậy cùng một danh sách hợp lệ có thể trả hai con số khác nhau vì **câu hỏi kinh doanh khác nhau**, chứ không phải hai thuật toán mâu thuẫn.
 
 **Quy trình:**
 1. Kiểm tra từng hồ sơ trong 15 dòng để lọc kỹ năng và cờ sẵn sàng.
@@ -243,9 +243,9 @@ Khác hai cấp đầu, phải lọc dữ liệu trước khi đếm. Không đ�
 
 **Từ vựng trong mục:** **Ordered selection** — chọn có thứ tự; **Factorial** — giai thừa; **Constraint** — ràng buộc.
 
-**Tình huống thực tế:** Đội vận hành ghi **18 sự cố** C01…C18 với mức `blocker/high/normal` và cờ đủ thông tin xử lý. Ca C12 chưa sẵn sàng; yêu cầu lấy **ba sự cố khác nhau theo thứ tự xử lý**, chỉ từ ca `blocker` hoặc `high` có thông tin đầy đủ. Hãy tính số thứ tự xử lý có thể có và kiểm với số phương án thực sự liệt kê.
+**Tình huống thực tế:** Đội trực vận hành có **18 phiếu sự cố C01–C18**; mỗi phiếu ghi mức `blocker` (ngăn hệ thống hoạt động), `high` (nghiêm trọng) hoặc `normal` (thông thường), cùng cờ `ready` về mức đầy đủ thông tin. Ca trực cần chọn **ba sự cố khác nhau xử lý theo thứ tự**. Chỉ các phiếu `blocker` hoặc `high` có `ready=True` được dùng; chẳng hạn C12 chưa sẵn sàng và cũng thuộc loại thông thường. Điều phối viên cần số lịch ba vị trí hợp lệ và một lịch đầu để đối chiếu.
 
-**Vì sao chọn cách này?** Không được coi lịch A–B–C giống C–B–A; `permutations(eligible,3)` liệt kê các lịch khác nhau. Dùng `math.perm` để đối chiếu, chỉ sau khi lọc ràng buộc có đủ hồ sơ.
+**Vì sao chọn cách này?** **Lịch xử lý** gồm ba vị trí đầu–giữa–cuối, nên thứ tự C01 rồi C04 rồi C07 khác C07 rồi C04 rồi C01, dù chọn cùng ba sự cố. Chương trình duyệt 18 hồ sơ, giữ các dòng vừa **đủ thông tin (`ready`)** vừa ở mức `blocker` hoặc `high`; không mặc định mọi phiếu là hợp lệ. `permutations(eligible, 3)` liệt kê các lịch gồm ba sự cố **không lặp**; `math.perm` đếm để kiểm tra. Cách này mới chỉ liệt kê **phương án thứ tự** theo tiêu chí đã cho, chưa tính thời lượng xử lý hay ưu tiên `blocker` đứng trước `high` vì ví dụ không đặt thêm quy định ấy.
 
 **Quy trình:**
 1. Duyệt 18 hồ sơ, chỉ giữ ca khẩn cấp có cờ sẵn sàng.
@@ -286,9 +286,9 @@ Ba vị trí là ba lượt thực hiện khác nhau nên dùng hoán vị; nhâ
 
 **Từ vựng trong mục:** **Constrained combination** — tổ hợp có ràng buộc; **Cross-check** — kiểm tra chéo.
 
-**Tình huống thực tế:** Ban chuyên môn có **20 hồ sơ** U01…U20, mỗi dòng gồm nhóm chuyên môn A/B/C và trạng thái sẵn sàng; U06 và U15 không sẵn sàng. Phải chọn **ba người ngang vai**, đúng **một người từ mỗi nhóm**, không xét thứ tự. Cần đếm số ban hợp lệ, kiểm chứng bằng liệt kê các tổ ba người và so với cách đếm bằng số lựa chọn mỗi nhóm.
+**Tình huống thực tế:** Ban chuyên môn có **20 hồ sơ U01–U20**, mỗi người thuộc một nhóm **A, B hoặc C** và có cờ `ready`. U06 và U15 chưa sẵn sàng. Ban cần chọn **đúng ba người ngang vai**, gồm **một người nhóm A, một người nhóm B và một người nhóm C**; không được chọn hai người cùng nhóm hay đếm ba người đó nhiều lần do đổi thứ tự. Người điều phối muốn biết số ứng viên đủ điều kiện từng nhóm và tổng số ban hợp lệ.
 
-**Vì sao chọn cách này?** Tổ hợp tổng quát trên toàn bộ người đủ điều kiện vẫn chứa đội có hai người cùng nhóm — không đáp ứng yêu cầu. Lọc theo tập điều kiện từng nhóm khi liệt kê và đối chiếu bằng tích số người đủ chuẩn của ba nhóm.
+**Vì sao chọn cách này?** Trước tiên bỏ người `ready=False` vì chưa thể tham gia. Sau đó, **một ban hợp lệ** phải có tập tên nhóm đúng bằng `{A, B, C}`: điều này bắt buộc đủ ba nhóm, không có hai người cùng nhóm. `combinations(ready, 3)` liệt kê các nhóm ba người **không xét thứ tự** rồi kiểm tra điều kiện; chương trình còn đếm số người sẵn sàng của từng nhóm. Nếu chọn độc lập đúng **một người từ mỗi nhóm**, số cách là tích số lựa chọn của A, B và C, dùng để đối chiếu kết quả liệt kê. Chỉ dùng tổ hợp của tất cả người sẵn sàng sẽ tính cả ban có hai người nhóm A, nên sai yêu cầu.
 
 **Quy trình:**
 1. Tách 20 hồ sơ theo nhóm A/B/C và trạng thái sẵn sàng.
