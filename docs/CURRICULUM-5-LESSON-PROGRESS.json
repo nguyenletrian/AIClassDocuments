@@ -15,7 +15,7 @@
     20
   ],
   "last_completed_batch": 3,
-  "status": "READY_FOR_BATCH_04",
+  "status": "BATCH_04_IN_PROGRESS",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -108,15 +108,21 @@
         "PY-19",
         "PY-20"
       ],
-      "status": "PENDING",
-      "branch": null,
+      "status": "IN_PROGRESS",
+      "branch": "feat/curriculum-scenarios-batch-04-20261025",
       "pr_number": null,
       "merged_commit": null,
       "ci_run": null,
       "windows_test": null,
-      "updated_at": null,
-      "notes": null,
-      "lesson_commits": {}
+      "updated_at": "2026-10-25",
+      "notes": "PY-16..PY-20 sections rewritten with five scenarios 10/12/15/18/20; executable QA and PR pending, no false completion claim.",
+      "lesson_commits": {
+        "PY-16": "d7a5e6a2f74e77ca11dc1065fd25b56ea2d62cd8",
+        "PY-17": "9cb9cd6d6e14025fd974b5f32c6f85c5941fd552",
+        "PY-18": "82edc0d9569ef33b95ef5a419580eb18e5bacc8f",
+        "PY-19": "4b67dd6295b6fe6293cd01b8393810855963ffea",
+        "PY-20": "3551af93bcfc36d0367f88eb240d6559c0a0b92c"
+      }
     },
     {
       "batch_id": "05",
