@@ -41,6 +41,20 @@
 
 Biểu đồ đường nối những điểm theo **thứ tự x**, thích hợp quan sát biến thiên doanh thu theo ngày. Ví dụ ba ngày 1,2,3 có doanh thu 10,15,12 nghìn đồng: trục x là ngày, trục y là nghìn đồng. Nối điểm cho thấy tăng rồi giảm; không có nghĩa tồn tại dữ liệu ở mọi thời điểm giữa hai ngày. `plt.plot(x,y)` yêu cầu hai dãy có cùng số phần tử.
 
+**No Note — Không chú thích**
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+plt.plot([1, 2, 3], [10, 15, 12])
+print(len(plt.gca().lines[0].get_xdata()))
+plt.close()
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Vẽ đường nối ba mốc theo thứ tự, sau đó đọc lại dữ liệu trục x từ chính đối tượng đường vẽ.
 # Dữ liệu: Ba mốc x=[1,2,3] và y=[10,15,12]; không lưu ảnh ra file, chỉ kiểm số điểm.
@@ -73,6 +87,20 @@ Biểu đồ đã nhận ba điểm, rồi đóng Figure; số 3 là số mốc,
 **Từ vựng trong mục:** **Scatter plot — biểu đồ phân tán**.
 
 Biểu đồ scatter đặt **mỗi mẫu thành một điểm (x,y)**. Ví dụ ba sinh viên học 2,4,6 giờ/tuần, có điểm 5,7,9: mỗi vị trí x ghép đúng điểm y của cùng học viên. Scatter giúp thấy liên hệ, nhưng không tự chứng minh học nhiều gây điểm cao. `plt.scatter` tạo các điểm riêng không nối đường như line chart.
+
+**No Note — Không chú thích**
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+plt.scatter([2, 4, 6], [5, 7, 9])
+print(len(plt.gca().collections[0].get_offsets()))
+plt.close()
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Vẽ scatter từ ba cặp x/y và đếm chính xác các điểm đã vẽ bằng get_offsets().
@@ -107,6 +135,20 @@ plt.close()
 
 Histogram dùng **một dãy số** và chia trục giá trị thành các **bins**, rồi đếm số quan sát trong mỗi khoảng. Sáu điểm `[5,6,6,7,8,9]` chia bốn bins đều từ 5 đến 9 tạo tần suất `[1,2,1,2]`. Khác biểu đồ cột cho các loại (A,B,C), histogram phù hợp biến số liên tục hoặc có thứ tự giá trị và phụ thuộc độ rộng bins.
 
+**No Note — Không chú thích**
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+counts, edges, bars = plt.hist([5, 6, 6, 7, 8, 9], bins=[5, 6, 7, 8, 10])
+print(counts.astype(int).tolist())
+plt.close()
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Vẽ histogram với biên khoảng tự chọn, kiểm đếm tần suất ở mỗi khoảng.
 # Dữ liệu: Sáu số đo 5,6,6,7,8,9; các mốc bins 5/6/7/8/10 tạo bốn khoảng.
@@ -139,6 +181,22 @@ Bốn khoảng chứa lần lượt 1, 2, 1, 2 quan sát; khoảng cuối bao g�
 **Từ vựng trong mục:** **Axis label — nhãn trục; Figure — hình**.
 
 **Nhãn trục** cho biết đang đo gì: `Time (hours)` ở trục ngang và `Temperature (°C)` ở trục dọc. Không ghi đơn vị, người xem dễ nhầm giờ với phút hoặc độ C với độ F. `xlabel`/`ylabel` chỉ đổi chữ trên Figure, không tự đổi dữ liệu. Có thể lưu hình bằng `savefig` rồi đóng `close` để không giữ Figure trong bộ nhớ.
+
+**No Note — Không chú thích**
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+plt.plot([1, 2], [22, 24])
+plt.xlabel('Time (hours)')
+plt.ylabel('Temperature (C)')
+print(plt.gca().get_xlabel())
+plt.close()
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Gắn nhãn trục có đơn vị cho đường nhiệt độ theo thời gian, rồi đọc lại nhãn đã đặt.
@@ -185,6 +243,34 @@ Trục x được gắn đúng ý nghĩa thời gian; phải đặt cả y và �
 1. Tạo 10 giá trị doanh thu tương ứng 10 ngày.
 2. Vẽ biểu đồ đường, tiêu đề và nhãn trục có đơn vị.
 3. Lưu `sales_10_days.png`, kiểm 10 điểm trong đường và file tồn tại.
+
+**No Note — Không chú thích**
+
+```python
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+days = list(range(1,11))
+revenues = [10,12,11,14,15,14,17,18,16,20]
+fig, ax = plt.subplots()
+ax.plot(days, revenues, marker="o")
+ax.set(title="Sales over 10 days", xlabel="Day", ylabel="Revenue (million VND)")
+fig.tight_layout()
+path = Path("sales_10_days.png")
+fig.savefig(path, dpi=130)
+points = len(ax.lines[0].get_xdata())
+plt.close(fig)
+if len(revenues) != 10:
+    raise ValueError("Cần đủ 10 ngày doanh thu.")
+print("Ngày:", len(days))
+print("Điểm đường:", points)
+print("Doanh thu ngày 10 (triệu đồng):", revenues[-1])
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Vẽ biểu đồ đường doanh thu 10 ngày, lưu PNG và kiểm đủ 10 điểm dữ liệu.
@@ -255,6 +341,34 @@ Chạy code sẽ tạo **sales_10_days.png** trong thư mục làm việc. Đi�
 2. Vẽ scatter với tên trục/đơn vị, không nối điểm.
 3. Lưu `study_vs_score.png`, kiểm scatter thực sự chứa 12 hàng.
 
+**No Note — Không chú thích**
+
+```python
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+hours = [1,2,2,3,3,4,4,5,5,6,7,8]
+scores = [4,5,6,5,7,6,8,7,8,9,8,10]
+fig, ax = plt.subplots()
+points = ax.scatter(hours, scores)
+ax.set(title="Study hours and score", xlabel="Study (hours/week)", ylabel="Score (0-10)")
+ax.set_ylim(0, 11)
+fig.tight_layout()
+path = Path("study_vs_score.png")
+fig.savefig(path, dpi=130)
+count = len(points.get_offsets())
+plt.close(fig)
+if len(hours) != 12 or len(scores) != 12:
+    raise ValueError("Cần đủ 12 học viên và 12 điểm.")
+print("Học viên:", len(hours))
+print("Điểm scatter:", count)
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Vẽ scatter giữa giờ học và điểm của 12 học viên rồi lưu file PNG.
 # Dữ liệu: 12 cặp (giờ học/tuần, điểm 0–10), có người trùng giờ học nhưng điểm khác nhau.
@@ -323,6 +437,32 @@ Trùng vị trí scatter có thể che lên nhau; số điểm đếm từ dữ 
 2. Vẽ histogram, nhãn hai trục và lưu hình.
 3. Kiểm tổng tần suất của bốn khoảng đúng 15 chuyến.
 
+**No Note — Không chú thích**
+
+```python
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+minutes = [4,7,8,9,10,11,14,16,18,20,21,24,27,31,37]
+fig, ax = plt.subplots()
+counts, edges, bars = ax.hist(minutes, bins=[0,10,20,30,40], edgecolor="black")
+ax.set(title="Delivery duration", xlabel="Duration (minutes)", ylabel="Number of trips")
+fig.tight_layout()
+path = Path("delivery_histogram.png")
+fig.savefig(path, dpi=130)
+plt.close(fig)
+if len(minutes) != 15 or int(counts.sum()) != 15:
+    raise ValueError("Cần đủ 15 chuyến trong các cột tần suất.")
+print("Chuyến:", len(minutes))
+print("Số khoảng:", len(counts))
+print("Tần suất:", counts.astype(int).tolist())
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Vẽ histogram 15 thời gian giao hàng trong bốn khoảng 0–10,10–20,20–30,30–40 phút.
 # Dữ liệu: 15 chuyến giao phút, histogram đếm số chuyến theo khoảng, không biểu diễn trình tự thời gian.
@@ -388,6 +528,40 @@ Histogram khác biểu đồ cột danh mục: trục ngang biểu diễn **kho�
 1. Tạo 18 cặp doanh thu A/B, dùng chung dãy ngày 1–18.
 2. Vẽ hai đường có label riêng, thêm legend và tên trục.
 3. Lưu `branches_18_days.png` và kiểm mỗi đường có đúng 18 điểm.
+
+**No Note — Không chú thích**
+
+```python
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+days = list(range(1,19))
+branch_a = [10,12,14,13,15,17,16,18,20,19,21,23,22,24,26,25,27,29]
+branch_b = [9,11,13,15,13,15,17,19,17,19,21,23,21,23,25,27,25,27]
+fig, ax = plt.subplots()
+ax.plot(days, branch_a, marker="o", label="Branch A")
+ax.plot(days, branch_b, marker="s", label="Branch B")
+ax.set(title="Branch revenue", xlabel="Day", ylabel="Revenue (million VND)")
+ax.legend()
+fig.tight_layout()
+path = Path("branches_18_days.png")
+fig.savefig(path, dpi=130)
+count = []
+for line in ax.lines:
+    count.append(len(line.get_xdata()))
+plt.close(fig)
+if len(days) != 18 or len(branch_a) != 18 or len(branch_b) != 18:
+    raise ValueError("Cần đủ 18 ngày và hai dãy doanh thu.")
+print("Ngày:", len(days))
+print("Đường:", len(count))
+print("Điểm mỗi đường:", count)
+print("A ngày 18:", branch_a[-1])
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: So hai đường doanh thu trong 18 ngày, thêm legend và kiểm mỗi đường có đủ 18 điểm.
@@ -470,6 +644,46 @@ A ngày 18: 29
 1. Tạo 20 cặp x/y và đường tham chiếu theo quy định hiệu chuẩn.
 2. Tìm sai số, gắn cờ nếu trị tuyệt đối >10, vẽ scatter và đường chuẩn.
 3. Vẽ histogram sai số ở ô thứ hai, gắn nhãn/trục, lưu hình và báo số điểm lệch.
+
+**No Note — Không chú thích**
+
+```python
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+import numpy as np
+x = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], dtype=float)
+observed = np.array([7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,71,43,45], dtype=float)
+reference = 2*x + 5
+residual = observed - reference
+flagged = np.abs(residual) > 10
+fig, (left,right) = plt.subplots(1,2,figsize=(10,4))
+left.scatter(x,observed,label="Observed")
+left.plot(x,reference,label="Reference")
+left.scatter(x[flagged],observed[flagged],marker="x",s=90,label="Review")
+left.set(xlabel="Input level",ylabel="Signal (units)",title="Measured vs reference")
+left.legend()
+right.hist(residual,bins=[-1,1,10,20,40],edgecolor="black")
+right.set(xlabel="Residual (units)",ylabel="Count",title="Residual distribution")
+fig.tight_layout()
+path = Path("sensor_review_20.png")
+fig.savefig(path,dpi=130)
+plt.close(fig)
+if len(x) != 20 or len(observed) != 20:
+    raise ValueError("Cần đủ 20 mức đầu vào và tín hiệu đo.")
+print("Lượt đo:", len(x))
+print("Biểu đồ trong hình:", 2)
+print("Điểm cần kiểm:", int(flagged.sum()))
+flagged_ids = []
+for i in np.flatnonzero(flagged):
+    flagged_ids.append(f"M{i+1:02d}")
+print("Mã cần kiểm:", ", ".join(flagged_ids))
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tạo hình hai biểu đồ: đo so chuẩn với điểm bất thường và histogram sai lệch trên 20 lượt.
