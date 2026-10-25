@@ -125,7 +125,7 @@ print(round(float(np.std(celsius, ddof=0)), 3))
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Trung bình thời gian giao ba đơn
+### Tình huống 1 — Trung bình thời gian giao ba đơn · Cấp 1: Mean cơ bản
 
 **Tình huống thực tế:** Ba đơn hàng có thời gian giao lần lượt 2,3,4 ngày, theo cùng quy định đo. Quản lý muốn một chỉ số đại diện mức thời gian giao trung bình.
 
@@ -153,7 +153,22 @@ print(float(np.mean(days)))
 
 Trung bình ba đơn là 3 ngày.
 
-### Tình huống 2 — So mean và median hóa đơn
+**Bài thực hành nâng cấp — cấp 1/5:** Ứng dụng thống kê **10 ngày sử dụng**; mỗi hàng là số phút hoạt động trong một ngày. Hãy tính mean của 10 ngày sử dụng ứng dụng. Các cấp tăng số ngày đồng thời đưa thêm số đo thiếu để thấy sự khác biệt giữa thống kê dữ liệu hợp lệ và thống kê nhầm cả giá trị thiếu.
+
+```python
+import numpy as np
+import pandas as pd
+# Mỗi phần tử là số phút ứng dụng được sử dụng trong một ngày.
+values = np.array([35, 44, 53, 56, 65, 74, 77, 86, 95, 98],dtype=float)
+valid = values[np.isfinite(values)]
+result = round(float(valid.mean()),2)
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** 10 ngày ban đầu. Sample variance sử dụng `ddof=1`; độ lệch chuẩn đo bằng phút, còn phương sai mang đơn vị phút bình phương.
+
+### Tình huống 2 — So mean và median hóa đơn · Cấp 2: Median và mode
 
 **Tình huống thực tế:** Cửa hàng có ba hóa đơn 100, 120 và 10.000 nghìn đồng. Cần trình bày một giá trị trung tâm ít bị hóa đơn cực lớn kéo lên.
 
@@ -181,7 +196,22 @@ print(round(float(np.mean(amounts)), 3), float(np.median(amounts)))
 
 Mean cao bất thường nhưng trung vị 120 nghìn gần hai hóa đơn thông thường.
 
-### Tình huống 3 — Đo độ phân tán điểm thi
+**Bài thực hành nâng cấp — cấp 2/5:** Ứng dụng thống kê **12 ngày sử dụng**; mỗi hàng là số phút hoạt động trong một ngày. Hãy tính median và mode của 12 ngày. Các cấp tăng số ngày đồng thời đưa thêm số đo thiếu để thấy sự khác biệt giữa thống kê dữ liệu hợp lệ và thống kê nhầm cả giá trị thiếu.
+
+```python
+import numpy as np
+import pandas as pd
+# Mỗi phần tử là số phút ứng dụng được sử dụng trong một ngày.
+values = np.array([35, 44, 53, 56, 65, 74, 77, 86, 95, 98, 107, 116],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'median':float(np.median(valid)),'mode':float(pd.Series(valid).mode().iloc[0])}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** 12 ngày ban đầu. Sample variance sử dụng `ddof=1`; độ lệch chuẩn đo bằng phút, còn phương sai mang đơn vị phút bình phương.
+
+### Tình huống 3 — Đo độ phân tán điểm thi · Cấp 3: Độ phân tán mẫu
 
 **Tình huống thực tế:** Ba điểm kiểm tra `[6,8,10]` (điểm trên thang 10) tạo toàn bộ nhóm cần mô tả. Cần tính phương sai **quần thể** của nhóm này.
 
@@ -209,7 +239,22 @@ print(round(float(np.var(scores, ddof=0)), 3))
 
 Phương sai quần thể khoảng 2,667 điểm².
 
-### Tình huống 4 — Kiểm tra độ dao động nhiệt độ
+**Bài thực hành nâng cấp — cấp 3/5:** Ứng dụng thống kê **15 ngày sử dụng**; mỗi hàng là số phút hoạt động trong một ngày. Hãy tính variance và standard deviation mẫu trên 15 ngày. Các cấp tăng số ngày đồng thời đưa thêm số đo thiếu để thấy sự khác biệt giữa thống kê dữ liệu hợp lệ và thống kê nhầm cả giá trị thiếu.
+
+```python
+import numpy as np
+import pandas as pd
+# Mỗi phần tử là số phút ứng dụng được sử dụng trong một ngày.
+values = np.array([35, 44, 53, 56, 65, 74, 77, 86, 95, 98, 107, 116, 119, 128, 137],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'sample_variance':round(float(np.var(valid,ddof=1)),2),'sample_std_minutes':round(float(np.std(valid,ddof=1)),2)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** 15 ngày ban đầu. Sample variance sử dụng `ddof=1`; độ lệch chuẩn đo bằng phút, còn phương sai mang đơn vị phút bình phương.
+
+### Tình huống 4 — Kiểm tra độ dao động nhiệt độ · Cấp 4: Xử lý giá trị khuyết
 
 **Tình huống thực tế:** Cảm biến ghi 20,21,19,20 °C tại bốn thời điểm. Nhóm kiểm soát muốn đo mức dao động, giữ đơn vị °C để dễ so ngưỡng vận hành.
 
@@ -237,7 +282,22 @@ print(round(float(np.std(celsius, ddof=0)), 3))
 
 Std khoảng 0,707 °C quanh mức trung bình 20 °C.
 
-### Tình huống 5 — Tìm nhãn sản phẩm xuất hiện nhiều nhất
+**Bài thực hành nâng cấp — cấp 4/5:** Ứng dụng thống kê **18 ngày sử dụng**; mỗi hàng là số phút hoạt động trong một ngày. Hãy không thay NaN bằng 0 khi tính trung bình và thống kê. Các cấp tăng số ngày đồng thời đưa thêm số đo thiếu để thấy sự khác biệt giữa thống kê dữ liệu hợp lệ và thống kê nhầm cả giá trị thiếu.
+
+```python
+import numpy as np
+import pandas as pd
+# Mỗi phần tử là số phút ứng dụng được sử dụng trong một ngày.
+values = np.array([35, 44, 53, 56, 65, 74, 77, 86, 95, 98, 107, 116, 119, 128, 137, np.nan, 149, 158],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'valid':len(valid),'missing':len(values)-len(valid),'mean':round(float(valid.mean()),2)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** 18 ngày ban đầu. Sample variance sử dụng `ddof=1`; độ lệch chuẩn đo bằng phút, còn phương sai mang đơn vị phút bình phương.
+
+### Tình huống 5 — Tìm nhãn sản phẩm xuất hiện nhiều nhất · Cấp 5: Thống kê đầy đủ
 
 **Tình huống thực tế:** Danh sách năm lượt mua mang mã `A,A,B,C,A`. Mỗi phần tử là một lượt, không phải số lượng tồn kho. Cần tìm mã được mua nhiều lượt nhất.
 
@@ -265,6 +325,21 @@ A 3
 ```
 
 Mã A xuất hiện ba lượt, nhiều nhất trong danh sách.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Ứng dụng thống kê **20 ngày sử dụng**; mỗi hàng là số phút hoạt động trong một ngày. Hãy báo mean, median, mode, range, sample std và ngày thiếu. Các cấp tăng số ngày đồng thời đưa thêm số đo thiếu để thấy sự khác biệt giữa thống kê dữ liệu hợp lệ và thống kê nhầm cả giá trị thiếu.
+
+```python
+import numpy as np
+import pandas as pd
+# Mỗi phần tử là số phút ứng dụng được sử dụng trong một ngày.
+values = np.array([35, 44, 53, 56, 65, 74, 77, 86, 95, 98, 107, 116, 119, 128, 137, np.nan, 149, 158, 161, np.nan],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'mean':round(float(valid.mean()),2),'median':float(np.median(valid)),'mode':float(pd.Series(valid).mode().iloc[0]),'range':float(np.ptp(valid)),'sample_std':round(float(np.std(valid,ddof=1)),2),'missing':len(values)-len(valid)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** 20 ngày ban đầu. Sample variance sử dụng `ddof=1`; độ lệch chuẩn đo bằng phút, còn phương sai mang đơn vị phút bình phương.
 
 ## 6. Sai lầm thường gặp
 
