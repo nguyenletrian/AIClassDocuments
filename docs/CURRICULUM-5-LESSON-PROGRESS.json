@@ -15,7 +15,7 @@
     20
   ],
   "last_completed_batch": 2,
-  "status": "READY_FOR_BATCH_03",
+  "status": "BATCH_03_QA_PASSED_WAIT_MERGE",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -83,15 +83,21 @@
         "PY-14",
         "PY-15"
       ],
-      "status": "PENDING",
-      "branch": null,
-      "pr_number": null,
+      "status": "QA_PASSED",
+      "branch": "feat/curriculum-scenarios-batch-03-20261025",
+      "pr_number": 125,
       "merged_commit": null,
-      "ci_run": null,
+      "ci_run": 40158212043,
       "windows_test": null,
-      "updated_at": null,
-      "notes": null,
-      "lesson_commits": {}
+      "updated_at": "2026-10-25",
+      "notes": "CI #40158212043 PASS. Python 3.12 + NumPy, all PY-11..15 25 code blocks independently executed and exact stdout matched; previous batches 01/02 and full curriculum structure/MCQ/ledger checks PASS. PR merge pending. No Windows Bridge PASS evidence.",
+      "lesson_commits": {
+        "PY-11": "ca5d83fcfe31b91ae2487356fe1c8dfe9de31089",
+        "PY-12": "ed0684176653b222581ff50297cc37957745b644",
+        "PY-13": "cc2ff7a326c9f3b55b9dd4c728905e325161cfc3",
+        "PY-14": "56e8ff469017deaad508d9684ae6b57e7a4d4d85",
+        "PY-15": "ffa172f182700c76c9d24ddb8efe0dc0c2936f18"
+      }
     },
     {
       "batch_id": "04",

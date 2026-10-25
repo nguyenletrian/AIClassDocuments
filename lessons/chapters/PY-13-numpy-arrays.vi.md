@@ -129,157 +129,193 @@ print(scores.mean(axis=0))
 
 Mảng đầu ra có hai số vì bảng có hai **cột/môn**; kết quả lần lượt là trung bình Toán và Python.
 
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống NumPy Array — tăng từ shape đến dữ liệu nhiều cột
 
-### Tình huống 1 — Gom bảng điểm học viên
+### Tình huống 1 — Cấp 1: Tạo bảng điểm 10 học viên có hai cột
 
-**Từ vựng trong mục:** **ndarray** — mảng NumPy; **Shape** — kích thước.
+**Từ vựng trong mục:** **ndarray** — mảng NumPy; **Shape** — hình dạng; **dtype** — kiểu phần tử.
 
-**Tình huống thực tế:** Trung tâm ghi điểm hai môn Toán và Python của ba học viên theo thứ tự An (8,9), Bình (6,7), Lan (9,8), thang điểm 10. Hãy tạo mảng và in số hàng, số cột.
+**Tình huống thực tế:** Trung tâm lưu **10 hàng** học viên H01…H10, mỗi hàng có điểm Toán và Python (thang 10). Cần biết số người, số môn và kiểu phần tử, không nhầm 20 ô với 20 học viên.
 
-**Vì sao chọn cách giải này?** `np.array` gom điểm thành bảng, `shape` cho biết đúng 3 học viên và 2 môn.
+**Vì sao chọn cách này?** `np.array(..., dtype=float)` chuyển bảng số thành mảng đồng nhất; `shape` mô tả số hàng/cột, `size` đếm tổng ô và `dtype.kind` cho biết phần tử dạng số thực.
 
-**Quy trình giải:**
-
-1. Tạo mảng hai chiều, mỗi hàng ứng với một học viên.
-2. Giữ thứ tự cột Toán rồi Python.
-3. In `scores.shape` để xác minh số người và môn.
+**Quy trình:**
+1. Ghi 10 dòng điểm theo đúng thứ tự hai môn.
+2. Tạo ndarray kiểu số thực với NumPy.
+3. Đọc `shape`, `size` và kiểu phần tử.
 
 ```python
-# Mục đích: Gom bảng điểm học viên.
 import numpy as np
-
-scores = np.array([[8, 9], [6, 7], [9, 8]], dtype=float)
-print(scores.shape)
+rows = [[8,9],[7,8],[9,10],[6,7],[8,7],[5,8],[9,9],[7,6],[10,8],[8,9]]
+scores = np.array(rows, dtype=float)
+assert scores.shape == (10, 2)
+print("Số học viên:", scores.shape[0])
+print("Số môn:", scores.shape[1])
+print("Số ô:", scores.size)
+print("Kiểu số thực:", scores.dtype.kind == "f")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(3, 2)
+Số học viên: 10
+Số môn: 2
+Số ô: 20
+Kiểu số thực: True
 ```
 
-Kết quả cho biết 3 hàng học viên và 2 cột môn học.
+Một hàng đại diện cho một học viên; `dtype=float` cho phép mở rộng với điểm có phần thập phân dù dữ liệu ban đầu chỉ ghi số nguyên.
 
-### Tình huống 2 — Trung bình theo từng môn
+### Tình huống 2 — Cấp 2: Trung bình doanh thu ba loại hàng trong 12 ngày
 
-**Từ vựng trong mục:** **Axis** — trục tính toán; **Mean** — trung bình.
+**Từ vựng trong mục:** **Axis** — trục tổng hợp; **Mean** — trung bình.
 
-**Tình huống thực tế:** Với cùng bảng ba học viên, hai môn Toán và Python, trung tâm cần điểm trung bình của **mỗi môn** trên thang 10. Hãy in hai số trung bình theo thứ tự cột.
+**Tình huống thực tế:** Cửa hàng ghi doanh thu **12 ngày**, mỗi hàng tương ứng một ngày, ba cột là thực phẩm, sách, đồ dùng (nghìn đồng). Người quản lý cần doanh thu trung bình **cho từng loại hàng qua 12 ngày**, không phải trung bình của mỗi ngày.
 
-**Vì sao chọn cách giải này?** `mean(axis=0)` gom các học viên cùng cột môn và tính trung bình.
+**Vì sao chọn cách này?** Trong mảng `(12, 3)`, `mean(axis=0)` gom các hàng theo từng cột, cho ra ba số. Nếu chọn `axis=1`, kết quả có 12 số — trả lời câu hỏi khác.
 
-**Quy trình giải:**
-
-1. Tạo mảng 3 hàng × 2 cột theo thứ tự Toán, Python.
-2. Tính `scores.mean(axis=0)`.
-3. Đối chiếu hai số với phép tính trung bình ở từng cột.
+**Quy trình:**
+1. Tạo bảng 12 hàng × 3 cột đúng đơn vị.
+2. Chọn `axis=0` để tổng hợp theo loại hàng.
+3. In ba giá trị theo nhãn đã định và xác nhận shape đầu ra.
 
 ```python
-# Mục đích: Trung bình theo từng môn.
 import numpy as np
-
-scores = np.array([[8, 9], [6, 7], [9, 8]], dtype=float)
-print(scores.mean(axis=0))
+sales = np.array([[10,20,30],[11,21,31],[12,22,32],[13,23,33],[14,24,34],[15,25,35],[16,26,36],[17,27,37],[18,28,38],[19,29,39],[20,30,40],[21,31,41]], dtype=float)
+average = sales.mean(axis=0)
+assert sales.shape == (12, 3) and average.shape == (3,)
+print("Ngày:", sales.shape[0])
+print("Thực phẩm:", f"{average[0]:.1f}")
+print("Sách:", f"{average[1]:.1f}")
+print("Đồ dùng:", f"{average[2]:.1f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[7.66666667 8.        ]
+Ngày: 12
+Thực phẩm: 15.5
+Sách: 25.5
+Đồ dùng: 35.5
 ```
 
-Toán trung bình khoảng 7,67; Python trung bình 8,00 điểm.
+Mỗi kết quả là mức trung bình ngày của **một cột** (nghìn đồng/ngày), không phải tổng doanh thu mười hai ngày.
 
-### Tình huống 3 — Tính tổng doanh thu mỗi cửa hàng
+### Tình huống 3 — Cấp 3: Tổng doanh thu hai ca cho 15 cửa hàng
 
-**Từ vựng trong mục:** **Axis** — trục tính toán; **Sum** — phép cộng tổng.
+**Từ vựng trong mục:** **Axis=1** — tổng theo hàng; **argmax** — vị trí lớn nhất; **ndim** — số chiều.
 
-**Tình huống thực tế:** Cửa hàng A có doanh thu ba ngày `[10,20,30]`, cửa hàng B có `[8,12,16]`, đơn vị triệu đồng. Bảng có **hai hàng cửa hàng** và **ba cột ngày**. Hãy tính tổng doanh thu riêng của từng cửa hàng.
+**Tình huống thực tế:** Chuỗi bán lẻ có **15 cửa hàng** S01…S15. Một hàng gồm doanh thu ca sáng và ca chiều (nghìn đồng). Giám sát cần cộng hai ca **cho từng cửa hàng**, rồi tìm mã cửa hàng có tổng cao nhất.
 
-**Vì sao chọn cách giải này?** Vì cửa hàng nằm trên hàng, `sum(axis=1)` cộng ba cột ngày cho mỗi hàng.
+**Vì sao chọn cách này?** `sum(axis=1)` gộp các cột ca trong từng hàng; `argmax()` cho chỉ số hàng có tổng lớn nhất. `axis=0` sẽ cộng theo ca trên toàn bộ cửa hàng, không giải quyết yêu cầu.
 
-**Quy trình giải:**
-
-1. Tạo `sales` với hàng đầu là cửa hàng A và hàng sau là B.
-2. Cộng theo `axis=1`, tức theo từng hàng.
-3. In hai tổng theo thứ tự A rồi B.
+**Quy trình:**
+1. Tạo ndarray `(15,2)`; hàng là cửa hàng, cột là ca.
+2. Gọi `sum(axis=1)` để ra 15 tổng riêng.
+3. Dùng `argmax()` và chuyển chỉ số bắt đầu từ 0 thành mã cửa hàng.
 
 ```python
-# Mục đích: Tính tổng doanh thu mỗi cửa hàng.
 import numpy as np
-
-sales = np.array([[10, 20, 30], [8, 12, 16]])
-print(sales.sum(axis=1))
+sales = np.array([[50,30],[52,31],[54,32],[56,33],[58,34],[60,35],[62,36],[64,37],[66,38],[68,39],[70,40],[72,41],[74,42],[76,43],[78,44]], dtype=int)
+per_store = sales.sum(axis=1)
+peak = int(per_store.argmax())
+assert sales.shape == (15, 2)
+print("Cửa hàng:", sales.shape[0])
+print("Tổng S01 (nghìn đồng):", int(per_store[0]))
+print("Cửa hàng cao nhất:", f"S{peak+1:02d}")
+print("Doanh thu cao nhất:", int(per_store[peak]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[60 36]
+Cửa hàng: 15
+Tổng S01 (nghìn đồng): 80
+Cửa hàng cao nhất: S15
+Doanh thu cao nhất: 122
 ```
 
-Cửa hàng A thu 60 triệu đồng; cửa hàng B thu 36 triệu đồng.
+Mảng tổng có 15 phần tử, bằng số cửa hàng; giá trị trong mỗi phần tử là tổng **hai ca cùng một cửa hàng**.
 
-### Tình huống 4 — Tạo bảng dự báo khởi tạo
+### Tình huống 4 — Cấp 4: Kiểm tra shape/dtype của 18 số đo có dữ liệu thiếu
 
-**Từ vựng trong mục:** **Shape** — kích thước; **Zero array** — mảng số 0.
+**Từ vựng trong mục:** **NaN** — giá trị số thiếu; **np.isnan** — kiểm tra NaN; **np.nanmean** — trung bình bỏ qua NaN.
 
-**Tình huống thực tế:** Đội phân tích chuẩn bị một bảng dự báo cho 2 cửa hàng và 3 ngày, chưa tính giá trị. Hãy tạo mảng toàn số 0 và in hình dạng bảng.
+**Tình huống thực tế:** Trạm đo ghi **18 lượt**, mỗi hàng gồm nhiệt độ °C và độ ẩm % trong hai cột. Độ ẩm của lượt thứ 6 và 15 bị thiếu (`None`), nhưng nhiệt độ ở hai lượt đó vẫn được ghi. Cần đếm đúng giá trị thiếu ở cột độ ẩm và lấy trung bình độ ẩm từ các lượt có số, không đưa giá trị thiếu vào như 0%.
 
-**Vì sao chọn cách giải này?** `np.zeros((2, 3))` khởi tạo đúng số hàng cửa hàng và số cột ngày; số 0 mới là giá trị ban đầu, không phải doanh thu dự báo đã xác minh.
+**Vì sao chọn cách này?** NumPy mảng số thực không lưu `None` như số đo; minh họa chuyển `None` thành `np.nan` rồi dùng `np.isnan` và `np.nanmean`. Tách từng cột giúp không bỏ nhiệt độ tốt chỉ vì độ ẩm thiếu.
 
-**Quy trình giải:**
-
-1. Gọi `np.zeros` với hình dạng `(2, 3)`.
-2. Mỗi hàng dành cho một cửa hàng, mỗi cột dành cho một ngày.
-3. In `forecast.shape` để kiểm tra cấu trúc.
+**Quy trình:**
+1. Tạo 18 cặp đo với `np.nan` ở đúng ô độ ẩm thiếu.
+2. Kiểm tra shape `(18,2)` và mặt nạ NaN trên cột thứ hai.
+3. Tính trung bình chỉ các giá trị độ ẩm không phải NaN.
 
 ```python
-# Mục đích: Tạo bảng dự báo khởi tạo.
 import numpy as np
-
-forecast = np.zeros((2, 3))
-print(forecast.shape)
+raw = [[24,50],[24.25,51],[24.5,52],[24.75,53],[25,54],[25.25,None],[25.5,56],[25.75,57],[26,58],[26.25,59],[26.5,60],[26.75,61],[27,62],[27.25,63],[27.5,None],[27.75,65],[28,66],[28.25,67]]
+rows = [(temperature, np.nan if humidity is None else humidity)
+        for temperature, humidity in raw]
+measurements = np.array(rows, dtype=float)
+missing = np.isnan(measurements[:, 1])
+assert measurements.shape == (18, 2)
+print("Lượt đo:", measurements.shape[0])
+print("Thiếu độ ẩm:", int(missing.sum()))
+print("Nhiệt độ vẫn đủ:", int(np.isfinite(measurements[:, 0]).sum()))
+print(f"Độ ẩm trung bình: {np.nanmean(measurements[:, 1]):.2f} %")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(2, 3)
+Lượt đo: 18
+Thiếu độ ẩm: 2
+Nhiệt độ vẫn đủ: 18
+Độ ẩm trung bình: 58.38 %
 ```
 
-Bảng dành cho hai cửa hàng, ba ngày, tổng cộng sáu vị trí chưa có dự báo thực.
+Ở đây `np.nan` được dùng để **biểu diễn số đo thiếu**, không phải độ ẩm bằng 0. Trường hợp cột toàn NaN cần quy tắc riêng trước khi tính trung bình.
 
-### Tình huống 5 — Kiểm tra kiểu và số lượng điểm
+### Tình huống 5 — Cấp 5: Chuẩn hóa báo cáo 20 ngày: số đo, trục và thiếu dữ liệu
 
-**Từ vựng trong mục:** **dtype** — kiểu phần tử; **size** — số phần tử.
+**Từ vựng trong mục:** **Shape validation** — kiểm hình dạng; **dtype** — kiểu mảng; **Axis=0** — tổng hợp từng cột.
 
-**Tình huống thực tế:** Trung tâm nhập hai điểm kiểm tra 7,5 và 8,0 của một học viên. Hãy dùng mảng số thực để giữ phần thập phân rồi in kiểu và số lượng điểm.
+**Tình huống thực tế:** Nhóm nghiên cứu có **20 ngày quan sát giả lập**; mỗi ngày là một hàng gồm giờ ngủ (giờ), thời gian vận động (phút) và nhịp tim nghỉ (nhịp/phút). Có **hai ngày** không đo nhịp tim, nhưng giờ ngủ và vận động vẫn có. Cần kiểm tra 20 hàng × 3 cột, tính trung bình từng chỉ số trên dữ liệu hợp lệ và báo số đo tim thiếu trước khi đưa số liệu sang bài chọn hàng/cột.
 
-**Vì sao chọn cách giải này?** `dtype=float` tránh mất phần thập phân; `size` đếm đúng hai số được lưu.
+**Vì sao chọn cách này?** Kết hợp mảng `float`, `np.nan`, kiểm tra shape và `np.nanmean(axis=0)` đảm bảo thống kê chạy theo ba cột có đơn vị khác nhau mà không nhầm cột hoặc coi dòng thiếu là 0. Đây là kiểm định bảng đầu vào, chưa kết luận sức khỏe.
 
-**Quy trình giải:**
-
-1. Tạo mảng chứa `7.5` và `8.0` với `dtype=float`.
-2. Truy cập thuộc tính `dtype` và `size`.
-3. In tên kiểu và số phần tử.
+**Quy trình:**
+1. Lưu 20 bộ ba giá trị, chuyển ô nhịp tim thiếu thành NaN.
+2. Kiểm tra shape, các đơn vị/kiểu số và số ô NaN ở cột tim.
+3. Tổng hợp theo `axis=0` và in ba trung bình có nhãn/đơn vị.
 
 ```python
-# Mục đích: Kiểm tra kiểu và số lượng điểm.
 import numpy as np
-
-scores = np.array([7.5, 8.0], dtype=float)
-print(scores.dtype, scores.size)
+raw = [[6,40,60],[7,43,62],[8,46,64],[9,49,None],[10,52,68],[6,55,70],[7,58,72],[8,41,74],[9,44,76],[10,47,78],[6,50,80],[7,53,82],[8,56,84],[9,59,61],[10,42,63],[6,45,65],[7,48,67],[8,51,None],[9,54,71],[10,57,73]]
+records = [[sleep, movement, np.nan if heart is None else heart]
+           for sleep, movement, heart in raw]
+data = np.array(records, dtype=float)
+assert data.shape == (20, 3) and data.dtype.kind == "f"
+means = np.nanmean(data, axis=0)
+print("Số ngày:", data.shape[0])
+print("Số cột:", data.shape[1])
+print("Thiếu nhịp tim:", int(np.isnan(data[:, 2]).sum()))
+print(f"Ngủ (giờ): {means[0]:.2f}")
+print(f"Vận động (phút): {means[1]:.2f}")
+print(f"Nhịp tim (nhịp/phút): {means[2]:.2f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-float64 2
+Số ngày: 20
+Số cột: 3
+Thiếu nhịp tim: 2
+Ngủ (giờ): 8.00
+Vận động (phút): 49.50
+Nhịp tim (nhịp/phút): 70.56
 ```
 
-Dữ liệu gồm hai điểm kiểu `float64`, không phải chuỗi.
+Mỗi cột có **đơn vị và ý nghĩa riêng**; không cộng ba cột để thành một chỉ số duy nhất. Đây là dữ liệu minh họa, không dùng để chẩn đoán.
 
 ## 6. Sai lầm thường gặp
 

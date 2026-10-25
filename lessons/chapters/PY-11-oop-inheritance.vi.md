@@ -149,191 +149,254 @@ print(Shipping().fee(), Express().fee())
 ```
 
 Hai đối tượng gọi cùng `fee()` nhưng phí khác nhau: gói thường 0 đồng, gói nhanh 35.000 đồng.
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống kế thừa/đa hình — từ đối tượng tới giao diện thanh toán
 
-### Tình huống 1 — Các loại sản phẩm
+### Tình huống 1 — Cấp 1: Hai loại sản phẩm kế thừa tên chung
 
-**Từ vựng trong mục:** **Inheritance** — kế thừa; **Method** — phương thức.
+**Từ vựng trong mục:** **Inheritance** — kế thừa; **Parent class** — lớp cha; **Override** — ghi đè.
 
-**Tình huống thực tế:** Cửa hàng có sản phẩm điện tử `Phone`. Hệ thống dùng lớp `Product` để lưu tên mọi sản phẩm và lớp `Electronic` để xác định nhóm hàng. Hãy in nhóm sản phẩm của chiếc điện thoại.
+**Tình huống thực tế:** Một cửa hàng có **10 sản phẩm**; mỗi dòng gồm tên và nhóm `digital` (thiết bị) hoặc `physical` (đồ dùng). Nhân viên cần tạo đối tượng thuộc hai nhóm để in tên và loại của sản phẩm đầu, đồng thời đếm bao nhiêu sản phẩm thuộc mỗi nhóm.
 
-**Vì sao chọn cách giải này?** Lớp con tái sử dụng phương thức khởi tạo tên từ lớp cha và thêm phương thức phân nhóm.
+**Vì sao chọn cách này?** Lớp cha giữ tên chung cho mọi mặt hàng. Hai lớp con kế thừa tên và ghi đè `category()`: không phải viết lại khởi tạo tên cho từng nhóm.
 
-**Quy trình giải:**
-
-1. Định nghĩa `Product` lưu tên trong `self.name`.
-2. Tạo `Electronic(Product)` với phương thức `category()`.
-3. Tạo sản phẩm `Phone`, gọi phương thức phân nhóm và in kết quả.
+**Quy trình:**
+1. Định nghĩa lớp `Product` giữ tên và có phương thức `category()`.
+2. Tạo lớp `Digital` và `Physical` ghi đè tên nhóm.
+3. Tạo 10 đối tượng và đếm mỗi kiểu.
 
 ```python
-# Mục đích: Các loại sản phẩm.
+data = [("Laptop","digital"),("Bàn","physical"),("Chuột","digital"),("Ghế","physical"),("Màn hình","digital"),("Sổ","physical"),("Bàn phím","digital"),("Bút","physical"),("Tablet","digital"),("Tủ","physical")]
 class Product:
     def __init__(self, name):
         self.name = name
-
-class Electronic(Product):
     def category(self):
-        return 'electronic'
-
-print(Electronic('Phone').category())
+        return "other"
+class Digital(Product):
+    def category(self):
+        return "digital"
+class Physical(Product):
+    def category(self):
+        return "physical"
+items = [Digital(name) if kind == "digital" else Physical(name)
+         for name, kind in data]
+assert len(items) == 10
+print("Sản phẩm:", len(items))
+print("Đầu tiên:", items[0].name, items[0].category())
+print("Thiết bị:", sum(p.category() == "digital" for p in items))
+print("Đồ dùng:", sum(p.category() == "physical" for p in items))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-electronic
+Sản phẩm: 10
+Đầu tiên: Laptop digital
+Thiết bị: 5
+Đồ dùng: 5
 ```
 
-Điện thoại được xếp vào nhóm `electronic`; tên `Phone` được giữ qua phần khởi tạo của lớp cha.
+Lớp con không cần viết lại `__init__()` vì dùng được hành vi khởi tạo của lớp cha. Cùng lời gọi `category()` trả giá trị khác nhau tùy kiểu đối tượng.
 
-### Tình huống 2 — Giao diện gửi thông báo
+### Tình huống 2 — Cấp 2: Áp giao diện gửi thông báo cho 12 yêu cầu
 
-**Từ vựng trong mục:** **Abstract class** — lớp trừu tượng; **Abstract method** — phương thức trừu tượng.
+**Từ vựng trong mục:** **ABC** — lớp trừu tượng; **Abstract method** — phương thức bắt buộc; **Polymorphism** — đa hình.
 
-**Tình huống thực tế:** Ứng dụng yêu cầu mọi bộ gửi thông báo phải có phương thức `send()`. Bộ gửi ra màn hình (`Console`) nhận nội dung `Hello`. Hãy dùng lớp trừu tượng để quy định giao diện và in thông điệp đã gửi.
+**Tình huống thực tế:** Hệ thống chuẩn bị **12 thông báo giả lập**, mỗi dòng có mã N01…N12 và kênh `email` hoặc `screen`. Bộ phận vận hành cần xác nhận **kênh nào sẽ xử lý thông báo**, không gửi email thật. Tất cả kênh bắt buộc có `send(message)`; đếm số thông báo theo kênh.
 
-**Vì sao chọn cách giải này?** `ABC` cùng `@abstractmethod` buộc lớp con triển khai phương thức, giúp tránh lớp gửi thông báo thiếu chức năng.
+**Vì sao chọn cách này?** ABC quy định hợp đồng chung, các lớp con cung cấp cách trả lời riêng. Chương trình có thể gọi cùng `send()` mà không cần kiểm tra kiểu đối tượng ở chỗ gửi; đây là mô phỏng luồng xử lý, không tích hợp dịch vụ thật.
 
-**Quy trình giải:**
-
-1. Định nghĩa `Notifier(ABC)` với phương thức trừu tượng `send()`.
-2. Cài đặt `send()` trong `Console` để tạo nội dung trả về.
-3. Gọi `Console().send('Hello')` và in kết quả.
+**Quy trình:**
+1. Tạo `Notifier(ABC)` yêu cầu phương thức `send`.
+2. Tạo hai lớp cài đặt `send()` với tiền tố kết quả riêng.
+3. Duyệt 12 yêu cầu, chọn đối tượng và tổng hợp theo kênh.
 
 ```python
-# Mục đích: Giao diện gửi thông báo.
 from abc import ABC, abstractmethod
-
+channels = ["email","screen","email","screen","screen","email","screen","email","email","screen","email","screen"]
 class Notifier(ABC):
     @abstractmethod
     def send(self, message):
         pass
-
-class Console(Notifier):
+class EmailNotifier(Notifier):
     def send(self, message):
-        return 'Sent:' + message
-
-print(Console().send('Hello'))
+        return "email:" + message
+class ScreenNotifier(Notifier):
+    def send(self, message):
+        return "screen:" + message
+notifiers = {"email": EmailNotifier(), "screen": ScreenNotifier()}
+results = [notifiers[channel].send(f"N{i:02d}")
+           for i, channel in enumerate(channels, 1)]
+assert len(results) == 12
+print("Yêu cầu:", len(results))
+print("Kênh email:", sum(text.startswith("email:") for text in results))
+print("Kênh màn hình:", sum(text.startswith("screen:") for text in results))
+print("Ví dụ:", results[0])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Sent:Hello
+Yêu cầu: 12
+Kênh email: 6
+Kênh màn hình: 6
+Ví dụ: email:N01
 ```
 
-Phương thức `send()` của `Console` đã được định nghĩa; chương trình trả về chuỗi `Sent:Hello`.
+Có hai lớp con nhưng chỉ một lời gọi `send()`. Trả chuỗi xác nhận để kiểm chứng bài học, không khẳng định đã gửi thông báo đến người thật.
 
-### Tình huống 3 — Tính phí vận chuyển
+### Tình huống 3 — Cấp 3: Ghi đè cách tính phí của 15 đơn giao
 
-**Từ vựng trong mục:** **Override** — ghi đè; **Inheritance** — kế thừa.
+**Từ vựng trong mục:** **Override** — ghi đè; **Method dispatch** — chọn phương thức; **super()** — gọi lớp cha.
 
-**Tình huống thực tế:** Một cửa hàng có dịch vụ vận chuyển thường miễn phí và giao nhanh tính 35.000 đồng mỗi đơn. Hãy in phí giao hàng nhanh bằng phương thức của lớp con.
+**Tình huống thực tế:** Cửa hàng có **15 đơn giao**, mỗi dòng là loại giao hàng `standard` (miễn phí), `express` (35.000 đồng) hoặc `cold` (50.000 đồng). Đây là bảng giá giả lập cố định theo loại, không phụ thuộc quãng đường. Cần tính tổng phí và đếm số đơn giao lạnh.
 
-**Vì sao chọn cách giải này?** Ghi đè `fee()` cho loại giao hàng nhanh mà vẫn giữ giao diện chung `fee()` của lớp cha.
+**Vì sao chọn cách này?** Các loại giao hàng đều có hành vi `fee()` nhưng tính phí khác nhau. Lớp cha lưu mã loại bằng `super().__init__`, lớp con ghi đè `fee()`; người gọi không phải viết chuỗi `if` để tự tính từng loại.
 
-**Quy trình giải:**
-
-1. Lớp `Shipping` định nghĩa phí mặc định bằng 0.
-2. Lớp `Express` kế thừa và ghi đè phí bằng 35000.
-3. Tạo `Express`, gọi `fee()` và in số tiền.
+**Quy trình:**
+1. Định nghĩa lớp cha `Shipping` với `fee()` mặc định 0.
+2. Hai lớp con `Express`/`Cold` ghi đè phí và dùng `super()` để lưu loại.
+3. Tạo 15 đối tượng, cộng kết quả gọi cùng một phương thức.
 
 ```python
-# Mục đích: Tính phí vận chuyển.
+types = ["standard","express","cold","standard","express","standard","cold","express","express","standard","cold","standard","express","cold","standard"]
 class Shipping:
+    def __init__(self, kind):
+        self.kind = kind
     def fee(self):
         return 0
-
 class Express(Shipping):
+    def __init__(self):
+        super().__init__("express")
     def fee(self):
         return 35000
-
-print(Express().fee())
+class Cold(Shipping):
+    def __init__(self):
+        super().__init__("cold")
+    def fee(self):
+        return 50000
+factory = {"standard": lambda: Shipping("standard"),
+           "express": Express, "cold": Cold}
+orders = [factory[kind]() for kind in types]
+assert len(orders) == 15
+print("Đơn:", len(orders))
+print("Giao lạnh:", sum(obj.kind == "cold" for obj in orders))
+print("Tổng phí (đồng):", sum(obj.fee() for obj in orders))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-35000
+Đơn: 15
+Giao lạnh: 4
+Tổng phí (đồng): 375000
 ```
 
-Giá trị 35000 tương ứng 35.000 đồng phí giao nhanh; không dùng giá trị 0 của lớp cha.
+Phí giao lạnh và nhanh cao hơn loại thường vì chính sách giả định của cửa hàng; không lấy bảng giá này làm giá thực tế của đơn vị vận chuyển.
 
-### Tình huống 4 — Đọc nhiều loại cảm biến
+### Tình huống 4 — Cấp 4: Đọc 18 cảm biến nhiều kiểu và tách dữ liệu thiếu
 
-**Từ vựng trong mục:** **Polymorphism** — đa hình; **Override** — ghi đè.
+**Từ vựng trong mục:** **Polymorphism** — đa hình; **Instance** — đối tượng; **Validation** — kiểm tra dữ liệu.
 
-**Tình huống thực tế:** Hệ thống có một cảm biến nhiệt độ đo 26,5 °C và một cảm biến độ ẩm đo 62%. Cả hai phải có phương thức `read()`. Hãy đọc lần lượt hai cảm biến mà không cần kiểm tra loại trong vòng lặp.
+**Tình huống thực tế:** Mạng lưới nhận **18 bản đọc**; bản ghi chẵn là nhiệt độ °C, bản ghi lẻ là độ ẩm %, nhưng hai cảm biến đã mất tín hiệu (`None`). Mọi loại cần phương thức `read()` thống nhất và tự quyết định cách gắn đơn vị. Báo số mẫu hợp lệ, thiếu và mẫu đầu tiên.
 
-**Vì sao chọn cách giải này?** Hai lớp con ghi đè `read()`, cho phép vòng lặp gọi cùng phương thức trên cả hai đối tượng.
+**Vì sao chọn cách này?** Lớp `Temperature`/`Humidity` kế thừa `Sensor`, ghi đè `read()` tương ứng. Bộ đọc chung không phải phân nhánh kiểu cho từng lần hiển thị; kiểm tra `None` trước định dạng số để không phát sinh lỗi.
 
-**Quy trình giải:**
-
-1. Tạo lớp chung `Sensor` có `read()`.
-2. Hai lớp `Temp` và `Humidity` cài đặt kết quả đọc riêng.
-3. Duyệt hai đối tượng và in kết quả từng lời gọi `read()`.
+**Quy trình:**
+1. Tạo lớp cha lưu số đo và cung cấp giao diện `read`.
+2. Ghi đè `read()` cho nhiệt độ/độ ẩm theo đơn vị.
+3. Duyệt 18 đối tượng, loại dòng thiếu và đếm kết quả.
 
 ```python
-# Mục đích: Đọc nhiều loại cảm biến.
+records = [("temp",24),("humidity",56),("temp",25),("humidity",58),("temp",None),("humidity",60),("temp",27),("humidity",62),("temp",28),("humidity",64),("temp",29),("humidity",66),("temp",30),("humidity",None),("temp",31),("humidity",70),("temp",32),("humidity",72)]
 class Sensor:
+    def __init__(self, value):
+        self.value = value
     def read(self):
-        return 0
-
-class Temp(Sensor):
+        raise NotImplementedError
+class Temperature(Sensor):
     def read(self):
-        return 26.5
-
+        return f"{self.value:.1f} °C" if self.value is not None else None
 class Humidity(Sensor):
     def read(self):
-        return 62
-
-for sensor in [Temp(), Humidity()]:
-    print(sensor.read())
+        return f"{self.value:.1f} %" if self.value is not None else None
+sensors = [Temperature(value) if kind == "temp" else Humidity(value)
+           for kind, value in records]
+results = [sensor.read() for sensor in sensors]
+valid = [text for text in results if text is not None]
+assert len(results) == 18
+print("Cảm biến:", len(results))
+print("Hợp lệ:", len(valid))
+print("Thiếu:", len(results) - len(valid))
+print("Mẫu đầu:", results[0])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-26.5
-62
+Cảm biến: 18
+Hợp lệ: 16
+Thiếu: 2
+Mẫu đầu: 24.0 °C
 ```
 
-Dòng đầu là 26,5 °C; dòng thứ hai là 62% độ ẩm. Chương trình chỉ in số, đơn vị được giải thích trong bài.
+Cùng lời gọi `read()` nhưng cách tạo chuỗi khác nhau tùy lớp con; dữ liệu mất tín hiệu phải được đếm riêng, không gán bằng 0 °C hoặc 0%.
 
-### Tình huống 5 — Chuyển định dạng báo cáo
+### Tình huống 5 — Cấp 5: Thiết kế hai loại giao dịch theo hợp đồng phí chung
 
-**Từ vựng trong mục:** **Override** — ghi đè; **Method** — phương thức.
+**Từ vựng trong mục:** **Abstract class** — lớp trừu tượng; **Override** — ghi đè; **Dispatch** — phân phối phương thức.
 
-**Tình huống thực tế:** Hệ thống có lớp báo cáo thường trả chữ `plain`. Báo cáo HTML cần tạo chuỗi `<p>report</p>`. Hãy in nội dung báo cáo HTML bằng cùng phương thức `render()`.
+**Tình huống thực tế:** Cổng thanh toán minh họa xử lý **20 giao dịch**, mỗi hàng có mã P01…P20, số tiền đồng và loại `card` hoặc `bank`. Quy định giả lập: chuyển khoản thu **2.500 đồng/giao dịch**, thẻ thu **2% số tiền**; P07 thiếu tiền và P16 có số tiền âm nên không được tính phí. Cần thống kê phí của 18 giao dịch hợp lệ và mã phải sửa, không gọi mạng hoặc thu tiền thật.
 
-**Vì sao chọn cách giải này?** Lớp `HtmlReport` ghi đè `render()` của lớp cha để trả định dạng HTML.
+**Vì sao chọn cách này?** ABC yêu cầu mọi phương thức thanh toán có `fee()`. Lớp cha kiểm tra tiền qua `__init__`/`super()`, lớp con chỉ cài công thức phí riêng; một vòng lặp áp dụng đa hình mà vẫn kiểm tra lỗi đầu vào trước khi tạo đối tượng.
 
-**Quy trình giải:**
-
-1. Lớp cha `Report` định nghĩa `render()` cho văn bản thường.
-2. Lớp con `HtmlReport` định nghĩa lại `render()` cho HTML.
-3. Tạo `HtmlReport` và in kết quả.
+**Quy trình:**
+1. Tạo giao diện `Payment(ABC)` giữ số tiền hợp lệ và bắt buộc phương thức `fee()`.
+2. Tạo `Bank` và `Card` ghi đè `fee()` theo chính sách giả lập.
+3. Duyệt 20 giao dịch, ghi mã sai, cộng phí các đối tượng hợp lệ và đối chiếu số bản ghi.
 
 ```python
-# Mục đích: Chuyển định dạng báo cáo.
-class Report:
-    def render(self):
-        return 'plain'
-
-class HtmlReport(Report):
-    def render(self):
-        return '<p>report</p>'
-
-print(HtmlReport().render())
+from abc import ABC, abstractmethod
+amounts = [100000,125000,150000,175000,200000,225000,None,100000,125000,150000,175000,200000,225000,250000,100000,-10000,150000,175000,200000,225000]
+methods = ["bank","card","card","bank","card","card","bank","card","card","bank","card","card","bank","card","card","bank","card","card","bank","card"]
+class Payment(ABC):
+    def __init__(self, amount):
+        if not isinstance(amount, (int, float)) or amount < 0:
+            raise ValueError("Số tiền không hợp lệ")
+        self.amount = amount
+    @abstractmethod
+    def fee(self):
+        pass
+class Bank(Payment):
+    def fee(self):
+        return 2500
+class Card(Payment):
+    def fee(self):
+        return round(self.amount * 0.02)
+valid, invalid = [], []
+for i, (amount, method) in enumerate(zip(amounts, methods), 1):
+    try:
+        payment = Bank(amount) if method == "bank" else Card(amount)
+        valid.append(payment)
+    except ValueError:
+        invalid.append(f"P{i:02d}")
+assert len(amounts) == len(valid) + len(invalid) == 20
+print("Giao dịch:", len(amounts))
+print("Hợp lệ:", len(valid))
+print("Cần sửa:", ", ".join(invalid))
+print("Phí tổng (đồng):", sum(item.fee() for item in valid))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-<p>report</p>
+Giao dịch: 20
+Hợp lệ: 18
+Cần sửa: P07, P16
+Phí tổng (đồng): 56500
 ```
 
-Đầu ra là chuỗi thẻ HTML; `print()` không biến chuỗi thành trang web.
+Vì mỗi giao dịch là một đối tượng thanh toán khác loại, chương trình gọi `fee()` thống nhất nhưng nhận kết quả theo đúng lớp con. Không sử dụng số âm và `None` như khoản thu bằng 0.
+
 ## 6. Sai lầm thường gặp
 
 - **Kế thừa** không tự biến mọi phương thức thành đa hình; lớp con có thể dùng lại hoặc ghi đè tùy nhu cầu.
