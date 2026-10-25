@@ -135,9 +135,9 @@ Mảng đầu ra có hai số vì bảng có hai **cột/môn**; kết quả l�
 
 **Từ vựng trong mục:** **ndarray** — mảng NumPy; **Shape** — hình dạng; **dtype** — kiểu phần tử.
 
-**Tình huống thực tế:** Trung tâm lưu **10 hàng** học viên H01…H10, mỗi hàng có điểm Toán và Python (thang 10). Cần biết số người, số môn và kiểu phần tử, không nhầm 20 ô với 20 học viên.
+**Tình huống thực tế:** Giáo viên lưu kết quả của **10 học viên H01–H10** trong bảng điểm có **hai môn Toán và Python**, mỗi môn trên thang **10 điểm**. Mỗi hàng là một học viên, hai ô trên hàng là điểm của đúng người đó. Giáo viên muốn kiểm tra bảng có bao nhiêu học viên, bao nhiêu môn, tổng số ô điểm và dữ liệu được lưu dưới dạng số nào; không được hiểu 20 ô là 20 học viên.
 
-**Vì sao chọn cách này?** `np.array(..., dtype=float)` chuyển bảng số thành mảng đồng nhất; `shape` mô tả số hàng/cột, `size` đếm tổng ô và `dtype.kind` cho biết phần tử dạng số thực.
+**Vì sao chọn cách này?** **NumPy `ndarray`** là một mảng dữ liệu giúp lưu và tính toán nhiều con số cùng cấu trúc. `np.array(rows, dtype=float)` chuyển danh sách điểm thành bảng số thực, nên có thể chứa cả điểm có phần lẻ khi cần. `shape` cho biết **hình dạng bảng**: `(10, 2)` nghĩa là 10 hàng học viên và 2 cột môn học. `size` đếm **tất cả ô**, ở đây là 20, còn `dtype.kind == 'f'` kiểm tra mảng dùng kiểu số thực. Phải phân biệt số hàng với số ô, vì một học viên có tới hai điểm.
 
 **Quy trình:**
 1. Ghi 10 dòng điểm theo đúng thứ tự hai môn.
@@ -171,9 +171,9 @@ Một hàng đại diện cho một học viên; `dtype=float` cho phép mở r�
 
 **Từ vựng trong mục:** **Axis** — trục tổng hợp; **Mean** — trung bình.
 
-**Tình huống thực tế:** Cửa hàng ghi doanh thu **12 ngày**, mỗi hàng tương ứng một ngày, ba cột là thực phẩm, sách, đồ dùng (nghìn đồng). Người quản lý cần doanh thu trung bình **cho từng loại hàng qua 12 ngày**, không phải trung bình của mỗi ngày.
+**Tình huống thực tế:** Siêu thị ghi doanh thu **12 ngày liên tiếp** theo ba nhóm **thực phẩm, sách, đồ dùng**. Một hàng tương ứng một ngày, ba cột là doanh thu từng nhóm, đơn vị **nghìn đồng/ngày**. Quản lý muốn biết trung bình của **mỗi nhóm qua cả 12 ngày** để so sánh kết quả bán, chứ không hỏi trung bình ba nhóm trong từng ngày.
 
-**Vì sao chọn cách này?** Trong mảng `(12, 3)`, `mean(axis=0)` gom các hàng theo từng cột, cho ra ba số. Nếu chọn `axis=1`, kết quả có 12 số — trả lời câu hỏi khác.
+**Vì sao chọn cách này?** **Trục (`axis`)** cho biết NumPy sẽ gộp dữ liệu theo hướng nào. Bảng có 12 hàng ngày và 3 cột mặt hàng; `mean(axis=0)` lấy trung bình **dọc xuống mỗi cột**, vì vậy trả ba số, mỗi số thuộc một nhóm hàng. Nếu dùng `axis=1`, NumPy lại lấy trung bình **ngang trên mỗi hàng**, trả 12 số, mỗi số thuộc một ngày; đó không phải điều quản lý yêu cầu. Mỗi số trung bình vẫn có đơn vị nghìn đồng/ngày, nên chỉ được so các cột có cùng cách đo.
 
 **Quy trình:**
 1. Tạo bảng 12 hàng × 3 cột đúng đơn vị.
@@ -207,9 +207,9 @@ Mỗi kết quả là mức trung bình ngày của **một cột** (nghìn đ�
 
 **Từ vựng trong mục:** **Axis=1** — tổng theo hàng; **argmax** — vị trí lớn nhất; **ndim** — số chiều.
 
-**Tình huống thực tế:** Chuỗi bán lẻ có **15 cửa hàng** S01…S15. Một hàng gồm doanh thu ca sáng và ca chiều (nghìn đồng). Giám sát cần cộng hai ca **cho từng cửa hàng**, rồi tìm mã cửa hàng có tổng cao nhất.
+**Tình huống thực tế:** Chuỗi cửa hàng quản lý doanh thu của **15 chi nhánh S01–S15**. Mỗi chi nhánh có hai giá trị: doanh thu **ca sáng** và **ca chiều**, đều tính bằng **nghìn đồng**. Giám sát muốn cộng hai ca của từng chi nhánh và xác định mã chi nhánh có tổng doanh thu lớn nhất, không cộng lẫn doanh thu của các chi nhánh khác nhau.
 
-**Vì sao chọn cách này?** `sum(axis=1)` gộp các cột ca trong từng hàng; `argmax()` cho chỉ số hàng có tổng lớn nhất. `axis=0` sẽ cộng theo ca trên toàn bộ cửa hàng, không giải quyết yêu cầu.
+**Vì sao chọn cách này?** Trong mảng 15 hàng × 2 cột, **mỗi hàng là một cửa hàng**, hai cột là hai ca. `sum(axis=1)` cộng **ngang hai cột của từng hàng**, tạo đúng 15 tổng doanh thu. `argmax()` tìm **vị trí** của tổng lớn nhất, không trả sẵn mã chi nhánh; Python đánh số vị trí từ 0 nên phải cộng 1 rồi định dạng thành S01, S02... Nếu dùng `axis=0`, kết quả chỉ có hai tổng cho ca sáng và chiều trên tất cả cửa hàng, không thể chỉ ra cửa hàng dẫn đầu.
 
 **Quy trình:**
 1. Tạo ndarray `(15,2)`; hàng là cửa hàng, cột là ca.
@@ -244,9 +244,9 @@ Mảng tổng có 15 phần tử, bằng số cửa hàng; giá trị trong mỗ
 
 **Từ vựng trong mục:** **NaN** — giá trị số thiếu; **np.isnan** — kiểm tra NaN; **np.nanmean** — trung bình bỏ qua NaN.
 
-**Tình huống thực tế:** Trạm đo ghi **18 lượt**, mỗi hàng gồm nhiệt độ °C và độ ẩm % trong hai cột. Độ ẩm của lượt thứ 6 và 15 bị thiếu (`None`), nhưng nhiệt độ ở hai lượt đó vẫn được ghi. Cần đếm đúng giá trị thiếu ở cột độ ẩm và lấy trung bình độ ẩm từ các lượt có số, không đưa giá trị thiếu vào như 0%.
+**Tình huống thực tế:** Trạm đo nhận **18 lượt đo**, mỗi lượt có nhiệt độ tính bằng **°C** và độ ẩm tính bằng **%**. Ở lượt thứ 6 và 15, thiết bị vẫn gửi nhiệt độ nhưng không gửi độ ẩm, nên cột độ ẩm ghi `None`. Nhân viên muốn biết có bao nhiêu lần thiếu độ ẩm, nhiệt độ có còn đủ ở cả 18 lượt không và độ ẩm trung bình chỉ tính từ các lượt có dữ liệu.
 
-**Vì sao chọn cách này?** NumPy mảng số thực không lưu `None` như số đo; minh họa chuyển `None` thành `np.nan` rồi dùng `np.isnan` và `np.nanmean`. Tách từng cột giúp không bỏ nhiệt độ tốt chỉ vì độ ẩm thiếu.
+**Vì sao chọn cách này?** `None` là dấu hiệu **không có số đo**, khác với độ ẩm bằng 0%. Khi làm bảng số thực NumPy, chương trình chuyển chỗ thiếu sang `np.nan` (**giá trị đánh dấu số bị thiếu**) để vẫn giữ đúng 18 hàng và hai cột. `np.isnan()` tìm vị trí bị thiếu trong riêng cột độ ẩm, còn `np.isfinite()` đếm các số nhiệt độ thực sự có. `np.nanmean()` tính trung bình nhưng **bỏ qua NaN**, vì thay NaN bằng 0 hoặc bỏ cả hàng sẽ làm sai số đo còn hợp lệ ở cột kia.
 
 **Quy trình:**
 1. Tạo 18 cặp đo với `np.nan` ở đúng ô độ ẩm thiếu.
@@ -288,9 +288,9 @@ Nhiệt độ vẫn đủ: 18
 
 **Từ vựng trong mục:** **Shape validation** — kiểm hình dạng; **dtype** — kiểu mảng; **Axis=0** — tổng hợp từng cột.
 
-**Tình huống thực tế:** Nhóm nghiên cứu có **20 ngày quan sát giả lập**; mỗi ngày là một hàng gồm giờ ngủ (giờ), thời gian vận động (phút) và nhịp tim nghỉ (nhịp/phút). Có **hai ngày** không đo nhịp tim, nhưng giờ ngủ và vận động vẫn có. Cần kiểm tra 20 hàng × 3 cột, tính trung bình từng chỉ số trên dữ liệu hợp lệ và báo số đo tim thiếu trước khi đưa số liệu sang bài chọn hàng/cột.
+**Tình huống thực tế:** Nhóm nghiên cứu có **20 ngày dữ liệu mô phỏng**. Mỗi ngày ghi số giờ ngủ (**giờ**), thời gian vận động (**phút**) và nhịp tim lúc nghỉ (**nhịp/phút**). Hai ngày không có số đo nhịp tim (`None`), nhưng hai chỉ số còn lại vẫn đầy đủ. Nhóm muốn kiểm tra bảng gồm 20 hàng và 3 cột, thống kê trung bình riêng cho từng cột và báo số ngày thiếu nhịp tim, chưa dùng bảng để chẩn đoán sức khỏe.
 
-**Vì sao chọn cách này?** Kết hợp mảng `float`, `np.nan`, kiểm tra shape và `np.nanmean(axis=0)` đảm bảo thống kê chạy theo ba cột có đơn vị khác nhau mà không nhầm cột hoặc coi dòng thiếu là 0. Đây là kiểm định bảng đầu vào, chưa kết luận sức khỏe.
+**Vì sao chọn cách này?** Ba đại lượng **giờ ngủ**, **phút vận động**, **nhịp tim/phút** đo những thứ khác nhau, vì vậy mỗi thứ phải ở một cột riêng với đơn vị riêng. Mảng `(20, 3)` giữ 20 ngày và ba chỉ số, `dtype=float` cho phép lưu số thập phân và `np.nan` cho những ngày chưa đo nhịp tim. `np.nanmean(data, axis=0)` tính **ba trung bình riêng theo cột**, bỏ qua các ô NaN của cột tương ứng nhưng không xóa thông tin còn có ở hai cột khác. Trước khi dùng dữ liệu cho bước học sau, cần biết hai ô nhịp tim đang thiếu; kết quả là thống kê minh họa, không phải nhận xét y khoa.
 
 **Quy trình:**
 1. Lưu 20 bộ ba giá trị, chuyển ô nhịp tim thiếu thành NaN.

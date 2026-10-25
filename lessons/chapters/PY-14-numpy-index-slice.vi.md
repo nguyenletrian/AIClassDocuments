@@ -131,9 +131,9 @@ Chương trình lấy vị trí 0 và 2 mà không phải lấy cả đoạn 0�
 
 **Từ vựng trong mục:** **Index** — chỉ số; **Row** — hàng; **Column** — cột.
 
-**Tình huống thực tế:** Giáo viên nhập **10 học viên** H01…H10; mỗi hàng gồm điểm Toán và Python theo thứ tự cột, thang điểm 10. Cần đọc **điểm Python của H04** để đối chiếu phiếu, không đọc nhầm hàng thứ 4 thành chỉ số 4.
+**Tình huống thực tế:** Giáo viên có bảng điểm **10 học viên H01–H10**, mỗi hàng ghi điểm **Toán trước, Python sau** trên thang **10 điểm**. Họ muốn tra riêng điểm Python của học viên **H04** để so với phiếu giấy; các hàng và cột đã có thứ tự nên không cần duyệt mọi điểm để tìm một ô.
 
-**Vì sao chọn cách này?** NumPy đếm chỉ số từ 0, nên H04 ở hàng 3 và môn Python ở cột 1. Truy cập `scores[3,1]` cho một giá trị cụ thể.
+**Vì sao chọn cách này?** NumPy lưu bảng thành mảng **hai chiều**: chỉ số đầu là **hàng học viên**, chỉ số sau là **cột môn**. Python đếm chỉ số từ **0**, nên học viên thứ tư H04 nằm ở hàng `3`, còn môn Python là cột thứ hai nên có chỉ số `1`. Lệnh `scores[3, 1]` lấy đúng **một ô điểm**, không lấy toàn bộ hàng. Nếu dùng `scores[4, 1]`, chương trình sẽ đọc nhầm H05, một lỗi hay gặp khi người mới áp dụng số thứ tự thông thường cho chỉ số Python.
 
 **Quy trình:**
 1. Tạo mảng `(10,2)` đúng thứ tự mã người và môn.
@@ -162,9 +162,9 @@ Giá trị `scores[3,1]` là 9 điểm trên thang 10; đây là một ô, khôn
 
 **Từ vựng trong mục:** **Slice** — lát cắt; **Step** — bước nhảy; **Array view** — vùng nhìn mảng.
 
-**Tình huống thực tế:** Siêu thị ghi doanh số **12 ngày** theo ba nhóm thực phẩm, sách và đồ dùng (nghìn đồng/ngày). Quản lý muốn tổng doanh thu **cột thực phẩm của bốn ngày đầu**, đồng thời đối chiếu doanh thu đồ dùng ngày 12.
+**Tình huống thực tế:** Siêu thị lưu doanh thu trong **12 ngày**, mỗi ngày có ba cột **thực phẩm, sách, đồ dùng**, đơn vị **nghìn đồng**. Quản lý cần cộng doanh thu thực phẩm của **bốn ngày đầu** để xem kết quả đầu kỳ, đồng thời tra riêng doanh thu đồ dùng của **ngày thứ 12**. Hai yêu cầu này chỉ liên quan tới các phần nhất định của bảng.
 
-**Vì sao chọn cách này?** Lát cắt `[:4, 0]` chọn đúng bốn hàng đầu và một cột; `[-1, 2]` lấy hàng cuối, cột đồ dùng. Kết hợp slicing với indexing trả kết quả rõ đơn vị.
+**Vì sao chọn cách này?** **Indexing** là chọn một ô cụ thể; **slicing** là chọn một đoạn liên tiếp. `sales[:4, 0]` lấy các hàng từ đầu **đến trước hàng chỉ số 4**, tức bốn ngày đầu, và chỉ chọn cột thực phẩm có chỉ số 0. `sales[-1, 2]` đọc **hàng cuối** (ngày 12) và cột đồ dùng có chỉ số 2. Sau đó cộng các giá trị trong lát cắt thực phẩm; không cộng cả ba cột vì quản lý chỉ hỏi một nhóm. Số âm `-1` trong chỉ số nghĩa là vị trí cuối, không phải doanh thu âm.
 
 **Quy trình:**
 1. Tạo mảng `(12,3)`, mỗi hàng là một ngày.
@@ -196,9 +196,9 @@ Vị trí cuối của lát cắt là **giới hạn không bao gồm**, nên `[
 
 **Từ vựng trong mục:** **Boolean mask** — mặt nạ đúng/sai; **AND** — kết hợp điều kiện; **Filtering** — lọc.
 
-**Tình huống thực tế:** Khóa học có **15 học viên** H01…H15 với ba cột điểm Toán, Văn, Python (thang 10). Để tham gia lớp thực hành nâng cao, học viên phải đạt **Toán từ 8** và **Python từ 8** cùng lúc. Cần liệt kê chính xác mã đủ điều kiện và số người tương ứng.
+**Tình huống thực tế:** Khóa học có **15 học viên H01–H15** với điểm ba môn **Toán, Văn, Python**, mỗi môn thang **10 điểm**. Lớp thực hành nâng cao chỉ nhận người có **Toán từ 8 điểm** và **Python từ 8 điểm**, cả hai phải đúng. Giáo vụ cần biết có bao nhiêu học viên đủ điều kiện và mã của họ để gửi lịch học.
 
-**Vì sao chọn cách này?** Đặt ngoặc cho từng điều kiện so sánh và dùng toán tử phần tử `&` để nối hai mặt nạ NumPy; `and` của Python không áp trực tiếp cho hai mảng Boolean nhiều phần tử.
+**Vì sao chọn cách này?** **Mặt nạ Boolean** là một dãy giá trị `True`/`False`, tương ứng từng học viên có đạt điều kiện hay không. NumPy so toàn bộ cột Toán với mốc 8, rồi so cột Python với mốc 8; dấu `&` ghép hai kết quả **theo từng hàng**, nên chỉ người vượt cả hai ngưỡng mới có `True`. Đặt ngoặc quanh mỗi phép so sánh để Python hiểu đúng thứ tự thực hiện. `np.flatnonzero(mask)` lấy vị trí các hàng được chọn; cộng 1 khi chuyển vị trí thành mã H01... vì chỉ số bắt đầu từ 0. Không dùng `and` thông thường với hai mảng nhiều phần tử vì nó không thực hiện phép kiểm tra từng hàng như mong muốn.
 
 **Quy trình:**
 1. Tạo bảng `(15,3)`, xác định cột Toán 0 và Python 2.
@@ -238,9 +238,9 @@ Mặt nạ đánh dấu từng **hàng học viên**, không xóa cột khác v�
 
 **Từ vựng trong mục:** **Fancy indexing** — chọn nhiều vị trí; **Copy** — bản sao; **Repeated index** — chỉ số lặp.
 
-**Tình huống thực tế:** Đội kiểm toán có **18 đơn hàng** O01…O18, mỗi hàng gồm đơn giá (nghìn đồng/món), số lượng (món) và mã kênh (0–2). Kiểm toán cần xem các đơn **O18, O05, O12, O05 theo đúng thứ tự yêu cầu** — mã O05 xuất hiện hai lần trong **danh sách truy vấn**, không phải hai đơn thực tế. Hãy tính tổng tiền của bốn dòng được chọn, và chứng minh khi sửa bảng kết quả thì bảng gốc không đổi.
+**Tình huống thực tế:** Đội kiểm toán nhận bảng gốc gồm **18 đơn O01–O18**. Mỗi hàng có đơn giá (**nghìn đồng/món**), số lượng (**món**) và mã kênh bán. Kiểm toán viên được yêu cầu xem bốn dòng theo **thứ tự O18, O05, O12, O05**; mã O05 xuất hiện **hai lần trong yêu cầu tra cứu** chứ không phải vì bảng gốc có hai đơn O05. Cần tính tổng tiền của đúng bốn dòng đã yêu cầu và thử sửa một ô trong bảng kết quả mà không làm đổi dữ liệu gốc.
 
-**Vì sao chọn cách này?** Fancy indexing nhận danh sách chỉ số không liên tiếp, có thể lặp và trả một mảng mới độc lập; vì O05 được chọn hai lần, tổng của **các dòng được chọn** sẽ cộng hai lần nhưng không phải doanh thu thật của 18 đơn.
+**Vì sao chọn cách này?** **Fancy indexing** nghĩa là chọn các hàng bằng một **danh sách vị trí bất kỳ**, không nhất thiết liên tiếp hay tăng dần. `[17, 4, 11, 4]` tương ứng O18, O05, O12, O05: hàng O05 được đưa vào **hai lần trong bảng truy vấn**, vì đúng như yêu cầu kiểm toán. Tổng được tính trên bốn dòng truy vấn, nên tiền O05 cũng được tính hai lần trong **tổng truy vấn**; đây không phải doanh thu thật của 18 đơn nguồn. Với cách chọn này NumPy tạo một **mảng mới**, vì vậy đặt giá ở dòng đầu của mảng kết quả về 0 không làm mất giá O18 trong bảng gốc.
 
 **Quy trình:**
 1. Tạo mảng `(18,3)` với ba cột được ghi rõ.
@@ -278,9 +278,9 @@ Sửa bản chọn không đổi mảng gốc, vì fancy indexing tạo copy. Ha
 
 **Từ vựng trong mục:** **View** — vùng nhìn; **Boolean indexing** — chọn theo điều kiện; **NaN** — giá trị thiếu.
 
-**Tình huống thực tế:** Hệ thống có **20 cảm biến** S01…S20, mỗi hàng gồm nhiệt độ °C và độ ẩm %. Hai cảm biến thiếu nhiệt độ. Để chọn thiết bị cần kiểm tra, chỉ giữ số đo **hợp lệ**, nhiệt độ **từ 28 °C** và độ ẩm **từ 55%**. Hãy in số thiết bị và mã được chọn; khi đánh dấu mẫu đã lọc, dữ liệu nguồn phải nguyên vẹn.
+**Tình huống thực tế:** Trạm theo dõi **20 cảm biến S01–S20**, mỗi cảm biến có nhiệt độ **°C** và độ ẩm **%**. Hai cảm biến chưa gửi được nhiệt độ nên được đánh dấu là thiếu dữ liệu. Kỹ thuật viên cần chọn những thiết bị có nhiệt độ **hợp lệ từ 28 °C trở lên** và độ ẩm **từ 55% trở lên**, in số lượng và mã của chúng. Sau đó họ muốn đánh dấu một giá trị trong bảng đã lọc để kiểm tra rằng bảng số đo gốc không bị sửa.
 
-**Vì sao chọn cách này?** NumPy dùng `np.isfinite()` kiểm tra nhiệt độ không thiếu trước khi so ngưỡng, nối điều kiện bằng `&`. Boolean indexing tạo mảng chọn độc lập, phù hợp kiểm tra/sửa mẫu mà không thay đổi bảng ghi gốc.
+**Vì sao chọn cách này?** `np.isfinite()` giúp phát hiện nhiệt độ có phải **một số hữu hạn hợp lệ** không; chỗ thiếu được chuyển thành `np.nan` và bị loại trước khi xét ngưỡng. Chương trình tạo ba mặt nạ: nhiệt độ hợp lệ, nhiệt độ ít nhất 28 °C, độ ẩm ít nhất 55%; dùng `&` để chỉ chọn cảm biến thỏa **cả ba**. `np.flatnonzero()` trả vị trí thiết bị được chọn, từ đó tạo mã S01... Boolean indexing tạo **mảng kết quả độc lập** trong trường hợp này, nên thay giá ở mảng đã lọc không sửa bảng nguồn. Không được coi NaN là 0 °C vì sẽ che mất hai thiết bị chưa gửi số đo.
 
 **Quy trình:**
 1. Tạo mảng `(20,2)` kiểu float, chuyển nhiệt độ thiếu sang NaN.

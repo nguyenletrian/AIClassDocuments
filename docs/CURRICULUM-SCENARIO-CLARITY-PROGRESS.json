@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_03",
+  "status": "BATCH_03_IN_PROGRESS",
   "last_completed_batch": 2,
   "batches": [
     {
@@ -75,11 +75,26 @@
         "PY-14",
         "PY-15"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-11",
+        "PY-12",
+        "PY-13",
+        "PY-14",
+        "PY-15"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-03-20261025",
+      "lesson_commits": {
+        "PY-11": "7edee410cf0cf2449becb7d0cb23edf974707588",
+        "PY-12": "c76865e5be64943bfd5fbd50ded8d50333944544",
+        "PY-13": "10f68214b158c6b3d4c02d9121ae4b3c358f7be5",
+        "PY-14": "d1a787ae14dc98b000e1859360e5ee63b7585e05",
+        "PY-15": "5d381ea4c54a8f8b44358c592f626dad1f677697"
+      },
+      "notes": "Individually committed PY-11..15 (exactly 5 'Tình huống thực tế' and 5 'Vì sao chọn cách này?' paragraphs each, 50 paragraphs total). Explain inherited classes, ABC, CSV/UTF-8/ValueError, NumPy axes/NaN/indexing/fancy indexing/broadcasting using concrete sample meanings and beginner words. For each lesson, compared full content with main after masking only 2 approved single-line prose paragraph types: everything else identical byte-for-byte (9 executable Python code fences and expected stdout sections, 5 progressive scenarios, 20 MCQs/answers and all definitions unchanged). GitHub final-head CI and merge PENDING. Windows/PowerShell not verified."
     },
     {
       "batch": 4,

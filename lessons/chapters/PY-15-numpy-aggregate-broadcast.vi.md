@@ -132,9 +132,9 @@ Ba số là tín hiệu sau khi áp dụng hệ số riêng cho từng kênh; Nu
 
 **Từ vựng trong mục:** **Aggregate** — tổng hợp; **Sum** — tổng; **Mean** — trung bình.
 
-**Tình huống thực tế:** Cửa hàng ghi doanh thu trong **10 ngày**, mỗi phần tử là tổng doanh thu của một ngày (nghìn đồng/ngày). Quản lý cần tổng 10 ngày, trung bình/ngày và doanh thu thấp nhất/cao nhất để kiểm tra nhanh biến động.
+**Tình huống thực tế:** Chủ cửa hàng xem bảng doanh thu **10 ngày liên tiếp**, mỗi số là tổng tiền của một ngày, đơn vị **nghìn đồng/ngày**. Chẳng hạn ngày đầu thu 120 nghìn đồng, ngày thứ hai 145 nghìn đồng. Người quản lý cần biết tổng doanh thu của cả 10 ngày, trung bình một ngày thu bao nhiêu và ngày có doanh thu thấp nhất, cao nhất để nhìn sơ bộ sự thay đổi.
 
-**Vì sao chọn cách này?** NumPy thực hiện `sum`, `mean`, `min`, `max` trên một mảng số; chưa cần vòng lặp riêng cho mỗi phép tính. Mỗi chỉ số mang ý nghĩa khác nhau và không nên lẫn đơn vị.
+**Vì sao chọn cách này?** NumPy có các hàm **tổng hợp** để lấy thông tin từ cả một mảng mà không cần viết vòng lặp cộng tay. `sum()` cộng 10 khoản doanh thu để ra **tổng 10 ngày**; `mean()` cho biết số tiền trung bình **trong một ngày**; `min()` và `max()` tìm mức thấp nhất và cao nhất đã ghi. Đây là bốn câu hỏi khác nhau: doanh thu cả kỳ có đơn vị nghìn đồng, còn trung bình có thể hiểu là nghìn đồng/ngày. Không được coi mức cao nhất là tổng doanh thu hoặc nhầm 10 phần tử với 10 nhóm hàng.
 
 **Quy trình:**
 1. Tạo mảng 10 số doanh thu theo ngày.
@@ -169,9 +169,9 @@ Cao nhất: 190
 
 **Từ vựng trong mục:** **Axis 0** — theo cột; **Axis 1** — theo hàng; **Argmax** — chỉ số cực đại.
 
-**Tình huống thực tế:** Lớp có **12 học viên** H01…H12, mỗi hàng ghi điểm Toán, Văn, Python (thang 10). Giáo viên muốn ba điểm trung bình theo môn để điều chỉnh môn học, đồng thời tìm học viên có **điểm trung bình ba môn cao nhất**.
+**Tình huống thực tế:** Một lớp có **12 học viên H01–H12**, mỗi người được chấm **Toán, Văn, Python** theo thang **10 điểm**, lưu mỗi học viên trên một hàng. Giáo viên muốn biết điểm trung bình của **từng môn trên toàn lớp**, đồng thời tìm **học viên có trung bình ba môn cao nhất**. Đây là hai cách nhìn khác nhau trên cùng một bảng điểm.
 
-**Vì sao chọn cách này?** `mean(axis=0)` tạo ba giá trị cho ba môn, còn `mean(axis=1)` tạo 12 giá trị cho 12 học viên. `argmax` tìm vị trí người có trung bình cao nhất; hai trục giải đáp hai câu hỏi quản lý khác nhau.
+**Vì sao chọn cách này?** **Trục `axis`** cho biết NumPy gộp theo hướng nào. Trong bảng 12 hàng học viên và 3 cột môn, `mean(axis=0)` gộp **theo từng cột** để cho ba điểm trung bình Toán, Văn, Python. Ngược lại, `mean(axis=1)` gộp **ba môn của mỗi hàng**, nên trả 12 trung bình học viên. `argmax()` tìm **vị trí** của trung bình học viên cao nhất, sau đó cộng 1 để ghép mã H01... Đừng dùng trung bình theo môn để chọn người học giỏi nhất: đó là số của cả lớp, không phải điểm một học viên.
 
 **Quy trình:**
 1. Tạo bảng `(12,3)` và xác định rõ nghĩa hàng/cột.
@@ -209,9 +209,9 @@ Cả hai phép trung bình đều hợp lệ về toán nhưng **khác đối t�
 
 **Từ vựng trong mục:** **Broadcasting** — cộng vector theo cột; **Clip** — giới hạn; **Vectorization** — tính hàng loạt.
 
-**Tình huống thực tế:** Trường có **15 học viên**, mỗi hàng gồm điểm Toán và Python (thang 10). Quy định minh họa: Toán được cộng 1 điểm chuyên cần, Python được cộng 0,5 điểm; không môn nào vượt 10. Cần áp dụng đúng mức cộng cho từng cột và đếm học viên đạt điểm 10 ở ít nhất một môn.
+**Tình huống thực tế:** Trường có bảng điểm **15 học viên**, mỗi hàng chứa hai cột **Toán và Python** trên thang **10 điểm**. Theo quy định minh họa, mọi học viên được cộng **1 điểm Toán** và **0,5 điểm Python** vì chuyên cần, nhưng điểm một môn không được vượt quá 10. Giáo viên cần tạo bảng điểm sau cộng, xem kết quả của học viên đầu tiên và đếm số người đạt 10 ở ít nhất một môn, trong khi giữ bảng điểm gốc để đối chiếu.
 
-**Vì sao chọn cách này?** Vector `[1,0.5]` có hai phần tử tương ứng hai cột, nên NumPy broadcast cùng vector cho **15 hàng**. `np.minimum(...,10)` chặn điểm vượt thang; cộng một số duy nhất cho cả hai môn là sai quy tắc.
+**Vì sao chọn cách này?** **Broadcasting** là cơ chế NumPy tự áp dụng một dãy số ngắn lên nhiều hàng có cùng cấu trúc. Dãy cộng điểm `[1.0, 0.5]` có một phần cho cột Toán và một phần cho cột Python; NumPy cộng đúng hai mức ấy cho **mỗi trong 15 học viên**, không lấy mức 1 để cộng cho cả hai môn. `np.minimum(..., 10)` giới hạn mọi điểm cuối cùng ở mức 10, vì người đã có 9,5 điểm Python không được tăng thành 10,0 cộng thêm rồi vượt thang. `np.any(adjusted == 10, axis=1)` kiểm tra **trên từng học viên** xem có ít nhất một môn đạt 10. Bảng gốc không bị sửa vì kết quả được tính thành mảng mới.
 
 **Quy trình:**
 1. Tạo mảng 15 × 2 kiểu float và vector cộng theo môn.
@@ -246,9 +246,9 @@ Gốc H01: 7.0 5.0
 
 **Từ vựng trong mục:** **Element-wise** — theo ô; **Calibration** — hiệu chỉnh; **nanmean** — trung bình bỏ ô thiếu.
 
-**Tình huống thực tế:** Trạm có **18 mẫu đo** gồm ba kênh nhiệt độ °C, độ ẩm % và áp suất kPa, mỗi hàng là một lượt; hai lượt thiếu riêng số áp suất. Theo biên bản hiệu chỉnh giả lập, phải **cộng 0,5 °C**, **trừ 2 điểm phần trăm độ ẩm**, **cộng 1 kPa** tương ứng ba cột. Cần áp dụng đúng độ lệch trên cả bảng và tính trung bình sau hiệu chỉnh cho từng kênh mà không biến ô thiếu thành số.
+**Tình huống thực tế:** Trạm môi trường thu **18 lượt đo**; mỗi lượt ghi nhiệt độ (**°C**), độ ẩm (**%**) và áp suất (**kPa**). Hai lượt thiếu riêng số áp suất, còn nhiệt độ và độ ẩm vẫn có. Biên bản hiệu chuẩn trong bài yêu cầu với mọi lượt: cộng **0,5 °C** vào nhiệt độ, trừ **2 điểm phần trăm** khỏi độ ẩm và cộng **1 kPa** vào áp suất. Nhân viên muốn tính trung bình sau hiệu chỉnh của từng đại lượng mà không biến hai ô thiếu thành số.
 
-**Vì sao chọn cách này?** Vector độ lệch `(3,)` broadcast lên bảng `(18,3)`. `np.nan` giữ vị trí đo thiếu, còn `np.nanmean(axis=0)` cho trung bình có ý nghĩa theo từng đơn vị; không cộng bừa ba cột với nhau.
+**Vì sao chọn cách này?** Ba cột đo có **đơn vị và ý nghĩa khác nhau**, nên hiệu chỉnh phải áp dụng đúng từng cột. Dãy `[0.5, -2.0, 1.0]` có ba mức sửa, tương ứng tăng 0,5 °C, giảm 2 điểm phần trăm độ ẩm và tăng 1 kPa. Nhờ **broadcasting**, NumPy dùng lại dãy ba mức ấy trên đủ 18 hàng; không phải cộng cùng một số vào tất cả cột. Ô áp suất không có kết quả được lưu là `np.nan`, nên sau khi cộng vẫn là NaN chứ không biến thành áp suất 1 kPa. `np.nanmean(axis=0)` bỏ qua riêng các ô thiếu và trả ba trung bình riêng, không cộng nhiệt độ với độ ẩm hoặc áp suất.
 
 **Quy trình:**
 1. Tạo mảng `(18,3)` số thực, chuyển ô áp suất thiếu thành NaN.
@@ -294,9 +294,9 @@ Mỗi độ lệch có **đơn vị riêng** và tác động đúng cột. Khi 
 
 **Từ vựng trong mục:** **Broadcasting** — mở rộng theo cột; **Aggregation** — tổng hợp; **Axis** — trục tính.
 
-**Tình huống thực tế:** Chuỗi bán lẻ có **20 cửa hàng** C01…C20; mỗi hàng ghi số món bán thuộc ba nhóm A/B/C (món). Giá niêm yết giả lập theo nhóm lần lượt **10, 20, 30 nghìn đồng/món**; chương trình áp dụng tỷ lệ thanh toán lần lượt **100%, 90%, 80%**. Cần tính tổng tiền sau ưu đãi của **từng cửa hàng**, tổng của cả 20 cửa hàng và tìm mã cửa hàng có doanh thu lớn nhất. Không coi ba cột là ba cửa hàng.
+**Tình huống thực tế:** Chuỗi bán lẻ gồm **20 cửa hàng C01–C20**, mỗi cửa hàng bán ba nhóm sản phẩm **A, B, C**. Bảng ghi **số món đã bán** của từng nhóm theo hàng cửa hàng. Trong dữ liệu giả lập, một món nhóm A giá **10 nghìn đồng**, B giá **20 nghìn đồng**, C giá **30 nghìn đồng**; khách lần lượt trả 100%, 90%, 80% giá niêm yết. Quản lý muốn biết doanh thu sau giảm giá của **từng cửa hàng**, tổng của cả hệ thống và mã cửa hàng có doanh thu lớn nhất.
 
-**Vì sao chọn cách này?** NumPy tự broadcast vector đơn giá và vector tỷ lệ `(3,)` lên bảng số lượng `(20,3)` để tính tiền đúng từng nhóm. `sum(axis=1)` trả 20 tổng theo cửa hàng và `argmax()` chọn hàng cao nhất; đây là một quy trình nhiều bước nhưng không cần lặp thủ công trên từng ô.
+**Vì sao chọn cách này?** Bảng `quantities` có **20 hàng cửa hàng và ba cột số món** A, B, C. Dãy giá `[10, 20, 30]` và dãy tỷ lệ thanh toán `[1.0, 0.9, 0.8]` được **broadcast** vào từng hàng: số món của nhóm nào được nhân với giá và tỷ lệ của **đúng nhóm đó**. Ví dụ một món B giá 20 nghìn đồng chỉ thu 90%, tức **18 nghìn đồng**, không dùng tỷ lệ 80% của nhóm C. Sau khi có tiền từng nhóm, `sum(axis=1)` cộng ba cột thành **20 tổng theo cửa hàng**; tiếp tục cộng các tổng này để ra toàn hệ thống. `argmax()` chỉ vị trí cửa hàng có doanh thu lớn nhất; vì vị trí bắt đầu từ 0, phải đổi thành mã C01... đúng với bảng gốc.
 
 **Quy trình:**
 1. Tạo mảng 20 × 3 số lượng theo thứ tự nhóm A/B/C.
