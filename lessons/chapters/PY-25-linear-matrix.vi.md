@@ -39,6 +39,17 @@
 
 Ma trận là bảng số hai chiều. Với điểm học viên An `[8,7,9]` và Bình `[6,5,8]` ở ba môn Toán, Văn, Python, bảng có **hai hàng học viên** và **ba cột môn**. Giá trị `[1,0]` nghĩa là điểm Toán của Bình bằng 6. `shape` cho kích thước, theo thứ tự (số hàng, số cột).
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+scores = np.array([[8, 7, 9], [6, 5, 8]])
+print(scores.shape)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Quan sát shape của ma trận điểm có hai hàng học viên và ba cột môn.
 # Dữ liệu: 2 học viên, 3 môn; mỗi hàng [điểm môn1, môn2, môn3].
@@ -62,6 +73,17 @@ Bảng có hai học viên và ba môn học.
 ### 4.2. Transpose — Hoán đổi hai trục
 
 Chuyển vị `A.T` biến hàng thành cột và cột thành hàng. Với bảng điểm hai học viên × ba môn, ma trận sau chuyển vị có ba hàng môn và hai cột học viên. Ví dụ hàng đầu là điểm Toán của An và Bình, `[8,6]`; không có điểm nào bị thay đổi.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+scores = np.array([[8, 7, 9], [6, 5, 8]])
+print(scores.T)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng thuộc tính .T chuyển vị ma trận hai hàng ba cột.
@@ -89,6 +111,18 @@ Kết quả gồm ba hàng môn × hai cột học viên.
 
 Nhân `X @ W` yêu cầu số cột của X bằng số hàng của W. Bảng điểm X có shape `(2,3)`, trọng số ba môn W có shape `(3,1)`, tích có shape `(2,1)` cho điểm tổng của từng học viên. Dòng An là `8×0.2 + 7×0.3 + 9×0.5 = 8.2`. `@` khác phép nhân từng phần tử `*`.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+X = np.array([[8, 7, 9], [6, 5, 8]])
+W = np.array([[0.2], [0.3], [0.5]])
+print(X @ W)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Nhân ma trận điểm X với vector trọng số cột W để cho hai điểm tổng hợp.
 # Dữ liệu: X có shape (2,3), W có shape (3,1) gồm ba hệ số 0.2/0.3/0.5.
@@ -115,6 +149,17 @@ Hai hàng là hai học viên; một cột là điểm tổng kết của mỗi 
 ### 4.4. Determinant và inverse — Khả nghịch
 
 Định thức `det(A)` là số xác định cho **ma trận vuông**. Với A=`[[2,1],[1,2]]`, định thức bằng `2×2 - 1×1 = 3`, khác 0, nên tồn tại ma trận nghịch đảo `A⁻¹` thỏa `A @ A⁻¹ = I`. Nếu định thức bằng 0 thì không có nghịch đảo. Khi giải hệ phương trình, ưu tiên `np.linalg.solve` hơn việc tính nghịch đảo trực tiếp.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+A = np.array([[2.0, 1.0], [1.0, 2.0]])
+print(round(float(np.linalg.det(A)), 6))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính định thức để nhận biết ma trận vuông hai chiều có khả nghịch.
@@ -151,6 +196,23 @@ print(round(float(np.linalg.det(A)), 6))
 1. Lưu 10 số liệu theo thứ tự cửa hàng–ngày.
 2. Reshape thành ma trận `(5,2)`, tổng hai ngày của S03.
 3. Chuyển vị sang `(2,5)` và đối chiếu tổng số phần tử.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+raw = np.array([10,12,9,14,11,13,15,16,12,18], dtype=float)
+sales = raw.reshape(5, 2)
+by_day = sales.T
+if raw.size != 10 or sales.size != 10 or by_day.size != 10:
+    raise ValueError("Cần giữ đủ 10 số liệu khi đổi dạng và chuyển vị.")
+print("Lượt ghi:", raw.size)
+print("Bảng cửa hàng:", sales.shape)
+print("Bảng theo ngày:", by_day.shape)
+print("S03 (triệu đồng):", int(sales[2].sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Đổi mười lượt doanh thu thành ma trận 5 cửa hàng × 2 ngày rồi chuyển vị.
@@ -199,6 +261,26 @@ S03 (triệu đồng): 24
 1. Ghi rõ thứ tự ba tiêu chí và hai nhóm trọng số.
 2. Kiểm tra kích thước 12×3 và 3×2; dùng `@`.
 3. In hai điểm của người đầu tiên và đếm ngưỡng hợp tác.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+scores = np.array([[5,6,7],[6,8,10],[7,10,9],[8,7,8],[9,9,7],[5,6,10],[6,8,9],[7,10,8],[8,7,7],[9,9,10],[5,6,9],[6,8,8]], dtype=float)
+weights = np.array([[0.5, 0.1], [0.2, 0.3], [0.3, 0.6]])
+ratings = scores @ weights
+if scores.shape != (12, 3) or weights.shape != (3, 2):
+    raise ValueError("Bảng điểm 12x3 phải ghép đúng ma trận trọng số 3x2.")
+if ratings.shape != (12, 2):
+    raise ValueError("Kết quả phải có hai đánh giá cho mỗi trong 12 học viên.")
+print("Học viên:", ratings.shape[0])
+print("Cột đánh giá:", ratings.shape[1])
+print(f"H01 chuyên môn: {ratings[0,0]:.2f}")
+print(f"H01 hợp tác: {ratings[0,1]:.2f}")
+print("Hợp tác >=8:", int((ratings[:,1] >= 8).sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Nhân bảng điểm 12 học viên × 3 môn với ma trận trọng số 3×2 để tính hai đánh giá.
@@ -254,6 +336,31 @@ Hợp tác >=8: 6
 1. Tạo ma trận 15×2 chứa các điểm có đơn vị mét.
 2. Nhân với ma trận xoay 2×2, kiểm tra định thức khác 0.
 3. Dùng `np.allclose` kiểm độ dài và in điểm đầu trước/sau.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+points = np.array([[1,2],[2,2],[3,2],[4,2],[5,2],[1,3],[2,3],[3,3],[4,3],[5,3],[1,4],[2,4],[3,4],[4,4],[5,4]], dtype=float)
+rotate = np.array([[0.0, -1.0], [1.0, 0.0]])
+converted = points @ rotate
+if points.shape != (15, 2) or converted.shape != (15, 2):
+    raise ValueError("Phải có đúng 15 điểm gốc và điểm đã đổi tọa độ.")
+if not np.allclose(np.linalg.norm(points, axis=1), np.linalg.norm(converted, axis=1)):
+    raise ValueError("Phép quay phải bảo toàn chiều dài của từng điểm.")
+print("Điểm:", len(points))
+print(f"Định thức: {np.linalg.det(rotate):.1f}")
+original_labels = []
+converted_labels = []
+for value in points[0]:
+    original_labels.append(f"{value:.1f}")
+for value in converted[0]:
+    converted_labels.append(f"{value:.1f}")
+print("Điểm đầu (gốc):", ", ".join(original_labels))
+print("Điểm đầu (mới):", ", ".join(converted_labels))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng ma trận 2×2 biến đổi tọa độ 15 điểm và kiểm giữ nguyên độ dài.
@@ -316,6 +423,29 @@ print("Điểm đầu (mới):", ", ".join(converted_labels))
 2. Dùng `solve` trên ma trận kênh đã chuyển vị để giải 18 lượt cùng lúc.
 3. Ghép nghiệm trở lại số đo, xác nhận sai số số học nhỏ và in nghiệm đầu.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+mix = np.array([[2.0, 1.0], [1.0, 3.0]])
+measured = np.array([[4,7],[6,8],[8,9],[10,10],[12,11],[14,12],[5,10],[7,11],[9,12],[11,13],[13,14],[15,15],[6,13],[8,14],[10,15],[12,16],[14,17],[16,18]], dtype=float)
+restored = np.linalg.solve(mix, measured.T).T
+reconstructed = restored @ mix.T
+if measured.shape != (18, 2) or restored.shape != (18, 2):
+    raise ValueError("Cần đủ 18 lượt đo và hai thông số khôi phục.")
+if not np.allclose(reconstructed, measured):
+    raise ValueError("Tái tạo số đo phải khớp dữ liệu đầu vào.")
+print("Lượt đo:", len(measured))
+print(f"Định thức: {np.linalg.det(mix):.1f}")
+first_values = []
+for value in restored[0]:
+    first_values.append(f"{value:.1f}")
+print("Nguồn đầu:", ", ".join(first_values))
+print("Khôi phục đúng:", bool(np.allclose(reconstructed, measured)))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Khôi phục 18 vector nguồn từ các phép đo bị trộn bởi ma trận và đối chiếu tái tạo.
 # Dữ liệu: 18 lượt đo mỗi lượt hai giá trị; mix 2×2 là ma trận hệ số giả lập biết trước.
@@ -374,6 +504,32 @@ Mỗi hàng là một bài toán hai ẩn, cùng chung ma trận hệ số. Ví 
 1. Tạo 20 bản ghi với ID, ma trận 2×2 và vector quan sát.
 2. Kiểm tra định thức theo ngưỡng nhỏ đã nêu, đưa trường hợp suy biến vào nhóm cần xem.
 3. Chỉ gọi `np.linalg.solve()` trên trường hợp đạt, ghép kết quả lại để xác nhận và đối chiếu số lượt.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+records = [{"id":"M01","coeff":[[2,1],[1,2]],"measurement":[4,5],"original":[1,2]},{"id":"M02","coeff":[[3,1],[1,3]],"measurement":[9,11],"original":[2,3]},{"id":"M03","coeff":[[4,1],[1,4]],"measurement":[16,19],"original":[3,4]},{"id":"M04","coeff":[[2,1],[1,5]],"measurement":[13,29],"original":[4,5]},{"id":"M05","coeff":[[3,1],[1,2]],"measurement":[17,9],"original":[5,2]},{"id":"M06","coeff":[[2,1],[4,2]],"measurement":[5,10],"original":[1,3]},{"id":"M07","coeff":[[2,1],[1,4]],"measurement":[8,18],"original":[2,4]},{"id":"M08","coeff":[[3,1],[1,5]],"measurement":[14,28],"original":[3,5]},{"id":"M09","coeff":[[4,1],[1,2]],"measurement":[18,8],"original":[4,2]},{"id":"M10","coeff":[[2,1],[1,3]],"measurement":[13,14],"original":[5,3]},{"id":"M11","coeff":[[3,1],[1,4]],"measurement":[7,17],"original":[1,4]},{"id":"M12","coeff":[[2,1],[4,2]],"measurement":[9,18],"original":[2,5]},{"id":"M13","coeff":[[2,1],[1,2]],"measurement":[8,7],"original":[3,2]},{"id":"M14","coeff":[[3,1],[1,3]],"measurement":[15,13],"original":[4,3]},{"id":"M15","coeff":[[4,1],[1,4]],"measurement":[24,21],"original":[5,4]},{"id":"M16","coeff":[[2,1],[1,5]],"measurement":[7,26],"original":[1,5]},{"id":"M17","coeff":[[3,1],[1,2]],"measurement":[8,6],"original":[2,2]},{"id":"M18","coeff":[[2,1],[4,2]],"measurement":[9,18],"original":[3,3]},{"id":"M19","coeff":[[2,1],[1,4]],"measurement":[12,20],"original":[4,4]},{"id":"M20","coeff":[[3,1],[1,5]],"measurement":[20,30],"original":[5,5]}]
+solved, singular = [], []
+for record in records:
+    matrix = np.array(record["coeff"], dtype=float)
+    measured = np.array(record["measurement"], dtype=float)
+    if abs(np.linalg.det(matrix)) < 1e-9:
+        singular.append(record["id"])
+        continue
+    values = np.linalg.solve(matrix, measured)
+    if not np.allclose(matrix @ values, measured):
+        raise ValueError("Giải hệ phải tái tạo đúng số đo hiệu chuẩn.")
+    solved.append(record["id"])
+if len(records) != 20 or len(solved) + len(singular) != 20:
+    raise ValueError("Phải kiểm tra đủ 20 lượt hiệu chuẩn, kể cả ma trận suy biến.")
+print("Lượt hiệu chuẩn:", len(records))
+print("Giải được:", len(solved))
+print("Không thể giải:", ", ".join(singular))
+print("Đối chiếu đủ:", len(solved) + len(singular) == len(records))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Kiểm 20 phép hiệu chuẩn 2×2, loại ma trận gần suy biến rồi giải và tái kiểm số đo.

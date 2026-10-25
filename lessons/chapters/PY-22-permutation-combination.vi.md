@@ -41,6 +41,16 @@ Khi chọn người hoặc sắp xếp công việc, câu hỏi đầu tiên là
 
 Có năm ứng viên và hai vị trí **khác nhau** là trưởng nhóm, phó nhóm. Chọn trưởng có 5 cách; sau đó chọn phó còn 4 cách, nên có `5 × 4 = 20` phương án. Đảo vai trò hai người tạo phương án khác. `math.perm(n,k)` đếm cách lấy **k người khác nhau từ n người** và phân thứ tự, với `0 ≤ k ≤ n`. Nếu dùng hết n người, kết quả là `n!`.
 
+**No Note — Không chú thích**
+
+```python
+import math
+
+print(math.perm(5, 2))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Đếm cách chọn hai người vào hai vai CÓ phân biệt thứ tự trong năm ứng viên.
 # Dữ liệu: 5 ứng viên khác nhau, hai vị trí vai trò riêng; đổi chỗ hai người thành cách khác.
@@ -64,6 +74,16 @@ Có 20 cách phân vai trưởng/phó; đổi thứ tự hai người được t
 **Từ vựng trong mục:** **Combination** — tổ hợp; **Order-independent** — không xét thứ tự.
 
 Nếu năm ứng viên chỉ cần chọn **hai người cùng một đội**, cặp An–Bình và Bình–An là **một** đội, không phải hai. Công thức `C(n,k) = n! / (k!(n-k)!)`; với 5 chọn 2 có 10 nhóm. `math.comb(n,k)` tính trực tiếp số nhóm mà không cần liệt kê từng cặp. Trong thực tế cần xác nhận có được chọn một người nhiều lần hay không; ở đây mỗi ứng viên chỉ chọn tối đa một lần.
+
+**No Note — Không chú thích**
+
+```python
+import math
+
+print(math.comb(5, 2))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Đếm nhóm hai người KHÔNG phân vai từ năm ứng viên.
@@ -89,6 +109,16 @@ Số nhóm bằng nửa số cách phân vai hai người vì hoán đổi hai v
 
 Với bốn nhiệm vụ **khác nhau**, có 4 cách chọn việc đầu, 3 cách chọn việc thứ hai, rồi 2 và 1. Tổng số cách sắp xếp là `4! = 4×3×2×1 = 24`. Đây là **giai thừa**. Quy ước `0! = 1` vì có đúng một cách sắp xếp dãy rỗng. `math.factorial` áp dụng cho số nguyên không âm.
 
+**No Note — Không chú thích**
+
+```python
+import math
+
+print(math.factorial(4))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Đếm số cách sắp thứ tự bốn đối tượng khác nhau bằng giai thừa.
 # Dữ liệu: 4 vật khác nhau, muốn xếp đủ vào bốn vị trí.
@@ -112,6 +142,19 @@ Bốn nhiệm vụ khác nhau có 24 thứ tự thực hiện nếu mỗi nhiệ
 **Từ vựng trong mục:** **Binomial coefficient** — hệ số nhị thức; **Pascal triangle** — tam giác Pascal.
 
 **Hệ số nhị thức** `C(n,k)` là số cách chọn k phần tử không xét thứ tự, đồng thời là hệ số của `a^(n-k)b^k` trong khai triển `(a+b)^n`. Các giá trị `C(n,0)` đến `C(n,n)` tạo thành **hàng n của tam giác Pascal** (đếm từ hàng 0). Với n = 4, hàng có năm hệ số `1,4,6,4,1`; hai cạnh bằng 1 và mỗi ô trong bằng tổng hai ô ngay phía trên.
+
+**No Note — Không chú thích**
+
+```python
+import math
+
+counts = []
+for k in range(5):
+    counts.append(math.comb(4, k))
+print(counts)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tạo hàng thứ tư của tam giác Pascal bằng số tổ hợp chọn k trong bốn.
@@ -151,6 +194,27 @@ Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
 1. Lưu đúng 10 ID ứng viên.
 2. Đếm phương án có thứ tự bằng `math.perm`.
 3. Liệt kê kết quả đầu tiên để xác minh vai trò khác nhau.
+
+**No Note — Không chú thích**
+
+```python
+import math
+from itertools import permutations
+candidates = ["U01","U02","U03","U04","U05","U06","U07","U08","U09","U10"]
+first = None
+for pair in permutations(candidates, 2):
+    first = pair
+    break
+if first is None:
+    raise ValueError("Cần ít nhất hai ứng viên để phân vai.")
+if len(candidates) != 10:
+    raise ValueError("Cần đúng 10 ứng viên.")
+print("Ứng viên:", len(candidates))
+print("Cách phân vai:", math.perm(len(candidates), 2))
+print("Phân vai đầu:", first[0], first[1])
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Liệt kê cách phân hai vai từ 10 ứng viên và lấy phương án đầu tiên làm ví dụ.
@@ -207,6 +271,24 @@ Người U01 làm trưởng và U02 làm phó khác cách đảo vai; không cho
 2. Dùng tổ hợp chọn ba mã, không xét thứ tự.
 3. So số tổ với danh sách liệt kê để xác nhận.
 
+**No Note — Không chú thích**
+
+```python
+import math
+from itertools import combinations
+volunteers = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12"]
+groups = list(combinations(volunteers, 3))
+if len(volunteers) != 12:
+    raise ValueError("Cần đủ 12 tình nguyện viên.")
+if len(groups) != math.comb(12, 3):
+    raise ValueError("Số nhóm ba người phải khớp số tổ hợp lý thuyết.")
+print("Tình nguyện viên:", len(volunteers))
+print("Số nhóm:", len(groups))
+print("Nhóm đầu:", ", ".join(groups[0]))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Đếm và liệt kê nhóm ba tình nguyện viên từ 12 người, không xét thứ tự trong nhóm.
 # Dữ liệu: 12 mã S01..S12, chọn ba người không phân vai; [S01,S02,S03] là cùng nhóm dù đổi thứ tự.
@@ -254,6 +336,25 @@ Bài này khác cấp 1 ở chỗ đổi vị trí ba người **không** tạo 
 1. Kiểm tra từng hồ sơ trong 15 dòng để lọc kỹ năng và cờ sẵn sàng.
 2. Đếm số cặp không phân vai bằng `comb`.
 3. Đếm số phương án gán hai vai bằng `perm`, xác nhận mỗi cặp có hai cách phân vai.
+
+**No Note — Không chú thích**
+
+```python
+import math
+people = [{"id":"T01","skill":"Python","available":True},{"id":"T02","skill":"AI","available":True},{"id":"T03","skill":"SQL","available":True},{"id":"T04","skill":"Python","available":True},{"id":"T05","skill":"AI","available":False},{"id":"T06","skill":"SQL","available":True},{"id":"T07","skill":"Python","available":True},{"id":"T08","skill":"AI","available":True},{"id":"T09","skill":"SQL","available":True},{"id":"T10","skill":"Python","available":False},{"id":"T11","skill":"AI","available":True},{"id":"T12","skill":"SQL","available":True},{"id":"T13","skill":"Python","available":True},{"id":"T14","skill":"AI","available":True},{"id":"T15","skill":"SQL","available":False}]
+eligible = []
+for person in people:
+    if person["available"] and person["skill"] in ("Python", "AI"):
+        eligible.append(person["id"])
+if len(people) != 15:
+    raise ValueError("Cần kiểm tra 15 hồ sơ nhân sự.")
+print("Hồ sơ:", len(people))
+print("Đủ điều kiện:", len(eligible))
+print("Chọn đội hai người:", math.comb(len(eligible), 2))
+print("Phân hai vai:", math.perm(len(eligible), 2))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lọc 15 nhân sự đủ sẵn sàng và kỹ năng Python/AI, so số đội hai người với phân hai vai.
@@ -305,6 +406,29 @@ Khác hai cấp đầu, phải lọc dữ liệu trước khi đếm. Không đ�
 1. Duyệt 18 hồ sơ, chỉ giữ ca khẩn cấp có cờ sẵn sàng.
 2. Đếm các lịch có thứ tự gồm ba ca không lặp.
 3. Liệt kê lịch đầu, kiểm số lịch với `math.perm`.
+
+**No Note — Không chú thích**
+
+```python
+import math
+from itertools import permutations
+incidents = [{"id":"C01","severity":"blocker","ready":True},{"id":"C02","severity":"normal","ready":True},{"id":"C03","severity":"normal","ready":True},{"id":"C04","severity":"high","ready":True},{"id":"C05","severity":"normal","ready":True},{"id":"C06","severity":"normal","ready":True},{"id":"C07","severity":"blocker","ready":True},{"id":"C08","severity":"normal","ready":True},{"id":"C09","severity":"normal","ready":True},{"id":"C10","severity":"high","ready":True},{"id":"C11","severity":"normal","ready":True},{"id":"C12","severity":"normal","ready":False},{"id":"C13","severity":"blocker","ready":True},{"id":"C14","severity":"normal","ready":True},{"id":"C15","severity":"normal","ready":True},{"id":"C16","severity":"high","ready":True},{"id":"C17","severity":"normal","ready":True},{"id":"C18","severity":"normal","ready":True}]
+eligible = []
+for row in incidents:
+    if row["ready"] and row["severity"] in ("blocker", "high"):
+        eligible.append(row["id"])
+schedules = list(permutations(eligible, 3))
+if len(incidents) != 18:
+    raise ValueError("Cần đủ 18 sự cố đã ghi nhận.")
+if len(schedules) != math.perm(len(eligible), 3):
+    raise ValueError("Số lịch ba ca phải khớp số cách xếp có thứ tự.")
+print("Sự cố:", len(incidents))
+print("Đủ tiêu chí:", len(eligible))
+print("Lịch 3 ca:", len(schedules))
+print("Lịch đầu:", ", ".join(schedules[0]))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lọc sự cố nghiêm trọng đã sẵn sàng trong 18 bản ghi rồi xếp ba vị trí xử lý có thứ tự.
@@ -362,6 +486,37 @@ Ba vị trí là ba lượt thực hiện khác nhau nên dùng hoán vị; nhâ
 1. Tách 20 hồ sơ theo nhóm A/B/C và trạng thái sẵn sàng.
 2. Liệt kê mọi tổ ba người **không thứ tự** và chỉ giữ đội đủ ba nhóm.
 3. So số ban hợp lệ với số lựa chọn từ mỗi nhóm, xác minh không chứa ứng viên chưa sẵn sàng.
+
+**No Note — Không chú thích**
+
+```python
+from itertools import combinations
+people = [{"id":"U01","team":"A","ready":True},{"id":"U02","team":"B","ready":True},{"id":"U03","team":"C","ready":True},{"id":"U04","team":"A","ready":True},{"id":"U05","team":"B","ready":True},{"id":"U06","team":"C","ready":False},{"id":"U07","team":"A","ready":True},{"id":"U08","team":"B","ready":True},{"id":"U09","team":"C","ready":True},{"id":"U10","team":"A","ready":True},{"id":"U11","team":"B","ready":True},{"id":"U12","team":"C","ready":True},{"id":"U13","team":"A","ready":True},{"id":"U14","team":"B","ready":True},{"id":"U15","team":"C","ready":False},{"id":"U16","team":"A","ready":True},{"id":"U17","team":"B","ready":True},{"id":"U18","team":"C","ready":True},{"id":"U19","team":"A","ready":True},{"id":"U20","team":"B","ready":True}]
+ready = []
+for person in people:
+    if person["ready"]:
+        ready.append(person)
+valid = []
+for team in combinations(ready, 3):
+    team_names = set()
+    for person in team:
+        team_names.add(person["team"])
+    if team_names == {"A", "B", "C"}:
+        valid.append(team)
+counts = {"A": 0, "B": 0, "C": 0}
+for person in ready:
+    counts[person["team"]] += 1
+if len(people) != 20:
+    raise ValueError("Cần đủ 20 hồ sơ ban đầu.")
+if len(valid) != counts["A"] * counts["B"] * counts["C"]:
+    raise ValueError("Số ban ba nhóm phải bằng số cách chọn một người mỗi nhóm.")
+print("Hồ sơ:", len(people))
+print("Sẵn sàng:", len(ready))
+print("Người theo nhóm:", counts["A"], counts["B"], counts["C"])
+print("Ban ba nhóm:", len(valid))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lập ban ba người từ 20 hồ sơ, mỗi người ở một nhóm A/B/C và đều sẵn sàng.

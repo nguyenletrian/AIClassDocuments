@@ -39,11 +39,11 @@ class Batch05RunnableExamples(unittest.TestCase):
                                           case, flags=re.MULTILINE | re.DOTALL)
                     answers = re.findall(r"^\x60\x60\x60text\n(.*?)^\x60\x60\x60$",
                                          case, flags=re.MULTILINE | re.DOTALL)
-                    self.assertEqual(len(snippets), 1)
+                    self.assertEqual(len(snippets), 2, 'One No Note and one annotated snippet')
                     self.assertEqual(len(answers), 1)
                     with tempfile.TemporaryDirectory() as folder:
                         completed = subprocess.run(
-                            [sys.executable, "-I", "-B", "-c", snippets[0]],
+                            [sys.executable, "-I", "-B", "-c", snippets[1]],
                             cwd=folder, text=True, capture_output=True,
                             encoding="utf-8", timeout=20,
                         )
