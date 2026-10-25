@@ -104,28 +104,53 @@ git remote -v
 3. Báo cả hai số để phân biệt untracked và staged.
 
 ```python
+# Mục đích: Khởi tạo một repository Git tạm với 10 script và phân biệt file untracked với staged.
+# Dữ liệu: 10 file lesson01.py..lesson10.py, mọi thao tác chỉ xảy ra trong thư mục tạm tự xóa sau khi chạy.
+# subprocess cho phép chạy lệnh Git CLI từ Python, thay vì mô phỏng phản hồi Git.
 import subprocess
+# tempfile cấp thư mục tạm để ví dụ không đụng repository thật của người học.
 import tempfile
+# Path đại diện đường dẫn theo hệ điều hành và hỗ trợ thao tác file với toán tử /.
 from pathlib import Path
 
+# Định nghĩa hàm trợ giúp chạy Git; *args thu các phần đối số khác nhau thành tuple, root chỉ định thư mục repository tạm.
 def git(root, *args):
+    # subprocess.run() chạy chương trình git theo list đối số; không dùng shell=True nên tránh diễn giải chuỗi bởi shell.
+    # cwd=root đặt thư mục làm việc của Git đúng repository tạm, không vô tình thao tác trong dự án thật.
+    # check=True phát sinh CalledProcessError nếu lệnh Git trả mã lỗi, tránh tiếp tục với kết quả thất bại.
     return subprocess.run(["git", *args], cwd=root, check=True,
+                          # text=True giải mã stdout thành chuỗi văn bản, không phải bytes.
+                          # capture_output=True thu stdout/stderr để xử lý trong Python thay vì in lẫn lên terminal.
+                          # stdout là đầu ra chuẩn của lệnh Git; strip() bỏ khoảng trắng/xuống dòng hai đầu cho dễ so sánh.
                           text=True, capture_output=True).stdout.strip()
 
+# TemporaryDirectory() tạo thư mục tạm và tự dọn toàn bộ repository khi ra khỏi khối with, kể cả khi có lỗi.
 with tempfile.TemporaryDirectory() as temp:
+    # Đổi chuỗi đường dẫn thư mục tạm thành Path để ghép tên file.
     root = Path(temp)
+    # git init -b main tạo repository mới với nhánh chính main; -q giảm thông báo, chỉ trong root tạm.
     git(root, "init", "-q", "-b", "main")
+    # range(1,11) tạo mười số 1..10; không bao gồm 11.
     for i in range(1, 11):
+        # Toán tử / của Path ghép đường dẫn; :02d tạo tên lesson01..lesson10; write_text() tạo file UTF-8 có một lệnh print tương ứng.
         (root / f"lesson{i:02d}.py").write_text(f"print({i})\n", encoding="utf-8")
+    # status --porcelain cho trạng thái máy đọc được, tiền tố '?? ' nghĩa Git CHƯA theo dõi file.
+    # splitlines() tách chuỗi stdout thành list từng dòng, không giữ ký tự xuống dòng.
     lines = git(root, "status", "--porcelain").splitlines()
     untracked = 0
     for line in lines:
+        # startswith('?? ') chỉ đếm những file chưa được Git theo dõi, không đếm file đã stage.
         if line.startswith("?? "):
+            # Tăng số file chưa theo dõi khi thấy một dòng trạng thái khớp.
             untracked += 1
+    # splitlines() tách chuỗi stdout thành list từng dòng, không giữ ký tự xuống dòng.
+    # diff --cached --name-only liệt kê tên file trong vùng STAGING (index) khác HEAD; trước git add danh sách rỗng.
     staged = git(root, "diff", "--cached", "--name-only").splitlines()
     print("Script:", 10)
     print("Untracked:", untracked)
+    # Đếm số file đã stage; bằng 0 khi chưa chạy git add.
     print("Đã stage:", len(staged))
+    # exists() xác minh thư mục metadata .git được tạo bên trong root tạm, không động tới repo bài học.
     print("Đúng repository tạm:", (root / ".git").exists())
 ```
 
@@ -160,28 +185,53 @@ Thư mục tạm sẽ tự bị xóa sau ví dụ; script chỉ nghiên cứu Gi
 3. Đếm số staged/untracked và kiểm module06 chưa stage.
 
 ```python
+# Mục đích: Chọn stage năm file trong 12 module, giữ bảy file khác chưa theo dõi.
+# Dữ liệu: 12 module01.py..module12.py trong repository tạm; chỉ module01..05 được thêm vào index.
+# subprocess cho phép chạy lệnh Git CLI từ Python, thay vì mô phỏng phản hồi Git.
 import subprocess
+# tempfile cấp thư mục tạm để ví dụ không đụng repository thật của người học.
 import tempfile
+# Path đại diện đường dẫn theo hệ điều hành và hỗ trợ thao tác file với toán tử /.
 from pathlib import Path
 
+# Định nghĩa hàm trợ giúp chạy Git; *args thu các phần đối số khác nhau thành tuple, root chỉ định thư mục repository tạm.
 def git(root, *args):
+    # subprocess.run() chạy chương trình git theo list đối số; không dùng shell=True nên tránh diễn giải chuỗi bởi shell.
+    # cwd=root đặt thư mục làm việc của Git đúng repository tạm, không vô tình thao tác trong dự án thật.
+    # check=True phát sinh CalledProcessError nếu lệnh Git trả mã lỗi, tránh tiếp tục với kết quả thất bại.
     return subprocess.run(["git", *args], cwd=root, check=True,
+                          # text=True giải mã stdout thành chuỗi văn bản, không phải bytes.
+                          # capture_output=True thu stdout/stderr để xử lý trong Python thay vì in lẫn lên terminal.
+                          # stdout là đầu ra chuẩn của lệnh Git; strip() bỏ khoảng trắng/xuống dòng hai đầu cho dễ so sánh.
                           text=True, capture_output=True).stdout.strip()
 
+# TemporaryDirectory() tạo thư mục tạm và tự dọn toàn bộ repository khi ra khỏi khối with, kể cả khi có lỗi.
 with tempfile.TemporaryDirectory() as temp:
+    # Đổi chuỗi đường dẫn thư mục tạm thành Path để ghép tên file.
     root = Path(temp)
+    # git init -b main tạo repository mới với nhánh chính main; -q giảm thông báo, chỉ trong root tạm.
     git(root, "init", "-q", "-b", "main")
+    # Sinh số 1..12 để tạo đủ 12 script, không chứa 13.
     for i in range(1, 13):
+        # Path ghép root/tên file, :02d thêm số 0; write_text() ghi UTF-8 và tạo file nếu chưa có.
         (root / f"module{i:02d}.py").write_text(f"VALUE = {i}\n", encoding="utf-8")
+    # List tên năm file dự định stage; không stage toàn bộ thư mục.
     chosen = []
+    # Tạo số 1..5, đúng năm module được chọn.
     for i in range(1, 6):
+        # append() đưa tên file module01..05 vào list.
         chosen.append(f"module{i:02d}.py")
+    # git add chuyển file sang staging; '--' kết thúc tùy chọn để tên file lạ không bị hiểu là cờ; *chosen giải nén năm tên thành năm đối số.
     git(root, "add", "--", *chosen)
+    # Liệt kê tên các file đã stage trong index, chứ chưa commit.
     staged = git(root, "diff", "--cached", "--name-only").splitlines()
+    # ls-files --others liệt kê file chưa theo dõi; --exclude-standard loại file bị ignore theo .gitignore/exclude.
     others = git(root, "ls-files", "--others", "--exclude-standard").splitlines()
     print("File:", 12)
+    # Số file trong index phải là năm, khác len(others) là bảy chưa stage.
     print("Đã stage:", len(staged))
     print("Chưa stage:", len(others))
+    # in kiểm module06 nằm trong các file chưa theo dõi, trả Boolean.
     print("module06 chưa stage:", "module06.py" in others)
 ```
 
@@ -216,34 +266,66 @@ Stage là **lựa chọn nội dung cho commit tiếp theo**, không phải đã
 3. Chuyển giữa hai nhánh, kiểm tra nội dung khác nhau và số file diff.
 
 ```python
+# Mục đích: Tạo nhánh feature, commit ba file thay đổi và chứng minh main chưa nhận sửa đổi.
+# Dữ liệu: 15 script có VERSION=1 ban đầu; feature đổi ba script đầu thành VERSION=2, mỗi nhánh có lịch sử riêng.
+# subprocess cho phép chạy lệnh Git CLI từ Python, thay vì mô phỏng phản hồi Git.
 import subprocess
+# tempfile cấp thư mục tạm để ví dụ không đụng repository thật của người học.
 import tempfile
+# Path đại diện đường dẫn theo hệ điều hành và hỗ trợ thao tác file với toán tử /.
 from pathlib import Path
 
+# Định nghĩa hàm trợ giúp chạy Git; *args thu các phần đối số khác nhau thành tuple, root chỉ định thư mục repository tạm.
 def git(root, *args):
+    # subprocess.run() chạy chương trình git theo list đối số; không dùng shell=True nên tránh diễn giải chuỗi bởi shell.
+    # cwd=root đặt thư mục làm việc của Git đúng repository tạm, không vô tình thao tác trong dự án thật.
+    # check=True phát sinh CalledProcessError nếu lệnh Git trả mã lỗi, tránh tiếp tục với kết quả thất bại.
     return subprocess.run(["git", *args], cwd=root, check=True,
+                          # text=True giải mã stdout thành chuỗi văn bản, không phải bytes.
+                          # capture_output=True thu stdout/stderr để xử lý trong Python thay vì in lẫn lên terminal.
+                          # stdout là đầu ra chuẩn của lệnh Git; strip() bỏ khoảng trắng/xuống dòng hai đầu cho dễ so sánh.
                           text=True, capture_output=True).stdout.strip()
 
+# TemporaryDirectory() tạo thư mục tạm và tự dọn toàn bộ repository khi ra khỏi khối with, kể cả khi có lỗi.
 with tempfile.TemporaryDirectory() as temp:
+    # Đổi chuỗi đường dẫn thư mục tạm thành Path để ghép tên file.
     root = Path(temp)
+    # git init -b main tạo repository mới với nhánh chính main; -q giảm thông báo, chỉ trong root tạm.
     git(root, "init", "-q", "-b", "main")
+    # git config cài tên tác giả commit CHỈ trong repository tạm, không đổi Git global.
     git(root, "config", "user.name", "Lesson Tester")
+    # Đặt email minh họa .invalid cục bộ để Git cho phép tạo commit, không gửi email.
     git(root, "config", "user.email", "lesson@example.invalid")
+    # Tạo 15 tên script với chỉ số 1..15.
     for i in range(1,16):
+        # write_text() tạo nội dung bản gốc trên tất cả 15 file, encoding='utf-8' giữ mã Unicode.
         (root / f"lesson{i:02d}.py").write_text("VERSION = 1\n", encoding="utf-8")
+    # git add . đưa file đang thay đổi trong root vào staging, trước khi commit.
     git(root, "add", ".")
+    # commit tạo snapshot từ staging; -q chạy yên lặng, -m truyền thông điệp 'base'.
     git(root, "commit", "-q", "-m", "base")
+    # switch -c feature tạo nhánh mới tại commit hiện tại và chuyển sang; -q giảm thông báo.
     git(root, "switch", "-q", "-c", "feature")
+    # Chọn chỉ ba file đầu tiên để sửa trên nhánh feature.
     for i in range(1,4):
+        # Ghi đè bản feature của ba file thành VERSION=2; không thay đổi ngay commit của main.
         (root / f"lesson{i:02d}.py").write_text("VERSION = 2\n", encoding="utf-8")
+    # git add . đưa file đang thay đổi trong root vào staging, trước khi commit.
     git(root, "add", ".")
+    # Ghi một commit sửa ba script trên feature.
     git(root, "commit", "-q", "-m", "update three scripts")
+    # diff --name-only main feature liệt kê file có nội dung khác nhau giữa hai nhánh, không in toàn bộ patch.
     difference = git(root, "diff", "--name-only", "main", "feature").splitlines()
+    # Chuyển về main: working tree phản ánh VERSION=1 từ commit main.
     git(root, "switch", "-q", "main")
+    # read_text() đọc nội dung file hiện đang checkout; strip() bỏ dấu xuống dòng cuối, không chỉnh file.
     main_version = (root / "lesson01.py").read_text().strip()
+    # Chuyển lại feature: phiên bản working tree của lesson01 là VERSION=2.
     git(root, "switch", "-q", "feature")
+    # read_text() đọc nội dung file hiện đang checkout; strip() bỏ dấu xuống dòng cuối, không chỉnh file.
     feature_version = (root / "lesson01.py").read_text().strip()
     print("File ban đầu:", 15)
+    # Số tên file khác nhau giữa hai nhánh, đúng ba.
     print("File thay đổi:", len(difference))
     print("Main:", main_version)
     print("Feature:", feature_version)
@@ -280,31 +362,58 @@ Commit lưu ảnh chụp **file đã stage**. Quay về `main` không cần xóa
 3. Kiểm số file Git theo dõi, số commit và thứ tự ba thông điệp gần nhất.
 
 ```python
+# Mục đích: Tạo ba commit nhóm độc lập trên 18 file và đọc lịch sử Git gần nhất.
+# Dữ liệu: Ba đợt, mỗi đợt tạo sáu file tool, tổng 18 file trên main của repository tạm.
+# subprocess cho phép chạy lệnh Git CLI từ Python, thay vì mô phỏng phản hồi Git.
 import subprocess
+# tempfile cấp thư mục tạm để ví dụ không đụng repository thật của người học.
 import tempfile
+# Path đại diện đường dẫn theo hệ điều hành và hỗ trợ thao tác file với toán tử /.
 from pathlib import Path
 
+# Định nghĩa hàm trợ giúp chạy Git; *args thu các phần đối số khác nhau thành tuple, root chỉ định thư mục repository tạm.
 def git(root, *args):
+    # subprocess.run() chạy chương trình git theo list đối số; không dùng shell=True nên tránh diễn giải chuỗi bởi shell.
+    # cwd=root đặt thư mục làm việc của Git đúng repository tạm, không vô tình thao tác trong dự án thật.
+    # check=True phát sinh CalledProcessError nếu lệnh Git trả mã lỗi, tránh tiếp tục với kết quả thất bại.
     return subprocess.run(["git", *args], cwd=root, check=True,
+                          # text=True giải mã stdout thành chuỗi văn bản, không phải bytes.
+                          # capture_output=True thu stdout/stderr để xử lý trong Python thay vì in lẫn lên terminal.
+                          # stdout là đầu ra chuẩn của lệnh Git; strip() bỏ khoảng trắng/xuống dòng hai đầu cho dễ so sánh.
                           text=True, capture_output=True).stdout.strip()
 
+# TemporaryDirectory() tạo thư mục tạm và tự dọn toàn bộ repository khi ra khỏi khối with, kể cả khi có lỗi.
 with tempfile.TemporaryDirectory() as temp:
+    # Đổi chuỗi đường dẫn thư mục tạm thành Path để ghép tên file.
     root = Path(temp)
+    # git init -b main tạo repository mới với nhánh chính main; -q giảm thông báo, chỉ trong root tạm.
     git(root, "init", "-q", "-b", "main")
     git(root, "config", "user.name", "Lesson Tester")
     git(root, "config", "user.email", "lesson@example.invalid")
+    # Ba vòng batch=1,2,3, đúng ba commit riêng biệt.
     for batch in range(1,4):
+        # List riêng mỗi batch chứa sáu tên file sẽ stage.
         filenames = []
+        # Tính dải chỉ số sáu file liên tiếp cho từng batch: 1..6, 7..12, 13..18.
         for i in range((batch-1)*6+1, batch*6+1):
+            # f-string :02d đặt tên tool01.py..tool18.py theo thứ tự.
             filename = f"tool{i:02d}.py"
+            # Ghi một script mới theo số i trong thư mục tạm, UTF-8.
             (root / filename).write_text(f"VALUE = {i}\n", encoding="utf-8")
+            # Ghi tên file vừa tạo vào list của đúng batch hiện tại.
             filenames.append(filename)
+        # Stage CHỈ sáu file của batch hiện tại; '--' ngăn hiểu tên thành cờ, * giải nén list.
         git(root, "add", "--", *filenames)
+        # Tạo một commit snapshot per batch, -q ẩn thông báo, -m gắn tên batch.
         git(root, "commit", "-q", "-m", f"batch {batch}")
+    # ls-files liệt kê tất cả file đang được Git theo dõi trong index, gồm 18 file sau ba batch.
     tracked = git(root, "ls-files").splitlines()
+    # log -3 lấy tối đa ba commit gần nhất; --format=%s chỉ in CHỦ ĐỀ commit, không in hash/body.
     messages = git(root, "log", "-3", "--format=%s").splitlines()
     print("Script:", len(tracked))
+    # rev-list --count HEAD đếm số commit có thể đi tới từ HEAD, ở đây ba commit.
     print("Commit:", git(root, "rev-list", "--count", "HEAD"))
+    # join() ghép các tiêu đề commit theo thứ tự từ mới tới cũ.
     print("Lịch sử gần nhất:", ", ".join(messages))
 ```
 
@@ -338,40 +447,74 @@ Chỉ có ba commit vì mỗi commit chứa **sáu file**. Số file và số co
 3. Merge không fast-forward, xác minh nội dung bốn file, 20 file tracked và hai parent.
 
 ```python
+# Mục đích: Merge nhánh feature chứa hai sửa đổi vào main cũng có hai sửa đổi KHÁC file, rồi kiểm merge sạch.
+# Dữ liệu: 20 file tool01..20; feature sửa 01/02 lên VERSION=2; main sửa 19/20 lên VERSION=3; hai phía không sửa chung file.
+# subprocess cho phép chạy lệnh Git CLI từ Python, thay vì mô phỏng phản hồi Git.
 import subprocess
+# tempfile cấp thư mục tạm để ví dụ không đụng repository thật của người học.
 import tempfile
+# Path đại diện đường dẫn theo hệ điều hành và hỗ trợ thao tác file với toán tử /.
 from pathlib import Path
 
+# Định nghĩa hàm trợ giúp chạy Git; *args thu các phần đối số khác nhau thành tuple, root chỉ định thư mục repository tạm.
 def git(root, *args):
+    # subprocess.run() chạy chương trình git theo list đối số; không dùng shell=True nên tránh diễn giải chuỗi bởi shell.
+    # cwd=root đặt thư mục làm việc của Git đúng repository tạm, không vô tình thao tác trong dự án thật.
+    # check=True phát sinh CalledProcessError nếu lệnh Git trả mã lỗi, tránh tiếp tục với kết quả thất bại.
     return subprocess.run(["git", *args], cwd=root, check=True,
+                          # text=True giải mã stdout thành chuỗi văn bản, không phải bytes.
+                          # capture_output=True thu stdout/stderr để xử lý trong Python thay vì in lẫn lên terminal.
+                          # stdout là đầu ra chuẩn của lệnh Git; strip() bỏ khoảng trắng/xuống dòng hai đầu cho dễ so sánh.
                           text=True, capture_output=True).stdout.strip()
 
+# TemporaryDirectory() tạo thư mục tạm và tự dọn toàn bộ repository khi ra khỏi khối with, kể cả khi có lỗi.
 with tempfile.TemporaryDirectory() as temp:
+    # Đổi chuỗi đường dẫn thư mục tạm thành Path để ghép tên file.
     root = Path(temp)
+    # git init -b main tạo repository mới với nhánh chính main; -q giảm thông báo, chỉ trong root tạm.
     git(root, "init", "-q", "-b", "main")
     git(root, "config", "user.name", "Lesson Tester")
     git(root, "config", "user.email", "lesson@example.invalid")
+    # Sinh chỉ số 1..20 để tạo 20 script nguồn.
     for i in range(1,21):
+        # Mỗi file ban đầu là VERSION=1, chung cho cả hai nhánh.
         (root / f"tool{i:02d}.py").write_text("VERSION = 1\n", encoding="utf-8")
     git(root, "add", ".")
+    # Commit cơ sở lưu trạng thái 20 file giống nhau trước khi tách nhánh.
     git(root, "commit", "-q", "-m", "base")
+    # Tạo/chuyển nhánh feature từ commit base; -q ẩn thông báo.
     git(root, "switch", "-q", "-c", "feature")
+    # Tuple (1,2) chọn đúng hai file sửa trong feature.
     for i in (1,2):
+        # Ghi VERSION=2 trong hai file đầu của feature.
         (root / f"tool{i:02d}.py").write_text("VERSION = 2\n", encoding="utf-8")
     git(root, "add", ".")
+    # Commit những thay đổi feature đã stage.
     git(root, "commit", "-q", "-m", "feature edits")
+    # Chuyển sang main trước khi sửa cặp file khác.
     git(root, "switch", "-q", "main")
+    # Chỉ sửa tool19 và tool20 trên main để tránh đụng hai file của feature.
     for i in (19,20):
+        # Ghi VERSION=3 vào hai file cuối của nhánh main.
         (root / f"tool{i:02d}.py").write_text("VERSION = 3\n", encoding="utf-8")
     git(root, "add", ".")
+    # Tạo commit main độc lập với commit feature.
     git(root, "commit", "-q", "-m", "main edits")
+    # merge feature vào main; --no-ff ép tạo MERGE COMMIT kể cả khi có thể fast-forward; -m đặt tiêu đề, -q ẩn log.
     git(root, "merge", "-q", "--no-ff", "feature", "-m", "merge feature")
+    # rev-list --parents -n 1 HEAD in commit mới nhất và các hash cha; merge hai nhánh có hai cha.
     parents = git(root, "rev-list", "--parents", "-n", "1", "HEAD").split()
+    # ls-files liệt kê 20 file đang được theo dõi sau merge.
     print("File:", len(git(root, "ls-files").splitlines()))
+    # Đếm mọi commit trong lịch sử có thể tới từ HEAD, bao gồm base, hai commit nhánh và merge.
     print("Commit trong lịch sử:", git(root, "rev-list", "--count", "HEAD"))
+    # List gồm hash merge và HAI hash cha nên tổng ba phần tử; True chứng minh đây là merge commit.
     print("Merge có hai cha:", len(parents) == 3)
+    # Kiểm script feature còn VERSION=2 trong main sau merge, strip() chỉ loại ký tự trắng khi đọc.
     print("Sửa feature giữ lại:", (root / "tool01.py").read_text().strip() == "VERSION = 2")
+    # Kiểm thay đổi main VERSION=3 cũng còn sau merge.
     print("Sửa main giữ lại:", (root / "tool20.py").read_text().strip() == "VERSION = 3")
+    # Trạng thái porcelain rỗng nghĩa không có sửa đổi chưa commit/untracked, working tree sạch.
     print("Working tree sạch:", git(root, "status", "--porcelain") == "")
 ```
 
