@@ -150,7 +150,8 @@ quantities = np.array([[1,1],[2,1],[3,1],[4,1],[1,2],[2,2],[3,2],[4,2],[1,3],[2,
 totals = np.array([5,8,11,14,7,10,13,16,9,12], dtype=float)
 prices = np.linalg.solve(quantities[:2], totals[:2])
 residual = quantities @ prices - totals
-assert quantities.shape == (10, 2)
+if quantities.shape != (10, 2):
+    raise ValueError("Cần đủ 10 hóa đơn và hai số lượng.")
 print("Hóa đơn:", len(totals))
 print("Giá A (nghìn đồng):", f"{prices[0]:.1f}")
 print("Giá B (nghìn đồng):", f"{prices[1]:.1f}")
@@ -185,7 +186,8 @@ Hóa đơn sai: 0
 import numpy as np
 hours = np.array([1,2,3,4,5,6,7,8,9,10,11,12], dtype=float)
 X = np.column_stack((hours, 2 * hours))
-assert X.shape == (12, 2)
+if X.shape != (12, 2):
+    raise ValueError("Cần đủ 12 lượt vận hành với hai cột.")
 print("Lượt vận hành:", X.shape[0])
 print("Cột:", X.shape[1])
 print("Hạng:", int(np.linalg.matrix_rank(X)))
@@ -221,10 +223,14 @@ import numpy as np
 A = np.array([[2., 1.], [1., 3.]])
 measured = np.array([[4,7],[6,8],[8,9],[10,10],[12,11],[5,10],[7,11],[9,12],[11,13],[13,14],[6,13],[8,14],[10,15],[12,16],[14,17]], dtype=float)
 restored = np.linalg.solve(A, measured.T).T
-assert measured.shape == restored.shape == (15, 2)
+if measured.shape != (15, 2) or restored.shape != (15, 2):
+    raise ValueError("Cần đúng 15 lượt đo hai tín hiệu.")
 print("Lượt đo:", len(restored))
 print("Hạng hệ số:", int(np.linalg.matrix_rank(A)))
-print("Tín hiệu gốc đầu:", ", ".join(f"{v:.1f}" for v in restored[0]))
+first_values = []
+for value in restored[0]:
+    first_values.append(f"{value:.1f}")
+print("Tín hiệu gốc đầu:", ", ".join(first_values))
 print("Tái tạo đúng:", bool(np.allclose(restored @ A.T, measured)))
 ```
 
@@ -260,7 +266,8 @@ A = np.column_stack((hours, np.ones_like(hours)))
 augmented = np.column_stack((A, y))
 rank_a = int(np.linalg.matrix_rank(A))
 rank_aug = int(np.linalg.matrix_rank(augmented))
-assert A.shape == (18, 2) and augmented.shape == (18, 3)
+if A.shape != (18, 2) or augmented.shape != (18, 3):
+    raise ValueError("Hệ có 18 phương trình, hai hệ số và một vế phải.")
 print("Số phương trình:", len(y))
 print("Hạng hệ số:", rank_a)
 print("Hạng mở rộng:", rank_aug)
@@ -298,7 +305,8 @@ energy = np.array([14,18,22,26,42,34,38,42,46,50,54,58,62,66,70,74,70,82,86,90],
 A = np.column_stack((hours, np.ones_like(hours)))
 slope, intercept = np.linalg.lstsq(A, energy, rcond=None)[0]
 residual = A @ np.array([slope, intercept]) - energy
-assert A.shape == (20, 2) and np.linalg.matrix_rank(A) == 2
+if A.shape != (20, 2) or np.linalg.matrix_rank(A) != 2:
+    raise ValueError("Cần đủ 20 lượt đo và hai cột độc lập.")
 print("Lượt đo:", len(energy))
 print(f"Độ dốc (kWh/giờ): {slope:.2f}")
 print(f"Nền (kWh): {intercept:.2f}")

@@ -146,7 +146,8 @@ import numpy as np
 X = np.array([[1,20],[2,20],[3,20],[4,20],[5,20],[6,20],[7,20],[8,20],[9,20],[10,20]], dtype=float)
 C = np.cov(X, rowvar=False)
 values = np.linalg.eigvalsh(C)
-assert X.shape == (10, 2)
+if X.shape != (10, 2):
+    raise ValueError("Cần 10 lượt đo với hai đại lượng.")
 print("Lượt đo:", len(X))
 print("Trị riêng nhỏ:", f"{values[0]:.2f}")
 print("Trị riêng lớn:", f"{values[-1]:.2f}")
@@ -182,9 +183,13 @@ import numpy as np
 X = np.array([[1,2],[2,4],[3,6],[4,8],[5,10],[6,12],[7,14],[8,16],[9,18],[10,20],[11,22],[12,24]], dtype=float)
 C = np.cov(X, rowvar=False)
 eigenvalues = np.linalg.eigvalsh(C)
-assert X.shape == (12, 2)
+if X.shape != (12, 2):
+    raise ValueError("Cần đúng 12 mẫu hai chiều.")
 print("Mẫu:", len(X))
-print("Trị riêng:", ", ".join(f"{v:.2f}" for v in eigenvalues))
+labels = []
+for value in eigenvalues:
+    labels.append(f"{value:.2f}")
+print("Trị riêng:", ", ".join(labels))
 print("Chiều có biến thiên:", int((eigenvalues > 1e-9).sum()))
 ```
 
@@ -217,9 +222,13 @@ X = np.array([[0,0],[1,0],[2,0],[3,0],[4,0],[0,1],[1,1],[2,1],[3,1],[4,1],[0,2],
 C = np.cov(X, rowvar=False)
 values, vectors = np.linalg.eigh(C)
 verified = np.allclose(C @ vectors, vectors * values)
-assert X.shape == (15, 2)
+if X.shape != (15, 2):
+    raise ValueError("Cần đúng 15 điểm hai chiều.")
 print("Điểm:", len(X))
-print("Trị riêng:", ", ".join(f"{v:.3f}" for v in values))
+labels = []
+for value in values:
+    labels.append(f"{value:.3f}")
+print("Trị riêng:", ", ".join(labels))
 print("Kiểm chứng:", bool(verified))
 print("Số hướng:", vectors.shape[1])
 ```
@@ -255,9 +264,14 @@ C = np.cov(points, rowvar=False)
 values, vectors = np.linalg.eigh(C)
 order = np.argsort(values)[::-1]
 principal = np.abs(vectors[:, order[0]])
-assert points.shape == (18, 2)
+if points.shape != (18, 2):
+    raise ValueError("Cần đúng 18 điểm hai chiều.")
 print("Điểm:", len(points))
-print("Hướng chính:", "x" if principal[0] > principal[1] else "y")
+if principal[0] > principal[1]:
+    principal_axis = "x"
+else:
+    principal_axis = "y"
+print("Hướng chính:", principal_axis)
 print(f"Tỷ lệ phương sai lớn nhất: {100*values[order[0]]/values.sum():.2f}%")
 print("Số chiều:", len(values))
 ```
@@ -296,7 +310,8 @@ order = np.argsort(values)[::-1]
 basis = vectors[:, order[:2]]
 projected = centered @ basis
 recreated = projected @ basis.T + X.mean(axis=0)
-assert X.shape == (20, 4) and projected.shape == (20, 2)
+if X.shape != (20, 4) or projected.shape != (20, 2):
+    raise ValueError("Cần 20 mẫu bốn đặc trưng và hai chiều sau PCA.")
 print("Hồ sơ:", len(X))
 print("Cột gốc:", X.shape[1])
 print("Cột sau PCA:", projected.shape[1])

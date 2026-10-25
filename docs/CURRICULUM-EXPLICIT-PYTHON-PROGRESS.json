@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_06",
+  "status": "BATCH_06_IN_PROGRESS",
   "last_completed_batch": 5,
   "batches": [
     {
@@ -167,11 +167,26 @@
         "PY-29",
         "PY-30"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-26",
+        "PY-27",
+        "PY-28",
+        "PY-29",
+        "PY-30"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-06-20261025",
+      "lesson_commits": {
+        "PY-26": "e58a5b0d7768b3b16d77574a32f34b20e58d7ee9",
+        "PY-27": "2eeba2ebe540581288f3e4774166c9ea72f5139f",
+        "PY-28": "d7aa473c7b3b96b76ab4e2532f04abbee5d0496e",
+        "PY-29": "1479a074de83fd802dd151ce0a538fefa7dd4551",
+        "PY-30": "9f41d177f53c4187e65ced84236413c9ca794010"
+      },
+      "notes": "Five PY-26..30 lessons committed separately, 9 executable Python fences and 9 stdout sections per chapter and 5 scenarios retained. Replaced assert/comprehensions/generator expressions/ternary with clear for-if/raise; NumPy eigenvalue/PCA/activation/loss calculations unchanged. Pending full GitHub Actions 25-scenario exact stdout, AST, MCQ/structure, Markdown regression; no Windows PASS claim."
     },
     {
       "batch": 7,

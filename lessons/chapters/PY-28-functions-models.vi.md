@@ -142,8 +142,11 @@ Sau ba kỳ tăng trưởng lũy kế, chỉ số khoảng 1157,63 đơn vị, k
 distances_km = [1,2,3,4,5,6,7,8,9,10]
 def delivery_fee(km):
     return 10 + 5 * km
-fees = [delivery_fee(km) for km in distances_km]
-assert len(fees) == 10
+fees = []
+for km in distances_km:
+    fees.append(delivery_fee(km))
+if len(fees) != 10:
+    raise ValueError("Cần tính phí đủ 10 chuyến.")
 print("Chuyến:", len(fees))
 print("Phí chuyến đầu (nghìn đồng):", fees[0])
 print("Tổng phí (nghìn đồng):", sum(fees))
@@ -176,8 +179,11 @@ Hệ số 5 có đơn vị **nghìn đồng/km**, không phải 5 km; chính sá
 loads = [1,2,3,4,5,6,7,8,9,10,11,12]
 def expense(load):
     return 2 * load ** 2 + 3 * load + 10
-costs = [expense(load) for load in loads]
-assert len(costs) == 12
+costs = []
+for load in loads:
+    costs.append(expense(load))
+if len(costs) != 12:
+    raise ValueError("Cần tính chi phí đủ 12 mức tải.")
 print("Mức tải:", len(loads))
 print("Tải 1:", costs[0])
 print("Tải 12:", costs[-1])
@@ -215,7 +221,8 @@ import numpy as np
 positions = np.array([-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7], dtype=float)
 output = np.polyval([1, 2, 3], positions)
 minimum = int(np.argmin(output))
-assert len(output) == 15
+if len(output) != 15:
+    raise ValueError("Cần đúng 15 vị trí tính hàm.")
 print("Vị trí:", len(positions))
 print("Tại x=0:", int(output[positions == 0][0]))
 print("Đầu ra nhỏ nhất:", int(output[minimum]))
@@ -251,7 +258,8 @@ import numpy as np
 periods = np.arange(18)
 compound = 1000 * (1.03 ** periods)
 linear = 1000 + 30 * periods
-assert compound.size == linear.size == 18
+if compound.size != 18 or linear.size != 18:
+    raise ValueError("Cần đủ 18 kỳ của cả hai cách tính.")
 print("Kỳ:", len(periods))
 print(f"Lũy kế cuối: {compound[-1]:.2f}")
 print(f"Tuyến tính cuối: {linear[-1]:.2f}")
@@ -290,11 +298,16 @@ linear = 3 * loads + 10
 quadratic = np.polyval([2, 3, 10], loads)
 mse_linear = np.mean((observed - linear) ** 2)
 mse_quadratic = np.mean((observed - quadratic) ** 2)
-assert observed.shape == linear.shape == quadratic.shape == (20,)
+if observed.shape != (20,) or linear.shape != (20,) or quadratic.shape != (20,):
+    raise ValueError("Cần 20 quan sát để đối chiếu hai mô hình.")
 print("Quan sát:", len(loads))
 print(f"MSE tuyến tính: {mse_linear:.2f}")
 print(f"MSE bậc hai: {mse_quadratic:.2f}")
-print("Khớp hơn:", "bậc hai" if mse_quadratic < mse_linear else "tuyến tính")
+if mse_quadratic < mse_linear:
+    best_model = "bậc hai"
+else:
+    best_model = "tuyến tính"
+print("Khớp hơn:", best_model)
 ```
 
 **Kết quả khi chạy:**

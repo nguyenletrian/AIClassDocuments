@@ -155,7 +155,8 @@ import numpy as np
 actual_minutes = np.array([20,23,25,28,30,32,34,35,37,40], dtype=float)
 predicted_minutes = np.array([21,22,24,30,31,30,36,35,39,38], dtype=float)
 errors = predicted_minutes - actual_minutes
-assert actual_minutes.shape == predicted_minutes.shape == (10,)
+if actual_minutes.shape != (10,) or predicted_minutes.shape != (10,):
+    raise ValueError("Cần đủ 10 thời gian thực tế và dự đoán.")
 print("Chuyến:", len(actual_minutes))
 print(f"MSE (phút²): {np.mean(errors ** 2):.2f}")
 print("Sai số lớn nhất (phút):", int(np.max(np.abs(errors))))
@@ -189,7 +190,8 @@ import numpy as np
 actual_g = np.array([100,110,120,130,140,150,160,170,180,190,200,210], dtype=float)
 predicted_g = np.array([102,108,122,128,142,148,162,168,230,188,202,208], dtype=float)
 e = predicted_g - actual_g
-assert len(e) == 12
+if len(e) != 12:
+    raise ValueError("Cần đúng 12 lỗi cân đo.")
 print("Lượt đo:", len(e))
 print(f"MAE (g): {np.mean(np.abs(e)):.2f}")
 print(f"MSE (g²): {np.mean(e ** 2):.2f}")
@@ -228,7 +230,8 @@ abserr = np.abs(errors_c)
 huber = np.where(abserr <= delta,
                  0.5 * errors_c**2,
                  delta * (abserr - 0.5 * delta))
-assert errors_c.size == 15
+if errors_c.size != 15:
+    raise ValueError("Cần đúng 15 sai số nhiệt độ.")
 print("Số đo:", len(errors_c))
 print("Lỗi > δ:", int((abserr > delta).sum()))
 print(f"Huber trung bình: {huber.mean():.3f}")
@@ -265,8 +268,10 @@ labels = np.array([0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2], dtype=int)
 true_class_scores = np.array([0.55,0.6000000000000001,0.65,0.7000000000000001,0.75,0.05,0.6000000000000001,0.65,0.7000000000000001,0.75,0.55,0.6000000000000001,0.65,0.7000000000000001,0.01,0.55,0.6000000000000001,0.65], dtype=float)
 losses = -np.log(np.clip(true_class_scores, 1e-12, 1.0))
 worst = int(losses.argmax())
-assert labels.shape == true_class_scores.shape == (18,)
-assert np.all((labels >= 0) & (labels < 3))
+if labels.shape != (18,) or true_class_scores.shape != (18,):
+    raise ValueError("Cần 18 nhãn và 18 xác suất của nhãn đúng.")
+if not np.all((labels >= 0) & (labels < 3)):
+    raise ValueError("Nhãn chỉ được là 0, 1 hoặc 2.")
 print("Mẫu:", len(labels))
 print(f"Cross-entropy TB: {losses.mean():.3f}")
 print("Loss lớn nhất:", f"M{worst+1:02d}")
@@ -301,8 +306,10 @@ Loss mẫu lớn nhất: 4.605
 import numpy as np
 P = np.array([0.5,0.3,0.2], dtype=float)
 Q = np.array([[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002],[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002],[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002],[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002]], dtype=float)
-assert Q.shape == (20, 3) and np.all(Q > 0)
-assert np.allclose(Q.sum(axis=1), 1.0)
+if Q.shape != (20, 3) or not np.all(Q > 0):
+    raise ValueError("Cần 20 phân phối ba nhãn có xác suất dương.")
+if not np.allclose(Q.sum(axis=1), 1.0):
+    raise ValueError("Tổng xác suất của mỗi phân phối phải gần bằng 1.")
 kl_pq = np.sum(P * np.log(P / Q), axis=1)
 kl_qp = np.sum(Q * np.log(Q / P), axis=1)
 print("Bộ phân phối:", len(Q))
