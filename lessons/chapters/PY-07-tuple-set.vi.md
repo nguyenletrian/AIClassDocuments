@@ -139,7 +139,7 @@ Kết quả là một **List đã sắp xếp**, gồm hai kỹ năng cần họ
 
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Khử email trùng
+### Tình huống 1 — Khử email trùng · Cấp 1: Nhận biết
 
 **Từ vựng trong mục:** **Set** — tập hợp; **Duplicate** — trùng lặp.
 
@@ -169,7 +169,20 @@ print(len(set(emails)))
 
 **Kết quả:** `3` — có ba địa chỉ email khác nhau.
 
-### Tình huống 2 — Lưu tọa độ
+**Thực hành nâng cấp — cấp 1/5:** Trung tâm ghi **10 hồ sơ học viên và nhóm kiến thức, x là điểm**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy lưu một cặp (điểm, số buổi) trong tuple. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = (rows[0]['x'],rows[0]['y'])
+assert len(rows)==10
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 10 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác lưu một cặp (điểm, số buổi) trong tuple.
+
+### Tình huống 2 — Lưu tọa độ · Cấp 2: Áp dụng toàn bảng
 
 **Từ vựng trong mục:** **Tuple** — bộ giá trị; **Coordinate** — tọa độ.
 
@@ -200,7 +213,20 @@ print(x*x+y*y)
 
 **Kết quả:** `25` m² — bình phương khoảng cách; khoảng cách thật bằng 5 mét.
 
-### Tình huống 3 — Tìm kỹ năng chung
+**Thực hành nâng cấp — cấp 2/5:** Trung tâm ghi **12 hồ sơ học viên và nhóm kiến thức, x là điểm**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy khử trùng nhãn nhóm bằng Set. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = sorted({r['group'] for r in rows})
+assert len(rows)==12
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 12 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác khử trùng nhãn nhóm bằng set.
+
+### Tình huống 3 — Tìm kỹ năng chung · Cấp 3: Phối hợp phép xử lý
 
 **Từ vựng trong mục:** **Intersection** — phép giao; **Set** — tập hợp.
 
@@ -233,7 +259,20 @@ print(a&b)
 
 **Kết quả:** Tập chứa `Python` và `AI`; thứ tự hiển thị của set có thể thay đổi.
 
-### Tình huống 4 — Gộp nhóm chủ đề
+**Thực hành nâng cấp — cấp 3/5:** Trung tâm ghi **15 hồ sơ học viên và nhóm kiến thức, x là điểm**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy tìm giao ID của học viên đạt điểm và thành viên nhóm A. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = sorted({r['id'] for r in rows if r['x']>=70}&{r['id'] for r in rows if r['group']=='A'})
+assert len(rows)==15
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 15 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác tìm giao id của học viên đạt điểm và thành viên nhóm a.
+
+### Tình huống 4 — Gộp nhóm chủ đề · Cấp 4: Dữ liệu khuyết và lỗi
 
 **Từ vựng trong mục:** **Union** — phép hợp; **Set** — tập hợp.
 
@@ -266,7 +305,20 @@ print(a|b)
 
 **Kết quả:** Tập chứa `Python`, `Math`, `AI`; thứ tự in không cố định.
 
-### Tình huống 5 — Liệt kê bài còn thiếu
+**Thực hành nâng cấp — cấp 4/5:** Trung tâm ghi **18 hồ sơ học viên và nhóm kiến thức, x là điểm**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy dùng hiệu tập hợp tìm ID chưa có điểm. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = sorted({r['id'] for r in rows}-{r['id'] for r in rows if r['x'] is not None})
+assert len(rows)==18
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 18 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác dùng hiệu tập hợp tìm id chưa có điểm.
+
+### Tình huống 5 — Liệt kê bài còn thiếu · Cấp 5: Quy trình có kiểm tra
 
 **Từ vựng trong mục:** **Difference** — hiệu tập hợp; **Set** — tập hợp.
 
@@ -298,6 +350,19 @@ print(required-done)
 *Thứ tự các phần tử trong Set khi in có thể khác nhau.*
 
 **Kết quả:** Tập chứa `SQL` và `AI`; thứ tự in không cố định.
+
+**Thực hành nâng cấp — cấp 5/5:** Trung tâm ghi **20 hồ sơ học viên và nhóm kiến thức, x là điểm**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy phân hoạch 20 ID thành đủ điểm, chưa đủ và thiếu dữ liệu. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = {'qualified':sorted({r['id'] for r in rows if r['x'] is not None and r['x']>=70}),'remaining':sorted({r['id'] for r in rows if r['x'] is not None and r['x']<70}),'missing':sorted({r['id'] for r in rows if r['x'] is None})}
+assert len(rows)==20
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 20 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác phân hoạch 20 id thành đủ điểm, chưa đủ và thiếu dữ liệu.
 
 ## 6. Nhầm lẫn dễ gặp
 
