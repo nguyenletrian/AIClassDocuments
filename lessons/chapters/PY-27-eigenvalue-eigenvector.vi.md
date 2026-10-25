@@ -128,7 +128,7 @@ Hướng có phương sai lớn nhất nằm trên trục y; đổi dấu vector
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Chọn hướng biến thiên lớn nhất
+### Tình huống 1 — Chọn hướng biến thiên lớn nhất · Cấp 1: Bài toán cơ bản
 
 **Tình huống thực tế:** Một bảng thống kê hai đặc trưng đã được chuẩn hóa ý nghĩa đơn vị và có hiệp phương sai `diag(2,3)`. Cần xác định hướng mang nhiều phương sai hơn.
 
@@ -157,7 +157,26 @@ print(values[-1], np.abs(vectors[:, -1]))
 
 Trục y là hướng chính với phương sai 3, lớn hơn trục x (2).
 
-### Tình huống 2 — Phát hiện dữ liệu phụ thuộc tuyến tính
+**Bài thực hành nâng cấp — cấp 1/5:** Nhóm phân tích có **10 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy tìm eigenvalue lớn nhất của covariance trên 10 quan sát. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+ys = [20+(k*7)%75 for k in range(1,11)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+cov = np.cov(clean,rowvar=False)
+eigvals,eigvecs = np.linalg.eigh(cov)
+result = round(float(np.linalg.eigvalsh(np.cov(clean,rowvar=False))[-1]),3)
+assert array.shape==(10,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 10 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
+
+### Tình huống 2 — Phát hiện dữ liệu phụ thuộc tuyến tính · Cấp 2: Phân tích cấu trúc
 
 **Tình huống thực tế:** Ba hàng quan sát có hai đặc trưng lần lượt `(1,2)`, `(2,4)`, `(3,6)`; cột hai luôn gấp đôi cột một. Cần xem ma trận hiệp phương sai có hướng hoàn toàn không biến thiên không.
 
@@ -185,7 +204,26 @@ print(np.linalg.eigvalsh(np.cov(X, rowvar=False)))
 
 Một hướng có phương sai 0 do cột hai phụ thuộc cột đầu; hướng còn lại có phương sai 5.
 
-### Tình huống 3 — Kiểm nghiệm phương trình vector riêng
+**Bài thực hành nâng cấp — cấp 2/5:** Nhóm phân tích có **12 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy kiểm tra rank của ma trận dữ liệu trước khi phân tích. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+ys = [20+(k*7)%75 for k in range(1,13)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+cov = np.cov(clean,rowvar=False)
+eigvals,eigvecs = np.linalg.eigh(cov)
+result = int(np.linalg.matrix_rank(clean))
+assert array.shape==(12,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 12 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
+
+### Tình huống 3 — Kiểm nghiệm phương trình vector riêng · Cấp 3: Kiểm chứng đại số
 
 **Tình huống thực tế:** Cho ma trận A=`diag(2,3)`. Chọn vector riêng ứng với trị riêng lớn nhất và kiểm tra quan hệ `A@v = λ*v`.
 
@@ -214,7 +252,26 @@ True
 
 Cặp trị riêng và vector riêng đáp ứng định nghĩa của eigenvector.
 
-### Tình huống 4 — Sắp hướng theo độ biến thiên
+**Bài thực hành nâng cấp — cấp 3/5:** Nhóm phân tích có **15 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy xác minh Av gần bằng lambda*v với vector riêng. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+ys = [20+(k*7)%75 for k in range(1,16)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+cov = np.cov(clean,rowvar=False)
+eigvals,eigvecs = np.linalg.eigh(cov)
+result = bool(np.allclose(cov@eigvecs[:,1],eigvals[1]*eigvecs[:,1]))
+assert array.shape==(15,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 15 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
+
+### Tình huống 4 — Sắp hướng theo độ biến thiên · Cấp 4: Có nhiễu hoặc số đo thiếu
 
 **Tình huống thực tế:** Hệ thống thống kê có ba phương sai trên các hướng độc lập lần lượt là `[4,1,3]`. Cần ưu tiên hướng có phương sai cao nhất.
 
@@ -242,7 +299,26 @@ print(np.argsort(values)[::-1])
 
 Ưu tiên hướng ở vị trí 0 (phương sai 4), tiếp đến vị trí 2 (3), cuối vị trí 1 (1).
 
-### Tình huống 5 — Giảm số cột đặc trưng bằng PCA
+**Bài thực hành nâng cấp — cấp 4/5:** Nhóm phân tích có **18 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy sắp các eigenvalue và xử lý hàng đo bị thiếu. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39]
+ys = [20+(k*7)%75 for k in range(1,19)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+cov = np.cov(clean,rowvar=False)
+eigvals,eigvecs = np.linalg.eigh(cov)
+result = {'eigenvalues':eigvals[::-1].round(4).tolist(),'missing':len(array)-len(clean)}
+assert array.shape==(18,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 18 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
+
+### Tình huống 5 — Giảm số cột đặc trưng bằng PCA · Cấp 5: Tổng hợp và đánh giá
 
 **Tình huống thực tế:** Ba quan sát hai chiều `(1,2)`, `(2,3)`, `(3,4)` được lưu thành bảng 3 hàng × 2 cột. Cần chiếu dữ liệu xuống một trục biến thiên chính để minh họa giảm chiều.
 
@@ -271,6 +347,25 @@ print(projected.shape)
 ```
 
 Ba mẫu vẫn giữ nguyên; mỗi mẫu còn một giá trị tọa độ trên trục chính.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhóm phân tích có **20 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy chiếu 20 quan sát xuống 1 chiều PCA và nêu số mẫu được giữ lại. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39, 85, np.nan]
+ys = [20+(k*7)%75 for k in range(1,21)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+cov = np.cov(clean,rowvar=False)
+eigvals,eigvecs = np.linalg.eigh(cov)
+result = {'before':clean.shape,'after':((clean-clean.mean(axis=0))@eigvecs[:,-1:]).shape,'variance_ratio':round(float(eigvals[-1]/eigvals.sum()),4)}
+assert array.shape==(20,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 20 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
 
 ## 6. Sai lầm thường gặp
 
