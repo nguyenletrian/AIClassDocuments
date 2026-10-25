@@ -14,8 +14,8 @@
     18,
     20
   ],
-  "last_completed_batch": 1,
-  "status": "BATCH_02_QA_PASSED_WAIT_MERGE",
+  "last_completed_batch": 2,
+  "status": "READY_FOR_BATCH_03",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -58,14 +58,14 @@
         "PY-09",
         "PY-10"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "branch": "feat/curriculum-scenarios-batch-02-20261025",
       "pr_number": 124,
-      "merged_commit": null,
-      "ci_run": 40157502994,
+      "merged_commit": "514b76b2e9f2bb09e864e394dd482e3ae67279de",
+      "ci_run": 40157547890,
       "windows_test": null,
       "updated_at": "2026-10-25",
-      "notes": "GitHub CI run 40157502994 PASSED: 25 PY-06..10 examples executed with matching stdout; PY-01..05 25 examples and curriculum structure/MCQ/syntax/ledger gates also pass. PR merge pending. Windows worker evidence not received.",
+      "notes": "PR #124 squash-merged at 514b76b2e9f2bb09e864e394dd482e3ae67279de. GitHub CI #40157547890 PASS for 25 independent PY-06..10 snippets/expected stdout and all structural/MCQ/syntax/ledger checks. Windows Bridge verification not yet evidenced. Next batch PY-11..15.",
       "lesson_commits": {
         "PY-06": "dd72194cb2c45aebcd5692e4718124dce64d3d22",
         "PY-07": "3f9089b3d5b03a198781e19e2b12cbb9267161ac",
