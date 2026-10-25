@@ -150,7 +150,8 @@ inputs = [[2,3],[3,3],[4,3],[5,3],[6,3],[2,4],[3,4],[4,4],[5,4],[6,4]]
 outputs = sp.Matrix([x+y, x*y])
 J = outputs.jacobian([x, y])
 first = J.subs({x: inputs[0][0], y: inputs[0][1]})
-assert len(inputs) == 10 and J.shape == (2, 2)
+if len(inputs) != 10 or J.shape != (2, 2):
+    raise ValueError("Cần 10 cặp đầu vào và Jacobian 2×2.")
 print("Cặp đầu vào:", len(inputs))
 print("Jacobian cặp đầu:", first.tolist())
 print("Shape Jacobian:", J.shape)
@@ -187,7 +188,8 @@ loss = x**2 + 2*y**2
 H = sp.hessian(loss, [x, y])
 first = H.subs({x: points[0][0], y: points[0][1]})
 last = H.subs({x: points[-1][0], y: points[-1][1]})
-assert len(points) == 12
+if len(points) != 12:
+    raise ValueError("Cần đủ 12 cấu hình Hessian.")
 print("Cấu hình:", len(points))
 print("Hessian:", H.tolist())
 print("Hessian không đổi:", first == last)
@@ -227,8 +229,11 @@ loss = (x-3)**2 + 2*(y-2)**2
 solution = sp.solve([sp.diff(loss,x), sp.diff(loss,y)], [x,y])
 H = np.array(sp.hessian(loss,[x,y])).astype(float)
 eigenvalues = np.linalg.eigvalsh(H)
-losses = [(px-3)**2+2*(py-2)**2 for px, py in points]
-assert len(points) == 15
+losses = []
+for px, py in points:
+    losses.append((px-3)**2 + 2*(py-2)**2)
+if len(points) != 15:
+    raise ValueError("Cần đủ 15 ứng viên cần đánh giá.")
 print("Ứng viên:", len(points))
 print("Điểm dừng:", solution[x], solution[y])
 print("Hessian dương:", bool(np.all(eigenvalues > 0)))
@@ -271,9 +276,15 @@ results = []
 for row in models:
     H = np.array(sp.hessian(functions[row["type"]],[x,y]), dtype=float)
     eig = np.linalg.eigvalsh(H)
-    kind = "minimum" if np.all(eig>0) else ("maximum" if np.all(eig<0) else "saddle")
+    if np.all(eig > 0):
+        kind = "minimum"
+    elif np.all(eig < 0):
+        kind = "maximum"
+    else:
+        kind = "saddle"
     results.append(kind)
-assert len(models) == 18
+if len(models) != 18:
+    raise ValueError("Cần đủ 18 mô hình cực trị.")
 print("Mô hình:", len(models))
 print("Cực tiểu:", results.count("minimum"))
 print("Cực đại:", results.count("maximum"))
@@ -316,7 +327,8 @@ for i,(px,py) in enumerate(points,1):
     matrix = np.array(J.subs({x:px,y:py}),dtype=float)
     if abs(np.linalg.det(matrix)) < 1e-9:
         singular.append(f"C{i:02d}")
-assert len(points) == 20
+if len(points) != 20:
+    raise ValueError("Cần đủ 20 cấu hình Jacobian.")
 print("Cấu hình:", len(points))
 print("Suy biến:", ", ".join(singular))
 print("Còn định thức khác 0:", len(points)-len(singular))
