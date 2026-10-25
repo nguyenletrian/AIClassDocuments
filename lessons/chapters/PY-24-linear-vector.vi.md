@@ -120,9 +120,9 @@ Tích vô hướng trả một scalar bằng 11.
 
 **Từ vựng trong mục:** **Vector** — véc-tơ có thứ tự; **Scalar** — số đơn lẻ; **Norm** — độ dài.
 
-**Tình huống thực tế:** Robot ghi **10 bước dịch chuyển**, mỗi bản ghi là cặp `(đi theo trục x, đi theo trục y)` tính bằng mét. Có bước đi âm vì robot có thể đi ngược chiều trục. Cần biết vị trí lệch so với điểm xuất phát và khoảng cách **đường thẳng từ điểm xuất phát**, không nhầm với tổng quãng đường đã đi.
+**Tình huống thực tế:** Một robot di chuyển trên sàn theo **10 lệnh**; mỗi lệnh chứa hai số: đi theo chiều ngang **x** và chiều dọc **y**, đều tính bằng **mét**. Số âm nghĩa là đi ngược hướng dương của trục, ví dụ `(-2, 0)` là lùi 2 m trên trục x. Sau cả 10 lệnh, người điều khiển muốn biết robot đang lệch điểm xuất phát bao nhiêu mét theo từng trục và **khoảng cách đường thẳng từ điểm xuất phát**, không phải tổng quãng đường đã di chuyển.
 
-**Vì sao chọn cách này?** Véc-tơ lưu hướng và độ dịch chuyển theo hai trục, còn `np.linalg.norm` biến véc-tơ tổng thành **một số** khoảng cách đường thẳng. Nếu chỉ cộng độ dài mỗi bước sẽ tính tổng quãng đường, là một yêu cầu khác.
+**Vì sao chọn cách này?** **Véc-tơ** là cặp số ghi **mức dịch chuyển và hướng** theo từng trục, nên số âm là hợp lệ. `steps.sum(axis=0)` cộng **riêng các bước x** và **riêng các bước y** để ra véc-tơ vị trí cuối so với gốc: những bước đi ngược nhau có thể triệt tiêu. `np.linalg.norm(ending)` tính độ dài **đường thẳng từ gốc đến vị trí cuối** dựa trên cả hai thành phần; nó khác việc cộng độ dài từng bước. Robot có thể đi một vòng rồi về gần gốc: đường đã đi dài nhưng khoảng cách cuối tới gốc nhỏ.
 
 **Quy trình:**
 1. Tạo 10 véc-tơ 2 chiều với đơn vị mét.
@@ -156,9 +156,9 @@ Véc-tơ tổng có thể nhỏ hơn tổng quãng đường đi, vì các bư�
 
 **Từ vựng trong mục:** **Unit vector** — véc-tơ đơn vị; **Zero vector** — véc-tơ không; **Normalization** — chuẩn hóa.
 
-**Tình huống thực tế:** Bộ điều hướng nhận **12 véc-tơ hướng** `(x,y)` không đơn vị, mỗi hàng là một yêu cầu hướng đi. Hai hàng có `(0,0)` nghĩa là **chưa có hướng hợp lệ**. Cần chuẩn hóa mười hướng khác không về độ dài 1, đồng thời báo đúng hai hàng không thể chuẩn hóa, thay vì thực hiện phép chia cho 0.
+**Tình huống thực tế:** Bộ điều khiển nhận **12 véc-tơ chỉ hướng**, mỗi véc-tơ là hai số `(x, y)` chưa cần gắn đơn vị. Mười véc-tơ có ít nhất một thành phần khác 0, nhưng có hai cặp `(0, 0)` không chỉ ra được hướng nào. Nhóm kỹ thuật muốn đổi **mười hướng hợp lệ** thành véc-tơ dài 1 để dễ so sánh và ghi riêng hai yêu cầu chưa xác định, không tự bịa một hướng cho chúng.
 
-**Vì sao chọn cách này?** Chia véc-tơ cho norm chỉ thực hiện được khi độ dài lớn hơn 0. Dùng mặt nạ chọn những véc-tơ khác 0, không đoán một hướng mặc định khi dữ liệu chưa xác định.
+**Vì sao chọn cách này?** **Chuẩn hóa véc-tơ** ở đây nghĩa là giữ nguyên **hướng chỉ**, nhưng đưa độ dài mỗi véc-tơ hợp lệ về **1**; nhờ vậy hai lệnh cùng hướng có thể được so mà không bị ảnh hưởng bởi số lớn nhỏ ban đầu. `np.linalg.norm(..., axis=1)` đo độ dài từng hàng; điều kiện `lengths > 0` chỉ chọn các hàng có hướng xác định. NumPy chỉ chia các hàng ấy cho độ dài tương ứng; các hàng `(0,0)` không được chia vì sẽ chia cho 0. Chương trình đếm riêng hai hàng này và để chúng ở dạng 0 trong mảng kết quả, nhưng **không coi đó là hướng chuẩn hợp lệ**.
 
 **Quy trình:**
 1. Tạo mảng `(12,2)` và tính norm riêng từng hàng.
@@ -198,9 +198,9 @@ Véc-tơ không vẫn được bảo toàn trên bản dữ liệu xử lý như
 
 **Từ vựng trong mục:** **Dot product** — tích vô hướng; **Weight** — trọng số; **Threshold** — ngưỡng.
 
-**Tình huống thực tế:** Giáo viên ghi **15 học viên** H01…H15; mỗi hàng có ba điểm lý thuyết, thực hành, dự án (thang 10). Quy tắc nội bộ cho ba trọng số tương ứng 20%, 30%, 50%, học viên đạt từ **7,5 điểm tổng kết**. Hãy tính một điểm cho mỗi người và đếm số người đạt, giữ đúng thứ tự trọng số so với cột.
+**Tình huống thực tế:** Giáo viên lưu bảng **15 học viên H01–H15**, mỗi học viên có ba điểm **lý thuyết, thực hành, dự án** trên thang 10. Quy tắc chấm minh họa cho các phần này lần lượt **20%, 30%, 50%** và yêu cầu điểm cuối đạt **ít nhất 7,5**. Giáo vụ cần tính một điểm tổng kết cho mỗi người, xem điểm của H01 và H15, rồi đếm bao nhiêu người đạt, không ghép điểm giữa các học viên.
 
-**Vì sao chọn cách này?** Tích vô hướng nhân mỗi điểm của **cùng học viên** với trọng số cột tương ứng rồi cộng lại. Thay trọng số sai cột sẽ cho kết quả khác dù dữ liệu không đổi.
+**Vì sao chọn cách này?** **Tích vô hướng** là cách kết hợp hai dãy số cùng thứ tự bằng việc nhân các phần tương ứng rồi cộng. Mỗi hàng là ba điểm **của đúng một học viên**, còn dãy trọng số có thứ tự **lý thuyết, thực hành, dự án**. `scores @ weights` áp một quy tắc tính điểm như nhau cho cả 15 hàng, tạo **15 điểm cuối**; dự án góp 50% nên có ảnh hưởng lớn nhất. Nếu đổi thứ tự các trọng số mà không đổi thứ tự cột điểm, kết quả sẽ sai. Điều kiện `>= 7.5` tính cả học viên đạt **đúng 7,5**, không chỉ người cao hơn ngưỡng.
 
 **Quy trình:**
 1. Tạo ma trận 15 × 3 và véc-tơ ba trọng số.
@@ -235,9 +235,9 @@ Trọng số phản ánh quy định giả lập của lớp; dot product tạo 
 
 **Từ vựng trong mục:** **Orthogonality** — vuông góc; **Dot product** — tích vô hướng; **Projection** — chiếu theo trục.
 
-**Tình huống thực tế:** Robot cần so **18 véc-tơ hướng điều khiển** `(x,y)` với hướng chuẩn đi sang phải `(1,0)`, mỗi dòng là một lệnh. Nếu tích vô hướng bằng 0, lệnh vuông góc; nếu âm, lệnh có thành phần ngược chiều; nếu dương, có thành phần cùng chiều. Cần đếm ba nhóm mà không chỉ nhìn dấu một tọa độ trên hình.
+**Tình huống thực tế:** Robot nhận **18 lệnh di chuyển hai chiều** `(x, y)`; mỗi số cho biết mức điều khiển dọc một trục. Kỹ thuật viên lấy hướng chuẩn **sang phải** là véc-tơ `(1, 0)` và muốn chia các lệnh thành ba nhóm: có thành phần **cùng chiều** với hướng chuẩn, **ngược chiều**, hoặc **vuông góc**. Một lệnh vừa đi sang phải vừa đi lên vẫn có phần cùng chiều; không nên chỉ nhìn toàn bộ mũi tên mà kết luận theo cảm giác.
 
-**Vì sao chọn cách này?** Tích vô hướng so hướng của véc-tơ với hướng chuẩn. Trong dữ liệu ví dụ mọi véc-tơ đều khác không; phép so bằng 0 được áp trên các số nguyên nên không có nhiễu dấu phẩy động.
+**Vì sao chọn cách này?** **Tích vô hướng** còn cho biết một hướng điều khiển có phần **cùng hay ngược** với hướng chuẩn. Với hướng chuẩn `(1,0)`, kết quả dương khi lệnh có phần đi sang phải; âm khi có phần đi sang trái; bằng 0 khi lệnh **vuông góc** với hướng sang phải, ví dụ chỉ đi lên hoặc xuống. `directions @ reference` tính cùng cách cho đủ 18 lệnh, sau đó chương trình đếm ba nhóm theo dấu kết quả. Vì dữ liệu mẫu là các số nguyên nhỏ và hướng chuẩn đơn giản, so đúng bằng 0 phù hợp ở đây; với dữ liệu đo số thực có sai số, có thể cần ngưỡng gần 0.
 
 **Quy trình:**
 1. Tạo mảng 18 hàng × 2 cột và véc-tơ chuẩn.
@@ -272,9 +272,9 @@ Phân loại bằng tích vô hướng là về **thành phần hướng so vớ
 
 **Từ vựng trong mục:** **Residual vector** — véc-tơ sai lệch; **Norm** — độ lớn sai số; **Ranking** — xếp hạng.
 
-**Tình huống thực tế:** Nhà máy có **20 lượt đo 3 trục** X/Y/Z, mỗi hàng gồm véc-tơ dự kiến và véc-tơ cảm biến (đơn vị mm trên mỗi trục). Một số lượt lệch nhiều hơn ở Z. Kỹ thuật viên cần tính độ lớn sai lệch của từng lượt, đánh dấu khi độ lớn **lớn hơn 2 mm**, tìm lượt sai nhất và trung bình độ lớn sai lệch. Đây là phép đối chiếu hình học, không phải chẩn đoán hỏng thiết bị.
+**Tình huống thực tế:** Nhà máy có **20 lượt đo vị trí cảm biến ba chiều**, mỗi lượt ghi vị trí quan sát và vị trí kỳ vọng theo ba trục **X, Y, Z**, tất cả tính bằng **mm**. Có lượt lệch nhiều trên một trục, có lượt lệch nhỏ theo cả ba trục. Nhân viên muốn biết **độ lớn sai lệch** của mỗi lượt, đếm những lượt lệch **lớn hơn 2 mm**, xác định lượt sai nhất và mức lệch trung bình; đây chỉ là kiểm tra số liệu hình học, chưa kết luận thiết bị bị hỏng.
 
-**Vì sao chọn cách này?** Trừ từng véc-tơ quan sát với chuẩn tạo véc-tơ sai lệch ba chiều; `norm(axis=1)` trả một số mm cho từng lượt. Tính tổng sai số từng trục có dấu có thể triệt tiêu nhau, nên dùng norm khi hỏi độ lệch tổng thể.
+**Vì sao chọn cách này?** **Sai lệch véc-tơ** là chênh lệch giữa vị trí cảm biến quan sát và vị trí dự kiến theo cả ba trục. `observed - expected` cho một bộ ba sai lệch của từng lượt; `np.linalg.norm(..., axis=1)` chuyển mỗi bộ ba thành **một độ lớn luôn không âm**, đơn vị vẫn là mm. Điều này tránh việc lệch +2 mm trên trục X và -2 mm trên trục Y cộng lại thành 0 rồi bị hiểu nhầm là đo đúng. Sau đó so độ lớn với **ngưỡng 2 mm**, dùng `argmax()` tìm **vị trí lượt có sai số lớn nhất**, và `mean()` tính mức sai lệch trung bình. Ngưỡng 2 mm là quy tắc bài tập, chưa phải chuẩn chất lượng công nghiệp.
 
 **Quy trình:**
 1. Lưu 20 cặp véc-tơ 3D theo đúng thứ tự trục.
