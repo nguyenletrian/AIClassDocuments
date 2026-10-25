@@ -1,0 +1,140 @@
+{
+  "goal_id": "aiclassdocuments-no-note-comparison-copies-20261025",
+  "owner_approved": true,
+  "expected_lessons": 46,
+  "expected_batches": 10,
+  "batch_limit": 5,
+  "last_completed_batch": 0,
+  "status": "READY_FOR_BATCH_01",
+  "paired_code_fence_count_completed": 0,
+  "predecessor": {
+    "goal_id": "aiclassdocuments-full-code-annotations-20261025",
+    "ledger_status": "COMPLETED",
+    "last_completed_batch": 10,
+    "final_pr": 174,
+    "final_head_ci_run": 40199916125
+  },
+  "batches": [
+    {
+      "batch": 1,
+      "lessons": [
+        "PY-01",
+        "PY-02",
+        "PY-03",
+        "PY-04",
+        "PY-05"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 2,
+      "lessons": [
+        "PY-06",
+        "PY-07",
+        "PY-08",
+        "PY-09",
+        "PY-10"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 3,
+      "lessons": [
+        "PY-11",
+        "PY-12",
+        "PY-13",
+        "PY-14",
+        "PY-15"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 4,
+      "lessons": [
+        "PY-16",
+        "PY-17",
+        "PY-18",
+        "PY-19",
+        "PY-20"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 5,
+      "lessons": [
+        "PY-21",
+        "PY-22",
+        "PY-23",
+        "PY-24",
+        "PY-25"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 6,
+      "lessons": [
+        "PY-26",
+        "PY-27",
+        "PY-28",
+        "PY-29",
+        "PY-30"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 7,
+      "lessons": [
+        "PY-31",
+        "PY-32",
+        "PY-33",
+        "PY-34",
+        "PY-35"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 8,
+      "lessons": [
+        "PY-36",
+        "PY-37",
+        "PY-38",
+        "PY-39",
+        "PY-40"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 9,
+      "lessons": [
+        "PY-41",
+        "PY-42",
+        "PY-43",
+        "PY-44",
+        "PY-45"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 10,
+      "lessons": [
+        "PY-46"
+      ],
+      "status": "PENDING"
+    }
+  ],
+  "invariants": {
+    "one_no_note_immediately_before_annotated": true,
+    "canonical_annotated_source_unchanged": true,
+    "executable_ast_and_stdout_unchanged": true,
+    "outside_pair_layout_and_fences_unchanged": true,
+    "preserve_920_mcqs": true,
+    "include_executable_python_and_shell_fences": true,
+    "skip_stdout_text_and_noncode_diagrams": true,
+    "no_parallel_batches": true
+  },
+  "validation_status": {
+    "github_final_head_ci": "NOT_STARTED",
+    "windows_worker": "UNVERIFIED"
+  },
+  "notes": "The number of executable fences varies by lesson: PY-43 has five Python fences plus Git/Bash examples. Count from authoritative repository per batch, do not assume nine per chapter. Move only the completed batch to COMPLETED after merged PR and final-head CI; rearm goal review for the next batch only."
+}
