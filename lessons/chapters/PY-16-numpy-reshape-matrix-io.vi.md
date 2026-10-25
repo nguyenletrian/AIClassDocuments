@@ -197,7 +197,7 @@ print("Tổng ba môn:", by_subject.sum(axis=1).tolist())
 ```text
 Học viên: 12
 Sau chuyển vị: (3, 12)
-Tổng ba môn: [93,96,78]
+Tổng ba môn: [93, 96, 78]
 ```
 
 Tổng trả theo thứ tự Toán, Văn, Python; thay trục mà không thay dữ liệu là mục đích chính của `transpose`.
@@ -270,7 +270,7 @@ print("Nguồn đầu:", int(by_day[0, 0]))
 ```text
 Lượt đo: 18
 Đối soát: (3, 6)
-Đỉnh 6 ngày: [22,28,27,23,26,28]
+Đỉnh 6 ngày: [22, 28, 27, 23, 26, 28]
 Nguồn đầu: 16
 ```
 
