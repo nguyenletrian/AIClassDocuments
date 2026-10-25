@@ -2,7 +2,7 @@
   "goal_id": "aiclassdocuments-full-code-annotations-20261025",
   "title": "Chú thích đầy đủ, dễ hiểu từng khối code Python cho cả 46 bài",
   "approval": "owner_approved",
-  "status": "ACTIVE",
+  "status": "COMPLETED",
   "revision": "2026-10-25-full-beginner-code-notes-46-lessons",
   "owner_request": "Sau khi xuất PDF 920 câu, chú thích đầy đủ code mọi bài. Giải thích cả Agg, plt.gca(), lines[0], get_xdata(), plt.close() và các API/đối số khó hiểu ngay trong code. Không thay đổi kết quả.",
   "activation_condition": {
@@ -156,5 +156,15 @@
     ]
   },
   "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
-  "guide": "docs/CURRICULUM-STYLE-GUIDE.md"
+  "guide": "docs/CURRICULUM-STYLE-GUIDE.md",
+  "completion": {
+    "final_batch": 10,
+    "completed_lessons": 46,
+    "final_pr_number": 174,
+    "final_ci_run": 40199916125,
+    "final_ci_status": "SUCCESS",
+    "final_merged_sha": "1ac083b1b14e4076df0128d211204c1fa9210f69",
+    "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
+    "windows_validation": "UNVERIFIED"
+  }
 }
