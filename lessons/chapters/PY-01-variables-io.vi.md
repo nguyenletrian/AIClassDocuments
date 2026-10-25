@@ -115,7 +115,7 @@ print(type(2.5))
 `float` báo đây là số thực, không phải chuỗi ký tự `"2.5"`.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Chào khách mới
+### Tình huống 1 — Chào khách mới | Cấp 1: Nhận biết và hiển thị
 
 **Từ vựng trong mục:** **Variable** — biến.
 
@@ -146,7 +146,18 @@ Xin chào Lan!
 
 **Kết quả:** `Xin chào Lan!` — lời chào chứa đúng tên khách.
 
-### Tình huống 2 — Tính tiền hóa đơn
+
+**Bài thực hành nâng cấp — cấp 1/5:** Gửi lời chào cá nhân hóa đến 10 khách mới; mỗi tên là một dữ liệu chuỗi, kết quả phải có đủ 10 lời chào. Dữ liệu gồm **10 bản ghi**; code bên dưới dùng dữ liệu cùng cấu trúc và xử lý tất cả thay vì chỉ một trường hợp.
+
+```python
+names = ["Khách %02d" % i for i in range(1, 11)]
+for name in names:
+    print(f"Xin chào {name}!")
+```
+
+**Kết quả khi chạy:** 10 lời chào, từ Khách 01 đến Khách 10. Cấp 1 đặt trọng tâm vào nhận biết và hiển thị.
+
+### Tình huống 2 — Tính tiền hóa đơn | Cấp 2: Xử lý nhiều dòng dữ liệu
 
 **Từ vựng trong mục:** **Input** — đầu vào.
 
@@ -177,7 +188,18 @@ print(price * quantity)
 
 **Kết quả:** `360000` — khách phải trả 360.000 đồng.
 
-### Tình huống 3 — Hiển thị điểm
+
+**Bài thực hành nâng cấp — cấp 2/5:** Cửa hàng có 12 dòng đơn hàng, giá và số lượng được nhận dưới dạng chuỗi. Đổi kiểu trước khi tính tiền, in mã và tổng từng đơn. Dữ liệu gồm **12 bản ghi**; code bên dưới dùng dữ liệu cùng cấu trúc và xử lý tất cả thay vì chỉ một trường hợp.
+
+```python
+orders = [{"id": f"O{i:02d}", "price": str(20000 + i * 5000), "qty": str(i % 4 + 1)} for i in range(1, 13)]
+for order in orders:
+    print(order["id"], int(order["price"]) * int(order["qty"]))
+```
+
+**Kết quả khi chạy:** 12 dòng tổng tiền tương ứng mã O01–O12. Cấp 2 đặt trọng tâm vào xử lý nhiều dòng dữ liệu.
+
+### Tình huống 3 — Hiển thị điểm | Cấp 3: Kết hợp điều kiện và báo cáo
 
 **Từ vựng trong mục:** **Output** — đầu ra.
 
@@ -207,7 +229,19 @@ An: 8.5/10
 
 **Kết quả:** `An: 8.5/10` — dòng thông tin gồm tên và điểm học viên.
 
-### Tình huống 4 — Ghi nhiệt độ
+
+**Bài thực hành nâng cấp — cấp 3/5:** Trung tâm có 15 điểm kiểm tra trên thang 10. In tên, điểm và trạng thái đạt (từ 5 điểm), đảm bảo số điểm được định dạng rõ. Dữ liệu gồm **15 bản ghi**; code bên dưới dùng dữ liệu cùng cấu trúc và xử lý tất cả thay vì chỉ một trường hợp.
+
+```python
+scores = [4.5, 6, 8.5, 3, 9, 5, 7, 4, 6.5, 10, 8, 2.5, 7.5, 5.5, 9.5]
+for index, score in enumerate(scores, 1):
+    status = "Đạt" if score >= 5 else "Chưa đạt"
+    print(f"HV{index:02d}: {score:.1f}/10 | {status}")
+```
+
+**Kết quả khi chạy:** 15 kết quả; điểm 4,5 chưa đạt, điểm 6 đạt. Cấp 3 đặt trọng tâm vào kết hợp điều kiện và báo cáo.
+
+### Tình huống 4 — Ghi nhiệt độ | Cấp 4: Kiểm soát dữ liệu lỗi/khuyết
 
 **Từ vựng trong mục:** **Type** — kiểu dữ liệu.
 
@@ -237,7 +271,19 @@ print(type(temperature), temperature)
 
 **Kết quả:** `<class 'float'> 36.5` — kiểu số thực và giá trị 36,5; code chưa in đơn vị °C.
 
-### Tình huống 5 — Giữ mã đơn
+
+**Bài thực hành nâng cấp — cấp 4/5:** Trạm đo ghi 18 nhiệt độ °C; hai lượt bị lỗi và gửi None. Phải nêu số lượt hợp lệ/thiếu trước khi tính trung bình, không hiểu None là 0 °C. Dữ liệu gồm **18 bản ghi**; code bên dưới dùng dữ liệu cùng cấu trúc và xử lý tất cả thay vì chỉ một trường hợp.
+
+```python
+temperatures = [27, 28, 29, 30, 31, None, 29, 28, 27, 32, 31, 30, None, 29, 28, 27, 33, 30]
+valid = [t for t in temperatures if t is not None]
+print("Số mẫu:", len(temperatures), "| hợp lệ:", len(valid), "| thiếu:", len(temperatures)-len(valid))
+print("Trung bình °C:", round(sum(valid) / len(valid), 2))
+```
+
+**Kết quả khi chạy:** 18 mẫu, 16 hợp lệ, 2 thiếu; trung bình chỉ từ phép đo hợp lệ. Cấp 4 đặt trọng tâm vào kiểm soát dữ liệu lỗi/khuyết.
+
+### Tình huống 5 — Giữ mã đơn | Cấp 5: Tổng hợp và xác minh đầu ra
 
 **Từ vựng trong mục:** **Variable** — biến.
 
@@ -267,6 +313,18 @@ assert order_id.startswith("00")
 ```
 
 **Kết quả:** `0007` — mã được in nguyên vẹn; `assert` không in thêm khi kiểm tra đúng.
+
+
+**Bài thực hành nâng cấp — cấp 5/5:** Cửa hàng cấp 20 mã đơn gồm 4 ký tự, có số 0 ở đầu. Cần tạo, kiểm tra mã trùng và in báo cáo tổng hợp trước khi gửi sang hệ thống khác. Dữ liệu gồm **20 bản ghi**; code bên dưới dùng dữ liệu cùng cấu trúc và xử lý tất cả thay vì chỉ một trường hợp.
+
+```python
+codes = [f"{i:04d}" for i in range(1, 21)]
+assert len(codes) == len(set(codes))
+assert all(len(code) == 4 for code in codes)
+print("Số đơn:", len(codes), "| mã đầu:", codes[0], "| mã cuối:", codes[-1])
+```
+
+**Kết quả khi chạy:** 20 mã phân biệt, đầu 0001 và cuối 0020. Cấp 5 đặt trọng tâm vào tổng hợp và xác minh đầu ra.
 
 ## 6. Những nhầm lẫn thường gặp
 
