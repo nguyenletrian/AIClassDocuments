@@ -30,7 +30,7 @@
 | `dict[str,set[str]]` | Danh sách kề đơn giản: key là đỉnh, value là các đỉnh nối |
 | `networkx.Graph()/DiGraph()` | Đồ thị vô hướng/có hướng, cần cài networkx |
 | `nx.shortest_path(G,a,b)` | Tìm đường nối ngắn nhất nếu có kết nối |
-| `len(a & b) / len(a | b)` | Tương đồng Jaccard khi hợp khác rỗng |
+| `len(a & b) / len(a \| b)` | Tương đồng Jaccard khi hợp khác rỗng |
 
 ## 4. Khái niệm liên quan
 
