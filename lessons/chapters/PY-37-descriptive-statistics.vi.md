@@ -141,7 +141,8 @@ print(round(float(np.std(celsius, ddof=0)), 3))
 ```python
 import numpy as np
 minutes = np.array([2,3,4,3,2,5,3,4,2,4], dtype=float)
-assert minutes.size == 10
+if minutes.size != 10:
+    raise ValueError("Cần đúng 10 yêu cầu.")
 print("Yêu cầu:", minutes.size)
 print("Tổng phút:", int(minutes.sum()))
 print(f"Trung bình (phút): {minutes.mean():.1f}")
@@ -175,7 +176,8 @@ Trung bình 3,2 phút là kết quả trên đúng mười yêu cầu đã ghi, 
 ```python
 import numpy as np
 amounts = np.array([100,105,110,110,115,120,125,130,130,135,140,1000], dtype=float)
-assert len(amounts) == 12
+if len(amounts) != 12:
+    raise ValueError("Cần đủ 12 hóa đơn.")
 print("Hóa đơn:", len(amounts))
 print(f"Mean (nghìn đồng): {amounts.mean():.2f}")
 print(f"Median (nghìn đồng): {np.median(amounts):.2f}")
@@ -210,7 +212,8 @@ Median là trung bình của hai giá trị giữa vì có số hóa đơn chẵ
 import pandas as pd
 categories = ["Bút","Vở","Bút","Thước","Bút","Tẩy","Vở","Bút","Thước","Vở","Bút","Vở","Tẩy","Bút","Thước"]
 counts = pd.Series(categories).value_counts()
-assert len(categories) == 15
+if len(categories) != 15:
+    raise ValueError("Cần đủ 15 lượt chọn sản phẩm.")
 print("Lượt chọn:", len(categories))
 print("Nhãn khác nhau:", len(counts))
 print("Mode:", counts.index[0])
@@ -246,7 +249,8 @@ import numpy as np
 celsius = np.array([18,19,20,21,22,23,24,25,26,27,18,19,20,21,22,23,24,25], dtype=float)
 pop_var = np.var(celsius, ddof=0)
 sample_var = np.var(celsius, ddof=1)
-assert len(celsius) == 18
+if len(celsius) != 18:
+    raise ValueError("Cần đủ 18 lượt đo nhiệt độ.")
 print("Lượt đo:", len(celsius))
 print(f"Phương sai quần thể (°C²): {pop_var:.3f}")
 print(f"Phương sai mẫu (°C²): {sample_var:.3f}")
@@ -284,7 +288,8 @@ import pandas as pd
 raw = [20,21,22,22,23,24,24,25,26,27,21,22,23,24,25,26,27,28,29,None]
 data = pd.Series(raw, dtype="float64")
 valid = data.dropna()
-assert len(data) == 20
+if len(data) != 20:
+    raise ValueError("Cần đủ 20 phiếu ghi thời gian, kể cả lượt thiếu.")
 print("Phiếu:", len(data))
 print("Đủ thời gian:", len(valid))
 print("Thiếu:", int(data.isna().sum()))
