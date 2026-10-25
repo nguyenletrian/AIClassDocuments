@@ -39,6 +39,15 @@ Bài học nối bốn ý: **scalar** là số đơn lẻ, **vector** chứa t�
 
 Scalar là một giá trị số như vận tốc 2,5 mét/giây. Python lưu số, còn ý nghĩa và đơn vị phải do người lập trình nêu. Scalar khác vector vì không chứa nhiều thành phần tọa độ.
 
+**No Note — Không chú thích**
+
+```python
+speed = 2.5
+print(speed)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Phân biệt một giá trị vô hướng với đại lượng có nhiều thành phần.
 # Dữ liệu: speed=2.5 là một giá trị tốc độ giả lập; chưa biểu diễn hướng hay các trục tọa độ.
@@ -59,6 +68,17 @@ Số 2.5 đại diện vận tốc m/s, không phải tọa độ.
 ### 4.2. Vector — Các tọa độ có thứ tự
 
 Vector là dãy tọa độ theo một hệ trục. Robot đi 3 m theo x và 4 m theo y nên dùng vector `[3,4]`. Phần tử đầu là x, phần tử sau là y. Đổi `[3,4]` thành `[4,3]` sẽ đổi ý nghĩa hai trục.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+movement = np.array([3, 4])
+print(movement)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Biểu diễn độ dịch chuyển hai chiều bằng vector các tọa độ x,y có thứ tự.
@@ -84,6 +104,17 @@ Hai phần tử lần lượt là độ dịch chuyển theo x và y (mét).
 
 Chuẩn Euclid là độ dài `sqrt(x²+y²)`. Với vector `(3,4)`, độ dài bằng `sqrt(9+16)=5` m. Vector đơn vị giữ hướng và có norm bằng 1; muốn chuẩn hóa phải chia các thành phần cho norm, trừ trường hợp norm bằng 0.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+movement = np.array([3.0, 4.0])
+print(np.linalg.norm(movement))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tính độ dài Euclid của vector chuyển động (3,4) bằng NumPy.
 # Dữ liệu: Hai thành phần x=3, y=4 theo cùng đơn vị khoảng cách.
@@ -107,6 +138,18 @@ Robot cách gốc tọa độ 5 mét theo đường thẳng.
 ### 4.4. Dot product — Nhân và cộng cùng vị trí
 
 Tích vô hướng của hai vector cùng số chiều bằng tổng các tích từng thành phần: `(1,2)·(3,4)=1×3+2×4=11`. Dùng để tính điểm có trọng số hoặc kiểm tra hai vector khác không vuông góc (khi tích vô hướng bằng 0).
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+a = np.array([1, 2])
+b = np.array([3, 4])
+print(a @ b)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính tích vô hướng của hai vector hai chiều bằng toán tử @.
@@ -144,6 +187,22 @@ Tích vô hướng trả một scalar bằng 11.
 1. Tạo 10 véc-tơ 2 chiều với đơn vị mét.
 2. Cộng theo trục x/y bằng `sum(axis=0)`.
 3. Tính norm của véc-tơ tổng và in đơn vị.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+steps = np.array([[3,4],[0,2],[-2,0],[1,-1],[2,2],[-3,1],[0,-4],[4,0],[-1,3],[2,-2]], dtype=float)
+ending = steps.sum(axis=0)
+if steps.shape != (10, 2):
+    raise ValueError("Cần đủ 10 bước chuyển động hai chiều.")
+print("Bước:", len(steps))
+print("Lệch x (m):", int(ending[0]))
+print("Lệch y (m):", int(ending[1]))
+print(f"Cách gốc (m): {np.linalg.norm(ending):.2f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Cộng 10 bước chuyển động hai chiều thành độ lệch x/y và khoảng cách tới gốc.
@@ -190,6 +249,28 @@ Véc-tơ tổng có thể nhỏ hơn tổng quãng đường đi, vì các bư�
 1. Tạo mảng `(12,2)` và tính norm riêng từng hàng.
 2. Chỉ chia các hàng có norm dương; giữ véc-tơ không cho kiểm tra.
 3. Đếm số hướng hợp lệ, in véc-tơ đầu sau chuẩn hóa.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+vectors = np.array([[3,4],[0,0],[5,0],[-3,4],[0,5],[6,8],[1,1],[-4,0],[2,-2],[0,-2],[4,3],[0,0]], dtype=float)
+lengths = np.linalg.norm(vectors, axis=1)
+valid = lengths > 0
+normalized = np.zeros_like(vectors)
+normalized[valid] = vectors[valid] / lengths[valid, None]
+if len(vectors) != 12:
+    raise ValueError("Cần đủ 12 véc-tơ cần chuẩn hóa.")
+print("Yêu cầu:", len(vectors))
+print("Hướng hợp lệ:", int(valid.sum()))
+print("Hướng chưa xác định:", int((~valid).sum()))
+values = []
+for x in normalized[0]:
+    values.append(f"{x:.2f}")
+print("Véc-tơ đầu:", ", ".join(values))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Chuẩn hóa 12 vector về hướng dài một đơn vị, tránh chia cho 0 ở vector rỗng.
@@ -247,6 +328,23 @@ Véc-tơ không vẫn được bảo toàn trên bản dữ liệu xử lý như
 2. Nhân `scores @ weights` để có 15 kết quả.
 3. Đếm người đạt ngưỡng 7,5; in điểm đầu và cuối để đối chiếu.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+scores = np.array([[5,6,7],[6,8,10],[7,10,9],[8,7,8],[9,9,7],[5,6,10],[6,8,9],[7,10,8],[8,7,7],[9,9,10],[5,6,9],[6,8,8],[7,10,7],[8,7,10],[9,9,9]], dtype=float)
+weights = np.array([0.2, 0.3, 0.5])
+final_scores = scores @ weights
+if scores.shape != (15, 3) or final_scores.shape != (15,):
+    raise ValueError("Cần đủ 15 học viên với 3 môn và 15 điểm cuối.")
+print("Học viên:", len(final_scores))
+print(f"H01: {final_scores[0]:.2f}")
+print(f"H15: {final_scores[-1]:.2f}")
+print("Đạt 7.5:", int((final_scores >= 7.5).sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tính điểm tổng hợp có trọng số cho 15 học viên bằng tích vector theo mỗi hàng.
 # Dữ liệu: 15 hàng học viên × 3 môn; trọng số giả định 20%, 30%, 50% tương ứng theo ba cột, tổng 100%.
@@ -295,6 +393,23 @@ Trọng số phản ánh quy định giả lập của lớp; dot product tạo 
 2. Tính 18 tích vô hướng `directions @ reference`.
 3. Đếm trường hợp âm, 0 và dương; xác minh tổng bằng 18.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+directions = np.array([[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1],[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1],[-1,0],[0,1],[1,0],[0,-1],[1,1],[-1,1]], dtype=float)
+reference = np.array([1.0, 0.0])
+projections = directions @ reference
+if directions.shape != (18, 2):
+    raise ValueError("Cần đủ 18 lệnh chuyển động hai chiều.")
+print("Lệnh:", len(directions))
+print("Ngược chiều:", int((projections < 0).sum()))
+print("Vuông góc:", int((projections == 0).sum()))
+print("Cùng chiều:", int((projections > 0).sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Dùng tích vô hướng để phân loại 18 hướng so với trục +x: ngược, vuông góc, cùng hướng.
 # Dữ liệu: 18 lệnh (dx,dy), trục tham chiếu [1,0] hướng +x; các giá trị chưa nhất thiết là vector đơn vị.
@@ -342,6 +457,26 @@ Phân loại bằng tích vô hướng là về **thành phần hướng so vớ
 1. Lưu 20 cặp véc-tơ 3D theo đúng thứ tự trục.
 2. Tính sai lệch từng hàng, sau đó norm của 20 véc-tơ.
 3. Đếm vượt ngưỡng 2 mm, tìm mã lượt lớn nhất và báo trung bình.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+observed = np.array([[10,20,30],[11,21,31],[12,22,32],[13,23,30],[14,20,31],[10,21,32],[11,22,30],[12,23,31],[13,20,32],[14,21,30],[10,22,31],[11,23,32],[12,20,30],[13,21,31],[14,22,32],[10,23,30],[11,20,31],[12,21,32],[13,22,30],[14,23,31]], dtype=float)
+expected = np.array([[11,19,33],[12,20,31],[13,21,32],[14,22,30],[15,19,31],[11,20,32],[12,21,30],[13,22,34],[14,19,32],[15,20,30],[11,21,31],[12,22,32],[13,19,30],[14,20,31],[15,21,35],[11,22,30],[12,19,31],[13,20,32],[14,21,30],[15,22,31]], dtype=float)
+residual = observed - expected
+errors = np.linalg.norm(residual, axis=1)
+worst = int(errors.argmax())
+if observed.shape != (20, 3) or expected.shape != (20, 3):
+    raise ValueError("Cần 20 lượt đo, mỗi lượt có ba tọa độ nguồn và kỳ vọng.")
+print("Lượt đo:", len(errors))
+print("Vượt 2 mm:", int((errors > 2).sum()))
+print("Lượt sai nhất:", f"M{worst+1:02d}")
+print(f"Sai số lớn nhất (mm): {errors[worst]:.2f}")
+print(f"Sai số TB (mm): {errors.mean():.2f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính vector sai lệch 3D và độ dài sai số của 20 lượt đo, tìm lượt sai nhất.
