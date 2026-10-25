@@ -1,0 +1,168 @@
+{
+  "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
+  "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
+  "repository": "nguyenletrian/AIClassDocuments",
+  "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
+  "status": "READY_FOR_BATCH_01",
+  "last_completed_batch": 0,
+  "batches": [
+    {
+      "batch": 1,
+      "lessons": [
+        "PY-01",
+        "PY-02",
+        "PY-03",
+        "PY-04",
+        "PY-05"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 2,
+      "lessons": [
+        "PY-06",
+        "PY-07",
+        "PY-08",
+        "PY-09",
+        "PY-10"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 3,
+      "lessons": [
+        "PY-11",
+        "PY-12",
+        "PY-13",
+        "PY-14",
+        "PY-15"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 4,
+      "lessons": [
+        "PY-16",
+        "PY-17",
+        "PY-18",
+        "PY-19",
+        "PY-20"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 5,
+      "lessons": [
+        "PY-21",
+        "PY-22",
+        "PY-23",
+        "PY-24",
+        "PY-25"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 6,
+      "lessons": [
+        "PY-26",
+        "PY-27",
+        "PY-28",
+        "PY-29",
+        "PY-30"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 7,
+      "lessons": [
+        "PY-31",
+        "PY-32",
+        "PY-33",
+        "PY-34",
+        "PY-35"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 8,
+      "lessons": [
+        "PY-36",
+        "PY-37",
+        "PY-38",
+        "PY-39",
+        "PY-40"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 9,
+      "lessons": [
+        "PY-41",
+        "PY-42",
+        "PY-43",
+        "PY-44",
+        "PY-45"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 10,
+      "lessons": [
+        "PY-46"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    }
+  ],
+  "activation_evidence": {
+    "previous_goal": "aiclassdocuments-explicit-python-beginner-code-20261025",
+    "previous_ledger": "COMPLETED",
+    "previous_last_completed_batch": 10,
+    "previous_batch_merges": 10,
+    "previous_final_pr": 154,
+    "previous_final_ci_run": 40176164004,
+    "previous_final_ci_conclusion": "SUCCESS",
+    "outstanding_tasksource": 0,
+    "open_pull_requests": 0
+  },
+  "notes": "Owner approved goal on 2026-10-25 but deferred until preceding 46-lesson explicit Python goal COMPLETED 10/10 and no outstanding ACK/tasks or open PR. Activation prerequisites verified. Work sequentially in ten batches <=5 chapters, per lesson commit, preserve all stdout/MCQs/scenario data, GitHub final-head CI and durable ledger before next. Review scenario prose, explain technical terms and data origin plainly, explain method/5000 iterations/seed in Why; no mathematical formulas in definitions; no Windows PASS without real worker evidence."
+}
