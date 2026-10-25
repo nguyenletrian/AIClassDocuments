@@ -3,8 +3,8 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_07_QA_PASSED_WAIT_MERGE",
-  "last_completed_batch": 6,
+  "status": "READY_FOR_BATCH_08",
+  "last_completed_batch": 7,
   "batches": [
     {
       "batch": 1,
@@ -171,11 +171,11 @@
         "PY-34",
         "PY-35"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "changed_lessons": [],
       "pr": 140,
-      "merged_commit": null,
-      "ci_run": 40168737887,
+      "merged_commit": "aeed3207860032e9887f8fdd4d7c92692d7d86cf",
+      "ci_run": 40168866257,
       "branch": "fix/markdown-render-batch-07-20261025",
       "reviewed_lessons": [
         "PY-31",
@@ -189,7 +189,7 @@
         "malformed_table_rows": 0,
         "unescaped_pipes_in_table_code": 0
       },
-      "notes": "Review PY-31..35 clean, zero pipe HTML entities or malformed table rows; no lesson modifications. PR #140 first CI run 40168737887 PASS, previous formatting and curriculum tests pass. Final-head CI and merge pending. Owner-approved explicit-code rewrite goal still APPROVED_DEFERRED."
+      "notes": "PR #140 squash MERGED aeed3207860032e9887f8fdd4d7c92692d7d86cf, final-head CI #40168866257 PASS. PY-31..35 inspected and clean; no chapter edits. Formatting regression and existing curriculum tests passed. Next batch08 PY-36..40; explicit code simplification remains deferred."
     },
     {
       "batch": 8,
