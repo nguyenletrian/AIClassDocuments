@@ -70,3 +70,17 @@ Cả 5 tình huống của mỗi bài đều **đúng trọng tâm bài học**,
 Chỉ thông báo **46/46 hoàn thành** sau khi 10 đợt đã `MERGED` thật vào `main`, ledger đầy đủ, kiểm tra 46 bài có 5 cấp tăng độ khó và dữ liệu 10–20 hàng/lượt, không làm sai câu hỏi trắc nghiệm và không còn test chặn. Ghi rõ CI/Windows nào có chứng cứ, chưa có thì nói chưa xác minh. Nếu một đợt `BLOCKED`, không báo “xong” và không bỏ qua bài.
 
 **Mẫu kết quả ngắn sau mỗi đợt trong kênh Bridge/Architect:** `PY-01…PY-05 | 5/5 | PR #... merged <sha> | CI PASS <run> | Windows PASS/UNVERIFIED | next PY-06…PY-10`. Chỉ gửi **owner** một báo cáo tổng kết ở cuối, trừ khi có lỗi cần quyết định của owner.
+
+
+## 7. Goal kế tiếp đã duyệt — diễn đạt tình huống dễ hiểu (CHƯA ĐƯỢC KÍCH HOẠT)
+
+**Nguồn quyền:** chủ dự án duyệt ngày 25/10/2026. **Thứ tự bắt buộc:** hoàn tất goal hiện tại *Python tường minh* (PY-01…PY-46, 10/10 batch đã MERGED, ledger \`docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json\` \`COMPLETED\`, không còn PR/task chưa xử lý) **trước** khi kích hoạt goal này. Đặc tả lưu ở \`docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json\` với trạng thái \`APPROVED_DEFERRED\`; không sửa ngay nội dung tình huống trong batch của goal hiện tại.
+
+Khi tới lượt goal này, xử lý theo **10 đợt tối đa 5 bài** và quy trình commit → test từng code fence/đối chiếu stdout → CI → PR merge → ghi ledger → sang đợt tiếp. Với **mỗi** tình huống:
+
+- **Tình huống thực tế:** nêu ai/cái gì cần giải quyết, bối cảnh và ý nghĩa từng dữ liệu (mỗi hàng, đơn vị, nguồn/gỉa định), câu hỏi người học cần trả lời. Viết ngắn gọn, dễ hình dung như chuyện thật; nếu từ chuyên ngành chưa học xuất hiện, giải nghĩa bình dân ngay tại đây. Không đưa yêu cầu kỹ thuật như seed, số vòng mô phỏng, thuật toán cài đặt hoặc lời bác bỏ cách giải vào đoạn nêu vấn đề nếu không thiết yếu.
+- **Vì sao chọn cách này?:** giải thích **đúng thuật ngữ, nguồn gốc con số**, tại sao cần phương pháp và các bước nghĩ/diễn giải nó theo lời nói, lý do tránh cách ngây thơ cho kết quả sai, cách đọc kết quả và hạn chế. Khi có tham số \`5000\` lượt/seed \`42\`, nói đây là giá trị minh họa: nhiều lượt thường làm tỷ lệ mô phỏng ổn định hơn nhưng tốn thêm thời gian, seed cố định giúp tái lập chứ không bảo đảm trùng xác suất lý thuyết. Không giấu giải thích ấy trong câu tình huống.
+- **Ví dụ về trọng số/xác suất:** 20 trạng thái S01…S20 được **người soạn giả định** mức ảnh hưởng 1…20 để thử mô hình; **trọng số không phải số lần xuất hiện**. Chuẩn hóa nghĩa là cộng 20 mức (=210), rồi lấy từng mức chia cho 210 để chúng cộng thành 100%; tổng mức của S16…S20 là 90 nên khả năng gộp là 90/210 ≈ 42,86%, **không phải 5/20=25%** do các trạng thái không đồng khả năng. Nếu muốn đo xác suất máy thật, cần giải thích cách ghi nhận dữ liệu và xác thực giả định.
+- Các định nghĩa không nhồi công thức; nói rõ dùng để làm gì, vì sao xuất hiện và được tính/thiết lập bằng cách nào. 5 tình huống vẫn tăng độ khó, giữ đúng số bản ghi có ý nghĩa 10/12/15/18/20, không đổi kiến thức chính, mã ví dụ, stdout, 20 MCQ/bài hay đáp án nếu chưa có lý do và kiểm chứng độc lập.
+
+**Ranh giới nhiệm vụ:** mục 7 là yêu cầu đã duyệt nhưng **chưa thực thi**. Không tạo task/PR nội dung cho goal này trong khi goal Python tường minh còn ACTIVE, ngay cả khi heartbeat liên tục nhắc.
