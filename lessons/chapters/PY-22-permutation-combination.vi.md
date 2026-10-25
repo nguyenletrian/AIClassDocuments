@@ -137,8 +137,14 @@ Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
 import math
 from itertools import permutations
 candidates = ["U01","U02","U03","U04","U05","U06","U07","U08","U09","U10"]
-first = next(permutations(candidates, 2))
-assert len(candidates) == 10
+first = None
+for pair in permutations(candidates, 2):
+    first = pair
+    break
+if first is None:
+    raise ValueError("Cần ít nhất hai ứng viên để phân vai.")
+if len(candidates) != 10:
+    raise ValueError("Cần đúng 10 ứng viên.")
 print("Ứng viên:", len(candidates))
 print("Cách phân vai:", math.perm(len(candidates), 2))
 print("Phân vai đầu:", first[0], first[1])
@@ -172,8 +178,10 @@ import math
 from itertools import combinations
 volunteers = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12"]
 groups = list(combinations(volunteers, 3))
-assert len(volunteers) == 12
-assert len(groups) == math.comb(12, 3)
+if len(volunteers) != 12:
+    raise ValueError("Cần đủ 12 tình nguyện viên.")
+if len(groups) != math.comb(12, 3):
+    raise ValueError("Số nhóm ba người phải khớp số tổ hợp lý thuyết.")
 print("Tình nguyện viên:", len(volunteers))
 print("Số nhóm:", len(groups))
 print("Nhóm đầu:", ", ".join(groups[0]))
@@ -205,8 +213,12 @@ Bài này khác cấp 1 ở chỗ đổi vị trí ba người **không** tạo 
 ```python
 import math
 people = [{"id":"T01","skill":"Python","available":True},{"id":"T02","skill":"AI","available":True},{"id":"T03","skill":"SQL","available":True},{"id":"T04","skill":"Python","available":True},{"id":"T05","skill":"AI","available":False},{"id":"T06","skill":"SQL","available":True},{"id":"T07","skill":"Python","available":True},{"id":"T08","skill":"AI","available":True},{"id":"T09","skill":"SQL","available":True},{"id":"T10","skill":"Python","available":False},{"id":"T11","skill":"AI","available":True},{"id":"T12","skill":"SQL","available":True},{"id":"T13","skill":"Python","available":True},{"id":"T14","skill":"AI","available":True},{"id":"T15","skill":"SQL","available":False}]
-eligible = [p["id"] for p in people if p["available"] and p["skill"] in ("Python", "AI")]
-assert len(people) == 15
+eligible = []
+for person in people:
+    if person["available"] and person["skill"] in ("Python", "AI"):
+        eligible.append(person["id"])
+if len(people) != 15:
+    raise ValueError("Cần kiểm tra 15 hồ sơ nhân sự.")
 print("Hồ sơ:", len(people))
 print("Đủ điều kiện:", len(eligible))
 print("Chọn đội hai người:", math.comb(len(eligible), 2))
@@ -241,11 +253,15 @@ Khác hai cấp đầu, phải lọc dữ liệu trước khi đếm. Không đ�
 import math
 from itertools import permutations
 incidents = [{"id":"C01","severity":"blocker","ready":True},{"id":"C02","severity":"normal","ready":True},{"id":"C03","severity":"normal","ready":True},{"id":"C04","severity":"high","ready":True},{"id":"C05","severity":"normal","ready":True},{"id":"C06","severity":"normal","ready":True},{"id":"C07","severity":"blocker","ready":True},{"id":"C08","severity":"normal","ready":True},{"id":"C09","severity":"normal","ready":True},{"id":"C10","severity":"high","ready":True},{"id":"C11","severity":"normal","ready":True},{"id":"C12","severity":"normal","ready":False},{"id":"C13","severity":"blocker","ready":True},{"id":"C14","severity":"normal","ready":True},{"id":"C15","severity":"normal","ready":True},{"id":"C16","severity":"high","ready":True},{"id":"C17","severity":"normal","ready":True},{"id":"C18","severity":"normal","ready":True}]
-eligible = [row["id"] for row in incidents
-            if row["ready"] and row["severity"] in ("blocker", "high")]
+eligible = []
+for row in incidents:
+    if row["ready"] and row["severity"] in ("blocker", "high"):
+        eligible.append(row["id"])
 schedules = list(permutations(eligible, 3))
-assert len(incidents) == 18
-assert len(schedules) == math.perm(len(eligible), 3)
+if len(incidents) != 18:
+    raise ValueError("Cần đủ 18 sự cố đã ghi nhận.")
+if len(schedules) != math.perm(len(eligible), 3):
+    raise ValueError("Số lịch ba ca phải khớp số cách xếp có thứ tự.")
 print("Sự cố:", len(incidents))
 print("Đủ tiêu chí:", len(eligible))
 print("Lịch 3 ca:", len(schedules))
@@ -279,12 +295,24 @@ Ba vị trí là ba lượt thực hiện khác nhau nên dùng hoán vị; nhâ
 ```python
 from itertools import combinations
 people = [{"id":"U01","team":"A","ready":True},{"id":"U02","team":"B","ready":True},{"id":"U03","team":"C","ready":True},{"id":"U04","team":"A","ready":True},{"id":"U05","team":"B","ready":True},{"id":"U06","team":"C","ready":False},{"id":"U07","team":"A","ready":True},{"id":"U08","team":"B","ready":True},{"id":"U09","team":"C","ready":True},{"id":"U10","team":"A","ready":True},{"id":"U11","team":"B","ready":True},{"id":"U12","team":"C","ready":True},{"id":"U13","team":"A","ready":True},{"id":"U14","team":"B","ready":True},{"id":"U15","team":"C","ready":False},{"id":"U16","team":"A","ready":True},{"id":"U17","team":"B","ready":True},{"id":"U18","team":"C","ready":True},{"id":"U19","team":"A","ready":True},{"id":"U20","team":"B","ready":True}]
-ready = [p for p in people if p["ready"]]
-valid = [team for team in combinations(ready, 3)
-         if {p["team"] for p in team} == {"A", "B", "C"}]
-counts = {k: sum(p["team"] == k for p in ready) for k in ("A", "B", "C")}
-assert len(people) == 20
-assert len(valid) == counts["A"] * counts["B"] * counts["C"]
+ready = []
+for person in people:
+    if person["ready"]:
+        ready.append(person)
+valid = []
+for team in combinations(ready, 3):
+    team_names = set()
+    for person in team:
+        team_names.add(person["team"])
+    if team_names == {"A", "B", "C"}:
+        valid.append(team)
+counts = {"A": 0, "B": 0, "C": 0}
+for person in ready:
+    counts[person["team"]] += 1
+if len(people) != 20:
+    raise ValueError("Cần đủ 20 hồ sơ ban đầu.")
+if len(valid) != counts["A"] * counts["B"] * counts["C"]:
+    raise ValueError("Số ban ba nhóm phải bằng số cách chọn một người mỗi nhóm.")
 print("Hồ sơ:", len(people))
 print("Sẵn sàng:", len(ready))
 print("Người theo nhóm:", counts["A"], counts["B"], counts["C"])
