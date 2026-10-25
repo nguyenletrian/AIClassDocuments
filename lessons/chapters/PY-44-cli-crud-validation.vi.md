@@ -42,9 +42,13 @@
 Ứng dụng quản lý sinh viên cần tạo, đọc, sửa và xóa hồ sơ. Với Dictionary, **khóa là mã sinh viên duy nhất**, giá trị là Dictionary trường `name`, `score`. `Create` cần kiểm trùng mã; `Read` tra cứu; `Update` chỉ sửa mã tồn tại; `Delete` xử lý trường hợp mã không tìm thấy. Một CLI dùng lệnh nhập văn bản để thực hiện các thao tác này; đây mới là dữ liệu trong RAM, chưa được lưu bền xuống tệp.
 
 ```python
-# Mục đích: Bốn thao tác trên hồ sơ.
+# Mục đích: Minh họa tạo rồi đọc một hồ sơ trong database giả lập dạng dictionary.
+# Dữ liệu: Hồ sơ S1 có name=An và score=8; dữ liệu chỉ tồn tại trong bộ nhớ Python.
+# {} tạo dictionary rỗng làm database IN-MEMORY; không có file hay SQL.
 db = {}
+# CREATE: gán key 'S1' cho dictionary con chứa tên và điểm; cùng key gán lần nữa sẽ ghi đè.
 db['S1'] = {'name': 'An', 'score': 8}
+# READ: tra lần lượt mã S1 và trường score qua hai cặp dấu []; thiếu key sẽ gây KeyError.
 print(db['S1']['score'])
 ```
 
@@ -63,8 +67,12 @@ Bản ghi S1 được tạo trong RAM; lấy `score` của S1 cho kết quả 8/
 Validation phải dựa trên **quy tắc dữ liệu**, ví dụ điểm là số nằm trong `[0,10]`, mã không rỗng, mã sinh viên chưa tồn tại khi thêm mới. Nếu chỉ thử `0 <= score <= 10`, một chuỗi nhập từ CLI phải được đổi sang số có xử lý lỗi trước; không so chuỗi với số. Kiểm tra ràng buộc **trước** khi ghi để tránh ghi sai rồi mới phát hiện.
 
 ```python
-# Mục đích: Chặn dữ liệu sai trước khi ghi.
+# Mục đích: Kiểm loại dữ liệu và giới hạn điểm số trước khi chấp nhận.
+# Dữ liệu: Điểm ví dụ 8 phải là int/float và nằm trong đoạn [0,10].
+# Đầu vào một điểm số nguyên minh họa.
 score = 8
+# isinstance(x,(int,float)) True nếu x thuộc một trong hai kiểu số; tuple trong ngoặc là các kiểu được chấp nhận.
+# Phép so sánh chuỗi đòi score từ 0 đến 10, bao gồm hai đầu mút; and yêu cầu cả kiểm kiểu và khoảng đúng.
 print(isinstance(score, (int, float)) and 0 <= score <= 10)
 ```
 
@@ -83,8 +91,11 @@ True
 Với Dictionary `db`, `db.get('S1')` trả hồ sơ S1 nếu tồn tại, còn `db.get('S3')` trả `None` theo mặc định. Lệnh `db['S3']` sẽ ném `KeyError` khi thiếu mã. Trong CLI, việc không có hồ sơ cần được phản hồi rõ, không đánh đồng với một hồ sơ thật có điểm 0. Nếu cần thông báo thay vì `None`, truyền đối số mặc định cho `get`.
 
 ```python
-# Mục đích: Tìm bản ghi theo mã.
+# Mục đích: Tra một mã hồ sơ không tồn tại mà không gây KeyError.
+# Dữ liệu: Database chỉ có S1, nhưng cần đọc mã S3.
+# Dictionary lưu khóa S1 có điểm 8.
 db = {'S1': {'score': 8}}
+# get(key,default) trả giá trị dự phòng 'Not found' nếu không có S3, thay vì ném KeyError như db['S3'].
 print(db.get('S3', 'Not found'))
 ```
 
@@ -103,8 +114,12 @@ Mã S3 không có trong Dictionary nên in thông báo thay vì gây KeyError.
 Tổng hợp biến nhiều hồ sơ thành một con số hay báo cáo: ví dụ mean của ba điểm `[7,8,9]` bằng 8 và điểm cao nhất bằng 9. Trước khi tính cần lấy giá trị số từ trường `score`, không phải mã ID. Với danh sách rỗng, phép `sum(scores)/len(scores)` sẽ chia cho 0; chương trình phải xử lý trường hợp không có hồ sơ.
 
 ```python
-# Mục đích: Tóm tắt nhiều bản ghi.
+# Mục đích: Tạo báo cáo điểm trung bình và điểm cao nhất từ ba hồ sơ.
+# Dữ liệu: Ba điểm 7,8,9 trên thang 0–10, mỗi số là một người.
+# List điểm của ba người, không có thông tin ID.
 scores = [7, 8, 9]
+# sum() cộng tổng điểm, len() đếm số người, phép chia cho mean; cần list không rỗng để tránh chia 0.
+# max() trả điểm cao nhất, khác với tổng/mean và sẽ lỗi trên list rỗng.
 print(sum(scores) / len(scores), max(scores))
 ```
 
@@ -132,19 +147,34 @@ print(sum(scores) / len(scores), max(scores))
 3. Đếm kết quả, xác nhận điểm S03 gốc không bị thay.
 
 ```python
+# Mục đích: Xử lý 10 yêu cầu CREATE, từ chối mã S03 bị trùng mà không ghi đè hồ sơ đã có.
+# Dữ liệu: 10 yêu cầu thêm hồ sơ, ID S03 xuất hiện hai lần với điểm khác nhau; database chỉ giữ lần tạo đầu.
+# Mười dict yêu cầu có id/name/score; số yêu cầu khác số hồ sơ hợp lệ vì mã có thể trùng.
 requests = [{"id":"S01","name":"Student01","score":5},{"id":"S02","name":"Student02","score":6},{"id":"S03","name":"Student03","score":7},{"id":"S04","name":"Student04","score":8},{"id":"S05","name":"Student05","score":9},{"id":"S06","name":"Student06","score":10},{"id":"S07","name":"Student07","score":5},{"id":"S08","name":"Student08","score":6},{"id":"S09","name":"Student09","score":7},{"id":"S03","name":"Student10","score":8}]
+# Dictionary lưu hồ sơ theo ID duy nhất; tránh ghi đè yêu cầu trước.
 db = {}
+# List mã bị từ chối để xuất báo cáo.
 rejected = []
+# Duyệt từng yêu cầu thêm mới theo thứ tự xuất hiện.
 for row in requests:
+    # in kiểm ID đã là khóa trong db; nếu có thì bị trùng, không được tạo lại.
     if row["id"] in db:
+        # append() ghi mã trùng vào list từ chối.
         rejected.append(row["id"])
+        # continue bỏ phần còn lại của vòng hiện tại, bảo vệ hồ sơ gốc khỏi ghi đè.
         continue
+    # CREATE hợp lệ: ghi dictionary con name/score theo ID chưa có.
     db[row["id"]] = {"name":row["name"],"score":row["score"]}
+# Đòi đúng 10 yêu cầu nguồn; đếm cả yêu cầu bị từ chối.
 if len(requests) != 10:
+    # ValueError báo đầu vào không đúng số lượng, tránh công bố kết quả thiếu.
     raise ValueError("Cần đủ 10 yêu cầu tạo hồ sơ.")
 print("Yêu cầu:", len(requests))
+# len() đếm hồ sơ được tạo với mã duy nhất, không phải 10 yêu cầu.
 print("Đã tạo:", len(db))
+# join() ghép mã trùng trong list bằng dấu phẩy và khoảng trắng.
 print("Trùng mã:", ", ".join(rejected))
+# Tra điểm S03 sau xử lý để xác nhận điểm lần tạo đầu vẫn còn, không bị cập nhật bởi yêu cầu trùng.
 print("Điểm S03:", db["S03"]["score"])
 ```
 
@@ -173,22 +203,40 @@ Trùng mã: S03
 3. Kiểm riêng điểm 0 của S01 vẫn được trả về đúng.
 
 ```python
+# Mục đích: Đọc 12 yêu cầu GET trên cơ sở mười hồ sơ, phân biệt điểm 0 với không tìm thấy.
+# Dữ liệu: Có hồ sơ S01..S10 (S01 có score=0) và hai yêu cầu S99/S88 không tồn tại.
+# Database in-memory lưu điểm theo mã hồ sơ.
 db = {}
+# Tạo 10 mã S01..S10, cận trên 11 không được lấy.
 for i in range(1, 11):
+    # f-string :02d định dạng mã hồ sơ có hai chữ số.
+    # S01 có score=0, giá trị 0 vẫn là dữ liệu hợp lệ chứ không phải chưa tìm thấy.
     db[f"S{i:02d}"] = {"score": i - 1}
+# List 12 mã cần tra; gồm hai mã không tồn tại.
 requests = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S99","S88"]
+# Hai list phân biệt mã tìm được và mã không có.
 found, missing = [], []
+# Duyệt từng yêu cầu tra cứu.
 for sid in requests:
+    # get() trả dict hồ sơ nếu có, hoặc None khi không có khóa; không phát sinh KeyError.
     record = db.get(sid)
+    # is None kiểm ĐÚNG dấu hiệu không tìm thấy, không kiểm `if not record` hay `if not score` vì điểm 0 hợp lệ.
     if record is None:
+        # Ghi mã không tồn tại để thông báo.
         missing.append(sid)
     else:
+        # Ghi mã tìm được mà không sửa hồ sơ.
         found.append(sid)
+# Kiểm có đủ 12 lượt GET.
 if len(requests) != 12:
+    # Dừng nếu số yêu cầu nguồn sai.
     raise ValueError("Cần đủ 12 yêu cầu tra cứu.")
 print("Lượt tra cứu:", len(requests))
+# Đếm các yêu cầu tra tìm được.
 print("Tìm thấy:", len(found))
+# Nối các mã không tìm thấy thành dòng thông báo.
 print("Không thấy:", ", ".join(missing))
+# So điểm thực lưu với số 0 để xác nhận GET không nhầm điểm 0 thành missing.
 print("S01 có điểm 0:", db["S01"]["score"] == 0)
 ```
 
@@ -217,32 +265,59 @@ Không tìm thấy mã là **vấn đề khóa**, khác với việc tìm thấy
 3. Đếm cập nhật/thất bại, đối chiếu số hồ sơ và điểm mới S03.
 
 ```python
+# Mục đích: Xử lý 15 yêu cầu UPDATE, loại mã lạ, chuỗi không đổi được sang số, NaN và điểm ngoài 0–10.
+# Dữ liệu: Có 10 hồ sơ S01..S10; 15 yêu cầu cập nhật điểm dạng chuỗi có các trường hợp -1,11,bad,nan,S99.
+# Thư viện chuẩn math cho isfinite() để loại NaN và số vô cực.
 import math
+# Lưu mười hồ sơ đã tồn tại trước khi UPDATE.
 db = {}
+# Tạo 10 mã duy nhất S01..S10.
 for i in range(1, 11):
+    # Mã có hai chữ số bằng f-string :02d.
     db[f"S{i:02d}"] = {"score": 5.0}
+# 15 cặp (ID, chuỗi điểm), gồm cả yêu cầu hợp lệ và không hợp lệ.
 updates = [["S01","6.5"],["S02","7.5"],["S03","8.5"],["S04","9.5"],["S05","6.5"],["S06","6.5"],["S07","7.5"],["S08","8.5"],["S09","9.5"],["S10","6.5"],["S03","-1"],["S02","11"],["S04","bad"],["S05","nan"],["S99","7.5"]]
+# Hai bộ đếm phân biệt cập nhật thành công và từ chối.
 accepted, rejected = 0, 0
+# Unpack một yêu cầu thành ID và chuỗi điểm thô.
 for sid, raw_score in updates:
+    # Không có hồ sơ đích thì không được tạo mới bằng UPDATE.
     if sid not in db:
+        # Tăng số yêu cầu thất bại, kể cả sai mã hoặc giá trị.
         rejected += 1
+        # Bỏ qua yêu cầu hiện tại sau khi bị từ chối, không chỉnh DB.
         continue
+    # Thử chuyển chuỗi thành số; cú pháp try/except chỉ bắt lỗi mà nhánh except khai báo.
     try:
+        # Chuyển chuỗi như '6.5' sang float; 'bad' ném ValueError nhưng 'nan' tạo NaN hợp lệ về cú pháp.
         score = float(raw_score)
+    # Bắt lỗi chuyển chuỗi không hợp lệ để từ chối thay vì dừng toàn chương trình.
     except ValueError:
+        # Tăng số yêu cầu thất bại, kể cả sai mã hoặc giá trị.
         rejected += 1
+        # Bỏ qua yêu cầu hiện tại sau khi bị từ chối, không chỉnh DB.
         continue
+    # isfinite() kiểm số hữu hạn, loại NaN/+inf/-inf vốn có thể vượt qua bước float().
+    # Giới hạn điểm trong khoảng đóng [0,10]; and/ not kết hợp cả kiểm hữu hạn và khoảng.
     if not math.isfinite(score) or not (0 <= score <= 10):
+        # Tăng số yêu cầu thất bại, kể cả sai mã hoặc giá trị.
         rejected += 1
+        # Bỏ qua yêu cầu hiện tại sau khi bị từ chối, không chỉnh DB.
         continue
+    # UPDATE đúng mã/điểm: chỉ sửa trường score của hồ sơ hiện có.
     db[sid]["score"] = score
+    # Tăng số lần cập nhật thành công, không phải số người khác nhau.
     accepted += 1
+# Kiểm đủ 15 yêu cầu, không bỏ những yêu cầu bị từ chối.
 if len(updates) != 15:
+    # Dừng khi dữ liệu số yêu cầu không đúng.
     raise ValueError("Cần đủ 15 yêu cầu cập nhật.")
 print("Yêu cầu:", len(updates))
 print("Cập nhật:", accepted)
 print("Từ chối:", rejected)
+# Số hồ sơ sau UPDATE vẫn là 10, vì UPDATE không tạo/xóa hồ sơ.
 print("Hồ sơ còn:", len(db))
+# Tra S03 sau các yêu cầu để kiểm trạng thái điểm cuối đã được cập nhật hợp lệ.
 print("Điểm S03:", db["S03"]["score"])
 ```
 
@@ -272,22 +347,38 @@ NaN phải bị chặn **trước khi ghi**; nếu để NaN trong dữ liệu, 
 3. Báo số lệnh lỗi/không thay đổi và số hồ sơ còn lại.
 
 ```python
+# Mục đích: Xử lý 18 yêu cầu DELETE có mã trùng và mã lạ, bảo đảm xóa một lần mỗi hồ sơ.
+# Dữ liệu: Bắt đầu 10 hồ sơ S01..S10; 18 lượt DELETE gồm mã lặp lại, S99/S98/S97/S100 không tồn tại.
+# Database in-memory ban đầu rỗng.
 db = {}
+# Tạo 10 mã có số thứ tự 1..10.
 for i in range(1, 11):
+    # f-string :02d thêm số 0 ở đầu mã S01..S10.
+    # Điểm ban đầu của một hồ sơ để có dữ liệu kiểm xóa.
     db[f"S{i:02d}"] = {"score": i}
+# 18 lệnh xóa, gồm cả mã trùng và mã không tồn tại.
 requests = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S01","S02","S03","S99","S98","S97","S05","S100"]
+# Hai bộ đếm lệnh xóa thật và lệnh không tìm thấy hồ sơ.
 deleted, missing = 0, 0
+# Lần lượt xử lý từng yêu cầu, trạng thái db thay đổi sau mỗi xóa.
 for sid in requests:
+    # pop(key,default) vừa lấy VỪA XÓA hồ sơ nếu tồn tại; nếu thiếu khóa trả None thay vì KeyError.
     value = db.pop(sid, None)
+    # Chỉ khi pop trả None mới tính lệnh không tìm thấy; xóa cùng ID lần hai không xóa thêm.
     if value is None:
+        # Đếm yêu cầu xóa vào ID không còn tồn tại.
         missing += 1
     else:
+        # Đếm số hồ sơ thực sự xóa, không phải tổng yêu cầu.
         deleted += 1
+# Xác minh đủ 18 lệnh nguồn.
 if len(requests) != 18:
+    # Dừng nếu thiếu lệnh.
     raise ValueError("Cần đủ 18 yêu cầu xóa.")
 print("Lệnh xóa:", len(requests))
 print("Xóa thật:", deleted)
 print("Mã không còn:", missing)
+# Đếm hồ sơ còn lại trong database sau xóa.
 print("Hồ sơ còn:", len(db))
 ```
 
@@ -316,51 +407,96 @@ Xóa không tìm thấy được ghi nhận rõ trong **audit**; không được
 3. Đếm CREATE/UPDATE/DELETE/thất bại; tính số hồ sơ và mean cuối, xác nhận báo cáo không ghi dữ liệu.
 
 ```python
+# Mục đích: Mô phỏng CLI CRUD với 20 lệnh ADD/UPDATE/GET/DELETE/REPORT, kiểm dữ liệu và thống kê audit.
+# Dữ liệu: 20 chuỗi lệnh nhập sẵn; database là dictionary tạm, có lệnh trùng mã, điểm bad/11 và xóa hai lần.
+# math.isfinite() xác nhận điểm số thật sự là số hữu hạn.
 import math
+# shlex.split() phân tích chuỗi lệnh theo cú pháp dấu nháy/khoảng trắng giống shell, KHÔNG thực thi shell.
 import shlex
+# 20 dòng lệnh mô phỏng đầu vào người dùng, không mở terminal tương tác thật.
 commands = ["ADD S01 7","ADD S02 8","ADD S03 9","ADD S04 6","ADD S05 5","ADD S06 10","ADD S07 7","ADD S08 8","ADD S09 9","ADD S10 6","ADD S01 9","UPDATE S03 9.5","UPDATE S05 bad","GET S03","GET S99","DELETE S02","DELETE S02","ADD S11 11","UPDATE S08 8.5","REPORT"]
+# Dictionary lưu ID→điểm trong RAM, không có SQL hoặc file.
 db = {}
+# Dictionary bộ đếm kết quả từng loại lệnh thành công và REJECT; tổng đếm phải bằng 20.
 audit = {"ADD":0,"UPDATE":0,"DELETE":0,"GET":0,"REPORT":0,"REJECT":0}
+# Hàm nhận chuỗi điểm và trả float hợp lệ hoặc None để gọi xử lý từ chối.
+# Kiểm kiểu, tính hữu hạn và phạm vi điểm trước khi ghi.
 def parse_score(raw):
+    # Bắt đầu đoạn có thể lỗi khi ép chuỗi sang số.
     try:
+        # float() chuyển chuỗi điểm, có thể sinh ValueError nếu 'bad'; 'nan' sẽ chuyển được nên cần isfinite().
         value = float(raw)
+    # Bắt lỗi chuỗi không thể chuyển thành số.
     except ValueError:
+        # None là dấu hiệu không hợp lệ; điểm 0 vẫn hợp lệ nên không dùng if not score.
         return None
+    # isfinite() loại NaN, +inf/-inf; đồng thời yêu cầu điểm trong [0,10].
+    # Chặn mọi điểm âm hoặc >10.
     if math.isfinite(value) and 0 <= value <= 10:
+        # Trả float hợp lệ cho thao tác ADD/UPDATE.
         return value
+    # None là dấu hiệu không hợp lệ; điểm 0 vẫn hợp lệ nên không dùng if not score.
     return None
+# Duyệt từng lệnh đúng thứ tự, vì UPDATE/DELETE phụ thuộc trạng thái trước đó.
 for command in commands:
+    # Tách command thành list token, xử lý khoảng trắng và chuỗi có dấu nháy, không thực thi nội dung.
     parts = shlex.split(command)
+    # [0] lấy động từ lệnh; với lệnh rỗng sẽ IndexError, nhưng dữ liệu mẫu không có lệnh rỗng.
     verb = parts[0]
+    # Mặc định lệnh bị từ chối cho tới khi một nhánh thỏa điều kiện.
     ok = False
+    # Lệnh ADD cần đúng ba token (ADD ID điểm), tránh thiếu/dư tham số.
     if verb == "ADD" and len(parts) == 3:
+        # Slice [1:] bỏ động từ, lấy hai tham số mã và điểm.
         sid, raw = parts[1:]
+        # Kiểm kiểu, tính hữu hạn và phạm vi điểm trước khi ghi.
         score = parse_score(raw)
+        # CREATE chỉ khi ID chưa có và điểm hợp lệ; phân biệt None với score=0.
         if sid not in db and score is not None:
+            # Lưu điểm theo ID khi ADD/UPDATE hợp lệ; thao tác UPDATE kiểm tồn tại trước.
             db[sid] = score
             ok = True
+    # UPDATE cần đúng ba token, không tự tạo hồ sơ mới.
     elif verb == "UPDATE" and len(parts) == 3:
+        # Slice [1:] bỏ động từ, lấy hai tham số mã và điểm.
         sid, raw = parts[1:]
+        # Kiểm kiểu, tính hữu hạn và phạm vi điểm trước khi ghi.
         score = parse_score(raw)
+        # UPDATE chỉ cho phép sửa ID đã tồn tại với điểm được validate.
         if sid in db and score is not None:
+            # Lưu điểm theo ID khi ADD/UPDATE hợp lệ; thao tác UPDATE kiểm tồn tại trước.
             db[sid] = score
             ok = True
+    # GET chỉ nhận một tham số ID; trạng thái thành công khi ID có trong db.
     elif verb == "GET" and len(parts) == 2:
+        # Tra ID trong dict không thay đổi hồ sơ.
         ok = parts[1] in db
+    # DELETE chỉ nhận ID, không cần điểm.
     elif verb == "DELETE" and len(parts) == 2:
+        # pop() xóa và trả giá trị hoặc None; xóa lần hai bị REJECT, không tạo KeyError.
         ok = db.pop(parts[1], None) is not None
+    # REPORT không có tham số, chỉ hợp lệ nếu db có ít nhất một hồ sơ.
     elif verb == "REPORT" and len(parts) == 1:
+        # bool(dictionary) là True khi database không rỗng.
         ok = bool(db)
+    # Lệnh hợp lệ đóng góp đúng một bộ đếm theo verb.
     if ok:
+        # Tăng đếm loại lệnh thành công; các verb hợp lệ đều có key trong audit.
         audit[verb] += 1
     else:
+        # Mọi lệnh thất bại đi vào bộ đếm chung REJECT.
         audit["REJECT"] += 1
+# Kiểm đủ 20 dòng lệnh.
+# values() lấy số đếm từng loại; sum() phải bằng tổng lệnh để không bỏ/trùng thống kê.
 if len(commands) != 20 or sum(audit.values()) != 20:
+    # Dừng khi số yêu cầu và tổng audit không khớp.
     raise ValueError("Cần đối chiếu đủ 20 lệnh CLI được xử lý.")
 print("Lệnh:", len(commands))
 print("Thêm/sửa/xóa:", audit["ADD"], audit["UPDATE"], audit["DELETE"])
 print("Lệnh từ chối:", audit["REJECT"])
 print("Hồ sơ cuối:", len(db))
+# values() lấy điểm hồ sơ còn; sum()/len() tính điểm trung bình, cần db không rỗng (kịch bản bảo đảm).
+# f-string :.2f chỉ định hiển thị điểm trung bình với hai chữ số sau dấu thập phân.
 print(f"Điểm TB cuối: {sum(db.values())/len(db):.2f}")
 ```
 
