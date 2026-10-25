@@ -31,7 +31,9 @@
       "ci_run_id": 40201266169,
       "ci_conclusion": "SUCCESS",
       "paired_code_fence_count": 45,
-      "windows_validation": "UNVERIFIED"
+      "windows_validation": "UNVERIFIED",
+      "original_markdown_reconstruction_verified": true,
+      "annotated_python_fences_unmodified": true
     },
     {
       "batch": 2,
@@ -140,7 +142,7 @@
     "no_parallel_batches": true
   },
   "validation_status": {
-    "github_final_head_ci": "NOT_STARTED",
+    "github_final_head_ci": "SUCCESS",
     "windows_worker": "UNVERIFIED"
   },
   "notes": "The number of executable fences varies by lesson: PY-43 has five Python fences plus Git/Bash examples. Count from authoritative repository per batch, do not assume nine per chapter. Move only the completed batch to COMPLETED after merged PR and final-head CI; rearm goal review for the next batch only."
