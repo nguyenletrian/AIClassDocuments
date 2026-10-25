@@ -127,7 +127,7 @@ Chương trình lấy vị trí 0 và 2 mà không phải lấy cả đoạn 0�
 
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Tra điểm một học viên
+### Tình huống 1 — Tra điểm một học viên · Cấp 1: Nhận biết
 
 **Từ vựng trong mục:** **Index** — chỉ số; **Shape** — kích thước.
 
@@ -157,7 +157,23 @@ print(scores[1, 0])
 
 Học viên Bình có điểm Toán 6 trên thang 10.
 
-### Tình huống 2 — Lọc học viên có điểm cao
+**Bài thực hành nâng cấp — cấp 1/5:** Trung tâm thu **10 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy dùng chỉ số đọc học viên đầu tiên. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,11)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = array[0].tolist()
+assert array.shape==(10,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 10 và hai cột; phép toán dùng chỉ số đọc học viên đầu tiên phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
+
+### Tình huống 2 — Lọc học viên có điểm cao · Cấp 2: Áp dụng trọn bảng
 
 **Từ vựng trong mục:** **Boolean mask** — mặt nạ Boolean; **Threshold** — ngưỡng.
 
@@ -188,7 +204,23 @@ print(scores[scores[:, 0] >= 8])
 
 An và Lan có điểm Toán từ 8 trở lên; Bình không đạt.
 
-### Tình huống 3 — Chọn hai môn không liền nhau
+**Bài thực hành nâng cấp — cấp 2/5:** Trung tâm thu **12 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy lọc bằng boolean mask những học viên điểm cao. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,13)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = array[array[:,0]>=70].shape
+assert array.shape==(12,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 12 và hai cột; phép toán lọc bằng boolean mask những học viên điểm cao phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
+
+### Tình huống 3 — Chọn hai môn không liền nhau · Cấp 3: Kết hợp phép toán
 
 **Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao; **Column** — cột.
 
@@ -219,7 +251,23 @@ print(scores[:, [0, 2]])
 
 Bảng còn lại hai môn Toán và Python, giữ nguyên hai hàng học viên.
 
-### Tình huống 4 — Lấy ba khách hàng đầu
+**Bài thực hành nâng cấp — cấp 3/5:** Trung tâm thu **15 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy dùng fancy indexing chọn nhiều hàng không liền nhau. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,16)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = array[[0,2,5,9]].tolist()
+assert array.shape==(15,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 15 và hai cột; phép toán dùng fancy indexing chọn nhiều hàng không liền nhau phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
+
+### Tình huống 4 — Lấy ba khách hàng đầu · Cấp 4: Xử lý dữ liệu không đầy đủ
 
 **Từ vựng trong mục:** **Slice** — lát cắt; **Array** — mảng.
 
@@ -249,7 +297,23 @@ print(spending[:3])
 
 Ba khoản đầu là 100, 200 và 50 nghìn đồng.
 
-### Tình huống 5 — Thay mã số đo lỗi trên bản sao
+**Bài thực hành nâng cấp — cấp 4/5:** Trung tâm thu **18 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy lấy bản sao và thay giá trị NaN mà không sửa bảng đầu. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,19)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = np.where(np.isnan(array),np.nanmean(array,axis=0),array)[:3].round(2).tolist()
+assert array.shape==(18,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 18 và hai cột; phép toán lấy bản sao và thay giá trị nan mà không sửa bảng đầu phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
+
+### Tình huống 5 — Thay mã số đo lỗi trên bản sao · Cấp 5: Báo cáo có kiểm chứng
 
 **Từ vựng trong mục:** **Boolean mask** — mặt nạ Boolean; **Copy** — bản sao.
 
@@ -280,6 +344,22 @@ print(values, clean)
 ```
 
 Bản gốc giữ `-1`; bản sao đổi mã lỗi thành 0. Trong dữ liệu thực tế cần đánh dấu thiếu thay vì coi 0 °C là số đo hợp lệ.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Trung tâm thu **20 hồ sơ điểm**, mỗi hàng là một học viên, hai cột lần lượt là Toán và Python (thang 100). Hãy kết hợp boolean mask, fancy indexing và đối chiếu shape. Các tình huống sau mở rộng từ 10 đến 20 hàng; `NaN` ở cấp 4–5 là dữ liệu chưa có, không phải điểm 0.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 = Toán, cột 1 = Python (điểm/100).
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39, 85, np.nan]
+python_scores = [min(100, (i*7)%80+20) for i in range(1,21)]
+array = np.column_stack((math_scores,python_scores)).astype(float)
+result = {'eligible':array[np.isfinite(array[:,0])&(array[:,0]>=70)].shape[0],'selected':array[[0,3,6,9]].tolist(),'missing':int(np.isnan(array).sum())}
+assert array.shape==(20,2)
+print("Số học viên:",array.shape[0])
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 20 và hai cột; phép toán kết hợp boolean mask, fancy indexing và đối chiếu shape phải giữ đúng ý nghĩa của axis và không sửa dữ liệu gốc ngoài ý muốn.
 
 ## 6. Sai lầm thường gặp
 
