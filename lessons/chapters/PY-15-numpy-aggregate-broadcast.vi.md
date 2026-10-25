@@ -128,7 +128,7 @@ Ba số là tín hiệu sau khi áp dụng hệ số riêng cho từng kênh; Nu
 
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Tổng doanh thu từng cửa hàng
+### Tình huống 1 — Tổng doanh thu từng cửa hàng · Cấp 1: Bố trí dữ liệu
 
 **Từ vựng trong mục:** **Aggregation** — tổng hợp; **Axis** — trục tính.
 
@@ -158,7 +158,24 @@ print(sales.sum(axis=1))
 
 Doanh thu ba ngày của A là 60 triệu, B là 36 triệu đồng.
 
-### Tình huống 2 — Trung bình theo từng môn
+**Bài thực hành nâng cấp — cấp 1/5:** Nhà trường có **10 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy tính tổng một cột điểm. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+python_scores = [20 + (i*7)%75 for i in range(1,11)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+result = float(arr[:,0].sum())
+assert arr.shape==(10,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 10×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
+
+### Tình huống 2 — Trung bình theo từng môn · Cấp 2: Thao tác toàn ma trận
 
 **Từ vựng trong mục:** **Mean** — trung bình; **Axis** — trục.
 
@@ -188,7 +205,24 @@ print(scores.mean(axis=0))
 
 Điểm trung bình Toán ≈ 7,67; Python là 8,0.
 
-### Tình huống 3 — Cộng điểm chuyên cần có giới hạn
+**Bài thực hành nâng cấp — cấp 2/5:** Nhà trường có **12 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy tính mean theo hai cột. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+python_scores = [20 + (i*7)%75 for i in range(1,13)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+result = arr.mean(axis=0).round(2).tolist()
+assert arr.shape==(12,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 12×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
+
+### Tình huống 3 — Cộng điểm chuyên cần có giới hạn · Cấp 3: Phối hợp phép toán
 
 **Từ vựng trong mục:** **Broadcasting** — quảng bá; **Clip** — giới hạn giá trị.
 
@@ -219,7 +253,24 @@ print(np.minimum(scores + 1, 10))
 
 Mỗi ô tăng một điểm; điểm 9 chỉ lên 10, không vượt giới hạn.
 
-### Tình huống 4 — Hiệu chỉnh ba kênh cảm biến
+**Bài thực hành nâng cấp — cấp 3/5:** Nhà trường có **15 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy cộng điểm thưởng khác nhau theo cột bằng broadcasting. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+python_scores = [20 + (i*7)%75 for i in range(1,16)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+result = np.minimum(arr+np.array([2,3]),100)[:3].tolist()
+assert arr.shape==(15,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 15×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
+
+### Tình huống 4 — Hiệu chỉnh ba kênh cảm biến · Cấp 4: Kiểm tra shape và dữ liệu thiếu
 
 **Từ vựng trong mục:** **Vectorization** — vector hóa; **Element-wise** — theo phần tử.
 
@@ -250,7 +301,24 @@ print(signals * factors)
 
 Tín hiệu lần lượt là 10, 10 và 60 theo đơn vị của từng kênh.
 
-### Tình huống 5 — Tìm giá trị cao nhất theo cột
+**Bài thực hành nâng cấp — cấp 4/5:** Nhà trường có **18 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy bỏ điểm thiếu khi lấy trung bình, không biến NaN thành 0. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39]
+python_scores = [20 + (i*7)%75 for i in range(1,19)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+result = np.nanmean(arr,axis=0).round(2).tolist()
+assert arr.shape==(18,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 18×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
+
+### Tình huống 5 — Tìm giá trị cao nhất theo cột · Cấp 5: Lưu/đọc và xác minh
 
 **Từ vựng trong mục:** **Aggregation** — tổng hợp; **Max** — cực đại.
 
@@ -279,6 +347,23 @@ print(values.max(axis=0))
 ```
 
 Kênh thứ nhất có giá trị tối đa 5, kênh thứ hai tối đa 6.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhà trường có **20 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy cộng thưởng với clipping 100, đối chiếu mean từng cột. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39, 85, np.nan]
+python_scores = [20 + (i*7)%75 for i in range(1,21)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+result = {'before':np.nanmean(arr,axis=0).round(2).tolist(),'after':np.nanmean(np.minimum(arr+np.array([2,3]),100),axis=0).round(2).tolist(),'missing':int(np.isnan(arr).sum())}
+assert arr.shape==(20,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 20×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
 
 ## 6. Sai lầm thường gặp
 
