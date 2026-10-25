@@ -132,154 +132,196 @@ print(orders['amount'].sum())
 
 Tổng số tiền hai đơn là 300 đồng. `read_csv` đọc bảng từ văn bản chứ không cần nhập lại thủ công từng dòng.
 
-## 5. Năm tình huống thực tế
+## 5. Năm tình huống Pandas — từ Series đến bảng có nhãn để phân tích
 
-### Tình huống 1 — Tạo bảng giá sản phẩm
+### Tình huống 1 — Cấp 1: Series có nhãn của 10 học viên
 
-**Từ vựng trong mục:** **Series** — chuỗi Pandas.
+**Từ vựng trong mục:** **Series** — dãy có nhãn; **Index** — nhãn hàng; **loc** — tra theo nhãn.
 
-**Tình huống thực tế:** Cửa hàng quản lý hai mặt hàng: Pen giá 10.000 đồng, số lượng 2; Book giá 35.000 đồng, số lượng 1. Tạo và in bảng có cột Product, Price, Qty.
+**Tình huống thực tế:** Trung tâm có **10 học viên** H01…H10, mỗi dòng là tuổi (năm) của một học viên. Giáo vụ cần đọc tuổi H07 theo mã, không phụ thuộc thứ tự dòng hiển thị, rồi tính tuổi trung bình.
 
-**Vì sao chọn cách giải này?** DataFrame đặt tên các cột, mỗi hàng là một sản phẩm.
+**Vì sao chọn cách này?** `pd.Series(values,index=ids)` gắn mã học viên cho từng số, `loc` tra theo nhãn thay vì vị trí list. Điều này quan trọng khi bảng được sắp lại.
 
-**Quy trình giải:**
-
-1. Tạo mỗi hàng là một sản phẩm với cột `Product`, `Price`, `Qty`.
-2. Giữ đơn giá theo đồng và số lượng theo cái.
-3. In DataFrame, kiểm tra Pen và Book nằm ở hai hàng.
+**Quy trình:**
+1. Tạo 10 mã đúng thứ tự tuổi đã ghi.
+2. Tạo Series gắn index và đọc H07 bằng `.loc`.
+3. Kiểm tra số bản ghi và in trung bình một chữ số thập phân.
 
 ```python
-# Mục đích: Tạo bảng giá sản phẩm.
 import pandas as pd
-df = pd.DataFrame({"Product":["Pen", "Book"], "Price":[10000, 35000], "Qty":[2, 1]})
-print(df)
+ages = [18,19,20,21,19,22,23,20,21,24]
+ids = [f"H{i:02d}" for i in range(1, 11)]
+series = pd.Series(ages, index=ids)
+assert len(series) == 10
+print("Học viên:", len(series))
+print("Tuổi H07:", int(series.loc["H07"]))
+print(f"Tuổi TB: {series.mean():.1f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-  Product  Price  Qty
-0     Pen  10000    2
-1    Book  35000    1
+Học viên: 10
+Tuổi H07: 23
+Tuổi TB: 20.7
 ```
 
-### Tình huống 2 — Đọc đơn từ CSV văn bản
+Nhãn H07 là mã học viên, không phải vị trí 7. Tuổi trung bình là thống kê của 10 người, không dùng để suy ra độ tuổi của một người cụ thể.
 
-**Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
+### Tình huống 2 — Cấp 2: DataFrame của 12 dòng giỏ hàng với các cột có đơn vị
 
-**Tình huống thực tế:** Ứng dụng nhận CSV có hai đơn O1 trị giá 10.000 và O2 trị giá 30.000 đồng. Đọc và in bảng hai đơn hàng.
+**Từ vựng trong mục:** **DataFrame** — bảng dữ liệu; **Column** — cột; **Calculated field** — cột tính.
 
-**Vì sao chọn cách giải này?** `read_csv` chuyển CSV thành DataFrame; `head()` xem những hàng đầu.
+**Tình huống thực tế:** Quầy sách nhập **12 mặt hàng** P01…P12, mỗi hàng gồm giá (nghìn đồng/món) và số lượng (món). Cần tạo bảng với ba cột gốc, thêm cột thành tiền theo dòng và in tổng toàn giỏ; không nhầm tổng đơn giá với số tiền phải trả.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** DataFrame giữ từng thuộc tính trong cột có tên rõ ràng; phép nhân `df['price'] * df['qty']` chạy đúng trên từng dòng, tạo cột thành tiền trước khi cộng.
 
-1. Lưu CSV có tiêu đề `id,amount` và hai đơn O1, O2.
-2. Đưa văn bản vào `StringIO`, đọc bằng `pd.read_csv`.
-3. In `head()` để kiểm tra cột mã đơn và số tiền.
+**Quy trình:**
+1. Ghép ba danh sách mã hàng, giá, số lượng đồng hàng.
+2. Tạo DataFrame và thêm `amount`.
+3. Đếm bản ghi, kiểm tra thành tiền mặt hàng đầu và tổng toàn giỏ.
 
 ```python
-# Mục đích: Đọc đơn từ CSV văn bản.
 import pandas as pd
-import io
-csv_text = "id,amount\nO1,10000\nO2,30000\n"
-df = pd.read_csv(io.StringIO(csv_text))
-print(df.head())
+prices = [10,15,20,12,30,18,14,25,11,17,35,22]
+quantities = [2,1,4,3,2,5,1,2,4,2,1,3]
+df = pd.DataFrame({"sku": [f"P{i:02d}" for i in range(1, 13)],
+                   "price_thousand": prices, "quantity": quantities})
+df["amount_thousand"] = df["price_thousand"] * df["quantity"]
+assert df.shape == (12, 4)
+print("Mặt hàng:", len(df))
+print("P01 thành tiền:", int(df.loc[0, "amount_thousand"]))
+print("Tổng (nghìn đồng):", int(df["amount_thousand"].sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-   id  amount
-0  O1   10000
-1  O2   30000
+Mặt hàng: 12
+P01 thành tiền: 20
+Tổng (nghìn đồng): 544
 ```
 
-### Tình huống 3 — Tạo doanh thu mỗi dòng
+Một hàng tương ứng một mặt hàng của giỏ; đơn giá tính theo nghìn đồng, số lượng theo món, thành tiền theo nghìn đồng.
 
-**Từ vựng trong mục:** **Column** — cột.
+### Tình huống 3 — Cấp 3: Đọc 15 đơn CSV và đối chiếu schema
 
-**Tình huống thực tế:** Hai sản phẩm có đơn giá `[10,20]` và số lượng `[2,3]` theo cùng đơn vị tiền. Thêm cột doanh thu mỗi dòng bằng giá nhân số lượng.
+**Từ vựng trong mục:** **read_csv** — đọc CSV; **Schema** — cấu trúc dữ liệu; **dtype** — kiểu cột.
 
-**Vì sao chọn cách giải này?** Pandas nhân từng hàng của hai cột Price và Qty.
+**Tình huống thực tế:** Cửa hàng xuất **15 đơn** từ CSV giả lập; mỗi dòng gồm mã đơn, kênh bán `web/store/phone` và doanh số (đồng/đơn). Người quản lý cần kiểm tra số dòng, tên cột và tổng doanh số, tránh coi `order_id` là số khiến số 0 đầu mã bị mất.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `pd.read_csv(StringIO(...), dtype={'id': 'string'})` giữ mã định danh như chuỗi, còn cột doanh số được đọc thành số cho tính tổng; dùng bộ đệm văn bản để chạy ngay không cần file bên ngoài.
 
-1. Tạo bảng hai hàng với cột `Price` và `Qty` cùng thứ tự sản phẩm.
-2. Nhân hai cột để thêm `Revenue` theo từng hàng.
-3. In bảng, kiểm tra doanh thu 20 và 60 theo đơn vị tiền đã chọn.
+**Quy trình:**
+1. Tạo CSV với một dòng tiêu đề và 15 đơn hàng.
+2. Đọc qua pandas, chỉ định kiểu chuỗi cho mã đơn.
+3. Kiểm tra schema, tổng đơn và số đơn từ kênh web.
 
 ```python
-# Mục đích: Tạo doanh thu mỗi dòng.
 import pandas as pd
-df = pd.DataFrame({"Price":[10, 20], "Qty":[2, 3]})
-df["Revenue"] = df.Price*df.Qty
-print(df)
+from io import StringIO
+csv_text = "id,channel,amount_vnd\n" + "\n".join(
+    f"{row['id']},{row['channel']},{row['amount']}" for row in [{"id":"O01","channel":"web","amount":10000},{"id":"O02","channel":"store","amount":15000},{"id":"O03","channel":"phone","amount":20000},{"id":"O04","channel":"web","amount":25000},{"id":"O05","channel":"store","amount":30000},{"id":"O06","channel":"phone","amount":10000},{"id":"O07","channel":"web","amount":15000},{"id":"O08","channel":"store","amount":20000},{"id":"O09","channel":"phone","amount":25000},{"id":"O10","channel":"web","amount":30000},{"id":"O11","channel":"store","amount":10000},{"id":"O12","channel":"phone","amount":15000},{"id":"O13","channel":"web","amount":20000},{"id":"O14","channel":"store","amount":25000},{"id":"O15","channel":"phone","amount":30000}])
+df = pd.read_csv(StringIO(csv_text), dtype={"id": "string"})
+assert len(df) == 15
+print("Đơn:", len(df))
+print("Cột:", ", ".join(df.columns))
+print("Kênh web:", int((df["channel"] == "web").sum()))
+print("Tổng (đồng):", int(df["amount_vnd"].sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-   Price  Qty  Revenue
-0     10    2       20
-1     20    3       60
+Đơn: 15
+Cột: id, channel, amount_vnd
+Kênh web: 5
+Tổng (đồng): 300000
 ```
 
-### Tình huống 4 — Xem kiểu dữ liệu đầu vào
+Mã `O01` được giữ nguyên ký tự; phần cộng chỉ áp dụng cho doanh số (đồng), không áp dụng cho mã khách hay tên kênh.
 
-**Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
+### Tình huống 4 — Cấp 4: Kiểm tra 18 hồ sơ đầu vào bằng info và to_numeric
 
-**Tình huống thực tế:** Bảng có tên A, B và số lượng 2, 3 sản phẩm. In kiểu dữ liệu của hai cột để kiểm tra.
+**Từ vựng trong mục:** **info** — mô tả cột; **to_numeric** — đổi sang số; **Missing value** — giá trị thiếu.
 
-**Vì sao chọn cách giải này?** `dtypes` cho biết cột chữ và cột số đang được lưu dưới kiểu nào.
+**Tình huống thực tế:** Biểu mẫu đăng ký có **18 hồ sơ**, mỗi hàng gồm tuổi (năm) và mức chi (đồng). Hai mức chi chưa được ghi đúng (`''` và `N/A`), nhưng tuổi của hai người vẫn hợp lệ. Cần kiểm tra cột, chuyển mức chi sang số có kiểm soát, báo số ô thiếu và tổng mức chi **chỉ trên 16 dòng có số**.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Pandas có thể lưu giá đầu vào là chuỗi; `pd.to_numeric(errors='coerce')` biến chuỗi sai thành NaN để đếm riêng, thay vì gây lỗi hoặc đưa vào tổng như 0. `dtypes` xác nhận sau chuyển đổi cột có dạng số.
 
-1. Tạo cột `name` gồm chữ và `qty` gồm số nguyên.
-2. Truy cập `df.dtypes` để kiểm tra kiểu của từng cột.
-3. Đối chiếu `name` dạng chuỗi và `qty` dạng số nguyên.
+**Quy trình:**
+1. Tạo bảng 18 dòng từ danh sách tuổi và mức chi dạng chữ.
+2. Đổi kiểu cột mức chi có kiểm soát; kiểm tra kiểu dữ liệu.
+3. Đếm số thiếu và tổng hợp những số hợp lệ.
 
 ```python
-# Mục đích: Xem kiểu dữ liệu đầu vào.
 import pandas as pd
-df = pd.DataFrame({"name":["A", "B"], "qty":[2, 3]})
-print(df.dtypes)
+ages = [21,22,20,19,25,23,24,20,21,26,22,23,24,19,20,21,25,22]
+raw_spent = ["100000","110000","120000","130000","140000","","160000","170000","180000","190000","200000","210000","220000","N/A","240000","250000","260000","270000"]
+df = pd.DataFrame({"age_years": ages, "spent_vnd": raw_spent})
+df["spent_vnd"] = pd.to_numeric(df["spent_vnd"], errors="coerce")
+assert len(df) == 18
+print("Hồ sơ:", len(df))
+print("Tuổi là số:", bool(pd.api.types.is_numeric_dtype(df["age_years"])))
+print("Mức chi là số:", bool(pd.api.types.is_numeric_dtype(df["spent_vnd"])))
+print("Mức chi thiếu:", int(df["spent_vnd"].isna().sum()))
+print("Tổng hợp lệ (đồng):", int(df["spent_vnd"].sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-name    object
-qty      int64
-dtype: object
+Hồ sơ: 18
+Tuổi là số: True
+Mức chi là số: True
+Mức chi thiếu: 2
+Tổng hợp lệ (đồng): 2950000
 ```
 
-### Tình huống 5 — Chọn dữ liệu tập huấn luyện
+Pandas tự bỏ NaN khi tính `sum`, nhưng báo cáo vẫn phải hiển thị rõ **hai hồ sơ chưa đủ dữ liệu**. Tổng này là tổng mức chi của mẫu, không phải số tiền có được từ một khách.
 
-**Từ vựng trong mục:** **Series** — chuỗi Pandas.
+### Tình huống 5 — Cấp 5: Tạo bảng đặc trưng 20 học viên có nhãn kết quả
 
-**Tình huống thực tế:** Bảng hai khách có `visits` là 2, 5; `spent` là 100, 200; `city` là A, B. Chọn hai cột visits và spent làm dữ liệu mô hình rồi in kích thước.
+**Từ vựng trong mục:** **Feature** — đặc trưng; **Target** — nhãn dự đoán; **DataFrame schema** — cấu trúc bảng.
 
-**Vì sao chọn cách giải này?** `df[[...]]` chọn hai cột, bỏ city khỏi đầu vào mẫu.
+**Tình huống thực tế:** Một khóa học ghi **20 học viên** H01…H20; mỗi dòng có tuổi (năm), số giờ tự học trong tuần (giờ/tuần) và nhãn đã hoàn thành (1) / chưa hoàn thành (0). Hai học viên **chưa được chấm kết quả**, nên nhãn là `None`. Trước khi chuyển bảng cho bước xử lý dữ liệu tiếp theo, cần kiểm tra cột, kiểu số, tách danh sách **18 dòng có nhãn** và số dòng chờ nhãn; không tự đoán nhãn từ tuổi hoặc giờ học.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** DataFrame giữ ba thuộc tính theo tên cột; `isna()` giúp nhận biết người thiếu nhãn, còn `loc` chọn bảng có nhãn mà không xóa hay điền dữ liệu nguyên bản. Đây mới là giai đoạn chuẩn bị bảng, chưa học/đánh giá mô hình AI.
 
-1. Tạo bảng hai khách gồm `visits`, `spent`, `city`.
-2. Chọn đúng hai cột số `visits`, `spent` làm đầu vào.
-3. In `shape` của bảng chọn để thấy hai hàng × hai đặc trưng.
+**Quy trình:**
+1. Tạo 20 bản ghi với mã, tuổi, số giờ học và nhãn hoàn thành.
+2. Kiểm tra khóa mã duy nhất, nhãn chỉ 0/1 hoặc thiếu.
+3. Dùng `.loc` lấy các dòng có nhãn và in số cần bổ sung.
 
 ```python
-# Mục đích: Chọn dữ liệu tập huấn luyện.
 import pandas as pd
-df = pd.DataFrame({"visits":[2, 5], "spent":[100, 200], "city":["A", "B"]})
-X = df[["visits", "spent"]]
-print(X.shape)
+records = pd.DataFrame({
+    "student_id": [f"H{i:02d}" for i in range(1, 21)],
+    "age_years": [18,19,20,21,22,23,24,25,26,18,19,20,21,22,23,24,25,26,18,19],
+    "study_hours": [5,7,9,11,5,7,9,11,5,7,9,11,5,7,9,11,5,7,9,11],
+    "completed": [1,1,0,0,1,1,None,0,1,1,0,0,1,1,0,0,1,1,None,0],
+})
+labelled = records.loc[records["completed"].notna()].copy()
+assert len(records) == 20 and records["student_id"].is_unique
+assert labelled["completed"].isin([0, 1]).all()
+print("Học viên:", len(records))
+print("Có nhãn:", len(labelled))
+print("Chờ nhãn:", int(records["completed"].isna().sum()))
+print("Hoàn thành:", int((labelled["completed"] == 1).sum()))
+print("Cột đặc trưng:", ", ".join(["age_years", "study_hours"]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(2, 2)
+Học viên: 20
+Có nhãn: 18
+Chờ nhãn: 2
+Hoàn thành: 10
+Cột đặc trưng: age_years, study_hours
 ```
+
+Không sử dụng các dòng thiếu nhãn để báo tỷ lệ hoàn thành. Bảng đặc trưng hai cột và nhãn là các khái niệm khác nhau; không suy luận kết quả học tập từ dữ liệu giả lập.
 
 ## 6. Sai lầm thường gặp
 
