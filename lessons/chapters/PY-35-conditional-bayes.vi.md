@@ -41,6 +41,16 @@
 
 **Xác suất có điều kiện** `P(A given B)` chỉ xét những trường hợp **B đã xảy ra**, không còn xét toàn bộ quần thể ban đầu. Ví dụ trong 100 khách **đã xem quảng cáo** có 20 người mua. Khi đó P(mua **khi đã xem**) = 20/100 = 0.2, không phải tỷ lệ mua của tất cả khách. Công thức `P(A given B) = P(A∩B)/P(B)` chỉ dùng khi `P(B)>0`. Tỷ lệ này **không tự chứng minh** xem quảng cáo đã gây ra hành vi mua.
 
+**No Note — Không chú thích**
+
+```python
+seen = 100
+bought = 20
+print(bought / seen)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tính tỷ lệ mua trong tập người đã xem bằng cách lấy số mua chia số đã xem.
 # Dữ liệu: 100 người đã xem trang và có 20 người mua trong nhóm đã xem; P(mua|xem)=20/100.
@@ -66,6 +76,16 @@ Trong nhóm 100 người đã xem quảng cáo, tỷ lệ mua quan sát được
 
 Hai biến cố A và B **độc lập** nếu biết B xảy ra không đổi khả năng của A: `P(A given B)=P(A)` (khi P(B)>0). Tương đương `P(A∩B)=P(A)×P(B)`. Giả sử P(A)=0.5 và P(B)=0.4 thì nếu độc lập, P(cả A và B)=0.2. Trong dữ liệu thực, việc hai tỷ lệ gần nhau chưa tự chứng minh độc lập; cần biết cách lấy mẫu và đo sai số.
 
+**No Note — Không chú thích**
+
+```python
+p_a = 0.5
+p_b = 0.4
+print(round(p_a * p_b, 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Nhân xác suất hai sự kiện chỉ khi giả định chúng độc lập.
 # Dữ liệu: Hai sự kiện giả định độc lập với P(A)=0.5 và P(B)=0.4.
@@ -90,6 +110,18 @@ Nếu hai biến cố độc lập thì giao của chúng có xác suất 0.2.
 **Từ vựng:** **Prior** — tỷ lệ nền trước bằng chứng; **Likelihood** — khả năng bằng chứng khi giả thuyết đúng; **Posterior** — xác suất sau bằng chứng.
 
 Định lý **Bayes** trả lời “khi đã thấy **tín hiệu dương**, xác suất thực sự có lỗi là bao nhiêu?” Ví dụ chỉ 1% sản phẩm lỗi; máy báo dương với 99% hàng lỗi (**độ nhạy**) và 5% hàng không lỗi (**dương giả**). Trên 10.000 sản phẩm giả định có 100 lỗi: khoảng 99 dương thật, nhưng 495 dương giả từ 9.900 hàng tốt. Tổng dương là 594, nên xác suất lỗi khi máy báo dương là `99/594 ≈ 0.167`, **không phải 99%**. Tỷ lệ nền quyết định nhiều đến kết luận.
+
+**No Note — Không chú thích**
+
+```python
+prior = 0.01
+sensitivity = 0.99
+false_positive = 0.05
+positive = sensitivity * prior + false_positive * (1 - prior)
+print(round(sensitivity * prior / positive, 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Cập nhật xác suất sự kiện hiếm sau kết quả xét nghiệm dương bằng Bayes.
@@ -119,6 +151,19 @@ Sau tín hiệu dương, xác suất lỗi khoảng 16,7% theo các giả địn
 **Từ vựng:** **Total probability** — xác suất toàn phần; **Partition** — phân hoạch.
 
 Nếu quần thể được chia thành các **nhóm rời nhau và phủ đủ**, xác suất chung là trung bình có trọng số của xác suất trong nhóm. Ví dụ 60% khách ở nhóm X, trong đó 80% ủng hộ, còn 40% ở nhóm Y với tỷ lệ ủng hộ 20%. Tỷ lệ chung là `0.6×0.8 + 0.4×0.2 = 0.56`. Không cộng trực tiếp 80% và 20%, vì hai nhóm có quy mô khác nhau. Tổng xác suất các nhóm phải bằng 1.
+
+**No Note — Không chú thích**
+
+```python
+shares = [0.6, 0.4]
+support = [0.8, 0.2]
+total = 0
+for share, probability in zip(shares, support):
+    total += share * probability
+print(round(total, 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Cộng tỷ lệ xảy ra của hai nhóm có trọng số để tính xác suất toàn phần.
@@ -159,6 +204,28 @@ Xác suất chung là 56%, được tính theo tỷ trọng mỗi nhóm.
 1. Lưu cờ xem/mua cho cả 10 khách.
 2. Chỉ lấy hàng `viewed=True` để xác định mẫu nền.
 3. Đếm người mua trong nhóm đã xem và tính tỷ lệ có điều kiện.
+
+**No Note — Không chú thích**
+
+```python
+records = [{"id":"K01","viewed":True,"bought":True},{"id":"K02","viewed":True,"bought":False},{"id":"K03","viewed":True,"bought":True},{"id":"K04","viewed":False,"bought":False},{"id":"K05","viewed":True,"bought":True},{"id":"K06","viewed":True,"bought":False},{"id":"K07","viewed":True,"bought":False},{"id":"K08","viewed":False,"bought":True},{"id":"K09","viewed":True,"bought":False},{"id":"K10","viewed":False,"bought":False}]
+viewed = []
+for row in records:
+    if row["viewed"]:
+        viewed.append(row)
+bought_after_viewing = 0
+for row in viewed:
+    if row["bought"]:
+        bought_after_viewing += 1
+if len(records) != 10 or not viewed:
+    raise ValueError("Cần 10 khách và ít nhất một khách đã xem.")
+print("Khách:", len(records))
+print("Đã xem:", len(viewed))
+print("Mua trong nhóm xem:", bought_after_viewing)
+print(f"P(mua|đã xem): {bought_after_viewing/len(viewed):.3f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Đếm P(mua | đã xem) trong 10 hồ sơ thay vì lấy toàn bộ 10 người làm mẫu số.
@@ -216,6 +283,35 @@ P(mua|đã xem): 0.429
 1. Tạo 12 hàng với bốn tổ hợp lặp đều.
 2. Tính P(A), P(B), P(A∩B) từ số dòng.
 3. So giao với tích và in kết luận trên bảng này.
+
+**No Note — Không chú thích**
+
+```python
+records = [{"a":True,"b":True},{"a":True,"b":False},{"a":False,"b":True},{"a":False,"b":False},{"a":True,"b":True},{"a":True,"b":False},{"a":False,"b":True},{"a":False,"b":False},{"a":True,"b":True},{"a":True,"b":False},{"a":False,"b":True},{"a":False,"b":False}]
+n = len(records)
+a_count = 0
+b_count = 0
+both_count = 0
+for row in records:
+    if row["a"]:
+        a_count += 1
+    if row["b"]:
+        b_count += 1
+    if row["a"] and row["b"]:
+        both_count += 1
+p_a = a_count / n
+p_b = b_count / n
+p_both = both_count / n
+if n != 12:
+    raise ValueError("Cần đúng 12 lượt kiểm tra tính độc lập.")
+print("Lượt kiểm:", n)
+print(f"P(A): {p_a:.2f}")
+print(f"P(B): {p_b:.2f}")
+print(f"P(cả hai): {p_both:.2f}")
+print("Khớp quy tắc độc lập:", abs(p_both-p_a*p_b) < 1e-12)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Kiểm tính độc lập giữa A và B bằng cách so P(A∩B) với P(A)×P(B) từ 12 lượt.
@@ -284,6 +380,49 @@ Kết quả khớp công thức **trên bảng giả lập được xây dựng*
 1. Tách 15 sản phẩm thành nhóm lỗi và tốt, đồng thời đếm cờ dương.
 2. Tính prior, sensitivity, false-positive rate từ bảng.
 3. Dùng Bayes để tính posterior, đối chiếu số sản phẩm lỗi trong nhóm dương.
+
+**No Note — Không chú thích**
+
+```python
+records = [{"id":"P01","defective":False,"positive":True},{"id":"P02","defective":True,"positive":True},{"id":"P03","defective":False,"positive":False},{"id":"P04","defective":False,"positive":True},{"id":"P05","defective":False,"positive":False},{"id":"P06","defective":False,"positive":False},{"id":"P07","defective":True,"positive":True},{"id":"P08","defective":False,"positive":False},{"id":"P09","defective":False,"positive":False},{"id":"P10","defective":False,"positive":True},{"id":"P11","defective":False,"positive":False},{"id":"P12","defective":True,"positive":False},{"id":"P13","defective":False,"positive":False},{"id":"P14","defective":False,"positive":False},{"id":"P15","defective":False,"positive":False}]
+n = len(records)
+defects = []
+good = []
+positive = []
+for row in records:
+    if row["defective"]:
+        defects.append(row)
+    else:
+        good.append(row)
+    if row["positive"]:
+        positive.append(row)
+prior = len(defects)/n
+true_positive_count = 0
+for row in defects:
+    if row["positive"]:
+        true_positive_count += 1
+false_positive_count = 0
+for row in good:
+    if row["positive"]:
+        false_positive_count += 1
+sensitivity = true_positive_count / len(defects)
+false_positive = false_positive_count / len(good)
+evidence = sensitivity*prior+false_positive*(1-prior)
+posterior = sensitivity*prior/evidence
+if n != 15 or not positive:
+    raise ValueError("Cần 15 sản phẩm và ít nhất một cảnh báo.")
+print("Sản phẩm:", n)
+print("Lỗi thật:", len(defects))
+print("Máy cảnh báo:", len(positive))
+print(f"P(lỗi|cảnh báo): {posterior:.3f}")
+defects_among_positive = 0
+for row in positive:
+    if row["defective"]:
+        defects_among_positive += 1
+print("Khớp kiểm đếm:", abs(posterior - defects_among_positive / len(positive)) < 1e-12)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính P(lỗi | cảnh báo) của 15 sản phẩm bằng Bayes, rồi đối chiếu kiểm đếm trực tiếp.
@@ -381,6 +520,47 @@ Không được suy ra độ tin cậy của một máy kiểm hàng thật ch�
 2. Tính tỷ trọng nhóm và tỷ lệ mua có điều kiện trong từng nhóm.
 3. Cộng tỷ lệ có trọng số; đối chiếu tỷ lệ mua trực tiếp trên 18 khách.
 
+**No Note — Không chú thích**
+
+```python
+records = [{"id":"C01","area":"A","bought":True},{"id":"C02","area":"A","bought":True},{"id":"C03","area":"A","bought":True},{"id":"C04","area":"A","bought":True},{"id":"C05","area":"A","bought":True},{"id":"C06","area":"A","bought":True},{"id":"C07","area":"A","bought":False},{"id":"C08","area":"A","bought":False},{"id":"C09","area":"A","bought":False},{"id":"C10","area":"B","bought":True},{"id":"C11","area":"B","bought":True},{"id":"C12","area":"B","bought":False},{"id":"C13","area":"B","bought":False},{"id":"C14","area":"B","bought":False},{"id":"C15","area":"B","bought":False},{"id":"C16","area":"C","bought":True},{"id":"C17","area":"C","bought":False},{"id":"C18","area":"C","bought":False}]
+n = len(records)
+areas = ("A", "B", "C")
+overall = 0.0
+for area in areas:
+    subset = []
+    bought_count = 0
+    for row in records:
+        if row["area"] == area:
+            subset.append(row)
+            if row["bought"]:
+                bought_count += 1
+    overall += (len(subset) / n) * (bought_count / len(subset))
+all_bought_count = 0
+for row in records:
+    if row["bought"]:
+        all_bought_count += 1
+direct = all_bought_count / n
+unique_ids = set()
+for row in records:
+    unique_ids.add(row["id"])
+if len(records) != 18 or len(unique_ids) != 18:
+    raise ValueError("Cần đủ 18 khách với mã duy nhất.")
+print("Khách:", n)
+group_counts = []
+for group in areas:
+    count = 0
+    for row in records:
+        if row["area"] == group:
+            count += 1
+    group_counts.append(count)
+print("Nhóm A/B/C:", *group_counts)
+print(f"Tỷ lệ mua toàn phần: {overall:.3f}")
+print("Khớp đếm trực tiếp:", abs(overall-direct) < 1e-12)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tính xác suất mua toàn phần trên 18 khách bằng cách cộng tỷ lệ có trọng số theo vùng.
 # Dữ liệu: 18 khách chia các vùng A,B,C, mỗi vùng có tỷ lệ mua và quy mô khác nhau.
@@ -470,6 +650,59 @@ Ví dụ này minh họa **trung bình có trọng số**; nếu chỉ cộng ba
 1. Lưu 20 hàng đầy đủ mã, dây chuyền, cờ lỗi và cờ cảnh báo.
 2. Tính prior, sensitivity, false positive và evidence trên cả 20 hàng; dùng Bayes.
 3. Tính tỷ lệ lỗi trong nhóm B bị cảnh báo, báo hai kết quả và kiểm bằng đếm trực tiếp.
+
+**No Note — Không chú thích**
+
+```python
+records = [{"id":"M01","line":"A","defective":False,"positive":True},{"id":"M02","line":"A","defective":True,"positive":True},{"id":"M03","line":"A","defective":False,"positive":False},{"id":"M04","line":"A","defective":False,"positive":False},{"id":"M05","line":"A","defective":False,"positive":False},{"id":"M06","line":"A","defective":False,"positive":True},{"id":"M07","line":"A","defective":False,"positive":False},{"id":"M08","line":"A","defective":False,"positive":False},{"id":"M09","line":"A","defective":True,"positive":True},{"id":"M10","line":"A","defective":False,"positive":False},{"id":"M11","line":"A","defective":False,"positive":False},{"id":"M12","line":"A","defective":False,"positive":False},{"id":"M13","line":"B","defective":True,"positive":True},{"id":"M14","line":"B","defective":True,"positive":True},{"id":"M15","line":"B","defective":False,"positive":False},{"id":"M16","line":"B","defective":False,"positive":False},{"id":"M17","line":"B","defective":True,"positive":False},{"id":"M18","line":"B","defective":False,"positive":True},{"id":"M19","line":"B","defective":False,"positive":False},{"id":"M20","line":"B","defective":False,"positive":False}]
+n = len(records)
+defects = []
+good = []
+positive = []
+for row in records:
+    if row["defective"]:
+        defects.append(row)
+    else:
+        good.append(row)
+    if row["positive"]:
+        positive.append(row)
+prior = len(defects)/n
+true_positive_count = 0
+for row in defects:
+    if row["positive"]:
+        true_positive_count += 1
+false_positive_count = 0
+for row in good:
+    if row["positive"]:
+        false_positive_count += 1
+sensitivity = true_positive_count / len(defects)
+false_positive = false_positive_count / len(good)
+p_positive = sensitivity*prior + false_positive*(1-prior)
+posterior = sensitivity*prior/p_positive
+positive_b = []
+for row in records:
+    if row["line"] == "B" and row["positive"]:
+        positive_b.append(row)
+positive_b_defects = 0
+for row in positive_b:
+    if row["defective"]:
+        positive_b_defects += 1
+b_rate = positive_b_defects / len(positive_b)
+if len(records) != 20 or not positive_b:
+    raise ValueError("Cần đủ 20 sản phẩm và cảnh báo ở dây chuyền B.")
+print("Sản phẩm:", n)
+print("Lỗi thật:", len(defects))
+print("Cảnh báo:", len(positive))
+print(f"P(lỗi|cảnh báo) toàn nhà máy: {posterior:.3f}")
+print(f"P(lỗi|cảnh báo, B): {b_rate:.3f}")
+defects_among_positive = 0
+for row in positive:
+    if row["defective"]:
+        defects_among_positive += 1
+print("Bayes khớp đếm:", abs(posterior - defects_among_positive / len(positive)) < 1e-12)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính Bayes trên 20 sản phẩm và so xác suất lỗi khi cảnh báo trên toàn nhà máy với riêng dây chuyền B.
