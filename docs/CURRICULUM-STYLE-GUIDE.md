@@ -27,6 +27,18 @@ Sau mỗi lần biên tập, đối chiếu số ví dụ, code, 5 tình huống
 
 **Mẫu giảng đúng cho hệ phương trình tuyến tính:** Có hai món hàng chưa biết giá là `x` và `y`. Một món mỗi loại giá 5 nghìn đồng: `x + y = 5`; hai món loại thứ nhất và một món loại thứ hai giá 8 nghìn đồng: `2x + y = 8`. Đây là **hệ hai phương trình tuyến tính cùng hai ẩn**. Viết thành `A @ [x, y] = b`, trong đó `A = [[1, 1], [2, 1]]`; **mỗi hàng là một giao dịch/phương trình**, **mỗi cột là số lượng của loại hàng tương ứng với ẩn x/y**; `b = [5, 8]` là tổng tiền từng giao dịch, đơn vị nghìn đồng. Giải được `x=3`, `y=2` (nghìn đồng). Có thể nối sang rank, nghiệm và sai số dư bằng **chính ví dụ này**.
 
+### Hợp đồng 5 tình huống tăng độ khó và số dữ liệu — 25/10/2026
+
+Áp dụng cho cả PY-01…PY-46, chỉ chỉnh **mục 5** theo [quy trình đợt 5 bài](BRIDGE-FIVE-LESSON-BATCHES.md). **Mỗi lần cập nhật không quá 5 bài học liên tiếp** và phải kiểm chứng/merge hoàn toàn đợt hiện tại trước khi sang đợt sau; ledger là `docs/CURRICULUM-5-LESSON-PROGRESS.json`.
+
+Năm tình huống **không ngang độ khó**: `Tình huống 1 / Cấp 1` chỉ nhận biết và làm đúng một thao tác; `Tình huống 2 / Cấp 2` vận dụng trên nhiều dòng; `Tình huống 3 / Cấp 3` phối hợp ít nhất hai thao tác hoặc tiêu chí; `Tình huống 4 / Cấp 4` giải quyết lỗi thực tế hoặc điều kiện biên; `Tình huống 5 / Cấp 5` tích hợp quy trình, có kiểm tra/đánh giá kết quả. Nên có nhãn `Cấp 1`…`Cấp 5` ngay tiêu đề để học viên thấy lộ trình.
+
+**Số dữ liệu mục tiêu:** lần lượt **10 / 12 / 15 / 18 / 20 quan sát thật sự được xử lý**. Sử dụng 10–20 dòng bảng, hồ sơ, phép đo, văn bản, giao dịch, hoặc lượt thử hợp với chủ đề; ma trận toán nhỏ có thể là 2×2 hoặc 3×3 khi cấu trúc thuật toán yêu cầu, nhưng lấy trên đủ 10–20 quan sát/bài tập phù hợp. Không tạo các hàng/bản ghi vô nghĩa chỉ để đủ số lượng, không bắt học viên ghi nhớ dữ liệu cũ khi chuyển bài. **Cấp cao phải khó hơn về suy luận**, không chỉ dài hơn về code hay dữ liệu.
+
+**Tình huống hoàn chỉnh duy nhất:** Viết lại đề gốc ở `**Tình huống thực tế:**` nêu bối cảnh, dữ liệu, câu hỏi cần trả lời. Sau đó có cách chọn, quy trình, Python/Bash phù hợp, đầu ra thật và giải thích đúng đơn vị. **Không giữ đề cũ 1–2 dòng rồi nối thêm phần “Bài nâng cấp” với một đề khác**. Mỗi tình huống phải có thể đọc và chạy độc lập, không đòi biến từ tình huống trước. Cẩn trọng độ phức tạp của thuật toán tương xứng bài đang học; phương pháp vượt kiến thức tiên quyết thì nêu là phần mở rộng.
+
+**Kiểm chứng:** Mỗi cấp test đầu vào, số quan sát và đầu ra; với NaN/missing/error phải có lý do xử lý và số bản ghi hợp lệ. Ưu tiên dùng assertion cụ thể để học viên đối chiếu, không chỉ in số dòng. Không dùng một khuôn `values=[...]; print(result)` rập khuôn cho mọi bài. Không suy ra thuật toán đúng từ việc chạy không lỗi. Giữ nguyên 20 câu MCQ lý thuyết/trắc nghiệm của mục 7 và 4 phương án song ngữ mỗi câu, không hỏi lại tình huống đánh số.
+
 ### Viết đề bài thực tế thành một đoạn hoàn chỉnh
 
 Mỗi `### Tình huống N` phải có **một dòng/đoạn `**Tình huống thực tế:**` chứa đủ bối cảnh cụ thể (ai/cơ quan nào gặp nhu cầu gì), dữ liệu/số liệu thực tế có đơn vị và **yêu cầu đầu ra/điều cần quyết định**. Không tách thành `**Vấn đề:** Xét VIP` và `**Dữ liệu:** Khách 5 năm...` vì đó không phải đề bài có thể tự hiểu. Cũng không dùng lời mơ hồ như `xử lý dữ liệu và cho biết kết quả theo yêu cầu` nếu có thể nêu rõ kết quả cần tính.
