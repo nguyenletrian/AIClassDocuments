@@ -144,7 +144,8 @@ Ba số là tín hiệu sau khi áp dụng hệ số riêng cho từng kênh; Nu
 ```python
 import numpy as np
 sales = np.array([120,145,130,160,180,140,155,175,190,165], dtype=float)
-assert sales.shape == (10,)
+if sales.shape != (10,):
+    raise ValueError("Cần đủ 10 ngày bán hàng.")
 print("Ngày:", sales.size)
 print("Tổng (nghìn đồng):", int(sales.sum()))
 print(f"Trung bình/ngày: {sales.mean():.1f}")
@@ -183,7 +184,8 @@ scores = np.array([[6,5,7],[7,6,9],[8,7,7],[9,8,9],[6,9,7],[7,5,9],[8,6,7],[9,7,
 by_subject = scores.mean(axis=0)
 by_student = scores.mean(axis=1)
 best = int(by_student.argmax())
-assert scores.shape == (12, 3)
+if scores.shape != (12, 3):
+    raise ValueError("Bảng phải có 12 học viên và 3 môn.")
 print("Học viên:", scores.shape[0])
 print(f"Toán: {by_subject[0]:.2f}")
 print(f"Văn: {by_subject[1]:.2f}")
@@ -221,7 +223,8 @@ import numpy as np
 scores = np.array([[7,5],[8,6],[9,7],[10,8],[7,9],[8,10],[9,5],[10,6],[7,7],[8,8],[9,9],[10,10],[7,5],[8,6],[9,7]], dtype=float)
 bonus = np.array([1.0, 0.5])
 adjusted = np.minimum(scores + bonus, 10)
-assert scores.shape == adjusted.shape == (15, 2)
+if scores.shape != (15, 2) or adjusted.shape != (15, 2):
+    raise ValueError("Cần đúng 15 học viên với hai môn trước và sau cộng điểm.")
 print("Học viên:", scores.shape[0])
 print("Điểm H01 sau cộng:", f"{adjusted[0,0]:.1f}", f"{adjusted[0,1]:.1f}")
 print("Đạt 10 ít nhất một môn:", int(np.any(adjusted == 10, axis=1).sum()))
@@ -255,13 +258,19 @@ Gốc H01: 7.0 5.0
 ```python
 import numpy as np
 raw = [[20,50,100],[22,53,105],[24,56,110],[26,59,115],[28,62,None],[20,65,105],[22,50,110],[24,53,115],[26,56,100],[28,59,105],[20,62,110],[22,65,115],[24,50,100],[26,53,105],[28,56,None],[20,59,115],[22,62,100],[24,65,105]]
-rows = [[temp, humidity, np.nan if pressure is None else pressure]
-        for temp, humidity, pressure in raw]
+rows = []
+for temp, humidity, pressure in raw:
+    if pressure is None:
+        clean_pressure = np.nan
+    else:
+        clean_pressure = pressure
+    rows.append([temp, humidity, clean_pressure])
 measurements = np.array(rows, dtype=float)
 calibration = np.array([0.5, -2.0, 1.0])
 corrected = measurements + calibration
 means = np.nanmean(corrected, axis=0)
-assert corrected.shape == (18, 3)
+if corrected.shape != (18, 3):
+    raise ValueError("Cần đủ 18 lượt đo và 3 thông số.")
 print("Số mẫu:", corrected.shape[0])
 print("Thiếu áp suất:", int(np.isnan(corrected[:, 2]).sum()))
 print(f"Nhiệt độ (°C): {means[0]:.2f}")
@@ -302,7 +311,8 @@ pay_rates = np.array([1.0, 0.9, 0.8])
 amounts = quantities * prices * pay_rates
 per_shop = amounts.sum(axis=1)
 peak = int(per_shop.argmax())
-assert amounts.shape == (20, 3) and per_shop.shape == (20,)
+if amounts.shape != (20, 3) or per_shop.shape != (20,):
+    raise ValueError("Cần đủ 20 cửa hàng, ba mặt hàng và doanh thu từng cửa hàng.")
 print("Cửa hàng:", quantities.shape[0])
 print(f"Tổng 20 cửa hàng (nghìn đồng): {per_shop.sum():.1f}")
 print("Doanh thu lớn nhất:", f"C{peak+1:02d}", f"{per_shop[peak]:.1f}")
