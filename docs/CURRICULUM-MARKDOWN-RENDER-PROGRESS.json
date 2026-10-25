@@ -1,0 +1,159 @@
+{
+  "goal": "curriculum-markdown-display-audit-v1",
+  "repository": "nguyenletrian/AIClassDocuments",
+  "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
+  "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
+  "status": "BATCH_01_IN_PROGRESS",
+  "last_completed_batch": 0,
+  "batches": [
+    {
+      "batch": 1,
+      "lessons": [
+        "PY-01",
+        "PY-02",
+        "PY-03",
+        "PY-04",
+        "PY-05"
+      ],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-03"
+      ],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 2,
+      "lessons": [
+        "PY-06",
+        "PY-07",
+        "PY-08",
+        "PY-09",
+        "PY-10"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 3,
+      "lessons": [
+        "PY-11",
+        "PY-12",
+        "PY-13",
+        "PY-14",
+        "PY-15"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 4,
+      "lessons": [
+        "PY-16",
+        "PY-17",
+        "PY-18",
+        "PY-19",
+        "PY-20"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 5,
+      "lessons": [
+        "PY-21",
+        "PY-22",
+        "PY-23",
+        "PY-24",
+        "PY-25"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 6,
+      "lessons": [
+        "PY-26",
+        "PY-27",
+        "PY-28",
+        "PY-29",
+        "PY-30"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 7,
+      "lessons": [
+        "PY-31",
+        "PY-32",
+        "PY-33",
+        "PY-34",
+        "PY-35"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 8,
+      "lessons": [
+        "PY-36",
+        "PY-37",
+        "PY-38",
+        "PY-39",
+        "PY-40"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 9,
+      "lessons": [
+        "PY-41",
+        "PY-42",
+        "PY-43",
+        "PY-44",
+        "PY-45"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 10,
+      "lessons": [
+        "PY-46"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    }
+  ],
+  "notes": "Separate formatting-only QA workstream. The previously completed 230-scenario/920-MCQ ledger remains unchanged. Never edit outside the current batch. Review full lesson but change only verified formatting errors, commit/CI/merge/record progress before next batch."
+}
