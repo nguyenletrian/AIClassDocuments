@@ -1,0 +1,160 @@
+{
+  "goal_id": "aiclassdocuments-full-code-annotations-20261025",
+  "title": "Chú thích đầy đủ, dễ hiểu từng khối code Python cho cả 46 bài",
+  "approval": "owner_approved",
+  "status": "ACTIVE",
+  "revision": "2026-10-25-full-beginner-code-notes-46-lessons",
+  "owner_request": "Sau khi xuất PDF 920 câu, chú thích đầy đủ code mọi bài. Giải thích cả Agg, plt.gca(), lines[0], get_xdata(), plt.close() và các API/đối số khó hiểu ngay trong code. Không thay đổi kết quả.",
+  "activation_condition": {
+    "predecessor_goal": "aiclassdocuments-scenario-clarity-explanations-20261025",
+    "predecessor_ledger": "docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json",
+    "requires_status": "COMPLETED",
+    "requires_merged_batches": 10,
+    "quiz_pdf": "exports/pdf/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.pdf",
+    "quiz_markdown": "exports/markdown/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.md",
+    "quiz_pdf_workflow_run": 40186408627,
+    "quiz_pdf_workflow_status": "SUCCESS",
+    "requires_no_open_prs": true,
+    "requires_no_pending_tasks": true
+  },
+  "scope": {
+    "repository": "nguyenletrian/AIClassDocuments",
+    "chapters": "PY-01..PY-46",
+    "batches": [
+      {
+        "batch": 1,
+        "lessons": [
+          "PY-01",
+          "PY-02",
+          "PY-03",
+          "PY-04",
+          "PY-05"
+        ]
+      },
+      {
+        "batch": 2,
+        "lessons": [
+          "PY-06",
+          "PY-07",
+          "PY-08",
+          "PY-09",
+          "PY-10"
+        ]
+      },
+      {
+        "batch": 3,
+        "lessons": [
+          "PY-11",
+          "PY-12",
+          "PY-13",
+          "PY-14",
+          "PY-15"
+        ]
+      },
+      {
+        "batch": 4,
+        "lessons": [
+          "PY-16",
+          "PY-17",
+          "PY-18",
+          "PY-19",
+          "PY-20"
+        ]
+      },
+      {
+        "batch": 5,
+        "lessons": [
+          "PY-21",
+          "PY-22",
+          "PY-23",
+          "PY-24",
+          "PY-25"
+        ]
+      },
+      {
+        "batch": 6,
+        "lessons": [
+          "PY-26",
+          "PY-27",
+          "PY-28",
+          "PY-29",
+          "PY-30"
+        ]
+      },
+      {
+        "batch": 7,
+        "lessons": [
+          "PY-31",
+          "PY-32",
+          "PY-33",
+          "PY-34",
+          "PY-35"
+        ]
+      },
+      {
+        "batch": 8,
+        "lessons": [
+          "PY-36",
+          "PY-37",
+          "PY-38",
+          "PY-39",
+          "PY-40"
+        ]
+      },
+      {
+        "batch": 9,
+        "lessons": [
+          "PY-41",
+          "PY-42",
+          "PY-43",
+          "PY-44",
+          "PY-45"
+        ]
+      },
+      {
+        "batch": 10,
+        "lessons": [
+          "PY-46"
+        ]
+      }
+    ],
+    "work_style": "Up to 5 sequential lessons per batch; one commit per lesson, test, PR, final-head GitHub CI SUCCESS, merge, ledger, next batch.",
+    "target_code": "All executable fenced Python blocks in every lesson, small concept examples as well as 5 progressive scenarios.",
+    "immutable_material": "Non-comment Python statements/AST, import/call order, datasets, stdout, figures, lesson prose/definitions, 20 MCQs per chapter."
+  },
+  "rules": [
+    "Always read AGENTS.md, docs/CURRICULUM-STYLE-GUIDE.md (new owner code-annotation directive), templates/lesson.md and authoritative repository files first.",
+    "Every executable Python code fence must have an accurate # Mục đích: note, and direct nearby Vietnamese comments for every non-obvious API, method, attribute, argument, algorithmic step, data meaning and result interpretation.",
+    "Explain WHAT/WHY and effect: matplotlib.use('Agg') selects headless renderer before pyplot; plt.gca() gets current Axes; .lines[0] accesses first plotted line; .get_xdata() reads line x coordinates; len() counts samples; plt.close() closes figure.",
+    "Audit non-trivial flags and parameter choices (axis, ddof, dtype, rowvar, seed/random_state, n_init, bins, .T, mask/index/slice, fit/transform, stratify, imputer, PCA, imports, I/O and resource cleanup).",
+    "Only add/change code comments beginning with #. Do not edit executable Python source, data, stdout or any content outside Python fences. Compare each corresponding code block with Python AST dump excluding positional attributes; check same code fence count.",
+    "Preserve all 46 lessons and 920 MCQ questions/options/answers/explanations exactly. Preserve 5 progressive scenarios with 10/12/15/18/20 records, markdown, images and references.",
+    "Avoid noisy comments that merely restate obvious assignments; be thorough where a new reader would otherwise not know what a function, chain, flag or operation is or why it was used.",
+    "Commit each lesson separately. Run full 46-chapter tests and per-example code execution/exact stdout, verify code AST equivalence, then merge only if final-head GitHub CI SUCCESS. Write batch SHA/CI/PR to durable ledger.",
+    "Do not silently rebind identity-unverified CDP port 9224, claim Windows PASS when PowerShell canary is unavailable, replay historical Jetking tasks or duplicate idle heartbeats.",
+    "If correct explanation requires changing actual executable code, document separately for owner approval; never sneak behavior changes into a comments-only goal.",
+    "When final batch merges and ledger is 10/10, mark goal COMPLETED and disable goal_review; no automatic new goal without owner approval."
+  ],
+  "example": {
+    "original": "# Mục đích: Nối các mốc có thứ tự.\\nimport matplotlib\\nmatplotlib.use('Agg')\\nimport matplotlib.pyplot as plt\\n\\nplt.plot([1, 2, 3], [10, 15, 12])\\nprint(len(plt.gca().lines[0].get_xdata()))\\nplt.close()",
+    "expected_notes": "Mục đích thực tế, Agg backend không GUI, Axes của gca, lines[0] đường đầu, get_xdata trả tọa độ x, len đếm 3, close giải phóng; code AST/stdout giữ nguyên."
+  },
+  "qa": {
+    "each_lesson": [
+      "Code fences preserved 1:1",
+      "AST statements identical (ignore comments/positions)",
+      "Every non-trivial call/attribute/argument explained nearby",
+      "All questions/options/answers unchanged",
+      "Markdown outside code fences unchanged",
+      "Exact stdout unchanged"
+    ],
+    "each_batch": [
+      "One independent commit per chapter",
+      "All 46 chapter curriculum regressions and scenario script stdout",
+      "Final-head CI success before merge",
+      "Ledger records PR, merged SHA and run ID"
+    ]
+  },
+  "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
+  "guide": "docs/CURRICULUM-STYLE-GUIDE.md"
+}
