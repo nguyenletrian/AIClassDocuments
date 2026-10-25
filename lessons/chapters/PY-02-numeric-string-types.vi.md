@@ -117,7 +117,7 @@ AB
 Hai ký tự đầu được tách ra mà chuỗi ban đầu vẫn giữ nguyên.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Chuẩn hóa email
+### Tình huống 1 — Chuẩn hóa email · Cấp 1: Nhận biết dữ liệu
 
 **Từ vựng trong mục:** **String** — chuỗi; **Method** — phương thức.
 
@@ -147,7 +147,20 @@ lan@example.com
 
 **Kết quả:** `lan@example.com` — email không còn khoảng trắng thừa và đã viết thường.
 
-### Tình huống 2 — Tách nhãn sản phẩm
+**Bài thực hành nâng cấp — cấp 1/5:** Trung tâm nhận **10 hồ sơ** gồm mã `id` và `value` (giá trị số, chưa nhập là `None`). Hãy chuẩn hóa một mã liên hệ bằng strip và lower. Mỗi phần tử là một hồ sơ; mã phải được coi là chuỗi để không làm mất ký tự, đặc biệt khi định dạng và che mã.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id": f"U{k:02d}", "value": v} for k, v in enumerate(values, 1)]
+result = f"  {rows[0]['id']}@EXAMPLE.COM  ".strip().lower()
+assert len(rows) == 10
+print("Số hồ sơ:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** In đúng `Số hồ sơ: 10` cùng kết quả biến đổi của cấp 1. Học viên đối chiếu kết quả với từng chuỗi đầu vào; ở cấp 4–5, `None` không đại diện cho số 0.
+
+### Tình huống 2 — Tách nhãn sản phẩm · Cấp 2: Xử lý nhiều bản ghi
 
 **Từ vựng trong mục:** **String** — chuỗi; **Split** — tách.
 
@@ -177,7 +190,20 @@ print(labels.split(","))
 
 **Kết quả:** `['AI', 'Python', 'Math']` — ba nhãn được tách thành ba phần tử.
 
-### Tình huống 3 — Giữ mã đầu 0
+**Bài thực hành nâng cấp — cấp 2/5:** Trung tâm nhận **12 hồ sơ** gồm mã `id` và `value` (giá trị số, chưa nhập là `None`). Hãy chuẩn hóa 12 chuỗi nhận từ biểu mẫu. Mỗi phần tử là một hồ sơ; mã phải được coi là chuỗi để không làm mất ký tự, đặc biệt khi định dạng và che mã.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id": f"U{k:02d}", "value": v} for k, v in enumerate(values, 1)]
+result = [f" {r['id']}@EXAMPLE.COM ".strip().lower() for r in rows]
+assert len(rows) == 12
+print("Số hồ sơ:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** In đúng `Số hồ sơ: 12` cùng kết quả biến đổi của cấp 2. Học viên đối chiếu kết quả với từng chuỗi đầu vào; ở cấp 4–5, `None` không đại diện cho số 0.
+
+### Tình huống 3 — Giữ mã đầu 0 · Cấp 3: Lọc bằng nhiều tiêu chí
 
 **Từ vựng trong mục:** **String** — chuỗi; **Slice** — cắt chuỗi.
 
@@ -207,7 +233,20 @@ print(order_id[:3])
 
 **Kết quả:** `000` — ba ký tự đầu của mã vẫn được giữ nguyên. Chương trình không in cả mã `00045`.
 
-### Tình huống 4 — Đổi số từ CSV
+**Bài thực hành nâng cấp — cấp 3/5:** Trung tâm nhận **15 hồ sơ** gồm mã `id` và `value` (giá trị số, chưa nhập là `None`). Hãy lọc đồng thời theo ngưỡng và đuôi mã. Mỗi phần tử là một hồ sơ; mã phải được coi là chuỗi để không làm mất ký tự, đặc biệt khi định dạng và che mã.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id": f"U{k:02d}", "value": v} for k, v in enumerate(values, 1)]
+result = [r['id'] for r in rows if r['value']>=70 and r['id'].endswith(('1','3','5'))]
+assert len(rows) == 15
+print("Số hồ sơ:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** In đúng `Số hồ sơ: 15` cùng kết quả biến đổi của cấp 3. Học viên đối chiếu kết quả với từng chuỗi đầu vào; ở cấp 4–5, `None` không đại diện cho số 0.
+
+### Tình huống 4 — Đổi số từ CSV · Cấp 4: Kiểm tra dữ liệu khuyết
 
 **Từ vựng trong mục:** **Float** — số thực; **Integer** — số nguyên.
 
@@ -238,7 +277,20 @@ print(price * qty)
 
 **Kết quả:** `37.5` đơn vị tiền — tổng giá của ba sản phẩm.
 
-### Tình huống 5 — Che số liên lạc
+**Bài thực hành nâng cấp — cấp 4/5:** Trung tâm nhận **18 hồ sơ** gồm mã `id` và `value` (giá trị số, chưa nhập là `None`). Hãy phát hiện ô thiếu, không ép None thành chuỗi số hợp lệ. Mỗi phần tử là một hồ sơ; mã phải được coi là chuỗi để không làm mất ký tự, đặc biệt khi định dạng và che mã.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id": f"U{k:02d}", "value": v} for k, v in enumerate(values, 1)]
+result = [(r['id'], 'missing' if r['value'] is None else str(r['value'])) for r in rows]
+assert len(rows) == 18
+print("Số hồ sơ:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** In đúng `Số hồ sơ: 18` cùng kết quả biến đổi của cấp 4. Học viên đối chiếu kết quả với từng chuỗi đầu vào; ở cấp 4–5, `None` không đại diện cho số 0.
+
+### Tình huống 5 — Che số liên lạc · Cấp 5: Tổng hợp an toàn
 
 **Từ vựng trong mục:** **String** — chuỗi; **Slice** — cắt chuỗi.
 
@@ -267,6 +319,19 @@ print("*" * (len(phone)-3) + phone[-3:])
 ```
 
 **Kết quả:** `*******456` — bảy ký tự đầu được che, chỉ còn `456`.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Trung tâm nhận **20 hồ sơ** gồm mã `id` và `value` (giá trị số, chưa nhập là `None`). Hãy chuẩn hóa, che mã và báo riêng những hồ sơ thiếu dữ liệu. Mỗi phần tử là một hồ sơ; mã phải được coi là chuỗi để không làm mất ký tự, đặc biệt khi định dạng và che mã.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id": f"U{k:02d}", "value": v} for k, v in enumerate(values, 1)]
+result = {'valid':sum(r['value'] is not None for r in rows),'masked':['*'*(len(r['id'])-2)+r['id'][-2:] for r in rows],'missing':[r['id'] for r in rows if r['value'] is None]}
+assert len(rows) == 20
+print("Số hồ sơ:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** In đúng `Số hồ sơ: 20` cùng kết quả biến đổi của cấp 5. Học viên đối chiếu kết quả với từng chuỗi đầu vào; ở cấp 4–5, `None` không đại diện cho số 0.
 
 ## 6. Những nhầm lẫn thường gặp
 
