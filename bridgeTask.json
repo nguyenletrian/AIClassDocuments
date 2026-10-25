@@ -1191,17 +1191,17 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-markdown-render-46-lessons-20261025",
-    "revision": "2026-10-25-markdown-10-batches-resume-batch05",
+    "revision": "2026-10-25-markdown-10-batches-resume-batch06",
     "title": "Rà và sửa lỗi hiển thị Markdown trong 46 bài, mỗi đợt tối đa 5 bài",
-    "phase": "READY_FOR_BATCH_05",
+    "phase": "READY_FOR_BATCH_06",
     "chapter_index": "lessons/chapters/README.md",
     "progress_ledger": "docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json",
     "workflow_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Markdown batch04 PY-16..PY-20 PR #137 merged 6a836dada8ee846d8bbc5d370c2eb718db59e6e6, GitHub final-head CI #40167076193 PASS; formatting ledger last_completed_batch=4 READY_FOR_BATCH_05. In next approved idle goal review verify current main, ledger, open PRs and queue/ACK first; inspect ONLY batch05 PY-21..PY-25 for literal &#124; entities, unescaped Markdown table pipes, malformed table cells. Fix verified display errors only, preserving teaching content and MCQ semantics; commit necessary lesson files individually, CI PASS, PR merge and ledger update before batch06. No replay of legacy Jetking work or duplicate task; do not force a new ChatGPT chat from heartbeat.",
-    "review_hold": "Owner-approved 10-batch Markdown rendering QA; batches 01–04 reviewed and merged. Only next PY-21..PY-25 approved at this phase. Informational heartbeat is not a reason to send duplicate tasks; Windows Bridge tests not presumed."
+    "next_review": "Markdown batch05 PY-21..PY-25 completed: PR #138 squash merge ae022fd6612e7e264858a152b72f2197aba13f25 and final-head CI #40167735800 PASS. Formatting ledger docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json last_completed_batch=5 status READY_FOR_BATCH_06. On next approved goal/idle review verify authoritative current main/ledger/open PRs and queue/ACK, then inspect ONLY batch06 PY-26..PY-30 for literal &#124; entity leaks, unescaped pipe within Markdown table cells and malformed tables. Fix verified formatting errors only, preserve educational content, 20 MCQs and meaning. Commit only needed changes, CI PASS, merge PR, update ledger and Bridge before next batch. No duplicate tasks, no archived Jetking probe replay, no new ChatGPT conversation just from heartbeat; Windows Bridge verification only with real worker evidence.",
+    "review_hold": "Owner-approved 10-batch Markdown formatting review. Batches01–05 MERGED, batch06 PY-26..30 is next. No unapproved work or duplicate heartbeat task requests."
   },
   "goal_review_history": [
     {
@@ -1275,6 +1275,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "Idle requests restored for active Markdown rendering review. Batch05 PY-21..25 next; no legacy task replay."
+    "reason": "Bridge idle requests enabled for approved Markdown review. Next batch06 PY-26..PY-30; preserve completed goal and historical tasks."
   }
 }
