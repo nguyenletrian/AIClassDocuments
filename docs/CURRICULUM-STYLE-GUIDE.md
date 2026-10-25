@@ -128,3 +128,39 @@ Chủ dự án **đã trực tiếp yêu cầu tạo tất cả bài còn lại 
 **Vị trí trong chuỗi kiến thức (mục 1):** Ngoài sơ đồ chuỗi, bắt buộc viết hai đoạn ngắn `**Học xong dùng để làm gì?**` và `**Kết nối kiến thức tiếp theo:**` với thao tác thực tế, loại dữ liệu hoặc kết quả cụ thể của chính bài, cùng bài PY kế tiếp được gọi rõ; tránh câu chung chung như “ứng dụng AI sau này”.
 
 **Trình bày mục 7:** Đặt tiêu đề chính xác `## 7. Trắc nghiệm`; dùng dấu `|` giữa phần tiếng Anh và tiếng Việt của **câu hỏi và từng lựa chọn**, giữ đáp án và giải thích tiếng Việt ngay sau câu hỏi. Với mỗi khối code minh họa, chỉ thêm chú thích ngắn bên trong code để người học hiểu mục đích của đoạn lệnh; không thay lệnh hoặc kết quả dự kiến.
+
+## Quy tắc mới — owner 2026-10-25: chú thích ĐẦY ĐỦ code để người mới hiểu ngay khi đọc
+
+**Áp dụng cho mọi khối Python chạy được trong cả PY-01–PY-46, kể cả ví dụ nhỏ ở phần khái niệm và năm tình huống.** Đây là yêu cầu bổ sung cụ thể, ưu tiên hơn lời khuyên cũ “chỉ thêm ít comment”: **gọn nhưng không bỏ sót bất kỳ thao tác Python/API khó hiểu nào**. Không tạo chú thích để lấp chỗ trống một cách máy móc.
+
+- Mỗi block có câu `# Mục đích: ...` dễ hiểu; có thể giữ câu sẵn có nếu đã giải thích chính xác.
+- Giải thích ngay trên dòng mã liên quan mọi hàm/phương thức/tham số cài đặt không hiển nhiên, toán tử/mask, indexing/slicing, thuộc tính, kết quả trung gian, phép nối phương thức, và thao tác mở/đóng tài nguyên. Nêu **nó là gì, dùng để làm gì, tại sao có trong bước này, tác động tới kết quả và đơn vị nếu có**. Người học không phải tự tra `Agg`, `gca`, `get_xdata`, `axis`, `stratify`, `fit_transform`, `ddof`, `np.nan`, `dtype`, `seed`, `close` hay các API xuất hiện lần đầu.
+- Với một chuỗi như `plt.gca().lines[0].get_xdata()`, giải nghĩa rõ **từng thành phần** và vì sao đang đọc `lines[0]`; nói thêm `len()` đang đếm gì. Không gộp thành “lấy số liệu” mơ hồ.
+- Ghi `#` trước từng **bước có ý nghĩa**, không thêm chú thích lặp lại hiển nhiên ở mọi phép gán hoặc mỗi con số; cùng một phương thức đã giải nghĩa đủ có thể tham chiếu ngắn nếu lặp trong **cùng block**, nhưng không bắt người đọc bài sau phải nhớ block ở bài trước.
+- Với dữ liệu tạo mẫu, làm rõ **mỗi hàng/mỗi cột biểu diễn ai hoặc gì**, tên trường, đơn vị, dấu hiệu thiếu, seed và lý do chọn tham số minh họa. Đầu ra in ra là gì cũng phải hiểu được qua ghi chú ngay gần lệnh.
+- **Chỉ thêm hoặc sửa các dòng comment `#`** trong code fence, không đổi dòng lệnh đang chạy, thứ tự thao tác, thư viện, data, kết quả stdout hoặc code được dùng ở bài trắc nghiệm. So khớp AST từng code block trước/sau với `ast.dump(..., include_attributes=False)`; thử thực thi và đối chiếu chính xác stdout; không tuyên bố Windows PASS nếu chưa chạy trên Windows worker.
+- Không tự sửa 920 MCQ, 230 tình huống, định nghĩa hay bảng khác trong goal chú thích. Mỗi bài một commit; làm tuần tự tối đa năm bài một batch, kiểm thử/CI/merge/ledger trước khi sang batch sau.
+
+**Ví dụ bắt buộc về mức độ chú thích mong muốn** — các dòng lệnh giữ nguyên:
+
+```python
+# Mục đích: Vẽ đường nối ba mốc theo thứ tự và đếm xem đường chứa mấy tọa độ x.
+import matplotlib
+
+# 'Agg' là backend vẽ không cần cửa sổ đồ họa; chọn trước khi import pyplot.
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+# Danh sách đầu là ba tọa độ x; danh sách sau là y tại các x tương ứng.
+plt.plot([1, 2, 3], [10, 15, 12])
+
+# plt.gca() lấy Axes (vùng/trục vẽ) đang hoạt động.
+# .lines[0] lấy đường đầu tiên đã vẽ bằng plot trong Axes.
+# .get_xdata() lấy dãy tọa độ x của đường đó; len(...) đếm số mốc: 3.
+print(len(plt.gca().lines[0].get_xdata()))
+
+# Đóng hình hiện tại, giải phóng tài nguyên đồ họa sau khi dùng xong.
+plt.close()
+```
+
+Các block vẽ thực tế có `fig`, `ax`, `subplots`, `savefig`, `legend`, `bins`... cũng phải giải thích như vậy, không chỉ chép `# Mục đích: ...` ở đầu rồi bỏ mặc code khó hiểu.
