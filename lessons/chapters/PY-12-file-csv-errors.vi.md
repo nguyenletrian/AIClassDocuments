@@ -134,7 +134,7 @@ True
 Dòng đầu là nội dung đã đọc; `True` xác nhận bộ đệm được đóng sau khi ra khỏi `with`.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Đọc CSV sản phẩm
+### Tình huống 1 — Đọc CSV sản phẩm · Cấp 1: Đọc bảng CSV
 
 **Từ vựng trong mục:** **CSV** — dữ liệu CSV; **DictReader** — đọc theo tên cột.
 
@@ -166,7 +166,23 @@ Book
 
 `Book` thuộc hàng dữ liệu thứ hai; hàng tiêu đề không được tính là sản phẩm.
 
-### Tình huống 2 — Lưu nhật ký ứng dụng
+**Bài thực hành nâng cấp — cấp 1/5:** Nhân viên xuất **10 dòng CSV**; mỗi hàng gồm mã đơn `id`, `amount` (nghìn đồng), `group` (A/B/C). Hãy dùng DictReader đọc các dòng CSV với đúng tên cột. Bắt đầu từ đọc file, sau đó đổi kiểu, lọc, xử lý ô khuyết và lập báo cáo mà không làm mất mã.
+
+```python
+import csv
+from io import StringIO
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+source = "id,amount,group\\n".replace("\\n","\n")
+source += "".join(f"D{i:02d},{'' if x is None else x},{'ABC'[(i-1)%3]}\\n".replace("\\n","\n") for i,x in enumerate(values,1))
+rows = list(csv.DictReader(StringIO(source)))
+result = (rows[0]['id'],rows[0]['amount'])
+print("Số dòng CSV:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đúng 10 dòng trong DictReader; cấp 4–5 báo riêng những đơn có cột amount rỗng.
+
+### Tình huống 2 — Lưu nhật ký ứng dụng · Cấp 2: Đổi kiểu trên nhiều dòng
 
 **Từ vựng trong mục:** **File I/O** — đọc ghi file; **UTF-8** — mã hóa văn bản.
 
@@ -199,7 +215,23 @@ Started
 
 Nội dung đọc trùng dữ liệu đã ghi; file ví dụ được xóa khi thư mục tạm đóng.
 
-### Tình huống 3 — Chặn dữ liệu nhập sai kiểu
+**Bài thực hành nâng cấp — cấp 2/5:** Nhân viên xuất **12 dòng CSV**; mỗi hàng gồm mã đơn `id`, `amount` (nghìn đồng), `group` (A/B/C). Hãy đổi giá trị dạng chuỗi thành số để tổng hợp. Bắt đầu từ đọc file, sau đó đổi kiểu, lọc, xử lý ô khuyết và lập báo cáo mà không làm mất mã.
+
+```python
+import csv
+from io import StringIO
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+source = "id,amount,group\\n".replace("\\n","\n")
+source += "".join(f"D{i:02d},{'' if x is None else x},{'ABC'[(i-1)%3]}\\n".replace("\\n","\n") for i,x in enumerate(values,1))
+rows = list(csv.DictReader(StringIO(source)))
+result = sum(int(row['amount']) for row in rows)
+print("Số dòng CSV:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đúng 12 dòng trong DictReader; cấp 4–5 báo riêng những đơn có cột amount rỗng.
+
+### Tình huống 3 — Chặn dữ liệu nhập sai kiểu · Cấp 3: Lọc và thống kê
 
 **Từ vựng trong mục:** **Exception** — ngoại lệ; **ValueError** — lỗi giá trị.
 
@@ -233,7 +265,23 @@ None
 
 `None` biểu thị chưa có giá trị số hợp lệ; nó không phải số 0.
 
-### Tình huống 4 — Xuất báo cáo CSV
+**Bài thực hành nâng cấp — cấp 3/5:** Nhân viên xuất **15 dòng CSV**; mỗi hàng gồm mã đơn `id`, `amount` (nghìn đồng), `group` (A/B/C). Hãy lọc các dòng vượt 70 và thuộc nhóm A. Bắt đầu từ đọc file, sau đó đổi kiểu, lọc, xử lý ô khuyết và lập báo cáo mà không làm mất mã.
+
+```python
+import csv
+from io import StringIO
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+source = "id,amount,group\\n".replace("\\n","\n")
+source += "".join(f"D{i:02d},{'' if x is None else x},{'ABC'[(i-1)%3]}\\n".replace("\\n","\n") for i,x in enumerate(values,1))
+rows = list(csv.DictReader(StringIO(source)))
+result = [row['id'] for row in rows if int(row['amount'])>=70 and row['group']=='A']
+print("Số dòng CSV:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đúng 15 dòng trong DictReader; cấp 4–5 báo riêng những đơn có cột amount rỗng.
+
+### Tình huống 4 — Xuất báo cáo CSV · Cấp 4: Bắt lỗi giá trị thiếu
 
 **Từ vựng trong mục:** **DictWriter** — ghi CSV theo tên cột; **Fieldnames** — tên cột.
 
@@ -270,7 +318,23 @@ date,revenue
 
 Dòng đầu chứa tên cột, dòng sau chứa giá trị. `revenue` ghi trong CSV là chữ biểu diễn số, không còn kiểu `int` khi đọc lại.
 
-### Tình huống 5 — Báo lỗi khi thiếu file
+**Bài thực hành nâng cấp — cấp 4/5:** Nhân viên xuất **18 dòng CSV**; mỗi hàng gồm mã đơn `id`, `amount` (nghìn đồng), `group` (A/B/C). Hãy bắt ô rỗng, không dùng int(''). Bắt đầu từ đọc file, sau đó đổi kiểu, lọc, xử lý ô khuyết và lập báo cáo mà không làm mất mã.
+
+```python
+import csv
+from io import StringIO
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+source = "id,amount,group\\n".replace("\\n","\n")
+source += "".join(f"D{i:02d},{'' if x is None else x},{'ABC'[(i-1)%3]}\\n".replace("\\n","\n") for i,x in enumerate(values,1))
+rows = list(csv.DictReader(StringIO(source)))
+result = [row['id'] for row in rows if not row['amount'].strip()]
+print("Số dòng CSV:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đúng 18 dòng trong DictReader; cấp 4–5 báo riêng những đơn có cột amount rỗng.
+
+### Tình huống 5 — Báo lỗi khi thiếu file · Cấp 5: Đọc, kiểm tra và xuất dữ liệu
 
 **Từ vựng trong mục:** **FileNotFoundError** — lỗi không tìm thấy file; **Path** — đường dẫn.
 
@@ -305,6 +369,23 @@ File unavailable
 ```
 
 Tệp chưa tồn tại nên khối `except` xử lý lỗi một cách có kiểm soát.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhân viên xuất **20 dòng CSV**; mỗi hàng gồm mã đơn `id`, `amount` (nghìn đồng), `group` (A/B/C). Hãy tổng hợp doanh thu và xuất riêng các dòng cần xử lý. Bắt đầu từ đọc file, sau đó đổi kiểu, lọc, xử lý ô khuyết và lập báo cáo mà không làm mất mã.
+
+```python
+import csv
+from io import StringIO
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+source = "id,amount,group\\n".replace("\\n","\n")
+source += "".join(f"D{i:02d},{'' if x is None else x},{'ABC'[(i-1)%3]}\\n".replace("\\n","\n") for i,x in enumerate(values,1))
+rows = list(csv.DictReader(StringIO(source)))
+result = {'total':sum(int(row['amount']) for row in rows if row['amount'].strip()),'missing':[row['id'] for row in rows if not row['amount'].strip()]}
+print("Số dòng CSV:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đúng 20 dòng trong DictReader; cấp 4–5 báo riêng những đơn có cột amount rỗng.
+
 ## 6. Sai lầm thường gặp
 
 - Khi đọc CSV bằng `DictReader`, dữ liệu **mặc định là chuỗi**; muốn cộng tiền cần chuyển kiểu số hợp lệ.
