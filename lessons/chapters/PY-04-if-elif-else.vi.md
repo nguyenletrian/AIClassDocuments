@@ -130,7 +130,7 @@ even
 Số 2 vừa dương vừa chia hết cho 2, nên chương trình đi vào cả hai nhánh `if`.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Xếp loại điểm
+### Tình huống 1 — Xếp loại điểm · Cấp 1: Một phép xử lý
 
 **Từ vựng trong mục:** **Condition** — điều kiện.
 
@@ -167,7 +167,20 @@ B
 
 **Kết quả:** `B` — 85 điểm đạt mức B theo quy tắc đã nêu.
 
-### Tình huống 2 — Cảnh báo hàng gần hết
+**Bài thực hành nâng cấp — cấp 1/5:** Tập dữ liệu tăng lên **10 học viên, x là điểm kiểm tra trên thang 100**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy xếp một điểm bằng if/else. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = 'Đạt' if rows[0]['x']>=60 else 'Chưa đạt'
+assert len(rows)==10
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 10 dòng, in kết quả theo đúng quy tắc một phép xử lý; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
+
+### Tình huống 2 — Cảnh báo hàng gần hết · Cấp 2: Áp dụng cho nhiều dòng
 
 **Từ vựng trong mục:** **Branch** — nhánh.
 
@@ -204,7 +217,20 @@ Low
 
 **Kết quả:** `Low` — còn 4 món nên hàng đang gần hết.
 
-### Tình huống 3 — Xét VIP
+**Bài thực hành nâng cấp — cấp 2/5:** Tập dữ liệu tăng lên **12 học viên, x là điểm kiểm tra trên thang 100**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy chia 12 điểm thành ba mức if/elif/else. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = ['Giỏi' if r['x']>=80 else 'Đạt' if r['x']>=60 else 'Cần hỗ trợ' for r in rows]
+assert len(rows)==12
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 12 dòng, in kết quả theo đúng quy tắc áp dụng cho nhiều dòng; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
+
+### Tình huống 3 — Xét VIP · Cấp 3: Kết hợp nhiều quy tắc
 
 **Từ vựng trong mục:** **Threshold** — ngưỡng.
 
@@ -238,7 +264,20 @@ VIP
 
 **Kết quả:** `VIP` — khách đạt cả hai ngưỡng quy định.
 
-### Tình huống 4 — Kiểm tra cảm biến
+**Bài thực hành nâng cấp — cấp 3/5:** Tập dữ liệu tăng lên **15 học viên, x là điểm kiểm tra trên thang 100**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy đánh giá kết hợp điểm và số buổi học. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = [r['id'] for r in rows if r['x']>=70 and r['y']>=3]
+assert len(rows)==15
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 15 dòng, in kết quả theo đúng quy tắc kết hợp nhiều quy tắc; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
+
+### Tình huống 4 — Kiểm tra cảm biến · Cấp 4: Xử lý dữ liệu thiếu
 
 **Từ vựng trong mục:** **Nested if** — điều kiện lồng.
 
@@ -271,7 +310,20 @@ Hot
 
 **Kết quả:** `Hot` — thiết bị đang kết nối và nhiệt độ 82 °C đạt ngưỡng cảnh báo.
 
-### Tình huống 5 — Tính quý của tháng
+**Bài thực hành nâng cấp — cấp 4/5:** Tập dữ liệu tăng lên **18 học viên, x là điểm kiểm tra trên thang 100**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy xếp riêng hồ sơ thiếu điểm, không hiểu là điểm 0. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = [(r['id'],'Thiếu' if r['x'] is None else 'Đạt' if r['x']>=60 else 'Chưa đạt') for r in rows]
+assert len(rows)==18
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 18 dòng, in kết quả theo đúng quy tắc xử lý dữ liệu thiếu; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
+
+### Tình huống 5 — Tính quý của tháng · Cấp 5: Báo cáo tích hợp
 
 **Từ vựng trong mục:** **Condition** — điều kiện.
 
@@ -303,6 +355,19 @@ else:
 ```
 
 **Kết quả:** `4` — tháng 10 thuộc quý 4.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Tập dữ liệu tăng lên **20 học viên, x là điểm kiểm tra trên thang 100**; mỗi dòng có mã `id`, chỉ số `x`, số lượng `y` và khu vực `group`. Hãy tổng hợp từng hạng và ID chưa đủ dữ liệu. Dữ liệu các cấp sau bổ sung hồ sơ chứ không đổi hồ sơ trước; `None` ở mức cao chỉ phép đo chưa có.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = {'giỏi':sum(r['x'] is not None and r['x']>=80 for r in rows),'đạt':sum(r['x'] is not None and 60<=r['x']<80 for r in rows),'cần hỗ trợ':sum(r['x'] is not None and r['x']<60 for r in rows),'thiếu':[r['id'] for r in rows if r['x'] is None]}
+assert len(rows)==20
+print("Số dòng:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Chương trình xử lý 20 dòng, in kết quả theo đúng quy tắc báo cáo tích hợp; hãy đối chiếu trạng thái của từng hồ sơ trong danh sách.
 
 ## 6. Nhầm lẫn dễ gặp
 
