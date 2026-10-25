@@ -126,7 +126,7 @@ Excess kurtosis dương lớn cho thấy mẫu này có hành vi đuôi bất th
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Mốc 75% của giá trị đơn hàng
+### Tình huống 1 — Mốc 75% của giá trị đơn hàng · Cấp 1: Q1 một biến
 
 **Tình huống thực tế:** Năm hóa đơn có giá trị 10,20,30,40,50 nghìn đồng. Bộ phận kinh doanh muốn mốc phân vị 75% để mô tả vị trí của hóa đơn cao trong nhóm.
 
@@ -154,7 +154,24 @@ print(float(np.quantile(amounts, 0.75)))
 
 Mốc 75% bằng 40 nghìn đồng theo quy ước NumPy mặc định.
 
-### Tình huống 2 — Gắn cờ hóa đơn lớn cần kiểm tra
+**Bài thực hành nâng cấp — cấp 1/5:** Nhóm sản phẩm ghi **10 ngày sử dụng ứng dụng** (mỗi hàng là một ngày, đơn vị phút). Hãy tính Q1 từ 10 thời lượng. Các cấp cao có `NaN` và thời lượng bất thường; không mặc nhiên kết luận ngoại lệ là sai dữ liệu.
+
+```python
+import numpy as np
+# Mỗi phần tử là thời gian sử dụng ứng dụng (phút/ngày).
+values = np.array([35, 42, 49, 56, 63, 70, 77, 84, 91, 98],dtype=float)
+valid = values[np.isfinite(values)]
+q1,q3 = np.percentile(valid,[25,75])
+iqr = q3-q1
+low,high = q1-1.5*iqr,q3+1.5*iqr
+result = round(float(np.percentile(valid,25)),2)
+print("Số bản ghi:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 10 dòng; ngưỡng dưới/trên được suy từ chính Q1, Q3 của các ngày hợp lệ.
+
+### Tình huống 2 — Gắn cờ hóa đơn lớn cần kiểm tra · Cấp 2: Quartile trên cả mẫu
 
 **Tình huống thực tế:** Tám hóa đơn có số tiền `[10,11,12,12,13,15,16,90]` nghìn đồng. Kế toán muốn tìm những hóa đơn vượt ngưỡng IQR để xem lại chứng từ, không xóa ngay.
 
@@ -185,7 +202,24 @@ print(outliers.tolist())
 
 Hóa đơn 90 nghìn đồng bị gắn cờ để xác minh; không kết luận đây là lỗi ghi chép.
 
-### Tình huống 3 — Kiểm tra độ lệch phải của dữ liệu
+**Bài thực hành nâng cấp — cấp 2/5:** Nhóm sản phẩm ghi **12 ngày sử dụng ứng dụng** (mỗi hàng là một ngày, đơn vị phút). Hãy tính Q1, Q2 và Q3 trên 12 lượt đo. Các cấp cao có `NaN` và thời lượng bất thường; không mặc nhiên kết luận ngoại lệ là sai dữ liệu.
+
+```python
+import numpy as np
+# Mỗi phần tử là thời gian sử dụng ứng dụng (phút/ngày).
+values = np.array([35, 42, 49, 56, 63, 70, 77, 84, 91, 98, 105, 112],dtype=float)
+valid = values[np.isfinite(values)]
+q1,q3 = np.percentile(valid,[25,75])
+iqr = q3-q1
+low,high = q1-1.5*iqr,q3+1.5*iqr
+result = np.percentile(valid,[25,50,75]).round(2).tolist()
+print("Số bản ghi:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 12 dòng; ngưỡng dưới/trên được suy từ chính Q1, Q3 của các ngày hợp lệ.
+
+### Tình huống 3 — Kiểm tra độ lệch phải của dữ liệu · Cấp 3: Ngưỡng IQR
 
 **Tình huống thực tế:** Bốn lần đo `[1,1,2,8]` cùng đơn vị có một giá trị lớn hơn nhiều. Nhóm phân tích muốn biết phân phối mẫu lệch về phía giá trị lớn hay nhỏ.
 
@@ -213,7 +247,24 @@ print(round(float(measurements.skew()), 3))
 
 Skew dương gợi ý đuôi phải dài; cỡ mẫu bốn quan sát còn rất nhỏ.
 
-### Tình huống 4 — Đánh giá đặc điểm đuôi của một mẫu
+**Bài thực hành nâng cấp — cấp 3/5:** Nhóm sản phẩm ghi **15 ngày sử dụng ứng dụng** (mỗi hàng là một ngày, đơn vị phút). Hãy tìm giới hạn 1.5×IQR của 15 quan sát. Các cấp cao có `NaN` và thời lượng bất thường; không mặc nhiên kết luận ngoại lệ là sai dữ liệu.
+
+```python
+import numpy as np
+# Mỗi phần tử là thời gian sử dụng ứng dụng (phút/ngày).
+values = np.array([35, 42, 49, 56, 63, 70, 77, 84, 91, 98, 105, 112, 119, 126, 133],dtype=float)
+valid = values[np.isfinite(values)]
+q1,q3 = np.percentile(valid,[25,75])
+iqr = q3-q1
+low,high = q1-1.5*iqr,q3+1.5*iqr
+result = {'Q1':float(q1),'Q3':float(q3),'IQR':float(iqr),'bounds':[float(low),float(high)]}
+print("Số bản ghi:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 15 dòng; ngưỡng dưới/trên được suy từ chính Q1, Q3 của các ngày hợp lệ.
+
+### Tình huống 4 — Đánh giá đặc điểm đuôi của một mẫu · Cấp 4: Kiểm tra thiếu và ngoại lệ
 
 **Tình huống thực tế:** Mười số đo cùng đơn vị `[2,3,3,4,4,5,5,6,7,20]` có một số lớn. Nhóm phân tích cần xem hệ số kurtosis dư có đáng chú ý không.
 
@@ -241,7 +292,24 @@ print(round(float(measurements.kurt()), 3))
 
 Mẫu có kurtosis dư dương cao, nhưng chỉ là dấu hiệu phân bố, không phải phép kết luận chất lượng dữ liệu.
 
-### Tình huống 5 — Điền giá trị thiếu trong nhóm có số cực lớn
+**Bài thực hành nâng cấp — cấp 4/5:** Nhóm sản phẩm ghi **18 ngày sử dụng ứng dụng** (mỗi hàng là một ngày, đơn vị phút). Hãy lọc ngày chưa ghi trước khi phát hiện outlier. Các cấp cao có `NaN` và thời lượng bất thường; không mặc nhiên kết luận ngoại lệ là sai dữ liệu.
+
+```python
+import numpy as np
+# Mỗi phần tử là thời gian sử dụng ứng dụng (phút/ngày).
+values = np.array([35, 42, 49, 56, 63, 70, 77, 84, 91, 98, 105, 112, 119, 126, 133, np.nan, 147, 380],dtype=float)
+valid = values[np.isfinite(values)]
+q1,q3 = np.percentile(valid,[25,75])
+iqr = q3-q1
+low,high = q1-1.5*iqr,q3+1.5*iqr
+result = {'missing':len(values)-len(valid),'outliers':valid[(valid<low)|(valid>high)].tolist()}
+print("Số bản ghi:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 18 dòng; ngưỡng dưới/trên được suy từ chính Q1, Q3 của các ngày hợp lệ.
+
+### Tình huống 5 — Điền giá trị thiếu trong nhóm có số cực lớn · Cấp 5: Báo cáo ngoại lệ nhiều ngày
 
 **Tình huống thực tế:** Ba hóa đơn là 100,120,10.000 nghìn đồng và có một ô chưa biết. Muốn điền tạm ô thiếu bằng trung vị của **các số quan sát được** trước khi dùng thử mô hình.
 
@@ -268,6 +336,23 @@ print(amounts.fillna(amounts.median()).tolist())
 ```
 
 Ô thiếu được điền tạm 120 nghìn đồng; với ML cần tính median trên train để tránh rò rỉ.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhóm sản phẩm ghi **20 ngày sử dụng ứng dụng** (mỗi hàng là một ngày, đơn vị phút). Hãy tổng hợp số ngày hợp lệ, các phân vị và các outlier trong 20 lượt. Các cấp cao có `NaN` và thời lượng bất thường; không mặc nhiên kết luận ngoại lệ là sai dữ liệu.
+
+```python
+import numpy as np
+# Mỗi phần tử là thời gian sử dụng ứng dụng (phút/ngày).
+values = np.array([35, 42, 49, 56, 63, 70, 77, 84, 91, 98, 105, 112, 119, 126, 133, np.nan, 147, 380, 480, np.nan],dtype=float)
+valid = values[np.isfinite(values)]
+q1,q3 = np.percentile(valid,[25,75])
+iqr = q3-q1
+low,high = q1-1.5*iqr,q3+1.5*iqr
+result = {'total':len(values),'valid':len(valid),'quartiles':np.percentile(valid,[25,50,75]).round(2).tolist(),'outliers':valid[(valid<low)|(valid>high)].tolist()}
+print("Số bản ghi:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 20 dòng; ngưỡng dưới/trên được suy từ chính Q1, Q3 của các ngày hợp lệ.
 
 ## 6. Sai lầm thường gặp
 
