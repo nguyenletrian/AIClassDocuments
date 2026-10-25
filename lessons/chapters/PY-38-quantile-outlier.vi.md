@@ -41,6 +41,17 @@
 
 Phân vị q là mốc trên dãy số đã sắp, liên quan đến tỷ lệ giá trị ở phía dưới. **Q1** ứng với mức 25%, **Q2** là trung vị 50%, **Q3** ứng với 75%. Ví dụ năm hóa đơn 10,20,30,40,50 nghìn đồng: `np.quantile(x,0.75)` trả 40. Với bộ dữ liệu nhỏ, phương pháp **nội suy** giữa vị trí của các số làm cho kết quả phụ thuộc quy ước từng thư viện; không phải lúc nào phân vị cũng là số gốc trong dữ liệu.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+amounts = [10, 20, 30, 40, 50]
+print(float(np.quantile(amounts, 0.75)))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Lấy phân vị 75% để biết ngưỡng mà khoảng ba phần tư số tiền nằm dưới.
 # Dữ liệu: Năm khoản tiền 10,20,30,40,50 cùng đơn vị, mốc q=0.75 là phân vị thứ ba.
@@ -67,6 +78,18 @@ Mốc phân vị 75% bằng 40 nghìn đồng theo phương pháp nội suy mặ
 **Từ vựng:** **IQR** — khoảng tứ phân vị; **Q1/Q3** — phân vị 25%/75%.
 
 **IQR = Q3−Q1** đo độ rộng của khoảng chứa phần giữa dữ liệu. Với `[1,2,3,4,5]`, Q1=2 và Q3=4, nên IQR=2 đơn vị. Một cách **gắn cờ** ngoại lệ là ngoài các ngưỡng `Q1−1.5×IQR` hoặc `Q3+1.5×IQR`. Đây chỉ là quy tắc rà soát, **không chứng minh dữ liệu sai**; chẳng hạn một hóa đơn lớn có thể hoàn toàn hợp lệ.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+x = [1, 2, 3, 4, 5]
+q1, q3 = np.quantile(x, [0.25, 0.75])
+print(float(q3 - q1))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính IQR bằng khoảng cách giữa phân vị 25% và 75%.
@@ -97,6 +120,17 @@ Nửa giữa của dữ liệu trải rộng 2 đơn vị theo quy tắc phân v
 
 **Skewness** đo mức bất đối xứng. Một dãy như `[1,1,2,8]` có ba số nhỏ và một số lớn, khiến **đuôi phải kéo dài** và độ lệch dương. `pd.Series.skew()` trả hệ số skew đã được hiệu chỉnh theo công thức Pandas; tính trên mẫu ít quan sát rất kém ổn định. Không suy ra mọi giá trị lớn đều là lỗi từ skew dương.
 
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+
+x = pd.Series([1, 1, 2, 8])
+print(round(float(x.skew()), 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Dùng skewness đánh giá phân phối có đuôi kéo về phía giá trị lớn.
 # Dữ liệu: Bốn số 1,1,2,8, giá trị 8 nằm xa về phía phải.
@@ -123,6 +157,17 @@ print(round(float(x.skew()), 3))
 **Từ vựng:** **Kurtosis** — độ nhọn/hệ số liên quan đến đuôi; **Excess kurtosis** — kurtosis dư.
 
 **Kurtosis** liên quan đến các moment bậc bốn và độ nặng của đuôi phân phối; không nên hiểu đơn giản chỉ là **độ cao của đỉnh**. Pandas `Series.kurt()` trả **excess kurtosis**, lấy phân phối chuẩn làm mốc 0. Với dãy `[2,3,3,4,4,5,5,6,7,20]`, số 20 rất lớn có thể làm kurtosis dư dương. Trên mẫu nhỏ, chỉ số này biến động mạnh.
+
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+
+x = pd.Series([2, 3, 3, 4, 4, 5, 5, 6, 7, 20])
+print(round(float(x.kurt()), 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng excess kurtosis của Pandas để mô tả độ nặng đuôi phân phối.
@@ -159,6 +204,22 @@ Excess kurtosis dương lớn cho thấy mẫu này có hành vi đuôi bất th
 1. Ghi đúng 10 giá trị cùng đơn vị.
 2. Tính đồng thời các phân vị 25%, 50%, 75% bằng NumPy.
 3. In ba mốc và số đơn để đọc đúng ý nghĩa.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+amounts = np.array([10,12,14,16,18,20,22,24,26,28], dtype=float)
+q1, median, q3 = np.quantile(amounts, [0.25, 0.5, 0.75])
+if len(amounts) != 10:
+    raise ValueError("Cần đủ 10 hóa đơn.")
+print("Hóa đơn:", len(amounts))
+print(f"Q1 (nghìn đồng): {q1:.1f}")
+print(f"Median (nghìn đồng): {median:.1f}")
+print(f"Q3 (nghìn đồng): {q3:.1f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Báo Q1, median và Q3 của 10 hóa đơn theo cùng một lệnh quantile.
@@ -206,6 +267,25 @@ Mốc Q1=14,5 nghìn đồng không phải một đơn giá gốc; đó là kế
 1. Tìm Q1 và Q3 của đúng 12 đơn.
 2. Tạo ngưỡng dưới/trên từ khoảng tứ phân vị.
 3. Tìm số đơn ngoài khoảng và giá trị cần xem xét.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+amounts = np.array([100,105,110,115,120,120,125,130,135,140,145,500], dtype=float)
+q1, q3 = np.quantile(amounts, [0.25, 0.75])
+iqr = q3 - q1
+low, high = q1 - 1.5*iqr, q3 + 1.5*iqr
+flagged = amounts[(amounts < low) | (amounts > high)]
+if amounts.size != 12:
+    raise ValueError("Cần đủ 12 hóa đơn để tính IQR.")
+print("Hóa đơn:", amounts.size)
+print(f"IQR (nghìn đồng): {iqr:.2f}")
+print(f"Ngưỡng trên: {high:.1f}")
+print("Đơn cần xem:", flagged.astype(int).tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Phát hiện hóa đơn cao bất thường bằng hàng rào 1.5×IQR mà không xóa dữ liệu.
@@ -261,6 +341,22 @@ Một hóa đơn thật có thể vượt ngưỡng IQR hợp lệ; cần đối
 2. Tính mean, median và skewness bằng Pandas.
 3. So dấu skew và hai thước đo trung tâm.
 
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+minutes = pd.Series([10,10,11,11,12,12,12,13,14,14,15,15,15,16,90], dtype=float)
+if len(minutes) != 15:
+    raise ValueError("Cần đủ 15 lượt đo thời gian.")
+print("Lượt:", len(minutes))
+print(f"Mean (phút): {minutes.mean():.2f}")
+print(f"Median (phút): {minutes.median():.2f}")
+print(f"Skew: {minutes.skew():.3f}")
+print("Lệch phải:", bool(minutes.skew() > 0))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: So mean và median cùng hệ số lệch phải trong 15 thời gian có ngoại lệ 90 phút.
 # Dữ liệu: 15 lần xử lý, đa số 10..16 phút, một lượt 90 phút kéo dài đuôi phải.
@@ -309,6 +405,24 @@ Skew dương chỉ mô tả phân bố dữ liệu đang có; không kết luậ
 1. Tạo 18 mức tín hiệu, giữ lại số đo 120 để rà soát.
 2. Tính skew và kurt của Pandas theo quy ước thư viện.
 3. Gắn cờ bằng IQR để nhận biết điểm cần xác minh.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+import pandas as pd
+signal = pd.Series([20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,120], dtype=float)
+q1, q3 = np.quantile(signal, [0.25, 0.75])
+outliers = signal[signal > q3 + 1.5*(q3-q1)]
+if len(signal) != 18:
+    raise ValueError("Cần đủ 18 số đo tín hiệu.")
+print("Mẫu:", len(signal))
+print(f"Skew: {signal.skew():.3f}")
+print(f"Excess kurtosis: {signal.kurt():.3f}")
+print("Giá trị cần xem:", outliers.astype(int).tolist())
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng IQR đánh dấu tín hiệu lớn và xem skew cùng excess kurtosis của 18 mẫu.
@@ -361,6 +475,33 @@ Chỉ số độ lệch và kurtosis nhạy với giá trị rất lớn, vì v�
 1. Tạo 20 hàng, ghi đơn vị g và tên nhóm.
 2. Với từng nhóm, loại NaN chỉ khi tính Q1/Q3 và IQR.
 3. Lưu ID ngoài ngưỡng của từng nhóm, báo tổng hàng, thiếu và danh sách cần xem.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+import pandas as pd
+mass = [50,51,52,53,54,55,56,57,None,110,150,151,152,153,154,155,156,157,158,220]
+ids = []
+for i in range(1, 21):
+    ids.append(f"P{i:02d}")
+df = pd.DataFrame({"id": ids,
+                   "group": ["A"]*10 + ["B"]*10, "mass_g": mass})
+flagged = []
+for group, subset in df.groupby("group"):
+    valid = subset["mass_g"].dropna()
+    q1, q3 = np.quantile(valid, [0.25, 0.75])
+    low, high = q1-1.5*(q3-q1), q3+1.5*(q3-q1)
+    flagged.extend(subset.loc[(subset["mass_g"] < low) | (subset["mass_g"] > high), "id"])
+if len(df) != 20:
+    raise ValueError("Cần đủ 20 mẫu khối lượng, kể cả lượt thiếu.")
+print("Sản phẩm:", len(df))
+print("Thiếu khối lượng:", int(df["mass_g"].isna().sum()))
+print("Ngoại lệ theo nhóm:", ", ".join(sorted(flagged)))
+print("Hàng còn có khối lượng:", int(df["mass_g"].notna().sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Phát hiện ngoại lệ riêng từng nhóm A/B trong 20 sản phẩm, không nhầm quy mô hai nhóm.
