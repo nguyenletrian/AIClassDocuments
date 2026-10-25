@@ -1,0 +1,32 @@
+name: Verify 5-lesson curriculum batches
+
+on:
+  pull_request:
+    paths:
+      - "lessons/chapters/**"
+      - "docs/CURRICULUM-5-LESSON-PROGRESS.json"
+      - "docs/BRIDGE-FIVE-LESSON-BATCHES.md"
+      - "docs/CURRICULUM-STYLE-GUIDE.md"
+      - "AGENTS.md"
+      - "bridgeTask.json"
+      - "tests/test_curriculum_structure.py"
+      - "tests/test_curriculum_five_lesson_batches.py"
+      - ".github/workflows/verify_curriculum_5lesson_batches.yml"
+  push:
+    paths:
+      - "lessons/chapters/**"
+      - "docs/CURRICULUM-5-LESSON-PROGRESS.json"
+      - "tests/test_curriculum_structure.py"
+      - "tests/test_curriculum_five_lesson_batches.py"
+      - ".github/workflows/verify_curriculum_5lesson_batches.yml"
+
+jobs:
+  structure-and-progress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check 46 chapters, MCQs, Python syntax and sequential batch ledger
+        run: python -m unittest tests.test_curriculum_structure tests.test_curriculum_five_lesson_batches -v

@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "goal_id": "aiclassdocuments-progressive-46-scenarios-20261025",
+  "repo": "nguyenletrian/AIClassDocuments",
+  "base_branch": "main",
+  "created_at": "2026-10-25",
+  "batch_limit": 5,
+  "expected_lessons": 46,
+  "expected_scenarios": 230,
+  "record_sizes_by_level": [
+    10,
+    12,
+    15,
+    18,
+    20
+  ],
+  "last_completed_batch": 0,
+  "status": "READY_WHEN_BRIDGE_STARTS",
+  "unverified_draft_reference": {
+    "branch": "feat/46-lessons-scenarios-progression-20261025",
+    "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
+    "modified_lesson_ids": "PY-01..PY-42",
+    "unmodified_lesson_ids": "PY-43..PY-46",
+    "note": "Source of possible ideas only; no lesson considered complete solely because present here."
+  },
+  "batches": [
+    {
+      "batch_id": "01",
+      "lesson_ids": [
+        "PY-01",
+        "PY-02",
+        "PY-03",
+        "PY-04",
+        "PY-05"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    },
+    {
+      "batch_id": "02",
+      "lesson_ids": [
+        "PY-06",
+        "PY-07",
+        "PY-08",
+        "PY-09",
+        "PY-10"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    },
+    {
+      "batch_id": "03",
+      "lesson_ids": [
+        "PY-11",
+        "PY-12",
+        "PY-13",
+        "PY-14",
+        "PY-15"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    },
+    {
+      "batch_id": "04",
+      "lesson_ids": [
+        "PY-16",
+        "PY-17",
+        "PY-18",
+        "PY-19",
+        "PY-20"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    },
+    {
+      "batch_id": "05",
+      "lesson_ids": [
+        "PY-21",
+        "PY-22",
+        "PY-23",
+        "PY-24",
+        "PY-25"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    },
+    {
+      "batch_id": "06",
+      "lesson_ids": [
+        "PY-26",
+        "PY-27",
+        "PY-28",
+        "PY-29",
+        "PY-30"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    },
+    {
+      "batch_id": "07",
+      "lesson_ids": [
+        "PY-31",
+        "PY-32",
+        "PY-33",
+        "PY-34",
+        "PY-35"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    },
+    {
+      "batch_id": "08",
+      "lesson_ids": [
+        "PY-36",
+        "PY-37",
+        "PY-38",
+        "PY-39",
+        "PY-40"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    },
+    {
+      "batch_id": "09",
+      "lesson_ids": [
+        "PY-41",
+        "PY-42",
+        "PY-43",
+        "PY-44",
+        "PY-45"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    },
+    {
+      "batch_id": "10",
+      "lesson_ids": [
+        "PY-46"
+      ],
+      "status": "PENDING",
+      "branch": null,
+      "pr_number": null,
+      "merged_commit": null,
+      "ci_run": null,
+      "windows_test": null,
+      "updated_at": null,
+      "notes": null,
+      "lesson_commits": {}
+    }
+  ]
+}
