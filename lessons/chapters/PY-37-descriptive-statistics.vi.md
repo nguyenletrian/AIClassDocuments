@@ -41,6 +41,17 @@
 
 **Mean** cộng các giá trị rồi chia cho số quan sát. Ba đơn giao trong 2, 3, 4 ngày có trung bình `(2+3+4)/3=3` ngày. Mean sử dụng **mọi giá trị**, nên có thể bị kéo lệch nếu có một đơn rất chậm. Phải đảm bảo các thời gian dùng cùng đơn vị; mean của các mã sản phẩm không có ý nghĩa.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+days = np.array([2, 3, 4])
+print(float(np.mean(days)))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tính mean của ba số ngày để hiểu giá trị trung bình cộng.
 # Dữ liệu: Ba số lượng ngày 2,3,4; mỗi phần tử là một quan sát cùng đơn vị ngày.
@@ -67,6 +78,17 @@ Thời gian trung bình ba đơn là 3 ngày, không có nghĩa đơn nào cũng
 **Từ vựng:** **Median** — trung vị; **Outlier** — giá trị khác biệt lớn.
 
 **Median** là số ở giữa khi dữ liệu được **sắp tăng dần**; nếu có số quan sát chẵn thì là trung bình hai số giữa. Với giá trị đơn hàng `[100,120,10000]` nghìn đồng, trung vị 120 nghìn, còn mean vượt 3.400 nghìn vì đơn 10.000 quá lớn. Median thường giúp mô tả giá trị trung tâm khi dữ liệu lệch, nhưng không thay thế việc kiểm tra liệu giá trị bất thường có hợp lệ.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+amounts = [100, 120, 10000]
+print(float(np.median(amounts)))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tìm trung vị của ba số tiền, tránh để khoản rất lớn làm lệch điểm giữa.
@@ -95,6 +117,17 @@ Trung vị 120 nghìn đồng ít bị ảnh hưởng bởi đơn 10.000 nghìn 
 
 Phương sai đo độ phân tán bằng **trung bình bình phương sai lệch so với mean**. Điểm `[6,8,10]` có mean 8, các lệch `[-2,0,2]`, bình phương `[4,0,4]`. Phương sai **quần thể** `ddof=0` bằng `8/3≈2.667` điểm². Nếu dùng để **ước lượng từ mẫu**, phương sai mẫu với `ddof=1` là `8/2=4` điểm². Cần nêu rõ đang dùng mẫu hay toàn bộ quần thể.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+scores = [6, 8, 10]
+print(round(float(np.var(scores, ddof=0)), 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tính phương sai quần thể của ba điểm và giải thích tham số ddof=0.
 # Dữ liệu: Ba điểm 6,8,10 trên cùng thang điểm; coi ba lượt là toàn bộ quần thể quan tâm.
@@ -121,6 +154,17 @@ Phương sai quần thể 2,667 điểm bình phương; không phải số đi�
 **Từ vựng:** **Standard deviation** — độ lệch chuẩn; **Mode** — yếu vị.
 
 **Standard deviation (std)** là căn bậc hai của phương sai, có **cùng đơn vị** với số đo. Cảm biến nhiệt độ đo `[20,21,19,20]` °C: mean=20 °C, std quần thể bằng `sqrt(0.5)≈0.707` °C. Trong khi đó **mode** là giá trị xuất hiện nhiều nhất, ở đây 20 °C hai lần; đây là câu hỏi về tần suất, không phải độ phân tán.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+celsius = [20, 21, 19, 20]
+print(round(float(np.std(celsius, ddof=0)), 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính độ lệch chuẩn quần thể để mô tả độ phân tán theo cùng đơn vị °C.
@@ -157,6 +201,21 @@ print(round(float(np.std(celsius, ddof=0)), 3))
 1. Lưu 10 số phút xử lý theo thứ tự yêu cầu.
 2. Tính tổng, trung bình bằng NumPy.
 3. So khoảng giá trị ngắn nhất và dài nhất.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+minutes = np.array([2,3,4,3,2,5,3,4,2,4], dtype=float)
+if minutes.size != 10:
+    raise ValueError("Cần đúng 10 yêu cầu.")
+print("Yêu cầu:", minutes.size)
+print("Tổng phút:", int(minutes.sum()))
+print(f"Trung bình (phút): {minutes.mean():.1f}")
+print("Nhỏ nhất/lớn nhất:", int(minutes.min()), int(minutes.max()))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Thống kê 10 thời gian xử lý: tổng phút, trung bình, nhỏ nhất và lớn nhất.
@@ -205,6 +264,21 @@ Trung bình 3,2 phút là kết quả trên đúng mười yêu cầu đã ghi, 
 2. Tính mean và median, đối chiếu sự khác biệt.
 3. In số lượng đơn và giá trị lớn nhất.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+amounts = np.array([100,105,110,110,115,120,125,130,130,135,140,1000], dtype=float)
+if len(amounts) != 12:
+    raise ValueError("Cần đủ 12 hóa đơn.")
+print("Hóa đơn:", len(amounts))
+print(f"Mean (nghìn đồng): {amounts.mean():.2f}")
+print(f"Median (nghìn đồng): {np.median(amounts):.2f}")
+print("Đơn lớn nhất:", int(amounts.max()))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: So mean và median của 12 hóa đơn khi có một hóa đơn cực lớn.
 # Dữ liệu: 12 hóa đơn nghìn đồng, trong đó 1000 là khoản lớn bất thường so 100..145.
@@ -249,6 +323,22 @@ Median là trung bình của hai giá trị giữa vì có số hóa đơn chẵ
 1. Ghi 15 nhãn sản phẩm theo thứ tự lượt.
 2. Đếm tần suất bằng Series.
 3. Sắp tần suất giảm và in nhãn nhiều nhất.
+
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+categories = ["Bút","Vở","Bút","Thước","Bút","Tẩy","Vở","Bút","Thước","Vở","Bút","Vở","Tẩy","Bút","Thước"]
+counts = pd.Series(categories).value_counts()
+if len(categories) != 15:
+    raise ValueError("Cần đủ 15 lượt chọn sản phẩm.")
+print("Lượt chọn:", len(categories))
+print("Nhãn khác nhau:", len(counts))
+print("Mode:", counts.index[0])
+print("Số lượt mode:", int(counts.iloc[0]))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng mode để tìm loại mặt hàng được chọn phổ biến nhất trong 15 lượt.
@@ -296,6 +386,24 @@ Mode cho biết nhãn thường thấy nhất **trong 15 lượt**, không kết
 1. Lưu 18 nhiệt độ và ghi rõ đơn vị °C.
 2. Tính phương sai với hai quy ước ddof=0 và ddof=1.
 3. Tính std mẫu và kiểm phương sai mẫu lớn hơn phương sai quần thể.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+celsius = np.array([18,19,20,21,22,23,24,25,26,27,18,19,20,21,22,23,24,25], dtype=float)
+pop_var = np.var(celsius, ddof=0)
+sample_var = np.var(celsius, ddof=1)
+if len(celsius) != 18:
+    raise ValueError("Cần đủ 18 lượt đo nhiệt độ.")
+print("Lượt đo:", len(celsius))
+print(f"Phương sai quần thể (°C²): {pop_var:.3f}")
+print(f"Phương sai mẫu (°C²): {sample_var:.3f}")
+print(f"Std mẫu (°C): {np.std(celsius, ddof=1):.3f}")
+print("Hiệu chỉnh làm tăng phương sai:", bool(sample_var > pop_var))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: So phương sai quần thể và phương sai mẫu của 18 nhiệt độ, giải thích ddof.
@@ -347,6 +455,25 @@ Khác biệt do **quy ước đang thống kê toàn bộ hay ước lượng t�
 1. Tạo 20 dòng và đổi giá trị thiếu thành NaN.
 2. Đếm missing trước khi tính và lấy danh sách có số.
 3. Tính mean, median, sample std có đơn vị.
+
+**No Note — Không chú thích**
+
+```python
+import pandas as pd
+raw = [20,21,22,22,23,24,24,25,26,27,21,22,23,24,25,26,27,28,29,None]
+data = pd.Series(raw, dtype="float64")
+valid = data.dropna()
+if len(data) != 20:
+    raise ValueError("Cần đủ 20 phiếu ghi thời gian, kể cả lượt thiếu.")
+print("Phiếu:", len(data))
+print("Đủ thời gian:", len(valid))
+print("Thiếu:", int(data.isna().sum()))
+print(f"Mean (phút): {valid.mean():.2f}")
+print(f"Median (phút): {valid.median():.2f}")
+print(f"Std mẫu (phút): {valid.std(ddof=1):.2f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Làm sạch một thời gian thiếu rồi tính mean, median và độ lệch chuẩn mẫu của 19 lượt hợp lệ.
