@@ -15,7 +15,7 @@
     20
   ],
   "last_completed_batch": 6,
-  "status": "READY_FOR_BATCH_07",
+  "status": "BATCH_07_QA_PASSED_WAIT_MERGE",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -183,15 +183,21 @@
         "PY-34",
         "PY-35"
       ],
-      "status": "PENDING",
-      "branch": null,
-      "pr_number": null,
+      "status": "QA_PASSED",
+      "branch": "feat/curriculum-scenarios-batch-07-20261025",
+      "pr_number": 129,
       "merged_commit": null,
-      "ci_run": null,
+      "ci_run": 40161426162,
       "windows_test": null,
-      "updated_at": null,
-      "notes": null,
-      "lesson_commits": {}
+      "updated_at": "2026-10-25",
+      "notes": "PR #129 initial CI 40161426162 PASS: Python 3.12/NumPy/Pandas/SymPy; all 25 PY-31..35 snippets executed independently, exact documented stdout matched. Prior batches01..06 and 46-chapter/MCQ/syntax/ledger checks PASS. PR merge pending; no Windows Bridge verification evidence.",
+      "lesson_commits": {
+        "PY-31": "15d04cb34fdadb2cf68de517ccbf9183f54f8985",
+        "PY-32": "9cf31d6301e4684f0a73cb11b743162e74bee164",
+        "PY-33": "a131ab89790578880d199d9a2b905904af98cf34",
+        "PY-34": "c981bcc1c5e436ec9d21037ffacf22dd079e90bb",
+        "PY-35": "11b55ee54286f391826ba05670980a62f8918da0"
+      }
     },
     {
       "batch_id": "08",

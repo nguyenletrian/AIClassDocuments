@@ -124,158 +124,220 @@ for epoch in range(1, 4):
 
 Có ba lượt epoch được đánh số 1 đến 3; đây mới là bộ đếm, không phải bản thân việc huấn luyện.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống Gradient Descent — từ một bước đến hồi quy hai tham số
 
-### Tình huống 1 — Từng bước giảm một loss đơn giản
+### Tình huống 1 — Cấp 1: Một bước gradient từ 10 điểm giá trị mục tiêu
 
-**Tình huống thực tế:** Một tham số điều khiển mô phỏng w được tối ưu với `L(w)=w²` (loss không đơn vị). Bắt đầu `w=4`, learning rate 0.1, thực hiện 10 lần cập nhật và xem w tiến gần 0 ra sao.
+**Từ vựng trong mục:** **Gradient** — hướng dốc; **Learning rate** — tốc độ học; **Loss** — mức sai.
 
-**Vì sao chọn cách giải này?** Với đạo hàm 2w, bước `w←w−0.1×2w` làm giảm độ lớn w mỗi lần trong ví dụ lồi này.
+**Tình huống thực tế:** Có **10 số mục tiêu** 2–11 (đơn vị điểm) từ 10 lần đo. Một mô hình đơn giản chỉ dự đoán **một hằng số w** cho mọi lượt; bắt đầu từ w=0, cần thử một bước giảm MSE với learning rate 0,1 rồi so loss trước/sau.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Đạo hàm MSE theo w là trung bình hai lần sai số; đi **ngược** gradient là bước thử giảm loss. Ví dụ chưa xây mô hình nhiều tham số nên người mới thấy rõ w thay đổi ra sao.
 
-1. Đặt w=4 và learning rate 0.1.
-2. Lặp 10 lần, mỗi lần lấy gradient=2w rồi trừ bước cập nhật.
-3. In w làm tròn bốn chữ số.
-
-```python
-# Mục đích: Từng bước giảm một loss đơn giản.
-w = 4.0
-lr = 0.1
-for _ in range(10):
-    w = w - lr * 2 * w
-print(round(w, 4))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0.4295
-```
-
-Tham số đi từ 4 xuống khoảng 0.4295, tiến gần cực tiểu 0.
-
-### Tình huống 2 — Tìm đạo hàm riêng tại một điểm
-
-**Tình huống thực tế:** Loss theo hai tham số là `f=x²+3xy+y²`, tại x=1,y=2. Đội kỹ thuật muốn biết chỉ thay đổi x làm loss nhạy thế nào nếu giữ y cố định.
-
-**Vì sao chọn cách giải này?** Lấy đạo hàm riêng theo x rồi thay giá trị hai biến mới đúng ý nghĩa thay một tham số.
-
-**Quy trình giải:**
-
-1. Khai báo biến x,y và biểu thức f.
-2. Tính ∂f/∂x bằng `sp.diff(f,x)`.
-3. Thay x=1,y=2 và in độ dốc riêng.
+**Quy trình:**
+1. Tạo 10 số mục tiêu và đặt w=0.
+2. Tính MSE, gradient rồi cập nhật với lr=0,1.
+3. So MSE trước/sau và in giá trị w mới.
 
 ```python
-# Mục đích: Tìm đạo hàm riêng tại một điểm.
-import sympy as sp
-
-x, y = sp.symbols('x y')
-f = x ** 2 + 3 * x * y + y ** 2
-print(sp.diff(f, x).subs({x: 1, y: 2}))
-```
-
-**Kết quả khi chạy:**
-
-```text
-8
-```
-
-Nếu tăng x rất nhỏ quanh (1,2), loss tăng xấp xỉ 8 lần phần thay đổi x.
-
-### Tình huống 3 — Theo dõi lịch sử loss khi tối ưu
-
-**Tình huống thực tế:** Một tham số mô phỏng khởi đầu w=3 với `L(w)=w²`. Nhóm phát triển muốn ghi loss trước năm lần cập nhật để xem loss có giảm theo từng bước không.
-
-**Vì sao chọn cách giải này?** Ghi loss trong List cho thấy xu hướng hội tụ thay vì chỉ biết giá trị cuối.
-
-**Quy trình giải:**
-
-1. Tạo List `history`, đặt w=3 và lr=0.1.
-2. Mỗi vòng thêm `round(w*w,3)` vào lịch sử rồi cập nhật w.
-3. In năm số loss theo thứ tự.
-
-```python
-# Mục đích: Theo dõi lịch sử loss khi tối ưu.
-w = 3.0
-history = []
-for _ in range(5):
-    history.append(round(w ** 2, 3))
-    w = w - 0.1 * 2 * w
-print(history)
-```
-
-**Kết quả khi chạy:**
-
-```text
-[9.0, 5.76, 3.686, 2.359, 1.51]
-```
-
-Loss giảm dần qua năm giá trị, nhưng kết quả này chỉ phản ánh hàm lồi một biến đang mô phỏng.
-
-### Tình huống 4 — So bước học nhỏ và quá lớn
-
-**Tình huống thực tế:** Một mô hình thử tối ưu `L(w)=w²` từ w=4, chạy 5 bước với hai learning rate 0.1 và 1.1. Cần kiểm tra cả hai có làm loss giảm như nhau không.
-
-**Vì sao chọn cách giải này?** Learning rate 1.1 vượt khoảng ổn định của hàm này, làm tham số đổi dấu và độ lớn tăng.
-
-**Quy trình giải:**
-
-1. Với từng learning rate, đặt lại w=4 để so công bằng.
-2. Cập nhật 5 bước bằng gradient 2w.
-3. In loss cuối sau làm tròn ba chữ số.
-
-```python
-# Mục đích: So bước học nhỏ và quá lớn.
-for lr in [0.1, 1.1]:
-    w = 4.0
-    for _ in range(5):
-        w = w - lr * 2 * w
-    print(lr, round(w ** 2, 3))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0.1 1.718
-1.1 99.068
-```
-
-Với lr 0.1, loss còn 1.718; với lr 1.1 loss tăng lên 99.068 dù cùng điểm khởi đầu.
-
-### Tình huống 5 — Fit một hệ số tuyến tính bằng gradient
-
-**Tình huống thực tế:** Dữ liệu ba điểm gồm x=`[1,2,3]` và y=`[2,4,6]`. Mô hình không có hệ số chặn, dự báo `ŷ=w*x`. Bắt đầu w=0 và dùng 100 bước cập nhật để khớp hệ số w.
-
-**Vì sao chọn cách giải này?** Đạo hàm MSE theo w là `2×mean(x*(wx−y))`; cập nhật lặp cho hệ số gần 2.
-
-**Quy trình giải:**
-
-1. Tạo mảng x,y theo đúng cặp quan sát.
-2. Đặt w=0, lr=0.1, lặp 100 lần để tính gradient MSE và cập nhật.
-3. In w làm tròn ba chữ số.
-
-```python
-# Mục đích: Fit một hệ số tuyến tính bằng gradient.
 import numpy as np
-
-x = np.array([1.0, 2.0, 3.0])
-y = np.array([2.0, 4.0, 6.0])
+targets = np.array([2,3,4,5,6,7,8,9,10,11], dtype=float)
 w = 0.0
-for _ in range(100):
-    gradient = 2 * np.mean(x * (w * x - y))
-    w = w - 0.1 * gradient
-print(round(w, 3))
+before = np.mean((w - targets)**2)
+gradient = 2 * np.mean(w - targets)
+w = w - 0.1 * gradient
+after = np.mean((w - targets)**2)
+assert len(targets) == 10
+print("Bản ghi:", len(targets))
+print(f"Trọng số sau bước: {w:.2f}")
+print("Loss giảm:", bool(after < before))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-2.0
+Bản ghi: 10
+Trọng số sau bước: 1.30
+Loss giảm: True
 ```
 
-Mô hình tìm được hệ số gần 2 cho quan hệ y=2x; chưa có bước đánh giá trên dữ liệu mới.
+Một bước chưa đưa w tới giá trị tối ưu, nhưng cho thấy hướng cập nhật làm sai số trên mười điểm giảm.
+
+### Tình huống 2 — Cấp 2: Đạo hàm riêng hệ số từ 12 cặp x/y có chặn cố định
+
+**Từ vựng trong mục:** **Partial derivative** — đạo hàm riêng; **Coefficient** — hệ số; **Full batch** — toàn bộ dữ liệu.
+
+**Tình huống thực tế:** Một dây chuyền có **12 cặp số đo** x/y (x từ 1 đến 12 đơn vị đầu vào). Dữ liệu tạo theo y=2x+1; nhóm biết trước phần chặn 1, nhưng cần học hệ số dốc w từ 0. Để không nhầm gradient với tỷ lệ cố định, hãy tính độ dốc loss **từ cả 12 hàng**, cập nhật một lần và kiểm loss.
+
+**Vì sao chọn cách này?** Giữ chặn bằng 1 rồi chỉ tối ưu w. Gradient MSE là trung bình đóng góp sai số từ cả 12 hàng nhân x; learning rate 0,005 được chọn nhỏ để không bước quá xa khi x lớn.
+
+**Quy trình:**
+1. Tạo 12 hàng, dự báo bằng `w*x+1`.
+2. Tính đạo hàm loss theo w trên toàn bộ 12 hàng.
+3. Cập nhật một bước, xác nhận MSE sau cập nhật nhỏ hơn trước.
+
+```python
+import numpy as np
+x = np.array([1,2,3,4,5,6,7,8,9,10,11,12], dtype=float)
+y = 2*x + 1
+w = 0.0
+before = np.mean((w*x + 1 - y)**2)
+gradient = 2*np.mean((w*x + 1 - y)*x)
+w -= 0.005*gradient
+after = np.mean((w*x + 1 - y)**2)
+assert x.shape == y.shape == (12,)
+print("Mẫu:", len(x))
+print(f"Gradient ban đầu: {gradient:.2f}")
+print(f"Hệ số sau bước: {w:.3f}")
+print("Loss giảm:", bool(after < before))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Mẫu: 12
+Gradient ban đầu: -216.67
+Hệ số sau bước: 1.083
+Loss giảm: True
+```
+
+Gradient của w không phải hệ số w: gradient phụ thuộc **tất cả x và sai số dự báo**.
+
+### Tình huống 3 — Cấp 3: Theo dõi 6 bước tối ưu trên 15 mẫu chuẩn hóa
+
+**Từ vựng trong mục:** **Gradient descent** — hạ dốc; **Iteration** — vòng cập nhật; **Loss history** — lịch sử sai số.
+
+**Tình huống thực tế:** Một mô hình dự báo 15 giá trị y từ 15 đầu vào x đã chuẩn hóa vào (0,1], với quy luật minh họa y=2x. Mô hình y=wx bắt đầu w=0. Cần lưu **loss ở từng bước trong 6 bước cập nhật** để biết quá trình có thực sự cải thiện hay không.
+
+**Vì sao chọn cách này?** Dùng MSE và gradient theo một hệ số, cập nhật có learning rate đủ nhỏ. Lưu lịch sử loss giúp không chỉ nhìn giá trị cuối mà còn kiểm tra sai số **giảm qua từng bước**.
+
+**Quy trình:**
+1. Chuẩn bị đúng 15 cặp x/y.
+2. Lặp sáu lần: đo loss, tính gradient toàn batch rồi cập nhật w.
+3. Kiểm lịch sử loss giảm, in bước đầu/cuối và hệ số mới.
+
+```python
+import numpy as np
+x = np.array([0.06666666666666667,0.13333333333333333,0.2,0.26666666666666666,0.3333333333333333,0.4,0.4666666666666667,0.5333333333333333,0.6,0.6666666666666666,0.7333333333333333,0.8,0.8666666666666667,0.9333333333333333,1], dtype=float)
+y = 2*x
+w = 0.0
+history = []
+for step in range(6):
+    error = w*x - y
+    history.append(float(np.mean(error**2)))
+    w -= 0.2*2*np.mean(error*x)
+assert len(x) == 15 and len(history) == 6
+print("Mẫu:", len(x))
+print("Bước cập nhật:", len(history))
+print(f"Loss đầu: {history[0]:.3f}")
+print(f"Loss bước 6: {history[-1]:.3f}")
+print("Giảm từng bước:", all(a > b for a, b in zip(history, history[1:])))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Mẫu: 15
+Bước cập nhật: 6
+Loss đầu: 1.470
+Loss bước 6: 0.300
+Giảm từng bước: True
+```
+
+Sáu **bước full-batch** ở đây cũng tương ứng sáu lượt xem toàn bộ 15 mẫu; nếu dùng minibatch, số bước và số epoch có thể khác.
+
+### Tình huống 4 — Cấp 4: So learning rate ổn định và quá lớn trên 18 mục tiêu
+
+**Từ vựng trong mục:** **Learning rate** — độ dài bước; **Overshoot** — bước vượt quá; **Divergence** — phân kỳ.
+
+**Tình huống thực tế:** Máy phân loại giả lập thu **18 điểm mục tiêu** trong khoảng 10–15, mỗi hàng là một lượt. Một mô hình chỉ dự báo hằng w từ 0 được chạy **5 bước** với hai learning rate 0,1 và 1,1 trên cùng dữ liệu. Cần so loss cuối để chứng minh learning rate quá cao có thể **vượt qua điểm tối ưu liên tục** và làm loss tăng.
+
+**Vì sao chọn cách này?** Trên bài toán loss hình bát úp ngược (hình bát úp lên, có cực tiểu), learning rate 0,1 cập nhật tiến về trung bình; 1,1 khiến mỗi bước nhảy qua phía đối diện và biên độ lớn dần. So cùng dữ liệu giúp tách ảnh hưởng của learning rate.
+
+**Quy trình:**
+1. Tạo 18 giá trị mục tiêu và MSE cho dự báo hằng w.
+2. Chạy hai bản sao 5 bước, chỉ khác learning rate.
+3. Báo loss ban đầu, hai loss cuối và kiểm bản tốc độ học lớn bị tăng loss.
+
+```python
+import numpy as np
+targets = np.array([10,11,12,13,14,15,10,11,12,13,14,15,10,11,12,13,14,15], dtype=float)
+def train(lr):
+    w = 0.0
+    for step in range(5):
+        gradient = 2*np.mean(w - targets)
+        w -= lr*gradient
+    return float(np.mean((w - targets)**2))
+initial = float(np.mean(targets**2))
+small = train(0.1)
+large = train(1.1)
+assert len(targets) == 18
+print("Mẫu:", len(targets))
+print(f"Loss đầu: {initial:.2f}")
+print(f"Loss sau lr=0.1: {small:.2f}")
+print(f"Loss sau lr=1.1: {large:.2f}")
+print("lr lớn làm loss tăng:", bool(large > initial))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Mẫu: 18
+Loss đầu: 159.17
+Loss sau lr=0.1: 19.69
+Loss sau lr=1.1: 970.38
+lr lớn làm loss tăng: True
+```
+
+Learning rate lớn không **luôn** gây phân kỳ, nhưng ở hàm và bước cập nhật cụ thể này, nó khiến quá trình không hội tụ.
+
+### Tình huống 5 — Cấp 5: Huấn luyện hai tham số hồi quy với 20 cặp đo qua 300 epoch
+
+**Từ vựng trong mục:** **Batch gradient** — gradient toàn bộ; **Epoch** — lượt học; **MSE** — sai số bình phương.
+
+**Tình huống thực tế:** Phòng nghiên cứu có **20 cặp đo** x/y: đầu vào từ 0 đến 1,9 (đơn vị đo chuẩn hóa), đầu ra giả lập y=2x+1. Cần học **cả độ dốc w và hệ số chặn b**, ban đầu bằng 0, bằng 300 epoch full-batch; sau đó kiểm tra mô hình gần hai tham số đúng và MSE giảm.
+
+**Vì sao chọn cách này?** Khi tối ưu đồng thời w/b, gradient có hai thành phần theo đúng thứ tự tham số. Bước full-batch dùng toàn bộ 20 mẫu; 300 epoch chỉ là số lượt thử trong ví dụ, không khẳng định mọi mô hình đều cần số epoch này.
+
+**Quy trình:**
+1. Tạo 20 mẫu (x,y) và đặt w=b=0.
+2. Trong mỗi epoch, tính lỗi 20 hàng, gradient cho w và b, cập nhật cùng learning rate 0,1.
+3. So loss đầu/cuối, in hai tham số cuối và xác nhận MSE giảm.
+
+```python
+import numpy as np
+x = np.array([0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9], dtype=float)
+y = 2*x + 1
+w, b = 0.0, 0.0
+initial = float(np.mean((w*x+b-y)**2))
+for epoch in range(300):
+    error = w*x+b-y
+    dw = 2*np.mean(error*x)
+    db = 2*np.mean(error)
+    w -= 0.1*dw
+    b -= 0.1*db
+mse = float(np.mean((w*x+b-y)**2))
+assert x.size == 20
+print("Mẫu:", len(x))
+print("Epoch:", 300)
+print(f"Trọng số w: {w:.2f}")
+print(f"Chặn b: {b:.2f}")
+print(f"MSE cuối: {mse:.6f}")
+print("MSE giảm:", mse < initial)
+```
+
+**Kết quả khi chạy:**
+
+```text
+Mẫu: 20
+Epoch: 300
+Trọng số w: 2.00
+Chặn b: 1.00
+MSE cuối: 0.000000
+MSE giảm: True
+```
+
+Vì dữ liệu được tạo đúng theo đường thẳng, hồi quy có thể đạt MSE rất nhỏ. Với dữ liệu thực có nhiễu phải đánh giá trên tập chưa dùng để học.
 
 ## 6. Sai lầm thường gặp
 

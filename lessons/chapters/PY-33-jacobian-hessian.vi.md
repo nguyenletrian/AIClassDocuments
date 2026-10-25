@@ -128,154 +128,211 @@ print(np.linalg.eigvalsh(H))
 
 Một trị riêng âm, một dương nên Hessian bất định; (0,0) là điểm yên ngựa của x²−y².
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống Jacobian/Hessian — từ độ nhạy đến suy biến cục bộ
 
-### Tình huống 1 — Độ nhạy của hai đầu ra cảm biến
+### Tình huống 1 — Cấp 1: Jacobian của hai đầu ra trên 10 cặp tín hiệu
 
-**Tình huống thực tế:** Hai chỉ số đầu ra của mô hình cảm biến là `F1=x+y`, `F2=xy`; x và y là hai đầu vào đã được chuẩn hóa cùng thang. Tại x=3,y=2, cần biết mỗi đầu ra nhạy ra sao khi một đầu vào thay đổi nhỏ.
+**Từ vựng trong mục:** **Jacobian** — ma trận độ nhạy; **Partial derivative** — đạo hàm riêng.
 
-**Vì sao chọn cách giải này?** Jacobian đo đạo hàm riêng của từng đầu ra theo từng đầu vào ở điểm đang xét.
+**Tình huống thực tế:** Trạm đo nhận **10 cặp đầu vào** `(x,y)` không đơn vị; mỗi hàng là một thời điểm. Hệ thống tạo hai chỉ số `F1=x+y` và `F2=x*y`. Kỹ thuật viên muốn biết khi x hoặc y thay đổi rất nhỏ tại **cặp đo đầu tiên** thì mỗi đầu ra nhạy đến mức nào; đồng thời xác nhận bảng Jacobian có đúng hai hàng đầu ra và hai cột đầu vào.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Jacobian ghi đạo hàm theo từng biến cho **từng đầu ra**; mỗi vị trí có ý nghĩa cố định. Không nhầm Jacobian với bảng 10 hàng dữ liệu đầu vào.
 
-1. Khai báo hai đầu vào và hai biểu thức đầu ra.
-2. Tạo Jacobian với cột theo [x,y].
-3. Thay x=3,y=2 và in các hệ số độ nhạy.
+**Quy trình:**
+1. Tạo 10 cặp x/y rồi định nghĩa hai đầu ra bằng SymPy.
+2. Gọi `jacobian([x,y])` cho hàm vector.
+3. Thay cặp đầu tiên vào Jacobian và in ma trận 2×2.
 
 ```python
-# Mục đích: Độ nhạy của hai đầu ra cảm biến.
 import sympy as sp
-
-x, y = sp.symbols('x y')
-F = sp.Matrix([x + y, x * y])
-J = F.jacobian([x, y])
-print(J.subs({x: 3, y: 2}).tolist())
+x, y = sp.symbols("x y")
+inputs = [[2,3],[3,3],[4,3],[5,3],[6,3],[2,4],[3,4],[4,4],[5,4],[6,4]]
+outputs = sp.Matrix([x+y, x*y])
+J = outputs.jacobian([x, y])
+first = J.subs({x: inputs[0][0], y: inputs[0][1]})
+assert len(inputs) == 10 and J.shape == (2, 2)
+print("Cặp đầu vào:", len(inputs))
+print("Jacobian cặp đầu:", first.tolist())
+print("Shape Jacobian:", J.shape)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[1, 1], [2, 3]]
+Cặp đầu vào: 10
+Jacobian cặp đầu: [[1, 1], [3, 2]]
+Shape Jacobian: (2, 2)
 ```
 
-Đầu ra F2 nhạy 2 theo x và 3 theo y tại điểm xét, khác F1 luôn nhạy 1 theo mỗi biến.
+Hàng đầu của Jacobian nói về F1, hàng thứ hai về F2; số `3` ở hàng F2/cột x có nghĩa là F2 thay đổi khoảng 3 đơn vị khi x tăng 1 đơn vị rất nhỏ tại cặp đầu.
 
-### Tình huống 2 — Độ cong của loss hai tham số
+### Tình huống 2 — Cấp 2: Hessian cho độ cong loss tại 12 cấu hình tham số
 
-**Tình huống thực tế:** Loss mô hình là `L=x²+2y²` với x,y không đơn vị; đội phát triển muốn so độ cong hai hướng thay đổi tham số để chọn cách tối ưu.
+**Từ vựng trong mục:** **Hessian** — ma trận đạo hàm bậc hai; **Curvature** — độ cong.
 
-**Vì sao chọn cách giải này?** Hessian chứa đạo hàm riêng bậc hai, so được mức cong theo hai tham số.
+**Tình huống thực tế:** Đội tối ưu thử **12 cặp tham số** `(x,y)` cho loss giả lập `x²+2y²` (đơn vị loss không chuẩn hóa). Cần kiểm xem loss cong mạnh hơn theo x hay y và liệu độ cong có thay đổi giữa các cấu hình thử.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Hessian lấy đạo hàm thêm một lần từ gradient; với loss bậc hai này Hessian luôn cố định `[[2,0],[0,4]]`, thể hiện độ cong theo y lớn hơn. Việc đánh giá ở 12 điểm khác nhau làm rõ khác biệt giữa vị trí tham số và độ cong.
 
-1. Định nghĩa hàm loss hai biến.
-2. Lấy Hessian theo thứ tự [x,y].
-3. In ma trận 2×2, so các ô đường chéo.
+**Quy trình:**
+1. Lưu 12 cặp thử và định nghĩa loss bằng SymPy.
+2. Tính Hessian theo đúng thứ tự x, y.
+3. Đánh giá Hessian tại điểm đầu/cuối và kiểm hai ma trận giống nhau.
 
 ```python
-# Mục đích: Độ cong của loss hai tham số.
 import sympy as sp
-
-x, y = sp.symbols('x y')
-loss = x ** 2 + 2 * y ** 2
-print(sp.hessian(loss, [x, y]).tolist())
+x, y = sp.symbols("x y")
+points = [[-1,-1],[0,-1],[1,-1],[2,-1],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1]]
+loss = x**2 + 2*y**2
+H = sp.hessian(loss, [x, y])
+first = H.subs({x: points[0][0], y: points[0][1]})
+last = H.subs({x: points[-1][0], y: points[-1][1]})
+assert len(points) == 12
+print("Cấu hình:", len(points))
+print("Hessian:", H.tolist())
+print("Hessian không đổi:", first == last)
+print("Cong hơn theo y:", H[1,1] > H[0,0])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[2, 0], [0, 4]]
+Cấu hình: 12
+Hessian: [[2, 0], [0, 4]]
+Hessian không đổi: True
+Cong hơn theo y: True
 ```
 
-Mức cong theo y bằng 4, lớn hơn mức cong theo x bằng 2.
+Độ cong là thông số của mô hình loss, không phải tọa độ x/y được đo từ 12 cấu hình.
 
-### Tình huống 3 — Tìm bộ tham số làm loss nhỏ nhất
+### Tình huống 3 — Cấp 3: Tìm cực tiểu của loss hai tham số từ 15 ứng viên
 
-**Tình huống thực tế:** Một mô hình có hàm loss `L=(x−3)²+(y−2)²`. Cần tìm hai tham số tại đó loss không còn giảm theo đạo hàm riêng bậc nhất.
+**Từ vựng trong mục:** **Stationary point** — điểm dừng; **Minimum** — cực tiểu; **Eigenvalues** — trị riêng.
 
-**Vì sao chọn cách giải này?** Giải hệ gradient bằng 0 cho ứng viên tối ưu, rồi dùng dạng tổng bình phương để xác nhận cực tiểu.
+**Tình huống thực tế:** Nhóm hiệu chỉnh có **15 cặp tham số thử** `(x,y)`, mỗi hàng là một phương án đặt máy. Loss mô hình là `(x−3)²+2(y−2)²`; cần tìm điểm dừng đúng bằng giải gradient, xác nhận Hessian có độ cong dương, và kiểm trong 15 ứng viên có một phương án trùng điểm tối ưu.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Gradient bằng 0 chỉ cho biết ứng viên cực trị; Hessian có **hai trị riêng dương** là căn cứ khẳng định đây là cực tiểu địa phương nghiêm ngặt của loss bậc hai. Đối chiếu bảng 15 ứng viên minh họa lựa chọn thực tế.
 
-1. Lấy đạo hàm L theo x và y.
-2. Giải đồng thời hai phương trình bằng 0.
-3. In tọa độ bộ tham số nghiệm.
+**Quy trình:**
+1. Dùng SymPy giải đồng thời hai thành phần gradient bằng 0.
+2. Dùng Hessian và trị riêng để phân loại điểm dừng.
+3. So loss của 15 ứng viên, in mã ứng viên tốt nhất và nghiệm chính xác.
 
 ```python
-# Mục đích: Tìm bộ tham số làm loss nhỏ nhất.
 import sympy as sp
-
-x, y = sp.symbols('x y')
-loss = (x - 3) ** 2 + (y - 2) ** 2
-solution = sp.solve([sp.diff(loss, x), sp.diff(loss, y)], [x, y])
-print(solution[x], solution[y])
-```
-
-**Kết quả khi chạy:**
-
-```text
-3 2
-```
-
-Điểm (3,2) là cực tiểu toàn cục của tổng hai bình phương không âm.
-
-### Tình huống 4 — Phân biệt điểm yên ngựa với cực tiểu
-
-**Tình huống thực tế:** Loss thử nghiệm `L=x²−y²` có điểm dừng tại (0,0). Tuy nhiên theo trục x hàm tăng, theo trục y hàm giảm; nhóm kỹ thuật cần biết có phải cực tiểu không.
-
-**Vì sao chọn cách giải này?** Trị riêng Hessian trái dấu là bằng chứng điểm dừng dạng yên ngựa.
-
-**Quy trình giải:**
-
-1. Tạo Hessian `[[2,0],[0,-2]]` tại điểm (0,0).
-2. Tính trị riêng đối xứng bằng `eigvalsh`.
-3. Kiểm tra có cả trị riêng âm và dương, in kết luận.
-
-```python
-# Mục đích: Phân biệt điểm yên ngựa với cực tiểu.
 import numpy as np
-
-H = np.array([[2.0, 0.0], [0.0, -2.0]])
-values = np.linalg.eigvalsh(H)
-print(bool((values < 0).any() and (values > 0).any()))
+x, y = sp.symbols("x y")
+points = [[1,1],[2,1],[3,1],[4,1],[5,1],[1,2],[2,2],[3,2],[4,2],[5,2],[1,3],[2,3],[3,3],[4,3],[5,3]]
+loss = (x-3)**2 + 2*(y-2)**2
+solution = sp.solve([sp.diff(loss,x), sp.diff(loss,y)], [x,y])
+H = np.array(sp.hessian(loss,[x,y])).astype(float)
+eigenvalues = np.linalg.eigvalsh(H)
+losses = [(px-3)**2+2*(py-2)**2 for px, py in points]
+assert len(points) == 15
+print("Ứng viên:", len(points))
+print("Điểm dừng:", solution[x], solution[y])
+print("Hessian dương:", bool(np.all(eigenvalues > 0)))
+print("Ứng viên tốt nhất:", f"T{int(np.argmin(losses))+1:02d}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Ứng viên: 15
+Điểm dừng: 3 2
+Hessian dương: True
+Ứng viên tốt nhất: T08
 ```
 
-Hessian bất định; điểm dừng này là yên ngựa, không phải cực tiểu.
+Tên 'tốt nhất' ở đây có nghĩa **loss nhỏ nhất trên đúng 15 phương án đã cho**; bài toán thực tế còn cần kiểm giới hạn vận hành của thiết bị.
 
-### Tình huống 5 — Kiểm tra kích thước Jacobian
+### Tình huống 4 — Cấp 4: Phân loại 18 mô hình có điểm dừng: min/max/yên ngựa
 
-**Tình huống thực tế:** Mô hình có ba đầu vào x,y,z và hai đầu ra `F1=x+y+z`, `F2=x*y`. Cần biết ma trận độ nhạy của mô hình có bao nhiêu hàng và cột.
+**Từ vựng trong mục:** **Critical point** — điểm dừng; **Positive definite** — xác định dương; **Saddle** — yên ngựa.
 
-**Vì sao chọn cách giải này?** Jacobian có một hàng cho mỗi đầu ra và một cột cho mỗi đầu vào; với 2 đầu ra, 3 đầu vào có shape (2,3).
+**Tình huống thực tế:** Đội nghiên cứu nhận **18 phiên bản mô hình**, mỗi hàng có mã M01…M18 và loại công thức: `minimum` có `x²+2y²`, `maximum` có `−x²−2y²`, `saddle` có `x²−y²`. Cả ba loại đều có gradient 0 tại `(0,0)`, nhưng ý nghĩa hoàn toàn khác. Cần **phân loại lại từ Hessian**, đếm số min/max/yên ngựa và kiểm không kết luận min chỉ từ gradient bằng 0.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Đối với các hàm bậc hai này, dấu trị riêng Hessian phân biệt được ba trường hợp: tất cả dương → min, tất cả âm → max, vừa âm vừa dương → yên ngựa. Duyệt 18 dòng thay vì suy từ nhãn mẫu.
 
-1. Khai báo ba đầu vào x,y,z.
-2. Tạo hai đầu ra thành SymPy Matrix.
-3. Tính Jacobian theo [x,y,z], in shape.
+**Quy trình:**
+1. Lưu 18 mã/công thức và định nghĩa Hessian của ba công thức bằng SymPy.
+2. Lấy các trị riêng Hessian thực đối xứng cho mỗi phiên bản.
+3. Đếm ba loại, xác nhận tổng 18.
 
 ```python
-# Mục đích: Kiểm tra kích thước Jacobian.
+import numpy as np
 import sympy as sp
-
-x, y, z = sp.symbols('x y z')
-F = sp.Matrix([x + y + z, x * y])
-print(F.jacobian([x, y, z]).shape)
+x,y = sp.symbols("x y")
+models = [{"id":"M01","type":"minimum"},{"id":"M02","type":"maximum"},{"id":"M03","type":"saddle"},{"id":"M04","type":"minimum"},{"id":"M05","type":"maximum"},{"id":"M06","type":"saddle"},{"id":"M07","type":"minimum"},{"id":"M08","type":"maximum"},{"id":"M09","type":"saddle"},{"id":"M10","type":"minimum"},{"id":"M11","type":"maximum"},{"id":"M12","type":"saddle"},{"id":"M13","type":"minimum"},{"id":"M14","type":"maximum"},{"id":"M15","type":"saddle"},{"id":"M16","type":"minimum"},{"id":"M17","type":"maximum"},{"id":"M18","type":"saddle"}]
+functions = {"minimum": x*x+2*y*y,
+             "maximum": -x*x-2*y*y,
+             "saddle": x*x-y*y}
+results = []
+for row in models:
+    H = np.array(sp.hessian(functions[row["type"]],[x,y]), dtype=float)
+    eig = np.linalg.eigvalsh(H)
+    kind = "minimum" if np.all(eig>0) else ("maximum" if np.all(eig<0) else "saddle")
+    results.append(kind)
+assert len(models) == 18
+print("Mô hình:", len(models))
+print("Cực tiểu:", results.count("minimum"))
+print("Cực đại:", results.count("maximum"))
+print("Yên ngựa:", results.count("saddle"))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(2, 3)
+Mô hình: 18
+Cực tiểu: 6
+Cực đại: 6
+Yên ngựa: 6
 ```
 
-Jacobian có hai hàng đầu ra và ba cột đầu vào, không nhất thiết là ma trận vuông.
+Trị riêng bằng 0 sẽ khiến **phép thử Hessian cơ bản không đủ kết luận**; ba dạng hàm minh họa ở đây không có trị riêng bằng 0.
+
+### Tình huống 5 — Cấp 5: Kiểm tra Jacobian suy biến qua 20 trạng thái của hệ hai đầu ra
+
+**Từ vựng trong mục:** **Jacobian determinant** — định thức Jacobian; **Sensitivity** — độ nhạy; **Singular** — suy biến.
+
+**Tình huống thực tế:** Hệ thống điều khiển có **20 cấu hình đầu vào** `(x,y)`, mỗi hàng là một trạng thái C01…C20, tạo hai đầu ra `F1=x²+y`, `F2=xy+3y` (đơn vị chỉ số). Một số cấu hình khiến hai hàng của Jacobian phụ thuộc, tức ánh xạ **không khả nghịch cục bộ theo phép thử định thức**. Cần tìm mã các cấu hình có định thức Jacobian bằng 0, đồng thời kiểm một ví dụ Jacobian không suy biến.
+
+**Vì sao chọn cách này?** Jacobian cho biết độ nhạy của hai đầu ra theo hai đầu vào. Nếu định thức bằng 0, ma trận đạo hàm mất hạng nên không áp định lý hàm ngược tại cấu hình đó; chưa phải kết luận mọi giá trị quanh đó đều không thể phục hồi theo mọi cách.
+
+**Quy trình:**
+1. Dùng SymPy tính Jacobian của hai hàm đầu ra.
+2. Thay từng cặp trong 20 hàng, tính định thức bằng số.
+3. In mã suy biến, số cấu hình còn khả nghịch cục bộ và Jacobian mẫu.
+
+```python
+import numpy as np
+import sympy as sp
+x,y = sp.symbols("x y")
+points = [[1,8],[2,2],[3,2],[4,2],[5,2],[1,3],[2,3],[3,36],[4,3],[5,3],[1,4],[2,4],[3,4],[4,4],[5,80],[1,5],[2,5],[3,5],[4,5],[5,5]]
+F = sp.Matrix([x*x+y, x*y+3*y])
+J = F.jacobian([x,y])
+singular = []
+for i,(px,py) in enumerate(points,1):
+    matrix = np.array(J.subs({x:px,y:py}),dtype=float)
+    if abs(np.linalg.det(matrix)) < 1e-9:
+        singular.append(f"C{i:02d}")
+assert len(points) == 20
+print("Cấu hình:", len(points))
+print("Suy biến:", ", ".join(singular))
+print("Còn định thức khác 0:", len(points)-len(singular))
+print("Kích thước Jacobian:", J.shape)
+```
+
+**Kết quả khi chạy:**
+
+```text
+Cấu hình: 20
+Suy biến: C01, C08, C15
+Còn định thức khác 0: 17
+Kích thước Jacobian: (2, 2)
+```
+
+Tập mã suy biến được suy từ **Jacobian tại từng điểm**, không phải từ việc x/y có giá trị lớn hay nhỏ.
 
 ## 6. Sai lầm thường gặp
 
