@@ -3,8 +3,8 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_04_IN_PROGRESS",
-  "last_completed_batch": 3,
+  "status": "READY_FOR_BATCH_05",
+  "last_completed_batch": 4,
   "batches": [
     {
       "batch": 1,
@@ -72,13 +72,13 @@
         "PY-19",
         "PY-20"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-20"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 137,
+      "merged_commit": "6a836dada8ee846d8bbc5d370c2eb718db59e6e6",
+      "ci_run": 40167076193,
       "branch": "fix/markdown-render-batch-04-20261025",
       "reviewed_lessons": [
         "PY-16",
@@ -95,7 +95,7 @@
         "encoded_pipe_entities_fixed": 8,
         "unescaped_table_delimiters": 0
       },
-      "notes": "Review limited to PY-16..20. PY-20 had eight literal &#124; encodings in one Set-cardinality explanation; changed exactly one line to literal bars in inline code. PY-16..19 unchanged. Await CI and merge."
+      "notes": "Batch04 PY-16–20: only PY-20 single-line fix, replaced eight literal &#124; tokens with eight cardinality bars inside inline-code expression. PY-16–19 unchanged. PR #137 merged 6a836dada8ee846d8bbc5d370c2eb718db59e6e6 following CI #40167076193 PASS on final PR head. Markdown regression and curriculum suite PASS. Next batch05 PY-21–25."
     },
     {
       "batch": 5,
