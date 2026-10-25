@@ -108,7 +108,10 @@ Bốn nhiệm vụ khác nhau có 24 thứ tự thực hiện nếu mỗi nhiệ
 # Mục đích: Binomial coefficient và tam giác Pascal.
 import math
 
-print([math.comb(4, k) for k in range(5)])
+counts = []
+for k in range(5):
+    counts.append(math.comb(4, k))
+print(counts)
 ```
 
 **Kết quả khi chạy:**
