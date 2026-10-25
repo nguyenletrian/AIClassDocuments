@@ -42,9 +42,13 @@
 Set không giữ phần tử trùng. Lớp Python gồm SV1, SV2; lớp AI gồm SV2, SV3. Phép **hợp** `python | ai` chứa tất cả người có mặt trong **ít nhất một** lớp. SV2 nằm ở cả hai nhưng chỉ xuất hiện một lần. Khi cần đầu ra ổn định, dùng `sorted()` vì Set không bảo đảm thứ tự hiển thị.
 
 ```python
-# Mục đích: Ai tham gia ít nhất một nhóm?.
+# Mục đích: Tìm danh sách sinh viên thuộc ít nhất một trong hai nhóm Python/AI bằng phép hợp tập hợp.
+# Dữ liệu: Mã SV1, SV2 thuộc Python; SV2, SV3 thuộc AI; SV2 có mặt ở cả hai nhưng chỉ đếm một lần.
+# Tập set lưu mã không trùng; dấu ngoặc nhọn tạo tập hợp sinh viên Python.
 python = {'SV1', 'SV2'}
+# Tập AI chứa SV2 chung với Python và SV3 riêng.
 ai = {'SV2', 'SV3'}
+# | là hợp hai set, lấy người thuộc ít nhất một nhóm và bỏ SV2 trùng; sorted() xếp mã để in ổn định vì set không có thứ tự bảo đảm.
 print(sorted(python | ai))
 ```
 
@@ -63,9 +67,13 @@ Ba mã học viên khác nhau thuộc ít nhất một lớp; `sorted` tạo Lis
 **Giao** `a & b` chỉ lấy phần tử thuộc cả hai nhóm; với lớp Python {SV1,SV2} và AI {SV2,SV3}, phần chung là SV2. **Hiệu** `a - b` chỉ lấy phần tử thuộc a nhưng không thuộc b, tức SV1 trong ví dụ. Hiệu khác hiệu đối xứng `a ^ b`, vốn chứa các phần tử chỉ có ở đúng một nhóm.
 
 ```python
-# Mục đích: Phần chung và phần riêng.
+# Mục đích: Tách mã học viên thuộc cả hai nhóm và chỉ thuộc nhóm thứ nhất bằng phép giao/hiệu.
+# Dữ liệu: a={SV1,SV2}, b={SV2,SV3}; SV2 là phần chung, SV1 chỉ ở a.
+# set không lưu phần tử trùng; a là nhóm đầu.
 a = {'SV1', 'SV2'}
+# b là nhóm sau, có một thành viên chung với a.
 b = {'SV2', 'SV3'}
+# & lấy giao: mã xuất hiện trong CẢ HAI set; - lấy hiệu a-b: chỉ mã ở a; sorted() giữ thứ tự xuất ổn định.
 print(sorted(a & b), sorted(a - b))
 ```
 
@@ -84,9 +92,13 @@ SV2 học cả hai lớp, còn SV1 chỉ học Python. Hai phép toán trả l�
 Nếu cộng số học viên hai lớp trực tiếp, người học cả hai bị đếm **hai lần**. Ví dụ lớp Python có 2 người, lớp AI có 2 người, một người chung: số người khác nhau bằng `2 + 2 - 1 = 3`. Công thức `|A ∪ B| = |A| + |B| - |A ∩ B|` trừ phần bị đếm lặp. Với hơn hai tập, cần tính thêm các giao nhiều tập.
 
 ```python
-# Mục đích: Đếm không lặp người.
+# Mục đích: Đếm học viên duy nhất của hai nhóm bằng nguyên lý cộng trừ phần giao.
+# Dữ liệu: Hai tập hai người, có SV2 lặp trong cả hai.
+# Mỗi set đếm một người tối đa một lần.
 a = {'SV1', 'SV2'}
+# SV2 ở cả hai nên nếu cộng hai số lượng sẽ bị đếm hai lần.
 b = {'SV2', 'SV3'}
+# len() đếm từng set; trừ len(a & b) vì người thuộc cả hai đã bị cộng hai lần; kết quả là số người duy nhất 3.
 print(len(a) + len(b) - len(a & b))
 ```
 
@@ -105,10 +117,18 @@ Kết quả đếm ba học viên duy nhất, không coi SV2 là hai người kh
 **Phân hoạch** tập dữ liệu gốc thành các nhóm **không rỗng**, **không giao nhau**, và **hợp lại bằng đúng tập gốc**. Ví dụ toàn bộ mã `{1,2,3,4,5}`, train `{1,2,3}`, test `{4,5}`. `isdisjoint` chỉ kiểm tra không trùng; để chứng minh phân hoạch còn phải kiểm tra hợp của chúng có phủ đủ dữ liệu gốc. Với Machine Learning, không trùng ID **chưa chắc** loại bỏ mọi hình thức rò rỉ dữ liệu.
 
 ```python
-# Mục đích: Chia đủ dữ liệu thành phần rời.
+# Mục đích: Xác minh Train/Test chia đủ năm mã nguồn, mỗi nhóm có dữ liệu và không chồng lấn.
+# Dữ liệu: all_ids là năm mẫu nguồn; train có ba mẫu, test hai mẫu.
+# Tập tất cả mã là tập nguồn cần được chia không sót.
 all_ids = {1, 2, 3, 4, 5}
+# Tập mẫu dùng để học mô hình.
 train = {1, 2, 3}
+# Tập mẫu dành kiểm tra, phải không trùng train.
 test = {4, 5}
+# Tập mẫu dành kiểm tra, phải không trùng train.
+# bool(set) là False khi set rỗng; hai bool đảm bảo cả train và test không rỗng.
+# isdisjoint(test) trả True nếu giao hai tập RỖNG, tránh dùng lại mẫu train trong test.
+# | hợp hai tập; == so với nguồn để xác nhận bao phủ đủ và không có mã lạ.
 print(bool(train) and bool(test) and train.isdisjoint(test) and train | test == all_ids)
 ```
 
@@ -135,18 +155,30 @@ Hai tập đều có dữ liệu, không trùng và phủ đủ toàn bộ năm 
 3. Lấy hợp/giao, đối chiếu số người và số lượt.
 
 ```python
+# Mục đích: Từ 10 lượt đăng ký Python/AI, đếm học viên duy nhất và người học cả hai.
+# Dữ liệu: 10 cặp (mã SV, tên môn); một người có thể xuất hiện hai lượt ở hai môn.
+# Mỗi list con là một lượt (student_id, subject), KHÔNG phải mỗi hàng một học viên duy nhất.
 registrations = [["SV01","Python"],["SV02","AI"],["SV03","Python"],["SV01","AI"],["SV04","AI"],["SV05","Python"],["SV06","AI"],["SV05","AI"],["SV07","Python"],["SV08","AI"]]
+# set() tạo tập rỗng, dùng để tự bỏ những mã lặp khi thu thập đăng ký.
 python_students = set()
+# set() tạo tập rỗng, dùng để tự bỏ những mã lặp khi thu thập đăng ký.
 ai_students = set()
+# Duyệt từng lượt đăng ký và tách mã học viên/môn của lượt đó.
 for sid, subject in registrations:
     if subject == "Python":
+        # add() thêm mã vào tập Python; nếu lặp cùng mã cũng chỉ lưu một lần.
         python_students.add(sid)
     if subject == "AI":
+        # add() thêm mã vào tập AI, giữ một bản sao mỗi người.
         ai_students.add(sid)
+# len() xác nhận có đúng 10 LƯỢT đăng ký, không phải 10 người.
 if len(registrations) != 10:
+    # ValueError dừng khi dữ liệu hoặc điều kiện đối chiếu không hợp lệ.
     raise ValueError("Cần đủ 10 lượt đăng ký.")
 print("Lượt đăng ký:", len(registrations))
+# | là hợp: người tham gia ít nhất một môn, bỏ trùng hai môn.
 print("Học viên duy nhất:", len(python_students | ai_students))
+# & là giao: người học cả hai; sorted() sắp mã vì thứ tự set không cố định, join() ghép bằng ', '.
 print("Học cả hai:", ", ".join(sorted(python_students & ai_students)))
 ```
 
@@ -174,22 +206,38 @@ SV01 đăng ký hai lớp vẫn là **một người**. Đây là bài tập ph�
 3. Tính hiệu đối xứng, đối chiếu tổng hai nhóm.
 
 ```python
+# Mục đích: Tách học viên chỉ học Python, chỉ học AI và học đúng một môn trong 12 lượt.
+# Dữ liệu: 12 lượt môn Python/AI có người đăng ký hai lần; H01 và H07 học hai môn.
+# 12 cặp mã Hxx và môn; một học viên có thể được ghi nhiều lần nếu học hai môn.
 registrations = [["H01","AI"],["H02","Python"],["H03","AI"],["H04","Python"],["H05","AI"],["H01","Python"],["H06","Python"],["H07","AI"],["H08","Python"],["H09","AI"],["H07","Python"],["H10","Python"]]
+# set() khởi tạo tập mã Python không trùng.
 pyt = set()
+# set() khởi tạo tập mã AI không trùng.
 ai = set()
+# Duyệt từng cặp và dùng môn để chọn tập cần cập nhật.
 for sid, sub in registrations:
     if sub == "Python":
+        # add() ghi mã Python duy nhất, không làm tăng tập nếu đã có.
         pyt.add(sid)
     if sub == "AI":
+        # add() ghi mã AI duy nhất.
         ai.add(sid)
+# pyt - ai lấy người CHỈ Python; sorted() xếp mã để in dễ đối chiếu.
 only_python = sorted(pyt - ai)
+# ai - pyt lấy người CHỈ AI, không có trong Python.
 only_ai = sorted(ai - pyt)
+# ^ là hiệu đối xứng: thuộc ĐÚNG MỘT trong hai tập, không thuộc giao; khác | là hợp.
 only_one = pyt ^ ai
+# len() kiểm đủ số LƯỢT nguồn, không đếm số người.
 if len(registrations) != 12:
+    # ValueError dừng khi dữ liệu hoặc điều kiện đối chiếu không hợp lệ.
     raise ValueError("Cần đủ 12 lượt đăng ký.")
 print("Lượt:", len(registrations))
+# join() ghép các mã chỉ Python bằng dấu phẩy + khoảng trắng.
 print("Chỉ Python:", ", ".join(only_python))
+# join() ghép các mã chỉ AI thành chuỗi báo cáo.
 print("Chỉ AI:", ", ".join(only_ai))
+# len() đếm số người chỉ học một trong hai môn.
 print("Chỉ một môn:", len(only_one))
 ```
 
@@ -218,20 +266,34 @@ Một người có thể thuộc hai Set cùng lúc, nên không được dùng 
 3. Tính số khách duy nhất bằng quy tắc bao hàm–loại trừ, đối chiếu phép hợp.
 
 ```python
+# Mục đích: Đếm khách duy nhất ở 15 lượt ghé app/web bằng nguyên lý cộng trừ phần chung.
+# Dữ liệu: 15 cặp (mã khách, kênh); khách ghé hai kênh phải được đếm đúng một lần.
+# 15 lượt tiếp xúc, mỗi hàng gồm customer_id và channel app/web; không có nghĩa 15 khách.
 visits = [["K01","app"],["K02","web"],["K01","web"],["K03","app"],["K04","web"],["K05","app"],["K06","web"],["K07","app"],["K03","web"],["K08","app"],["K09","web"],["K10","app"],["K11","web"],["K12","app"],["K12","web"]]
+# Set chứa mỗi khách app một lần.
 app = set()
+# Set chứa mỗi khách web một lần.
 web = set()
+# Duyệt từng lượt và phân loại theo kênh.
 for sid, channel in visits:
     if channel == "app":
+        # Thêm mã khách vào nhóm app, tự loại lượt lặp.
         app.add(sid)
     if channel == "web":
+        # Thêm mã khách vào nhóm web, tự loại lượt lặp.
         web.add(sid)
+# Cộng lượng người của hai kênh rồi trừ giao (&) để không đếm hai lần người dùng cả hai.
+# & là giao app và web, số người ghé cả hai.
 via_count = len(app) + len(web) - len(app & web)
+# | là hợp tạo tập tất cả khách, dùng đối chiếu với cách cộng-trừ.
+# Kiểm đủ 15 lượt nguồn; or báo sai nếu số khách hợp không khớp.
 if len(visits) != 15 or via_count != len(app | web):
+    # ValueError dừng khi dữ liệu hoặc điều kiện đối chiếu không hợp lệ.
     raise ValueError("Cần đối chiếu đủ 15 lượt và số khách duy nhất.")
 print("Lượt:", len(visits))
 print("Dùng app:", len(app))
 print("Dùng web:", len(web))
+# & là giao app và web, số người ghé cả hai.
 print("Cả hai:", len(app & web))
 print("Khách duy nhất:", via_count)
 ```
@@ -262,18 +324,32 @@ Số khách duy nhất khác số lượt truy cập, vì mỗi người có th�
 3. In các mã cần sửa và kiểm tra phân hoạch đạt/không đạt.
 
 ```python
+# Mục đích: Kiểm lỗi chia Train/Test trong 18 mẫu bằng giao nhau, hợp và phần thiếu.
+# Dữ liệu: 18 mã D01..D18, D12 xuất hiện ở cả train/test; D18 chưa được phân nhóm.
+# List 18 mã nguồn; dùng set bên dưới để đối chiếu như tập hợp.
 all_ids = ["D01","D02","D03","D04","D05","D06","D07","D08","D09","D10","D11","D12","D13","D14","D15","D16","D17","D18"]
+# set() biến list 12 mã thành tập train không trùng nội bộ.
 train = set(["D01","D02","D03","D04","D05","D06","D07","D08","D09","D10","D11","D12"])
+# set() biến list mã test thành tập; D12 bị trùng với train.
 test = set(["D12","D13","D14","D15","D16","D17"])
+# set(all_ids) lấy tập 18 mã nguồn không trùng.
 source = set(all_ids)
+# & là giao train/test: những mẫu BỊ LỘ DỮ LIỆU giữa hai tập; sorted() xếp mã.
 overlap = sorted(train & test)
+# | hợp mã đã phân nhóm, - trừ khỏi nguồn để tìm mẫu chưa được giao vào nhóm nào.
 missing = sorted(source - (train | test))
+# isdisjoint() True chỉ khi train và test không có chung một mẫu.
+# Hợp phải bằng nguồn để không sót mẫu hay phát sinh mã lạ; and đòi cả 2 phép kiểm.
+# Cờ True chỉ khi tập không giao nhau VÀ hợp bằng toàn nguồn.
 valid_partition = train.isdisjoint(test) and (train | test) == source
+# Kiểm đủ 18 mã khác nhau, không đơn thuần số dòng list.
 if len(source) != 18:
+    # ValueError dừng khi dữ liệu hoặc điều kiện đối chiếu không hợp lệ.
     raise ValueError("Cần đủ 18 mẫu nguồn trước khi chia Train/Test.")
 print("Mẫu nguồn:", len(source))
 print("Trùng:", ", ".join(overlap))
 print("Chưa phân nhóm:", ", ".join(missing))
+# Cờ True chỉ khi tập không giao nhau VÀ hợp bằng toàn nguồn.
 print("Phân hoạch đúng:", valid_partition)
 ```
 
@@ -302,27 +378,47 @@ Chỉ khi hai điều kiện cùng đúng mới sử dụng train/test: một m�
 3. Liệt kê ID đa vùng và số dòng dư do trùng ID; giữ lại dữ liệu thô để sửa.
 
 ```python
+# Mục đích: Gộp 20 lượt ghi nhận ba vùng, tìm mã người duy nhất và người xuất hiện ở nhiều vùng.
+# Dữ liệu: 20 dictionary (id,region,channel,score), ID S04/S07 có thể xuất hiện ở nhiều vùng; một lượt là một hàng.
+# 20 bản ghi; region là vùng, channel kênh, score là số điểm giả lập; khóa id có thể trùng giữa các dòng.
 records = [{"id":"S01","region":"Bắc","channel":"app","score":10},{"id":"S02","region":"Nam","channel":"web","score":11},{"id":"S03","region":"Trung","channel":"app","score":12},{"id":"S04","region":"Bắc","channel":"web","score":13},{"id":"S05","region":"Nam","channel":"app","score":14},{"id":"S06","region":"Trung","channel":"web","score":15},{"id":"S07","region":"Bắc","channel":"app","score":16},{"id":"S08","region":"Nam","channel":"web","score":17},{"id":"S09","region":"Trung","channel":"app","score":18},{"id":"S10","region":"Bắc","channel":"web","score":19},{"id":"S11","region":"Nam","channel":"app","score":20},{"id":"S12","region":"Trung","channel":"web","score":21},{"id":"S13","region":"Bắc","channel":"app","score":22},{"id":"S14","region":"Nam","channel":"web","score":23},{"id":"S15","region":"Trung","channel":"app","score":24},{"id":"S16","region":"Bắc","channel":"web","score":25},{"id":"S04","region":"Nam","channel":"app","score":26},{"id":"S07","region":"Trung","channel":"web","score":27},{"id":"S19","region":"Bắc","channel":"app","score":28},{"id":"S20","region":"Nam","channel":"web","score":29}]
+# Dictionary ánh xạ tên vùng tới tập mã học viên riêng.
 regions = {}
+# Duyệt ba nhãn Bắc/Nam/Trung để tạo set rỗng cho mỗi vùng.
 for name in ("Bắc", "Nam", "Trung"):
+    # Tạo tập mã chưa có phần tử; set không lặp cùng ID trong vùng.
     regions[name] = set()
+# Mỗi vòng xử lý đúng một dictionary nguồn.
 for row in records:
+    # Tra set theo khóa region rồi add() mã id; tự loại bản ghi trùng trong một vùng.
     regions[row["region"]].add(row["id"])
+# regions.values() lấy ba set; toán tử * trải chúng thành đối số cho union(), hợp mọi người không trùng giữa vùng.
 all_people = set().union(*regions.values())
 multiple_regions = []
+# Duyệt từng người duy nhất để xem họ xuất hiện ở bao nhiêu vùng.
 for sid in all_people:
     membership_count = 0
+    # Duyệt tập người của ba vùng.
     for members in regions.values():
+        # in kiểm tra mã sid nằm trong set vùng hiện tại.
         if sid in members:
+            # Đếm số VÙNG chứa một mã, không phải số lượt đăng ký.
             membership_count += 1
+    # Người thuộc hơn một vùng được ghi riêng để kiểm tra chồng chéo.
     if membership_count > 1:
+        # append() lưu mã người đa vùng.
         multiple_regions.append(sid)
+# .sort() xếp list ngay tại chỗ để báo cáo có thứ tự cố định.
 multiple_regions.sort()
+# Kiểm đủ 20 lượt ghi nhận gốc.
 if len(records) != 20:
+    # ValueError dừng khi dữ liệu hoặc điều kiện đối chiếu không hợp lệ.
     raise ValueError("Cần kiểm tra đủ 20 lượt ghi nhận theo vùng.")
 print("Dòng nhận:", len(records))
 print("Người duy nhất:", len(all_people))
+# Hiệu số dòng so với người duy nhất cho biết số lượt dư do lặp ID trên toàn dữ liệu.
 print("Dòng dư do trùng ID:", len(records) - len(all_people))
+# join() nối các mã đa vùng thành một chuỗi có dấu phẩy.
 print("Đa vùng:", ", ".join(multiple_regions))
 ```
 
