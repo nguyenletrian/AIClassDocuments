@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-no-note-comparison-copies-20261025",
-    "revision": "2026-10-25-no-note-46-lessons-batch05",
+    "revision": "2026-10-25-no-note-46-lessons-batch06",
     "title": "Thêm bản No Note ngay trước bản code có chú thích trong 46 bài",
-    "phase": "READY_FOR_BATCH_05",
+    "phase": "READY_FOR_BATCH_06",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-NO-NOTE-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-NO-NOTE-PROGRESS.json",
@@ -1201,17 +1201,17 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Owner-approved No Note goal: Batch04 PY-16..PY-20 COMPLETED and merged PR #178 (597b52fd3447189217f8ded4263e414731edbe79), final PR HEAD e92ed675cf3ff05ea1ae9b3d1af8d5dcb64a6aaa, GitHub CI #40203054177 SUCCESS. 45 No Note pairs, original content restored byte-for-byte, Python AST and canonical scenario stdout checked by full curriculum CI. Ledger 4/10 completed and 183 pairs total. Dependency-ready next is Batch05 ONLY PY-21..PY-25; before any edits reread main TaskSource, ledger, approved goal, AGENTS, guide, lesson files and tests. Add exactly one comment-free No Note directly before each annotated code fence, preserving original executable code/prose/MCQ/output. Update Batch05 scenario test to expect two Python code fences while executing canonical annotated code once and checking exact stdout. Each lesson independently committed, one PR/batch, merge only with exact final PR HEAD CI SUCCESS and unchanged main base; ledger update then activate Batch06 only. Never repeat prior Batch04 or create another ChatGPT conversation on idle heartbeat. Windows/PowerShell and CDP port9224 identity remain UNVERIFIED.",
-    "review_hold": "Batches01-04 completed, 183 No Note pairs merged. Batch05 PY-21..PY-25 only; no duplicate work, no overlapping next batch, no unresolved tasks.",
-    "active_batch": 5,
+    "next_review": "Owner-approved No Note goal: Batch05 PY-21..PY-25 COMPLETED and merged PR #179 (657b76ccaeb86ac52df95d0339c71bc61685b8e2), exact final PR HEAD 8c1aa3a17d4d67103393d10c0207a0838b878918, GitHub CI run #40203528180 SUCCESS. 45 paired Python code fences, byte-identical original annotated examples and source Markdown recoverable, all scenario stdout preserved by full CI. Ledger now 5/10 batches done, 228 pairs total. Next approved single active Batch06 ONLY PY-26..PY-30. Before work review current main TaskSource, goal spec, ledger, chapter sources, AGENTS and style guide, test harness. Insert one No Note immediately before every executable Python code fence, preserve original annotated fenced code/MCQs/results, remove comments safely with tokenizer/AST and run CI. Adapt tests/test_curriculum_batch_06_scenarios.py for exactly two code blocks; execute annotated version exactly once with unchanged stdout asserts. One independent commit per lesson, one PR for Batch06 only, final PR head CI SUCCESS before merge; record PR, merge SHA and CI run in ledger before activating Batch07. Do not create duplicate tasks, replay previous batches or make a New Chat from heartbeat. Windows/PowerShell and CDP9224 ownership UNVERIFIED.",
+    "review_hold": "Batches01–05 closed and ledger records 228 pairs; Batch06 only PY-26..PY-30 is authorized. Avoid overlapping, duplicate reminders and historical replays.",
+    "active_batch": 6,
     "active_lessons": [
-      "PY-21",
-      "PY-22",
-      "PY-23",
-      "PY-24",
-      "PY-25"
+      "PY-26",
+      "PY-27",
+      "PY-28",
+      "PY-29",
+      "PY-30"
     ],
-    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_5; PY-21..PY-25 only, Batch04 PR178 CI SUCCESS and ledger 4/10; no Batch06 until completion/merge."
+    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_5; batch06 PY-26..PY-30 only; Batch05 PR179 final-head CI success and ledger 5/10; Batch07 requires completed Batch06."
   },
   "goal_review_history": [
     {
@@ -1341,6 +1341,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "No Note Batch04 merged PR178 with CI SUCCESS; ledger 4/10, dependency-ready owner-approved Batch05 PY-21..PY-25."
+    "reason": "Approved No Note Batch05 completed PR179 CI success; ledger 5/10, next Batch06 PY-26..PY-30 ready, no pending PR/task."
   }
 }
