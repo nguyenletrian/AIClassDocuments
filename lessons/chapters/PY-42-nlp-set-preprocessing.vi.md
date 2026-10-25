@@ -27,7 +27,7 @@
 | `text.strip().lower()` | Bỏ khoảng trắng hai đầu rồi chuyển chữ thường |
 | `text.split()` | Tách theo khoảng trắng; không đủ cho mọi ngôn ngữ |
 | `set(tokens)` | Lấy token khác nhau, bỏ lượt lặp |
-| `len(a & b) / len(a | b)` | Jaccard khi hợp khác rỗng; kiểm tra mẫu số trước khi chia |
+| `len(a & b) / len(a \| b)` | Jaccard khi hợp khác rỗng; kiểm tra mẫu số trước khi chia |
 
 ## 4. Khái niệm chính và liên quan
 
