@@ -48,12 +48,12 @@ class FirstBatchScenarios(unittest.TestCase):
                         r"^\x60\x60\x60text\n(.*?)^\x60\x60\x60$",
                         section, flags=re.MULTILINE | re.DOTALL
                     )
-                    self.assertEqual(len(codes), 1)
+                    self.assertEqual(len(codes), 2, 'No Note + original annotated code')
                     self.assertEqual(len(expecteds), 1)
                     # Deliberately isolated and bounded. Code is repository-authored.
                     with tempfile.TemporaryDirectory() as cwd:
                         run = subprocess.run(
-                            [sys.executable, "-I", "-B", "-c", codes[0]],
+                            [sys.executable, "-I", "-B", "-c", codes[1]],
                             cwd=cwd, capture_output=True, text=True,
                             encoding="utf-8", timeout=15,
                         )
