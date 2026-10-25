@@ -111,157 +111,188 @@ print(5 & 3)
 ```
 
 Số `1` là kết quả phép AND theo bit giữa 5 và 3.
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống ứng dụng — từ phép toán đến quy tắc tổng hợp
 
-### Tình huống 1 — Tính ưu đãi
+### Tình huống 1 — Cấp 1: Tính giảm giá cho 10 mặt hàng
 
-**Từ vựng trong mục:** **Arithmetic** — số học; **Discount** — giảm giá.
+**Từ vựng trong mục:** **Arithmetic** — toán tử số học; **Discount** — giảm giá.
 
-**Tình huống thực tế:** Cửa hàng bán một sản phẩm giá 250.000 đồng và giảm 10% trên giá niêm yết.
+**Tình huống thực tế:** Quầy đồ dùng học tập có **10 mặt hàng**, mỗi phần tử trong bảng giá là giá của một món, đơn vị **nghìn đồng**; giá lần lượt là 100, 150, 200, 250, 300, 120, 180, 220, 400 và 160. Hôm nay tất cả cùng giảm 10%. Cần tính tổng giá gốc và tổng tiền sau ưu đãi nếu khách mua một món mỗi loại.
 
-**Yêu cầu:** Tính số tiền khách phải trả sau giảm giá.
+**Vì sao chọn cách này?** Phép nhân theo tỷ lệ 90% cho biết giá sau giảm; dùng tổng sau giảm của đủ 10 mặt hàng, không áp giảm hai lần. Đây là phép toán số học trực tiếp, chưa cần nhánh ưu tiên.
 
-**Vì sao chọn cách giải này?** Nhân giá gốc với `(1 - 0.10)` để lấy 90% giá ban đầu.
-
-**Quy trình giải:**
-
-1. Lưu giá gốc vào `price`.
-2. Tính tỷ lệ còn lại là `1 - 0.10`.
-3. Nhân giá với tỷ lệ còn lại và in kết quả.
+**Quy trình:**
+1. Lưu 10 đơn giá và tỷ lệ giảm 10%.
+2. Lấy 90% của mỗi giá rồi cộng tổng.
+3. So sánh tổng trước/sau giảm.
 
 ```python
-# Mục đích: Tính ưu đãi.
-price = 250000
-print(price * (1 - 0.10))
+prices = [100,150,200,250,300,120,180,220,400,160]
+discount = 0.10
+original = sum(prices)
+after_discount = sum(price * (1 - discount) for price in prices)
+assert len(prices) == 10
+print("Mặt hàng:", len(prices))
+print("Gốc (nghìn đồng):", original)
+print("Sau giảm (nghìn đồng):", round(after_discount))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-225000.0
+Mặt hàng: 10
+Gốc (nghìn đồng): 2080
+Sau giảm (nghìn đồng): 1872
 ```
 
-**Kết quả:** `225000.0` đồng — khách được giảm 25.000 đồng.
+Đầu vào là **giá từng mặt hàng**, không phải số lượng bán. Mức giảm 10% áp dụng như nhau nên có thể đối chiếu với 90% tổng tiền gốc.
 
-### Tình huống 2 — Xét VIP
+### Tình huống 2 — Cấp 2: So hai điều kiện VIP của 12 khách
 
 **Từ vựng trong mục:** **Comparison** — so sánh; **Logical AND** — phép và.
 
-**Tình huống thực tế:** Một cửa hàng công nhận khách VIP khi đã là thành viên ít nhất 5 năm và chi tiêu từ 1.000.000 đồng. Một khách đã tham gia 5 năm và chi 1.200.000 đồng.
+**Tình huống thực tế:** Chương trình xét **12 khách hàng**; mỗi hàng gồm mã C01…C12, số năm gắn bó (năm) và tổng mua hàng (đồng). Cửa hàng chỉ xếp VIP khi khách có **ít nhất 5 năm** và đã chi **từ 1.000.000 đồng**. Hãy trả về mã tất cả khách đạt chuẩn và tổng số VIP, lưu ý người chỉ đạt một trong hai ngưỡng không được tính.
 
-**Yêu cầu:** Kiểm tra khách này có đủ điều kiện VIP hay không.
+**Vì sao chọn cách này?** Toán tử `>=` bảo toàn các trường hợp nằm đúng biên. Hai điều kiện buộc đúng cùng lúc nên phải dùng `and`, không dùng `or`.
 
-**Vì sao chọn cách giải này?** Dùng `>=` để kiểm tra từng ngưỡng, rồi dùng `and` vì hai điều kiện phải đồng thời đúng.
-
-**Quy trình giải:**
-
-1. Lưu số năm thành viên và tổng chi tiêu.
-2. Kiểm tra từng giá trị có đạt ngưỡng không.
-3. Nối hai điều kiện bằng `and` và in kết quả.
+**Quy trình:**
+1. Ghép năm thành viên với số tiền của đúng khách ở cùng hàng.
+2. So hai ngưỡng bằng `>=` và nối bằng `and`.
+3. Liệt kê đủ khách đạt và đếm kết quả.
 
 ```python
-# Mục đích: Xét VIP.
-years, spending = 5, 1200000
-print(years >= 5 and spending >= 1000000)
+years = [2,5,6,4,8,5,1,9,3,7,5,2]
+spending_vnd = [1200000,900000,1400000,2200000,1800000,1000000,700000,850000,1500000,3000000,990000,1600000]
+customers = [(f"C{i:02d}", years[i-1], spending_vnd[i-1]) for i in range(1, 13)]
+vip_ids = [code for code, member_years, spending in customers
+           if member_years >= 5 and spending >= 1000000]
+assert len(customers) == 12
+print("Số khách:", len(customers))
+print("VIP:", len(vip_ids))
+print("Mã VIP:", ", ".join(vip_ids))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Số khách: 12
+VIP: 4
+Mã VIP: C03, C05, C06, C10
 ```
 
-**Kết quả:** `True` — khách đạt cả hai tiêu chí VIP.
+Mẫu C06 nằm **đúng cả hai ngưỡng** nên vẫn là VIP; C02 chỉ đạt năm thành viên nhưng chưa đủ tiền nên không thuộc danh sách.
 
-### Tình huống 3 — Đóng thùng hàng
+### Tình huống 3 — Cấp 3: Đóng thùng 15 mã hàng, tính cả số dư
 
-**Từ vựng trong mục:** **Integer division** — chia lấy phần nguyên; **Remainder** — số dư.
+**Từ vựng trong mục:** **Integer division** — chia nguyên; **Modulo** — chia lấy dư; **Check** — đối chiếu.
 
-**Tình huống thực tế:** Kho hàng có 23 sản phẩm và dùng thùng chứa đúng 5 sản phẩm khi đầy. Sản phẩm chưa đủ một thùng được giữ lại.
+**Tình huống thực tế:** Kho có **15 mã hàng**, mỗi hàng thể hiện số món tồn kho của một SKU. Một thùng chỉ chứa **6 món cùng mã** để không trộn loại. Hãy tính tổng số thùng đầy và tổng món còn rời; kiểm tra lại bằng cách cộng món trong thùng với món rời.
 
-**Yêu cầu:** Tính số thùng đầy và số sản phẩm còn dư.
+**Vì sao chọn cách này?** Chia nguyên `//` đếm thùng đủ sáu món trên từng SKU; phép `%` đếm số món chưa đóng đầy. Không được cộng tất cả tồn kho rồi chia 6 một lần, vì mỗi thùng chỉ nhận một mã.
 
-**Vì sao chọn cách giải này?** Chia nguyên `//` cho số thùng đầy; chia lấy dư `%` cho số sản phẩm còn lại.
-
-**Quy trình giải:**
-
-1. Lưu số sản phẩm và sức chứa mỗi thùng.
-2. Dùng `//` đếm số thùng đầy.
-3. Dùng `%` tính sản phẩm còn dư.
+**Quy trình:**
+1. Tính `stock // 6` và `stock % 6` cho từng SKU.
+2. Cộng hai kết quả theo 15 SKU.
+3. Xác minh `6 × tổng thùng + món rời` bằng tổng hàng gốc.
 
 ```python
-# Mục đích: Đóng thùng hàng.
-items, box_size = 23, 5
-print(items // box_size, items % box_size)
+stocks = [16,23,34,7,12,5,31,42,18,27,15,9,35,14,20]
+box_size = 6
+full_boxes = sum(stock // box_size for stock in stocks)
+loose_items = sum(stock % box_size for stock in stocks)
+assert len(stocks) == 15
+assert full_boxes * box_size + loose_items == sum(stocks)
+print("Số SKU:", len(stocks))
+print("Thùng đầy:", full_boxes)
+print("Món rời:", loose_items)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-4 3
+Số SKU: 15
+Thùng đầy: 45
+Món rời: 38
 ```
 
-**Kết quả:** `4 3` — có 4 thùng đầy và 3 sản phẩm dư.
+Số dư được giữ **riêng cho từng mã hàng**. Điều kiện đối chiếu bằng `assert` giúp phát hiện nếu một bước tính đã làm mất hàng.
 
-### Tình huống 4 — Đọc cờ thiết bị
+### Tình huống 4 — Cấp 4: Đọc cờ bit của 18 thiết bị, phân biệt mất tín hiệu
 
-**Từ vựng trong mục:** **Bitwise AND** — phép và theo bit; **Mask** — mặt nạ bit.
+**Từ vựng trong mục:** **Bitwise AND** — phép và theo bit; **Mask** — mặt nạ bit; **Missing** — thiếu dữ liệu.
 
-**Tình huống thực tế:** Một thiết bị lưu trạng thái bốn công tắc trong số nhị phân `0b1010`. Mỗi bit thể hiện một công tắc bật (`1`) hoặc tắt (`0`). Công tắc tương ứng với bit `0b0010` cần được kiểm tra.
+**Tình huống thực tế:** Hệ thống nhận **18 trạng thái thiết bị**, một hàng là mã cờ nhị phân của thiết bị; bit `0b0010` báo cảnh báo, bit `0b1000` báo có kết nối gửi dữ liệu. Thiết bị thứ 17 chưa gửi trạng thái (`None`). Hãy đếm số thiết bị báo cảnh báo và số thiết bị có cờ gửi, đồng thời báo bao nhiêu giá trị thiếu.
 
-**Yêu cầu:** In `True` nếu công tắc đó bật, ngược lại in `False`.
+**Vì sao chọn cách này?** Bitwise `&` chỉ kiểm tra đúng bit được chọn, không nhầm với `and` (kết hợp biểu thức Boolean). Trước khi làm phép bit, cần bỏ `None` vì đó là mất tín hiệu chứ không phải trạng thái `0`.
 
-**Vì sao chọn cách giải này?** Dùng phép AND bit `&` cùng mặt nạ `0b0010` để lấy đúng bit cần kiểm tra; `bool()` đổi kết quả thành đúng/sai.
-
-**Quy trình giải:**
-
-1. Lưu trạng thái nhị phân.
-2. Dùng `status & 0b0010` để lấy bit mục tiêu.
-3. Dùng `bool()` và in kết quả.
+**Quy trình:**
+1. Đọc 18 giá trị cờ, tách những dòng chưa gửi.
+2. Dùng `status & mask` để kiểm tra từng bit trên dữ liệu hợp lệ.
+3. Đếm riêng cảnh báo, gửi tín hiệu và trạng thái thiếu.
 
 ```python
-# Mục đích: Đọc cờ thiết bị.
-status = 0b1010
-print(bool(status & 0b0010))
+flags = [10,2,0,8,3,11,1,10,14,2,0,9,10,12,3,11,None,2]
+valid = [status for status in flags if status is not None]
+warning_count = sum((status & 0b0010) != 0 for status in valid)
+sending_count = sum((status & 0b1000) != 0 for status in valid)
+assert len(flags) == 18
+print("Trạng thái hợp lệ:", len(valid))
+print("Cảnh báo:", warning_count)
+print("Đang gửi:", sending_count)
+print("Thiếu:", len(flags) - len(valid))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Trạng thái hợp lệ: 17
+Cảnh báo: 11
+Đang gửi: 9
+Thiếu: 1
 ```
 
-**Kết quả:** `True` — bit `0b0010` đang bật.
+Một thiết bị có thể vừa cảnh báo vừa đang gửi, nên hai tập không loại trừ nhau. Trường hợp thiết bị mất tín hiệu cần được xử lý riêng, không gán trạng thái mặc định không có cảnh báo.
 
-### Tình huống 5 — Ưu tiên đơn hàng
+### Tình huống 5 — Cấp 5: Xếp thứ tự xử lý 20 đơn hàng bằng nhiều quy tắc
 
-**Từ vựng trong mục:** **Logical OR** — phép hoặc; **Comparison** — so sánh.
+**Từ vựng trong mục:** **Logical OR** — phép hoặc; **Logical AND** — phép và; **Boolean** — đúng/sai.
 
-**Tình huống thực tế:** Cửa hàng ưu tiên một đơn hàng nếu giá trị từ 2.000.000 đồng hoặc đơn bị trễ hơn 2 ngày. Một đơn có giá trị 3.000.000 đồng và chưa trễ ngày nào (`delay = 0`).
+**Tình huống thực tế:** Điều phối viên có **20 đơn hàng** O01…O20; mỗi hàng gồm giá trị đơn (đồng), số ngày trễ (ngày) và cờ còn hàng trong kho (`True`/`False`). Đơn được ưu tiên nếu **giá trị từ 2.000.000 đồng hoặc trễ từ 3 ngày**, **đồng thời còn hàng**. Cần trả số đơn ưu tiên, danh sách mã và tổng giá trị các đơn được phép ưu tiên; đơn chưa có hàng phải đứng ngoài danh sách dù tiền cao.
 
-**Yêu cầu:** Kiểm tra đơn hàng có được ưu tiên hay không.
+**Vì sao chọn cách này?** Dùng ngoặc quanh hai điều kiện `or` trước khi kết hợp với `and` để quy tắc kinh doanh không đổi do thứ tự ưu tiên toán tử. Đây là một quyết định tổng hợp nhiều cột, không phải chỉ so một con số.
 
-**Vì sao chọn cách giải này?** Dùng `or` vì chỉ cần một trong hai điều kiện đạt ngưỡng là đủ.
-
-**Quy trình giải:**
-
-1. Lưu giá trị đơn và số ngày trễ.
-2. Kiểm tra giá trị đơn đạt từ 2.000.000 đồng.
-3. Kiểm tra số ngày trễ lớn hơn 2, nối hai kết quả bằng `or`.
+**Quy trình:**
+1. Ghép dữ liệu theo đúng mã đơn và xác nhận ba cột đồng hàng.
+2. Tính `(giá trị >= ngưỡng or ngày trễ >= ngưỡng) and có hàng`.
+3. Lọc 20 đơn, tính tổng tiền thuộc nhóm ưu tiên và kiểm tra mọi đơn chọn được đều còn hàng.
 
 ```python
-# Mục đích: Ưu tiên đơn hàng.
-amount, delay = 3000000, 0
-print(amount >= 2000000 or delay > 2)
+amount_vnd = [500000,900000,1300000,1700000,2100000,2500000,500000,900000,1300000,1700000,2100000,2500000,500000,900000,1300000,1700000,2100000,2500000,500000,900000]
+late_days = [0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4]
+in_stock = [true,true,true,false,true,true,true,true,true,true,true,false,true,true,true,true,true,false,true,true]
+orders = [(f"O{i:02d}", amount_vnd[i-1], late_days[i-1], in_stock[i-1])
+          for i in range(1, 21)]
+priority = [(code, amount) for code, amount, delay, available in orders
+            if (amount >= 2000000 or delay >= 3) and available]
+priority_ids = [code for code, amount in priority]
+assert len(orders) == 20
+assert all(next(v for c, p, d, v in orders if c == code) for code in priority_ids)
+print("Số đơn:", len(orders))
+print("Ưu tiên:", len(priority))
+print("Mã ưu tiên:", ", ".join(priority_ids))
+print("Giá trị ưu tiên (đồng):", sum(amount for code, amount in priority))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Số đơn: 20
+Ưu tiên: 10
+Mã ưu tiên: O05, O06, O09, O10, O11, O14, O15, O17, O19, O20
+Giá trị ưu tiên (đồng): 15400000
 ```
 
-**Kết quả:** `True` — đơn được ưu tiên nhờ giá trị đạt ngưỡng.
+Ba cột là thuộc tính của **một đơn**, không phải ba danh sách độc lập để so riêng. Với kho hết hàng, điều kiện `and available` ngăn hệ thống ưu tiên những đơn chưa thể xử lý.
 
 ## 6. Những nhầm lẫn thường gặp
 
