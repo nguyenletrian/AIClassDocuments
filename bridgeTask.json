@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-progressive-46-scenarios-20261025",
-    "revision": "2026-10-25-five-lesson-sequential-batches-v1-batch03",
+    "revision": "2026-10-25-five-lesson-sequential-batches-v1-batch04",
     "title": "Nâng cấp 46 bài: 5 tình huống khó dần, 10–20 dữ liệu, chỉ 5 bài mỗi lượt",
-    "phase": "READY_FOR_BATCH_03",
+    "phase": "READY_FOR_BATCH_04",
     "source_repository": "https://github.com/nguyenletrian/PythoClass.git",
     "source_commit": "37bcd2358ed616a9130ef954913adef728a1f9b8",
     "chapter_index": "lessons/chapters/README.md",
@@ -1206,8 +1206,8 @@
     "expected_lessons": 46,
     "expected_batches": 10,
     "unverified_draft_branch": "feat/46-lessons-scenarios-progression-20261025",
-    "next_review": "PR #124 (PY-06..PY-10) merged commit 514b76b2e9f2bb09e864e394dd482e3ae67279de, final CI 40157547890 PASS, ledger last_completed_batch=2. On next idle goal event, verify fresh main, ledger, PRs and queue; start only PY-11..PY-15. Five separate edits/commits, 25 code+stdout scenario checks, CI, one PR, merge and ledger commit, then advance. No duplicate tasks or archived Jetking probe; leave Windows UNVERIFIED without real worker evidence.",
-    "review_hold": "Approved active five-lesson-batch curriculum goal. Batch 02 completed and durable. Next review acts on only batch03 after checking idle TaskSource. This informational heartbeat is not proof of further work and should not trigger repeated reminders or forced restart."
+    "next_review": "Batch03 PY-11..PY-15 merged PR #125 commit 0728c9c7060b3bd8809c6e78e29751cdabb95058, final CI run 40158254230 PASS, ledger last_completed_batch=3. When a new authorized idle review arrives, read main ledger, open PRs, queue and ACK first. Next work ONLY batch04 PY-16..PY-20 (five lessons): each lesson separate commit, 5 scenarios with 10/12/15/18/20 rows, real code execution incl needed deps, one PR and verified CI; merge then persist. No historical Jetking replay; no duplicate task/heartbeat sends; do not claim Windows PASS without Bridge evidence.",
+    "review_hold": "Approved 46-lesson five-batch workstream active. Batch03 complete and durable; next work PY-16..PY-20 after fresh checks. This heartbeat is not proof of additional work; do not restart runtime or send duplicates."
   },
   "goal_review_history": [
     {
