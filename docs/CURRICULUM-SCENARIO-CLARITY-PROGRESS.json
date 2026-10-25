@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "BATCH_10_IN_PROGRESS",
-  "last_completed_batch": 9,
+  "status": "COMPLETED",
+  "last_completed_batch": 10,
   "batches": [
     {
       "batch": 1,
@@ -281,18 +281,18 @@
       "lessons": [
         "PY-46"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-46"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 164,
+      "merged_commit": "0801e42bc82cb0e31561200ae96bd6c88c7e7835",
+      "ci_run": 40184711415,
       "branch": "feat/scenario-clarity-batch-10-20261025",
       "lesson_commits": {
         "PY-46": "afbb76eab38d6fcdebb82dc781ae99a38e1268ec"
       },
-      "notes": "Final batch10 only PY-46: independent lesson commit afbb76eab38d6fcdebb82dc781ae99a38e1268ec. Rewrote exactly 5 Tình huống thực tế and 5 Vì sao chọn cách này paragraphs explaining 10/12/15/18/20 rows, train/test, baseline, imputation, PCA, recall and confusion matrix, JSON reporting, without leakage. Strict full-file byte comparison with main after masking ONLY the two approved paragraph types confirms every other byte unchanged, including 9 original Python fences, 9 documented stdout fences, 20 MCQ+answers and chapter/definition structure. CI and PR merge PENDING. CDP 9224 worker owner and Windows PowerShell canary unavailable; no Windows PASS."
+      "notes": "FINAL batch10 PY-46: independently committed afbb76eab38d6fcdebb82dc781ae99a38e1268ec; exactly five Tình huống thực tế and five Vì sao chọn cách này paragraphs rewritten. Byte-for-byte full chapter check outside ONLY two allowed prose paragraph types preserved all 9 executable Python and 9 documented exact stdout fences, 20 MCQs+answers and all structure/definitions unchanged. PR #164 final head ab9cb98b6e8b703c4066b21f98baa9fea24e06b7, GitHub Actions #40184711415 COMPLETED SUCCESS for all 46 chapters including MCQ, AST, scenario scripts/stdout and Markdown. Squash merged 0801e42bc82cb0e31561200ae96bd6c88c7e7835. All 10/10 batches MERGED, 46/46 lessons completed; no Windows/CDP PowerShell PASS claimed."
     }
   ],
   "activation_evidence": {
@@ -306,5 +306,5 @@
     "outstanding_tasksource": 0,
     "open_pull_requests": 0
   },
-  "notes": "Owner approved goal on 2026-10-25 but deferred until preceding 46-lesson explicit Python goal COMPLETED 10/10 and no outstanding ACK/tasks or open PR. Activation prerequisites verified. Work sequentially in ten batches <=5 chapters, per lesson commit, preserve all stdout/MCQs/scenario data, GitHub final-head CI and durable ledger before next. Review scenario prose, explain technical terms and data origin plainly, explain method/5000 iterations/seed in Why; no mathematical formulas in definitions; no Windows PASS without real worker evidence."
+  "notes": "Owner approved goal on 2026-10-25 but deferred until preceding 46-lesson explicit Python goal COMPLETED 10/10 and no outstanding ACK/tasks or open PR. Activation prerequisites verified. Work sequentially in ten batches <=5 chapters, per lesson commit, preserve all stdout/MCQs/scenario data, GitHub final-head CI and durable ledger before next. Review scenario prose, explain technical terms and data origin plainly, explain method/5000 iterations/seed in Why; no mathematical formulas in definitions; no Windows PASS without real worker evidence. FINAL: All ten sequential batches PY-01..PY-46 MERGED (46 lessons). Final PR #164, merge SHA 0801e42bc82cb0e31561200ae96bd6c88c7e7835, final-head GitHub Actions CI #40184711415 SUCCESS. All approved scenario prose clarity work COMPLETED; no further work authorized by this goal. Windows runtime verification unverified."
 }
