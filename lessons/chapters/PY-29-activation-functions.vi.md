@@ -145,7 +145,8 @@ Lớp đầu có điểm chuẩn hóa cao nhất; tổng ba điểm trước là
 import numpy as np
 signals = np.array([-5,-3,-1,0,1,2,4,-2,3,5], dtype=float)
 activated = np.maximum(0, signals)
-assert activated.shape == signals.shape == (10,)
+if activated.shape != (10,) or signals.shape != (10,):
+    raise ValueError("Cần đúng 10 tín hiệu và 10 giá trị ReLU.")
 print("Nơ-ron:", len(activated))
 print("Đầu ra bằng 0:", int((activated == 0).sum()))
 print("Đầu ra dương:", int((activated > 0).sum()))
@@ -180,7 +181,8 @@ Mẫu đầu/cuối: 0 5
 import numpy as np
 logits = np.array([-3,-2,-1.5,-1,0,0.2,0.8,1,2,3,4,-0.5], dtype=float)
 probabilities = 1 / (1 + np.exp(-logits))
-assert logits.size == 12 and np.all((probabilities > 0) & (probabilities < 1))
+if logits.size != 12 or not np.all((probabilities > 0) & (probabilities < 1)):
+    raise ValueError("Cần 12 mẫu Sigmoid, mỗi xác suất phải nằm giữa 0 và 1.")
 print("Mẫu:", len(logits))
 print("Từ 0.5:", int((probabilities >= 0.5).sum()))
 print("Logit 0:", f"{probabilities[logits == 0][0]:.3f}")
@@ -215,7 +217,8 @@ Ngưỡng 0,5 là lựa chọn minh họa; dùng ngưỡng thật cần xét chi
 import numpy as np
 signals = np.array([-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7], dtype=float)
 activated = np.tanh(signals)
-assert signals.size == 15
+if signals.size != 15:
+    raise ValueError("Cần đủ 15 tín hiệu Tanh.")
 print("Tín hiệu:", len(signals))
 print("Tanh(0):", f"{activated[signals == 0][0]:.3f}")
 print("Bão hòa |y| > 0.99:", int((np.abs(activated) > 0.99).sum()))
@@ -253,10 +256,14 @@ shifted = logits - logits.max(axis=1, keepdims=True)
 exp_values = np.exp(shifted)
 probs = exp_values / exp_values.sum(axis=1, keepdims=True)
 predictions = probs.argmax(axis=1)
-assert logits.shape == probs.shape == (18, 3)
+if logits.shape != (18, 3) or probs.shape != (18, 3):
+    raise ValueError("Cần đủ 18 mẫu, mỗi mẫu có 3 lớp.")
 print("Mẫu:", len(logits))
 print("Tổng hàng đều là 1:", bool(np.allclose(probs.sum(axis=1), 1)))
-print("Nhãn A/B/C:", *(int((predictions == k).sum()) for k in range(3)))
+counts = []
+for k in range(3):
+    counts.append(int((predictions == k).sum()))
+print("Nhãn A/B/C:", *counts)
 print("Mẫu logit lớn hữu hạn:", bool(np.isfinite(probs[3]).all()))
 ```
 
@@ -293,7 +300,8 @@ logits = hidden.sum(axis=1) - 1
 scores = 1 / (1 + np.exp(-logits))
 predicted = (scores >= 0.5).astype(int)
 correct = int((predicted == labels).sum())
-assert X.shape == (20, 2) and labels.shape == predicted.shape == (20,)
+if X.shape != (20, 2) or labels.shape != (20,) or predicted.shape != (20,):
+    raise ValueError("Cần đủ 20 mẫu, hai đặc trưng và 20 nhãn đối chiếu.")
 print("Mẫu:", len(labels))
 print("Dự đoán đúng:", correct)
 print("Dự đoán sai:", len(labels) - correct)
