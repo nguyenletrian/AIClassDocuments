@@ -149,7 +149,7 @@ print(final_price)
 Số 105 là tổng giá và phí, đơn vị nghìn đồng. Biến `fee` ở trong hàm; nếu gọi `print(fee)` ở ngoài, Python sẽ báo `NameError`.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Tính thuế giá trị gia tăng
+### Tình huống 1 — Tính thuế giá trị gia tăng · Cấp 1: Nhận biết
 
 **Từ vựng trong mục:** **Function** — hàm.
 
@@ -180,7 +180,20 @@ print(with_vat(100000))
 
 **Kết quả:** `110000` đồng — giá 100.000 đồng cộng 10% thuế.
 
-### Tình huống 2 — Sắp điểm theo thứ hạng
+**Thực hành nâng cấp — cấp 1/5:** Bộ phận vận hành có **10 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy viết hàm trả về chi phí của một phiếu. Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = (lambda r:r['x']*r['y'])(rows[0])
+assert len(rows)==10
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 10 dòng và in kết quả function, return, lambda và phạm vi biến từ các dòng thực có trong bộ dữ liệu.
+
+### Tình huống 2 — Sắp điểm theo thứ hạng · Cấp 2: Áp dụng nhiều dòng
 
 **Từ vựng trong mục:** **Parameter** — tham số.
 
@@ -210,7 +223,20 @@ print(sorted(people,key=lambda r:r["score"],reverse=True))
 
 **Kết quả:** `[{'name': 'B', 'score': 10}, {'name': 'A', 'score': 8}]` — B đứng trước A.
 
-### Tình huống 3 — Kiểm tra điểm hợp lệ
+**Thực hành nâng cấp — cấp 2/5:** Bộ phận vận hành có **12 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy tái sử dụng hàm với 12 phiếu. Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = list(map(lambda r:r['x']*r['y'],rows))
+assert len(rows)==12
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 12 dòng và in kết quả function, return, lambda và phạm vi biến từ các dòng thực có trong bộ dữ liệu.
+
+### Tình huống 3 — Kiểm tra điểm hợp lệ · Cấp 3: Kết hợp các thao tác
 
 **Từ vựng trong mục:** **Return** — trả về.
 
@@ -241,7 +267,20 @@ False
 
 **Kết quả:** `False` — điểm 11 vượt quá thang điểm 10.
 
-### Tình huống 4 — Trả thống kê đơn giản
+**Thực hành nâng cấp — cấp 3/5:** Bộ phận vận hành có **15 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy dùng lambda và sorted để xếp 15 mức điểm. Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = [r['id'] for r in sorted(rows,key=lambda r:r['x'],reverse=True)[:5]]
+assert len(rows)==15
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 15 dòng và in kết quả function, return, lambda và phạm vi biến từ các dòng thực có trong bộ dữ liệu.
+
+### Tình huống 4 — Trả thống kê đơn giản · Cấp 4: Xử lý đầu vào sai
 
 **Từ vựng trong mục:** **Lambda** — hàm ẩn danh.
 
@@ -273,7 +312,20 @@ print(total,average)
 
 **Kết quả:** `24 8.0` — bán tổng cộng 24 món, trung bình 8 món/ngày.
 
-### Tình huống 5 — Lọc yêu cầu ưu tiên
+**Thực hành nâng cấp — cấp 4/5:** Bộ phận vận hành có **18 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy viết hàm kiểm tra dữ liệu thiếu trước khi cộng. Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = [r['x']*r['y'] if r['x'] is not None else None for r in rows]
+assert len(rows)==18
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 18 dòng và in kết quả function, return, lambda và phạm vi biến từ các dòng thực có trong bộ dữ liệu.
+
+### Tình huống 5 — Lọc yêu cầu ưu tiên · Cấp 5: Hàm hoặc cấu trúc tổng hợp
 
 **Từ vựng trong mục:** **Function** — hàm.
 
@@ -302,6 +354,19 @@ print(list(filter(lambda x:x>=4,priorities)))
 ```
 
 **Kết quả:** `[5, 4]` — chỉ hai yêu cầu đạt ngưỡng ưu tiên.
+
+**Thực hành nâng cấp — cấp 5/5:** Bộ phận vận hành có **20 hồ sơ**, mỗi hàng gồm mã `id`, giá trị `x` (nghìn đồng), số lượng `y` và nhóm `group`. Hãy kết hợp hàm trả về báo cáo điểm theo từng nhóm. Mỗi mức tăng số dòng và thêm bước xử lý; `None` ở cấp 4–5 là giá trị thiếu.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id": f"R{k:02d}", "x":x, "y":k%4+1, "group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+result = {g:sum(r['x']*r['y'] for r in rows if r['x'] is not None and r['group']==g) for g in 'ABC'}
+assert len(rows)==20
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Code xác nhận 20 dòng và in kết quả function, return, lambda và phạm vi biến từ các dòng thực có trong bộ dữ liệu.
 
 ## 6. Sai lầm thường gặp
 
