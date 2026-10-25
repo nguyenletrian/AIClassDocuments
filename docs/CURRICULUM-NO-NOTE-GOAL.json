@@ -2,7 +2,7 @@
   "goal_id": "aiclassdocuments-no-note-comparison-copies-20261025",
   "title": "Thêm bản No Note trước mỗi khối code để học viên so sánh bản gọn và bản giải thích",
   "approval": "owner_approved",
-  "status": "ACTIVE",
+  "status": "COMPLETED",
   "revision": "2026-10-25-no-note-before-every-code-block",
   "owner_request": "Sau khi goal chú thích 46 bài hoàn thành, tất cả code có thêm một bản ngay phía trước mang tên 'No Note' (không chú thích), sau đó là bản code hiện tại có note. Học viên xem bản gọn rồi đối chiếu bản giải thích.",
   "predecessor": {
