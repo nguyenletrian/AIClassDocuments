@@ -131,7 +131,7 @@ Hệ số góc xấp xỉ 2,05 và hệ số chặn xấp xỉ −0,067; đây l
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Tính giá hai loại hàng
+### Tình huống 1 — Tính giá hai loại hàng · Cấp 1: Bài toán cơ bản
 
 **Tình huống thực tế:** Một hóa đơn gồm một món A và một món B giá tổng cộng 5 nghìn đồng; hóa đơn khác gồm hai A và một B hết 8 nghìn đồng. Hai đơn giá chưa biết, ký hiệu x,y. Tìm giá từng món.
 
@@ -160,7 +160,24 @@ print(np.linalg.solve(A, b))
 
 Giá món A là 3 nghìn, món B là 2 nghìn đồng.
 
-### Tình huống 2 — Phát hiện hai cột dữ liệu phụ thuộc
+**Bài thực hành nâng cấp — cấp 1/5:** Nhóm phân tích có **10 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy giải một hệ hai phương trình với hai ẩn dựa trên 2 phép đo. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+ys = [20+(k*7)%75 for k in range(1,11)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = np.linalg.solve(clean[:2], (clean[:2]@np.array([2.,3.]))).round(3).tolist()
+assert array.shape==(10,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 10 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
+
+### Tình huống 2 — Phát hiện hai cột dữ liệu phụ thuộc · Cấp 2: Phân tích cấu trúc
 
 **Tình huống thực tế:** Bảng đặc trưng của hai mẫu có hàng `[1,2]`, `[2,4]`. Cột hai luôn gấp đôi cột một, nên đội phân tích muốn biết bảng có hai hướng thông tin độc lập hay không.
 
@@ -188,7 +205,24 @@ print(np.linalg.matrix_rank(A))
 
 Chỉ có một hướng thông tin độc lập, không phải hai.
 
-### Tình huống 3 — Kiểm tra nghiệm của hệ
+**Bài thực hành nâng cấp — cấp 2/5:** Nhóm phân tích có **12 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy kiểm tra rank của 12 phương trình và 2 ẩn. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+ys = [20+(k*7)%75 for k in range(1,13)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = int(np.linalg.matrix_rank(clean))
+assert array.shape==(12,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 12 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
+
+### Tình huống 3 — Kiểm tra nghiệm của hệ · Cấp 3: Kiểm chứng đại số
 
 **Tình huống thực tế:** Một hệ có A=`[[1,1],[2,1]]` và b=`[5,8]`. Người học đề xuất nghiệm x=`[3,2]`. Kiểm tra nghiệm này có tái tạo được cả hai vế phải không.
 
@@ -218,7 +252,24 @@ True
 
 Nghiệm đã cho thỏa đồng thời cả hai phương trình.
 
-### Tình huống 4 — Ước lượng đường thẳng từ số đo có nhiễu
+**Bài thực hành nâng cấp — cấp 3/5:** Nhóm phân tích có **15 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy kiểm tra residual của hệ nhiều quan sát khi biết nghiệm thật. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+ys = [20+(k*7)%75 for k in range(1,16)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = float(np.linalg.norm(clean@np.array([2.,3.]) - (clean@np.array([2.,3.]))))
+assert array.shape==(15,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 15 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
+
+### Tình huống 4 — Ước lượng đường thẳng từ số đo có nhiễu · Cấp 4: Có nhiễu hoặc số đo thiếu
 
 **Tình huống thực tế:** Thiết bị ghi x lần lượt 1,2,3 và y lần lượt 2,4,6.1, cùng đơn vị đo phù hợp. Cần ước lượng đường y=m*x+c dù ba điểm không nằm chính xác trên một đường.
 
@@ -249,7 +300,24 @@ print(np.round(coeff, 3))
 
 Đường khớp xấp xỉ `y=2.05x−0.067`, không phải một đường đi qua chính xác cả ba số đo.
 
-### Tình huống 5 — Đo sai số dư của một dự báo
+**Bài thực hành nâng cấp — cấp 4/5:** Nhóm phân tích có **18 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy ước lượng nghiệm bằng least squares trên dữ liệu có nhiễu và thiếu. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39]
+ys = [20+(k*7)%75 for k in range(1,19)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = np.linalg.lstsq(clean,clean@np.array([2.,3.])+np.array([(-1)**k*2 for k in range(len(clean))]),rcond=None)[0].round(3).tolist()
+assert array.shape==(18,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 18 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
+
+### Tình huống 5 — Đo sai số dư của một dự báo · Cấp 5: Tổng hợp và đánh giá
 
 **Tình huống thực tế:** Một mô hình trả dự báo `[2,3]` cho hai giá trị mục tiêu `[2,4]` cùng đơn vị. Cần biết mô hình chênh bao nhiêu ở từng quan sát, quy ước dư = dự báo − thực tế.
 
@@ -278,6 +346,23 @@ print(A @ x - b)
 ```
 
 Quan sát đầu đúng hoàn toàn; quan sát thứ hai dự báo thấp hơn thực tế một đơn vị.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhóm phân tích có **20 phép đo**, mỗi hàng là một phương trình/quan sát, hai cột là hệ số của hai đại lượng chưa biết (hoặc hai đặc trưng đo). Hãy so sánh rank, nghiệm least squares và sai số dư trên 20 quan sát. Ở cấp 4–5 có quan sát không đầy đủ và các bước đánh giá để không coi phép tính số là tự động đúng.
+
+```python
+import numpy as np
+# Mỗi hàng = một phép đo; hai cột = hệ số/đặc trưng x1, x2.
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39, 85, np.nan]
+ys = [20+(k*7)%75 for k in range(1,21)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = {'rank':int(np.linalg.matrix_rank(clean)),'beta':np.linalg.lstsq(clean,clean@np.array([2.,3.])+np.array([(-1)**k*2 for k in range(len(clean))]),rcond=None)[0].round(3).tolist(),'missing':len(array)-len(clean)}
+assert array.shape==(20,2)
+print("Số quan sát:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu gốc có 20 hàng, ma trận dùng tính toán giữ các hàng đầy đủ; báo rõ rank, residual hoặc tỉ lệ phương sai tùy tác vụ.
 
 ## 6. Sai lầm thường gặp
 
