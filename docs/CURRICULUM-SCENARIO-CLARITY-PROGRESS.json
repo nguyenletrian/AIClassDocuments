@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_05",
+  "status": "BATCH_05_IN_PROGRESS",
   "last_completed_batch": 4,
   "batches": [
     {
@@ -135,11 +135,26 @@
         "PY-24",
         "PY-25"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-21",
+        "PY-22",
+        "PY-23",
+        "PY-24",
+        "PY-25"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-05-20261025",
+      "lesson_commits": {
+        "PY-21": "49b288f2e3ab68b9587b4ea09c49382656839a87",
+        "PY-22": "98c13865ae1a5dac1b1b557baad65068a63705d0",
+        "PY-23": "90eda241628e09fc4f7c012c2506780bd112daa5",
+        "PY-24": "71e5a46ea0600fdad7c7f365779a268351b51d08",
+        "PY-25": "3969e6e52a2cfb2872aecf6bf9a843374924ca81"
+      },
+      "notes": "PY-21..25 separately committed. Exactly five Tình huống thực tế and five Vì sao chọn cách này paragraphs rewritten per chapter, 50 total. Explain set operations, combinatorics, graphs and Jaccard, vector and matrix math through concrete real/simulated data, units, method reasoning and pitfalls. Compared each full changed chapter with main after masking only allowed two prose paragraph types: every other byte identical including 45 Python code fences, expected stdout, definitions, 20 MCQs per chapter and chapter structure. GitHub CI and PR merge PENDING. Windows/PowerShell canary unavailable, CDP 9224 identity unverified; no local PASS."
     },
     {
       "batch": 6,
