@@ -94,9 +94,9 @@ git remote -v
 
 **Từ vựng trong mục:** **Repository** — kho phiên bản; **Untracked** — chưa được theo dõi; **Status** — trạng thái.
 
-**Tình huống thực tế:** Bạn nhận **10 script Python** từ đồng nghiệp, mỗi script là một file `lesson01.py`…`lesson10.py`. Trước khi ghi lịch sử, cần xem Git đã nhận biết những file nào và kiểm chứng lệnh `status` chưa tự tạo commit. Ví dụ tạo repository **tạm riêng trong thư mục thử**, không đụng dự án đang làm.
+**Tình huống thực tế:** Một học viên vừa nhận **10 script Python**, từ `lesson01.py` đến `lesson10.py`, để bắt đầu quản lý phiên bản. Học viên muốn tạo một **repository Git thử nghiệm riêng** rồi xem cả mười file đã được Git nhận diện hay chưa, nhưng **chưa muốn đưa chúng vào lịch sử**. Mọi thao tác phải nằm trong thư mục tạm để không ảnh hưởng repository học tập đang sử dụng.
 
-**Vì sao chọn cách này?** `git status --porcelain` trả thông tin máy đọc được, mỗi file chưa theo dõi bắt đầu bằng `??`. `git init` tạo repo chứ **không tự đưa code vào lịch sử**; tất cả 10 file còn untracked cho đến khi stage.
+**Vì sao chọn cách này?** **Repository** là vùng dự án mà Git ghi nhận thay đổi; `git init` chỉ tạo thư mục quản lý **`.git`**, chưa tự thêm nội dung script vào lịch sử. `git status --porcelain` cho thông tin trạng thái ngắn, dễ xử lý bằng code; ký hiệu `??` nghĩa là file **chưa được Git theo dõi (untracked)**. `git diff --cached --name-only` xem phần **đã stage** để chuẩn bị commit; ở bước này danh sách đó còn rỗng. `TemporaryDirectory` cách ly tất cả thao tác trong **thư mục thử rồi tự dọn**, nên ví dụ không thay đổi repository thật của học viên.
 
 **Quy trình:**
 1. Tạo repository tạm và 10 file script có nội dung độc lập.
@@ -150,9 +150,9 @@ Thư mục tạm sẽ tự bị xóa sau ví dụ; script chỉ nghiên cứu Gi
 
 **Từ vựng trong mục:** **Staging area** — vùng chuẩn bị; **git add** — chọn file; **Diff cached** — khác biệt đã stage.
 
-**Tình huống thực tế:** Trước kỳ phát hành có **12 file mã nguồn** `module01.py`…`module12.py`; quản lý chỉ chấp nhận **năm file đầu** thuộc phần chức năng đã kiểm thử. Cần đưa đúng năm file vào stage và chứng minh bảy file còn lại chưa bị đưa vào commit.
+**Tình huống thực tế:** Nhóm phát triển chuẩn bị **12 file module Python**, từ `module01.py` đến `module12.py`. Trong đợt review này, chỉ **5 file đầu** đã được kiểm thử và được phép đưa vào lần commit tiếp theo; **7 file còn lại** vẫn đang viết. Trưởng nhóm muốn kiểm rõ năm file đã được **stage** và bảy file chưa được chọn, tránh đưa nhầm code chưa hoàn thành vào lịch sử.
 
-**Vì sao chọn cách này?** `git add` có thể chọn file cụ thể; khác `git add .` sẽ đưa cả 12 file vào stage. `git diff --cached --name-only` liệt kê phần đã chọn, `git ls-files --others` liệt kê file còn untracked.
+**Vì sao chọn cách này?** **Staging area** là danh sách thay đổi **được chọn để đưa vào commit tiếp theo**, không phải mọi file đang nằm trong thư mục. `git add -- module01.py ... module05.py` chọn rõ **năm file đã duyệt**, khác `git add .` có thể đưa cả 12 file vào stage. `git diff --cached --name-only` cho năm file đã chọn; `git ls-files --others --exclude-standard` cho bảy file còn **untracked**. Đếm hai nhóm là cách kiểm nhanh trước khi commit: **stage chưa phải commit**, nên vẫn còn cơ hội sửa lựa chọn nếu thấy file sai.
 
 **Quy trình:**
 1. Tạo repo tạm và 12 file có dữ liệu riêng.
@@ -206,9 +206,9 @@ Stage là **lựa chọn nội dung cho commit tiếp theo**, không phải đã
 
 **Từ vựng trong mục:** **Branch** — nhánh; **Commit** — bản ghi lịch sử; **Switch** — chuyển nhánh.
 
-**Tình huống thực tế:** Một nhóm học tập có **15 script** đang chạy trên nhánh `main`. Người thực tập cần thử sửa **ba script** ở nhánh `feature`, tạo commit và quay lại `main` mà nội dung ở nhánh chính vẫn là phiên bản trước.
+**Tình huống thực tế:** Một nhóm có **15 script** đã được ghi trong nhánh `main` với nội dung `VERSION = 1`. Một người muốn thử phiên bản mới cho **ba script đầu**, nhưng đồng đội vẫn cần dùng đúng phiên bản cũ trên `main`. Người đó sẽ tạo nhánh `feature`, sửa và commit riêng ba file rồi chuyển qua lại giữa hai nhánh để kiểm chứng sự khác biệt.
 
-**Vì sao chọn cách này?** Nhánh trỏ tới lịch sử commit riêng. Khi commit chỉ trên `feature`, `main` chưa bị đổi; kiểm tra nội dung cùng file ở hai nhánh sẽ dễ thấy hơn chỉ in tên nhánh.
+**Vì sao chọn cách này?** **Branch (nhánh)** là tên trỏ tới một chuỗi lịch sử commit, giúp thử thay đổi mà chưa đưa vào nhánh chung. `git switch -c feature` tạo và chuyển sang nhánh mới từ bản `main`; sửa ba script rồi `git add` và `git commit` lưu bản thay đổi **chỉ trên feature**. `git diff --name-only main feature` cho biết những file khác giữa hai đầu nhánh. Khi `switch` về `main`, `lesson01.py` vẫn là `VERSION = 1`; chuyển sang `feature` thì là `VERSION = 2`. Ví dụ này không cần remote, nên không phải kéo code hoặc tạo pull request.
 
 **Quy trình:**
 1. Tạo 15 script v1 và commit ban đầu với thông tin tác giả test.
@@ -270,9 +270,9 @@ Commit lưu ảnh chụp **file đã stage**. Quay về `main` không cần xóa
 
 **Từ vựng trong mục:** **Commit history** — lịch sử; **Log** — nhật ký commit; **Tracked file** — file đang theo dõi.
 
-**Tình huống thực tế:** Nhóm bảo trì chuẩn bị **18 file** script cho ba giai đoạn, mỗi giai đoạn gồm sáu file độc lập. Thay vì ghi một commit khó rà soát, nhóm muốn tạo **ba commit riêng**, kiểm xem mỗi commit có thông điệp nhận diện và tổng 18 file đều đã được Git theo dõi.
+**Tình huống thực tế:** Nhóm bảo trì nhận **18 script tool01.py–tool18.py** cần quản lý theo **ba giai đoạn**, mỗi giai đoạn gồm đúng 6 file. Quản lý muốn lịch sử Git có **ba commit có tên dễ hiểu**, mỗi commit đại diện một đợt làm việc, thay vì chỉ có một commit chứa toàn bộ 18 file. Sau cùng, cần xác nhận Git theo dõi đủ file và đọc lại tên các commit gần nhất.
 
-**Vì sao chọn cách này?** Commit theo nhóm thay đổi giúp khôi phục và review dễ hơn. `git log --format=%s` in **tiêu đề commit** ổn định, tránh đưa mã hash (không cố định theo thời gian) vào đáp án mẫu.
+**Vì sao chọn cách này?** **Commit** là mốc lưu lại một nhóm thay đổi đã được stage, kèm **thông điệp mô tả**. Chương trình chia 18 file thành ba đợt sáu file, dùng `git add` đúng tên file mỗi đợt rồi `git commit -m 'batch ...'`. `git rev-list --count HEAD` đếm ba commit đã tạo, `git ls-files` xác nhận 18 script đã được theo dõi. `git log -3 --format=%s` chỉ lấy **tiêu đề** ba commit gần nhất (mới trước, cũ sau), vì mã hash có thể đổi giữa các lần dựng thử nên không phù hợp để viết sẵn đáp án cố định. Chia lịch sử theo công việc giúp review hoặc quay lại từng giai đoạn rõ ràng.
 
 **Quy trình:**
 1. Tạo lần lượt ba nhóm, mỗi nhóm sáu file trong repository tạm.
@@ -328,9 +328,9 @@ Chỉ có ba commit vì mỗi commit chứa **sáu file**. Số file và số co
 
 **Từ vựng trong mục:** **Merge** — hợp nhất lịch sử; **Merge commit** — commit có hai cha; **Clean working tree** — cây làm việc sạch.
 
-**Tình huống thực tế:** Một dự án mô phỏng có **20 file Python**. Hai người bắt đầu từ cùng một commit: một người sửa `tool01.py` và `tool02.py` trên nhánh `feature`, người còn lại sửa `tool19.py` và `tool20.py` trên `main`. Cần hợp nhất để cả bốn sửa đổi có mặt, không mất file, rồi kiểm merge có **hai parent commit**. Không tạo remote hoặc push ra ngoài.
+**Tình huống thực tế:** Hai lập trình viên cùng làm trên **dự án thử nghiệm 20 file Python**. Từ phiên bản chung, người thứ nhất sửa **tool01 và tool02** trên nhánh `feature`; người thứ hai sửa **tool19 và tool20** trên `main`. Vì họ sửa **những file khác nhau**, nhóm muốn hợp nhất để cả bốn sửa đổi còn nguyên, thấy rõ **merge commit có hai nhánh cha**, và kiểm tra trạng thái làm việc sạch. Không kết nối remote hay đẩy code ra Internet.
 
-**Vì sao chọn cách này?** Git có thể tự merge nếu các sửa đổi ở những file không giao nhau. `--no-ff` tạo merge commit rõ ràng cho mục tiêu học về lịch sử; nếu cả hai sửa cùng một dòng sẽ cần xử lý conflict, không được tự ghi đè.
+**Vì sao chọn cách này?** **Merge** là đưa thay đổi từ hai lịch sử vào cùng một nhánh. Ví dụ tạo commit gốc 20 file, tách `feature` để sửa hai file đầu, rồi quay về `main` sửa hai file cuối, nên hai nhánh đã có **hai commit khác nhau**. `git merge --no-ff feature` yêu cầu Git tạo **merge commit riêng**, kể cả khi có thể gộp nhanh, để nhìn rõ dấu mốc hợp nhất. `git rev-list --parents -n 1 HEAD` cho thấy merge commit và **hai parent**; nội dung tool01/tool20 chứng minh hai phía đều được giữ, còn `status` trống nghĩa là thư mục làm việc sạch. Vì các file sửa không giao nhau, Git có thể tự gộp; nếu cùng sửa một dòng thì cần giải quyết **xung đột (conflict)**, không tự ghi đè theo cảm tính.
 
 **Quy trình:**
 1. Tạo 20 file và commit bản gốc.
