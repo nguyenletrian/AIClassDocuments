@@ -2,8 +2,8 @@
   "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
   "title": "Viết lại tình huống dễ hiểu và giải thích kỹ lý do, thuật ngữ, dữ liệu, lựa chọn phương pháp",
   "approval": "owner_approved",
-  "status": "APPROVED_DEFERRED",
-  "progress": "NOT_STARTED",
+  "status": "ACTIVE",
+  "progress": "READY_FOR_BATCH_01",
   "activation_condition": {
     "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
     "progress_ledger": "docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json",
@@ -135,5 +135,14 @@
     "desired_situation": "Một máy có 20 loại trạng thái đặt tên S01 đến S20. Nhóm nghiên cứu gán mỗi trạng thái một con số từ 1 đến 20 để biểu thị khả năng tương đối trong ví dụ: S01 nhận mức 1, S02 nhận mức 2, ... S20 nhận mức 20. Các con số do nhóm giả định cho mô phỏng, không phải số lần máy xảy ra trạng thái đó. Họ muốn biết khả năng máy rơi vào một trong năm trạng thái S16 đến S20 là bao nhiêu.",
     "desired_why": "Trọng số là con số biểu thị trạng thái được ưu tiên/có khả năng cao tương đối; 20 trọng số này do nhóm tự đặt chứ không được đo từ thiết bị. Để chuyển các trọng số thành xác suất, cộng tất cả mức lại (210) rồi chia từng mức cho tổng này, để xác suất các trạng thái cộng lại bằng 100%; năm trạng thái cuối có tổng trọng số 90 nên xác suất chung là 90/210 ≈ 42,86%, không phải 5/20=25% vì 20 trạng thái không đồng khả năng. Có thể rút ngẫu nhiên 5000 lần để so kết quả thực nghiệm với 42,86%; 5000 là lựa chọn minh họa cân bằng độ dao động và thời gian chạy, không phải yêu cầu bắt buộc. Seed 42 giúp máy tạo cùng dãy ngẫu nhiên khi chạy lại, không làm tỷ lệ thực nghiệm chắc chắn bằng 42,86%; kết quả mô phỏng chỉ xấp xỉ."
   },
-  "note": "Owner explicitly said add as a separate future goal after currently active explicit Python readability goal; document this in guide now; do not run any of these lesson prose changes until activation prerequisites are met."
+  "note": "Owner-approved goal ACTIVATED only after predecessor explicit Python merged 10/10 and source had no outstanding task/PR. Guide section 7 governs beginner-readable prose, no change to code/MCQs; one batch max five chapters, CI/merge/ledger.",
+  "progress_ledger": "docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json",
+  "activated_after": {
+    "explicit_python_ledger": "COMPLETED",
+    "explicit_python_merged_batches": 10,
+    "explicit_python_final_pr": 154,
+    "explicit_python_final_ci": 40176164004,
+    "open_prs": 0,
+    "pending_tasks": 0
+  }
 }
