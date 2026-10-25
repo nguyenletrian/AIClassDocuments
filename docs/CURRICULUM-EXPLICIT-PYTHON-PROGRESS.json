@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_05",
+  "status": "BATCH_05_IN_PROGRESS",
   "last_completed_batch": 4,
   "batches": [
     {
@@ -136,11 +136,27 @@
         "PY-24",
         "PY-25"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-21",
+        "PY-22",
+        "PY-23",
+        "PY-24",
+        "PY-25"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-05-20261025",
+      "lesson_commits": {
+        "PY-21": "38b360495db287249ae83a26f46f11c07f07a550",
+        "PY-22": "76579b261ec2efe73064d45e2993a718cd515ccd",
+        "PY-22-conceptual-loop": "94c9a1cbdeaeeb5060527b9b405a356f00b740b9",
+        "PY-23": "fcd23928fff4dfd94670f7a2a09af5a0486d89e1",
+        "PY-24": "9a7bbe347617b1c311adb97fb58525af02177bef",
+        "PY-25": "b2bf887b9dfa1d3847e67bac61ace3b808414b56"
+      },
+      "notes": "PY-21..25 separately committed including PY-22 conceptual listcomp to explicit loop. 9 Python code blocks and corresponding stdout outputs per lesson retained. Assertions, list/set/dict comprehensions, generators and ternaries replaced with beginner-readable if/for; NumPy vectorized and itertools combinations/permutations retained because pedagogical core. Full AST, 25 scenario stdout, curriculum MCQ and Markdown GitHub CI pending; do not mark MERGED or Windows PASS yet."
     },
     {
       "batch": 6,
