@@ -121,7 +121,7 @@ print(round(float(np.linalg.det(A)), 6))
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Đổi bố cục dữ liệu báo cáo
+### Tình huống 1 — Đổi bố cục dữ liệu báo cáo · Cấp 1: Một phép cơ bản
 
 **Từ vựng trong mục:** **Matrix** — ma trận.
 
@@ -149,8 +149,24 @@ print(X.T.shape)
 (3, 2)
 ```
 
+**Bài thực hành nâng cấp — cấp 1/5:** Robot ghi **10 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy chuyển vị bảng 10 vector thành hai hàng đặc trưng. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
 
-### Tình huống 2 — Nhân bảng điểm và trọng số
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+ys = [20+(k*7)%75 for k in range(1,11)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = array.T.shape
+assert array.shape==(10,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 10; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
+
+### Tình huống 2 — Nhân bảng điểm và trọng số · Cấp 2: Xử lý hàng loạt
 
 **Từ vựng trong mục:** **Matrix multiplication** — nhân ma trận.
 
@@ -180,8 +196,24 @@ print(X@W)
  [6.7]]
 ```
 
+**Bài thực hành nâng cấp — cấp 2/5:** Robot ghi **12 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy nhân ma trận 12×2 với ma trận trọng số 2×1. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
 
-### Tình huống 3 — Kiểm tra ma trận khả nghịch
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+ys = [20+(k*7)%75 for k in range(1,13)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = (array@np.array([[0.4],[0.6]])).shape
+assert array.shape==(12,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 12; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
+
+### Tình huống 3 — Kiểm tra ma trận khả nghịch · Cấp 3: Kết hợp vector/ma trận
 
 **Từ vựng trong mục:** **Determinant** — định thức.
 
@@ -209,8 +241,24 @@ print(round(np.linalg.det(A), 6))
 3.0
 ```
 
+**Bài thực hành nâng cấp — cấp 3/5:** Robot ghi **15 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy tính định thức ma trận hiệp phương sai 2×2. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
 
-### Tình huống 4 — Kiểm tra nghịch đảo
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+ys = [20+(k*7)%75 for k in range(1,16)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = round(float(np.linalg.det(np.cov(array,rowvar=False))),3)
+assert array.shape==(15,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 15; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
+
+### Tình huống 4 — Kiểm tra nghịch đảo · Cấp 4: Giá trị thiếu và ràng buộc
 
 **Từ vựng trong mục:** **Inverse** — ma trận nghịch đảo.
 
@@ -238,8 +286,24 @@ print(np.allclose(A@np.linalg.inv(A), np.eye(2)))
 True
 ```
 
+**Bài thực hành nâng cấp — cấp 4/5:** Robot ghi **18 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy kiểm tra rank và khả nghịch của ma trận hiệp phương sai. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
 
-### Tình huống 5 — Kiểm tra shape trước nhân
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39]
+ys = [20+(k*7)%75 for k in range(1,19)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = {'rank':int(np.linalg.matrix_rank(np.cov(clean,rowvar=False))),'valid':len(clean),'missing':len(array)-len(clean)}
+assert array.shape==(18,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 18; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
+
+### Tình huống 5 — Kiểm tra shape trước nhân · Cấp 5: Bài toán tổng hợp
 
 **Từ vựng trong mục:** **Matrix** — ma trận.
 
@@ -269,6 +333,22 @@ print((A@B).shape)
 (2, 2)
 ```
 
+**Bài thực hành nâng cấp — cấp 5/5:** Robot ghi **20 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy kiểm tra shape trước các phép nhân, so kết quả nghịch đảo trên 20 hàng. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
+
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39, 85, np.nan]
+ys = [20+(k*7)%75 for k in range(1,21)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = {'shape':array.shape,'cov_shape':np.cov(clean,rowvar=False).shape,'identity':np.allclose(np.cov(clean,rowvar=False)@np.linalg.inv(np.cov(clean,rowvar=False)),np.eye(2))}
+assert array.shape==(20,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 20; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
 
 ## 6. Sai lầm thường gặp
 
