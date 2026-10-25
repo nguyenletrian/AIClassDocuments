@@ -6,6 +6,7 @@ on:
       - "lessons/chapters/**"
       - "docs/CURRICULUM-5-LESSON-PROGRESS.json"
       - "docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json"
+      - "docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json"
       - "docs/BRIDGE-FIVE-LESSON-BATCHES.md"
       - "docs/CURRICULUM-STYLE-GUIDE.md"
       - "AGENTS.md"
@@ -23,12 +24,14 @@ on:
       - "tests/test_curriculum_batch_09_scenarios.py"
       - "tests/test_curriculum_batch_10_scenarios.py"
       - "tests/test_curriculum_markdown_rendering.py"
+      - "tests/test_curriculum_explicit_python_style.py"
       - ".github/workflows/verify_curriculum_5lesson_batches.yml"
   push:
     paths:
       - "lessons/chapters/**"
       - "docs/CURRICULUM-5-LESSON-PROGRESS.json"
       - "docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json"
+      - "docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json"
       - "tests/test_curriculum_structure.py"
       - "tests/test_curriculum_five_lesson_batches.py"
       - "tests/test_curriculum_batch_01_scenarios.py"
@@ -42,6 +45,7 @@ on:
       - "tests/test_curriculum_batch_09_scenarios.py"
       - "tests/test_curriculum_batch_10_scenarios.py"
       - "tests/test_curriculum_markdown_rendering.py"
+      - "tests/test_curriculum_explicit_python_style.py"
       - ".github/workflows/verify_curriculum_5lesson_batches.yml"
 
 jobs:
@@ -55,4 +59,4 @@ jobs:
       - name: Install scientific packages, scikit-learn and Matplotlib
         run: python -m pip install "numpy>=2.0,<3" "pandas>=2.2,<4" "sympy>=1.12,<2" "scipy>=1.12,<2" "scikit-learn>=1.4,<2" "matplotlib>=3.8,<4"
       - name: Check 46 chapters, MCQs, Python syntax and sequential batch ledger
-        run: python -m unittest tests.test_curriculum_structure tests.test_curriculum_five_lesson_batches tests.test_curriculum_batch_01_scenarios tests.test_curriculum_batch_02_scenarios tests.test_curriculum_batch_03_scenarios tests.test_curriculum_batch_04_scenarios tests.test_curriculum_batch_05_scenarios tests.test_curriculum_batch_06_scenarios tests.test_curriculum_batch_07_scenarios tests.test_curriculum_batch_08_scenarios tests.test_curriculum_batch_09_scenarios tests.test_curriculum_batch_10_scenarios tests.test_curriculum_markdown_rendering -v
+        run: python -m unittest tests.test_curriculum_structure tests.test_curriculum_five_lesson_batches tests.test_curriculum_batch_01_scenarios tests.test_curriculum_batch_02_scenarios tests.test_curriculum_batch_03_scenarios tests.test_curriculum_batch_04_scenarios tests.test_curriculum_batch_05_scenarios tests.test_curriculum_batch_06_scenarios tests.test_curriculum_batch_07_scenarios tests.test_curriculum_batch_08_scenarios tests.test_curriculum_batch_09_scenarios tests.test_curriculum_batch_10_scenarios tests.test_curriculum_markdown_rendering tests.test_curriculum_explicit_python_style -v
