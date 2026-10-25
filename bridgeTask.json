@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-progressive-46-scenarios-20261025",
-    "revision": "2026-10-25-five-lesson-sequential-batches-v1",
+    "revision": "2026-10-25-five-lesson-sequential-batches-v1-batch02",
     "title": "Nâng cấp 46 bài: 5 tình huống khó dần, 10–20 dữ liệu, chỉ 5 bài mỗi lượt",
-    "phase": "READY_FOR_BATCH_01",
+    "phase": "READY_FOR_BATCH_02",
     "source_repository": "https://github.com/nguyenletrian/PythoClass.git",
     "source_commit": "37bcd2358ed616a9130ef954913adef728a1f9b8",
     "chapter_index": "lessons/chapters/README.md",
@@ -1206,8 +1206,8 @@
     "expected_lessons": 46,
     "expected_batches": 10,
     "unverified_draft_branch": "feat/46-lessons-scenarios-progression-20261025",
-    "next_review": "Owner approved autonomous work once Bridge is started. Before sending any new task, verify AIClassDocuments-architect worker identity, GitHub main/PR state, queue/ACK and docs/CURRICULUM-5-LESSON-PROGRESS.json. Do ONLY first unmerged batch, starting PY-01..PY-05. Architect authors/commits/PR; Bridge only performs permitted test_script and returns evidence. After QA and merge, persist ledger then continue batch 02. Avoid duplicate reminders if task running, RESULT_PENDING, PR open or latest reminder unacknowledged. When 46/46 merged and checked, disable goal_review and owner_pause suppress reminders, then send one owner summary.",
-    "review_hold": "Keep scope to one five-lesson batch active. Never wake archived Jetking tasks or force restart; no duplicate idle reminders, no unverified ACK/test claims, no whole-draft merge. Owner will start Bridge manually. If worker runtime is not ready, do not claim active execution."
+    "next_review": "Batch 01 PY-01..05 merged as PR #123, commit 8f29eec4c104f673f52113861ace0f0919dca80c; CI 40156877285 PASS. Read durable ledger docs/CURRICULUM-5-LESSON-PROGRESS.json and current main before acting. Start only batch 02 PY-06..PY-10, five lessons, validate code and MCQs, one PR with QA, merge and durably record exact SHA before moving on. Do not replay completed batch or historical Jetking tasks. Check queue/ACK and PR for concurrent work; no duplicate reminders while pending. No Windows PASS claim without verified Bridge test results.",
+    "review_hold": "Owner-approved goal active; batch 01 merged. If worker listening and idle with no pending task/PR, continue next five-lesson batch. No idle spam, no archived Jetking work, no auto restart, no false Windows evidence."
   },
   "goal_review_history": [
     {
