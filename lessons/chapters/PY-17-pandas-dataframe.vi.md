@@ -134,7 +134,7 @@ Tổng số tiền hai đơn là 300 đồng. `read_csv` đọc bảng từ văn
 
 ## 5. Năm tình huống thực tế
 
-### Tình huống 1 — Tạo bảng giá sản phẩm
+### Tình huống 1 — Tạo bảng giá sản phẩm · Cấp 1: Nhận biết bảng
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
@@ -163,7 +163,24 @@ print(df)
 1    Book  35000    1
 ```
 
-### Tình huống 2 — Đọc đơn từ CSV văn bản
+**Bài thực hành nâng cấp — cấp 1/5:** Cửa hàng có **10 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy tạo DataFrame và xem ba dòng đầu. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,11)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(10)],
+    "region":[["North","South","Central"][i%3] for i in range(10)]})
+result = frame.head(3).to_dict(orient='records')
+assert len(frame)==10
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 10 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
+
+### Tình huống 2 — Đọc đơn từ CSV văn bản · Cấp 2: Xử lý nhiều bản ghi
 
 **Từ vựng trong mục:** **DataFrame** — bảng dữ liệu.
 
@@ -194,7 +211,25 @@ print(df.head())
 1  O2   30000
 ```
 
-### Tình huống 3 — Tạo doanh thu mỗi dòng
+**Bài thực hành nâng cấp — cấp 2/5:** Cửa hàng có **12 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy xuất dữ liệu bảng ra CSV và đọc ngược vào DataFrame. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+from io import StringIO
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,13)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(12)],
+    "region":[["North","South","Central"][i%3] for i in range(12)]})
+result = pd.read_csv(StringIO(frame.to_csv(index=False))).shape
+assert len(frame)==12
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 12 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
+
+### Tình huống 3 — Tạo doanh thu mỗi dòng · Cấp 3: Kết hợp bước xử lý
 
 **Từ vựng trong mục:** **Column** — cột.
 
@@ -224,7 +259,24 @@ print(df)
 1     20    3       60
 ```
 
-### Tình huống 4 — Xem kiểu dữ liệu đầu vào
+**Bài thực hành nâng cấp — cấp 3/5:** Cửa hàng có **15 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy tính cột doanh thu từ đơn giá và số lượng. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,16)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(15)],
+    "region":[["North","South","Central"][i%3] for i in range(15)]})
+result = frame.assign(revenue=frame['amount']*frame['qty'])[['id','revenue']].head(4).to_dict(orient='records')
+assert len(frame)==15
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 15 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
+
+### Tình huống 4 — Xem kiểu dữ liệu đầu vào · Cấp 4: Phát hiện và sửa dữ liệu lỗi
 
 **Từ vựng trong mục:** **CSV** — tệp giá trị phân cách.
 
@@ -253,7 +305,24 @@ qty      int64
 dtype: object
 ```
 
-### Tình huống 5 — Chọn dữ liệu tập huấn luyện
+**Bài thực hành nâng cấp — cấp 4/5:** Cửa hàng có **18 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy kiểm tra dtype, thiếu dữ liệu và bỏ dòng lỗi. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,19)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(18)],
+    "region":[["North","South","Central"][i%3] for i in range(18)]})
+result = {'dtype':str(frame['amount'].dtype),'missing':int(frame['amount'].isna().sum()),'valid':int(frame['amount'].notna().sum())}
+assert len(frame)==18
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 18 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
+
+### Tình huống 5 — Chọn dữ liệu tập huấn luyện · Cấp 5: Quy trình tránh sai lệch dữ liệu
 
 **Từ vựng trong mục:** **Series** — chuỗi Pandas.
 
@@ -280,6 +349,23 @@ print(X.shape)
 ```text
 (2, 2)
 ```
+
+**Bài thực hành nâng cấp — cấp 5/5:** Cửa hàng có **20 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy chọn đặc trưng số đã kiểm tra để chuẩn bị huấn luyện. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,21)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(20)],
+    "region":[["North","South","Central"][i%3] for i in range(20)]})
+result = {'feature_shape':frame.loc[frame['amount'].notna(),['amount','qty']].shape,'regions':sorted(frame['region'].unique().tolist())}
+assert len(frame)==20
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 20 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
 
 ## 6. Sai lầm thường gặp
 
