@@ -1,3 +1,12 @@
+## Chỉ đạo owner 2026-10-25 — GOAL "NO NOTE" SAU KHI CHÚ THÍCH 46/46 BÀI
+
+**Đã được chủ dự án duyệt và chỉ kích hoạt sau goal chú thích code 10/10 hoàn tất:** `aiclassdocuments-no-note-comparison-copies-20261025`. Nguồn chính: `docs/CURRICULUM-NO-NOTE-GOAL.json` và ledger `docs/CURRICULUM-NO-NOTE-PROGRESS.json`. Trước khi chạy mỗi batch đọc lại cả hai cùng `bridgeTask.json`.
+
+- **Tất cả ví dụ code thực thi trong PY-01..PY-46**, kể cả Python và Bash/Git, có **hai bản đặt liên tiếp**: `**No Note — Không chú thích**` rồi một fenced code không có comment diễn giải; kế đó `**Code có chú thích — Giải thích từng bước**` rồi fenced code hiện tại giữ **nguyên văn** mọi dòng/comment.
+- Bản No Note phải giữ đúng lệnh, thứ tự, chuỗi, dữ liệu và stdout như bản có chú thích; dùng Python tokenizer/AST khi bỏ comment, không xóa dấu `#` trong string; với Bash tôn trọng cú pháp quote/comment. Không lặp khối kết quả `text`, hình, sơ đồ, 920 câu trắc nghiệm hay phần lời giảng.
+- **Kiểm thử hiện tại giả định một fenced Python trong mỗi tình huống**: khi tăng thành hai, cập nhật test để phân biệt No Note/bản annotated, chạy code đúng và so stdout cũ, không xóa/bỏ qua test. Kiểm tính liền kề, đủ hai bản, không trùng bản thứ ba.
+- Thực hiện **tối đa 5 bài một lượt**, commit riêng từng bài, một PR/batch, CI tại final PR HEAD phải SUCCESS rồi merge/ghi ledger, mới sửa revision của Bridge để nhắc batch kế. Đợt cuối chỉ PY-46. Heartbeat liên tục 15 giây là thông tin, không cho phép tạo task trùng. Không tuyên bố Windows PASS khi chưa có chứng cứ Bridge.
+
 # AIClassDocuments — Hướng dẫn agent (PythoClass-first)
 
 ## Chỉ đạo owner 2026-10-25 — GOAL MỚI: CHÚ THÍCH CODE ĐẦY ĐỦ 46 BÀI
