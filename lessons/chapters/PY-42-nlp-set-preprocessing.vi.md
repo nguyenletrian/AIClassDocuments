@@ -117,7 +117,7 @@ Hai tài liệu chung một trên năm token khác nhau; độ giống tập h�
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Chuẩn hóa từ khóa tìm kiếm
+### Tình huống 1 — Chuẩn hóa từ khóa tìm kiếm · Cấp 1: Tách từ cơ bản
 
 **Tình huống thực tế:** Thanh tìm kiếm nhận chuỗi `  Machine LEARNING ` từ người dùng. Cần bỏ khoảng trắng hai đầu và đồng nhất chữ thường trước khi so khớp đơn giản.
 
@@ -143,7 +143,22 @@ machine learning
 
 Chuỗi được chuẩn hóa để so với từ khóa cùng quy ước.
 
-### Tình huống 2 — Tách token của câu tiếng Anh
+**Bài thực hành nâng cấp — cấp 1/5:** Bộ phận chăm sóc khách thu **10 bình luận sản phẩm** (mỗi hàng là một văn bản ngắn); hãy tách từ của bình luận đầu trong 10 bình luận. Các cấp tăng dữ liệu từ 10 đến 20 bình luận, chuyển dần từ tách từ đến xây tập từ và so Jaccard; cấp 4–5 có một bình luận rỗng phải được xử lý minh bạch.
+
+```python
+# Một hàng = bình luận sản phẩm, các từ đã được phân tách bằng dấu cách.
+base = ["san pham tot", "giao hang nhanh", "san pham dep", "chat luong tot", "giao hang cham", "dong goi dep"]
+texts = [base[i%len(base)] for i in range(10)]
+stop = {"san","pham","hang"}
+tokens = [set(t.lower().split())-stop for t in texts]
+result = texts[0].lower().split()
+print("Số bình luận:",len(texts))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số văn bản là 10. Tập hợp từ loại trùng, vì vậy không thay thế hoàn toàn tần suất hoặc thứ tự từ trong bài toán ngôn ngữ thực tế.
+
+### Tình huống 2 — Tách token của câu tiếng Anh · Cấp 2: Chuẩn hóa và tạo vocabulary
 
 **Tình huống thực tế:** Một ứng dụng tìm kiếm thử nghiệm nhận câu `AI helps Python`, chưa có dấu câu. Cần tách thành các token theo khoảng trắng và đưa về chữ thường.
 
@@ -169,7 +184,22 @@ print(sentence.lower().split())
 
 Ba token được tạo; cách làm chưa giải quyết từ ghép tiếng Việt hay dấu câu.
 
-### Tình huống 3 — Tạo kho từ vựng từ hai tài liệu
+**Bài thực hành nâng cấp — cấp 2/5:** Bộ phận chăm sóc khách thu **12 bình luận sản phẩm** (mỗi hàng là một văn bản ngắn); hãy tạo vocabulary từ 12 bình luận sau khi lower/split. Các cấp tăng dữ liệu từ 10 đến 20 bình luận, chuyển dần từ tách từ đến xây tập từ và so Jaccard; cấp 4–5 có một bình luận rỗng phải được xử lý minh bạch.
+
+```python
+# Một hàng = bình luận sản phẩm, các từ đã được phân tách bằng dấu cách.
+base = ["san pham tot", "giao hang nhanh", "san pham dep", "chat luong tot", "giao hang cham", "dong goi dep"]
+texts = [base[i%len(base)] for i in range(12)]
+stop = {"san","pham","hang"}
+tokens = [set(t.lower().split())-stop for t in texts]
+result = sorted(set().union(*(set(t.lower().split()) for t in texts)))
+print("Số bình luận:",len(texts))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số văn bản là 12. Tập hợp từ loại trùng, vì vậy không thay thế hoàn toàn tần suất hoặc thứ tự từ trong bài toán ngôn ngữ thực tế.
+
+### Tình huống 3 — Tạo kho từ vựng từ hai tài liệu · Cấp 3: So độ giống Jaccard
 
 **Tình huống thực tế:** Hai đoạn `AI uses data`, `AI uses Python` có token lặp. Bộ phận tìm kiếm cần tập các từ khác nhau để xây dựng danh sách tra cứu.
 
@@ -196,7 +226,22 @@ print(sorted(words))
 
 Vocabulary có bốn từ khác nhau, không đếm số lần xuất hiện.
 
-### Tình huống 4 — So hai tài liệu bằng Jaccard
+**Bài thực hành nâng cấp — cấp 3/5:** Bộ phận chăm sóc khách thu **15 bình luận sản phẩm** (mỗi hàng là một văn bản ngắn); hãy tính Jaccard giữa hai tập từ của 15 bình luận. Các cấp tăng dữ liệu từ 10 đến 20 bình luận, chuyển dần từ tách từ đến xây tập từ và so Jaccard; cấp 4–5 có một bình luận rỗng phải được xử lý minh bạch.
+
+```python
+# Một hàng = bình luận sản phẩm, các từ đã được phân tách bằng dấu cách.
+base = ["san pham tot", "giao hang nhanh", "san pham dep", "chat luong tot", "giao hang cham", "dong goi dep"]
+texts = [base[i%len(base)] for i in range(15)]
+stop = {"san","pham","hang"}
+tokens = [set(t.lower().split())-stop for t in texts]
+result = len(set(texts[0].split())&set(texts[1].split()))/len(set(texts[0].split())|set(texts[1].split()))
+print("Số bình luận:",len(texts))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số văn bản là 15. Tập hợp từ loại trùng, vì vậy không thay thế hoàn toàn tần suất hoặc thứ tự từ trong bài toán ngôn ngữ thực tế.
+
+### Tình huống 4 — So hai tài liệu bằng Jaccard · Cấp 4: Xử lý chuỗi trống và từ dừng
 
 **Tình huống thực tế:** Hai câu có từ chung `python`: A=`python for ai`, B=`python and sql`. Đội tìm kiếm muốn tỷ lệ trùng token khác nhau, chưa cần so ngữ nghĩa.
 
@@ -223,7 +268,23 @@ print(round(len(a & b) / len(a | b), 2))
 
 Tập từ trùng chiếm một phần năm tất cả từ, Jaccard bằng 0,2.
 
-### Tình huống 5 — Tránh chia cho 0 ở hai văn bản rỗng
+**Bài thực hành nâng cấp — cấp 4/5:** Bộ phận chăm sóc khách thu **18 bình luận sản phẩm** (mỗi hàng là một văn bản ngắn); hãy bỏ bình luận trống và từ dừng rồi kiểm tra từ còn lại. Các cấp tăng dữ liệu từ 10 đến 20 bình luận, chuyển dần từ tách từ đến xây tập từ và so Jaccard; cấp 4–5 có một bình luận rỗng phải được xử lý minh bạch.
+
+```python
+# Một hàng = bình luận sản phẩm, các từ đã được phân tách bằng dấu cách.
+base = ["san pham tot", "giao hang nhanh", "san pham dep", "chat luong tot", "giao hang cham", "dong goi dep"]
+texts = [base[i%len(base)] for i in range(18)]
+texts[15] = ''
+stop = {"san","pham","hang"}
+tokens = [set(t.lower().split())-stop for t in texts]
+result = {'valid':sum(bool(t.strip()) for t in texts),'vocab':sorted(set().union(*(set(t.lower().split())-stop for t in texts if t.strip())))}
+print("Số bình luận:",len(texts))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số văn bản là 18. Tập hợp từ loại trùng, vì vậy không thay thế hoàn toàn tần suất hoặc thứ tự từ trong bài toán ngôn ngữ thực tế.
+
+### Tình huống 5 — Tránh chia cho 0 ở hai văn bản rỗng · Cấp 5: Báo cáo vocab và cặp văn bản giống nhau
 
 **Tình huống thực tế:** Hệ thống có thể nhận hai chuỗi chỉ gồm khoảng trắng. Sau `split()`, cả hai tập token rỗng. Cần quy ước đánh giá giống nhau 100% trong **ứng dụng này** và tránh chia cho 0.
 
@@ -251,6 +312,22 @@ print(score)
 ```
 
 Hai tập rỗng được gán độ giống 1.0 theo quy ước đã công bố.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Bộ phận chăm sóc khách thu **20 bình luận sản phẩm** (mỗi hàng là một văn bản ngắn); hãy xây vocabulary từ 20 bình luận và xếp cặp có Jaccard cao nhất. Các cấp tăng dữ liệu từ 10 đến 20 bình luận, chuyển dần từ tách từ đến xây tập từ và so Jaccard; cấp 4–5 có một bình luận rỗng phải được xử lý minh bạch.
+
+```python
+# Một hàng = bình luận sản phẩm, các từ đã được phân tách bằng dấu cách.
+base = ["san pham tot", "giao hang nhanh", "san pham dep", "chat luong tot", "giao hang cham", "dong goi dep"]
+texts = [base[i%len(base)] for i in range(20)]
+texts[15] = ''
+stop = {"san","pham","hang"}
+tokens = [set(t.lower().split())-stop for t in texts]
+result = {'vocab_size':len(set().union(*(set(t.lower().split())-stop for t in texts if t.strip()))),'top_pair':max(((i,j,round(len(a&b)/len(a|b),3)) for i,a in enumerate(tokens) for j,b in enumerate(tokens) if i<j and a|b),key=lambda x:x[2])}
+print("Số bình luận:",len(texts))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số văn bản là 20. Tập hợp từ loại trùng, vì vậy không thay thế hoàn toàn tần suất hoặc thứ tự từ trong bài toán ngôn ngữ thực tế.
 
 ## 6. Sai lầm thường gặp
 
