@@ -126,7 +126,7 @@ KMeans tìm được hai cụm; mã số gắn cho từng cụm có thể đổi
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Kiểm tra ID train/test
+### Tình huống 1 — Kiểm tra ID train/test · Cấp 1: Xác định X và y
 
 **Tình huống thực tế:** Một nhóm thử mô hình với train `{1,2,3}` và test `{4,5}` (mỗi số là ID hồ sơ). Cần xác nhận không có ID nào xuất hiện trong cả hai tập.
 
@@ -153,7 +153,27 @@ True
 
 Hai tập không trùng ID, chưa chứng minh mọi dữ liệu đều độc lập.
 
-### Tình huống 2 — Phân chia Iris có phân tầng
+**Bài thực hành nâng cấp — cấp 1/5:** Trung tâm có **10 học viên**; mỗi hàng có hai đặc trưng là số giờ học và số bài thực hành, nhãn `y` là kết quả 0/1. Hãy xác định ma trận đặc trưng và nhãn cho 10 học viên. Cấp cao đưa dữ liệu thiếu vào và phải chia train/test trước khi học tham số điền thiếu; tập 10–20 mẫu chỉ dùng để minh họa, không đánh giá chất lượng mô hình thật.
+
+```python
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+# Mỗi hàng là một học viên, cột X1=giờ học, X2=số bài thực hành; nhãn y=đạt/chưa đạt.
+X = np.array([[i+1,(i*3)%7+2] for i in range(10)],dtype=float)
+y = np.array([i%2 for i in range(10)])
+result = {'X':X.shape,'y':y.shape,'classes':sorted(set(y.tolist()))}
+assert len(X)==10
+print("Số học viên:",len(X))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 10, shape của train/test và chỉ số trên tập chưa fit; khi mẫu nhỏ, accuracy có độ bất định cao.
+
+### Tình huống 2 — Phân chia Iris có phân tầng · Cấp 2: Chia train/test
 
 **Tình huống thực tế:** Tập Iris có 150 hoa, bốn số đo cm/hoa và ba loài với 50 hoa mỗi loài. Cần dành 25% làm test nhưng duy trì tỷ lệ loài gần tương đương.
 
@@ -186,7 +206,28 @@ print(X_train.shape, X_test.shape)
 
 112 hoa dùng train, 38 hoa giữ test; mỗi hàng vẫn có bốn đặc trưng.
 
-### Tình huống 3 — Fit scaler và mô hình trên train
+**Bài thực hành nâng cấp — cấp 2/5:** Trung tâm có **12 học viên**; mỗi hàng có hai đặc trưng là số giờ học và số bài thực hành, nhãn `y` là kết quả 0/1. Hãy chia 12 học viên theo nhãn để tập kiểm tra có cả hai lớp. Cấp cao đưa dữ liệu thiếu vào và phải chia train/test trước khi học tham số điền thiếu; tập 10–20 mẫu chỉ dùng để minh họa, không đánh giá chất lượng mô hình thật.
+
+```python
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+# Mỗi hàng là một học viên, cột X1=giờ học, X2=số bài thực hành; nhãn y=đạt/chưa đạt.
+X = np.array([[i+1,(i*3)%7+2] for i in range(12)],dtype=float)
+y = np.array([i%2 for i in range(12)])
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.25,stratify=y,random_state=42)
+result = {'train':X_train.shape,'test':X_test.shape,'test_classes':sorted(set(y_test.tolist()))}
+assert len(X)==12
+print("Số học viên:",len(X))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 12, shape của train/test và chỉ số trên tập chưa fit; khi mẫu nhỏ, accuracy có độ bất định cao.
+
+### Tình huống 3 — Fit scaler và mô hình trên train · Cấp 3: Fit và đánh giá
 
 **Tình huống thực tế:** Nhóm học máy dùng bốn kích thước của Iris để đoán một trong ba loài. Cần chuẩn hóa số đo mà không dùng trung bình/độ lệch chuẩn của test trong lúc fit.
 
@@ -224,7 +265,29 @@ print(len(model.predict(X_test)))
 
 Model trả một dự đoán nhãn cho mỗi hoa trong 38 hoa test.
 
-### Tình huống 4 — Nhóm bốn tọa độ 2D
+**Bài thực hành nâng cấp — cấp 3/5:** Trung tâm có **15 học viên**; mỗi hàng có hai đặc trưng là số giờ học và số bài thực hành, nhãn `y` là kết quả 0/1. Hãy fit logistic regression trên train và đánh giá ở tập chưa thấy. Cấp cao đưa dữ liệu thiếu vào và phải chia train/test trước khi học tham số điền thiếu; tập 10–20 mẫu chỉ dùng để minh họa, không đánh giá chất lượng mô hình thật.
+
+```python
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+# Mỗi hàng là một học viên, cột X1=giờ học, X2=số bài thực hành; nhãn y=đạt/chưa đạt.
+X = np.array([[i+1,(i*3)%7+2] for i in range(15)],dtype=float)
+y = np.array([i%2 for i in range(15)])
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,stratify=y,random_state=42)
+model = LogisticRegression(max_iter=1000).fit(X_train,y_train)
+result = {'accuracy':round(float(model.score(X_test,y_test)),3),'test_size':len(y_test)}
+assert len(X)==15
+print("Số học viên:",len(X))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 15, shape của train/test và chỉ số trên tập chưa fit; khi mẫu nhỏ, accuracy có độ bất định cao.
+
+### Tình huống 4 — Nhóm bốn tọa độ 2D · Cấp 4: Xử lý dữ liệu thiếu không leakage
 
 **Tình huống thực tế:** Bốn điểm trong mặt phẳng, hai điểm quanh `[0,0]`, hai điểm quanh `[10,10]`, chưa có nhãn. Cần phát hiện số cụm khi yêu cầu trước `k=2`.
 
@@ -254,7 +317,31 @@ print(len(set(cluster_ids.tolist())))
 
 Bốn điểm được chia thành hai nhóm, không tự biết nhóm nào là nhãn thật.
 
-### Tình huống 5 — So classification và clustering
+**Bài thực hành nâng cấp — cấp 4/5:** Trung tâm có **18 học viên**; mỗi hàng có hai đặc trưng là số giờ học và số bài thực hành, nhãn `y` là kết quả 0/1. Hãy đưa bước điền thiếu và chuẩn hóa vào pipeline khi có 18 hồ sơ. Cấp cao đưa dữ liệu thiếu vào và phải chia train/test trước khi học tham số điền thiếu; tập 10–20 mẫu chỉ dùng để minh họa, không đánh giá chất lượng mô hình thật.
+
+```python
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+# Mỗi hàng là một học viên, cột X1=giờ học, X2=số bài thực hành; nhãn y=đạt/chưa đạt.
+X = np.array([[i+1,(i*3)%7+2] for i in range(18)],dtype=float)
+y = np.array([i%2 for i in range(18)])
+X[15,0] = np.nan
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,stratify=y,random_state=42)
+pipe = make_pipeline(SimpleImputer(strategy='median'),StandardScaler(),LogisticRegression(max_iter=1000))
+pipe.fit(X_train,y_train)
+result = {'test_accuracy':round(float(pipe.score(X_test,y_test)),3),'missing':int(np.isnan(X).sum())}
+assert len(X)==18
+print("Số học viên:",len(X))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 18, shape của train/test và chỉ số trên tập chưa fit; khi mẫu nhỏ, accuracy có độ bất định cao.
+
+### Tình huống 5 — So classification và clustering · Cấp 5: So pipeline với baseline
 
 **Tình huống thực tế:** Dữ liệu Iris có bốn đặc trưng số (cm) và nhãn loài. Nhóm thực hành cần xác định thông tin đầu vào nào được phép dùng ở mô hình có giám sát và không giám sát.
 
@@ -281,6 +368,30 @@ print(data.data.shape, data.target.shape)
 ```
 
 Mỗi hoa có bốn đặc trưng và một nhãn; KMeans không sử dụng nhãn để fit.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Trung tâm có **20 học viên**; mỗi hàng có hai đặc trưng là số giờ học và số bài thực hành, nhãn `y` là kết quả 0/1. Hãy so baseline với pipeline trên cùng một phép chia 20 hồ sơ. Cấp cao đưa dữ liệu thiếu vào và phải chia train/test trước khi học tham số điền thiếu; tập 10–20 mẫu chỉ dùng để minh họa, không đánh giá chất lượng mô hình thật.
+
+```python
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+# Mỗi hàng là một học viên, cột X1=giờ học, X2=số bài thực hành; nhãn y=đạt/chưa đạt.
+X = np.array([[i+1,(i*3)%7+2] for i in range(20)],dtype=float)
+y = np.array([i%2 for i in range(20)])
+X[15,0] = np.nan
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,stratify=y,random_state=42)
+pipe = make_pipeline(SimpleImputer(strategy='median'),StandardScaler(),LogisticRegression(max_iter=1000)).fit(X_train,y_train)
+base = make_pipeline(SimpleImputer(strategy='median'),LogisticRegression(max_iter=1000)).fit(X_train,y_train)
+result = {'pipeline_accuracy':round(float(pipe.score(X_test,y_test)),3),'baseline_accuracy':round(float(base.score(X_test,y_test)),3),'test_size':len(y_test)}
+assert len(X)==20
+print("Số học viên:",len(X))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số hàng 20, shape của train/test và chỉ số trên tập chưa fit; khi mẫu nhỏ, accuracy có độ bất định cao.
 
 ## 6. Sai lầm thường gặp
 
