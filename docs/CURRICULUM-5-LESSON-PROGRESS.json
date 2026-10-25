@@ -15,7 +15,7 @@
     20
   ],
   "last_completed_batch": 9,
-  "status": "READY_FOR_BATCH_10",
+  "status": "BATCH_10_IN_PROGRESS",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -254,15 +254,17 @@
       "lesson_ids": [
         "PY-46"
       ],
-      "status": "PENDING",
-      "branch": null,
+      "status": "IN_PROGRESS",
+      "branch": "feat/curriculum-scenarios-batch-10-20261025",
       "pr_number": null,
       "merged_commit": null,
       "ci_run": null,
       "windows_test": null,
-      "updated_at": null,
-      "notes": null,
-      "lesson_commits": {}
+      "updated_at": "2026-10-25",
+      "notes": "PY-46 section5 updated with 5 escalating cases over 10/12/15/18/20 records; scope is one lesson only. QA and CI pending, Windows Bridge verification unavailable.",
+      "lesson_commits": {
+        "PY-46": "2190762a1be64b03fcb2e01cb6eb39be9b5a020d"
+      }
     }
   ]
 }
