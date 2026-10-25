@@ -125,161 +125,189 @@ print(scores[[0, 2]])
 
 Chương trình lấy vị trí 0 và 2 mà không phải lấy cả đoạn 0–2.
 
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống chỉ số NumPy — từ ô đơn đến lọc nhiều điều kiện
 
-### Tình huống 1 — Tra điểm một học viên
+### Tình huống 1 — Cấp 1: Lấy đúng một ô điểm từ bảng 10 học viên
 
-**Từ vựng trong mục:** **Index** — chỉ số; **Shape** — kích thước.
+**Từ vựng trong mục:** **Index** — chỉ số; **Row** — hàng; **Column** — cột.
 
-**Tình huống thực tế:** Trung tâm có điểm Toán và Python của ba học viên An (8,9), Bình (6,7), Lan (9,8), thang 10. Hãy in **điểm Toán của Bình** bằng chỉ số hàng và cột.
+**Tình huống thực tế:** Giáo viên nhập **10 học viên** H01…H10; mỗi hàng gồm điểm Toán và Python theo thứ tự cột, thang điểm 10. Cần đọc **điểm Python của H04** để đối chiếu phiếu, không đọc nhầm hàng thứ 4 thành chỉ số 4.
 
-**Vì sao chọn cách giải này?** `scores[1,0]` định vị chính xác hàng Bình và cột Toán, vì Python đếm từ 0.
+**Vì sao chọn cách này?** NumPy đếm chỉ số từ 0, nên H04 ở hàng 3 và môn Python ở cột 1. Truy cập `scores[3,1]` cho một giá trị cụ thể.
 
-**Quy trình giải:**
-
-1. Lưu ba học viên theo hàng An, Bình, Lan.
-2. Lưu môn Toán ở cột 0, Python ở cột 1.
-3. Lấy ô `[1,0]` và in giá trị.
+**Quy trình:**
+1. Tạo mảng `(10,2)` đúng thứ tự mã người và môn.
+2. Dùng một cặp chỉ số hàng–cột để lấy H04/Python.
+3. In hình dạng dữ liệu và giá trị đã chọn.
 
 ```python
-# Mục đích: Tra điểm một học viên.
 import numpy as np
-
-scores = np.array([[8, 9], [6, 7], [9, 8]])
-print(scores[1, 0])
+scores = np.array([[8,9],[7,8],[6,7],[9,9],[10,7],[7,6],[8,8],[5,7],[9,10],[8,6]])
+assert scores.shape == (10, 2)
+print("Học viên:", scores.shape[0])
+print("Python của H04:", int(scores[3, 1]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-6
+Học viên: 10
+Python của H04: 9
 ```
 
-Học viên Bình có điểm Toán 6 trên thang 10.
+Giá trị `scores[3,1]` là 9 điểm trên thang 10; đây là một ô, không phải nguyên hàng học viên.
 
-### Tình huống 2 — Lọc học viên có điểm cao
+### Tình huống 2 — Cấp 2: Cắt bốn ngày đầu và một cột trong 12 ngày
 
-**Từ vựng trong mục:** **Boolean mask** — mặt nạ Boolean; **Threshold** — ngưỡng.
+**Từ vựng trong mục:** **Slice** — lát cắt; **Step** — bước nhảy; **Array view** — vùng nhìn mảng.
 
-**Tình huống thực tế:** Vẫn bảng ba học viên, hai môn Toán và Python như trên. Trung tâm chỉ muốn giữ những học viên có **điểm Toán từ 8 trở lên**. Hãy in nguyên hàng điểm của những học viên đạt ngưỡng.
+**Tình huống thực tế:** Siêu thị ghi doanh số **12 ngày** theo ba nhóm thực phẩm, sách và đồ dùng (nghìn đồng/ngày). Quản lý muốn tổng doanh thu **cột thực phẩm của bốn ngày đầu**, đồng thời đối chiếu doanh thu đồ dùng ngày 12.
 
-**Vì sao chọn cách giải này?** Mặt nạ `scores[:,0] >= 8` được tạo từ cột Toán, sau đó áp vào toàn bộ hàng.
+**Vì sao chọn cách này?** Lát cắt `[:4, 0]` chọn đúng bốn hàng đầu và một cột; `[-1, 2]` lấy hàng cuối, cột đồ dùng. Kết hợp slicing với indexing trả kết quả rõ đơn vị.
 
-**Quy trình giải:**
-
-1. Lấy cột Toán của cả ba học viên bằng `scores[:, 0]`.
-2. So sánh với 8 để tạo mặt nạ Boolean.
-3. Lấy các hàng thỏa ngưỡng và in bảng.
+**Quy trình:**
+1. Tạo mảng `(12,3)`, mỗi hàng là một ngày.
+2. Lấy cột thực phẩm của ngày 1–4 bằng `data[:4, 0]`.
+3. Cộng lát cắt và lấy ô đồ dùng ngày cuối.
 
 ```python
-# Mục đích: Lọc học viên có điểm cao.
 import numpy as np
-
-scores = np.array([[8, 9], [6, 7], [9, 8]])
-print(scores[scores[:, 0] >= 8])
+sales = np.array([[100,50,25],[110,55,27],[120,60,29],[130,65,31],[140,70,33],[150,75,35],[160,80,37],[170,85,39],[180,90,41],[190,95,43],[200,100,45],[210,105,47]], dtype=int)
+first_four_food = sales[:4, 0]
+assert sales.shape == (12, 3) and first_four_food.shape == (4,)
+print("Ngày:", sales.shape[0])
+print("Thực phẩm 4 ngày (nghìn đồng):", int(first_four_food.sum()))
+print("Đồ dùng ngày 12:", int(sales[-1, 2]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[8 9]
- [9 8]]
+Ngày: 12
+Thực phẩm 4 ngày (nghìn đồng): 460
+Đồ dùng ngày 12: 47
 ```
 
-An và Lan có điểm Toán từ 8 trở lên; Bình không đạt.
+Vị trí cuối của lát cắt là **giới hạn không bao gồm**, nên `[:4]` gồm bốn ngày đầu chứ không phải năm ngày.
 
-### Tình huống 3 — Chọn hai môn không liền nhau
+### Tình huống 3 — Cấp 3: Lọc 15 học viên thỏa hai ngưỡng bằng mặt nạ
 
-**Từ vựng trong mục:** **Fancy indexing** — chỉ số nâng cao; **Column** — cột.
+**Từ vựng trong mục:** **Boolean mask** — mặt nạ đúng/sai; **AND** — kết hợp điều kiện; **Filtering** — lọc.
 
-**Tình huống thực tế:** Hai học viên có điểm của ba môn Toán, Văn, Python lần lượt là `[8,7,9]` và `[6,5,8]`. Giáo viên chỉ muốn xem **Toán và Python**, bỏ cột Văn ở giữa.
+**Tình huống thực tế:** Khóa học có **15 học viên** H01…H15 với ba cột điểm Toán, Văn, Python (thang 10). Để tham gia lớp thực hành nâng cao, học viên phải đạt **Toán từ 8** và **Python từ 8** cùng lúc. Cần liệt kê chính xác mã đủ điều kiện và số người tương ứng.
 
-**Vì sao chọn cách giải này?** Fancy indexing `[:, [0, 2]]` chọn hai cột rời nhau mà vẫn giữ mọi hàng học viên.
+**Vì sao chọn cách này?** Đặt ngoặc cho từng điều kiện so sánh và dùng toán tử phần tử `&` để nối hai mặt nạ NumPy; `and` của Python không áp trực tiếp cho hai mảng Boolean nhiều phần tử.
 
-**Quy trình giải:**
-
-1. Lưu hai hàng học viên và ba cột theo thứ tự Toán, Văn, Python.
-2. Chọn tất cả hàng với `:` và cột 0, 2 bằng danh sách chỉ số.
-3. In bảng hai cột kết quả.
+**Quy trình:**
+1. Tạo bảng `(15,3)`, xác định cột Toán 0 và Python 2.
+2. Tạo mặt nạ `(X[:,0]>=8) & (X[:,2]>=8)`.
+3. Dùng `np.flatnonzero` lấy chỉ số hàng và tạo mã học viên.
 
 ```python
-# Mục đích: Chọn hai môn không liền nhau.
 import numpy as np
-
-scores = np.array([[8, 7, 9], [6, 5, 8]])
-print(scores[:, [0, 2]])
+scores = np.array([[5,7,4],[6,9,5],[7,7,6],[8,9,7],[9,7,8],[10,9,9],[5,7,10],[6,9,4],[7,7,5],[8,9,6],[9,7,7],[10,9,8],[5,7,9],[6,9,10],[7,7,4]], dtype=int)
+mask = (scores[:, 0] >= 8) & (scores[:, 2] >= 8)
+selected = np.flatnonzero(mask)
+ids = [f"H{i+1:02d}" for i in selected]
+assert scores.shape == (15, 3)
+print("Học viên:", scores.shape[0])
+print("Đủ điều kiện:", len(ids))
+print("Mã:", ", ".join(ids) if ids else "Không có")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[8 9]
- [6 8]]
+Học viên: 15
+Đủ điều kiện: 3
+Mã: H05, H06, H12
 ```
 
-Bảng còn lại hai môn Toán và Python, giữ nguyên hai hàng học viên.
+Mặt nạ đánh dấu từng **hàng học viên**, không xóa cột khác và không bỏ qua điều kiện nào.
 
-### Tình huống 4 — Lấy ba khách hàng đầu
+### Tình huống 4 — Cấp 4: Chọn bốn dòng theo mã từ 18 đơn và giữ bản gốc
 
-**Từ vựng trong mục:** **Slice** — lát cắt; **Array** — mảng.
+**Từ vựng trong mục:** **Fancy indexing** — chọn nhiều vị trí; **Copy** — bản sao; **Repeated index** — chỉ số lặp.
 
-**Tình huống thực tế:** Cửa hàng có năm khoản chi tiêu khách hàng là `[100,200,50,300,120]` nghìn đồng, lưu theo thứ tự thời gian. Hãy lấy **ba khoản đầu tiên** để kiểm tra nhanh.
+**Tình huống thực tế:** Đội kiểm toán có **18 đơn hàng** O01…O18, mỗi hàng gồm đơn giá (nghìn đồng/món), số lượng (món) và mã kênh (0–2). Kiểm toán cần xem các đơn **O18, O05, O12, O05 theo đúng thứ tự yêu cầu** — mã O05 xuất hiện hai lần trong **danh sách truy vấn**, không phải hai đơn thực tế. Hãy tính tổng tiền của bốn dòng được chọn, và chứng minh khi sửa bảng kết quả thì bảng gốc không đổi.
 
-**Vì sao chọn cách giải này?** `[:3]` lấy các chỉ số 0, 1, 2 mà không lấy chỉ số 3.
+**Vì sao chọn cách này?** Fancy indexing nhận danh sách chỉ số không liên tiếp, có thể lặp và trả một mảng mới độc lập; vì O05 được chọn hai lần, tổng của **các dòng được chọn** sẽ cộng hai lần nhưng không phải doanh thu thật của 18 đơn.
 
-**Quy trình giải:**
-
-1. Tạo mảng gồm năm khoản chi tiêu theo thứ tự.
-2. Dùng lát cắt `[:3]` lấy ba vị trí đầu.
-3. In ba số tiền (nghìn đồng).
+**Quy trình:**
+1. Tạo mảng `(18,3)` với ba cột được ghi rõ.
+2. Chọn các vị trí 17, 4, 11, 4 bằng fancy indexing.
+3. Tính tổng tiền bốn dòng truy vấn, sửa một ô trong bản chọn rồi đối chiếu mảng gốc.
 
 ```python
-# Mục đích: Lấy ba khách hàng đầu.
 import numpy as np
-
-spending = np.array([100, 200, 50, 300, 120])
-print(spending[:3])
+orders = np.array([[100,1,0],[120,2,1],[140,3,2],[160,4,0],[180,5,1],[200,1,2],[220,2,0],[240,3,1],[260,4,2],[280,5,0],[300,1,1],[320,2,2],[340,3,0],[360,4,1],[380,5,2],[400,1,0],[420,2,1],[440,3,2]], dtype=int)
+indices = [17, 4, 11, 4]
+selected = orders[indices]
+query_total = int((selected[:, 0] * selected[:, 1]).sum())
+original_price = int(orders[17, 0])
+selected[0, 0] = 0
+assert orders.shape == (18, 3) and selected.shape == (4, 3)
+print("Đơn nguồn:", orders.shape[0])
+print("Dòng truy vấn:", selected.shape[0])
+print("Tổng dòng truy vấn (nghìn đồng):", query_total)
+print("Giá O18 trong nguồn:", int(orders[17, 0]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[100 200  50]
+Đơn nguồn: 18
+Dòng truy vấn: 4
+Tổng dòng truy vấn (nghìn đồng): 3760
+Giá O18 trong nguồn: 440
 ```
 
-Ba khoản đầu là 100, 200 và 50 nghìn đồng.
+Sửa bản chọn không đổi mảng gốc, vì fancy indexing tạo copy. Hai dòng truy vấn O05 là cố tình lặp để giải thích hành vi chọn mảng; **không** dùng tổng đó làm báo cáo doanh thu.
 
-### Tình huống 5 — Thay mã số đo lỗi trên bản sao
+### Tình huống 5 — Cấp 5: Kết hợp Boolean mask, NaN và copy cho 20 cảm biến
 
-**Từ vựng trong mục:** **Boolean mask** — mặt nạ Boolean; **Copy** — bản sao.
+**Từ vựng trong mục:** **View** — vùng nhìn; **Boolean indexing** — chọn theo điều kiện; **NaN** — giá trị thiếu.
 
-**Tình huống thực tế:** Cảm biến lưu nhiệt độ `[20,-1,23,24]` °C; `-1` là mã lỗi, **không phải nhiệt độ thật**. Hãy tạo bản sao, thay mã lỗi bằng 0 để minh họa phép gán có điều kiện, đồng thời giữ nguyên mảng gốc.
+**Tình huống thực tế:** Hệ thống có **20 cảm biến** S01…S20, mỗi hàng gồm nhiệt độ °C và độ ẩm %. Hai cảm biến thiếu nhiệt độ. Để chọn thiết bị cần kiểm tra, chỉ giữ số đo **hợp lệ**, nhiệt độ **từ 28 °C** và độ ẩm **từ 55%**. Hãy in số thiết bị và mã được chọn; khi đánh dấu mẫu đã lọc, dữ liệu nguồn phải nguyên vẹn.
 
-**Vì sao chọn cách giải này?** `copy()` tránh sửa đầu vào; mặt nạ `<0` chọn mã âm cần thay. Giá trị 0 ở bản xử lý chỉ là **giá trị tạm**, không được suy diễn là số đo thật.
+**Vì sao chọn cách này?** NumPy dùng `np.isfinite()` kiểm tra nhiệt độ không thiếu trước khi so ngưỡng, nối điều kiện bằng `&`. Boolean indexing tạo mảng chọn độc lập, phù hợp kiểm tra/sửa mẫu mà không thay đổi bảng ghi gốc.
 
-**Quy trình giải:**
-
-1. Lưu mảng gốc và tạo `clean = values.copy()`.
-2. Chọn phần tử âm bằng `clean < 0`.
-3. Gán 0 ở vị trí đó, in cả hai mảng để so sánh.
+**Quy trình:**
+1. Tạo mảng `(20,2)` kiểu float, chuyển nhiệt độ thiếu sang NaN.
+2. Lọc theo ba điều kiện hợp lệ, nhiệt độ và độ ẩm.
+3. Lấy mã từ chỉ số hàng, thay thử một giá trị trên mảng được chọn và xác nhận nguồn không đổi.
 
 ```python
-# Mục đích: Thay mã số đo lỗi trên bản sao.
 import numpy as np
-
-values = np.array([20, -1, 23, 24])
-clean = values.copy()
-clean[clean < 0] = 0
-print(values, clean)
+raw_temp = [24,25,26,27,28,None,30,31,24,25,26,27,28,29,None,31,24,25,26,27]
+humidity = [50,51,52,53,54,55,56,57,58,59,50,51,52,53,54,55,56,57,58,59]
+rows = [[np.nan if temp is None else temp, h]
+        for temp, h in zip(raw_temp, humidity)]
+data = np.array(rows, dtype=float)
+mask = np.isfinite(data[:, 0]) & (data[:, 0] >= 28) & (data[:, 1] >= 55)
+selected = data[mask]
+selected_ids = [f"S{i+1:02d}" for i in np.flatnonzero(mask)]
+if len(selected):
+    selected[0, 0] = 0
+assert data.shape == (20, 2)
+assert int(np.isnan(data[:, 0]).sum()) == 2
+assert not np.any((data[mask, 0] == 0))
+print("Cảm biến:", data.shape[0])
+print("Thiếu nhiệt độ:", int(np.isnan(data[:, 0]).sum()))
+print("Cần kiểm tra:", len(selected_ids))
+print("Mã:", ", ".join(selected_ids) if selected_ids else "Không có")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[20 -1 23 24] [20  0 23 24]
+Cảm biến: 20
+Thiếu nhiệt độ: 2
+Cần kiểm tra: 3
+Mã: S07, S08, S16
 ```
 
-Bản gốc giữ `-1`; bản sao đổi mã lỗi thành 0. Trong dữ liệu thực tế cần đánh dấu thiếu thay vì coi 0 °C là số đo hợp lệ.
+Điều kiện chọn được áp theo **từng hàng có cả hai cột**. Đối với dữ liệu thiếu, chương trình không suy đoán 0 °C và không tự sửa mảng gốc.
 
 ## 6. Sai lầm thường gặp
 
