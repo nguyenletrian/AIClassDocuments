@@ -126,159 +126,199 @@ print(signals * factors)
 
 Ba số là tín hiệu sau khi áp dụng hệ số riêng cho từng kênh; NumPy không cộng các kênh lại.
 
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống Aggregate/Broadcast — tăng từ tổng một chiều đến báo cáo nhiều cột
 
-### Tình huống 1 — Tổng doanh thu từng cửa hàng
+### Tình huống 1 — Cấp 1: Tổng hợp doanh thu 10 ngày bằng sum/min/max
 
-**Từ vựng trong mục:** **Aggregation** — tổng hợp; **Axis** — trục tính.
+**Từ vựng trong mục:** **Aggregate** — tổng hợp; **Sum** — tổng; **Mean** — trung bình.
 
-**Tình huống thực tế:** Hai cửa hàng A và B có doanh thu ba ngày lần lượt là `[10,20,30]` và `[8,12,16]`, đơn vị triệu đồng. Hãy tính tổng cho **mỗi cửa hàng** để so sánh.
+**Tình huống thực tế:** Cửa hàng ghi doanh thu trong **10 ngày**, mỗi phần tử là tổng doanh thu của một ngày (nghìn đồng/ngày). Quản lý cần tổng 10 ngày, trung bình/ngày và doanh thu thấp nhất/cao nhất để kiểm tra nhanh biến động.
 
-**Vì sao chọn cách giải này?** Hai cửa hàng ở hai hàng, còn ba ngày ở các cột; `sum(axis=1)` tổng hợp ba ngày của mỗi hàng.
+**Vì sao chọn cách này?** NumPy thực hiện `sum`, `mean`, `min`, `max` trên một mảng số; chưa cần vòng lặp riêng cho mỗi phép tính. Mỗi chỉ số mang ý nghĩa khác nhau và không nên lẫn đơn vị.
 
-**Quy trình giải:**
-
-1. Tạo mảng 2 hàng × 3 cột, hàng đầu là A, hàng sau là B.
-2. Dùng `sum(axis=1)` cộng qua ba cột ngày.
-3. In hai tổng theo thứ tự A rồi B.
+**Quy trình:**
+1. Tạo mảng 10 số doanh thu theo ngày.
+2. Tính tổng, trung bình, nhỏ nhất và lớn nhất bằng phép tổng hợp.
+3. In số quan sát và số liệu theo đơn vị đã nêu.
 
 ```python
-# Mục đích: Tổng doanh thu từng cửa hàng.
 import numpy as np
-
-sales = np.array([[10, 20, 30], [8, 12, 16]])
-print(sales.sum(axis=1))
+sales = np.array([120,145,130,160,180,140,155,175,190,165], dtype=float)
+assert sales.shape == (10,)
+print("Ngày:", sales.size)
+print("Tổng (nghìn đồng):", int(sales.sum()))
+print(f"Trung bình/ngày: {sales.mean():.1f}")
+print("Thấp nhất:", int(sales.min()))
+print("Cao nhất:", int(sales.max()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[60 36]
+Ngày: 10
+Tổng (nghìn đồng): 1560
+Trung bình/ngày: 156.0
+Thấp nhất: 120
+Cao nhất: 190
 ```
 
-Doanh thu ba ngày của A là 60 triệu, B là 36 triệu đồng.
+Đây là tổng hợp dãy 1 chiều: chỉ có mười số doanh thu, chưa có hàng–cột để chọn `axis`.
 
-### Tình huống 2 — Trung bình theo từng môn
+### Tình huống 2 — Cấp 2: Phân biệt trung bình theo môn và theo học viên
 
-**Từ vựng trong mục:** **Mean** — trung bình; **Axis** — trục.
+**Từ vựng trong mục:** **Axis 0** — theo cột; **Axis 1** — theo hàng; **Argmax** — chỉ số cực đại.
 
-**Tình huống thực tế:** Ba học viên An, Bình, Lan có điểm Toán/Python lần lượt (8,9), (6,7), (9,8) trên thang 10. Hãy tính trung bình **theo từng môn**, không phải từng học viên.
+**Tình huống thực tế:** Lớp có **12 học viên** H01…H12, mỗi hàng ghi điểm Toán, Văn, Python (thang 10). Giáo viên muốn ba điểm trung bình theo môn để điều chỉnh môn học, đồng thời tìm học viên có **điểm trung bình ba môn cao nhất**.
 
-**Vì sao chọn cách giải này?** Môn học ở các cột nên `mean(axis=0)` tổng hợp các hàng học viên cho từng cột môn.
+**Vì sao chọn cách này?** `mean(axis=0)` tạo ba giá trị cho ba môn, còn `mean(axis=1)` tạo 12 giá trị cho 12 học viên. `argmax` tìm vị trí người có trung bình cao nhất; hai trục giải đáp hai câu hỏi quản lý khác nhau.
 
-**Quy trình giải:**
-
-1. Tạo mảng 3 hàng học viên × 2 cột môn Toán, Python.
-2. Chọn `axis=0` để lấy trung bình từng cột.
-3. In hai điểm trung bình.
+**Quy trình:**
+1. Tạo bảng `(12,3)` và xác định rõ nghĩa hàng/cột.
+2. Tính trung bình cột bằng `axis=0`, tính trung bình hàng bằng `axis=1`.
+3. Tìm học viên có trung bình cao nhất và in kết quả có nhãn.
 
 ```python
-# Mục đích: Trung bình theo từng môn.
 import numpy as np
-
-scores = np.array([[8, 9], [6, 7], [9, 8]], dtype=float)
-print(scores.mean(axis=0))
+scores = np.array([[6,5,7],[7,6,9],[8,7,7],[9,8,9],[6,9,7],[7,5,9],[8,6,7],[9,7,9],[6,8,7],[7,9,9],[8,5,7],[9,6,9]], dtype=float)
+by_subject = scores.mean(axis=0)
+by_student = scores.mean(axis=1)
+best = int(by_student.argmax())
+assert scores.shape == (12, 3)
+print("Học viên:", scores.shape[0])
+print(f"Toán: {by_subject[0]:.2f}")
+print(f"Văn: {by_subject[1]:.2f}")
+print(f"Python: {by_subject[2]:.2f}")
+print("Điểm TB cao nhất:", f"H{best+1:02d}", f"{by_student[best]:.2f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[7.66666667 8.        ]
+Học viên: 12
+Toán: 7.50
+Văn: 6.75
+Python: 8.00
+Điểm TB cao nhất: H04 8.67
 ```
 
-Điểm trung bình Toán ≈ 7,67; Python là 8,0.
+Cả hai phép trung bình đều hợp lệ về toán nhưng **khác đối tượng**; khi chọn sai `axis`, báo cáo sẽ trả sai số lượng kết quả.
 
-### Tình huống 3 — Cộng điểm chuyên cần có giới hạn
+### Tình huống 3 — Cấp 3: Broadcast điểm cộng cho 15 học viên nhưng không vượt 10
 
-**Từ vựng trong mục:** **Broadcasting** — quảng bá; **Clip** — giới hạn giá trị.
+**Từ vựng trong mục:** **Broadcasting** — cộng vector theo cột; **Clip** — giới hạn; **Vectorization** — tính hàng loạt.
 
-**Tình huống thực tế:** Trường có hai học viên, ba môn; điểm hiện tại lần lượt `[7,8,9]`, `[6,7,8]`. Mỗi điểm được cộng 1 điểm chuyên cần nhưng không được vượt 10. Hãy in bảng sau cộng.
+**Tình huống thực tế:** Trường có **15 học viên**, mỗi hàng gồm điểm Toán và Python (thang 10). Quy định minh họa: Toán được cộng 1 điểm chuyên cần, Python được cộng 0,5 điểm; không môn nào vượt 10. Cần áp dụng đúng mức cộng cho từng cột và đếm học viên đạt điểm 10 ở ít nhất một môn.
 
-**Vì sao chọn cách giải này?** Broadcasting cộng 1 vào mọi ô; `np.minimum(...,10)` bảo đảm mỗi ô không vượt điểm tối đa.
+**Vì sao chọn cách này?** Vector `[1,0.5]` có hai phần tử tương ứng hai cột, nên NumPy broadcast cùng vector cho **15 hàng**. `np.minimum(...,10)` chặn điểm vượt thang; cộng một số duy nhất cho cả hai môn là sai quy tắc.
 
-**Quy trình giải:**
-
-1. Lưu điểm trong mảng 2 hàng × 3 cột.
-2. Cộng 1 cho toàn bộ mảng theo broadcasting.
-3. Áp dụng `np.minimum` giới hạn điểm 10 rồi in kết quả.
+**Quy trình:**
+1. Tạo mảng 15 × 2 kiểu float và vector cộng theo môn.
+2. Broadcast phép cộng cho mọi hàng rồi giới hạn bằng `np.minimum`.
+3. Đếm số hàng có ít nhất một điểm đạt 10 và kiểm tra mảng gốc không bị sửa.
 
 ```python
-# Mục đích: Cộng điểm chuyên cần có giới hạn.
 import numpy as np
-
-scores = np.array([[7, 8, 9], [6, 7, 8]])
-print(np.minimum(scores + 1, 10))
+scores = np.array([[7,5],[8,6],[9,7],[10,8],[7,9],[8,10],[9,5],[10,6],[7,7],[8,8],[9,9],[10,10],[7,5],[8,6],[9,7]], dtype=float)
+bonus = np.array([1.0, 0.5])
+adjusted = np.minimum(scores + bonus, 10)
+assert scores.shape == adjusted.shape == (15, 2)
+print("Học viên:", scores.shape[0])
+print("Điểm H01 sau cộng:", f"{adjusted[0,0]:.1f}", f"{adjusted[0,1]:.1f}")
+print("Đạt 10 ít nhất một môn:", int(np.any(adjusted == 10, axis=1).sum()))
+print("Gốc H01:", f"{scores[0,0]:.1f}", f"{scores[0,1]:.1f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[ 8  9 10]
- [ 7  8  9]]
+Học viên: 15
+Điểm H01 sau cộng: 8.0 5.5
+Đạt 10 ít nhất một môn: 8
+Gốc H01: 7.0 5.0
 ```
 
-Mỗi ô tăng một điểm; điểm 9 chỉ lên 10, không vượt giới hạn.
+Đây là tính vector hóa theo cột: nhờ shape tương thích, cùng một vector hai mức cộng được áp dụng cho 15 học viên mà không phải viết 30 phép tính.
 
-### Tình huống 4 — Hiệu chỉnh ba kênh cảm biến
+### Tình huống 4 — Cấp 4: Hiệu chỉnh 18 cảm biến ba kênh bằng broadcasting
 
-**Từ vựng trong mục:** **Vectorization** — vector hóa; **Element-wise** — theo phần tử.
+**Từ vựng trong mục:** **Element-wise** — theo ô; **Calibration** — hiệu chỉnh; **nanmean** — trung bình bỏ ô thiếu.
 
-**Tình huống thực tế:** Ba kênh cảm biến có giá trị `[10,20,30]` và hệ số hiệu chỉnh tương ứng `[1.0,0.5,2.0]`. Hãy tính tín hiệu sau hiệu chỉnh của từng kênh.
+**Tình huống thực tế:** Trạm có **18 mẫu đo** gồm ba kênh nhiệt độ °C, độ ẩm % và áp suất kPa, mỗi hàng là một lượt; hai lượt thiếu riêng số áp suất. Theo biên bản hiệu chỉnh giả lập, phải **cộng 0,5 °C**, **trừ 2 điểm phần trăm độ ẩm**, **cộng 1 kPa** tương ứng ba cột. Cần áp dụng đúng độ lệch trên cả bảng và tính trung bình sau hiệu chỉnh cho từng kênh mà không biến ô thiếu thành số.
 
-**Vì sao chọn cách giải này?** Nhân hai mảng cùng shape sẽ nhân từng vị trí tương ứng, đơn giản hơn viết ba phép nhân riêng.
+**Vì sao chọn cách này?** Vector độ lệch `(3,)` broadcast lên bảng `(18,3)`. `np.nan` giữ vị trí đo thiếu, còn `np.nanmean(axis=0)` cho trung bình có ý nghĩa theo từng đơn vị; không cộng bừa ba cột với nhau.
 
-**Quy trình giải:**
-
-1. Tạo mảng tín hiệu và mảng hệ số theo cùng thứ tự kênh.
-2. Nhân hai mảng trực tiếp bằng `*`.
-3. In ba giá trị sau hiệu chỉnh.
+**Quy trình:**
+1. Tạo mảng `(18,3)` số thực, chuyển ô áp suất thiếu thành NaN.
+2. Tạo vector ba độ lệch và broadcast phép cộng theo cột.
+3. Tính ba trung bình sau hiệu chỉnh, đếm chính xác hai ô thiếu.
 
 ```python
-# Mục đích: Hiệu chỉnh ba kênh cảm biến.
 import numpy as np
-
-signals = np.array([10, 20, 30])
-factors = np.array([1.0, 0.5, 2.0])
-print(signals * factors)
+raw = [[20,50,100],[22,53,105],[24,56,110],[26,59,115],[28,62,None],[20,65,105],[22,50,110],[24,53,115],[26,56,100],[28,59,105],[20,62,110],[22,65,115],[24,50,100],[26,53,105],[28,56,None],[20,59,115],[22,62,100],[24,65,105]]
+rows = [[temp, humidity, np.nan if pressure is None else pressure]
+        for temp, humidity, pressure in raw]
+measurements = np.array(rows, dtype=float)
+calibration = np.array([0.5, -2.0, 1.0])
+corrected = measurements + calibration
+means = np.nanmean(corrected, axis=0)
+assert corrected.shape == (18, 3)
+print("Số mẫu:", corrected.shape[0])
+print("Thiếu áp suất:", int(np.isnan(corrected[:, 2]).sum()))
+print(f"Nhiệt độ (°C): {means[0]:.2f}")
+print(f"Độ ẩm (%): {means[1]:.2f}")
+print(f"Áp suất (kPa): {means[2]:.2f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[10. 10. 60.]
+Số mẫu: 18
+Thiếu áp suất: 2
+Nhiệt độ (°C): 24.17
+Độ ẩm (%): 55.50
+Áp suất (kPa): 108.19
 ```
 
-Tín hiệu lần lượt là 10, 10 và 60 theo đơn vị của từng kênh.
+Mỗi độ lệch có **đơn vị riêng** và tác động đúng cột. Khi áp suất thiếu, kết quả vẫn thiếu sau cộng vector — đúng hơn là giả định có số đo.
 
-### Tình huống 5 — Tìm giá trị cao nhất theo cột
+### Tình huống 5 — Cấp 5: Phát hành báo cáo 20 cửa hàng với giá/ưu đãi theo cột
 
-**Từ vựng trong mục:** **Aggregation** — tổng hợp; **Max** — cực đại.
+**Từ vựng trong mục:** **Broadcasting** — mở rộng theo cột; **Aggregation** — tổng hợp; **Axis** — trục tính.
 
-**Tình huống thực tế:** Bảng có ba ngày đo và hai kênh cảm biến: các hàng là `(2,4)`, `(5,1)`, `(3,6)` theo cùng đơn vị đo trên từng kênh. Hãy tìm mức lớn nhất của **mỗi kênh**, không phải mỗi ngày.
+**Tình huống thực tế:** Chuỗi bán lẻ có **20 cửa hàng** C01…C20; mỗi hàng ghi số món bán thuộc ba nhóm A/B/C (món). Giá niêm yết giả lập theo nhóm lần lượt **10, 20, 30 nghìn đồng/món**; chương trình áp dụng tỷ lệ thanh toán lần lượt **100%, 90%, 80%**. Cần tính tổng tiền sau ưu đãi của **từng cửa hàng**, tổng của cả 20 cửa hàng và tìm mã cửa hàng có doanh thu lớn nhất. Không coi ba cột là ba cửa hàng.
 
-**Vì sao chọn cách giải này?** Kênh nằm theo cột, nên `max(axis=0)` lấy giá trị lớn nhất trong các hàng cho mỗi cột.
+**Vì sao chọn cách này?** NumPy tự broadcast vector đơn giá và vector tỷ lệ `(3,)` lên bảng số lượng `(20,3)` để tính tiền đúng từng nhóm. `sum(axis=1)` trả 20 tổng theo cửa hàng và `argmax()` chọn hàng cao nhất; đây là một quy trình nhiều bước nhưng không cần lặp thủ công trên từng ô.
 
-**Quy trình giải:**
-
-1. Tạo bảng ba hàng ngày × hai cột kênh.
-2. Dùng `max(axis=0)` lấy cực đại từng cột.
-3. In hai số cực đại theo thứ tự kênh.
+**Quy trình:**
+1. Tạo mảng 20 × 3 số lượng theo thứ tự nhóm A/B/C.
+2. Nhân với hai vector giá và tỷ lệ có thứ tự cột thống nhất.
+3. Cộng `axis=1` để có 20 doanh thu; chọn cửa hàng cao nhất, cộng tổng toàn chuỗi và kiểm tra kích thước.
 
 ```python
-# Mục đích: Tìm giá trị cao nhất theo cột.
 import numpy as np
-
-values = np.array([[2, 4], [5, 1], [3, 6]])
-print(values.max(axis=0))
+quantities = np.array([[1,2,1],[2,3,3],[3,4,5],[4,2,2],[1,3,4],[2,4,1],[3,2,3],[4,3,5],[1,4,2],[2,2,4],[3,3,1],[4,4,3],[1,2,5],[2,3,2],[3,4,4],[4,2,1],[1,3,3],[2,4,5],[3,2,2],[4,3,4]], dtype=float)
+prices = np.array([10, 20, 30], dtype=float)  # nghìn đồng/món
+pay_rates = np.array([1.0, 0.9, 0.8])
+amounts = quantities * prices * pay_rates
+per_shop = amounts.sum(axis=1)
+peak = int(per_shop.argmax())
+assert amounts.shape == (20, 3) and per_shop.shape == (20,)
+print("Cửa hàng:", quantities.shape[0])
+print(f"Tổng 20 cửa hàng (nghìn đồng): {per_shop.sum():.1f}")
+print("Doanh thu lớn nhất:", f"C{peak+1:02d}", f"{per_shop[peak]:.1f}")
+print(f"C01 (nghìn đồng): {per_shop[0]:.1f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[5 6]
+Cửa hàng: 20
+Tổng 20 cửa hàng (nghìn đồng): 3002.0
+Doanh thu lớn nhất: C03 222.0
+C01 (nghìn đồng): 70.0
 ```
 
-Kênh thứ nhất có giá trị tối đa 5, kênh thứ hai tối đa 6.
+Đây là tổng hợp cao nhất: làm việc theo hàng và cột có đơn vị, áp giá/ưu đãi bằng broadcasting, rồi tổng hợp trên đúng trục. Dữ liệu minh họa không đại diện doanh thu thật.
 
 ## 6. Sai lầm thường gặp
 
