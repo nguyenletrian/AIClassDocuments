@@ -146,9 +146,12 @@ import sympy as sp
 x = sp.symbols("x")
 f = (x**2 - 4) / (x - 2)
 inputs = [1.9,1.95,1.99,1.995,1.999,2.1,2.05,2.01,2.005,2.001]
-results = [float(f.subs(x, value)) for value in inputs]
+results = []
+for value in inputs:
+    results.append(float(f.subs(x, value)))
 limit_at_two = sp.limit(f, x, 2)
-assert len(inputs) == 10 and all(value != 2 for value in inputs)
+if len(inputs) != 10 or 2 in inputs:
+    raise ValueError("Cần đúng 10 điểm tiến gần 2, không lấy đúng x=2.")
 print("Lượt đo:", len(inputs))
 print(f"Gần từ trái: {results[4]:.3f}")
 print(f"Gần từ phải: {results[-1]:.3f}")
@@ -185,8 +188,11 @@ t = sp.symbols("t")
 position = t**2
 velocity = sp.diff(position, t)
 times = [0,1,2,3,4,5,6,7,8,9,10,11]
-values = [velocity.subs(t, second) for second in times]
-assert len(times) == len(values) == 12
+values = []
+for second in times:
+    values.append(velocity.subs(t, second))
+if len(times) != 12 or len(values) != 12:
+    raise ValueError("Cần đủ 12 mốc thời gian và 12 vận tốc.")
 print("Mốc thời gian:", len(times))
 print("Vận tốc ở 3 giây (m/giây):", values[3])
 print("Vận tốc ở 11 giây (m/giây):", values[-1])
@@ -221,12 +227,20 @@ q = sp.symbols("q")
 cost = 2*q**2 + 3*q + 10
 marginal = sp.diff(cost, q)
 loads = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-slopes = [int(marginal.subs(q, load)) for load in loads]
-assert len(slopes) == 15
+slopes = []
+for load in loads:
+    slopes.append(int(marginal.subs(q, load)))
+if len(slopes) != 15:
+    raise ValueError("Cần tính đủ 15 mức tải.")
 print("Mức tải:", len(slopes))
 print("Mức tăng ở tải 1:", slopes[0])
 print("Mức tăng ở tải 15:", slopes[-1])
-print("Độ dốc tăng:", all(a < b for a, b in zip(slopes, slopes[1:])))
+slopes_increase = True
+for a, b in zip(slopes, slopes[1:]):
+    if a >= b:
+        slopes_increase = False
+        break
+print("Độ dốc tăng:", slopes_increase)
 ```
 
 **Kết quả khi chạy:**
@@ -257,11 +271,18 @@ Mức tăng ở tải 15: 63
 import sympy as sp
 t = sp.symbols("t")
 times = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
-values = [hour + 5 if hour < 8 else hour + 7 for hour in times]
+values = []
+for hour in times:
+    if hour < 8:
+        value = hour + 5
+    else:
+        value = hour + 7
+    values.append(value)
 left = sp.limit(t + 5, t, 8)
 right = sp.limit(t + 7, t, 8)
 continuous = left == right == values[8]
-assert len(times) == 18
+if len(times) != 18:
+    raise ValueError("Cần đủ 18 mốc giờ.")
 print("Mốc giờ:", len(times))
 print("Giới hạn trái:", left)
 print("Giới hạn phải:", right)
@@ -300,7 +321,8 @@ t = np.array([0,1,3,4,6,7,9,10,12,13,15,16,18,19,21,22,24,25,27,28], dtype=float
 s = t**2 + 2*t
 numerical = np.gradient(s, t)
 analytical = 2*t + 2
-assert len(t) == 20 and np.all(np.diff(t) > 0)
+if len(t) != 20 or not np.all(np.diff(t) > 0):
+    raise ValueError("Cần 20 mốc thời gian tăng dần.")
 print("Số lần đo:", len(t))
 print("Giữa khớp:", bool(np.allclose(numerical[1:-1], analytical[1:-1])))
 print(f"Sai số mép đầu (m/giây): {abs(numerical[0]-analytical[0]):.1f}")
