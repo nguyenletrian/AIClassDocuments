@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_01",
+  "status": "BATCH_01_IN_PROGRESS",
   "last_completed_batch": 0,
   "batches": [
     {
@@ -15,11 +15,26 @@
         "PY-04",
         "PY-05"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-01",
+        "PY-02",
+        "PY-03",
+        "PY-04",
+        "PY-05"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-01-20261025",
+      "lesson_commits": {
+        "PY-01": "40dc55b89c9ec2c9d1376db0d8b50caffa6bc712",
+        "PY-02": "3df906ecbdcf8e2bf443403dbf12f27a41b7f28d",
+        "PY-03": "799684f3992224fa11538320b4986b383a0c4b99",
+        "PY-04": "d74aa67c65fad039abd8abfe21bae62d4908d582",
+        "PY-05": "975254608ba906f3ae572b728c8092d0c05bcb56"
+      },
+      "notes": "Five PY-01..PY-05 lessons updated separately: all assert checks replaced with if and clear errors, list/gen comprehensions rewritten as explicit for loops and accumulators, inline ternary removed; executable QA pending. Tests enforce AST syntax and exact documented stdout."
     },
     {
       "batch": 2,
