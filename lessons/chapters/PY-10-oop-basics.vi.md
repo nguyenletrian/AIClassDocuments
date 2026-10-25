@@ -144,7 +144,7 @@ print(score.get_value())
 Điểm 9 hợp lệ nên được lưu và đọc lại. Với điểm 11, `set_value` sẽ báo `ValueError` thay vì ghi dữ liệu sai.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Tạo hồ sơ học viên
+### Tình huống 1 — Tạo hồ sơ học viên · Cấp 1: Một đối tượng
 
 **Từ vựng trong mục:** **Class** — lớp.
 
@@ -175,7 +175,24 @@ print(s.name, s.score)
 An 8
 ```
 
-### Tình huống 2 — Giỏ hàng có phương thức
+**Bài thực hành nâng cấp — cấp 1/5:** Trung tâm có **10 học viên**, mỗi hàng là một học viên với mã `id` và điểm `score` trên thang 100. Hãy tạo một đối tượng Student và đọc thuộc tính. Các cấp sau thêm bản ghi, cấp 4–5 có điểm khuyết cần xử lý qua phương thức chứ không so sánh trực tiếp `None` với số.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"S{k:02d}","score":v} for k,v in enumerate(values,1)]
+class Student:
+    def __init__(self, info):
+        self.id, self.score = info["id"], info["score"]
+    def passed(self):
+        return self.score is not None and self.score >= 60
+result = (Student(rows[0]).id,Student(rows[0]).score)
+print("Số học viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số đối tượng (10) và giá trị trả về của phương thức; mỗi đối tượng lưu trạng thái riêng.
+
+### Tình huống 2 — Giỏ hàng có phương thức · Cấp 2: Quản lý nhiều đối tượng
 
 **Từ vựng trong mục:** **Object** — đối tượng.
 
@@ -213,7 +230,24 @@ print(c.total())
 300
 ```
 
-### Tình huống 3 — Ràng buộc điểm nhập
+**Bài thực hành nâng cấp — cấp 2/5:** Trung tâm có **12 học viên**, mỗi hàng là một học viên với mã `id` và điểm `score` trên thang 100. Hãy tạo 12 đối tượng tách biệt và kiểm tra số lượng. Các cấp sau thêm bản ghi, cấp 4–5 có điểm khuyết cần xử lý qua phương thức chứ không so sánh trực tiếp `None` với số.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"S{k:02d}","score":v} for k,v in enumerate(values,1)]
+class Student:
+    def __init__(self, info):
+        self.id, self.score = info["id"], info["score"]
+    def passed(self):
+        return self.score is not None and self.score >= 60
+result = len([Student(r) for r in rows])
+print("Số học viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số đối tượng (12) và giá trị trả về của phương thức; mỗi đối tượng lưu trạng thái riêng.
+
+### Tình huống 3 — Ràng buộc điểm nhập · Cấp 3: Gọi phương thức trên tập hợp
 
 **Từ vựng trong mục:** **Constructor** — hàm khởi tạo.
 
@@ -249,7 +283,24 @@ print(s.value)
 9
 ```
 
-### Tình huống 4 — In hóa đơn dễ đọc
+**Bài thực hành nâng cấp — cấp 3/5:** Trung tâm có **15 học viên**, mỗi hàng là một học viên với mã `id` và điểm `score` trên thang 100. Hãy gọi phương thức passed() để lọc hồ sơ đạt. Các cấp sau thêm bản ghi, cấp 4–5 có điểm khuyết cần xử lý qua phương thức chứ không so sánh trực tiếp `None` với số.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"S{k:02d}","score":v} for k,v in enumerate(values,1)]
+class Student:
+    def __init__(self, info):
+        self.id, self.score = info["id"], info["score"]
+    def passed(self):
+        return self.score is not None and self.score >= 60
+result = [s.id for s in [Student(r) for r in rows] if s.passed()]
+print("Số học viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số đối tượng (15) và giá trị trả về của phương thức; mỗi đối tượng lưu trạng thái riêng.
+
+### Tình huống 4 — In hóa đơn dễ đọc · Cấp 4: Kiểm tra thuộc tính thiếu
 
 **Từ vựng trong mục:** **Encapsulation** — đóng gói.
 
@@ -282,7 +333,24 @@ print(Order('O01', 150000))
 O01: 150000 VND
 ```
 
-### Tình huống 5 — Hai cảm biến độc lập
+**Bài thực hành nâng cấp — cấp 4/5:** Trung tâm có **18 học viên**, mỗi hàng là một học viên với mã `id` và điểm `score` trên thang 100. Hãy kiểm tra trường hợp score là None trước so sánh. Các cấp sau thêm bản ghi, cấp 4–5 có điểm khuyết cần xử lý qua phương thức chứ không so sánh trực tiếp `None` với số.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"S{k:02d}","score":v} for k,v in enumerate(values,1)]
+class Student:
+    def __init__(self, info):
+        self.id, self.score = info["id"], info["score"]
+    def passed(self):
+        return self.score is not None and self.score >= 60
+result = [(s.id,s.passed()) for s in [Student(r) for r in rows]]
+print("Số học viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số đối tượng (18) và giá trị trả về của phương thức; mỗi đối tượng lưu trạng thái riêng.
+
+### Tình huống 5 — Hai cảm biến độc lập · Cấp 5: Báo cáo từ toàn bộ đối tượng
 
 **Từ vựng trong mục:** **Class** — lớp.
 
@@ -312,6 +380,23 @@ print(a.value, b.value)
 ```text
 25 40
 ```
+
+**Bài thực hành nâng cấp — cấp 5/5:** Trung tâm có **20 học viên**, mỗi hàng là một học viên với mã `id` và điểm `score` trên thang 100. Hãy tổng hợp đủ hồ sơ đạt, chưa đạt và thiếu điểm. Các cấp sau thêm bản ghi, cấp 4–5 có điểm khuyết cần xử lý qua phương thức chứ không so sánh trực tiếp `None` với số.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"S{k:02d}","score":v} for k,v in enumerate(values,1)]
+class Student:
+    def __init__(self, info):
+        self.id, self.score = info["id"], info["score"]
+    def passed(self):
+        return self.score is not None and self.score >= 60
+result = {'passed':[s.id for s in [Student(r) for r in rows] if s.passed()],'missing':[s.id for s in [Student(r) for r in rows] if s.score is None]}
+print("Số học viên:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra số đối tượng (20) và giá trị trả về của phương thức; mỗi đối tượng lưu trạng thái riêng.
 
 ## 6. Sai lầm thường gặp
 
