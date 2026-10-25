@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "BATCH_07_IN_PROGRESS",
-  "last_completed_batch": 6,
+  "status": "READY_FOR_BATCH_08",
+  "last_completed_batch": 7,
   "batches": [
     {
       "batch": 1,
@@ -197,7 +197,7 @@
         "PY-34",
         "PY-35"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-31",
         "PY-32",
@@ -205,9 +205,9 @@
         "PY-34",
         "PY-35"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 151,
+      "merged_commit": "752b83e3ca654f9b70814e6d9130ec562af7c668",
+      "ci_run": 40175009167,
       "branch": "feat/explicit-python-batch-07-20261025",
       "lesson_commits": {
         "PY-31": "012b6037cc7aaa83f06eb5fe8beb9b38a32c57a3",
@@ -216,7 +216,7 @@
         "PY-34": "e6a238dc65b6d182e3c85bd4491cc4b8b5cc82e6",
         "PY-35": "1562180d896b81654492db1add9a7626e586267c"
       },
-      "notes": "Five Python chapters PY-31..35 committed individually with explicit if/raise and for counting instead of assert, comprehensions and generator expressions, including Bayes and probability. Preserve all scenarios, exact stdout, sample sizes, 20 MCQs per chapter and PY-34 weighted 5000-draw model unchanged; prose clarity updates remain deferred. 9 Python blocks/9 outputs per lesson. CI pending, Windows unverified."
+      "notes": "PY-31..35 five lesson commits, PR #151 final-head d1c4baf1584e7db9e791ee6d554c8d35771cd1ef GitHub CI 40175009167 COMPLETED SUCCESS: 25 batch07 Python scenarios executed and exact stdout validated, full curriculum structure/MCQ/Markdown and previous batch scenario tests, Python AST explicit syntax for batches01..07 PASS. Squash merge 752b83e3ca654f9b70814e6d9130ec562af7c668. PY-34 weighted 20-state model and seeded 5000-sample simulation unchanged. Scenario prose clarity goal remains APPROVED_DEFERRED. Windows worker not tested."
     },
     {
       "batch": 8,
