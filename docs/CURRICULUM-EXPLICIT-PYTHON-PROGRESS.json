@@ -1,0 +1,157 @@
+{
+  "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
+  "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
+  "repository": "nguyenletrian/AIClassDocuments",
+  "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
+  "status": "READY_FOR_BATCH_01",
+  "last_completed_batch": 0,
+  "batches": [
+    {
+      "batch": 1,
+      "lessons": [
+        "PY-01",
+        "PY-02",
+        "PY-03",
+        "PY-04",
+        "PY-05"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 2,
+      "lessons": [
+        "PY-06",
+        "PY-07",
+        "PY-08",
+        "PY-09",
+        "PY-10"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 3,
+      "lessons": [
+        "PY-11",
+        "PY-12",
+        "PY-13",
+        "PY-14",
+        "PY-15"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 4,
+      "lessons": [
+        "PY-16",
+        "PY-17",
+        "PY-18",
+        "PY-19",
+        "PY-20"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 5,
+      "lessons": [
+        "PY-21",
+        "PY-22",
+        "PY-23",
+        "PY-24",
+        "PY-25"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 6,
+      "lessons": [
+        "PY-26",
+        "PY-27",
+        "PY-28",
+        "PY-29",
+        "PY-30"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 7,
+      "lessons": [
+        "PY-31",
+        "PY-32",
+        "PY-33",
+        "PY-34",
+        "PY-35"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 8,
+      "lessons": [
+        "PY-36",
+        "PY-37",
+        "PY-38",
+        "PY-39",
+        "PY-40"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 9,
+      "lessons": [
+        "PY-41",
+        "PY-42",
+        "PY-43",
+        "PY-44",
+        "PY-45"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    },
+    {
+      "batch": 10,
+      "lessons": [
+        "PY-46"
+      ],
+      "status": "PENDING",
+      "changed_lessons": [],
+      "pr": null,
+      "merged_commit": null,
+      "ci_run": null
+    }
+  ],
+  "notes": "Owner approved on 2026-10-25, activated only after Markdown render goal ledger COMPLETED 10/10, no open PR, and no pending/undelivered Bridge TaskSource tasks. Complete only one batch of <=5 lessons at a time. Verify every code fence runs and expected stdout matches, run structure/MCQ/Markdown regression and CI, then PR merge and record SHA/CI evidence before advancing. No fabricated Windows PASS."
+}
