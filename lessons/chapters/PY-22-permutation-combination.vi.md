@@ -42,9 +42,12 @@ Khi chọn người hoặc sắp xếp công việc, câu hỏi đầu tiên là
 Có năm ứng viên và hai vị trí **khác nhau** là trưởng nhóm, phó nhóm. Chọn trưởng có 5 cách; sau đó chọn phó còn 4 cách, nên có `5 × 4 = 20` phương án. Đảo vai trò hai người tạo phương án khác. `math.perm(n,k)` đếm cách lấy **k người khác nhau từ n người** và phân thứ tự, với `0 ≤ k ≤ n`. Nếu dùng hết n người, kết quả là `n!`.
 
 ```python
-# Mục đích: Chọn và phân vai có thứ tự.
+# Mục đích: Đếm cách chọn hai người vào hai vai CÓ phân biệt thứ tự trong năm ứng viên.
+# Dữ liệu: 5 ứng viên khác nhau, hai vị trí vai trò riêng; đổi chỗ hai người thành cách khác.
+# math là thư viện chuẩn, cung cấp phép đếm hoán vị perm().
 import math
 
+# perm(n,k) đếm số cách chọn K người có THỨ TỰ từ N người khác nhau; 5×4=20, không liệt kê danh sách.
 print(math.perm(5, 2))
 ```
 
@@ -63,9 +66,12 @@ Có 20 cách phân vai trưởng/phó; đổi thứ tự hai người được t
 Nếu năm ứng viên chỉ cần chọn **hai người cùng một đội**, cặp An–Bình và Bình–An là **một** đội, không phải hai. Công thức `C(n,k) = n! / (k!(n-k)!)`; với 5 chọn 2 có 10 nhóm. `math.comb(n,k)` tính trực tiếp số nhóm mà không cần liệt kê từng cặp. Trong thực tế cần xác nhận có được chọn một người nhiều lần hay không; ở đây mỗi ứng viên chỉ chọn tối đa một lần.
 
 ```python
-# Mục đích: Chọn nhóm không phân vai.
+# Mục đích: Đếm nhóm hai người KHÔNG phân vai từ năm ứng viên.
+# Dữ liệu: 5 người, nhóm hai người không có vai thứ nhất/thứ hai.
+# math.comb() dùng để đếm tổ hợp không phân biệt thứ tự.
 import math
 
+# comb(5,2) đếm số cách chọn hai người không thứ tự: hai hoán vị (An,Lan)/(Lan,An) cùng một nhóm, tổng 10.
 print(math.comb(5, 2))
 ```
 
@@ -84,9 +90,12 @@ Số nhóm bằng nửa số cách phân vai hai người vì hoán đổi hai v
 Với bốn nhiệm vụ **khác nhau**, có 4 cách chọn việc đầu, 3 cách chọn việc thứ hai, rồi 2 và 1. Tổng số cách sắp xếp là `4! = 4×3×2×1 = 24`. Đây là **giai thừa**. Quy ước `0! = 1` vì có đúng một cách sắp xếp dãy rỗng. `math.factorial` áp dụng cho số nguyên không âm.
 
 ```python
-# Mục đích: Sắp xếp tất cả phần tử.
+# Mục đích: Đếm số cách sắp thứ tự bốn đối tượng khác nhau bằng giai thừa.
+# Dữ liệu: 4 vật khác nhau, muốn xếp đủ vào bốn vị trí.
+# math.factorial() hỗ trợ phép đếm thứ tự.
 import math
 
+# factorial(4) tính 4×3×2×1=24 cách xếp cả bốn vật, không giống comb chọn không thứ tự.
 print(math.factorial(4))
 ```
 
@@ -105,12 +114,19 @@ Bốn nhiệm vụ khác nhau có 24 thứ tự thực hiện nếu mỗi nhiệ
 **Hệ số nhị thức** `C(n,k)` là số cách chọn k phần tử không xét thứ tự, đồng thời là hệ số của `a^(n-k)b^k` trong khai triển `(a+b)^n`. Các giá trị `C(n,0)` đến `C(n,n)` tạo thành **hàng n của tam giác Pascal** (đếm từ hàng 0). Với n = 4, hàng có năm hệ số `1,4,6,4,1`; hai cạnh bằng 1 và mỗi ô trong bằng tổng hai ô ngay phía trên.
 
 ```python
-# Mục đích: Binomial coefficient và tam giác Pascal.
+# Mục đích: Tạo hàng thứ tư của tam giác Pascal bằng số tổ hợp chọn k trong bốn.
+# Dữ liệu: k nhận các giá trị 0..4, mỗi phần tử bằng số cách chọn k đối tượng từ 4.
+# math.comb(n,k) đếm cách chọn k phần tử không xét thứ tự.
 import math
 
+# List lưu năm hệ số tổ hợp theo k tăng dần.
 counts = []
+# range(5) cho các số 0..4; không lấy 5.
 for k in range(5):
+    # comb(4,k) lấy hệ số tương ứng hàng n=4 của tam giác Pascal, lần lượt 1,4,6,4,1.
+    # append() thêm hệ số vào cuối list để giữ thứ tự k.
     counts.append(math.comb(4, k))
+# In năm hệ số để quan sát hàng Pascal.
 print(counts)
 ```
 
@@ -137,19 +153,34 @@ Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
 3. Liệt kê kết quả đầu tiên để xác minh vai trò khác nhau.
 
 ```python
+# Mục đích: Liệt kê cách phân hai vai từ 10 ứng viên và lấy phương án đầu tiên làm ví dụ.
+# Dữ liệu: 10 ứng viên U01..U10; hai vai không giống nhau nên hoán đổi người là lịch phân vai khác.
+# math.perm() tính SỐ hoán vị mà không dựng mọi hoán vị.
 import math
+# permutations() sinh từng tuple có thứ tự gồm r ứng viên, không lặp người trong một tuple.
 from itertools import permutations
+# List mười mã ứng viên, được duyệt theo thứ tự liệt kê.
 candidates = ["U01","U02","U03","U04","U05","U06","U07","U08","U09","U10"]
+# None đánh dấu chưa chọn được bất kỳ bộ hai vai.
 first = None
+# Sinh từng cặp có phân biệt vai thứ nhất/thứ hai; iterator không tạo sẵn mọi cặp thành list.
 for pair in permutations(candidates, 2):
+    # Giữ cặp đầu tiên do iterator trả về.
     first = pair
+    # break dừng vòng sớm vì chỉ cần minh họa một phương án, không duyệt đủ.
     break
+# is None phát hiện không có cặp khả thi (ít hơn hai ứng viên).
 if first is None:
+    # raise ValueError báo dữ liệu không đạt yêu cầu và dừng trước khi in kết quả đếm sai.
     raise ValueError("Cần ít nhất hai ứng viên để phân vai.")
+# len() xác nhận dữ liệu có đúng mười ứng viên.
 if len(candidates) != 10:
+    # raise ValueError báo dữ liệu không đạt yêu cầu và dừng trước khi in kết quả đếm sai.
     raise ValueError("Cần đúng 10 ứng viên.")
 print("Ứng viên:", len(candidates))
+# Đếm tất cả cách gán hai vai có thứ tự từ mười người: 10×9=90.
 print("Cách phân vai:", math.perm(len(candidates), 2))
+# [0] là người vai đầu, [1] người vai sau, Python đánh chỉ số từ 0.
 print("Phân vai đầu:", first[0], first[1])
 ```
 
@@ -177,16 +208,27 @@ Người U01 làm trưởng và U02 làm phó khác cách đảo vai; không cho
 3. So số tổ với danh sách liệt kê để xác nhận.
 
 ```python
+# Mục đích: Đếm và liệt kê nhóm ba tình nguyện viên từ 12 người, không xét thứ tự trong nhóm.
+# Dữ liệu: 12 mã S01..S12, chọn ba người không phân vai; [S01,S02,S03] là cùng nhóm dù đổi thứ tự.
+# math.comb() dùng để đối chiếu lý thuyết số nhóm.
 import math
+# combinations() tạo từng nhóm r phần tử KHÔNG xét thứ tự và không lặp người.
 from itertools import combinations
+# List 12 mã người có thể được chọn.
 volunteers = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12"]
+# Tạo list tất cả bộ ba không phân vai; số lượng có thể lớn nếu n tăng, ở đây chỉ 220 nhóm.
 groups = list(combinations(volunteers, 3))
+# Kiểm đủ 12 người nguồn trước khi kết luận.
 if len(volunteers) != 12:
+    # raise ValueError báo dữ liệu không đạt yêu cầu và dừng trước khi in kết quả đếm sai.
     raise ValueError("Cần đủ 12 tình nguyện viên.")
+# comb(12,3) tính 220 nhóm, để đối chiếu với số nhóm được tạo thực tế.
 if len(groups) != math.comb(12, 3):
+    # raise ValueError báo dữ liệu không đạt yêu cầu và dừng trước khi in kết quả đếm sai.
     raise ValueError("Số nhóm ba người phải khớp số tổ hợp lý thuyết.")
 print("Tình nguyện viên:", len(volunteers))
 print("Số nhóm:", len(groups))
+# [0] là tuple nhóm đầu tiên; ', '.join(...) ghép ba mã thành chuỗi.
 print("Nhóm đầu:", ", ".join(groups[0]))
 ```
 
@@ -214,17 +256,29 @@ Bài này khác cấp 1 ở chỗ đổi vị trí ba người **không** tạo 
 3. Đếm số phương án gán hai vai bằng `perm`, xác nhận mỗi cặp có hai cách phân vai.
 
 ```python
+# Mục đích: Lọc 15 nhân sự đủ sẵn sàng và kỹ năng Python/AI, so số đội hai người với phân hai vai.
+# Dữ liệu: 15 hồ sơ id, skill, available; chỉ người available=True và môn Python/AI được xét.
+# math.comb() đếm nhóm không phân vai, math.perm() đếm phân vai có thứ tự.
 import math
+# 15 dict, mỗi hàng một nhân sự với mã, kỹ năng và trạng thái sẵn sàng Boolean.
 people = [{"id":"T01","skill":"Python","available":True},{"id":"T02","skill":"AI","available":True},{"id":"T03","skill":"SQL","available":True},{"id":"T04","skill":"Python","available":True},{"id":"T05","skill":"AI","available":False},{"id":"T06","skill":"SQL","available":True},{"id":"T07","skill":"Python","available":True},{"id":"T08","skill":"AI","available":True},{"id":"T09","skill":"SQL","available":True},{"id":"T10","skill":"Python","available":False},{"id":"T11","skill":"AI","available":True},{"id":"T12","skill":"SQL","available":True},{"id":"T13","skill":"Python","available":True},{"id":"T14","skill":"AI","available":True},{"id":"T15","skill":"SQL","available":False}]
+# Chứa mã những nhân sự thỏa cả hai tiêu chí.
 eligible = []
+# Duyệt từng dict hồ sơ để kiểm tiêu chí.
 for person in people:
+    # and yêu cầu người vừa sẵn sàng vừa có kỹ năng thuộc tuple hai môn; in kiểm tra một trong các giá trị, KHÔNG phải chuỗi con.
     if person["available"] and person["skill"] in ("Python", "AI"):
+        # append() giữ mã đúng những người được chọn.
         eligible.append(person["id"])
+# Kiểm tổng 15 hồ sơ nguồn, kể cả người không đủ điều kiện.
 if len(people) != 15:
+    # raise ValueError báo dữ liệu không đạt yêu cầu và dừng trước khi in kết quả đếm sai.
     raise ValueError("Cần kiểm tra 15 hồ sơ nhân sự.")
 print("Hồ sơ:", len(people))
 print("Đủ điều kiện:", len(eligible))
+# comb() đếm cách chọn đội 2 người không vai: A+B giống B+A.
 print("Chọn đội hai người:", math.comb(len(eligible), 2))
+# perm() đếm cách phân hai vai có thứ tự: A giữ vai 1 khác B giữ vai 1.
 print("Phân hai vai:", math.perm(len(eligible), 2))
 ```
 
@@ -253,21 +307,35 @@ Khác hai cấp đầu, phải lọc dữ liệu trước khi đếm. Không đ�
 3. Liệt kê lịch đầu, kiểm số lịch với `math.perm`.
 
 ```python
+# Mục đích: Lọc sự cố nghiêm trọng đã sẵn sàng trong 18 bản ghi rồi xếp ba vị trí xử lý có thứ tự.
+# Dữ liệu: 18 dict sự cố id/severity/ready; chỉ blocker hoặc high và ready=True được lập lịch.
+# math.perm() đếm lịch có thứ tự theo số ứng viên sự cố đủ điều kiện.
 import math
+# permutations(iterable,r) tạo các tuple r phần tử có thứ tự và không lặp ID trong một lịch.
 from itertools import permutations
+# 18 sự cố, severity có blocker/high/normal, ready là cờ đã sẵn sàng.
 incidents = [{"id":"C01","severity":"blocker","ready":True},{"id":"C02","severity":"normal","ready":True},{"id":"C03","severity":"normal","ready":True},{"id":"C04","severity":"high","ready":True},{"id":"C05","severity":"normal","ready":True},{"id":"C06","severity":"normal","ready":True},{"id":"C07","severity":"blocker","ready":True},{"id":"C08","severity":"normal","ready":True},{"id":"C09","severity":"normal","ready":True},{"id":"C10","severity":"high","ready":True},{"id":"C11","severity":"normal","ready":True},{"id":"C12","severity":"normal","ready":False},{"id":"C13","severity":"blocker","ready":True},{"id":"C14","severity":"normal","ready":True},{"id":"C15","severity":"normal","ready":True},{"id":"C16","severity":"high","ready":True},{"id":"C17","severity":"normal","ready":True},{"id":"C18","severity":"normal","ready":True}]
+# List sự cố thỏa mức nghiêm trọng và sẵn sàng.
 eligible = []
 for row in incidents:
+    # and yêu cầu cả ready=True và mức thuộc hai nhãn cần ưu tiên.
     if row["ready"] and row["severity"] in ("blocker", "high"):
+        # append() chỉ thêm mã sự cố hợp lệ.
         eligible.append(row["id"])
+# Tạo tất cả lịch có ba vị trí thứ tự (ca 1,2,3); đổi vị trí tạo lịch khác; list() hiện thực toàn bộ iterator.
 schedules = list(permutations(eligible, 3))
+# Đối chiếu nguồn phải đủ 18 sự cố.
 if len(incidents) != 18:
+    # raise ValueError báo dữ liệu không đạt yêu cầu và dừng trước khi in kết quả đếm sai.
     raise ValueError("Cần đủ 18 sự cố đã ghi nhận.")
+# perm() đếm số lịch lý thuyết để so với len(schedules) đã liệt kê.
 if len(schedules) != math.perm(len(eligible), 3):
+    # raise ValueError báo dữ liệu không đạt yêu cầu và dừng trước khi in kết quả đếm sai.
     raise ValueError("Số lịch ba ca phải khớp số cách xếp có thứ tự.")
 print("Sự cố:", len(incidents))
 print("Đủ tiêu chí:", len(eligible))
 print("Lịch 3 ca:", len(schedules))
+# [0] lấy lịch ba ca đầu tiên, join() ghép ba mã bằng dấu phẩy.
 print("Lịch đầu:", ", ".join(schedules[0]))
 ```
 
@@ -296,25 +364,43 @@ Ba vị trí là ba lượt thực hiện khác nhau nên dùng hoán vị; nhâ
 3. So số ban hợp lệ với số lựa chọn từ mỗi nhóm, xác minh không chứa ứng viên chưa sẵn sàng.
 
 ```python
+# Mục đích: Lập ban ba người từ 20 hồ sơ, mỗi người ở một nhóm A/B/C và đều sẵn sàng.
+# Dữ liệu: 20 dict (id,team,ready), hai người không sẵn sàng; ban hợp lệ có đúng một người nhóm A, B, C.
+# combinations() liệt kê bộ ba KHÔNG phân thứ tự từ những người được chọn.
 from itertools import combinations
+# 20 hồ sơ; team A/B/C và ready True/False của từng người.
 people = [{"id":"U01","team":"A","ready":True},{"id":"U02","team":"B","ready":True},{"id":"U03","team":"C","ready":True},{"id":"U04","team":"A","ready":True},{"id":"U05","team":"B","ready":True},{"id":"U06","team":"C","ready":False},{"id":"U07","team":"A","ready":True},{"id":"U08","team":"B","ready":True},{"id":"U09","team":"C","ready":True},{"id":"U10","team":"A","ready":True},{"id":"U11","team":"B","ready":True},{"id":"U12","team":"C","ready":True},{"id":"U13","team":"A","ready":True},{"id":"U14","team":"B","ready":True},{"id":"U15","team":"C","ready":False},{"id":"U16","team":"A","ready":True},{"id":"U17","team":"B","ready":True},{"id":"U18","team":"C","ready":True},{"id":"U19","team":"A","ready":True},{"id":"U20","team":"B","ready":True}]
+# Chỉ lưu người sẵn sàng trước khi tổ hợp.
 ready = []
 for person in people:
+    # Cờ False khiến hồ sơ bị bỏ khỏi list ready.
     if person["ready"]:
+        # append() giữ cả dict để đọc thuộc tính team khi ghép nhóm.
         ready.append(person)
 valid = []
+# Duyệt từng bộ ba không phân vai; iterator sinh lần lượt, không cần giữ tất cả bộ ba trước.
 for team in combinations(ready, 3):
+    # set() dùng để kiểm ba loại nhóm không trùng.
     team_names = set()
     for person in team:
+        # add() đưa tên nhóm vào tập, nhóm lặp sẽ không tăng số phần tử.
         team_names.add(person["team"])
+    # == với tập ba nhãn đảm bảo mỗi nhóm góp đúng một người khi tuple chỉ có ba người.
     if team_names == {"A", "B", "C"}:
+        # append() lưu bộ ba đáp ứng đúng ba nhóm.
         valid.append(team)
+# Dictionary đếm số người sẵn sàng từng nhóm A/B/C.
 counts = {"A": 0, "B": 0, "C": 0}
 for person in ready:
+    # Tra số người theo khóa nhóm rồi tăng 1.
     counts[person["team"]] += 1
+# Kiểm đủ 20 hồ sơ nguồn.
 if len(people) != 20:
+    # raise ValueError báo dữ liệu không đạt yêu cầu và dừng trước khi in kết quả đếm sai.
     raise ValueError("Cần đủ 20 hồ sơ ban đầu.")
+# Nguyên lý nhân: chọn độc lập một người từ mỗi nhóm, số ban bằng lượng A × lượng B × lượng C; không phải hoán vị ba vai.
 if len(valid) != counts["A"] * counts["B"] * counts["C"]:
+    # raise ValueError báo dữ liệu không đạt yêu cầu và dừng trước khi in kết quả đếm sai.
     raise ValueError("Số ban ba nhóm phải bằng số cách chọn một người mỗi nhóm.")
 print("Hồ sơ:", len(people))
 print("Sẵn sàng:", len(ready))
