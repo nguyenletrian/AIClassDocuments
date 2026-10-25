@@ -12,6 +12,7 @@ on:
       - "tests/test_curriculum_structure.py"
       - "tests/test_curriculum_five_lesson_batches.py"
       - "tests/test_curriculum_batch_01_scenarios.py"
+      - "tests/test_curriculum_batch_02_scenarios.py"
       - ".github/workflows/verify_curriculum_5lesson_batches.yml"
   push:
     paths:
@@ -20,6 +21,7 @@ on:
       - "tests/test_curriculum_structure.py"
       - "tests/test_curriculum_five_lesson_batches.py"
       - "tests/test_curriculum_batch_01_scenarios.py"
+      - "tests/test_curriculum_batch_02_scenarios.py"
       - ".github/workflows/verify_curriculum_5lesson_batches.yml"
 
 jobs:
@@ -31,4 +33,4 @@ jobs:
         with:
           python-version: "3.12"
       - name: Check 46 chapters, MCQs, Python syntax and sequential batch ledger
-        run: python -m unittest tests.test_curriculum_structure tests.test_curriculum_five_lesson_batches tests.test_curriculum_batch_01_scenarios -v
+        run: python -m unittest tests.test_curriculum_structure tests.test_curriculum_five_lesson_batches tests.test_curriculum_batch_01_scenarios tests.test_curriculum_batch_02_scenarios -v
