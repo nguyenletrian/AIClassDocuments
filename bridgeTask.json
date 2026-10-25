@@ -1187,13 +1187,13 @@
     "reason": "Owner-approved shared AIBrigde ChatGPT Conversation Reliability task. Load merged AIBrigde main PR #26 fae2617706314b2a600f9e0044827b4cddcb1f68 before running pending v2 browser:conversation_structure_probe with payload.detail_level=contexts. Managed restart barrier is processed first, before task dispatch. Preserve Edge session, current ChatGPT conversation, 17 completed task ACKs and Jetking goal_review.enabled=false. Read-only context counts only; do not replay the older v1 task or create/move ChatGPT conversation. A stale v1 result instead of v2 is NOT acceptable; report runtime freshness mismatch."
   },
   "goal_review": {
-    "enabled": true,
+    "enabled": false,
     "approval": "approved",
-    "status": "active",
+    "status": "completed",
     "goal_id": "aiclassdocuments-full-code-annotations-20261025",
-    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch10",
+    "revision": "2026-10-25-full-code-annotations-46-lessons-completed",
     "title": "Chú thích đầy đủ code Python, giải thích mọi API/phương thức khó hiểu trong 46 bài",
-    "phase": "READY_FOR_BATCH_10",
+    "phase": "COMPLETED",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-CODE-ANNOTATION-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
@@ -1201,13 +1201,8 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "OWNER APPROVED goal aiclassdocuments-full-code-annotations-20261025, FINAL Batch10 PY-46 ONLY (one lesson; do not invent four additional lessons). Previous Batch09 PY-41..PY-45 merged PR #173 commit b83e61096e3cb49c86d038eb18f2a7ebcea78033, final-head CI #40198853977 SUCCESS at PR head 9cd8721ef26cdc5ff4dcea5dc51a8cb430cd4d70; 41 real Python code fences annotated and +682 net full-line comments. Progress ledger last_completed_batch=9 status READY_FOR_BATCH_10; no open PR or unresolved task/ACK at wakeup. Inspect current main, task source, ledger, AGENTS.md, style guide, lesson template and goal before editing. Annotate only PY-46 all executable Python fences: Vietnamese # Mục đích and # Dữ liệu plus accurate adjacent explanations of each unfamiliar function, parameter, I/O flag, indexing, plotting/backend, statistics/ML API and resource cleanup. Do NOT change executable Python statements, source AST, stdout, any Markdown outside Python code fences, datasets, 920 MCQ or previous 45 lessons. One commit for PY-46, verify original non-comment source line-by-line and 46-lesson full GitHub CI including exact expected stdout for five PY-46 scenarios (if tests exist); final PR HEAD SUCCESS before merge. Record PR, final HEAD, CI run, merged SHA and comment/block counts durably in ledger, set whole goal COMPLETED and goal_review.enabled=false only after evidence. Do not start a new goal without owner approval. Repeated 15-second heartbeat is informational, no duplicate tasks. CDP port 9224 owner identity and Windows PowerShell tests remain UNVERIFIED; don't claim local PASS or rebind silently.",
-    "review_hold": "Final single-lesson Batch10 PY-46 only; Batch09 merged PR173 CI40198853977 SUCCESS and ledger 9/10 complete. On rearm open PR=0 and unresolved tasks/ACK=0. GitHub goal-review revision only, not confirmed local Windows Bridge start.",
-    "active_batch": 10,
-    "active_lessons": [
-      "PY-46"
-    ],
-    "batch_boundary": "SINGLE_ACTIVE_BATCH_MAX_5; ledger must show prior completed/merged before this batch; do not open another batch while PR/task/ACK pending."
+    "next_review": "COMPLETED all 46 lessons and 10/10 code-annotation batches. PY-46 final Batch10 merged PR #174 (1ac083b1b14e4076df0128d211204c1fa9210f69), PR HEAD b5696cb0b48c073650f8c1452f1fc86383338adc; GitHub CI #40199916125 SUCCESS. Code comment-only checks and ledger completed; Windows/PowerShell verification and CDP 9224 identity UNVERIFIED. No work or new goal to activate without independently verified owner approval.",
+    "review_hold": "Goal complete and archived. Do not schedule duplicate work, replay Jetking tasks, create new ChatGPT conversation or idle reminders. Future approved work must be handled as a separate goal."
   },
   "goal_review_history": [
     {
@@ -1336,7 +1331,7 @@
     }
   ],
   "owner_pause": {
-    "suppress_idle_reminders": false,
-    "reason": "Code annotations goal 9/10 batches completed. Final Batch10 PY-46 only, no task duplication on 15-second heartbeat."
+    "suppress_idle_reminders": true,
+    "reason": "Code-annotation goal 10/10 completed, PR174 merged and CI success. No current active review."
   }
 }
