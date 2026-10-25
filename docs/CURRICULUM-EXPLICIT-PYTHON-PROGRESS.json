@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_07",
+  "status": "BATCH_07_IN_PROGRESS",
   "last_completed_batch": 6,
   "batches": [
     {
@@ -197,11 +197,26 @@
         "PY-34",
         "PY-35"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-31",
+        "PY-32",
+        "PY-33",
+        "PY-34",
+        "PY-35"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-07-20261025",
+      "lesson_commits": {
+        "PY-31": "012b6037cc7aaa83f06eb5fe8beb9b38a32c57a3",
+        "PY-32": "f76487d64a3b63c77ed3f9744e2bba1186d2ac42",
+        "PY-33": "b3297c85b9557522d23ab009c15c5950f1fd503e",
+        "PY-34": "e6a238dc65b6d182e3c85bd4491cc4b8b5cc82e6",
+        "PY-35": "1562180d896b81654492db1add9a7626e586267c"
+      },
+      "notes": "Five Python chapters PY-31..35 committed individually with explicit if/raise and for counting instead of assert, comprehensions and generator expressions, including Bayes and probability. Preserve all scenarios, exact stdout, sample sizes, 20 MCQs per chapter and PY-34 weighted 5000-draw model unchanged; prose clarity updates remain deferred. 9 Python blocks/9 outputs per lesson. CI pending, Windows unverified."
     },
     {
       "batch": 8,
