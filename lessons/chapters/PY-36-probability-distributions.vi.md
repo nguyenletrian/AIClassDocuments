@@ -140,7 +140,8 @@ from scipy.stats import binom
 observed = [1,1,0,1,1,1,0,1,1,1]
 count = sum(observed)
 prob = binom.pmf(count, n=10, p=0.8)
-assert len(observed) == 10
+if len(observed) != 10:
+    raise ValueError("Cần đúng 10 đơn giao hàng.")
 print("Đơn:", len(observed))
 print("Đúng hạn:", count)
 print(f"P(đúng số này): {prob:.4f}")
@@ -173,7 +174,8 @@ Xác suất 0,3020 là kết quả của **mô hình đã giả định**, khôn
 from scipy.stats import binom
 faults = [1,0,0,0,1,0,0,0,1,0,0,0]
 probability = binom.cdf(2, n=len(faults), p=0.1)
-assert len(faults) == 12
+if len(faults) != 12:
+    raise ValueError("Cần đúng 12 linh kiện.")
 print("Linh kiện:", len(faults))
 print("Lỗi quan sát:", sum(faults))
 print(f"P(không quá 2 lỗi): {probability:.4f}")
@@ -208,7 +210,8 @@ from scipy.stats import norm
 celsius = np.array([90,95,101,103,110,104,96,98,111,93,106,99,109,102,97], dtype=float)
 empirical = np.mean(celsius <= 110)
 theoretical = norm.cdf(110, loc=100, scale=10)
-assert len(celsius) == 15
+if len(celsius) != 15:
+    raise ValueError("Cần đủ 15 lượt đo nhiệt độ.")
 print("Lượt đo:", len(celsius))
 print("Đo ≤110:", int((celsius <= 110).sum()))
 print(f"Tỷ lệ đo: {empirical:.3f}")
@@ -246,7 +249,8 @@ values = np.array([84,88,90,92,94,95,97,98,99,100,101,102,103,105,108,110,113,11
 observed = int(((values >= 90) & (values <= 110)).sum())
 interval = norm.cdf(110, 100, 10) - norm.cdf(90, 100, 10)
 density = norm.pdf(100, 100, 10)
-assert values.shape == (18,)
+if values.shape != (18,):
+    raise ValueError("Cần đúng 18 giá trị đo.")
 print("Lượt đo:", len(values))
 print("Trong khoảng:", observed)
 print(f"Xác suất mô hình: {interval:.4f}")
@@ -284,7 +288,8 @@ rng = np.random.default_rng(42)
 counts = rng.binomial(n=10, p=0.7, size=20)
 possible = np.arange(11)
 probabilities = binom.pmf(possible, n=10, p=0.7)
-assert counts.shape == (20,) and np.all((counts >= 0) & (counts <= 10))
+if counts.shape != (20,) or not np.all((counts >= 0) & (counts <= 10)):
+    raise ValueError("Cần 20 lô mô phỏng, mỗi lô có từ 0 đến 10 đơn đúng hạn.")
 print("Lô mô phỏng:", len(counts))
 print("Đơn mỗi lô:", 10)
 print("Kỳ vọng mỗi lô:", f"{10*0.7:.1f}")

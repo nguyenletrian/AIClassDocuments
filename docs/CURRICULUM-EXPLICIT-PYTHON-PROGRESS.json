@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_08",
+  "status": "BATCH_08_IN_PROGRESS",
   "last_completed_batch": 7,
   "batches": [
     {
@@ -227,11 +227,26 @@
         "PY-39",
         "PY-40"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-36",
+        "PY-37",
+        "PY-38",
+        "PY-39",
+        "PY-40"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-08-20261025",
+      "lesson_commits": {
+        "PY-36": "d4f0a6206fa566e3c8fd87af7a1dcb89942ed64c",
+        "PY-37": "852e6eacde6b9c174484af536350a10e42506402",
+        "PY-38": "efb3a212743be525b5b5573966bb2c37e3d6d03b",
+        "PY-39": "f63cc4954d15a823f8a6f6c13ff5cfbd323a528a",
+        "PY-40": "a2072cf60d548bd69fc55ecdd1dc2ace2fdea2b5"
+      },
+      "notes": "Five chapters PY-36..40 individually committed; `assert` converted into informative `if`/raise and PY-38/PY-39 ID list comprehension replaced by for. Statistical calculations, documentation, 5 scenarios per lesson, 9 Python blocks and exact expected stdout untouched. Full CI and 25 batch08 scenarios exact stdout pending, Windows not claimed. Scenario prose clarity goal remains APPROVED_DEFERRED."
     },
     {
       "batch": 9,

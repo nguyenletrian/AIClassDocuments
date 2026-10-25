@@ -143,7 +143,8 @@ Excess kurtosis dương lớn cho thấy mẫu này có hành vi đuôi bất th
 import numpy as np
 amounts = np.array([10,12,14,16,18,20,22,24,26,28], dtype=float)
 q1, median, q3 = np.quantile(amounts, [0.25, 0.5, 0.75])
-assert len(amounts) == 10
+if len(amounts) != 10:
+    raise ValueError("Cần đủ 10 hóa đơn.")
 print("Hóa đơn:", len(amounts))
 print(f"Q1 (nghìn đồng): {q1:.1f}")
 print(f"Median (nghìn đồng): {median:.1f}")
@@ -181,7 +182,8 @@ q1, q3 = np.quantile(amounts, [0.25, 0.75])
 iqr = q3 - q1
 low, high = q1 - 1.5*iqr, q3 + 1.5*iqr
 flagged = amounts[(amounts < low) | (amounts > high)]
-assert amounts.size == 12
+if amounts.size != 12:
+    raise ValueError("Cần đủ 12 hóa đơn để tính IQR.")
 print("Hóa đơn:", amounts.size)
 print(f"IQR (nghìn đồng): {iqr:.2f}")
 print(f"Ngưỡng trên: {high:.1f}")
@@ -215,7 +217,8 @@ Một hóa đơn thật có thể vượt ngưỡng IQR hợp lệ; cần đối
 ```python
 import pandas as pd
 minutes = pd.Series([10,10,11,11,12,12,12,13,14,14,15,15,15,16,90], dtype=float)
-assert len(minutes) == 15
+if len(minutes) != 15:
+    raise ValueError("Cần đủ 15 lượt đo thời gian.")
 print("Lượt:", len(minutes))
 print(f"Mean (phút): {minutes.mean():.2f}")
 print(f"Median (phút): {minutes.median():.2f}")
@@ -254,7 +257,8 @@ import pandas as pd
 signal = pd.Series([20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,120], dtype=float)
 q1, q3 = np.quantile(signal, [0.25, 0.75])
 outliers = signal[signal > q3 + 1.5*(q3-q1)]
-assert len(signal) == 18
+if len(signal) != 18:
+    raise ValueError("Cần đủ 18 số đo tín hiệu.")
 print("Mẫu:", len(signal))
 print(f"Skew: {signal.skew():.3f}")
 print(f"Excess kurtosis: {signal.kurt():.3f}")
@@ -289,7 +293,10 @@ Chỉ số độ lệch và kurtosis nhạy với giá trị rất lớn, vì v�
 import numpy as np
 import pandas as pd
 mass = [50,51,52,53,54,55,56,57,None,110,150,151,152,153,154,155,156,157,158,220]
-df = pd.DataFrame({"id": [f"P{i:02d}" for i in range(1, 21)],
+ids = []
+for i in range(1, 21):
+    ids.append(f"P{i:02d}")
+df = pd.DataFrame({"id": ids,
                    "group": ["A"]*10 + ["B"]*10, "mass_g": mass})
 flagged = []
 for group, subset in df.groupby("group"):
@@ -297,7 +304,8 @@ for group, subset in df.groupby("group"):
     q1, q3 = np.quantile(valid, [0.25, 0.75])
     low, high = q1-1.5*(q3-q1), q3+1.5*(q3-q1)
     flagged.extend(subset.loc[(subset["mass_g"] < low) | (subset["mass_g"] > high), "id"])
-assert len(df) == 20
+if len(df) != 20:
+    raise ValueError("Cần đủ 20 mẫu khối lượng, kể cả lượt thiếu.")
 print("Sản phẩm:", len(df))
 print("Thiếu khối lượng:", int(df["mass_g"].isna().sum()))
 print("Ngoại lệ theo nhóm:", ", ".join(sorted(flagged)))

@@ -145,7 +145,8 @@ import numpy as np
 population = np.arange(100, 140)
 rng = np.random.default_rng(31)
 sample = rng.choice(population, size=10, replace=False)
-assert len(sample) == len(set(sample)) == 10
+if len(sample) != 10 or len(set(sample)) != 10:
+    raise ValueError("Cần chọn đủ 10 hóa đơn không trùng.")
 print("Tổng thể:", len(population))
 print("Hóa đơn chọn:", len(sample))
 print(f"Mean mẫu (nghìn đồng): {sample.mean():.1f}")
@@ -179,12 +180,16 @@ Chọn mẫu ngẫu nhiên không có nghĩa mean luôn bằng mean tổng thể
 ```python
 import numpy as np
 rng = np.random.default_rng(12)
-A = [f"A{i:02d}" for i in range(1,31)]
-B = [f"B{i:02d}" for i in range(1,31)]
+A = []
+B = []
+for i in range(1, 31):
+    A.append(f"A{i:02d}")
+    B.append(f"B{i:02d}")
 selected_a = rng.choice(A, 6, replace=False).tolist()
 selected_b = rng.choice(B, 6, replace=False).tolist()
 selection = selected_a + selected_b
-assert len(selection) == len(set(selection)) == 12
+if len(selection) != 12 or len(set(selection)) != 12:
+    raise ValueError("Cần đúng 12 phiếu chọn, không trùng ID.")
 print("Tổng thể:", len(A)+len(B))
 print("Phiếu lấy:", len(selection))
 print("Nhóm A/B:", len(selected_a), len(selected_b))
@@ -220,7 +225,8 @@ import numpy as np
 rng = np.random.default_rng(12)
 samples = rng.exponential(scale=2, size=(15, 40))
 means = samples.mean(axis=1)
-assert samples.shape == (15, 40) and means.shape == (15,)
+if samples.shape != (15, 40) or means.shape != (15,):
+    raise ValueError("Cần 15 lần lấy mẫu, mỗi lần 40 quan sát.")
 print("Lần lấy mẫu:", len(means))
 print("Quan sát mỗi lần:", samples.shape[1])
 print(f"Mean của các mean (phút): {means.mean():.3f}")
@@ -257,7 +263,8 @@ scores = np.array([8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25], dtype=f
 first9 = scores[:9]
 se9 = first9.std(ddof=1)/np.sqrt(len(first9))
 se18 = scores.std(ddof=1)/np.sqrt(len(scores))
-assert len(scores) == 18
+if len(scores) != 18:
+    raise ValueError("Cần đủ 18 điểm học viên.")
 print("Tất cả học viên:", len(scores))
 print("Nhóm con:", len(first9))
 print(f"SE 9 người (điểm): {se9:.3f}")
@@ -297,7 +304,8 @@ rng = np.random.default_rng(18)
 bootstrap = rng.choice(minutes, size=(2000, len(minutes)), replace=True)
 means = bootstrap.mean(axis=1)
 low, high = np.quantile(means, [0.025, 0.975])
-assert len(minutes) == 20 and bootstrap.shape == (2000, 20)
+if len(minutes) != 20 or bootstrap.shape != (2000, 20):
+    raise ValueError("Cần 20 phiếu và 2000 lượt lấy mẫu bootstrap.")
 print("Phiếu gốc:", len(minutes))
 print("Mẫu bootstrap:", len(means))
 print(f"Mean gốc (phút): {minutes.mean():.2f}")

@@ -143,7 +143,8 @@ Khoảng ước lượng mean theo t từ khoảng 1,761 đến 3,839 ngày; đ�
 from scipy.stats import ttest_1samp
 scores = [48,49,50,51,52,48,49,50,51,52]
 result = ttest_1samp(scores, popmean=50)
-assert len(scores) == 10
+if len(scores) != 10:
+    raise ValueError("Cần đúng 10 điểm học viên.")
 print("Học viên:", len(scores))
 print(f"Mean (điểm): {sum(scores)/len(scores):.2f}")
 print(f"p-value: {result.pvalue:.4f}")
@@ -180,7 +181,8 @@ from scipy.stats import t, sem
 values = np.array([2.8,3,2.9,3.1,3.2,2.7,3,2.8,3.1,2.9,3,3.3], dtype=float)
 se = sem(values)
 ci = t.interval(0.95, df=len(values)-1, loc=values.mean(), scale=se)
-assert len(values) == 12
+if len(values) != 12:
+    raise ValueError("Cần 12 lượt đo thời gian giao.")
 print("Chuyến:", len(values))
 print(f"Mean (ngày): {values.mean():.3f}")
 print(f"SE (ngày): {se:.3f}")
@@ -217,7 +219,8 @@ from scipy.stats import ttest_1samp
 scores = np.array([49,50,50,51,49,50,51,50,49,50,51,50,50,49,70], dtype=float)
 full = ttest_1samp(scores, 50)
 without_last = ttest_1samp(scores[:-1], 50)
-assert len(scores) == 15
+if len(scores) != 15:
+    raise ValueError("Cần 15 học viên khi so tác động ngoại lệ.")
 print("Học viên:", len(scores))
 print(f"Mean đủ 15: {scores.mean():.3f}")
 print(f"p đủ 15: {full.pvalue:.3f}")
@@ -254,7 +257,8 @@ Cùng bộ dữ liệu nhưng lựa chọn quan sát đem vào kiểm định c�
 from scipy.stats import ttest_1samp
 scores = [48,50,51,52,53,51,50,49,52,53,51,50,52,49,51,52,50,53]
 p = float(ttest_1samp(scores, popmean=50).pvalue)
-assert len(scores) == 18
+if len(scores) != 18:
+    raise ValueError("Cần 18 điểm học viên khi so mức ý nghĩa.")
 print("Học viên:", len(scores))
 print(f"p-value: {p:.4f}")
 print("Bác bỏ H0 ở 0.05:", p < 0.05)
@@ -297,7 +301,8 @@ se = np.sqrt(va + vb)
 df = (va+vb)**2/(va**2/(len(A)-1)+vb**2/(len(B)-1))
 difference = B.mean()-A.mean()
 ci = t.interval(0.95, df=df, loc=difference, scale=se)
-assert len(A) + len(B) == 20
+if len(A) + len(B) != 20:
+    raise ValueError("Cần đủ 20 học viên chia hai nhóm.")
 print("Học viên:", len(A)+len(B))
 print("Nhóm A/B:", len(A), len(B))
 print(f"Chênh lệch B-A (điểm): {difference:.2f}")
