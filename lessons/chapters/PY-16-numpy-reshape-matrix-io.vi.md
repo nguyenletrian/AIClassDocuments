@@ -153,7 +153,8 @@ Mảng được ghi ra tệp `.npy` rồi đọc lại đủ ba phần tử. Th�
 import numpy as np
 readings = np.array([26,27,25,28,29,24,26,30,27,25])
 daily = readings.reshape(5, 2)
-assert readings.size == daily.size == 10
+if readings.size != 10 or daily.size != 10:
+    raise ValueError("Phải giữ đủ 10 lượt đo sau khi đổi dạng.")
 print("Lượt đo:", readings.size)
 print("Shape:", daily.shape)
 print("Ngày 3 (sáng, chiều):", daily[2].tolist())
@@ -186,7 +187,8 @@ Ngày thứ ba lấy đúng lượt 5–6 trong dãy ban đầu; `reshape` khôn
 import numpy as np
 scores = np.array([[6,7,5],[7,9,8],[8,7,5],[9,9,8],[10,7,5],[6,9,8],[7,7,5],[8,9,8],[9,7,5],[10,9,8],[6,7,5],[7,9,8]], dtype=int)
 by_subject = scores.T
-assert scores.shape == (12, 3) and by_subject.shape == (3, 12)
+if scores.shape != (12, 3) or by_subject.shape != (3, 12):
+    raise ValueError("Chuyển vị phải đổi bảng 12 học viên, 3 môn thành 3 hàng, 12 cột.")
 print("Học viên:", scores.shape[0])
 print("Sau chuyển vị:", by_subject.shape)
 print("Tổng ba môn:", by_subject.sum(axis=1).tolist())
@@ -220,8 +222,10 @@ import numpy as np
 scores = np.array([[6,5,7],[7,7,8],[8,9,9],[9,6,10],[10,8,7],[6,5,8],[7,7,9],[8,9,10],[9,6,7],[10,8,8],[6,5,9],[7,7,10],[8,9,7],[9,6,8],[10,8,9]], dtype=float)
 weights = np.array([0.2, 0.3, 0.5])
 final = scores @ weights
-assert scores.shape == (15, 3) and final.shape == (15,)
-assert np.isclose(weights.sum(), 1.0)
+if scores.shape != (15, 3) or final.shape != (15,):
+    raise ValueError("Cần đủ 15 bộ điểm ba môn và 15 điểm tổng hợp.")
+if not np.isclose(weights.sum(), 1.0):
+    raise ValueError("Tổng trọng số ba môn phải bằng 1.")
 print("Học viên:", len(final))
 print(f"Điểm H01: {final[0]:.2f}")
 print("Đạt từ 8:", int((final >= 8).sum()))
@@ -257,8 +261,10 @@ by_day = values.reshape(6, 3)
 for_audit = by_day.T.copy()
 original = int(by_day[0, 0])
 for_audit[0, 0] = -1
-assert by_day.shape == (6, 3) and for_audit.shape == (3, 6)
-assert int(by_day[0, 0]) == original
+if by_day.shape != (6, 3) or for_audit.shape != (3, 6):
+    raise ValueError("Bảng dữ liệu phải có 6 ngày, 3 lượt và bản đối soát đã chuyển vị.")
+if int(by_day[0, 0]) != original:
+    raise ValueError("Chỉnh sửa bản đối soát không được thay đổi bản dữ liệu gốc.")
 print("Lượt đo:", values.size)
 print("Đối soát:", for_audit.shape)
 print("Đỉnh 6 ngày:", by_day.max(axis=1).tolist())
@@ -299,8 +305,10 @@ with TemporaryDirectory() as folder:
     path = Path(folder) / "stock.npy"
     np.save(path, stocks)
     loaded = np.load(path, allow_pickle=False)
-    assert loaded.shape == (5, 4)
-    assert np.array_equal(loaded, stocks)
+    if loaded.shape != (5, 4):
+        raise ValueError("Tệp đã lưu phải chứa 5 hàng và 4 cột.")
+    if not np.array_equal(loaded, stocks):
+        raise ValueError("Dữ liệu đọc lại phải khớp dữ liệu đã lưu.")
     valid = loaded[loaded >= 0]
     print("Vị trí:", loaded.size)
     print("Shape:", loaded.shape)
