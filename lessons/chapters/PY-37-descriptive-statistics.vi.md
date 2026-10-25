@@ -186,7 +186,7 @@ print("Đơn lớn nhất:", int(amounts.max()))
 
 ```text
 Hóa đơn: 12
-Mean (nghìn đồng): 201.67
+Mean (nghìn đồng): 193.33
 Median (nghìn đồng): 122.50
 Đơn lớn nhất: 1000
 ```
@@ -258,9 +258,9 @@ print("Hiệu chỉnh làm tăng phương sai:", bool(sample_var > pop_var))
 
 ```text
 Lượt đo: 18
-Phương sai quần thể (°C²): 6.917
-Phương sai mẫu (°C²): 7.324
-Std mẫu (°C): 2.706
+Phương sai quần thể (°C²): 7.164
+Phương sai mẫu (°C²): 7.585
+Std mẫu (°C): 2.754
 Hiệu chỉnh làm tăng phương sai: True
 ```
 
@@ -301,7 +301,7 @@ Phiếu: 20
 Thiếu: 1
 Mean (phút): 24.16
 Median (phút): 24.00
-Std mẫu (phút): 2.58
+Std mẫu (phút): 2.54
 ```
 
 Trung bình mô tả 19 phiếu có số, **không đại diện** cho phiếu thiếu nếu lý do thiếu liên quan đến thời gian giao.
