@@ -3,7 +3,7 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "READY_FOR_BATCH_10",
+  "status": "BATCH_10_IN_PROGRESS",
   "last_completed_batch": 9,
   "batches": [
     {
@@ -264,11 +264,21 @@
       "lessons": [
         "PY-46"
       ],
-      "status": "PENDING",
+      "status": "IN_PROGRESS",
       "changed_lessons": [],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "fix/markdown-render-batch-10-20261025",
+      "reviewed_lessons": [
+        "PY-46"
+      ],
+      "inspection": {
+        "visible_html_pipe_entities": 0,
+        "malformed_table_rows": 0,
+        "unescaped_pipes_in_table_code": 0
+      },
+      "notes": "Final batch10 PY-46 independently reviewed: 0 leaked HTML pipe entities, 0 unescaped pipes in Markdown tables and 0 malformed table rows; no lesson change. PR and CI pending. Owner-approved explicit Python readability goal remains deferred until batch10 MERGED and Markdown ledger COMPLETED."
     }
   ],
   "notes": "Separate formatting-only QA workstream. The previously completed 230-scenario/920-MCQ ledger remains unchanged. Never edit outside the current batch. Review full lesson but change only verified formatting errors, commit/CI/merge/record progress before next batch."
