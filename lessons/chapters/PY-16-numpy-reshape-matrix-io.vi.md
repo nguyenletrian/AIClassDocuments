@@ -134,150 +134,192 @@ with TemporaryDirectory() as folder:
 
 Mảng được ghi ra tệp `.npy` rồi đọc lại đủ ba phần tử. Thư mục tạm tự được dọn sau khi thoát khỏi `with`.
 
-## 5. Năm tình huống thực tế
+## 5. Năm tình huống NumPy — từ reshape đến lưu ma trận kiểm kê
 
-### Tình huống 1 — Tổ chức dữ liệu đo theo giờ
+### Tình huống 1 — Cấp 1: Đổi 10 số đo thành bảng 5 ngày × 2 ca
 
-**Từ vựng trong mục:** **Reshape** — đổi hình dạng.
+**Từ vựng trong mục:** **Reshape** — đổi hình dạng; **Shape** — kích thước.
 
-**Tình huống thực tế:** Thiết bị ghi sáu mức nhiệt độ 20, 21, 22, 23, 24, 25 °C theo thứ tự. Sắp dữ liệu thành bảng hai hàng, ba cột.
+**Tình huống thực tế:** Trạm quan trắc nhận **10 số đo nhiệt độ** (°C) theo thứ tự sáng/chiều của **5 ngày**. Một bản ghi là một lần đo, chưa có nhãn hàng/cột. Hãy xếp thành 5 hàng ngày và 2 cột ca, đồng thời đọc lại hai nhiệt độ của ngày thứ ba.
 
-**Vì sao chọn cách giải này?** `reshape(2,3)` giữ nguyên 6 số nhưng đổi hình dạng.
+**Vì sao chọn cách này?** `reshape(5, 2)` chỉ tổ chức lại 10 số đã có, không tính hay tạo số mới. Thứ tự ban đầu quyết định cặp sáng/chiều; nếu bỏ nhãn đơn vị sẽ dễ nhầm ngày với ca.
 
-**Quy trình giải:**
-
-1. Ghi sáu giá trị nhiệt độ theo thứ tự giờ đo.
-2. Đổi thành bảng hai ngày × ba giờ bằng `reshape(2, 3)`.
-3. In bảng và kiểm tra ngày đầu chứa ba số đầu, ngày sau chứa ba số cuối.
+**Quy trình:**
+1. Lưu 10 nhiệt độ theo trình tự ngày–ca.
+2. Kiểm tra số phần tử đúng bằng 5 × 2.
+3. Reshape và tra hàng ngày thứ ba bằng chỉ số 2.
 
 ```python
-# Mục đích: Tổ chức dữ liệu đo theo giờ.
 import numpy as np
-values = np.array([20, 21, 22, 23, 24, 25])
-print(values.reshape(2, 3))
+readings = np.array([26,27,25,28,29,24,26,30,27,25])
+daily = readings.reshape(5, 2)
+assert readings.size == daily.size == 10
+print("Lượt đo:", readings.size)
+print("Shape:", daily.shape)
+print("Ngày 3 (sáng, chiều):", daily[2].tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[20 21 22]
- [23 24 25]]
+Lượt đo: 10
+Shape: (5, 2)
+Ngày 3 (sáng, chiều): [29, 24]
 ```
 
-### Tình huống 2 — Đổi hàng cột báo cáo
+Ngày thứ ba lấy đúng lượt 5–6 trong dãy ban đầu; `reshape` không làm thay đổi giá trị nhiệt độ.
 
-**Từ vựng trong mục:** **Transpose** — chuyển vị.
+### Tình huống 2 — Cấp 2: Chuyển bảng 12 học viên × 3 môn sang bảng theo môn
 
-**Tình huống thực tế:** Trung tâm có bảng điểm hai học viên, ba môn: `(8,7,9)` và `(6,5,8)`. Chuyển hàng thành cột và in kích thước kết quả.
+**Từ vựng trong mục:** **Transpose** — chuyển vị; **Axis** — trục; **Column** — cột.
 
-**Vì sao chọn cách giải này?** `.T` chuyển từ bảng 2×3 thành 3×2.
+**Tình huống thực tế:** Trường có **12 học viên** H01…H12, mỗi hàng gồm ba điểm Toán, Văn, Python (thang 10). Phòng đào tạo muốn đổi góc nhìn thành **3 hàng môn × 12 cột học viên** và tính tổng điểm từng môn để đối chiếu.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Chuyển vị `.T` làm đổi vai trò hàng/cột mà vẫn giữ đủ 36 ô; sau chuyển vị, `sum(axis=1)` cộng 12 học viên của từng hàng môn.
 
-1. Tạo bảng điểm gồm hai hàng học viên và ba cột môn.
-2. Dùng `.T` đổi thành ba hàng môn × hai cột học viên.
-3. In `scores.T.shape` để xác minh `(3, 2)`.
+**Quy trình:**
+1. Tạo bảng điểm 12 × 3 và kiểm tra thứ tự cột.
+2. Chuyển vị bằng `.T` và xác nhận shape 3 × 12.
+3. Cộng từng hàng đã chuyển vị để lấy tổng mỗi môn.
 
 ```python
-# Mục đích: Đổi hàng cột báo cáo.
 import numpy as np
-scores = np.array([[8, 7, 9], [6, 5, 8]])
-print(scores.T.shape)
+scores = np.array([[6,7,5],[7,9,8],[8,7,5],[9,9,8],[10,7,5],[6,9,8],[7,7,5],[8,9,8],[9,7,5],[10,9,8],[6,7,5],[7,9,8]], dtype=int)
+by_subject = scores.T
+assert scores.shape == (12, 3) and by_subject.shape == (3, 12)
+print("Học viên:", scores.shape[0])
+print("Sau chuyển vị:", by_subject.shape)
+print("Tổng ba môn:", by_subject.sum(axis=1).tolist())
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-(3, 2)
+Học viên: 12
+Sau chuyển vị: (3, 12)
+Tổng ba môn: [93,96,78]
 ```
 
-### Tình huống 3 — Điểm tổng kết có trọng số
+Tổng trả theo thứ tự Toán, Văn, Python; thay trục mà không thay dữ liệu là mục đích chính của `transpose`.
 
-**Từ vựng trong mục:** **Matrix multiply** — nhân ma trận.
+### Tình huống 3 — Cấp 3: Nhân ma trận điểm 15 học viên với vector trọng số
 
-**Tình huống thực tế:** Một học viên có điểm ba thành phần `[8,7,9]`, trọng số tương ứng `[0.2,0.3,0.5]`. Tính điểm tổng kết theo trọng số.
+**Từ vựng trong mục:** **Matrix multiplication** — nhân ma trận; **Vector** — vector; **Weights** — trọng số.
 
-**Vì sao chọn cách giải này?** Tích vô hướng `@` nhân từng điểm với trọng số rồi cộng.
+**Tình huống thực tế:** Khóa học có **15 học viên**, mỗi hàng là ba điểm đánh giá: lý thuyết, thực hành, dự án (thang 10). Chính sách giả lập tính điểm tổng kết với trọng số **20%, 30%, 50%**. Cần một điểm tổng kết cho từng học viên và đếm số học viên đạt từ 8 điểm.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Tích ma trận `(15,3) @ (3,)` trả vector `(15,)`, mỗi phần tử là ba điểm **cùng một người** nhân đúng trọng số; khác nhân từng ô một cách không có mục tiêu.
 
-1. Lưu ba điểm môn và ba trọng số theo đúng thứ tự.
-2. Nhân tích vô hướng bằng toán tử `@`.
-3. In điểm tổng kết, tính bằng `8×0.2 + 7×0.3 + 9×0.5`.
+**Quy trình:**
+1. Tạo ma trận có đúng 15 hàng và ba cột đánh giá.
+2. Lưu vector trọng số theo cùng thứ tự, kiểm tra tổng trọng số bằng 1.
+3. Nhân `@`, đếm số điểm tổng kết đạt 8 và in kết quả đầu.
 
 ```python
-# Mục đích: Điểm tổng kết có trọng số.
 import numpy as np
-scores = np.array([8, 7, 9])
-w = np.array([.2, .3, .5])
-print(scores@w)
+scores = np.array([[6,5,7],[7,7,8],[8,9,9],[9,6,10],[10,8,7],[6,5,8],[7,7,9],[8,9,10],[9,6,7],[10,8,8],[6,5,9],[7,7,10],[8,9,7],[9,6,8],[10,8,9]], dtype=float)
+weights = np.array([0.2, 0.3, 0.5])
+final = scores @ weights
+assert scores.shape == (15, 3) and final.shape == (15,)
+assert np.isclose(weights.sum(), 1.0)
+print("Học viên:", len(final))
+print(f"Điểm H01: {final[0]:.2f}")
+print("Đạt từ 8:", int((final >= 8).sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-8.2
+Học viên: 15
+Điểm H01: 6.20
+Đạt từ 8: 7
 ```
 
-### Tình huống 4 — Tạo đặc trưng tổng hợp
+Đây là nhân ma trận thực sự: mười lăm điểm đầu ra tương ứng mười lăm học viên, không phải phép nhân 15 × 3 tạo ra 45 kết quả.
 
-**Từ vựng trong mục:** **Matrix multiplication** — nhân ma trận.
+### Tình huống 4 — Cấp 4: Tái cấu trúc 18 số đo và lưu bản snapshot độc lập
 
-**Tình huống thực tế:** Hai học viên có ba điểm `(8,7,9)` và `(6,5,8)`, cần tạo hai điểm tổng hợp theo ma trận trọng số trong code. In bảng điểm tổng hợp của hai học viên.
+**Từ vựng trong mục:** **Reshape** — đổi hình dạng; **Copy** — bản sao; **Transpose** — chuyển vị.
 
-**Vì sao chọn cách giải này?** Phép `X @ W` nhân mảng dữ liệu 2×3 với trọng số 3×2, cho bảng 2×2.
+**Tình huống thực tế:** Nhà máy nhận **18 số đo mức tiêu thụ điện** (kWh) theo thứ tự ba ca mỗi ngày trong sáu ngày. Cần xếp lại thành bảng 6 × 3, tính tiêu thụ lớn nhất của từng ngày và cho bộ phận đối soát một bảng chuyển vị. Khi hiệu chỉnh bản đối soát, dữ liệu gốc phải giữ nguyên.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `reshape` chia đúng 18 giá trị thành ca/ngày, `.T.copy()` cho bảng 3 × 6 độc lập. Nếu chỉnh trực tiếp trên view `.T`, việc sửa có thể lan ngược vào bảng gốc; vì thế cần copy khi làm bản đối soát.
 
-1. Tạo bảng điểm 2×3 và ma trận trọng số 3×2.
-2. Nhân `X @ W` để tạo hai đặc trưng tổng hợp trên mỗi học viên.
-3. In bảng 2×2 và xác định từng hàng vẫn tương ứng một học viên.
+**Quy trình:**
+1. Tổ chức 18 số thành 6 ngày × 3 ca.
+2. Tính giá trị lớn nhất theo hàng và chuyển vị để xem theo ca.
+3. Sao chép bản chuyển vị, sửa thử một ô và kiểm chứng dữ liệu nguồn không thay đổi.
 
 ```python
-# Mục đích: Tạo đặc trưng tổng hợp.
 import numpy as np
-X = np.array([[8, 7, 9], [6, 5, 8]])
-W = np.array([[.5, 0], [.5, .5], [0, .5]])
-print(X@W)
+values = np.array([16,19,22,25,28,18,21,24,27,17,20,23,26,16,19,22,25,28], dtype=int)
+by_day = values.reshape(6, 3)
+for_audit = by_day.T.copy()
+original = int(by_day[0, 0])
+for_audit[0, 0] = -1
+assert by_day.shape == (6, 3) and for_audit.shape == (3, 6)
+assert int(by_day[0, 0]) == original
+print("Lượt đo:", values.size)
+print("Đối soát:", for_audit.shape)
+print("Đỉnh 6 ngày:", by_day.max(axis=1).tolist())
+print("Nguồn đầu:", int(by_day[0, 0]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[[7.5 8. ]
- [5.5 6.5]]
+Lượt đo: 18
+Đối soát: (3, 6)
+Đỉnh 6 ngày: [22,28,27,23,26,28]
+Nguồn đầu: 16
 ```
 
-### Tình huống 5 — Lưu và đọc mảng an toàn
+Dữ liệu theo ca là kWh mỗi lượt, không phải công suất tức thời. Bản chỉnh sửa `for_audit` độc lập với bảng gốc vì đã copy.
 
-**Từ vựng trong mục:** **Serialization** — lưu dữ liệu.
+### Tình huống 5 — Cấp 5: Lưu và phục hồi mảng 20 kiểm kê theo hình dạng 5 × 4
 
-**Tình huống thực tế:** Nhà phân tích có dãy số `[3,5,7]` cần lưu để đọc lại. Ghi vào file tạm `.npy`, tải lại và in đúng các số.
+**Từ vựng trong mục:** **np.save** — lưu mảng NPY; **np.load** — đọc mảng NPY; **Validation** — kiểm dữ liệu.
 
-**Vì sao chọn cách giải này?** `np.save` và `np.load(..., allow_pickle=False)` dùng định dạng mảng NumPy.
+**Tình huống thực tế:** Một kho có **20 vị trí kiểm kê**: 5 kệ × 4 ngăn. Mỗi hàng nhập là số sản phẩm ghi nhận tại một ngăn; vị trí thứ 14 có giá trị **-1** để đánh dấu kiểm kê lỗi, không phải tồn kho âm hợp lệ. Nhân viên cần chuyển dữ liệu thành bảng, kiểm tra có bao nhiêu ngăn hợp lệ, sau đó lưu và đọc lại **định dạng NPY trong thư mục tạm**, xác nhận dữ liệu giữ nguyên.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `np.save` giữ kiểu và hình dạng mảng, `np.load(..., allow_pickle=False)` tránh dùng cơ chế đối tượng không cần thiết. Lưu/đọc giúp chia sẻ kết quả đã kiểm chứng mà không phụ thuộc việc hiển thị lại 20 số trên màn hình.
 
-1. Tạo mảng số và thư mục tạm làm nơi lưu.
-2. Dùng `np.save` ghi `.npy`, `np.load(..., allow_pickle=False)` đọc lại.
-3. In mảng đã khôi phục, đối chiếu với dữ liệu gốc.
+**Quy trình:**
+1. Tạo mảng 20 số theo vị trí, reshape thành 5 × 4.
+2. Lưu `.npy` trong thư mục tạm, đọc lại với `allow_pickle=False`.
+3. Xác nhận shape/kiểu và từng phần tử trùng bản gốc; chỉ tổng hợp 19 ô không âm.
 
 ```python
-# Mục đích: Lưu và đọc mảng an toàn.
-import numpy as np
 from pathlib import Path
 from tempfile import TemporaryDirectory
+import numpy as np
+values = np.array([10,17,24,11,18,25,12,19,26,13,20,27,14,-1,28,15,22,29,16,23], dtype=int)
+stocks = values.reshape(5, 4)
 with TemporaryDirectory() as folder:
-    p = Path(folder)/"data.npy"
-    np.save(p, np.array([3, 5, 7]))
-    print(np.load(p, allow_pickle=False))
+    path = Path(folder) / "stock.npy"
+    np.save(path, stocks)
+    loaded = np.load(path, allow_pickle=False)
+    assert loaded.shape == (5, 4)
+    assert np.array_equal(loaded, stocks)
+    valid = loaded[loaded >= 0]
+    print("Vị trí:", loaded.size)
+    print("Shape:", loaded.shape)
+    print("Ô hợp lệ:", valid.size)
+    print("Tổng món hợp lệ:", int(valid.sum()))
+    print("Giữ nguyên dữ liệu:", bool(np.array_equal(loaded, stocks)))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[3 5 7]
+Vị trí: 20
+Shape: (5, 4)
+Ô hợp lệ: 19
+Tổng món hợp lệ: 369
+Giữ nguyên dữ liệu: True
 ```
+
+Ngăn -1 được giữ lại trong file để kiểm toán, nhưng không đưa vào số lượng món hợp lệ. Chỉ đọc file NPY đáng tin cậy, không tải file không rõ nguồn.
 
 ## 6. Sai lầm thường gặp
 
