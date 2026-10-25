@@ -29,7 +29,7 @@ def task02_frequency(values):
     bins=[0,60,120,180,240,360,500]
     labels=["0–<60","60–<120","120–<180","180–<240","240–<360","360–<500"]
     groups=pd.cut(values,bins=bins,labels=labels,right=False,include_lowest=True)
-    freq=groups.value_counts(sort=False)
+    freq=pd.Series(groups).value_counts(sort=False)
     frame=pd.DataFrame({"frequency":freq})
     frame["cumulative"]=frame["frequency"].cumsum()
     assert frame["frequency"].sum()==len(values)
