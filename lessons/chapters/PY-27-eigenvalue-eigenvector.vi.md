@@ -41,6 +41,18 @@
 
 Một **eigenvector** là vector khác không mà khi nhân với ma trận vuông A, nó chỉ đổi **độ lớn hoặc đảo chiều**, không rời khỏi đường phương ban đầu: `A @ v = λ*v`. Ví dụ ma trận `diag(2,3)` nhân vector `[0,1]` cho `[0,3]`, vẫn nằm trên trục tung. Điều kiện là vector khác không và phù hợp số chiều của A; vector riêng không phải bất kỳ vector nào.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+A = np.diag([2.0, 3.0])
+v = np.array([0.0, 1.0])
+print(A @ v)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Minh họa vector riêng giữ nguyên hướng khi bị ma trận giãn theo trục.
 # Dữ liệu: A=diag(2,3) giãn x gấp 2, y gấp 3; v=[0,1] trùng trục y.
@@ -69,6 +81,17 @@ print(A @ v)
 
 **Trị riêng** λ cho biết A phóng đại, thu nhỏ hoặc đảo chiều **vector riêng** bao nhiêu lần. Với `diag(2,3)`, hướng trục x có λ=2 và trục y có λ=3. Đó là tính chất của ma trận A; trị riêng **không** tự động mang nghĩa phương sai trừ khi A đang là **ma trận hiệp phương sai**. `np.linalg.eigvalsh` lấy các trị riêng của ma trận đối xứng theo thứ tự tăng dần.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+A = np.diag([2.0, 3.0])
+print(np.linalg.eigvalsh(A))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Đọc các trị riêng của ma trận đường chéo đối xứng bằng eigvalsh().
 # Dữ liệu: A là ma trận 2×2 đối xứng, hệ số giãn theo hai trục bằng 2 và 3.
@@ -94,6 +117,17 @@ Hai trị riêng là 2 và 3, tương ứng mức co giãn của hai trục tọ
 **Từ vựng trong mục:** **Covariance** — hiệp phương sai; **Feature** — đặc trưng.
 
 **Hiệp phương sai** đo xu hướng hai đặc trưng tăng/giảm cùng nhau. Dữ liệu có ba **hàng mẫu** `(1,2)`, `(2,4)`, `(3,6)` và hai **cột đặc trưng** x, y, trong đó y=2x. `np.cov(X,rowvar=False)` lấy **cột là biến**, **hàng là quan sát**, trả ma trận 2×2. Các ô đường chéo là phương sai từng biến, hai ô còn lại là hiệp phương sai. Không nhầm covariance với tương quan chuẩn hóa từ −1 đến 1.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+X = np.array([[1, 2], [2, 4], [3, 6]])
+print(np.cov(X, rowvar=False))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính covariance của hai cột số liệu có quan hệ y=2x.
@@ -121,6 +155,18 @@ Biến y có phương sai gấp bốn x và hiệp phương sai dương 2, vì y
 **Từ vựng trong mục:** **Principal direction** — hướng chính; **PCA** — phân tích thành phần chính.
 
 Với **ma trận hiệp phương sai đối xứng**, vector riêng của **trị riêng lớn nhất** biểu diễn hướng có phương sai lớn nhất. Đây là nguyên lý của PCA. Ví dụ hiệp phương sai `diag(2,3)` có phương sai theo x là 2 và theo y là 3, nên hướng chính là trục y. **Dấu của eigenvector không cố định**: `[0,1]` và `[0,-1]` đều mô tả cùng một trục. Lấy `abs` khi chỉ muốn minh họa độ lớn thành phần.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+C = np.diag([2.0, 3.0])
+values, vectors = np.linalg.eigh(C)
+print(np.abs(vectors[:, -1]))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Chọn vector riêng ứng với trị riêng lớn nhất để hiểu hướng PCA.
@@ -159,6 +205,23 @@ Hướng có phương sai lớn nhất nằm trên trục y; đổi dấu vector
 1. Tạo 10 hàng × 2 cột và tính covariance với cột là đặc trưng.
 2. Dùng `eigvalsh` đọc hai trị riêng đã sắp tăng.
 3. Chọn trục có phương sai lớn nhất và diễn giải.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+X = np.array([[1,20],[2,20],[3,20],[4,20],[5,20],[6,20],[7,20],[8,20],[9,20],[10,20]], dtype=float)
+C = np.cov(X, rowvar=False)
+values = np.linalg.eigvalsh(C)
+if X.shape != (10, 2):
+    raise ValueError("Cần 10 lượt đo với hai đại lượng.")
+print("Lượt đo:", len(X))
+print("Trị riêng nhỏ:", f"{values[0]:.2f}")
+print("Trị riêng lớn:", f"{values[-1]:.2f}")
+print("Y không thay đổi:", bool(np.all(X[:, 1] == 20)))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Kiểm một cột không đổi khiến một trị riêng bằng 0 trong 10 mẫu.
@@ -206,6 +269,25 @@ Y không thay đổi: True
 2. Tính các trị riêng qua `eigvalsh` để tránh số phức do sai số thuật toán.
 3. Đếm số trị riêng dương theo ngưỡng nhỏ.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+X = np.array([[1,2],[2,4],[3,6],[4,8],[5,10],[6,12],[7,14],[8,16],[9,18],[10,20],[11,22],[12,24]], dtype=float)
+C = np.cov(X, rowvar=False)
+eigenvalues = np.linalg.eigvalsh(C)
+if X.shape != (12, 2):
+    raise ValueError("Cần đúng 12 mẫu hai chiều.")
+print("Mẫu:", len(X))
+labels = []
+for value in eigenvalues:
+    labels.append(f"{value:.2f}")
+print("Trị riêng:", ", ".join(labels))
+print("Chiều có biến thiên:", int((eigenvalues > 1e-9).sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Đếm hướng biến thiên độc lập khi 12 điểm đều nằm trên đường thẳng.
 # Dữ liệu: 12 điểm hai chiều y=2x; thực chất chỉ một hướng độc lập.
@@ -252,6 +334,27 @@ Trị riêng 0 không nói rằng một cột toàn số 0, mà nói hai cột k
 1. Tạo 15 mẫu lưới và tính covariance 2×2.
 2. Nhận trị riêng và cột véc-tơ riêng bằng `eigh`.
 3. Kiểm chứng từng cột véc-tơ qua quan hệ riêng.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+X = np.array([[0,0],[1,0],[2,0],[3,0],[4,0],[0,1],[1,1],[2,1],[3,1],[4,1],[0,2],[1,2],[2,2],[3,2],[4,2]], dtype=float)
+C = np.cov(X, rowvar=False)
+values, vectors = np.linalg.eigh(C)
+verified = np.allclose(C @ vectors, vectors * values)
+if X.shape != (15, 2):
+    raise ValueError("Cần đúng 15 điểm hai chiều.")
+print("Điểm:", len(X))
+labels = []
+for value in values:
+    labels.append(f"{value:.3f}")
+print("Trị riêng:", ", ".join(labels))
+print("Kiểm chứng:", bool(verified))
+print("Số hướng:", vectors.shape[1])
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Kiểm phương trình C@v=λv cho các vector riêng của 15 điểm hai chiều.
@@ -305,6 +408,29 @@ Chỉ khi nhân ma trận hiệp phương sai với **đúng véc-tơ riêng** m
 1. Tính covariance của 18 điểm quan sát.
 2. Sắp hai trị riêng giảm dần và lấy tỷ trọng trị lớn trong tổng.
 3. Kiểm tra hướng chính bằng giá trị tuyệt đối của véc-tơ riêng, tránh phụ thuộc dấu.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+points = np.array([[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[0,2],[1,2],[2,2],[3,2],[4,2],[5,2]], dtype=float)
+C = np.cov(points, rowvar=False)
+values, vectors = np.linalg.eigh(C)
+order = np.argsort(values)[::-1]
+principal = np.abs(vectors[:, order[0]])
+if points.shape != (18, 2):
+    raise ValueError("Cần đúng 18 điểm hai chiều.")
+print("Điểm:", len(points))
+if principal[0] > principal[1]:
+    principal_axis = "x"
+else:
+    principal_axis = "y"
+print("Hướng chính:", principal_axis)
+print(f"Tỷ lệ phương sai lớn nhất: {100*values[order[0]]/values.sum():.2f}%")
+print("Số chiều:", len(values))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Chọn hướng phương sai chính trên lưới 18 điểm và tính tỷ lệ giữ được.
@@ -361,6 +487,30 @@ Trị riêng chỉ có ý nghĩa **phương sai** vì ma trận ở đây là co
 1. Căn giữa bảng 20×4, tính covariance và `eigh`.
 2. Chọn hai eigenvector ứng với hai trị riêng lớn nhất rồi chiếu.
 3. Tái tạo bảng, kiểm tra sai số và báo tỷ lệ phương sai của hướng đầu.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+X = np.array([[0,0,0,0],[1,2,0,0],[2,4,0,0],[3,6,0,0],[4,8,0,0],[0,0,1,3],[1,2,1,3],[2,4,1,3],[3,6,1,3],[4,8,1,3],[0,0,2,6],[1,2,2,6],[2,4,2,6],[3,6,2,6],[4,8,2,6],[0,0,3,9],[1,2,3,9],[2,4,3,9],[3,6,3,9],[4,8,3,9]], dtype=float)
+centered = X - X.mean(axis=0)
+C = np.cov(X, rowvar=False)
+values, vectors = np.linalg.eigh(C)
+order = np.argsort(values)[::-1]
+basis = vectors[:, order[:2]]
+projected = centered @ basis
+recreated = projected @ basis.T + X.mean(axis=0)
+if X.shape != (20, 4) or projected.shape != (20, 2):
+    raise ValueError("Cần 20 mẫu bốn đặc trưng và hai chiều sau PCA.")
+print("Hồ sơ:", len(X))
+print("Cột gốc:", X.shape[1])
+print("Cột sau PCA:", projected.shape[1])
+print("Trị riêng dương:", int((values > 1e-9).sum()))
+print(f"Hướng đầu giữ: {100*values[order[0]]/values.sum():.2f}%")
+print("Tái tạo đúng:", bool(np.allclose(recreated, X)))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Chiếu 20 hồ sơ bốn đặc trưng phụ thuộc tuyến tính xuống hai chiều rồi tái tạo.
