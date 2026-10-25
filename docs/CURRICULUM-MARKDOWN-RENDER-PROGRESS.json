@@ -3,8 +3,8 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_02_QA_PASSED_WAIT_MERGE",
-  "last_completed_batch": 1,
+  "status": "READY_FOR_BATCH_03",
+  "last_completed_batch": 2,
   "batches": [
     {
       "batch": 1,
@@ -33,18 +33,18 @@
         "PY-09",
         "PY-10"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-07"
       ],
       "pr": 134,
-      "merged_commit": null,
-      "ci_run": 40165967753,
+      "merged_commit": "ffcea770ffc9dd02428aa728aaabfdffcb7ed8cc",
+      "ci_run": 40166076474,
       "branch": "fix/markdown-render-batch-02-20261025",
       "lesson_commits": {
         "PY-07": "b1f79d00e340b08d55c1c1e746c88d85bbb3d2d4"
       },
-      "notes": "PR #134 initial CI 40165967753 PASS. Batch02 PY-06..10 reviewed, only PY-07 Markdown explanation corrected one literal `&#124;` to real union operator `|`; other four files untouched. Rendering regression and existing curriculum checks PASS; final CI on QA update and merge still pending."
+      "notes": "PR #134 squash merge ffcea770ffc9dd02428aa728aaabfdffcb7ed8cc, final-head CI 40166076474 PASS. Five chapters PY-06..PY-10 examined; only PY-07 changed: Set union inline-code `&#124;` replaced by `|` in explanation. PY-06,08,09,10 unchanged. Markdown regression and existing curriculum suite PASS. Next PY-11..15."
     },
     {
       "batch": 3,
