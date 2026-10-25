@@ -1,0 +1,16 @@
+order_id,product,category,quantity,unit_price,month
+OD001,Notebook,Stationery,3,25,1
+OD002,Mouse,Electronics,2,180,2
+OD003,Keyboard,Electronics,1,350,3
+OD004,Bottle,Household,4,70,4
+OD005,Pen,Stationery,10,8,5
+OD006,Lamp,Household,2,240,6
+OD007,Cable,Electronics,5,35,7
+OD008,Paper,Stationery,6,45,8
+OD009,Notebook,Stationery,8,25,9
+OD010,Mouse,Electronics,3,180,10
+OD011,Bottle,Household,2,70,11
+OD012,Keyboard,Electronics,2,350,12
+OD013,Lamp,Household,1,240,1
+OD014,Pen,Stationery,12,8,2
+OD015,Cable,Electronics,7,35,3
