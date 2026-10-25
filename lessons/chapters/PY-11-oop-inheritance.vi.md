@@ -41,6 +41,24 @@
 
 Cửa hàng có nhiều loại sản phẩm, nhưng mỗi món đều có tên. Lớp cha `Product` giữ tên chung, còn lớp con `Electronic(Product)` nhận lại cách lưu tên và có thêm thuộc tính riêng `warranty_months` (tháng bảo hành). `super().__init__(name)` gọi phương thức khởi tạo của lớp cha; nhờ vậy không phải viết lại cách lưu tên ở mọi loại sản phẩm. Đây là **kế thừa**: lớp con dùng lại và mở rộng hành vi, thuộc tính từ lớp cha.
 
+**No Note — Không chú thích**
+
+```python
+class Product:
+    def __init__(self, name):
+        self.name = name
+
+class Electronic(Product):
+    def __init__(self, name, warranty_months):
+        super().__init__(name)
+        self.warranty_months = warranty_months
+
+phone = Electronic('Phone', 12)
+print(phone.name, phone.warranty_months)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Dùng Electronic kế thừa Product để tái sử dụng tên và bổ sung tháng bảo hành.
 # Dữ liệu: Object Phone có bảo hành 12 tháng.
@@ -79,6 +97,23 @@ Phone 12
 
 Giả sử ứng dụng có thông báo bằng email và tin nhắn. Cả hai đều có phương thức `send(message)`, nhưng kết quả khác nhau tùy loại. **Đa hình** nghĩa là code gọi cùng một tên phương thức trên các đối tượng khác nhau mà mỗi đối tượng tự quyết định cách xử lý. Vòng `for` phía dưới không cần viết hai nhánh kiểm tra loại thông báo.
 
+**No Note — Không chú thích**
+
+```python
+class Email:
+    def send(self, message):
+        return 'Email: ' + message
+
+class SMS:
+    def send(self, message):
+        return 'SMS: ' + message
+
+for sender in [Email(), SMS()]:
+    print(sender.send('Hello'))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Cùng lời gọi send() trên Email và SMS tạo kết quả theo loại đối tượng.
 # Dữ liệu: Chuỗi Hello được chuyển qua hai loại object; không gửi ra mạng.
@@ -116,6 +151,25 @@ Cùng lời gọi `send('Hello')` nhưng hai loại đối tượng trả về h
 **Từ vựng trong mục:** **Abstract class** — lớp trừu tượng; **Abstract method** — phương thức trừu tượng.
 
 Khi mọi bộ gửi thông báo **bắt buộc** phải có `send()`, ta tạo lớp trừu tượng `Notifier(ABC)` và đánh dấu `@abstractmethod`. Lớp này quy định hợp đồng nhưng chưa đưa ra cách gửi cụ thể. Lớp `Console` phải cài đặt `send()` mới tạo đối tượng được. Chỉ kế thừa `ABC` mà **không có phương thức trừu tượng** thì chưa áp đặt yêu cầu đó.
+
+**No Note — Không chú thích**
+
+```python
+from abc import ABC, abstractmethod
+
+class Notifier(ABC):
+    @abstractmethod
+    def send(self, message):
+        pass
+
+class Console(Notifier):
+    def send(self, message):
+        return 'Console: ' + message
+
+print(Console().send('Hello'))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Quy định phương thức send bắt buộc bằng lớp trừu tượng ABC.
@@ -156,6 +210,22 @@ Console: Hello
 **Từ vựng trong mục:** **Override** — ghi đè; **Inheritance** — kế thừa.
 
 Lớp cha `Shipping` có phí mặc định 0 đồng, nhưng giao hàng nhanh cần phí 35.000 đồng. Lớp con `Express` **ghi đè (override)** phương thức `fee()` bằng định nghĩa mới cùng tên. Khi gọi `Express().fee()`, Python dùng bản của `Express`, không dùng bản của `Shipping`. Đây là một cách để đa hình xuất hiện thông qua quan hệ kế thừa.
+
+**No Note — Không chú thích**
+
+```python
+class Shipping:
+    def fee(self):
+        return 0
+
+class Express(Shipping):
+    def fee(self):
+        return 35000
+
+print(Shipping().fee(), Express().fee())
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Lớp Express ghi đè phương thức fee của lớp Shipping.
@@ -199,6 +269,45 @@ Hai đối tượng gọi cùng `fee()` nhưng phí khác nhau: gói thường 0
 1. Định nghĩa lớp `Product` giữ tên và có phương thức `category()`.
 2. Tạo lớp `Digital` và `Physical` ghi đè tên nhóm.
 3. Tạo 10 đối tượng và đếm mỗi kiểu.
+
+**No Note — Không chú thích**
+
+```python
+data = [("Laptop","digital"),("Bàn","physical"),("Chuột","digital"),("Ghế","physical"),("Màn hình","digital"),("Sổ","physical"),("Bàn phím","digital"),("Bút","physical"),("Tablet","digital"),("Tủ","physical")]
+class Product:
+    def __init__(self, name):
+        self.name = name
+    def category(self):
+        return "other"
+class Digital(Product):
+    def category(self):
+        return "digital"
+class Physical(Product):
+    def category(self):
+        return "physical"
+items = []
+for name, kind in data:
+    if kind == "digital":
+        product = Digital(name)
+    else:
+        product = Physical(name)
+    items.append(product)
+if len(items) != 10:
+    raise ValueError("Cần tạo đủ 10 mặt hàng.")
+print("Sản phẩm:", len(items))
+print("Đầu tiên:", items[0].name, items[0].category())
+digital_count = 0
+physical_count = 0
+for product in items:
+    if product.category() == "digital":
+        digital_count += 1
+    if product.category() == "physical":
+        physical_count += 1
+print("Thiết bị:", digital_count)
+print("Đồ dùng:", physical_count)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tạo 10 sản phẩm Digital/Physical và đếm qua cùng phương thức category.
@@ -281,6 +390,43 @@ Lớp con không cần viết lại `__init__()` vì dùng được hành vi kh�
 2. Tạo hai lớp cài đặt `send()` với tiền tố kết quả riêng.
 3. Duyệt 12 yêu cầu, chọn đối tượng và tổng hợp theo kênh.
 
+**No Note — Không chú thích**
+
+```python
+from abc import ABC, abstractmethod
+channels = ["email","screen","email","screen","screen","email","screen","email","email","screen","email","screen"]
+class Notifier(ABC):
+    @abstractmethod
+    def send(self, message):
+        pass
+class EmailNotifier(Notifier):
+    def send(self, message):
+        return "email:" + message
+class ScreenNotifier(Notifier):
+    def send(self, message):
+        return "screen:" + message
+notifiers = {"email": EmailNotifier(), "screen": ScreenNotifier()}
+results = []
+for i, channel in enumerate(channels, 1):
+    message = notifiers[channel].send(f"N{i:02d}")
+    results.append(message)
+if len(results) != 12:
+    raise ValueError("Cần xử lý đủ 12 thông báo.")
+print("Yêu cầu:", len(results))
+email_count = 0
+screen_count = 0
+for text in results:
+    if text.startswith("email:"):
+        email_count += 1
+    if text.startswith("screen:"):
+        screen_count += 1
+print("Kênh email:", email_count)
+print("Kênh màn hình:", screen_count)
+print("Ví dụ:", results[0])
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Dùng giao diện Notifier chung để tạo 12 thông báo email/screen giả lập.
 # Dữ liệu: 12 loại kênh email/screen, mã thông báo N01..N12.
@@ -359,6 +505,48 @@ Có hai lớp con nhưng chỉ một lời gọi `send()`. Trả chuỗi xác nh
 1. Định nghĩa lớp cha `Shipping` với `fee()` mặc định 0.
 2. Hai lớp con `Express`/`Cold` ghi đè phí và dùng `super()` để lưu loại.
 3. Tạo 15 đối tượng, cộng kết quả gọi cùng một phương thức.
+
+**No Note — Không chú thích**
+
+```python
+types = ["standard","express","cold","standard","express","standard","cold","express","express","standard","cold","standard","express","cold","standard"]
+class Shipping:
+    def __init__(self, kind):
+        self.kind = kind
+    def fee(self):
+        return 0
+class Express(Shipping):
+    def __init__(self):
+        super().__init__("express")
+    def fee(self):
+        return 35000
+class Cold(Shipping):
+    def __init__(self):
+        super().__init__("cold")
+    def fee(self):
+        return 50000
+def create_standard_shipping():
+    return Shipping("standard")
+
+factory = {"standard": create_standard_shipping,
+           "express": Express, "cold": Cold}
+orders = []
+for kind in types:
+    orders.append(factory[kind]())
+if len(orders) != 15:
+    raise ValueError("Cần xử lý đủ 15 đơn vận chuyển.")
+print("Đơn:", len(orders))
+cold_count = 0
+total_fee = 0
+for order in orders:
+    if order.kind == "cold":
+        cold_count += 1
+    total_fee += order.fee()
+print("Giao lạnh:", cold_count)
+print("Tổng phí (đồng):", total_fee)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tạo 15 kiểu vận chuyển bằng factory và tính phí theo lớp con.
@@ -445,6 +633,49 @@ Phí giao lạnh và nhanh cao hơn loại thường vì chính sách giả đ�
 1. Tạo lớp cha lưu số đo và cung cấp giao diện `read`.
 2. Ghi đè `read()` cho nhiệt độ/độ ẩm theo đơn vị.
 3. Duyệt 18 đối tượng, loại dòng thiếu và đếm kết quả.
+
+**No Note — Không chú thích**
+
+```python
+records = [("temp",24),("humidity",56),("temp",25),("humidity",58),("temp",None),("humidity",60),("temp",27),("humidity",62),("temp",28),("humidity",64),("temp",29),("humidity",66),("temp",30),("humidity",None),("temp",31),("humidity",70),("temp",32),("humidity",72)]
+class Sensor:
+    def __init__(self, value):
+        self.value = value
+    def read(self):
+        raise NotImplementedError
+class Temperature(Sensor):
+    def read(self):
+        if self.value is None:
+            return None
+        return f"{self.value:.1f} °C"
+class Humidity(Sensor):
+    def read(self):
+        if self.value is None:
+            return None
+        return f"{self.value:.1f} %"
+sensors = []
+for kind, value in records:
+    if kind == "temp":
+        sensor = Temperature(value)
+    else:
+        sensor = Humidity(value)
+    sensors.append(sensor)
+results = []
+valid = []
+for sensor in sensors:
+    text = sensor.read()
+    results.append(text)
+    if text is not None:
+        valid.append(text)
+if len(results) != 18:
+    raise ValueError("Cần nhận đủ 18 bản ghi cảm biến.")
+print("Cảm biến:", len(results))
+print("Hợp lệ:", len(valid))
+print("Thiếu:", len(results) - len(valid))
+print("Mẫu đầu:", results[0])
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Nhận 18 mẫu nhiệt độ/độ ẩm bằng class đa hình, giữ None là dữ liệu thiếu.
@@ -533,6 +764,49 @@ Cùng lời gọi `read()` nhưng cách tạo chuỗi khác nhau tùy lớp con;
 1. Tạo giao diện `Payment(ABC)` giữ số tiền hợp lệ và bắt buộc phương thức `fee()`.
 2. Tạo `Bank` và `Card` ghi đè `fee()` theo chính sách giả lập.
 3. Duyệt 20 giao dịch, ghi mã sai, cộng phí các đối tượng hợp lệ và đối chiếu số bản ghi.
+
+**No Note — Không chú thích**
+
+```python
+from abc import ABC, abstractmethod
+amounts = [100000,125000,150000,175000,200000,225000,None,100000,125000,150000,175000,200000,225000,250000,100000,-10000,150000,175000,200000,225000]
+methods = ["bank","card","card","bank","card","card","bank","card","card","bank","card","card","bank","card","card","bank","card","card","bank","card"]
+class Payment(ABC):
+    def __init__(self, amount):
+        if not isinstance(amount, (int, float)) or amount < 0:
+            raise ValueError("Số tiền không hợp lệ")
+        self.amount = amount
+    @abstractmethod
+    def fee(self):
+        pass
+class Bank(Payment):
+    def fee(self):
+        return 2500
+class Card(Payment):
+    def fee(self):
+        return round(self.amount * 0.02)
+valid, invalid = [], []
+for i, (amount, method) in enumerate(zip(amounts, methods), 1):
+    try:
+        if method == "bank":
+            payment = Bank(amount)
+        else:
+            payment = Card(amount)
+        valid.append(payment)
+    except ValueError:
+        invalid.append(f"P{i:02d}")
+if len(amounts) != 20 or len(valid) + len(invalid) != 20:
+    raise ValueError("Cần đối chiếu đủ 20 giao dịch, kể cả giao dịch sai.")
+print("Giao dịch:", len(amounts))
+print("Hợp lệ:", len(valid))
+print("Cần sửa:", ", ".join(invalid))
+total_fee = 0
+for item in valid:
+    total_fee += item.fee()
+print("Phí tổng (đồng):", total_fee)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Xử lý 20 thanh toán, chặn số tiền sai và tính phí Bank/Card.
