@@ -37,11 +37,11 @@ class Batch02ScenarioTests(unittest.TestCase):
                                        part, flags=re.MULTILINE | re.DOTALL)
                     outputs = re.findall(r"^\x60\x60\x60text\n(.*?)^\x60\x60\x60$",
                                          part, flags=re.MULTILINE | re.DOTALL)
-                    self.assertEqual(len(codes), 1)
+                    self.assertEqual(len(codes), 2, 'One No Note and one annotated original')
                     self.assertEqual(len(outputs), 1)
                     with tempfile.TemporaryDirectory() as wd:
                         run = subprocess.run(
-                            [sys.executable, "-I", "-B", "-c", codes[0]],
+                            [sys.executable, "-I", "-B", "-c", codes[1]],
                             cwd=wd, capture_output=True, text=True,
                             encoding="utf-8", timeout=15,
                         )
