@@ -137,7 +137,7 @@ Dòng đầu là cross-entropy của nhãn đúng; dòng sau là KL từ phân p
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Đánh giá sai số giá nhà bằng MSE
+### Tình huống 1 — Đánh giá sai số giá nhà bằng MSE · Cấp 1: MSE cơ bản
 
 **Tình huống thực tế:** Hai căn nhà có giá thực tế `[100,200]` và dự báo `[110,170]`, tất cả cùng đơn vị triệu đồng. Cần đánh giá mô hình bằng mức phạt nhấn mạnh dự báo sai lớn.
 
@@ -166,7 +166,28 @@ print(np.mean((y_true - y_pred) ** 2))
 
 MSE bằng 500 (triệu đồng)², không phải sai số tiền trung bình 500 triệu.
 
-### Tình huống 2 — Đo lỗi trung bình dễ hiểu bằng MAE
+**Bài thực hành nâng cấp — cấp 1/5:** Nhóm dự báo có **10 giá trị doanh thu thật** (triệu đồng), mỗi dòng tương ứng một giao dịch có dự đoán đi kèm. Hãy tính MSE cho 10 cặp giá trị thực/dự đoán. Ở cấp 4–5 có bản ghi thiếu giá trị thật; loại chúng khi tính loss và nêu số mẫu hợp lệ.
+
+```python
+import numpy as np
+# Mỗi hàng là một giá trị doanh thu thật và một dự đoán, triệu đồng.
+actual = np.array([20, 23, 26, 29, 32, 35, 38, 41, 44, 47],dtype=float)
+valid = actual[np.isfinite(actual)]
+predicted = valid + np.array([(-1)**k*(1+k%5) for k in range(len(valid))])
+error = predicted-valid
+label = (valid>=45).astype(int)
+prob = np.clip(0.2+0.6*valid/100,0.01,0.99)
+p = np.histogram(valid,bins=4)[0].astype(float)+1
+p = p/p.sum()
+q = np.full(4,0.25)
+result = round(float(np.mean(error**2)),3)
+print("Số quan sát:",len(actual))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đếm 10 mẫu đầu vào, nhưng loss chỉ dùng các cặp thật/dự đoán hợp lệ; MSE đo sai số bình phương còn MAE giữ đơn vị triệu đồng.
+
+### Tình huống 2 — Đo lỗi trung bình dễ hiểu bằng MAE · Cấp 2: MAE nhiều quan sát
 
 **Tình huống thực tế:** Ba kết quả thực tế `[10,20,30]` và dự báo `[9,19,50]` cùng đơn vị có một dự báo sai lớn ở vị trí cuối. Cần đo sai lệch trung bình theo đơn vị gốc.
 
@@ -195,7 +216,28 @@ print(round(float(np.mean(np.abs(y_true - y_pred))), 3))
 
 Độ lệch trung bình tuyệt đối khoảng 7.333 đơn vị gốc.
 
-### Tình huống 3 — Áp dụng Huber cho số đo nhiễu
+**Bài thực hành nâng cấp — cấp 2/5:** Nhóm dự báo có **12 giá trị doanh thu thật** (triệu đồng), mỗi dòng tương ứng một giao dịch có dự đoán đi kèm. Hãy tính MAE của 12 cặp để đọc sai số đúng đơn vị. Ở cấp 4–5 có bản ghi thiếu giá trị thật; loại chúng khi tính loss và nêu số mẫu hợp lệ.
+
+```python
+import numpy as np
+# Mỗi hàng là một giá trị doanh thu thật và một dự đoán, triệu đồng.
+actual = np.array([20, 23, 26, 29, 32, 35, 38, 41, 44, 47, 50, 53],dtype=float)
+valid = actual[np.isfinite(actual)]
+predicted = valid + np.array([(-1)**k*(1+k%5) for k in range(len(valid))])
+error = predicted-valid
+label = (valid>=45).astype(int)
+prob = np.clip(0.2+0.6*valid/100,0.01,0.99)
+p = np.histogram(valid,bins=4)[0].astype(float)+1
+p = p/p.sum()
+q = np.full(4,0.25)
+result = round(float(np.mean(np.abs(error))),3)
+print("Số quan sát:",len(actual))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đếm 12 mẫu đầu vào, nhưng loss chỉ dùng các cặp thật/dự đoán hợp lệ; MSE đo sai số bình phương còn MAE giữ đơn vị triệu đồng.
+
+### Tình huống 3 — Áp dụng Huber cho số đo nhiễu · Cấp 3: Huber với nhiễu
 
 **Tình huống thực tế:** Ba sai số thiết bị là `[−1,2,5]` đơn vị đo. Dùng Huber với ngưỡng δ=1 để tăng phạt tuyến tính khi lỗi lớn.
 
@@ -229,7 +271,28 @@ print(round(float(loss.mean()), 3))
 
 Loss Huber trung bình khoảng 2.167 cho ba sai số với δ=1.
 
-### Tình huống 4 — Tính cross-entropy của nhãn đúng
+**Bài thực hành nâng cấp — cấp 3/5:** Nhóm dự báo có **15 giá trị doanh thu thật** (triệu đồng), mỗi dòng tương ứng một giao dịch có dự đoán đi kèm. Hãy tính Huber Loss với 15 cặp, bao gồm lỗi lớn. Ở cấp 4–5 có bản ghi thiếu giá trị thật; loại chúng khi tính loss và nêu số mẫu hợp lệ.
+
+```python
+import numpy as np
+# Mỗi hàng là một giá trị doanh thu thật và một dự đoán, triệu đồng.
+actual = np.array([20, 23, 26, 29, 32, 35, 38, 41, 44, 47, 50, 53, 56, 59, 62],dtype=float)
+valid = actual[np.isfinite(actual)]
+predicted = valid + np.array([(-1)**k*(1+k%5) for k in range(len(valid))])
+error = predicted-valid
+label = (valid>=45).astype(int)
+prob = np.clip(0.2+0.6*valid/100,0.01,0.99)
+p = np.histogram(valid,bins=4)[0].astype(float)+1
+p = p/p.sum()
+q = np.full(4,0.25)
+result = round(float(np.mean(np.where(np.abs(error)<=2,0.5*error**2,2*(np.abs(error)-1)))),3)
+print("Số quan sát:",len(actual))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đếm 15 mẫu đầu vào, nhưng loss chỉ dùng các cặp thật/dự đoán hợp lệ; MSE đo sai số bình phương còn MAE giữ đơn vị triệu đồng.
+
+### Tình huống 4 — Tính cross-entropy của nhãn đúng · Cấp 4: Cross-entropy và nhãn thiếu
 
 **Tình huống thực tế:** Bộ phân loại đưa xác suất 0.8 cho nhãn đúng của một mẫu. Hãy tính mức phạt logarit cho dự báo này.
 
@@ -257,7 +320,28 @@ print(round(-math.log(prob_true), 4))
 
 Nếu mô hình tăng xác suất cho nhãn đúng về gần 1, loss giảm về gần 0.
 
-### Tình huống 5 — So hai phân phối bằng KL divergence
+**Bài thực hành nâng cấp — cấp 4/5:** Nhóm dự báo có **18 giá trị doanh thu thật** (triệu đồng), mỗi dòng tương ứng một giao dịch có dự đoán đi kèm. Hãy lập nhãn 0/1 và dự báo xác suất, bỏ nhãn thiếu. Ở cấp 4–5 có bản ghi thiếu giá trị thật; loại chúng khi tính loss và nêu số mẫu hợp lệ.
+
+```python
+import numpy as np
+# Mỗi hàng là một giá trị doanh thu thật và một dự đoán, triệu đồng.
+actual = np.array([20, 23, 26, 29, 32, 35, 38, 41, 44, 47, 50, 53, 56, 59, 62, np.nan, 68, 71],dtype=float)
+valid = actual[np.isfinite(actual)]
+predicted = valid + np.array([(-1)**k*(1+k%5) for k in range(len(valid))])
+error = predicted-valid
+label = (valid>=45).astype(int)
+prob = np.clip(0.2+0.6*valid/100,0.01,0.99)
+p = np.histogram(valid,bins=4)[0].astype(float)+1
+p = p/p.sum()
+q = np.full(4,0.25)
+result = round(float(-np.mean(label*np.log(prob)+(1-label)*np.log(1-prob))),4)
+print("Số quan sát:",len(actual))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đếm 18 mẫu đầu vào, nhưng loss chỉ dùng các cặp thật/dự đoán hợp lệ; MSE đo sai số bình phương còn MAE giữ đơn vị triệu đồng.
+
+### Tình huống 5 — So hai phân phối bằng KL divergence · Cấp 5: So sánh MSE/MAE/Huber/KL
 
 **Tình huống thực tế:** Phân phối P là `[0.5,0.5]` và Q là `[0.6,0.4]` cho hai lớp; các tổng đều bằng 1. Cần đo P khác Q bao nhiêu theo chiều `D_KL(P||Q)`.
 
@@ -285,6 +369,27 @@ print(round(float(np.sum(P * np.log(P / Q))), 4))
 ```
 
 KL dương và nhỏ vì hai phân phối khá gần nhau, nhưng không đồng nhất.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhóm dự báo có **20 giá trị doanh thu thật** (triệu đồng), mỗi dòng tương ứng một giao dịch có dự đoán đi kèm. Hãy tính 4 chỉ số sai số và giải thích vì sao khác nhau. Ở cấp 4–5 có bản ghi thiếu giá trị thật; loại chúng khi tính loss và nêu số mẫu hợp lệ.
+
+```python
+import numpy as np
+# Mỗi hàng là một giá trị doanh thu thật và một dự đoán, triệu đồng.
+actual = np.array([20, 23, 26, 29, 32, 35, 38, 41, 44, 47, 50, 53, 56, 59, 62, np.nan, 68, 71, 74, np.nan],dtype=float)
+valid = actual[np.isfinite(actual)]
+predicted = valid + np.array([(-1)**k*(1+k%5) for k in range(len(valid))])
+error = predicted-valid
+label = (valid>=45).astype(int)
+prob = np.clip(0.2+0.6*valid/100,0.01,0.99)
+p = np.histogram(valid,bins=4)[0].astype(float)+1
+p = p/p.sum()
+q = np.full(4,0.25)
+result = {'MSE':round(float(np.mean(error**2)),3),'MAE':round(float(np.mean(np.abs(error))),3),'Huber':round(float(np.mean(np.where(np.abs(error)<=2,0.5*error**2,2*(np.abs(error)-1)))),3),'KL':round(float(np.sum(p*np.log(p/q))),4)}
+print("Số quan sát:",len(actual))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đếm 20 mẫu đầu vào, nhưng loss chỉ dùng các cặp thật/dự đoán hợp lệ; MSE đo sai số bình phương còn MAE giữ đơn vị triệu đồng.
 
 ## 6. Sai lầm thường gặp
 
