@@ -138,9 +138,9 @@ Dòng đầu là nội dung đã đọc; `True` xác nhận bộ đệm được
 
 **Từ vựng trong mục:** **CSV** — bảng ngăn cách; **DictReader** — đọc theo tên cột.
 
-**Tình huống thực tế:** Quầy văn phòng phẩm xuất **10 dòng** mặt hàng có cột `sku,name,price_vnd`, mỗi dòng là một sản phẩm và giá đồng/món. Nhân viên cần tra tên sản phẩm P08 và đếm số dòng dữ liệu, không coi hàng tiêu đề như một món hàng.
+**Tình huống thực tế:** Quầy văn phòng phẩm nhận bảng hàng xuất từ phần mềm dưới dạng **CSV**, tức văn bản có các cột ngăn bằng dấu phẩy. Trong ví dụ có **10 sản phẩm P01–P10**, mỗi dòng chứa mã `sku`, tên `name` và giá một món `price_vnd` tính bằng **đồng**. Nhân viên cần tìm tên và giá của P08 và xác nhận bảng có đúng 10 sản phẩm, không đếm dòng tiêu đề là hàng bán.
 
-**Vì sao chọn cách này?** `csv.DictReader` hiểu tên cột, ít nhầm vị trí cột hơn chia chuỗi thủ công; `StringIO` giả lập một file CSV để chạy ví dụ mà không đòi máy học viên có dữ liệu bên ngoài.
+**Vì sao chọn cách này?** `csv.DictReader` đọc mỗi dòng CSV thành một **dictionary** lấy tên cột làm khóa, nên có thể hỏi `row['sku']` hoặc `row['name']` thay vì phải nhớ mã ở cột số mấy. Dòng `sku,name,price_vnd` được hiểu là **tiêu đề cột**, không phải một sản phẩm. `StringIO` tạo đối tượng giống file ngay trong bộ nhớ từ văn bản CSV mẫu, để ví dụ chạy mà không cần chuẩn bị tệp bên ngoài. Chương trình duyệt các dòng cho tới khi tìm thấy `P08`, đọc tên và giá của dòng đó, rồi đối chiếu số sản phẩm là 10.
 
 **Quy trình:**
 1. Tạo văn bản CSV gồm header và 10 hàng.
@@ -191,9 +191,9 @@ Giá trong CSV được đọc thành chuỗi; nếu cần tính tiền thì ph�
 
 **Từ vựng trong mục:** **File I/O** — đọc/ghi file; **UTF-8** — mã hóa văn bản; **Context manager** — quản lý tài nguyên.
 
-**Tình huống thực tế:** Một chương trình quản lý lớp ghi **12 sự kiện vận hành** bằng tiếng Việt, mỗi hàng là một dòng nhật ký. Giáo viên cần xác minh các dấu tiếng Việt không hỏng sau khi ghi và đọc lại, đồng thời không để file mẫu trong thư mục làm việc.
+**Tình huống thực tế:** Giáo viên muốn kiểm tra việc lưu văn bản tiếng Việt có dấu. Một chương trình tạo **12 dòng nhật ký** mô phỏng các bước như `Khởi động`, `Đọc tập tin` và `Kết thúc`, mỗi dòng là một sự kiện. Bài cần ghi các dòng vào tệp tạm, đọc lại để xem dấu tiếng Việt có nguyên vẹn không, rồi cho biết số sự kiện và nội dung dòng đầu, dòng cuối mà không để tệp mẫu tồn tại lâu trên máy.
 
-**Vì sao chọn cách này?** `TemporaryDirectory` tạo nơi thử nghiệm tự xóa; `Path.write_text`/`read_text` kèm UTF-8 bảo đảm văn bản được ghi/đọc nhất quán. `with` giải phóng tài nguyên sau khi dùng.
+**Vì sao chọn cách này?** Mã hóa **UTF-8** là cách lưu chữ dưới dạng byte mà vẫn hỗ trợ ký tự tiếng Việt như ă, ê, ơ và dấu thanh. Khi `write_text(..., encoding='utf-8')` ghi nhật ký thì `read_text()` cũng phải dùng UTF-8 để đọc lại nhất quán, tránh chữ bị sai. `TemporaryDirectory()` tạo một **thư mục dùng thử**, rồi tự dọn khi thoát khối `with`, nên máy học viên không bị giữ lại tệp `log.txt`. Chương trình so từng dòng đọc lại với 12 sự kiện ban đầu: không chỉ đếm dòng mà còn xác nhận nội dung không bị thay đổi.
 
 **Quy trình:**
 1. Tạo 12 chuỗi sự kiện và ghép bằng ký tự xuống dòng.
@@ -229,9 +229,9 @@ Chính xác 12 dòng đã được đọc lại. Kiểu dữ liệu là chuỗi,
 
 **Từ vựng trong mục:** **try/except** — thử/bắt lỗi; **ValueError** — lỗi giá trị; **Conversion** — đổi kiểu.
 
-**Tình huống thực tế:** Cửa hàng nhận **15 dòng số lượng điều chỉnh kho** ở dạng chuỗi, một dòng cho một mã R01…R15. Cho phép số nguyên âm để biểu diễn hàng bị trả lại/điều chỉnh giảm trong ví dụ; riêng chữ `abc`, số thập phân `12.5` và chuỗi rỗng không phải số nguyên. Cần cộng các giá trị đổi được và ghi mã nhập sai, không để một lỗi dừng toàn bộ chương trình.
+**Tình huống thực tế:** Nhân viên kho nhận **15 ô nhập số lượng điều chỉnh** cho các mã R01–R15; dữ liệu từ biểu mẫu đều là **chuỗi** như `"12"`, `"-3"` hoặc `"0"`. Đây là chênh lệch điều chỉnh nên có thể có giá trị âm hoặc bằng 0. Một số ô lại chứa `abc`, `12.5` hoặc để trống. Người quản lý muốn cộng các số nguyên đổi được, đếm lượt hợp lệ và liệt kê mã cần nhập lại mà không để một ô sai làm dừng toàn bộ báo cáo.
 
-**Vì sao chọn cách này?** `int()` hỗ trợ số nguyên âm và `0`, nhưng từ chối các chuỗi khác không đúng kiểu. `try/except ValueError` chỉ bắt lỗi chuyển kiểu mong đợi, không che lấp mọi loại lỗi khác.
+**Vì sao chọn cách này?** `int()` đổi một chuỗi chứa **số nguyên** thành số để tính toán, nên nhận `"12"`, `"0"` và `"-3"`. Nhưng `abc`, `12.5` và chuỗi rỗng không có dạng số nguyên hợp lệ nên `int()` báo `ValueError`. `try` cho phép thử chuyển kiểu trên từng dòng, còn `except ValueError` ghi lại mã lỗi rồi tiếp tục xử lý các dòng sau. Chỉ bắt loại lỗi **được dự đoán từ đầu vào** này, không dùng một lệnh bắt mọi lỗi khiến các vấn đề lập trình khác bị che giấu. Cuối cùng tổng điều chỉnh được tính từ các dòng đổi thành công.
 
 **Quy trình:**
 1. Duyệt 15 chuỗi, mỗi lượt thử chuyển bằng `int`.
@@ -269,9 +269,9 @@ Giá trị -3 được chấp nhận vì bài toán cho phép điều chỉnh â
 
 **Từ vựng trong mục:** **DictWriter** — ghi CSV theo cột; **Schema** — cấu trúc cột; **Validation** — kiểm tra.
 
-**Tình huống thực tế:** Một hệ thống nhận **18 dòng giá** P01…P18 qua CSV, đơn vị đồng/món; P06 ghi `bad` và P12 bỏ trống. Bộ phận kế toán cần tạo báo cáo CSV mới chỉ chứa dòng giá hợp lệ, đếm số dòng đã loại và tính tổng đơn giá; không được tự thay giá lỗi thành 0.
+**Tình huống thực tế:** Kế toán nhận **18 dòng giá sản phẩm P01–P18** trong bảng CSV, mỗi giá là **đồng/món** và đang được ghi dưới dạng chữ. Mã P06 có giá `bad`, mã P12 không có giá. Họ cần xuất một bảng CSV khác chỉ còn các dòng giá hợp lệ, báo số dòng bị loại và tổng các đơn giá được đọc thành công; không sửa bảng nguồn hoặc tự coi giá thiếu là 0 đồng.
 
-**Vì sao chọn cách này?** `DictReader` giữ mã và cột giá trong mỗi hàng; sau khi kiểm tra `isdigit()`, `DictWriter` tạo bảng sạch có header theo tên cột thống nhất. Dùng `StringIO` để không phụ thuộc tập tin bên ngoài.
+**Vì sao chọn cách này?** `DictReader` đọc CSV theo tên cột để giữ đúng mã sản phẩm và chuỗi giá. `isdigit()` trong ví dụ dùng để kiểm tra giá có toàn **chữ số thập phân** hay không; chuỗi `bad` hoặc rỗng không đạt, nên đưa mã vào danh sách lỗi. Giá hợp lệ được đổi thành `int` rồi ghi sang file CSV mới bằng `DictWriter`, có dòng tiêu đề rõ ràng. `StringIO` giúp mô phỏng cả file đầu vào lẫn đầu ra trong bộ nhớ. Tính tổng từ các dòng đã được xác minh, không thay giá lỗi bằng 0 vì như vậy báo cáo sẽ thiếu doanh thu mà không cảnh báo.
 
 **Quy trình:**
 1. Đọc 18 hàng CSV và kiểm tra chuỗi giá chỉ gồm chữ số.
@@ -326,9 +326,9 @@ Tổng đơn giá (đồng): 297000
 
 **Từ vựng trong mục:** **CSV pipeline** — quy trình CSV; **Exception** — ngoại lệ; **Atomic report** — báo cáo một lần ghi.
 
-**Tình huống thực tế:** Phòng kế toán cần xử lý **20 hàng** giao dịch, mỗi hàng gồm mã đơn và số tiền (đồng) trong một file CSV tạm. Một dòng có giá `bad`, một dòng trống giá, một dòng lặp mã O05 dù giá hợp lệ. Muốn tạo báo cáo CSV **chỉ gồm mã duy nhất và giá hợp lệ**, ghi lỗi theo số dòng và đối chiếu số tiền; không sửa CSV nguồn.
+**Tình huống thực tế:** Phòng kế toán phải xử lý **20 dòng giao dịch CSV**. Mỗi dòng có mã đơn và tiền thanh toán tính bằng **đồng**: dòng thứ 8 ghi `bad`, dòng thứ 17 để trống số tiền, dòng thứ 13 dùng lại mã O05 của dòng thứ 5. Một dòng trùng mã có thể khiến kế toán cộng tiền hai lần. Nhân viên cần tạo file báo cáo chỉ có mã không trùng và tiền hợp lệ, đồng thời ghi rõ **số dòng và nguyên nhân lỗi**, rồi kiểm tra tổng tiền của những dòng đã xuất.
 
-**Vì sao chọn cách này?** Đọc file qua `with open(..., encoding='utf-8', newline='')`, kiểm tra giá trước khi cộng và từ chối mã trùng để tránh nhân đôi doanh thu. File đầu ra tách khỏi đầu vào, ghi xong đọc lại để đối chiếu; thư mục tạm bảo đảm ví dụ độc lập.
+**Vì sao chọn cách này?** **Pipeline xử lý CSV** nghĩa là đi qua nhiều bước có thứ tự: ghi dữ liệu đầu vào → đọc từng dòng → kiểm tra → ghi file kết quả → đọc lại để đối chiếu. Chương trình dùng `seen` (set mã đã gặp) để từ chối mã xuất hiện lần thứ hai, trước khi cộng tiền; với dòng `bad` hoặc trống, `isdigit()` xác định tiền không hợp lệ. `enumerate(..., 1)` đánh số các **dòng dữ liệu** bắt đầu từ 1 để ghi lỗi `D08:giá`, `D13:trùng`... chính xác. `with open(..., encoding='utf-8', newline='')` giúp file được đóng sau khi dùng và đọc/ghi CSV đúng cách; `TemporaryDirectory` dọn các tệp mô phỏng. Đầu ra được đọc lại để xác nhận chỉ những dòng hợp lệ mới được cộng.
 
 **Quy trình:**
 1. Tạo file CSV với đủ 20 dòng và header trong thư mục tạm.
