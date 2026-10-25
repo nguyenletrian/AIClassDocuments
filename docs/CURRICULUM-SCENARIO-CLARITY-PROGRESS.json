@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_06",
+  "status": "BATCH_06_IN_PROGRESS",
   "last_completed_batch": 5,
   "batches": [
     {
@@ -165,11 +165,26 @@
         "PY-29",
         "PY-30"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-26",
+        "PY-27",
+        "PY-28",
+        "PY-29",
+        "PY-30"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-06-20261025",
+      "lesson_commits": {
+        "PY-26": "4f1bf71b5d4e924dd06ab99ab6f468857776eb47",
+        "PY-27": "f3e0ddba1dfb47c39ab91fa6e99ecba2af22cfbf",
+        "PY-28": "782370f3108babafd210316777ba32547809e532",
+        "PY-29": "9605beecebd7a4e7e950c89ff081b35699cbc3c9",
+        "PY-30": "b2a543b354e2b1c1f7eb2dc35384ee09a37cf43c"
+      },
+      "notes": "Five lesson commits PY-26..30. Rewrote exactly 5 Tình huống thực tế and 5 Vì sao chọn cách này paragraphs per chapter (50 total) with plain-language explanation of linear rank, eigen/PCA, function models, activations and loss, units and pitfalls. Diff to main after masking only these two approved paragraph types is byte-for-byte unchanged for all five, retaining 45 Python code fences, expected stdout, definitions, 100 MCQ+answers and lesson structure. GitHub CI final head and merge PENDING; Windows/CDP unverified."
     },
     {
       "batch": 7,
