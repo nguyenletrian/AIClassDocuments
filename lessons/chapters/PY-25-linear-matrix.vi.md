@@ -125,9 +125,9 @@ print(round(float(np.linalg.det(A)), 6))
 
 **Từ vựng trong mục:** **Matrix** — ma trận; **Transpose** — chuyển vị; **Shape** — số hàng/cột.
 
-**Tình huống thực tế:** Quầy bán ghi **10 lượt doanh thu**, gồm hai ngày liên tiếp của **5 cửa hàng** S01…S05 (đơn vị triệu đồng/ngày). Dữ liệu đang ở dạng một dãy [S01 ngày 1, S01 ngày 2, S02 ngày 1, …]. Cần chuyển thành bảng **5 hàng cửa hàng × 2 cột ngày**, tính tổng của S03, rồi chuyển vị thành bảng theo ngày.
+**Tình huống thực tế:** Một chuỗi có **5 cửa hàng S01–S05**, mỗi cửa hàng ghi doanh thu của **hai ngày liên tiếp**, tính bằng **triệu đồng/ngày**. Phần mềm xuất **10 con số theo thứ tự**: S01 ngày 1, S01 ngày 2, rồi tới S02... Nhân viên muốn xếp thành bảng **5 hàng cửa hàng × 2 cột ngày**, đọc tổng hai ngày của S03, sau đó chuyển bảng sang cách xem theo **ngày** để đối chiếu, không làm mất số liệu nào.
 
-**Vì sao chọn cách này?** Ma trận giúp mỗi hàng/cột có ý nghĩa cố định. `reshape(5,2)` sắp dữ liệu theo đúng thứ tự đã ghi, `.T` đổi góc nhìn từ cửa hàng sang ngày mà không làm mất ô.
+**Vì sao chọn cách này?** **Ma trận** là bảng số theo hàng và cột có ý nghĩa rõ ràng. `reshape(5, 2)` chia dãy 10 số thành **mỗi hàng hai ngày của cùng cửa hàng** theo đúng thứ tự nguồn; không đo hay sắp xếp thêm. Vì Python đánh số hàng từ 0, `sales[2]` là cửa hàng thứ ba S03; cộng hai ô của hàng ấy để ra tổng **triệu đồng** trong hai ngày. `.T` là **chuyển vị**: đổi thành hai hàng ngày × năm cột cửa hàng để có góc nhìn ngược lại. Nếu đầu vào không theo đúng thứ tự S01 ngày 1 rồi ngày 2 thì reshape không tự biết để sửa.
 
 **Quy trình:**
 1. Lưu 10 số liệu theo thứ tự cửa hàng–ngày.
@@ -162,9 +162,9 @@ S03 (triệu đồng): 24
 
 **Từ vựng trong mục:** **Matrix multiplication** — nhân ma trận; **Weights** — trọng số; **Dimension** — kích thước.
 
-**Tình huống thực tế:** Một trung tâm ghi **12 học viên**, mỗi hàng có ba điểm lý thuyết, thực hành, dự án (thang 10). Cần tạo **hai điểm đánh giá khác nhau**: chuyên môn (trọng số 50%, 20%, 30%) và hợp tác (10%, 30%, 60%). Hãy tính cho đủ 12 học viên và đếm số người có điểm hợp tác **từ 8**.
+**Tình huống thực tế:** Trung tâm có **12 học viên**, mỗi người được chấm ba phần **lý thuyết, thực hành, dự án** (thang 10). Để đánh giá toàn diện, trường dùng **hai bộ trọng số giả lập**: điểm **chuyên môn** lấy 50%, 20%, 30%, còn điểm **hợp tác** lấy 10%, 30%, 60% tương ứng ba phần. Giáo viên muốn tính **cả hai điểm cho từng người** và đếm bao nhiêu người có điểm hợp tác từ 8 trở lên.
 
-**Vì sao chọn cách này?** Ma trận điểm `(12,3)` nhân ma trận trọng số `(3,2)` cho bảng `(12,2)`; mỗi cột đầu ra là một thang đánh giá. Không được nhầm nhân từng phần tử với nhân ma trận.
+**Vì sao chọn cách này?** **Ma trận trọng số** giúp áp **hai cách chấm điểm** lên cùng ba cột điểm một lượt. Mỗi hàng của bảng điểm là **một học viên**; mỗi cột của bảng trọng số là **một bộ quy tắc đánh giá**. Phép `scores @ weights` ghép đúng lý thuyết–thực hành–dự án theo từng bộ, nên trả về **12 hàng học viên × 2 cột đánh giá**; một cột chuyên môn, một cột hợp tác. Các phần trăm trong **mỗi bộ** cộng thành 100%, nên điểm vẫn trên thang tương ứng. `ratings[:, 1]` lấy cột hợp tác để đếm người đạt từ 8; không chọn nhầm cột chuyên môn hoặc nhân từng vị trí rời rạc.
 
 **Quy trình:**
 1. Ghi rõ thứ tự ba tiêu chí và hai nhóm trọng số.
@@ -203,9 +203,9 @@ Hợp tác >=8: 6
 
 **Từ vựng trong mục:** **Transformation** — phép biến đổi; **Determinant** — định thức; **Inverse** — ma trận nghịch đảo.
 
-**Tình huống thực tế:** Một robot ghi **15 điểm tọa độ** trong mặt phẳng (mét); mỗi hàng có tọa độ x/y. Hệ thống muốn đổi các điểm sang hệ trục quay 90° (quy ước véc-tơ hàng của bài), **không làm thay đổi khoảng cách tới gốc**. Cần xác minh ma trận quay có thể đảo ngược bằng định thức và so độ dài trước/sau cho cả 15 điểm.
+**Tình huống thực tế:** Robot đã ghi **15 điểm trên sàn**, mỗi điểm là cặp tọa độ `(x, y)` tính bằng **mét** so với gốc. Hệ thống muốn đổi cách biểu diễn các điểm bằng phép **quay góc 90°** quanh gốc theo quy ước véc-tơ hàng của bài, nhưng không được làm điểm tự nhiên gần gốc hơn hay xa gốc hơn. Kỹ thuật viên cần đọc tọa độ trước/sau của điểm đầu, xác nhận phép quay có thể đảo ngược và bảo toàn khoảng cách tới gốc cho cả 15 điểm.
 
-**Vì sao chọn cách này?** Nhân tọa độ với ma trận quay cho vị trí ở hệ trục mới; định thức khác 0 chứng tỏ có phép biến đổi ngược. Kiểm tra norm giúp học viên hiểu đây là phép quay chứ không phải tùy ý làm co giãn.
+**Vì sao chọn cách này?** **Ma trận quay** mô tả cách biến đổi tọa độ nhưng vẫn giữ hình dạng khi chỉ quay quanh gốc. Chương trình nhân từng cặp `(x,y)` với ma trận quay để nhận tọa độ mới; ví dụ điểm đầu `(1,2)` có tọa độ mới khác nhưng **độ dài từ gốc** vẫn bằng cũ. **Định thức** là một con số cho biết phép biến đổi có thể khôi phục ngược hay không: định thức khác 0 nghĩa là có thể đảo ngược, còn bằng 0 sẽ làm mất thông tin về một hướng. `np.linalg.norm()` đo khoảng cách tới gốc trước/sau, `np.allclose()` so hai dãy có **gần bằng nhau trong sai số máy tính** không. Chỉ kiểm định thức khác 0 chưa đủ để kết luận là phép quay vì nhiều phép co giãn cũng đảo ngược được; vì vậy cần kiểm tra khoảng cách nữa.
 
 **Quy trình:**
 1. Tạo ma trận 15×2 chứa các điểm có đơn vị mét.
@@ -248,9 +248,9 @@ print("Điểm đầu (mới):", ", ".join(converted_labels))
 
 **Từ vựng trong mục:** **Linear system** — hệ tuyến tính; **np.linalg.solve** — giải hệ; **Residual** — sai số đối chiếu.
 
-**Tình huống thực tế:** Máy đo có **18 lượt đo** của hai nguồn x/y (đơn vị gốc là đơn vị tín hiệu); mỗi hàng cho hai giá trị pha trộn bởi cảm biến: kênh A nhận hai phần x và một phần y, kênh B nhận một phần x và ba phần y. Cần **phục hồi hai giá trị gốc cho từng lượt** dựa trên ma trận hệ số cố định 2×2, rồi xác nhận khi ghép lại tín hiệu kênh thì trùng số đã nhận.
+**Tình huống thực tế:** Máy đo theo dõi **18 lượt tín hiệu**. Mỗi lượt có hai **nguồn tín hiệu gốc** chưa biết là x và y, cùng hai giá trị kênh A và B đọc được. Máy kết hợp chúng theo một quy tắc cố định: **A nhận hai phần x và một phần y, B nhận một phần x và ba phần y**. Nhân viên muốn khôi phục **hai nguồn gốc của từng lượt**, rồi đưa kết quả trở lại quy tắc pha trộn để kiểm tra có tạo đúng hai giá trị đã đọc hay không.
 
-**Vì sao chọn cách này?** `np.linalg.solve` giải hệ trực tiếp từ ma trận hệ số và giá trị đo, thường tốt hơn tự tính nghịch đảo chỉ để tìm nghiệm. Trước khi giải, kiểm tra ma trận vuông và không suy biến; sau khi giải, đối chiếu bằng `allclose`.
+**Vì sao chọn cách này?** Đây là **hệ phương trình tuyến tính**: mỗi kênh đo là một cách trộn hai nguồn chưa biết theo các hệ số đã cho. Ma trận `mix` giữ quy tắc pha trộn cố định; `measured` chứa 18 cặp kết quả đo. `np.linalg.solve()` tìm hai giá trị gốc cho từng cặp khi ma trận có đủ thông tin để giải duy nhất, thay vì phải thử ngược nhiều khả năng hay tự tính nghịch đảo. `.T` đưa dữ liệu vào đúng hướng hàng–cột mà hàm yêu cầu rồi đưa kết quả về **mỗi lượt một hàng**. Cuối cùng nhân lại các nguồn đã khôi phục với ma trận để tái tạo kênh A/B, dùng `np.allclose()` kiểm xem gần bằng số đo ban đầu hay không. Nếu không đối chiếu bước cuối, lỗi đảo cột hoặc sai hệ số có thể bị bỏ sót.
 
 **Quy trình:**
 1. Lưu ma trận hệ số 2×2 và 18 cặp số đo theo kênh.
@@ -291,9 +291,9 @@ Mỗi hàng là một bài toán hai ẩn, cùng chung ma trận hệ số. Ví 
 
 **Từ vựng trong mục:** **Singular matrix** — ma trận suy biến; **Determinant** — định thức; **Numerical stability** — ổn định số.
 
-**Tình huống thực tế:** Nhà máy ghi **20 lượt hiệu chuẩn**, mỗi bản ghi có mã M01…M20, một ma trận hệ số 2×2 và hai số đo. Ba lượt M06, M12, M18 có hai hàng hệ số tỷ lệ nhau nên **không thể phục hồi duy nhất hai nguồn tín hiệu**. Cần tự động xác định lượt không thể giải, chỉ giải các hệ khả nghịch, kiểm tra bằng ghép lại phép nhân và báo số lượt thành công. Không thay kết quả thất bại bằng số 0.
+**Tình huống thực tế:** Nhà máy ghi **20 lượt hiệu chuẩn M01–M20**. Mỗi lượt có bốn **hệ số pha trộn** xếp thành bảng 2 × 2 và hai giá trị tín hiệu đo được. Ở ba lượt **M06, M12 và M18**, hai hàng hệ số phụ thuộc nhau, khiến kết quả không đủ thông tin để biết duy nhất hai tín hiệu nguồn. Kỹ thuật viên cần tách các lượt **không giải duy nhất được**, chỉ giải những lượt đủ điều kiện, kiểm lại phép pha trộn và báo số lượt thành công, thất bại mà không thay kết quả chưa giải được bằng 0.
 
-**Vì sao chọn cách này?** Định thức gần 0 cho thấy ma trận không có nghịch đảo duy nhất; cố `solve()` vô điều kiện sẽ gặp lỗi. Đối với hệ đủ điều kiện, giải và kiểm tra lại số đo bằng `allclose` trước khi nhận kết quả.
+**Vì sao chọn cách này?** **Ma trận suy biến** là ma trận không đủ thông tin để tìm **một nghiệm duy nhất**; trong bài, hai hàng hệ số ở M06, M12, M18 phụ thuộc nhau nên không thể phân biệt riêng hai nguồn x và y chỉ từ hai kênh. **Định thức** gần 0 là dấu hiệu cần loại khỏi bước giải bằng `np.linalg.solve()`. Chương trình duyệt từng lượt, ghi mã suy biến vào danh sách `singular`, dùng `continue` bỏ riêng lượt ấy, rồi chỉ giải các lượt hợp lệ. Sau giải, lấy hệ số nhân lại nghiệm và dùng `np.allclose()` xác nhận tái tạo đúng số đo. `solved` đếm lượt đã giải, `singular` đếm lượt cần xử lý khác; không gán 0 cho lượt không giải được vì 0 là một giá trị đo cụ thể, không phải dấu hiệu thiếu nghiệm.
 
 **Quy trình:**
 1. Tạo 20 bản ghi với ID, ma trận 2×2 và vector quan sát.
