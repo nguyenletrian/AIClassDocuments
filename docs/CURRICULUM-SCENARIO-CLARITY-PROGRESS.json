@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_04",
+  "status": "BATCH_04_IN_PROGRESS",
   "last_completed_batch": 3,
   "batches": [
     {
@@ -105,11 +105,26 @@
         "PY-19",
         "PY-20"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-16",
+        "PY-17",
+        "PY-18",
+        "PY-19",
+        "PY-20"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-04-20261025",
+      "lesson_commits": {
+        "PY-16": "92488861a9d2a67ca7011e4e57d68cee8ac54872",
+        "PY-17": "ff1cfa9a63671df1fce3a0e2aa45b9bc88eebfed",
+        "PY-18": "c627f073d564586cc725c6e37cd0013dc13ef485",
+        "PY-19": "fe92d1c5b7cccddc485cfb19d4ddc66e8d94a105",
+        "PY-20": "eef77e264594a51acf13456adc645681b1e03a7f"
+      },
+      "notes": "PY-16..20 separately committed, 50 total revised prose paragraphs: 5 Tình huống thực tế and 5 Vì sao chọn cách này per chapter. Explain reshape/transpose, labeled Pandas tables, train/test leakage, left merges, groupby, Boolean logic using concrete sample meaning, units, appropriate methods and pitfalls. Strict compare against main masking only two allowed prose fields: all other content exactly unchanged, including 45 executable Python fences, documented stdout, definitions, MCQs (20 per chapter) and lesson structure. GitHub Actions CI and merge PENDING; Windows PowerShell canary unavailable and CDP 9224 owner unverified."
     },
     {
       "batch": 5,

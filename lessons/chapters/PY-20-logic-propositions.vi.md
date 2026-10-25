@@ -126,9 +126,9 @@ Có 12 cách chọn một màu và một cỡ khi mọi màu đều có đủ b�
 
 **Từ vựng trong mục:** **Proposition** — mệnh đề; **AND** — và; **Boolean** — đúng/sai.
 
-**Tình huống thực tế:** Cổng tài liệu có **10 tài khoản** U01…U10; mỗi dòng gồm trạng thái đã đăng nhập và đã xác minh (`True`/`False`). Chính sách chỉ cho phép truy cập nếu **cả hai** điều kiện đều đúng. Cần đếm số tài khoản được phép và mã bị từ chối, không sử dụng trạng thái giả định.
+**Tình huống thực tế:** Cổng tài liệu học tập có **10 tài khoản U01–U10**. Với mỗi tài khoản, hệ thống ghi hai thông tin **đã đăng nhập** và **đã xác minh**, mỗi thông tin là `True` (đúng) hoặc `False` (chưa đúng). Quy tắc giả lập: chỉ người **đã đăng nhập và đã xác minh** mới được truy cập. Nhân viên cần đếm số tài khoản được phép và bị từ chối; một tài khoản chỉ đạt một trong hai yêu cầu thì vẫn phải bị từ chối.
 
-**Vì sao chọn cách này?** Toán tử `and` chỉ trả True khi cả hai mệnh đề đúng; nhóm còn lại là người chưa đáp ứng đủ. Đây là kiểm tra quy tắc Boolean đơn giản, không phải hệ thống xác thực thật.
+**Vì sao chọn cách này?** **Boolean** là kiểu thông tin chỉ có hai trạng thái: đúng (`True`) hoặc sai (`False`). `and` có nghĩa là **cả hai điều kiện đều phải đúng**: đã đăng nhập nhưng chưa xác minh vẫn trả `False`. Chương trình duyệt đồng thời hai danh sách, kiểm từng cặp của **cùng tài khoản**, rồi lưu một kết quả cho mỗi người. `sum(allowed)` đếm số `True` (trong phép cộng, `True` được tính như 1), còn số bị từ chối là số tài khoản trừ số được phép. Không dùng `or`, vì `or` chỉ đòi **một** điều kiện, sẽ mở quyền quá sớm.
 
 **Quy trình:**
 1. Lưu hai trạng thái theo cùng thứ tự 10 tài khoản.
@@ -162,9 +162,9 @@ Tài khoản chỉ đăng nhập nhưng chưa xác minh bị từ chối, vì m�
 
 **Từ vựng trong mục:** **Truth table** — bảng chân trị; **OR** — hoặc; **NOT** — phủ định.
 
-**Tình huống thực tế:** Đội QA chạy **12 lượt kiểm tra**, gồm **4 tổ hợp** hai cờ `có đăng nhập` (p) và `đã xác minh` (q), lặp lại ở ba ngày khác nhau. Mỗi hàng là một cặp cờ của một ngày. Cần chứng minh các tổ hợp đã được bao phủ đủ, đếm số lượt có `p and q` và số lượt có `p or q`; không nhầm một tổ hợp lặp lại thành một tổ hợp mới.
+**Tình huống thực tế:** Đội kiểm thử phần mềm muốn xem quy tắc truy cập hoạt động ra sao với **hai trạng thái đúng/sai**: `p` là đã đăng nhập, `q` là đã xác minh. Hai trạng thái này tạo **4 cách kết hợp**, từ cả hai đúng đến cả hai sai. Nhân viên chạy lại cả bốn cách trong **3 ngày**, tổng cộng **12 lượt kiểm tra**, và muốn xác nhận không thiếu trường hợp nào, đồng thời đếm `p and q` và `p or q` đúng bao nhiêu lượt.
 
-**Vì sao chọn cách này?** Hai Boolean có đúng bốn trường hợp. Dùng `itertools.product` sinh bảng chân trị 4 trường hợp, gắn với 3 ngày thành 12 dòng, sau đó đếm hai phép logic khác nhau.
+**Vì sao chọn cách này?** **Bảng chân trị** là cách liệt kê **tất cả các trường hợp đúng/sai có thể có** để kiểm tra một quy tắc, thay vì chỉ thử trường hợp thuận lợi. `itertools.product([True, False], repeat=2)` sinh bốn cặp `p, q` có thể có. Vòng lặp bên ngoài lặp các cặp ấy trong 3 ngày thành 12 lượt; **lượt thử** là số lần chạy, còn **tổ hợp khác nhau** vẫn chỉ có bốn. Với `and`, chỉ cặp **cả hai đúng** mới cho kết quả đúng; với `or`, mọi cặp có **ít nhất một trạng thái đúng** đều đúng. Dùng set các cặp kiểm tra đã bao phủ đủ bốn trường hợp, không nhầm ba lần thử lặp là ba trường hợp mới.
 
 **Quy trình:**
 1. Sinh bốn tổ hợp p/q từ `product` và gắn với ba ngày kiểm thử.
@@ -211,9 +211,9 @@ Bảng chân trị chỉ có bốn tổ hợp **khác nhau**; 12 là số lượ
 
 **Từ vựng trong mục:** **Implication** — kéo theo; **Premise** — tiền đề; **Counterexample** — phản ví dụ.
 
-**Tình huống thực tế:** Một tổ chức kiểm tra **15 hồ sơ** R01…R15, mỗi hàng có trạng thái đã phê duyệt (p) và đã có chứng chỉ (q). Quy định là: “**Nếu được phê duyệt thì phải có chứng chỉ**”. Cần tìm các hồ sơ vi phạm và giải thích vì sao hồ sơ **chưa phê duyệt** không tự động là vi phạm dù chưa có chứng chỉ.
+**Tình huống thực tế:** Một tổ chức kiểm tra **15 hồ sơ phê duyệt R01–R15**. Mỗi dòng ghi hai trạng thái đúng/sai: hồ sơ **đã được phê duyệt** (`p`) và **đã có chứng chỉ** (`q`). Nội quy giả lập nói: **nếu đã được phê duyệt thì phải có chứng chỉ**. Nhân viên cần tìm đúng những hồ sơ được phê duyệt nhưng chưa có chứng chỉ, không gắn nhãn vi phạm cho một hồ sơ chưa phê duyệt chỉ vì người đó cũng chưa có chứng chỉ.
 
-**Vì sao chọn cách này?** Phép kéo theo `p ⇒ q` tương đương `(not p) or q`, chỉ sai khi `p=True` và `q=False`. Không nhầm với `p and q` vì như thế sẽ kết tội cả hồ sơ không thuộc đối tượng quy định.
+**Vì sao chọn cách này?** **Kéo theo** là cách diễn đạt quy định kiểu '**nếu p thì q**'. Quy định này **chỉ bị vi phạm** khi điều kiện đầu đã xảy ra (`p=True`: được phê duyệt) nhưng yêu cầu sau **không được đáp ứng** (`q=False`: thiếu chứng chỉ). Biểu thức `(not p) or q` diễn tả chính xác điều đó: `not` đảo đúng thành sai và ngược lại; `or` chỉ cần một vế đúng. Người chưa được phê duyệt chưa phải đối tượng bắt buộc của quy định này nên không tự động vi phạm, dù chưa có chứng chỉ. Nếu thay bằng `p and q`, chương trình sẽ đánh dấu sai cả nhóm chưa phê duyệt.
 
 **Quy trình:**
 1. Lưu 15 cặp Boolean đúng theo ID.
@@ -251,9 +251,9 @@ Việc chưa phê duyệt khiến tiền đề sai; với một phép kéo theo,
 
 **Từ vựng trong mục:** **Cartesian product** — tích Descartes; **Counting rule** — quy tắc nhân; **NOT** — phủ định.
 
-**Tình huống thực tế:** Cửa hàng muốn bán áo với **3 màu**, **3 cỡ** và **2 chất liệu**; mỗi tổ hợp màu–cỡ–chất liệu là một cấu hình. Hệ thống tạo đúng **18 cấu hình**, nhưng chính sách mẫu **không cho màu Đỏ dùng chất liệu Poly**, bất kể cỡ. Cần đếm cấu hình hợp lệ, bị loại và kiểm tra kết quả bằng cả việc tạo tổ hợp lẫn quy tắc đếm.
+**Tình huống thực tế:** Nhà bán hàng thiết kế áo với **3 màu** (Đỏ, Xanh, Trắng), **3 cỡ** (S, M, L) và **2 chất liệu** (Cotton, Poly). Một cấu hình áo là một lựa chọn từ **mỗi nhóm**, ví dụ Đỏ–M–Cotton. Theo quy định minh họa, áo **màu Đỏ không được làm bằng Poly** ở bất kỳ cỡ nào. Người quản lý muốn liệt kê đủ **18 cấu hình ban đầu**, rồi đếm bao nhiêu cấu hình hợp lệ và bao nhiêu cấu hình phải loại.
 
-**Vì sao chọn cách này?** `itertools.product` tạo mọi kết hợp từ ba nhóm lựa chọn, tương ứng nguyên lý nhân. Một điều kiện Boolean loại cấu hình xung đột; không xóa toàn bộ màu Đỏ hay toàn bộ Poly.
+**Vì sao chọn cách này?** **Tổ hợp sản phẩm** là cách chọn **một màu, một cỡ và một chất liệu** cùng lúc. `itertools.product` sinh lần lượt mọi bộ ba mà không bỏ sót: ba màu, ba cỡ và hai chất liệu tạo 18 cấu hình. Sau đó kiểm riêng từng cấu hình: chỉ loại khi **đồng thời** màu là Đỏ **và** chất liệu là Poly; cỡ S, M hay L không làm thay đổi quy tắc này. Dùng `not (...)` nghĩa là **giữ lại những bộ không rơi vào trường hợp bị cấm**. Không xóa tất cả áo Đỏ hoặc tất cả chất liệu Poly, vì nhiều cách phối khác vẫn hợp lệ.
 
 **Quy trình:**
 1. Tạo 18 tuple từ màu, cỡ, chất liệu.
@@ -293,9 +293,9 @@ Tích Descartes liệt kê **toàn bộ cấu hình**; trong bài này ràng bu�
 
 **Từ vựng trong mục:** **Compound logic** — logic phối hợp; **Precedence** — độ ưu tiên; **Invariant** — điều kiện bất biến.
 
-**Tình huống thực tế:** Cổng tài liệu học tập nhận **20 yêu cầu giả lập** U01…U20. Mỗi hàng có tuổi (năm), sự đồng ý của người giám hộ, xác minh tài khoản và cờ đã khóa. **Quy tắc minh họa**: cho phép khi (**đủ 18 tuổi hoặc có đồng ý**) **và** đã xác minh **và không bị khóa**. Cần báo số được phép, số bị từ chối và xác nhận không có yêu cầu đã khóa nào được phép; đây không phải chính sách truy cập thực tế của một dịch vụ.
+**Tình huống thực tế:** Cổng tài liệu nhận **20 yêu cầu truy cập giả lập**. Mỗi yêu cầu ghi tuổi (**năm**), có được người giám hộ đồng ý hay không, tài khoản đã xác minh hay chưa và tài khoản có đang bị khóa hay không. Quy tắc minh họa: người **từ 18 tuổi hoặc đã có sự đồng ý** được xét tiếp; sau đó bắt buộc phải **đã xác minh** và **không bị khóa**. Người quản lý cần đếm số yêu cầu được phép, bị từ chối và số tài khoản bị khóa, đồng thời xác nhận mọi yêu cầu đã khóa đều không thể được cho phép.
 
-**Vì sao chọn cách này?** Nhóm điều kiện `or` trong ngoặc thể hiện một trong hai cơ sở truy cập; các điều kiện `and` khác là bắt buộc. `not blocked` ngăn trường hợp đã khóa nhưng vẫn đủ tuổi/xác minh được mở quyền; kiểm chứng bằng `assert` phát hiện sai lệch quy tắc.
+**Vì sao chọn cách này?** Quy tắc gồm **ba phần**, cần đặt ngoặc để người học nhìn thấy rõ: (1) **tuổi từ 18 hoặc có đồng ý** — chỉ cần một điều kiện; (2) **đã xác minh** — bắt buộc; (3) **không bị khóa** — bắt buộc. `or` kết nối hai cách đáp ứng phần (1), còn `and` kết nối kết quả ấy với hai phần bắt buộc. `not blocked` đổi cờ bị khóa thành điều kiện **không bị khóa**; vì thế yêu cầu đã khóa luôn không đủ điều kiện, kể cả người lớn đã xác minh. Chương trình kiểm tra lại từng yêu cầu bị khóa và **báo lỗi nếu có trường hợp được phép**, giúp phát hiện sai quy tắc. Đây chỉ là chính sách **mô phỏng** của bài tập, không mô tả luật hay điều kiện truy cập thật của dịch vụ.
 
 **Quy trình:**
 1. Tạo 20 bản ghi đầy đủ bốn thuộc tính.

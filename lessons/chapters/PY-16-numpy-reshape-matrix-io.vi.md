@@ -140,9 +140,9 @@ Mảng được ghi ra tệp `.npy` rồi đọc lại đủ ba phần tử. Th�
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng; **Shape** — kích thước.
 
-**Tình huống thực tế:** Trạm quan trắc nhận **10 số đo nhiệt độ** (°C) theo thứ tự sáng/chiều của **5 ngày**. Một bản ghi là một lần đo, chưa có nhãn hàng/cột. Hãy xếp thành 5 hàng ngày và 2 cột ca, đồng thời đọc lại hai nhiệt độ của ngày thứ ba.
+**Tình huống thực tế:** Trạm quan trắc có **10 lần đo nhiệt độ**, tính bằng **°C**, theo đúng thứ tự: ca sáng rồi ca chiều của ngày 1, tiếp đến ca sáng rồi ca chiều của ngày 2, cho tới hết **5 ngày**. Người trực nhận được một dãy 10 số, chưa có hàng hoặc cột. Họ muốn đổi thành bảng **5 hàng ngày × 2 cột ca** để xem ngay hai kết quả của ngày thứ ba, mà không làm thay đổi hay mất một số đo nào.
 
-**Vì sao chọn cách này?** `reshape(5, 2)` chỉ tổ chức lại 10 số đã có, không tính hay tạo số mới. Thứ tự ban đầu quyết định cặp sáng/chiều; nếu bỏ nhãn đơn vị sẽ dễ nhầm ngày với ca.
+**Vì sao chọn cách này?** `reshape(5, 2)` chỉ **đổi cách nhìn** dãy 10 số thành 5 hàng và 2 cột; nó không đo lại, tính thêm hoặc tự sắp xếp ngày. Số 2 là hai ca của một ngày, số 5 là số ngày: mỗi hai giá trị liên tiếp được ghép vào cùng hàng vì **dữ liệu ban đầu đã được ghi theo thứ tự sáng–chiều**. Khi đọc ngày thứ ba, phải chọn hàng có chỉ số `2` vì Python bắt đầu đếm từ 0. Nếu dãy đầu vào bị đảo thứ tự ca thì `reshape` không tự phát hiện; cần xác nhận thứ tự trước khi đổi hình dạng.
 
 **Quy trình:**
 1. Lưu 10 nhiệt độ theo trình tự ngày–ca.
@@ -174,9 +174,9 @@ Ngày thứ ba lấy đúng lượt 5–6 trong dãy ban đầu; `reshape` khôn
 
 **Từ vựng trong mục:** **Transpose** — chuyển vị; **Axis** — trục; **Column** — cột.
 
-**Tình huống thực tế:** Trường có **12 học viên** H01…H12, mỗi hàng gồm ba điểm Toán, Văn, Python (thang 10). Phòng đào tạo muốn đổi góc nhìn thành **3 hàng môn × 12 cột học viên** và tính tổng điểm từng môn để đối chiếu.
+**Tình huống thực tế:** Phòng đào tạo nhận bảng điểm của **12 học viên H01–H12**. Mỗi hàng là một người, ba cột lần lượt là **Toán, Văn, Python**, đều theo thang **10 điểm**. Giáo viên muốn trình bày lại theo từng môn: mỗi hàng là một môn, 12 cột là 12 học viên; từ đó tính tổng điểm của từng môn trên cả lớp. Bảng mới vẫn phải chứa đủ **36 ô điểm** của bảng ban đầu.
 
-**Vì sao chọn cách này?** Chuyển vị `.T` làm đổi vai trò hàng/cột mà vẫn giữ đủ 36 ô; sau chuyển vị, `sum(axis=1)` cộng 12 học viên của từng hàng môn.
+**Vì sao chọn cách này?** **Chuyển vị** (`.T`) nghĩa là đổi **hàng thành cột và cột thành hàng**: bảng 12 học viên × 3 môn trở thành bảng 3 môn × 12 học viên, nhưng từng điểm vẫn ứng với đúng người và môn. Trên bảng mới, `sum(axis=1)` cộng **theo chiều ngang từng hàng**, tức cộng đủ 12 điểm của một môn. Nếu tiếp tục dùng `axis=0` như bảng ban đầu, kết quả trả theo học viên chứ không phải môn. Đây là cách thay góc nhìn để giải một câu hỏi khác, không phải cộng các môn vào làm một điểm.
 
 **Quy trình:**
 1. Tạo bảng điểm 12 × 3 và kiểm tra thứ tự cột.
@@ -208,9 +208,9 @@ Tổng trả theo thứ tự Toán, Văn, Python; thay trục mà không thay d�
 
 **Từ vựng trong mục:** **Matrix multiplication** — nhân ma trận; **Vector** — vector; **Weights** — trọng số.
 
-**Tình huống thực tế:** Khóa học có **15 học viên**, mỗi hàng là ba điểm đánh giá: lý thuyết, thực hành, dự án (thang 10). Chính sách giả lập tính điểm tổng kết với trọng số **20%, 30%, 50%**. Cần một điểm tổng kết cho từng học viên và đếm số học viên đạt từ 8 điểm.
+**Tình huống thực tế:** Một khóa học có **15 học viên**, mỗi người có ba điểm đánh giá: **lý thuyết, thực hành, dự án**, đều theo thang 10. Quy định minh họa tính điểm cuối với mức đóng góp tương ứng **20%, 30%, 50%**; dự án chiếm nhiều nhất. Giáo vụ cần tính đúng **một điểm tổng kết cho mỗi học viên** và đếm bao nhiêu người đạt **từ 8 điểm**, không lấy điểm của người này ghép với người khác.
 
-**Vì sao chọn cách này?** Tích ma trận `(15,3) @ (3,)` trả vector `(15,)`, mỗi phần tử là ba điểm **cùng một người** nhân đúng trọng số; khác nhân từng ô một cách không có mục tiêu.
+**Vì sao chọn cách này?** **Trọng số** là phần đóng góp của từng loại điểm vào điểm cuối; ở đây lý thuyết góp 20%, thực hành 30% và dự án 50%, cộng lại thành 100%. Mỗi hàng của mảng là ba điểm của **cùng một học viên**. Phép nhân ma trận `@` áp cùng ba mức đóng góp lên từng hàng và trả về **15 điểm cuối**, mỗi người một điểm. Chẳng hạn người có điểm cao ở dự án sẽ được phần đóng góp lớn hơn tương ứng chính sách. Nếu gộp theo cột thay vì theo hàng, kết quả sẽ là điểm chung từng môn cho cả lớp chứ không phải điểm tổng kết từng người.
 
 **Quy trình:**
 1. Tạo ma trận có đúng 15 hàng và ba cột đánh giá.
@@ -245,9 +245,9 @@ Học viên: 15
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng; **Copy** — bản sao; **Transpose** — chuyển vị.
 
-**Tình huống thực tế:** Nhà máy nhận **18 số đo mức tiêu thụ điện** (kWh) theo thứ tự ba ca mỗi ngày trong sáu ngày. Cần xếp lại thành bảng 6 × 3, tính tiêu thụ lớn nhất của từng ngày và cho bộ phận đối soát một bảng chuyển vị. Khi hiệu chỉnh bản đối soát, dữ liệu gốc phải giữ nguyên.
+**Tình huống thực tế:** Nhà máy lưu **18 lượt ghi điện năng tiêu thụ**, mỗi lượt tính bằng **kWh**. Máy ghi lần lượt ba ca của ngày 1, ba ca của ngày 2… cho đến đủ **6 ngày**. Bộ phận vận hành cần xem mức cao nhất mỗi ngày, còn kiểm toán muốn một bảng khác xếp **ca thành hàng, ngày thành cột** để tiện đối chiếu. Họ sẽ thử sửa một ô trên bảng kiểm toán, nhưng bản dữ liệu ban đầu phải được giữ nguyên.
 
-**Vì sao chọn cách này?** `reshape` chia đúng 18 giá trị thành ca/ngày, `.T.copy()` cho bảng 3 × 6 độc lập. Nếu chỉnh trực tiếp trên view `.T`, việc sửa có thể lan ngược vào bảng gốc; vì thế cần copy khi làm bản đối soát.
+**Vì sao chọn cách này?** `reshape(6, 3)` nhóm cứ ba lượt đo liên tiếp thành **một ngày**, rồi có thể tìm mức cao nhất trong ba ca của từng ngày. **Chuyển vị** `.T` đổi góc nhìn thành **3 hàng ca × 6 cột ngày**. Tuy nhiên mảng chuyển vị có thể chỉ là một **view**, tức cách nhìn khác của cùng vùng dữ liệu, nên sửa nó có thể làm dữ liệu gốc đổi theo. `.copy()` tạo **bản độc lập** để kiểm toán thử hiệu chỉnh mà không ghi đè sổ đo ban đầu. Đây là lý do chương trình dùng `.T.copy()` thay vì chỉ `.T`.
 
 **Quy trình:**
 1. Tổ chức 18 số thành 6 ngày × 3 ca.
@@ -286,9 +286,9 @@ Dữ liệu theo ca là kWh mỗi lượt, không phải công suất tức th�
 
 **Từ vựng trong mục:** **np.save** — lưu mảng NPY; **np.load** — đọc mảng NPY; **Validation** — kiểm dữ liệu.
 
-**Tình huống thực tế:** Một kho có **20 vị trí kiểm kê**: 5 kệ × 4 ngăn. Mỗi hàng nhập là số sản phẩm ghi nhận tại một ngăn; vị trí thứ 14 có giá trị **-1** để đánh dấu kiểm kê lỗi, không phải tồn kho âm hợp lệ. Nhân viên cần chuyển dữ liệu thành bảng, kiểm tra có bao nhiêu ngăn hợp lệ, sau đó lưu và đọc lại **định dạng NPY trong thư mục tạm**, xác nhận dữ liệu giữ nguyên.
+**Tình huống thực tế:** Kho kiểm kê **20 ngăn hàng**, sắp theo **5 kệ**, mỗi kệ **4 ngăn**. Mỗi số trong danh sách là lượng sản phẩm ở một ngăn; riêng ngăn thứ 14 ghi **-1** để báo rằng nhân viên kiểm kê nhập lỗi, **không phải tồn kho âm**. Người quản lý cần sắp 20 số vào bảng 5 × 4, đếm số ngăn có lượng hợp lệ, lưu bảng vào một tệp **NPY** tạm rồi đọc lại để kiểm tra tất cả số vẫn đúng và bảng không bị mất dạng.
 
-**Vì sao chọn cách này?** `np.save` giữ kiểu và hình dạng mảng, `np.load(..., allow_pickle=False)` tránh dùng cơ chế đối tượng không cần thiết. Lưu/đọc giúp chia sẻ kết quả đã kiểm chứng mà không phụ thuộc việc hiển thị lại 20 số trên màn hình.
+**Vì sao chọn cách này?** **NPY** là định dạng lưu mảng riêng của NumPy; khác văn bản thông thường ở chỗ nó giữ cả **các giá trị, kiểu dữ liệu và hình dạng** bảng. `reshape(5, 4)` ghép đúng 20 ngăn thành năm hàng kệ và bốn cột ngăn, nhưng không tự nhận ra `-1` là số lượng sai: chương trình cần kiểm tra riêng và chỉ đếm ngăn hợp lệ. `np.save()` ghi bảng vào tệp; `np.load(..., allow_pickle=False)` đọc lại mà không bật chức năng đọc đối tượng Python không cần thiết. Dùng thư mục tạm để học viên có thể thử lưu và đọc mà không để tệp mẫu tồn tại lâu; sau khi đọc, so bảng với bản gốc để xác nhận không sai số.
 
 **Quy trình:**
 1. Tạo mảng 20 số theo vị trí, reshape thành 5 × 4.

@@ -132,9 +132,9 @@ Hai tên khách được ghép đúng theo id, không phải dựa vào vị tr�
 
 **Từ vựng trong mục:** **Filter** — lọc; **loc** — chọn hàng theo nhãn.
 
-**Tình huống thực tế:** Cửa hàng có **10 sản phẩm** P01…P10, mỗi dòng là giá bán (nghìn đồng/món). Người quản lý cần danh sách những sản phẩm có giá **ít nhất 800 nghìn đồng**, giữ đúng mã để đưa vào bảng đối chiếu.
+**Tình huống thực tế:** Cửa hàng có danh mục **10 sản phẩm P01–P10**, mỗi sản phẩm ghi một đơn giá tính bằng **nghìn đồng/món**. Chủ cửa hàng muốn chọn những món có giá **từ 800 nghìn đồng trở lên**, rồi in đúng **mã và giá** của chúng để nhân viên đối chiếu bảng hàng. Mã P01 không phải là vị trí hàng và cũng không phải số tiền.
 
-**Vì sao chọn cách này?** `df.loc[mask, columns]` chọn các hàng đúng điều kiện và chỉ hai cột cần xem. Chỉ số hàng trong DataFrame không phải giá sản phẩm; dùng `loc` giúp tách điều kiện và thông tin hiển thị.
+**Vì sao chọn cách này?** `DataFrame` là bảng có cột được đặt tên, giúp phân biệt rõ **mã sản phẩm** và **giá tiền**. Chương trình kiểm tra từng giá có `>= 800` hay không để tạo một **mặt nạ Boolean** (dãy đúng/sai). `df.loc[mask, ['id', 'price_thousand']]` chỉ lấy những hàng đúng điều kiện, đồng thời chỉ giữ hai cột cần xem. `loc` chọn dựa trên nhãn hoặc điều kiện, không phải so sánh mã P01 với con số 800. Cách lọc này còn giữ nguyên dữ liệu gốc; đổi thứ tự bảng không làm ngưỡng giá thay đổi.
 
 **Quy trình:**
 1. Tạo bảng mã/giá của 10 sản phẩm.
@@ -170,9 +170,9 @@ Ngưỡng **bao gồm** 800 do dùng `>=`. Mã hàng được giữ riêng để
 
 **Từ vựng trong mục:** **iloc** — chọn theo vị trí; **Slice** — lát cắt; **Index label** — nhãn hàng.
 
-**Tình huống thực tế:** Kho ghi **12 phiếu xuất** K01…K12 với số lượng món xuất mỗi phiếu. Để kiểm tra lô được nhập từ thứ tự **phiếu thứ 4 đến phiếu thứ 7**, nhân viên muốn lấy đúng bốn hàng trong DataFrame và tính tổng món của bốn phiếu.
+**Tình huống thực tế:** Kho nhận **12 phiếu xuất K01–K12**, theo đúng thứ tự ghi nhận; mỗi phiếu có số món đã xuất. Trưởng kho yêu cầu xem **phiếu thứ 4 đến phiếu thứ 7**, tức bốn phiếu liên tiếp, và cộng tổng số món của bốn phiếu này. Nhân viên cần ghi lại mã phiếu đầu và cuối trong đoạn đã chọn để không chọn lệch một hàng.
 
-**Vì sao chọn cách này?** `iloc[3:7]` chọn các vị trí 3,4,5,6 tương ứng phiếu thứ 4–7; số 7 là giới hạn không bao gồm. Khác `loc`, `iloc` dùng vị trí chứ không dùng mã K04.
+**Vì sao chọn cách này?** `iloc` chọn theo **vị trí hàng tính từ 0**, khác `loc` chọn theo nhãn hàng hoặc điều kiện. Phiếu thứ tư có vị trí 3, nên `df.iloc[3:7]` lấy các vị trí **3, 4, 5, 6**, tương ứng K04 đến K07; số 7 ở cuối lát cắt **không được lấy**. Sau đó cộng cột `quantity` của đúng bốn dòng này để ra số món xuất. Nếu dùng `[4:7]` vì thấy chữ 'phiếu thứ 4', chương trình sẽ bỏ K04 và chỉ còn ba phiếu khác với yêu cầu.
 
 **Quy trình:**
 1. Ghi 12 phiếu theo thứ tự phát sinh.
@@ -211,9 +211,9 @@ Lát cắt vẫn là bốn dòng thật từ bảng 12 phiếu; không tạo th�
 
 **Từ vựng trong mục:** **groupby** — nhóm theo khóa; **agg** — tổng hợp; **sort_values** — sắp xếp.
 
-**Tình huống thực tế:** Một đại lý có **15 giao dịch**, mỗi hàng gắn vùng `Bắc`, `Nam`, `Trung` và số doanh thu (triệu đồng/giao dịch). Chủ cửa hàng muốn biết số giao dịch và tổng doanh thu **riêng từng vùng**, sau đó sắp vùng có doanh số lớn nhất lên đầu.
+**Tình huống thực tế:** Một đại lý có **15 giao dịch** bán hàng; mỗi dòng gồm tên vùng **Bắc, Nam hoặc Trung** và tiền giao dịch tính bằng **triệu đồng**. Chủ đại lý cần biết từng vùng có **bao nhiêu giao dịch**, tổng doanh thu từng vùng, rồi trình bày vùng có tổng tiền cao hơn trước. Đếm 15 dòng chung không trả lời được vùng nào đang hoạt động mạnh nhất.
 
-**Vì sao chọn cách này?** `groupby('area').agg(...)` gom hàng có cùng vùng và tạo hai chỉ số đếm/tổng; `sort_values` tổ chức bảng kết quả, không làm thay đổi doanh thu thực tế.
+**Vì sao chọn cách này?** **Groupby** nghĩa là gom các hàng có chung một thông tin, ở đây là tên vùng. `groupby('area')` tách 15 giao dịch thành ba nhóm Bắc, Nam, Trung; `agg` yêu cầu hai phép thống kê cho mỗi nhóm: `size` đếm **số giao dịch**, `sum` cộng **tiền giao dịch**. Hai kết quả không thay thế nhau: vùng ít giao dịch có thể vẫn có doanh thu lớn. `sort_values` sắp theo tổng doanh thu **giảm dần** và tên vùng để có thứ tự nhất quán khi hòa tiền. Không cộng tất cả 15 giao dịch rồi gán cùng một tổng cho mỗi vùng.
 
 **Quy trình:**
 1. Tạo 15 dòng với đơn vị doanh thu rõ ràng.
@@ -251,9 +251,9 @@ Từng giá trị là **doanh thu tổng** trong một vùng, không phải doan
 
 **Từ vựng trong mục:** **merge** — ghép bảng; **Left join** — giữ bảng trái; **Unmatched key** — khóa không khớp.
 
-**Tình huống thực tế:** Ứng dụng có **18 đơn hàng** O01…O18 và bảng thông tin 12 khách C01…C12. Mỗi đơn có mã khách và số tiền (nghìn đồng); riêng O17 trỏ nhầm tới C99 không có trong danh mục. Cần giữ **đủ 18 đơn**, bổ sung thành phố khách khi tìm được và báo mã đơn chưa khớp để nhân viên sửa.
+**Tình huống thực tế:** Ứng dụng có bảng **18 đơn hàng O01–O18** và bảng thông tin **12 khách C01–C12**. Mỗi đơn ghi mã khách và tiền hàng (**nghìn đồng**); bảng khách ghi **thành phố** của mỗi người. Riêng đơn **O17** tham chiếu mã khách **C99**, chưa có trong danh mục. Nhân viên cần bổ sung thành phố cho những đơn tìm được khách, nhưng vẫn phải giữ đủ **18 đơn** và báo chính xác mã đơn không khớp để sửa.
 
-**Vì sao chọn cách này?** `merge(..., how='left', validate='many_to_one', indicator=True)` giữ mỗi đơn bảng trái, chỉ bổ sung thông tin khi mã khách tồn tại ở danh mục **duy nhất**. `inner` sẽ làm O17 biến mất âm thầm, không phù hợp đối soát.
+**Vì sao chọn cách này?** **Ghép bảng (merge)** là tìm dòng thuộc bảng khách bằng **mã khách** trên từng đơn hàng, rồi bổ sung thông tin như thành phố. Một khách có thể đặt **nhiều đơn**, còn mã khách trong danh mục chỉ được xuất hiện **một lần**: `validate='many_to_one'` kiểm tra đúng kiểu quan hệ này để tránh nhân đôi đơn khi bảng khách bị trùng mã. `how='left'` giữ **tất cả 18 đơn** của bảng bên trái, kể cả O17 không tìm thấy C99; `indicator=True` đánh dấu dòng đã ghép được hay còn thiếu, nhờ đó in ra O17 để sửa. Nếu dùng `inner` merge, O17 có thể biến mất khỏi báo cáo mà không có cảnh báo.
 
 **Quy trình:**
 1. Tạo bảng 18 đơn và danh mục 12 khách không trùng mã.
@@ -290,9 +290,9 @@ O17 vẫn ở bảng kết quả với thành phố thiếu, nhờ đó lỗi kh
 
 **Từ vựng trong mục:** **Merge validation** — kiểm quan hệ khóa; **Groupby** — nhóm; **Data quality** — chất lượng dữ liệu.
 
-**Tình huống thực tế:** Kế toán có **20 dòng bán hàng** O01…O20, mỗi dòng chứa mã SKU và số món; danh mục có **5 giá sản phẩm** P01…P05 (nghìn đồng/món). Dòng O19 mang mã P99 chưa được cấp giá. Cần ghép giá theo SKU, tách một dòng cần bổ sung, tính doanh thu **chỉ từ các dòng có giá hợp lệ** và xác định SKU có doanh thu cao nhất. Không nhân số lượng với giá rỗng hoặc làm mất hàng O19.
+**Tình huống thực tế:** Kế toán nhận **20 dòng bán hàng O01–O20**, mỗi dòng ghi **SKU** (mã loại hàng) và **số món bán**. Một bảng giá riêng chỉ có năm SKU **P01–P05**, đơn giá tương ứng tính bằng **nghìn đồng/món**. Dòng O19 ghi **P99** nên chưa tìm được đơn giá. Cần ghép bảng để tính tiền cho các dòng có giá, giữ riêng mã hóa đơn cần bổ sung giá, tổng hợp doanh thu theo SKU và xác định SKU doanh thu cao nhất; không tự tính P99 bằng 0 đồng.
 
-**Vì sao chọn cách này?** Left-merge kèm `validate='many_to_one'` ngăn giá nhân lên do mã sản phẩm trùng trong danh mục; sau đó `groupby().sum()` cộng theo SKU. Báo rõ khóa không khớp trước khi tổng hợp để không coi doanh thu thiếu như 0.
+**Vì sao chọn cách này?** **SKU** là mã nhận diện loại sản phẩm, dùng để tìm **đơn giá** tương ứng trong bảng giá. Chương trình ghép 20 dòng bán với năm giá theo SKU bằng `how='left'`, tức vẫn giữ dòng O19 dù P99 chưa có giá. `validate='many_to_one'` bảo đảm mỗi SKU chỉ có **một giá** trong danh mục để không tạo thêm dòng bán giả. `isna()` xác định các dòng thiếu giá; chỉ lấy những dòng `notna()` rồi nhân **số món × giá một món** để có doanh thu từng dòng. `groupby('sku').sum()` cộng các dòng của cùng một sản phẩm và `sort_values` xếp SKU doanh thu cao nhất trước. O19 được báo cần sửa, không được đổi thành doanh thu 0 vì số tiền thực tế chưa biết.
 
 **Quy trình:**
 1. Tạo 20 dòng bán và bảng giá 5 SKU duy nhất.

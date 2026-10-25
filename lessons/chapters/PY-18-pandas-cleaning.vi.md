@@ -132,9 +132,9 @@ Có đúng một giá trị giá không hợp lệ. Chuyển thành NaN giúp ph
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu; **isna** — kiểm tra ô trống.
 
-**Tình huống thực tế:** Bộ phận tuyển sinh tiếp nhận **10 hồ sơ** H01…H10, mỗi hàng là tuổi học viên (năm). H03 và H08 chưa khai tuổi (`None`). Cần đếm số hồ sơ thiếu tuổi và giữ nguyên các tuổi đã nhập, tuyệt đối không biến thiếu thành 0 tuổi.
+**Tình huống thực tế:** Trung tâm tuyển sinh có **10 hồ sơ H01–H10**. Mỗi hàng gồm mã học viên và tuổi tính bằng **năm**; hai người H03, H08 chưa khai tuổi nên ô dữ liệu là `None`. Nhân viên muốn đếm chính xác hai hồ sơ cần bổ sung và liệt kê mã của họ, trong khi giữ nguyên tuổi đã có của tám người còn lại. Người chưa khai tuổi không có nghĩa là 0 tuổi.
 
-**Vì sao chọn cách này?** `isna()` tạo một cột đúng/sai theo vị trí, rồi `sum()` đếm các dòng thiếu. Ở bước phát hiện chưa cần xóa hay điền số để tránh thay dữ liệu gốc.
+**Vì sao chọn cách này?** `isna()` tạo kết quả **đúng/sai theo từng dòng**: chỗ nào chưa có tuổi được đánh `True`. Cộng các giá trị `True` cho biết số hồ sơ thiếu, còn `df.loc[missing, 'id']` lấy **mã đúng của những hồ sơ đó**, không phải mã tùy ý theo thứ tự. Bài này chỉ phát hiện và báo thiếu; chưa có cơ sở để biết tuổi thật nên **không xóa hồ sơ và không tự điền 0**. Làm vậy giúp người tiếp nhận biết chính xác phải hỏi lại ai.
 
 **Quy trình:**
 1. Tạo DataFrame 10 mã học viên và tuổi.
@@ -170,9 +170,9 @@ Hai học viên còn thiếu tuổi vẫn tồn tại trong báo cáo; số 0 kh
 
 **Từ vựng trong mục:** **Imputation** — điền khuyết; **Median** — trung vị; **Copy** — bản sao.
 
-**Tình huống thực tế:** Cửa hàng khảo sát **12 mức chi** (nghìn đồng/khách), trong đó khách thứ 4 và thứ 9 chưa khai. Nhóm phân tích quyết định **thử** điền trung vị của mười mức chi có thật để có bảng làm việc, nhưng phải giữ bảng thô để kiểm tra; đây không phải dữ liệu chi tiêu thực tế của hai khách.
+**Tình huống thực tế:** Cửa hàng khảo sát mức chi tiêu của **12 khách hàng**; mỗi con số tính bằng **nghìn đồng/khách**. Khách thứ tư và thứ chín chưa khai mức chi (`None`). Để thử một bước phân tích, nhóm muốn điền vào hai chỗ trống bằng **trung vị** tính từ mười người có số liệu, nhưng vẫn giữ lại bảng gốc để phân biệt thông tin thật với số được điền tạm.
 
-**Vì sao chọn cách này?** `median()` trên cột có thiếu tự bỏ NaN, còn `fillna()` tạo giá trị thay thế. Việc giữ bản gốc tách bạch số đo thật với số được suy ra; không sử dụng giá trị này như giao dịch thật.
+**Vì sao chọn cách này?** **Trung vị** là số nằm ở **giữa dãy đã sắp xếp**; với mười số hợp lệ, nó nằm giữa hai giá trị giữa của dãy. Trung vị thường ít bị ảnh hưởng bởi một khoản chi quá lớn hơn trung bình, nên bài chọn nó làm **giá trị thử điền**. `median()` bỏ qua `NaN` khi tính trên cột mức chi; `copy()` tạo bảng làm việc riêng; `fillna(median)` chỉ thay các vị trí thiếu trong bảng ấy. Đây là **số ước lượng**, không phải khoản tiền khách đã thật sự chi; bảng `raw` phải giữ hai vị trí trống để còn đối chiếu.
 
 **Quy trình:**
 1. Tạo 12 khoản chi và đếm số thiếu trước sửa.
@@ -210,9 +210,9 @@ Trung vị là một lựa chọn minh họa; quyết định điền hay bỏ d
 
 **Từ vựng trong mục:** **Duplicate** — bản ghi trùng; **drop_duplicates** — bỏ hàng trùng.
 
-**Tình huống thực tế:** Một nhân viên nhập **15 dòng** đơn hàng gồm mã đơn và số tiền (nghìn đồng). Có ba dòng nhập lặp nguyên vẹn (cùng mã và số tiền). Cần biết số dòng trùng và số giao dịch sau bỏ trùng; đồng thời giải thích rằng chỉ được khử trùng khi đây thực sự là bản nhập lặp, không phải hai lần mua hợp lệ có cùng số tiền.
+**Tình huống thực tế:** Nhân viên nhập sổ bán hàng gồm **15 dòng giao dịch**, mỗi dòng có mã đơn O01, O02… và tiền hàng (**nghìn đồng**). Ba dòng được nhập **lặp lại y hệt** một dòng trước đó: giống cả mã đơn lẫn số tiền. Quản lý cần biết có bao nhiêu dòng trùng và còn bao nhiêu bản ghi sau khi bỏ trùng, nhưng không được xóa hai đơn có mã khác nhau chỉ vì tiền mua bằng nhau.
 
-**Vì sao chọn cách này?** `duplicated()` so **tất cả cột** phát hiện hàng y hệt nhau; `drop_duplicates()` giữ bản đầu, không loại hai mã khác nhau chỉ vì số tiền bằng nhau.
+**Vì sao chọn cách này?** **Dòng trùng hoàn toàn** nghĩa là mọi cột được so đều giống nhau, chẳng hạn cùng `O01` và cùng số tiền 100 nghìn đồng. `df.duplicated()` đánh dấu các lần xuất hiện lặp sau dòng đầu; cộng các dấu này cho biết có bao nhiêu dòng dư. `drop_duplicates()` giữ một bản của từng dòng giống hệt, rồi `.copy()` tạo bảng để tiếp tục dùng. Không thể chỉ so **số tiền** vì nhiều khách có thể mua cùng giá; cũng không nên khử trùng các giao dịch thật chỉ dựa vào suy đoán, vì có thể làm báo doanh thu thấp.
 
 **Quy trình:**
 1. Tạo bảng với 15 cặp mã–tiền.
@@ -248,9 +248,9 @@ Chỉ khử ba hàng xác định là bị nhập lặp; nếu có số hóa đ�
 
 **Từ vựng trong mục:** **to_numeric** — chuyển sang số; **errors=coerce** — biến lỗi thành NaN; **Validation** — kiểm dữ liệu.
 
-**Tình huống thực tế:** Nhà bán hàng nhập **18 đơn giá** (đồng/món), một hàng cho một SKU. Ba giá trị nhập sai ở dòng 4 (`bad`), 11 (rỗng), 17 (`N/A`). Cần chuyển kiểu để tính tổng **15 đơn giá có số**, giữ danh sách SKU chưa có giá và không dùng 0 đồng làm giá giả định.
+**Tình huống thực tế:** Người phụ trách giá có **18 loại hàng P01–P18**, mỗi dòng ghi một đơn giá dạng **chuỗi** và đơn vị cần tính là **đồng/món**. Ba ô không hợp lệ: P04 ghi `bad`, P11 trống, P17 ghi `N/A`. Họ cần đổi các giá còn lại thành số, biết có đúng **15 giá có thể tính**, cộng tổng các đơn giá hợp lệ và đưa ra danh sách ba mã chưa có giá để nhập lại.
 
-**Vì sao chọn cách này?** `pd.to_numeric(errors='coerce')` xử lý chuỗi lỗi bằng NaN để có thể kiểm tra, không làm chương trình dừng; sau đó `notna()` xác định giá thật và `isna()` chỉ ra mã cần sửa.
+**Vì sao chọn cách này?** `pd.to_numeric(..., errors='coerce')` cố đổi chuỗi giá sang số; nếu gặp `bad`, `N/A` hoặc chuỗi rỗng, nó ghi **NaN** (chưa có số hợp lệ) thay vì ném lỗi khiến cả bảng không xử lý được. `isna()` tìm ba chỗ cần sửa, `notna()` hoặc dấu đảo `~` xác định **15 giá hợp lệ**. Chỉ cộng những giá đã chuyển thành số; nếu coi NaN là 0 đồng thì báo cáo sẽ che đi hàng chưa nhập giá. Giá đang tính bằng **đồng/món**, nên tổng ở đây là tổng **15 đơn giá**, không phải doanh thu bán hàng vì chưa có số món bán.
 
 **Quy trình:**
 1. Tạo 18 chuỗi giá có mã P01…P18.
@@ -289,9 +289,9 @@ Tổng đơn giá không phải doanh thu. Nếu cần doanh thu phải ghép th
 
 **Từ vựng trong mục:** **Data leakage** — rò rỉ dữ liệu; **Train/test split** — chia tập; **Imputation** — điền khuyết.
 
-**Tình huống thực tế:** Một đội học máy có **20 hồ sơ giả lập** H01…H20; mỗi người có tuổi (năm), mức chi (nghìn đồng) và nhãn nhóm quan sát. Theo phân chia định trước, **15 hồ sơ đầu dùng tập train**, 5 hồ sơ cuối dùng test. Có hai giá trị thiếu ở train và **một giá trị test đặc biệt lớn**. Cần tính trung vị **chỉ từ train** để điền, áp cùng trung vị đó cho test nếu test thiếu, giữ bản gốc và tuyệt đối không dùng thống kê test để chọn giá trị train.
+**Tình huống thực tế:** Nhóm phân tích muốn chuẩn bị **20 hồ sơ học viên giả lập** H01–H20 cho một thử nghiệm học máy. Mỗi hồ sơ ghi tuổi (**năm**) và mức chi (**nghìn đồng**); hai mức chi của nhóm huấn luyện còn thiếu. Theo kế hoạch, **15 người đầu thuộc train**, **5 người sau thuộc test**; tập test chứa một mức chi rất cao là **999 nghìn đồng**. Nhóm cần lấy trung vị từ train để điền chỗ thiếu khi làm việc, không dùng bất kỳ mức chi nào của test để quyết định cách xử lý train.
 
-**Vì sao chọn cách này?** Nếu tính trung vị từ cả 20 người trước khi tách, dữ liệu test đã góp phần quyết định cách xử lý train, gây **data leakage**. Cách đúng là tách trước rồi học thống kê từ train; trong ví dụ này test có giá trị bất thường để nhấn mạnh nguyên tắc.
+**Vì sao chọn cách này?** **Train** là nhóm dữ liệu để chương trình học quy tắc hoặc tính thông số xử lý; **test** là nhóm giữ riêng để kiểm tra trên dữ liệu chưa dùng khi chuẩn bị train. `iloc[:15]` chọn 15 người đầu, còn `iloc[15:]` chọn 5 người cuối; `.copy()` giữ hai bảng làm việc riêng. Trung vị phải được tính **chỉ trên train**, rồi dùng cùng giá trị đó điền vị trí thiếu của train và, nếu có, test. Nếu tính từ cả 20 người, mức 999 nghìn đồng của test có thể ảnh hưởng lựa chọn xử lý trước khi đánh giá: đó là **rò rỉ dữ liệu (data leakage)**. Bản `raw` vẫn giữ những chỗ thiếu thật để phân biệt dữ liệu gốc với dữ liệu đã điền.
 
 **Quy trình:**
 1. Tạo DataFrame 20 người; tách 15 dòng đầu/5 dòng cuối.
