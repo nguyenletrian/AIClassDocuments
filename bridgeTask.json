@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-full-code-annotations-20261025",
-    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch08",
+    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch09",
     "title": "Chú thích đầy đủ code Python, giải thích mọi API/phương thức khó hiểu trong 46 bài",
-    "phase": "READY_FOR_BATCH_08",
+    "phase": "READY_FOR_BATCH_09",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-CODE-ANNOTATION-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
@@ -1201,15 +1201,15 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "OWNER APPROVED only Batch08 PY-36..PY-40 for goal aiclassdocuments-full-code-annotations-20261025. Batch07 PY-31..35 completed five independent commits, PR #171 merge SHA 79b60e50a67e0d611296aa59d720bf510b4f3d68, final-head GitHub CI #40194676669 SUCCESS, 45 Python fences / +558 explanatory comments; progress ledger main last_completed_batch=7 READY_FOR_BATCH_08. Before any edit inspect current authoritative main/TaskSource/ACK, open PR, AGENTS.md, style guide, lesson template, goal and ledger. If task/result/ACK/PR unresolved, diagnose saved evidence first and do NOT replay or duplicate sends. Execute only FIVE PY-36..PY-40, one commit per lesson, Vietnamese # Mục đích, # Dữ liệu, nearby explanations of non-obvious APIs, flags, arguments, indexing, plot methods, stats interpretations/units/cleanup. Strict preservation: all noncomment executable Python lines/AST/stdout and outside-fence Markdown including 46 lessons/920 MCQs/scenarios unchanged. Verify every Python block, 25 scenario stdout, full 46-chapter GitHub CI and final-head CI SUCCESS before merging a single PR. Record PR/CI SHA and merge SHA in durable ledger FIRST, then rearm Batch09 once. Do NOT begin PY-41+ on same wakeup, publish 46 tasks, duplicate idle tasks, or silently rebind CDP port 9224; Windows PowerShell canary remains UNVERIFIED. Repeated global heartbeat revision is NOT distinct approval.",
-    "review_hold": "Only active approved Batch08 PY-36..PY-40, at most five; Batch07 merged and ledger COMPLETED, zero open PR and unresolved task/ACK at revision. GitHub metadata re-arms goal-review, not runtime Windows Bridge/port ownership.",
-    "active_batch": 8,
+    "next_review": "OWNER APPROVED only Batch09 PY-41..PY-45 for aiclassdocuments-full-code-annotations-20261025. Batch08 PY-36..PY-40 completed in five independent commits, PR #172 merged SHA ddcb038f16c65ddbf562d2e503ced88106c4ac97, final-head GitHub CI #40197477244 SUCCESS at 5e2b10b8b7cb21a9eeb4688ba2925e5bd36caede, 45 Python code fences annotated (+457 net comment lines). Ledger last_completed_batch=8 status READY_FOR_BATCH_09. Reverify authoritative current main, goal, progress ledger, AGENTS.md, style guide, lesson template, 0 outstanding PR/task/ACK before beginning. Annotate ONLY FIVE PY-41..PY-45 with # Mục đích and # Dữ liệu and accurate immediately adjacent Vietnamese notes explaining every non-obvious function, flag, numeric unit, indexing, math/statistics/model API, plotting/cleanup. Keep Python non-comment source exactly identical, source AST/stdout, all non-Python-fence Markdown including 920 MCQs, 46 lessons, data and progressive scenarios unchanged. One separate commit per lesson; independent 45 Python fence preservation and tests, full 46-chapter regression and exact 25 scenario stdout, final PR HEAD CI SUCCESS before merge. Merge a SINGLE PR, update ledger with PR/CI/merged SHA FIRST, then change goal_review revision to Batch10 only (PY-46). Do not work on PY-46 yet or open parallel batch/task. Repeated 15-second global heartbeat is informational and not separate approval; never duplicate tasks or replay uncertain sends. CDP port 9224 ownership / Windows PowerShell remains UNVERIFIED, do not falsely claim Windows PASS, never silently rebind.",
+    "review_hold": "Single active Batch09 PY-41..PY-45, at most 5. Batch08 PR172 CI40197477244 success merged, ledger 8/10 complete, no pending task/ACK and no open PR on rearm. GitHub metadata update does not confirm Windows AIBridge running/CDP ownership.",
+    "active_batch": 9,
     "active_lessons": [
-      "PY-36",
-      "PY-37",
-      "PY-38",
-      "PY-39",
-      "PY-40"
+      "PY-41",
+      "PY-42",
+      "PY-43",
+      "PY-44",
+      "PY-45"
     ],
     "batch_boundary": "SINGLE_ACTIVE_BATCH_MAX_5; ledger must show prior completed/merged before this batch; do not open another batch while PR/task/ACK pending."
   },
@@ -1341,6 +1341,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "Approved full code annotations 7/10 batches merged; next Batch08 PY-36..PY-40 only. Preserve single-batch gate, no duplicates on repetitive 15s heartbeat."
+    "reason": "Approved full code annotation goal 8/10 batches merged; next Batch09 PY-41..PY-45 only. No duplicate task or batch on continuous idle reminders."
   }
 }
