@@ -14,8 +14,8 @@
     18,
     20
   ],
-  "last_completed_batch": 9,
-  "status": "BATCH_10_QA_PASSED_WAIT_MERGE",
+  "last_completed_batch": 10,
+  "status": "COMPLETED",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -254,14 +254,14 @@
       "lesson_ids": [
         "PY-46"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "branch": "feat/curriculum-scenarios-batch-10-20261025",
       "pr_number": 132,
-      "merged_commit": null,
-      "ci_run": 40164113714,
+      "merged_commit": "67fb35e483c35c42e2b86082af8400f1bbad5780",
+      "ci_run": 40164254257,
       "windows_test": null,
       "updated_at": "2026-10-25",
-      "notes": "PR #132 initial CI 40164113714 PASS: Python3.12 NumPy/Pandas/SymPy/SciPy/sklearn/Matplotlib; five final PY-46 snippets independently executed with exact stdout, including JSON report, global 46-chapter/230-case/920-MCQ audit PASS, all prior batches01..09 and structural/ledger QA PASS. Not merged yet; Windows worker test not verified.",
+      "notes": "Final PR #132 squash merged 67fb35e483c35c42e2b86082af8400f1bbad5780, final-head GitHub CI run 40164254257 PASS. All 5 PY-46 executable scenarios matched documented stdout including JSON report; global audit verified 46 chapters / 230 scenarios / 920 bilingual MCQs. All previous batch01..09 executable tests, structural/MCQ/syntax/ledger checks PASS. Windows Bridge worker verification not evidenced for this workstream; not marked Windows PASS.",
       "lesson_commits": {
         "PY-46": "2190762a1be64b03fcb2e01cb6eb39be9b5a020d"
       }
