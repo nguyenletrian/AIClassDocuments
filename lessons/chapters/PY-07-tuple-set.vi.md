@@ -137,167 +137,186 @@ print(sorted(required - done))
 
 Kết quả là một **List đã sắp xếp**, gồm hai kỹ năng cần học tiếp. Set gốc không bị thay đổi.
 
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống Tuple/Set — từ bản ghi đến đối chiếu kỹ năng
 
-### Tình huống 1 — Khử email trùng
+### Tình huống 1 — Cấp 1: Lưu 10 tọa độ bằng Tuple
 
-**Từ vựng trong mục:** **Set** — tập hợp; **Duplicate** — trùng lặp.
+**Từ vựng trong mục:** **Tuple** — bộ giá trị; **Unpacking** — tách bộ.
 
-**Tình huống thực tế:** Ứng dụng gửi thông báo đang có bốn email `a@x.vn`, `b@x.vn`, `a@x.vn`, `c@x.vn`. Địa chỉ `a@x.vn` bị nhập hai lần.
+**Tình huống thực tế:** Robot ghi **10 vị trí** trên mặt phẳng (mét), mỗi vị trí là cặp tọa độ `(x, y)` không muốn sửa khi dùng để đối chiếu đường đi. Hãy lưu các cặp bằng tuple, tách tọa độ điểm đầu và đếm những điểm có bình phương khoảng cách tới gốc từ 25 m² trở lên.
 
-**Yêu cầu:** Đếm có bao nhiêu địa chỉ email khác nhau.
+**Vì sao chọn cách này?** Tuple giữ cấu trúc cố định của từng cặp số, cho phép tách `x, y = point`. Kiểm tra bình phương khoảng cách tránh cần thêm thư viện tính căn cho bài này.
 
-**Vì sao chọn cách giải này?** `set()` bỏ bản ghi giống hệt nhau, `len()` đếm số email còn lại. Cách này chưa xử lý khác biệt chữ hoa/chữ thường.
-
-**Quy trình giải:**
-
-1. Lưu bốn email vào list.
-2. Chuyển list thành set để bỏ email bị lặp.
-3. Dùng `len()` đếm số email khác nhau.
+**Quy trình:**
+1. Lưu mười tuple tọa độ, mỗi hàng là một vị trí.
+2. Tách `x, y` của từng tuple và đếm điểm đạt ngưỡng.
+3. In điểm đầu, số quan sát và số điểm đủ xa.
 
 ```python
-# Mục đích: Khử email trùng.
-emails=["a@x.vn","b@x.vn","a@x.vn","c@x.vn"]
-print(len(set(emails)))
+positions = [(3,4),(0,2),(5,0),(1,1),(2,3),(4,1),(6,0),(1,4),(2,2),(5,5)]
+first_x, first_y = positions[0]
+far_count = sum(x*x + y*y >= 25 for x, y in positions)
+assert len(positions) == 10
+print("Số vị trí:", len(positions))
+print("Điểm đầu:", first_x, first_y)
+print("Điểm xa:", far_count)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-3
+Số vị trí: 10
+Điểm đầu: 3 4
+Điểm xa: 4
 ```
 
-**Kết quả:** `3` — có ba địa chỉ email khác nhau.
+Mỗi tuple là một điểm đo có hai thành phần. Số 25 mang đơn vị m² do chương trình so bình phương khoảng cách, không phải khoảng cách 25 mét.
 
-### Tình huống 2 — Lưu tọa độ
+### Tình huống 2 — Cấp 2: Khử email trùng sau chuẩn hóa 12 bản ghi
 
-**Từ vựng trong mục:** **Tuple** — bộ giá trị; **Coordinate** — tọa độ.
+**Từ vựng trong mục:** **Set** — tập hợp; **Duplicate** — trùng; **Normalization** — chuẩn hóa.
 
-**Tình huống thực tế:** Một phần mềm bản đồ lưu điểm có tọa độ `(3, 4)` mét, tính từ gốc `(0, 0)`. Hai giá trị lần lượt là vị trí x và y.
+**Tình huống thực tế:** Một chương trình chuẩn bị gửi thư cho **12 địa chỉ giả lập**, mỗi dòng là một tài khoản. Có email giống nhau nhưng khác chữ hoa/thường và khoảng trắng; cần thống kê số tài khoản duy nhất **sau chuẩn hóa**, không gửi trùng.
 
-**Yêu cầu:** Lấy x, y từ tuple và tính bình phương khoảng cách đến gốc tọa độ.
+**Vì sao chọn cách này?** `set()` chỉ tự loại các chuỗi giống nhau hoàn toàn; cần `strip().lower()` trước để so sánh nhất quán. Tập hợp không bảo đảm thứ tự, nên `sorted()` tạo danh sách hiển thị ổn định.
 
-**Vì sao chọn cách giải này?** Tuple lưu gọn cặp tọa độ có thứ tự. Công thức `x*x + y*y` tính bình phương khoảng cách, không phải khoảng cách thực.
-
-**Quy trình giải:**
-
-1. Lưu tọa độ vào tuple `point`.
-2. Tách tuple thành `x` và `y`.
-3. Tính `x*x + y*y` rồi in kết quả.
+**Quy trình:**
+1. Chuẩn hóa mười hai email sang chữ thường, bỏ khoảng trắng biên.
+2. Đưa dữ liệu vào Set để loại các bản ghi giống nhau.
+3. Báo số email gốc, số email duy nhất và số lượt thừa.
 
 ```python
-# Mục đích: Lưu tọa độ.
-point=(3,4)
-x,y=point
-print(x*x+y*y)
+raw = ["Lan@EXAMPLE.invalid","an@example.invalid"," LAN@example.invalid ","binh@example.invalid","chi@example.invalid","An@Example.INVALID","dung@example.invalid","ha@example.invalid","Minh@example.invalid","lan@example.invalid","trang@example.invalid","ha@example.invalid"]
+normalized = [email.strip().lower() for email in raw]
+unique = set(normalized)
+assert len(raw) == 12
+print("Dòng nhận:", len(raw))
+print("Email duy nhất:", len(unique))
+print("Bản ghi trùng:", len(raw) - len(unique))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-25
+Dòng nhận: 12
+Email duy nhất: 8
+Bản ghi trùng: 4
 ```
 
-**Kết quả:** `25` m² — bình phương khoảng cách; khoảng cách thật bằng 5 mét.
+Tên miền `.invalid` chỉ dành cho dữ liệu minh họa. Không dùng số email thô làm số tài khoản duy nhất khi dữ liệu chưa được chuẩn hóa.
 
-### Tình huống 3 — Tìm kỹ năng chung
+### Tình huống 3 — Cấp 3: Tìm học viên học cả hai môn từ 15 lượt đăng ký
 
-**Từ vựng trong mục:** **Intersection** — phép giao; **Set** — tập hợp.
+**Từ vựng trong mục:** **Intersection** — phép giao; **Union** — phép hợp; **Membership** — thành viên.
 
-**Tình huống thực tế:** Hai nhóm học viên có kỹ năng lần lượt là `{'Python', 'AI', 'SQL'}` và `{'Python', 'Math', 'AI'}`.
+**Tình huống thực tế:** Trung tâm nhận **15 lượt đăng ký môn**; mỗi hàng gồm mã học viên và tên môn `Python` hoặc `AI`. Một người có thể xuất hiện trong hai hàng vì đăng ký cả hai môn. Cần biết những ai học **cả hai**, có bao nhiêu học viên riêng biệt và vì sao số lượt không bằng số người.
 
-**Yêu cầu:** Tìm những kỹ năng có ở cả hai nhóm.
+**Vì sao chọn cách này?** Đưa mã của từng môn vào hai Set. Phép giao `&` tìm người nằm trong cả hai; phép hợp `|` đếm người có ít nhất một môn. Đây là hai yêu cầu khác nhau nên không thể dùng một phép đếm list.
 
-**Vì sao chọn cách giải này?** Phép giao `&` chỉ giữ các phần tử chung giữa hai set.
-
-**Quy trình giải:**
-
-1. Lưu kỹ năng của mỗi nhóm thành một set.
-2. Dùng `a & b` để tìm phần tử chung.
-3. In tập kỹ năng tìm được.
+**Quy trình:**
+1. Lưu 15 cặp `(mã học viên, môn)` có nghĩa rõ.
+2. Tạo Set mã cho từng môn, lấy giao và hợp.
+3. Sắp mã trong giao để in ổn định và đếm số người riêng biệt.
 
 ```python
-# Mục đích: Tìm kỹ năng chung.
-a={"Python","AI","SQL"}
-b={"Python","Math","AI"}
-print(a&b)
+registrations = [("SV01","Python"),("SV02","Python"),("SV03","AI"),("SV01","AI"),("SV04","Python"),("SV05","AI"),("SV06","Python"),("SV07","AI"),("SV02","AI"),("SV08","Python"),("SV09","Python"),("SV10","AI"),("SV03","Python"),("SV11","Python"),("SV12","AI")]
+python_students = {student for student, subject in registrations if subject == "Python"}
+ai_students = {student for student, subject in registrations if subject == "AI"}
+both = sorted(python_students & ai_students)
+all_students = python_students | ai_students
+assert len(registrations) == 15
+print("Lượt đăng ký:", len(registrations))
+print("Học cả hai:", ", ".join(both))
+print("Học viên khác nhau:", len(all_students))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'Python', 'AI'}
+Lượt đăng ký: 15
+Học cả hai: SV01, SV02, SV03
+Học viên khác nhau: 12
 ```
 
-*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
+Cùng một mã xuất hiện hai lần là hai lượt đăng ký hợp lệ, không phải nhập trùng nếu môn khác nhau. Phép hợp khử trùng mã để đếm số người.
 
-**Kết quả:** Tập chứa `Python` và `AI`; thứ tự hiển thị của set có thể thay đổi.
+### Tình huống 4 — Cấp 4: Lọc mã thành viên lỗi và so sánh 18 lượt vào nhóm
 
-### Tình huống 4 — Gộp nhóm chủ đề
+**Từ vựng trong mục:** **Difference** — hiệu tập hợp; **Intersection** — phép giao; **Invalid ID** — mã lỗi.
 
-**Từ vựng trong mục:** **Union** — phép hợp; **Set** — tập hợp.
+**Tình huống thực tế:** Có **18 lượt ghi danh** vào nhóm A hoặc B, mỗi hàng là `(mã thành viên, nhóm)`; cùng một người được phép vào cả hai nhóm. Lượt thứ 15 bị thiếu ID (`None`), nên không biết thuộc về ai. Cần tách lượt lỗi và tìm người **chỉ ở A** và người ở **cả A lẫn B**.
 
-**Tình huống thực tế:** Hai nhóm tài liệu được gắn nhãn `{'Python', 'Math'}` và `{'Math', 'AI'}`. Nhân viên cần danh sách chủ đề của cả hai nhóm mà không lặp lại `Math`.
+**Vì sao chọn cách này?** Set chỉ dùng trên các mã hợp lệ; nếu đưa `None` vào tập, đó sẽ bị coi là một thành viên giả. Phép hiệu `A - B` và giao `A & B` trả hai câu trả lời khác nhau.
 
-**Yêu cầu:** Gộp các nhãn thành một set chỉ chứa các chủ đề khác nhau.
-
-**Vì sao chọn cách giải này?** Phép hợp `|` lấy tất cả phần tử thuộc một trong hai set và bỏ phần trùng.
-
-**Quy trình giải:**
-
-1. Lưu nhãn của từng nhóm thành set.
-2. Dùng `a | b` để gộp.
-3. In các nhãn sau khi gộp.
+**Quy trình:**
+1. Kiểm tra từng cặp, bỏ lượt có ID None và đếm lỗi.
+2. Lập tập thành viên A và B từ 17 lượt hợp lệ.
+3. Lấy hiệu/giao rồi in danh sách mã đã sắp xếp.
 
 ```python
-# Mục đích: Gộp nhóm chủ đề.
-a={"Python","Math"}
-b={"Math","AI"}
-print(a|b)
+registrations = [("U01","A"),("U02","A"),("U03","B"),("U04","A"),("U05","B"),("U06","A"),("U07","B"),("U08","A"),("U09","A"),("U10","B"),("U02","B"),("U04","B"),("U11","A"),("U12","B"),(None,"B"),("U13","A"),("U14","B"),("U10","A")]
+valid = [(code, group) for code, group in registrations if code is not None]
+a = {code for code, group in valid if group == "A"}
+b = {code for code, group in valid if group == "B"}
+assert len(registrations) == 18
+print("Lượt ghi:", len(registrations))
+print("Thiếu ID:", len(registrations) - len(valid))
+print("Chỉ nhóm A:", ", ".join(sorted(a - b)))
+print("Cả hai:", ", ".join(sorted(a & b)))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'Python', 'Math', 'AI'}
+Lượt ghi: 18
+Thiếu ID: 1
+Chỉ nhóm A: U01, U06, U08, U09, U11, U13
+Cả hai: U02, U04, U10
 ```
 
-*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
+Không gộp hai lượt của cùng người thành một lỗi: cùng ID ở A/B có nghĩa là người đó tham gia cả hai nhóm.
 
-**Kết quả:** Tập chứa `Python`, `Math`, `AI`; thứ tự in không cố định.
+### Tình huống 5 — Cấp 5: Kiểm kê kỹ năng còn thiếu của 8 học viên qua 20 lượt học
 
-### Tình huống 5 — Liệt kê bài còn thiếu
+**Từ vựng trong mục:** **Set difference** — hiệu tập hợp; **Data validation** — kiểm dữ liệu; **Tuple** — cặp giá trị.
 
-**Từ vựng trong mục:** **Difference** — hiệu tập hợp; **Set** — tập hợp.
+**Tình huống thực tế:** Khóa học yêu cầu mỗi người hoàn tất **ba kỹ năng Python, SQL và AI**. Hệ thống nhận **20 lượt ghi kết quả**, mỗi hàng là cặp `(mã học viên, kỹ năng đã học)` của 8 người S01…S08. Có một lượt `S06–Python` ghi trùng và một lượt `S06–None` chưa xác định kỹ năng. Cần xác định học viên đủ cả ba, các kỹ năng còn thiếu của S06, số lượt lỗi và số lượt trùng sau chuẩn hóa.
 
-**Tình huống thực tế:** Khóa học yêu cầu ba kỹ năng `Python`, `SQL`, `AI`. Một học viên đã học xong `Python`.
+**Vì sao chọn cách này?** Tuple `(người, kỹ năng)` lưu chính xác ý nghĩa của một lượt; dùng set các cặp để khử trùng **cùng người–cùng kỹ năng**, không gộp tất cả kỹ năng theo người mà làm mất thông tin. Hiệu `required - done` tìm từng kỹ năng thiếu.
 
-**Yêu cầu:** Liệt kê các kỹ năng học viên còn phải học.
-
-**Vì sao chọn cách giải này?** Hiệu tập hợp `required - done` giữ những kỹ năng bắt buộc chưa có trong tập đã hoàn thành.
-
-**Quy trình giải:**
-
-1. Lưu tập kỹ năng bắt buộc.
-2. Lưu tập kỹ năng đã học.
-3. Lấy hiệu hai tập và in kết quả.
+**Quy trình:**
+1. Đọc đủ 20 lượt và tách những lượt chưa biết tên kỹ năng.
+2. Dùng Set các tuple `(student, skill)` để loại lượt giống hệt nhau.
+3. Với mỗi người, so `required` với tập đã học, tổng hợp người đủ khóa và báo chi tiết S06.
 
 ```python
-# Mục đích: Liệt kê bài còn thiếu.
-required={"Python","SQL","AI"}
-done={"Python"}
-print(required-done)
+records = [("S01","Python"),("S01","SQL"),("S01","AI"),("S02","Python"),("S02","SQL"),("S03","AI"),("S03","SQL"),("S04","Python"),("S04","AI"),("S05","Python"),("S05","SQL"),("S05","AI"),("S06","Python"),("S06","Python"),("S06",None),("S07","SQL"),("S07","AI"),("S08","Python"),("S08","SQL"),("S08","AI")]
+required = {"Python", "SQL", "AI"}
+valid = [(student, skill) for student, skill in records if skill is not None]
+unique_pairs = set(valid)
+all_students = sorted({student for student, skill in records})
+completed = [student for student in all_students
+             if not (required - {skill for user, skill in unique_pairs if user == student})]
+missing_s06 = required - {skill for user, skill in unique_pairs if user == "S06"}
+assert len(records) == 20
+print("Lượt ghi:", len(records))
+print("Thiếu kỹ năng:", len(records) - len(valid))
+print("Lượt trùng:", len(valid) - len(unique_pairs))
+print("Hoàn tất:", ", ".join(completed))
+print("S06 cần học:", ", ".join(sorted(missing_s06)))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{'SQL', 'AI'}
+Lượt ghi: 20
+Thiếu kỹ năng: 1
+Lượt trùng: 1
+Hoàn tất: S01, S05, S08
+S06 cần học: AI, SQL
 ```
 
-*Thứ tự các phần tử trong Set khi in có thể khác nhau.*
-
-**Kết quả:** Tập chứa `SQL` và `AI`; thứ tự in không cố định.
+Khóa hoàn tất đòi **đủ cả ba kỹ năng**; việc có ba lượt ghi chưa chắc đã là ba kỹ năng khác nhau. Báo riêng lượt thiếu trước khi xét tiến độ học viên.
 
 ## 6. Nhầm lẫn dễ gặp
 
