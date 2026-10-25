@@ -3,8 +3,8 @@
   "owner_approved": true,
   "expected_lessons": 46,
   "expected_batches": 10,
-  "last_completed_batch": 0,
-  "status": "READY_FOR_BATCH_01",
+  "last_completed_batch": 1,
+  "status": "READY_FOR_BATCH_02",
   "batch_limit": 5,
   "batches": [
     {
@@ -16,7 +16,16 @@
         "PY-04",
         "PY-05"
       ],
-      "status": "PENDING"
+      "status": "COMPLETED",
+      "pr_number": 165,
+      "merged_sha": "e887546106941fab319a85215d81cd627f2dd1eb",
+      "final_pr_head_sha": "a590ed200e9812195aff00ed8400518b0a933f54",
+      "ci_run_id": 40188210464,
+      "ci_conclusion": "SUCCESS",
+      "python_code_fences_annotated": 45,
+      "comments_added_net": 354,
+      "unchanged_executable_source": true,
+      "unchanged_outside_python_fences": true
     },
     {
       "batch": 2,
