@@ -130,8 +130,12 @@ Số `1` là kết quả phép AND theo bit giữa 5 và 3.
 prices = [100,150,200,250,300,120,180,220,400,160]
 discount = 0.10
 original = sum(prices)
-after_discount = sum(price * (1 - discount) for price in prices)
-assert len(prices) == 10
+after_discount = 0
+for price in prices:
+    discounted_price = price * (1 - discount)
+    after_discount += discounted_price
+if len(prices) != 10:
+    raise ValueError("Phải có đúng 10 giá mặt hàng.")
 print("Mặt hàng:", len(prices))
 print("Gốc (nghìn đồng):", original)
 print("Sau giảm (nghìn đồng):", round(after_discount))
@@ -163,10 +167,16 @@ Sau giảm (nghìn đồng): 1872
 ```python
 years = [2,5,6,4,8,5,1,9,3,7,5,2]
 spending_vnd = [1200000,900000,1400000,2200000,1800000,1000000,700000,850000,1500000,3000000,990000,1600000]
-customers = [(f"C{i:02d}", years[i-1], spending_vnd[i-1]) for i in range(1, 13)]
-vip_ids = [code for code, member_years, spending in customers
-           if member_years >= 5 and spending >= 1000000]
-assert len(customers) == 12
+customers = []
+for i in range(1, 13):
+    customer_id = f"C{i:02d}"
+    customers.append((customer_id, years[i - 1], spending_vnd[i - 1]))
+vip_ids = []
+for code, member_years, spending in customers:
+    if member_years >= 5 and spending >= 1000000:
+        vip_ids.append(code)
+if len(customers) != 12:
+    raise ValueError("Phải có đúng 12 khách hàng.")
 print("Số khách:", len(customers))
 print("VIP:", len(vip_ids))
 print("Mã VIP:", ", ".join(vip_ids))
@@ -198,10 +208,15 @@ Mẫu C06 nằm **đúng cả hai ngưỡng** nên vẫn là VIP; C02 chỉ đ�
 ```python
 stocks = [16,23,34,7,12,5,31,42,18,27,15,9,35,14,20]
 box_size = 6
-full_boxes = sum(stock // box_size for stock in stocks)
-loose_items = sum(stock % box_size for stock in stocks)
-assert len(stocks) == 15
-assert full_boxes * box_size + loose_items == sum(stocks)
+full_boxes = 0
+loose_items = 0
+for stock in stocks:
+    full_boxes += stock // box_size
+    loose_items += stock % box_size
+if len(stocks) != 15:
+    raise ValueError("Phải có đúng 15 mặt hàng tồn kho.")
+if full_boxes * box_size + loose_items != sum(stocks):
+    raise ValueError("Số thùng đầy và món lẻ phải khớp tổng tồn kho.")
 print("Số SKU:", len(stocks))
 print("Thùng đầy:", full_boxes)
 print("Món rời:", loose_items)
@@ -232,10 +247,19 @@ Số dư được giữ **riêng cho từng mã hàng**. Điều kiện đối c
 
 ```python
 flags = [10,2,0,8,3,11,1,10,14,2,0,9,10,12,3,11,None,2]
-valid = [status for status in flags if status is not None]
-warning_count = sum((status & 0b0010) != 0 for status in valid)
-sending_count = sum((status & 0b1000) != 0 for status in valid)
-assert len(flags) == 18
+valid = []
+warning_count = 0
+sending_count = 0
+for status in flags:
+    if status is None:
+        continue
+    valid.append(status)
+    if (status & 0b0010) != 0:
+        warning_count += 1
+    if (status & 0b1000) != 0:
+        sending_count += 1
+if len(flags) != 18:
+    raise ValueError("Phải nhận đủ 18 trạng thái thiết bị.")
 print("Trạng thái hợp lệ:", len(valid))
 print("Cảnh báo:", warning_count)
 print("Đang gửi:", sending_count)
@@ -270,17 +294,33 @@ Một thiết bị có thể vừa cảnh báo vừa đang gửi, nên hai tập
 amount_vnd = [500000,900000,1300000,1700000,2100000,2500000,500000,900000,1300000,1700000,2100000,2500000,500000,900000,1300000,1700000,2100000,2500000,500000,900000]
 late_days = [0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4]
 in_stock = [True,True,True,False,True,True,True,True,True,True,True,False,True,True,True,True,True,False,True,True]
-orders = [(f"O{i:02d}", amount_vnd[i-1], late_days[i-1], in_stock[i-1])
-          for i in range(1, 21)]
-priority = [(code, amount) for code, amount, delay, available in orders
-            if (amount >= 2000000 or delay >= 3) and available]
-priority_ids = [code for code, amount in priority]
-assert len(orders) == 20
-assert all(next(v for c, p, d, v in orders if c == code) for code in priority_ids)
+orders = []
+for i in range(1, 21):
+    order_id = f"O{i:02d}"
+    orders.append((order_id, amount_vnd[i - 1], late_days[i - 1], in_stock[i - 1]))
+priority = []
+priority_ids = []
+for code, amount, delay, available in orders:
+    if (amount >= 2000000 or delay >= 3) and available:
+        priority.append((code, amount))
+        priority_ids.append(code)
+if len(orders) != 20:
+    raise ValueError("Phải có đủ 20 đơn để chọn ưu tiên.")
+for code in priority_ids:
+    found_available = False
+    for order_code, amount, delay, available in orders:
+        if order_code == code and available:
+            found_available = True
+            break
+    if not found_available:
+        raise ValueError("Đơn ưu tiên phải tồn tại và còn hàng.")
 print("Số đơn:", len(orders))
 print("Ưu tiên:", len(priority))
 print("Mã ưu tiên:", ", ".join(priority_ids))
-print("Giá trị ưu tiên (đồng):", sum(amount for code, amount in priority))
+priority_value = 0
+for code, amount in priority:
+    priority_value += amount
+print("Giá trị ưu tiên (đồng):", priority_value)
 ```
 
 **Kết quả khi chạy:**
