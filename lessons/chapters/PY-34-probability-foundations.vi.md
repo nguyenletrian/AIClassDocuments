@@ -124,9 +124,9 @@ Một lần gieo xúc xắc công bằng có xác suất 50% ra mặt chẵn.
 
 **Từ vựng trong mục:** **Sample space** — không gian mẫu; **Event** — biến cố; **Equally likely** — đồng khả năng.
 
-**Tình huống thực tế:** Quầy sự kiện chuẩn bị **10 vé** V01…V10, mỗi vé có màu Đỏ, Xanh hoặc Vàng và cơ hội được rút **bằng nhau**. Mỗi hàng là một chiếc vé cụ thể, không phải chỉ một loại màu. Người tổ chức cần tính xác suất rút trúng vé Xanh và đếm số kết quả thuận lợi.
+**Tình huống thực tế:** Quầy sự kiện chuẩn bị **10 chiếc vé V01–V10**, mỗi vé được ghi màu **Xanh, Đỏ hoặc Vàng**. Có **4 vé Xanh**; mọi chiếc vé có cơ hội được rút như nhau, kể cả các vé cùng màu. Người tổ chức muốn biết cơ hội lấy **một vé Xanh** khi rút ngẫu nhiên một vé, và vì sao có ba tên màu **không có nghĩa** mỗi màu đều có cơ hội một phần ba.
 
-**Vì sao chọn cách này?** Không gian mẫu gồm **10 vé**, kể cả khi hai vé cùng màu. Vì từng vé đồng khả năng, xác suất lấy vé Xanh bằng số vé Xanh chia tổng vé; không được chia 1/3 chỉ vì có ba màu.
+**Vì sao chọn cách này?** **Không gian mẫu** trong bài gồm **10 chiếc vé riêng biệt**, không phải chỉ ba tên màu; mỗi vé là một khả năng được chọn. **Biến cố** là yêu cầu đang xét, ở đây **rút trúng vé Xanh**. Vì mọi chiếc vé đồng khả năng, chương trình đếm các dòng có màu Xanh bằng vòng `for`, rồi lấy **số vé Xanh so với cả 10 vé**. Bốn vé Xanh cho cơ hội **0,4**, không phải **1/3**, vì số vé của từng màu khác nhau. Phải xác định **đơn vị được rút** trước khi chọn mẫu số xác suất.
 
 **Quy trình:**
 1. Lưu màu trên mười vé theo thứ tự mã.
@@ -160,9 +160,9 @@ Nếu quay thưởng thiên vị một vé, phép đếm tỷ lệ này không c
 
 **Từ vựng trong mục:** **Frequency** — tần suất; **Probability** — xác suất; **Random experiment** — phép thử ngẫu nhiên.
 
-**Tình huống thực tế:** Nhóm học viên ghi **12 kết quả tung đồng xu giả lập**, mỗi hàng là một lần: `N` nghĩa là ngửa, `S` là sấp. Giả định đồng xu công bằng cho xác suất lý thuyết P(ngửa)=0,5, nhưng số lần ngửa **quan sát** trên mẫu nhỏ không nhất thiết bằng một nửa. Cần tính tỷ lệ quan sát và so với 0,5.
+**Tình huống thực tế:** Lớp học có **12 kết quả tung đồng xu giả lập** theo thứ tự ghi nhận; `N` là **ngửa**, `S` là **sấp**. Trong mẫu này số lần ngửa không nhất thiết bằng số lần sấp, dù ta **giả định đồng xu công bằng** khi nói về xác suất lý thuyết. Học viên muốn đếm số lần ngửa đã thấy và so **tỷ lệ quan sát từ 12 lượt** với **xác suất lý thuyết 0,5**, không kết luận đồng xu hỏng chỉ từ một mẫu nhỏ.
 
-**Vì sao chọn cách này?** Xác suất lý thuyết là mô hình dài hạn, còn tần suất trên 12 thử nghiệm là dữ liệu đã xảy ra; khác biệt ở một mẫu nhỏ không tự chứng minh đồng xu bị lệch.
+**Vì sao chọn cách này?** **Xác suất lý thuyết** là cơ hội do mô hình đồng xu công bằng giả định, mỗi mặt có cùng khả năng. **Tần suất quan sát** là tỷ lệ thực sự nhìn thấy trong **12 lượt đã ghi**; mẫu nhỏ có thể lệch 0,5 do may rủi. Chương trình đếm mỗi chữ `N` rồi chia cho đúng **12 lượt**, sau đó in riêng con số **0,500** của giả định lý thuyết. Không lấy tỷ lệ thực nghiệm bằng chứng đồng xu chắc chắn thiên lệch hay hoàn toàn công bằng; cần nhiều bằng chứng hơn để đánh giá điều đó.
 
 **Quy trình:**
 1. Lưu đúng 12 lượt kết quả.
@@ -198,9 +198,9 @@ Mẫu 12 lần chỉ minh họa **tần suất**, không thay thế toàn bộ x
 
 **Từ vựng trong mục:** **Outcome pair** — cặp kết quả; **Theoretical probability** — xác suất lý thuyết.
 
-**Tình huống thực tế:** Nhóm QA ghi **15 lần gieo hai xúc xắc công bằng**, mỗi hàng là `(mặt xúc xắc 1, mặt xúc xắc 2)`. Quan tâm biến cố **tổng từ 9 trở lên**. Cần đếm trên 15 lượt đã ghi và tính xác suất lý thuyết từ **36 cặp mặt đồng khả năng**, rồi so hai giá trị.
+**Tình huống thực tế:** Đội kiểm thử ghi **15 lượt tung hai xúc xắc**, mỗi lượt có hai mặt hiện lên từ 1 đến 6. Họ quan tâm tình huống **tổng hai mặt ít nhất là 9**. Cần tính một tỷ lệ dựa trên **15 lượt thực sự ghi được**, rồi so với xác suất lý thuyết khi xét **đủ 36 cặp mặt** có thể xuất hiện trong một lần tung hai xúc xắc công bằng.
 
-**Vì sao chọn cách này?** Không gian mẫu lý thuyết của **một lần gieo hai xúc xắc** có 36 cặp, không phải 15 lượt quan sát. Phải giữ hai mẫu số khác nhau để không đánh đồng tần suất của mẫu với xác suất dựa trên 36 kết quả.
+**Vì sao chọn cách này?** Mỗi lượt tung **hai xúc xắc** tạo một **cặp có thứ tự**: ví dụ (3,6) và (6,3) là hai kết quả khác nhau của hai viên được phân biệt. `itertools.product(range(1, 7), repeat=2)` liệt kê **36 cặp khả dĩ** của **một lượt**, từ đó đếm bao nhiêu cặp có tổng ít nhất 9 để tính xác suất lý thuyết. Danh sách `observations` lại chỉ có **15 lượt đã quan sát**, nên phải đếm trường hợp đạt trong danh sách ấy và chia cho **15**, không chia cho 36. Hai mẫu số trả lời hai câu hỏi khác nhau; một mẫu nhỏ không buộc phải khớp chính xác lý thuyết.
 
 **Quy trình:**
 1. Lưu 15 cặp kết quả được quan sát và đếm tổng >=9.
@@ -242,9 +242,9 @@ Mười lăm lượt có thể có nhiều cặp lặp lại. Một phép thử 
 
 **Từ vựng trong mục:** **Union** — phép hợp; **Intersection** — phép giao; **Inclusion–exclusion** — bao hàm–loại trừ.
 
-**Tình huống thực tế:** Một chiến dịch ghi **18 khách hàng** U01…U18, mỗi hàng có cờ đã dùng ứng dụng (`app`) và đã nhận email (`email`). Xét khách chọn đều ngẫu nhiên trong chính **18 người của bảng minh họa**; cần ước lượng xác suất thuộc ít nhất một kênh, xác suất thuộc cả hai, và kiểm tra công thức bao hàm–loại trừ.
+**Tình huống thực tế:** Chiến dịch marketing ghi **18 khách U01–U18**, mỗi người có hai trạng thái đúng/sai: đã dùng **ứng dụng** và đã nhận **email**. Một khách có thể dùng cả hai kênh. Khi chọn ngẫu nhiên một khách trong đúng 18 người của bảng, quản lý muốn biết cơ hội khách ấy thuộc **ít nhất một kênh**, cơ hội thuộc **cả hai kênh**, và kiểm tra rằng số người dùng hai kênh không bị cộng trùng.
 
-**Vì sao chọn cách này?** Biến cố app/email có thể xảy ra đồng thời trên cùng người. Cộng hai tỷ lệ mà không trừ phần giao sẽ đếm người dùng cả hai hai lần.
+**Vì sao chọn cách này?** **Biến cố hợp** là khách xuất hiện ở **ít nhất một** trong hai nhóm ứng dụng/email; **biến cố giao** là khách có ở **cả hai nhóm**. `or` kiểm hợp, `and` kiểm giao trên **từng người**, tránh nhầm giữa các khách. Để tính số người thuộc hợp, lấy **số người dùng app cộng số người nhận email**, rồi **trừ phần giao một lần**, vì người thuộc cả hai đã bị cộng hai lần. Chương trình cũng đếm trực tiếp bằng `or` để kiểm lại, sau đó chia theo **18 khách được chọn đồng khả năng trong bảng**. Đây là xác suất theo **mẫu 18 người**, không mặc nhiên suy ra toàn bộ khách hàng ngoài chiến dịch.
 
 **Quy trình:**
 1. Đếm số khách có từng cờ và số khách có cả hai.
@@ -291,9 +291,9 @@ Kiểm công thức: True
 
 **Từ vựng trong mục:** **Weighted outcome** — kết quả có trọng số; **Sampling distribution** — phân phối chọn; **Monte Carlo** — mô phỏng ngẫu nhiên.
 
-**Tình huống thực tế:** Máy kiểm tra nhận **20 loại trạng thái** S01…S20, mỗi trạng thái mang trọng số xuất hiện từ 1 tới 20 (trọng số không phải số lần đo); trong mô phỏng này xác suất tỷ lệ với trọng số. Nhóm muốn biết xác suất xảy ra một trong **năm trạng thái S16–S20**, và đối chiếu 5.000 lượt rút mô phỏng có seed cố định. Không được chia đơn thuần 5/20 vì các trạng thái không đồng khả năng.
+**Tình huống thực tế:** Máy kiểm thử có **20 loại trạng thái S01–S20** nhưng **không xuất hiện đều như nhau**. Mỗi trạng thái được gán **trọng số 1 đến 20**: trọng số càng lớn thì cơ hội được rút càng cao; đây là **mức ưu tiên mô phỏng**, không phải số lần đo. Nhóm muốn biết xác suất rút một trạng thái trong **S16–S20**, rồi dùng **5.000 lần rút giả lập** với **seed 42** để xem tỷ lệ mô phỏng có gần xác suất lý thuyết không.
 
-**Vì sao chọn cách này?** Phải chuẩn hóa 20 trọng số thành một phân phối có tổng 1 rồi cộng xác suất của đúng năm trạng thái. `default_rng(42)` giúp tái lập mô phỏng; tỷ lệ quan sát chỉ **xấp xỉ** xác suất lý thuyết chứ không được yêu cầu bằng chính xác.
+**Vì sao chọn cách này?** Vì **20 trạng thái có trọng số khác nhau**, không thể coi mỗi trạng thái có cơ hội như nhau. **Chuẩn hóa** là chia từng trọng số cho **tổng trọng số**, tạo một **phân phối xác suất** có tổng bằng 1. Chương trình cộng riêng phần xác suất của **năm trạng thái S16–S20** để có xác suất lý thuyết; cách lấy 5/20 sẽ sai vì bỏ qua trọng số. `np.random.default_rng(42)` dùng **seed 42** để lần chạy lại cùng code cho kết quả mô phỏng tái lập được; `rng.choice(..., size=5000, p=probs)` rút **5.000 lần có trọng số** nhằm nhìn tần suất dài hạn hơn 20 lượt, chứ **không phải có thêm 5.000 mẫu dữ liệu thật**. Tần suất gần lý thuyết là điều có thể kỳ vọng, **không bắt buộc trùng hoàn toàn** và không dùng 5.000 như một hằng số toán học.
 
 **Quy trình:**
 1. Tạo 20 trạng thái với trọng số 1–20, chuẩn hóa thành xác suất.
