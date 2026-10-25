@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-full-code-annotations-20261025",
-    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch01",
+    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch03",
     "title": "Chú thích đầy đủ code Python, giải thích mọi API/phương thức khó hiểu trong 46 bài",
-    "phase": "READY_FOR_BATCH_01",
+    "phase": "READY_FOR_BATCH_03",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-CODE-ANNOTATION-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
@@ -1201,8 +1201,17 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Owner explicitly approved NEW full-code-annotation goal after successful 920-MCQ PDF and Markdown export (GitHub Actions #40186408627 SUCCESS, files in exports/pdf and exports/markdown), previous scenario clarity ledger COMPLETED 10/10. Authoritative code goal and ledger at docs/CURRICULUM-CODE-ANNOTATION-GOAL.json / docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json. Begin ONLY batch01 PY-01..PY-05 after verifying fresh main, no open PR, no pending/ACK. Add helpful Vietnamese # comments INSIDE every executable Python code fence across all teaching sections: each block has # Mục đích, annotate non-obvious APIs, attributes, flags, chains, data meaning and cleanup. In particular explain matplotlib.use('Agg') as headless backend, plt.gca() as current Axes, .lines[0] first line, get_xdata() x values, len() size, plt.close() release figure. Do NOT modify executable Python AST, original stdout, definitions, lesson structure or ANY of 920 MCQs. One lesson commit each; verify AST equivalence per fence and exact scenario stdout, run 46-lesson curriculum/MCQ/Markdown tests, merge ONLY after final-head GitHub CI SUCCESS, durably record PR/CI/merge SHA, advance to next batch. Do not replay old Jetking tasks or duplicate heartbeat reminders. CDP 9224 identity unverified and Windows PowerShell canary unavailable: avoid browser rebind and never claim Windows PASS. One unchanged goal event is idle boundary; no duplicate queue task.",
-    "review_hold": "APPROVED new code annotation goal, active READY_FOR_BATCH_01 PY-01..05; previous prose goal COMPLETED, PDF 920 MCQ exported. Pending=0. GitHub Architect-side edits only; do not create duplicate Bridge tasks. CDP 9224 unverified and Windows PowerShell canary unavailable."
+    "next_review": "OWNER APPROVED: RESUME ONLY Batch 03 (PY-11..PY-15) of goal aiclassdocuments-full-code-annotations-20261025. First fetch current main, AGENTS.md, code annotation goal/ledger, style guide, template, PRs and TaskSource. Ledger currently last_completed_batch=2, READY_FOR_BATCH_03; Batch 01 PR165 CI40188210464 and Batch 02 PR166 CI40188871214 already merged. One batch only: add Vietnamese comments INSIDE every Python fence (# Mục đích and explanations of unfamiliar APIs/attributes/flags/data/indexing/cleanup), do not change executable Python, stdout, prose or 920 MCQs. Commit once per lesson, independently compare executable code/AST and outside fences, execute scenarios/exact stdout and full 46-lesson tests; merge only after final PR-head CI SUCCESS. Record Batch03 PR/merge SHA/CI in durable ledger. Do not start PY-16..PY-20 within this batch. After ledger confirms COMPLETED 3/10, advance goal_review revision and phase to batch04 exactly once so Bridge can request the NEXT five lessons after this batch, even if conversation disconnects. No unsupported generic Bridge task; Architect edits via GitHub. Preserve task/ACK history, do not replay Jetking. CDP 9224 and Windows PowerShell canary UNVERIFIED: do not silently rebind or claim Windows PASS. If any PR/task/ACK unresolved, hold and diagnose; never duplicate a task. One unchanged goal event is idle boundary.",
+    "review_hold": "Single active batch: PY-11..PY-15 only (Batch03). Prior batches 1/2 COMPLETED and merged; pending task count=0 and open PR count=0 at activation. Do not create 46 simultaneous tasks or duplicate GitHub work. Bridge goal_review emits at most once per meaningful revision/completed-task ID, not on every poll. This repository change does not launch Windows Bridge or verify CDP ownership.",
+    "active_batch": 3,
+    "active_lessons": [
+      "PY-11",
+      "PY-12",
+      "PY-13",
+      "PY-14",
+      "PY-15"
+    ],
+    "batch_boundary": "SINGLE_ACTIVE_BATCH_MAX_5; ledger must show prior completed/merged before this batch; do not open another batch while PR/task/ACK pending."
   },
   "goal_review_history": [
     {
@@ -1332,6 +1341,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "Owner-approved scenario clarity prose goal active, first batch PY-01..PY-05; separate durable ledger after predecessor Python 10/10 COMPLETED."
+    "reason": "Owner-approved full-code-annotation goal ACTIVE; resume only Batch 03 PY-11..PY-15, maximum five lessons per batch; rearm next goal review only after PR merge+ledger."
   }
 }
