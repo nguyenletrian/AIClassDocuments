@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "BATCH_01_IN_PROGRESS",
+  "status": "BATCH_01_QA_PASSED_WAIT_MERGE",
   "last_completed_batch": 0,
   "batches": [
     {
@@ -15,7 +15,7 @@
         "PY-04",
         "PY-05"
       ],
-      "status": "IN_PROGRESS",
+      "status": "QA_PASSED",
       "changed_lessons": [
         "PY-01",
         "PY-02",
@@ -23,9 +23,9 @@
         "PY-04",
         "PY-05"
       ],
-      "pr": null,
+      "pr": 145,
       "merged_commit": null,
-      "ci_run": null,
+      "ci_run": 40171054992,
       "branch": "feat/explicit-python-batch-01-20261025",
       "lesson_commits": {
         "PY-01": "40dc55b89c9ec2c9d1376db0d8b50caffa6bc712",
@@ -34,7 +34,7 @@
         "PY-04": "d74aa67c65fad039abd8abfe21bae62d4908d582",
         "PY-05": "975254608ba906f3ae572b728c8092d0c05bcb56"
       },
-      "notes": "Five PY-01..PY-05 lessons updated separately: all assert checks replaced with if and clear errors, list/gen comprehensions rewritten as explicit for loops and accumulators, inline ternary removed; executable QA pending. Tests enforce AST syntax and exact documented stdout."
+      "notes": "PR #145 initial CI #40171054992 PASS on head 72b343c8a50ae1726840905e9a7e2b6071703f78. All PY-01..PY-05 executable Python snippets refactored: no ast.Assert, list/dict/set comprehensions, generator expression or inline ternary. Five distinct lesson commits; all 25 chapter scenarios executed and exactly matched documented output, old Markdown/structure/MCQ/tests PASS. Final-head CI and merge pending. Windows Bridge not verified."
     },
     {
       "batch": 2,
