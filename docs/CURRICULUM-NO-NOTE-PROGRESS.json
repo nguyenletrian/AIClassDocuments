@@ -26,6 +26,8 @@
       ],
       "status": "COMPLETED",
       "pr_number": 175,
+      "merged_sha": "7e7090ab2206a19aa2de8a71cb3c7abd279e2e8e",
+      "final_pr_head_sha": "932ced08cdd26161812c73b632353530785d6a60",
       "ci_run_id": 40201266169,
       "ci_conclusion": "SUCCESS",
       "paired_code_fence_count": 45,
