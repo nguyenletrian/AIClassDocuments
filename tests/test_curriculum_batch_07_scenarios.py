@@ -45,11 +45,11 @@ class Batch07ExecutableCases(unittest.TestCase):
                         r"^\x60\x60\x60text\n(.*?)^\x60\x60\x60$",
                         case, flags=re.MULTILINE | re.DOTALL,
                     )
-                    self.assertEqual(len(blocks), 1)
+                    self.assertEqual(len(blocks), 2, 'No Note and original annotated snippet required')
                     self.assertEqual(len(outputs), 1)
                     with tempfile.TemporaryDirectory() as cwd:
                         proc = subprocess.run(
-                            [sys.executable, "-I", "-B", "-c", blocks[0]],
+                            [sys.executable, "-I", "-B", "-c", blocks[1]],
                             cwd=cwd, text=True, capture_output=True,
                             encoding="utf-8", timeout=25,
                         )
