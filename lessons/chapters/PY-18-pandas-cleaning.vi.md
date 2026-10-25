@@ -128,7 +128,7 @@ Có đúng một giá trị giá không hợp lệ. Chuyển thành NaN giúp ph
 
 ## 5. Năm tình huống thực tế
 
-### Tình huống 1 — Báo số khách thiếu tuổi
+### Tình huống 1 — Báo số khách thiếu tuổi · Cấp 1: Nhận biết bảng
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu.
 
@@ -156,7 +156,24 @@ age    1
 dtype: int64
 ```
 
-### Tình huống 2 — Điền giá trị trung vị
+**Bài thực hành nâng cấp — cấp 1/5:** Cửa hàng có **10 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy đếm hàng bị thiếu giá trị. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,11)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(10)],
+    "region":[["North","South","Central"][i%3] for i in range(10)]})
+result = int(frame['amount'].isna().sum())
+assert len(frame)==10
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 10 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
+
+### Tình huống 2 — Điền giá trị trung vị · Cấp 2: Xử lý nhiều bản ghi
 
 **Từ vựng trong mục:** **Imputation** — điền khuyết; **Median** — trung vị.
 
@@ -187,7 +204,24 @@ print(df)
 2  200.0
 ```
 
-### Tình huống 3 — Loại dòng trùng hoàn toàn
+**Bài thực hành nâng cấp — cấp 2/5:** Cửa hàng có **12 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy điền NaN bằng median của dữ liệu được phép dùng. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,13)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(12)],
+    "region":[["North","South","Central"][i%3] for i in range(12)]})
+result = float(frame['amount'].fillna(frame['amount'].median()).mean())
+assert len(frame)==12
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 12 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
+
+### Tình huống 3 — Loại dòng trùng hoàn toàn · Cấp 3: Kết hợp bước xử lý
 
 **Từ vựng trong mục:** **Duplicate** — bản ghi trùng.
 
@@ -216,7 +250,24 @@ print(df.drop_duplicates())
 2  O2      20
 ```
 
-### Tình huống 4 — Đổi chuỗi giá sang số
+**Bài thực hành nâng cấp — cấp 3/5:** Cửa hàng có **15 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy phát hiện bản ghi ID trùng và giữ bản đầu tiên. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,16)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(15)],
+    "region":[["North","South","Central"][i%3] for i in range(15)]})
+result = int(frame.assign(id=[f'R{i%12:02d}' for i in range(len(frame))]).duplicated(subset=['id']).sum())
+assert len(frame)==15
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 15 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
+
+### Tình huống 4 — Đổi chuỗi giá sang số · Cấp 4: Phát hiện và sửa dữ liệu lỗi
 
 **Từ vựng trong mục:** **Data validation** — kiểm tra dữ liệu.
 
@@ -246,7 +297,24 @@ print(pd.to_numeric(s, errors="coerce"))
 dtype: float64
 ```
 
-### Tình huống 5 — Chuẩn bị train/test tránh leakage
+**Bài thực hành nâng cấp — cấp 4/5:** Cửa hàng có **18 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy chuyển chuỗi không hợp lệ thành NaN và kiểm tra. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,19)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(18)],
+    "region":[["North","South","Central"][i%3] for i in range(18)]})
+result = int(pd.to_numeric(frame['amount'].astype('string').fillna('bad'),errors='coerce').isna().sum())
+assert len(frame)==18
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 18 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
+
+### Tình huống 5 — Chuẩn bị train/test tránh leakage · Cấp 5: Quy trình tránh sai lệch dữ liệu
 
 **Từ vựng trong mục:** **Missing value** — giá trị thiếu.
 
@@ -279,6 +347,25 @@ dtype: float64 0    15.0
 1    30.0
 dtype: float64
 ```
+
+**Bài thực hành nâng cấp — cấp 5/5:** Cửa hàng có **20 đơn hàng**; mỗi hàng gồm mã đơn, giá `amount` (nghìn đồng), số sản phẩm `qty` và vùng `region`. Hãy tách train/test rồi tính median chỉ từ train, áp dụng cho test. Cấp 4–5 có dòng thiếu giá; `NaN` không phải một hóa đơn 0 đồng.
+
+```python
+import pandas as pd
+train = frame.iloc[:14].copy()
+test = frame.iloc[14:].copy()
+# Mỗi hàng = một đơn hàng; amount = nghìn đồng, qty = món, region = vùng.
+amounts = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+frame = pd.DataFrame({"id":[f"R{i:02d}" for i in range(1,21)],
+    "amount":amounts,"qty":[(i%4)+1 for i in range(20)],
+    "region":[["North","South","Central"][i%3] for i in range(20)]})
+result = {'train_median':float(train['amount'].median()),'test_imputed':test['amount'].fillna(train['amount'].median()).tolist(),'train_count':len(train),'test_count':len(test)}
+assert len(frame)==20
+print("Số đơn:",len(frame))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm tra đủ 20 hàng và đọc rõ các cột sau mỗi bước. Ở cấp 5 cần phân biệt dữ liệu dùng để quyết định cách điền thiếu và dữ liệu chỉ dùng đánh giá.
 
 ## 6. Sai lầm thường gặp
 
