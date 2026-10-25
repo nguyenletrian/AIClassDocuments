@@ -15,7 +15,7 @@
     20
   ],
   "last_completed_batch": 7,
-  "status": "BATCH_08_IN_PROGRESS",
+  "status": "BATCH_08_QA_PASSED_WAIT_MERGE",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -208,17 +208,17 @@
         "PY-39",
         "PY-40"
       ],
-      "status": "IN_PROGRESS",
+      "status": "QA_PASSED",
       "branch": "feat/curriculum-scenarios-batch-08-20261025",
-      "pr_number": null,
+      "pr_number": 130,
       "merged_commit": null,
-      "ci_run": null,
+      "ci_run": 40162343077,
       "windows_test": null,
       "updated_at": "2026-10-25",
-      "notes": "All five PY-36..40 section-5 rewrites authored, each 5 scenarios at 10/12/15/18/20 records; runnable checks and CI pending, Windows Bridge unverified.",
+      "notes": "PR #130 CI #40162343077 PASS after correcting three PY-37 answer mismatches; Python 3.12+NumPy/Pandas/SymPy/SciPy, all 25 PY-36..40 snippets executed and exact stdout matched, previous batches01..07 plus structure, quiz, syntax and ledger checks PASS. Not merged yet. No Windows Bridge verification evidence.",
       "lesson_commits": {
         "PY-36": "65eba9fc443127a4b9cda044a87cc26c781b12d1",
-        "PY-37": "970415bda4e28b69ebe31e87a86c18c613ed118d",
+        "PY-37": "1a616fcab88693399fed7f912579e923832f97e7",
         "PY-38": "ba54ebbdbd63cedbafba8a7c90fba23a5a4242c5",
         "PY-39": "a94e1777827e6ff6385c48ecfe0692d23d4c6733",
         "PY-40": "7178e66ced10a24fb64e616ec8e5fad239b538db"
