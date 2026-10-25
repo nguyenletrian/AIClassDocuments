@@ -135,9 +135,9 @@ Hệ số góc xấp xỉ 2,05 và hệ số chặn xấp xỉ −0,067; đây l
 
 **Từ vựng trong mục:** **Linear system** — hệ tuyến tính; **solve** — giải nghiệm; **Residual** — sai lệch.
 
-**Tình huống thực tế:** Cửa hàng có **10 hóa đơn**, mỗi hàng là số lượng sản phẩm A, số lượng B (món) và tổng tiền (nghìn đồng). Giá mỗi món cố định nhưng chưa biết. Hai hóa đơn đầu có tổ hợp số lượng khác nhau nên đủ thông tin tìm giá; cần tìm giá A/B và kiểm tra **cả 10 hóa đơn**, không chỉ hai dòng được chọn để giải.
+**Tình huống thực tế:** Một cửa hàng ghi **10 hóa đơn** bán hai loại hàng A và B. Trên mỗi hóa đơn có **số món A**, **số món B** và **tổng tiền**, đơn vị **nghìn đồng**; ví dụ hóa đơn đầu có mỗi loại một món, tổng 5 nghìn đồng, hóa đơn thứ hai có hai món A và một món B, tổng 8 nghìn đồng. Giá một món của mỗi loại chưa biết nhưng giữ nguyên trong cả 10 hóa đơn. Thu ngân muốn tìm giá từng loại rồi kiểm lại **tất cả hóa đơn** để bảo đảm giá ấy giải thích đúng số tiền.
 
-**Vì sao chọn cách này?** Mỗi hóa đơn là một phương trình với hai ẩn giá. `np.linalg.solve` giải hệ 2×2 đầu; phép nhân `A @ prices` sau đó kiểm tra toàn bộ 10 hóa đơn có khớp tiền thực tế hay không.
+**Vì sao chọn cách này?** **Hệ phương trình** ở đây là hai hóa đơn chứa hai mức giá chưa biết; với ví dụ đầu tiên, cộng giá một món A và một món B được 5 nghìn đồng, còn hóa đơn thứ hai có thêm một món A nên tổng là 8 nghìn đồng. Hai cách phối số lượng khác nhau cho đủ thông tin tìm riêng từng giá. `np.linalg.solve()` giải **hai phương trình đầu** để tìm hai giá, nhưng một nghiệm khớp hai dòng chưa chắc đúng cả sổ. Vì vậy `quantities @ prices` tính lại tiền của **cả 10 hóa đơn** rồi lấy chênh lệch với tiền thực; sai số rất nhỏ được bỏ qua bằng ngưỡng tính toán. Không nên kết luận mọi dòng đúng chỉ vì giải được hai dòng mẫu.
 
 **Quy trình:**
 1. Tạo bảng 10 hàng số lượng và 10 tổng tiền cùng thứ tự.
@@ -173,9 +173,9 @@ Hóa đơn sai: 0
 
 **Từ vựng trong mục:** **Rank** — hạng ma trận; **Linear dependence** — phụ thuộc tuyến tính.
 
-**Tình huống thực tế:** Một trạm ghi **12 lần vận hành**, mỗi hàng gồm số giờ chạy máy x (giờ) và một cột được tính đúng bằng hai lần x. Kỹ thuật viên muốn biết bảng 12×2 chứa hai nguồn thông tin độc lập hay chỉ một, trước khi dùng dữ liệu để giải hệ.
+**Tình huống thực tế:** Trạm máy theo dõi **12 lượt vận hành**, mỗi lượt ghi số **giờ chạy máy x** và một cột báo cáo được tạo bằng **hai lần số giờ x**. Người quản lý định dùng hai cột để dự đoán, nhưng lo rằng cột thứ hai không bổ sung thông tin mới. Họ cần biết bảng có thực sự **hai nguồn số liệu độc lập** hay chỉ một nguồn được ghi lại theo cách khác.
 
-**Vì sao chọn cách này?** Cột thứ hai chỉ là bản phóng đại cột đầu, không mang thêm một chiều thông tin tuyến tính. `matrix_rank()` cho biết số chiều độc lập, nhỏ hơn số cột khi phụ thuộc.
+**Vì sao chọn cách này?** **Hạng ma trận (rank)** là số hướng thông tin **độc lập về mặt tuyến tính**. Hãy hình dung biết cột giờ chạy là 5 giờ thì cột kia chắc chắn là 10; nó không kể thêm một điều gì chưa biết. `np.column_stack()` ghép hai cột thành bảng 12 hàng; `np.linalg.matrix_rank(X)` kiểm tra số cột thực sự độc lập. Kết quả hạng **1** nghĩa là hai cột chỉ tạo **một hướng thông tin**. Đây là phụ thuộc tuyến tính giữa các cột, không có nghĩa 12 lượt vận hành chỉ còn một lượt hoặc số giờ chạy là sai.
 
 **Quy trình:**
 1. Lưu 12 cặp số giờ, cột hai bằng hai lần cột một.
@@ -209,9 +209,9 @@ Hai cột không phải hai đặc trưng độc lập; rank bằng 1 dù ma tr�
 
 **Từ vựng trong mục:** **Coefficient matrix** — ma trận hệ số; **Augmented data** — dữ liệu mở rộng; **solve** — giải hệ.
 
-**Tình huống thực tế:** Thiết bị có **15 lượt đo**, mỗi lượt trộn hai tín hiệu gốc x/y theo cùng quy tắc: kênh A nhận `2x+y`, kênh B nhận `x+3y` (đơn vị tín hiệu). Hai số đo của một lượt tạo một vector vế phải. Cần giải từng lượt và kiểm tra dữ liệu khôi phục tái tạo chính xác các kênh.
+**Tình huống thực tế:** Một máy đo có **15 lượt ghi tín hiệu**; mỗi lượt cho hai số đo kênh A và B theo một quy tắc pha trộn cố định. A chứa **hai phần nguồn x và một phần nguồn y**; B chứa **một phần x và ba phần y**. Hai nguồn x, y chưa biết và có cùng đơn vị tín hiệu như số đo. Kỹ thuật viên cần khôi phục hai nguồn **cho từng lượt**, rồi thử pha lại để chắc chắn khớp cả 15 cặp số đã nhận.
 
-**Vì sao chọn cách này?** Ma trận hệ số 2×2 không đổi và có định thức khác 0. NumPy có thể giải **15 vế phải cùng lúc** khi cột của bảng số đo là một lượt, tránh viết 15 lời gọi giải riêng.
+**Vì sao chọn cách này?** **Ma trận hệ số** `A` ghi cách hai nguồn góp vào mỗi kênh. Ma trận này **giữ nguyên cho cả 15 lần đo** và có đủ thông tin để phân biệt nguồn x với y. `np.linalg.solve(A, measured.T)` giải nhiều cặp số đo trong **một lần gọi**; `.T` đổi từ dạng mỗi lượt một hàng sang cách hàm giải nhận các vế phải ở từng cột, rồi chuyển kết quả về mỗi lượt một hàng. Sau giải, `restored @ A.T` thử **pha ngược lại** hai nguồn vừa tìm; `np.allclose()` xác nhận số tái tạo gần bằng số đo gốc. Nếu chỉ đọc nghiệm mà không tái tạo, sai thứ tự kênh hoặc nhầm hệ số có thể không được phát hiện.
 
 **Quy trình:**
 1. Tạo ma trận hệ số và 15 cặp kênh được đo.
@@ -249,9 +249,9 @@ Một cặp giá trị quan sát phải ứng với **cùng lượt**; không gh
 
 **Từ vựng trong mục:** **Augmented matrix** — ma trận mở rộng; **Inconsistent system** — hệ vô nghiệm; **Residual** — sai số dư.
 
-**Tình huống thực tế:** Bộ phận hiệu chuẩn ghi **18 cặp** số giờ vận hành x (giờ) và mức tiêu thụ y (đơn vị giả lập). Quy tắc kỹ thuật dự kiến là đường thẳng `y = m*x + c` với một cặp m/c áp dụng chung. Lượt 10 bị nhập cao hơn 7 đơn vị, nên **không có một cặp m/c khớp chính xác cả 18 lượt**. Cần phát hiện vấn đề bằng so hạng hệ số và hạng ma trận mở rộng.
+**Tình huống thực tế:** Phòng hiệu chuẩn ghi **18 lượt dữ liệu**, mỗi lượt có thời gian máy hoạt động **x (giờ)** và mức tiêu thụ **y (đơn vị mô phỏng)**. Nhóm giả định tất cả số đo tuân theo **một đường thẳng chung**, tức tăng thêm một lượng cố định theo giờ. Tuy nhiên, ở lượt thứ 10, mức tiêu thụ bị ghi cao hơn dự kiến **7 đơn vị**. Kỹ thuật viên muốn biết liệu có thể tìm **một đường thẳng đi qua chính xác cả 18 điểm** không, trước khi chuyển sang cách tìm đường gần đúng.
 
-**Vì sao chọn cách này?** Nếu `rank([A|b])` lớn hơn `rank(A)`, các phương trình không thể đồng thời đúng. Không được dùng `solve` cho ma trận 18×2 không vuông; so hạng chỉ ra hệ không nhất quán trước khi thử xấp xỉ.
+**Vì sao chọn cách này?** **Hạng của hệ số** cho biết hai thành phần đường thẳng (mức tăng và mức nền) có độc lập không; **hạng ma trận mở rộng** còn tính cả cột số đo thực tế `y`. Nếu thêm cột `y` làm hạng tăng, nghĩa là các số đo **không thể đồng thời khớp hoàn toàn** cùng một quy tắc tuyến tính. Trong ví dụ, lượt 10 bị lệch 7 đơn vị nên hệ 18 dòng bị mâu thuẫn. `np.linalg.matrix_rank()` kiểm tra hai hạng trước khi tìm nghiệm. `np.linalg.solve()` không phù hợp cho bảng **18 hàng × 2 cột** vì đó không phải ma trận vuông 2×2; bài này chỉ kiểm tra **có thể khớp chính xác hay không**, chưa tìm đường gần đúng.
 
 **Quy trình:**
 1. Tạo bảng hệ số 18 hàng, hai cột x và cột 1; y là vế phải.
@@ -289,9 +289,9 @@ Khớp tất cả: False
 
 **Từ vựng trong mục:** **Least squares** — bình phương tối thiểu; **Residual** — sai số dư; **Rank** — hạng.
 
-**Tình huống thực tế:** Nhà máy có **20 lần đo**: mỗi hàng gồm số giờ chạy x (giờ) và năng lượng y (kWh) trong cùng khoảng quan sát. Mẫu giả lập gần đường thẳng tăng 4 kWh/giờ, có mức nền 10 kWh; lượt thứ 5 và 17 bị nhiễu. Cần tìm hệ số góc và chặn xấp xỉ bằng bình phương tối thiểu, sau đó báo MSE và số lần dự báo lệch quá 5 kWh.
+**Tình huống thực tế:** Nhà máy đo **20 cặp số liệu** giờ chạy máy (**giờ**) và năng lượng dùng (**kWh**). Phần lớn dữ liệu tăng gần **4 kWh cho mỗi giờ thêm**, từ mức nền khoảng **10 kWh**, nhưng lượt 5 và 17 có sai lệch giả lập. Người phân tích cần tìm một đường thẳng **gần phù hợp nhất** với toàn bộ 20 lượt, báo mức tăng theo giờ, mức nền, sai số trung bình bình phương **MSE** và số lượt dự báo sai quá **5 kWh**.
 
-**Vì sao chọn cách này?** Khác hệ có nghiệm chính xác, `lstsq` chọn đường thẳng làm tổng sai số bình phương thấp nhất khi 20 phương trình không khớp hoàn toàn. Phải giữ đơn vị: độ dốc kWh/giờ, hệ số chặn kWh, MSE kWh².
+**Vì sao chọn cách này?** **Bình phương tối thiểu** được dùng khi có nhiều số đo hơn số thông số cần tìm và các điểm **không nằm chính xác trên cùng một đường**. `np.linalg.lstsq()` chọn mức tăng theo giờ (**kWh/giờ**) và mức nền (**kWh**) sao cho tổng các **sai lệch đã bình phương** là nhỏ nhất; các sai lệch lớn bị phạt mạnh hơn. Sau đó chương trình dự đoán lại 20 lượt, tính **MSE** bằng trung bình bình phương sai lệch (đơn vị **kWh²**) và đếm lượt lệch quá 5 kWh. Đây là đường khớp **gần đúng**, không phải cách sửa số đo nhiễu thành sự thật; nếu cần giải thích sự cố ở lượt 5, 17 phải kiểm tra dữ liệu nguồn.
 
 **Quy trình:**
 1. Tạo A từ 20 cặp x/y với một cột x và một cột 1.

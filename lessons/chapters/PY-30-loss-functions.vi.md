@@ -141,9 +141,9 @@ Dòng đầu là cross-entropy của nhãn đúng; dòng sau là KL từ phân p
 
 **Từ vựng trong mục:** **MSE** — trung bình bình phương sai số; **Residual** — sai lệch dự báo.
 
-**Tình huống thực tế:** Một dịch vụ có **10 chuyến giao hàng**, mỗi hàng gồm thời gian thực tế và thời gian dự báo (phút/chuyến). Các dự báo đều có sai số nhỏ nhưng không hoàn toàn trùng thực tế. Cần tính MSE, sai số tuyệt đối lớn nhất và xác nhận số dòng thực tế bằng số dòng dự báo.
+**Tình huống thực tế:** Đơn vị giao hàng lưu **10 chuyến**, mỗi chuyến có một thời gian giao **thực tế** và một thời gian do hệ thống **dự đoán**, cùng đơn vị **phút/chuyến**. Ví dụ chuyến đầu thực tế 20 phút nhưng dự đoán 21 phút. Người quản lý muốn biết mô hình dự báo lệch bao nhiêu xét chung cả 10 chuyến bằng **MSE**, và chuyến nào đó có độ lệch tuyệt đối lớn nhất bao nhiêu phút; chưa cần điều chỉnh mô hình.
 
-**Vì sao chọn cách này?** MSE bình phương từng sai lệch rồi trung bình nên sai số lớn bị phạt mạnh hơn. Đơn vị là **phút²**, không phải số phút; người mới cần phân biệt sai lệch và bình phương sai lệch.
+**Vì sao chọn cách này?** **Loss (hàm mất mát)** là cách đo mức dự đoán **khác kết quả thật** để đánh giá mô hình. Trước tiên chương trình trừ thời gian thực tế khỏi dự đoán của **từng chuyến**; chênh lệch có thể âm hoặc dương. **MSE** lấy bình phương từng chênh lệch rồi tính trung bình nên các sai lệch lớn ảnh hưởng mạnh hơn; đơn vị kết quả là **phút bình phương (phút²)**, không phải phút giao hàng. `np.abs()` bỏ dấu âm khi tìm **sai số tuyệt đối lớn nhất**, giá trị này mới có đơn vị phút. Không thể nhìn MSE rồi nói trung bình mô hình sai từng ấy phút.
 
 **Quy trình:**
 1. Tạo hai dãy 10 thời gian theo cùng thứ tự chuyến.
@@ -176,9 +176,9 @@ MSE tính trên **cùng 10 chuyến**; không được trộn sai thứ tự th�
 
 **Từ vựng trong mục:** **MAE** — sai số tuyệt đối trung bình; **Outlier** — ngoại lệ; **Comparison** — so sánh.
 
-**Tình huống thực tế:** Nhóm kiểm định có **12 số đo khối lượng** (g) và 12 dự báo tương ứng. 11 lần sai khoảng 2 g, riêng lượt thứ 9 lệch 50 g do sự cố giả định. Cần so MAE với MSE để hiểu vì sao cách bình phương phạt ngoại lệ rất mạnh.
+**Tình huống thực tế:** Phòng kiểm định có **12 lần cân**, mỗi lần gồm khối lượng thực tế và dự đoán, tính bằng **gam (g)**. Mười một lần dự đoán lệch khoảng **2 g**, nhưng ở lần thứ chín hệ thống dự đoán 230 g thay vì 180 g, lệch **50 g**. Người kiểm định muốn so mức sai lệch khi tính bằng **MAE** với **MSE** để hiểu vì sao một lần đo bị lỗi lớn có thể ảnh hưởng mạnh tới đánh giá chung.
 
-**Vì sao chọn cách này?** MAE giữ đơn vị g, tăng tuyến tính khi sai số lớn. MSE có đơn vị g² và bị ảnh hưởng mạnh bởi 50 g; hai số **khác đơn vị**, không so trực tiếp chúng để tuyên bố mô hình tốt/xấu.
+**Vì sao chọn cách này?** **MAE** là trung bình **độ lớn sai lệch**, không quan tâm dự báo cao hay thấp hơn thực tế; kết quả vẫn tính bằng **gam**. **MSE** bình phương sai lệch trước khi lấy trung bình nên trường hợp **50 g** đóng góp mạnh hơn nhiều so với mỗi lượt lệch 2 g; kết quả có đơn vị **g²**. Chương trình tính cả hai trên **cùng 12 lượt**, đồng thời đếm lượt sai hơn 10 g. Hai con số MAE và MSE **khác đơn vị**, nên không so số lớn nhỏ của chúng để chọn mô hình tốt hơn; phải hiểu mục đích phạt lỗi và dùng cùng thước đo khi so các mô hình.
 
 **Quy trình:**
 1. Tạo 12 cặp số đo–dự báo, có đúng một ngoại lệ 50 g.
@@ -213,9 +213,9 @@ MAE không loại bỏ sự cố ngoại lệ; nó chỉ **không bình phương
 
 **Từ vựng trong mục:** **Huber** — hàm mất mát lai; **Delta** — ngưỡng; **Robustness** — giảm độ nhạy với ngoại lệ.
 
-**Tình huống thực tế:** Trạm cảm biến có **15 sai lệch** dự báo so với chuẩn (°C), mỗi phần tử là một lượt. Hầu hết sai lệch gần 0, nhưng hai lượt có lỗi lớn +8 °C và -7 °C. Với ngưỡng minh họa **δ=1 °C**, cần tính Huber trung bình, đếm sai số vượt ngưỡng và so với MAE theo cùng mẫu.
+**Tình huống thực tế:** Một trạm dự báo nhiệt độ ghi **15 sai lệch**, mỗi số là nhiệt độ dự đoán trừ giá trị chuẩn, đơn vị **°C**. Hầu hết sai số nhỏ nhưng có hai lượt lệch **+8 °C** và **-7 °C**. Đội kỹ thuật chọn **mức chuyển δ = 1 °C** trong phép đo Huber minh họa, muốn đếm số lần sai lệch vượt ngưỡng này và xem Huber trung bình khác MAE ra sao trên đúng 15 lượt.
 
-**Vì sao chọn cách này?** Huber tính kiểu bình phương với lỗi nhỏ, còn lỗi lớn chuyển sang tuyến tính. Cần nêu δ và đơn vị; giá trị Huber không giống MAE vì mức phạt khác, không dùng tên loss thay thế mà không nêu quy tắc.
+**Vì sao chọn cách này?** **Huber loss** là một cách phạt sai lệch có hai vùng: khi sai lệch nhỏ thì phạt theo kiểu **bình phương** để nhạy với việc cải thiện gần đúng, còn khi sai lệch lớn thì chuyển sang tăng **gần tuyến tính** để ngoại lệ không chi phối mạnh như MSE. **δ = 1 °C** là ngưỡng chuyển giữa hai cách phạt do bài tập chọn, không phải ngưỡng an toàn của trạm đo. `np.abs(errors_c)` lấy độ lớn 15 sai số; `np.where(...)` chọn mức phạt tương ứng **cho từng lượt**, kể cả hai lượt +8 °C và -7 °C. Huber trung bình và MAE dùng cách phạt khác nhau, nên cần ghi tên phương pháp khi báo kết quả; không coi số Huber là nhiệt độ trung bình của cảm biến.
 
 **Quy trình:**
 1. Lưu 15 sai số có dấu và đặt ngưỡng Huber δ=1.
@@ -253,9 +253,9 @@ Ví dụ chỉ minh họa lựa chọn loss; dữ liệu thực cần điều ch
 
 **Từ vựng trong mục:** **Cross-entropy** — entropy chéo; **True-class probability** — xác suất lớp đúng; **Clipping** — chặn biên số.
 
-**Tình huống thực tế:** Một mô hình phân loại ảnh giả lập nhận **18 mẫu**, mỗi mẫu có nhãn thật trong ba lớp A/B/C và **điểm softmax tại lớp thật**. Mẫu thứ 6 và thứ 15 có điểm rất thấp cho lớp đúng. Cần tính cross-entropy trung bình, tìm mẫu bị phạt lớn nhất và tránh `log(0)` nếu điểm bị làm tròn về 0.
+**Tình huống thực tế:** Nhóm phân loại ảnh có **18 ảnh thử**, mỗi ảnh được gắn một **nhãn đúng** thuộc A, B hoặc C và một **điểm mô hình gán cho chính lớp đúng**, nằm trong khoảng 0 đến 1. Ở ảnh thứ sáu và mười lăm, điểm dành cho lớp đúng rất nhỏ (**0,05** và **0,01**). Người phân tích muốn tính **cross-entropy trung bình**, tìm ảnh bị phạt nặng nhất và tránh lỗi máy tính nếu một mô hình khác gán điểm bằng 0.
 
-**Vì sao chọn cách này?** Với nhãn một lớp đúng, cross-entropy là mức phạt dựa trên chính điểm gán cho lớp đúng; càng gần 0, phạt càng cao. Trong code dùng `np.clip` trước log để phòng giá trị bằng 0 của một mô hình khác.
+**Vì sao chọn cách này?** **Cross-entropy** trong bài đo mức mô hình **không tin vào lớp thật** đến đâu: điểm của lớp đúng càng nhỏ thì **mức phạt càng lớn**. Ví dụ ảnh có lớp thật là B mà mô hình chỉ gán điểm 0,01 cho B sẽ bị phạt nặng hơn ảnh có điểm 0,75 cho lớp đúng. Chương trình dùng `-np.log(...)` để đổi điểm của lớp đúng thành loss, rồi lấy trung bình **18 ảnh**; `argmax()` tìm **vị trí ảnh bị phạt lớn nhất**. `np.clip(..., 1e-12, 1)` giới hạn giá trị trước khi lấy log vì `log(0)` không xác định; đây là **bảo vệ tính toán**, không phải cách sửa một dự báo kém thành dự báo đúng. Nhãn 0/1/2 dùng để nhận diện lớp, không phải số tiền hay điểm số.
 
 **Quy trình:**
 1. Tạo 18 nhãn đúng và điểm của lớp đúng tương ứng.
@@ -293,9 +293,9 @@ Loss mẫu lớn nhất: 4.605
 
 **Từ vựng trong mục:** **KL divergence** — phân kỳ KL; **Probability distribution** — phân phối; **Asymmetry** — không đối xứng.
 
-**Tình huống thực tế:** Một nhóm kiểm thử có **20 bộ dự báo** cho ba nhóm hành vi A/B/C. Mỗi dòng là một phân phối Q (ba số dương có tổng 1); phân phối tham chiếu P cố định là `[0.5,0.3,0.2]`. Cần tính `KL(P||Q)` cho từng dòng, kiểm tra dòng bằng P có KL=0, trung bình 20 dòng, và quan sát `KL(Q||P)` không nhất thiết bằng `KL(P||Q)`.
+**Tình huống thực tế:** Đội kiểm thử có **20 bộ dự báo ba lớp A/B/C**. Mỗi bộ gồm ba số dương có tổng bằng 1, gọi là phân phối **Q**; nhóm lấy một phân phối chuẩn **P = [0,5; 0,3; 0,2]** để đối chiếu. Trong 20 bộ có các dòng Q trùng P và các dòng lệch dần. Họ muốn tính độ khác nhau theo **KL(P‖Q)**, xem khi hai phân phối giống nhau thì kết quả ra sao, và kiểm tra vì sao đổi thứ tự thành **KL(Q‖P)** có thể cho kết quả khác.
 
-**Vì sao chọn cách này?** KL dùng tỷ số theo **đúng chiều phân phối**; hai chiều khác nhau về cách phạt. Chỉ áp log trên số dương và kiểm tra từng hàng có tổng bằng 1 trước khi tính; không gọi KL là khoảng cách đối xứng.
+**Vì sao chọn cách này?** **Phân phối xác suất** ở đây là ba mức tỷ lệ cho ba nhóm, mỗi số dương và **cả ba cộng lại bằng 1**. **KL divergence** đo mức khác nhau của Q **khi dùng P làm phân phối tham chiếu**, nhưng cách đo này **có hướng**: so P với Q không nhất thiết bằng so Q với P. Chương trình kiểm tra mọi Q có đủ ba giá trị dương, tổng từng hàng gần bằng 1, rồi tính KL cho **20 hàng độc lập**, không gộp 20 hàng thành một phân phối. Khi Q đúng bằng P, KL bằng **0**; kết quả lý thuyết không âm, sai số âm cực nhỏ có thể do máy tính. Không gọi KL là **khoảng cách hình học đối xứng** hay tự hiểu KL là tỷ lệ dự báo chính xác.
 
 **Quy trình:**
 1. Tạo P một hàng chuẩn và 20 phân phối Q đều hợp lệ.

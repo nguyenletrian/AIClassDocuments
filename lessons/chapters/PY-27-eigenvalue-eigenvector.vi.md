@@ -132,9 +132,9 @@ Hướng có phương sai lớn nhất nằm trên trục y; đổi dấu vector
 
 **Từ vựng trong mục:** **Covariance** — hiệp phương sai; **Eigenvalue** — trị riêng; **Axis** — trục.
 
-**Tình huống thực tế:** Cảm biến nhận **10 tọa độ** (x, y), mỗi dòng là một lần đo. Trong dữ liệu mô phỏng, x thay đổi qua từng lượt còn y luôn giữ 20 mm. Kỹ thuật viên muốn biết chiều nào có mức biến thiên lớn nhất, không nhầm giá trị tọa độ 20 với độ biến thiên.
+**Tình huống thực tế:** Kỹ thuật viên nhận **10 vị trí cảm biến** trên mặt phẳng, mỗi dòng gồm tọa độ **x và y (mm)**. Trong dữ liệu thử nghiệm, **x thay đổi từ 1 đến 10 mm**, còn **y luôn là 20 mm**. Người trực muốn biết dữ liệu biến thiên theo hướng nào, không nhầm số đo y bằng 20 với việc y có biến động lớn; đây là bài quan sát độ thay đổi chứ không phải tìm vị trí xa gốc nhất.
 
-**Vì sao chọn cách này?** Hiệp phương sai đo mức thay đổi của mỗi cột, còn eigenvalue của ma trận đối xứng này cho mức phương sai trên hai hướng riêng. Cột y không đổi nên trị riêng tương ứng bằng 0.
+**Vì sao chọn cách này?** **Hiệp phương sai (covariance)** mô tả hai đại lượng **thay đổi riêng và cùng nhau** ra sao quanh mức trung bình; `np.cov(X, rowvar=False)` xem **mỗi cột** x/y là một đại lượng, mỗi hàng là một lượt đo. **Trị riêng (eigenvalue)** của bảng hiệp phương sai cho biết mức biến thiên trên các **hướng đặc biệt**. Vì mọi y đều bằng 20, y có **độ thay đổi bằng 0**, dù giá trị của nó lớn hơn x; một trị riêng sẽ bằng 0. `eigvalsh` dùng cho ma trận đối xứng và trả trị riêng mà không phải tính hướng, vì câu hỏi đầu chỉ cần mức biến thiên.
 
 **Quy trình:**
 1. Tạo 10 hàng × 2 cột và tính covariance với cột là đặc trưng.
@@ -169,9 +169,9 @@ Y không thay đổi: True
 
 **Từ vựng trong mục:** **Linear dependence** — phụ thuộc tuyến tính; **Eigenvalue** — trị riêng.
 
-**Tình huống thực tế:** Phòng đo ghi **12 mẫu**, mỗi hàng gồm một chỉ số x và chỉ số thứ hai luôn bằng 2x. Cần xác nhận dữ liệu hai cột thật ra chỉ có một chiều biến thiên độc lập, thông qua trị riêng gần 0 của ma trận hiệp phương sai.
+**Tình huống thực tế:** Một máy ghi **12 mẫu**, mỗi mẫu gồm chỉ số **x** và chỉ số thứ hai **luôn bằng hai lần x**. Đây là hai cột số giả lập không có đơn vị; nhìn bảng thấy có hai cột, nhưng cột thứ hai có thể dự đoán hoàn toàn từ cột thứ nhất. Người phân tích muốn biết có mấy **hướng biến thiên độc lập** trước khi dùng hai cột làm đầu vào cho mô hình.
 
-**Vì sao chọn cách này?** Một cột được tạo từ cột kia không mang thêm hướng biến thiên mới. Ma trận covariance của hai cột có một eigenvalue bằng 0; đây là dấu hiệu có thể giảm một đặc trưng mà vẫn giữ thông tin tuyến tính.
+**Vì sao chọn cách này?** Khi cột thứ hai **luôn gấp đôi** cột thứ nhất, chúng không phải hai nguồn biến thiên khác nhau. Ma trận hiệp phương sai được tính sau khi xét sự thay đổi quanh trung bình của 12 mẫu; nó sẽ có **một trị riêng lớn hơn 0** và **một trị riêng gần 0**. `np.linalg.eigvalsh()` phù hợp vì hiệp phương sai là ma trận đối xứng; dùng ngưỡng `1e-9` khi đếm trị riêng dương để tránh sai số máy tính được hiểu là thông tin mới. Bớt một cột ở đây không làm mất thông tin tuyến tính, nhưng kết luận ấy phụ thuộc đúng quan hệ trong dữ liệu mẫu.
 
 **Quy trình:**
 1. Ghi 12 cặp x/2x và tính hiệp phương sai.
@@ -207,9 +207,9 @@ Trị riêng 0 không nói rằng một cột toàn số 0, mà nói hai cột k
 
 **Từ vựng trong mục:** **Eigenvector** — véc-tơ riêng; **Eigen-equation** — quan hệ riêng; **eigh** — tìm trị và véc-tơ riêng.
 
-**Tình huống thực tế:** Một robot tạo **15 điểm khảo sát** (mét) trên lưới 5 cột × 3 hàng. Kỹ thuật viên cần tìm hai hướng riêng của ma trận hiệp phương sai và **kiểm chứng** khi nhân covariance với véc-tơ riêng, kết quả đúng bằng véc-tơ đó nhân trị riêng tương ứng. Dấu véc-tơ riêng có thể đổi, nên không cố ép dấu.
+**Tình huống thực tế:** Robot khảo sát **15 vị trí trên sàn** theo hình lưới **5 cột × 3 hàng**, mỗi vị trí có tọa độ **(x, y) tính bằng mét**. Nhóm kỹ thuật muốn biết hai **hướng biến thiên chính** của các điểm và kiểm tra bằng phép tính rằng mỗi hướng được thuật toán xác định đúng, thay vì chỉ ước lượng bằng mắt trên hình vẽ.
 
-**Vì sao chọn cách này?** `np.linalg.eigh` dành cho ma trận covariance đối xứng, trả cả trị riêng và véc-tơ riêng. `np.allclose` kiểm tra trực tiếp quan hệ thay vì đoán hướng bằng hình ảnh.
+**Vì sao chọn cách này?** **Véc-tơ riêng (eigenvector)** là một **hướng** mà khi nhân với ma trận, hướng ấy **không bị xoay sang hướng khác**, chỉ thay đổi độ lớn theo **trị riêng** tương ứng. `np.linalg.eigh(C)` cho cả các mức biến thiên và hai hướng riêng của ma trận hiệp phương sai **đối xứng**. Chương trình dùng `C @ vectors` so với `vectors * values`, rồi `np.allclose()` để kiểm sai khác số thực nhỏ do máy tính. Dấu của véc-tơ riêng có thể đảo (+ thành -) nhưng vẫn chỉ cùng một trục, nên không ép dấu theo hình vẽ. Đây là phép **kiểm chứng kết quả**, không phải robot phải di chuyển theo hướng ấy.
 
 **Quy trình:**
 1. Tạo 15 mẫu lưới và tính covariance 2×2.
@@ -248,9 +248,9 @@ Chỉ khi nhân ma trận hiệp phương sai với **đúng véc-tơ riêng** m
 
 **Từ vựng trong mục:** **Variance ratio** — tỷ lệ phương sai; **Principal direction** — hướng chính.
 
-**Tình huống thực tế:** Nhóm phân tích có **18 điểm khảo sát** (x,y), x trải trên sáu cột và y trên ba hàng. Cần biết hướng riêng có phương sai lớn hơn và phần trăm tổng phương sai nằm trên hướng này trước khi quyết định xem biểu đồ theo trục nào.
+**Tình huống thực tế:** Đội khảo sát thu **18 vị trí** trên lưới **6 cột × 3 hàng**, mỗi vị trí có hai tọa độ x và y cùng đơn vị. Quan sát sơ bộ cho thấy các điểm trải dài theo chiều ngang nhiều hơn chiều dọc. Nhóm muốn xác nhận **hướng có biến thiên lớn hơn** và nó chiếm **bao nhiêu phần trăm tổng biến thiên** của cả hai hướng để chọn cách biểu diễn dữ liệu.
 
-**Vì sao chọn cách này?** Eigenvalue lớn biểu diễn mức biến thiên nhiều hơn trên một trục riêng của covariance. Chia cho tổng trị riêng cho tỷ lệ có thể giải thích, không đánh đồng tỷ lệ này với độ chính xác dự báo.
+**Vì sao chọn cách này?** Để biết dữ liệu trải dài theo **hướng nào**, chương trình tính hiệp phương sai của 18 điểm rồi lấy **trị riêng lớn nhất**: hướng tương ứng có phương sai lớn nhất. `argsort(...)[::-1]` đưa trị riêng lớn nhất lên trước và dùng véc-tơ riêng của nó; so độ lớn hai thành phần để nhận biết hướng gần trục x hay y. **Tỷ lệ phương sai giải thích** cho biết phần biến thiên trên hướng chính so với **tổng biến thiên của hai hướng**, không phải phần trăm điểm đo đúng hay độ chính xác dự báo. Vì lưới rộng theo x, kết quả ưu tiên x là phù hợp với dữ liệu mô phỏng.
 
 **Quy trình:**
 1. Tính covariance của 18 điểm quan sát.
@@ -291,9 +291,9 @@ Trị riêng chỉ có ý nghĩa **phương sai** vì ma trận ở đây là co
 
 **Từ vựng trong mục:** **PCA** — thành phần chính; **Rank** — hạng; **Reconstruction** — tái tạo.
 
-**Tình huống thực tế:** Hệ thống tổng hợp **20 hồ sơ** giả lập, mỗi hàng có bốn chỉ số không đơn vị `[x, 2x, y, 3y]`. Hai cột là bản sao tỷ lệ của hai cột khác, nên bảng bốn cột chỉ có **hai hướng biến thiên độc lập**. Cần tìm eigenvalues của covariance, giữ hai hướng lớn nhất, chiếu 20 hàng sang hai tọa độ mới và tái tạo lại bảng gốc.
+**Tình huống thực tế:** Một bài thực hành AI tạo **20 hồ sơ mô phỏng**, mỗi hồ sơ ghi **4 chỉ số không đơn vị**: `x`, `2x`, `y`, `3y`. Hai chỉ số là bản phóng to của chỉ số khác, nên thực chất chỉ có **hai hướng thông tin độc lập**. Học viên muốn nén bảng 20 hàng × 4 cột thành **20 hàng × 2 tọa độ mới**, rồi thử dựng lại bốn cột để xem có làm mất thông tin tuyến tính đáng kể không.
 
-**Vì sao chọn cách này?** PCA dùng eigenvector của covariance theo thứ tự trị riêng giảm; nếu rank dữ liệu sau căn giữa bằng 2 thì giữ 2 thành phần có thể tái tạo bốn cột trong sai số tính toán. Đây là dữ liệu nhân tạo, không tự khẳng định thực tế luôn giảm được 50% số cột.
+**Vì sao chọn cách này?** **PCA (phân tích thành phần chính)** tìm những hướng mà dữ liệu thay đổi nhiều nhất, để mô tả bảng bằng **ít tọa độ hơn**. Trước tiên `centered` trừ **trung bình từng cột** để chuyển về biến thiên quanh tâm; sau đó lấy trị riêng/véc-tơ riêng của hiệp phương sai, sắp theo mức biến thiên giảm dần và giữ **hai hướng lớn nhất**. Phép `projected = centered @ basis` chuyển 20 hồ sơ thành hai tọa độ mới; nhân ngược và cộng lại trung bình để `recreated` thử dựng lại bốn cột. Vì `2x` và `3y` không đưa thông tin độc lập mới, hai hướng đủ để dựng lại gần chính xác trong bài này. Với dữ liệu thật có nhiễu và nhiều hướng, giảm còn hai chiều **có thể mất thông tin**; không tự kết luận PCA luôn giữ trọn dữ liệu.
 
 **Quy trình:**
 1. Căn giữa bảng 20×4, tính covariance và `eigh`.

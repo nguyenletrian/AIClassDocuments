@@ -132,9 +132,9 @@ Lớp đầu có điểm chuẩn hóa cao nhất; tổng ba điểm trước là
 
 **Từ vựng trong mục:** **ReLU** — hàm giữ phần dương; **Activation** — kích hoạt.
 
-**Tình huống thực tế:** Một tầng mạng thử nghiệm nhận **10 điểm thô** (không đơn vị) của 10 nơ-ron, mỗi phần tử là tín hiệu trước hàm kích hoạt. Điểm âm cần bị chặn về 0, còn điểm dương được giữ. Cần đếm số phần tử bị chặn và số phần tử còn dương.
+**Tình huống thực tế:** Trong một mô hình mạng nơ-ron **giả lập**, tầng xử lý nhận **10 tín hiệu thô** không có đơn vị. Có tín hiệu âm, bằng 0 và dương, ví dụ -5 và 5. Bài yêu cầu dùng quy tắc **ReLU** để chặn tín hiệu âm thành 0, giữ tín hiệu dương, rồi đếm bao nhiêu đầu ra bằng 0 và bao nhiêu đầu ra còn dương. Đây là phép thử tính toán, không phải tín hiệu điện của thiết bị thật.
 
-**Vì sao chọn cách này?** `np.maximum(0, x)` áp dụng cùng quy tắc cho toàn bộ tín hiệu; khác cách xóa các nơ-ron có đầu vào âm, hàm vẫn giữ nguyên số phần tử đầu ra.
+**Vì sao chọn cách này?** **Hàm kích hoạt** biến tín hiệu của một tầng thành đầu ra theo quy tắc nhất định. **ReLU** giữ số dương như cũ, nhưng đổi mọi số âm thành **0**; nó **không xóa vị trí nơ-ron** hay rút ngắn mảng. `np.maximum(0, signals)` áp quy tắc ấy cho cả 10 tín hiệu trong một lần; sau đó so từng đầu ra với 0 để đếm. Cần phân biệt **tín hiệu đầu vào âm** và **đầu ra bằng 0**: đầu ra bằng 0 còn gồm cả tín hiệu đầu vào vốn bằng 0. Quy tắc này đơn giản và hay dùng ở các tầng giữa, không có nghĩa mọi số âm ngoài thực tế đều vô giá trị.
 
 **Quy trình:**
 1. Lưu 10 giá trị gồm âm, 0 và dương.
@@ -168,9 +168,9 @@ Mẫu đầu/cuối: 0 5
 
 **Từ vựng trong mục:** **Sigmoid** — hàm chữ S; **Logit** — điểm thô; **Threshold** — ngưỡng.
 
-**Tình huống thực tế:** Hệ phân loại nhị phân trả **12 logit** không đơn vị, mỗi hàng là điểm thô của một mẫu. Giá trị âm, 0 và dương đều có mặt. Cần biến chúng thành điểm sigmoid trong (0,1), đếm số mẫu có điểm **từ 0,5** trở lên và kiểm tra logit 0 biến thành đúng 0,5.
+**Tình huống thực tế:** Mô hình phân loại **hai lựa chọn** cho **12 mẫu thử** tạo ra 12 **logit**, tức điểm thô chưa nằm trong khoảng 0 đến 1. Trong số đó có logit âm, dương và bằng 0. Người phân tích cần biến từng điểm qua **sigmoid** để có số nằm giữa 0 và 1, đếm số mẫu có điểm **ít nhất 0,5** và kiểm tra logit bằng 0 cho kết quả đúng **0,5**.
 
-**Vì sao chọn cách này?** Sigmoid nén điểm thô sang (0,1) để dễ dùng ngưỡng nhị phân; bản thân điểm sigmoid không chứng minh mô hình đã được hiệu chuẩn xác suất. Ví dụ dùng logit nhỏ để người mới theo dõi công thức trực tiếp.
+**Vì sao chọn cách này?** **Logit** là điểm mô hình tạo ra trước khi quy đổi, có thể âm hoặc dương và **chưa phải xác suất**. **Sigmoid** đưa điểm đó về khoảng **giữa 0 và 1**; logit 0 nằm đúng giữa nên thành **0,5**, logit dương lớn hơn 0,5 và logit âm nhỏ hơn 0,5. `np.exp()` được dùng trong tính toán cho cả 12 mẫu; `>= 0.5` chỉ là **ngưỡng phân lớp minh họa**. Số sau sigmoid trông giống xác suất, nhưng **chưa thể kết luận mô hình dự báo xác suất chính xác** nếu chưa được kiểm tra hiệu chuẩn trên dữ liệu thực.
 
 **Quy trình:**
 1. Tạo 12 điểm thô gồm số âm và dương.
@@ -204,9 +204,9 @@ Ngưỡng 0,5 là lựa chọn minh họa; dùng ngưỡng thật cần xét chi
 
 **Từ vựng trong mục:** **Tanh** — hàm hyperbolic; **Saturation** — bão hòa; **Zero-centered** — đối xứng qua 0.
 
-**Tình huống thực tế:** Cảm biến giả lập đưa ra **15 tín hiệu** từ -7 đến 7 theo thứ tự. Người học cần áp tanh, kiểm tra đầu ra có giữ đúng dấu và đếm số tín hiệu bị bão hòa khi trị tuyệt đối đầu ra **lớn hơn 0,99**.
+**Tình huống thực tế:** Một tầng xử lý thử nghiệm nhận **15 tín hiệu từ -7 đến 7**, gồm các giá trị âm, 0 và dương. Nhóm muốn dùng **tanh** để đưa tín hiệu về khoảng gần **-1 đến 1**, rồi xem dấu của tín hiệu có được giữ không và có bao nhiêu đầu ra tiến sát hai đầu mút, cụ thể **độ lớn lớn hơn 0,99**. Các con số không có đơn vị và chỉ dùng để minh họa quy tắc kích hoạt.
 
-**Vì sao chọn cách này?** Tanh giữ đầu ra âm/dương quanh 0, khác sigmoid luôn dương. Khi đầu vào lớn về độ lớn, kết quả sát -1/+1, nên mức thay đổi nhỏ và được gọi là bão hòa.
+**Vì sao chọn cách này?** **Tanh** cũng là một hàm kích hoạt nhưng khác sigmoid ở chỗ đầu ra có thể **âm, bằng 0 hoặc dương**. Nó giữ dấu của đầu vào và đưa các số có độ lớn rất lớn về **gần -1 hoặc gần +1**; đó gọi là **bão hòa**. `np.tanh(signals)` tính đủ 15 đầu ra; `np.abs()` lấy **độ lớn bất kể dấu** để đếm những đầu ra có độ lớn **vượt 0,99**. Khi gần bão hòa, tăng thêm đầu vào thường làm đầu ra đổi rất ít, điều cần chú ý khi huấn luyện mô hình; bài chỉ quan sát hiện tượng này, chưa huấn luyện mạng.
 
 **Quy trình:**
 1. Tạo 15 giá trị đầu vào đối xứng qua 0.
@@ -240,9 +240,9 @@ Không được coi đầu ra gần ±1 là tín hiệu ban đầu cũng chỉ c
 
 **Từ vựng trong mục:** **Softmax** — chuẩn hóa theo hàng; **Numerical stability** — ổn định số; **Argmax** — lớp lớn nhất.
 
-**Tình huống thực tế:** Một mô hình trả **18 bản ghi** với ba logit đại diện cho lớp A/B/C loại trừ nhau; mỗi hàng là một mẫu, ba cột là điểm thô của các lớp. Một mẫu có logit gần 1.000, nên tính mũ trực tiếp có nguy cơ tràn số. Cần chuẩn hóa theo **từng hàng** và đếm lớp có điểm cao nhất.
+**Tình huống thực tế:** Một bộ phân loại có **18 mẫu**, mỗi mẫu cần chọn một trong **ba lớp A, B hoặc C**. Mô hình xuất ba **logit** không đơn vị cho từng mẫu; một dòng có điểm thô gần **1.000** nên nếu tính hàm mũ trực tiếp có nguy cơ ra số quá lớn. Nhóm muốn biến ba điểm mỗi mẫu thành ba **điểm softmax có tổng bằng 1**, đếm số mẫu chọn từng lớp và kiểm tra dòng logit rất lớn vẫn cho kết quả hữu hạn.
 
-**Vì sao chọn cách này?** Trừ logit lớn nhất **của từng hàng** trước khi `np.exp` giúp softmax ổn định, không thay đổi tỷ lệ trong hàng; tổng mỗi hàng bằng 1 nhưng tổng cả 18 hàng sẽ bằng 18.
+**Vì sao chọn cách này?** **Softmax** chuyển ba logit của **một mẫu** thành ba điểm dương có **tổng bằng 1**, hữu ích khi chọn **một lớp trong ba lớp loại trừ nhau**. Vì một logit tới gần 1.000, tính `np.exp()` trực tiếp có thể bị **tràn số** (quá lớn để máy lưu). Chương trình trừ **logit lớn nhất của mỗi hàng** trước rồi mới tính mũ; điều này không đổi tỷ lệ so sánh giữa ba lớp trong cùng mẫu mà giúp tính ổn định. `axis=1` chỉ việc xử lý **ba lớp ngang một hàng**, không gộp 18 mẫu vào chung một phân phối. `argmax(axis=1)` chọn lớp điểm cao nhất của từng mẫu; tổng mỗi hàng gần 1 chứ tổng tất cả 18 hàng không phải 1.
 
 **Quy trình:**
 1. Tạo mảng 18×3 có một hàng logit rất lớn.
@@ -282,9 +282,9 @@ Softmax xử lý **ba lớp cạnh tranh trong mỗi mẫu**, không dùng một
 
 **Từ vựng trong mục:** **Activation pipeline** — chuỗi kích hoạt; **ReLU** — chặn âm; **Sigmoid** — điểm nhị phân.
 
-**Tình huống thực tế:** Một hệ thống thử nghiệm có **20 mẫu**, mỗi hàng gồm hai tín hiệu x/y không đơn vị và nhãn tham chiếu 0/1. Theo quy tắc dữ liệu minh họa, nhãn thật là 1 khi **x+y lớn hơn 0**. Mô hình đơn giản lại chặn từng tín hiệu âm bằng ReLU, cộng chúng, trừ 1 rồi sigmoid. Cần tính dự đoán ngưỡng 0,5, số mẫu đúng/sai và so với nhãn thật để thấy biến đổi phi tuyến **có thể làm mất thông tin dấu**.
+**Tình huống thực tế:** Một mô hình thử có **20 mẫu**, mỗi mẫu gồm hai tín hiệu đầu vào **x và y** cùng nhãn đúng **0 hoặc 1**. Dữ liệu được tạo theo quy tắc nhãn là 1 khi **tổng x và y lớn hơn 0**. Mô hình lại dùng ReLU chặn riêng từng tín hiệu âm, cộng các tín hiệu đã chặn, bớt 1 rồi dùng sigmoid quyết định theo ngưỡng **0,5**. Nhóm muốn biết dự đoán đúng và sai bao nhiêu lần để thấy biến đổi đầu vào có thể làm mất thông tin cần phân lớp.
 
-**Vì sao chọn cách này?** ReLU và sigmoid có vai trò khác nhau: ReLU làm phi tuyến ở tầng giữa, sigmoid nén logit đầu ra. Không được đánh giá mô hình chỉ bằng số đầu ra lớn hơn 0,5; cần **nhãn thật** để kiểm đúng/sai.
+**Vì sao chọn cách này?** ReLU và sigmoid làm **hai việc khác nhau** trong mô hình. ReLU chặn phần âm của từng tín hiệu đầu vào, khiến một số thông tin về **độ lớn âm** biến mất; sigmoid chỉ đổi điểm cuối thành số từ 0 đến 1 để áp ngưỡng dự đoán. Nhãn đúng trong bài dựa trên **tổng x và y gốc**, vì vậy các mẫu có số âm mạnh có thể bị mô hình ReLU hiểu khác: không thể lấy điểm sigmoid lớn rồi cho rằng dự đoán đúng. Chương trình phải so `predicted` với **20 nhãn tham chiếu** để đếm đúng/sai. Đây là ví dụ cho thấy chọn phép biến đổi đầu vào ảnh hưởng thông tin mô hình giữ lại, không khẳng định ReLU nói chung là không tốt.
 
 **Quy trình:**
 1. Tạo 20 hàng hai tín hiệu cùng 20 nhãn được định nghĩa rõ.

@@ -129,9 +129,9 @@ Sau ba kỳ tăng trưởng lũy kế, chỉ số khoảng 1157,63 đơn vị, k
 
 **Từ vựng trong mục:** **Affine function** — hàm bậc nhất có hệ số chặn; **Slope** — độ dốc.
 
-**Tình huống thực tế:** Một đơn vị giao nhận có **10 chuyến hàng** với quãng đường 1–10 km, mỗi hàng là một chuyến. Chính sách giả lập gồm phí gốc **10 nghìn đồng/chuyến** và thêm **5 nghìn đồng/km**. Cần tính phí từng chuyến, đối chiếu chuyến đầu và tổng phí của cả 10 chuyến.
+**Tình huống thực tế:** Đơn vị giao hàng có **10 chuyến**, mỗi chuyến có quãng đường lần lượt từ **1 đến 10 km**. Theo bảng phí **giả lập**, mỗi chuyến thu **10 nghìn đồng phí khởi đầu** và **5 nghìn đồng cho mỗi km**, không có phụ phí khác. Thu ngân muốn biết phí chuyến dài 1 km và tổng tiền của cả 10 chuyến mà không phải viết riêng một phép tính cho từng chuyến.
 
-**Vì sao chọn cách này?** Hàm `fee(km)` diễn tả cùng một quy tắc cho nhiều đầu vào; số tiền tăng cố định 5 nghìn khi mỗi km thêm 1, tạo đường thẳng có hệ số chặn 10. Không cần viết 10 trường hợp `if`.
+**Vì sao chọn cách này?** **Hàm số** mô tả một quy tắc biến đầu vào thành đầu ra: `delivery_fee(km)` nhận **số km** rồi trả **số tiền nghìn đồng**. Quy tắc này **tuyến tính**, vì mỗi thêm 1 km làm phí tăng đúng 5 nghìn đồng, còn khoản 10 nghìn là phí nền ngay cả trước khi tính quãng đường. Dùng `def` viết quy tắc **một lần**, vòng `for` gọi lại cho mười quãng đường rồi cộng kết quả. Chuyến 1 km phải gồm cả phí nền và phí theo km; nếu chỉ nhân số km với 5 thì sẽ bỏ quên phí cố định.
 
 **Quy trình:**
 1. Tạo list 10 số km và hàm phí đơn giản.
@@ -166,9 +166,9 @@ Hệ số 5 có đơn vị **nghìn đồng/km**, không phải 5 km; chính sá
 
 **Từ vựng trong mục:** **Quadratic** — hàm bậc hai; **Marginal increase** — mức tăng giữa hai bước.
 
-**Tình huống thực tế:** Một xưởng thử nghiệm **12 mức tải máy** từ 1 đến 12 đơn vị tải; mỗi hàng là một mức và chi phí mô phỏng (nghìn đồng). Theo giả định, chi phí tăng theo hàm bậc hai gồm thành phần bình phương, thành phần tuyến tính và phí gốc. Cần xác định mức tăng từ tải 11 sang 12 có lớn hơn mức tăng từ 1 sang 2 không.
+**Tình huống thực tế:** Xưởng thử máy có **12 mức tải** được đánh số từ 1 đến 12; mỗi mức tạo một chi phí **nghìn đồng** theo quy tắc minh họa. Khi tải tăng cao, chi phí tăng nhanh hơn chứ không tăng đều cùng một số tiền. Người vận hành muốn so phần chi phí tăng **từ tải 1 lên 2** với **từ tải 11 lên 12** để hiểu vì sao không thể dùng một mức tăng cố định cho mọi mức tải.
 
-**Vì sao chọn cách này?** Hàm bậc hai mô tả chi phí tăng nhanh hơn khi tải lớn. So **hai chênh lệch** bằng kết quả hàm giúp người mới thấy khác biệt với mức tăng cố định của hàm bậc nhất.
+**Vì sao chọn cách này?** **Hàm bậc hai** có phần phụ thuộc vào **bình phương mức tải**, nên khi tải càng cao thì cùng một bước tăng tải có thể làm chi phí tăng **nhiều hơn trước**. Hàm `expense(load)` trong bài còn có phần tăng đều theo tải và phí nền; ba phần cùng tạo ra giá dự kiến. Vòng lặp tính đủ 12 mức, rồi chương trình lấy **chi phí tải 2 trừ tải 1** và **chi phí tải 12 trừ tải 11** để so hai lần tăng. Đây là mô hình giả lập để hiểu hình dạng hàm, không phải chi phí tiêu thụ của một máy thật.
 
 **Quy trình:**
 1. Tạo 12 mức tải và áp dụng hàm chi phí.
@@ -207,9 +207,9 @@ Chi phí trong bài là số **giả lập**, không phải quy luật tiêu hao
 
 **Từ vựng trong mục:** **Polynomial** — đa thức; **polyval** — đánh giá đa thức; **Coefficient order** — thứ tự hệ số.
 
-**Tình huống thực tế:** Một thiết bị hiệu chỉnh bằng đường cong `x² + 2x + 3`, trong đó x là **15 vị trí thử nghiệm** từ -7 đến 7 (đơn vị vị trí), đầu ra là chỉ số không đơn vị. Kỹ sư cần tạo bảng kết quả, kiểm tra vị trí x=0 và giá trị nhỏ nhất của toàn bộ 15 vị trí.
+**Tình huống thực tế:** Thiết bị hiệu chỉnh thử **15 vị trí từ -7 đến 7**, mỗi vị trí được gán chỉ số đầu ra **không đơn vị** theo một quy tắc **đa thức bậc hai** đã cho. Kỹ thuật viên cần tạo bảng kết quả của đủ 15 vị trí, tra giá trị tại **x = 0** và tìm **vị trí có đầu ra nhỏ nhất** để đối chiếu với đường cong dự kiến. Các vị trí âm chỉ biểu thị phía bên kia gốc, không phải dữ liệu lỗi.
 
-**Vì sao chọn cách này?** `np.polyval([1,2,3], x)` nhận hệ số từ bậc cao xuống thấp, xử lý cùng lúc nhiều điểm. Không phải tự nhân từng lũy thừa trên từng vị trí và tránh đảo nhầm thứ tự hệ số.
+**Vì sao chọn cách này?** **Đa thức** là cách ghép các thành phần như một số cố định, phần tăng theo x và phần tăng theo bình phương x. `np.polyval([1, 2, 3], positions)` dùng **hệ số theo thứ tự từ bậc cao xuống thấp**, tính cùng quy tắc cho cả 15 vị trí; nếu đảo thứ tự hệ số thì sẽ thành đường cong khác. `np.argmin(output)` tìm **vị trí trong mảng** có đầu ra nhỏ nhất, không trả luôn giá trị x; chương trình dùng vị trí ấy để lấy cả **giá trị nhỏ nhất** và **tọa độ của nó**. Cần phân biệt vị trí thứ mấy trong danh sách với tọa độ x có thể âm.
 
 **Quy trình:**
 1. Tạo 15 giá trị x và ma trận hệ số `[1,2,3]`.
@@ -244,9 +244,9 @@ Giá trị nhỏ nhất xảy ra tại x=-1, không phải nhất thiết tại 
 
 **Từ vựng trong mục:** **Exponential** — hàm mũ; **Compounding** — tăng lũy kế; **Growth rate** — tỷ lệ tăng.
 
-**Tình huống thực tế:** Một chỉ số hoạt động giả lập khởi đầu **1.000 điểm** tại kỳ 0 và tăng đều **3% sau mỗi kỳ**; bảng cần **18 dòng kỳ 0 đến kỳ 17**. Người quản lý muốn so mức kỳ cuối với cách tăng cố định 30 điểm/kỳ, để thấy vì sao hai mô hình không giống nhau.
+**Tình huống thực tế:** Bộ phận kinh doanh so **hai giả định tăng trưởng** của một chỉ số bắt đầu ở **1.000 điểm** vào kỳ 0. Với giả định A, chỉ số tăng **3% trên giá trị đang có sau mỗi kỳ**; với B, mỗi kỳ chỉ cộng **30 điểm cố định**. Báo cáo gồm **18 kỳ, từ 0 đến 17**. Quản lý muốn xem hai chỉ số ở kỳ cuối và khoản chênh lệch, vì dù kỳ đầu tăng như nhau, về sau hai quy tắc có thể cho kết quả khác.
 
-**Vì sao chọn cách này?** Hàm mũ nhân theo tỷ lệ trên giá trị của kỳ trước, khác hàm tuyến tính cộng một lượng cố định. Tạo bảng với NumPy giúp so cùng 18 mốc thời gian.
+**Vì sao chọn cách này?** **Tăng trưởng lũy kế** có nghĩa mức tăng kỳ sau được tính từ **giá trị đã tăng của kỳ trước**; ví dụ 3% trên 1.030 điểm sẽ lớn hơn 3% trên 1.000 điểm. Đó là cách hoạt động của **hàm mũ** trong `compound`. Còn `linear` chỉ cộng 30 điểm mỗi kỳ, nên có **mức tăng tuyệt đối không đổi**. `np.arange(18)` tạo đúng các kỳ **0–17**, rồi cả hai quy tắc dùng cùng danh sách mốc để so công bằng. Nếu tưởng tăng 3% là cộng thêm 30 điểm trong **mọi kỳ**, người học sẽ nhầm tăng theo tỷ lệ với tăng cố định.
 
 **Quy trình:**
 1. Tạo vector 18 kỳ từ 0 tới 17.
@@ -281,9 +281,9 @@ Không suy ra giá trị tăng trưởng chắc chắn từ mô hình giả lậ
 
 **Từ vựng trong mục:** **Model fit** — độ khớp mô hình; **MSE** — sai số bình phương; **Extrapolation** — ngoại suy.
 
-**Tình huống thực tế:** Phòng nghiên cứu ghi **20 mức tải x** từ 0 đến 19 và chỉ số chi phí y (nghìn đồng) theo một quy luật bậc hai nhân tạo. Nhóm có hai mô hình thử: mô hình A chỉ giữ phần tuyến tính, mô hình B có thêm phần bình phương. Cần tính MSE của cả hai trên đúng 20 dòng và chỉ ra mô hình nào mô tả dữ liệu minh họa tốt hơn, không khẳng định nó luôn tốt hơn trên dữ liệu ngoài tập.
+**Tình huống thực tế:** Nhóm phân tích dựng **20 mức tải từ 0 đến 19**, mỗi mức có một chi phí mô phỏng **nghìn đồng** được tạo theo đường cong bậc hai. Họ thử hai cách dự báo trên **chính 20 điểm này**: mô hình **tuyến tính** chỉ tăng theo một mức cố định và mô hình **bậc hai** có thể uốn cong theo tải. Nhóm muốn tính mức sai lệch bình phương trung bình của từng mô hình và xem mô hình nào khớp **bộ dữ liệu minh họa** hơn, chưa khẳng định dự báo dữ liệu mới sẽ tốt hơn.
 
-**Vì sao chọn cách này?** Hàm bậc nhất không thể bắt kịp độ cong khi tải tăng, còn bậc hai ở đây trùng quy tắc tạo dữ liệu. So sai số của từng điểm giúp hiểu **vì sao** cần thử mô hình với dạng hàm phù hợp.
+**Vì sao chọn cách này?** **Mô hình** là một quy tắc tạo giá trị dự báo từ mức tải. **MSE** (sai số bình phương trung bình) đo trung bình các sai lệch đã bình phương giữa **giá trị quan sát và dự báo**; sai lệch lớn bị tính nặng hơn. Với bộ dữ liệu này, chi phí được tạo **đúng từ một quy tắc bậc hai**, nên mô hình bậc hai khớp gần như hoàn toàn, trong khi đường thẳng bỏ sót phần cong. `np.polyval()` dùng các hệ số bậc hai, còn `np.mean()` tổng hợp các sai lệch bình phương trên đủ 20 dòng. Kết quả chỉ chứng minh độ khớp **trên dữ liệu đã dựng**, chưa cho biết mô hình có khái quát tốt trên dữ liệu mới hay không.
 
 **Quy trình:**
 1. Tạo 20 đầu vào và 20 chi phí quan sát có đơn vị.
