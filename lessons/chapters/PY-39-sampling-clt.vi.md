@@ -42,8 +42,11 @@
 **Tổng thể** là toàn bộ các đối tượng mà ta muốn kết luận, như 100 hóa đơn của một cửa hàng trong một ngày. Mỗi hóa đơn là **một đơn vị quan sát**; các cột có thể là giá trị, thời gian, trạng thái giao. Nếu chỉ đo 5 hóa đơn, kết luận không tự mở rộng thành 100 hóa đơn mà không xem cách chọn mẫu. Trong ví dụ, tổng thể gồm đúng 100 mã 0–99, nên `len` bằng 100.
 
 ```python
-# Mục đích: Toàn bộ nhóm cần nghiên cứu.
+# Mục đích: Tạo tổng thể gồm 100 mã số khác nhau và đếm kích thước.
+# Dữ liệu: Mã 0..99 tượng trưng 100 thành viên của toàn bộ nhóm cần khảo sát.
+# range(100) sinh số 0..99, KHÔNG lấy 100; list() biến dãy thành 100 mã thành viên tổng thể.
 population = list(range(100))
+# len() đếm kích thước tổng thể là 100, không phải kích thước mẫu.
 print(len(population))
 ```
 
@@ -62,11 +65,16 @@ Tổng thể có 100 mã hóa đơn; số lượng tổng thể là N=100.
 **Mẫu** là một phần các đối tượng được chọn từ tổng thể. Ví dụ từ 5 mã hóa đơn `[1,2,3,4,5]`, chọn 3 mã **không hoàn lại** nghĩa là mỗi mã xuất hiện tối đa một lần trong mẫu. `rng.choice(...,replace=False)` cho chọn mẫu giả ngẫu nhiên, seed giúp tái lập. Chọn ngẫu nhiên hợp lý hỗ trợ giảm thiên lệch chọn mẫu, nhưng nếu dữ liệu nguồn đã thiếu nhóm quan trọng thì seed không thể khắc phục.
 
 ```python
-# Mục đích: Nhóm con lấy theo cách xác định.
+# Mục đích: Lấy ngẫu nhiên ba phần tử khác nhau từ năm người, không hoàn lại.
+# Dữ liệu: Tổng thể có năm mã 1..5; lấy đúng ba người không trùng, dùng seed 1 để tái lập.
+# NumPy cung cấp bộ sinh ngẫu nhiên và lựa chọn mẫu.
 import numpy as np
 
+# seed=1 giúp chạy lại ra lựa chọn giả ngẫu nhiên giống nhau khi môi trường tương ứng, không bảo đảm mẫu đại diện.
 rng = np.random.default_rng(1)
+# choice(population,size,replace) chọn 3 mã từ 5; replace=False lấy KHÔNG hoàn lại nên không trùng một người.
 sample = rng.choice([1, 2, 3, 4, 5], size=3, replace=False)
+# tolist() chuyển ndarray kết quả thành list Python, không làm thay đổi danh sách nguồn.
 print(sample.tolist())
 ```
 
@@ -85,12 +93,19 @@ Mẫu có ba mã khác nhau vì lấy không hoàn lại; đây là một kết 
 **CLT** nói rằng dưới các điều kiện phù hợp như quan sát độc lập, cùng phân phối, phương sai hữu hạn, khi **cỡ mẫu n lớn**, phân phối của **trung bình mẫu** sau chuẩn hóa thường tiến gần dạng chuẩn, ngay cả khi dữ liệu gốc không chuẩn. Nó **không** nói dữ liệu gốc trở thành chuẩn hay từng mẫu đều có mean giống nhau. Mô phỏng 200 nhóm, mỗi nhóm 40 giá trị từ phân phối mũ mean lý thuyết 2, cho trung bình các mean gần 2.
 
 ```python
-# Mục đích: Phân phối trung bình của các mẫu.
+# Mục đích: Mô phỏng phân phối của trung bình mẫu để minh họa định lý giới hạn trung tâm (CLT).
+# Dữ liệu: 200 lần lấy mẫu độc lập, mỗi lần 40 thời gian từ phân phối mũ có mean=2; từng mẫu có 40 giá trị.
+# NumPy cho phép tạo mảng mô phỏng nhiều lần lấy mẫu.
 import numpy as np
 
+# Bộ sinh seed 1 cho phép tái lập dữ liệu ngẫu nhiên mô phỏng.
 rng = np.random.default_rng(1)
+# exponential(scale=2) tạo biến mũ với TRUNG BÌNH lý thuyết 2 (không phải tham số rate=2); size=(200,40) là 200 hàng mẫu × 40 quan sát.
 groups = rng.exponential(scale=2, size=(200, 40))
+# mean(axis=1) tính trung bình của 40 CỘT trong MỖI hàng, ra vector 200 giá trị trung bình mẫu.
 means = groups.mean(axis=1)
+# Lấy trung bình của 200 giá trị mean để so với trung bình tổng thể lý thuyết 2; round(...,3) làm tròn khi in.
+# float() đổi NumPy scalar thành float Python trước khi hiển thị.
 print(round(float(means.mean()), 3))
 ```
 
@@ -109,11 +124,18 @@ print(round(float(means.mean()), 3))
 **SD** mô tả độ phân tán của **quan sát riêng lẻ**, còn **SE của mean** mô tả mức dao động **giữa các trung bình mẫu** nếu lặp lấy mẫu cùng cách. Với n quan sát độc lập và ước lượng SD mẫu s, SE(mean) thường ước tính bằng `s/sqrt(n)` (trường hợp thích hợp). Năm điểm `[6,7,8,9,10]` có s≈1,581 điểm, nên SE≈0,707 điểm. Cỡ mẫu gấp 4 làm SE còn một nửa nếu độ phân tán giữ nguyên.
 
 ```python
-# Mục đích: Độ biến thiên của một ước lượng.
+# Mục đích: Tính standard error (SE) của mean từ độ lệch chuẩn mẫu của năm điểm.
+# Dữ liệu: Năm điểm 6..10; SE ước tính độ biến thiên của TRUNG BÌNH mẫu qua nhiều lần lấy mẫu.
+# NumPy cung cấp std(), sqrt() để ước lượng standard error.
 import numpy as np
 
+# Vector năm điểm dtype=float, mỗi ô một học viên.
 scores = np.array([6, 7, 8, 9, 10], dtype=float)
+# std(ddof=1) dùng mẫu số n−1 khi ước lượng độ lệch chuẩn mẫu, khác ddof=0 của quần thể.
+# sqrt() lấy căn bậc hai của số người n=5; len() đếm số mẫu.
+# SE=SD mẫu/chia căn n, biểu thị độ bất định của mean, KHÔNG phải SD của từng học viên.
 se = scores.std(ddof=1) / np.sqrt(len(scores))
+# float() chuyển scalar, round(...,3) định dạng ba chữ số thập phân khi in.
 print(round(float(se), 3))
 ```
 
@@ -141,15 +163,28 @@ SE của trung bình mẫu xấp xỉ 0,707 điểm; nó không phải SD của 
 3. So mean mẫu với mean tổng thể để thấy sai lệch lấy mẫu.
 
 ```python
+# Mục đích: Chọn ngẫu nhiên mười hóa đơn KHÔNG trùng từ tổng thể bốn mươi hóa đơn.
+# Dữ liệu: Tổng thể hóa đơn có giá 100..139 nghìn đồng, chọn 10 không hoàn lại, seed 31.
+# NumPy arange() tạo tổng thể số, choice() lấy mẫu.
 import numpy as np
+# arange(start,stop) tạo 40 giá từ 100 đến 139, không lấy 140.
 population = np.arange(100, 140)
+# seed 31 cố định mô phỏng cho phép đối chiếu.
 rng = np.random.default_rng(31)
+# Chọn 10 ô khác nhau KHÔNG hoàn lại, mỗi hóa đơn chỉ có thể xuất hiện một lần.
 sample = rng.choice(population, size=10, replace=False)
+# len() đếm 10 hóa đơn được lấy.
+# set() loại các giá trị trùng, len() đối chiếu mẫu đúng 10 phần tử duy nhất.
 if len(sample) != 10 or len(set(sample)) != 10:
+    # Báo lỗi nếu thiếu mẫu hoặc mẫu lặp, không dùng số đo không hợp lệ.
     raise ValueError("Cần chọn đủ 10 hóa đơn không trùng.")
+# Đếm số phần tử của tổng thể ban đầu (40), không phải số mẫu lấy.
 print("Tổng thể:", len(population))
+# len() đếm 10 hóa đơn được lấy.
 print("Hóa đơn chọn:", len(sample))
+# mean() lấy tiền trung bình của 10 hóa đơn mẫu; :.1f chỉ hiển thị một số lẻ.
 print(f"Mean mẫu (nghìn đồng): {sample.mean():.1f}")
+# Mean của 40 hóa đơn toàn bộ là mốc tham chiếu; khác mean mẫu do chọn ngẫu nhiên.
 print(f"Mean tổng thể (nghìn đồng): {population.mean():.1f}")
 ```
 
@@ -178,21 +213,41 @@ Chọn mẫu ngẫu nhiên không có nghĩa mean luôn bằng mean tổng thể
 3. Ghép 12 ID và xác minh đủ hai nhóm, không lặp.
 
 ```python
+# Mục đích: Lấy mẫu phân tầng: chọn sáu phiếu nhóm A và sáu phiếu nhóm B từ 60 phiếu.
+# Dữ liệu: Hai nhóm A/B mỗi nhóm 30 phiếu, chọn 6 phiếu mỗi nhóm không hoàn lại; seed 12.
+# NumPy Generator.choice() hỗ trợ lấy mẫu ở từng tầng.
 import numpy as np
+# Seed 12 làm lựa chọn mô phỏng tái lập được.
 rng = np.random.default_rng(12)
+# Danh sách rỗng chuẩn bị 30 mã phiếu A.
 A = []
+# Danh sách rỗng chuẩn bị 30 mã phiếu B.
 B = []
+# range(1,31) tạo số thứ tự 1..30, không lấy 31.
 for i in range(1, 31):
+    # f-string :02d tạo mã A01..A30 hai chữ số.
+    # append() thêm một mã A vào list.
     A.append(f"A{i:02d}")
+    # Tạo mã B01..B30 để không trùng định danh với nhóm A.
+    # append() thêm một mã B vào list.
     B.append(f"B{i:02d}")
+# Lấy 6 phiếu KHÔNG hoàn lại từ tầng A (30 phiếu), không lấy ngẫu nhiên 12 từ tổng thể một lần.
+# tolist() đổi ndarray mã được chọn thành list Python.
 selected_a = rng.choice(A, 6, replace=False).tolist()
+# Lấy riêng 6 phiếu từ tầng B, bảo đảm thành phần mẫu của cả hai nhóm.
+# tolist() đổi ndarray mã được chọn thành list Python.
 selected_b = rng.choice(B, 6, replace=False).tolist()
+# Nối hai list thành 12 phiếu, không phải phép cộng số.
 selection = selected_a + selected_b
+# set() bỏ mã trùng để kiểm 12 mã duy nhất.
 if len(selection) != 12 or len(set(selection)) != 12:
+    # Dừng nếu không chọn đủ số phiếu hoặc có mã trùng.
     raise ValueError("Cần đúng 12 phiếu chọn, không trùng ID.")
+# Đếm kích thước tổng thể 30+30=60; không phải chỉ 12 mẫu.
 print("Tổng thể:", len(A)+len(B))
 print("Phiếu lấy:", len(selection))
 print("Nhóm A/B:", len(selected_a), len(selected_b))
+# set() bỏ mã trùng để kiểm 12 mã duy nhất.
 print("Có trùng ID:", len(selection) != len(set(selection)))
 ```
 
@@ -221,15 +276,32 @@ Phân tầng đảm bảo đại diện từng khu vực **theo thiết kế**, 
 3. So SD của 15 mean với SD của tất cả thời gian đơn lẻ và in mean chung.
 
 ```python
+# Mục đích: Quan sát CLT qua 15 lần lấy mẫu, mỗi lần 40 thời gian từ phân phối mũ.
+# Dữ liệu: Phân phối mũ scale=2 phút, 15 hàng mẫu × 40 quan sát, seed 12.
+# NumPy mô phỏng phân phối mũ và thống kê theo hàng.
 import numpy as np
+# Seed 12 giúp tái tạo cùng 15 lần mô phỏng.
 rng = np.random.default_rng(12)
+# scale=2 phút là mean của phân phối mũ; size=(15,40) có 15 lần lấy mẫu mỗi lần 40 điểm.
 samples = rng.exponential(scale=2, size=(15, 40))
+# axis=1 gom 40 CỘT của TỪNG HÀNG để có 15 trung bình mẫu.
 means = samples.mean(axis=1)
+# shape (15,40) kiểm đúng số lần lấy mẫu và kích cỡ từng mẫu.
+# shape (15,) xác nhận một mean cho mỗi lần lấy mẫu.
 if samples.shape != (15, 40) or means.shape != (15,):
+    # Báo dữ liệu mô phỏng không đúng số hàng/cột.
     raise ValueError("Cần 15 lần lấy mẫu, mỗi lần 40 quan sát.")
+# len() đếm 15 lần lấy mẫu chứ không phải 600 quan sát.
 print("Lần lấy mẫu:", len(means))
+# shape (15,40) kiểm đúng số lần lấy mẫu và kích cỡ từng mẫu.
+# shape[1] lấy số cột quan sát trong mỗi mẫu, bằng 40.
 print("Quan sát mỗi lần:", samples.shape[1])
+# Trung bình của 15 trung bình mẫu để so với mean tổng thể lý thuyết 2 phút.
 print(f"Mean của các mean (phút): {means.mean():.3f}")
+# std(ddof=1) ước tính độ lệch chuẩn của 15 TRUNG BÌNH mẫu, không phải từng giá trị gốc.
+# ravel() trải mảng (15,40) về vector 600 quan sát để tính độ phân tán dữ liệu từng lượt.
+# So SD trung bình mẫu với SD của từng quan sát; CLT dự đoán mean mẫu ít phân tán hơn, đây chỉ là mô phỏng giới hạn 15 lượt.
+# bool() chuyển so sánh NumPy thành Boolean Python để in.
 print("SD mean nhỏ hơn SD dữ liệu:", bool(means.std(ddof=1) < samples.ravel().std(ddof=1)))
 ```
 
@@ -258,17 +330,34 @@ SD mean nhỏ hơn SD dữ liệu: True
 3. Báo cả hai SE kèm số người và giải thích giới hạn so sánh.
 
 ```python
+# Mục đích: So standard error ước lượng trên 9 và 18 điểm và nêu rõ đây là hai nhóm khác nhau.
+# Dữ liệu: 18 điểm học viên 8..25; first9 lấy chín học viên đầu nên có phân phối hẹp hơn cả 18.
+# NumPy cung cấp std(), sqrt(), isclose() cho hai ước lượng SE.
 import numpy as np
+# 18 số điểm float xếp tăng dần theo đầu vào, không phải mẫu ngẫu nhiên.
 scores = np.array([8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25], dtype=float)
+# Slice [:9] lấy chỉ số 0..8 (9 học viên ĐẦU), không lấy phần tử thứ 10.
 first9 = scores[:9]
+# std(ddof=1) lấy SD mẫu với mẫu số n−1, khác SD quần thể ddof=0.
+# sqrt(n) là căn kích thước nhóm 9, dùng mẫu số của SE.
+# SE chín người = SD mẫu của nhóm đầu / căn 9, đơn vị điểm.
 se9 = first9.std(ddof=1)/np.sqrt(len(first9))
+# std(ddof=1) lấy SD mẫu với mẫu số n−1, khác SD quần thể ddof=0.
+# sqrt(n) cho nhóm 18, nhưng SD hai nhóm cũng có thể khác.
+# SE mười tám người = SD mẫu của toàn bộ / căn 18, đơn vị điểm.
+# len() xác minh 18 quan sát; len(first9) trả 9.
 se18 = scores.std(ddof=1)/np.sqrt(len(scores))
+# len() xác minh 18 quan sát; len(first9) trả 9.
 if len(scores) != 18:
+    # Dừng nếu bảng điểm không có đúng 18 người.
     raise ValueError("Cần đủ 18 điểm học viên.")
+# len() xác minh 18 quan sát; len(first9) trả 9.
 print("Tất cả học viên:", len(scores))
 print("Nhóm con:", len(first9))
 print(f"SE 9 người (điểm): {se9:.3f}")
 print(f"SE 18 người (điểm): {se18:.3f}")
+# isclose() so hai SE có dung sai float, not đảo kết quả; SE khác vì cả kích thước và phạm vi điểm khác nhau.
+# bool() ép kết quả so sánh sang bool Python dễ đọc.
 print("SE của hai nhóm khác nhau:", bool(not np.isclose(se9, se18)))
 ```
 
@@ -298,18 +387,36 @@ SE của 18 người **lớn hơn** trong dữ liệu cụ thể này vì độ 
 3. Tính mean của 2.000 hàng và hai phân vị biên, kiểm mean gốc ở trong khoảng minh họa.
 
 ```python
+# Mục đích: Bootstrap 2.000 lần từ 20 phiếu để ước lượng khoảng phân vị của trung bình.
+# Dữ liệu: 20 thời gian phút, mỗi bootstrap lấy 20 lượt CÓ hoàn lại, seed 18, mức giữa 95% dùng phân vị 2.5% và 97.5%.
+# NumPy Generator.choice() lấy mẫu lặp và quantile() lấy phân vị bootstrap.
 import numpy as np
+# 20 số phút gốc dạng float, mỗi phần tử là một phiếu thời gian.
 minutes = np.array([30,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,49,50,51,55], dtype=float)
+# Seed 18 giúp tái lập 2.000 mẫu bootstrap.
 rng = np.random.default_rng(18)
+# choice(...,replace=True) lấy mẫu CÓ hoàn lại từ 20 phiếu; mỗi hàng 20 lượt, 2.000 hàng có thể lặp cùng phiếu nhiều lần.
+# len() đếm 20 phiếu gốc.
 bootstrap = rng.choice(minutes, size=(2000, len(minutes)), replace=True)
+# axis=1 tính mean của 20 CỘT trong mỗi hàng bootstrap, cho 2.000 trung bình mẫu.
 means = bootstrap.mean(axis=1)
+# Phân vị 2.5% và 97.5% của 2.000 mean tạo khoảng bootstrap percentile trung tâm 95%; không tự động chứng minh 95% xác suất chứa tham số đã cố định.
 low, high = np.quantile(means, [0.025, 0.975])
+# shape (2000,20) kiểm 2.000 lần lấy mẫu, mỗi lần 20 ô.
+# len() đếm 20 phiếu gốc.
 if len(minutes) != 20 or bootstrap.shape != (2000, 20):
+    # Báo dữ liệu/bootstrap sai kích thước trước khi diễn giải.
     raise ValueError("Cần 20 phiếu và 2000 lượt lấy mẫu bootstrap.")
+# len() đếm 20 phiếu gốc.
 print("Phiếu gốc:", len(minutes))
+# len() đếm 2.000 giá trị mean từ bootstrap, không phải số quan sát gốc.
 print("Mẫu bootstrap:", len(means))
+# Mean 20 phiếu gốc dùng so vị trí với khoảng bootstrap.
 print(f"Mean gốc (phút): {minutes.mean():.2f}")
 print(f"Khoảng bootstrap (phút): {low:.2f} – {high:.2f}")
+# Mean 20 phiếu gốc dùng so vị trí với khoảng bootstrap.
+# Chuỗi so sánh kiểm mean gốc có nằm giữa hai mốc bootstrap hay không, kết quả Boolean, không phải kiểm độ bao phủ dài hạn.
+# bool() đổi kết quả so sánh về Python True/False để in.
 print("Mean gốc trong khoảng:", bool(low <= minutes.mean() <= high))
 ```
 
