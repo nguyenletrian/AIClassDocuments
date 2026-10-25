@@ -269,7 +269,7 @@ Một thiết bị có thể vừa cảnh báo vừa đang gửi, nên hai tập
 ```python
 amount_vnd = [500000,900000,1300000,1700000,2100000,2500000,500000,900000,1300000,1700000,2100000,2500000,500000,900000,1300000,1700000,2100000,2500000,500000,900000]
 late_days = [0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4]
-in_stock = [true,true,true,false,true,true,true,true,true,true,true,false,true,true,true,true,true,false,true,true]
+in_stock = [True,True,True,False,True,True,True,True,True,True,True,False,True,True,True,True,True,False,True,True]
 orders = [(f"O{i:02d}", amount_vnd[i-1], late_days[i-1], in_stock[i-1])
           for i in range(1, 21)]
 priority = [(code, amount) for code, amount, delay, available in orders
