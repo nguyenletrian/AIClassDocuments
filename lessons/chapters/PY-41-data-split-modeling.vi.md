@@ -130,9 +130,9 @@ KMeans tìm được hai cụm; mã số gắn cho từng cụm có thể đổi
 
 **Từ vựng trong mục:** **Train** — tập huấn luyện; **Test** — tập đánh giá; **Disjoint** — không trùng.
 
-**Tình huống thực tế:** Một trung tâm có **10 hồ sơ học viên** H01–H10, mỗi hồ sơ gồm ID, số giờ luyện tập (giờ/tuần) và điểm (thang 10). Cần chọn 8 người cho train, 2 người cuối cho test để minh họa nguyên tắc: không dùng hồ sơ test trong quá trình học.
+**Tình huống thực tế:** Trung tâm đào tạo có **10 hồ sơ H01–H10**. Mỗi hồ sơ ghi mã học viên, số giờ luyện tập **(giờ/tuần)** và điểm kiểm tra **(thang 10)**. Nhóm muốn dùng **8 học viên đầu** để chuẩn bị mô hình và giữ riêng **2 người cuối** để đánh giá sau này. Trước khi học, cần kiểm tra không có mã nào vừa nằm trong train vừa nằm trong test và hai nhóm vẫn bao phủ đủ 10 người.
 
-**Vì sao chọn cách này?** Tách theo ID trước khi tính toán tránh đánh giá trên chính người đã dùng để học. Đây là cách chia minh họa có trật tự, **không phải lấy mẫu ngẫu nhiên**; nếu dữ liệu sắp theo thời gian/nhãn thì cần xét cách chia phù hợp.
+**Vì sao chọn cách này?** **Train** là dữ liệu được dùng khi học quy tắc; **test** được giữ lại để đo khả năng áp dụng cho người **chưa gặp lúc học**. `records[:8]` lấy 8 hồ sơ đầu còn `records[8:]` lấy hai hồ sơ cuối; đây là **chia theo thứ tự mã**, không phải lấy ngẫu nhiên. `set` các mã giúp kiểm `isdisjoint()` (hai nhóm không chung mã) và phép hợp giúp xác nhận đủ 10 người. Việc hai nhóm không trùng là điều kiện cần, nhưng nếu hồ sơ được sắp theo ngày hay nhãn thì cách cắt này vẫn có thể làm hai nhóm khác nhau thiếu đại diện.
 
 **Quy trình:**
 1. Tạo 10 bộ ID–giờ–điểm, mỗi hàng là một người.
@@ -174,9 +174,9 @@ ID rời nhau chỉ là điều kiện cần: nếu một người có hai ID kh
 
 **Từ vựng trong mục:** **Stratify** — giữ tỷ lệ nhãn; **Random state** — hạt giống ngẫu nhiên.
 
-**Tình huống thực tế:** Đội tư vấn có **12 khách hàng** S01–S12, mỗi hàng ghi điểm hoạt động (điểm) và nhãn `0=chưa đăng ký`, `1=đã đăng ký`. Có 6 khách cho mỗi nhãn. Cần chia train/test **8/4** mà nhóm test vẫn có đủ hai nhãn; không dùng nhãn test để huấn luyện.
+**Tình huống thực tế:** Đội tư vấn có **12 hồ sơ S01–S12**, mỗi người có điểm hoạt động và **nhãn 0** (chưa đăng ký) hoặc **1** (đã đăng ký). Có đúng **6 người ở mỗi nhãn**, nhưng nếu chia tùy tiện thì nhóm kiểm tra chỉ có một nhãn, khó đánh giá công bằng. Nhóm cần chia thành **8 hồ sơ train và 4 hồ sơ test**, giữ được cả nhãn 0 và 1 ở mỗi phần, đồng thời không dùng lại cùng khách.
 
-**Vì sao chọn cách này?** `train_test_split(..., stratify=y)` giữ tỷ lệ nhãn trong hai nhóm khi số lượng cho phép. `random_state=42` giúp lặp lại cách chia; phân tầng không có nghĩa dữ liệu đã đủ lớn để ước lượng hiệu năng thật.
+**Vì sao chọn cách này?** **Phân tầng (stratify)** là chia mẫu sao cho **tỷ lệ hai nhãn** được duy trì trong những phần được tạo, khi số lượng cho phép. `train_test_split(..., test_size=4, stratify=y)` chia **12 khách** thành 8 người học và 4 người đánh giá; nhãn được dùng để **quyết định tỷ lệ chia**, không có nghĩa mô hình đã học từ nhãn test. `random_state=42` giữ kết quả chia có thể lặp lại. Chương trình đếm riêng số 0/1 của train và test và kiểm tập mã không giao nhau; mẫu 12 vẫn quá nhỏ để kết luận chắc chắn hiệu quả mô hình ngoài thực tế.
 
 **Quy trình:**
 1. Tạo 12 mã, đặc trưng điểm và nhãn nhị phân.
@@ -218,9 +218,9 @@ Phân tầng dùng nhãn **chỉ để quyết định cách chia**, không có 
 
 **Từ vựng trong mục:** **Classification** — phân loại có nhãn; **Pipeline** — chuỗi xử lý; **Leakage** — rò rỉ thông tin.
 
-**Tình huống thực tế:** Nhóm thực hành có **15 hồ sơ hoa** F01–F15; mỗi hàng gồm chiều dài và chiều rộng cánh (cm), nhãn loài `0/1/2`, năm hoa cho mỗi loài. Cần giữ 6 hoa làm test, fit bộ chuẩn hóa **chỉ trên 9 hoa train**, sau đó huấn luyện Logistic Regression và dự đoán 6 hoa test.
+**Tình huống thực tế:** Nhóm học máy chuẩn bị **15 hồ sơ hoa F01–F15**, mỗi bông được ghi **chiều dài, chiều rộng cánh hoa (cm)** và nhãn thuộc **một trong ba loài 0, 1, 2**. Mỗi loài có 5 bông. Họ muốn học cách phân loại từ **9 mẫu train**, giữ **6 mẫu test** để thử dự đoán, và đặc biệt tránh dùng số đo của hoa test khi tính mức trung bình/độ phân tán cho bước chuẩn hóa.
 
-**Vì sao chọn cách này?** Scaler **không được học từ cả 15 hoa** trước khi tách. Pipeline gọi `fit` trên train để đồng thời học trung bình/độ lệch chuẩn và classifier. Bản test chỉ dùng để đánh giá ngoài mẫu.
+**Vì sao chọn cách này?** **StandardScaler** chuẩn hóa số đo bằng các thông số như **trung bình** và **độ lệch chuẩn** học từ dữ liệu. Nếu tính các thông số ấy trên **cả 15 bông** trước khi chia, thông tin từ 6 hoa test đã đi vào quá trình chuẩn bị mô hình: đó là **rò rỉ dữ liệu (data leakage)**. `Pipeline` gói scaler và `LogisticRegression`: lệnh `fit` chỉ chạy trên 9 hoa train rồi áp **cùng phép chuẩn hóa đã học** lên 6 hoa test khi dự đoán. `stratify=y` giữ các loài có đại diện khi chia; `random_state=42` giúp chạy lại cùng một cách chọn. Điểm accuracy đo trên test là số dự đoán đúng trong **6 mẫu**, không đảm bảo tỷ lệ đúng của thế giới thật.
 
 **Quy trình:**
 1. Tạo 15 dòng có đủ ID, hai số đo cm, ba nhãn.
@@ -272,9 +272,9 @@ Accuracy chỉ được tính từ **sáu hoa test**, không phải bằng chứ
 
 **Từ vựng trong mục:** **Clustering** — gom cụm không giám sát; **Centroid** — tâm cụm.
 
-**Tình huống thực tế:** Kho robot ghi **18 vị trí** `(x,y)` bằng mét, mỗi hàng là vị trí một vật thể. Chín vị trí nằm quanh vùng (1,1), chín vị trí quanh (11,11). Không có nhãn vùng trong bảng đầu vào; cần dùng KMeans tìm hai cụm và xem mỗi cụm có bao nhiêu vị trí.
+**Tình huống thực tế:** Kho robot ghi **18 vị trí vật thể trên sàn**, mỗi vị trí là hai tọa độ **x, y (mét)**. Có **9 vật thể gần (1,1)** và **9 vật thể gần (11,11)**, nhưng bảng không có nhãn 'vùng gần' hay 'vùng xa'. Người vận hành muốn chương trình tự tìm **hai cụm vị trí**, báo số vật thể từng cụm và vị trí tâm theo trục x, không tự gọi mã cụm 0 là bên trái.
 
-**Vì sao chọn cách này?** Clustering **không học nhãn đúng** từ người dạy; thuật toán dựa trên khoảng cách giữa các tọa độ, các mã cụm 0/1 có thể đảo khi khởi tạo. So kích thước cụm phải **sắp tăng**, không gán cố định mã 0 là vùng trái.
+**Vì sao chọn cách này?** **KMeans** là thuật toán **phân cụm không giám sát**: nó nhận tọa độ, tìm hai tâm và đưa mỗi điểm vào cụm gần tâm thích hợp, **không cần nhãn đúng**. Ở đây hai vùng trên sàn cách nhau khá xa nên yêu cầu **hai cụm** là giả định dễ quan sát; `n_clusters=2` không phải số cụm mà thuật toán tự xác nhận cho mọi dữ liệu. `random_state=42` và `n_init=10` giúp việc khởi tạo và lặp thử có thể tái lập tốt hơn. Số nhãn cụm `0` và `1` chỉ là **tên do thuật toán gán**, có thể đổi chỗ; vì vậy dùng `sorted` để so kích thước và sắp **tâm theo tọa độ x** thay vì gán cố định 0 là vùng trái.
 
 **Quy trình:**
 1. Tạo 18 điểm có đơn vị m, không tạo nhãn để fit.
@@ -314,9 +314,9 @@ Người học không được gọi cụm số 0 là loài số 0 chỉ vì hai
 
 **Từ vựng trong mục:** **Classification vs. clustering** — phân loại so với gom cụm; **Adjusted Rand Index** — độ phù hợp cụm không lệ thuộc mã.
 
-**Tình huống thực tế:** Hệ thống có **20 hồ sơ khách** H01–H20; mỗi dòng gồm hai chỉ số hành vi không đơn vị x/y và nhãn tham chiếu 0/1 (10 khách mỗi nhãn). Nhóm phân tích muốn xây **classifier** bằng 16 train/4 test và **clustering** trên riêng các tọa độ mà không đưa nhãn vào `fit`. Cần đánh giá hai kết quả riêng, tránh khẳng định hai mã cụm tương ứng nhãn 0/1.
+**Tình huống thực tế:** Đội phân tích có **20 hồ sơ khách H01–H20**, mỗi hồ sơ gồm hai chỉ số hành vi x/y **không đơn vị** và nhãn tham chiếu **0 hoặc 1** (mỗi nhãn 10 khách). Họ muốn so hai công việc: **phân loại** học nhãn từ **16 hồ sơ train** rồi kiểm trên **4 test**, còn **phân cụm** tìm hai nhóm chỉ từ các chỉ số x/y. Cần báo kết quả của mỗi cách đúng ý nghĩa, không nhầm tên cụm do máy tự đặt với nhãn tham chiếu.
 
-**Vì sao chọn cách này?** Classification dự đoán nhãn đã biết và đánh giá trên test chưa học; KMeans khám phá cụm từ đặc trưng mà không cần nhãn. `adjusted_rand_score` chỉ **đối chiếu sau khi gom**, không dùng nhãn để huấn luyện; chỉ số không nhạy với việc đảo tên cụm.
+**Vì sao chọn cách này?** **Classification** giải bài toán có **nhãn đúng đã biết**; mô hình `StandardScaler` + `LogisticRegression` học từ **16 hồ sơ** rồi tính **accuracy trên 4 hồ sơ test** chưa dùng học. **Clustering** dùng `KMeans` chỉ trên đặc trưng x/y của **20 hồ sơ**, không đưa nhãn tham chiếu vào `fit_predict`. Chỉ **sau khi tìm cụm**, `adjusted_rand_score` (ARI) dùng nhãn thật để **đối chiếu độ tương hợp hai cách chia**, đồng thời không bị ảnh hưởng bởi việc gọi cụm là 0 hay 1. Đây là hai nhiệm vụ và hai cách đánh giá khác nhau: accuracy không thay thế ARI, còn ARI cao không có nghĩa KMeans đã được dạy nhãn.
 
 **Quy trình:**
 1. Tạo 20 hàng có ID, x/y, nhãn; tách train/test phân tầng.

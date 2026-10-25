@@ -122,9 +122,9 @@ print(sum(scores) / len(scores), max(scores))
 
 **Từ vựng trong mục:** **Create** — tạo hồ sơ; **Unique key** — khóa duy nhất.
 
-**Tình huống thực tế:** Phòng đào tạo nhận **10 yêu cầu thêm học viên**; mỗi yêu cầu gồm mã S01…, tên và điểm thang 10. Yêu cầu cuối cố nhập lại mã S03 với tên khác, nên cần lưu được 9 hồ sơ và từ chối thao tác có nguy cơ ghi đè điểm thật.
+**Tình huống thực tế:** Phòng đào tạo nhận **10 yêu cầu tạo hồ sơ học viên**, mỗi yêu cầu ghi **mã S01…S09**, tên và điểm kiểm tra **trên thang 10**. Yêu cầu thứ 10 dùng lại **mã S03** với tên khác. Giáo vụ muốn tạo đúng **9 hồ sơ hợp lệ**, giữ nguyên điểm đã lưu của S03 và báo mã bị từ chối, không để người nhập sau vô tình ghi đè hồ sơ trước.
 
-**Vì sao chọn cách này?** Dictionary chỉ cho phép một giá trị cho một khóa; nếu gán thẳng `db[id]=...` mà không kiểm tra, yêu cầu trùng sẽ **âm thầm ghi đè**. Kiểm trước khi ghi, lưu số thành công/thất bại để dễ đối soát.
+**Vì sao chọn cách này?** **CRUD** là bốn thao tác cơ bản với dữ liệu: **Create** (tạo), **Read** (đọc), **Update** (sửa), **Delete** (xóa). Bài đầu chỉ thực hiện **Create** trong `dictionary`: khóa là **mã học viên duy nhất**, giá trị là tên và điểm của người đó. Trước khi thêm, `if row['id'] in db` kiểm mã đã tồn tại hay chưa; nếu trùng thì ghi mã vào `rejected` và dùng `continue` bỏ riêng lượt này. Nếu cứ gán thẳng `db[id] = ...`, hồ sơ S03 ban đầu sẽ bị ghi đè không cảnh báo. Sau 10 yêu cầu, chương trình đối chiếu số hồ sơ và điểm S03, chứ không tự tính yêu cầu bị từ chối là một người mới.
 
 **Quy trình:**
 1. Tạo 10 yêu cầu có một mã lặp và điểm hợp lệ.
@@ -163,9 +163,9 @@ Trùng mã: S03
 
 **Từ vựng trong mục:** **Read** — đọc hồ sơ; **Lookup** — tra theo khóa; **Missing key** — mã không có.
 
-**Tình huống thực tế:** Phòng học có **10 học viên** S01–S10 trong RAM; S01 có điểm **0/10 hợp lệ**. Nhân viên thực hiện **12 lượt tra cứu**, gồm đủ 10 mã và hai mã không tồn tại S99/S88. Cần trả lời số mã tìm thấy, số mã thiếu và xác nhận S01 không bị coi là hồ sơ không tồn tại vì có điểm 0.
+**Tình huống thực tế:** Phòng học đang lưu **10 học viên S01–S10 trong bộ nhớ RAM**; mỗi người có mã và điểm, riêng **S01 có điểm 0 hợp lệ**. Nhân viên gửi **12 lượt yêu cầu đọc hồ sơ**, gồm cả 10 mã có thật và hai mã lạ **S99, S88**. Họ cần đếm bao nhiêu lượt tìm thấy và bao nhiêu lượt không thấy, nhưng không được coi học viên đạt 0 điểm là người chưa có hồ sơ.
 
-**Vì sao chọn cách này?** `dict.get(id)` trả None khi thiếu khóa; kiểm đối tượng hồ sơ bằng `is None`, không dùng `if not record['score']` vì điểm 0 là số hợp lệ.
+**Vì sao chọn cách này?** **Read** là tra thông tin mà **không sửa** dữ liệu. `db.get(sid)` trả bản ghi cho mã có trong dictionary và trả `None` khi mã **không tồn tại**. Cần kiểm `record is None` chứ không kiểm giá trị điểm bằng `if not score`: trong Python số **0 được xem là False** khi dùng như điều kiện, nhưng ở đây **0 điểm vẫn là một điểm hợp lệ**. Chương trình duyệt đủ 12 yêu cầu rồi đưa mã vào nhóm tìm thấy hoặc nhóm thiếu, bảo đảm đọc S01 không bị nhầm với S99/S88. Đây là dữ liệu trong RAM, chưa có file hay máy chủ cơ sở dữ liệu.
 
 **Quy trình:**
 1. Tạo 10 hồ sơ với mã khác nhau và 12 lượt tra ID.
@@ -207,9 +207,9 @@ Không tìm thấy mã là **vấn đề khóa**, khác với việc tìm thấy
 
 **Từ vựng trong mục:** **Update** — sửa hồ sơ; **Validation** — kiểm dữ liệu; **Finite number** — số hữu hạn.
 
-**Tình huống thực tế:** Một lớp có **10 hồ sơ** S01–S10 và nhận **15 yêu cầu sửa điểm**; 10 yêu cầu đầu hợp lệ (điểm trong 0–10), năm yêu cầu sau gồm điểm âm, vượt 10, chuỗi không phải số, NaN và mã không tồn tại. Cần cập nhật chỉ các yêu cầu hợp lệ, không ghi giá trị giả hoặc tạo mã mới.
+**Tình huống thực tế:** Trung tâm có **10 hồ sơ điểm S01–S10** và tiếp nhận **15 yêu cầu sửa điểm**, mỗi yêu cầu gồm mã và điểm nhập dưới dạng **chuỗi văn bản**. Mười yêu cầu đầu nhập điểm trong khoảng **0–10**; năm yêu cầu còn lại có điểm âm, điểm 11, chữ `bad`, chữ `nan` hoặc mã **S99** không tồn tại. Giáo vụ cần cập nhật đúng dữ liệu hợp lệ và ghi số yêu cầu bị từ chối mà không sinh thêm người học ngoài danh sách.
 
-**Vì sao chọn cách này?** Chuỗi từ CLI phải đổi sang `float` trong `try/except`, tiếp tục kiểm `math.isfinite` vì `float('nan')` là số dấu phẩy động nhưng **không phải điểm hợp lệ**. Kiểm khóa trước thao tác Update.
+**Vì sao chọn cách này?** **Update** là thay giá trị của **mã đã tồn tại**, nên phải kiểm `sid in db` trước khi lưu. Vì CLI nhận đầu vào dạng chữ, `float(raw_score)` được gọi bên trong `try` để chuyển các chuỗi số thành điểm; `except ValueError` xử lý chuỗi như `bad` mà không làm dừng toàn bộ 15 lượt. Nhưng `float('nan')` vẫn chuyển được thành **số dấu phẩy động đặc biệt**, nên cần `math.isfinite` để loại **NaN hoặc vô cực**, cùng quy tắc điểm phải từ 0 đến 10. Khi một yêu cầu sai, chương trình tăng `rejected` và **giữ nguyên điểm cũ**. Chỉ 10 yêu cầu hợp lệ được ghi, không tự thêm S99.
 
 **Quy trình:**
 1. Tạo 10 mã ban đầu và 15 yêu cầu chứa điểm ở dạng chuỗi.
@@ -262,9 +262,9 @@ NaN phải bị chặn **trước khi ghi**; nếu để NaN trong dữ liệu, 
 
 **Từ vựng trong mục:** **Delete** — xóa; **Idempotence** — gọi lại không làm sai dữ liệu; **Audit** — đối soát.
 
-**Tình huống thực tế:** Một ứng dụng CLI ban đầu có **10 hồ sơ** S01–S10 và nhận **18 lệnh xóa**; 10 lệnh đầu xóa đúng mã một lần, 8 lệnh cuối lặp hoặc chứa mã chưa có. Cần biết có bao nhiêu hồ sơ thực sự bị xóa, bao nhiêu lệnh không thay đổi dữ liệu và kiểm tra DB rỗng sau cùng.
+**Tình huống thực tế:** Ứng dụng quản lý có **10 hồ sơ S01–S10** và nhận **18 lệnh xóa** theo thứ tự. Mười lệnh đầu gọi đúng mười mã, nhưng tám lệnh sau có mã **đã bị xóa** hoặc **chưa từng tồn tại**. Nhân viên cần biết có bao nhiêu hồ sơ thực sự đã mất, bao nhiêu lệnh không làm thay đổi dữ liệu và xác nhận cuối cùng không còn hồ sơ nào.
 
-**Vì sao chọn cách này?** `dict.pop(id, None)` tránh ném KeyError khi mã vắng. Nhưng CLI vẫn cần **thông báo không tìm thấy**, không coi lần xóa thứ hai là thành công.
+**Vì sao chọn cách này?** **Delete** là xóa một bản ghi khi **mã đang tồn tại**. `db.pop(sid, None)` vừa lấy vừa xóa khi thấy mã, còn nếu mã vắng thì trả `None` thay vì báo `KeyError` làm gián đoạn vòng lặp. Chương trình kiểm giá trị trả về để tách **xóa thành công** và **mã không còn trong DB**. Sau khi mười hồ sơ đầu đã xóa, gọi xóa lại S01 không thể được tính là thành công lần nữa, vì dữ liệu không thay đổi. Tổng số thành công và thất bại phải bằng **18 lệnh**, còn `len(db)` xác nhận danh sách cuối đã rỗng.
 
 **Quy trình:**
 1. Tạo 10 ID trong Dictionary và 18 mã được yêu cầu xóa.
@@ -306,9 +306,9 @@ Xóa không tìm thấy được ghi nhận rõ trong **audit**; không được
 
 **Từ vựng trong mục:** **CLI command** — lệnh văn bản; **CRUD** — tạo/đọc/sửa/xóa; **Audit trail** — lịch sử thao tác.
 
-**Tình huống thực tế:** Trung tâm mô phỏng một ứng dụng CLI nhận **20 lệnh văn bản** gồm ADD, GET, UPDATE, DELETE, REPORT. Mỗi lệnh là một dòng sự kiện có thứ tự; 10 lệnh đầu thêm học viên, các lệnh sau có sửa hợp lệ, thêm trùng, điểm `bad`, tra mã không có, xóa lặp và điểm vượt 10. Cần **không làm hỏng dữ liệu khi nhập lỗi**, đếm số lệnh từ chối và in mean điểm trên hồ sơ còn lại.
+**Tình huống thực tế:** Trung tâm đào tạo xây **CLI (chương trình nhận lệnh văn bản)** để quản lý điểm học viên. Có **20 lệnh theo thứ tự**, gồm `ADD` (thêm), `GET` (xem), `UPDATE` (sửa), `DELETE` (xóa) và `REPORT` (báo cáo). Trong đó có lệnh hợp lệ, thêm trùng mã, điểm không phải số, điểm vượt 10, tìm mã chưa có và xóa lần thứ hai. Nhóm muốn xử lý đủ 20 lệnh, đếm số thao tác thành công/thất bại và xem **số hồ sơ cùng điểm trung bình cuối** mà không làm hỏng cơ sở dữ liệu trong RAM.
 
-**Vì sao chọn cách này?** Dùng `shlex.split` tách cú pháp đơn giản thay vì `eval`, kiểm số trường từng loại lệnh, kiểm trùng mã/số hữu hạn/thang điểm trước khi sửa. Một lệnh báo cáo chỉ **đọc**, không thay đổi Dictionary.
+**Vì sao chọn cách này?** **CLI** là giao diện để nhập lệnh bằng chữ thay vì bấm nút; ở ví dụ này **20 lệnh được chuẩn bị sẵn**, không yêu cầu người học gõ tương tác. `shlex.split` chia chữ thành các thành phần an toàn hơn cách chạy nội dung bằng `eval`; chương trình kiểm **tên lệnh và số đối số** trước khi làm. `parse_score` đổi điểm thành số và kiểm **hữu hạn, từ 0 đến 10**; thêm phải chưa có mã, sửa/xóa/tra phải có mã phù hợp. `audit` ghi các lượt thành công theo loại hoặc `REJECT` cho lệnh không đạt điều kiện; lệnh `REPORT` chỉ **đọc và tổng hợp**, không sửa hồ sơ. Vì các lệnh chạy **theo thứ tự**, xóa một mã ảnh hưởng lệnh tới sau, và điểm trung bình cuối chỉ được tính từ **những hồ sơ còn lại**.
 
 **Quy trình:**
 1. Lưu 20 dòng lệnh để chạy tự động, không cần người nhập bàn phím.

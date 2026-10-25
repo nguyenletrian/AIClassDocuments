@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "READY_FOR_BATCH_09",
+  "status": "BATCH_09_IN_PROGRESS",
   "last_completed_batch": 8,
   "batches": [
     {
@@ -255,11 +255,26 @@
         "PY-44",
         "PY-45"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-41",
+        "PY-42",
+        "PY-43",
+        "PY-44",
+        "PY-45"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/scenario-clarity-batch-09-20261025",
+      "lesson_commits": {
+        "PY-41": "533329b9208a76d637fb24a0dc9ce8897412943c",
+        "PY-42": "25d53cc2e7da76d891100fdbb2d413aa206bfbe6",
+        "PY-43": "22eaea538fe00cd3f8d39d6c8dbb4d46a603772e",
+        "PY-44": "acb0b33bc00fdab67a9830d045b113e4239999d4",
+        "PY-45": "95df3ffa11aaa033466fb4bf89854a0fe6111ffc"
+      },
+      "notes": "Five independent lesson commits PY-41..PY-45, exactly 5 Tình huống thực tế and 5 Vì sao chọn cách này paragraphs per chapter (50 total). Clarify train/test and leakage, NLP token/Counter/Jaccard, Git branch/stage/merge using temp repos, CLI CRUD validation, Matplotlib charts and PNG output. Full-file compare with main with ONLY the two approved one-line prose paragraph types masked: every other byte unchanged, including 41 executable Python code fences (9+9+5+9+9), expected stdout, lesson definitions, 100 MCQ/answers and original structure. GitHub CI and merge pending; Windows/PowerShell verification unavailable and CDP 9224 identity unverified; no Windows PASS."
     },
     {
       "batch": 10,

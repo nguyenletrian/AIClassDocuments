@@ -121,9 +121,9 @@ Hai tài liệu chung một trên năm token khác nhau; độ giống tập h�
 
 **Từ vựng trong mục:** **Normalization** — chuẩn hóa; **Vocabulary** — kho từ khác nhau.
 
-**Tình huống thực tế:** Thư viện nhận **10 lượt tìm kiếm**, mỗi hàng là một cụm từ người dùng nhập, có thể thừa khoảng trắng hay khác chữ hoa/thường. Muốn thống kê số cụm khác nhau để tránh coi `Python` và `PYTHON` thành hai yêu cầu, nhưng **không xóa dấu tiếng Việt** vì có thể đổi nghĩa.
+**Tình huống thực tế:** Thư viện ghi **10 lượt nhập từ khóa tìm sách**; một người gõ ` Python `, người khác gõ `PYTHON`, có người gõ `Máy học` và `máy học`. Bộ phận tìm kiếm muốn biết có bao nhiêu **cụm từ khác nhau theo cách viết đã chuẩn hóa**, không đếm nhiều lần cùng một nội dung chỉ vì chữ hoa hay khoảng trắng. Cần giữ nguyên **dấu tiếng Việt**, vì bỏ dấu có thể đổi nghĩa từ.
 
-**Vì sao chọn cách này?** `strip().lower()` đưa chuỗi về cách ghi nhất quán, Set đếm số cụm duy nhất. Đây là **chuẩn hóa chữ**, không phải hiểu ý định tìm kiếm của người dùng.
+**Vì sao chọn cách này?** **Chuẩn hóa văn bản** là đưa các cách viết khác nhau về một dạng **nhất quán** trước khi so sánh. `strip()` bỏ khoảng trắng thừa ở **hai đầu** chuỗi, `lower()` đổi sang chữ thường nên `Python` và `PYTHON` trở thành cùng một từ khóa. `set(normalized)` chỉ giữ **mỗi cụm đã chuẩn hóa một lần**, còn `sorted()` sắp để in kết quả ổn định. Các bước này chỉ giải quyết **khác biệt cách viết**, không hiểu câu hỏi tìm kiếm hay tự nối hai từ đồng nghĩa; đặc biệt không tự bỏ dấu tiếng Việt.
 
 **Quy trình:**
 1. Lưu 10 cụm từ theo đúng đầu vào.
@@ -157,9 +157,9 @@ Từ `máy học` vẫn gồm hai tiếng cách nhau bằng dấu cách. Nếu c
 
 **Từ vựng trong mục:** **Tokenization** — tách token; **Regex** — biểu thức chính quy.
 
-**Tình huống thực tế:** Nhóm hỗ trợ có **12 lời nhắn tiếng Anh ngắn**, mỗi hàng là một tin nhắn, có dấu chấm và chấm than. Cần tách thành token chữ thường, đếm tổng lượt token và số token khác nhau mà không giữ dấu câu thành nội dung từ.
+**Tình huống thực tế:** Đội hỗ trợ lưu **12 tin nhắn tiếng Anh ngắn**, chẳng hạn `AI helps Python.` và `Python helps teams!`. Mỗi hàng là **một tin nhắn**, có khoảng trắng và dấu câu. Nhân viên muốn tách thành từng từ **chữ thường**, biết tổng **lượt từ xuất hiện** và có bao nhiêu **từ khác nhau**, rồi kiểm tra từ `python` có xuất hiện không.
 
-**Vì sao chọn cách này?** `re.findall(r'[a-z]+', ...)` chỉ là quy tắc đơn giản thích hợp **tiếng Anh ASCII** trong bài. Nó không xử lý chính xác từ ghép tiếng Việt, emoji hay chữ Unicode khác.
+**Vì sao chọn cách này?** **Token** là đơn vị văn bản chương trình tách ra để xử lý, trong ví dụ này là **chuỗi chữ cái tiếng Anh**. `re.findall(r'[a-z]+', text.lower())` bỏ dấu chấm/chấm than rồi lấy từng nhóm chữ từ **12 lời nhắn**; danh sách `tokens` giữ **tất cả lượt xuất hiện**, còn `set(tokens)` tạo **vốn từ không lặp**. Từ `python` xuất hiện nhiều lần nhưng chỉ có một mục trong tập từ. Quy tắc `[a-z]` được chọn vì dữ liệu mẫu là **tiếng Anh ASCII**, không phải bộ tách từ chính xác cho tiếng Việt, emoji hay mọi ngôn ngữ.
 
 **Quy trình:**
 1. Tạo 12 tin nhắn không rỗng.
@@ -197,9 +197,9 @@ Tổng lượt token tính cả từ lặp, còn vocabulary chỉ tính từ duy
 
 **Từ vựng trong mục:** **Bag-of-Words** — đếm lần xuất hiện; **Counter** — bảng tần suất.
 
-**Tình huống thực tế:** Trang học trực tuyến có **15 tiêu đề khóa học**; mỗi hàng gồm một chủ đề Python/AI/Data và từ `course`. Bộ phận tìm kiếm muốn biết từ phổ biến nhất để lập chỉ mục; nếu chỉ dùng Set sẽ đánh mất thông tin từ `course` xuất hiện trong từng tiêu đề.
+**Tình huống thực tế:** Trang đào tạo có **15 tiêu đề khóa học**, mỗi tiêu đề gồm tên chủ đề `python`, `ai` hoặc `data` và từ `course`. Vì `course` được lặp lại trong mọi tiêu đề, nhân viên muốn tìm **từ phổ biến nhất và số lượt của từ ấy** để xây danh sách tra cứu. Họ cũng muốn biết **kho từ riêng biệt** gồm bao nhiêu từ; chỉ đếm từ khác nhau sẽ không cho biết mức độ phổ biến.
 
-**Vì sao chọn cách này?** `Counter` giữ số lần xuất hiện của từng token, trong khi `set()` chỉ trả từ khác nhau. Đếm hai cách trên cùng **15 tài liệu** giúp hiểu tần suất không đồng nghĩa kho từ.
+**Vì sao chọn cách này?** **Tần suất** trả lời 'một từ xuất hiện **bao nhiêu lần**', khác **vốn từ** chỉ trả lời 'có **những từ nào**'. Chương trình tách hai từ trong từng tiêu đề bằng `split()`, ghép tất cả thành một danh sách rồi dùng `Counter` cộng lượt xuất hiện của từng token. `most_common(1)` tìm từ nhiều lượt nhất: `course` xuất hiện ở **cả 15 tiêu đề**, còn các tên chủ đề xuất hiện ít hơn. Nếu đổi toàn bộ token sang set ngay lúc đầu, `course` sẽ chỉ còn một lần và **mất thông tin để xếp tần suất**; vì thế dùng Counter trước và nhìn số khóa để biết số từ khác nhau.
 
 **Quy trình:**
 1. Lưu 15 tiêu đề có hai token mỗi tiêu đề.
@@ -240,9 +240,9 @@ Từ `course` phổ biến nhất vì có mặt trong mọi tiêu đề; chưa c
 
 **Từ vựng trong mục:** **Jaccard** — tỷ lệ token chung; **Ranking** — xếp hạng; **Empty-set guard** — bảo vệ mẫu rỗng.
 
-**Tình huống thực tế:** Bộ phận kỹ thuật có **18 phiếu hỗ trợ** T01–T18, mỗi hàng là một mô tả tiếng Anh; có một phiếu để trống đang chờ bổ sung. Người trực quầy tìm các phiếu giống truy vấn `login password` nhất, chỉ so mặt chữ và không suy diễn rằng hai yêu cầu có cùng nguyên nhân.
+**Tình huống thực tế:** Trung tâm nhận **18 phiếu hỗ trợ T01–T18**, mỗi phiếu là một mô tả ngắn **bằng tiếng Anh**, như `login password reset`; **T17 chưa có nội dung**. Khi có câu hỏi mới `login password`, nhân viên cần xếp hạng các phiếu theo **số từ chung so với toàn bộ từ khác nhau**, đề xuất **ba phiếu khớp chữ tốt nhất** và báo số phiếu thiếu nội dung, không suy diễn các phiếu cùng nguyên nhân sự cố.
 
-**Vì sao chọn cách này?** Jaccard Set chia số token chung cho số token khác nhau của hai phía, cần xử lý union rỗng để không chia cho 0. Dùng ID khi đồng điểm để xếp hạng ổn định, đồng thời đếm phiếu rỗng riêng.
+**Vì sao chọn cách này?** **Jaccard** là mức giống nhau giữa **hai tập từ**: đếm từ chung và so với toàn bộ từ khác nhau của cả hai phía. Hàm `words()` đổi chuỗi thành set từ tiếng Anh chữ thường, tránh tính một từ lặp trong cùng phiếu thành nhiều lần. Hàm `similarity()` trả **0 khi hợp hai tập rỗng** để tránh chia cho 0; phiếu T17 trống vẫn được **đếm là thiếu nội dung**, không lặng lẽ xóa. Mỗi phiếu được gắn mã T01… và sắp **điểm tương đồng giảm dần, mã tăng dần khi hòa**, rồi lấy ba phiếu đầu. Giống chữ không chứng minh hai người bị cùng nguyên nhân lỗi, nên kết quả chỉ là gợi ý **rà soát**, không tự đóng phiếu.
 
 **Quy trình:**
 1. Chuẩn hóa token cho cả 18 phiếu; phiếu rỗng thành tập rỗng.
@@ -293,9 +293,9 @@ Jaccard Set bỏ thông tin **thứ tự và tần suất**; phiếu điểm cao
 
 **Từ vựng trong mục:** **Rule-based classification** — phân loại theo quy tắc; **Tie-break** — phân xử hòa; **Unknown** — chưa xác định.
 
-**Tình huống thực tế:** Đội chăm sóc khách hàng có **20 phiếu** P01–P20 với mô tả tiếng Anh; mỗi phiếu cần chuyển đến nhóm `account`, `billing`, `delivery` hoặc `unknown` nếu không có token trùng. Một phiếu cuối hoàn toàn rỗng. Hãy phân nhóm từ các tập từ khóa minh họa và kiểm chứng không tự gán phiếu không liên quan cho một nhóm bất kỳ.
+**Tình huống thực tế:** Đội chăm sóc khách hàng có **20 phiếu P01–P20**, mỗi phiếu chứa một lời nhắn tiếng Anh hoặc chuỗi rỗng; **P20 chưa nhập nội dung**. Trung tâm có ba nhóm tiếp nhận: `account` xử lý đăng nhập/mật khẩu, `billing` xử lý thanh toán và `delivery` xử lý giao hàng. Cần định tuyến từng phiếu theo **từ khóa xuất hiện**, đếm phiếu mỗi nhóm và để `unknown` cho nội dung không khớp, không tự gán phiếu chưa hiểu cho một bộ phận.
 
-**Vì sao chọn cách này?** Set và Jaccard cung cấp cách **định tuyến theo chữ xuất hiện**, nhưng không phải mô hình hiểu ý nghĩa. Khi điểm mọi nhóm đều bằng 0 phải trả `unknown`; nếu bằng điểm dương thì dùng tên nhóm theo thứ tự ổn định thay vì phụ thuộc thứ tự Set.
+**Vì sao chọn cách này?** Đây là **bộ định tuyến dựa trên từ khóa**, không phải mô hình hiểu ngôn ngữ tự nhiên. Mỗi nhóm có một **tập từ gợi ý**, còn `tokens(text)` lấy tập từ xuất hiện trong phiếu; chương trình tính **Jaccard** giữa phiếu và từng nhóm để xem mức trùng chữ. Nếu **tất cả điểm đều bằng 0**, `route` trả `unknown`, kể cả phiếu rỗng; nếu có điểm dương bằng nhau, tên nhóm được xếp theo **thứ tự chữ cái** để kết quả ổn định. `Counter` thống kê đủ **20 lượt định tuyến**, không biến P20 thành một phiếu hợp lệ đã biết nội dung. Các từ lạ hoặc cách diễn đạt khác có thể cần người kiểm tra lại; quy tắc này không đánh giá được ý định thực của khách.
 
 **Quy trình:**
 1. Lưu đủ 20 phiếu và ba nhóm từ khóa.

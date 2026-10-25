@@ -143,9 +143,9 @@ Trục x được gắn đúng ý nghĩa thời gian; phải đặt cả y và �
 
 **Từ vựng trong mục:** **Line chart** — đồ thị đường; **X-axis** — trục ngang; **Savefig** — lưu hình.
 
-**Tình huống thực tế:** Một cửa hàng ghi **10 ngày doanh thu**, mỗi hàng là ngày 1–10 và tổng tiền bán (triệu đồng/ngày). Muốn quan sát xu hướng tăng/giảm theo **thứ tự thời gian**, cần vẽ đường nối 10 điểm, gắn tên trục kèm đơn vị và lưu PNG để đưa vào báo cáo.
+**Tình huống thực tế:** Cửa hàng lưu **doanh thu của 10 ngày liên tiếp**, ngày 1 đến ngày 10, mỗi số là **triệu đồng/ngày**. Người quản lý muốn biết doanh thu biến động ra sao theo đúng **thứ tự thời gian** và đọc doanh thu ngày cuối, thay vì chỉ nhìn một bảng 10 số. Cần tạo **biểu đồ đường**, ghi tên trục và lưu hình **PNG** để chèn vào báo cáo.
 
-**Vì sao chọn cách này?** Line chart phù hợp mốc thời gian có thứ tự; `plt.plot(days, revenues)` nối từng cặp đúng hàng. `savefig()` tạo file xem được bên ngoài Python; môi trường tự động dùng backend Agg nên không bật cửa sổ.
+**Vì sao chọn cách này?** **Biểu đồ đường (line chart)** phù hợp khi trục ngang có **thứ tự thời gian**; nối các điểm liên tiếp giúp thấy ngày nào tăng hoặc giảm so với ngày trước. `ax.plot(days, revenues, marker='o')` ghép đúng **10 cặp ngày–doanh thu**, `ax.set` đặt tên trục **ngày** và **triệu đồng**, còn `savefig` ghi thành **tệp PNG**. `matplotlib.use('Agg')` chọn cách vẽ **không cần mở cửa sổ**, giúp chạy trong môi trường kiểm thử tự động; `plt.close(fig)` giải phóng hình sau khi lưu. Đường nối chỉ là cách hiển thị xu hướng giữa các ngày đã đo, không có nghĩa có dữ liệu thực tế ở mọi thời điểm nằm giữa.
 
 **Quy trình:**
 1. Tạo 10 giá trị doanh thu tương ứng 10 ngày.
@@ -191,9 +191,9 @@ Chạy code sẽ tạo **sales_10_days.png** trong thư mục làm việc. Đi�
 
 **Từ vựng trong mục:** **Scatter plot** — đồ thị phân tán; **Pair** — cặp quan sát.
 
-**Tình huống thực tế:** Giảng viên có **12 học viên**, mỗi hàng lưu số giờ tự học (giờ/tuần) và điểm kiểm tra (thang 10). Cần đặt mỗi cặp (giờ, điểm) thành một dấu chấm; nếu hai học viên cùng số giờ thì vẫn là **hai bản ghi**, không được vô tình nối chúng thành đường thời gian.
+**Tình huống thực tế:** Giáo viên ghi **12 cặp dữ liệu học viên**. Mỗi người có **số giờ tự học (giờ/tuần)** và **điểm kiểm tra trên thang 10**, ví dụ hai học viên có cùng 2 giờ nhưng đạt điểm khác nhau. Giáo viên muốn quan sát điểm có xu hướng tăng khi giờ học tăng không, mà vẫn giữ **một dấu chấm cho mỗi người**; bảng không có chuỗi thời gian để nối các học viên thành đường.
 
-**Vì sao chọn cách này?** `plt.scatter` vẽ từng quan sát riêng, có thể giúp thấy liên hệ xu hướng nhưng không chứng minh học nhiều **gây** điểm cao. Trục x/y ghi đơn vị tương ứng giúp không nhầm giờ với điểm.
+**Vì sao chọn cách này?** **Scatter plot (biểu đồ phân tán)** đặt **một dấu chấm cho từng học viên**, với trục x là **giờ/tuần** và trục y là **điểm trên thang 10**. `ax.scatter(hours, scores)` tạo đúng 12 vị trí; hai học viên có cùng giờ học nhưng khác điểm vẫn là **hai quan sát**, không nên nối chúng thành đường thời gian. Tên trục kèm đơn vị giúp tránh việc hiểu 4 giờ như 4 điểm. Nếu các chấm có xu hướng đi lên, đó chỉ là **mối liên hệ trong mẫu**, chưa chứng minh tự học nhiều là **nguyên nhân duy nhất** khiến điểm cao.
 
 **Quy trình:**
 1. Ghi 12 giờ học và 12 điểm theo đúng cặp học viên.
@@ -238,9 +238,9 @@ Trùng vị trí scatter có thể che lên nhau; số điểm đếm từ dữ 
 
 **Từ vựng trong mục:** **Histogram** — biểu đồ tần suất; **Bins** — các khoảng giá trị.
 
-**Tình huống thực tế:** Một đơn vị giao nhận ghi **15 thời gian giao** (phút/chuyến). Người quản lý cần biết bao nhiêu chuyến nằm trong vùng 0–10, 10–20, 20–30, 30–40 phút để phân tích phân bố, thay vì nối thời gian các chuyến thành một đường dễ gây hiểu nhầm.
+**Tình huống thực tế:** Đội giao nhận có **15 thời gian giao hàng**, tính bằng **phút/chuyến**, từ 4 đến 37 phút. Trưởng nhóm muốn biết có bao nhiêu chuyến thuộc từng **khoảng thời gian 0–10, 10–20, 20–30 và 30–40 phút** để hiểu phân bố nhanh/chậm. Họ không cần xem chuyến số mấy xảy ra trước; cần biểu đồ có tổng số lượt trong các cột vẫn bằng 15.
 
-**Vì sao chọn cách này?** `plt.hist` chia trục phút thành **bins**, đếm số lượt trong từng khoảng. Cần xác định rõ bin trái đóng/phải mở (riêng bin cuối nhận cận phải) và tổng số lượt trong các cột phải bằng 15.
+**Vì sao chọn cách này?** **Histogram (biểu đồ tần suất theo khoảng)** chia trục thời gian giao thành những **khoảng (bins)** rồi đếm **số chuyến** thuộc mỗi khoảng, không nối từng chuyến theo thứ tự. `ax.hist(minutes, bins=[0,10,20,30,40])` tạo **bốn cột**; với các khoảng kề nhau của Matplotlib, mốc 10 đi vào khoảng **10–20**, còn khoảng cuối nhận cả mốc phải 40. Cần kiểm `counts.sum()` bằng **15**, vì nếu một số nằm ngoài toàn bộ các khoảng thì có thể không được đếm. Trục ngang vẫn là **phút**, còn độ cao cột là **số lượt**, không phải doanh thu hoặc tổng phút.
 
 **Quy trình:**
 1. Tạo 15 thời gian có số, định nghĩa ranh giới 0/10/20/30/40 phút.
@@ -284,9 +284,9 @@ Histogram khác biểu đồ cột danh mục: trục ngang biểu diễn **kho�
 
 **Từ vựng trong mục:** **Legend** — chú giải; **Multiple series** — nhiều chuỗi; **Axis labels** — nhãn trục.
 
-**Tình huống thực tế:** Doanh nghiệp có **18 ngày**, mỗi hàng lưu doanh thu (triệu đồng/ngày) của hai chi nhánh A/B cùng một ngày. Cần vẽ **hai đường** trên cùng trục thời gian, chú giải màu rõ ràng và lưu hình để so sánh, đồng thời kiểm không tráo ngày của A và B.
+**Tình huống thực tế:** Doanh nghiệp theo dõi **18 ngày liên tiếp**, mỗi ngày ghi doanh thu của **chi nhánh A và chi nhánh B** trên cùng ngày, cùng đơn vị **triệu đồng/ngày**. Giám đốc muốn so xu hướng tăng giảm của **hai chi nhánh trên chung một trục thời gian**, xem A đạt bao nhiêu vào ngày 18, và lưu hình có **chú giải nhận diện hai đường** để người xem không nhầm.
 
-**Vì sao chọn cách này?** Biểu đồ đường đa chuỗi giúp so hình dạng hai dãy **cùng đơn vị** theo cùng mốc x. `legend()` phân biệt chi nhánh; thiếu chú giải sẽ khiến người xem không biết đường nào là A/B.
+**Vì sao chọn cách này?** **Biểu đồ nhiều đường** là cách so hai dãy có **cùng mốc thời gian và đơn vị đo**: doanh thu A và B trên đủ 18 ngày. Hai lệnh `ax.plot(days, branch_a, label='Branch A')` và tương tự cho B dùng **cùng mảng ngày**, tránh làm lệch hàng dữ liệu. `ax.legend()` hiện **chú giải** để biết đường nào thuộc chi nhánh nào; các kiểu dấu khác nhau cũng hỗ trợ phân biệt điểm. Chương trình kiểm cả **hai đường đều có 18 điểm**, in doanh thu A ngày cuối rồi `savefig` lưu PNG. Đồ thị cho biết xu hướng quan sát, không chứng minh nguyên nhân khiến doanh thu chi nhánh nào đó tăng.
 
 **Quy trình:**
 1. Tạo 18 cặp doanh thu A/B, dùng chung dãy ngày 1–18.
@@ -339,9 +339,9 @@ A ngày 18: 29
 
 **Từ vựng trong mục:** **Dashboard** — hai góc nhìn; **Residual** — sai lệch; **Highlight** — tô điểm cần xem.
 
-**Tình huống thực tế:** Kỹ sư có **20 lượt đo cảm biến** ở 20 mức đầu vào x. Quy tắc hiệu chuẩn tham khảo cho tín hiệu dự kiến `y=2x+5` (đơn vị đo); có một lượt thứ 18 cao hơn quy tắc 30 đơn vị. Cần **vẽ scatter cùng đường tham chiếu và tô điểm cần rà soát**, bên cạnh histogram các sai số dư. Lưu PNG để kiểm tra trực quan mà không xóa dữ liệu ngoại lệ.
+**Tình huống thực tế:** Trạm hiệu chuẩn lưu **20 lượt đo tín hiệu**, mỗi lượt có mức đầu vào x và mức tín hiệu thực tế. Quy tắc tham chiếu giả lập là **tín hiệu kỳ vọng tăng hai đơn vị cho mỗi một mức x và bắt đầu từ 5 đơn vị**. Lượt **M18** cao hơn tham chiếu 30 đơn vị, còn các lượt khác khớp. Kỹ thuật viên muốn một hình gồm **biểu đồ điểm đo so với đường tham chiếu** và **histogram sai số**, đồng thời đánh dấu mã cần rà soát mà không tự xóa lượt khác thường.
 
-**Vì sao chọn cách này?** Scatter đối chiếu từng điểm với đường chuẩn, còn histogram cho thấy phân bố các sai số trên cả 20 lượt. Tạo hai đồ thị cạnh nhau giúp người mới liên hệ **vị trí bất thường** với **tần suất sai số**; ngưỡng >10 đơn vị chỉ là mức kỹ thuật giả lập.
+**Vì sao chọn cách này?** **Sai số dư (residual)** là số đo **thực tế trừ mức dự kiến** ở **cùng một x**. Chương trình tạo **hai biểu đồ cạnh nhau**: bên trái `scatter` cho 20 điểm thực tế cùng đường tham chiếu, đồng thời tô dấu những điểm có **độ lớn sai số vượt 10 đơn vị**; bên phải `hist` gom sai số thành các khoảng để nhìn số lượt sai lệch nhỏ/lớn. Với dữ liệu này, **M18** có sai số +30 nên bị gắn cờ, nhưng chưa kết luận cảm biến hỏng: cần xem lại phép đo. `np.flatnonzero(flagged)` trả vị trí chỉ số **bắt đầu từ 0**, phải cộng 1 để ra mã M01…; `plt.subplots(1,2)` và `savefig` cho một PNG báo cáo, `Agg` tránh yêu cầu màn hình. Histogram bổ sung góc nhìn về **tần suất sai số**, không thay bảng đo hay xóa ngoại lệ.
 
 **Quy trình:**
 1. Tạo 20 cặp x/y và đường tham chiếu theo quy định hiệu chuẩn.
