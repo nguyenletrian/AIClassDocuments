@@ -1,0 +1,132 @@
+{
+  "goal_id": "aiclassdocuments-full-code-annotations-20261025",
+  "owner_approved": true,
+  "expected_lessons": 46,
+  "expected_batches": 10,
+  "last_completed_batch": 0,
+  "status": "READY_FOR_BATCH_01",
+  "batch_limit": 5,
+  "batches": [
+    {
+      "batch": 1,
+      "lessons": [
+        "PY-01",
+        "PY-02",
+        "PY-03",
+        "PY-04",
+        "PY-05"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 2,
+      "lessons": [
+        "PY-06",
+        "PY-07",
+        "PY-08",
+        "PY-09",
+        "PY-10"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 3,
+      "lessons": [
+        "PY-11",
+        "PY-12",
+        "PY-13",
+        "PY-14",
+        "PY-15"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 4,
+      "lessons": [
+        "PY-16",
+        "PY-17",
+        "PY-18",
+        "PY-19",
+        "PY-20"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 5,
+      "lessons": [
+        "PY-21",
+        "PY-22",
+        "PY-23",
+        "PY-24",
+        "PY-25"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 6,
+      "lessons": [
+        "PY-26",
+        "PY-27",
+        "PY-28",
+        "PY-29",
+        "PY-30"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 7,
+      "lessons": [
+        "PY-31",
+        "PY-32",
+        "PY-33",
+        "PY-34",
+        "PY-35"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 8,
+      "lessons": [
+        "PY-36",
+        "PY-37",
+        "PY-38",
+        "PY-39",
+        "PY-40"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 9,
+      "lessons": [
+        "PY-41",
+        "PY-42",
+        "PY-43",
+        "PY-44",
+        "PY-45"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 10,
+      "lessons": [
+        "PY-46"
+      ],
+      "status": "PENDING"
+    }
+  ],
+  "preservation_rules": "Comments-only in executable Python fences, AST-equivalent statements, identical stdout and external lesson content incl 920 MCQs.",
+  "before_start": "Read AGENTS.md, current style guide & goal, source main, check all open PRs and TaskSource pending ACK; no duplicate tasks.",
+  "execution": "Commit each chapter once; review Python fences for every non-obvious API/method/flag/data/index/cleanup, run AST code equivalence and exact stdout, curriculum regression, CI final head SUCCESS, merge, ledger then next batch.",
+  "activation_evidence": {
+    "prior_goal_status": "COMPLETED",
+    "prior_goal_merged_batches": 10,
+    "quiz_pdf_export_run": 40186408627,
+    "quiz_pdf_export_result": "SUCCESS",
+    "quiz_pdf_path": "exports/pdf/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.pdf",
+    "quiz_pdf_size_bytes": 670542,
+    "quiz_markdown_path": "exports/markdown/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.md",
+    "quiz_markdown_size_bytes": 511041
+  },
+  "windows_validation": "UNVERIFIED",
+  "cdp_port_9224_ownership": "UNVERIFIED"
+}
