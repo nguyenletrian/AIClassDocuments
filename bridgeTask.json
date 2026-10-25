@@ -1187,13 +1187,13 @@
     "reason": "Owner-approved shared AIBrigde ChatGPT Conversation Reliability task. Load merged AIBrigde main PR #26 fae2617706314b2a600f9e0044827b4cddcb1f68 before running pending v2 browser:conversation_structure_probe with payload.detail_level=contexts. Managed restart barrier is processed first, before task dispatch. Preserve Edge session, current ChatGPT conversation, 17 completed task ACKs and Jetking goal_review.enabled=false. Read-only context counts only; do not replay the older v1 task or create/move ChatGPT conversation. A stale v1 result instead of v2 is NOT acceptable; report runtime freshness mismatch."
   },
   "goal_review": {
-    "enabled": true,
+    "enabled": false,
     "approval": "approved",
-    "status": "active",
+    "status": "completed",
     "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
-    "revision": "2026-10-25-scenario-clarity-10-batches-resume-batch10",
+    "revision": "2026-10-25-scenario-clarity-10-batches-completed-final-pr164",
     "title": "Viết lại tình huống thực tế dễ hiểu và giải thích kỹ vì sao chọn cách này",
-    "phase": "READY_FOR_BATCH_10",
+    "phase": "COMPLETED",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json",
@@ -1201,8 +1201,8 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "Owner-approved scenario clarity batch09 PY-41..45 MERGED PR #163 SHA 2cf280f843c2fa2b33cae9104ca19843e5a6e407 after final-head GitHub CI #40184125115 COMPLETED SUCCESS. Ledger last_completed_batch=9/10 READY_FOR_BATCH_10; no open PR/TaskSource pending at transition. Recheck fresh main, PR and pending ACK/task state. Next ONLY FINAL batch10 PY-46. Rewrite exactly 5 Tình huống thực tế and 5 Vì sao chọn cách này paragraphs: ground 10/12/15/18/20 progressive sample sizes, data units, assumptions, plain-language terms, rationale and pitfalls. Preserve executable Python, exact documented stdout, existing definitions, title/order, all 20 MCQs+answers unchanged. Commit PY-46 independently, byte compare outside the two allowed single-line prose types to main, run all 46-chapter structure/MCQ/AST, scenario code execution/exact stdout and Markdown CI. Merge PR only with final-head GitHub Actions SUCCESS; durably mark batch10 MERGED and goal COMPLETED 10/10 with verified ledger and phase. No duplicate or historic Jetking task replay, no arbitrary new ChatGPT conversation for idle reminder. CDP port 9224 identity unverified, no browser automation or silent rebind. PowerShell canary unavailable, Windows PASS unverified.",
-    "review_hold": "ACTIVE scenario clarity goal: batch09 MERGED PR #163 final-head CI PASS; next ONLY final batch10 PY-46. pending=0. CDP 9224 ownership unverified and Windows PowerShell unavailable; no Windows PASS or historical task replay."
+    "next_review": "Owner-approved scenario clarity goal COMPLETED 10/10 sequential batches (PY-01..PY-46, 46 lessons, 230 progressive scenarios) after PR #164 merged at 0801e42bc82cb0e31561200ae96bd6c88c7e7835 and final-head GitHub CI run #40184711415 COMPLETED SUCCESS. Durable ledger docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json status COMPLETED last_completed_batch=10, ten batches MERGED, goal spec COMPLETED. Open PRs=0 and TaskSource pending=0 at completion. No remaining owner-approved scenario clarity work. Do not publish new tasks, automatically reactivate this goal, replay historical Jetking tasks, or create a ChatGPT conversation due to idle heartbeat reminders. Next goal requires separate explicit owner approval. CDP port 9224 owner unverified; PowerShell canary unavailable; Windows PASS UNVERIFIED.",
+    "review_hold": "This owner-approved scenario clarity goal is COMPLETED (PY-01..PY-46, 10/10 MERGED). Goal review disabled; idle heartbeat requests are informational and must leave TaskSource queue idle. Evidence PR #164, final-head CI #40184711415 SUCCESS, ledger status COMPLETED. Any future goal needs separate explicit owner approval. Windows/PowerShell and CDP 9224 verification unavailable, no Windows PASS."
   },
   "goal_review_history": [
     {
