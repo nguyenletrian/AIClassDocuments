@@ -42,7 +42,9 @@ Sau List, có hai nhu cầu khác nhau: **giữ một bộ dữ liệu có thứ
 Tuple chứa các phần tử **có thứ tự**, thường dùng cho một cặp thông tin gắn với nhau như tọa độ `(x, y)`. Với điểm ở vị trí `x = 3`, `y = 4` mét, ta viết `point = (3, 4)`; `point[0]` là x và `point[1]` là y. Không thể gán `point[0] = 5` như List; nếu cần vị trí mới, tạo Tuple mới.
 
 ```python
-# Mục đích: Bộ giá trị cố định.
+# Mục đích: Tạo tuple tọa độ (x,y) của một điểm.
+# Dữ liệu: Tuple gồm 2 tọa độ x=3, y=4, không đổi phần tử sau khi tạo.
+# Dấu ngoặc tròn tạo tuple cố định gồm hai phần tử 3 và 4.
 point = (3, 4)
 print(point)
 ```
@@ -62,8 +64,11 @@ Dấu ngoặc tròn biểu thị Tuple gồm hai tọa độ, khác dấu ngoặ
 Set giúp lưu **những giá trị khác nhau** mà không cần ghi cùng một giá trị nhiều lần. Một nhóm học ghi ba nhãn `Python`, `AI`, `Python`; khi chuyển sang Set, nhãn `Python` bị trùng chỉ còn một lần. Set không có chỉ số vị trí như `set[0]` và không đảm bảo thứ tự in. `set()` tạo tập rỗng, còn `{}` tạo Dictionary rỗng.
 
 ```python
-# Mục đích: Tập hợp không trùng.
+# Mục đích: Dùng set bỏ kỹ năng bị lặp và đếm số loại.
+# Dữ liệu: Ba chuỗi kỹ năng có 'Python' lặp.
+# set() loại giá trị 'Python' trùng; set không lưu nhiều bản sao cùng kỹ năng.
 skills = set(['Python', 'AI', 'Python'])
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print(len(skills))
 ```
 
@@ -82,9 +87,11 @@ Có hai kỹ năng khác nhau: Python và AI. Ta in **số lượng** để khô
 Giả sử nhóm A học `{Python, AI}`, nhóm B học `{AI, SQL}`. Cửa hàng khóa học muốn biết **tất cả kỹ năng có trong ít nhất một nhóm**. Phép hợp `a | b` giữ Python, AI và SQL nhưng chỉ giữ AI một lần. Với Set, ký hiệu `|` là phép hợp tập hợp, không phải toán tử `or` nối điều kiện Boolean.
 
 ```python
-# Mục đích: Gộp hai nhóm.
+# Mục đích: Hợp hai tập kỹ năng và đếm kết quả không trùng.
+# Dữ liệu: Hai tập không trùng, có một phần tử chung 'AI'.
 a = {'Python', 'AI'}
 b = {'AI', 'SQL'}
+# | hợp hai set: các kỹ năng ở ít nhất một nhóm, không đếm trùng; len() đếm số phần tử.
 print(len(a | b))
 ```
 
@@ -103,9 +110,11 @@ Phép hợp gồm ba kỹ năng khác nhau; ký hiệu `|` gộp hai Set và t�
 Vẫn với hai nhóm A có `{Python, AI}` và B có `{AI, SQL}`, ta muốn tìm **kỹ năng cả hai nhóm đều học**. Phép giao `a & b` chỉ giữ AI, vì Python không có ở B và SQL không có ở A. Phép giao khác phép hợp: hợp trả ba kỹ năng, giao chỉ một kỹ năng.
 
 ```python
-# Mục đích: Tìm phần chung.
+# Mục đích: Lấy phần giao hai tập: kỹ năng xuất hiện ở cả hai.
+# Dữ liệu: Hai tập kỹ năng, thứ tự khi in set không cố định.
 a = {'Python', 'AI'}
 b = {'AI', 'SQL'}
+# & lấy giao: chỉ các kỹ năng thuộc đồng thời hai set; thứ tự in set không đảm bảo.
 print(a & b)
 ```
 
@@ -123,9 +132,11 @@ Chỉ có AI xuất hiện trong cả hai nhóm; tập chỉ có một phần t�
 Ngoài phép hợp và phép giao, ta còn cần biết **phần tử chỉ có ở nhóm A nhưng chưa có ở nhóm B**. Ví dụ khóa học yêu cầu `Python`, `SQL`, `AI`, còn học viên đã hoàn thành `Python`; hiệu `required - done` giữ `SQL` và `AI`. Dùng `sorted()` nếu muốn in các kỹ năng theo một thứ tự rõ ràng. Hiệu `a - b` khác **hiệu đối xứng** `a ^ b`, vốn lấy các phần tử chỉ thuộc một trong hai nhóm.
 
 ```python
-# Mục đích: Phần tử còn thiếu trong Set.
+# Mục đích: Lấy kỹ năng còn thiếu bằng phép trừ tập hợp.
+# Dữ liệu: required là bộ kỹ năng phải biết, done là bộ đã học.
 required = {'Python', 'SQL', 'AI'}
 done = {'Python'}
+# - lấy hiệu set: phần tử required chưa có trong done; sorted() tạo danh sách xếp chữ cái để hiển thị ổn định.
 print(sorted(required - done))
 ```
 
@@ -153,14 +164,22 @@ Kết quả là một **List đã sắp xếp**, gồm hai kỹ năng cần họ
 3. In điểm đầu, số quan sát và số điểm đủ xa.
 
 ```python
+# Mục đích: Đếm trong 10 tọa độ robot có bao nhiêu điểm xa gốc ít nhất 5 đơn vị.
+# Dữ liệu: 10 tuple (x,y) vị trí robot, đơn vị tọa độ trong ví dụ.
 positions = [(3,4),(0,2),(5,0),(1,1),(2,3),(4,1),(6,0),(1,4),(2,2),(5,5)]
+# [0] lấy tọa độ đầu, tách hai phần tuple vào first_x và first_y.
 first_x, first_y = positions[0]
 far_count = 0
+# Tách từng tuple thành x, y để so ngưỡng.
 for x, y in positions:
+    # Bình phương x,y rồi cộng; >=25 tương đương khoảng cách đến (0,0) ít nhất 5 đơn vị, không cần lấy căn.
     if x*x + y*y >= 25:
         far_count += 1
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(positions) != 10:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần đủ 10 vị trí robot.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Số vị trí:", len(positions))
 print("Điểm đầu:", first_x, first_y)
 print("Điểm xa:", far_count)
@@ -190,15 +209,24 @@ Mỗi tuple là một điểm đo có hai thành phần. Số 25 mang đơn vị
 3. Báo số email gốc, số email duy nhất và số lượt thừa.
 
 ```python
+# Mục đích: Chuẩn hóa 12 email rồi đếm số địa chỉ khác nhau.
+# Dữ liệu: 12 địa chỉ email với chữ hoa và khoảng trắng thừa.
 raw = ["Lan@EXAMPLE.invalid","an@example.invalid"," LAN@example.invalid ","binh@example.invalid","chi@example.invalid","An@Example.INVALID","dung@example.invalid","ha@example.invalid","Minh@example.invalid","lan@example.invalid","trang@example.invalid","ha@example.invalid"]
 normalized = []
 for email in raw:
+    # strip() xóa khoảng trắng hai đầu; lower() hạ chữ hoa để cùng email có dạng thống nhất.
     normalized.append(email.strip().lower())
+# set() bỏ email trùng sau khi làm sạch, len() của set cho số địa chỉ khác nhau.
 unique = set(normalized)
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(raw) != 12:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần đủ 12 dòng email đầu vào.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Dòng nhận:", len(raw))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Email duy nhất:", len(unique))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Bản ghi trùng:", len(raw) - len(unique))
 ```
 
@@ -226,20 +254,33 @@ Tên miền `.invalid` chỉ dành cho dữ liệu minh họa. Không dùng số
 3. Sắp mã trong giao để in ổn định và đếm số người riêng biệt.
 
 ```python
+# Mục đích: Tìm học viên đăng ký cả Python và AI trong 15 lượt.
+# Dữ liệu: 15 bộ (mã học viên, tên môn); một học viên có thể đăng ký hai môn.
 registrations = [("SV01","Python"),("SV02","Python"),("SV03","AI"),("SV01","AI"),("SV04","Python"),("SV05","AI"),("SV06","Python"),("SV07","AI"),("SV02","AI"),("SV08","Python"),("SV09","Python"),("SV10","AI"),("SV03","Python"),("SV11","Python"),("SV12","AI")]
+# set() tạo tập rỗng, mỗi mã học viên xuất hiện tối đa một lần.
 python_students = set()
+# set() tạo tập rỗng, mỗi mã học viên xuất hiện tối đa một lần.
 ai_students = set()
 for student, subject in registrations:
     if subject == "Python":
+        # add() đưa mã vào tập học Python, tự bỏ trùng.
         python_students.add(student)
     if subject == "AI":
+        # add() đưa mã vào tập học AI, tự bỏ trùng.
         ai_students.add(student)
+# & lấy học viên có ở cả hai tập; sorted() để in mã theo thứ tự.
 both = sorted(python_students & ai_students)
+# | lấy tất cả học viên thuộc ít nhất một môn, bỏ trùng.
 all_students = python_students | ai_students
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(registrations) != 15:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần đúng 15 lượt đăng ký hai môn.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Lượt đăng ký:", len(registrations))
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Học cả hai:", ", ".join(both))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Học viên khác nhau:", len(all_students))
 ```
 
@@ -267,23 +308,38 @@ Cùng một mã xuất hiện hai lần là hai lượt đăng ký hợp lệ, k
 3. Lấy hiệu/giao rồi in danh sách mã đã sắp xếp.
 
 ```python
+# Mục đích: Lọc mã thiếu trong 18 lượt tham gia, tìm nhóm A-only và tham gia cả hai.
+# Dữ liệu: 18 bộ (mã người, nhóm A/B), None là lượt thiếu ID.
 registrations = [("U01","A"),("U02","A"),("U03","B"),("U04","A"),("U05","B"),("U06","A"),("U07","B"),("U08","A"),("U09","A"),("U10","B"),("U02","B"),("U04","B"),("U11","A"),("U12","B"),(None,"B"),("U13","A"),("U14","B"),("U10","A")]
 valid = []
+# set() tạo tập hợp các phần tử không lặp; tập hợp không bảo đảm thứ tự in.
 a = set()
+# set() tạo tập hợp các phần tử không lặp; tập hợp không bảo đảm thứ tự in.
 b = set()
 for code, group in registrations:
+    # is None nhận lượt không có ID; không đưa vào tập người.
     if code is None:
+        # continue bỏ lượt ID thiếu.
         continue
+    # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
     valid.append((code, group))
     if group == "A":
+        # add() thêm mã duy nhất vào nhóm A.
         a.add(code)
     if group == "B":
+        # add() thêm mã duy nhất vào nhóm B.
         b.add(code)
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(registrations) != 18:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần đúng 18 lượt tham gia nhóm.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Lượt ghi:", len(registrations))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Thiếu ID:", len(registrations) - len(valid))
+# a - b là người chỉ thuộc nhóm A; sorted() xếp mã để in ổn định.
 print("Chỉ nhóm A:", ", ".join(sorted(a - b)))
+# a & b là người thuộc cả hai nhóm.
 print("Cả hai:", ", ".join(sorted(a & b)))
 ```
 
@@ -312,34 +368,55 @@ Không gộp hai lượt của cùng người thành một lỗi: cùng ID ở A
 3. Với mỗi người, so `required` với tập đã học, tổng hợp người đủ khóa và báo chi tiết S06.
 
 ```python
+# Mục đích: Đối chiếu 20 lượt học kỹ năng, gộp trùng và tìm học viên đủ ba môn.
+# Dữ liệu: 20 bộ (mã học viên, kỹ năng); None thiếu kỹ năng và có lượt trùng.
 records = [("S01","Python"),("S01","SQL"),("S01","AI"),("S02","Python"),("S02","SQL"),("S03","AI"),("S03","SQL"),("S04","Python"),("S04","AI"),("S05","Python"),("S05","SQL"),("S05","AI"),("S06","Python"),("S06","Python"),("S06",None),("S07","SQL"),("S07","AI"),("S08","Python"),("S08","SQL"),("S08","AI")]
 required = {"Python", "SQL", "AI"}
 valid = []
+# set() tạo tập hợp các phần tử không lặp; tập hợp không bảo đảm thứ tự in.
 all_student_codes = set()
 for student, skill in records:
+    # add() lưu toàn bộ mã đã thấy, kể cả khi lượt có kỹ năng None.
     all_student_codes.add(student)
+    # is not None chỉ giữ bản ghi có tên kỹ năng, khác bản ghi thiếu.
     if skill is not None:
+        # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
         valid.append((student, skill))
+# set() loại các cặp (học viên, kỹ năng) trùng nhau.
 unique_pairs = set(valid)
+# sorted() xếp mã học viên để duyệt ổn định.
 all_students = sorted(all_student_codes)
 completed = []
+# set() tạo tập hợp các phần tử không lặp; tập hợp không bảo đảm thứ tự in.
 missing_s06 = set()
 for student in all_students:
+    # set() tạo tập hợp các phần tử không lặp; tập hợp không bảo đảm thứ tự in.
     learned = set()
     for user, skill in unique_pairs:
         if user == student:
+            # add() gom kỹ năng khác nhau của cùng học viên.
             learned.add(skill)
+    # Hiệu set tìm bộ kỹ năng bắt buộc chưa học.
     remaining = required - learned
+    # not kiểm tra set còn thiếu đã rỗng, tức học viên đủ ba kỹ năng.
     if not remaining:
+        # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
         completed.append(student)
     if student == "S06":
         missing_s06 = remaining
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(records) != 20:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần kiểm tra đủ 20 lượt kỹ năng.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Lượt ghi:", len(records))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Thiếu kỹ năng:", len(records) - len(valid))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Lượt trùng:", len(valid) - len(unique_pairs))
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Hoàn tất:", ", ".join(completed))
+# sorted() làm thứ tự tên môn thiếu ổn định khi in.
 print("S06 cần học:", ", ".join(sorted(missing_s06)))
 ```
 
