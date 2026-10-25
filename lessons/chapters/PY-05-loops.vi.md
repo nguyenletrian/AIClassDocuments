@@ -42,8 +42,10 @@
 Ví dụ cần đánh số hai lượt kiểm tra liên tiếp. Thay vì viết hai lần `print()`, ta dùng `for` và `range(2)` để Python lần lượt cấp giá trị 0 và 1 cho biến `i`. Mỗi lần thân vòng lặp chạy là một **lần lặp**; ở ví dụ có hai lần lặp và hai dòng được in ra.
 
 ```python
-# Mục đích: Vòng lặp và lần lặp.
+# Mục đích: In hai số thứ tự đầu bằng vòng for và range().
+# range(2) tạo 0,1: bắt đầu 0 và không lấy cận cuối 2.
 for i in range(2):
+    # print() in mỗi giá trị trong từng lượt for, mỗi giá trị trên một dòng.
     print(i)
 ```
 
@@ -63,8 +65,10 @@ for i in range(2):
 Khi có sẵn danh sách `[1, 2]` đại diện hai mã số, `for` lấy từng phần tử theo thứ tự rồi chạy thân vòng lặp. Biến `x` lần lượt nhận 1 rồi 2; nếu danh sách có thêm phần tử, code không cần thêm một câu `print()` riêng cho phần tử mới.
 
 ```python
-# Mục đích: Duyệt từng phần tử.
+# Mục đích: Duyệt lần lượt phần tử của list bằng for.
+# for lần lượt gán x bằng 1 rồi 2, không cần tự quản lý chỉ số.
 for x in [1, 2]:
+    # print() hiển thị phần tử hiện tại trong vòng lặp.
     print(x)
 ```
 
@@ -84,12 +88,15 @@ Mỗi phần tử tạo ra một dòng đầu ra, theo thứ tự đã lưu tron
 `while` kiểm tra một điều kiện **trước mỗi lượt**. Ví dụ số việc còn lại là `n = 2`; mỗi lượt hoàn thành một việc nên giảm `n` đi 1. Khi `n` bằng 0 thì `n > 0` sai, vòng lặp dừng. Điều kiện phải có cơ hội trở thành sai để tránh lặp vô hạn.
 
 ```python
-# Mục đích: Lặp khi điều kiện còn đúng.
+# Mục đích: Minh họa while lặp đến khi biến đếm bằng 0.
 n = 2
 
+# while kiểm tra điều kiện trước mỗi lượt: còn n > 0 thì vẫn tiếp tục.
 while n > 0:
+    # -= 1 giảm biến đếm, giúp điều kiện while cuối cùng thành False để không lặp vô tận.
     n -= 1
 
+# In n sau khi thoát vòng lặp, bằng 0.
 print(n)
 ```
 
@@ -108,12 +115,18 @@ Hai lượt giảm từ 2 xuống 1 rồi 0; câu `print` bên ngoài vòng lặ
 `continue` bỏ phần còn lại của **lượt đang chạy** nhưng vẫn xét lượt tiếp theo. `break` thoát khỏi **toàn bộ vòng lặp hiện tại**. Ví dụ duyệt `[0, 1, 2, 3]`: bỏ qua 0, in 1 và 2, rồi dừng khi gặp 3. Hai lệnh có tác dụng khác nhau dù đều làm một số dòng không được thực hiện.
 
 ```python
-# Mục đích: Dừng hoặc bỏ qua.
+# Mục đích: Phân biệt continue bỏ qua lượt hiện tại và break dừng vòng lặp.
+# for duyệt bốn số 0,1,2,3.
 for x in [0, 1, 2, 3]:
+    # == kiểm tra x có bằng 0 hay không.
     if x == 0:
+        # continue bỏ phần còn lại của lượt x=0, chuyển sang lượt sau.
         continue
+    # Nếu x đạt 3 thì cần ngừng cả vòng for.
     if x == 3:
+        # break rời khỏi vòng lặp ngay lập tức, khác continue chỉ bỏ một lượt.
         break
+    # Chỉ in số đi qua được cả hai điều kiện, ở đây là 1 và 2.
     print(x)
 ```
 
@@ -141,12 +154,20 @@ Số 0 bị bỏ qua bởi `continue`; khi đến 3, `break` dừng hẳn nên k
 3. Kiểm tra đủ 10 dòng và in tổng tiền.
 
 ```python
+# Mục đích: Cộng doanh số mười đơn hàng bằng vòng lặp for.
+# Dữ liệu: 10 số là doanh thu mỗi đơn (nghìn đồng), một phần tử cho một đơn.
 orders = [120,80,200,150,90,70,180,210,130,160]
+# Khởi tạo biến tổng (nghìn đồng) bằng 0 trước khi cộng các đơn.
 total = 0
+# Mỗi vòng lấy doanh số nghìn đồng của một đơn.
 for amount in orders:
+    # += cộng doanh số đơn hiện tại vào tổng.
     total += amount
+# len() đếm số đơn; != so sánh số lượng khác 10.
 if len(orders) != 10:
+    # raise ValueError() dừng và thông báo nếu số đơn sai.
     raise ValueError("Cần đủ 10 đơn bán hàng.")
+# len() đếm số phần tử thực tế trong danh sách.
 print("Số đơn:", len(orders))
 print("Doanh số (nghìn đồng):", total)
 ```
@@ -174,20 +195,30 @@ Mỗi lượt lặp đưa vào tổng **một đơn**; tổng chỉ đúng nếu
 3. Chia tổng cho **số lượt hợp lệ**, không phải 12.
 
 ```python
+# Mục đích: Bỏ nhiệt độ thiếu rồi tính trung bình từ 12 lượt đo.
+# Dữ liệu: 12 số đo nhiệt độ °C, None biểu diễn hai lượt thiếu dữ liệu.
 readings = [27,28,None,29,30,31,28,None,27,32,30,29]
 total = 0
 valid_count = 0
 missing_count = 0
 for temperature in readings:
+    # is None nhận diện lượt không ghi được nhiệt độ, khác giá trị số 0.
     if temperature is None:
+        # Tăng số đo thiếu để đối chiếu với tổng 12 lượt.
         missing_count += 1
+        # continue bỏ qua việc cộng nhiệt độ thiếu và chuyển lượt khác.
         continue
+    # += cộng số đo °C hợp lệ vào tổng.
     total += temperature
+    # Tăng số đo thực sự tham gia trung bình.
     valid_count += 1
+# len() đếm cả lượt thiếu; or yêu cầu tổng hợp lệ + thiếu khớp 12.
 if len(readings) != 12 or valid_count + missing_count != 12:
+    # Dừng chương trình bằng ValueError nếu số liệu không khớp.
     raise ValueError("Phải đối chiếu đủ 12 lượt nhiệt độ, kể cả dữ liệu thiếu.")
 print("Hợp lệ:", valid_count)
 print("Thiếu:", missing_count)
+# Chia tổng nhiệt độ hợp lệ cho số lượt hợp lệ; :.1f hiển thị một chữ số thập phân °C.
 print(f"Trung bình: {total / valid_count:.1f} °C")
 ```
 
@@ -215,18 +246,31 @@ Vòng lặp đã đọc 12 lượt nhưng chỉ 10 lượt được tính trung 
 3. In vị trí đầu tiên rồi kiểm tra đúng là kệ trống.
 
 ```python
+# Mục đích: Dùng break tìm kệ hết hàng đầu tiên trong 15 kệ.
+# Dữ liệu: 15 số tồn của 15 kệ theo thứ tự; 0 là kệ trống.
 stocks = [12,8,7,5,3,4,9,1,0,6,0,2,8,10,4]
+# None nghĩa chưa tìm thấy kệ hết hàng.
 first_empty = None
+# enumerate(...,1) gán số kệ bắt đầu 1 thay vì chỉ số list bắt đầu 0.
 for shelf_number, amount in enumerate(stocks, 1):
+    # == 0 xác định kệ trống.
     if amount == 0:
+        # f-string :02d định dạng mã kệ K01..K15.
         first_empty = f"K{shelf_number:02d}"
+        # break rời vòng for ở kệ trống đầu tiên, không kiểm những kệ sau.
         break
 if len(stocks) != 15:
+    # Báo lỗi nếu dữ liệu hoặc kết quả tìm kệ không đạt kiểm tra.
     raise ValueError("Cần kiểm kê đủ 15 kệ.")
+# Nếu vẫn None thì toàn bộ kệ đều không trống; báo lỗi nghiệp vụ.
 if first_empty is None:
+    # Báo lỗi nếu dữ liệu hoặc kết quả tìm kệ không đạt kiểm tra.
     raise ValueError("Không tìm thấy kệ trống cần báo cáo.")
+# [1:] bỏ ký tự K, int() đổi số kệ thành int; trừ 1 để lấy chỉ số list đúng.
 if stocks[int(first_empty[1:]) - 1] != 0:
+    # Báo lỗi nếu dữ liệu hoặc kết quả tìm kệ không đạt kiểm tra.
     raise ValueError("Kệ được chọn phải có tồn kho bằng 0.")
+# len() đếm số phần tử thực tế trong danh sách.
 print("Số kệ kiểm kê:", len(stocks))
 print("Kệ hết hàng đầu:", first_empty)
 ```
@@ -254,27 +298,46 @@ K09 trống sớm hơn 1 kệ trống còn lại, nhưng chương trình chủ �
 3. Cộng kết quả thành công/thất bại và tổng lượt thử; dùng `if` kiểm tra không thiết bị nào vượt 3 lần.
 
 ```python
+# Mục đích: Giới hạn tối đa ba lần thử kết nối cho từng thiết bị trong 18 thiết bị.
+# Dữ liệu: 18 chỉ số lần thử thành công; 0 hoặc >3 nghĩa không thành công trong tối đa ba lần.
+# 0 hoặc 4 là không thể thành công trong giới hạn ba lượt thử; 1,2,3 chỉ lần thành công.
 success_on_try = [0,2,3,1,4,0,1,2,4,1,0,3,4,2,3,0,4,3]
 success_count = 0
 failed_count = 0
+# Bắt đầu đếm lượt thử lại từ 0 cho mỗi thiết bị.
 total_attempts = 0
+# Lặp qua kết quả dự kiến của từng thiết bị.
 for planned in success_on_try:
+    # Bắt đầu đếm lượt thử lại từ 0 cho mỗi thiết bị.
     attempts = 0
+    # Cờ bool False cho biết thiết bị chưa kết nối được.
     connected = False
+    # and yêu cầu vừa chưa đủ ba lần, vừa chưa kết nối; while kiểm tra lại sau mỗi lần thử.
     while attempts < 3 and not connected:
+        # += tăng số lượt đã thử.
         attempts += 1
+        # == kiểm tra lần thử hiện tại trùng với lần dự kiến thành công hay không.
         connected = (planned == attempts)
+    # Cộng tổng số lần thử thực tế từ mỗi thiết bị.
     total_attempts += attempts
+    # Khi cờ True, tăng số thiết bị thành công; ngược lại tăng thất bại.
     if connected:
         success_count += 1
     else:
         failed_count += 1
+    # Kiểm tra an toàn tránh vô tình chạy quá ba lượt mỗi thiết bị.
     if attempts > 3:
+        # RuntimeError báo vi phạm quy tắc xử lý lượt thử.
         raise RuntimeError("Mỗi thiết bị chỉ được thử kết nối tối đa 3 lần.")
+# len() đếm số thiết bị, != phát hiện không đủ 18.
 if len(success_on_try) != 18:
+    # ValueError báo dữ liệu đầu vào hoặc kết quả thống kê không khớp.
     raise ValueError("Cần đúng 18 thiết bị để thống kê.")
+# Đối chiếu số thành công + thất bại phải bằng 18.
 if success_count + failed_count != 18:
+    # ValueError báo dữ liệu đầu vào hoặc kết quả thống kê không khớp.
     raise ValueError("Tổng thiết bị thành công và thất bại phải bằng 18.")
+# len() đếm số phần tử thực tế trong danh sách.
 print("Thiết bị:", len(success_on_try))
 print("Kết nối được:", success_count)
 print("Thất bại:", failed_count)
@@ -306,33 +369,54 @@ Tổng lượt thử: 45
 3. Kiểm tra số lượt dự kiến 40 = lượt hợp lệ + lượt vắng, các cặp ca không trùng.
 
 ```python
+# Mục đích: Ghép 20 học viên vào hai ca, bỏ ca vắng và kiểm tra lịch không trùng.
+# Dữ liệu: 20 mã học viên và hai ca sáng/chiều; danh sách absent_afternoon nêu học viên vắng ca chiều.
 students = ["H01","H02","H03","H04","H05","H06","H07","H08","H09","H10","H11","H12","H13","H14","H15","H16","H17","H18","H19","H20"]
 sessions = ["Sáng", "Chiều"]
 absent_afternoon = ["H04","H11","H19"]
 schedule = []
 absent_count = 0
+# Vòng ngoài lấy từng mã học viên trong 20 học viên.
 for student in students:
+    # Vòng trong ghép mỗi học viên với hai ca (Sáng và Chiều), dự kiến 20 × 2 = 40 lượt.
     for session in sessions:
+        # in kiểm tra danh sách ba học viên vắng; and chỉ bỏ ca Chiều của các học viên đó.
         if student in absent_afternoon and session == "Chiều":
+            # Đếm lượt không tham gia ca chiều.
             absent_count += 1
+            # continue bỏ việc thêm lượt học đang vắng, nhưng vẫn duyệt học viên/ca tiếp.
             continue
+        # append() thêm tuple (mã học viên, ca) cho lượt có mặt.
         schedule.append((student, session))
 if len(students) != 20:
+    # Dừng chương trình nếu danh sách hoặc lịch có mâu thuẫn.
     raise ValueError("Cần đúng 20 học viên.")
+# set() chuyển các cặp (học viên, ca) thành tập không trùng; so độ dài phát hiện cặp bị lặp.
 if len(schedule) != len(set(schedule)):
+    # Dừng chương trình nếu danh sách hoặc lịch có mâu thuẫn.
     raise ValueError("Không được trùng cặp học viên và ca học.")
+# Số lượt dự kiến = số học viên nhân số ca; phải bằng lượt có mặt cộng lượt vắng.
 if len(students) * len(sessions) != len(schedule) + absent_count:
+    # Dừng chương trình nếu danh sách hoặc lịch có mâu thuẫn.
     raise ValueError("Lượt có mặt và lượt vắng phải khớp 40 lượt dự kiến.")
+# len() đếm số phần tử thực tế trong danh sách.
 print("Học viên:", len(students))
+# Số lượt dự kiến = số học viên nhân số ca; phải bằng lượt có mặt cộng lượt vắng.
 print("Lượt dự kiến:", len(students) * len(sessions))
+# len() đếm số phần tử thực tế trong danh sách.
 print("Lượt có mặt:", len(schedule))
 print("Lượt vắng:", absent_count)
 morning_count = 0
 afternoon_count = 0
+# Tách mã học viên và ca từ từng tuple trong lịch đã lọc.
 for student, session in schedule:
+    # Nhánh if đếm ca sáng.
     if session == "Sáng":
+        # += 1 cộng một lượt ca sáng.
         morning_count += 1
+    # elif chỉ xét khi không phải ca sáng, đếm ca chiều.
     elif session == "Chiều":
+        # += 1 cộng một lượt ca chiều.
         afternoon_count += 1
 print("Ca Sáng:", morning_count)
 print("Ca Chiều:", afternoon_count)

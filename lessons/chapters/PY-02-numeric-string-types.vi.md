@@ -43,8 +43,10 @@
 `int` biểu diễn những số không có phần thập phân, ví dụ 5 sản phẩm hoặc 12 học viên. Dùng `int` khi cần đếm hoặc tính toán số lượng nguyên; khác với chuỗi `"5"`, số `5` thực hiện được phép cộng số học. Ở đây biến `n` giữ số 5 và `type(n)` kiểm tra kiểu.
 
 ```python
-# Mục đích: Số nguyên.
+# Mục đích: Dùng type() để xác nhận biến n lưu số nguyên int.
+# 5 không có dấu thập phân nên biến n thuộc kiểu int (số nguyên).
 n = 5
+# type(n) xác định kiểu dữ liệu của n; print() hiển thị kết quả <class 'int'>.
 print(type(n))
 ```
 
@@ -63,8 +65,10 @@ Kết quả cho biết `n` là số nguyên, không phải chuỗi.
 `float` lưu các số có phần thập phân, như 3,5 kg hàng hoặc nhiệt độ 36,5 °C. Nếu cần tính trên những số đo này, dùng số thực thay vì chữ. Trong ví dụ, `x` nhận `3.5` và `print()` hiển thị giá trị của nó.
 
 ```python
-# Mục đích: Số thực.
+# Mục đích: Lưu và in giá trị x dạng số thực float.
+# Số có phần thập phân được lưu dưới kiểu float.
 x = 3.5
+# print() hiển thị giá trị số thực, không thêm dấu nháy như khi in chuỗi.
 print(x)
 ```
 
@@ -83,8 +87,10 @@ Dấu chấm trong code biểu diễn phần thập phân; đơn vị đo phải
 `bool` chỉ có hai giá trị `True` và `False`, phù hợp với câu hỏi dạng “đã thanh toán chưa?” hoặc “đủ điều kiện chưa?”. Biến `ok = True` ở đây tượng trưng cho trạng thái kiểm tra đã đạt. Đây không phải chữ `"True"`: Python hiểu là giá trị logic.
 
 ```python
-# Mục đích: Giá trị đúng/sai.
+# Mục đích: Thử kiểu Boolean: True biểu thị điều kiện đúng.
+# True là giá trị Boolean đúng; phải viết hoa chữ T trong Python.
 ok = True
+# print() xuất True, không phải chuỗi ký tự 'True'.
 print(ok)
 ```
 
@@ -103,8 +109,10 @@ True
 `str` lưu dãy ký tự theo đúng thứ tự, kể cả chữ số nằm trong mã như `AB12` hoặc số điện thoại bắt đầu bằng 0. Với `code = 'AB12'`, các vị trí lần lượt là 0:A, 1:B, 2:1, 3:2. Cú pháp `[:2]` lấy ký tự ở vị trí 0 và 1, không lấy vị trí 2.
 
 ```python
-# Mục đích: Chuỗi ký tự.
+# Mục đích: Lấy hai ký tự đầu của mã AB12 bằng phép cắt chuỗi.
+# Mã chứa 4 ký tự dạng str (chuỗi), chưa phải số.
 code = 'AB12'
+# Cú pháp [bắt_đầu:kết_thúc] cắt chuỗi; [:2] lấy vị trí 0, 1, loại trừ vị trí 2 nên trả 'AB'.
 print(code[:2])
 ```
 
@@ -131,15 +139,25 @@ Hai ký tự đầu được tách ra mà chuỗi ban đầu vẫn giữ nguyên
 3. In số email và hai email mẫu đã chuẩn hóa.
 
 ```python
+# Mục đích: Chuẩn hóa 10 email: xóa khoảng trắng thừa và đổi về chữ thường.
+# 10 chuỗi email ví dụ có khoảng trắng thừa và chữ hoa; mỗi phần tử là một địa chỉ.
 raw_emails = ["  Member01@Example.INVALID  ","  Member02@Example.INVALID  ","  Member03@Example.INVALID  ","  Member04@Example.INVALID  ","  Member05@Example.INVALID  ","  Member06@Example.INVALID  ","  Member07@Example.INVALID  ","  Member08@Example.INVALID  ","  Member09@Example.INVALID  ","  Member10@Example.INVALID  "]
+# Danh sách rỗng lưu email sau khi chuẩn hóa theo thứ tự đầu vào.
 cleaned = []
+# Vòng for lấy từng email làm đầu vào cho chuỗi thao tác làm sạch.
 for email in raw_emails:
+    # strip() bỏ khoảng trắng hai đầu; lower() đổi tất cả chữ cái thành chữ thường; gọi nối tiếp để làm cả hai bước.
     normalized_email = email.strip().lower()
+    # append() đưa email đã làm sạch vào cuối danh sách.
     cleaned.append(normalized_email)
+# len() đếm số email sau khi xử lý; != kiểm tra có thiếu/thừa so với 10 đầu vào.
 if len(cleaned) != 10:
+    # ValueError báo dữ liệu đầu vào sai số lượng và ngừng chương trình.
     raise ValueError("Phải chuẩn hóa đủ 10 địa chỉ email.")
 print("Số email:", len(cleaned))
+# [0] truy cập địa chỉ đầu tiên sau chuẩn hóa.
 print("Đầu:", cleaned[0])
+# [-1] truy cập địa chỉ cuối cùng, không cần tự tính chỉ số.
 print("Cuối:", cleaned[-1])
 ```
 
@@ -167,16 +185,27 @@ Toàn bộ 10 email đã được chuyển đổi. Miền `.invalid` được d�
 3. In tổng dòng và số lần xuất hiện của từng nhãn theo thứ tự chữ cái.
 
 ```python
+# Mục đích: Tách 12 dòng nhãn sản phẩm, đếm số lần xuất hiện của từng nhãn.
+# Mỗi chuỗi là một dòng gắn hai nhãn phân cách bởi dấu phẩy; 12 dòng có thể viết hoa/thường lẫn nhau.
 raw_labels = ["python, AI","SQL, python","math, data","Python, SQL","AI, data","math, python","data, SQL","AI, Math","python, data","SQL, AI","Math, SQL","Python, AI"]
+# Dictionary (từ điển) ánh xạ tên nhãn sang số lần xuất hiện, ban đầu chưa có nhãn nào.
 counts = {}
+# Duyệt từng dòng; vòng for bên trong xử lý từng nhãn của dòng.
 for text in raw_labels:
+    # split(',') tách chuỗi tại mỗi dấu phẩy và trả danh sách các phần nhãn.
     for part in text.split(","):
+        # strip() loại khoảng trắng cạnh nhãn; lower() gộp 'Python' và 'python' thành một nhãn.
         label = part.strip().lower()
+        # get(label, 0) đọc số đếm hiện có hoặc lấy 0 nếu nhãn chưa gặp; cộng 1 và ghi lại vào dictionary.
         counts[label] = counts.get(label, 0) + 1
+# Xác nhận đã nhận đủ 12 dòng nguồn, không phải 12 nhãn.
 if len(raw_labels) != 12:
+    # raise ValueError báo lỗi nếu số dòng nguồn bị sai.
     raise ValueError("Phải có đủ 12 dòng nhãn sản phẩm.")
 print("Số dòng:", len(raw_labels))
+# sorted(counts) lấy các khóa nhãn theo thứ tự chữ cái để in báo cáo ổn định.
 for label in sorted(counts):
+    # counts[label] tra số lần xuất hiện của nhãn; print in tên nhãn và số lượng.
     print(label, counts[label])
 ```
 
@@ -207,21 +236,33 @@ Mỗi dòng đóng góp hai nhãn, tổng tất cả số đếm phải bằng 2
 3. In các mẫu đầu/cuối cùng ba ký tự đầu của mã đầu.
 
 ```python
+# Mục đích: Làm sạch và kiểm tra 15 mã số vẫn giữ đủ năm ký tự, kể cả số 0 đầu.
+# 15 mã số dạng chuỗi có các số 0 đầu và khoảng trắng thừa; giữ kiểu chuỗi để không mất số 0.
 raw_codes = ["  00001  ","  00002  ","  00003  ","  00004  ","  00005  ","  00006  ","  00007  ","  00008  ","  00009  ","  00010  ","  00011  ","  00012  ","  00013  ","  00014  ","  00015  "]
+# Danh sách lưu mã đã làm sạch, vẫn là chuỗi.
 codes = []
 for code in raw_codes:
+    # strip() bỏ khoảng trắng đầu/cuối nhưng bảo toàn '00001'.
     cleaned_code = code.strip()
+    # append() thêm mã sạch vào danh sách.
     codes.append(cleaned_code)
+# Giả định các mã hợp lệ; gặp mã lỗi thì chuyển cờ valid thành False.
 valid = True
 for code in codes:
+    # isdigit() kiểm tra tất cả ký tự là chữ số; len() phải bằng 5; not và or bắt mọi trường hợp sai.
     if not code.isdigit() or len(code) != 5:
         valid = False
+        # break dừng vòng kiểm tra ngay khi tìm thấy mã không hợp lệ.
         break
+# Đảm bảo đã xử lý đủ 15 mã từ nguồn.
 if len(codes) != 15:
+    # Báo ValueError nếu thiếu hoặc thừa mã nguồn.
     raise ValueError("Phải kiểm tra đủ 15 mã đơn hàng.")
 print("Số mã:", len(codes))
 print("Đều hợp lệ:", valid)
+# [0] lấy mã đầu, [:3] cắt ba ký tự đầu ở vị trí 0, 1, 2; không biến mã thành số.
 print("Mã đầu:", codes[0], "| đầu mã:", codes[0][:3])
+# [-1] là mã cuối danh sách.
 print("Mã cuối:", codes[-1])
 ```
 
@@ -250,19 +291,33 @@ Mã cuối: 00015
 3. Đổi số hợp lệ thành `float`, ghi lại ID không hợp lệ rồi cộng các giá trị hợp lệ.
 
 ```python
+# Mục đích: Phát hiện các chuỗi đơn giá không hợp lệ trong 18 phiếu và cộng giá hợp lệ.
+# 18 đơn giá ở dạng chuỗi, đơn vị nghìn đồng; 'bad' và chuỗi rỗng là dữ liệu lỗi.
 raw_prices = ["12.5","8.0","bad","7.5","13.0","10.0","19.5","6.5","11.0","15.5","9.0","16.0","20.0","","10.5","14.5","8.5","12.0"]
+# Lưu các số thực đã được xác minh để cộng, tách khỏi chuỗi không hợp lệ.
 valid_prices = []
+# Lưu mã dòng lỗi theo thứ tự xuất hiện.
 invalid_ids = []
+# enumerate(..., 1) đánh số dòng từ 1, giúp mã P01 tương ứng giá đầu tiên.
 for index, raw in enumerate(raw_prices, 1):
+    # strip() xóa khoảng trắng hai đầu trước khi kiểm tra chuỗi.
     clean = raw.strip()
+    # replace('.', '', 1) xóa tối đa một dấu chấm thập phân; isdigit() kiểm tra phần còn lại là chữ số; not tìm chuỗi sai. Đây là quy tắc minh họa cho giá không âm, chưa xử lý dấu âm hay định dạng số tổng quát.
     if not clean.replace(".", "", 1).isdigit():
+        # append() lưu mã giá lỗi; f-string :02d tạo số thứ tự hai chữ số như P03.
         invalid_ids.append(f"P{index:02d}")
+        # continue bỏ phiếu giá lỗi, không gọi float() với chuỗi không chuyển được.
         continue
+    # float() chuyển chuỗi thập phân sang số thực; append() thêm vào danh sách hợp lệ.
     valid_prices.append(float(clean))
+# Kiểm tra đúng 18 dòng đầu vào, gồm cả giá lỗi.
 if len(raw_prices) != 18:
+    # ValueError thông báo thiếu/thừa dòng trong bộ dữ liệu.
     raise ValueError("Phải có đúng 18 chuỗi đơn giá.")
 print("Giá hợp lệ:", len(valid_prices))
+# join() ghép danh sách mã lỗi bằng dấu phẩy và khoảng trắng.
 print("Giá lỗi:", ", ".join(invalid_ids))
+# sum() cộng toàn bộ giá hợp lệ; :.1f hiển thị kết quả với một chữ số sau dấu thập phân, đơn vị nghìn đồng.
 print(f"Tổng giá (nghìn đồng): {sum(valid_prices):.1f}")
 ```
 
@@ -290,27 +345,42 @@ Tổng giá (nghìn đồng): 194.0
 3. Chỉ giữ mã hợp lệ, báo mã sai/trùng và in một mã đã che.
 
 ```python
+# Mục đích: Kiểm tra 20 mã hồ sơ: đúng định dạng, không trùng và chỉ hiển thị một phần mã.
+# 20 mã hồ sơ dạng chuỗi; có mã sai tiền tố, mã rút ngắn và mã lặp cần phát hiện.
 raw_ids = [" ID-0001 "," ID-0002 "," ID-0003 "," ID-0004 "," ID-0005 "," ID-0006 ","X-0007"," ID-0008 "," ID-0009 "," ID-0010 "," ID-0011 "," ID-0004 "," ID-0013 "," ID-0014 "," ID-0015 "," ID-0016 "," ID-0017 "," ID- "," ID-0019 "," ID-0020 "]
 accepted = []
 invalid = []
 duplicates = []
+# set() tạo tập hợp lưu mã đã gặp, giúp kiểm tra trùng nhanh bằng toán tử in.
 seen = set()
+# Kiểm tra lần lượt từng mã gốc, giữ thứ tự báo cáo.
 for raw in raw_ids:
+    # strip() bỏ khoảng trắng; upper() đổi chữ cái thành viết hoa để chuẩn hóa tiền tố.
     code = raw.strip().upper()
+    # [3:] lấy mọi ký tự từ vị trí 3 trở đi sau tiền tố ba ký tự 'ID-'.
     suffix = code[3:]
+    # startswith('ID-') kiểm tra tiền tố; len()==4 kiểm tra 4 ký tự hậu tố; isdigit() đảm bảo toàn chữ số; and đòi đủ điều kiện, not nhận diện mã sai.
     if not (code.startswith("ID-") and len(suffix) == 4 and suffix.isdigit()):
+        # append() ghi riêng mã không đúng định dạng, chưa đưa vào danh sách hợp lệ.
         invalid.append(code)
+    # in kiểm tra mã đã xuất hiện trong tập seen; elif chỉ chạy khi định dạng đã hợp lệ.
     elif code in seen:
+        # Ghi mã trùng vào danh sách để rà soát.
         duplicates.append(code)
     else:
+        # add() thêm mã hợp lệ mới vào tập để phát hiện lần xuất hiện sau.
         seen.add(code)
+        # append() giữ danh sách mã hợp lệ duy nhất theo thứ tự ban đầu.
         accepted.append(code)
+# Xác nhận đầu vào đủ 20 hồ sơ, kể cả mã sai.
 if len(raw_ids) != 20:
+    # Dừng và báo ValueError nếu số hồ sơ không đủ.
     raise ValueError("Phải có đúng 20 mã hồ sơ để kiểm tra.")
 print("Đầu vào:", len(raw_ids))
 print("Hợp lệ duy nhất:", len(accepted))
 print("Sai định dạng:", len(invalid))
 print("Trùng:", duplicates)
+# accepted[0] là mã hợp lệ đầu, [-2:] lấy hai ký tự cuối; nối với 'ID-**' để che phần giữa khi hiển thị.
 print("Mã đầu đã che:", "ID-**" + accepted[0][-2:])
 ```
 

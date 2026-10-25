@@ -43,8 +43,10 @@ Một chương trình thường đi theo mạch **nhận thông tin → lưu và
 Biến là tên để chương trình ghi nhớ một giá trị. Khi viết `total = 12`, Python gắn tên `total` với số `12`; dòng tiếp theo đọc lại giá trị qua tên đó. Biến giúp ta dùng lại dữ liệu và thay đổi dữ liệu ở một chỗ thay vì viết số trực tiếp khắp chương trình.
 
 ```python
-# Mục đích: Biến.
+# Mục đích: Đặt số lượng 12 vào biến total rồi hiển thị giá trị đã lưu.
+# Biến total giữ một số nguyên; dấu = là phép gán, không phải so sánh bằng.
 total = 12
+# print() xuất giá trị đang giữ trong biến; kết quả là 12.
 print(total)
 ```
 
@@ -63,8 +65,10 @@ print(total)
 Đầu vào là dữ liệu chương trình nhận để xử lý: có thể từ bàn phím, biểu mẫu hoặc tệp. Ví dụ, biểu mẫu nhận tên khách `An`, ứng dụng lưu tên đó trong biến `name`. Để ví dụ tự chạy không cần gõ phím, ta mô phỏng dữ liệu đã nhận bằng một phép gán; khi nhận trực tiếp từ bàn phím, có thể dùng `input()`.
 
 ```python
-# Mục đích: Đầu vào.
+# Mục đích: Lưu tên người dùng có sẵn trong biến name và in ra màn hình; ví dụ không gọi input() để nhập từ bàn phím.
+# Chuỗi trong dấu nháy là dữ liệu tên có sẵn; không phải dữ liệu đang được nhập từ bàn phím.
 name = 'An'
+# print(name) in nội dung của biến, khác với print('name') in nguyên chữ name.
 print(name)
 ```
 
@@ -83,7 +87,8 @@ Chương trình in đúng tên đã nhận. Biến có thể đến từ nhiều
 Đầu ra là thông tin chương trình gửi ra ngoài sau khi xử lý. Đầu ra có thể xuất hiện trên màn hình, được lưu vào file hoặc gửi đến hệ thống khác. Trong bài căn bản, `print()` giúp nhìn thấy giá trị đang được tạo ra; chuỗi trong dấu nháy là nội dung cần hiển thị.
 
 ```python
-# Mục đích: Đầu ra.
+# Mục đích: Dùng print() để đưa lời chào ra màn hình.
+# print() gửi chuỗi trong dấu nháy ra vùng kết quả, kèm ký tự xuống dòng.
 print('Xin chào')
 ```
 
@@ -102,7 +107,8 @@ Xin chào
 Cùng một biến có thể chứa chữ hoặc số, nhưng **kiểu dữ liệu** quyết định phép xử lý nào phù hợp. Chẳng hạn mã đơn `"0007"` là chuỗi (`str`) cần giữ số 0 đầu; giá trị `2.5` là số thực (`float`) có thể dùng để tính toán. Hàm `type()` cho biết kiểu của một giá trị.
 
 ```python
-# Mục đích: Kiểu dữ liệu.
+# Mục đích: Xem Python nhận diện số 2.5 thuộc kiểu dữ liệu nào.
+# type(2.5) trả về kiểu của số thập phân 2.5 (float); print() hiển thị đối tượng kiểu đó.
 print(type(2.5))
 ```
 
@@ -129,12 +135,19 @@ print(type(2.5))
 3. In ba thông tin có nhãn để dễ đọc.
 
 ```python
+# Mục đích: Đếm 10 học viên đăng ký và đọc tên đầu/cuối của danh sách.
+# Một danh sách chứa 10 chuỗi tên theo thứ tự đăng ký; mỗi phần tử đại diện một học viên.
 names = ["An","Bình","Chi","Dung","Hà","Khánh","Lan","Minh","Nam","Trang"]
+# len(names) trả về số phần tử trong danh sách, ở đây là 10.
 student_count = len(names)
+# != có nghĩa 'khác'; điều kiện đảm bảo số học viên đúng với dữ liệu bài toán.
 if student_count != 10:
+    # raise ValueError(...) chủ động báo lỗi đầu vào, dừng xử lý khi số lượng không đúng.
     raise ValueError("Danh sách đăng ký phải có đúng 10 học viên.")
 print("Số học viên:", student_count)
+# Chỉ số [0] là phần tử đầu tiên vì Python đánh số từ 0; print ghép nhãn và tên.
 print("Học viên đầu:", names[0])
+# Chỉ số [-1] lấy phần tử cuối mà không cần biết độ dài danh sách.
 print("Học viên cuối:", names[-1])
 ```
 
@@ -162,6 +175,8 @@ Mỗi phần tử là một học viên, không phải một ký tự. Chỉ s�
 3. Cộng tổng các giá trị đã đổi và xác nhận đủ 12 đơn.
 
 ```python
+# Mục đích: Chuyển giá, số lượng từ chuỗi sang số để cộng doanh thu của 12 đơn.
+# Mỗi bộ ba trong 12 đơn có (mã đơn, đơn giá dạng chuỗi VND, số lượng dạng chuỗi); các dấu nháy cho biết chưa phải số.
 orders = [
     ("O01", "11000", "2"),
     ("O02", "12000", "3"),
@@ -176,14 +191,22 @@ orders = [
     ("O11", "21000", "3"),
     ("O12", "22000", "1"),
 ]
+# Biến cộng dồn khởi đầu từ 0 đồng để lưu tổng tiền của mọi đơn.
 total_vnd = 0
+# for đi lần lượt từng bộ ba; cách tách ba biến cho phép dùng trực tiếp mã, giá và số lượng.
 for order_id, raw_price, raw_quantity in orders:
+    # int() đổi chữ số dạng chuỗi như '11000' thành số nguyên 11000 để tính toán bằng đồng.
     price_vnd = int(raw_price)
+    # int() đổi số lượng dạng chuỗi thành số nguyên, tránh nối chuỗi hoặc lỗi khi nhân.
     quantity = int(raw_quantity)
+    # *= không xuất hiện ở đây: * nhân đơn giá với số lượng; += cộng tiền của đơn hiện tại vào tổng.
     total_vnd += price_vnd * quantity
+# len() đếm số đơn; != kiểm tra khác 12 để phát hiện thiếu/thừa bản ghi.
 if len(orders) != 12:
+    # ValueError thông báo dữ liệu không hợp lệ và dừng chương trình khi kiểm tra thất bại.
     raise ValueError("Cần có đủ 12 đơn hàng để tổng hợp.")
 print("Số đơn:", len(orders))
+# Giá trị cuối là tổng doanh thu của 12 đơn, đơn vị đồng Việt Nam.
 print("Tổng tiền (đồng):", total_vnd)
 ```
 
@@ -210,14 +233,23 @@ Mỗi hàng là **một đơn**; phép nhân tính tiền từng đơn, phép c�
 3. In số lượng và hai dòng kiểm mẫu; các dòng còn lại được tạo cùng quy tắc.
 
 ```python
+# Mục đích: Tạo bản tin từ 15 phép đo nhiệt độ với mã cảm biến dễ đọc.
+# 15 giá trị là nhiệt độ °C từ 15 cảm biến theo cùng thứ tự.
 temperatures = [26.2,27,28.5,29.1,30,27.5,28.2,29.9,31.1,30.5,29,28.4,27.7,30.2,29.6]
+# Danh sách rỗng sẽ chứa các dòng báo cáo sau khi định dạng.
 reports = []
+# enumerate(..., 1) duyệt nhiệt độ kèm số thứ tự bắt đầu từ 1, không phải 0.
 for index, temperature in enumerate(temperatures, 1):
+    # append() thêm một dòng vào cuối danh sách; f-string thay index và temperature bằng giá trị thực; :02d viết mã 2 chữ số có thêm 0; :.1f hiển thị 1 chữ số thập phân.
     reports.append(f"T{index:02d}: {temperature:.1f} °C")
+# len() xác nhận đã tạo đúng 15 bản tin, không bỏ mất cảm biến nào.
 if len(reports) != 15:
+    # Báo ValueError nếu số dòng báo cáo không đúng kỳ vọng.
     raise ValueError("Bản tin phải có đúng 15 cảm biến.")
 print("Số cảm biến:", len(reports))
+# [0] lấy bản tin đầu tiên (T01) trong danh sách có thứ tự.
 print("Dòng đầu:", reports[0])
+# [-1] lấy bản tin cuối (T15) mà không cần tự đếm chỉ số.
 print("Dòng cuối:", reports[-1])
 ```
 
@@ -245,20 +277,33 @@ Tất cả 15 bản tin đã được tạo; hiển thị hai dòng biên để 
 3. Tính trung bình các giá trị nhận được và in bảng tóm tắt.
 
 ```python
+# Mục đích: Lọc 18 chuỗi đo nhiệt độ, bỏ giá trị thiếu rồi tính trung bình các số đo hợp lệ.
+# 18 chuỗi nhiệt độ °C; khoảng trắng thừa, chuỗi rỗng và 'N/A' thể hiện dữ liệu chưa sạch hoặc thiếu.
 raw_readings = [" 26.0 ","27.5","28.0","","29.0"," 30.5","31.0","28.7","27.3","26.9","30.0","N/A","29.8","28.5","27.0","31.2","30.6","29.4"]
+# Chỉ lưu số đo hợp lệ dưới dạng số thực vào danh sách này.
 valid_temperatures = []
 missing_count = 0
+# Xử lý từng chuỗi đo, không cộng trực tiếp chuỗi vào số.
 for raw in raw_readings:
+    # strip() bỏ khoảng trắng ở hai đầu, giúp nhận diện chuỗi trống và đọc số chính xác.
     value = raw.strip()
+    # in kiểm tra giá trị có thuộc hai dấu hiệu thiếu ('', 'N/A') hay không.
     if value in ("", "N/A"):
+        # += 1 tăng bộ đếm dữ liệu thiếu.
         missing_count += 1
+        # continue bỏ phần xử lý còn lại của lượt đo này để tránh float() trên dữ liệu thiếu.
         continue
+    # float() đổi chuỗi như '26.0' thành số thập phân; append() thêm số đã đổi.
     valid_temperatures.append(float(value))
+# sum() cộng các nhiệt độ hợp lệ, len() đếm chúng; chia để lấy trung bình °C, không tính bản ghi thiếu.
 average_celsius = sum(valid_temperatures) / len(valid_temperatures)
+# Xác nhận tổng số lượt nhận, bao gồm cả lượt thiếu, bằng 18.
 if len(raw_readings) != 18:
+    # Báo lỗi nếu thiếu hoặc thừa bản ghi đầu vào.
     raise ValueError("Dữ liệu đầu vào phải có đúng 18 lượt đo.")
 print("Hợp lệ:", len(valid_temperatures))
 print("Thiếu:", missing_count)
+# f-string chèn nhiệt độ trung bình; :.2f làm tròn hiển thị đến hai chữ số sau dấu thập phân.
 print(f"Trung bình: {average_celsius:.2f} °C")
 ```
 
@@ -286,28 +331,45 @@ Trung bình: 28.84 °C
 3. Tính tổng chỉ trên phiếu hợp lệ, xác nhận số lượng phiếu rồi in báo cáo.
 
 ```python
+# Mục đích: Kiểm tra 20 phiếu bán hàng, chỉ tính tiền phiếu có đơn giá là chữ số.
+# 20 giá tiền ở dạng chuỗi đồng; dấu '?' là phiếu thiếu giá cần tách riêng.
 raw_prices = ["12000","14000","16000","18000","20000","22000","?","26000","28000","30000","32000","34000","36000","38000","40000","42000","44000","?","48000","50000"]
+# 20 số lượng dạng chuỗi; mỗi vị trí i tương ứng đúng vị trí i trong raw_prices.
 raw_quantities = ["1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4"]
+# Danh sách tích lũy bộ ba (mã phiếu, chuỗi giá, chuỗi số lượng).
 orders = []
+# range(1, 21) sinh các số 1 đến 20, không gồm 21.
 for i in range(1, 21):
+    # f-string O{i:02d} ghép chữ O với số thứ tự có hai chữ số, ví dụ O01.
     order_id = f"O{i:02d}"
+    # i bắt đầu 1 nhưng chỉ số list bắt đầu 0, nên dùng [i - 1] để lấy đúng giá.
     price = raw_prices[i - 1]
+    # Cùng chỉ số [i - 1] bảo đảm số lượng khớp đúng giá của cùng phiếu.
     quantity = raw_quantities[i - 1]
+    # append() thêm bộ ba vào cuối danh sách theo thứ tự mã phiếu.
     orders.append((order_id, price, quantity))
 total_vnd = 0
 missing_ids = []
 paid_count = 0
+# Tách từng bộ ba; giá và số lượng lúc này vẫn là chuỗi.
 for order_id, raw_price, raw_qty in orders:
+    # isdigit() kiểm tra toàn chuỗi có phải chữ số; not đảo kết quả để tìm '?' hoặc giá thiếu.
     if not raw_price.isdigit():
+        # Lưu mã phiếu lỗi để báo người dùng bổ sung giá.
         missing_ids.append(order_id)
+        # Không cộng doanh thu của phiếu có giá không hợp lệ.
         continue
+    # int() chuyển hai chuỗi thành số rồi nhân giá (đồng) với số lượng; += cộng vào tổng.
     total_vnd += int(raw_price) * int(raw_qty)
     paid_count += 1
+# len() đếm phiếu; or báo lỗi khi số phiếu khác 20 hoặc tổng hợp lệ + thiếu không bằng 20.
 if len(orders) != 20 or paid_count + len(missing_ids) != 20:
+    # raise ValueError() dừng chương trình nếu kiểm tra toàn vẹn dữ liệu không đạt.
     raise ValueError("Phải đối chiếu đủ 20 phiếu, gồm cả phiếu thiếu giá.")
 print("Số phiếu:", len(orders))
 print("Phiếu hợp lệ:", paid_count)
 print("Tổng tiền (đồng):", total_vnd)
+# ', '.join(...) nối mã phiếu thiếu bằng dấu phẩy và khoảng trắng để dễ đọc.
 print("Cần bổ sung:", ", ".join(missing_ids))
 ```
 

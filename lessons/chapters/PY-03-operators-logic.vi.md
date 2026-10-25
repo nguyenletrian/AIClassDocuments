@@ -43,7 +43,8 @@
 Số học giúp tính từ các dữ liệu có sẵn: `+` cộng, `-` trừ, `*` nhân, `/` chia. Ví dụ cửa hàng bán 5 món, mỗi món 3 nghìn đồng: lấy số lượng nhân đơn giá để được tổng 15 nghìn đồng. Python còn có `//` chia lấy phần nguyên và `%` lấy phần dư khi chia thùng hoặc chia nhóm.
 
 ```python
-# Mục đích: Toán tử số học.
+# Mục đích: Nhân 5 với 3 để tính tổng số món.
+# * là phép nhân; print() in kết quả 15.
 print(5 * 3)
 ```
 
@@ -62,7 +63,8 @@ Giá trị `15` là tổng tiền theo đơn vị nghìn đồng của ví dụ.
 So sánh trả lời một câu hỏi bằng `True` hoặc `False`. Nếu kho có 8 món và đơn hàng cần 5 món, điều kiện `8 >= 5` kiểm tra đủ hàng để giao không. Các dấu `>`, `<`, `>=`, `<=`, `==`, `!=` biểu diễn lớn hơn, nhỏ hơn, bằng hoặc khác nhau. Phân biệt `==` để kiểm tra với `=` để gán.
 
 ```python
-# Mục đích: Toán tử so sánh.
+# Mục đích: So sánh 8 với ngưỡng 5.
+# >= là lớn hơn hoặc bằng; kết quả so sánh kiểu bool là True.
 print(8 >= 5)
 ```
 
@@ -81,7 +83,8 @@ Kho có ít nhất 5 món nên điều kiện đủ hàng là đúng.
 Sau khi có các điều kiện đúng/sai, `and` yêu cầu mọi điều kiện cùng đúng; `or` chỉ cần một điều kiện đúng; `not` đảo trạng thái. Ví dụ người dùng đã đăng nhập (`True`) nhưng chưa xác minh (`False`): nếu hệ thống bắt buộc cả hai thì `and` trả về `False`.
 
 ```python
-# Mục đích: Toán tử logic.
+# Mục đích: Dùng and logic để ghép hai điều kiện.
+# and chỉ đúng khi cả hai điều kiện đúng; True and False trả False.
 print(True and False)
 ```
 
@@ -100,7 +103,8 @@ Một trong hai điều kiện chưa đạt, nên không thỏa yêu cầu `and`
 Máy tính biểu diễn số nguyên bằng các bit `0` và `1`. Toán tử `&` so từng vị trí bit và chỉ giữ `1` khi hai phía cùng có `1`. Số 5 là `0101`, số 3 là `0011`; phần chung chỉ còn `0001`, tương ứng số 1. Đây là phép xử lý số nguyên theo bit, **khác** `and` dùng để nối điều kiện logic.
 
 ```python
-# Mục đích: Toán tử theo bit.
+# Mục đích: Làm phép AND từng bit nhị phân thay vì logic and.
+# & là AND từng bit: 5=0101, 3=0011 nên được 0001 (1), khác toán tử logic and.
 print(5 & 3)
 ```
 
@@ -127,17 +131,28 @@ Số `1` là kết quả phép AND theo bit giữa 5 và 3.
 3. So sánh tổng trước/sau giảm.
 
 ```python
+# Mục đích: Tính tổng đơn giá sau giảm 10% cho 10 món.
+# Dữ liệu: 10 đơn giá tính bằng nghìn đồng, mỗi phần tử cho một mặt hàng.
 prices = [100,150,200,250,300,120,180,220,400,160]
+# 0.10 tương ứng giảm 10%; 1-discount là tỉ lệ 90% cần thanh toán.
 discount = 0.10
+# sum() cộng mọi giá gốc trong danh sách.
 original = sum(prices)
+# 0.10 tương ứng giảm 10%; 1-discount là tỉ lệ 90% cần thanh toán.
 after_discount = 0
+# for đọc mỗi đơn giá theo thứ tự.
 for price in prices:
+    # * nhân đơn giá với 90% để tính tiền còn phải trả.
     discounted_price = price * (1 - discount)
+    # += cộng giá từng món vào tổng sau giảm.
     after_discount += discounted_price
+# len() đếm phần tử; != phát hiện số lượng khác mức yêu cầu.
 if len(prices) != 10:
+    # raise ValueError(...) báo lỗi rồi dừng xử lý khi dữ liệu không nhất quán.
     raise ValueError("Phải có đúng 10 giá mặt hàng.")
 print("Mặt hàng:", len(prices))
 print("Gốc (nghìn đồng):", original)
+# round() làm tròn tổng khi hiển thị, không làm tròn từng món.
 print("Sau giảm (nghìn đồng):", round(after_discount))
 ```
 
@@ -165,20 +180,31 @@ Sau giảm (nghìn đồng): 1872
 3. Liệt kê đủ khách đạt và đếm kết quả.
 
 ```python
+# Mục đích: Phân loại 12 khách VIP theo năm và số tiền.
+# Dữ liệu: 12 năm thành viên khớp 12 khoản chi VND theo cùng vị trí.
 years = [2,5,6,4,8,5,1,9,3,7,5,2]
 spending_vnd = [1200000,900000,1400000,2200000,1800000,1000000,700000,850000,1500000,3000000,990000,1600000]
 customers = []
+# range(1,13) sinh số thứ tự 1..12, không gồm 13.
 for i in range(1, 13):
+    # f-string :02d viết mã C01..C12 với hai chữ số.
     customer_id = f"C{i:02d}"
+    # append() thêm bộ (mã, năm, số tiền); [i-1] chuyển thứ tự 1..12 sang chỉ số 0..11.
     customers.append((customer_id, years[i - 1], spending_vnd[i - 1]))
 vip_ids = []
+# Tách từng bộ ba của một khách để đánh giá.
 for code, member_years, spending in customers:
+    # and yêu cầu đồng thời ít nhất 5 năm và chi tiêu từ 1 triệu đồng.
     if member_years >= 5 and spending >= 1000000:
+        # append() lưu mã khách đủ tiêu chí.
         vip_ids.append(code)
+# len() đếm phần tử; != phát hiện số lượng khác mức yêu cầu.
 if len(customers) != 12:
+    # raise ValueError(...) báo lỗi rồi dừng xử lý khi dữ liệu không nhất quán.
     raise ValueError("Phải có đúng 12 khách hàng.")
 print("Số khách:", len(customers))
 print("VIP:", len(vip_ids))
+# join() nối các mã VIP bằng dấu phẩy và khoảng trắng.
 print("Mã VIP:", ", ".join(vip_ids))
 ```
 
@@ -206,16 +232,25 @@ Mẫu C06 nằm **đúng cả hai ngưỡng** nên vẫn là VIP; C02 chỉ đ�
 3. Xác minh `6 × tổng thùng + món rời` bằng tổng hàng gốc.
 
 ```python
+# Mục đích: Tính thùng đầy sáu món và món lẻ của 15 SKU.
+# Dữ liệu: 15 số món tồn theo từng SKU, mỗi thùng chứa 6 món cùng SKU.
 stocks = [16,23,34,7,12,5,31,42,18,27,15,9,35,14,20]
+# Mỗi thùng có 6 món cùng SKU; phần lẻ SKU này không gộp với SKU khác.
 box_size = 6
 full_boxes = 0
 loose_items = 0
 for stock in stocks:
+    # // chia lấy phần nguyên tức số thùng đầy; += cộng vào tổng.
     full_boxes += stock // box_size
+    # % chia lấy phần dư tức món rời; += cộng vào tổng.
     loose_items += stock % box_size
+# len() đếm phần tử; != phát hiện số lượng khác mức yêu cầu.
 if len(stocks) != 15:
+    # raise ValueError(...) báo lỗi rồi dừng xử lý khi dữ liệu không nhất quán.
     raise ValueError("Phải có đúng 15 mặt hàng tồn kho.")
+# Đối chiếu (số thùng × 6 + món lẻ) với sum(stocks), tổng số món.
 if full_boxes * box_size + loose_items != sum(stocks):
+    # raise ValueError(...) báo lỗi rồi dừng xử lý khi dữ liệu không nhất quán.
     raise ValueError("Số thùng đầy và món lẻ phải khớp tổng tồn kho.")
 print("Số SKU:", len(stocks))
 print("Thùng đầy:", full_boxes)
@@ -246,23 +281,33 @@ Số dư được giữ **riêng cho từng mã hàng**. Điều kiện đối c
 3. Đếm riêng cảnh báo, gửi tín hiệu và trạng thái thiếu.
 
 ```python
+# Mục đích: Giải mã cờ nhị phân của 18 trạng thái thiết bị.
+# Dữ liệu: 18 trạng thái bitmask, None là một bản ghi thiếu.
 flags = [10,2,0,8,3,11,1,10,14,2,0,9,10,12,3,11,None,2]
 valid = []
 warning_count = 0
 sending_count = 0
 for status in flags:
+    # is None nhận diện bản ghi thiếu; số 0 là cờ hợp lệ.
     if status is None:
+        # continue bỏ lượt thiếu để không xử lý bitmask None.
         continue
+    # append() lưu trạng thái đã nhận.
     valid.append(status)
+    # 0b0010 là mặt nạ bit cảnh báo (2); & giữ bit chung, khác 0 nghĩa bật.
     if (status & 0b0010) != 0:
         warning_count += 1
+    # 0b1000 là mặt nạ bit đang gửi (8); có thể bật đồng thời hai cờ.
     if (status & 0b1000) != 0:
         sending_count += 1
+# len() đếm phần tử; != phát hiện số lượng khác mức yêu cầu.
 if len(flags) != 18:
+    # raise ValueError(...) báo lỗi rồi dừng xử lý khi dữ liệu không nhất quán.
     raise ValueError("Phải nhận đủ 18 trạng thái thiết bị.")
 print("Trạng thái hợp lệ:", len(valid))
 print("Cảnh báo:", warning_count)
 print("Đang gửi:", sending_count)
+# Tổng 18 bản ghi trừ số hợp lệ = số lượt thiếu.
 print("Thiếu:", len(flags) - len(valid))
 ```
 
@@ -291,34 +336,54 @@ Một thiết bị có thể vừa cảnh báo vừa đang gửi, nên hai tập
 3. Lọc 20 đơn, tính tổng tiền thuộc nhóm ưu tiên và kiểm tra mọi đơn chọn được đều còn hàng.
 
 ```python
+# Mục đích: Chọn, kiểm chứng và cộng giá trị đơn ưu tiên trong 20 đơn.
+# Dữ liệu: 20 đơn: số tiền VND, số ngày trễ và cờ tồn kho nằm ở 3 list cùng thứ tự.
 amount_vnd = [500000,900000,1300000,1700000,2100000,2500000,500000,900000,1300000,1700000,2100000,2500000,500000,900000,1300000,1700000,2100000,2500000,500000,900000]
 late_days = [0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4]
 in_stock = [True,True,True,False,True,True,True,True,True,True,True,False,True,True,True,True,True,False,True,True]
 orders = []
+# range(1,21) tạo 1..20, cận cuối 21 không lấy.
 for i in range(1, 21):
+    # f-string :02d định dạng O01..O20.
     order_id = f"O{i:02d}"
+    # append() thêm (mã, tiền đồng, ngày trễ, còn hàng); [i-1] chuyển thứ tự sang chỉ số list.
     orders.append((order_id, amount_vnd[i - 1], late_days[i - 1], in_stock[i - 1]))
 priority = []
 priority_ids = []
+# Tách bốn thuộc tính thuộc cùng đơn.
 for code, amount, delay, available in orders:
+    # or là giá >= 2 triệu HOẶC trễ >= 3 ngày; ngoặc nhóm hai điều kiện, and bắt buộc còn hàng.
     if (amount >= 2000000 or delay >= 3) and available:
+        # append() lưu (mã, tiền) được chọn.
         priority.append((code, amount))
+        # append() lưu mã để in và kiểm tra lại.
         priority_ids.append(code)
+# len() đếm phần tử; != phát hiện số lượng khác mức yêu cầu.
 if len(orders) != 20:
+    # raise ValueError(...) báo lỗi rồi dừng xử lý khi dữ liệu không nhất quán.
     raise ValueError("Phải có đủ 20 đơn để chọn ưu tiên.")
+# Duyệt mã ưu tiên để đối chiếu với đơn nguồn.
 for code in priority_ids:
+    # Cờ False cho biết chưa tìm thấy đơn còn hàng.
     found_available = False
+    # Vòng lặp lồng nhau kiểm tra từng đơn nguồn.
     for order_code, amount, delay, available in orders:
+        # == so sánh mã; and kiểm tra đơn còn hàng.
         if order_code == code and available:
+            # Cờ False cho biết chưa tìm thấy đơn còn hàng.
             found_available = True
+            # break dừng tìm ngay khi gặp đơn hợp lệ.
             break
+    # not đảo cờ để phát hiện không tìm thấy đơn phù hợp.
     if not found_available:
+        # raise ValueError(...) báo lỗi rồi dừng xử lý khi dữ liệu không nhất quán.
         raise ValueError("Đơn ưu tiên phải tồn tại và còn hàng.")
 print("Số đơn:", len(orders))
 print("Ưu tiên:", len(priority))
 print("Mã ưu tiên:", ", ".join(priority_ids))
 priority_value = 0
 for code, amount in priority:
+    # += cộng tiền (đồng) các đơn ưu tiên.
     priority_value += amount
 print("Giá trị ưu tiên (đồng):", priority_value)
 ```
