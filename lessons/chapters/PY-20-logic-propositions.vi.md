@@ -608,7 +608,7 @@ D. When some outcomes belong to more than one counted group | Khi một kết qu
 
 **Đáp án: D**
 
-**Giải thích:** Nhóm có giao nhau không được đếm trùng. Với hai nhóm có giao, công thức `&#124;A ∪ B&#124; = &#124;A&#124; + &#124;B&#124; − &#124;A ∩ B&#124;` trừ phần được tính hai lần.
+**Giải thích:** Nhóm có giao nhau không được đếm trùng. Với hai nhóm có giao, công thức `|A ∪ B| = |A| + |B| − |A ∩ B|` trừ phần được tính hai lần.
 
 ## 8. Nối sang bài tiếp
 

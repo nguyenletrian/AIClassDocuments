@@ -3,7 +3,7 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "READY_FOR_BATCH_04",
+  "status": "BATCH_04_IN_PROGRESS",
   "last_completed_batch": 3,
   "batches": [
     {
@@ -72,11 +72,30 @@
         "PY-19",
         "PY-20"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-20"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "fix/markdown-render-batch-04-20261025",
+      "reviewed_lessons": [
+        "PY-16",
+        "PY-17",
+        "PY-18",
+        "PY-19",
+        "PY-20"
+      ],
+      "lesson_commits": {
+        "PY-20": "17d2f491c8c2a38ef26b3f2f7e96ae048f09342c"
+      },
+      "inspection": {
+        "affected_lines": 1,
+        "encoded_pipe_entities_fixed": 8,
+        "unescaped_table_delimiters": 0
+      },
+      "notes": "Review limited to PY-16..20. PY-20 had eight literal &#124; encodings in one Set-cardinality explanation; changed exactly one line to literal bars in inline code. PY-16..19 unchanged. Await CI and merge."
     },
     {
       "batch": 5,
