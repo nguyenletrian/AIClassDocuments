@@ -3,7 +3,7 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_09_IN_PROGRESS",
+  "status": "BATCH_09_QA_PASSED_WAIT_MERGE",
   "last_completed_batch": 8,
   "batches": [
     {
@@ -234,13 +234,13 @@
         "PY-44",
         "PY-45"
       ],
-      "status": "IN_PROGRESS",
+      "status": "QA_PASSED",
       "changed_lessons": [
         "PY-42"
       ],
-      "pr": null,
+      "pr": 142,
       "merged_commit": null,
-      "ci_run": null,
+      "ci_run": 40169722619,
       "branch": "fix/markdown-render-batch-09-20261025",
       "reviewed_lessons": [
         "PY-41",
@@ -257,7 +257,7 @@
         "unescaped_table_pipes_fixed": 1,
         "html_pipe_entities_fixed": 0
       },
-      "notes": "Batch09 only PY-42 line 30 had Jaccard union pipe splitting two-column Markdown table; escaped | in inline code. PY-41,43,44,45 unchanged; CI/merge pending. Deferred explicit-code goal remains inactive."
+      "notes": "PR #142 initial CI 40169722619 PASS: one PY-42 inline-code Jaccard denominator pipe escaped in a Markdown table, PY-41/43/44/45 unchanged. Formatting regression and full curriculum tests PASS; final-head CI before merge pending. Deferred explicit Python goal not activated."
     },
     {
       "batch": 10,
