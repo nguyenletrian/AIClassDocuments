@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-progressive-46-scenarios-20261025",
-    "revision": "2026-10-25-five-lesson-sequential-batches-v1-batch05",
+    "revision": "2026-10-25-five-lesson-sequential-batches-v1-batch06",
     "title": "Nâng cấp 46 bài: 5 tình huống khó dần, 10–20 dữ liệu, chỉ 5 bài mỗi lượt",
-    "phase": "READY_FOR_BATCH_05",
+    "phase": "READY_FOR_BATCH_06",
     "source_repository": "https://github.com/nguyenletrian/PythoClass.git",
     "source_commit": "37bcd2358ed616a9130ef954913adef728a1f9b8",
     "chapter_index": "lessons/chapters/README.md",
@@ -1206,8 +1206,8 @@
     "expected_lessons": 46,
     "expected_batches": 10,
     "unverified_draft_branch": "feat/46-lessons-scenarios-progression-20261025",
-    "next_review": "PR #126 PY-16..PY-20 merged commit ed508413041ee82a8cf587148423f961f5f2528d; final GitHub CI #40158963511 PASS, ledger last_completed_batch=4. On next idle review verify fresh main, open PRs, ledger and queue/ACK. Continue only batch05 PY-21..PY-25: each five progressive scenarios with 10,12,15,18,20 meaningful records; commit individual lessons, run exact-output code checks and CI, merge then durably persist. No repeated heartbeat sends, no new ChatGPT conversation solely due to idle reminder, no historical Jetking probe. Windows PASS may be recorded only from real approved Bridge test evidence.",
-    "review_hold": "Owner-approved 46-lesson curriculum batches, previous four merged. Next batch PY-21..PY-25 after fresh repository verification. No duplicate task/ACK on informational heartbeat, no runtime restart."
+    "next_review": "Batch05 PY-21..PY-25 merged PR #127 commit 39d65470c76ed76be3a6d4f5f54c5298cca1637e, final CI 40159720749 PASS and ledger last_completed_batch=5. On next authorized idle review first verify main ledger, open PRs, queue and ACK. Work only batch06 PY-26..PY-30; 5 progressive cases/lesson using 10,12,15,18,20 meaningful rows. Commit each lesson, executable checks, one PR, merge, persist exact evidence. No historical Jetking replay, no duplicate idle heartbeat task sends; no claim of Windows PASS without explicit Bridge result.",
+    "review_hold": "Owner-approved sequential curriculum goal active, batches 01..05 MERGED. Next review may begin only batch06 PY-26..PY-30 after fresh main/queue/PR verification. Heartbeat reminder by itself does not authorize repeated work, restarting runtime, or extra conversations."
   },
   "goal_review_history": [
     {
