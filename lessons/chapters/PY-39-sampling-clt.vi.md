@@ -127,7 +127,7 @@ SE của trung bình mẫu xấp xỉ 0,707 điểm; nó không phải SD của 
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Rút năm đơn trong hai mươi đơn để kiểm kê
+### Tình huống 1 — Rút năm đơn trong hai mươi đơn để kiểm kê · Cấp 1: Lấy mẫu 5 lượt
 
 **Tình huống thực tế:** Kho có đúng 20 đơn được gắn mã 1 đến 20; người kiểm kê chỉ đủ thời gian xem 5 đơn. Cần lấy mẫu không hoàn lại, mọi mã có cơ hội như nhau.
 
@@ -155,7 +155,22 @@ print(random.Random(42).sample(ids, 5))
 
 Năm đơn được chọn không trùng nhau, nhưng kết quả không thay thế quy trình lấy mẫu thực tế của kho.
 
-### Tình huống 2 — Thử biến thiên trung bình với nguồn lệch phải
+**Bài thực hành nâng cấp — cấp 1/5:** Cửa hàng ghi **10 ngày lưu lượng khách**, mỗi giá trị là số lượt đến cửa hàng/ngày. Hãy chọn 5 ngày không lặp từ 10 dòng. Các cấp tăng số ngày từ 10 đến 20, từ một mẫu đến phân phối của trung bình mẫu và khoảng ước lượng; `NaN` không phải ngày 0 khách.
+
+```python
+import numpy as np
+# Mỗi hàng = một ngày đo lưu lượng khách, đơn vị lượt/ngày.
+values = np.array([80, 85, 90, 95, 100, 105, 110, 115, 120, 125],dtype=float)
+valid = values[np.isfinite(values)]
+rng = np.random.default_rng(2026)
+result = rng.choice(valid,size=5,replace=False).tolist()
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Tổng 10 ngày; lấy mẫu có thể thay đổi theo seed, vì thế dùng `default_rng(2026)` để kiểm tra lặp lại. Khoảng bootstrap là ước lượng, không là đảm bảo tuyệt đối.
+
+### Tình huống 2 — Thử biến thiên trung bình với nguồn lệch phải · Cấp 2: So sánh hai mean
 
 **Tình huống thực tế:** Một quá trình giả lập có thời gian chờ tuân phân phối mũ với trung bình 2 phút. Nhóm phân tích lấy 200 mẫu độc lập, mỗi mẫu gồm 40 thời gian chờ, để quan sát phân phối các mean.
 
@@ -185,7 +200,22 @@ print(round(float(means.mean()), 3), round(float(means.std(ddof=1)), 3))
 
 Các mean dao động quanh 2 phút; độ phân tán thực nghiệm giữa chúng khoảng 0,333 phút.
 
-### Tình huống 3 — Ước lượng sai số chuẩn của điểm trung bình
+**Bài thực hành nâng cấp — cấp 2/5:** Cửa hàng ghi **12 ngày lưu lượng khách**, mỗi giá trị là số lượt đến cửa hàng/ngày. Hãy so mean của 6 ngày lấy mẫu và 12 ngày gốc. Các cấp tăng số ngày từ 10 đến 20, từ một mẫu đến phân phối của trung bình mẫu và khoảng ước lượng; `NaN` không phải ngày 0 khách.
+
+```python
+import numpy as np
+# Mỗi hàng = một ngày đo lưu lượng khách, đơn vị lượt/ngày.
+values = np.array([80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135],dtype=float)
+valid = values[np.isfinite(values)]
+rng = np.random.default_rng(2026)
+result = {'sample_mean':round(float(rng.choice(valid,size=6,replace=False).mean()),2),'all_mean':round(float(valid.mean()),2)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Tổng 12 ngày; lấy mẫu có thể thay đổi theo seed, vì thế dùng `default_rng(2026)` để kiểm tra lặp lại. Khoảng bootstrap là ước lượng, không là đảm bảo tuyệt đối.
+
+### Tình huống 3 — Ước lượng sai số chuẩn của điểm trung bình · Cấp 3: Phân phối của sample mean
 
 **Tình huống thực tế:** Trung tâm có năm điểm `[6,7,8,9,10]` cùng thang điểm. Muốn báo SE cho **trung bình mẫu**, không phải độ phân tán của từng học viên.
 
@@ -213,7 +243,22 @@ print(round(float(scores.std(ddof=1) / np.sqrt(len(scores))), 3))
 
 SE ước lượng khoảng 0,707 điểm. Mẫu chỉ có năm người nên còn bất định cao.
 
-### Tình huống 4 — Xem tác động của số người đo lên SE
+**Bài thực hành nâng cấp — cấp 3/5:** Cửa hàng ghi **15 ngày lưu lượng khách**, mỗi giá trị là số lượt đến cửa hàng/ngày. Hãy lấy 200 mẫu độc lập có hoàn lại rồi so trung bình. Các cấp tăng số ngày từ 10 đến 20, từ một mẫu đến phân phối của trung bình mẫu và khoảng ước lượng; `NaN` không phải ngày 0 khách.
+
+```python
+import numpy as np
+# Mỗi hàng = một ngày đo lưu lượng khách, đơn vị lượt/ngày.
+values = np.array([80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150],dtype=float)
+valid = values[np.isfinite(values)]
+rng = np.random.default_rng(2026)
+result = {'bootstrap_means_avg':round(float(np.mean([rng.choice(valid,size=5,replace=True).mean() for _ in range(200)])),2),'all_mean':round(float(valid.mean()),2)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Tổng 15 ngày; lấy mẫu có thể thay đổi theo seed, vì thế dùng `default_rng(2026)` để kiểm tra lặp lại. Khoảng bootstrap là ước lượng, không là đảm bảo tuyệt đối.
+
+### Tình huống 4 — Xem tác động của số người đo lên SE · Cấp 4: Bootstrap khi dữ liệu thiếu
 
 **Tình huống thực tế:** Độ lệch chuẩn quần thể được giả định cố định σ=10 điểm. So hai nghiên cứu dùng n=25 và n=100 người, trong điều kiện lấy mẫu độc lập thích hợp.
 
@@ -243,7 +288,22 @@ for n in [25, 100]:
 
 Cỡ mẫu 100 cho SE 1 điểm, một nửa của SE khi n=25.
 
-### Tình huống 5 — Chọn khách từ bảng dữ liệu để khảo sát
+**Bài thực hành nâng cấp — cấp 4/5:** Cửa hàng ghi **18 ngày lưu lượng khách**, mỗi giá trị là số lượt đến cửa hàng/ngày. Hãy thực hiện bootstrap sau khi loại ngày chưa ghi. Các cấp tăng số ngày từ 10 đến 20, từ một mẫu đến phân phối của trung bình mẫu và khoảng ước lượng; `NaN` không phải ngày 0 khách.
+
+```python
+import numpy as np
+# Mỗi hàng = một ngày đo lưu lượng khách, đơn vị lượt/ngày.
+values = np.array([80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, np.nan, 160, 165],dtype=float)
+valid = values[np.isfinite(values)]
+rng = np.random.default_rng(2026)
+result = {'bootstrap_mean':round(float(np.mean([rng.choice(valid,size=len(valid),replace=True).mean() for _ in range(500)])),2),'missing':len(values)-len(valid)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Tổng 18 ngày; lấy mẫu có thể thay đổi theo seed, vì thế dùng `default_rng(2026)` để kiểm tra lặp lại. Khoảng bootstrap là ước lượng, không là đảm bảo tuyệt đối.
+
+### Tình huống 5 — Chọn khách từ bảng dữ liệu để khảo sát · Cấp 5: Khoảng tin cậy từ 1000 lần lặp
 
 **Tình huống thực tế:** Cửa hàng có bảng 10 khách, ID từ 0 tới 9. Nhóm chăm sóc khách muốn rút 3 ID không trùng từ DataFrame để mời khảo sát.
 
@@ -271,6 +331,21 @@ print(sorted(sampled['id'].tolist()))
 ```
 
 Mẫu gồm ba ID khác nhau; cố định seed làm ví dụ tái lập, không bảo đảm tính đại diện của mọi nhóm khách.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Cửa hàng ghi **20 ngày lưu lượng khách**, mỗi giá trị là số lượt đến cửa hàng/ngày. Hãy ước lượng khoảng 95% của mean bằng 1000 bootstrap mẫu. Các cấp tăng số ngày từ 10 đến 20, từ một mẫu đến phân phối của trung bình mẫu và khoảng ước lượng; `NaN` không phải ngày 0 khách.
+
+```python
+import numpy as np
+# Mỗi hàng = một ngày đo lưu lượng khách, đơn vị lượt/ngày.
+values = np.array([80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, np.nan, 160, 165, 170, np.nan],dtype=float)
+valid = values[np.isfinite(values)]
+rng = np.random.default_rng(2026)
+result = {'mean':round(float(valid.mean()),2),'CI_95':np.percentile([rng.choice(valid,size=len(valid),replace=True).mean() for _ in range(1000)],[2.5,97.5]).round(2).tolist(),'missing':len(values)-len(valid)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Tổng 20 ngày; lấy mẫu có thể thay đổi theo seed, vì thế dùng `default_rng(2026)` để kiểm tra lặp lại. Khoảng bootstrap là ước lượng, không là đảm bảo tuyệt đối.
 
 ## 6. Sai lầm thường gặp
 
