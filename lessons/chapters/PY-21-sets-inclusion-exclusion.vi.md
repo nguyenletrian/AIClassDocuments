@@ -119,148 +119,194 @@ True
 ```
 
 Hai tập đều có dữ liệu, không trùng và phủ đủ toàn bộ năm mã, nên tạo một phân hoạch hợp lệ.
-## 5. Năm vấn đề thực tế
+## 5. Năm tình huống Set — từ đếm duy nhất đến kiểm tra phân hoạch dữ liệu
 
-### Tình huống 1 — Đếm người học ít nhất một môn
+### Tình huống 1 — Cấp 1: Đếm học viên duy nhất từ 10 lượt đăng ký
 
-**Từ vựng trong mục:** **Union** — phép hợp.
+**Từ vựng trong mục:** **Set** — tập hợp; **Union** — phép hợp.
 
-**Tình huống thực tế:** Một lớp có học viên SV1, SV2, SV3 đăng ký môn Python và SV2, SV4 đăng ký AI. Đếm số học viên học ít nhất một trong hai môn.
+**Tình huống thực tế:** Trung tâm nhận **10 lượt đăng ký môn**; mỗi hàng là cặp `(mã học viên, môn)` gồm Python hoặc AI. SV01 và SV05 đăng ký cả hai môn, nên số **lượt** nhiều hơn số **người**. Cần đếm học viên có ít nhất một môn và liệt kê những người có cả hai.
 
-**Vì sao chọn cách giải này?** Phép hợp chỉ giữ mỗi mã học viên một lần, đúng yêu cầu đếm người học ít nhất một môn.
+**Vì sao chọn cách này?** Set chỉ lưu mã duy nhất; phép hợp `|` trả mọi học viên thuộc ít nhất một lớp, phép giao `&` tìm người học cả hai. Dùng `sorted` vì Set không có thứ tự hiển thị ổn định.
 
-
-**Quy trình giải:**
-
-1. Tạo Set mã người đăng ký Python và Set mã người đăng ký AI.
-2. Dùng phép hợp để loại mã xuất hiện trong cả hai nhóm.
-3. Dùng `len` đếm số học viên duy nhất.
+**Quy trình:**
+1. Ghi 10 bản ghi, mỗi bản ghi là một lượt đăng ký.
+2. Tạo tập mã học viên Python và AI.
+3. Lấy hợp/giao, đối chiếu số người và số lượt.
 
 ```python
-# Mục đích: Đếm người học ít nhất một môn.
-a = {"SV1", "SV2", "SV3"}
-b = {"SV2", "SV4"}
-print(len(a|b))
+registrations = [["SV01","Python"],["SV02","AI"],["SV03","Python"],["SV01","AI"],["SV04","AI"],["SV05","Python"],["SV06","AI"],["SV05","AI"],["SV07","Python"],["SV08","AI"]]
+python_students = {sid for sid, subject in registrations if subject == "Python"}
+ai_students = {sid for sid, subject in registrations if subject == "AI"}
+assert len(registrations) == 10
+print("Lượt đăng ký:", len(registrations))
+print("Học viên duy nhất:", len(python_students | ai_students))
+print("Học cả hai:", ", ".join(sorted(python_students & ai_students)))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-4
+Lượt đăng ký: 10
+Học viên duy nhất: 8
+Học cả hai: SV01, SV05
 ```
 
-### Tình huống 2 — Người học cả hai môn
+SV01 đăng ký hai lớp vẫn là **một người**. Đây là bài tập phép hợp/giao với dữ liệu theo hàng, không đếm trùng người.
 
-**Từ vựng trong mục:** **Intersection** — phép giao.
+### Tình huống 2 — Cấp 2: Tách người chỉ học một môn qua 12 lượt
 
-**Tình huống thực tế:** Hai nhóm học viên A gồm SV1, SV2; B gồm SV2, SV3. Tìm mã học viên có mặt ở cả hai nhóm.
+**Từ vựng trong mục:** **Difference** — hiệu tập hợp; **Symmetric difference** — hiệu đối xứng.
 
-**Vì sao chọn cách giải này?** Phép giao trả đúng thành viên có ở cả hai nhóm, không cần duyệt từng mã bằng vòng lặp.
+**Tình huống thực tế:** Quầy tư vấn nhận **12 lượt đăng ký** giữa Python và AI từ H01…H10. Những người đăng ký cả hai không cần quảng bá môn bổ sung, còn những người **chỉ học đúng một môn** cần được liên hệ. Hãy tìm riêng nhóm chỉ học Python, chỉ học AI và tổng người chỉ có một môn.
 
+**Vì sao chọn cách này?** Hiệu `Python - AI` và `AI - Python` phân biệt hai nhóm không trùng nhau. Hiệu đối xứng `^` trả tổng người chỉ thuộc đúng một Set, không chứa người đăng ký cả hai.
 
-**Quy trình giải:**
-
-1. Lưu danh sách mã của hai nhóm thành Set.
-2. Dùng phép giao `&` tìm người có mặt ở cả hai.
-3. In kết quả dưới dạng danh sách có thứ tự để dễ đối chiếu.
+**Quy trình:**
+1. Chuyển lượt đăng ký thành tập mã theo từng môn.
+2. Tính hiệu từng chiều để biết học viên cần tư vấn môn nào.
+3. Tính hiệu đối xứng, đối chiếu tổng hai nhóm.
 
 ```python
-# Mục đích: Người học cả hai môn.
-a = {"SV1", "SV2"}
-b = {"SV2", "SV3"}
-print(sorted(a & b))
+registrations = [["H01","AI"],["H02","Python"],["H03","AI"],["H04","Python"],["H05","AI"],["H01","Python"],["H06","Python"],["H07","AI"],["H08","Python"],["H09","AI"],["H07","Python"],["H10","Python"]]
+pyt = {sid for sid, sub in registrations if sub == "Python"}
+ai = {sid for sid, sub in registrations if sub == "AI"}
+only_python = sorted(pyt - ai)
+only_ai = sorted(ai - pyt)
+only_one = pyt ^ ai
+assert len(registrations) == 12
+print("Lượt:", len(registrations))
+print("Chỉ Python:", ", ".join(only_python))
+print("Chỉ AI:", ", ".join(only_ai))
+print("Chỉ một môn:", len(only_one))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-['SV2']
+Lượt: 12
+Chỉ Python: H02, H04, H06, H08, H10
+Chỉ AI: H03, H05, H09
+Chỉ một môn: 8
 ```
 
-### Tình huống 3 — Kiểm công thức đếm
+Một người có thể thuộc hai Set cùng lúc, nên không được dùng tổng kích thước hai Set để suy ra số người cần tư vấn một môn.
 
-**Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ.
+### Tình huống 3 — Cấp 3: Đối chiếu 15 lượt truy cập bằng bao hàm–loại trừ
 
-**Tình huống thực tế:** Hai nhóm mã ID {1,2,3} và {3,4} trùng mã 3. Tính tổng số mã khác nhau và đối chiếu với phép hợp.
+**Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ; **Intersection** — phần chung.
 
-**Vì sao chọn cách giải này?** Bao hàm–loại trừ trừ đi phần đã bị tính hai lần và đối chiếu được với phép hợp.
+**Tình huống thực tế:** Một dịch vụ nhận **15 lượt truy cập** từ ứng dụng (`app`) và website (`web`), mỗi hàng lưu mã khách K01…K12 và kênh. Ba khách dùng cả hai kênh. Cần đếm số người không trùng, đồng thời kiểm tra kết quả đếm bằng hai cách.
 
+**Vì sao chọn cách này?** Nếu cộng thẳng số khách của app và web, khách dùng hai kênh bị tính hai lần. Quy tắc bao hàm–loại trừ trừ phần giao, trong khi `len(app | web)` kiểm tra độc lập kết quả.
 
-**Quy trình giải:**
-
-1. Xác định số mã trong A, B và phần giao.
-2. Tính `len(a) + len(b) - len(a & b)`.
-3. So sánh với `len(a | b)` để kiểm chứng hai cách tính.
+**Quy trình:**
+1. Tạo hai Set khách hàng dựa trên 15 lượt ghi.
+2. Đếm khách riêng từng kênh và khách dùng cả hai.
+3. Tính số khách duy nhất bằng quy tắc bao hàm–loại trừ, đối chiếu phép hợp.
 
 ```python
-# Mục đích: Kiểm công thức đếm.
-a = {1, 2, 3}
-b = {3, 4}
-print(len(a)+len(b)-len(a&b), len(a|b))
+visits = [["K01","app"],["K02","web"],["K01","web"],["K03","app"],["K04","web"],["K05","app"],["K06","web"],["K07","app"],["K03","web"],["K08","app"],["K09","web"],["K10","app"],["K11","web"],["K12","app"],["K12","web"]]
+app = {sid for sid, channel in visits if channel == "app"}
+web = {sid for sid, channel in visits if channel == "web"}
+via_count = len(app) + len(web) - len(app & web)
+assert len(visits) == 15 and via_count == len(app | web)
+print("Lượt:", len(visits))
+print("Dùng app:", len(app))
+print("Dùng web:", len(web))
+print("Cả hai:", len(app & web))
+print("Khách duy nhất:", via_count)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-4 4
+Lượt: 15
+Dùng app: 7
+Dùng web: 8
+Cả hai: 3
+Khách duy nhất: 12
 ```
 
-### Tình huống 4 — Chia tập train/test
+Số khách duy nhất khác số lượt truy cập, vì mỗi người có thể truy cập hơn một lần hoặc qua hai kênh.
 
-**Từ vựng trong mục:** **Partition** — phân hoạch.
+### Tình huống 4 — Cấp 4: Rà soát phân hoạch 18 mẫu train/test bị lặp ID
 
-**Tình huống thực tế:** Đội AI dùng mã dữ liệu {1,2,3} làm tập huấn luyện, {4,5} làm tập kiểm tra. Kiểm tra hai tập có trùng ID không.
+**Từ vựng trong mục:** **Partition** — phân hoạch; **Disjoint** — không giao nhau; **Coverage** — bao phủ.
 
-**Vì sao chọn cách giải này?** Phân hoạch không chỉ cần hai nhóm không trùng mà còn phải phủ đúng toàn bộ ID nguồn.
+**Tình huống thực tế:** Đội AI có **18 mã mẫu** D01…D18. Dữ liệu phân chia nhầm `D12` vào cả train và test, đồng thời `D18` chưa nằm ở nhóm nào. Cần kiểm tra ba điều kiện của phân hoạch: không có ID trùng, các nhóm phủ toàn bộ tập nguồn và mọi ID đều thuộc nguồn; sau đó chỉ ra mã cần sửa trước khi dùng để học mô hình.
 
+**Vì sao chọn cách này?** Phân hoạch cần **vừa không giao nhau vừa bao phủ nguồn**. Chỉ kiểm tra `isdisjoint()` là chưa đủ, vì tập có thể không trùng nhưng vẫn bỏ sót mẫu.
 
-**Quy trình giải:**
-
-1. Lưu ID train, ID test và tập ID toàn bộ.
-2. Kiểm tra hai nhóm không giao nhau bằng `isdisjoint`.
-3. Kiểm tra các ID của train và test gộp lại có đúng tập gốc và không rỗng.
+**Quy trình:**
+1. Tạo tập nguồn 18 ID; lưu train/test theo quyết định hiện tại.
+2. Tìm ID trùng bằng phép giao và ID thiếu bằng hiệu nguồn với hợp.
+3. In các mã cần sửa và kiểm tra phân hoạch đạt/không đạt.
 
 ```python
-# Mục đích: Chia tập train/test.
-train = {1, 2, 3}
-test = {4, 5}
-assert train.isdisjoint(test)
-print(train.isdisjoint(test) and train | test == True)
+all_ids = ["D01","D02","D03","D04","D05","D06","D07","D08","D09","D10","D11","D12","D13","D14","D15","D16","D17","D18"]
+train = set(["D01","D02","D03","D04","D05","D06","D07","D08","D09","D10","D11","D12"])
+test = set(["D12","D13","D14","D15","D16","D17"])
+source = set(all_ids)
+overlap = sorted(train & test)
+missing = sorted(source - (train | test))
+valid_partition = train.isdisjoint(test) and (train | test) == source
+assert len(source) == 18
+print("Mẫu nguồn:", len(source))
+print("Trùng:", ", ".join(overlap))
+print("Chưa phân nhóm:", ", ".join(missing))
+print("Phân hoạch đúng:", valid_partition)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-{1, 2, 3, 4, 5}
+Mẫu nguồn: 18
+Trùng: D12
+Chưa phân nhóm: D18
+Phân hoạch đúng: False
 ```
 
-### Tình huống 5 — Tìm sở thích riêng
+Chỉ khi hai điều kiện cùng đúng mới sử dụng train/test: một mẫu trùng có thể làm sai đánh giá, và mẫu bỏ sót làm phân chia chưa đầy đủ.
 
-**Từ vựng trong mục:** **Union** — phép hợp.
+### Tình huống 5 — Cấp 5: Kiểm kê 20 hồ sơ đa vùng, cảnh báo ID xuất hiện chéo
 
-**Tình huống thực tế:** Nhóm học Web gồm An, Bình; nhóm học AI gồm Bình, Lan. Tìm học viên chỉ tham gia đúng một trong hai nhóm.
+**Từ vựng trong mục:** **Disjoint sets** — tập rời nhau; **Union** — phép hợp; **Data integrity** — toàn vẹn dữ liệu.
 
-**Vì sao chọn cách giải này?** Hiệu đối xứng trả thành viên chỉ nằm ở một trong hai nhóm; người có mặt cả hai bị loại.
+**Tình huống thực tế:** Hệ thống có **20 dòng ghi nhận học viên** ở ba vùng Bắc/Nam/Trung; mỗi dòng gồm mã học viên, vùng, kênh đăng ký và điểm hoạt động (đơn vị điểm). Hai mã S04 và S07 bị ghi thêm ở vùng khác, nên **20 dòng không tương đương 20 người** và các nhóm vùng không còn là phân hoạch người. Cần phát hiện người xuất hiện nhiều vùng, số người duy nhất và số dòng trùng mã; không tự xóa hồ sơ vì còn phải xác nhận vùng đúng.
 
+**Vì sao chọn cách này?** Set theo vùng gom ID không lặp trong một vùng, sau đó `union` đếm người duy nhất. Duyệt thành viên của hợp để xác định một ID thuộc hơn một vùng; việc xóa tự động có nguy cơ chọn sai vùng.
 
-**Quy trình giải:**
-
-1. Lưu danh sách học viên của lớp Web và lớp AI thành hai Set.
-2. Lấy hiệu đối xứng `web ^ ai` để bỏ người tham gia cả hai.
-3. Sắp xếp và in những người chỉ ở một lớp.
+**Quy trình:**
+1. Ghi 20 dòng đầy đủ ID/vùng/kênh/điểm và tạo Set cho từng vùng.
+2. Lấy hợp ba vùng để đếm ID duy nhất, kiểm tra giao từng cặp.
+3. Liệt kê ID đa vùng và số dòng dư do trùng ID; giữ lại dữ liệu thô để sửa.
 
 ```python
-# Mục đích: Tìm sở thích riêng.
-web = {"An", "Binh"}
-ai = {"Binh", "Lan"}
-print(sorted(web ^ ai))
+records = [{"id":"S01","region":"Bắc","channel":"app","score":10},{"id":"S02","region":"Nam","channel":"web","score":11},{"id":"S03","region":"Trung","channel":"app","score":12},{"id":"S04","region":"Bắc","channel":"web","score":13},{"id":"S05","region":"Nam","channel":"app","score":14},{"id":"S06","region":"Trung","channel":"web","score":15},{"id":"S07","region":"Bắc","channel":"app","score":16},{"id":"S08","region":"Nam","channel":"web","score":17},{"id":"S09","region":"Trung","channel":"app","score":18},{"id":"S10","region":"Bắc","channel":"web","score":19},{"id":"S11","region":"Nam","channel":"app","score":20},{"id":"S12","region":"Trung","channel":"web","score":21},{"id":"S13","region":"Bắc","channel":"app","score":22},{"id":"S14","region":"Nam","channel":"web","score":23},{"id":"S15","region":"Trung","channel":"app","score":24},{"id":"S04","region":"Bắc","channel":"web","score":25},{"id":"S17","region":"Nam","channel":"app","score":26},{"id":"S18","region":"Trung","channel":"web","score":27},{"id":"S07","region":"Bắc","channel":"app","score":28},{"id":"S20","region":"Nam","channel":"web","score":29}]
+regions = {name: set() for name in ("Bắc", "Nam", "Trung")}
+for row in records:
+    regions[row["region"]].add(row["id"])
+all_people = set().union(*regions.values())
+multiple_regions = sorted(sid for sid in all_people
+                          if sum(sid in members for members in regions.values()) > 1)
+assert len(records) == 20
+print("Dòng nhận:", len(records))
+print("Người duy nhất:", len(all_people))
+print("Dòng dư do trùng ID:", len(records) - len(all_people))
+print("Đa vùng:", ", ".join(multiple_regions))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-['An', 'Lan']
+Dòng nhận: 20
+Người duy nhất: 18
+Dòng dư do trùng ID: 2
+Đa vùng: 
 ```
+
+Người học phải phân biệt **dòng**, **ID duy nhất**, **ID trùng xuyên vùng**; đây là các câu hỏi khác nhau và cần kiểm tra cả ba trước khi báo cáo.
 
 ## 6. Sai lầm thường gặp
 
