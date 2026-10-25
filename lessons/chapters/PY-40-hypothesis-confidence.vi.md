@@ -40,8 +40,11 @@
 **H₀** là phát biểu gốc để đối chiếu dữ liệu, thường là “trung bình μ=50 điểm”, còn H₁ có thể là “μ khác 50 điểm”. Không biết trước giả thuyết nào đúng; ta xem dữ liệu mẫu có **quá bất thường nếu H₀ đúng** hay không. H₀ là một phát biểu về quần thể, không phải câu hỏi liệu mean của bảy điểm đo có đúng bằng 50. Ví dụ in cặp giả thuyết rõ ràng trước khi tính.
 
 ```python
-# Mục đích: Giả thuyết gốc cần kiểm định.
+# Mục đích: Viết giả thuyết H0 và H1 của phép kiểm định trung bình tổng thể bằng 50.
+# Dữ liệu: H0: mean quần thể =50; H1: mean khác 50 (kiểm định hai phía), chưa có dữ liệu hay p-value.
+# H0 là giả thuyết gốc về trung bình TỔNG THỂ, không phải mean mẫu đã quan sát.
 print('H0: population mean = 50')
+# H1 đặt trung bình khác 50 theo cả hai chiều, nên là kiểm định hai phía; print chỉ mô tả, chưa chạy phép kiểm thống kê.
 print('H1: population mean != 50')
 ```
 
@@ -61,11 +64,17 @@ Hai phát biểu về trung bình quần thể khác với giá trị trung bìn
 **p-value** là xác suất (nếu H₀ đúng và mô hình kiểm định phù hợp) thấy một thống kê kiểm định **ít nhất cực đoan như đã quan sát**. Nó **không** phải xác suất H₀ đúng hoặc xác suất kết quả do ngẫu nhiên. Ví dụ bảy điểm `[48,52,55,49,51,47,53]`, kiểm định hai phía so μ=50 bằng t-test cho p≈0.5347. Với α=0.05, chưa đủ bằng chứng để bác bỏ H₀; không có nghĩa chứng minh μ=50.
 
 ```python
-# Mục đích: Độ bất thường dưới giả định H₀.
+# Mục đích: Tính p-value của kiểm định t một mẫu so với trung bình giả thuyết 50.
+# Dữ liệu: 7 điểm học viên, H0 trung bình tổng thể bằng 50; không mặc định p-value là xác suất H0 đúng.
+# ttest_1samp() dùng kiểm định t một mẫu khi so mean mẫu với mean giả thuyết.
 from scipy.stats import ttest_1samp
 
+# Bảy số điểm, mỗi số một học viên; giả định dữ liệu đủ phù hợp với kiểm định t.
 scores = [48, 52, 55, 49, 51, 47, 53]
+# popmean=50 là trung bình theo H0; mặc định alternative='two-sided' kiểm hai phía, trả đối tượng kết quả có statistic và pvalue.
+# pvalue là mức xác suất thấy dữ liệu/kiểm định cực đoan ít nhất như hiện có NẾU H0 đúng, không phải P(H0 đúng|dữ liệu).
 p = ttest_1samp(scores, popmean=50).pvalue
+# float() chuyển scalar sang số Python, round(...,4) chỉ làm tròn p-value khi in.
 print(round(float(p), 4))
 ```
 
@@ -84,11 +93,17 @@ p≈0,5347 lớn hơn 0,05; chưa đủ bằng chứng bác bỏ H₀ với ki�
 **T-test một mẫu** xét liệu trung bình của quần thể có thể khác một mốc μ₀ khi chưa biết phương sai quần thể. Thống kê t bằng `(mean_mẫu−μ₀)/SE`, với `SE=s/√n` và `s` là độ lệch chuẩn mẫu. Nếu mẫu `[8,9,10,11,12]` và μ₀=10, mean bằng mốc nên t=0 và p hai phía=1. Cần xét tính độc lập và mức phù hợp của phân phối/độ nhạy với ngoại lệ, nhất là mẫu nhỏ.
 
 ```python
-# Mục đích: So trung bình mẫu với mốc cho trước.
+# Mục đích: Đọc thống kê t của kiểm định một mẫu với trung bình giả thuyết 10.
+# Dữ liệu: Năm giá trị [8,9,10,11,12], H0 trung bình tổng thể =10.
+# SciPy trả kết quả kiểm định gồm statistic (t) và pvalue.
 from scipy.stats import ttest_1samp
 
+# Năm quan sát quanh mốc 10, mean mẫu cũng bằng 10.
 values = [8, 9, 10, 11, 12]
+# So mean mẫu với 10 qua t-statistic dùng độ lệch chuẩn mẫu và căn n; mặc định kiểm hai phía.
 result = ttest_1samp(values, popmean=10)
+# statistic là giá trị t đo chênh lệch đã chuẩn hóa, KHÔNG phải p-value.
+# Chuyển giá trị t sang float Python rồi hiển thị ba chữ số thập phân.
 print(round(float(result.statistic), 3))
 ```
 
@@ -107,12 +122,18 @@ Vì mean mẫu đúng bằng 10, thống kê kiểm định t=0.
 **Khoảng tin cậy 95%** là khoảng được tạo bởi **một quy trình** sao cho trong các lần lấy mẫu lặp phù hợp, khoảng 95% các khoảng chứa tham số thật. Với một khoảng **đã tính**, μ thật là cố định; không diễn giải “xác suất 95% μ ở trong khoảng này” theo nghĩa tần suất. Ví dụ năm thời gian giao `[2,3,3,4,2]` ngày cho mean=2,8 và CI t 95% xấp xỉ `[1.761,3.839]` ngày. Mẫu nhỏ nên khoảng rộng và dựa vào giả định dữ liệu độc lập, phân phối phù hợp.
 
 ```python
-# Mục đích: Khoảng tạo bởi quy trình suy luận.
+# Mục đích: Xây khoảng tin cậy 95% cho mean của năm ngày bằng phân phối t.
+# Dữ liệu: Năm thời lượng ngày [2,3,3,4,2], không biết độ lệch chuẩn tổng thể, dùng t với df=n−1.
+# NumPy tạo ndarray và làm tròn hai mốc khoảng.
 import numpy as np
+# t là phân phối Student t, sem() ước lượng sai số chuẩn của trung bình mẫu.
 from scipy.stats import t, sem
 
+# Năm số ngày float, mỗi phần tử một quan sát.
 days = np.array([2.0, 3.0, 3.0, 4.0, 2.0])
+# interval(confidence,df,loc,scale) tìm hai cận của khoảng 95%; df=n−1=4; loc=mean mẫu; scale=sem(days) là sai số chuẩn SD_mẫu/√n, không phải SD dữ liệu.
 ci = t.interval(0.95, df=len(days) - 1, loc=days.mean(), scale=sem(days))
+# np.round(...,3) làm tròn hai cận để in; tolist() chuyển tuple/ndarray kết quả thành list Python; khoảng là đặc tính quy trình lấy mẫu, không phải xác suất mean cố định nằm trong một khoảng đã cho.
 print(np.round(ci, 3).tolist())
 ```
 
@@ -140,14 +161,28 @@ Khoảng ước lượng mean theo t từ khoảng 1,761 đến 3,839 ngày; đ�
 3. So p với α=0,05 và phát biểu 'không bác bỏ' hoặc 'bác bỏ', không gọi là chứng minh H₀.
 
 ```python
+# Mục đích: So p-value kiểm định t của 10 điểm với ngưỡng ý nghĩa alpha=0.05.
+# Dữ liệu: 10 điểm học viên quanh 50, giả thuyết trung bình tổng thể=50, kiểm hai phía.
+# Kiểm định t một mẫu của SciPy trả statistic và pvalue.
 from scipy.stats import ttest_1samp
+# 10 điểm học viên, mỗi số một quan sát.
 scores = [48,49,50,51,52,48,49,50,51,52]
+# popmean=50 là mốc H0; mặc định hai phía, yêu cầu diễn giải dựa giả định phép t-test.
 result = ttest_1samp(scores, popmean=50)
+# len() đếm 10 quan sát trước khi kiểm định.
 if len(scores) != 10:
+    # ValueError ngừng xử lý nếu số người khác 10.
     raise ValueError("Cần đúng 10 điểm học viên.")
+# len() đếm 10 quan sát trước khi kiểm định.
 print("Học viên:", len(scores))
+# len() đếm 10 quan sát trước khi kiểm định.
+# Tổng điểm chia số học viên tính mean MẪU, khác mean=50 của H0.
 print(f"Mean (điểm): {sum(scores)/len(scores):.2f}")
+# pvalue biểu thị mức bất thường dưới H0, không phải xác suất H0 sai hay đúng.
 print(f"p-value: {result.pvalue:.4f}")
+# pvalue biểu thị mức bất thường dưới H0, không phải xác suất H0 sai hay đúng.
+# So p với ngưỡng alpha=5%; True nghĩa bác bỏ H0 theo quy tắc đặt trước, False nghĩa chưa đủ bằng chứng bác bỏ (không chứng minh H0 đúng).
+# bool() ép kết luận thành Boolean Python để print().
 print("Bác bỏ H0 ở 0.05:", bool(result.pvalue < 0.05))
 ```
 
@@ -176,16 +211,31 @@ p-value lớn không chứng minh mean quần thể **chính xác** 50; chỉ l�
 3. In hai đầu khoảng và ý nghĩa cho trung bình.
 
 ```python
+# Mục đích: Tính SE và CI 95% của thời gian giao trên 12 chuyến, dùng df=11.
+# Dữ liệu: 12 số ngày giao (2.7..3.3), giả định quan sát độc lập và mean tổng thể chưa biết.
+# NumPy array/mean() giữ thời gian kiểu số thực.
 import numpy as np
+# sem() cho SE của mean, t.interval() dùng Student t để dựng CI.
 from scipy.stats import t, sem
+# 12 ngày giao tính theo ngày, dtype=float để giữ số thập phân.
 values = np.array([2.8,3,2.9,3.1,3.2,2.7,3,2.8,3.1,2.9,3,3.3], dtype=float)
+# sem(values) mặc định ddof=1 (SD mẫu), rồi chia √n để ước lượng sai số chuẩn của mean.
 se = sem(values)
+# Khoảng hai phía mức tin cậy 95%; df=11; loc=mean ngày; scale=SE ngày, không phải độ lệch chuẩn các chuyến.
+# len() đếm 12 chuyến, df lấy n−1.
+# Mean thời gian của 12 chuyến, đơn vị ngày.
 ci = t.interval(0.95, df=len(values)-1, loc=values.mean(), scale=se)
+# len() đếm 12 chuyến, df lấy n−1.
 if len(values) != 12:
+    # Dừng khi số chuyến không bằng 12.
     raise ValueError("Cần 12 lượt đo thời gian giao.")
+# len() đếm 12 chuyến, df lấy n−1.
 print("Chuyến:", len(values))
+# Mean thời gian của 12 chuyến, đơn vị ngày.
 print(f"Mean (ngày): {values.mean():.3f}")
+# f-string :.3f hiển thị sai số chuẩn ba chữ số thập phân (ngày).
 print(f"SE (ngày): {se:.3f}")
+# [0] là cận dưới của tuple CI, [1] là cận trên; :.3f định dạng khi in.
 print(f"CI 95% (ngày): {ci[0]:.3f} – {ci[1]:.3f}")
 ```
 
@@ -214,17 +264,31 @@ CI 95% (ngày): 2.872 – 3.094
 3. In mean và p của hai cách tính, báo lại số mẫu.
 
 ```python
+# Mục đích: So tác động một điểm ngoại lệ lên kiểm định t khi xét 15 điểm rồi tạm bỏ điểm cuối.
+# Dữ liệu: 15 học viên, điểm cuối 70 cao bất thường; nhóm 14 là thử độ nhạy, không được xóa dữ liệu gốc.
+# NumPy tạo mảng và tính mean mẫu.
 import numpy as np
+# SciPy tính t-test một mẫu so với mốc H0.
 from scipy.stats import ttest_1samp
+# 15 điểm, trong đó điểm cuối 70 là giá trị ngoại lệ có thể ảnh hưởng cả mean và SD.
 scores = np.array([49,50,50,51,49,50,51,50,49,50,51,50,50,49,70], dtype=float)
+# Dùng popmean=50 theo vị trí thứ hai của hàm; mặc định alternative='two-sided'.
 full = ttest_1samp(scores, 50)
+# Slice [:-1] bỏ CHỈ phần tử cuối trong một view tạm gồm 14 điểm, mảng scores gốc vẫn có 15 điểm.
 without_last = ttest_1samp(scores[:-1], 50)
+# len() kiểm bảng gốc vẫn 15 học viên để không nhầm bản thử 14 là dữ liệu mới.
 if len(scores) != 15:
+    # Báo lỗi nếu thiếu dữ liệu ngoại lệ/không đủ học viên.
     raise ValueError("Cần 15 học viên khi so tác động ngoại lệ.")
+# len() kiểm bảng gốc vẫn 15 học viên để không nhầm bản thử 14 là dữ liệu mới.
 print("Học viên:", len(scores))
+# Mean của toàn bộ 15 điểm, có thể bị điểm 70 kéo lên.
 print(f"Mean đủ 15: {scores.mean():.3f}")
+# p-value hai phía của toàn bộ 15 điểm; việc ngoại lệ thay mean và phương sai có thể thay p không theo chiều đơn giản.
 print(f"p đủ 15: {full.pvalue:.3f}")
+# p-value của 14 điểm khi tạm loại giá trị cuối để minh họa độ nhạy; không tự động hợp thức hóa việc loại dữ liệu.
 print(f"p khi tạm xem 14: {without_last.pvalue:.3f}")
+# len() kiểm bảng gốc vẫn 15 học viên để không nhầm bản thử 14 là dữ liệu mới.
 print("Vẫn giữ bản gốc:", len(scores) == 15)
 ```
 
@@ -254,14 +318,27 @@ Cùng bộ dữ liệu nhưng lựa chọn quan sát đem vào kiểm định c�
 3. Báo quyết định ở từng ngưỡng và nhắc đây là bằng chứng, không phải xác suất H₀ đúng.
 
 ```python
+# Mục đích: So cùng một p-value ở alpha=0.05 và alpha=0.01 để thấy ngưỡng quyết định khác nhau.
+# Dữ liệu: 18 điểm học viên, H0 mean=50, alpha 5% và 1% do người nghiên cứu quyết định trước.
+# ttest_1samp tính p-value hai phía so mean mẫu với mốc 50.
 from scipy.stats import ttest_1samp
+# 18 điểm cùng thang, mỗi số một học viên.
 scores = [48,50,51,52,53,51,50,49,52,53,51,50,52,49,51,52,50,53]
+# popmean=50 là giá trị H0, mặc định kiểm hai phía.
+# Lấy pvalue từ kết quả t-test, không phải posterior của H0.
+# float() đổi scalar p-value sang số Python.
 p = float(ttest_1samp(scores, popmean=50).pvalue)
+# len() xác minh 18 điểm trước khi kết luận.
 if len(scores) != 18:
+    # Dừng nếu thiếu số mẫu theo yêu cầu.
     raise ValueError("Cần 18 điểm học viên khi so mức ý nghĩa.")
+# len() xác minh 18 điểm trước khi kết luận.
 print("Học viên:", len(scores))
+# p-value hiển thị 4 số thập phân, quyết định dùng giá trị p gốc không làm tròn.
 print(f"p-value: {p:.4f}")
+# Với alpha=0.05: bác bỏ H0 nếu p nhỏ hơn 0.05; ngưỡng cao hơn dễ bác bỏ hơn.
 print("Bác bỏ H0 ở 0.05:", p < 0.05)
+# Với alpha=0.01: cần bằng chứng mạnh hơn (p nhỏ hơn 0.01); dùng CÙNG p, không chạy kiểm định khác.
 print("Bác bỏ H0 ở 0.01:", p < 0.01)
 ```
 
@@ -290,24 +367,43 @@ Chưa bác bỏ ở α=0,01 **không đồng nghĩa** chứng minh H₀ đúng; 
 3. Tạo khoảng t Welch 95% cho B–A, báo chênh lệch, p và hai đầu khoảng.
 
 ```python
+# Mục đích: Dùng Welch t-test so mean hai nhóm 10 người và tính khoảng tin cậy cho chênh lệch B-A.
+# Dữ liệu: Nhóm A/B mỗi nhóm 10 điểm; quan tâm chênh lệch trung bình điểm B trừ A, không giả định hai nhóm có cùng phương sai.
+# NumPy tính mean, var, sqrt và số mẫu cho hai nhóm.
 import numpy as np
+# ttest_ind() so hai nhóm độc lập, t.interval() xây CI từ trung bình, SE và bậc tự do.
 from scipy.stats import ttest_ind, t
+# 10 điểm nhóm A, dtype=float giữ số liệu số thực.
 A = np.array([45,47,46,49,48,47,46,50,49,48], dtype=float)
+# 10 điểm nhóm B, cùng thang với A; giả định hai nhóm độc lập.
 B = np.array([50,52,51,54,53,52,51,55,54,53], dtype=float)
+# Welch t-test: equal_var=False KHÔNG áp giả định phương sai hai nhóm bằng nhau; B trước A để chênh theo chiều B−A; mặc định kiểm hai phía.
 result = ttest_ind(B, A, equal_var=False)
+# ddof=1 lấy phương sai mẫu (chia nA−1); chia tiếp số người nA tạo phần đóng góp vào phương sai của hiệu mean.
 va = A.var(ddof=1)/len(A)
+# Phương sai mẫu B /nB là phần đóng góp riêng, không trộn hai nhóm bằng một phương sai chung.
 vb = B.var(ddof=1)/len(B)
+# sqrt(va+vb) là standard error của hiệu trung bình hai nhóm ĐỘC LẬP.
 se = np.sqrt(va + vb)
+# Công thức Welch–Satterthwaite cho bậc tự do hiệu dụng, có thể không nguyên; khác nA+nB−2 khi giả phương sai bằng nhau.
 df = (va+vb)**2/(va**2/(len(A)-1)+vb**2/(len(B)-1))
+# difference tính điểm trung bình nhóm B trừ A, dấu dương nghĩa B cao hơn A.
 difference = B.mean()-A.mean()
+# CI hai phía 95% dùng Student t, df Welch, loc=ước lượng B−A, scale=SE của chênh lệch, đơn vị điểm.
 ci = t.interval(0.95, df=df, loc=difference, scale=se)
+# Xác minh có 20 học viên ở hai nhóm, mỗi người chỉ thuộc một nhóm theo giả định.
 if len(A) + len(B) != 20:
+    # Báo thiếu số mẫu để tránh so hai nhóm không đúng kích thước.
     raise ValueError("Cần đủ 20 học viên chia hai nhóm.")
 print("Học viên:", len(A)+len(B))
 print("Nhóm A/B:", len(A), len(B))
 print(f"Chênh lệch B-A (điểm): {difference:.2f}")
+# p-value Welch kiểm H0 hai nhóm có mean bằng nhau, không phải xác suất H0 đúng.
 print(f"p-value: {result.pvalue:.6f}")
+# [0] và [1] là cận dưới/trên CI, in ba chữ số thập phân.
 print(f"CI 95% (điểm): {ci[0]:.3f} – {ci[1]:.3f}")
+# [0] và [1] là cận dưới/trên CI, in ba chữ số thập phân.
+# Kiểm số 0 (không chênh lệch) nằm trong khoảng; not đảo để báo CI không chứa 0, tương ứng bác bỏ ở mức 0.05 cho kiểm hai phía theo giả định chuẩn.
 print("CI không chứa 0:", not (ci[0] <= 0 <= ci[1]))
 ```
 
