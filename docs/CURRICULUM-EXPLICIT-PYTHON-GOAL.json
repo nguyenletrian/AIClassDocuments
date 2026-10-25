@@ -2,7 +2,7 @@
   "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
   "title": "Chuyển ví dụ Python sang cú pháp tường minh cho học viên mới",
   "approval": "owner_approved",
-  "status": "APPROVED_DEFERRED",
+  "status": "ACTIVE",
   "activation_condition": {
     "goal_id": "aiclassdocuments-markdown-render-46-lessons-20261025",
     "progress_ledger": "docs/CURRICULUM-MARKDOWN-RENDER-PROGRESS.json",
@@ -39,5 +39,11 @@
   },
   "reason": "User specifically requested new goal but ONLY AFTER existing Markdown formatting goal is fully completed; do not start now, do not change lessons outside active batch, do not activate duplicate tasks from idle heartbeats.",
   "created_on": "2026-10-25",
-  "progress": "NOT_STARTED"
+  "progress": "READY_FOR_BATCH_01",
+  "activated_after": {
+    "markdown_ledger": "COMPLETED",
+    "markdown_batches_merged": 10,
+    "open_prs": 0,
+    "pending_tasks": 0
+  }
 }
