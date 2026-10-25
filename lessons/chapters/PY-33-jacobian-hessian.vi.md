@@ -130,7 +130,7 @@ Một trị riêng âm, một dương nên Hessian bất định; (0,0) là đi�
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Độ nhạy của hai đầu ra cảm biến
+### Tình huống 1 — Độ nhạy của hai đầu ra cảm biến · Cấp 1: Jacobian của hai đầu ra
 
 **Tình huống thực tế:** Hai chỉ số đầu ra của mô hình cảm biến là `F1=x+y`, `F2=xy`; x và y là hai đầu vào đã được chuẩn hóa cùng thang. Tại x=3,y=2, cần biết mỗi đầu ra nhạy ra sao khi một đầu vào thay đổi nhỏ.
 
@@ -160,7 +160,29 @@ print(J.subs({x: 3, y: 2}).tolist())
 
 Đầu ra F2 nhạy 2 theo x và 3 theo y tại điểm xét, khác F1 luôn nhạy 1 theo mỗi biến.
 
-### Tình huống 2 — Độ cong của loss hai tham số
+**Bài thực hành nâng cấp — cấp 1/5:** Một hệ có **10 trạng thái đo** hai đầu vào a, b; mỗi hàng là một trạng thái, đầu ra là hai đại lượng tính từ chúng. Hãy tính Jacobian tại một quan sát cụ thể. Độ khó tăng từ đạo hàm riêng tại một điểm lên kiểm tra độ cong, cực trị và Jacobian hàng loạt; cấp 4–5 bỏ trạng thái có `NaN` khỏi phép tính.
+
+```python
+import numpy as np
+import sympy as sp
+# Mỗi hàng = 1 trạng thái hệ, a = áp suất (đơn vị mẫu), b = nhiệt (đơn vị mẫu).
+xs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+ys = [20+(i*3)%11 for i in range(10)]
+raw = np.column_stack((xs,ys)).astype(float)
+clean = raw[np.isfinite(raw).all(axis=1)]
+a,b = sp.symbols('a b')
+outputs = sp.Matrix([a*a+b,a*b])
+jac = outputs.jacobian([a,b])
+loss = (a-3)**2+2*(b-5)**2
+hess = sp.hessian(loss,(a,b))
+result = np.asarray(jac.subs({a:clean[0,0],b:clean[0,1]}),dtype=float).round(3).tolist()
+print("Số phép đo:",len(raw))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ma trận Jacobian của hai đầu ra/hai đầu vào có shape (2,2); khi xử lý tập dữ liệu, mỗi trạng thái hợp lệ tạo thêm một ma trận riêng.
+
+### Tình huống 2 — Độ cong của loss hai tham số · Cấp 2: Hessian của loss
 
 **Tình huống thực tế:** Loss mô hình là `L=x²+2y²` với x,y không đơn vị; đội phát triển muốn so độ cong hai hướng thay đổi tham số để chọn cách tối ưu.
 
@@ -189,7 +211,29 @@ print(sp.hessian(loss, [x, y]).tolist())
 
 Mức cong theo y bằng 4, lớn hơn mức cong theo x bằng 2.
 
-### Tình huống 3 — Tìm bộ tham số làm loss nhỏ nhất
+**Bài thực hành nâng cấp — cấp 2/5:** Một hệ có **12 trạng thái đo** hai đầu vào a, b; mỗi hàng là một trạng thái, đầu ra là hai đại lượng tính từ chúng. Hãy tính Hessian của hàm loss hai tham số. Độ khó tăng từ đạo hàm riêng tại một điểm lên kiểm tra độ cong, cực trị và Jacobian hàng loạt; cấp 4–5 bỏ trạng thái có `NaN` khỏi phép tính.
+
+```python
+import numpy as np
+import sympy as sp
+# Mỗi hàng = 1 trạng thái hệ, a = áp suất (đơn vị mẫu), b = nhiệt (đơn vị mẫu).
+xs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+ys = [20+(i*3)%11 for i in range(12)]
+raw = np.column_stack((xs,ys)).astype(float)
+clean = raw[np.isfinite(raw).all(axis=1)]
+a,b = sp.symbols('a b')
+outputs = sp.Matrix([a*a+b,a*b])
+jac = outputs.jacobian([a,b])
+loss = (a-3)**2+2*(b-5)**2
+hess = sp.hessian(loss,(a,b))
+result = {'hessian':np.asarray(hess,dtype=float).tolist(),'rows':len(clean)}
+print("Số phép đo:",len(raw))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ma trận Jacobian của hai đầu ra/hai đầu vào có shape (2,2); khi xử lý tập dữ liệu, mỗi trạng thái hợp lệ tạo thêm một ma trận riêng.
+
+### Tình huống 3 — Tìm bộ tham số làm loss nhỏ nhất · Cấp 3: Tìm điểm cực tiểu
 
 **Tình huống thực tế:** Một mô hình có hàm loss `L=(x−3)²+(y−2)²`. Cần tìm hai tham số tại đó loss không còn giảm theo đạo hàm riêng bậc nhất.
 
@@ -219,7 +263,29 @@ print(solution[x], solution[y])
 
 Điểm (3,2) là cực tiểu toàn cục của tổng hai bình phương không âm.
 
-### Tình huống 4 — Phân biệt điểm yên ngựa với cực tiểu
+**Bài thực hành nâng cấp — cấp 3/5:** Một hệ có **15 trạng thái đo** hai đầu vào a, b; mỗi hàng là một trạng thái, đầu ra là hai đại lượng tính từ chúng. Hãy tìm điểm gradient bằng 0 và xác nhận Hessian dương. Độ khó tăng từ đạo hàm riêng tại một điểm lên kiểm tra độ cong, cực trị và Jacobian hàng loạt; cấp 4–5 bỏ trạng thái có `NaN` khỏi phép tính.
+
+```python
+import numpy as np
+import sympy as sp
+# Mỗi hàng = 1 trạng thái hệ, a = áp suất (đơn vị mẫu), b = nhiệt (đơn vị mẫu).
+xs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+ys = [20+(i*3)%11 for i in range(15)]
+raw = np.column_stack((xs,ys)).astype(float)
+clean = raw[np.isfinite(raw).all(axis=1)]
+a,b = sp.symbols('a b')
+outputs = sp.Matrix([a*a+b,a*b])
+jac = outputs.jacobian([a,b])
+loss = (a-3)**2+2*(b-5)**2
+hess = sp.hessian(loss,(a,b))
+result = {'critical':sp.solve([sp.diff(loss,a),sp.diff(loss,b)],[a,b]),'hessian_eig':np.linalg.eigvalsh(np.asarray(hess,dtype=float)).tolist()}
+print("Số phép đo:",len(raw))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ma trận Jacobian của hai đầu ra/hai đầu vào có shape (2,2); khi xử lý tập dữ liệu, mỗi trạng thái hợp lệ tạo thêm một ma trận riêng.
+
+### Tình huống 4 — Phân biệt điểm yên ngựa với cực tiểu · Cấp 4: Phát hiện điểm yên ngựa
 
 **Tình huống thực tế:** Loss thử nghiệm `L=x²−y²` có điểm dừng tại (0,0). Tuy nhiên theo trục x hàm tăng, theo trục y hàm giảm; nhóm kỹ thuật cần biết có phải cực tiểu không.
 
@@ -248,7 +314,29 @@ True
 
 Hessian bất định; điểm dừng này là yên ngựa, không phải cực tiểu.
 
-### Tình huống 5 — Kiểm tra kích thước Jacobian
+**Bài thực hành nâng cấp — cấp 4/5:** Một hệ có **18 trạng thái đo** hai đầu vào a, b; mỗi hàng là một trạng thái, đầu ra là hai đại lượng tính từ chúng. Hãy so eigenvalue Hessian của điểm yên ngựa. Độ khó tăng từ đạo hàm riêng tại một điểm lên kiểm tra độ cong, cực trị và Jacobian hàng loạt; cấp 4–5 bỏ trạng thái có `NaN` khỏi phép tính.
+
+```python
+import numpy as np
+import sympy as sp
+# Mỗi hàng = 1 trạng thái hệ, a = áp suất (đơn vị mẫu), b = nhiệt (đơn vị mẫu).
+xs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, np.nan, 17, 18]
+ys = [20+(i*3)%11 for i in range(18)]
+raw = np.column_stack((xs,ys)).astype(float)
+clean = raw[np.isfinite(raw).all(axis=1)]
+a,b = sp.symbols('a b')
+outputs = sp.Matrix([a*a+b,a*b])
+jac = outputs.jacobian([a,b])
+loss = (a-3)**2+2*(b-5)**2
+hess = sp.hessian(loss,(a,b))
+result = {'saddle_eig':np.linalg.eigvalsh(np.asarray(sp.hessian(a*a-b*b,(a,b)),dtype=float)).tolist(),'missing':len(raw)-len(clean)}
+print("Số phép đo:",len(raw))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ma trận Jacobian của hai đầu ra/hai đầu vào có shape (2,2); khi xử lý tập dữ liệu, mỗi trạng thái hợp lệ tạo thêm một ma trận riêng.
+
+### Tình huống 5 — Kiểm tra kích thước Jacobian · Cấp 5: Đánh giá 20 Jacobian và dữ liệu khuyết
 
 **Tình huống thực tế:** Mô hình có ba đầu vào x,y,z và hai đầu ra `F1=x+y+z`, `F2=x*y`. Cần biết ma trận độ nhạy của mô hình có bao nhiêu hàng và cột.
 
@@ -276,6 +364,28 @@ print(F.jacobian([x, y, z]).shape)
 ```
 
 Jacobian có hai hàng đầu ra và ba cột đầu vào, không nhất thiết là ma trận vuông.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Một hệ có **20 trạng thái đo** hai đầu vào a, b; mỗi hàng là một trạng thái, đầu ra là hai đại lượng tính từ chúng. Hãy tạo ma trận Jacobian cho mọi phép đo hợp lệ, đọc shape. Độ khó tăng từ đạo hàm riêng tại một điểm lên kiểm tra độ cong, cực trị và Jacobian hàng loạt; cấp 4–5 bỏ trạng thái có `NaN` khỏi phép tính.
+
+```python
+import numpy as np
+import sympy as sp
+# Mỗi hàng = 1 trạng thái hệ, a = áp suất (đơn vị mẫu), b = nhiệt (đơn vị mẫu).
+xs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, np.nan, 17, 18, 19, np.nan]
+ys = [20+(i*3)%11 for i in range(20)]
+raw = np.column_stack((xs,ys)).astype(float)
+clean = raw[np.isfinite(raw).all(axis=1)]
+a,b = sp.symbols('a b')
+outputs = sp.Matrix([a*a+b,a*b])
+jac = outputs.jacobian([a,b])
+loss = (a-3)**2+2*(b-5)**2
+hess = sp.hessian(loss,(a,b))
+result = {'jacobian_shape':np.array([np.asarray(jac.subs({a:x,b:y}),dtype=float) for x,y in clean]).shape,'missing':len(raw)-len(clean),'hessian_eig':np.linalg.eigvalsh(np.asarray(hess,dtype=float)).tolist()}
+print("Số phép đo:",len(raw))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Ma trận Jacobian của hai đầu ra/hai đầu vào có shape (2,2); khi xử lý tập dữ liệu, mỗi trạng thái hợp lệ tạo thêm một ma trận riêng.
 
 ## 6. Sai lầm thường gặp
 
