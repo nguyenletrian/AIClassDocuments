@@ -125,181 +125,207 @@ for x in [0, 1, 2, 3]:
 ```
 
 Số 0 bị bỏ qua bởi `continue`; khi đến 3, `break` dừng hẳn nên không in 3.
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống vòng lặp — từ đơn giản đến kết hợp
 
-### Tình huống 1 — Tổng hợp doanh thu
+### Tình huống 1 — Cấp 1: Cộng doanh số của 10 đơn bằng for
 
-**Từ vựng trong mục:** **Iteration** — lần lặp.
+**Từ vựng trong mục:** **For loop** — vòng lặp for; **Accumulator** — biến cộng dồn.
 
-**Tình huống thực tế:** Một cửa hàng ghi ba khoản tiền bán hàng trong ngày là 120, 80 và 200 nghìn đồng.
+**Tình huống thực tế:** Một cửa hàng ghi **10 đơn bán hàng** trong ca chiều. Mỗi phần tử là số tiền thanh toán của một đơn, đơn vị **nghìn đồng**: 120, 80, 200, 150, 90, 70, 180, 210, 130, 160. Thu ngân cần biết tổng tiền để đối chiếu sổ, không muốn viết 10 phép cộng riêng.
 
-**Yêu cầu:** Dùng vòng lặp tính tổng doanh thu trong ngày (đơn vị: nghìn đồng).
+**Vì sao chọn cách này?** Vòng `for` duyệt từng giá trị trong danh sách 10 đơn, còn biến `total` giữ tổng lũy kế. Đây là bài lặp cơ bản chỉ có một phép cộng trong thân vòng.
 
-**Vì sao chọn cách giải này?** Vòng `for` lấy từng khoản tiền và cộng dồn vào `total`, giúp dùng lại cách tính khi số đơn hàng tăng.
-
-**Quy trình giải:**
-
-1. Lưu ba khoản tiền trong `orders`.
-2. Đặt `total = 0`.
-3. Dùng `for` cộng từng khoản vào `total` và in tổng.
+**Quy trình:**
+1. Khởi tạo `total = 0` trước khi lặp.
+2. Với từng giá trị, cộng vào `total`.
+3. Kiểm tra đủ 10 dòng và in tổng tiền.
 
 ```python
-# Mục đích: Tổng hợp doanh thu.
-orders=[120,80,200]
-total=0
-for value in orders:
-    total+=value
-print(total)
+orders = [120,80,200,150,90,70,180,210,130,160]
+total = 0
+for amount in orders:
+    total += amount
+assert len(orders) == 10
+print("Số đơn:", len(orders))
+print("Doanh số (nghìn đồng):", total)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-400
+Số đơn: 10
+Doanh số (nghìn đồng): 1390
 ```
 
-**Kết quả:** `400` nghìn đồng, tương đương 400.000 đồng.
+Mỗi lượt lặp đưa vào tổng **một đơn**; tổng chỉ đúng nếu biến cộng dồn được đặt ngoài vòng lặp và không bị đặt về 0 sau mỗi dòng.
 
-### Tình huống 2 — Loại dòng trống
+### Tình huống 2 — Cấp 2: Dùng continue bỏ hai lượt đo trống trong 12 lượt
 
-**Từ vựng trong mục:** **For loop** — vòng for.
+**Từ vựng trong mục:** **Continue** — bỏ qua lượt lặp; **Missing** — số liệu thiếu; **Average** — trung bình.
 
-**Tình huống thực tế:** Một trạm đo nhiệt độ nhận bốn lần đọc `[30, None, 35, 33]` °C. `None` nghĩa là lần đo không có số liệu, không phải 0 °C.
+**Tình huống thực tế:** Trạm đo ghi **12 lần nhiệt độ** (°C), mỗi hàng là một phút. Phút thứ 3 và phút thứ 8 mất tín hiệu nên lưu `None`. Nhân viên cần tính nhiệt độ trung bình từ số đo có thật và in số lượt phải bỏ qua.
 
-**Yêu cầu:** Dùng vòng lặp tạo danh sách chỉ chứa các nhiệt độ đo được.
+**Vì sao chọn cách này?** `continue` giúp không đưa `None` vào phép cộng hay đếm số đo hợp lệ. Phân biệt giữa lượt thiếu và phép đo thật bằng 0 °C là điều bắt buộc.
 
-**Vì sao chọn cách giải này?** Dùng `continue` để bỏ qua phần tử `None`, còn các giá trị số được đưa vào danh sách `valid`.
-
-**Quy trình giải:**
-
-1. Tạo danh sách dữ liệu và danh sách `valid` rỗng.
-2. Duyệt từng giá trị bằng `for`.
-3. Gặp `None` thì bỏ qua lượt này; còn lại thêm vào `valid`.
-4. In danh sách kết quả.
+**Quy trình:**
+1. Khởi tạo tổng, số lượt hợp lệ và số lượt thiếu.
+2. Duyệt 12 giá trị; nếu `None` thì tăng số thiếu rồi `continue`.
+3. Chia tổng cho **số lượt hợp lệ**, không phải 12.
 
 ```python
-# Mục đích: Loại dòng trống.
-data=[30,None,35,33]
-valid=[]
-for x in data:
-    if x is None:
+readings = [27,28,None,29,30,31,28,None,27,32,30,29]
+total, valid_count, missing_count = 0, 0, 0
+for temperature in readings:
+    if temperature is None:
+        missing_count += 1
         continue
-    valid.append(x)
-print(valid)
+    total += temperature
+    valid_count += 1
+assert valid_count + missing_count == len(readings) == 12
+print("Hợp lệ:", valid_count)
+print("Thiếu:", missing_count)
+print(f"Trung bình: {total / valid_count:.1f} °C")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[30, 35, 33]
+Hợp lệ: 10
+Thiếu: 2
+Trung bình: 29.1 °C
 ```
 
-**Kết quả:** `[30, 35, 33]` — chỉ còn ba lần đo có số liệu.
+Vòng lặp đã đọc 12 lượt nhưng chỉ 10 lượt được tính trung bình. Nếu chia cho 12, thiết bị sẽ cho kết quả thấp hơn thực tế.
 
-### Tình huống 3 — Tìm hàng hết tồn
+### Tình huống 3 — Cấp 3: Tìm điểm hết hàng đầu tiên trong 15 kệ
 
-**Từ vựng trong mục:** **While loop** — vòng while.
+**Từ vựng trong mục:** **Enumerate** — duyệt kèm vị trí; **Break** — dừng vòng lặp.
 
-**Tình huống thực tế:** Kho có bốn vị trí hàng, số lượng theo thứ tự là `[5, 3, 0, 4]`. Vị trí đầu tiên được đánh số `0`. Nhân viên muốn tìm vị trí đầu tiên đã hết hàng.
+**Tình huống thực tế:** Kho có **15 kệ** K01…K15, mỗi số là tồn kho (món). Nhân viên cần tìm **kệ đầu tiên có số lượng 0** và dừng ngay để chuyển cho đội bổ sung hàng, chứ không cần liệt kê tất cả kệ đang trống.
 
-**Yêu cầu:** In vị trí đầu tiên có số lượng bằng `0`, rồi dừng tìm kiếm.
+**Vì sao chọn cách này?** `enumerate(..., 1)` gán số kệ bắt đầu từ 1. `break` dừng sau khi tìm thấy lần khớp đầu tiên; khác với `continue`, vốn chỉ bỏ qua một lượt rồi vẫn tìm tiếp.
 
-**Vì sao chọn cách giải này?** `enumerate()` cung cấp cả vị trí và số lượng; `break` dừng vòng lặp ngay khi tìm thấy vị trí hết hàng đầu tiên.
-
-**Quy trình giải:**
-
-1. Duyệt danh sách bằng `enumerate(stocks)`.
-2. Kiểm tra số lượng tại từng vị trí.
-3. Khi gặp `0`, in vị trí và dùng `break` để dừng.
+**Quy trình:**
+1. Ghi 15 số lượng theo thứ tự kệ.
+2. Duyệt cùng số thứ tự; khi gặp `0`, lưu mã kệ và thoát vòng.
+3. In vị trí đầu tiên rồi kiểm tra đúng là kệ trống.
 
 ```python
-# Mục đích: Tìm hàng hết tồn.
-stocks=[5,3,0,4]
-for i,x in enumerate(stocks):
-    if x==0:
-        print("Hết hàng:",i)
+stocks = [12,8,7,5,3,4,9,1,0,6,0,2,8,10,4]
+first_empty = None
+for shelf_number, amount in enumerate(stocks, 1):
+    if amount == 0:
+        first_empty = f"K{shelf_number:02d}"
         break
+assert len(stocks) == 15
+assert stocks[int(first_empty[1:]) - 1] == 0
+print("Số kệ kiểm kê:", len(stocks))
+print("Kệ hết hàng đầu:", first_empty)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Hết hàng: 2
+Số kệ kiểm kê: 15
+Kệ hết hàng đầu: K09
 ```
 
-**Kết quả:** `Hết hàng: 2` — vị trí thứ ba trong danh sách (chỉ số 2) đã hết hàng.
+K09 trống sớm hơn 1 kệ trống còn lại, nhưng chương trình chủ động dừng trước; đây là lý do dùng `break` thay vì lặp hết toàn bộ danh sách.
 
-### Tình huống 4 — Giới hạn kết nối
+### Tình huống 4 — Cấp 4: Dùng while giới hạn số lần kết nối của 18 thiết bị
 
-**Từ vựng trong mục:** **Break/continue** — dừng/bỏ qua.
+**Từ vựng trong mục:** **While** — lặp theo điều kiện; **Retry** — thử lại; **Termination** — điều kiện dừng.
 
-**Tình huống thực tế:** Ứng dụng thử kết nối máy chủ tối đa ba lần. Trong ví dụ mô phỏng, lần thử thứ nhất thất bại và lần thứ hai kết nối thành công.
+**Tình huống thực tế:** Một dịch vụ phải kết nối **18 thiết bị** D01…D18, mỗi thiết bị có thời điểm thành công mô phỏng (`1`, `2` hoặc `3`) hoặc không thể kết nối trong ba lượt (`0`/`4`). Mỗi thiết bị được thử **tối đa 3 lần**; cần in số kết nối thành công/thất bại và tổng số lượt thử, tránh `while` chạy vô hạn.
 
-**Yêu cầu:** Viết vòng lặp dừng khi kết nối thành công hoặc đã thử đủ ba lần, rồi in số lần thử và trạng thái kết nối.
+**Vì sao chọn cách này?** Khác `for` duyệt dữ liệu đã có, vòng `while` dừng khi đã thành công **hoặc** chạm giới hạn thử. Điều kiện dùng `and` đảm bảo nếu một vế không còn đúng, máy thoát vòng.
 
-**Vì sao chọn cách giải này?** `while` phù hợp vì chưa biết cần thử bao nhiêu lượt. Điều kiện `attempts < 3 and not connected` ngăn vòng lặp chạy mãi và dừng sớm khi kết nối được.
-
-**Quy trình giải:**
-
-1. Đặt số lần thử bằng 0, trạng thái kết nối là `False`.
-2. Trong khi chưa đạt giới hạn và chưa kết nối, tăng số lần thử.
-3. Mô phỏng kết nối thành công ở lần thứ hai.
-4. In số lần đã thử và trạng thái.
+**Quy trình:**
+1. Duyệt 18 thiết bị, mỗi thiết bị khởi tạo lại số lần thử và cờ kết nối.
+2. Trong `while`, tăng số lần thử; mô phỏng thành công đúng lượt được cấu hình.
+3. Cộng kết quả thành công/thất bại và tổng lượt thử; assert không thiết bị nào vượt 3 lần.
 
 ```python
-# Mục đích: Giới hạn kết nối.
-attempts,connected=0,False
-while attempts<3 and not connected:
-    attempts+=1
-    connected=(attempts==2)
-print(attempts,connected)
+success_on_try = [0,2,3,1,4,0,1,2,4,1,0,3,4,2,3,0,4,3]
+success_count, failed_count, total_attempts = 0, 0, 0
+for planned in success_on_try:
+    attempts, connected = 0, False
+    while attempts < 3 and not connected:
+        attempts += 1
+        connected = (planned == attempts)
+    total_attempts += attempts
+    if connected:
+        success_count += 1
+    else:
+        failed_count += 1
+    assert attempts <= 3
+assert len(success_on_try) == 18
+assert success_count + failed_count == 18
+print("Thiết bị:", len(success_on_try))
+print("Kết nối được:", success_count)
+print("Thất bại:", failed_count)
+print("Tổng lượt thử:", total_attempts)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-2 True
+Thiết bị: 18
+Kết nối được: 10
+Thất bại: 8
+Tổng lượt thử: 45
 ```
 
-**Kết quả:** `2 True` — chương trình thử hai lần rồi dừng vì đã kết nối. Đây là mô phỏng, không tạo kết nối mạng thật.
+Độ khó nằm ở điều kiện dừng của **vòng lặp lồng trong quá trình xử lý 18 thiết bị**. Khi một thiết bị thất bại, lần sau bắt đầu lại với số lượt thử bằng 0; không được dùng chung cờ `connected` giữa hai thiết bị.
 
-### Tình huống 5 — Lập bảng lịch học
+### Tình huống 5 — Cấp 5: Lập lịch hai ca cho 20 học viên và tổng hợp điểm danh
 
-**Từ vựng trong mục:** **Iteration** — lần lặp.
+**Từ vựng trong mục:** **Nested loop** — vòng lặp lồng; **Continue** — bỏ lượt; **Validation** — kiểm tra dữ liệu.
 
-**Tình huống thực tế:** Trung tâm đào tạo có hai học viên `An`, `Lan`; mỗi người cần lịch học cho ngày 1, 2 và 3.
+**Tình huống thực tế:** Trung tâm có **20 học viên** H01…H20. Mỗi người đăng ký **2 ca** thực hành (`Sáng`, `Chiều`), tổng cộng phải tạo 40 lượt. Ba học viên H04, H11, H19 vắng ca Chiều; ca Sáng của họ vẫn được tính. Hãy lập danh sách lượt hợp lệ, số lượt vắng và số lượt mỗi ca, rồi kiểm tra không bị trùng lịch.
 
-**Yêu cầu:** In từng cặp tên học viên và ngày học, tổng cộng sáu dòng.
+**Vì sao chọn cách này?** Vòng ngoài duyệt học viên, vòng trong duyệt hai ca; `continue` bỏ đúng **một tổ hợp học viên–ca**, không loại cả học viên. Dùng cặp `(id, session)` để phát hiện trùng và đối chiếu tổng lượt dự kiến.
 
-**Vì sao chọn cách giải này?** Dùng hai vòng `for` lồng nhau: vòng ngoài chọn học viên, vòng trong chọn từng ngày cho học viên đó.
-
-**Quy trình giải:**
-
-1. Tạo danh sách hai học viên.
-2. Duyệt từng học viên bằng vòng `for` ngoài.
-3. Với mỗi học viên, lặp `range(1, 4)` để lấy ngày 1, 2, 3.
-4. In tên và ngày.
+**Quy trình:**
+1. Tạo 20 mã học viên và hai ca mỗi ngày.
+2. Duyệt vòng lặp lồng; khi trùng ca vắng, tăng số vắng rồi `continue`.
+3. Kiểm tra số lượt dự kiến 40 = lượt hợp lệ + lượt vắng, các cặp ca không trùng.
 
 ```python
-# Mục đích: Lập bảng lịch học.
-students=["An","Lan"]
+students = ["H01","H02","H03","H04","H05","H06","H07","H08","H09","H10","H11","H12","H13","H14","H15","H16","H17","H18","H19","H20"]
+sessions = ["Sáng", "Chiều"]
+absent_afternoon = ["H04","H11","H19"]
+schedule = []
+absent_count = 0
 for student in students:
-    for day in range(1,4):
-        print(student,day)
+    for session in sessions:
+        if student in absent_afternoon and session == "Chiều":
+            absent_count += 1
+            continue
+        schedule.append((student, session))
+assert len(students) == 20
+assert len(schedule) == len(set(schedule))
+assert len(students) * len(sessions) == len(schedule) + absent_count
+print("Học viên:", len(students))
+print("Lượt dự kiến:", len(students) * len(sessions))
+print("Lượt có mặt:", len(schedule))
+print("Lượt vắng:", absent_count)
+print("Ca Sáng:", sum(session == "Sáng" for student, session in schedule))
+print("Ca Chiều:", sum(session == "Chiều" for student, session in schedule))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-An 1
-An 2
-An 3
-Lan 1
-Lan 2
-Lan 3
+Học viên: 20
+Lượt dự kiến: 40
+Lượt có mặt: 37
+Lượt vắng: 3
+Ca Sáng: 20
+Ca Chiều: 17
 ```
 
-**Kết quả:** Sáu dòng: `An 1`, `An 2`, `An 3`, `Lan 1`, `Lan 2`, `Lan 3`.
+Đây là bài tổng hợp: học viên được ghép với từng ca, ngoại lệ chỉ áp dụng cho đúng ca, rồi kiểm chứng 40 lượt dự kiến. Một học viên vẫn có thể xuất hiện trong **hai dòng khác nhau** mà không phải trùng lịch.
 
 ## 6. Nhầm lẫn dễ gặp
 

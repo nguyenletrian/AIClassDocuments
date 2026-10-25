@@ -113,160 +113,204 @@ print(type(2.5))
 ```
 
 `float` báo đây là số thực, không phải chuỗi ký tự `"2.5"`.
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống ứng dụng — từ cơ bản đến nâng cao
 
-### Tình huống 1 — Chào khách mới
+### Tình huống 1 — Cấp 1: Hiển thị danh sách đăng ký
 
-**Từ vựng trong mục:** **Variable** — biến.
+**Từ vựng trong mục:** **Variable** — biến; **Output** — đầu ra.
 
-**Tình huống thực tế:** Một cửa hàng muốn gửi lời chào có tên khách. Khách mới tên Lan.
+**Tình huống thực tế:** Quầy ghi danh nhận **10 tên học viên** trong một buổi. Mỗi vị trí trong danh sách là một người; nhân viên cần in số người đã ghi, tên đầu tiên và tên cuối cùng để đối chiếu sổ.
 
-**Yêu cầu:** Viết chương trình in `Xin chào Lan!`.
+**Vì sao chọn cách này?** Biến giữ lại dữ liệu, `print()` hiển thị thông tin và `len()` đếm tên. Ở đây chỉ đọc dữ liệu; cấu trúc list sẽ được học chi tiết ở PY-06.
 
-**Vì sao chọn cách giải này?** Lưu tên trong biến `name` rồi truyền biến vào f-string để tạo lời chào. Khi đổi khách chỉ cần sửa tên.
-
-**Quy trình giải:**
-
-1. Lưu tên khách vào `name`.
-2. Chèn tên vào lời chào bằng f-string.
-3. In lời chào.
+**Quy trình:**
+1. Ghi 10 tên theo thứ tự tiếp nhận.
+2. Lưu số người vào biến riêng.
+3. In ba thông tin có nhãn để dễ đọc.
 
 ```python
-# Mục đích: Chào khách mới.
-name = "Lan"
-# Dùng tên đã lưu, không viết lại tên trong thông báo.
-print(f"Xin chào {name}!")
+names = ["An","Bình","Chi","Dung","Hà","Khánh","Lan","Minh","Nam","Trang"]
+student_count = len(names)
+assert student_count == 10
+print("Số học viên:", student_count)
+print("Học viên đầu:", names[0])
+print("Học viên cuối:", names[-1])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Xin chào Lan!
+Số học viên: 10
+Học viên đầu: An
+Học viên cuối: Trang
 ```
 
-**Kết quả:** `Xin chào Lan!` — lời chào chứa đúng tên khách.
+Mỗi phần tử là một học viên, không phải một ký tự. Chỉ số `0` là người đầu, `-1` là người cuối; chưa có phân loại hay tính toán nâng cao.
 
-### Tình huống 2 — Tính tiền hóa đơn
+### Tình huống 2 — Cấp 2: Đổi chữ số thành tiền của 12 đơn
 
-**Từ vựng trong mục:** **Input** — đầu vào.
+**Từ vựng trong mục:** **Input** — đầu vào; **Integer** — số nguyên; **Conversion** — chuyển kiểu.
 
-**Tình huống thực tế:** Một cửa hàng bán 3 sản phẩm, mỗi sản phẩm giá 120.000 đồng. Phần mềm đang lưu giá và số lượng dưới dạng chữ `"120000"` và `"3"`.
+**Tình huống thực tế:** Cửa hàng nhập **12 đơn hàng**; mỗi hàng biểu diễn một đơn, có mã, đơn giá (đồng/món) và số lượng (món). Hệ thống tiếp nhận giá, số lượng dưới dạng **chuỗi** để mô phỏng dữ liệu biểu mẫu. Cần đổi đúng kiểu và tính tổng tiền toàn bộ 12 đơn.
 
-**Yêu cầu:** Tính tổng số tiền cần thanh toán.
+**Vì sao chọn cách này?** Không thể cộng tiền chính xác nếu giữ giá ở dạng chuỗi. `int()` biến chữ số thành số, sau đó nhân giá với số lượng. Vòng `for` là phần mở rộng để áp dụng cùng thao tác cho mọi đơn (sẽ học ở PY-05).
 
-**Vì sao chọn cách giải này?** `int()` đổi chữ số thành số nguyên để phép nhân giá với số lượng cho ra tổng tiền.
-
-**Quy trình giải:**
-
-1. Đổi chuỗi giá thành số bằng `int()`.
-2. Đổi chuỗi số lượng thành số bằng `int()`.
-3. Nhân giá với số lượng và in kết quả.
+**Quy trình:**
+1. Tạo 12 bản ghi chuỗi và in thử mẫu đầu.
+2. Chuyển giá và số lượng bằng `int()` trước khi nhân.
+3. Cộng tổng các giá trị đã đổi và xác nhận đủ 12 đơn.
 
 ```python
-# Mục đích: Tính tiền hóa đơn.
-price = int("120000")
-quantity = int("3")
-print(price * quantity)
+orders = [
+    ("O01", "11000", "2"),
+    ("O02", "12000", "3"),
+    ("O03", "13000", "1"),
+    ("O04", "14000", "2"),
+    ("O05", "15000", "3"),
+    ("O06", "16000", "1"),
+    ("O07", "17000", "2"),
+    ("O08", "18000", "3"),
+    ("O09", "19000", "1"),
+    ("O10", "20000", "2"),
+    ("O11", "21000", "3"),
+    ("O12", "22000", "1"),
+]
+total_vnd = 0
+for order_id, raw_price, raw_quantity in orders:
+    price_vnd = int(raw_price)
+    quantity = int(raw_quantity)
+    total_vnd += price_vnd * quantity
+assert len(orders) == 12
+print("Số đơn:", len(orders))
+print("Tổng tiền (đồng):", total_vnd)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-360000
+Số đơn: 12
+Tổng tiền (đồng): 392000
 ```
 
-**Kết quả:** `360000` — khách phải trả 360.000 đồng.
+Mỗi hàng là **một đơn**; phép nhân tính tiền từng đơn, phép cộng gom 12 đơn. Các đơn có số lượng khác nhau nên không thể lấy một đơn mẫu rồi nhân 12.
 
-### Tình huống 3 — Hiển thị điểm
+### Tình huống 3 — Cấp 3: Định dạng bản tin từ 15 cảm biến
 
-**Từ vựng trong mục:** **Output** — đầu ra.
+**Từ vựng trong mục:** **Float** — số thực; **F-string** — chuỗi định dạng; **Precision** — số chữ số thập phân.
 
-**Tình huống thực tế:** Trung tâm đào tạo muốn hiển thị điểm của học viên An, đạt 8,5 điểm trên thang 10.
+**Tình huống thực tế:** Trung tâm giám sát nhận **15 nhiệt độ** (°C), mỗi hàng tương ứng một cảm biến mã T01…T15. Nhân viên cần một bản tin thống nhất hiển thị mã và nhiệt độ đến **một chữ số thập phân**, kèm số cảm biến đã nhận.
 
-**Yêu cầu:** In tên và điểm theo mẫu `An: 8.5/10`.
+**Vì sao chọn cách này?** Biến lưu giá trị kiểu `float`; f-string định dạng `:.1f` để mọi dòng có cùng cách đọc. Danh sách kết quả được tạo từ từng cảm biến, thay vì viết thủ công 15 dòng không thống nhất.
 
-**Vì sao chọn cách giải này?** F-string ghép tên, điểm và thang điểm thành một dòng dễ đọc.
-
-**Quy trình giải:**
-
-1. Lưu tên `An` và điểm `8.5`.
-2. Dùng f-string ghép thông tin.
-3. In kết quả.
+**Quy trình:**
+1. Lưu đủ 15 giá trị °C theo thứ tự cảm biến.
+2. Tạo tên mã theo vị trí và đưa nhiệt độ vào chuỗi định dạng.
+3. In số lượng và hai dòng kiểm mẫu; các dòng còn lại được tạo cùng quy tắc.
 
 ```python
-# Mục đích: Hiển thị điểm.
-name, score = "An", 8.5
-print(f"{name}: {score}/10")
+temperatures = [26.2,27,28.5,29.1,30,27.5,28.2,29.9,31.1,30.5,29,28.4,27.7,30.2,29.6]
+reports = []
+for index, temperature in enumerate(temperatures, 1):
+    reports.append(f"T{index:02d}: {temperature:.1f} °C")
+assert len(reports) == 15
+print("Số cảm biến:", len(reports))
+print("Dòng đầu:", reports[0])
+print("Dòng cuối:", reports[-1])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-An: 8.5/10
+Số cảm biến: 15
+Dòng đầu: T01: 26.2 °C
+Dòng cuối: T15: 29.6 °C
 ```
 
-**Kết quả:** `An: 8.5/10` — dòng thông tin gồm tên và điểm học viên.
+Tất cả 15 bản tin đã được tạo; hiển thị hai dòng biên để kiểm tra định dạng. Chữ số `.1f` điều khiển **cách in**, không làm thay đổi nguồn dữ liệu ban đầu.
 
-### Tình huống 4 — Ghi nhiệt độ
+### Tình huống 4 — Cấp 4: Báo số đo chưa gửi từ 18 lượt nhập
 
-**Từ vựng trong mục:** **Type** — kiểu dữ liệu.
+**Từ vựng trong mục:** **Missing value** — giá trị thiếu; **Type** — kiểu dữ liệu; **Validation** — kiểm tra hợp lệ.
 
-**Tình huống thực tế:** Một cảm biến báo nhiệt độ 36,5 °C. Nhân viên cần biết số đo được lưu bằng kiểu dữ liệu gì.
+**Tình huống thực tế:** Trạm đo nhận **18 dòng** dữ liệu nhiệt độ (°C) qua ô nhập liệu; mỗi dòng là một lượt đo. Có một chuỗi rỗng và một mã `N/A` do thiết bị mất tín hiệu. Cần báo có bao nhiêu số hợp lệ, bao nhiêu lượt chưa có dữ liệu và nhiệt độ trung bình từ **chỉ lượt hợp lệ**.
 
-**Yêu cầu:** In kiểu dữ liệu và số đo nhiệt độ.
+**Vì sao chọn cách này?** Chuỗi trống hoặc `N/A` không phải 0 °C, vì vậy cần tách trước khi chuyển sang `float`. Việc kiểm tra đầu vào và vòng lặp là phần mở rộng, mục tiêu bài này vẫn là nhận đầu vào → lưu bằng biến đúng kiểu → in kết quả.
 
-**Vì sao chọn cách giải này?** Số có phần thập phân được lưu dưới dạng `float`; `type()` cho biết kiểu dữ liệu.
-
-**Quy trình giải:**
-
-1. Lưu `36.5` vào biến `temperature`.
-2. Dùng `type()` xem kiểu dữ liệu.
-3. In kiểu dữ liệu cùng số đo.
+**Quy trình:**
+1. Duyệt lần lượt 18 chuỗi, bỏ khoảng trắng ở hai đầu.
+2. Chỉ chuyển `float` cho chuỗi thực sự mang số; ghi lại lượt thiếu.
+3. Tính trung bình các giá trị nhận được và in bảng tóm tắt.
 
 ```python
-# Mục đích: Ghi nhiệt độ.
-temperature = 36.5
-print(type(temperature), temperature)
+raw_readings = [" 26.0 ","27.5","28.0","","29.0"," 30.5","31.0","28.7","27.3","26.9","30.0","N/A","29.8","28.5","27.0","31.2","30.6","29.4"]
+valid_temperatures = []
+missing_count = 0
+for raw in raw_readings:
+    value = raw.strip()
+    if value in ("", "N/A"):
+        missing_count += 1
+        continue
+    valid_temperatures.append(float(value))
+average_celsius = sum(valid_temperatures) / len(valid_temperatures)
+assert len(raw_readings) == 18
+print("Hợp lệ:", len(valid_temperatures))
+print("Thiếu:", missing_count)
+print(f"Trung bình: {average_celsius:.2f} °C")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-<class 'float'> 36.5
+Hợp lệ: 16
+Thiếu: 2
+Trung bình: 28.84 °C
 ```
 
-**Kết quả:** `<class 'float'> 36.5` — kiểu số thực và giá trị 36,5; code chưa in đơn vị °C.
+Đọc đúng số lượt hợp lệ trước khi tính trung bình; nếu đưa hai mã mất tín hiệu vào như 0 °C thì kết quả sẽ bị kéo thấp giả tạo.
 
-### Tình huống 5 — Giữ mã đơn
+### Tình huống 5 — Cấp 5: Tạo báo cáo 20 phiếu thanh toán và đối chiếu đầu vào
 
-**Từ vựng trong mục:** **Variable** — biến.
+**Từ vựng trong mục:** **Input** — đầu vào; **Conversion** — chuyển kiểu; **Report** — báo cáo.
 
-**Tình huống thực tế:** Một cửa hàng dùng mã đơn bốn chữ số, trong đó hai số `0` đầu tiên phải được giữ lại. Mã đơn hiện tại là `0007`.
+**Tình huống thực tế:** Cửa hàng tổng kết **20 phiếu** cuối ngày; mỗi dòng có mã phiếu O01…O20, giá (đồng/món) ở dạng chữ và số lượng (món) ở dạng chữ. Hai phiếu O07 và O18 có giá `?` do nhân viên chưa nhập. Cần in số phiếu, số phiếu tính tiền được, tổng tiền và danh sách mã cần bổ sung dữ liệu; tuyệt đối không coi `?` là 0 đồng.
 
-**Yêu cầu:** Lưu và in mã chính xác là `0007`, kiểm tra mã vẫn bắt đầu bằng `00`.
+**Vì sao chọn cách này?** Kết hợp lưu biến, chuyển kiểu và định dạng đầu ra giúp chương trình tự kiểm tra trước khi báo cáo. Vòng lặp, `isdigit()` và `continue` là phần mở rộng có thể đọc lại sau PY-04/PY-05.
 
-**Vì sao chọn cách giải này?** Mã đơn là thông tin nhận diện, không phải số để tính toán; dùng chuỗi `str` để không làm mất các số `0` ở đầu.
-
-**Quy trình giải:**
-
-1. Lưu `"0007"` thành chuỗi trong `order_id`.
-2. In mã đơn.
-3. Dùng `startswith("00")` kiểm tra hai ký tự đầu; `assert` báo lỗi nếu không đúng.
+**Quy trình:**
+1. Ghi đầy đủ 20 phiếu và giữ mã gồm hai chữ số cuối.
+2. Kiểm tra giá có phải chữ số trước khi chuyển `int`; ghi lại mã phiếu lỗi.
+3. Tính tổng chỉ trên phiếu hợp lệ, xác nhận số lượng phiếu rồi in báo cáo.
 
 ```python
-# Mục đích: Giữ mã đơn.
-order_id = "0007"
-print(order_id)
-assert order_id.startswith("00")
+raw_prices = ["12000","14000","16000","18000","20000","22000","?","26000","28000","30000","32000","34000","36000","38000","40000","42000","44000","?","48000","50000"]
+raw_quantities = ["1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4"]
+orders = [(f"O{i:02d}", raw_prices[i - 1], raw_quantities[i - 1]) for i in range(1, 21)]
+total_vnd = 0
+missing_ids = []
+paid_count = 0
+for order_id, raw_price, raw_qty in orders:
+    if not raw_price.isdigit():
+        missing_ids.append(order_id)
+        continue
+    total_vnd += int(raw_price) * int(raw_qty)
+    paid_count += 1
+assert paid_count + len(missing_ids) == len(orders) == 20
+print("Số phiếu:", len(orders))
+print("Phiếu hợp lệ:", paid_count)
+print("Tổng tiền (đồng):", total_vnd)
+print("Cần bổ sung:", ", ".join(missing_ids))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0007
+Số phiếu: 20
+Phiếu hợp lệ: 18
+Tổng tiền (đồng): 1436000
+Cần bổ sung: O07, O18
 ```
 
-**Kết quả:** `0007` — mã được in nguyên vẹn; `assert` không in thêm khi kiểm tra đúng.
+Đây là mức tổng hợp: hệ thống vừa tính tiền vừa trả lời **vì sao** có hai phiếu không thể đưa vào kết quả. Mã đơn được giữ dạng chuỗi để số 0 ở đầu không biến mất.
 
 ## 6. Những nhầm lẫn thường gặp
 
