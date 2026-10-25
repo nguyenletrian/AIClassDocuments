@@ -41,6 +41,18 @@
 
 Hệ tuyến tính là **nhiều phương trình cùng chứa các ẩn cần tìm**. Cửa hàng bán loại A giá `x` và loại B giá `y` (đơn vị nghìn đồng): mua một A và một B hết 5; mua hai A và một B hết 8. Ta có `x+y=5` và `2x+y=8`. Để viết `Ax=b`, mỗi **hàng của A là một phương trình**, mỗi **cột là hệ số của một ẩn**, `b` chứa tổng tiền từng hóa đơn. Giải hệ tìm được x=3, y=2.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+A = np.array([[1, 1], [2, 1]], dtype=float)
+b = np.array([5, 8], dtype=float)
+print(np.linalg.solve(A, b))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Giải hệ hai phương trình tuyến tính để tìm hai ẩn từ bảng hệ số và vế phải.
 # Dữ liệu: A có hai hàng phương trình và hai cột ẩn; b=[5,8] là kết quả từng phương trình.
@@ -69,6 +81,17 @@ Loại A giá 3 nghìn và loại B giá 2 nghìn đồng; nghiệm đồng th�
 
 **Rank** cho biết có bao nhiêu hàng/cột độc lập tuyến tính trong một ma trận. Ví dụ hai hàng `[1,2]` và `[2,4]`: hàng sau chỉ bằng hai lần hàng đầu nên không đưa thêm thông tin độc lập. Rank bằng 1 dù bảng có hai hàng và hai cột. Với một hệ 2 ẩn, nếu rank(A)=2 và A vuông thì nghiệm duy nhất khi hệ có vế phải b phù hợp (ở đây ma trận khả nghịch); nếu rank thấp cần kiểm tra cả ma trận mở rộng để biết vô nghiệm hay vô số nghiệm.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+A = np.array([[1, 2], [2, 4]])
+print(np.linalg.matrix_rank(A))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Đo hạng ma trận để biết có bao nhiêu hàng/cột mang thông tin độc lập.
 # Dữ liệu: Ma trận 2×2, hàng thứ hai gấp đôi hàng thứ nhất, nên chỉ có một hướng thông tin độc lập.
@@ -94,6 +117,18 @@ Hai hàng phụ thuộc nhau nên số chiều thông tin độc lập chỉ là
 **Từ vựng trong mục:** **Coefficient matrix** — ma trận hệ số; **Augmented matrix** — ma trận mở rộng.
 
 Trong `Ax=b`, **A chỉ chứa hệ số của các ẩn**, còn b chứa **giá trị đích của từng phương trình**. Ví dụ hệ `x+y=5`, `2x+y=8` có A hai hàng × hai cột, b dài hai phần tử. Ghép b thành một cột cuối bằng `np.column_stack((A,b))` cho ma trận mở rộng 2×3. Cột cuối này **không phải một ẩn mới**. Khi giải, số hàng A phải bằng số phần tử b.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+A = np.array([[1, 1], [2, 1]])
+b = np.array([5, 8])
+print(np.column_stack((A, b)))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Ghép ma trận hệ số A với cột vế phải b thành ma trận mở rộng.
@@ -123,6 +158,20 @@ Hai cột đầu là hệ số của x, y; cột cuối là tổng tiền hóa �
 **Từ vựng trong mục:** **Residual** — sai số dư; **Least squares** — bình phương tối thiểu.
 
 Khi thử nghiệm x cho hệ `Ax=b`, **sai số dư** `r=Ax-b` đo mỗi phương trình lệch bao nhiêu so với vế phải. Nếu `r=0` thì nghiệm thỏa chính xác; dữ liệu đo thực tế thường có nhiễu nên không tìm được nghiệm thỏa mọi hàng. Khi số phương trình nhiều hơn số ẩn, `np.linalg.lstsq` tìm x làm **tổng bình phương các sai số dư nhỏ nhất**. Ví dụ ba số đo có x=1,2,3 và giá trị y=2,4,6.1; fit đường `y=m*x+c` không khớp hoàn toàn và cho gần `m=2.05`, `c=-0.067`.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+
+x = np.array([1, 2, 3])
+y = np.array([2, 4, 6.1])
+A = np.column_stack((x, np.ones_like(x)))
+coeff = np.linalg.lstsq(A, y, rcond=None)[0]
+print(np.round(coeff, 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tìm đường thẳng gần ba điểm nhất bằng nghiệm bình phương tối thiểu.
@@ -166,6 +215,24 @@ Hệ số góc xấp xỉ 2,05 và hệ số chặn xấp xỉ −0,067; đây l
 1. Tạo bảng 10 hàng số lượng và 10 tổng tiền cùng thứ tự.
 2. Chọn hai hàng độc lập đầu để giải hệ 2 ẩn.
 3. Dự tính tổng tiền cả 10 hàng rồi đếm sai lệch lớn hơn ngưỡng nhỏ.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+quantities = np.array([[1,1],[2,1],[3,1],[4,1],[1,2],[2,2],[3,2],[4,2],[1,3],[2,3]], dtype=float)
+totals = np.array([5,8,11,14,7,10,13,16,9,12], dtype=float)
+prices = np.linalg.solve(quantities[:2], totals[:2])
+residual = quantities @ prices - totals
+if quantities.shape != (10, 2):
+    raise ValueError("Cần đủ 10 hóa đơn và hai số lượng.")
+print("Hóa đơn:", len(totals))
+print("Giá A (nghìn đồng):", f"{prices[0]:.1f}")
+print("Giá B (nghìn đồng):", f"{prices[1]:.1f}")
+print("Hóa đơn sai:", int((np.abs(residual) > 1e-8).sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Giải hai giá sản phẩm từ 10 hóa đơn và dùng phần dư kiểm toàn bộ hóa đơn.
@@ -219,6 +286,22 @@ Hóa đơn sai: 0
 2. Gọi `matrix_rank` để kiểm số chiều độc lập.
 3. Kiểm tra hai cột phụ thuộc và in kích thước/hạng.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+hours = np.array([1,2,3,4,5,6,7,8,9,10,11,12], dtype=float)
+X = np.column_stack((hours, 2 * hours))
+if X.shape != (12, 2):
+    raise ValueError("Cần đủ 12 lượt vận hành với hai cột.")
+print("Lượt vận hành:", X.shape[0])
+print("Cột:", X.shape[1])
+print("Hạng:", int(np.linalg.matrix_rank(X)))
+print("Cột 2 = 2 × cột 1:", bool(np.allclose(X[:, 1], 2 * X[:, 0])))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Phát hiện hai cột dữ liệu có quan hệ phụ thuộc bằng matrix_rank.
 # Dữ liệu: 12 lượt vận hành theo giờ; cột thứ nhất giờ, cột thứ hai luôn đúng gấp đôi số giờ.
@@ -268,6 +351,26 @@ Hai cột không phải hai đặc trưng độc lập; rank bằng 1 dù ma tr�
 1. Tạo ma trận hệ số và 15 cặp kênh được đo.
 2. Chuyển vị số đo, đưa vào `np.linalg.solve` rồi chuyển vị kết quả.
 3. Tái tạo hai kênh và kiểm tra mọi lượt.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+A = np.array([[2., 1.], [1., 3.]])
+measured = np.array([[4,7],[6,8],[8,9],[10,10],[12,11],[5,10],[7,11],[9,12],[11,13],[13,14],[6,13],[8,14],[10,15],[12,16],[14,17]], dtype=float)
+restored = np.linalg.solve(A, measured.T).T
+if measured.shape != (15, 2) or restored.shape != (15, 2):
+    raise ValueError("Cần đúng 15 lượt đo hai tín hiệu.")
+print("Lượt đo:", len(restored))
+print("Hạng hệ số:", int(np.linalg.matrix_rank(A)))
+first_values = []
+for value in restored[0]:
+    first_values.append(f"{value:.1f}")
+print("Tín hiệu gốc đầu:", ", ".join(first_values))
+print("Tái tạo đúng:", bool(np.allclose(restored @ A.T, measured)))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Khôi phục 15 cặp tín hiệu gốc từ hỗn hợp đo bằng hệ tuyến tính hai chiều.
@@ -324,6 +427,26 @@ Một cặp giá trị quan sát phải ứng với **cùng lượt**; không gh
 2. Ghép ma trận mở rộng bằng `column_stack`, tính hai hạng.
 3. Báo kết luận có hay không nghiệm khớp mọi lượt.
 
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+hours = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], dtype=float)
+y = np.array([7,9,11,13,15,17,19,21,23,32,27,29,31,33,35,37,39,41], dtype=float)
+A = np.column_stack((hours, np.ones_like(hours)))
+augmented = np.column_stack((A, y))
+rank_a = int(np.linalg.matrix_rank(A))
+rank_aug = int(np.linalg.matrix_rank(augmented))
+if A.shape != (18, 2) or augmented.shape != (18, 3):
+    raise ValueError("Hệ có 18 phương trình, hai hệ số và một vế phải.")
+print("Số phương trình:", len(y))
+print("Hạng hệ số:", rank_a)
+print("Hạng mở rộng:", rank_aug)
+print("Khớp tất cả:", rank_a == rank_aug)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: So hạng hệ số và ma trận mở rộng để phát hiện 18 phương trình không khớp một đường thẳng duy nhất.
 # Dữ liệu: 18 cặp (giờ,giá trị đo), đầu ra tại giờ 10 lệch khỏi xu thế chung.
@@ -376,6 +499,26 @@ Khớp tất cả: False
 1. Tạo A từ 20 cặp x/y với một cột x và một cột 1.
 2. Fit bằng `lstsq` khi A có hạng 2.
 3. Tính phần dư, MSE và số lượt có sai lệch lớn.
+
+**No Note — Không chú thích**
+
+```python
+import numpy as np
+hours = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], dtype=float)
+energy = np.array([14,18,22,26,42,34,38,42,46,50,54,58,62,66,70,74,70,82,86,90], dtype=float)
+A = np.column_stack((hours, np.ones_like(hours)))
+slope, intercept = np.linalg.lstsq(A, energy, rcond=None)[0]
+residual = A @ np.array([slope, intercept]) - energy
+if A.shape != (20, 2) or np.linalg.matrix_rank(A) != 2:
+    raise ValueError("Cần đủ 20 lượt đo và hai cột độc lập.")
+print("Lượt đo:", len(energy))
+print(f"Độ dốc (kWh/giờ): {slope:.2f}")
+print(f"Nền (kWh): {intercept:.2f}")
+print(f"MSE (kWh²): {np.mean(residual ** 2):.2f}")
+print("Lệch > 5 kWh:", int((np.abs(residual) > 5).sum()))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Fit đường tuyến tính cho 20 lượt năng lượng bằng least squares và đếm số đo lệch quá 5 kWh.
