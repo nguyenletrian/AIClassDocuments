@@ -1,0 +1,165 @@
+{
+  "goal_id": "aiclassdocuments-no-note-comparison-copies-20261025",
+  "title": "Thêm bản No Note trước mỗi khối code để học viên so sánh bản gọn và bản giải thích",
+  "approval": "owner_approved",
+  "status": "ACTIVE",
+  "revision": "2026-10-25-no-note-before-every-code-block",
+  "owner_request": "Sau khi goal chú thích 46 bài hoàn thành, tất cả code có thêm một bản ngay phía trước mang tên 'No Note' (không chú thích), sau đó là bản code hiện tại có note. Học viên xem bản gọn rồi đối chiếu bản giải thích.",
+  "predecessor": {
+    "goal_id": "aiclassdocuments-full-code-annotations-20261025",
+    "goal_spec": "docs/CURRICULUM-CODE-ANNOTATION-GOAL.json",
+    "ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
+    "required_goal_status": "COMPLETED",
+    "required_merged_batches": 10,
+    "verified_final_pr": 174,
+    "verified_final_merge_sha": "1ac083b1b14e4076df0128d211204c1fa9210f69",
+    "verified_final_head_ci_run": 40199916125,
+    "verified_final_head_ci_conclusion": "SUCCESS",
+    "requires_no_open_prs": true,
+    "requires_no_unresolved_tasks": true
+  },
+  "scope": {
+    "repository": "nguyenletrian/AIClassDocuments",
+    "chapters": "PY-01..PY-46",
+    "batches": [
+      {
+        "batch": 1,
+        "lessons": [
+          "PY-01",
+          "PY-02",
+          "PY-03",
+          "PY-04",
+          "PY-05"
+        ]
+      },
+      {
+        "batch": 2,
+        "lessons": [
+          "PY-06",
+          "PY-07",
+          "PY-08",
+          "PY-09",
+          "PY-10"
+        ]
+      },
+      {
+        "batch": 3,
+        "lessons": [
+          "PY-11",
+          "PY-12",
+          "PY-13",
+          "PY-14",
+          "PY-15"
+        ]
+      },
+      {
+        "batch": 4,
+        "lessons": [
+          "PY-16",
+          "PY-17",
+          "PY-18",
+          "PY-19",
+          "PY-20"
+        ]
+      },
+      {
+        "batch": 5,
+        "lessons": [
+          "PY-21",
+          "PY-22",
+          "PY-23",
+          "PY-24",
+          "PY-25"
+        ]
+      },
+      {
+        "batch": 6,
+        "lessons": [
+          "PY-26",
+          "PY-27",
+          "PY-28",
+          "PY-29",
+          "PY-30"
+        ]
+      },
+      {
+        "batch": 7,
+        "lessons": [
+          "PY-31",
+          "PY-32",
+          "PY-33",
+          "PY-34",
+          "PY-35"
+        ]
+      },
+      {
+        "batch": 8,
+        "lessons": [
+          "PY-36",
+          "PY-37",
+          "PY-38",
+          "PY-39",
+          "PY-40"
+        ]
+      },
+      {
+        "batch": 9,
+        "lessons": [
+          "PY-41",
+          "PY-42",
+          "PY-43",
+          "PY-44",
+          "PY-45"
+        ]
+      },
+      {
+        "batch": 10,
+        "lessons": [
+          "PY-46"
+        ]
+      }
+    ],
+    "batch_limit": 5,
+    "final_batch_size": 1,
+    "target": "Every instructional code fence (Python and Bash/Git CLI plus other real programming/command languages found during lesson audit), in theoretical examples and all five progressive scenarios.",
+    "exclude": "Output/result text fences, non-code prose, images, Mermaid/diagrams, raw sample logs and MCQ text are NOT program source. Do not duplicate them.",
+    "display_order": [
+      "**No Note — Không chú thích**",
+      "fenced original executable code with instructional comments removed",
+      "**Code có chú thích — Giải thích từng bước**",
+      "fenced existing annotated executable code unchanged"
+    ],
+    "source_of_truth": "The previously merged annotated code is canonical for executable lines, data, semantics, outputs and note explanations.",
+    "work_style": "Exactly one sequential active batch of at most five lessons per Bridge goal-review wakeup; one independent lesson commit each, compare every pair, GitHub CI final-head SUCCESS before PR merge, then ledger and revision; do not execute 46 lessons in one go."
+  },
+  "contract": [
+    "Insert ONE No Note code fence DIRECTLY BEFORE each existing executable/instructional code fence, with the same code language tag. Keep the existing commented code fence after it; never add a third duplicate.",
+    "Place visible bold headings '**No Note — Không chú thích**' immediately before the clean code and '**Code có chú thích — Giải thích từng bước**' immediately before the canonical original, with no changed teaching prose between them.",
+    "Remove commentary-only lines from No Note. If code has inline comments, remove them only with syntax-aware handling preserving strings (for Python, tokenize and AST comparison; never strip # inside quoted strings or regex). For Bash/shell, preserve every executable command and handle quotes safely.",
+    "The original annotated code block must remain BYTE-FOR-BYTE unchanged including all Mục đích/Dữ liệu and detailed explanatory comments. If a shell block lacks notes, retain its content, do not silently rewrite it as part of this layout goal.",
+    "Executable code in No Note and annotated must be semantically equivalent: Python normalized AST identical, commands/data/import order/output identical; text outside the intended pair headings and additional code fences unchanged.",
+    "Do not modify any of the 920 MCQ questions, answers or explanations, chapter theory, example record counts, scenario descriptions, expected stdout text, image paths or diagrams.",
+    "PY-43 contains runnable Git/Bash examples in addition to five Python fences; include instructional shell blocks so 'all code' is covered.",
+    "Safely adjust existing lesson scenario tests that currently assert exactly one Python code block per scenario: validate exactly one No Note + one annotated block and execute canonical annotated code ONCE, assert same stdout; also verify the No Note variant separately where useful.",
+    "Add a new regression test for per-lesson No Note adjacency/order, no comments, no duplicate third block, preserved source AST, exact original code-fence content and 920 MCQ/question count. Tests operate on completed/active batches only.",
+    "Do not alter tests to simply skip scenario execution, relax stdout checks, or ignore MCQ preservation. Run full 46-chapter GitHub Actions suite and any Bash smoke checks.",
+    "Each lesson commit independently. A batch may include focused test harness updates needed to understand paired blocks, but changes must be reviewed within its sole PR and not alter previously verified outputs.",
+    "Only merge after checking CI SUCCESS for exact final PR HEAD and unchanged main base; record PR number, final-head SHA, merged SHA, CI run, pair counts and exceptions in durable ledger.",
+    "After 10/10 batches, mark goal COMPLETED and disable goal_review; never start another goal automatically without owner approval.",
+    "Do not claim PowerShell/Windows Bridge verification absent worker evidence; CDP port 9224 identity must remain verified independently, no silent rebinding.",
+    "Repeated global 15-second idle heartbeat is informational, not a request to create duplicate tasks or multiple active batches."
+  ],
+  "implementation_hint": {
+    "python": "Prefer the Python tokenizer for safe comment stripping, then compare ast.dump(ast.parse(no_note),include_attributes=False) to the already-annotated code; do not remove '#' inside strings.",
+    "bash": "Strip only syntactically real comments, preserving quoted # and executable commands. If syntax-aware safe removal is uncertain, preserve the command and record an exception rather than changing behavior.",
+    "labels": [
+      "No Note — Không chú thích",
+      "Code có chú thích — Giải thích từng bước"
+    ],
+    "progress_ledger": "docs/CURRICULUM-NO-NOTE-PROGRESS.json",
+    "guide": "docs/CURRICULUM-STYLE-GUIDE.md",
+    "test_contract": "Tests must adapt to two fences per example; do not duplicate stdout/result fences or execute each pair twice unintentionally."
+  },
+  "progress_ledger": "docs/CURRICULUM-NO-NOTE-PROGRESS.json",
+  "owner_authorization": "The owner explicitly requested creating this goal after predecessor completes, in the same conversation, 2026-10-25."
+}
