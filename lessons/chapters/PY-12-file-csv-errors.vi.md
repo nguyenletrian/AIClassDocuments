@@ -163,8 +163,15 @@ P09,Kẹp,8000
 P10,Hộp,30000
 """
 rows = list(csv.DictReader(StringIO(csv_text)))
-match = next(row for row in rows if row["sku"] == "P08")
-assert len(rows) == 10
+match = None
+for row in rows:
+    if row["sku"] == "P08":
+        match = row
+        break
+if match is None:
+    raise ValueError("Không tìm thấy sản phẩm P08.")
+if len(rows) != 10:
+    raise ValueError("Cần đủ 10 sản phẩm CSV.")
 print("Sản phẩm:", len(rows))
 print("P08:", match["name"])
 print("Giá P08 (đồng):", match["price_vnd"])
@@ -201,7 +208,8 @@ with TemporaryDirectory() as temp:
     path = Path(temp) / "log.txt"
     path.write_text("\n".join(events) + "\n", encoding="utf-8")
     readback = path.read_text(encoding="utf-8").splitlines()
-    assert readback == events
+    if readback != events:
+        raise ValueError("Nội dung ghi và đọc lại phải trùng nhau.")
     print("Sự kiện:", len(readback))
     print("Đầu:", readback[0])
     print("Cuối:", readback[-1])
@@ -238,7 +246,8 @@ for i, raw in enumerate(raw_quantities, 1):
         converted.append(int(raw))
     except ValueError:
         invalid.append(f"R{i:02d}")
-assert len(converted) + len(invalid) == len(raw_quantities) == 15
+if len(raw_quantities) != 15 or len(converted) + len(invalid) != 15:
+    raise ValueError("Cần kiểm tra đủ 15 dòng số lượng.")
 print("Dòng nhận:", len(raw_quantities))
 print("Hợp lệ:", len(converted))
 print("Tổng điều chỉnh:", sum(converted))
@@ -291,11 +300,15 @@ writer.writeheader()
 writer.writerows(cleaned)
 output.seek(0)
 written = list(csv.DictReader(output))
-assert len(raw_prices) == len(cleaned) + len(errors) == 18
+if len(raw_prices) != 18 or len(cleaned) + len(errors) != 18:
+    raise ValueError("Cần đối chiếu đủ 18 dòng CSV.")
 print("Dòng đầu vào:", len(raw_prices))
 print("Dòng CSV sạch:", len(written))
 print("Cần sửa:", ", ".join(errors))
-print("Tổng đơn giá (đồng):", sum(row["price_vnd"] for row in cleaned))
+total_price = 0
+for row in cleaned:
+    total_price += row["price_vnd"]
+print("Tổng đơn giá (đồng):", total_price)
 ```
 
 **Kết quả khi chạy:**
@@ -351,11 +364,15 @@ with TemporaryDirectory() as folder:
         writer.writerows(valid)
     with cleaned.open("r", encoding="utf-8", newline="") as f:
         exported = list(csv.DictReader(f))
-    assert len(rows) == len(exported) + len(errors) == 20
+    if len(rows) != 20 or len(exported) + len(errors) != 20:
+        raise ValueError("Cần đối chiếu đủ 20 dòng hóa đơn.")
     print("Đầu vào:", len(rows))
     print("Đã xuất:", len(exported))
     print("Lỗi:", ", ".join(errors))
-    print("Tổng tiền (đồng):", sum(int(x["amount_vnd"]) for x in exported))
+    total_amount = 0
+    for row in exported:
+        total_amount += int(row["amount_vnd"])
+    print("Tổng tiền (đồng):", total_amount)
 ```
 
 **Kết quả khi chạy:**

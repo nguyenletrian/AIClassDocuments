@@ -177,13 +177,26 @@ class Digital(Product):
 class Physical(Product):
     def category(self):
         return "physical"
-items = [Digital(name) if kind == "digital" else Physical(name)
-         for name, kind in data]
-assert len(items) == 10
+items = []
+for name, kind in data:
+    if kind == "digital":
+        product = Digital(name)
+    else:
+        product = Physical(name)
+    items.append(product)
+if len(items) != 10:
+    raise ValueError("Cần tạo đủ 10 mặt hàng.")
 print("Sản phẩm:", len(items))
 print("Đầu tiên:", items[0].name, items[0].category())
-print("Thiết bị:", sum(p.category() == "digital" for p in items))
-print("Đồ dùng:", sum(p.category() == "physical" for p in items))
+digital_count = 0
+physical_count = 0
+for product in items:
+    if product.category() == "digital":
+        digital_count += 1
+    if product.category() == "physical":
+        physical_count += 1
+print("Thiết bị:", digital_count)
+print("Đồ dùng:", physical_count)
 ```
 
 **Kết quả khi chạy:**
@@ -224,12 +237,22 @@ class ScreenNotifier(Notifier):
     def send(self, message):
         return "screen:" + message
 notifiers = {"email": EmailNotifier(), "screen": ScreenNotifier()}
-results = [notifiers[channel].send(f"N{i:02d}")
-           for i, channel in enumerate(channels, 1)]
-assert len(results) == 12
+results = []
+for i, channel in enumerate(channels, 1):
+    message = notifiers[channel].send(f"N{i:02d}")
+    results.append(message)
+if len(results) != 12:
+    raise ValueError("Cần xử lý đủ 12 thông báo.")
 print("Yêu cầu:", len(results))
-print("Kênh email:", sum(text.startswith("email:") for text in results))
-print("Kênh màn hình:", sum(text.startswith("screen:") for text in results))
+email_count = 0
+screen_count = 0
+for text in results:
+    if text.startswith("email:"):
+        email_count += 1
+    if text.startswith("screen:"):
+        screen_count += 1
+print("Kênh email:", email_count)
+print("Kênh màn hình:", screen_count)
 print("Ví dụ:", results[0])
 ```
 
@@ -274,13 +297,25 @@ class Cold(Shipping):
         super().__init__("cold")
     def fee(self):
         return 50000
-factory = {"standard": lambda: Shipping("standard"),
+def create_standard_shipping():
+    return Shipping("standard")
+
+factory = {"standard": create_standard_shipping,
            "express": Express, "cold": Cold}
-orders = [factory[kind]() for kind in types]
-assert len(orders) == 15
+orders = []
+for kind in types:
+    orders.append(factory[kind]())
+if len(orders) != 15:
+    raise ValueError("Cần xử lý đủ 15 đơn vận chuyển.")
 print("Đơn:", len(orders))
-print("Giao lạnh:", sum(obj.kind == "cold" for obj in orders))
-print("Tổng phí (đồng):", sum(obj.fee() for obj in orders))
+cold_count = 0
+total_fee = 0
+for order in orders:
+    if order.kind == "cold":
+        cold_count += 1
+    total_fee += order.fee()
+print("Giao lạnh:", cold_count)
+print("Tổng phí (đồng):", total_fee)
 ```
 
 **Kết quả khi chạy:**
@@ -315,15 +350,30 @@ class Sensor:
         raise NotImplementedError
 class Temperature(Sensor):
     def read(self):
-        return f"{self.value:.1f} °C" if self.value is not None else None
+        if self.value is None:
+            return None
+        return f"{self.value:.1f} °C"
 class Humidity(Sensor):
     def read(self):
-        return f"{self.value:.1f} %" if self.value is not None else None
-sensors = [Temperature(value) if kind == "temp" else Humidity(value)
-           for kind, value in records]
-results = [sensor.read() for sensor in sensors]
-valid = [text for text in results if text is not None]
-assert len(results) == 18
+        if self.value is None:
+            return None
+        return f"{self.value:.1f} %"
+sensors = []
+for kind, value in records:
+    if kind == "temp":
+        sensor = Temperature(value)
+    else:
+        sensor = Humidity(value)
+    sensors.append(sensor)
+results = []
+valid = []
+for sensor in sensors:
+    text = sensor.read()
+    results.append(text)
+    if text is not None:
+        valid.append(text)
+if len(results) != 18:
+    raise ValueError("Cần nhận đủ 18 bản ghi cảm biến.")
 print("Cảm biến:", len(results))
 print("Hợp lệ:", len(valid))
 print("Thiếu:", len(results) - len(valid))
@@ -375,15 +425,22 @@ class Card(Payment):
 valid, invalid = [], []
 for i, (amount, method) in enumerate(zip(amounts, methods), 1):
     try:
-        payment = Bank(amount) if method == "bank" else Card(amount)
+        if method == "bank":
+            payment = Bank(amount)
+        else:
+            payment = Card(amount)
         valid.append(payment)
     except ValueError:
         invalid.append(f"P{i:02d}")
-assert len(amounts) == len(valid) + len(invalid) == 20
+if len(amounts) != 20 or len(valid) + len(invalid) != 20:
+    raise ValueError("Cần đối chiếu đủ 20 giao dịch, kể cả giao dịch sai.")
 print("Giao dịch:", len(amounts))
 print("Hợp lệ:", len(valid))
 print("Cần sửa:", ", ".join(invalid))
-print("Phí tổng (đồng):", sum(item.fee() for item in valid))
+total_fee = 0
+for item in valid:
+    total_fee += item.fee()
+print("Phí tổng (đồng):", total_fee)
 ```
 
 **Kết quả khi chạy:**

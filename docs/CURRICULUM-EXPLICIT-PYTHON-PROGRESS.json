@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_03",
+  "status": "BATCH_03_IN_PROGRESS",
   "last_completed_batch": 2,
   "batches": [
     {
@@ -75,11 +75,26 @@
         "PY-14",
         "PY-15"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-11",
+        "PY-12",
+        "PY-13",
+        "PY-14",
+        "PY-15"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-03-20261025",
+      "lesson_commits": {
+        "PY-11": "2965f799b087ebb2d9707cd29f9bf8642101a617",
+        "PY-12": "639e29d0881a7005061e0ed33dc05664f68a8c80",
+        "PY-13": "7d2fce06a3d32ecfef34723c377de519ba566af6",
+        "PY-14": "8b4b7bf15a627f2792dc97dd3b43c45d54391267",
+        "PY-15": "d979081c08cb58c94ba1b27d6bccbe214a52d310"
+      },
+      "notes": "Five lessons PY-11..15 committed separately. Replaced executable assert, list/gen comprehensions, inline ternaries with explicit if/raise and for loops. 9 Python code fences, 9 documented stdout blocks and 5 progressive scenarios per lesson preserved. CI execution/AST/MCQ/Markdown validation pending; do not count MERGED or Windows PASS until verified. Scenario prose clarity remains APPROVED_DEFERRED."
     },
     {
       "batch": 4,
