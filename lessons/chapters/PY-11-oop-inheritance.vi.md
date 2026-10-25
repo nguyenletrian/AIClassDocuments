@@ -151,7 +151,7 @@ print(Shipping().fee(), Express().fee())
 Hai đối tượng gọi cùng `fee()` nhưng phí khác nhau: gói thường 0 đồng, gói nhanh 35.000 đồng.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Các loại sản phẩm
+### Tình huống 1 — Các loại sản phẩm · Cấp 1: Lớp cha và con
 
 **Từ vựng trong mục:** **Inheritance** — kế thừa; **Method** — phương thức.
 
@@ -186,7 +186,28 @@ electronic
 
 Điện thoại được xếp vào nhóm `electronic`; tên `Phone` được giữ qua phần khởi tạo của lớp cha.
 
-### Tình huống 2 — Giao diện gửi thông báo
+**Bài thực hành nâng cấp — cấp 1/5:** Một trạm giám sát có **10 cảm biến**, mỗi dòng là cảm biến `id` với giá trị `x` (°C trong ví dụ giả lập). Hãy tạo lớp con đo lường và dùng read(). Ở cấp 4–5, `None` mô tả mất tín hiệu; lớp con phải phản hồi được mà không so sánh `None >= 80`.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"M{k:02d}","x":x} for k,x in enumerate(values,1)]
+class Sensor:
+    def __init__(self, row): self.id, self.value = row["id"],row["x"]
+    def read(self): return self.value
+    def category(self): return "base"
+class Valid(Sensor):
+    def category(self): return "hot" if self.value >= 80 else "normal"
+class Missing(Sensor):
+    def read(self): return "no signal"
+    def category(self): return "missing"
+result = Valid(rows[0]).read()
+print("Số cảm biến:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đọc qua phương thức chung của lớp cha; số phần tử là 10 và hành vi phụ thuộc loại lớp con.
+
+### Tình huống 2 — Giao diện gửi thông báo · Cấp 2: Đa hình trên nhiều đối tượng
 
 **Từ vựng trong mục:** **Abstract class** — lớp trừu tượng; **Abstract method** — phương thức trừu tượng.
 
@@ -224,7 +245,28 @@ Sent:Hello
 
 Phương thức `send()` của `Console` đã được định nghĩa; chương trình trả về chuỗi `Sent:Hello`.
 
-### Tình huống 3 — Tính phí vận chuyển
+**Bài thực hành nâng cấp — cấp 2/5:** Một trạm giám sát có **12 cảm biến**, mỗi dòng là cảm biến `id` với giá trị `x` (°C trong ví dụ giả lập). Hãy đọc 12 đối tượng bằng cùng phương thức. Ở cấp 4–5, `None` mô tả mất tín hiệu; lớp con phải phản hồi được mà không so sánh `None >= 80`.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"M{k:02d}","x":x} for k,x in enumerate(values,1)]
+class Sensor:
+    def __init__(self, row): self.id, self.value = row["id"],row["x"]
+    def read(self): return self.value
+    def category(self): return "base"
+class Valid(Sensor):
+    def category(self): return "hot" if self.value >= 80 else "normal"
+class Missing(Sensor):
+    def read(self): return "no signal"
+    def category(self): return "missing"
+result = [Valid(row).read() for row in rows]
+print("Số cảm biến:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đọc qua phương thức chung của lớp cha; số phần tử là 12 và hành vi phụ thuộc loại lớp con.
+
+### Tình huống 3 — Tính phí vận chuyển · Cấp 3: Ghi đè phương thức
 
 **Từ vựng trong mục:** **Override** — ghi đè; **Inheritance** — kế thừa.
 
@@ -259,7 +301,28 @@ print(Express().fee())
 
 Giá trị 35000 tương ứng 35.000 đồng phí giao nhanh; không dùng giá trị 0 của lớp cha.
 
-### Tình huống 4 — Đọc nhiều loại cảm biến
+**Bài thực hành nâng cấp — cấp 3/5:** Một trạm giám sát có **15 cảm biến**, mỗi dòng là cảm biến `id` với giá trị `x` (°C trong ví dụ giả lập). Hãy ghi đè category() để phân biệt mức cảnh báo. Ở cấp 4–5, `None` mô tả mất tín hiệu; lớp con phải phản hồi được mà không so sánh `None >= 80`.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"M{k:02d}","x":x} for k,x in enumerate(values,1)]
+class Sensor:
+    def __init__(self, row): self.id, self.value = row["id"],row["x"]
+    def read(self): return self.value
+    def category(self): return "base"
+class Valid(Sensor):
+    def category(self): return "hot" if self.value >= 80 else "normal"
+class Missing(Sensor):
+    def read(self): return "no signal"
+    def category(self): return "missing"
+result = [Valid(row).category() for row in rows]
+print("Số cảm biến:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đọc qua phương thức chung của lớp cha; số phần tử là 15 và hành vi phụ thuộc loại lớp con.
+
+### Tình huống 4 — Đọc nhiều loại cảm biến · Cấp 4: Loại xử lý dữ liệu khuyết
 
 **Từ vựng trong mục:** **Polymorphism** — đa hình; **Override** — ghi đè.
 
@@ -300,7 +363,28 @@ for sensor in [Temp(), Humidity()]:
 
 Dòng đầu là 26,5 °C; dòng thứ hai là 62% độ ẩm. Chương trình chỉ in số, đơn vị được giải thích trong bài.
 
-### Tình huống 5 — Chuyển định dạng báo cáo
+**Bài thực hành nâng cấp — cấp 4/5:** Một trạm giám sát có **18 cảm biến**, mỗi dòng là cảm biến `id` với giá trị `x` (°C trong ví dụ giả lập). Hãy dùng lớp Missing xử lý số đo chưa nhận. Ở cấp 4–5, `None` mô tả mất tín hiệu; lớp con phải phản hồi được mà không so sánh `None >= 80`.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"M{k:02d}","x":x} for k,x in enumerate(values,1)]
+class Sensor:
+    def __init__(self, row): self.id, self.value = row["id"],row["x"]
+    def read(self): return self.value
+    def category(self): return "base"
+class Valid(Sensor):
+    def category(self): return "hot" if self.value >= 80 else "normal"
+class Missing(Sensor):
+    def read(self): return "no signal"
+    def category(self): return "missing"
+result = [(Missing(row) if row['x'] is None else Valid(row)).read() for row in rows]
+print("Số cảm biến:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đọc qua phương thức chung của lớp cha; số phần tử là 18 và hành vi phụ thuộc loại lớp con.
+
+### Tình huống 5 — Chuyển định dạng báo cáo · Cấp 5: Báo cáo qua giao diện chung
 
 **Từ vựng trong mục:** **Override** — ghi đè; **Method** — phương thức.
 
@@ -334,6 +418,28 @@ print(HtmlReport().render())
 ```
 
 Đầu ra là chuỗi thẻ HTML; `print()` không biến chuỗi thành trang web.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Một trạm giám sát có **20 cảm biến**, mỗi dòng là cảm biến `id` với giá trị `x` (°C trong ví dụ giả lập). Hãy tổng hợp các đối tượng đủ dữ liệu và thiếu dữ liệu. Ở cấp 4–5, `None` mô tả mất tín hiệu; lớp con phải phản hồi được mà không so sánh `None >= 80`.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"M{k:02d}","x":x} for k,x in enumerate(values,1)]
+class Sensor:
+    def __init__(self, row): self.id, self.value = row["id"],row["x"]
+    def read(self): return self.value
+    def category(self): return "base"
+class Valid(Sensor):
+    def category(self): return "hot" if self.value >= 80 else "normal"
+class Missing(Sensor):
+    def read(self): return "no signal"
+    def category(self): return "missing"
+result = {'normal':sum((Missing(r) if r['x'] is None else Valid(r)).category()=='normal' for r in rows),'hot':sum((Missing(r) if r['x'] is None else Valid(r)).category()=='hot' for r in rows),'missing':sum((Missing(r) if r['x'] is None else Valid(r)).category()=='missing' for r in rows)}
+print("Số cảm biến:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đọc qua phương thức chung của lớp cha; số phần tử là 20 và hành vi phụ thuộc loại lớp con.
+
 ## 6. Sai lầm thường gặp
 
 - **Kế thừa** không tự biến mọi phương thức thành đa hình; lớp con có thể dùng lại hoặc ghi đè tùy nhu cầu.
