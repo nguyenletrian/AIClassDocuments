@@ -3,8 +3,8 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_09_QA_PASSED_WAIT_MERGE",
-  "last_completed_batch": 8,
+  "status": "READY_FOR_BATCH_10",
+  "last_completed_batch": 9,
   "batches": [
     {
       "batch": 1,
@@ -234,13 +234,13 @@
         "PY-44",
         "PY-45"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-42"
       ],
       "pr": 142,
-      "merged_commit": null,
-      "ci_run": 40169722619,
+      "merged_commit": "dffc7a8a257545972b9312dc6d1600bd09de1924",
+      "ci_run": 40169811497,
       "branch": "fix/markdown-render-batch-09-20261025",
       "reviewed_lessons": [
         "PY-41",
@@ -257,7 +257,7 @@
         "unescaped_table_pipes_fixed": 1,
         "html_pipe_entities_fixed": 0
       },
-      "notes": "PR #142 initial CI 40169722619 PASS: one PY-42 inline-code Jaccard denominator pipe escaped in a Markdown table, PY-41/43/44/45 unchanged. Formatting regression and full curriculum tests PASS; final-head CI before merge pending. Deferred explicit Python goal not activated."
+      "notes": "PR #142 squash merged dffc7a8a257545972b9312dc6d1600bd09de1924, final-head GitHub CI #40169811497 PASS on commit 701b31730e45c5d5f87c80c20f51b62bf1c44468. PY-41..PY-45 inspected; only PY-42 line 30 changed to escape the Jaccard denominator pipe in a Markdown table. Structure, MCQ, Python syntax, full curriculum/Markdown tests passed. Next final batch10 PY-46; explicit Python readability goal stays APPROVED_DEFERRED."
     },
     {
       "batch": 10,
