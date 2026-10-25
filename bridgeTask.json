@@ -1190,26 +1190,19 @@
     "enabled": true,
     "approval": "approved",
     "status": "active",
-    "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
-    "revision": "2026-10-25-explicit-python-10-batches-resume-batch10",
-    "title": "Chuyển ví dụ Python sang cú pháp tường minh cho học viên mới",
-    "phase": "READY_FOR_BATCH_10",
+    "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
+    "revision": "2026-10-25-scenario-clarity-10-batches-start",
+    "title": "Viết lại tình huống thực tế dễ hiểu và giải thích kỹ vì sao chọn cách này",
+    "phase": "READY_FOR_BATCH_01",
     "chapter_index": "lessons/chapters/README.md",
-    "goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
-    "progress_ledger": "docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json",
+    "goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
+    "progress_ledger": "docs/CURRICULUM-SCENARIO-CLARITY-PROGRESS.json",
     "workflow_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "PY-41..45 batch09 merged PR #153 SHA ce98489a525eabe6317df2698c83ca5356c56da5 after final-head GitHub CI #40175887889 PASS. Ledger 9/10 MERGED READY_FOR_BATCH_10. Verify fresh main TaskSource/ACK/open PR; final batch10 ONLY PY-46-ai-end-to-end-mini-project.vi.md. Replace all executable assert with explicit if/error, comprehensions and generator expressions/ternary with clear for/if, preserve outputs, 5 progressive 10/12/15/18/20 scenarios, 20 MCQ, chapter structure. Commit lesson then CI exact stdout, AST all 46 lessons, structure/Markdown and all 10 scenario suites. Merge only final-head CI PASS, record 10/10 COMPLETE in durable ledger and archive this goal. Then, and ONLY if no outstanding queue/PR, activate separately owner-approved future scenario clarity goal. Never replay past tasks or claim Windows PASS without actual evidence.",
-    "review_hold": "CURRENT: final explicit Python batch10 PY-46 only, all preceding batches MERGED. Deferred scenario clarification goal waits for complete 10/10 and safe activation prerequisites.",
-    "approved_deferred_goal": {
-      "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
-      "spec_path": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
-      "status": "APPROVED_DEFERRED",
-      "start_only_after": "Explicit Python goal ledger COMPLETED, 10/10 merged, no outstanding PR/task",
-      "request_summary": "After current goal, simplify real-life scenarios for beginners, explain weights/data origins, normalization, sample size and seed in Vì sao chọn cách này, keep scenario itself easy to read."
-    }
+    "next_review": "Previous explicit Python goal COMPLETED 10/10 (PR #154 CI #40176164004 PASS), open PR=0, pending TaskSource=0. Owner-approved scenario prose clarity goal now active, first batch ONLY PY-01..PY-05. Rewrite **Tình huống thực tế** as simple human situation with data meaning, assumptions and clear question; explain unfamiliar terms, why method, steps in words, sampling choices/seed under **Vì sao chọn cách này?**. Keep all original code/expected stdout, 5 scenarios with datasets 10/12/15/18/20, definitions, 20 MCQs per lesson and lesson structure unchanged. Commit each chapter separately, verify 25 scenario code outputs and full curriculum/MCQ/Markdown, final-head CI PASS before merge; durable batch ledger then batch02. No duplicate heartbeat tasks, historical task replay or invented Windows verification.",
+    "review_hold": "Newly active owner-approved prose clarity goal. Start only first batch PY-01..05, no more than five at once, safe task creation only with evidence. Preserve completed explicit Python artifacts; owner-approved clarity goal governs explanations. Guide section 7."
   },
   "goal_review_history": [
     {
@@ -1306,10 +1299,39 @@
           "start_only_after": "Markdown formatting ledger COMPLETED, last_completed_batch=10, no outstanding PR/task"
         }
       }
+    },
+    {
+      "archived_on": "2026-10-25",
+      "status": "COMPLETED_REPLACED_BY_OWNER_APPROVED_SCENARIO_CLARITY",
+      "previous": {
+        "enabled": false,
+        "approval": "approved",
+        "status": "completed",
+        "goal_id": "aiclassdocuments-explicit-python-beginner-code-20261025",
+        "revision": "2026-10-25-explicit-python-10-batches-resume-batch10",
+        "title": "Chuyển ví dụ Python sang cú pháp tường minh cho học viên mới",
+        "phase": "COMPLETED",
+        "chapter_index": "lessons/chapters/README.md",
+        "goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
+        "progress_ledger": "docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json",
+        "workflow_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
+        "batch_limit": 5,
+        "expected_lessons": 46,
+        "expected_batches": 10,
+        "next_review": "Explicit Python readability goal COMPLETED 10/10 batches merged (46/46), final PR #154 merge SHA edbfa9e1e9f13e773fa0c6939bb67ef6cf82624c, GitHub CI #40176164004 SUCCESS; all 46 Python chapters now use beginner-readable explicit loops and if. Ledger docs/CURRICULUM-EXPLICIT-PYTHON-PROGRESS.json status COMPLETED last_completed_batch=10. No open PR/pending TaskSource. Windows run not claimed. Only new independently approved scenario clarity goal is active.",
+        "review_hold": "COMPLETED; never replay batches or historical Jetking tasks. Owner-approved scenario clarity goal activated independently after safe prerequisite verification.",
+        "approved_deferred_goal": {
+          "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
+          "spec_path": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
+          "status": "ACTIVATED",
+          "start_only_after": "Explicit Python goal ledger COMPLETED, 10/10 merged, no outstanding PR/task",
+          "request_summary": "After current goal, simplify real-life scenarios for beginners, explain weights/data origins, normalization, sample size and seed in Vì sao chọn cách này, keep scenario itself easy to read."
+        }
+      }
     }
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "Owner-approved explicit Python code-readability goal active, ready batch01 PY-01..PY-05; independent durable ledger."
+    "reason": "Owner-approved scenario clarity prose goal active, first batch PY-01..PY-05; separate durable ledger after predecessor Python 10/10 COMPLETED."
   }
 }
