@@ -128,7 +128,7 @@ Hai tên khách được ghép đúng theo id, không phải dựa vào vị tr�
 
 ## 5. Năm vấn đề thực tế
 
-### Tình huống 1 — Đơn hàng giá cao
+### Tình huống 1 — Đơn hàng giá cao · Cấp 1: Lọc một điều kiện
 
 **Từ vựng trong mục:** **loc** — chọn theo nhãn.
 
@@ -157,7 +157,23 @@ print(df[df.price>=800])
 2    C   1200
 ```
 
-### Tình huống 2 — Tra dòng thứ hai
+**Bài thực hành nâng cấp — cấp 1/5:** Phòng kinh doanh ghi **10 đơn hàng**, mỗi hàng gồm mã `id`, đơn giá `amount` (nghìn đồng), `qty` (món) và `region`. Hãy lọc các đơn có đơn giá từ 70 nghìn đồng. Cấp 4 bổ sung bảng danh mục vùng có thể thiếu khóa khớp; cấp 5 kiểm tra cả giá thiếu trước khi tổng hợp.
+
+```python
+import pandas as pd
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+df = pd.DataFrame({"id":[f"O{k:02d}" for k in range(1,11)],
+    "amount":values,"qty":[(k%4)+1 for k in range(10)],
+    "region":[["North","South","Central"][k%3] for k in range(10)]})
+result = df.loc[df.amount>=70,['id','amount']].to_dict('records')
+assert len(df)==10
+print("Số đơn:",len(df))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số đơn 10; đọc tổng theo đơn vị nghìn đồng và xác nhận phép join không vô tình làm mất các đơn chưa có thông tin quản lý.
+
+### Tình huống 2 — Tra dòng thứ hai · Cấp 2: Chọn dữ liệu theo vị trí
 
 **Từ vựng trong mục:** **iloc** — chọn theo vị trí.
 
@@ -185,7 +201,23 @@ id    B
 Name: 1, dtype: object
 ```
 
-### Tình huống 3 — Doanh thu từng vùng
+**Bài thực hành nâng cấp — cấp 2/5:** Phòng kinh doanh ghi **12 đơn hàng**, mỗi hàng gồm mã `id`, đơn giá `amount` (nghìn đồng), `qty` (món) và `region`. Hãy sắp và lấy 5 đơn có số tiền cao nhất. Cấp 4 bổ sung bảng danh mục vùng có thể thiếu khóa khớp; cấp 5 kiểm tra cả giá thiếu trước khi tổng hợp.
+
+```python
+import pandas as pd
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+df = pd.DataFrame({"id":[f"O{k:02d}" for k in range(1,13)],
+    "amount":values,"qty":[(k%4)+1 for k in range(12)],
+    "region":[["North","South","Central"][k%3] for k in range(12)]})
+result = df.sort_values('amount',ascending=False).head(5)['id'].tolist()
+assert len(df)==12
+print("Số đơn:",len(df))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số đơn 12; đọc tổng theo đơn vị nghìn đồng và xác nhận phép join không vô tình làm mất các đơn chưa có thông tin quản lý.
+
+### Tình huống 3 — Doanh thu từng vùng · Cấp 3: Groupby nhiều dòng
 
 **Từ vựng trong mục:** **groupby** — nhóm dữ liệu.
 
@@ -215,7 +247,23 @@ B     8
 Name: sale, dtype: int64
 ```
 
-### Tình huống 4 — Đơn hàng và khách
+**Bài thực hành nâng cấp — cấp 3/5:** Phòng kinh doanh ghi **15 đơn hàng**, mỗi hàng gồm mã `id`, đơn giá `amount` (nghìn đồng), `qty` (món) và `region`. Hãy tính doanh thu cho từng vùng bằng groupby. Cấp 4 bổ sung bảng danh mục vùng có thể thiếu khóa khớp; cấp 5 kiểm tra cả giá thiếu trước khi tổng hợp.
+
+```python
+import pandas as pd
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+df = pd.DataFrame({"id":[f"O{k:02d}" for k in range(1,16)],
+    "amount":values,"qty":[(k%4)+1 for k in range(15)],
+    "region":[["North","South","Central"][k%3] for k in range(15)]})
+result = df.assign(revenue=df.amount*df.qty).groupby('region')['revenue'].sum().to_dict()
+assert len(df)==15
+print("Số đơn:",len(df))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số đơn 15; đọc tổng theo đơn vị nghìn đồng và xác nhận phép join không vô tình làm mất các đơn chưa có thông tin quản lý.
+
+### Tình huống 4 — Đơn hàng và khách · Cấp 4: Join hai bảng và bảo toàn ID
 
 **Từ vựng trong mục:** **merge** — ghép bảng.
 
@@ -245,7 +293,23 @@ print(a.merge(b, on="id", how="left"))
 1   2    20  Lan
 ```
 
-### Tình huống 5 — Top doanh số
+**Bài thực hành nâng cấp — cấp 4/5:** Phòng kinh doanh ghi **18 đơn hàng**, mỗi hàng gồm mã `id`, đơn giá `amount` (nghìn đồng), `qty` (món) và `region`. Hãy left merge với danh mục nhân viên và nhận biết mã không khớp. Cấp 4 bổ sung bảng danh mục vùng có thể thiếu khóa khớp; cấp 5 kiểm tra cả giá thiếu trước khi tổng hợp.
+
+```python
+import pandas as pd
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+df = pd.DataFrame({"id":[f"O{k:02d}" for k in range(1,19)],
+    "amount":values,"qty":[(k%4)+1 for k in range(18)],
+    "region":[["North","South","Central"][k%3] for k in range(18)]})
+result = df.merge(pd.DataFrame({'region':['North','South'],'manager':['A','B']}),on='region',how='left')['manager'].isna().sum().item()
+assert len(df)==18
+print("Số đơn:",len(df))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số đơn 18; đọc tổng theo đơn vị nghìn đồng và xác nhận phép join không vô tình làm mất các đơn chưa có thông tin quản lý.
+
+### Tình huống 5 — Top doanh số · Cấp 5: Báo cáo lọc–merge–groupby
 
 **Từ vựng trong mục:** **sort_values** — sắp xếp theo giá trị.
 
@@ -273,6 +337,22 @@ print(df.sort_values("sale", ascending=False).head(2))
 1  B    80
 3  D    60
 ```
+
+**Bài thực hành nâng cấp — cấp 5/5:** Phòng kinh doanh ghi **20 đơn hàng**, mỗi hàng gồm mã `id`, đơn giá `amount` (nghìn đồng), `qty` (món) và `region`. Hãy bỏ qua giá khuyết, tính top 5 doanh thu và tổng của từng vùng. Cấp 4 bổ sung bảng danh mục vùng có thể thiếu khóa khớp; cấp 5 kiểm tra cả giá thiếu trước khi tổng hợp.
+
+```python
+import pandas as pd
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+df = pd.DataFrame({"id":[f"O{k:02d}" for k in range(1,21)],
+    "amount":values,"qty":[(k%4)+1 for k in range(20)],
+    "region":[["North","South","Central"][k%3] for k in range(20)]})
+result = {'top5':df.assign(revenue=df.amount*df.qty).nlargest(5,'revenue')['id'].tolist(),'regions':df.assign(revenue=df.amount*df.qty).groupby('region')['revenue'].sum().to_dict(),'missing':int(df.amount.isna().sum())}
+assert len(df)==20
+print("Số đơn:",len(df))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số đơn 20; đọc tổng theo đơn vị nghìn đồng và xác nhận phép join không vô tình làm mất các đơn chưa có thông tin quản lý.
 
 ## 6. Sai lầm thường gặp
 
