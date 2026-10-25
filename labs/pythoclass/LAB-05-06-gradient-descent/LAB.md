@@ -28,27 +28,27 @@ You will use Python, NumPy, Matplotlib, and SymPy to explore mathematical concep
 ### Task 2: Build a Simple Linear Prediction Model
 Use the following model:
 
-$
+$$
 \hat{y} = wX+b
-$
+$$
 
 where `w` is the weight, `b` is the bias, and `ŷ` is the predicted exam score.
 
 - Implement a `predict(X, w, b)` function.
 - Implement a `compute_loss(y_true, y_pred)` function using Mean Squared Error (MSE):
 
-$
+$$
 \mathrm{MSE}=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat y_i)^2.
-$
+$$
 
 - Initialize `w = 0` and `b = 0`. Calculate/display initial predictions and MSE.
 
 ### Task 3: Calculate Partial Derivatives and the Hessian
 Consider the loss function for one sample:
 
-$
+$$
 L(w,b)=(2w+b-5)^2.
-$
+$$
 
 - Calculate the partial derivative of `L` with respect to `w`.
 - Calculate the partial derivative of `L` with respect to `b`.
@@ -60,10 +60,10 @@ Implement Gradient Descent from scratch to train the model on the dataset above.
 
 For MSE, use:
 
-$
+$$
 \frac{\partial L}{\partial w}=\frac{2}{n}\sum_i X_i(wX_i+b-y_i),\qquad
 \frac{\partial L}{\partial b}=\frac{2}{n}\sum_i(wX_i+b-y_i).
-$
+$$
 
 Update parameters by subtracting the learning rate multiplied by each gradient component.
 
@@ -76,9 +76,9 @@ Update parameters by subtracting the learning rate multiplied by each gradient c
 ### Task 5: Analyze the Gradient and Hessian of the Full Dataset Loss
 Apply the full-dataset loss:
 
-$
+$$
 L(w,b)=\frac{1}{n}\sum_i(y_i-wX_i-b)^2.
-$
+$$
 
 - Calculate/display the gradient vector and Hessian matrix.
 - Evaluate the gradient at the trained `w` and `b`.
