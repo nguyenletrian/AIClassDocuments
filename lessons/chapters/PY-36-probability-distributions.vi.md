@@ -126,9 +126,9 @@ Theo chuẩn tắc N(0,1), khoảng −1 đến +1 chứa khoảng 68,27% xác s
 
 **Từ vựng trong mục:** **Bernoulli** — phép thử hai kết quả; **Binomial PMF** — xác suất đúng k thành công.
 
-**Tình huống thực tế:** Một đơn vị giao nhận theo dõi **10 đơn hàng**; mỗi bản ghi 1 nếu đúng giờ và 0 nếu trễ. Chính sách dự báo giả định **mỗi đơn độc lập, xác suất đúng hạn bằng 0,8**, giống nhau giữa các đơn. Cần đếm số đơn đúng giờ trong bảng rồi tính khả năng nhận **đúng số đơn ấy** theo mô hình nhị thức.
+**Tình huống thực tế:** Đội giao hàng ghi **10 đơn giao**, mỗi đơn được đánh dấu `1` nếu đến đúng giờ và `0` nếu trễ; trong bảng có **8 đơn đúng giờ**. Để thử dự báo cho những lô tương tự, công ty giả định từng đơn có **cơ hội đúng giờ 80%**, các đơn không ảnh hưởng nhau. Nhân viên muốn biết theo **mô hình dự báo**, xác suất một lô 10 đơn có **đúng 8 đơn đúng giờ** là bao nhiêu; đây không phải tỷ lệ giao đúng giờ của cả công ty.
 
-**Vì sao chọn cách này?** Nhị thức phù hợp khi có số lần thử cố định, hai kết quả và cùng xác suất; `binom.pmf` hỏi **đúng k**, khác tỷ lệ thực nghiệm `k/10`. Một ngày có tỷ lệ 80% không chứng minh giả định độc lập.
+**Vì sao chọn cách này?** **Phân phối nhị thức** phù hợp khi có **số lần thử cố định** (10 đơn), **hai kết quả** (đúng/trễ), cùng cơ hội 0,8 và giả định các đơn **độc lập**. `binom.pmf(8, n=10, p=0.8)` trả **xác suất đúng tám lần thành công**, không phải xác suất có từ tám lần trở lên. Còn `sum(observed)` đếm tám đơn đúng giờ trong **lô đã xảy ra**; tỷ lệ 8/10 chỉ là kết quả quan sát, không xác nhận giả định 80% hoặc tính độc lập. Cần kiểm dữ liệu thực tế nhiều hơn trước khi dùng mô hình ngoài bài tập.
 
 **Quy trình:**
 1. Đếm mười cờ thực tế và xác định số thành công k.
@@ -161,9 +161,9 @@ Xác suất 0,3020 là kết quả của **mô hình đã giả định**, khôn
 
 **Từ vựng trong mục:** **Binomial CDF** — xác suất tích lũy; **Threshold** — ngưỡng.
 
-**Tình huống thực tế:** Trạm lắp ráp ghi **12 linh kiện**, mỗi linh kiện có cờ lỗi 1/0; ba chiếc đang được đánh dấu lỗi. Giả sử ở một lô tương tự mỗi linh kiện lỗi độc lập với xác suất 0,1. Quản đốc muốn biết khả năng có **tối đa hai linh kiện lỗi trong một lô 12 chiếc**, đồng thời so số lỗi của lô đang quan sát.
+**Tình huống thực tế:** Xưởng lắp ráp kiểm **12 linh kiện**, trong đó **3 chiếc đã quan sát là lỗi**. Để đánh giá rủi ro cho một lô tương tự, đội chất lượng thử giả định mỗi linh kiện có **10% khả năng lỗi**, độc lập với linh kiện khác. Quản đốc muốn hỏi **một lô 12 chiếc có từ 0 tới 2 chiếc lỗi** thường gặp đến đâu theo giả định, rồi đặt cạnh số lỗi thực tế 3 chiếc của lô đã kiểm.
 
-**Vì sao chọn cách này?** `binom.cdf(2,12,0.1)` cộng xác suất từ 0 đến 2 lỗi, không phải xác suất **đúng hai lỗi**; kết quả dự báo theo mô hình khác việc đếm ba lỗi đã xảy ra.
+**Vì sao chọn cách này?** **PMF** cho biết khả năng **một số lỗi cụ thể**; còn **CDF** cộng cơ hội từ mức thấp nhất tới **một ngưỡng được hỏi**. Ở đây cụm **'tối đa hai lỗi'** bao gồm **0, 1 hoặc 2**, nên dùng `binom.cdf(2, n=12, p=0.1)`, không dùng `binom.pmf(2, ...)` vốn chỉ hỏi **đúng hai**. Danh sách 12 linh kiện đã kiểm có **ba lỗi thực tế**, nhưng điều đó là kết quả đã ghi, còn CDF là dự báo cho lô giả lập theo giả định; không suy ra lô có ba lỗi là dữ liệu sai.
 
 **Quy trình:**
 1. Lưu 12 cờ lỗi và đếm lỗi quan sát.
@@ -195,9 +195,9 @@ Một lô đã có ba lỗi không thay đổi cách tính xác suất của **l
 
 **Từ vựng trong mục:** **Normal CDF** — xác suất tích lũy chuẩn; **Empirical rate** — tần suất quan sát.
 
-**Tình huống thực tế:** Trạm nhiệt có **15 phép đo** °C, mỗi hàng là một số đo đã quan sát. Kỹ sư giả định mô hình chuẩn có trung bình 100 °C và độ lệch chuẩn 10 °C; cần tính xác suất lý thuyết **không vượt 110 °C**, đồng thời xem tỷ lệ đo thực tế ≤110 °C trên 15 mẫu.
+**Tình huống thực tế:** Trạm nhiệt có **15 phép đo nhiệt độ thực tế**, tính bằng **°C**. Các số trải từ 90 đến 111 °C, trong đó một lần đo lớn hơn 110 °C. Nhóm kỹ thuật đang thử giả định **nhiệt độ theo phân phối chuẩn**, trung bình 100 °C và độ lệch chuẩn 10 °C; họ muốn so **tỷ lệ 15 lượt không vượt 110 °C** với **xác suất lý thuyết theo giả định**, không nhận một mô hình là đúng chỉ vì kết quả khá gần.
 
-**Vì sao chọn cách này?** `norm.cdf` tính diện tích xác suất đến ngưỡng, còn số đo thực tế phải **đếm**. Hai đại lượng có mẫu số/nguồn khác nhau; không thể dùng `norm.pdf(110)` như xác suất dưới ngưỡng.
+**Vì sao chọn cách này?** **Phân phối chuẩn** là mô hình dạng **đường chuông** được mô tả bởi mức trung tâm và độ phân tán. `norm.cdf(110, loc=100, scale=10)` trả cơ hội **không vượt 110 °C** theo mô hình, tức bao gồm mọi nhiệt độ thấp hơn ngưỡng. `np.mean(celsius <= 110)` lại đếm tỷ lệ **trong 15 phép đo đã có**; hai số có thể khác vì mô hình là giả định, còn số đo là mẫu hữu hạn. `norm.pdf(110)` chỉ cho độ cao **mật độ tại 110**, không trả xác suất các lần đo nằm dưới 110.
 
 **Quy trình:**
 1. Nhập 15 giá trị °C và đếm mẫu ≤110.
@@ -233,9 +233,9 @@ Việc 14/15 phép đo đạt ngưỡng không chứng minh dữ liệu thực s
 
 **Từ vựng trong mục:** **PDF** — mật độ; **CDF interval** — xác suất trong khoảng.
 
-**Tình huống thực tế:** Bộ hiệu chuẩn ghi **18 mức tín hiệu** (đơn vị cảm biến), mỗi hàng một lượt; muốn đánh giá khoảng chấp nhận **90 đến 110** dưới mô hình chuẩn μ=100, σ=10. Cần đếm mẫu thực tế trong khoảng, tính xác suất theo CDF, và in riêng PDF tại 100 để nhắc rằng mật độ tại điểm **không phải** xác suất một điểm.
+**Tình huống thực tế:** Bộ hiệu chuẩn nhận **18 mức tín hiệu**, mỗi mức là một lượt đo không có đơn vị vật lý riêng. Quy định giả lập chấp nhận **từ 90 đến 110**, tính cả hai đầu mốc. Kỹ thuật viên muốn biết **bao nhiêu lượt đã ghi nằm trong khoảng**, đồng thời nếu tín hiệu thật tuân theo **phân phối chuẩn trung bình 100, độ lệch chuẩn 10**, thì khả năng một lần đo ngẫu nhiên nằm trong khoảng đó là bao nhiêu. Họ cũng muốn xem độ cao đường mật độ tại 100 để hiểu nó khác xác suất một khoảng.
 
-**Vì sao chọn cách này?** Biến chuẩn là liên tục, nên xác suất tại đúng một giá trị bằng 0; xác suất trong khoảng lấy bằng **hiệu hai CDF**, còn PDF chỉ là độ cao đường mật độ.
+**Vì sao chọn cách này?** Với một đại lượng **liên tục**, không thể lấy độ cao **PDF (mật độ)** tại một điểm làm xác suất rơi **đúng vào điểm ấy**; xác suất của một giá trị chính xác riêng lẻ trong mô hình chuẩn bằng 0. Muốn hỏi **từ 90 đến 110**, chương trình lấy **CDF tại 110 trừ CDF tại 90**, tức phần xác suất nằm giữa hai mốc. Song song, nó đếm số trong **18 lượt thực tế**, bao gồm hai đầu mốc. `norm.pdf(100, 100, 10)` chỉ được in để người học thấy mật độ có vai trò khác; số ấy không được so trực tiếp với tỷ lệ các lượt nằm trong khoảng.
 
 **Quy trình:**
 1. Tạo 18 số đo có cùng đơn vị.
@@ -272,9 +272,9 @@ PDF có đơn vị **nghịch đảo đơn vị cảm biến**, trong khi xác s
 
 **Từ vựng trong mục:** **Sampling distribution** — phân phối kết quả thử; **PMF normalization** — tổng xác suất bằng một.
 
-**Tình huống thực tế:** Đội vận hành mô phỏng **20 lô**, mỗi hàng là số đơn đúng giờ trong **10 đơn độc lập** của lô đó; giả định xác suất đúng giờ 0,7 cho mọi đơn. Cần đối chiếu số thành công trung bình từ 20 lô với kỳ vọng lý thuyết, kiểm tra **toàn bộ 11 giá trị** k=0…10 trong PMF tạo tổng xác suất 1. Trình bày mô phỏng có seed để tái lập.
+**Tình huống thực tế:** Nhóm vận hành tạo **20 lô giao hàng mô phỏng**, mỗi lô chứa **10 đơn**, chứ không phải 20 đơn riêng lẻ. Mỗi đơn được giả định đúng giờ với xác suất **70%**, độc lập, nên kết quả mỗi lô là **một số từ 0 đến 10**. Nhóm muốn kiểm trung bình dự kiến **7 đơn đúng hạn mỗi lô**, liệt kê đủ các khả năng 0–10 và dùng **seed 42** để có thể chạy lại đúng cùng 20 lô giả lập.
 
-**Vì sao chọn cách này?** `rng.binomial` tạo **20 quan sát về số lần thành công**, mỗi quan sát trong [0,10], còn `binom.pmf` mô tả phân phối của **một lô**. Tổng xác suất 11 giá trị phải bằng 1, không phải 20.
+**Vì sao chọn cách này?** **Một lô** gồm **mười phép thử đúng/trễ**, còn `rng.binomial(n=10, p=0.7, size=20)` tạo **20 kết quả giả lập của 20 lô**, mỗi kết quả là số đơn đúng giờ trong lô. **Kỳ vọng** là mức trung bình lý thuyết nếu lặp đủ nhiều lô cùng giả định: ở đây **7 đơn/lô**, không buộc từng lô phải có đúng 7. `binom.pmf` được tính riêng cho **11 khả năng 0 đến 10** của **một lô**, vì thế cộng 11 xác suất phải gần **1**. **Seed 42** làm kết quả ngẫu nhiên của ví dụ tái lập được trên cùng môi trường; 20 lô là dữ liệu mô phỏng, không phải 20 lô giao hàng thật hay số lượt bắt buộc cho phân phối nhị thức.
 
 **Quy trình:**
 1. Mô phỏng 20 lô có 10 lần thử/lô bằng seed cố định.
