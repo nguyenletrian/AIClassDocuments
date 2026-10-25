@@ -15,7 +15,7 @@
     20
   ],
   "last_completed_batch": 6,
-  "status": "READY_FOR_BATCH_07",
+  "status": "BATCH_07_IN_PROGRESS",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -183,15 +183,21 @@
         "PY-34",
         "PY-35"
       ],
-      "status": "PENDING",
-      "branch": null,
+      "status": "IN_PROGRESS",
+      "branch": "feat/curriculum-scenarios-batch-07-20261025",
       "pr_number": null,
       "merged_commit": null,
       "ci_run": null,
       "windows_test": null,
-      "updated_at": null,
-      "notes": null,
-      "lesson_commits": {}
+      "updated_at": "2026-10-25",
+      "notes": "Five PY-31..PY-35 section 5 edits committed separately, 5 progressive cases/lesson using 10/12/15/18/20 records. Executable QA and PR pending; Windows Bridge unverified.",
+      "lesson_commits": {
+        "PY-31": "15d04cb34fdadb2cf68de517ccbf9183f54f8985",
+        "PY-32": "9cf31d6301e4684f0a73cb11b743162e74bee164",
+        "PY-33": "a131ab89790578880d199d9a2b905904af98cf34",
+        "PY-34": "c981bcc1c5e436ec9d21037ffacf22dd079e90bb",
+        "PY-35": "11b55ee54286f391826ba05670980a62f8918da0"
+      }
     },
     {
       "batch_id": "08",
