@@ -136,161 +136,189 @@ print(ranked)
 
 Danh sách kết quả được sắp theo điểm giảm dần. Các điểm số không bị thay đổi, chỉ thứ tự của chúng khác đi.
 
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống List — tăng độ khó từ thao tác đến hàng đợi
 
-### Tình huống 1 — Giỏ hàng
+### Tình huống 1 — Cấp 1: Chỉnh giỏ hàng 10 sản phẩm
 
-**Từ vựng trong mục:** **List** — danh sách.
+**Từ vựng trong mục:** **List** — danh sách; **Append** — thêm cuối; **Index** — chỉ số.
 
-**Tình huống thực tế:** Một cửa hàng đang có giỏ hàng gồm `milk` (sữa) và `bread` (bánh mì). Khách muốn thêm `rice` (gạo) vào cuối giỏ.
+**Tình huống thực tế:** Giỏ hàng bán lẻ chứa **10 mặt hàng** theo thứ tự quét mã (mỗi phần tử là tên một món), từ `Gạo` đến `Táo`. Khách chọn thêm `Bánh` trước khi thanh toán. Nhân viên cần xem số mặt hàng ban đầu, số mặt hàng sau khi thêm và tên món cuối mà không xóa dữ liệu cũ.
 
-**Yêu cầu:** In danh sách hàng sau khi thêm gạo.
+**Vì sao chọn cách này?** `append()` thêm đúng một phần tử vào cuối list; `len()` kiểm tra độ dài trước/sau. Chưa cần lọc hay sắp xếp vì khách muốn giữ nguyên thứ tự đã quét.
 
-**Vì sao chọn cách giải này?** `append()` thêm một phần tử vào cuối list mà vẫn giữ các món trước đó.
-
-**Quy trình giải:**
-
-1. Tạo list `basket` gồm sữa và bánh mì.
-2. Gọi `basket.append("rice")`.
-3. In toàn bộ giỏ hàng.
+**Quy trình:**
+1. Lưu đúng 10 tên món trong list.
+2. Ghi độ dài ban đầu và thêm sản phẩm bằng `append()`.
+3. Đối chiếu độ dài tăng đúng một và đọc phần tử cuối.
 
 ```python
-# Mục đích: Giỏ hàng.
-basket=["milk","bread"]
-basket.append("rice")
-print(basket)
+basket = ["Gạo", "Sữa", "Trứng", "Dầu", "Muối", "Đường", "Mì", "Cam", "Bơ", "Táo"]
+before = len(basket)
+basket.append("Bánh")
+assert before == 10 and len(basket) == before + 1
+print("Ban đầu:", before)
+print("Sau thêm:", len(basket))
+print("Món cuối:", basket[-1])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-['milk', 'bread', 'rice']
+Ban đầu: 10
+Sau thêm: 11
+Món cuối: Bánh
 ```
 
-**Kết quả:** `['milk', 'bread', 'rice']` — giỏ có ba món theo đúng thứ tự.
+Đầu vào có 10 bản ghi sản phẩm; danh sách sau thao tác có 11 món vì khách thêm đúng một mặt hàng.
 
-### Tình huống 2 — Lấy hai ưu tiên cao
+### Tình huống 2 — Cấp 2: Lấy ba yêu cầu quan trọng nhất từ 12 phiếu
 
-**Từ vựng trong mục:** **Index** — chỉ số.
+**Từ vựng trong mục:** **Sort** — sắp xếp; **Slice** — cắt lát; **Stable** — ổn định thứ tự.
 
-**Tình huống thực tế:** Một đội hỗ trợ nhận điểm ưu tiên của bốn yêu cầu là `[2, 9, 4, 7]`; điểm càng lớn thì yêu cầu càng cần xử lý trước.
+**Tình huống thực tế:** Đội kỹ thuật tiếp nhận **12 phiếu** T01…T12; mỗi phần tử là mức ưu tiên từ 1 đến 10 (càng lớn càng gấp). Có phiếu bằng điểm nhau. Cần lấy ba phiếu ưu tiên cao nhất, **giữ thứ tự đến trước khi đồng điểm**, và không thay đổi danh sách điểm ban đầu.
 
-**Yêu cầu:** In hai điểm ưu tiên cao nhất mà không thay đổi list gốc.
+**Vì sao chọn cách này?** List cho phép tạo danh sách các cặp `(điểm, thứ tự)`; `sorted()` trả danh sách mới và phép `[:3]` chọn đúng ba phiếu. Kết hợp điểm giảm và vị trí tăng để xử lý hòa điểm một cách minh bạch.
 
-**Vì sao chọn cách giải này?** `sorted(..., reverse=True)` tạo danh sách mới từ cao xuống thấp, rồi `[:2]` lấy hai giá trị đầu.
-
-**Quy trình giải:**
-
-1. Lưu bốn điểm vào `scores`.
-2. Sắp xếp giảm dần bằng `sorted(scores, reverse=True)`.
-3. Cắt `[:2]` và in kết quả.
+**Quy trình:**
+1. Đánh số phiếu theo vị trí list (bắt đầu từ 1).
+2. Tạo danh sách `(điểm âm, thứ tự, mã phiếu)` để sắp xếp từ ưu tiên cao xuống.
+3. Lấy ba phiếu đầu; kiểm tra list điểm nguồn vẫn giữ thứ tự.
 
 ```python
-# Mục đích: Lấy hai ưu tiên cao.
-scores=[2,9,4,7]
-print(sorted(scores,reverse=True)[:2])
+priorities = [4,9,7,9,3,8,6,10,2,10,5,8]
+ranked = [(-score, position, f"T{position:02d}") for position, score in enumerate(priorities, 1)]
+ranked = sorted(ranked)
+top_three = [row[2] for row in ranked[:3]]
+assert len(priorities) == 12
+assert priorities[0] == 4
+print("Phiếu:", len(priorities))
+print("Ba phiếu trước:", ", ".join(top_three))
+print("Điểm gốc T01:", priorities[0])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[9, 7]
+Phiếu: 12
+Ba phiếu trước: T08, T10, T02
+Điểm gốc T01: 4
 ```
 
-**Kết quả:** `[9, 7]` — hai mức ưu tiên cao nhất. List `scores` gốc không bị thay đổi.
+Dùng chỉ số gốc để phân xử hòa điểm giúp kết quả ổn định; không làm mất thông tin phiếu nào có điểm 10.
 
-### Tình huống 3 — Lọc điểm đạt
+### Tình huống 3 — Cấp 3: Lọc 15 điểm và chọn nhóm cần hỗ trợ
 
-**Từ vựng trong mục:** **Slice** — cắt lát.
+**Từ vựng trong mục:** **Comprehension** — tạo list ngắn gọn; **Slicing** — cắt lát; **Threshold** — ngưỡng.
 
-**Tình huống thực tế:** Trung tâm đào tạo có điểm của bốn học viên là `[4, 7, 9, 3]` trên thang 10. Điểm đạt yêu cầu là từ 5 trở lên.
+**Tình huống thực tế:** Trung tâm có **15 học viên** H01…H15 với điểm cuối kỳ theo thứ tự, thang 10. Điểm từ **5** được tính là đạt. Giáo viên cần danh sách mã đạt, số học viên chưa đạt và ba mã đầu tiên trong nhóm chưa đạt để sắp lịch hỗ trợ.
 
-**Yêu cầu:** Tạo list mới chỉ chứa điểm đạt.
+**Vì sao chọn cách này?** List comprehension tạo danh sách từ từng cặp vị trí–điểm; một phép lọc cho nhóm đạt, phép lọc khác cho nhóm chưa đạt. Cắt `[:3]` giới hạn số người cần gọi trước mà vẫn giữ thứ tự lớp.
 
-**Vì sao chọn cách giải này?** List comprehension `[x for x in scores if x >= 5]` duyệt từng điểm và chỉ giữ giá trị đạt ngưỡng.
-
-**Quy trình giải:**
-
-1. Lưu điểm vào `scores`.
-2. Với mỗi `x`, kiểm tra `x >= 5`.
-3. Thêm các điểm đạt vào `passed` và in list mới.
+**Quy trình:**
+1. Dùng `enumerate(..., 1)` để liên kết điểm với mã học viên.
+2. Lọc hai nhóm bằng điều kiện từ 5 trở lên hoặc dưới 5.
+3. In số lượng, ba mã cần hỗ trợ và kiểm tra tổng vẫn bằng 15.
 
 ```python
-# Mục đích: Lọc điểm đạt.
-scores=[4,7,9,3]
-passed=[x for x in scores if x>=5]
-print(passed)
+grades = [4.5,7,8,3,9,5,7.5,4,6.5,10,8,2,7,5.5,9.5]
+passed = [f"H{i:02d}" for i, grade in enumerate(grades, 1) if grade >= 5]
+needs_help = [f"H{i:02d}" for i, grade in enumerate(grades, 1) if grade < 5]
+assert len(grades) == 15
+assert len(passed) + len(needs_help) == 15
+print("Số học viên:", len(grades))
+print("Đạt:", len(passed))
+print("Cần hỗ trợ:", len(needs_help))
+print("Gọi trước:", ", ".join(needs_help[:3]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[7, 9]
+Số học viên: 15
+Đạt: 11
+Cần hỗ trợ: 4
+Gọi trước: H01, H04, H08
 ```
 
-**Kết quả:** `[7, 9]` — hai điểm đạt, vẫn giữ thứ tự xuất hiện ban đầu.
+Điểm chính xác bằng 5 thuộc nhóm đạt. Ở cấp này yêu cầu kết hợp lọc, đếm và lấy một lát cắt có ý nghĩa.
 
-### Tình huống 4 — Sửa tồn kho
+### Tình huống 4 — Cấp 4: Sửa tồn kho 18 SKU nhưng bảo toàn bản kiểm kê
 
-**Từ vựng trong mục:** **Mutability** — khả năng sửa.
+**Từ vựng trong mục:** **Mutable** — có thể thay đổi; **Copy** — sao chép; **Missing** — dữ liệu thiếu.
 
-**Tình huống thực tế:** Kho lưu số lượng ba mặt hàng trong list `[8, 6, 9]`. Sau kiểm kê, mặt hàng thứ hai thực tế còn 4 sản phẩm, không phải 6.
+**Tình huống thực tế:** Kho có **18 mã SKU** theo thứ tự K01…K18, mỗi hàng là số món còn trong kho. Sau kiểm kê, K02 phải sửa từ 6 thành 4 và K08 từ 7 thành 5; K18 chưa có số liệu (`None`). Cần sửa trên **bản sao** của list, không làm thay đổi bản chụp cũ; báo hai giá trị đã sửa và số mã chưa có số liệu.
 
-**Yêu cầu:** Sửa lại số lượng mặt hàng thứ hai rồi in danh sách tồn kho mới.
+**Vì sao chọn cách này?** Nếu gán `edited = original` thì cả hai tên cùng trỏ vào một list: sửa bản mới sẽ làm hỏng chứng cứ kiểm kê cũ. `copy()` tạo list khác; chỉ số bắt đầu bằng 0 nên K02 là phần tử 1.
 
-**Vì sao chọn cách giải này?** List có thể chỉnh trực tiếp theo chỉ số; mặt hàng thứ hai nằm ở chỉ số `1`.
-
-**Quy trình giải:**
-
-1. Lưu `[8, 6, 9]` vào `stock`.
-2. Gán `stock[1] = 4`.
-3. In danh sách sau khi sửa.
+**Quy trình:**
+1. Tạo list 18 giá trị và sao chép bằng `copy()`.
+2. Sửa đúng hai vị trí sau khi kiểm kê và nhận diện dữ liệu thiếu.
+3. In dữ liệu trước/sau, số lượt thiếu; xác nhận list cũ chưa bị sửa.
 
 ```python
-# Mục đích: Sửa tồn kho.
-stock=[8,6,9]
-stock[1]=4
-print(stock)
+original = [8,6,9,5,11,4,12,7,3,10,6,9,8,5,7,4,0,None]
+updated = original.copy()
+updated[1] = 4  # K02
+updated[7] = 5  # K08
+missing = [f"K{i:02d}" for i, value in enumerate(updated, 1) if value is None]
+assert len(original) == len(updated) == 18
+assert original[1] == 6 and original[7] == 7
+print("SKU:", len(updated))
+print("K02 cũ/mới:", original[1], updated[1])
+print("K08 cũ/mới:", original[7], updated[7])
+print("Chưa kiểm kê:", ", ".join(missing))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[8, 4, 9]
+SKU: 18
+K02 cũ/mới: 6 4
+K08 cũ/mới: 7 5
+Chưa kiểm kê: K18
 ```
 
-**Kết quả:** `[8, 4, 9]` — chỉ số lượng mặt hàng thứ hai được cập nhật.
+`None` không có nghĩa tồn kho bằng 0; cấp này đòi hỏi giữ nguyên chứng cứ, sửa đúng chỉ số và không lặng lẽ thay số đo thiếu.
 
-### Tình huống 5 — Hàng đợi yêu cầu
+### Tình huống 5 — Cấp 5: Xây hàng đợi 20 phiếu theo mức độ ưu tiên và FIFO
 
-**Từ vựng trong mục:** **List** — danh sách.
+**Từ vựng trong mục:** **Queue** — hàng đợi; **Stable sort** — sắp xếp ổn định; **Validation** — kiểm tra.
 
-**Tình huống thực tế:** Bộ phận hỗ trợ đang xử lý ba yêu cầu theo thứ tự `REQ01`, `REQ02`, `REQ03`. Yêu cầu đến trước phải được xử lý trước.
+**Tình huống thực tế:** Bàn hỗ trợ nhận **20 phiếu** R01…R20, mỗi hàng chứa mức ưu tiên 1–3 (3 khẩn cấp nhất). R12 chưa được chấm ưu tiên (`None`) nên phải chờ xác nhận. Cần tạo danh sách xử lý phiếu đã đủ dữ liệu: ưu tiên 3 trước 2 trước 1, **nếu cùng điểm thì phiếu đến trước xử lý trước**. In năm mã xử lý đầu tiên và số phiếu đang chờ bổ sung.
 
-**Yêu cầu:** Lấy yêu cầu đầu hàng đợi ra để xử lý và in danh sách còn lại.
+**Vì sao chọn cách này?** Danh sách ban đầu giữ thứ tự nhận. Khi sắp xếp, dùng cặp `(-ưu tiên, thứ tự tới)`; không đặt `None` bằng 0 vì đó là phiếu chưa đủ thông tin. Slicing chọn đúng năm việc đầu, không loại bỏ phiếu còn lại.
 
-**Vì sao chọn cách giải này?** `pop(0)` lấy và xóa phần tử đầu list; phù hợp để minh họa hàng đợi nhỏ. Với hàng đợi lớn hoặc thường xuyên lấy đầu, `collections.deque` phù hợp hơn.
-
-**Quy trình giải:**
-
-1. Tạo list `queue` theo thứ tự yêu cầu đến.
-2. Dùng `pop(0)` lấy yêu cầu đầu vào biến `done`.
-3. In mã đã xử lý và list còn lại.
+**Quy trình:**
+1. Tạo 20 bản ghi vị trí–mức ưu tiên và xác nhận hàng R12 thiếu điểm.
+2. Lọc phiếu có ưu tiên hợp lệ; tạo khóa ưu tiên giảm và vị trí tới tăng.
+3. Sắp xếp thành hàng đợi xử lý, đối chiếu số dòng và in năm phiếu đầu.
 
 ```python
-# Mục đích: Hàng đợi yêu cầu.
-queue=["REQ01","REQ02","REQ03"]
-done=queue.pop(0)
-print(done,queue)
+priorities = [3,1,2,3,2,1,3,2,1,3,2,None,1,3,2,1,3,2,1,2]
+queue = [(f"R{i:02d}", value) for i, value in enumerate(priorities, 1)]
+missing = [code for code, level in queue if level is None]
+ready = [(-level, arrival, code) for arrival, (code, level) in enumerate(queue)
+         if level is not None]
+ready.sort()
+next_five = [code for neg_level, arrival, code in ready[:5]]
+assert len(queue) == 20
+assert len(ready) + len(missing) == 20
+print("Tổng phiếu:", len(queue))
+print("Sẵn sàng:", len(ready))
+print("Thiếu ưu tiên:", ", ".join(missing))
+print("Xử lý trước:", ", ".join(next_five))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-REQ01 ['REQ02', 'REQ03']
+Tổng phiếu: 20
+Sẵn sàng: 19
+Thiếu ưu tiên: R12
+Xử lý trước: R01, R04, R07, R10, R14
 ```
 
-**Kết quả:** `REQ01 ['REQ02', 'REQ03']` — yêu cầu đầu đã được lấy ra, hai yêu cầu còn lại giữ nguyên thứ tự.
+Mỗi vị trí trong list là thời điểm nhận phiếu; dùng thêm vị trí như khóa phụ giúp minh bạch vì sao một phiếu cùng ưu tiên phải được xử lý trước phiếu khác.
 
 ## 6. Nhầm lẫn dễ gặp
 
