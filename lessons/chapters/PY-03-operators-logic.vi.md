@@ -29,7 +29,7 @@
 | `+, -, *, /` | Tính số học và tỷ lệ |
 | `//, %, **` | Chia nguyên, lấy dư, lũy thừa |
 | `==, !=, <=, >=, and, or` | So sánh và kết hợp điều kiện |
-| `&, |, ^` | Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ |
+| `&, \|, ^` | Chỉ dùng cho cờ bit hoặc toán bit được thiết kế rõ |
 
 
 ## 4. Khái niệm liên quan
