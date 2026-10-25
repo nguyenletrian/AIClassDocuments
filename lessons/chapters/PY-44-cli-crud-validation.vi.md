@@ -140,7 +140,8 @@ for row in requests:
         rejected.append(row["id"])
         continue
     db[row["id"]] = {"name":row["name"],"score":row["score"]}
-assert len(requests) == 10
+if len(requests) != 10:
+    raise ValueError("Cần đủ 10 yêu cầu tạo hồ sơ.")
 print("Yêu cầu:", len(requests))
 print("Đã tạo:", len(db))
 print("Trùng mã:", ", ".join(rejected))
@@ -172,13 +173,19 @@ Trùng mã: S03
 3. Kiểm riêng điểm 0 của S01 vẫn được trả về đúng.
 
 ```python
-db = {f"S{i:02d}":{"score":i-1} for i in range(1,11)}
+db = {}
+for i in range(1, 11):
+    db[f"S{i:02d}"] = {"score": i - 1}
 requests = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S99","S88"]
 found, missing = [], []
 for sid in requests:
     record = db.get(sid)
-    (missing if record is None else found).append(sid)
-assert len(requests) == 12
+    if record is None:
+        missing.append(sid)
+    else:
+        found.append(sid)
+if len(requests) != 12:
+    raise ValueError("Cần đủ 12 yêu cầu tra cứu.")
 print("Lượt tra cứu:", len(requests))
 print("Tìm thấy:", len(found))
 print("Không thấy:", ", ".join(missing))
@@ -211,7 +218,9 @@ Không tìm thấy mã là **vấn đề khóa**, khác với việc tìm thấy
 
 ```python
 import math
-db = {f"S{i:02d}":{"score":5.0} for i in range(1,11)}
+db = {}
+for i in range(1, 11):
+    db[f"S{i:02d}"] = {"score": 5.0}
 updates = [["S01","6.5"],["S02","7.5"],["S03","8.5"],["S04","9.5"],["S05","6.5"],["S06","6.5"],["S07","7.5"],["S08","8.5"],["S09","9.5"],["S10","6.5"],["S03","-1"],["S02","11"],["S04","bad"],["S05","nan"],["S99","7.5"]]
 accepted, rejected = 0, 0
 for sid, raw_score in updates:
@@ -228,7 +237,8 @@ for sid, raw_score in updates:
         continue
     db[sid]["score"] = score
     accepted += 1
-assert len(updates) == 15
+if len(updates) != 15:
+    raise ValueError("Cần đủ 15 yêu cầu cập nhật.")
 print("Yêu cầu:", len(updates))
 print("Cập nhật:", accepted)
 print("Từ chối:", rejected)
@@ -262,7 +272,9 @@ NaN phải bị chặn **trước khi ghi**; nếu để NaN trong dữ liệu, 
 3. Báo số lệnh lỗi/không thay đổi và số hồ sơ còn lại.
 
 ```python
-db = {f"S{i:02d}":{"score":i} for i in range(1,11)}
+db = {}
+for i in range(1, 11):
+    db[f"S{i:02d}"] = {"score": i}
 requests = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S01","S02","S03","S99","S98","S97","S05","S100"]
 deleted, missing = 0, 0
 for sid in requests:
@@ -271,7 +283,8 @@ for sid in requests:
         missing += 1
     else:
         deleted += 1
-assert len(requests) == 18
+if len(requests) != 18:
+    raise ValueError("Cần đủ 18 yêu cầu xóa.")
 print("Lệnh xóa:", len(requests))
 print("Xóa thật:", deleted)
 print("Mã không còn:", missing)
@@ -313,7 +326,9 @@ def parse_score(raw):
         value = float(raw)
     except ValueError:
         return None
-    return value if math.isfinite(value) and 0 <= value <= 10 else None
+    if math.isfinite(value) and 0 <= value <= 10:
+        return value
+    return None
 for command in commands:
     parts = shlex.split(command)
     verb = parts[0]
@@ -336,8 +351,12 @@ for command in commands:
         ok = db.pop(parts[1], None) is not None
     elif verb == "REPORT" and len(parts) == 1:
         ok = bool(db)
-    audit[verb if ok else "REJECT"] += 1
-assert len(commands) == 20 and sum(audit.values()) == 20
+    if ok:
+        audit[verb] += 1
+    else:
+        audit["REJECT"] += 1
+if len(commands) != 20 or sum(audit.values()) != 20:
+    raise ValueError("Cần đối chiếu đủ 20 lệnh CLI được xử lý.")
 print("Lệnh:", len(commands))
 print("Thêm/sửa/xóa:", audit["ADD"], audit["UPDATE"], audit["DELETE"])
 print("Lệnh từ chối:", audit["REJECT"])

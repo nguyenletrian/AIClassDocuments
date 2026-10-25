@@ -132,9 +132,12 @@ Hai tài liệu chung một trên năm token khác nhau; độ giống tập h�
 
 ```python
 queries = [" Python ","PYTHON","AI"," ai ","Data","DATA","NLP","nLp","Máy học","máy học"]
-normalized = [text.strip().lower() for text in queries]
+normalized = []
+for text in queries:
+    normalized.append(text.strip().lower())
 unique = sorted(set(normalized))
-assert len(queries) == 10
+if len(queries) != 10:
+    raise ValueError("Cần đủ 10 lượt tìm kiếm.")
 print("Lượt tìm:", len(queries))
 print("Cụm khác nhau:", len(unique))
 print("Cụm:", ", ".join(unique))
@@ -166,9 +169,13 @@ Từ `máy học` vẫn gồm hai tiếng cách nhau bằng dấu cách. Nếu c
 ```python
 import re
 messages = ["AI helps Python.","Python helps teams!","Data drives AI.","AI uses data.","Python cleans data.","Teams learn Python.","AI supports teams.","Data needs quality.","Learn AI with Python.","Quality data matters.","Python helps AI.","Teams review data."]
-tokens = [word for text in messages for word in re.findall(r"[a-z]+", text.lower())]
+tokens = []
+for text in messages:
+    for word in re.findall(r"[a-z]+", text.lower()):
+        tokens.append(word)
 vocabulary = set(tokens)
-assert len(messages) == 12
+if len(messages) != 12:
+    raise ValueError("Cần đủ 12 tin nhắn.")
 print("Tin nhắn:", len(messages))
 print("Lượt token:", len(tokens))
 print("Token khác nhau:", len(vocabulary))
@@ -202,10 +209,14 @@ Tổng lượt token tính cả từ lặp, còn vocabulary chỉ tính từ duy
 ```python
 from collections import Counter
 headings = ["python course","ai course","data course","python course","ai course","data course","python course","ai course","data course","python course","ai course","data course","python course","ai course","data course"]
-tokens = [token for heading in headings for token in heading.split()]
+tokens = []
+for heading in headings:
+    for token in heading.split():
+        tokens.append(token)
 counts = Counter(tokens)
 most_common = counts.most_common(1)[0]
-assert len(headings) == 15
+if len(headings) != 15:
+    raise ValueError("Cần đủ 15 tiêu đề.")
 print("Tiêu đề:", len(headings))
 print("Lượt token:", len(tokens))
 print("Từ khác nhau:", len(counts))
@@ -246,13 +257,22 @@ def words(text):
 def similarity(a,b):
     common = a & b
     union = a | b
-    return len(common)/len(union) if union else 0.0
+    if union:
+        return len(common) / len(union)
+    return 0.0
 query = words("login password")
-ranked = [(f"T{i:02d}", similarity(query, words(text))) for i,text in enumerate(texts,1)]
+ranked = []
+for i, text in enumerate(texts, 1):
+    ranked.append((f"T{i:02d}", similarity(query, words(text))))
 ranked.sort(key=lambda row:(-row[1],row[0]))
-assert len(texts) == 18
+if len(texts) != 18:
+    raise ValueError("Cần đủ 18 phiếu hỗ trợ.")
 print("Phiếu:", len(texts))
-print("Thiếu nội dung:", sum(not words(text) for text in texts))
+missing_texts = 0
+for text in texts:
+    if not words(text):
+        missing_texts += 1
+print("Thiếu nội dung:", missing_texts)
 for code, value in ranked[:3]:
     print(f"{code}: {value:.3f}")
 ```
@@ -296,15 +316,28 @@ def route(text):
     scores = {}
     for name,vocabulary in keywords.items():
         union = words | vocabulary
-        scores[name] = len(words & vocabulary)/len(union) if union else 0
+        if union:
+            scores[name] = len(words & vocabulary) / len(union)
+        else:
+            scores[name] = 0
     name = sorted(scores, key=lambda n:(-scores[n], n))[0]
-    return name if scores[name] > 0 else "unknown"
-counts = Counter(route(text) for text in texts)
-assert len(texts) == 20
+    if scores[name] > 0:
+        return name
+    return "unknown"
+counts = Counter()
+for text in texts:
+    category = route(text)
+    counts[category] += 1
+if len(texts) != 20:
+    raise ValueError("Cần đủ 20 phiếu cần phân tuyến.")
 print("Phiếu:", len(texts))
 for name in ("account","billing","delivery","unknown"):
     print(f"{name}: {counts[name]}")
-print("Phiếu rỗng:", sum(not tokens(t) for t in texts))
+empty_count = 0
+for text in texts:
+    if not tokens(text):
+        empty_count += 1
+print("Phiếu rỗng:", empty_count)
 ```
 
 **Kết quả khi chạy:**

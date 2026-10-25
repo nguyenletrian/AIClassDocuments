@@ -168,7 +168,8 @@ path = Path("sales_10_days.png")
 fig.savefig(path, dpi=130)
 points = len(ax.lines[0].get_xdata())
 plt.close(fig)
-assert len(revenues) == 10
+if len(revenues) != 10:
+    raise ValueError("Cần đủ 10 ngày doanh thu.")
 print("Ngày:", len(days))
 print("Điểm đường:", points)
 print("Doanh thu ngày 10 (triệu đồng):", revenues[-1])
@@ -216,7 +217,8 @@ path = Path("study_vs_score.png")
 fig.savefig(path, dpi=130)
 count = len(points.get_offsets())
 plt.close(fig)
-assert len(hours) == len(scores) == 12
+if len(hours) != 12 or len(scores) != 12:
+    raise ValueError("Cần đủ 12 học viên và 12 điểm.")
 print("Học viên:", len(hours))
 print("Điểm scatter:", count)
 print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
@@ -259,7 +261,8 @@ fig.tight_layout()
 path = Path("delivery_histogram.png")
 fig.savefig(path, dpi=130)
 plt.close(fig)
-assert len(minutes) == 15 and int(counts.sum()) == 15
+if len(minutes) != 15 or int(counts.sum()) != 15:
+    raise ValueError("Cần đủ 15 chuyến trong các cột tần suất.")
 print("Chuyến:", len(minutes))
 print("Số khoảng:", len(counts))
 print("Tần suất:", counts.astype(int).tolist())
@@ -307,9 +310,12 @@ ax.legend()
 fig.tight_layout()
 path = Path("branches_18_days.png")
 fig.savefig(path, dpi=130)
-count = [len(line.get_xdata()) for line in ax.lines]
+count = []
+for line in ax.lines:
+    count.append(len(line.get_xdata()))
 plt.close(fig)
-assert len(days) == len(branch_a) == len(branch_b) == 18
+if len(days) != 18 or len(branch_a) != 18 or len(branch_b) != 18:
+    raise ValueError("Cần đủ 18 ngày và hai dãy doanh thu.")
 print("Ngày:", len(days))
 print("Đường:", len(count))
 print("Điểm mỗi đường:", count)
@@ -366,11 +372,15 @@ fig.tight_layout()
 path = Path("sensor_review_20.png")
 fig.savefig(path,dpi=130)
 plt.close(fig)
-assert len(x) == len(observed) == 20
+if len(x) != 20 or len(observed) != 20:
+    raise ValueError("Cần đủ 20 mức đầu vào và tín hiệu đo.")
 print("Lượt đo:", len(x))
 print("Biểu đồ trong hình:", 2)
 print("Điểm cần kiểm:", int(flagged.sum()))
-print("Mã cần kiểm:", ", ".join(f"M{i+1:02d}" for i in np.flatnonzero(flagged)))
+flagged_ids = []
+for i in np.flatnonzero(flagged):
+    flagged_ids.append(f"M{i+1:02d}")
+print("Mã cần kiểm:", ", ".join(flagged_ids))
 print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
 ```
 
