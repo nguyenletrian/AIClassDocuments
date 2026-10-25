@@ -14,8 +14,8 @@
     18,
     20
   ],
-  "last_completed_batch": 6,
-  "status": "BATCH_07_QA_PASSED_WAIT_MERGE",
+  "last_completed_batch": 7,
+  "status": "READY_FOR_BATCH_08",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -183,14 +183,14 @@
         "PY-34",
         "PY-35"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "branch": "feat/curriculum-scenarios-batch-07-20261025",
       "pr_number": 129,
-      "merged_commit": null,
-      "ci_run": 40161426162,
+      "merged_commit": "ae14988e322b71fbd093ed9e605026b8bc9a1f6e",
+      "ci_run": 40161504184,
       "windows_test": null,
       "updated_at": "2026-10-25",
-      "notes": "PR #129 initial CI 40161426162 PASS: Python 3.12/NumPy/Pandas/SymPy; all 25 PY-31..35 snippets executed independently, exact documented stdout matched. Prior batches01..06 and 46-chapter/MCQ/syntax/ledger checks PASS. PR merge pending; no Windows Bridge verification evidence.",
+      "notes": "PR #129 squash-merged ae14988e322b71fbd093ed9e605026b8bc9a1f6e. Final CI 40161504184 PASS on final PR head: 25 PY-31..35 examples executed with exact stdout in Python 3.12+NumPy/Pandas/SymPy; prior batches 01..06 and curriculum structure/MCQ/syntax/ledger tests PASS. Windows Bridge verification not evidenced. Next PY-36..40.",
       "lesson_commits": {
         "PY-31": "15d04cb34fdadb2cf68de517ccbf9183f54f8985",
         "PY-32": "9cf31d6301e4684f0a73cb11b743162e74bee164",
