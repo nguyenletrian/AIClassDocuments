@@ -140,12 +140,19 @@ KMeans tìm được hai cụm; mã số gắn cho từng cụm có thể đổi
 3. Kiểm tra giao ID bằng Set và số người của cả hai nhóm.
 
 ```python
-records = [{"id":f"H{i:02d}", "hours":i, "score":min(10, 4+i//2)} for i in range(1,11)]
+records = []
+for i in range(1, 11):
+    records.append({"id":f"H{i:02d}", "hours":i, "score":min(10, 4+i//2)})
 train = records[:8]
 test = records[8:]
-train_ids = {r["id"] for r in train}
-test_ids = {r["id"] for r in test}
-assert len(records) == 10
+train_ids = set()
+for row in train:
+    train_ids.add(row["id"])
+test_ids = set()
+for row in test:
+    test_ids.add(row["id"])
+if len(records) != 10:
+    raise ValueError("Cần đủ 10 hồ sơ để chia Train/Test.")
 print("Hồ sơ:", len(records))
 print("Train/test:", len(train), len(test))
 print("ID không giao nhau:", train_ids.isdisjoint(test_ids))
@@ -179,11 +186,15 @@ ID rời nhau chỉ là điều kiện cần: nếu một người có hai ID kh
 ```python
 from sklearn.model_selection import train_test_split
 records = [{"id":"S01","score":5,"label":0},{"id":"S02","score":6,"label":1},{"id":"S03","score":7,"label":0},{"id":"S04","score":8,"label":1},{"id":"S05","score":9,"label":0},{"id":"S06","score":10,"label":1},{"id":"S07","score":11,"label":0},{"id":"S08","score":12,"label":1},{"id":"S09","score":13,"label":0},{"id":"S10","score":14,"label":1},{"id":"S11","score":15,"label":0},{"id":"S12","score":16,"label":1}]
-ids = [row["id"] for row in records]
-y = [row["label"] for row in records]
+ids = []
+y = []
+for row in records:
+    ids.append(row["id"])
+    y.append(row["label"])
 train_ids, test_ids, y_train, y_test = train_test_split(
     ids, y, test_size=4, random_state=42, stratify=y)
-assert len(records) == 12
+if len(records) != 12:
+    raise ValueError("Cần đủ 12 hồ sơ và nhãn.")
 print("Hồ sơ:", len(records))
 print("Train/test:", len(train_ids), len(test_ids))
 print("Nhãn train 0/1:", y_train.count(0), y_train.count(1))
@@ -223,15 +234,21 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 records = [{"id":"F01","length_cm":1.5,"width_cm":0.5,"species":0},{"id":"F02","length_cm":1.6,"width_cm":0.53,"species":0},{"id":"F03","length_cm":1.7,"width_cm":0.56,"species":0},{"id":"F04","length_cm":1.8,"width_cm":0.59,"species":0},{"id":"F05","length_cm":1.9,"width_cm":0.62,"species":0},{"id":"F06","length_cm":4.5,"width_cm":1.5,"species":1},{"id":"F07","length_cm":4.6,"width_cm":1.53,"species":1},{"id":"F08","length_cm":4.7,"width_cm":1.56,"species":1},{"id":"F09","length_cm":4.8,"width_cm":1.59,"species":1},{"id":"F10","length_cm":4.9,"width_cm":1.62,"species":1},{"id":"F11","length_cm":7.5,"width_cm":2.5,"species":2},{"id":"F12","length_cm":7.6,"width_cm":2.53,"species":2},{"id":"F13","length_cm":7.7,"width_cm":2.56,"species":2},{"id":"F14","length_cm":7.8,"width_cm":2.59,"species":2},{"id":"F15","length_cm":7.9,"width_cm":2.62,"species":2}]
-X = np.array([[row["length_cm"],row["width_cm"]] for row in records])
-y = np.array([row["species"] for row in records])
+features = []
+labels = []
+for row in records:
+    features.append([row["length_cm"], row["width_cm"]])
+    labels.append(row["species"])
+X = np.array(features)
+y = np.array(labels)
 X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=6,
                                                   stratify=y,random_state=42)
 model = Pipeline([("scale", StandardScaler()),
                   ("classifier", LogisticRegression(max_iter=1000))])
 model.fit(X_train,y_train)
 predicted = model.predict(X_test)
-assert len(records) == 15
+if len(records) != 15:
+    raise ValueError("Cần đủ 15 mẫu hoa có nhãn.")
 print("Hoa:", len(records))
 print("Train/test:", len(X_train), len(X_test))
 print("Scaler chỉ fit train:", bool(np.allclose(model.named_steps["scale"].mean_, X_train.mean(axis=0))))
@@ -271,11 +288,15 @@ points = np.array([[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2],[10,10]
 model = KMeans(n_clusters=2, random_state=42, n_init=10).fit(points)
 counts = sorted(np.bincount(model.labels_).tolist())
 centers = model.cluster_centers_[np.argsort(model.cluster_centers_[:,0])]
-assert points.shape == (18,2)
+if points.shape != (18,2):
+    raise ValueError("Cần đúng 18 điểm để phân cụm.")
 print("Vật thể:", len(points))
 print("Số cụm:", len(counts))
 print("Vật thể mỗi cụm:", counts)
-print("Tâm theo trục x:", [round(float(v),1) for v in centers[:,0]])
+center_positions = []
+for value in centers[:, 0]:
+    center_positions.append(round(float(value), 1))
+print("Tâm theo trục x:", center_positions)
 ```
 
 **Kết quả khi chạy:**
@@ -311,8 +332,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 records = [{"id":"H01","x":0,"y":1,"label":0},{"id":"H02","x":0.2,"y":1,"label":0},{"id":"H03","x":0.4,"y":1,"label":0},{"id":"H04","x":0.6000000000000001,"y":1,"label":0},{"id":"H05","x":0.8,"y":1,"label":0},{"id":"H06","x":0,"y":1.2,"label":0},{"id":"H07","x":0.2,"y":1.2,"label":0},{"id":"H08","x":0.4,"y":1.2,"label":0},{"id":"H09","x":0.6000000000000001,"y":1.2,"label":0},{"id":"H10","x":0.8,"y":1.2,"label":0},{"id":"H11","x":8,"y":9,"label":1},{"id":"H12","x":8.2,"y":9,"label":1},{"id":"H13","x":8.4,"y":9,"label":1},{"id":"H14","x":8.6,"y":9,"label":1},{"id":"H15","x":8.8,"y":9,"label":1},{"id":"H16","x":8,"y":9.2,"label":1},{"id":"H17","x":8.2,"y":9.2,"label":1},{"id":"H18","x":8.4,"y":9.2,"label":1},{"id":"H19","x":8.6,"y":9.2,"label":1},{"id":"H20","x":8.8,"y":9.2,"label":1}]
-X = np.array([[r["x"],r["y"]] for r in records], dtype=float)
-y = np.array([r["label"] for r in records])
+features = []
+labels = []
+for row in records:
+    features.append([row["x"], row["y"]])
+    labels.append(row["label"])
+X = np.array(features, dtype=float)
+y = np.array(labels)
 ids = np.arange(len(records))
 train, test = train_test_split(ids, test_size=4, stratify=y, random_state=42)
 clf = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000))
@@ -320,7 +346,8 @@ clf.fit(X[train], y[train])
 accuracy = float(clf.score(X[test], y[test]))
 clusters = KMeans(n_clusters=2,random_state=42,n_init=10).fit_predict(X)
 ari = adjusted_rand_score(y,clusters)
-assert len(records) == 20 and set(train).isdisjoint(test)
+if len(records) != 20 or not set(train).isdisjoint(test):
+    raise ValueError("Cần 20 hồ sơ và Train/Test không được trùng mẫu.")
 print("Khách:", len(records))
 print("Train/test:", len(train), len(test))
 print("Accuracy test hợp lệ:", 0 <= accuracy <= 1)
