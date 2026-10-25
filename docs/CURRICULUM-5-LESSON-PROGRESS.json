@@ -15,7 +15,7 @@
     20
   ],
   "last_completed_batch": 1,
-  "status": "BATCH_02_IN_PROGRESS",
+  "status": "BATCH_02_QA_PASSED_WAIT_MERGE",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -58,14 +58,14 @@
         "PY-09",
         "PY-10"
       ],
-      "status": "IN_PROGRESS",
+      "status": "QA_PASSED",
       "branch": "feat/curriculum-scenarios-batch-02-20261025",
-      "pr_number": null,
+      "pr_number": 124,
       "merged_commit": null,
-      "ci_run": null,
+      "ci_run": 40157502994,
       "windows_test": null,
       "updated_at": "2026-10-25",
-      "notes": "25 scenarios rewritten in PY-06..10. Automated execution, PR and CI pending; no claim of completion.",
+      "notes": "GitHub CI run 40157502994 PASSED: 25 PY-06..10 examples executed with matching stdout; PY-01..05 25 examples and curriculum structure/MCQ/syntax/ledger gates also pass. PR merge pending. Windows worker evidence not received.",
       "lesson_commits": {
         "PY-06": "dd72194cb2c45aebcd5692e4718124dce64d3d22",
         "PY-07": "3f9089b3d5b03a198781e19e2b12cbb9267161ac",
