@@ -134,9 +134,9 @@ Một trị riêng âm, một dương nên Hessian bất định; (0,0) là đi�
 
 **Từ vựng trong mục:** **Jacobian** — ma trận độ nhạy; **Partial derivative** — đạo hàm riêng.
 
-**Tình huống thực tế:** Trạm đo nhận **10 cặp đầu vào** `(x,y)` không đơn vị; mỗi hàng là một thời điểm. Hệ thống tạo hai chỉ số `F1=x+y` và `F2=x*y`. Kỹ thuật viên muốn biết khi x hoặc y thay đổi rất nhỏ tại **cặp đo đầu tiên** thì mỗi đầu ra nhạy đến mức nào; đồng thời xác nhận bảng Jacobian có đúng hai hàng đầu ra và hai cột đầu vào.
+**Tình huống thực tế:** Trạm đo có **10 cặp đầu vào x và y không đơn vị**; mỗi hàng đại diện một lượt đo, chẳng hạn lượt đầu x = 2, y = 3. Phần mềm tạo **hai chỉ số đầu ra**: một chỉ số cộng x với y, chỉ số kia nhân x với y. Kỹ thuật viên muốn biết khi **chỉ x hoặc chỉ y thay đổi rất ít**, hai kết quả nhạy đến đâu tại **lượt đầu**, để tránh nhầm đầu ra nào bị ảnh hưởng bởi biến nào.
 
-**Vì sao chọn cách này?** Jacobian ghi đạo hàm theo từng biến cho **từng đầu ra**; mỗi vị trí có ý nghĩa cố định. Không nhầm Jacobian với bảng 10 hàng dữ liệu đầu vào.
+**Vì sao chọn cách này?** **Jacobian** là một **bảng độ nhạy**: mỗi **hàng ứng với một chỉ số đầu ra**, mỗi **cột ứng với một biến đầu vào**. Một ô cho biết đầu ra ở hàng ấy thay đổi nhanh cỡ nào nếu tăng rất ít biến ở cột ấy, giữ biến kia cố định. `outputs.jacobian([x, y])` tạo bảng **2 × 2** từ hai quy tắc, rồi `subs` đưa x = 2 và y = 3 của lượt đầu vào để xem các độ nhạy tại đúng hoàn cảnh đó. Đây **không phải bảng 10 lượt đo**; 10 là số dữ liệu đã lấy, còn kích thước Jacobian được quyết định bởi số đầu ra và số đầu vào.
 
 **Quy trình:**
 1. Tạo 10 cặp x/y rồi định nghĩa hai đầu ra bằng SymPy.
@@ -171,9 +171,9 @@ Hàng đầu của Jacobian nói về F1, hàng thứ hai về F2; số `3` ở 
 
 **Từ vựng trong mục:** **Hessian** — ma trận đạo hàm bậc hai; **Curvature** — độ cong.
 
-**Tình huống thực tế:** Đội tối ưu thử **12 cặp tham số** `(x,y)` cho loss giả lập `x²+2y²` (đơn vị loss không chuẩn hóa). Cần kiểm xem loss cong mạnh hơn theo x hay y và liệu độ cong có thay đổi giữa các cấu hình thử.
+**Tình huống thực tế:** Đội tối ưu thử **12 cặp thông số x, y không đơn vị** cho một hàm mất mát giả lập. Khi đi xa điểm tốt nhất, loss tăng theo cả hai hướng nhưng tăng **nhanh hơn theo y** so với x. Nhóm muốn xác nhận **độ cong** của bề mặt loss ở hai hướng, và xem độ cong ấy có đổi theo 12 cặp thông số hay giữ nguyên.
 
-**Vì sao chọn cách này?** Hessian lấy đạo hàm thêm một lần từ gradient; với loss bậc hai này Hessian luôn cố định `[[2,0],[0,4]]`, thể hiện độ cong theo y lớn hơn. Việc đánh giá ở 12 điểm khác nhau làm rõ khác biệt giữa vị trí tham số và độ cong.
+**Vì sao chọn cách này?** **Gradient** cho biết loss đổi nhanh theo từng thông số, còn **Hessian** cho biết chính các độ dốc ấy **thay đổi nhanh đến đâu**, tức **độ cong** của bề mặt. `sp.hessian(loss, [x, y])` tạo bảng độ cong theo cả hai hướng và sự tương tác giữa chúng. Với bề mặt bậc hai trong bài, Hessian **không phụ thuộc vị trí x, y**, nên kiểm cấu hình đầu và cuối sẽ giống nhau; thành phần theo y lớn hơn theo x, cho thấy cong mạnh hơn theo y. Đừng nhầm loss ở mỗi cấu hình khác nhau với việc **Hessian cũng phải khác**.
 
 **Quy trình:**
 1. Lưu 12 cặp thử và định nghĩa loss bằng SymPy.
@@ -211,9 +211,9 @@ Cong hơn theo y: True
 
 **Từ vựng trong mục:** **Stationary point** — điểm dừng; **Minimum** — cực tiểu; **Eigenvalues** — trị riêng.
 
-**Tình huống thực tế:** Nhóm hiệu chỉnh có **15 cặp tham số thử** `(x,y)`, mỗi hàng là một phương án đặt máy. Loss mô hình là `(x−3)²+2(y−2)²`; cần tìm điểm dừng đúng bằng giải gradient, xác nhận Hessian có độ cong dương, và kiểm trong 15 ứng viên có một phương án trùng điểm tối ưu.
+**Tình huống thực tế:** Nhóm hiệu chỉnh có **15 phương án cài đặt máy** theo lưới gồm năm giá trị x và ba giá trị y. Điểm đánh giá (loss, không đơn vị) nhỏ nhất theo thiết kế ở **x = 3, y = 2**. Kỹ thuật viên muốn dùng quy tắc toán học tìm điểm tốt nhất, kiểm chứng đây là **đáy** chứ không phải đỉnh, rồi xem trong 15 phương án có đúng cấu hình tốt nhất ấy không.
 
-**Vì sao chọn cách này?** Gradient bằng 0 chỉ cho biết ứng viên cực trị; Hessian có **hai trị riêng dương** là căn cứ khẳng định đây là cực tiểu địa phương nghiêm ngặt của loss bậc hai. Đối chiếu bảng 15 ứng viên minh họa lựa chọn thực tế.
+**Vì sao chọn cách này?** Để tìm **điểm dừng**, chương trình dùng `sympy.diff` tính độ dốc theo x/y và `sympy.solve` tìm nơi cả hai độ dốc **đều bằng 0**. Nhưng điểm dừng **chưa chắc là nhỏ nhất**. `sp.hessian` lấy độ cong; `np.linalg.eigvalsh` kiểm các **trị riêng** của bảng Hessian: ở ví dụ này **tất cả đều dương**, nghĩa là bề mặt cong lên theo mọi hướng, nên điểm dừng là **cực tiểu nghiêm ngặt**. Vòng lặp đánh giá cả **15 cấu hình có sẵn**, dùng `argmin` tìm vị trí có loss nhỏ nhất và đổi vị trí đó sang mã T01…; đây là bước so nghiệm toán học với phương án thực tế.
 
 **Quy trình:**
 1. Dùng SymPy giải đồng thời hai thành phần gradient bằng 0.
@@ -255,9 +255,9 @@ Tên 'tốt nhất' ở đây có nghĩa **loss nhỏ nhất trên đúng 15 ph�
 
 **Từ vựng trong mục:** **Critical point** — điểm dừng; **Positive definite** — xác định dương; **Saddle** — yên ngựa.
 
-**Tình huống thực tế:** Đội nghiên cứu nhận **18 phiên bản mô hình**, mỗi hàng có mã M01…M18 và loại công thức: `minimum` có `x²+2y²`, `maximum` có `−x²−2y²`, `saddle` có `x²−y²`. Cả ba loại đều có gradient 0 tại `(0,0)`, nhưng ý nghĩa hoàn toàn khác. Cần **phân loại lại từ Hessian**, đếm số min/max/yên ngựa và kiểm không kết luận min chỉ từ gradient bằng 0.
+**Tình huống thực tế:** Đội nghiên cứu thử **18 phiên bản hàm loss giả lập** M01–M18. Mỗi phiên bản thuộc một trong ba kiểu bề mặt: **chiếc bát có đáy** (cực tiểu), **chiếc vòm có đỉnh** (cực đại), hoặc **mặt yên ngựa** (đi lên theo một hướng nhưng đi xuống theo hướng kia). Cả ba kiểu đều có một điểm mà độ dốc bằng 0, nên nhóm muốn phân loại thật sự từ **độ cong**, đếm từng loại thay vì gọi mọi điểm dừng là điểm tối ưu.
 
-**Vì sao chọn cách này?** Đối với các hàm bậc hai này, dấu trị riêng Hessian phân biệt được ba trường hợp: tất cả dương → min, tất cả âm → max, vừa âm vừa dương → yên ngựa. Duyệt 18 dòng thay vì suy từ nhãn mẫu.
+**Vì sao chọn cách này?** Độ dốc bằng 0 chỉ nói rằng **ngay tại điểm đó đường không nghiêng về một hướng cụ thể**, chứ không cho biết đó là đáy, đỉnh hay yên ngựa. **Hessian** cung cấp thông tin về độ cong; `eigvalsh` trả các trị riêng của bảng độ cong đối xứng. Trong ba hàm bậc hai minh họa, **toàn dương** nghĩa là đáy, **toàn âm** là đỉnh, còn **vừa dương vừa âm** là yên ngựa. Chương trình đọc lần lượt **18 mô hình** và tự phân loại từ kết quả tính, không chỉ tin nhãn `type` ghi trong dữ liệu. Quy tắc dấu này áp dụng rõ ràng cho các hàm ở bài; tình huống Hessian có trị riêng bằng 0 cần xem xét thêm, không vội kết luận.
 
 **Quy trình:**
 1. Lưu 18 mã/công thức và định nghĩa Hessian của ba công thức bằng SymPy.
@@ -306,9 +306,9 @@ Trị riêng bằng 0 sẽ khiến **phép thử Hessian cơ bản không đủ 
 
 **Từ vựng trong mục:** **Jacobian determinant** — định thức Jacobian; **Sensitivity** — độ nhạy; **Singular** — suy biến.
 
-**Tình huống thực tế:** Hệ thống điều khiển có **20 cấu hình đầu vào** `(x,y)`, mỗi hàng là một trạng thái C01…C20, tạo hai đầu ra `F1=x²+y`, `F2=xy+3y` (đơn vị chỉ số). Một số cấu hình khiến hai hàng của Jacobian phụ thuộc, tức ánh xạ **không khả nghịch cục bộ theo phép thử định thức**. Cần tìm mã các cấu hình có định thức Jacobian bằng 0, đồng thời kiểm một ví dụ Jacobian không suy biến.
+**Tình huống thực tế:** Một hệ thống điều khiển có **20 cấu hình C01–C20**, mỗi cấu hình ghi hai tín hiệu đầu vào x, y và cho ra **hai chỉ số** theo các quy tắc phi tuyến. Kỹ thuật viên muốn biết tại cấu hình nào các đầu ra **không đủ nhạy theo hai hướng độc lập**, khiến cách suy ngược những thay đổi nhỏ của đầu vào từ đầu ra không còn được bảo đảm. Cần liệt kê mã các cấu hình ấy và đếm số cấu hình còn kiểm tra được tính khả nghịch cục bộ.
 
-**Vì sao chọn cách này?** Jacobian cho biết độ nhạy của hai đầu ra theo hai đầu vào. Nếu định thức bằng 0, ma trận đạo hàm mất hạng nên không áp định lý hàm ngược tại cấu hình đó; chưa phải kết luận mọi giá trị quanh đó đều không thể phục hồi theo mọi cách.
+**Vì sao chọn cách này?** **Jacobian** đo mối quan hệ giữa **thay đổi nhỏ ở hai đầu vào** và **thay đổi ở hai đầu ra** tại một cấu hình. Nếu hai hàng hoặc cột của Jacobian không độc lập, một số thay đổi đầu vào không thể phân biệt chỉ từ cách các đầu ra thay đổi rất nhỏ ở điểm ấy. Với bảng **2 × 2**, **định thức gần 0** báo Jacobian suy biến, nên điều kiện đủ quen thuộc để **bảo đảm có hàm ngược cục bộ** không còn thỏa. Chương trình thế từng cặp x, y vào Jacobian, tính `np.linalg.det`, dùng ngưỡng `1e-9` để xử lý sai số rồi ghi đúng mã C01… bị suy biến. Điều đó **không tự chứng minh** mọi cách khôi phục đầu vào đều bất khả thi ở mọi vùng lân cận; chỉ không được áp dụng bảo đảm thông thường tại các điểm ấy.
 
 **Quy trình:**
 1. Dùng SymPy tính Jacobian của hai hàm đầu ra.

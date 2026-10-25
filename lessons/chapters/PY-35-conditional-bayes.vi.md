@@ -130,9 +130,9 @@ Xác suất chung là 56%, được tính theo tỷ trọng mỗi nhóm.
 
 **Từ vựng trong mục:** **Conditional probability** — xác suất có điều kiện; **Condition** — điều kiện.
 
-**Tình huống thực tế:** Quầy hàng ghi **10 khách K01…K10**, mỗi hàng có cờ đã xem giới thiệu sản phẩm (`viewed`) và đã mua (`bought`). Nhân viên cần biết tỷ lệ mua **trong nhóm đã xem**, không lấy số người mua chia cả 10 khách; ngoài ra có khách không xem nhưng vẫn mua.
+**Tình huống thực tế:** Quầy giới thiệu hàng ghi **10 khách K01–K10**, mỗi người có hai trạng thái: **đã xem giới thiệu** sản phẩm hay chưa và **đã mua** hay chưa. Một số người không xem vẫn mua; một số người đã xem nhưng không mua. Nhân viên muốn biết **trong những khách đã xem, bao nhiêu phần đã mua**, chứ không hỏi tỷ lệ mua trong cả 10 khách và cũng chưa kết luận xem giới thiệu là nguyên nhân họ mua.
 
-**Vì sao chọn cách này?** Khi hỏi `P(mua | đã xem)`, mẫu nền thu hẹp về những người có `viewed=True`. Đếm mua ở **bên trong nhóm này** rồi chia đúng số người đã xem. Tỷ lệ không chứng minh việc xem gây ra hành vi mua.
+**Vì sao chọn cách này?** **Xác suất có điều kiện** nghĩa là ta chỉ xét cơ hội xảy ra một việc **trong một nhóm đã biết trước điều kiện**. Ở đây điều kiện là `viewed=True`, nên chương trình lọc khách **đã xem** trước, rồi mới đếm `bought=True` **trong nhóm ấy**. Mẫu số là **số khách đã xem**, không phải cả 10 người. Khách chưa xem nhưng vẫn mua không thuộc phép tính này, dù vẫn nằm trong dữ liệu gốc. Đây là **tỷ lệ ghi nhận từ bảng mẫu**, không chứng minh việc xem giới thiệu **gây ra** hành vi mua.
 
 **Quy trình:**
 1. Lưu cờ xem/mua cho cả 10 khách.
@@ -172,9 +172,9 @@ P(mua|đã xem): 0.429
 
 **Từ vựng trong mục:** **Independence** — độc lập; **Joint probability** — xác suất đồng thời.
 
-**Tình huống thực tế:** Đội kiểm thử tạo **12 bản ghi** của hai biến cố A (dùng ứng dụng) và B (đọc email), mỗi hàng là một tổ hợp đúng/sai. Bảng thử cố ý chứa **ba lượt cho mỗi trong bốn tổ hợp**. Cần kiểm tra tỷ lệ giao so với tích tỷ lệ riêng và xem biết B có đổi tỷ lệ A trong bảng này không.
+**Tình huống thực tế:** Đội kiểm thử tạo **12 bản ghi đúng/sai giả lập** cho hai hành vi: **A = dùng ứng dụng**, **B = đọc email**. Cả bốn trường hợp — có cả hai, chỉ A, chỉ B, không có cái nào — đều xuất hiện **đúng ba lần**. Nhóm muốn kiểm xem trong bảng cân bằng này, biết người đó có B có làm tỷ lệ A khác đi hay không, và so tỷ lệ có cả hai hành vi với các tỷ lệ riêng.
 
-**Vì sao chọn cách này?** Hai biến cố được gọi là độc lập trong mô hình xác suất khi `P(A∩B)=P(A)P(B)`. Đây là **bảng kiểm thử được thiết kế cân bằng**, nên phép kiểm đúng không suy ra hành vi toàn bộ người dùng ngoài thực tế.
+**Vì sao chọn cách này?** **Độc lập** trong xác suất nghĩa là biết biến cố B xảy ra **không làm thay đổi cơ hội xảy ra A** trong mô hình đang xét. Bài cố ý tạo **12 lượt** với đúng **ba lượt ở mỗi trong bốn tổ hợp**, nên có thể đếm riêng số lần A, B và **cả hai**. Chương trình lấy các tỷ lệ đó theo **cùng mẫu số 12**, rồi đối chiếu tỷ lệ cả hai với **tích hai tỷ lệ riêng**; chúng khớp trong bảng đã được thiết kế cân bằng. Điều đó xác minh thuộc tính của **dữ liệu giả lập này**, không chứng minh mọi hành vi dùng app và đọc email của khách hàng thật đều độc lập.
 
 **Quy trình:**
 1. Tạo 12 hàng với bốn tổ hợp lặp đều.
@@ -222,9 +222,9 @@ Kết quả khớp công thức **trên bảng giả lập được xây dựng*
 
 **Từ vựng trong mục:** **Prior** — tỷ lệ nền; **Likelihood** — xác suất cảnh báo có điều kiện; **Posterior** — tỷ lệ sau cảnh báo.
 
-**Tình huống thực tế:** Bộ phận QC kiểm tra **15 sản phẩm**, mỗi hàng có ID, trạng thái lỗi thật (`defective`) và cờ máy cảnh báo (`positive`). Có ba sản phẩm lỗi thật, nhưng không phải mọi cảnh báo đều là lỗi thật. Cần ước lượng **xác suất lỗi trong nhóm được cảnh báo**, cả bằng đếm trực tiếp lẫn công thức Bayes dựa trên các tỷ lệ quan sát.
+**Tình huống thực tế:** Nhà máy kiểm tra **15 sản phẩm P01–P15** bằng một máy báo lỗi. Mỗi sản phẩm có **tình trạng lỗi thật** do kiểm tra đối chiếu và cờ **máy cảnh báo**. Có **3 sản phẩm lỗi thật**, nhưng máy có thể **bỏ sót lỗi** hoặc **báo nhầm hàng tốt**. Nhân viên muốn biết **nếu máy đã cảnh báo, xác suất sản phẩm thật sự lỗi là bao nhiêu**, rồi đối chiếu tính theo Bayes với phép đếm trực tiếp sản phẩm lỗi trong nhóm được cảnh báo.
 
-**Vì sao chọn cách này?** Bayes kết hợp tỷ lệ lỗi nền, tỷ lệ máy báo đúng trên hàng lỗi và tỷ lệ dương giả trên hàng tốt. Không được nhầm `P(cảnh báo|lỗi)` với `P(lỗi|cảnh báo)`; dữ liệu 15 hàng rất nhỏ nên chỉ là minh họa.
+**Vì sao chọn cách này?** Máy **cảnh báo** không đồng nghĩa sản phẩm **thực sự lỗi**, vì có thể báo nhầm hàng tốt; cũng có sản phẩm lỗi mà máy không cảnh báo. **Bayes** giúp đổi câu hỏi từ **'hàng lỗi thì máy báo đúng bao nhiêu?'** sang **'máy báo thì hàng thật sự lỗi bao nhiêu?'**. Đầu tiên tính **tỷ lệ lỗi nền** trong 15 sản phẩm, **độ nhạy** là tỷ lệ máy báo trong hàng lỗi và **tỷ lệ dương giả** là tỷ lệ máy báo trong hàng tốt. Các phần ấy được kết hợp để xét đúng **nhóm có cảnh báo**, rồi đối chiếu với cách đếm trực tiếp **hàng vừa cảnh báo vừa lỗi thật** chia cho **tất cả hàng có cảnh báo**. Mẫu 15 sản phẩm chỉ để học phương pháp; không dùng kết quả này thay độ chính xác của máy trên cả nhà máy.
 
 **Quy trình:**
 1. Tách 15 sản phẩm thành nhóm lỗi và tốt, đồng thời đếm cờ dương.
@@ -286,9 +286,9 @@ Không được suy ra độ tin cậy của một máy kiểm hàng thật ch�
 
 **Từ vựng trong mục:** **Total probability** — xác suất toàn phần; **Partition** — phân hoạch; **Weighted rate** — tỷ lệ có trọng số.
 
-**Tình huống thực tế:** Khảo sát có **18 khách**, chia thành ba nhóm rời nhau A (9 người), B (6 người), C (3 người). Mỗi hàng có mã khách, nhóm và cờ đã mua. Cần tổng hợp tỷ lệ mua **chung** từ tỷ trọng từng nhóm và tỷ lệ mua trong nhóm; không được lấy trung bình cộng đơn giản của ba tỷ lệ vì quy mô nhóm khác nhau.
+**Tình huống thực tế:** Khảo sát ghi **18 khách C01–C18**, chia vào đúng một trong ba nhóm địa bàn **A (9 người), B (6 người), C (3 người)**. Mỗi người có trạng thái **đã mua/chưa mua**. Quản lý muốn tính **tỷ lệ mua chung của 18 khách** bằng cách tổng hợp tỷ lệ từng nhóm, sau đó đối chiếu với việc đếm trực tiếp số người đã mua; không được lấy trung bình đều ba nhóm vì số người rất khác nhau.
 
-**Vì sao chọn cách này?** Công thức xác suất toàn phần dùng tỷ trọng nhóm nhân tỷ lệ trong nhóm rồi cộng. Điều kiện là các nhóm **không trùng nhau và phủ đủ 18 người**. Có thể xác nhận bằng số mua trực tiếp chia 18.
+**Vì sao chọn cách này?** **Xác suất toàn phần** giúp gộp các nhóm **không trùng nhau và bao phủ đủ dữ liệu** để biết tỷ lệ chung. Trong ví dụ, A có 9 khách, B có 6 và C có 3, nên mỗi nhóm phải đóng góp theo **số người thực sự thuộc nhóm đó**, không phải mỗi nhóm được tính ngang một phần ba. Chương trình đếm số người mua ở mỗi nhóm, tính tỷ lệ mua của nhóm, sau đó lấy **tỷ trọng nhóm trong 18 khách** để tổng hợp. Kết quả được đối chiếu với số **người mua thật trong cả bảng chia 18**. Lấy trung bình đều ba tỷ lệ sẽ dễ làm nhóm C chỉ có ba người ảnh hưởng mạnh ngang nhóm A chín người.
 
 **Quy trình:**
 1. Đếm kích thước và số mua của từng nhóm từ 18 hàng.
@@ -347,9 +347,9 @@ Ví dụ này minh họa **trung bình có trọng số**; nếu chỉ cộng ba
 
 **Từ vựng trong mục:** **Posterior** — tỷ lệ lỗi sau tín hiệu; **Evidence** — xác suất tín hiệu; **Base-rate effect** — ảnh hưởng tỷ lệ nền.
 
-**Tình huống thực tế:** Nhà máy giả lập có **20 sản phẩm** M01…M20: 12 từ dây chuyền A và 8 từ B. Mỗi dòng mang nhãn lỗi thật và máy báo dương. Cần tính `P(lỗi|báo dương)` cho **cả nhà máy** bằng Bayes, đối chiếu bằng đếm trực tiếp, rồi tính riêng tỷ lệ lỗi sau cảnh báo của **dây chuyền B**. Không lấy độ nhạy của máy làm posterior.
+**Tình huống thực tế:** Nhà máy thử **20 sản phẩm M01–M20**, gồm **12 từ dây chuyền A** và **8 từ dây chuyền B**. Mỗi sản phẩm có kết luận **lỗi thật** và dấu **máy cảnh báo dương**, nhưng cảnh báo có thể đúng hoặc sai. Nhóm chất lượng cần tính xác suất **lỗi thật khi đã có cảnh báo trên toàn nhà máy**, rồi tính riêng **trong nhóm cảnh báo ở dây chuyền B**, để xem vì sao thay đổi nhóm đang xét có thể làm kết quả khác nhau.
 
-**Vì sao chọn cách này?** Posterior phụ thuộc tỷ lệ lỗi nền của tập đang xét; thay tập toàn nhà máy bằng riêng B có thể tạo kết quả khác. Tách hai mẫu nền rõ ràng giúp tránh lỗi dùng sai mẫu số hoặc coi tỷ lệ cảnh báo là tỷ lệ lỗi thật.
+**Vì sao chọn cách này?** **Xác suất hậu nghiệm (posterior)** là cơ hội sản phẩm lỗi **sau khi đã biết máy báo cảnh báo**. Với toàn bộ 20 sản phẩm, Bayes dùng **tỷ lệ lỗi nền**, **tỷ lệ cảnh báo trên hàng lỗi** và **tỷ lệ cảnh báo nhầm trên hàng tốt** của **toàn nhà máy**, rồi đối chiếu với **số hàng lỗi thật trong nhóm cảnh báo**. Khi đổi sang **chỉ dây chuyền B**, mẫu số trở thành **những sản phẩm B có cảnh báo**, không còn là tất cả cảnh báo từ cả A và B. Vì B có tỷ lệ lỗi/cảnh báo khác, tỷ lệ lỗi sau cảnh báo có thể khác kết quả chung; đây không phải mâu thuẫn. Đừng lấy **độ nhạy** (cơ hội báo khi đã lỗi) thay cho **posterior** (cơ hội lỗi khi đã báo), và đừng dùng tỷ lệ của nhóm toàn nhà máy để phát biểu về B.
 
 **Quy trình:**
 1. Lưu 20 hàng đầy đủ mã, dây chuyền, cờ lỗi và cờ cảnh báo.

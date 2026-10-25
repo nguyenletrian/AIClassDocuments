@@ -130,9 +130,9 @@ Có ba lượt epoch được đánh số 1 đến 3; đây mới là bộ đế
 
 **Từ vựng trong mục:** **Gradient** — hướng dốc; **Learning rate** — tốc độ học; **Loss** — mức sai.
 
-**Tình huống thực tế:** Có **10 số mục tiêu** 2–11 (đơn vị điểm) từ 10 lần đo. Một mô hình đơn giản chỉ dự đoán **một hằng số w** cho mọi lượt; bắt đầu từ w=0, cần thử một bước giảm MSE với learning rate 0,1 rồi so loss trước/sau.
+**Tình huống thực tế:** Một công cụ dự báo nhận **10 điểm mục tiêu từ 2 đến 11**, mỗi điểm đại diện một lượt đo giả lập. Công cụ đang quá đơn giản: nó trả **cùng một số w cho tất cả 10 lượt**, ban đầu w = 0. Người học muốn thử **một lần điều chỉnh w** để dự báo đỡ lệch hơn, rồi so **MSE trước và sau**, chứ không thay đổi từng điểm đo.
 
-**Vì sao chọn cách này?** Đạo hàm MSE theo w là trung bình hai lần sai số; đi **ngược** gradient là bước thử giảm loss. Ví dụ chưa xây mô hình nhiều tham số nên người mới thấy rõ w thay đổi ra sao.
+**Vì sao chọn cách này?** **Loss (mất mát)** đo mức mô hình đoán lệch so với điểm mục tiêu; **MSE** lấy trung bình những sai lệch đã bình phương nên các lần sai nhiều bị phạt nặng hơn. **Gradient** nói cho ta biết khi thay đổi w rất ít thì loss có xu hướng tăng theo phía nào. Chương trình tính gradient từ **đủ 10 mục tiêu**, sau đó bước **ngược hướng gradient** để thử giảm sai số. **Learning rate 0,1** quyết định độ lớn bước sửa, không phải 10% số điểm đo; sau đúng một bước, tính lại MSE để kiểm chứng, không mặc định hễ cập nhật là tốt hơn.
 
 **Quy trình:**
 1. Tạo 10 số mục tiêu và đặt w=0.
@@ -168,9 +168,9 @@ Một bước chưa đưa w tới giá trị tối ưu, nhưng cho thấy hướ
 
 **Từ vựng trong mục:** **Partial derivative** — đạo hàm riêng; **Coefficient** — hệ số; **Full batch** — toàn bộ dữ liệu.
 
-**Tình huống thực tế:** Một dây chuyền có **12 cặp số đo** x/y (x từ 1 đến 12 đơn vị đầu vào). Dữ liệu tạo theo y=2x+1; nhóm biết trước phần chặn 1, nhưng cần học hệ số dốc w từ 0. Để không nhầm gradient với tỷ lệ cố định, hãy tính độ dốc loss **từ cả 12 hàng**, cập nhật một lần và kiểm loss.
+**Tình huống thực tế:** Trạm thử nghiệm có **12 cặp x và y**, x là mức đầu vào từ **1 đến 12**, y là chỉ số kết quả được tạo theo đường thẳng có **mức nền 1** và phần tăng phụ thuộc x. Mô hình đã biết mức nền nhưng chưa biết **mức tăng cho một đơn vị x**, gọi là w, nên bắt đầu thử w = 0. Nhóm muốn dùng **cả 12 cặp** để điều chỉnh w một lần và kiểm tra xem mức sai lệch trung bình có giảm không.
 
-**Vì sao chọn cách này?** Giữ chặn bằng 1 rồi chỉ tối ưu w. Gradient MSE là trung bình đóng góp sai số từ cả 12 hàng nhân x; learning rate 0,005 được chọn nhỏ để không bước quá xa khi x lớn.
+**Vì sao chọn cách này?** Với mô hình đường thẳng này, mức nền **1 đã cố định**, chỉ còn phải học **độ dốc w**. Khi dự báo của mẫu x còn thấp hơn y, mẫu có x lớn cũng ảnh hưởng mạnh hơn tới việc phải chỉnh w; vì vậy gradient tính từ **sai lệch của từng hàng nhân với x**, rồi lấy trung bình 12 mẫu. `w -= 0.005 * gradient` nghĩa là chỉnh w **ngược hướng loss tăng**, với bước khá nhỏ vì x lên tới 12. Cập nhật bằng cách chỉ lấy sai số của một mẫu sẽ không đại diện cho đủ dữ liệu; ngược lại bước quá lớn có thể vượt qua mức phù hợp.
 
 **Quy trình:**
 1. Tạo 12 hàng, dự báo bằng `w*x+1`.
@@ -209,9 +209,9 @@ Gradient của w không phải hệ số w: gradient phụ thuộc **tất cả 
 
 **Từ vựng trong mục:** **Gradient descent** — hạ dốc; **Iteration** — vòng cập nhật; **Loss history** — lịch sử sai số.
 
-**Tình huống thực tế:** Một mô hình dự báo 15 giá trị y từ 15 đầu vào x đã chuẩn hóa vào (0,1], với quy luật minh họa y=2x. Mô hình y=wx bắt đầu w=0. Cần lưu **loss ở từng bước trong 6 bước cập nhật** để biết quá trình có thực sự cải thiện hay không.
+**Tình huống thực tế:** Mô hình được giao **15 mẫu đầu vào x đã đưa về khoảng 0 đến 1**, mỗi mẫu có mục tiêu y đúng bằng hai lần x. Ban đầu mô hình dự báo theo quy tắc nhân x với hệ số **w = 0**, nên kết quả thấp hơn mục tiêu. Người học sẽ điều chỉnh w theo **6 bước học**, ghi lại mức mất mát tại mỗi bước và kiểm tra các mức ghi được có giảm dần hay không, thay vì chỉ nhìn hệ số cuối.
 
-**Vì sao chọn cách này?** Dùng MSE và gradient theo một hệ số, cập nhật có learning rate đủ nhỏ. Lưu lịch sử loss giúp không chỉ nhìn giá trị cuối mà còn kiểm tra sai số **giảm qua từng bước**.
+**Vì sao chọn cách này?** **Gradient descent (giảm dần theo gradient)** là quá trình thử sửa tham số theo hướng làm sai số nhỏ đi, rồi đo lại nhiều lần. Chương trình tính sai lệch của **15 mẫu**, ghi MSE vào `history`, tính gradient và mới chỉnh w cho lượt kế. Như vậy `history` chứa **6 lần đo loss trước mỗi lần cập nhật**, không phải sáu giá trị đều đo sau bước chỉnh tương ứng. Dùng vòng `for` giúp lặp cùng quy trình; so các số trong `history` theo thứ tự để phát hiện loss không giảm. Việc chọn learning rate **0,2** chỉ phù hợp với ví dụ đầu vào đã chuẩn hóa này, không phải mức tốt cho mọi bài toán.
 
 **Quy trình:**
 1. Chuẩn bị đúng 15 cặp x/y.
@@ -258,9 +258,9 @@ Sáu **bước full-batch** ở đây cũng tương ứng sáu lượt xem toàn
 
 **Từ vựng trong mục:** **Learning rate** — độ dài bước; **Overshoot** — bước vượt quá; **Divergence** — phân kỳ.
 
-**Tình huống thực tế:** Máy phân loại giả lập thu **18 điểm mục tiêu** trong khoảng 10–15, mỗi hàng là một lượt. Một mô hình chỉ dự báo hằng w từ 0 được chạy **5 bước** với hai learning rate 0,1 và 1,1 trên cùng dữ liệu. Cần so loss cuối để chứng minh learning rate quá cao có thể **vượt qua điểm tối ưu liên tục** và làm loss tăng.
+**Tình huống thực tế:** Một hệ thống dự đoán **một số chung w** cho **18 điểm mục tiêu từ 10 đến 15** (mỗi giá trị xuất hiện ba lần). Nhóm muốn xem vì sao chọn mức học **0,1** có thể cải thiện sau **5 lần cập nhật**, còn mức học quá lớn **1,1** có thể khiến dự đoán liên tục nhảy qua mức phù hợp và càng sai. Cả hai phép thử phải bắt đầu cùng w = 0 và dùng đúng 18 điểm để so sánh công bằng.
 
-**Vì sao chọn cách này?** Trên bài toán loss hình bát úp ngược (hình bát úp lên, có cực tiểu), learning rate 0,1 cập nhật tiến về trung bình; 1,1 khiến mỗi bước nhảy qua phía đối diện và biên độ lớn dần. So cùng dữ liệu giúp tách ảnh hưởng của learning rate.
+**Vì sao chọn cách này?** **Learning rate** là độ lớn mỗi lần chỉnh tham số. Với loss dạng **chiếc bát hướng lên**, đáy bát là vị trí dự báo chung w khiến sai số nhỏ nhất. Learning rate **0,1** đưa w tiến dần về vùng đáy, còn **1,1** lớn quá làm nó nhảy từ phía này qua phía kia của đáy với biên độ tăng; sau 5 bước MSE có thể **cao hơn cả ban đầu**. Hàm `train(lr)` cho hai lần chạy cùng **18 mục tiêu** và cùng xuất phát w = 0, chỉ đổi learning rate để thấy rõ nguyên nhân. Không phải mọi learning rate lớn đều sai; vấn đề là **lớn so với độ cong của loss**.
 
 **Quy trình:**
 1. Tạo 18 giá trị mục tiêu và MSE cho dự báo hằng w.
@@ -304,9 +304,9 @@ Learning rate lớn không **luôn** gây phân kỳ, nhưng ở hàm và bướ
 
 **Từ vựng trong mục:** **Batch gradient** — gradient toàn bộ; **Epoch** — lượt học; **MSE** — sai số bình phương.
 
-**Tình huống thực tế:** Phòng nghiên cứu có **20 cặp đo** x/y: đầu vào từ 0 đến 1,9 (đơn vị đo chuẩn hóa), đầu ra giả lập y=2x+1. Cần học **cả độ dốc w và hệ số chặn b**, ban đầu bằng 0, bằng 300 epoch full-batch; sau đó kiểm tra mô hình gần hai tham số đúng và MSE giảm.
+**Tình huống thực tế:** Nhóm nghiên cứu có **20 cặp đầu vào–đầu ra**, x từ **0 đến 1,9** và y được tạo theo quy tắc đường thẳng có **độ dốc 2, mức nền 1**. Mô hình ban đầu không biết cả hai thông số **w** (độ dốc) và **b** (mức nền), đều khởi đầu 0. Nhóm muốn cập nhật hai thông số bằng **300 epoch**, mỗi epoch sử dụng cả **20 mẫu**, rồi xem w, b có gần giá trị tạo dữ liệu và MSE có thấp hơn ban đầu không.
 
-**Vì sao chọn cách này?** Khi tối ưu đồng thời w/b, gradient có hai thành phần theo đúng thứ tự tham số. Bước full-batch dùng toàn bộ 20 mẫu; 300 epoch chỉ là số lượt thử trong ví dụ, không khẳng định mọi mô hình đều cần số epoch này.
+**Vì sao chọn cách này?** Ở đây **w** quy định mức y tăng khi x tăng, còn **b** là y dự báo khi x = 0. Nếu chỉ học w mà cố định b = 0, mô hình sẽ không diễn tả đúng dữ liệu có mức nền 1. Trong mỗi **epoch**, chương trình dùng cả **20 dòng** để tính hai gradient riêng `dw`, `db`, sau đó sửa **cả hai tham số** bằng learning rate 0,1. **Full-batch** nghĩa là mỗi epoch xét toàn bộ mẫu, không phải lấy một mẫu bất kỳ. Chạy **300 epoch** chỉ là thiết lập cho bài minh họa đã biết dữ liệu; phải xem **w, b cuối và MSE** mới kết luận mô hình đã học gần quy tắc tạo dữ liệu, không lấy số epoch làm bằng chứng tự thân.
 
 **Quy trình:**
 1. Tạo 20 mẫu (x,y) và đặt w=b=0.

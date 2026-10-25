@@ -132,9 +132,9 @@ print(slope.subs(x, 3))
 
 **Từ vựng trong mục:** **Limit** — giới hạn; **Removable discontinuity** — điểm khuyết có thể bổ sung.
 
-**Tình huống thực tế:** Chương trình hiệu chuẩn dùng biểu thức `(x²−4)/(x−2)` để đổi tín hiệu x sang chỉ số đầu ra (không đơn vị). Có **10 lượt đầu vào** nằm gần mức x=2: năm lượt nhỏ hơn 2 và năm lượt lớn hơn 2. Công thức gốc không tính được **ngay tại x=2**, nhưng cần tìm chỉ số nó tiến đến từ hai phía để quyết định giá trị dùng khi xử lý điểm khuyết.
+**Tình huống thực tế:** Một phần mềm hiệu chuẩn nhận **10 giá trị tín hiệu x không có đơn vị**, gồm năm giá trị ngay dưới 2 và năm giá trị ngay trên 2. Công thức đổi tín hiệu thành chỉ số có phép chia cho phần chênh lệch giữa x và 2, nên nếu nhập đúng **x = 2** chương trình không chia được. Kỹ thuật viên muốn xem kết quả **tiến gần giá trị nào từ cả hai phía**, để hiểu điểm bị khuyết chứ không tự coi phép chia tại 2 là hợp lệ.
 
-**Vì sao chọn cách này?** Giới hạn mô tả xu hướng **gần** điểm cần xét; nó không đòi phép chia có nghĩa ngay ở điểm đó. Mẫu hai phía minh họa xu hướng, còn `sympy.limit` cho kết quả chính xác.
+**Vì sao chọn cách này?** **Giới hạn** giúp trả lời giá trị của biểu thức đang **tiến tới đâu khi đầu vào tới gần một điểm**, kể cả khi không thể tính biểu thức đúng tại điểm đó. Chương trình thử năm số **nhỏ hơn 2** và năm số **lớn hơn 2**, nhưng cố ý **không có đúng 2** để tránh chia cho 0. Hai phía cùng tiến gần một chỉ số; `sympy.limit` dùng tính toán ký hiệu để xác định giá trị tiến tới một cách chính xác hơn việc đoán bằng vài số thập phân. Giá trị giới hạn **không tự làm công thức gốc tại x=2 có nghĩa**; nếu muốn dùng ở điểm khuyết, phải định nghĩa rõ quy tắc bổ sung.
 
 **Quy trình:**
 1. Tạo 10 số đầu vào, không có số nào bằng 2.
@@ -173,9 +173,9 @@ Biểu thức gốc có điểm khuyết tại x=2. **Giới hạn bằng 4** kh
 
 **Từ vựng trong mục:** **Derivative** — đạo hàm; **Rate of change** — tốc độ thay đổi.
 
-**Tình huống thực tế:** Robot đi theo quãng đường mô phỏng `s(t)=t²` (mét), t tính bằng giây. Người vận hành ghi **12 mốc thời gian** 0–11 giây, mỗi hàng là một mốc. Cần tính vận tốc tức thời tại từng mốc và so lúc 3 giây với lúc 11 giây; không lấy quãng đường làm vận tốc.
+**Tình huống thực tế:** Robot chạy theo quy tắc quãng đường **tăng theo bình phương thời gian**, với thời gian tính bằng **giây** và quãng đường tính bằng **mét**. Người vận hành có **12 mốc từ 0 đến 11 giây** và muốn biết **vận tốc tức thời** ở mỗi mốc, đặc biệt so mốc **3 giây và 11 giây**. Vận tốc là mức quãng đường đang tăng trong một giây tại thời điểm ấy, không phải tổng số mét robot đã đi.
 
-**Vì sao chọn cách này?** Đạo hàm của quãng đường theo thời gian là vận tốc (m/giây). `sympy.diff` tìm hàm vận tốc một lần rồi `subs` tính nó trên 12 mốc khác nhau.
+**Vì sao chọn cách này?** **Đạo hàm theo thời gian** cho biết quãng đường **đang thay đổi nhanh đến mức nào** tại một thời điểm, vì vậy dùng để tìm **vận tốc tức thời**, có đơn vị **mét/giây**. `sympy.diff(position, t)` tìm quy tắc tính vận tốc một lần từ quy tắc quãng đường; `subs(t, second)` thế lần lượt **12 mốc thời gian** để lấy kết quả cụ thể. Ở mốc sau, quãng đường tăng nhanh hơn nên vận tốc lớn hơn. Nếu lấy quãng đường tại 11 giây rồi gọi là vận tốc 11 m/giây thì đã **nhầm tổng quãng đường với tốc độ thay đổi**.
 
 **Quy trình:**
 1. Định nghĩa quãng đường bằng SymPy và lấy đạo hàm theo t.
@@ -212,9 +212,9 @@ Tại t=3, **quãng đường là 9 m nhưng vận tốc là 6 m/giây**; hai đ
 
 **Từ vựng trong mục:** **Tangent slope** — độ dốc tiếp tuyến; **Marginal cost** — chi phí cận biên.
 
-**Tình huống thực tế:** Xưởng có **15 mức tải** từ 1 đến 15 đơn vị, mỗi hàng là một mức. Quy tắc chi phí giả lập `2q²+3q+10` (nghìn đồng). Quản đốc cần biết mỗi khi tải tăng một chút thì chi phí thay đổi nhanh đến đâu ở mức tải thấp nhất và cao nhất.
+**Tình huống thực tế:** Một xưởng thử máy ở **15 mức tải từ 1 đến 15**, mỗi mức cách mức sau một đơn vị tải. Chi phí theo quy tắc mô phỏng **tăng nhanh hơn khi tải lớn**, tính bằng **nghìn đồng**. Quản đốc không chỉ hỏi tổng chi phí mà muốn biết **nếu tăng tải thêm một chút**, chi phí đang tăng nhanh cỡ nào tại tải **1** và tải **15**, để thấy vì sao phần tải cao tốn kém hơn.
 
-**Vì sao chọn cách này?** Đạo hàm `4q+3` cho **độ dốc tại một mức tải cụ thể**, khác tổng chi phí. Khi q tăng, độ dốc tăng, cho thấy tải lớn làm chi phí cận biên theo mô hình cao hơn.
+**Vì sao chọn cách này?** **Chi phí cận biên** trong ví dụ là mức thay đổi của chi phí khi **tải tăng một lượng rất nhỏ** quanh một mức đang xét; đây là **độ dốc**, không phải tổng tiền hóa đơn. `sympy.diff(cost, q)` tìm quy tắc độ dốc của đường chi phí, sau đó chương trình thế vào **15 mức tải** để so mức đầu và cuối. Với đường cong bậc hai đang dùng, độ dốc lớn dần khi tải tăng. Cần phân biệt **đạo hàm tại một điểm** với phần chênh lệch tổng chi phí giữa hai mức tải cách xa nhau; chúng không phải cùng một câu hỏi.
 
 **Quy trình:**
 1. Lưu 15 mức tải và hàm chi phí tương ứng.
@@ -258,9 +258,9 @@ Mức tăng ở tải 15: 63
 
 **Từ vựng trong mục:** **Continuity** — tính liên tục; **One-sided limit** — giới hạn một phía.
 
-**Tình huống thực tế:** Ứng dụng tính chỉ số phụ phí theo thời gian t (giờ): **trước t=8** sử dụng `t+5`, từ **t=8 trở đi** sử dụng `t+7`. Bảng có **18 mốc giờ** 0–17 (mỗi hàng một thời điểm). Người vận hành muốn biết khi thời gian vừa chạm 8 giờ, mức phụ phí có nhảy đột ngột hay không; dữ liệu rời rạc chỉ gợi ý, phải kiểm công thức hai phía.
+**Tình huống thực tế:** Một ứng dụng tính **chỉ số phụ phí giả lập** theo số giờ t: trước **8 giờ** dùng một quy định, từ **8 giờ trở đi** đổi sang quy định khác. Hệ thống ghi **18 mốc 0–17 giờ**; ngay trước mốc 8, chỉ số tiến gần **13**, còn bắt đầu từ 8 nó bằng **15**. Người quản lý muốn biết có một **bước nhảy đột ngột** tại thời điểm đổi quy định hay không, chứ không chỉ nhìn bảng giờ nguyên.
 
-**Vì sao chọn cách này?** Để liên tục tại 8, giới hạn trái, giới hạn phải và giá trị tại 8 phải bằng nhau. Hai biểu thức nhánh khác nhau cho hai mức 13 và 15, nên dù có 18 quan sát, hệ số phụ phí vẫn có **điểm không liên tục**.
+**Vì sao chọn cách này?** **Liên tục** tại một thời điểm nghĩa là khi tiến tới điểm đó từ **bên trái và bên phải**, kết quả đều tiến về **chính giá trị tại điểm ấy**. `sp.limit` kiểm hai biểu thức riêng ở mốc **8 giờ**, còn `values[8]` cho giá trị chương trình thật sự áp dụng tại mốc đó. Bên trái tiến tới 13 nhưng bên phải và tại 8 là 15, nên **không liên tục**: có bước nhảy 2 đơn vị chỉ số phụ phí. Một bảng chỉ có các mốc giờ nguyên không thể thay thế việc kiểm tra sát hai phía, vì có thể bỏ qua hành vi ngay nơi đổi chính sách.
 
 **Quy trình:**
 1. Tạo 18 thời điểm và tính đầu ra theo đúng hai nhánh.
@@ -306,9 +306,9 @@ Liên tục ở 8: False
 
 **Từ vựng trong mục:** **Numerical gradient** — đạo hàm số; **Sampling interval** — khoảng lấy mẫu; **Boundary effect** — sai số ở mép.
 
-**Tình huống thực tế:** Robot cung cấp **20 bản ghi** thời gian–quãng đường: thời điểm lấy mẫu **không cách đều**, từ 0 đến 28 giây, quãng đường giả lập theo `s(t)=t²+2t` (m). Cần ước lượng vận tốc từ bảng bằng `np.gradient(s, t)`, so với đạo hàm chính xác và tìm hiểu tại sao **các điểm ở hai mép** có thể khác các điểm giữa.
+**Tình huống thực tế:** Robot ghi **20 cặp thời gian và quãng đường**, tính bằng **giây** và **mét**, nhưng khoảng cách giữa các lần lấy mẫu **không đều**: có lần sau 1 giây, lần sau 2 giây. Quãng đường được tạo theo một quy tắc cong tăng dần. Kỹ thuật viên muốn ước lượng **vận tốc** từ chính các số đo, so với vận tốc chính xác của quy tắc mô phỏng và xem vì sao lượt đầu/lượt cuối dễ sai khác hơn những lượt ở giữa.
 
-**Vì sao chọn cách này?** Đưa **tọa độ thời gian thật** vào `np.gradient` là thiết yếu khi khoảng lấy mẫu không đều. Đối với hàm bậc hai, sai phân trung tâm tại các điểm giữa tái tạo đúng đạo hàm; biên dùng sai phân một phía mặc định nên có sai số.
+**Vì sao chọn cách này?** **Đạo hàm số** là ước lượng tốc độ thay đổi bằng các **giá trị đo gần nhau**, hữu ích khi có bảng số thay vì chỉ một biểu thức dễ lấy đạo hàm. `np.gradient(s, t)` nhận **cả quãng đường và các thời điểm thực tế**, vì các lần đo không cách đều; bỏ mảng thời gian sẽ ngầm giả định khoảng cách giữa lượt đo giống nhau. Ở các điểm **giữa**, NumPy có số đo ở **cả phía trước và phía sau** để ước lượng, trong khi ở hai **mép** mặc định chỉ dùng chênh lệch một phía. Với đường cong bậc hai trong bài, các điểm giữa khớp đạo hàm chính xác nhưng hai mép có sai số: đó là giới hạn của cách ước lượng, không có nghĩa cảm biến biên bị hỏng.
 
 **Quy trình:**
 1. Tạo 20 thời điểm và quãng đường theo cùng thứ tự.
