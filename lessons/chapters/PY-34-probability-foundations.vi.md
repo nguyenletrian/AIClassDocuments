@@ -135,8 +135,12 @@ Một lần gieo xúc xắc công bằng có xác suất 50% ra mặt chẵn.
 
 ```python
 colors = ["Xanh","Đỏ","Xanh","Vàng","Đỏ","Xanh","Đỏ","Vàng","Xanh","Đỏ"]
-blue = [i for i, color in enumerate(colors, 1) if color == "Xanh"]
-assert len(colors) == 10
+blue = []
+for i, color in enumerate(colors, 1):
+    if color == "Xanh":
+        blue.append(i)
+if len(colors) != 10:
+    raise ValueError("Cần đúng 10 vé theo màu.")
 print("Vé:", len(colors))
 print("Vé xanh:", len(blue))
 print(f"P(rút xanh): {len(blue)/len(colors):.2f}")
@@ -167,8 +171,12 @@ Nếu quay thưởng thiên vị một vé, phép đếm tỷ lệ này không c
 
 ```python
 observed = ["N","S","N","N","S","N","S","S","N","N","S","N"]
-heads = sum(item == "N" for item in observed)
-assert len(observed) == 12
+heads = 0
+for item in observed:
+    if item == "N":
+        heads += 1
+if len(observed) != 12:
+    raise ValueError("Cần đủ 12 lượt quan sát tung đồng xu.")
 print("Lượt tung:", len(observed))
 print("Ngửa:", heads)
 print(f"Tỷ lệ ngửa quan sát: {heads/len(observed):.3f}")
@@ -203,9 +211,16 @@ Mẫu 12 lần chỉ minh họa **tần suất**, không thay thế toàn bộ x
 from itertools import product
 observations = [[1,1],[2,5],[3,6],[4,5],[6,6],[1,4],[5,5],[2,2],[4,6],[3,3],[6,2],[5,4],[1,6],[6,5],[2,4]]
 space = list(product(range(1, 7), repeat=2))
-observed_hits = sum(a+b >= 9 for a,b in observations)
-possible_hits = sum(a+b >= 9 for a,b in space)
-assert len(observations) == 15 and len(space) == 36
+observed_hits = 0
+for a, b in observations:
+    if a + b >= 9:
+        observed_hits += 1
+possible_hits = 0
+for a, b in space:
+    if a + b >= 9:
+        possible_hits += 1
+if len(observations) != 15 or len(space) != 36:
+    raise ValueError("Cần 15 lượt quan sát và 36 khả năng khi tung hai xúc xắc.")
 print("Lượt quan sát:", len(observations))
 print("Quan sát tổng >=9:", observed_hits)
 print(f"Tỷ lệ quan sát: {observed_hits/len(observations):.3f}")
@@ -238,11 +253,21 @@ Mười lăm lượt có thể có nhiều cặp lặp lại. Một phép thử 
 
 ```python
 records = [{"id":"U01","app":False,"email":False},{"id":"U02","app":True,"email":True},{"id":"U03","app":True,"email":True},{"id":"U04","app":False,"email":True},{"id":"U05","app":True,"email":False},{"id":"U06","app":True,"email":True},{"id":"U07","app":False,"email":True},{"id":"U08","app":True,"email":True},{"id":"U09","app":True,"email":False},{"id":"U10","app":False,"email":True},{"id":"U11","app":True,"email":True},{"id":"U12","app":True,"email":True},{"id":"U13","app":False,"email":False},{"id":"U14","app":True,"email":True},{"id":"U15","app":True,"email":True},{"id":"U16","app":False,"email":True},{"id":"U17","app":True,"email":False},{"id":"U18","app":True,"email":True}]
-app = sum(row["app"] for row in records)
-email = sum(row["email"] for row in records)
-both = sum(row["app"] and row["email"] for row in records)
-either = sum(row["app"] or row["email"] for row in records)
-assert len(records) == 18 and app+email-both == either
+app = 0
+email = 0
+both = 0
+either = 0
+for row in records:
+    if row["app"]:
+        app += 1
+    if row["email"]:
+        email += 1
+    if row["app"] and row["email"]:
+        both += 1
+    if row["app"] or row["email"]:
+        either += 1
+if len(records) != 18 or app + email - both != either:
+    raise ValueError("Cần 18 khách và phép đếm hợp tập hợp phải nhất quán.")
 print("Khách:", len(records))
 print("Cả hai kênh:", both)
 print("Ít nhất một kênh:", either)
@@ -283,7 +308,8 @@ theoretical = float(probs[15:].sum())
 rng = np.random.default_rng(42)
 sampled = rng.choice(np.arange(20), size=5000, p=probs)
 frequency = float(np.mean(sampled >= 15))
-assert len(weights) == 20 and np.isclose(probs.sum(), 1)
+if len(weights) != 20 or not np.isclose(probs.sum(), 1):
+    raise ValueError("Cần 20 trọng số và tổng xác suất bằng 1.")
 print("Trạng thái:", len(weights))
 print(f"P(S16–S20): {theoretical:.3f}")
 print("Đồng khả năng 5/20:", f"{5/20:.3f}")
