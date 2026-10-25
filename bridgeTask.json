@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-full-code-annotations-20261025",
-    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch09",
+    "revision": "2026-10-25-full-beginner-code-notes-46-lessons-batch10",
     "title": "Chú thích đầy đủ code Python, giải thích mọi API/phương thức khó hiểu trong 46 bài",
-    "phase": "READY_FOR_BATCH_09",
+    "phase": "READY_FOR_BATCH_10",
     "chapter_index": "lessons/chapters/README.md",
     "goal_spec": "docs/CURRICULUM-CODE-ANNOTATION-GOAL.json",
     "progress_ledger": "docs/CURRICULUM-CODE-ANNOTATION-PROGRESS.json",
@@ -1201,15 +1201,11 @@
     "batch_limit": 5,
     "expected_lessons": 46,
     "expected_batches": 10,
-    "next_review": "OWNER APPROVED only Batch09 PY-41..PY-45 for aiclassdocuments-full-code-annotations-20261025. Batch08 PY-36..PY-40 completed in five independent commits, PR #172 merged SHA ddcb038f16c65ddbf562d2e503ced88106c4ac97, final-head GitHub CI #40197477244 SUCCESS at 5e2b10b8b7cb21a9eeb4688ba2925e5bd36caede, 45 Python code fences annotated (+457 net comment lines). Ledger last_completed_batch=8 status READY_FOR_BATCH_09. Reverify authoritative current main, goal, progress ledger, AGENTS.md, style guide, lesson template, 0 outstanding PR/task/ACK before beginning. Annotate ONLY FIVE PY-41..PY-45 with # Mục đích and # Dữ liệu and accurate immediately adjacent Vietnamese notes explaining every non-obvious function, flag, numeric unit, indexing, math/statistics/model API, plotting/cleanup. Keep Python non-comment source exactly identical, source AST/stdout, all non-Python-fence Markdown including 920 MCQs, 46 lessons, data and progressive scenarios unchanged. One separate commit per lesson; independent 45 Python fence preservation and tests, full 46-chapter regression and exact 25 scenario stdout, final PR HEAD CI SUCCESS before merge. Merge a SINGLE PR, update ledger with PR/CI/merged SHA FIRST, then change goal_review revision to Batch10 only (PY-46). Do not work on PY-46 yet or open parallel batch/task. Repeated 15-second global heartbeat is informational and not separate approval; never duplicate tasks or replay uncertain sends. CDP port 9224 ownership / Windows PowerShell remains UNVERIFIED, do not falsely claim Windows PASS, never silently rebind.",
-    "review_hold": "Single active Batch09 PY-41..PY-45, at most 5. Batch08 PR172 CI40197477244 success merged, ledger 8/10 complete, no pending task/ACK and no open PR on rearm. GitHub metadata update does not confirm Windows AIBridge running/CDP ownership.",
-    "active_batch": 9,
+    "next_review": "OWNER APPROVED goal aiclassdocuments-full-code-annotations-20261025, FINAL Batch10 PY-46 ONLY (one lesson; do not invent four additional lessons). Previous Batch09 PY-41..PY-45 merged PR #173 commit b83e61096e3cb49c86d038eb18f2a7ebcea78033, final-head CI #40198853977 SUCCESS at PR head 9cd8721ef26cdc5ff4dcea5dc51a8cb430cd4d70; 41 real Python code fences annotated and +682 net full-line comments. Progress ledger last_completed_batch=9 status READY_FOR_BATCH_10; no open PR or unresolved task/ACK at wakeup. Inspect current main, task source, ledger, AGENTS.md, style guide, lesson template and goal before editing. Annotate only PY-46 all executable Python fences: Vietnamese # Mục đích and # Dữ liệu plus accurate adjacent explanations of each unfamiliar function, parameter, I/O flag, indexing, plotting/backend, statistics/ML API and resource cleanup. Do NOT change executable Python statements, source AST, stdout, any Markdown outside Python code fences, datasets, 920 MCQ or previous 45 lessons. One commit for PY-46, verify original non-comment source line-by-line and 46-lesson full GitHub CI including exact expected stdout for five PY-46 scenarios (if tests exist); final PR HEAD SUCCESS before merge. Record PR, final HEAD, CI run, merged SHA and comment/block counts durably in ledger, set whole goal COMPLETED and goal_review.enabled=false only after evidence. Do not start a new goal without owner approval. Repeated 15-second heartbeat is informational, no duplicate tasks. CDP port 9224 owner identity and Windows PowerShell tests remain UNVERIFIED; don't claim local PASS or rebind silently.",
+    "review_hold": "Final single-lesson Batch10 PY-46 only; Batch09 merged PR173 CI40198853977 SUCCESS and ledger 9/10 complete. On rearm open PR=0 and unresolved tasks/ACK=0. GitHub goal-review revision only, not confirmed local Windows Bridge start.",
+    "active_batch": 10,
     "active_lessons": [
-      "PY-41",
-      "PY-42",
-      "PY-43",
-      "PY-44",
-      "PY-45"
+      "PY-46"
     ],
     "batch_boundary": "SINGLE_ACTIVE_BATCH_MAX_5; ledger must show prior completed/merged before this batch; do not open another batch while PR/task/ACK pending."
   },
@@ -1341,6 +1337,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "Approved full code annotation goal 8/10 batches merged; next Batch09 PY-41..PY-45 only. No duplicate task or batch on continuous idle reminders."
+    "reason": "Code annotations goal 9/10 batches completed. Final Batch10 PY-46 only, no task duplication on 15-second heartbeat."
   }
 }
