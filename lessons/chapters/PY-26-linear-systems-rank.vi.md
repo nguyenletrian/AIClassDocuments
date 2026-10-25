@@ -129,155 +129,194 @@ print(np.round(coeff, 3))
 
 Hệ số góc xấp xỉ 2,05 và hệ số chặn xấp xỉ −0,067; đây là nghiệm xấp xỉ do số đo có nhiễu.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống hệ tuyến tính — từ giải đúng đến xấp xỉ với dữ liệu nhiễu
 
-### Tình huống 1 — Tính giá hai loại hàng
+### Tình huống 1 — Cấp 1: Giải giá hai mặt hàng từ 10 hóa đơn
 
-**Tình huống thực tế:** Một hóa đơn gồm một món A và một món B giá tổng cộng 5 nghìn đồng; hóa đơn khác gồm hai A và một B hết 8 nghìn đồng. Hai đơn giá chưa biết, ký hiệu x,y. Tìm giá từng món.
+**Từ vựng trong mục:** **Linear system** — hệ tuyến tính; **solve** — giải nghiệm; **Residual** — sai lệch.
 
-**Vì sao chọn cách giải này?** Hệ hai phương trình độc lập và hai ẩn có ma trận hệ số vuông, khả nghịch; dùng `solve` tìm nghiệm chính xác.
+**Tình huống thực tế:** Cửa hàng có **10 hóa đơn**, mỗi hàng là số lượng sản phẩm A, số lượng B (món) và tổng tiền (nghìn đồng). Giá mỗi món cố định nhưng chưa biết. Hai hóa đơn đầu có tổ hợp số lượng khác nhau nên đủ thông tin tìm giá; cần tìm giá A/B và kiểm tra **cả 10 hóa đơn**, không chỉ hai dòng được chọn để giải.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Mỗi hóa đơn là một phương trình với hai ẩn giá. `np.linalg.solve` giải hệ 2×2 đầu; phép nhân `A @ prices` sau đó kiểm tra toàn bộ 10 hóa đơn có khớp tiền thực tế hay không.
 
-1. Đặt hai ẩn x, y là giá A, B, cùng đơn vị nghìn đồng.
-2. Đưa hệ số từ hai hóa đơn vào hai hàng ma trận A và tổng tiền vào b.
-3. Dùng `np.linalg.solve` rồi in hai đơn giá.
+**Quy trình:**
+1. Tạo bảng 10 hàng số lượng và 10 tổng tiền cùng thứ tự.
+2. Chọn hai hàng độc lập đầu để giải hệ 2 ẩn.
+3. Dự tính tổng tiền cả 10 hàng rồi đếm sai lệch lớn hơn ngưỡng nhỏ.
 
 ```python
-# Mục đích: Tính giá hai loại hàng.
 import numpy as np
-
-A = np.array([[1, 1], [2, 1]], dtype=float)
-b = np.array([5, 8], dtype=float)
-print(np.linalg.solve(A, b))
+quantities = np.array([[1,1],[2,1],[3,1],[4,1],[1,2],[2,2],[3,2],[4,2],[1,3],[2,3]], dtype=float)
+totals = np.array([5,8,11,14,7,10,13,16,9,12], dtype=float)
+prices = np.linalg.solve(quantities[:2], totals[:2])
+residual = quantities @ prices - totals
+assert quantities.shape == (10, 2)
+print("Hóa đơn:", len(totals))
+print("Giá A (nghìn đồng):", f"{prices[0]:.1f}")
+print("Giá B (nghìn đồng):", f"{prices[1]:.1f}")
+print("Hóa đơn sai:", int((np.abs(residual) > 1e-8).sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[3. 2.]
+Hóa đơn: 10
+Giá A (nghìn đồng): 3.0
+Giá B (nghìn đồng): 2.0
+Hóa đơn sai: 0
 ```
 
-Giá món A là 3 nghìn, món B là 2 nghìn đồng.
+Đơn giá là **nghìn đồng/món**, còn tổng tiền là nghìn đồng; nghiệm chỉ có ý nghĩa vì hai phương trình đầu độc lập.
 
-### Tình huống 2 — Phát hiện hai cột dữ liệu phụ thuộc
+### Tình huống 2 — Cấp 2: Nhận biết hai cột phụ thuộc trong 12 lượt vận hành
 
-**Tình huống thực tế:** Bảng đặc trưng của hai mẫu có hàng `[1,2]`, `[2,4]`. Cột hai luôn gấp đôi cột một, nên đội phân tích muốn biết bảng có hai hướng thông tin độc lập hay không.
+**Từ vựng trong mục:** **Rank** — hạng ma trận; **Linear dependence** — phụ thuộc tuyến tính.
 
-**Vì sao chọn cách giải này?** Rank phản ánh số chiều độc lập; với hai cột tỷ lệ nhau, hạng chỉ bằng một.
+**Tình huống thực tế:** Một trạm ghi **12 lần vận hành**, mỗi hàng gồm số giờ chạy máy x (giờ) và một cột được tính đúng bằng hai lần x. Kỹ thuật viên muốn biết bảng 12×2 chứa hai nguồn thông tin độc lập hay chỉ một, trước khi dùng dữ liệu để giải hệ.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Cột thứ hai chỉ là bản phóng đại cột đầu, không mang thêm một chiều thông tin tuyến tính. `matrix_rank()` cho biết số chiều độc lập, nhỏ hơn số cột khi phụ thuộc.
 
-1. Tạo ma trận hai hàng × hai cột, mỗi hàng là một mẫu.
-2. Dùng `matrix_rank` tính số chiều độc lập.
-3. In rank để đối chiếu với hai cột đầu vào.
+**Quy trình:**
+1. Lưu 12 cặp số giờ, cột hai bằng hai lần cột một.
+2. Gọi `matrix_rank` để kiểm số chiều độc lập.
+3. Kiểm tra hai cột phụ thuộc và in kích thước/hạng.
 
 ```python
-# Mục đích: Phát hiện hai cột dữ liệu phụ thuộc.
 import numpy as np
-
-A = np.array([[1, 2], [2, 4]])
-print(np.linalg.matrix_rank(A))
+hours = np.array([1,2,3,4,5,6,7,8,9,10,11,12], dtype=float)
+X = np.column_stack((hours, 2 * hours))
+assert X.shape == (12, 2)
+print("Lượt vận hành:", X.shape[0])
+print("Cột:", X.shape[1])
+print("Hạng:", int(np.linalg.matrix_rank(X)))
+print("Cột 2 = 2 × cột 1:", bool(np.allclose(X[:, 1], 2 * X[:, 0])))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-1
+Lượt vận hành: 12
+Cột: 2
+Hạng: 1
+Cột 2 = 2 × cột 1: True
 ```
 
-Chỉ có một hướng thông tin độc lập, không phải hai.
+Hai cột không phải hai đặc trưng độc lập; rank bằng 1 dù ma trận có 12 hàng và 2 cột.
 
-### Tình huống 3 — Kiểm tra nghiệm của hệ
+### Tình huống 3 — Cấp 3: Phục hồi 15 cặp tín hiệu từ hai kênh
 
-**Tình huống thực tế:** Một hệ có A=`[[1,1],[2,1]]` và b=`[5,8]`. Người học đề xuất nghiệm x=`[3,2]`. Kiểm tra nghiệm này có tái tạo được cả hai vế phải không.
+**Từ vựng trong mục:** **Coefficient matrix** — ma trận hệ số; **Augmented data** — dữ liệu mở rộng; **solve** — giải hệ.
 
-**Vì sao chọn cách giải này?** Tính `A@x` rồi dùng `np.allclose` so b, tránh lệ thuộc vào việc tự nhìn từng phương trình.
+**Tình huống thực tế:** Thiết bị có **15 lượt đo**, mỗi lượt trộn hai tín hiệu gốc x/y theo cùng quy tắc: kênh A nhận `2x+y`, kênh B nhận `x+3y` (đơn vị tín hiệu). Hai số đo của một lượt tạo một vector vế phải. Cần giải từng lượt và kiểm tra dữ liệu khôi phục tái tạo chính xác các kênh.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Ma trận hệ số 2×2 không đổi và có định thức khác 0. NumPy có thể giải **15 vế phải cùng lúc** khi cột của bảng số đo là một lượt, tránh viết 15 lời gọi giải riêng.
 
-1. Nhập ma trận hai phương trình và hai giá trị ở vế phải.
-2. Nhập nghiệm thử `[3,2]`.
-3. So `A @ x` với b và in kết quả Boolean.
+**Quy trình:**
+1. Tạo ma trận hệ số và 15 cặp kênh được đo.
+2. Chuyển vị số đo, đưa vào `np.linalg.solve` rồi chuyển vị kết quả.
+3. Tái tạo hai kênh và kiểm tra mọi lượt.
 
 ```python
-# Mục đích: Kiểm tra nghiệm của hệ.
 import numpy as np
-
-A = np.array([[1, 1], [2, 1]])
-b = np.array([5, 8])
-x = np.array([3, 2])
-print(np.allclose(A @ x, b))
+A = np.array([[2., 1.], [1., 3.]])
+measured = np.array([[4,7],[6,8],[8,9],[10,10],[12,11],[5,10],[7,11],[9,12],[11,13],[13,14],[6,13],[8,14],[10,15],[12,16],[14,17]], dtype=float)
+restored = np.linalg.solve(A, measured.T).T
+assert measured.shape == restored.shape == (15, 2)
+print("Lượt đo:", len(restored))
+print("Hạng hệ số:", int(np.linalg.matrix_rank(A)))
+print("Tín hiệu gốc đầu:", ", ".join(f"{v:.1f}" for v in restored[0]))
+print("Tái tạo đúng:", bool(np.allclose(restored @ A.T, measured)))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Lượt đo: 15
+Hạng hệ số: 2
+Tín hiệu gốc đầu: 1.0, 2.0
+Tái tạo đúng: True
 ```
 
-Nghiệm đã cho thỏa đồng thời cả hai phương trình.
+Một cặp giá trị quan sát phải ứng với **cùng lượt**; không ghép kênh A của lượt này với B của lượt khác.
 
-### Tình huống 4 — Ước lượng đường thẳng từ số đo có nhiễu
+### Tình huống 4 — Cấp 4: Phát hiện 18 phương trình không nhất quán bằng hạng mở rộng
 
-**Tình huống thực tế:** Thiết bị ghi x lần lượt 1,2,3 và y lần lượt 2,4,6.1, cùng đơn vị đo phù hợp. Cần ước lượng đường y=m*x+c dù ba điểm không nằm chính xác trên một đường.
+**Từ vựng trong mục:** **Augmented matrix** — ma trận mở rộng; **Inconsistent system** — hệ vô nghiệm; **Residual** — sai số dư.
 
-**Vì sao chọn cách giải này?** `lstsq` tối thiểu hóa tổng bình phương sai số khi ba phương trình chỉ có hai ẩn m,c.
+**Tình huống thực tế:** Bộ phận hiệu chuẩn ghi **18 cặp** số giờ vận hành x (giờ) và mức tiêu thụ y (đơn vị giả lập). Quy tắc kỹ thuật dự kiến là đường thẳng `y = m*x + c` với một cặp m/c áp dụng chung. Lượt 10 bị nhập cao hơn 7 đơn vị, nên **không có một cặp m/c khớp chính xác cả 18 lượt**. Cần phát hiện vấn đề bằng so hạng hệ số và hạng ma trận mở rộng.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Nếu `rank([A|b])` lớn hơn `rank(A)`, các phương trình không thể đồng thời đúng. Không được dùng `solve` cho ma trận 18×2 không vuông; so hạng chỉ ra hệ không nhất quán trước khi thử xấp xỉ.
 
-1. Đặt mỗi hàng của A là `[x_i,1]`, tương ứng hệ số m và c.
-2. Đưa ba giá trị y vào vế phải và giải bằng `lstsq`.
-3. Làm tròn hệ số để đầu ra minh họa ổn định.
+**Quy trình:**
+1. Tạo bảng hệ số 18 hàng, hai cột x và cột 1; y là vế phải.
+2. Ghép ma trận mở rộng bằng `column_stack`, tính hai hạng.
+3. Báo kết luận có hay không nghiệm khớp mọi lượt.
 
 ```python
-# Mục đích: Ước lượng đường thẳng từ số đo có nhiễu.
 import numpy as np
-
-x = np.array([1, 2, 3])
-y = np.array([2, 4, 6.1])
-A = np.column_stack((x, np.ones_like(x)))
-coeff = np.linalg.lstsq(A, y, rcond=None)[0]
-print(np.round(coeff, 3))
+hours = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], dtype=float)
+y = np.array([7,9,11,13,15,17,19,21,23,32,27,29,31,33,35,37,39,41], dtype=float)
+A = np.column_stack((hours, np.ones_like(hours)))
+augmented = np.column_stack((A, y))
+rank_a = int(np.linalg.matrix_rank(A))
+rank_aug = int(np.linalg.matrix_rank(augmented))
+assert A.shape == (18, 2) and augmented.shape == (18, 3)
+print("Số phương trình:", len(y))
+print("Hạng hệ số:", rank_a)
+print("Hạng mở rộng:", rank_aug)
+print("Khớp tất cả:", rank_a == rank_aug)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[ 2.05  -0.067]
+Số phương trình: 18
+Hạng hệ số: 2
+Hạng mở rộng: 3
+Khớp tất cả: False
 ```
 
-Đường khớp xấp xỉ `y=2.05x−0.067`, không phải một đường đi qua chính xác cả ba số đo.
+Điều này không chứng minh toàn bộ dữ liệu vô dụng; nó chỉ chứng minh không thể có **nghiệm chính xác chung** cho tất cả phương trình.
 
-### Tình huống 5 — Đo sai số dư của một dự báo
+### Tình huống 5 — Cấp 5: Ước lượng tuyến tính từ 20 số đo nhiễu và kiểm tra sai số dư
 
-**Tình huống thực tế:** Một mô hình trả dự báo `[2,3]` cho hai giá trị mục tiêu `[2,4]` cùng đơn vị. Cần biết mô hình chênh bao nhiêu ở từng quan sát, quy ước dư = dự báo − thực tế.
+**Từ vựng trong mục:** **Least squares** — bình phương tối thiểu; **Residual** — sai số dư; **Rank** — hạng.
 
-**Vì sao chọn cách giải này?** Vector `Ax-b` mô tả độ lệch có dấu cho từng hàng; số âm nghĩa là dự báo thấp hơn thực tế.
+**Tình huống thực tế:** Nhà máy có **20 lần đo**: mỗi hàng gồm số giờ chạy x (giờ) và năng lượng y (kWh) trong cùng khoảng quan sát. Mẫu giả lập gần đường thẳng tăng 4 kWh/giờ, có mức nền 10 kWh; lượt thứ 5 và 17 bị nhiễu. Cần tìm hệ số góc và chặn xấp xỉ bằng bình phương tối thiểu, sau đó báo MSE và số lần dự báo lệch quá 5 kWh.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Khác hệ có nghiệm chính xác, `lstsq` chọn đường thẳng làm tổng sai số bình phương thấp nhất khi 20 phương trình không khớp hoàn toàn. Phải giữ đơn vị: độ dốc kWh/giờ, hệ số chặn kWh, MSE kWh².
 
-1. Dùng ma trận đơn vị để `A@x` chính là hai dự báo.
-2. Trừ vector b của hai giá trị thực tế.
-3. In vector sai số dư theo thứ tự hai quan sát.
+**Quy trình:**
+1. Tạo A từ 20 cặp x/y với một cột x và một cột 1.
+2. Fit bằng `lstsq` khi A có hạng 2.
+3. Tính phần dư, MSE và số lượt có sai lệch lớn.
 
 ```python
-# Mục đích: Đo sai số dư của một dự báo.
 import numpy as np
-
-A = np.eye(2)
-x = np.array([2, 3])
-b = np.array([2, 4])
-print(A @ x - b)
+hours = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], dtype=float)
+energy = np.array([14,18,22,26,42,34,38,42,46,50,54,58,62,66,70,74,70,82,86,90], dtype=float)
+A = np.column_stack((hours, np.ones_like(hours)))
+slope, intercept = np.linalg.lstsq(A, energy, rcond=None)[0]
+residual = A @ np.array([slope, intercept]) - energy
+assert A.shape == (20, 2) and np.linalg.matrix_rank(A) == 2
+print("Lượt đo:", len(energy))
+print(f"Độ dốc (kWh/giờ): {slope:.2f}")
+print(f"Nền (kWh): {intercept:.2f}")
+print(f"MSE (kWh²): {np.mean(residual ** 2):.2f}")
+print("Lệch > 5 kWh:", int((np.abs(residual) > 5).sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[ 0. -1.]
+Lượt đo: 20
+Độ dốc (kWh/giờ): 3.82
+Nền (kWh): 12.06
+MSE (kWh²): 9.31
+Lệch > 5 kWh: 2
 ```
 
-Quan sát đầu đúng hoàn toàn; quan sát thứ hai dự báo thấp hơn thực tế một đơn vị.
+MSE bị ảnh hưởng bởi hai điểm nhiễu; không nên lấy đường fit này làm quy luật tiêu thụ chắc chắn của một thiết bị thật.
 
 ## 6. Sai lầm thường gặp
 
