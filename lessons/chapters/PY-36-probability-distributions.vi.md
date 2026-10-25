@@ -122,7 +122,7 @@ Theo chuẩn tắc N(0,1), khoảng −1 đến +1 chứa khoảng 68,27% xác s
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Đếm đúng tám đơn hàng giao đúng giờ
+### Tình huống 1 — Đếm đúng tám đơn hàng giao đúng giờ · Cấp 1: Binomial tại một điểm
 
 **Tình huống thực tế:** Một kho vận giả định mỗi đơn có xác suất 0,8 giao đúng giờ, độc lập với các đơn khác. Trong một nhóm 10 đơn, cần biết xác suất **chính xác tám đơn** đạt yêu cầu.
 
@@ -149,7 +149,22 @@ print(round(float(binom.pmf(8, 10, 0.8)), 4))
 
 Xác suất đúng tám đơn đúng giờ là khoảng 0,302 theo các giả định.
 
-### Tình huống 2 — Xác suất có không quá ba lỗi
+**Bài thực hành nâng cấp — cấp 1/5:** Nhóm hỗ trợ ghi **10 ngày** theo số yêu cầu tiếp nhận; mỗi hàng là một ngày (đơn vị: yêu cầu/ngày). Hãy tính P(X=4) với 10 phép thử Bernoulli độc lập. Bài học tăng từ xác suất đơn lẻ đến phân phối đầy đủ, dữ liệu thiếu và kiểm tra kết quả qua mô phỏng.
+
+```python
+import numpy as np
+from scipy.stats import binom,poisson
+# Mỗi hàng là một ngày; giá trị là số yêu cầu dịch vụ ngày đó.
+values = np.array([2, 5, 8, 4, 7, 3, 6, 2, 5, 8],dtype=float)
+valid = values[np.isfinite(values)]
+result = round(float(binom.pmf(4,10,0.7)),5)
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Có 10 quan sát nguồn; phân biệt tham số mô hình, phép tính xác suất lý thuyết và tỷ lệ thực nghiệm từ mô phỏng.
+
+### Tình huống 2 — Xác suất có không quá ba lỗi · Cấp 2: Xác suất tích lũy
 
 **Tình huống thực tế:** Nhà máy xét 10 linh kiện độc lập, xác suất lỗi mỗi chiếc 0,1. Bộ phận kiểm định muốn xác suất có từ 0 đến 3 chiếc lỗi, **bao gồm cả 3**.
 
@@ -176,7 +191,22 @@ print(round(float(binom.cdf(3, 10, 0.1)), 4))
 
 Theo mô hình, xác suất có tối đa ba linh kiện lỗi khoảng 98,72%.
 
-### Tình huống 3 — Tỷ lệ đo cảm biến dưới ngưỡng
+**Bài thực hành nâng cấp — cấp 2/5:** Nhóm hỗ trợ ghi **12 ngày** theo số yêu cầu tiếp nhận; mỗi hàng là một ngày (đơn vị: yêu cầu/ngày). Hãy tính P(X≥8) với 12 phép thử. Bài học tăng từ xác suất đơn lẻ đến phân phối đầy đủ, dữ liệu thiếu và kiểm tra kết quả qua mô phỏng.
+
+```python
+import numpy as np
+from scipy.stats import binom,poisson
+# Mỗi hàng là một ngày; giá trị là số yêu cầu dịch vụ ngày đó.
+values = np.array([2, 5, 8, 4, 7, 3, 6, 2, 5, 8, 4, 7],dtype=float)
+valid = values[np.isfinite(values)]
+result = round(float(binom.sf(7,12,0.7)),5)
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Có 12 quan sát nguồn; phân biệt tham số mô hình, phép tính xác suất lý thuyết và tỷ lệ thực nghiệm từ mô phỏng.
+
+### Tình huống 3 — Tỷ lệ đo cảm biến dưới ngưỡng · Cấp 3: Toàn bộ phân phối
 
 **Tình huống thực tế:** Một cảm biến có phép đo được giả định chuẩn với trung bình 100, độ lệch chuẩn 15 đơn vị đo. Ngưỡng theo dõi là 115; cần tính tỷ lệ phép đo không vượt ngưỡng.
 
@@ -203,7 +233,22 @@ print(round(float(norm.cdf(115, loc=100, scale=15)), 4))
 
 Khoảng 84,13% phép đo không vượt 115 nếu giả định phân phối chuẩn phù hợp.
 
-### Tình huống 4 — Phân biệt mật độ tại điểm và xác suất
+**Bài thực hành nâng cấp — cấp 3/5:** Nhóm hỗ trợ ghi **15 ngày** theo số yêu cầu tiếp nhận; mỗi hàng là một ngày (đơn vị: yêu cầu/ngày). Hãy liệt kê PMF và chứng minh xác suất cộng thành 1 trên 15 phép thử. Bài học tăng từ xác suất đơn lẻ đến phân phối đầy đủ, dữ liệu thiếu và kiểm tra kết quả qua mô phỏng.
+
+```python
+import numpy as np
+from scipy.stats import binom,poisson
+# Mỗi hàng là một ngày; giá trị là số yêu cầu dịch vụ ngày đó.
+values = np.array([2, 5, 8, 4, 7, 3, 6, 2, 5, 8, 4, 7, 3, 6, 2],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'pmf':binom.pmf(np.arange(16),15,0.7).round(4).tolist(),'sum':round(float(binom.pmf(np.arange(16),15,0.7).sum()),5)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Có 15 quan sát nguồn; phân biệt tham số mô hình, phép tính xác suất lý thuyết và tỷ lệ thực nghiệm từ mô phỏng.
+
+### Tình huống 4 — Phân biệt mật độ tại điểm và xác suất · Cấp 4: Ước lượng khi thiếu ngày đo
 
 **Tình huống thực tế:** Mô hình độ lệch chuẩn tắc X~N(0,1). Nhà phân tích cần xem **mật độ** ở x=0, không phải tỷ lệ quan sát bằng chính xác 0.
 
@@ -230,7 +275,22 @@ print(round(float(norm.pdf(0)), 4))
 
 0,3989 là mật độ tại 0, **không phải 39,89% xác suất có giá trị đúng bằng 0**.
 
-### Tình huống 5 — Tạo năm mẫu cảm biến chuẩn để thử code
+**Bài thực hành nâng cấp — cấp 4/5:** Nhóm hỗ trợ ghi **18 ngày** theo số yêu cầu tiếp nhận; mỗi hàng là một ngày (đơn vị: yêu cầu/ngày). Hãy ước lượng tham số Poisson từ 18 ngày, bỏ ngày thiếu. Bài học tăng từ xác suất đơn lẻ đến phân phối đầy đủ, dữ liệu thiếu và kiểm tra kết quả qua mô phỏng.
+
+```python
+import numpy as np
+from scipy.stats import binom,poisson
+# Mỗi hàng là một ngày; giá trị là số yêu cầu dịch vụ ngày đó.
+values = np.array([2, 5, 8, 4, 7, 3, 6, 2, 5, 8, 4, 7, 3, 6, 2, np.nan, 8, 4],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'lambda':round(float(valid.mean()),3),'P(X=4)':round(float(poisson.pmf(4,valid.mean())),5),'missing':len(values)-len(valid)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Có 18 quan sát nguồn; phân biệt tham số mô hình, phép tính xác suất lý thuyết và tỷ lệ thực nghiệm từ mô phỏng.
+
+### Tình huống 5 — Tạo năm mẫu cảm biến chuẩn để thử code · Cấp 5: So mô phỏng và lý thuyết
 
 **Tình huống thực tế:** Lập trình viên muốn năm số thử để kiểm tra luồng dữ liệu cảm biến giả lập N(0,1), có thể tạo lại khi học viên chạy đúng môi trường.
 
@@ -258,6 +318,21 @@ print(np.round(samples, 3).tolist())
 ```
 
 Đây là năm giá trị giả lập, không phải minh chứng rằng dữ liệu cảm biến thực tế tuân phân phối chuẩn.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhóm hỗ trợ ghi **20 ngày** theo số yêu cầu tiếp nhận; mỗi hàng là một ngày (đơn vị: yêu cầu/ngày). Hãy dùng 5000 lượt mô phỏng so xác suất giải quyết ít nhất 14/20 yêu cầu. Bài học tăng từ xác suất đơn lẻ đến phân phối đầy đủ, dữ liệu thiếu và kiểm tra kết quả qua mô phỏng.
+
+```python
+import numpy as np
+from scipy.stats import binom,poisson
+# Mỗi hàng là một ngày; giá trị là số yêu cầu dịch vụ ngày đó.
+values = np.array([2, 5, 8, 4, 7, 3, 6, 2, 5, 8, 4, 7, 3, 6, 2, np.nan, 8, 4, 7, np.nan],dtype=float)
+valid = values[np.isfinite(values)]
+result = {'theory':round(float(binom.sf(13,20,0.7)),4),'experiment':round(float((np.random.default_rng(2026).binomial(20,0.7,size=5000)>=14).mean()),4)}
+print("Số ngày:",len(values))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Có 20 quan sát nguồn; phân biệt tham số mô hình, phép tính xác suất lý thuyết và tỷ lệ thực nghiệm từ mô phỏng.
 
 ## 6. Sai lầm thường gặp
 
