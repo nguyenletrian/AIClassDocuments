@@ -1202,7 +1202,14 @@
     "expected_lessons": 46,
     "expected_batches": 10,
     "next_review": "Owner-approved explicit Python goal is active only after Markdown 10/10 completion. From fresh main + open PR + TaskSource check, start only batch01 PY-01..PY-05; rewrite all executable Python assert checks into readable if/raise or explicit output, comprehensions and generator expressions into explicit for/if, maintain scenarios/definitions/MCQs/output and 10/12/15/18/20 data. Commit only changed lessons, run code stdout tests and existing structure/Markdown curriculum regression plus CI, merge PR after final-head CI PASS, then durably advance ledger to batch02. Do not modify more than five chapters or replay historical Bridge tasks. Windows PASS only with actual worker result.",
-    "review_hold": "Beginner-readable Python examples, separate new goal. Preserve all previous 46-lesson content, MCQ answers and existing educational structure. Markdown goal COMPLETED and archived. No duplicate heartbeat task."
+    "review_hold": "CURRENT goal remains explicit Python beginner-code rewrite. Owner-approved scenario prose clarity goal documented in Bridge guide section 7, but strictly APPROVED_DEFERRED until 10/10 explicit Python batches are completed. Do not mix goal scopes or create duplicate heartbeat tasks.",
+    "approved_deferred_goal": {
+      "goal_id": "aiclassdocuments-scenario-clarity-explanations-20261025",
+      "spec_path": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
+      "status": "APPROVED_DEFERRED",
+      "start_only_after": "Explicit Python goal ledger COMPLETED, 10/10 merged, no outstanding PR/task",
+      "request_summary": "After current goal, simplify real-life scenarios for beginners, explain weights/data origins, normalization, sample size and seed in Vì sao chọn cách này, keep scenario itself easy to read."
+    }
   },
   "goal_review_history": [
     {
