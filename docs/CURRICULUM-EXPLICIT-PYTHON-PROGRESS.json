@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_04",
+  "status": "BATCH_04_IN_PROGRESS",
   "last_completed_batch": 3,
   "batches": [
     {
@@ -105,11 +105,27 @@
         "PY-19",
         "PY-20"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-16",
+        "PY-17",
+        "PY-18",
+        "PY-19",
+        "PY-20"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-04-20261025",
+      "lesson_commits": {
+        "PY-16": "d2c66d73c2ea11020ce95eb6059e604cf0cd52d6",
+        "PY-17": "cbba8ebcc50b6daa8c5096156dbab4626e717558",
+        "PY-17-csv-escape-fix": "697831ae7a3e53a55372c76de6013b756510cb09",
+        "PY-18": "73347ee91d509ef4ddf1886619ae5fc103caa2f9",
+        "PY-19": "83c7c67da2d424608bd18141313cf30437dc63d8",
+        "PY-20": "d716deca4bec92159a138ee94afe3b97f48f0e29"
+      },
+      "notes": "Five chapters PY-16..20 committed separately; explicit checks and for-loops instead of assert, comprehensions/genexpr; vectorized NumPy and Pandas methods retained intentionally. Kept 9 executable blocks, 5 scenarios and 9 expected stdout blocks per chapter. GitHub CI independent execution/stdout and curriculum/Markdown/MCQ/AST QA pending; Windows not yet verified. Deferred scenario prose clarity goal unchanged."
     },
     {
       "batch": 5,

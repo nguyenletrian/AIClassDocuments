@@ -144,9 +144,13 @@ Hai tên khách được ghép đúng theo id, không phải dựa vào vị tr�
 ```python
 import pandas as pd
 prices = [300,900,1200,400,850,2000,500,700,1500,650]
-df = pd.DataFrame({"id": [f"P{i:02d}" for i in range(1, 11)], "price_thousand": prices})
+ids = []
+for i in range(1, 11):
+    ids.append(f"P{i:02d}")
+df = pd.DataFrame({"id": ids, "price_thousand": prices})
 selected = df.loc[df["price_thousand"] >= 800, ["id", "price_thousand"]]
-assert len(df) == 10
+if len(df) != 10:
+    raise ValueError("Cần đủ 10 sản phẩm trong bảng giá.")
 print("Sản phẩm:", len(df))
 print("Giá cao:", len(selected))
 print("Mã:", ", ".join(selected["id"]))
@@ -178,10 +182,14 @@ Ngưỡng **bao gồm** 800 do dùng `>=`. Mã hàng được giữ riêng để
 ```python
 import pandas as pd
 quantities = [1,2,3,4,1,2,3,4,1,2,3,4]
-df = pd.DataFrame({"id": [f"K{i:02d}" for i in range(1, 13)],
+ids = []
+for i in range(1, 13):
+    ids.append(f"K{i:02d}")
+df = pd.DataFrame({"id": ids,
                    "quantity": quantities})
 portion = df.iloc[3:7]
-assert len(df) == 12 and len(portion) == 4
+if len(df) != 12 or len(portion) != 4:
+    raise ValueError("Cần 12 phiếu và đúng 4 phiếu được chọn.")
 print("Phiếu:", len(df))
 print("Đã chọn:", len(portion))
 print("Mã đầu/cuối:", portion["id"].iloc[0], portion["id"].iloc[-1])
@@ -219,7 +227,8 @@ df = pd.DataFrame(rows)
 grouped = df.groupby("area", as_index=False).agg(
     orders=("amount", "size"), total_million=("amount", "sum"))
 grouped = grouped.sort_values(["total_million", "area"], ascending=[False, True])
-assert len(df) == 15 and grouped["orders"].sum() == 15
+if len(df) != 15 or grouped["orders"].sum() != 15:
+    raise ValueError("Cần tổng hợp đủ 15 phiếu theo vùng.")
 print("Giao dịch:", len(df))
 print("Số vùng:", len(grouped))
 for record in grouped.to_dict("records"):
@@ -258,7 +267,8 @@ customers = pd.DataFrame([{"customer_id":"C01","city":"Hà Nội"},{"customer_id
 merged = orders.merge(customers, on="customer_id", how="left",
                       validate="many_to_one", indicator=True)
 unmatched = merged.loc[merged["_merge"] == "left_only", "id"].tolist()
-assert len(orders) == len(merged) == 18 and customers["customer_id"].is_unique
+if len(orders) != 18 or len(merged) != 18 or not customers["customer_id"].is_unique:
+    raise ValueError("Cần đủ 18 đơn sau ghép và mã khách hàng duy nhất.")
 print("Đơn:", len(orders))
 print("Khách danh mục:", len(customers))
 print("Đơn sau ghép:", len(merged))
@@ -299,7 +309,8 @@ valid = merged.loc[merged["price_thousand"].notna()].copy()
 valid["revenue_thousand"] = valid["qty"] * valid["price_thousand"]
 by_sku = valid.groupby("sku", as_index=False)["revenue_thousand"].sum()
 ranking = by_sku.sort_values(["revenue_thousand", "sku"], ascending=[False, True])
-assert len(sales) == len(merged) == len(valid) + len(missing) == 20
+if len(sales) != 20 or len(merged) != 20 or len(valid) + len(missing) != 20:
+    raise ValueError("Cần đối chiếu đủ 20 dòng bán, gồm cả SKU chưa có giá.")
 print("Dòng bán:", len(sales))
 print("Có giá:", len(valid))
 print("Chưa có giá:", ", ".join(missing))

@@ -143,10 +143,14 @@ Có đúng một giá trị giá không hợp lệ. Chuyển thành NaN giúp ph
 
 ```python
 import pandas as pd
-df = pd.DataFrame({"id": [f"H{i:02d}" for i in range(1, 11)],
+ids = []
+for i in range(1, 11):
+    ids.append(f"H{i:02d}")
+df = pd.DataFrame({"id": ids,
                    "age": [25,28,None,31,22,29,35,None,26,32]})
 missing = df["age"].isna()
-assert len(df) == 10
+if len(df) != 10:
+    raise ValueError("Cần đủ 10 hồ sơ tuổi.")
 print("Hồ sơ:", len(df))
 print("Thiếu tuổi:", int(missing.sum()))
 print("Cần bổ sung:", ", ".join(df.loc[missing, "id"]))
@@ -181,7 +185,8 @@ raw = pd.DataFrame({"spent_thousand": [100,120,140,None,160,180,200,220,None,240
 median = raw["spent_thousand"].median()
 working = raw.copy()
 working["spent_thousand"] = working["spent_thousand"].fillna(median)
-assert len(raw) == 12
+if len(raw) != 12:
+    raise ValueError("Cần đủ 12 khách hàng.")
 print("Khách:", len(raw))
 print("Thiếu ban đầu:", int(raw["spent_thousand"].isna().sum()))
 print(f"Trung vị (nghìn đồng): {median:.1f}")
@@ -220,7 +225,8 @@ rows = [("O01",100),("O02",150),("O03",100),("O01",100),("O04",200),("O05",180),
 df = pd.DataFrame(rows, columns=["order_id", "amount_thousand"])
 repeat_count = int(df.duplicated().sum())
 cleaned = df.drop_duplicates().copy()
-assert len(df) == 15 and len(cleaned) + repeat_count == 15
+if len(df) != 15 or len(cleaned) + repeat_count != 15:
+    raise ValueError("Cần đối chiếu đủ 15 bản ghi, bao gồm dòng trùng.")
 print("Dòng gốc:", len(df))
 print("Dòng trùng:", repeat_count)
 print("Dòng duy nhất:", len(cleaned))
@@ -253,11 +259,15 @@ Chỉ khử ba hàng xác định là bị nhập lặp; nếu có số hóa đ�
 
 ```python
 import pandas as pd
-df = pd.DataFrame({"sku": [f"P{i:02d}" for i in range(1, 19)],
+skus = []
+for i in range(1, 19):
+    skus.append(f"P{i:02d}")
+df = pd.DataFrame({"sku": skus,
                    "raw_price_vnd": ["50000","55000","60000","bad","70000","75000","80000","85000","90000","95000","","105000","110000","115000","120000","125000","N/A","135000"]})
 df["price_vnd"] = pd.to_numeric(df["raw_price_vnd"], errors="coerce")
 bad = df["price_vnd"].isna()
-assert len(df) == 18
+if len(df) != 18:
+    raise ValueError("Cần đủ 18 mã sản phẩm.")
 print("SKU:", len(df))
 print("Giá hợp lệ:", int((~bad).sum()))
 print("Cần sửa:", ", ".join(df.loc[bad, "sku"]))
@@ -290,7 +300,10 @@ Tổng đơn giá không phải doanh thu. Nếu cần doanh thu phải ghép th
 
 ```python
 import pandas as pd
-raw = pd.DataFrame({"id": [f"H{i:02d}" for i in range(1, 21)],
+ids = []
+for i in range(1, 21):
+    ids.append(f"H{i:02d}")
+raw = pd.DataFrame({"id": ids,
                     "age_years": [20,21,22,23,24,25,26,27,20,21,22,23,24,25,26,27,20,21,22,23],
                     "spent_thousand": [100,113,None,139,152,165,178,191,204,None,110,123,136,149,162,175,999,201,214,107]})
 train = raw.iloc[:15].copy()
@@ -298,8 +311,10 @@ test = raw.iloc[15:].copy()
 train_median = train["spent_thousand"].median()
 train["spent_thousand"] = train["spent_thousand"].fillna(train_median)
 test["spent_thousand"] = test["spent_thousand"].fillna(train_median)
-assert len(raw) == len(train) + len(test) == 20
-assert raw["spent_thousand"].isna().sum() == 2
+if len(raw) != 20 or len(train) + len(test) != 20:
+    raise ValueError("Tổng bản ghi Train và Test phải đúng 20 hồ sơ.")
+if raw["spent_thousand"].isna().sum() != 2:
+    raise ValueError("Dữ liệu gốc phải có đúng hai giá trị bị thiếu.")
 print("Hồ sơ:", len(raw))
 print("Train:", len(train))
 print("Test:", len(test))

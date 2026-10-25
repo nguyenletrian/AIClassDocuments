@@ -138,8 +138,11 @@ Có 12 cách chọn một màu và một cỡ khi mọi màu đều có đủ b�
 ```python
 logged_in = [True,True,False,True,False,True,True,False,True,True]
 verified = [True,False,True,True,False,False,True,True,True,False]
-allowed = [a and b for a, b in zip(logged_in, verified)]
-assert len(allowed) == 10
+allowed = []
+for logged, verified_status in zip(logged_in, verified):
+    allowed.append(logged and verified_status)
+if len(allowed) != 10:
+    raise ValueError("Cần kiểm tra đủ 10 tài khoản.")
 print("Tài khoản:", len(allowed))
 print("Cho phép:", sum(allowed))
 print("Từ chối:", len(allowed) - sum(allowed))
@@ -171,12 +174,26 @@ Tài khoản chỉ đăng nhập nhưng chưa xác minh bị từ chối, vì m�
 ```python
 from itertools import product
 truth_table = list(product([True, False], repeat=2))
-checks = [(day, p, q) for day in range(1, 4) for p, q in truth_table]
-assert len(checks) == 12 and len(set((p, q) for day, p, q in checks)) == 4
+checks = []
+for day in range(1, 4):
+    for p, q in truth_table:
+        checks.append((day, p, q))
+pairs = set()
+for day, p, q in checks:
+    pairs.add((p, q))
+if len(checks) != 12 or len(pairs) != 4:
+    raise ValueError("Cần có 12 lượt kiểm tra với đủ bốn tổ hợp logic.")
 print("Lượt kiểm tra:", len(checks))
 print("Tổ hợp logic:", len(truth_table))
-print("AND đúng:", sum(p and q for day, p, q in checks))
-print("OR đúng:", sum(p or q for day, p, q in checks))
+and_count = 0
+or_count = 0
+for day, p, q in checks:
+    if p and q:
+        and_count += 1
+    if p or q:
+        or_count += 1
+print("AND đúng:", and_count)
+print("OR đúng:", or_count)
 ```
 
 **Kết quả khi chạy:**
@@ -206,9 +223,15 @@ Bảng chân trị chỉ có bốn tổ hợp **khác nhau**; 12 là số lượ
 ```python
 approved = [True,False,True,True,False,True,False,True,True,False,True,False,True,True,True]
 certified = [True,False,False,True,False,True,True,False,True,True,True,False,True,False,True]
-compliant = [(not p) or q for p, q in zip(approved, certified)]
-violations = [f"R{i:02d}" for i, ok in enumerate(compliant, 1) if not ok]
-assert len(compliant) == 15
+compliant = []
+for approved_status, certificate_status in zip(approved, certified):
+    compliant.append((not approved_status) or certificate_status)
+violations = []
+for i, ok in enumerate(compliant, 1):
+    if not ok:
+        violations.append(f"R{i:02d}")
+if len(compliant) != 15:
+    raise ValueError("Cần kiểm tra đủ 15 hồ sơ.")
 print("Hồ sơ:", len(compliant))
 print("Tuân thủ:", sum(compliant))
 print("Vi phạm:", ", ".join(violations))
@@ -243,8 +266,12 @@ colors = ["Đỏ", "Xanh", "Trắng"]
 sizes = ["S", "M", "L"]
 materials = ["Cotton", "Poly"]
 options = list(product(colors, sizes, materials))
-valid = [item for item in options if not (item[0] == "Đỏ" and item[2] == "Poly")]
-assert len(options) == len(colors) * len(sizes) * len(materials) == 18
+valid = []
+for item in options:
+    if not (item[0] == "Đỏ" and item[2] == "Poly"):
+        valid.append(item)
+if len(options) != 18 or len(colors) * len(sizes) * len(materials) != 18:
+    raise ValueError("Cần liệt kê đúng 18 tổ hợp sản phẩm.")
 print("Cấu hình:", len(options))
 print("Hợp lệ:", len(valid))
 print("Loại:", len(options) - len(valid))
@@ -277,15 +304,24 @@ Tích Descartes liệt kê **toàn bộ cấu hình**; trong bài này ràng bu�
 
 ```python
 requests = [{"age":16,"consent":False,"verified":True,"blocked":False},{"age":17,"consent":True,"verified":True,"blocked":False},{"age":18,"consent":True,"verified":False,"blocked":False},{"age":19,"consent":True,"verified":True,"blocked":False},{"age":20,"consent":True,"verified":True,"blocked":False},{"age":21,"consent":False,"verified":True,"blocked":False},{"age":22,"consent":True,"verified":False,"blocked":False},{"age":23,"consent":True,"verified":True,"blocked":True},{"age":16,"consent":True,"verified":True,"blocked":False},{"age":17,"consent":True,"verified":True,"blocked":False},{"age":18,"consent":False,"verified":False,"blocked":False},{"age":19,"consent":True,"verified":True,"blocked":False},{"age":20,"consent":True,"verified":True,"blocked":False},{"age":21,"consent":True,"verified":True,"blocked":False},{"age":22,"consent":True,"verified":False,"blocked":False},{"age":23,"consent":False,"verified":True,"blocked":False},{"age":16,"consent":True,"verified":True,"blocked":False},{"age":17,"consent":True,"verified":True,"blocked":False},{"age":18,"consent":True,"verified":False,"blocked":True},{"age":19,"consent":True,"verified":True,"blocked":False}]
-allowed = [((item["age"] >= 18 or item["consent"])
-            and item["verified"] and not item["blocked"])
-           for item in requests]
-assert len(requests) == len(allowed) == 20
-assert all(not allowed[i] for i, item in enumerate(requests) if item["blocked"])
+allowed = []
+for item in requests:
+    age_or_consent_ok = item["age"] >= 18 or item["consent"]
+    can_access = age_or_consent_ok and item["verified"] and not item["blocked"]
+    allowed.append(can_access)
+if len(requests) != 20 or len(allowed) != 20:
+    raise ValueError("Cần kiểm tra đủ 20 yêu cầu truy cập.")
+for i, item in enumerate(requests):
+    if item["blocked"] and allowed[i]:
+        raise ValueError("Yêu cầu bị khóa không được phép truy cập.")
 print("Yêu cầu:", len(requests))
 print("Cho phép:", sum(allowed))
 print("Từ chối:", len(allowed) - sum(allowed))
-print("Yêu cầu bị khóa:", sum(item["blocked"] for item in requests))
+blocked_count = 0
+for item in requests:
+    if item["blocked"]:
+        blocked_count += 1
+print("Yêu cầu bị khóa:", blocked_count)
 ```
 
 **Kết quả khi chạy:**
