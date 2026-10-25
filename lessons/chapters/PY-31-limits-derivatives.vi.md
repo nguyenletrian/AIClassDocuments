@@ -42,11 +42,16 @@
 Giới hạn hỏi **f(x) tiến gần giá trị nào khi x tiến gần a**, không bắt buộc f(a) phải có giá trị. Ví dụ `(x²−4)/(x−2)` không xác định tại x=2 vì mẫu số bằng 0. Với x khác 2, rút gọn thành `x+2`; khi x→2, kết quả tiến đến **4**. `sympy.limit` tính giá trị tiến đến của biểu thức thay vì thay trực tiếp x=2 gây chia 0.
 
 ```python
-# Mục đích: Giá trị hàm tiến đến.
+# Mục đích: Tìm giới hạn ở x=2 của biểu thức không xác định trực tiếp tại x=2.
+# Dữ liệu: Hàm (x²-4)/(x-2); điểm x=2 làm mẫu số bằng 0 nhưng có giới hạn hữu hạn.
+# SymPy tính toán biểu thức toán học bằng ký hiệu, sp là tên ngắn của thư viện.
 import sympy as sp
 
+# symbols('x') tạo biến KÝ HIỆU, khác một số x đã gán giá trị.
 x = sp.symbols('x')
+# Tại x=2 biểu thức 0/0 chưa xác định; với x khác 2 biểu thức rút gọn được thành x+2.
 f = (x ** 2 - 4) / (x - 2)
+# limit(biểu_thức, biến, điểm) xét giá trị tiến GẦN 2, không thay x=2 trực tiếp; kết quả 4.
 print(sp.limit(f, x, 2))
 ```
 
@@ -65,11 +70,17 @@ Giới hạn bằng 4 dù biểu thức gốc không xác định ngay tại x=2
 Hàm liên tục tại x=a nếu **f(a) tồn tại**, giới hạn từ hai phía tồn tại và bằng f(a). Ví dụ quãng đường mô phỏng `s(t)=t²` là hàm liên tục; tại t=2 giây, `s(2)=4` mét và khi t tiến gần 2, quãng đường cũng tiến đến 4 mét. Đây là tính chất của **mô hình hàm**, không tự suy ra cảm biến vật lý hoạt động liên tục.
 
 ```python
-# Mục đích: Hàm liên tục tại một điểm.
+# Mục đích: Kiểm tính liên tục bằng so giới hạn với giá trị hàm tại t=2.
+# Dữ liệu: Hàm vị trí s=t² không đứt đoạn tại t=2.
+# SymPy biểu diễn ký hiệu và tính giới hạn.
 import sympy as sp
 
+# Tạo biến ký hiệu t dùng cho hàm s.
 t = sp.symbols('t')
+# **2 nâng t lên bình phương, đây là hàm vị trí giả lập.
 s = t ** 2
+# Lấy giá trị hàm TIẾN ĐẾN khi t gần 2.
+# subs(t,2) THẾ t=2 vào biểu thức để lấy đúng giá trị tại điểm; hai giá trị bằng nhau nghĩa liên tục ở đây.
 print(sp.limit(s, t, 2) == s.subs(t, 2))
 ```
 
@@ -88,10 +99,14 @@ Giới hạn bằng giá trị hàm ở t=2, nên mô hình liên tục tại đ
 Đạo hàm `f'(x)` cho biết đầu ra thay đổi bao nhiêu **khi đầu vào thay đổi rất nhỏ**. Về công thức, đó là giới hạn `(f(x+h)−f(x))/h` khi h→0 nếu giới hạn tồn tại. Với `f(x)=x²`, ta có `f'(x)=2x`; độ dốc không cố định: tại x=1 là 2, tại x=3 là 6. Nếu f là quãng đường (mét) theo thời gian (giây), đơn vị đạo hàm là mét/giây.
 
 ```python
-# Mục đích: Tốc độ thay đổi tức thời.
+# Mục đích: Dùng đạo hàm ký hiệu tìm tốc độ thay đổi của x² theo x.
+# Dữ liệu: Hàm f=x², cần biểu thức độ dốc thay đổi theo từng x.
+# SymPy sp.diff() lấy đạo hàm của biểu thức theo biến ký hiệu.
 import sympy as sp
 
+# Khai báo x là biến tượng trưng thay vì một số cụ thể.
 x = sp.symbols('x')
+# diff(f,x) đạo hàm theo x; độ dốc của x² là 2x tại từng vị trí, print() hiển thị biểu thức.
 print(sp.diff(x ** 2, x))
 ```
 
@@ -110,11 +125,16 @@ print(sp.diff(x ** 2, x))
 Nếu đạo hàm là **hàm mô tả độ dốc**, thì độ dốc tiếp tuyến tại x=a là **một số**, chính là `f'(a)`. Với đường `f(x)=x²`, đạo hàm `2x`, nên tại x=3 độ dốc bằng 6. Phân biệt `sp.diff` tạo biểu thức đạo hàm và `.subs(x,3)` thay tọa độ để lấy độ dốc tại đúng điểm đó.
 
 ```python
-# Mục đích: Độ dốc tại một giá trị cụ thể.
+# Mục đích: Tính độ dốc tức thời tại x=3 bằng đạo hàm rồi thế biến.
+# Dữ liệu: Hàm f=x², hỏi độ dốc tại x=3 (đơn vị đầu ra trên một đơn vị đầu vào).
+# SymPy tách bước tính đạo hàm và bước thế giá trị.
 import sympy as sp
 
+# Biến x ký hiệu giữ công thức còn phụ thuộc x.
 x = sp.symbols('x')
+# diff() tạo biểu thức đạo hàm 2x, chưa phải độ dốc tại một điểm.
 slope = sp.diff(x ** 2, x)
+# subs(x,3) thay x=3 trong ĐẠO HÀM, kết quả độ dốc 6, không phải f(3)=9.
 print(slope.subs(x, 3))
 ```
 
@@ -142,17 +162,31 @@ print(slope.subs(x, 3))
 3. Dùng SymPy xác định giới hạn tại 2 và đối chiếu.
 
 ```python
+# Mục đích: Dò 10 giá trị hàm từ hai phía gần x=2 và so với giới hạn chính xác.
+# Dữ liệu: 10 giá trị x từ 1.9 đến 2.001, không có x=2 vì mẫu số bằng 0; kết quả tiến gần 4.
+# SymPy giúp tính công thức ở các điểm và lấy giới hạn chính xác.
 import sympy as sp
+# Tạo ký hiệu x cho biểu thức hữu tỉ.
 x = sp.symbols("x")
+# Ở đúng x=2 phép chia không xác định; ở gần 2 hàm tiến tới 4.
 f = (x**2 - 4) / (x - 2)
+# 10 điểm khảo sát từ trái (<2) và phải (>2), không phải 10 mẫu ngẫu nhiên.
 inputs = [1.9,1.95,1.99,1.995,1.999,2.1,2.05,2.01,2.005,2.001]
+# List rỗng để lưu giá trị f tại từng điểm theo thứ tự.
 results = []
+# Lặp qua từng giá trị x trong list.
 for value in inputs:
+    # subs() thế từng x vào biểu thức; float() đổi kết quả SymPy sang số thực Python để in.
+    # append() giữ một đầu ra cho mỗi x.
     results.append(float(f.subs(x, value)))
+# limit() lấy giới hạn ký hiệu tại 2, không đánh giá f(2).
 limit_at_two = sp.limit(f, x, 2)
+# in kiểm có vô tình đưa giá trị bị chia 0 vào list hay không.
 if len(inputs) != 10 or 2 in inputs:
+    # ValueError báo lỗi cấu trúc dữ liệu và ngừng xử lý, tránh kết quả thiếu/không phù hợp.
     raise ValueError("Cần đúng 10 điểm tiến gần 2, không lấy đúng x=2.")
 print("Lượt đo:", len(inputs))
+# [4] là điểm cuối nhóm bên trái x=1.999; [-1] là điểm cuối nhóm bên phải x=2.001, :.3f in ba số lẻ.
 print(f"Gần từ trái: {results[4]:.3f}")
 print(f"Gần từ phải: {results[-1]:.3f}")
 print("Giới hạn:", limit_at_two)
@@ -183,17 +217,30 @@ Biểu thức gốc có điểm khuyết tại x=2. **Giới hạn bằng 4** kh
 3. In vận tốc ở hai mốc và kiểm số lượng đầu ra.
 
 ```python
+# Mục đích: Tính vận tốc từ hàm vị trí s=t² tại 12 mốc thời gian.
+# Dữ liệu: Thời gian t=0..11 giây, vị trí s=t² tính mét, vận tốc đạo hàm có đơn vị m/giây.
+# SymPy đạo hàm công thức vị trí để suy ra vận tốc tức thời.
 import sympy as sp
+# t là ký hiệu thời gian có thể thay các mốc sau.
 t = sp.symbols("t")
+# Mô hình vị trí theo thời gian, đơn vị mét giả định.
 position = t**2
+# diff(s,t) cho vận tốc tức thời 2t (m/s); chưa gán mốc thời gian.
 velocity = sp.diff(position, t)
+# 12 giây từ 0 đến 11, mỗi mốc một số đo tính toán.
 times = [0,1,2,3,4,5,6,7,8,9,10,11]
+# Danh sách vận tốc sẽ được lưu cùng thứ tự với times.
 values = []
 for second in times:
+    # subs() thế giây hiện tại vào biểu thức vận tốc, trả giá trị SymPy.
+    # append() giữ kết quả một lần cho mỗi mốc.
     values.append(velocity.subs(t, second))
+# Kiểm đủ cả 12 thời điểm và 12 kết quả để tránh thiếu mẫu.
 if len(times) != 12 or len(values) != 12:
+    # ValueError báo lỗi cấu trúc dữ liệu và ngừng xử lý, tránh kết quả thiếu/không phù hợp.
     raise ValueError("Cần đủ 12 mốc thời gian và 12 vận tốc.")
 print("Mốc thời gian:", len(times))
+# [3] ứng với giây thứ 3 (t=3); [-1] là mốc cuối t=11.
 print("Vận tốc ở 3 giây (m/giây):", values[3])
 print("Vận tốc ở 11 giây (m/giây):", values[-1])
 ```
@@ -222,23 +269,37 @@ Tại t=3, **quãng đường là 9 m nhưng vận tốc là 6 m/giây**; hai đ
 3. Báo độ dốc đầu và cuối, xác nhận dãy độ dốc tăng.
 
 ```python
+# Mục đích: Tìm chi phí biên tại 15 mức tải bằng đạo hàm và kiểm độ dốc có tăng.
+# Dữ liệu: Mô hình cost=2q²+3q+10, q là mức tải 1..15; đơn vị chi phí giả lập.
+# SymPy đạo hàm hàm chi phí theo ký hiệu q.
 import sympy as sp
+# q là biến tải tượng trưng để tạo đạo hàm tổng quát.
 q = sp.symbols("q")
+# Mô hình phi tuyến: bình phương tải khiến chi phí biên tăng khi q lớn.
 cost = 2*q**2 + 3*q + 10
+# Đạo hàm theo q trả tốc độ tăng chi phí tại từng tải, gọi là marginal cost.
 marginal = sp.diff(cost, q)
+# 15 mức tải liên tục từ 1 đến 15.
 loads = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 slopes = []
 for load in loads:
+    # Thế từng tải vào đạo hàm; int() đổi SymPy Integer về int Python.
+    # append() lưu 15 chi phí biên theo thứ tự tải.
     slopes.append(int(marginal.subs(q, load)))
 if len(slopes) != 15:
+    # ValueError báo lỗi cấu trúc dữ liệu và ngừng xử lý, tránh kết quả thiếu/không phù hợp.
     raise ValueError("Cần tính đủ 15 mức tải.")
 print("Mức tải:", len(slopes))
+# [0] chi phí biên tại q=1, [-1] tại q=15.
 print("Mức tăng ở tải 1:", slopes[0])
 print("Mức tăng ở tải 15:", slopes[-1])
 slopes_increase = True
+# zip() ghép mỗi độ dốc với độ dốc KẾ TIẾP; slopes[1:] bỏ mục đầu, giúp kiểm tính tăng.
 for a, b in zip(slopes, slopes[1:]):
+    # Nếu một độ dốc không nhỏ hơn độ dốc sau thì không còn tăng nghiêm ngặt.
     if a >= b:
         slopes_increase = False
+        # break thoát sớm khi tìm được trường hợp không tăng.
         break
 print("Độ dốc tăng:", slopes_increase)
 ```
@@ -268,24 +329,39 @@ Mức tăng ở tải 15: 63
 3. So hai giới hạn với giá trị hàm tại 8 rồi báo kết luận.
 
 ```python
+# Mục đích: Xét tính liên tục tại giờ 8 của hàm được định nghĩa theo hai nhánh.
+# Dữ liệu: 18 mốc giờ 0..17; trước giờ 8 là t+5, từ giờ 8 là t+7, nên có bước nhảy tại 8.
+# SymPy tính giới hạn biểu thức của từng nhánh tại ranh giới.
 import sympy as sp
+# t là biến thời gian ký hiệu.
 t = sp.symbols("t")
+# 18 mốc giờ, giờ 8 là điểm chuyển từ nhánh trái sang phải.
 times = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
 values = []
 for hour in times:
+    # Nhánh áp dụng trước giờ 8: output=hour+5.
     if hour < 8:
+        # Giá trị của nhánh trái, ứng với giờ nhỏ hơn 8.
         value = hour + 5
     else:
+        # Giá trị tại và sau giờ 8, nhánh phải.
         value = hour + 7
+    # Ghi đầu ra của từng giờ, [8] là giá trị thực tế tại điểm chuyển.
     values.append(value)
+# Tính giới hạn công thức NHÁNH TRÁI t+5 tại mốc 8; không ghép hai nhánh.
 left = sp.limit(t + 5, t, 8)
+# Tính giới hạn công thức NHÁNH PHẢI t+7 tại 8; hai nhánh cho giới hạn khác nhau.
 right = sp.limit(t + 7, t, 8)
+# Chuỗi == yêu cầu giới hạn trái, phải và giá trị tại điểm đều bằng nhau; False nghĩa gián đoạn.
+# [8] lấy giá trị của mốc 8 vì list bắt đầu từ 0.
 continuous = left == right == values[8]
 if len(times) != 18:
+    # ValueError báo lỗi cấu trúc dữ liệu và ngừng xử lý, tránh kết quả thiếu/không phù hợp.
     raise ValueError("Cần đủ 18 mốc giờ.")
 print("Mốc giờ:", len(times))
 print("Giới hạn trái:", left)
 print("Giới hạn phải:", right)
+# [8] lấy giá trị của mốc 8 vì list bắt đầu từ 0.
 print("Giá trị ở 8:", values[8])
 print("Liên tục ở 8:", continuous)
 ```
@@ -316,16 +392,32 @@ Liên tục ở 8: False
 3. Kiểm 18 điểm trong khớp và in sai số mép đầu/cuối.
 
 ```python
+# Mục đích: So đạo hàm số np.gradient với đạo hàm giải tích tại 20 thời điểm không cách đều.
+# Dữ liệu: 20 thời điểm t tăng dần, vị trí s=t²+2t tính mét, vận tốc chuẩn 2t+2 m/giây.
+# NumPy np.gradient() ước lượng đạo hàm khi chỉ có giá trị đo rời rạc.
 import numpy as np
+# 20 thời điểm tăng dần KHÔNG đều, dtype=float để tính khoảng cách chính xác.
 t = np.array([0,1,3,4,6,7,9,10,12,13,15,16,18,19,21,22,24,25,27,28], dtype=float)
+# Mảng s chứa vị trí tại mỗi thời điểm, với **2 bình phương từng phần tử.
 s = t**2 + 2*t
+# gradient(y,x) xấp xỉ ds/dt từ dữ liệu, dùng chính vector thời gian t để xử lý bước lấy mẫu không đều; mép dùng sai phân một phía mặc định.
 numerical = np.gradient(s, t)
+# Đạo hàm giải tích thật của t²+2t tại từng t, làm mốc đối chiếu.
 analytical = 2*t + 2
+# diff(t) lấy độ chênh mốc liên tiếp; >0 kiểm mọi thời điểm đi lên để không có bước âm/trùng.
+# np.all() yêu cầu tất cả khoảng cách dương, không chỉ một khoảng.
 if len(t) != 20 or not np.all(np.diff(t) > 0):
+    # ValueError báo lỗi cấu trúc dữ liệu và ngừng xử lý, tránh kết quả thiếu/không phù hợp.
     raise ValueError("Cần 20 mốc thời gian tăng dần.")
 print("Số lần đo:", len(t))
+# Slice [1:-1] lấy toàn bộ các điểm GIỮA, bỏ hai điểm biên; so với analytical bằng allclose() có dung sai float.
+# Dùng cùng slice bỏ hai biên ở giá trị chuẩn để so từng mốc.
+# allclose() so hai vector gần nhau trong dung sai số thực, không dùng == tuyệt đối.
 print("Giữa khớp:", bool(np.allclose(numerical[1:-1], analytical[1:-1])))
+# [0] là đạo hàm ước lượng mép đầu; [-1] mép cuối, độ lệch được lấy abs() để không âm.
+# So ước lượng tại đúng mép đầu với giá trị giải tích tương ứng.
 print(f"Sai số mép đầu (m/giây): {abs(numerical[0]-analytical[0]):.1f}")
+# [-1] lấy ước lượng đạo hàm mép cuối, có thể sai do chỉ dùng điểm một phía.
 print(f"Sai số mép cuối (m/giây): {abs(numerical[-1]-analytical[-1]):.1f}")
 ```
 
