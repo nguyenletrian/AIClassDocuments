@@ -113,7 +113,7 @@ print(5 & 3)
 Số `1` là kết quả phép AND theo bit giữa 5 và 3.
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Tính ưu đãi
+### Tình huống 1 — Tính ưu đãi · Cấp 1: Tính số học trên một dòng
 
 **Từ vựng trong mục:** **Arithmetic** — số học; **Discount** — giảm giá.
 
@@ -143,7 +143,20 @@ print(price * (1 - 0.10))
 
 **Kết quả:** `225000.0` đồng — khách được giảm 25.000 đồng.
 
-### Tình huống 2 — Xét VIP
+**Bài thực hành nâng cấp — cấp 1/5:** Kho có **10 đơn hàng**, mỗi dòng gồm mã `id`, `x` là đơn giá nghìn đồng, `y` là số sản phẩm và `group` là khu vực A/B/C. Hãy tính giá trị đơn đầu tiên bằng nhân đơn giá và số lượng. Các cấp tiếp theo có thêm đơn hàng và phải kết hợp phép toán phức tạp hơn; `None` nghĩa là giá chưa nhập.
+
+```python
+prices = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"O{i:02d}","x":price,"y":(i%4)+1,"group":"ABC"[(i-1)%3]} for i,price in enumerate(prices,1)]
+result = rows[0]['x']*rows[0]['y']
+assert len(rows)==10
+print("Số đơn:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** Dòng đầu xác nhận 10 đơn, dòng sau đưa ra kết quả tính trên tất cả các dòng theo quy tắc của cấp này.
+
+### Tình huống 2 — Xét VIP · Cấp 2: So sánh điều kiện nhiều dòng
 
 **Từ vựng trong mục:** **Comparison** — so sánh; **Logical AND** — phép và.
 
@@ -173,7 +186,20 @@ True
 
 **Kết quả:** `True` — khách đạt cả hai tiêu chí VIP.
 
-### Tình huống 3 — Đóng thùng hàng
+**Bài thực hành nâng cấp — cấp 2/5:** Kho có **12 đơn hàng**, mỗi dòng gồm mã `id`, `x` là đơn giá nghìn đồng, `y` là số sản phẩm và `group` là khu vực A/B/C. Hãy lọc các đơn có giá từ 70 nghìn đồng. Các cấp tiếp theo có thêm đơn hàng và phải kết hợp phép toán phức tạp hơn; `None` nghĩa là giá chưa nhập.
+
+```python
+prices = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"O{i:02d}","x":price,"y":(i%4)+1,"group":"ABC"[(i-1)%3]} for i,price in enumerate(prices,1)]
+result = [r['id'] for r in rows if r['x']>=70]
+assert len(rows)==12
+print("Số đơn:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** Dòng đầu xác nhận 12 đơn, dòng sau đưa ra kết quả tính trên tất cả các dòng theo quy tắc của cấp này.
+
+### Tình huống 3 — Đóng thùng hàng · Cấp 3: Ghép AND/OR
 
 **Từ vựng trong mục:** **Integer division** — chia lấy phần nguyên; **Remainder** — số dư.
 
@@ -203,7 +229,20 @@ print(items // box_size, items % box_size)
 
 **Kết quả:** `4 3` — có 4 thùng đầy và 3 sản phẩm dư.
 
-### Tình huống 4 — Đọc cờ thiết bị
+**Bài thực hành nâng cấp — cấp 3/5:** Kho có **15 đơn hàng**, mỗi dòng gồm mã `id`, `x` là đơn giá nghìn đồng, `y` là số sản phẩm và `group` là khu vực A/B/C. Hãy ưu tiên đơn giá cao hoặc nhóm A có số lượng lớn. Các cấp tiếp theo có thêm đơn hàng và phải kết hợp phép toán phức tạp hơn; `None` nghĩa là giá chưa nhập.
+
+```python
+prices = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"O{i:02d}","x":price,"y":(i%4)+1,"group":"ABC"[(i-1)%3]} for i,price in enumerate(prices,1)]
+result = [r['id'] for r in rows if r['x']>=80 or (r['group']=='A' and r['y']>=3)]
+assert len(rows)==15
+print("Số đơn:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** Dòng đầu xác nhận 15 đơn, dòng sau đưa ra kết quả tính trên tất cả các dòng theo quy tắc của cấp này.
+
+### Tình huống 4 — Đọc cờ thiết bị · Cấp 4: Loại dữ liệu chưa đủ điều kiện
 
 **Từ vựng trong mục:** **Bitwise AND** — phép và theo bit; **Mask** — mặt nạ bit.
 
@@ -233,7 +272,20 @@ True
 
 **Kết quả:** `True` — bit `0b0010` đang bật.
 
-### Tình huống 5 — Ưu tiên đơn hàng
+**Bài thực hành nâng cấp — cấp 4/5:** Kho có **18 đơn hàng**, mỗi dòng gồm mã `id`, `x` là đơn giá nghìn đồng, `y` là số sản phẩm và `group` là khu vực A/B/C. Hãy chỉ tính tiền các đơn có giá hợp lệ, không coi giá thiếu là 0. Các cấp tiếp theo có thêm đơn hàng và phải kết hợp phép toán phức tạp hơn; `None` nghĩa là giá chưa nhập.
+
+```python
+prices = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"O{i:02d}","x":price,"y":(i%4)+1,"group":"ABC"[(i-1)%3]} for i,price in enumerate(prices,1)]
+result = sum(r['x']*r['y'] for r in rows if r['x'] is not None)
+assert len(rows)==18
+print("Số đơn:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** Dòng đầu xác nhận 18 đơn, dòng sau đưa ra kết quả tính trên tất cả các dòng theo quy tắc của cấp này.
+
+### Tình huống 5 — Ưu tiên đơn hàng · Cấp 5: Tổng hợp nhiều quy tắc
 
 **Từ vựng trong mục:** **Logical OR** — phép hoặc; **Comparison** — so sánh.
 
@@ -262,6 +314,19 @@ True
 ```
 
 **Kết quả:** `True` — đơn được ưu tiên nhờ giá trị đạt ngưỡng.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Kho có **20 đơn hàng**, mỗi dòng gồm mã `id`, `x` là đơn giá nghìn đồng, `y` là số sản phẩm và `group` là khu vực A/B/C. Hãy tổng tiền, ID ưu tiên và danh sách đơn thiếu giá trong cùng một báo cáo. Các cấp tiếp theo có thêm đơn hàng và phải kết hợp phép toán phức tạp hơn; `None` nghĩa là giá chưa nhập.
+
+```python
+prices = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"O{i:02d}","x":price,"y":(i%4)+1,"group":"ABC"[(i-1)%3]} for i,price in enumerate(prices,1)]
+result = {'revenue':sum(r['x']*r['y'] for r in rows if r['x'] is not None),'priority':[r['id'] for r in rows if r['x'] is not None and (r['x']>=85 or (r['group']=='A' and r['y']>=3))],'missing':[r['id'] for r in rows if r['x'] is None]}
+assert len(rows)==20
+print("Số đơn:", len(rows))
+print("Kết quả:", result)
+```
+
+**Đọc kết quả:** Dòng đầu xác nhận 20 đơn, dòng sau đưa ra kết quả tính trên tất cả các dòng theo quy tắc của cấp này.
 
 ## 6. Những nhầm lẫn thường gặp
 
