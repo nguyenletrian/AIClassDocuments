@@ -137,188 +137,254 @@ Time (hours)
 
 Trục x được gắn đúng ý nghĩa thời gian; phải đặt cả y và đơn vị trước khi gửi biểu đồ.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống Matplotlib — từ đường 10 ngày đến hai đồ thị 20 cảm biến
 
-### Tình huống 1 — Theo dõi doanh thu ba ngày
+### Tình huống 1 — Cấp 1: Vẽ biểu đồ đường cho doanh thu của 10 ngày
 
-**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
+**Từ vựng trong mục:** **Line chart** — đồ thị đường; **X-axis** — trục ngang; **Savefig** — lưu hình.
 
-**Tình huống thực tế:** Cửa hàng ghi ngày 1,2,3 và doanh thu 10,15,12 nghìn đồng, một giá trị mỗi ngày. Muốn tạo biểu đồ đường để thấy chiều biến động và kiểm số điểm vẽ.
+**Tình huống thực tế:** Một cửa hàng ghi **10 ngày doanh thu**, mỗi hàng là ngày 1–10 và tổng tiền bán (triệu đồng/ngày). Muốn quan sát xu hướng tăng/giảm theo **thứ tự thời gian**, cần vẽ đường nối 10 điểm, gắn tên trục kèm đơn vị và lưu PNG để đưa vào báo cáo.
 
-**Vì sao chọn cách giải này?** Biểu đồ đường phù hợp chuỗi có thứ tự thời gian; nhãn y nêu nghìn đồng, không chỉ số thô.
+**Vì sao chọn cách này?** Line chart phù hợp mốc thời gian có thứ tự; `plt.plot(days, revenues)` nối từng cặp đúng hàng. `savefig()` tạo file xem được bên ngoài Python; môi trường tự động dùng backend Agg nên không bật cửa sổ.
 
-**Quy trình giải:**
-
-1. Tạo hai List ngày và doanh thu cùng thứ tự.
-2. Vẽ line chart, đặt tên hai trục.
-3. In số điểm dữ liệu rồi đóng Figure.
-
-```python
-# Mục đích: Theo dõi doanh thu ba ngày.
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-
-days = [1, 2, 3]
-revenue = [10, 15, 12]
-plt.plot(days, revenue)
-plt.xlabel('Day')
-plt.ylabel('Revenue (thousand VND)')
-print(len(revenue))
-plt.close()
-```
-
-**Kết quả khi chạy:**
-
-```text
-3
-```
-
-Biểu đồ có ba mốc; doanh thu tăng ngày 2 rồi giảm ngày 3.
-
-### Tình huống 2 — So số giờ học và điểm kiểm tra
-
-**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
-
-**Tình huống thực tế:** Ba học viên học 2,4,6 giờ/tuần và đạt điểm 5,7,9/10 tương ứng. Trung tâm muốn xem mối liên hệ qua ba điểm độc lập.
-
-**Vì sao chọn cách giải này?** Scatter ghép mỗi giờ học với điểm của cùng người mà không giả định đường nối theo thời gian.
-
-**Quy trình giải:**
-
-1. Tạo ba cặp x=giờ/tuần và y=điểm/10.
-2. Vẽ scatter, ghi rõ trục.
-3. In số điểm, đóng hình để giải phóng bộ nhớ.
+**Quy trình:**
+1. Tạo 10 giá trị doanh thu tương ứng 10 ngày.
+2. Vẽ biểu đồ đường, tiêu đề và nhãn trục có đơn vị.
+3. Lưu `sales_10_days.png`, kiểm 10 điểm trong đường và file tồn tại.
 
 ```python
-# Mục đích: So số giờ học và điểm kiểm tra.
 import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-
-hours = [2, 4, 6]
-scores = [5, 7, 9]
-plt.scatter(hours, scores)
-plt.xlabel('Hours per week')
-plt.ylabel('Score (out of 10)')
-print(len(hours))
-plt.close()
-```
-
-**Kết quả khi chạy:**
-
-```text
-3
-```
-
-Ba điểm mô tả ba học viên; không thể suy ra quan hệ nhân quả từ ba điểm.
-
-### Tình huống 3 — Đếm phân bố điểm theo khoảng
-
-**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
-
-**Tình huống thực tế:** Giáo viên có sáu điểm `[5,6,6,7,8,9]` trên thang 10. Cần đếm số học viên rơi vào bốn khoảng điểm định trước.
-
-**Vì sao chọn cách giải này?** Histogram đếm theo bins; cần công bố biên khoảng để người đọc hiểu tần suất.
-
-**Quy trình giải:**
-
-1. Xác định bốn khoảng [5,6), [6,7), [7,8), [8,10].
-2. Vẽ histogram và nhận số mẫu mỗi bin.
-3. In tần suất rồi đóng Figure.
-
-```python
-# Mục đích: Đếm phân bố điểm theo khoảng.
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-
-scores = [5, 6, 6, 7, 8, 9]
-counts, edges, bars = plt.hist(scores, bins=[5, 6, 7, 8, 10])
-print(counts.astype(int).tolist())
-plt.close()
-```
-
-**Kết quả khi chạy:**
-
-```text
-[1, 2, 1, 2]
-```
-
-Bốn dải điểm lần lượt có 1, 2, 1, 2 học viên.
-
-### Tình huống 4 — Lưu biểu đồ thành PNG
-
-**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
-
-**Tình huống thực tế:** Nhân viên lập báo cáo cần tạo đồ thị hai tháng doanh thu 10 và 15 nghìn đồng và lưu hình trong một thư mục tạm, không bật cửa sổ màn hình.
-
-**Vì sao chọn cách giải này?** Backend Agg và `savefig` cho phép tạo PNG không cần tương tác; kiểm tệp trước khi thoát thư mục tạm.
-
-**Quy trình giải:**
-
-1. Tạo Figure đường cho hai tháng.
-2. Lưu PNG trong TemporaryDirectory.
-3. Kiểm tệp tồn tại và đóng hình.
-
-```python
-# Mục đích: Lưu biểu đồ thành PNG.
-import matplotlib
-matplotlib.use('Agg')
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
-with TemporaryDirectory() as folder:
-    plt.plot([1, 2], [10, 15])
-    path = Path(folder) / 'chart.png'
-    plt.savefig(path)
-    print(path.is_file())
-    plt.close()
+days = list(range(1,11))
+revenues = [10,12,11,14,15,14,17,18,16,20]
+fig, ax = plt.subplots()
+ax.plot(days, revenues, marker="o")
+ax.set(title="Sales over 10 days", xlabel="Day", ylabel="Revenue (million VND)")
+fig.tight_layout()
+path = Path("sales_10_days.png")
+fig.savefig(path, dpi=130)
+points = len(ax.lines[0].get_xdata())
+plt.close(fig)
+assert len(revenues) == 10
+print("Ngày:", len(days))
+print("Điểm đường:", points)
+print("Doanh thu ngày 10 (triệu đồng):", revenues[-1])
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Ngày: 10
+Điểm đường: 10
+Doanh thu ngày 10 (triệu đồng): 20
+Đã lưu PNG: True
 ```
 
-File chart.png đã được tạo trong thư mục tạm và sẽ được xóa khi rời khối with.
+Chạy code sẽ tạo **sales_10_days.png** trong thư mục làm việc. Điểm giữa hai ngày trên đường nối không có nghĩa cửa hàng đã ghi dữ liệu cho mọi thời khắc giữa hai ngày.
 
-### Tình huống 5 — Kiểm nhãn trên biểu đồ nhiệt độ
+### Tình huống 2 — Cấp 2: Scatter 12 học viên để xem mối liên hệ giờ học–điểm
 
-**Từ vựng trong mục:** **Figure** — hình biểu đồ; **Axis** — trục.
+**Từ vựng trong mục:** **Scatter plot** — đồ thị phân tán; **Pair** — cặp quan sát.
 
-**Tình huống thực tế:** Ba thời điểm 1,2,3 giờ tương ứng 22,24,23 °C. Bộ phận kỹ thuật muốn người xem hiểu trục x là giờ và trục y là nhiệt độ Celsius.
+**Tình huống thực tế:** Giảng viên có **12 học viên**, mỗi hàng lưu số giờ tự học (giờ/tuần) và điểm kiểm tra (thang 10). Cần đặt mỗi cặp (giờ, điểm) thành một dấu chấm; nếu hai học viên cùng số giờ thì vẫn là **hai bản ghi**, không được vô tình nối chúng thành đường thời gian.
 
-**Vì sao chọn cách giải này?** `xlabel` và `ylabel` làm rõ biến/đơn vị thay vì để trục chỉ ghi số không có ngữ cảnh.
+**Vì sao chọn cách này?** `plt.scatter` vẽ từng quan sát riêng, có thể giúp thấy liên hệ xu hướng nhưng không chứng minh học nhiều **gây** điểm cao. Trục x/y ghi đơn vị tương ứng giúp không nhầm giờ với điểm.
 
-**Quy trình giải:**
-
-1. Vẽ ba điểm nhiệt độ theo thời gian.
-2. Gắn nhãn Time (hours), Temperature (C).
-3. In hai nhãn để đối chiếu rồi đóng hình.
+**Quy trình:**
+1. Ghi 12 giờ học và 12 điểm theo đúng cặp học viên.
+2. Vẽ scatter với tên trục/đơn vị, không nối điểm.
+3. Lưu `study_vs_score.png`, kiểm scatter thực sự chứa 12 hàng.
 
 ```python
-# Mục đích: Kiểm nhãn trên biểu đồ nhiệt độ.
 import matplotlib
-matplotlib.use('Agg')
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from pathlib import Path
 
-plt.plot([1, 2, 3], [22, 24, 23])
-plt.xlabel('Time (hours)')
-plt.ylabel('Temperature (C)')
-print(plt.gca().get_xlabel(), plt.gca().get_ylabel())
-plt.close()
+hours = [1,2,2,3,3,4,4,5,5,6,7,8]
+scores = [4,5,6,5,7,6,8,7,8,9,8,10]
+fig, ax = plt.subplots()
+points = ax.scatter(hours, scores)
+ax.set(title="Study hours and score", xlabel="Study (hours/week)", ylabel="Score (0-10)")
+ax.set_ylim(0, 11)
+fig.tight_layout()
+path = Path("study_vs_score.png")
+fig.savefig(path, dpi=130)
+count = len(points.get_offsets())
+plt.close(fig)
+assert len(hours) == len(scores) == 12
+print("Học viên:", len(hours))
+print("Điểm scatter:", count)
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Time (hours) Temperature (C)
+Học viên: 12
+Điểm scatter: 12
+Đã lưu PNG: True
 ```
 
-Hai trục có tên và đơn vị nhất quán với dữ liệu đầu vào.
+Trùng vị trí scatter có thể che lên nhau; số điểm đếm từ dữ liệu nguồn và scatter không được hiểu là số vị trí **nhìn thấy bằng mắt**.
+
+### Tình huống 3 — Cấp 3: Histogram 15 thời gian giao theo bốn khoảng phút
+
+**Từ vựng trong mục:** **Histogram** — biểu đồ tần suất; **Bins** — các khoảng giá trị.
+
+**Tình huống thực tế:** Một đơn vị giao nhận ghi **15 thời gian giao** (phút/chuyến). Người quản lý cần biết bao nhiêu chuyến nằm trong vùng 0–10, 10–20, 20–30, 30–40 phút để phân tích phân bố, thay vì nối thời gian các chuyến thành một đường dễ gây hiểu nhầm.
+
+**Vì sao chọn cách này?** `plt.hist` chia trục phút thành **bins**, đếm số lượt trong từng khoảng. Cần xác định rõ bin trái đóng/phải mở (riêng bin cuối nhận cận phải) và tổng số lượt trong các cột phải bằng 15.
+
+**Quy trình:**
+1. Tạo 15 thời gian có số, định nghĩa ranh giới 0/10/20/30/40 phút.
+2. Vẽ histogram, nhãn hai trục và lưu hình.
+3. Kiểm tổng tần suất của bốn khoảng đúng 15 chuyến.
+
+```python
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+minutes = [4,7,8,9,10,11,14,16,18,20,21,24,27,31,37]
+fig, ax = plt.subplots()
+counts, edges, bars = ax.hist(minutes, bins=[0,10,20,30,40], edgecolor="black")
+ax.set(title="Delivery duration", xlabel="Duration (minutes)", ylabel="Number of trips")
+fig.tight_layout()
+path = Path("delivery_histogram.png")
+fig.savefig(path, dpi=130)
+plt.close(fig)
+assert len(minutes) == 15 and int(counts.sum()) == 15
+print("Chuyến:", len(minutes))
+print("Số khoảng:", len(counts))
+print("Tần suất:", counts.astype(int).tolist())
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
+```
+
+**Kết quả khi chạy:**
+
+```text
+Chuyến: 15
+Số khoảng: 4
+Tần suất: [4, 5, 4, 2]
+Đã lưu PNG: True
+```
+
+Histogram khác biểu đồ cột danh mục: trục ngang biểu diễn **khoảng số phút**, không phải tên từng khách.
+
+### Tình huống 4 — Cấp 4: Hai đường của 18 ngày: so sánh doanh thu hai chi nhánh
+
+**Từ vựng trong mục:** **Legend** — chú giải; **Multiple series** — nhiều chuỗi; **Axis labels** — nhãn trục.
+
+**Tình huống thực tế:** Doanh nghiệp có **18 ngày**, mỗi hàng lưu doanh thu (triệu đồng/ngày) của hai chi nhánh A/B cùng một ngày. Cần vẽ **hai đường** trên cùng trục thời gian, chú giải màu rõ ràng và lưu hình để so sánh, đồng thời kiểm không tráo ngày của A và B.
+
+**Vì sao chọn cách này?** Biểu đồ đường đa chuỗi giúp so hình dạng hai dãy **cùng đơn vị** theo cùng mốc x. `legend()` phân biệt chi nhánh; thiếu chú giải sẽ khiến người xem không biết đường nào là A/B.
+
+**Quy trình:**
+1. Tạo 18 cặp doanh thu A/B, dùng chung dãy ngày 1–18.
+2. Vẽ hai đường có label riêng, thêm legend và tên trục.
+3. Lưu `branches_18_days.png` và kiểm mỗi đường có đúng 18 điểm.
+
+```python
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+days = list(range(1,19))
+branch_a = [10,12,14,13,15,17,16,18,20,19,21,23,22,24,26,25,27,29]
+branch_b = [9,11,13,15,13,15,17,19,17,19,21,23,21,23,25,27,25,27]
+fig, ax = plt.subplots()
+ax.plot(days, branch_a, marker="o", label="Branch A")
+ax.plot(days, branch_b, marker="s", label="Branch B")
+ax.set(title="Branch revenue", xlabel="Day", ylabel="Revenue (million VND)")
+ax.legend()
+fig.tight_layout()
+path = Path("branches_18_days.png")
+fig.savefig(path, dpi=130)
+count = [len(line.get_xdata()) for line in ax.lines]
+plt.close(fig)
+assert len(days) == len(branch_a) == len(branch_b) == 18
+print("Ngày:", len(days))
+print("Đường:", len(count))
+print("Điểm mỗi đường:", count)
+print("A ngày 18:", branch_a[-1])
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
+```
+
+**Kết quả khi chạy:**
+
+```text
+Ngày: 18
+Đường: 2
+Điểm mỗi đường: [18, 18]
+A ngày 18: 29
+Đã lưu PNG: True
+```
+
+Đồ thị cho thấy **xu hướng mô tả**, không tự chứng minh nguyên nhân doanh thu giữa hai chi nhánh chênh lệch.
+
+### Tình huống 5 — Cấp 5: Vẽ hai biểu đồ cho 20 lượt cảm biến, tô điểm lệch chuẩn
+
+**Từ vựng trong mục:** **Dashboard** — hai góc nhìn; **Residual** — sai lệch; **Highlight** — tô điểm cần xem.
+
+**Tình huống thực tế:** Kỹ sư có **20 lượt đo cảm biến** ở 20 mức đầu vào x. Quy tắc hiệu chuẩn tham khảo cho tín hiệu dự kiến `y=2x+5` (đơn vị đo); có một lượt thứ 18 cao hơn quy tắc 30 đơn vị. Cần **vẽ scatter cùng đường tham chiếu và tô điểm cần rà soát**, bên cạnh histogram các sai số dư. Lưu PNG để kiểm tra trực quan mà không xóa dữ liệu ngoại lệ.
+
+**Vì sao chọn cách này?** Scatter đối chiếu từng điểm với đường chuẩn, còn histogram cho thấy phân bố các sai số trên cả 20 lượt. Tạo hai đồ thị cạnh nhau giúp người mới liên hệ **vị trí bất thường** với **tần suất sai số**; ngưỡng >10 đơn vị chỉ là mức kỹ thuật giả lập.
+
+**Quy trình:**
+1. Tạo 20 cặp x/y và đường tham chiếu theo quy định hiệu chuẩn.
+2. Tìm sai số, gắn cờ nếu trị tuyệt đối >10, vẽ scatter và đường chuẩn.
+3. Vẽ histogram sai số ở ô thứ hai, gắn nhãn/trục, lưu hình và báo số điểm lệch.
+
+```python
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+import numpy as np
+x = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], dtype=float)
+observed = np.array([7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,71,43,45], dtype=float)
+reference = 2*x + 5
+residual = observed - reference
+flagged = np.abs(residual) > 10
+fig, (left,right) = plt.subplots(1,2,figsize=(10,4))
+left.scatter(x,observed,label="Observed")
+left.plot(x,reference,label="Reference")
+left.scatter(x[flagged],observed[flagged],marker="x",s=90,label="Review")
+left.set(xlabel="Input level",ylabel="Signal (units)",title="Measured vs reference")
+left.legend()
+right.hist(residual,bins=[-1,1,10,20,40],edgecolor="black")
+right.set(xlabel="Residual (units)",ylabel="Count",title="Residual distribution")
+fig.tight_layout()
+path = Path("sensor_review_20.png")
+fig.savefig(path,dpi=130)
+plt.close(fig)
+assert len(x) == len(observed) == 20
+print("Lượt đo:", len(x))
+print("Biểu đồ trong hình:", 2)
+print("Điểm cần kiểm:", int(flagged.sum()))
+print("Mã cần kiểm:", ", ".join(f"M{i+1:02d}" for i in np.flatnonzero(flagged)))
+print("Đã lưu PNG:", path.is_file() and path.stat().st_size > 0)
+```
+
+**Kết quả khi chạy:**
+
+```text
+Lượt đo: 20
+Biểu đồ trong hình: 2
+Điểm cần kiểm: 1
+Mã cần kiểm: M18
+Đã lưu PNG: True
+```
+
+Điểm M18 vẫn có mặt trên biểu đồ và dữ liệu đầu vào. Vượt ngưỡng minh họa chỉ là lý do kiểm tra nguồn đo, **không kết luận cảm biến hỏng**.
 
 ## 6. Sai lầm thường gặp
 
