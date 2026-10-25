@@ -43,12 +43,17 @@
 **Class** giống bản thiết kế: định nghĩa những việc các đối tượng cùng loại có thể thực hiện. Ví dụ lớp `Student` có phương thức `greet()` trả một lời chào. Dòng `class Student:` tạo bản thiết kế, `def greet(self)` định nghĩa hành động; `self` đại diện cho đối tượng cụ thể đang gọi phương thức. Chỉ viết class chưa tạo hồ sơ học viên nào; `Student()` ở cuối mới tạo một đối tượng để gọi `greet()`.
 
 ```python
-# Mục đích: Khuôn mẫu đối tượng.
+# Mục đích: Định nghĩa class Student như khuôn tạo đối tượng và gọi phương thức greet.
+# Dữ liệu: class Student mô tả kiểu đối tượng; phương thức có self truy cập đối tượng hiện tại.
+# class khai báo khuôn mẫu Student; Student() tạo một đối tượng mới.
 class Student:
+    # self tham chiếu đối tượng hiện tại; greet là phương thức của lớp.
     def greet(self):
+        # return trả giá trị cho nơi gọi và kết thúc hàm.
         return 'Xin chào'
 
 student = Student()
+# Dấu chấm gọi phương thức greet() của chính instance student.
 print(student.greet())
 ```
 
@@ -67,13 +72,18 @@ Xin chào
 **Object** là một thể hiện được tạo từ class. Cùng một mẫu `Student`, ta có thể tạo hai học viên An và Lan, mỗi người có tên riêng. Thuộc tính `self.name` lưu tên **trên từng đối tượng**, vì vậy thay tên của An không tự thay tên của Lan. Ta dùng dấu chấm `student.name` để lấy một thuộc tính.
 
 ```python
-# Mục đích: Mỗi học viên là một đối tượng.
+# Mục đích: Tạo hai đối tượng Student với thuộc tính name độc lập.
+# Dữ liệu: a và b là hai đối tượng riêng biệt, mỗi đối tượng giữ thuộc tính name riêng.
+# class định nghĩa mẫu có thuộc tính và phương thức; các instance được tạo bằng cách gọi tên lớp.
 class Student:
+    # __init__ chạy khi Student(name) được tạo; self là instance và name là đối số nhập.
     def __init__(self, name):
+        # Thuộc tính self.name thuộc từng instance, nên hai học viên lưu tên độc lập.
         self.name = name
 
 a = Student('An')
 b = Student('Lan')
+# Dấu chấm truy cập thuộc tính name của từng đối tượng.
 print(a.name, b.name)
 ```
 
@@ -92,13 +102,19 @@ Cả `a` và `b` đều thuộc lớp Student, nhưng chứa dữ liệu tên ri
 Khi tạo `Student('An', 8)`, Python tạo đối tượng mới rồi tự gọi `__init__` để thiết lập tên và điểm ban đầu. Tham số `self` là đối tượng vừa được tạo; `name` và `score` nhận đối số truyền khi gọi. Lệnh `self.score = score` lưu điểm bên trong học viên, không chỉ trong biến tạm của hàm. Điểm ở đây tính trên thang 10.
 
 ```python
-# Mục đích: Khởi tạo trạng thái.
+# Mục đích: Khởi tạo đối tượng Student có name và score qua __init__.
+# Dữ liệu: Hàm khởi tạo nhận tên và điểm để lưu trên đúng instance.
+# class định nghĩa mẫu có thuộc tính và phương thức; các instance được tạo bằng cách gọi tên lớp.
 class Student:
+    # __init__ nhận hai giá trị và khởi tạo trạng thái của đối tượng.
     def __init__(self, name, score):
+        # Gắn tên lên thuộc tính instance self.name.
         self.name = name
+        # Gắn điểm lên thuộc tính instance self.score.
         self.score = score
 
 student = Student('An', 8)
+# Đọc hai thuộc tính từ instance student.
 print(student.name, student.score)
 ```
 
@@ -117,21 +133,33 @@ Phương thức `__init__` đưa dữ liệu đầu vào thành hai thuộc tín
 **Đóng gói** nghĩa là quản lý dữ liệu cùng các thao tác tác động lên nó trong lớp. Ví dụ điểm chỉ được phép trong khoảng 0–10: lớp `Score` lưu số hiện tại tại `self._value` và có phương thức `set_value()` kiểm tra trước khi cập nhật. Dấu `_` là **quy ước** nhắc người lập trình không nên sửa trực tiếp, không phải cơ chế cấm truy cập tuyệt đối. Đọc điểm qua `get_value()` giúp giữ cùng một cách sử dụng.
 
 ```python
-# Mục đích: Đóng gói dữ liệu và quy tắc xử lý.
+# Mục đích: Đóng gói điểm trong Score, chỉ đổi qua setter có kiểm tra.
+# Dữ liệu: Giá trị _value quy ước nội bộ, không phải thuộc tính private tuyệt đối.
+# class định nghĩa mẫu có thuộc tính và phương thức; các instance được tạo bằng cách gọi tên lớp.
 class Score:
+    # __init__ tự chạy khi tạo object; self là instance hiện tại.
     def __init__(self):
+        # Dấu _ quy ước thuộc tính nội bộ; khởi tạo điểm bằng 0.
         self._value = 0
 
+    # Setter nhận điểm mới x để kiểm tra trước khi cập nhật trạng thái.
     def set_value(self, x):
+        # not phủ định điều kiện 0..10; ngoài thang sẽ báo ValueError.
         if not 0 <= x <= 10:
+            # raise ValueError chặn điểm sai thang và dừng setter.
             raise ValueError('Điểm ngoài khoảng 0–10')
+        # Chỉ gán giá trị mới khi đã vượt qua kiểm tra.
         self._value = x
 
+    # Getter trả điểm nội bộ, không cho bên gọi tự sửa trong phương thức.
     def get_value(self):
+        # return trả giá trị cho nơi gọi và kết thúc hàm.
         return self._value
 
 score = Score()
+# Gọi setter trên đối tượng score với điểm 9.
 score.set_value(9)
+# Gọi getter để lấy số đã được lưu.
 print(score.get_value())
 ```
 
@@ -158,19 +186,32 @@ print(score.get_value())
 3. In số đối tượng và điểm đầu/cuối.
 
 ```python
+# Mục đích: Tạo 10 đối tượng Student từ dữ liệu điểm bằng vòng lặp.
+# Dữ liệu: 10 điểm từng học viên; class Student chứa code và score trên từng đối tượng.
 scores = [8,7,9,6,8.5,10,4,7.5,6.5,9.5]
+# class định nghĩa mẫu có thuộc tính và phương thức; các instance được tạo bằng cách gọi tên lớp.
 class Student:
+    # Mỗi object Student nhận mã riêng và điểm riêng.
     def __init__(self, code, score):
+        # self.code lưu mã trên instance.
         self.code = code
+        # self.score lưu điểm trên instance.
         self.score = score
 
 students = []
+# enumerate(...,1) tạo thứ tự học viên từ 1.
 for i, score in enumerate(scores, 1):
+    # f-string :02d tạo mã S01..S10, sau đó tạo instance Student.
     students.append(Student(f"S{i:02d}", score))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(students) != 10:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần tạo đủ 10 đối tượng học viên.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Học viên:", len(students))
+# [0] truy cập đối tượng đầu để đọc thuộc tính score.
 print("S01:", students[0].score)
+# [-1] truy cập đối tượng cuối.
 print("S10:", students[-1].score)
 ```
 
@@ -198,24 +239,40 @@ Thuộc tính `self.score` thuộc về từng đối tượng, không phải bi
 3. Gọi `total()` và kiểm tra một giỏ mới không chứa hàng cũ.
 
 ```python
+# Mục đích: Tạo mỗi giỏ Cart có list giá riêng và phương thức cộng tổng.
+# Dữ liệu: 12 giá mặt hàng tính nghìn đồng, mỗi Cart tự có list prices.
 prices = [20,30,10,15,40,25,35,20,30,10,50,45]
+# class định nghĩa mẫu có thuộc tính và phương thức; các instance được tạo bằng cách gọi tên lớp.
 class Cart:
+    # Mỗi lần Cart() gọi __init__, tạo list prices mới riêng cho giỏ.
     def __init__(self):
+        # List lưu đơn giá theo nghìn đồng của chính giỏ này.
         self.prices = []
+    # Phương thức thêm một giá vào giỏ.
     def add(self, price):
+        # append() thêm giá vào cuối list của instance.
         self.prices.append(price)
+    # Phương thức cộng toàn bộ giá đang có.
     def total(self):
+        # sum() cộng giá mỗi món trong giỏ, vẫn tính bằng nghìn đồng.
         return sum(self.prices)
 
 cart = Cart()
 for price in prices:
+    # Gọi method add của giỏ hiện tại cho từng món.
     cart.add(price)
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(cart.prices) != 12:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Giỏ hàng phải chứa đủ 12 món.")
+# Cart() tạo giỏ mới, rồi total() phải bằng 0; kiểm không chia sẻ list giữa các object.
 if Cart().total() != 0:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Giỏ hàng mới phải rỗng, không chia sẻ danh sách cũ.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Mặt hàng:", len(cart.prices))
 print("Tổng (nghìn đồng):", cart.total())
+# Cart() tạo giỏ mới, rồi total() phải bằng 0; kiểm không chia sẻ list giữa các object.
 print("Giỏ mới (nghìn đồng):", Cart().total())
 ```
 
@@ -243,34 +300,57 @@ Phương thức được gọi trên một đối tượng cụ thể; việc t�
 3. Đếm số hồ sơ lưu được và mã cần sửa.
 
 ```python
+# Mục đích: Lưu 15 điểm qua object setter, bắt ngoại lệ khi điểm sai thang.
+# Dữ liệu: 15 điểm thang 0..10, gồm điểm vượt thang cần báo sai.
 raw_scores = [4,8,7,10,6,11,9,5,7.5,-1,0,8.5,3,9,10]
+# class định nghĩa mẫu có thuộc tính và phương thức; các instance được tạo bằng cách gọi tên lớp.
 class ScoreRecord:
+    # __init__ tự chạy khi tạo object; self là instance hiện tại.
     def __init__(self, code):
         self.code = code
+        # Điểm ban đầu chưa có, dấu _ đánh dấu thuộc tính nội bộ theo quy ước.
         self._score = None
+    # Setter kiểm tra thang điểm 0..10 trước khi lưu.
     def set_score(self, value):
+        # Ngoài thang 0..10 báo ValueError; cả -1 và 11 đều bị từ chối.
         if not (0 <= value <= 10):
+            # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
             raise ValueError("score must be within 0..10")
+        # Lưu điểm sau khi xét hợp lệ.
         self._score = value
+    # Getter trả lại điểm đã lưu hoặc None nếu chưa lưu.
     def get_score(self):
+        # return trả giá trị cho nơi gọi và kết thúc hàm.
         return self._score
 
 records, errors = [], []
+# enumerate(...,1) đặt mã S01..S15 theo thứ tự nhận.
 for index, score in enumerate(raw_scores, 1):
+    # Định dạng f-string :02d cho số thứ tự thành 2 chữ số với số 0 bổ sung.
     record = ScoreRecord(f"S{index:02d}")
+    # try bắt đầu khối có thể phát sinh ValueError từ setter.
     try:
+        # Gọi setter thay vì gán trực tiếp để sử dụng quy tắc kiểm tra.
         record.set_score(score)
+    # except ValueError đón điểm sai và tiếp tục duyệt, không dừng toàn chương trình.
     except ValueError:
+        # append() giữ mã hồ sơ sai.
         errors.append(record.code)
+    # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
     records.append(record)
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(records) != 15:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần lưu đủ 15 hồ sơ.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Hồ sơ:", len(records))
 saved_count = 0
 for rec in records:
+    # is not None xác nhận có giá trị thực, khác giá trị thiếu.
     if rec.get_score() is not None:
         saved_count += 1
 print("Đã lưu điểm:", saved_count)
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Sai:", ", ".join(errors))
 ```
 
@@ -298,38 +378,61 @@ Sai: S06, S10
 3. In hóa đơn mẫu, thống kê số hợp lệ, số thiếu và tổng giá trị.
 
 ```python
+# Mục đích: Tạo 18 Invoice có cách hiển thị riêng qua __str__ và tính tổng hóa đơn hợp lệ.
+# Dữ liệu: 18 khoản tiền đồng, None là hóa đơn chưa có số tiền.
 amounts = [100000,125000,150000,175000,200000,None,125000,150000,175000,200000,100000,125000,150000,175000,None,100000,125000,150000]
+# class định nghĩa mẫu có thuộc tính và phương thức; các instance được tạo bằng cách gọi tên lớp.
 class Invoice:
+    # __init__ tự chạy khi tạo object; self là instance hiện tại.
     def __init__(self, code, amount):
+        # Gán đồng thời hai thuộc tính instance từ mã và tiền.
         self.code, self.amount = code, amount
+    # Phương thức kiểm tra tiền hóa đơn đã là số không âm hay chưa.
     def is_ready(self):
+        # isinstance() xác nhận số int/float, tránh so sánh >=0 với None.
         return isinstance(self.amount, (int, float)) and self.amount >= 0
+    # __str__ quy định chuỗi khi gọi str(invoice) hoặc in object.
     def __str__(self):
+        # Dùng quy tắc kiểm tra đã định nghĩa trong class trước khi định dạng.
         if self.is_ready():
+            # f-string :, thêm dấu phân nhóm nghìn khi in số tiền đồng.
             value = f"{self.amount:,} đồng"
         else:
             value = "Chưa có số tiền"
+        # return trả giá trị cho nơi gọi và kết thúc hàm.
         return f"{self.code}: {value}"
 
 invoices = []
+# enumerate() trả (số thứ tự, phần tử); start=1 khi truyền 1, mặc định bắt đầu 0.
 for i, amount in enumerate(amounts, 1):
+    # append() thêm object Invoice mới; f-string :02d tạo mã O01..O18.
     invoices.append(Invoice(f"O{i:02d}", amount))
 ready = []
 missing = []
 for order in invoices:
+    # Gọi kiểm tra hóa đơn ngay trên từng instance.
     if order.is_ready():
+        # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
         ready.append(order)
     else:
+        # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
         missing.append(order.code)
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(invoices) != 18:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần đủ 18 hóa đơn.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Số hóa đơn:", len(invoices))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Sẵn sàng:", len(ready))
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Thiếu:", ", ".join(missing))
 total_amount = 0
 for order in ready:
+    # += cộng chỉ các hóa đơn hợp lệ, đơn vị đồng.
     total_amount += order.amount
 print("Tổng (đồng):", total_amount)
+# str() gọi Invoice.__str__ của phần tử đầu [0] để tạo chuỗi dễ đọc.
 print("Mẫu:", str(invoices[0]))
 ```
 
@@ -359,35 +462,62 @@ Chỉ tính tổng trên các đối tượng `is_ready() == True`. Giá trị `
 3. Đếm số yêu cầu thành công, ghi mã lỗi và đối chiếu tồn không âm.
 
 ```python
+# Mục đích: Tạo đối tượng StockItem để từ chối yêu cầu xuất kho không hợp lệ.
+# Dữ liệu: initial là tồn kho 5 SKU theo món; requests gồm 20 bộ (SKU, lượng xin xuất), None/0/vượt tồn bị từ chối.
 initial = {"P01":10,"P02":9,"P03":8,"P04":7,"P05":5}
 requests = [("P01",2),("P02",1),("P03",3),("P01",4),("P02",5),("P03",2),("P04",1),("P01",3),("P03",6),("P04",3),("P02",2),("P01",7),("P05",1),("P03",1),("P04",4),("P05",2),("P01",None),("P02",0),("P04",2),("P05",8)]
+# Mỗi instance StockItem lưu tồn của một SKU và cung cấp phương thức xuất.
 class StockItem:
+    # __init__ tự chạy khi tạo object; self là instance hiện tại.
     def __init__(self, code, quantity):
+        # Gán mã SKU và số món hiện còn lên object.
         self.code, self.quantity = code, quantity
+    # Phương thức cố gắng dành hàng, trả True nếu đủ điều kiện.
     def reserve(self, requested):
+        # isinstance(...,int) loại None/kiểu sai; or loại lượng <=0 hoặc lớn hơn tồn.
         if not isinstance(requested, int) or requested <= 0 or requested > self.quantity:
+            # False nghĩa yêu cầu bị từ chối, không trừ tồn.
             return False
+        # -= trừ món đã cấp, chỉ sau kiểm tra an toàn.
         self.quantity -= requested
+        # True báo xuất thành công.
         return True
 
 items = {}
+# items() duyệt các cặp (SKU, số lượng tồn đầu kỳ) để tạo object.
 for code, qty in initial.items():
+    # Dictionary ánh xạ SKU sang object giữ trạng thái tồn riêng.
     items[code] = StockItem(code, qty)
 rejected = []
+# enumerate(...,1) gắn số thứ tự yêu cầu 1..20.
 for index, (code, requested) in enumerate(requests, 1):
+    # Gọi phương thức trên đúng SKU; not tìm các lần từ chối để ghi mã.
     if not items[code].reserve(requested):
+        # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
+        # Định dạng f-string :02d cho số thứ tự thành 2 chữ số với số 0 bổ sung.
         rejected.append(f"T{index:02d}")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 if len(requests) != 20:
+    # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
     raise ValueError("Cần xử lý đủ 20 yêu cầu xuất kho.")
+# values() lấy các giá trị dictionary, không lấy khóa.
 for item in items.values():
+    # Kiểm tra cuối không có số tồn âm.
     if item.quantity < 0:
+        # raise báo lỗi rồi dừng luồng hiện tại nếu dữ liệu không đáp ứng yêu cầu.
         raise ValueError("Tồn kho của sản phẩm không được âm.")
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Yêu cầu:", len(requests))
+# len() trả số phần tử, dùng để đếm hoặc kiểm tra đủ bản ghi.
 print("Chấp nhận:", len(requests) - len(rejected))
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Từ chối:", ", ".join(rejected))
 stock_labels = []
+# sorted() xếp các khóa SKU theo ABC trước khi in.
 for code in sorted(items):
+    # append() thêm một phần tử vào cuối danh sách và cập nhật danh sách gốc.
     stock_labels.append(f"{code}={items[code].quantity}")
+# join() nối các chuỗi bằng ký tự phân cách, ở đây là dấu phẩy và khoảng trắng.
 print("Tồn cuối:", ", ".join(stock_labels))
 ```
 
