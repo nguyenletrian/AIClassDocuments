@@ -128,7 +128,7 @@ Lớp đầu có điểm chuẩn hóa cao nhất; tổng ba điểm trước là
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Chặn tín hiệu âm bằng ReLU
+### Tình huống 1 — Chặn tín hiệu âm bằng ReLU · Cấp 1: Thử một phép biến đổi
 
 **Tình huống thực tế:** Một lớp mạng nhận bốn tín hiệu đầu vào `[-2,0,3,5]`, không có đơn vị vì đây là logit nội bộ. Cần giữ giá trị dương và cho mọi giá trị âm về 0.
 
@@ -156,7 +156,21 @@ print(np.maximum(0, x).tolist())
 
 Hai giá trị âm/0 cho đầu ra 0, hai giá trị dương được giữ.
 
-### Tình huống 2 — Chuyển ba logit bằng sigmoid
+**Bài thực hành nâng cấp — cấp 1/5:** Đơn vị phân tích ghi **10 tín hiệu đầu vào x (logit, không có đơn vị)**. Hãy áp dụng ReLU để đưa 10 tín hiệu âm về 0. Ở cấp 4–5 có số đo bị thiếu, cần xử lý riêng trước khi tính hoặc chuẩn hóa thay vì dùng nó làm giá trị thật.
+
+```python
+import numpy as np
+# Mỗi phần tử là một chuyến hàng / một tín hiệu, đơn vị phụ thuộc bài toán.
+x = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4],dtype=float)
+clean = x[np.isfinite(x)]
+result = np.maximum(x,0).round(3).tolist()
+print("Số quan sát:",len(x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đã nhận 10 mẫu; chỉ số và đơn vị phải được hiểu trong bài toán hàm kích hoạt; cùng một dữ liệu có thể tạo ra đầu ra khác nhau theo phương pháp.
+
+### Tình huống 2 — Chuyển ba logit bằng sigmoid · Cấp 2: Tính trên toàn bộ dữ liệu
 
 **Tình huống thực tế:** Mô hình phân loại nhị phân có ba điểm thô `[-1,0,1]` của ba quan sát. Cần biến đổi điểm về khoảng (0,1) để so sánh.
 
@@ -184,7 +198,21 @@ print(np.round(1 / (1 + np.exp(-x)), 3).tolist())
 
 Thứ tự ba quan sát không đổi; điểm sigmoid chưa mặc nhiên được hiệu chuẩn.
 
-### Tình huống 3 — Giữ tín hiệu âm dương bằng tanh
+**Bài thực hành nâng cấp — cấp 2/5:** Đơn vị phân tích ghi **12 tín hiệu đầu vào x (logit, không có đơn vị)**. Hãy dùng sigmoid đưa 12 logit vào khoảng 0 đến 1. Ở cấp 4–5 có số đo bị thiếu, cần xử lý riêng trước khi tính hoặc chuẩn hóa thay vì dùng nó làm giá trị thật.
+
+```python
+import numpy as np
+# Mỗi phần tử là một chuyến hàng / một tín hiệu, đơn vị phụ thuộc bài toán.
+x = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, -5],dtype=float)
+clean = x[np.isfinite(x)]
+result = (1/(1+np.exp(-x))).round(3).tolist()
+print("Số quan sát:",len(x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đã nhận 12 mẫu; chỉ số và đơn vị phải được hiểu trong bài toán hàm kích hoạt; cùng một dữ liệu có thể tạo ra đầu ra khác nhau theo phương pháp.
+
+### Tình huống 3 — Giữ tín hiệu âm dương bằng tanh · Cấp 3: Kết hợp phi tuyến
 
 **Tình huống thực tế:** Một mạng dùng tín hiệu âm, 0, dương để biểu diễn hướng tác động; đầu vào lần lượt là −1,0,1. Cần đầu ra cân quanh 0.
 
@@ -212,7 +240,21 @@ print(np.round(np.tanh(x), 3).tolist())
 
 Tín hiệu âm vẫn âm, dương vẫn dương và giá trị 0 giữ nguyên.
 
-### Tình huống 4 — Chuẩn hóa ba điểm phân loại
+**Bài thực hành nâng cấp — cấp 3/5:** Đơn vị phân tích ghi **15 tín hiệu đầu vào x (logit, không có đơn vị)**. Hãy so tanh giữ dấu trên 15 tín hiệu đầu vào. Ở cấp 4–5 có số đo bị thiếu, cần xử lý riêng trước khi tính hoặc chuẩn hóa thay vì dùng nó làm giá trị thật.
+
+```python
+import numpy as np
+# Mỗi phần tử là một chuyến hàng / một tín hiệu, đơn vị phụ thuộc bài toán.
+x = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, -5, -4, -3, -2],dtype=float)
+clean = x[np.isfinite(x)]
+result = np.tanh(x).round(3).tolist()
+print("Số quan sát:",len(x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đã nhận 15 mẫu; chỉ số và đơn vị phải được hiểu trong bài toán hàm kích hoạt; cùng một dữ liệu có thể tạo ra đầu ra khác nhau theo phương pháp.
+
+### Tình huống 4 — Chuẩn hóa ba điểm phân loại · Cấp 4: Ổn định và dữ liệu thiếu
 
 **Tình huống thực tế:** Một mô hình dự đoán một trong ba loại sản phẩm với logit `[2,1,0.1]`; cần tỷ trọng cho từng lớp sao cho tổng bằng 1.
 
@@ -242,7 +284,21 @@ print(np.round(prob, 3).tolist())
 
 Lớp đầu nhận điểm lớn nhất. Giá trị làm tròn không được dùng để kiểm tra tổng chính xác tuyệt đối.
 
-### Tình huống 5 — Ghép hai ReLU thành hàm có khoảng chết
+**Bài thực hành nâng cấp — cấp 4/5:** Đơn vị phân tích ghi **18 tín hiệu đầu vào x (logit, không có đơn vị)**. Hãy chuẩn hóa 18 logit bằng softmax ổn định số học. Ở cấp 4–5 có số đo bị thiếu, cần xử lý riêng trước khi tính hoặc chuẩn hóa thay vì dùng nó làm giá trị thật.
+
+```python
+import numpy as np
+# Mỗi phần tử là một chuyến hàng / một tín hiệu, đơn vị phụ thuộc bài toán.
+x = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, -5, -4, -3, -2, np.nan, 0, 1],dtype=float)
+clean = x[np.isfinite(x)]
+result = (np.exp(clean-clean.max())/np.exp(clean-clean.max()).sum()).round(4).tolist()
+print("Số quan sát:",len(x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đã nhận 18 mẫu; chỉ số và đơn vị phải được hiểu trong bài toán hàm kích hoạt; cùng một dữ liệu có thể tạo ra đầu ra khác nhau theo phương pháp.
+
+### Tình huống 5 — Ghép hai ReLU thành hàm có khoảng chết · Cấp 5: So sánh nhiều mô hình
 
 **Tình huống thực tế:** Đầu vào x chạy qua −2, −1, 0, 1, 2. Đội nghiên cứu muốn hàm bằng 0 trong đoạn [−1,1] nhưng tăng bên ngoài hai mép.
 
@@ -270,6 +326,20 @@ print(y.tolist())
 ```
 
 Hàm có giá trị 0 ở ba điểm giữa và tăng đối xứng ở ngoài khoảng.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Đơn vị phân tích ghi **20 tín hiệu đầu vào x (logit, không có đơn vị)**. Hãy so sánh ReLU, sigmoid, tanh và softmax trên 20 tín hiệu có số đo thiếu. Ở cấp 4–5 có số đo bị thiếu, cần xử lý riêng trước khi tính hoặc chuẩn hóa thay vì dùng nó làm giá trị thật.
+
+```python
+import numpy as np
+# Mỗi phần tử là một chuyến hàng / một tín hiệu, đơn vị phụ thuộc bài toán.
+x = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, -5, -4, -3, -2, np.nan, 0, 1, 2, np.nan],dtype=float)
+clean = x[np.isfinite(x)]
+result = {'valid':int(np.isfinite(x).sum()),'relu_mean':round(float(np.maximum(clean,0).mean()),3),'sigmoid_mean':round(float((1/(1+np.exp(-clean))).mean()),3),'softmax_sum':round(float((np.exp(clean-clean.max())/np.exp(clean-clean.max()).sum()).sum()),3)}
+print("Số quan sát:",len(x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đã nhận 20 mẫu; chỉ số và đơn vị phải được hiểu trong bài toán hàm kích hoạt; cùng một dữ liệu có thể tạo ra đầu ra khác nhau theo phương pháp.
 
 ## 6. Sai lầm thường gặp
 
