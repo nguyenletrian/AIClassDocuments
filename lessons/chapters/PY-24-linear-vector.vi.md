@@ -116,7 +116,7 @@ Tích vô hướng trả một scalar bằng 11.
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Tính khoảng cách 2D
+### Tình huống 1 — Tính khoảng cách 2D · Cấp 1: Một phép cơ bản
 
 **Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
 
@@ -144,8 +144,24 @@ print(np.linalg.norm(v))
 5.0
 ```
 
+**Bài thực hành nâng cấp — cấp 1/5:** Robot ghi **10 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy tính chuẩn của vector 2D đầu tiên. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
 
-### Tình huống 2 — Chuẩn hóa hướng di chuyển
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+ys = [20+(k*7)%75 for k in range(1,11)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = round(float(np.linalg.norm(clean[0])),3)
+assert array.shape==(10,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 10; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
+
+### Tình huống 2 — Chuẩn hóa hướng di chuyển · Cấp 2: Xử lý hàng loạt
 
 **Từ vựng trong mục:** **Vector** — véc-tơ.
 
@@ -175,8 +191,24 @@ print(u)
 [0.6 0.8]
 ```
 
+**Bài thực hành nâng cấp — cấp 2/5:** Robot ghi **12 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy chuẩn hóa 12 vector, tránh chia cho vector 0. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
 
-### Tình huống 3 — Điểm tổng kết có trọng số
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+ys = [20+(k*7)%75 for k in range(1,13)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = np.linalg.norm(clean,axis=1)[:5].round(3).tolist()
+assert array.shape==(12,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 12; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
+
+### Tình huống 3 — Điểm tổng kết có trọng số · Cấp 3: Kết hợp vector/ma trận
 
 **Từ vựng trong mục:** **Dot product** — tích vô hướng.
 
@@ -205,8 +237,24 @@ print(scores@weights)
 8.2
 ```
 
+**Bài thực hành nâng cấp — cấp 3/5:** Robot ghi **15 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy tính điểm theo dot product cho 15 vector đặc trưng. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
 
-### Tình huống 4 — Tìm hai hướng vuông góc
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+ys = [20+(k*7)%75 for k in range(1,16)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = (clean@np.array([0.4,0.6])).round(2).tolist()
+assert array.shape==(15,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 15; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
+
+### Tình huống 4 — Tìm hai hướng vuông góc · Cấp 4: Giá trị thiếu và ràng buộc
 
 **Từ vựng trong mục:** **Dot product** — tích vô hướng.
 
@@ -235,8 +283,24 @@ print(a@b)
 0
 ```
 
+**Bài thực hành nâng cấp — cấp 4/5:** Robot ghi **18 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy đếm và loại vector có số đo thiếu trước khi tính norm. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
 
-### Tình huống 5 — Tính sai khác cảm biến
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39]
+ys = [20+(k*7)%75 for k in range(1,19)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = {'valid':len(clean),'missing':int(len(array)-len(clean)),'mean_norm':round(float(np.linalg.norm(clean,axis=1).mean()),2)}
+assert array.shape==(18,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 18; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
+
+### Tình huống 5 — Tính sai khác cảm biến · Cấp 5: Bài toán tổng hợp
 
 **Từ vựng trong mục:** **Scalar** — đại lượng vô hướng.
 
@@ -265,6 +329,22 @@ print(np.linalg.norm(a-b))
 5.0
 ```
 
+**Bài thực hành nâng cấp — cấp 5/5:** Robot ghi **20 điểm đo tọa độ 2D**, mỗi hàng là một vị trí và hai cột là tọa độ x/y, đơn vị mét. Hãy tổng hợp norm, dot product và số vector hợp lệ trên 20 đối tượng. Dữ liệu thiếu ở mức 4–5 được loại khi tính ma trận cần đầy đủ hai tọa độ; đồng thời giữ số hàng gốc để kiểm tra.
+
+```python
+import numpy as np
+# Mỗi hàng là một điểm đo robot: cột 0=x (m), cột 1=y (m).
+xs = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39, 85, np.nan]
+ys = [20+(k*7)%75 for k in range(1,21)]
+array = np.column_stack((xs,ys)).astype(float)
+clean = array[np.isfinite(array).all(axis=1)]
+result = {'shape':array.shape,'valid':len(clean),'score_mean':round(float((clean@np.array([0.4,0.6])).mean()),2),'max_norm':round(float(np.linalg.norm(clean,axis=1).max()),2)}
+assert array.shape==(20,2)
+print("Số điểm đo:",len(array))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Số quan sát 20; đọc shape, số hàng hợp lệ và đơn vị từ phép xử lý. Không đánh đồng norm, dot product hoặc định thức với một đại lượng vô đơn vị.
 
 ## 6. Sai lầm thường gặp
 
