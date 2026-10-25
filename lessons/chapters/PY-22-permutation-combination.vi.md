@@ -118,142 +118,189 @@ print([math.comb(4, k) for k in range(5)])
 ```
 
 Hàng thứ tư tính từ 0 có năm hệ số, ứng với k từ 0 đến 4.
-## 5. Năm vấn đề thực tế
+## 5. Năm tình huống hoán vị và tổ hợp — từ phân vai đến chọn nhóm có ràng buộc
 
-### Tình huống 1 — Chọn trưởng và phó nhóm
+### Tình huống 1 — Cấp 1: Phân vai trưởng và phó từ 10 ứng viên
 
-**Từ vựng trong mục:** **Permutation** — hoán vị.
+**Từ vựng trong mục:** **Permutation** — chọn có thứ tự; **Role** — vai trò.
 
-**Tình huống thực tế:** Ban tổ chức có 5 ứng viên và cần chọn một trưởng nhóm, một phó nhóm, hai vị trí khác nhau. Có bao nhiêu cách chọn?
+**Tình huống thực tế:** Câu lạc bộ nhận **10 ứng viên** U01…U10, mỗi mã là một người đủ điều kiện. Cần phân hai vai trò khác nhau là trưởng nhóm và phó nhóm; một người không được giữ cả hai vị trí. Hỏi có bao nhiêu phương án và nêu một cách phân vai đầu tiên.
 
-**Vì sao chọn cách giải này?** Hai vai trò khác nhau nên phải tính số cách có thứ tự, dùng `perm`.
+**Vì sao chọn cách này?** Đổi trưởng với phó tạo phương án **khác**, nên dùng `math.perm(10,2)` thay vì số cách chọn không xét thứ tự. Có thể kiểm bằng việc liệt kê hai vị trí từ mười mã khi quy mô còn nhỏ.
 
-
-**Quy trình giải:**
-
-1. Xác định trưởng nhóm và phó nhóm là hai vị trí khác nhau.
-2. Chọn trưởng trong năm người rồi phó trong bốn người còn lại.
-3. Nhân 5×4 hoặc gọi `math.perm(5,2)` để đếm.
+**Quy trình:**
+1. Lưu đúng 10 ID ứng viên.
+2. Đếm phương án có thứ tự bằng `math.perm`.
+3. Liệt kê kết quả đầu tiên để xác minh vai trò khác nhau.
 
 ```python
-# Mục đích: Chọn trưởng và phó nhóm.
 import math
-print(math.perm(5, 2))
-```
-
-**Kết quả khi chạy:**
-
-```text
-20
-```
-
-### Tình huống 2 — Chọn đội thi
-
-**Từ vựng trong mục:** **Combination** — tổ hợp.
-
-**Tình huống thực tế:** Một đội thi cần chọn 5 người từ 12 ứng viên; vai trò của người được chọn không phân biệt. Có bao nhiêu đội?
-
-**Vì sao chọn cách giải này?** Không phân vai nên mỗi nhóm năm người chỉ được đếm một lần, dùng `comb`.
-
-
-**Quy trình giải:**
-
-1. Ghi nhận đội có năm thành viên và có 12 ứng viên.
-2. Xác định thứ tự thành viên không quan trọng.
-3. Gọi `math.comb(12,5)` để đếm các đội khác nhau.
-
-```python
-# Mục đích: Chọn đội thi.
-import math
-print(math.comb(12, 5))
-```
-
-**Kết quả khi chạy:**
-
-```text
-792
-```
-
-### Tình huống 3 — Sắp thứ tự kiểm thử
-
-**Từ vựng trong mục:** **Factorial** — giai thừa.
-
-**Tình huống thực tế:** Bộ kiểm thử có ba tác vụ A, B, C; cần thử mọi thứ tự thực hiện. Liệt kê các thứ tự.
-
-**Vì sao chọn cách giải này?** Đề yêu cầu toàn bộ thứ tự của ba tác vụ, nên cần hoán vị độ dài ba và nhận `3!` kết quả.
-
-
-**Quy trình giải:**
-
-1. Tạo ba tác vụ A, B, C, mỗi tác vụ phải xuất hiện một lần.
-2. Dùng `itertools.permutations(tasks)` không truyền độ dài để lấy đủ ba tác vụ.
-3. In sáu thứ tự; đối chiếu `3! = 6`.
-
-```python
-# Mục đích: Sắp thứ tự kiểm thử.
 from itertools import permutations
-print(list(permutations(['A', 'B', 'C'])))
+candidates = ["U01","U02","U03","U04","U05","U06","U07","U08","U09","U10"]
+first = next(permutations(candidates, 2))
+assert len(candidates) == 10
+print("Ứng viên:", len(candidates))
+print("Cách phân vai:", math.perm(len(candidates), 2))
+print("Phân vai đầu:", first[0], first[1])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[('A', 'B', 'C'), ('A', 'C', 'B'), ('B', 'A', 'C'), ('B', 'C', 'A'), ('C', 'A', 'B'), ('C', 'B', 'A')]
+Ứng viên: 10
+Cách phân vai: 90
+Phân vai đầu: U01 U02
 ```
 
-### Tình huống 4 — Đề xuất cặp môn học
+Người U01 làm trưởng và U02 làm phó khác cách đảo vai; không cho phép một ứng viên bị chọn hai lần.
 
-**Từ vựng trong mục:** **Binomial coefficient** — hệ số nhị thức.
+### Tình huống 2 — Cấp 2: Chọn nhóm 3 người từ 12 tình nguyện viên
 
-**Tình huống thực tế:** Nhóm học chọn hai môn trong ba môn Python, AI, SQL; thứ tự không quan trọng. Liệt kê các cặp môn.
+**Từ vựng trong mục:** **Combination** — chọn không xét thứ tự; **Distinct** — không trùng người.
 
-**Vì sao chọn cách giải này?** Cặp môn không có thứ tự, vì vậy `combinations` không nhân đôi những cặp đảo chiều.
+**Tình huống thực tế:** Ban sự kiện có **12 tình nguyện viên** S01…S12, mỗi bản ghi là một cá nhân. Nhóm trực chỉ cần **3 người ngang vai**, không phân trưởng/phó và mỗi người chỉ xuất hiện một lần. Hãy đếm số tổ khác nhau và đối chiếu bằng liệt kê.
 
+**Vì sao chọn cách này?** Chọn cùng ba người theo thứ tự khác nhau vẫn là **một nhóm**; `math.comb(12,3)` tránh đếm lặp. Liệt kê bằng `itertools.combinations` cho phép kiểm chứng số lượng ở quy mô bài học.
 
-**Quy trình giải:**
-
-1. Lưu ba môn Python, AI, SQL vào List.
-2. Dùng `combinations(subjects,2)` vì không phân biệt hai thứ tự trong cùng cặp.
-3. In ba cặp môn có thể chọn.
+**Quy trình:**
+1. Lưu 12 mã thành viên.
+2. Dùng tổ hợp chọn ba mã, không xét thứ tự.
+3. So số tổ với danh sách liệt kê để xác nhận.
 
 ```python
-# Mục đích: Đề xuất cặp môn học.
-from itertools import combinations
-print(list(combinations(["Python", "AI", "SQL"], 2)))
-```
-
-**Kết quả khi chạy:**
-
-```text
-[('Python', 'AI'), ('Python', 'SQL'), ('AI', 'SQL')]
-```
-
-### Tình huống 5 — Tính hàng Pascal
-
-**Từ vựng trong mục:** **Permutation** — hoán vị.
-
-**Tình huống thực tế:** Giáo viên cần viết hàng n=4 của tam giác Pascal bằng C(4,k), k từ 0 đến 4.
-
-**Vì sao chọn cách giải này?** Các giá trị của tam giác Pascal chính là các hệ số nhị thức `C(n,k)`.
-
-
-**Quy trình giải:**
-
-1. Chọn hàng n=4 của tam giác Pascal.
-2. Tính các hệ số `math.comb(4,k)` với k=0..4.
-3. In năm giá trị và kiểm tra tính đối xứng.
-
-```python
-# Mục đích: Tính hàng Pascal.
 import math
-print([math.comb(4, k) for k in range(5)])
+from itertools import combinations
+volunteers = ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12"]
+groups = list(combinations(volunteers, 3))
+assert len(volunteers) == 12
+assert len(groups) == math.comb(12, 3)
+print("Tình nguyện viên:", len(volunteers))
+print("Số nhóm:", len(groups))
+print("Nhóm đầu:", ", ".join(groups[0]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[1, 4, 6, 4, 1]
+Tình nguyện viên: 12
+Số nhóm: 220
+Nhóm đầu: S01, S02, S03
 ```
+
+Bài này khác cấp 1 ở chỗ đổi vị trí ba người **không** tạo nhóm mới; nhận biết thứ tự quan trọng hay không quyết định phép đếm.
+
+### Tình huống 3 — Cấp 3: Lọc 15 ứng viên trước khi chọn hai vai kiểm thử
+
+**Từ vựng trong mục:** **Eligibility** — đủ điều kiện; **Permutation** — phân vai; **Combination** — chọn nhóm.
+
+**Tình huống thực tế:** Phòng QA có **15 hồ sơ** T01…T15, mỗi dòng ghi kỹ năng Python/AI/SQL và cờ sẵn sàng. Dự án cần **hai vai khác nhau** (người viết kiểm thử và người duyệt), chỉ chấp nhận ứng viên sẵn sàng thuộc nhóm Python hoặc AI. Hãy đếm người đủ điều kiện, số **cặp không phân vai** và số **phương án phân vai**; không dùng 15 làm số ứng viên đủ chuẩn.
+
+**Vì sao chọn cách này?** Trước hết phải lọc theo yêu cầu dự án. Từ số người hợp lệ, tổ hợp đếm đội hai người; chỉnh hợp đếm thứ tự hai vai. Hai kết quả giúp phân biệt phạm vi và mục đích của phép đếm.
+
+**Quy trình:**
+1. Kiểm tra từng hồ sơ trong 15 dòng để lọc kỹ năng và cờ sẵn sàng.
+2. Đếm số cặp không phân vai bằng `comb`.
+3. Đếm số phương án gán hai vai bằng `perm`, xác nhận mỗi cặp có hai cách phân vai.
+
+```python
+import math
+people = [{"id":"T01","skill":"Python","available":True},{"id":"T02","skill":"AI","available":True},{"id":"T03","skill":"SQL","available":True},{"id":"T04","skill":"Python","available":True},{"id":"T05","skill":"AI","available":False},{"id":"T06","skill":"SQL","available":True},{"id":"T07","skill":"Python","available":True},{"id":"T08","skill":"AI","available":True},{"id":"T09","skill":"SQL","available":True},{"id":"T10","skill":"Python","available":False},{"id":"T11","skill":"AI","available":True},{"id":"T12","skill":"SQL","available":True},{"id":"T13","skill":"Python","available":True},{"id":"T14","skill":"AI","available":True},{"id":"T15","skill":"SQL","available":False}]
+eligible = [p["id"] for p in people if p["available"] and p["skill"] in ("Python", "AI")]
+assert len(people) == 15
+print("Hồ sơ:", len(people))
+print("Đủ điều kiện:", len(eligible))
+print("Chọn đội hai người:", math.comb(len(eligible), 2))
+print("Phân hai vai:", math.perm(len(eligible), 2))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Hồ sơ: 15
+Đủ điều kiện: 8
+Chọn đội hai người: 28
+Phân hai vai: 56
+```
+
+Khác hai cấp đầu, phải lọc dữ liệu trước khi đếm. Không được chọn người không sẵn sàng hoặc thiếu kỹ năng phù hợp.
+
+### Tình huống 4 — Cấp 4: Lập lịch ba lượt xử lý từ 18 ca lỗi có mức khẩn cấp
+
+**Từ vựng trong mục:** **Ordered selection** — chọn có thứ tự; **Factorial** — giai thừa; **Constraint** — ràng buộc.
+
+**Tình huống thực tế:** Đội vận hành ghi **18 sự cố** C01…C18 với mức `blocker/high/normal` và cờ đủ thông tin xử lý. Ca C12 chưa sẵn sàng; yêu cầu lấy **ba sự cố khác nhau theo thứ tự xử lý**, chỉ từ ca `blocker` hoặc `high` có thông tin đầy đủ. Hãy tính số thứ tự xử lý có thể có và kiểm với số phương án thực sự liệt kê.
+
+**Vì sao chọn cách này?** Không được coi lịch A–B–C giống C–B–A; `permutations(eligible,3)` liệt kê các lịch khác nhau. Dùng `math.perm` để đối chiếu, chỉ sau khi lọc ràng buộc có đủ hồ sơ.
+
+**Quy trình:**
+1. Duyệt 18 hồ sơ, chỉ giữ ca khẩn cấp có cờ sẵn sàng.
+2. Đếm các lịch có thứ tự gồm ba ca không lặp.
+3. Liệt kê lịch đầu, kiểm số lịch với `math.perm`.
+
+```python
+import math
+from itertools import permutations
+incidents = [{"id":"C01","severity":"blocker","ready":True},{"id":"C02","severity":"normal","ready":True},{"id":"C03","severity":"normal","ready":True},{"id":"C04","severity":"high","ready":True},{"id":"C05","severity":"normal","ready":True},{"id":"C06","severity":"normal","ready":True},{"id":"C07","severity":"blocker","ready":True},{"id":"C08","severity":"normal","ready":True},{"id":"C09","severity":"normal","ready":True},{"id":"C10","severity":"high","ready":True},{"id":"C11","severity":"normal","ready":True},{"id":"C12","severity":"normal","ready":False},{"id":"C13","severity":"blocker","ready":True},{"id":"C14","severity":"normal","ready":True},{"id":"C15","severity":"normal","ready":True},{"id":"C16","severity":"high","ready":True},{"id":"C17","severity":"normal","ready":True},{"id":"C18","severity":"normal","ready":True}]
+eligible = [row["id"] for row in incidents
+            if row["ready"] and row["severity"] in ("blocker", "high")]
+schedules = list(permutations(eligible, 3))
+assert len(incidents) == 18
+assert len(schedules) == math.perm(len(eligible), 3)
+print("Sự cố:", len(incidents))
+print("Đủ tiêu chí:", len(eligible))
+print("Lịch 3 ca:", len(schedules))
+print("Lịch đầu:", ", ".join(schedules[0]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Sự cố: 18
+Đủ tiêu chí: 6
+Lịch 3 ca: 120
+Lịch đầu: C01, C04, C07
+```
+
+Ba vị trí là ba lượt thực hiện khác nhau nên dùng hoán vị; nhân viên không được đưa ca chưa có dữ liệu vào danh sách xử lý.
+
+### Tình huống 5 — Cấp 5: Chọn ban phản biện 3 nhóm từ 20 người có ràng buộc
+
+**Từ vựng trong mục:** **Constrained combination** — tổ hợp có ràng buộc; **Cross-check** — kiểm tra chéo.
+
+**Tình huống thực tế:** Ban chuyên môn có **20 hồ sơ** U01…U20, mỗi dòng gồm nhóm chuyên môn A/B/C và trạng thái sẵn sàng; U06 và U15 không sẵn sàng. Phải chọn **ba người ngang vai**, đúng **một người từ mỗi nhóm**, không xét thứ tự. Cần đếm số ban hợp lệ, kiểm chứng bằng liệt kê các tổ ba người và so với cách đếm bằng số lựa chọn mỗi nhóm.
+
+**Vì sao chọn cách này?** Tổ hợp tổng quát trên toàn bộ người đủ điều kiện vẫn chứa đội có hai người cùng nhóm — không đáp ứng yêu cầu. Lọc theo tập điều kiện từng nhóm khi liệt kê và đối chiếu bằng tích số người đủ chuẩn của ba nhóm.
+
+**Quy trình:**
+1. Tách 20 hồ sơ theo nhóm A/B/C và trạng thái sẵn sàng.
+2. Liệt kê mọi tổ ba người **không thứ tự** và chỉ giữ đội đủ ba nhóm.
+3. So số ban hợp lệ với số lựa chọn từ mỗi nhóm, xác minh không chứa ứng viên chưa sẵn sàng.
+
+```python
+from itertools import combinations
+people = [{"id":"U01","team":"A","ready":True},{"id":"U02","team":"B","ready":True},{"id":"U03","team":"C","ready":True},{"id":"U04","team":"A","ready":True},{"id":"U05","team":"B","ready":True},{"id":"U06","team":"C","ready":False},{"id":"U07","team":"A","ready":True},{"id":"U08","team":"B","ready":True},{"id":"U09","team":"C","ready":True},{"id":"U10","team":"A","ready":True},{"id":"U11","team":"B","ready":True},{"id":"U12","team":"C","ready":True},{"id":"U13","team":"A","ready":True},{"id":"U14","team":"B","ready":True},{"id":"U15","team":"C","ready":False},{"id":"U16","team":"A","ready":True},{"id":"U17","team":"B","ready":True},{"id":"U18","team":"C","ready":True},{"id":"U19","team":"A","ready":True},{"id":"U20","team":"B","ready":True}]
+ready = [p for p in people if p["ready"]]
+valid = [team for team in combinations(ready, 3)
+         if {p["team"] for p in team} == {"A", "B", "C"}]
+counts = {k: sum(p["team"] == k for p in ready) for k in ("A", "B", "C")}
+assert len(people) == 20
+assert len(valid) == counts["A"] * counts["B"] * counts["C"]
+print("Hồ sơ:", len(people))
+print("Sẵn sàng:", len(ready))
+print("Người theo nhóm:", counts["A"], counts["B"], counts["C"])
+print("Ban ba nhóm:", len(valid))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Hồ sơ: 20
+Sẵn sàng: 18
+Người theo nhóm: 7 7 4
+Ban ba nhóm: 196
+```
+
+Ở cấp này, không thể chỉ gọi `comb(20,3)`: hai điều kiện **sẵn sàng** và **mỗi nhóm đúng một người** quyết định số đội thực sự khả thi.
 
 ## 6. Sai lầm thường gặp
 
