@@ -138,7 +138,7 @@ Danh sách kết quả được sắp theo điểm giảm dần. Các điểm s�
 
 ## 5. Năm tình huống lập trình thực tế
 
-### Tình huống 1 — Giỏ hàng
+### Tình huống 1 — Giỏ hàng · Cấp 1: Nhận biết
 
 **Từ vựng trong mục:** **List** — danh sách.
 
@@ -169,7 +169,20 @@ print(basket)
 
 **Kết quả:** `['milk', 'bread', 'rice']` — giỏ có ba món theo đúng thứ tự.
 
-### Tình huống 2 — Lấy hai ưu tiên cao
+**Thực hành nâng cấp — cấp 1/5:** Trung tâm ghi **10 danh sách yêu cầu hỗ trợ, x là điểm ưu tiên**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy lấy ba yêu cầu đầu bằng slicing. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = [r['id'] for r in rows[:3]]
+assert len(rows)==10
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 10 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác lấy ba yêu cầu đầu bằng slicing.
+
+### Tình huống 2 — Lấy hai ưu tiên cao · Cấp 2: Áp dụng toàn bảng
 
 **Từ vựng trong mục:** **Index** — chỉ số.
 
@@ -199,7 +212,20 @@ print(sorted(scores,reverse=True)[:2])
 
 **Kết quả:** `[9, 7]` — hai mức ưu tiên cao nhất. List `scores` gốc không bị thay đổi.
 
-### Tình huống 3 — Lọc điểm đạt
+**Thực hành nâng cấp — cấp 2/5:** Trung tâm ghi **12 danh sách yêu cầu hỗ trợ, x là điểm ưu tiên**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy sắp 12 điểm giảm dần mà không làm đổi list gốc. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = sorted([r['x'] for r in rows],reverse=True)[:5]
+assert len(rows)==12
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 12 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác sắp 12 điểm giảm dần mà không làm đổi list gốc.
+
+### Tình huống 3 — Lọc điểm đạt · Cấp 3: Phối hợp phép xử lý
 
 **Từ vựng trong mục:** **Slice** — cắt lát.
 
@@ -230,7 +256,20 @@ print(passed)
 
 **Kết quả:** `[7, 9]` — hai điểm đạt, vẫn giữ thứ tự xuất hiện ban đầu.
 
-### Tình huống 4 — Sửa tồn kho
+**Thực hành nâng cấp — cấp 3/5:** Trung tâm ghi **15 danh sách yêu cầu hỗ trợ, x là điểm ưu tiên**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy dùng list comprehension chọn các mã ưu tiên cao. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = [r['id'] for r in rows if r['x']>=70]
+assert len(rows)==15
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 15 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác dùng list comprehension chọn các mã ưu tiên cao.
+
+### Tình huống 4 — Sửa tồn kho · Cấp 4: Dữ liệu khuyết và lỗi
 
 **Từ vựng trong mục:** **Mutability** — khả năng sửa.
 
@@ -261,7 +300,20 @@ print(stock)
 
 **Kết quả:** `[8, 4, 9]` — chỉ số lượng mặt hàng thứ hai được cập nhật.
 
-### Tình huống 5 — Hàng đợi yêu cầu
+**Thực hành nâng cấp — cấp 4/5:** Trung tâm ghi **18 danh sách yêu cầu hỗ trợ, x là điểm ưu tiên**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy copy list rồi sửa giá trị thiếu để giữ dữ liệu ban đầu. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = [(r['id'],r['x'] if r['x'] is not None else 0) for r in rows]
+assert len(rows)==18
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 18 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác copy list rồi sửa giá trị thiếu để giữ dữ liệu ban đầu.
+
+### Tình huống 5 — Hàng đợi yêu cầu · Cấp 5: Quy trình có kiểm tra
 
 **Từ vựng trong mục:** **List** — danh sách.
 
@@ -291,6 +343,19 @@ REQ01 ['REQ02', 'REQ03']
 ```
 
 **Kết quả:** `REQ01 ['REQ02', 'REQ03']` — yêu cầu đầu đã được lấy ra, hai yêu cầu còn lại giữ nguyên thứ tự.
+
+**Thực hành nâng cấp — cấp 5/5:** Trung tâm ghi **20 danh sách yêu cầu hỗ trợ, x là điểm ưu tiên**; mỗi hàng có mã duy nhất, giá trị x, thông số thứ hai y, nhãn nhóm A/B/C. Hãy kết hợp lọc, sắp xếp, chọn top 5 và báo dữ liệu thiếu. Ở mức 4–5, một số điểm chưa được nhập (`None`); không được âm thầm coi là 0.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"R{i:02d}","x":x,"y":i%4+1,"group":"ABC"[(i-1)%3]} for i,x in enumerate(values,1)]
+result = {'top5':[r['id'] for r in sorted((r for r in rows if r['x'] is not None),key=lambda r:r['x'],reverse=True)[:5]],'missing':[r['id'] for r in rows if r['x'] is None]}
+assert len(rows)==20
+print("Số bản ghi:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Kiểm chứng 20 bản ghi đầu vào, kết quả in ra phụ thuộc các thao tác kết hợp lọc, sắp xếp, chọn top 5 và báo dữ liệu thiếu.
 
 ## 6. Nhầm lẫn dễ gặp
 
