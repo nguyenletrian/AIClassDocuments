@@ -128,181 +128,232 @@ even
 ```
 
 Số 2 vừa dương vừa chia hết cho 2, nên chương trình đi vào cả hai nhánh `if`.
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống — quy tắc rẽ nhánh tăng dần
 
-### Tình huống 1 — Xếp loại điểm
+### Tình huống 1 — Cấp 1: Xác định đạt/chưa đạt của 10 học viên
 
-**Từ vựng trong mục:** **Condition** — điều kiện.
+**Từ vựng trong mục:** **If** — nếu; **Else** — nếu không; **Threshold** — ngưỡng.
 
-**Tình huống thực tế:** Trung tâm đào tạo xếp điểm từ 90 trở lên là A, từ 80 đến dưới 90 là B, còn lại ghi `Other`. Một học viên đạt 85 điểm trên thang 100.
+**Tình huống thực tế:** Giáo vụ nhận **10 bài kiểm tra**, mỗi dòng là một học viên với điểm trên thang 100; từ **50 điểm** được tính là đạt. Cần phân loại từng người và in tổng số đạt, chưa đạt, xác nhận rằng điểm 50 thuộc nhóm đạt.
 
-**Yêu cầu:** Viết chương trình in mức xếp loại của học viên.
+**Vì sao chọn cách này?** `if` chọn nhánh khi điều kiện đúng; `else` nhận phần còn lại. Một ngưỡng có hai kết quả, không cần `elif`. Ví dụ dùng vòng `for` chỉ để áp dụng cùng quy tắc cho đủ 10 học viên.
 
-**Vì sao chọn cách giải này?** Dùng `if` xét mốc cao nhất trước, `elif` xét mốc 80 khi chưa đạt 90; `else` xử lý các điểm còn lại.
-
-**Quy trình giải:**
-
-1. Lưu điểm `85`.
-2. Kiểm tra điểm từ 90 trở lên.
-3. Nếu không đạt, kiểm tra từ 80 trở lên.
-4. In loại tương ứng.
+**Quy trình:**
+1. Lưu mười điểm theo thứ tự học viên H01…H10.
+2. Với từng điểm, chọn `Đạt` nếu từ 50 trở lên, còn lại `Chưa đạt`.
+3. Cộng số lượng từng nhánh và in trạng thái học viên H02 ở đúng biên.
 
 ```python
-# Mục đích: Xếp loại điểm.
-score=85
-if score>=90:
-    grade="A"
-elif score>=80:
-    grade="B"
-else:
-    grade="Other"
-print(grade)
+points = [48,50,72,30,85,90,49,61,44,100]
+passed = 0
+failed = 0
+for score in points:
+    if score >= 50:
+        passed += 1
+    else:
+        failed += 1
+assert len(points) == 10
+assert passed + failed == 10
+print("Số học viên:", len(points))
+print("Đạt:", passed)
+print("Chưa đạt:", failed)
+print("H02:", "Đạt" if points[1] >= 50 else "Chưa đạt")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-B
+Số học viên: 10
+Đạt: 6
+Chưa đạt: 4
+H02: Đạt
 ```
 
-**Kết quả:** `B` — 85 điểm đạt mức B theo quy tắc đã nêu.
+Quy tắc dùng `>=` nên giá trị 50 nằm trong nhóm đạt. Không có trường hợp vừa đạt vừa chưa đạt nếu hai nhánh được đặt chung trong một `if`/`else`.
 
-### Tình huống 2 — Cảnh báo hàng gần hết
+### Tình huống 2 — Cấp 2: Phân ba mức tồn kho cho 12 SKU
 
-**Từ vựng trong mục:** **Branch** — nhánh.
+**Từ vựng trong mục:** **Elif** — điều kiện khác; **Branch** — nhánh; **Stock** — tồn kho.
 
-**Tình huống thực tế:** Cửa hàng chia tồn kho thành ba trạng thái: hết hàng nếu số lượng không lớn hơn 0, gần hết nếu còn từ 1 đến 5 món, bình thường nếu còn trên 5 món. Một sản phẩm hiện còn 4 món.
+**Tình huống thực tế:** Cửa hàng có **12 mã sản phẩm**, mỗi dòng là số lượng còn lại (món). Quy tắc: số lượng `0` là `Out`, từ `1` đến `5` là `Low`, từ `6` trở lên là `OK`. Hãy đếm số SKU ở mỗi mức và kiểm tra lượng tồn `5` vẫn thuộc mức `Low`.
 
-**Yêu cầu:** Viết chương trình in trạng thái tồn kho bằng `Out`, `Low` hoặc `OK`.
+**Vì sao chọn cách này?** Thứ tự nhánh quan trọng: xét hết hàng trước, sau đó xét gần hết; các giá trị còn lại rơi vào `else`. Nhờ `elif`, mỗi SKU chỉ được đếm **một trạng thái**.
 
-**Vì sao chọn cách giải này?** Dùng `if`/`elif`/`else` để chỉ chọn một trong ba trạng thái; kiểm tra hết hàng trước khi kiểm tra gần hết.
-
-**Quy trình giải:**
-
-1. Lưu số lượng `qty = 4`.
-2. Kiểm tra hết hàng (`qty <= 0`).
-3. Nếu chưa hết, kiểm tra gần hết (`qty <= 5`).
-4. In trạng thái phù hợp.
+**Quy trình:**
+1. Duyệt danh sách 12 giá trị tồn.
+2. Dùng chuỗi `if` → `elif` → `else` theo ngưỡng.
+3. Kiểm tra số lượng ba trạng thái cộng lại bằng 12.
 
 ```python
-# Mục đích: Cảnh báo hàng gần hết.
-qty=4
-if qty<=0:
-    state="Out"
-elif qty<=5:
-    state="Low"
-else:
-    state="OK"
-print(state)
+stocks = [0,1,4,7,12,5,3,0,8,2,16,5]
+count = {"Out": 0, "Low": 0, "OK": 0}
+for quantity in stocks:
+    if quantity == 0:
+        state = "Out"
+    elif quantity <= 5:
+        state = "Low"
+    else:
+        state = "OK"
+    count[state] += 1
+assert len(stocks) == 12
+assert sum(count.values()) == 12
+print("Out:", count["Out"])
+print("Low:", count["Low"])
+print("OK:", count["OK"])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Low
+Out: 2
+Low: 6
+OK: 4
 ```
 
-**Kết quả:** `Low` — còn 4 món nên hàng đang gần hết.
+Cấp này khó hơn vì có ba nhánh không chồng lấn. Học viên có thể đối chiếu `0`, `5` và `6` để thấy ngưỡng được dùng nhất quán.
 
-### Tình huống 3 — Xét VIP
+### Tình huống 3 — Cấp 3: Phân hạng 15 khách theo hai điều kiện
 
-**Từ vựng trong mục:** **Threshold** — ngưỡng.
+**Từ vựng trong mục:** **Nested condition** — điều kiện phối hợp; **Comparison** — so sánh; **Tier** — hạng.
 
-**Tình huống thực tế:** Cửa hàng chỉ công nhận VIP khi khách là thành viên ít nhất 5 năm và đã chi tối thiểu 1.000.000 đồng. Một khách đã tham gia 6 năm và chi 1.500.000 đồng.
+**Tình huống thực tế:** Đội chăm sóc quản lý **15 khách hàng**; mỗi hàng có thời gian thành viên (năm) và chi tiêu tích lũy (đồng). Khách **Gold** nếu ít nhất 5 năm và đã chi từ 2.000.000 đồng, **Silver** nếu ít nhất 5 năm và chi từ 1.000.000 đến dưới 2.000.000 đồng; những khách khác là **Standard**. Cần thống kê từng hạng.
 
-**Yêu cầu:** In `VIP` nếu khách đạt cả hai điều kiện, ngược lại in `Regular`.
+**Vì sao chọn cách này?** Nếu xét Silver trước, khách Gold cũng khớp điều kiện Silver và bị phân loại sai. Phải ưu tiên ngưỡng cao hơn, sau đó mới rẽ sang ngưỡng thấp; hai phép so sánh trong mỗi nhánh nối bằng `and`.
 
-**Vì sao chọn cách giải này?** `and` nối hai phép so sánh; `if` chọn nhánh VIP khi cả hai đúng và `else` xử lý trường hợp còn lại.
-
-**Quy trình giải:**
-
-1. Lưu thời gian tham gia và tổng tiền đã chi.
-2. So sánh từng giá trị với ngưỡng.
-3. Kết hợp hai điều kiện bằng `and`.
-4. In loại khách theo nhánh phù hợp.
+**Quy trình:**
+1. Ghép 15 cặp năm và số tiền đúng khách.
+2. Xét Gold trước, sau đó Silver rồi Standard.
+3. Thống kê đúng một hạng mỗi khách và kiểm tra tổng 15.
 
 ```python
-# Mục đích: Xét VIP.
-years,paid=6,1500000
-if years>=5 and paid>=1000000:
-    print("VIP")
-else:
-    print("Regular")
+years = [1,5,6,8,2,5,10,3,7,5,9,6,2,4,8]
+spending = [800000,1000000,900000,2000000,1800000,2500000,1100000,900000,500000,700000,3500000,1200000,1700000,4000000,1500000]
+counts = {"Gold": 0, "Silver": 0, "Standard": 0}
+for year, amount in zip(years, spending):
+    if year >= 5 and amount >= 2000000:
+        category = "Gold"
+    elif year >= 5 and amount >= 1000000:
+        category = "Silver"
+    else:
+        category = "Standard"
+    counts[category] += 1
+assert len(years) == len(spending) == 15
+assert sum(counts.values()) == 15
+print("Gold:", counts["Gold"])
+print("Silver:", counts["Silver"])
+print("Standard:", counts["Standard"])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-VIP
+Gold: 3
+Silver: 4
+Standard: 8
 ```
 
-**Kết quả:** `VIP` — khách đạt cả hai ngưỡng quy định.
+Không suy ra khách Gold từ tiền chi tiêu đơn lẻ: khách cũng phải đáp ứng số năm. Đây là bài phối hợp hai cột với thứ tự ưu tiên nhánh.
 
-### Tình huống 4 — Kiểm tra cảm biến
+### Tình huống 4 — Cấp 4: Cảnh báo nhiệt độ và mất kết nối của 18 cảm biến
 
-**Từ vựng trong mục:** **Nested if** — điều kiện lồng.
+**Từ vựng trong mục:** **Validation** — kiểm tra đầu vào; **Online** — kết nối; **Missing** — thiếu số đo.
 
-**Tình huống thực tế:** Hệ thống giám sát nhận trạng thái kết nối `online = True` và nhiệt độ `82` °C. Khi thiết bị mất kết nối, màn hình phải hiển thị `Offline`; nếu kết nối, nhiệt độ từ 80 °C trở lên báo `Hot`, còn thấp hơn báo `Normal`.
+**Tình huống thực tế:** Trạm giám sát có **18 cảm biến**, mỗi dòng gồm nhiệt độ (°C hoặc `None`) và trạng thái kết nối. Hệ thống ưu tiên `Offline` khi mất kết nối; nếu online nhưng chưa có số đo thì `Missing`; nếu online có nhiệt độ **từ 80 °C** thì `Hot`, ngược lại `Normal`. Hãy đếm số cảm biến của bốn trạng thái.
 
-**Yêu cầu:** Viết chương trình hiển thị đúng trạng thái thiết bị.
+**Vì sao chọn cách này?** Kiểm tra mất kết nối **trước** khi so nhiệt độ, vì một thiết bị đã offline có thể còn giữ số đo cũ. Phải xử lý `None` trước phép `>=` để tránh lỗi kiểu và không biến mất dữ liệu thành bình thường.
 
-**Vì sao chọn cách giải này?** Kiểm tra kết nối bằng `if` trước; chỉ khi đang online mới xét nhiệt độ bằng biểu thức điều kiện. Không kết luận nhiệt độ của thiết bị đã mất kết nối.
-
-**Quy trình giải:**
-
-1. Lưu trạng thái online và nhiệt độ.
-2. Nếu online, so sánh nhiệt độ với mốc 80 °C.
-3. In `Hot` hoặc `Normal`; nếu offline, in `Offline`.
+**Quy trình:**
+1. Ghép đủ 18 cặp kết nối/nhiệt độ.
+2. Phân nhánh theo độ ưu tiên: offline → thiếu → nóng → bình thường.
+3. Đếm từng trạng thái, kiểm tra tổng bằng 18.
 
 ```python
-# Mục đích: Kiểm tra cảm biến.
-online,temp=True,82
-if online:
-    print("Hot" if temp>=80 else "Normal")
-else:
-    print("Offline")
+temperatures = [26,35,80,81,79,20,None,85,95,32,80,70,90,None,18,40,79,88]
+online = [True,True,True,True,False,True,True,True,False,True,True,True,True,True,True,True,False,True]
+counts = {"Offline": 0, "Missing": 0, "Hot": 0, "Normal": 0}
+for active, temp in zip(online, temperatures):
+    if not active:
+        state = "Offline"
+    elif temp is None:
+        state = "Missing"
+    elif temp >= 80:
+        state = "Hot"
+    else:
+        state = "Normal"
+    counts[state] += 1
+assert len(temperatures) == len(online) == 18
+assert sum(counts.values()) == 18
+for state in ("Offline", "Missing", "Hot", "Normal"):
+    print(state + ":", counts[state])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Hot
+Offline: 3
+Missing: 2
+Hot: 6
+Normal: 7
 ```
 
-**Kết quả:** `Hot` — thiết bị đang kết nối và nhiệt độ 82 °C đạt ngưỡng cảnh báo.
+Những trạng thái này loại trừ nhau theo thứ tự: số đo 80 °C được báo Hot nếu thiết bị online; một thiết bị offline với số đo 95 °C **không bị đọc nhầm là hiện đang Hot**.
 
-### Tình huống 5 — Tính quý của tháng
+### Tình huống 5 — Cấp 5: Ra quyết định giao 20 đơn: kiểm dữ liệu, tồn kho và phí
 
-**Từ vựng trong mục:** **Condition** — điều kiện.
+**Từ vựng trong mục:** **Decision tree** — cây quyết định; **Validation** — kiểm tra hợp lệ; **Priority** — thứ tự xét.
 
-**Tình huống thực tế:** Một phần mềm báo cáo cần đổi số tháng thành quý trong năm: tháng 1–3 là quý 1, 4–6 là quý 2, 7–9 là quý 3, 10–12 là quý 4. Tháng cần kiểm tra là tháng 10.
+**Tình huống thực tế:** Cửa hàng có **20 đơn giao**, mỗi hàng gồm mã O01…O20, giá trị đơn (đồng), khoảng cách giao (km) và cờ có hàng trong kho. Nếu thiếu/sai số tiền hoặc km thì `INVALID`; nếu hợp lệ nhưng hết hàng thì `HOLD`; nếu có hàng và đơn **từ 1.000.000 đồng** thì `FREE`; các đơn khác giao **không quá 5 km** phí 15.000 đồng (`LOCAL`) hoặc xa hơn phí 30.000 đồng (`FAR`). Hãy in số đơn mỗi loại, tổng phí và mã chưa thể giao.
 
-**Yêu cầu:** Viết chương trình in số quý của tháng đã cho; nếu tháng không thuộc khoảng 1–12, in `Invalid`.
+**Vì sao chọn cách này?** Đây là quy trình rẽ nhánh nhiều tầng: nếu ưu tiên kiểm khuyến mại trước kiểm lỗi thì phiếu âm tiền có thể lọt vào báo cáo. Phải kiểm hợp lệ → khả năng giao → ưu đãi → vùng giao, và chỉ tính phí của đơn giao có thu phí.
 
-**Vì sao chọn cách giải này?** Dùng `if` kiểm tra tháng hợp lệ trước, rồi phép chia nguyên `//` để xác định quý; `else` bắt tháng ngoài khoảng.
-
-**Quy trình giải:**
-
-1. Lưu tháng bằng `month = 10`.
-2. Kiểm tra `1 <= month <= 12`.
-3. Nếu hợp lệ, tính `(month - 1) // 3 + 1`; ngược lại báo `Invalid`.
+**Quy trình:**
+1. Đọc 20 đơn và kiểm tra giá trị/ khoảng cách trước khi so ngưỡng.
+2. Dùng chuỗi `if`/`elif`/`else` theo đúng ưu tiên; đồng thời lưu phí cho từng đơn.
+3. Đối chiếu tổng năm trạng thái bằng 20 và báo mã `HOLD`/`INVALID` cần xử lý.
 
 ```python
-# Mục đích: Tính quý của tháng.
-month=10
-if 1<=month<=12:
-    print((month-1)//3+1)
-else:
-    print("Invalid")
+amount_vnd = [350000,530000,710000,890000,None,1250000,350000,530000,710000,890000,1070000,1250000,-5000,530000,710000,890000,1070000,1250000,350000,530000]
+distance_km = [1,2,3,4,5,6,7,None,1,2,3,4,5,6,7,8,1,2,3,4]
+in_stock = [True,True,False,True,True,True,True,True,True,False,True,True,True,True,True,True,True,False,True,True]
+counts = {"INVALID": 0, "HOLD": 0, "FREE": 0, "LOCAL": 0, "FAR": 0}
+blocked_ids = []
+total_fee_vnd = 0
+for idx, (amount, km, available) in enumerate(zip(amount_vnd, distance_km, in_stock), 1):
+    if amount is None or km is None or amount < 0 or km < 0:
+        state, fee = "INVALID", 0
+    elif not available:
+        state, fee = "HOLD", 0
+    elif amount >= 1000000:
+        state, fee = "FREE", 0
+    elif km <= 5:
+        state, fee = "LOCAL", 15000
+    else:
+        state, fee = "FAR", 30000
+    counts[state] += 1
+    total_fee_vnd += fee
+    if state in ("INVALID", "HOLD"):
+        blocked_ids.append(f"O{idx:02d}")
+assert len(amount_vnd) == len(distance_km) == len(in_stock) == 20
+assert sum(counts.values()) == 20
+for name in ("INVALID", "HOLD", "FREE", "LOCAL", "FAR"):
+    print(name + ":", counts[name])
+print("Phí thu (đồng):", total_fee_vnd)
+print("Cần xử lý:", ", ".join(blocked_ids))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-4
+INVALID: 3
+HOLD: 3
+FREE: 4
+LOCAL: 6
+FAR: 4
+Phí thu (đồng): 210000
+Cần xử lý: O03, O05, O08, O10, O13, O18
 ```
 
-**Kết quả:** `4` — tháng 10 thuộc quý 4.
+Mỗi đơn chỉ rơi vào **một trạng thái** và phí giao chỉ thu khi đã xác định có thể giao. Điều kiện biên 1.000.000 đồng và 5 km được xử lý bằng `>=`/`<=`, trong khi thiếu dữ liệu được tách trước khi so sánh.
 
 ## 6. Nhầm lẫn dễ gặp
 
