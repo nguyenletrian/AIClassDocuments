@@ -3,7 +3,7 @@
   "source_goal_spec": "docs/CURRICULUM-EXPLICIT-PYTHON-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 through PY-46 executable examples; beginner-readable explicit if/for instead of assert/comprehensions while preserving semantics, lessons, MCQs, scenarios and stdout",
-  "status": "READY_FOR_BATCH_09",
+  "status": "BATCH_09_IN_PROGRESS",
   "last_completed_batch": 8,
   "batches": [
     {
@@ -257,11 +257,26 @@
         "PY-44",
         "PY-45"
       ],
-      "status": "PENDING",
-      "changed_lessons": [],
+      "status": "IN_PROGRESS",
+      "changed_lessons": [
+        "PY-41",
+        "PY-42",
+        "PY-43",
+        "PY-44",
+        "PY-45"
+      ],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "feat/explicit-python-batch-09-20261025",
+      "lesson_commits": {
+        "PY-41": "4f426970172dc2f7d6ea74c06f0b6598e968e67c",
+        "PY-42": "0748bf52b8395f06eaab1146b305f84309bd7336",
+        "PY-43": "7af1289a749ef1e3a7a5806c02f747adf0c6d1e0",
+        "PY-44": "dcd32999a0e6dee74a35f4027be7473b2a2c0a33",
+        "PY-45": "8b46ed9f466a33a0002c0f10b6327c330b62f33d"
+      },
+      "notes": "PY-41..45 five independent commits plus focused AST test fix for Git lesson PY-43 which has 5 Python code fences plus shell examples (all 5 checked; other lessons retain minimum 9). No asserts/comprehensions/generator ternaries in Python examples. Preserve stdout, original 5 progressive scenarios per lesson, data 10/12/15/18/20, all MCQs; CI and merge pending. Windows unverified. Deferred scenario prose goal remains APPROVED_DEFERRED."
     },
     {
       "batch": 10,
