@@ -24,7 +24,12 @@
         "PY-04",
         "PY-05"
       ],
-      "status": "COMPLETED"
+      "status": "COMPLETED",
+      "pr_number": 175,
+      "ci_run_id": 40201266169,
+      "ci_conclusion": "SUCCESS",
+      "paired_code_fence_count": 45,
+      "windows_validation": "UNVERIFIED"
     },
     {
       "batch": 2,
