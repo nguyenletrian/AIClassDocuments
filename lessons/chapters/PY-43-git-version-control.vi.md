@@ -41,6 +41,14 @@
 
 Repository là thư mục dự án được Git theo dõi; bên trong `.git` lưu thông tin commit, nhánh và tham chiếu. Ví dụ bài tập có `lesson.py`. Sau khi chạy `git init`, Git chưa tự đưa mọi file vào commit; `git status` chỉ cho biết trạng thái so với commit gần nhất và khu vực stage. Lệnh dưới đây dành cho terminal trong thư mục dự án đã khởi tạo Git.
 
+**No Note — Không chú thích**
+
+```bash
+git status
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```bash
 # Mục đích: Nơi lưu mã nguồn và lịch sử.
 git status
@@ -53,6 +61,14 @@ git status
 **Từ vựng trong mục:** **Commit**.
 
 Commit ghi lại một trạng thái của những file đã **stage** vào lịch sử cùng tác giả, thời gian và thông điệp. Quy trình `git add lesson.py` đưa bản đang chọn vào staging area, sau đó `git commit -m ...` tạo commit. Nếu sửa file thêm **sau khi stage**, phần sửa mới chưa tự nằm trong commit. `git log -1 --oneline` xem commit gần nhất; mã hash phụ thuộc repository.
+
+**No Note — Không chú thích**
+
+```bash
+git log -1 --oneline
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```bash
 # Mục đích: Bản chụp các thay đổi đã stage.
@@ -67,6 +83,15 @@ git log -1 --oneline
 
 Branch là một **tham chiếu đến commit**, giúp làm tính năng riêng mà không làm thay đổi ngay `main`. `git switch -c feature/score` tạo nhánh mới và chuyển sang nó từ commit hiện tại; code mới chỉ có trên nhánh đó cho tới khi được merge. Để tránh nhầm, kiểm tra `git branch --show-current` trước khi làm; tên nhánh này là ví dụ, không phải chính sách của mọi nhóm.
 
+**No Note — Không chú thích**
+
+```bash
+git switch -c feature/score
+git branch --show-current
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```bash
 # Mục đích: Nhánh để phát triển song song.
 git switch -c feature/score
@@ -80,6 +105,14 @@ git branch --show-current
 **Từ vựng trong mục:** **Remote**.
 
 Remote là một tên tham chiếu đến địa chỉ repository khác, thường tên `origin` dùng cho kho trên GitHub. `git remote -v` liệt kê địa chỉ fetch/push đang cấu hình; nó không tự chứng minh đã đăng nhập hay có quyền push. `git fetch` tải tham chiếu từ remote, `git pull --ff-only` chỉ nhận thay đổi khi có thể đi thẳng không tạo merge commit, còn `git push` gửi commit nếu có quyền.
+
+**No Note — Không chú thích**
+
+```bash
+git remote -v
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```bash
 # Mục đích: Liên kết đến kho Git ở nơi khác.
@@ -102,6 +135,36 @@ git remote -v
 1. Tạo repository tạm và 10 file script có nội dung độc lập.
 2. Chạy status, đếm dòng `??` và số file Git đã stage.
 3. Báo cả hai số để phân biệt untracked và staged.
+
+**No Note — Không chú thích**
+
+```python
+import subprocess
+import tempfile
+from pathlib import Path
+
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    for i in range(1, 11):
+        (root / f"lesson{i:02d}.py").write_text(f"print({i})\n", encoding="utf-8")
+    lines = git(root, "status", "--porcelain").splitlines()
+    untracked = 0
+    for line in lines:
+        if line.startswith("?? "):
+            untracked += 1
+    staged = git(root, "diff", "--cached", "--name-only").splitlines()
+    print("Script:", 10)
+    print("Untracked:", untracked)
+    print("Đã stage:", len(staged))
+    print("Đúng repository tạm:", (root / ".git").exists())
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Khởi tạo một repository Git tạm với 10 script và phân biệt file untracked với staged.
@@ -156,6 +219,14 @@ with tempfile.TemporaryDirectory() as temp:
 
 **Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
 
+**No Note — Không chú thích**
+
+```bash
+git status --short
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```bash
 git status --short
 ```
@@ -183,6 +254,36 @@ Thư mục tạm sẽ tự bị xóa sau ví dụ; script chỉ nghiên cứu Gi
 1. Tạo repo tạm và 12 file có dữ liệu riêng.
 2. Stage đúng năm tên, không dùng ký tự chọn toàn bộ.
 3. Đếm số staged/untracked và kiểm module06 chưa stage.
+
+**No Note — Không chú thích**
+
+```python
+import subprocess
+import tempfile
+from pathlib import Path
+
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    for i in range(1, 13):
+        (root / f"module{i:02d}.py").write_text(f"VALUE = {i}\n", encoding="utf-8")
+    chosen = []
+    for i in range(1, 6):
+        chosen.append(f"module{i:02d}.py")
+    git(root, "add", "--", *chosen)
+    staged = git(root, "diff", "--cached", "--name-only").splitlines()
+    others = git(root, "ls-files", "--others", "--exclude-standard").splitlines()
+    print("File:", 12)
+    print("Đã stage:", len(staged))
+    print("Chưa stage:", len(others))
+    print("module06 chưa stage:", "module06.py" in others)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Chọn stage năm file trong 12 module, giữ bảy file khác chưa theo dõi.
@@ -237,6 +338,14 @@ with tempfile.TemporaryDirectory() as temp:
 
 **Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
 
+**No Note — Không chú thích**
+
+```bash
+git add -- module01.py module02.py module03.py module04.py module05.py
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```bash
 git add -- module01.py module02.py module03.py module04.py module05.py
 ```
@@ -264,6 +373,44 @@ Stage là **lựa chọn nội dung cho commit tiếp theo**, không phải đã
 1. Tạo 15 script v1 và commit ban đầu với thông tin tác giả test.
 2. Tạo nhánh `feature`, sửa ba script thành v2, commit.
 3. Chuyển giữa hai nhánh, kiểm tra nội dung khác nhau và số file diff.
+
+**No Note — Không chú thích**
+
+```python
+import subprocess
+import tempfile
+from pathlib import Path
+
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    git(root, "config", "user.name", "Lesson Tester")
+    git(root, "config", "user.email", "lesson@example.invalid")
+    for i in range(1,16):
+        (root / f"lesson{i:02d}.py").write_text("VERSION = 1\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "base")
+    git(root, "switch", "-q", "-c", "feature")
+    for i in range(1,4):
+        (root / f"lesson{i:02d}.py").write_text("VERSION = 2\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "update three scripts")
+    difference = git(root, "diff", "--name-only", "main", "feature").splitlines()
+    git(root, "switch", "-q", "main")
+    main_version = (root / "lesson01.py").read_text().strip()
+    git(root, "switch", "-q", "feature")
+    feature_version = (root / "lesson01.py").read_text().strip()
+    print("File ban đầu:", 15)
+    print("File thay đổi:", len(difference))
+    print("Main:", main_version)
+    print("Feature:", feature_version)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tạo nhánh feature, commit ba file thay đổi và chứng minh main chưa nhận sửa đổi.
@@ -333,6 +480,14 @@ with tempfile.TemporaryDirectory() as temp:
 
 **Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
 
+**No Note — Không chú thích**
+
+```bash
+git switch -c feature
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```bash
 git switch -c feature
 ```
@@ -360,6 +515,39 @@ Commit lưu ảnh chụp **file đã stage**. Quay về `main` không cần xóa
 1. Tạo lần lượt ba nhóm, mỗi nhóm sáu file trong repository tạm.
 2. Sau mỗi nhóm stage riêng các file và commit với thông điệp riêng.
 3. Kiểm số file Git theo dõi, số commit và thứ tự ba thông điệp gần nhất.
+
+**No Note — Không chú thích**
+
+```python
+import subprocess
+import tempfile
+from pathlib import Path
+
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    git(root, "config", "user.name", "Lesson Tester")
+    git(root, "config", "user.email", "lesson@example.invalid")
+    for batch in range(1,4):
+        filenames = []
+        for i in range((batch-1)*6+1, batch*6+1):
+            filename = f"tool{i:02d}.py"
+            (root / filename).write_text(f"VALUE = {i}\n", encoding="utf-8")
+            filenames.append(filename)
+        git(root, "add", "--", *filenames)
+        git(root, "commit", "-q", "-m", f"batch {batch}")
+    tracked = git(root, "ls-files").splitlines()
+    messages = git(root, "log", "-3", "--format=%s").splitlines()
+    print("Script:", len(tracked))
+    print("Commit:", git(root, "rev-list", "--count", "HEAD"))
+    print("Lịch sử gần nhất:", ", ".join(messages))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tạo ba commit nhóm độc lập trên 18 file và đọc lịch sử Git gần nhất.
@@ -419,6 +607,14 @@ with tempfile.TemporaryDirectory() as temp:
 
 **Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
 
+**No Note — Không chú thích**
+
+```bash
+git log -3 --format=%s
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```bash
 git log -3 --format=%s
 ```
@@ -445,6 +641,48 @@ Chỉ có ba commit vì mỗi commit chứa **sáu file**. Số file và số co
 1. Tạo 20 file và commit bản gốc.
 2. Từ cùng commit gốc, tạo nhánh feature rồi sửa/commit hai file đầu; quay main sửa/commit hai file cuối.
 3. Merge không fast-forward, xác minh nội dung bốn file, 20 file tracked và hai parent.
+
+**No Note — Không chú thích**
+
+```python
+import subprocess
+import tempfile
+from pathlib import Path
+
+def git(root, *args):
+    return subprocess.run(["git", *args], cwd=root, check=True,
+                          text=True, capture_output=True).stdout.strip()
+
+with tempfile.TemporaryDirectory() as temp:
+    root = Path(temp)
+    git(root, "init", "-q", "-b", "main")
+    git(root, "config", "user.name", "Lesson Tester")
+    git(root, "config", "user.email", "lesson@example.invalid")
+    for i in range(1,21):
+        (root / f"tool{i:02d}.py").write_text("VERSION = 1\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "base")
+    git(root, "switch", "-q", "-c", "feature")
+    for i in (1,2):
+        (root / f"tool{i:02d}.py").write_text("VERSION = 2\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "feature edits")
+    git(root, "switch", "-q", "main")
+    for i in (19,20):
+        (root / f"tool{i:02d}.py").write_text("VERSION = 3\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-q", "-m", "main edits")
+    git(root, "merge", "-q", "--no-ff", "feature", "-m", "merge feature")
+    parents = git(root, "rev-list", "--parents", "-n", "1", "HEAD").split()
+    print("File:", len(git(root, "ls-files").splitlines()))
+    print("Commit trong lịch sử:", git(root, "rev-list", "--count", "HEAD"))
+    print("Merge có hai cha:", len(parents) == 3)
+    print("Sửa feature giữ lại:", (root / "tool01.py").read_text().strip() == "VERSION = 2")
+    print("Sửa main giữ lại:", (root / "tool20.py").read_text().strip() == "VERSION = 3")
+    print("Working tree sạch:", git(root, "status", "--porcelain") == "")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Merge nhánh feature chứa hai sửa đổi vào main cũng có hai sửa đổi KHÁC file, rồi kiểm merge sạch.
@@ -519,6 +757,14 @@ with tempfile.TemporaryDirectory() as temp:
 ```
 
 **Lệnh Git tương ứng:** Chỉ thực hành trong repository thử, không chạy vào repository đang làm việc.
+
+**No Note — Không chú thích**
+
+```bash
+git merge --no-ff feature
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```bash
 git merge --no-ff feature
