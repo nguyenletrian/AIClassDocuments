@@ -522,7 +522,7 @@ D. Failing to reject a false H0 | Không bác bỏ H₀ khi H₀ sai
 
 **Đáp án: A**
 
-**Giải thích:** p theo tần suất không phải posterior. Nhầm p với P(H₀&#124;dữ liệu) là đảo chiều điều kiện; kiểm định tần suất xét mức cực đoan của dữ liệu khi H₀ đúng.
+**Giải thích:** p theo tần suất không phải posterior. Nhầm p với P(H₀|dữ liệu) là đảo chiều điều kiện; kiểm định tần suất xét mức cực đoan của dữ liệu khi H₀ đúng.
 
 
 **Q14. If a confidence interval covers a null value, what often happens in a matching two-sided test? | Nếu CI chứa mốc H₀ thì kiểm định hai phía tương ứng thường thế nào?**
