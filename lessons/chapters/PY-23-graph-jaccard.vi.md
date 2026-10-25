@@ -42,6 +42,19 @@
 
 Một **đồ thị** gồm tập **đỉnh** và tập **cạnh** nối chúng. Để biểu diễn mạng bạn bè An–Bình–Lan mà không cần vẽ, dùng Dictionary: **khóa** là tên người, **Set giá trị** là những người kết nối trực tiếp với họ. Nếu quan hệ hai chiều, cả hai đầu phải ghi tên nhau. Ví dụ An kết bạn với Bình và Lan, còn Bình/Lan đều kết nối ngược lại An.
 
+**No Note — Không chú thích**
+
+```python
+graph = {
+    'An': {'Binh', 'Lan'},
+    'Binh': {'An'},
+    'Lan': {'An'},
+}
+print(sorted(graph['An']))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Biểu diễn quan hệ bạn bè bằng dictionary danh sách kề và đọc bạn của An.
 # Dữ liệu: Mỗi khóa là một người, giá trị là set những người nối với họ bằng cạnh bạn bè.
@@ -69,6 +82,15 @@ An có hai kết nối trực tiếp là Bình và Lan. Dictionary giúp tra nha
 
 **Đỉnh** là một đối tượng trong mạng: một học viên, trạm xe hoặc trang web. Tên đỉnh chỉ là định danh, không nói lên nó đã kết nối với ai. Trong ví dụ có hai học viên An và Bình, ta dùng Set chứa hai tên làm tập đỉnh; `len(vertices)` đếm đối tượng khác nhau, không phải số liên kết.
 
+**No Note — Không chú thích**
+
+```python
+vertices = {'An', 'Binh'}
+print(len(vertices))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Đếm đỉnh là những đối tượng độc lập trong đồ thị.
 # Dữ liệu: Hai đỉnh An và Binh, tập set loại tên trùng nếu có.
@@ -92,6 +114,15 @@ Mạng có hai đỉnh khác nhau; chưa suy ra có cạnh nào giữa họ.
 
 **Cạnh** biểu diễn mối quan hệ giữa hai đỉnh. Với bạn bè hai chiều, cạnh An–Bình là **vô hướng** và chỉ cần tính một lần; với hành động A gửi thông báo tới B, cạnh A→B **có hướng**, không tự suy ra B→A. Danh sách kề có hướng `{'A':{'B'},'B':set()}` diễn tả A gửi B, nhưng B không gửi lại A.
 
+**No Note — Không chú thích**
+
+```python
+graph = {'A': {'B'}, 'B': set()}
+print('B' in graph['A'], 'A' in graph['B'])
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Phân biệt cạnh có hướng A→B với cạnh ngược B→A không tồn tại.
 # Dữ liệu: graph['A'] có B, graph['B'] là set rỗng; kết nối chỉ đi một chiều.
@@ -114,6 +145,16 @@ Quan hệ A→B tồn tại; chiều ngược lại không tồn tại. Cách l�
 **Từ vựng trong mục:** **Jaccard** — tương đồng Jaccard; **Union/intersection** — hợp/giao.
 
 **Jaccard** đo mức trùng nhau của hai tập: `J(A,B) = |A ∩ B| / |A ∪ B|`, trong khoảng **0–1** khi hợp không rỗng. Người A biết `{Python, AI}`, người B biết `{Python, SQL}`: giao có 1 kỹ năng `Python`, hợp có 3 kỹ năng, nên độ tương đồng là `1/3 ≈ 0.333`. Không dùng số lượng phần tử trùng trực tiếp làm tỷ lệ. Với cả hai tập rỗng phải định nghĩa riêng quy ước để tránh chia 0.
+
+**No Note — Không chú thích**
+
+```python
+a = {'Python', 'AI'}
+b = {'Python', 'SQL'}
+print(round(len(a & b) / len(a | b), 3))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính độ tương đồng Jaccard giữa hai bộ kỹ năng bằng giao chia hợp.
@@ -147,6 +188,29 @@ Hai hồ sơ giống nhau khoảng 33,3% theo Jaccard vì chỉ chung một trê
 1. Tạo 10 đỉnh, mỗi đỉnh có Set hàng xóm rỗng.
 2. Duyệt 12 cạnh và thêm hai chiều.
 3. Đếm hàng xóm A và kiểm tra tổng bậc bằng hai lần số cạnh.
+
+**No Note — Không chú thích**
+
+```python
+nodes = list("ABCDEFGHIJ")
+edges = [["A","B"],["A","C"],["A","D"],["B","E"],["C","E"],["D","F"],["E","F"],["F","G"],["G","H"],["H","I"],["I","J"],["C","J"]]
+graph = {}
+for node in nodes:
+    graph[node] = set()
+for left, right in edges:
+    graph[left].add(right)
+    graph[right].add(left)
+if len(nodes) != 10 or len(edges) != 12:
+    raise ValueError("Cần đúng 10 người và 12 quan hệ.")
+if sum(map(len, graph.values())) != 2 * len(edges):
+    raise ValueError("Đồ thị vô hướng phải ghi hai đầu mỗi cạnh.")
+print("Người:", len(nodes))
+print("Quan hệ:", len(edges))
+print("Bạn của A:", ", ".join(sorted(graph["A"])))
+print("Số bạn A:", len(graph["A"]))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tạo đồ thị vô hướng từ 10 người và 12 cạnh, đếm bậc của A và kiểm hai chiều.
@@ -205,6 +269,33 @@ Một dòng cạnh là một quan hệ giữa hai học viên; khi danh sách k�
 1. Tạo 12 dòng hồ sơ, mỗi hồ sơ là tập kỹ năng.
 2. Viết hàm Jaccard dùng độ lớn phần giao và hợp.
 3. Tính điểm H01–H02 và tìm người gần nhất với H01.
+
+**No Note — Không chú thích**
+
+```python
+profiles = [{"id":"H01","skills":["Python","AI","Python"]},{"id":"H02","skills":["AI","SQL"]},{"id":"H03","skills":["SQL","Math"]},{"id":"H04","skills":["Math","Data"]},{"id":"H05","skills":["Data","Cloud","Python"]},{"id":"H06","skills":["Cloud","Python"]},{"id":"H07","skills":["Python","AI"]},{"id":"H08","skills":["AI","SQL"]},{"id":"H09","skills":["SQL","Math","Python"]},{"id":"H10","skills":["Math","Data"]},{"id":"H11","skills":["Data","Cloud"]},{"id":"H12","skills":["Cloud","Python"]}]
+def jaccard(first, second):
+    a, b = set(first), set(second)
+    union = a | b
+    if union:
+        return len(a & b) / len(union)
+    return 0.0
+reference = profiles[0]["skills"]
+score = jaccard(reference, profiles[1]["skills"])
+ranked = []
+for person in profiles[1:]:
+    ranked.append((person["id"], jaccard(reference, person["skills"])))
+def sort_by_score(row):
+    return (-row[1], row[0])
+ranked.sort(key=sort_by_score)
+if len(profiles) != 12:
+    raise ValueError("Cần đúng 12 hồ sơ kỹ năng.")
+print("Hồ sơ:", len(profiles))
+print(f"Jaccard H01-H02: {score:.2f}")
+print("Gần H01 nhất:", ranked[0][0], f"{ranked[0][1]:.2f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tính Jaccard kỹ năng từ 12 hồ sơ và xếp người gần hồ sơ H01 nhất.
@@ -269,6 +360,56 @@ Gần H01 nhất: H07 1.00
 1. Dựng danh sách kề từ 15 cạnh; mỗi quan hệ ghi cả hai chiều.
 2. Duyệt những đỉnh chưa thăm để thu từng cụm kết nối.
 3. Sắp các kích thước cụm và kiểm tra A/O có cùng cụm không.
+
+**No Note — Không chú thích**
+
+```python
+edges = [["A","B"],["B","C"],["C","D"],["A","D"],["D","E"],["E","F"],["F","G"],["H","I"],["I","J"],["J","K"],["K","L"],["H","L"],["L","M"],["M","N"],["N","O"]]
+vertex_set = set()
+for edge in edges:
+    for name in edge:
+        vertex_set.add(name)
+vertices = sorted(vertex_set)
+graph = {}
+for vertex in vertices:
+    graph[vertex] = set()
+for a, b in edges:
+    graph[a].add(b)
+    graph[b].add(a)
+seen, components = set(), []
+for start in vertices:
+    if start in seen:
+        continue
+    stack, members = [start], set()
+    while stack:
+        node = stack.pop()
+        if node in seen:
+            continue
+        seen.add(node)
+        members.add(node)
+        stack.extend(graph[node] - seen)
+    components.append(members)
+if len(edges) != 15 or len(vertices) != 15:
+    raise ValueError("Đồ thị cần 15 cạnh và 15 đỉnh.")
+print("Cạnh:", len(edges))
+print("Cụm:", len(components))
+sizes = []
+for group in components:
+    sizes.append(len(group))
+sizes.sort(reverse=True)
+labels = []
+for size in sizes:
+    labels.append(str(size))
+connected = False
+for group in components:
+    if {"A", "O"} <= group:
+        connected = True
+        break
+print("Kích thước cụm:", ", ".join(labels))
+print("A kết nối O:", connected)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tìm các thành phần liên thông trong đồ thị 15 cạnh bằng ngăn xếp DFS.
@@ -367,6 +508,37 @@ Hai người có thể không có cạnh trực tiếp nhưng vẫn cùng cụm 
 2. Tính tương đồng U01 với 17 người còn lại, kiểm tra tập rỗng.
 3. Sắp xếp ổn định, in ba ứng viên đầu và số hồ sơ thiếu kỹ năng.
 
+**No Note — Không chú thích**
+
+```python
+people = [{"id":"U01","skills":["Python","SQL","Python"]},{"id":"U02","skills":["AI","Math"]},{"id":"U03","skills":["SQL","Data"]},{"id":"U04","skills":["Math","Cloud","Python"]},{"id":"U05","skills":["Data","Vision"]},{"id":"U06","skills":["Cloud","NLP"]},{"id":"U07","skills":["Vision","Python","Python"]},{"id":"U08","skills":["NLP","AI"]},{"id":"U09","skills":["Python","SQL"]},{"id":"U10","skills":["AI","Math","Python"]},{"id":"U11","skills":["SQL","Data"]},{"id":"U12","skills":["Math","Cloud"]},{"id":"U13","skills":["Data","Vision","Python"]},{"id":"U14","skills":[]},{"id":"U15","skills":["Vision","Python"]},{"id":"U16","skills":["NLP","AI","Python"]},{"id":"U17","skills":["Python","SQL"]},{"id":"U18","skills":["AI","Math"]}]
+def similarity(a, b):
+    a, b = set(a), set(b)
+    total = a | b
+    if total:
+        return len(a & b) / len(total)
+    return 0.0
+base = people[0]["skills"]
+ranked = []
+for person in people[1:]:
+    ranked.append((person["id"], similarity(base, person["skills"])))
+def ranking_key(item):
+    return (-item[1], item[0])
+ranked.sort(key=ranking_key)
+if len(people) != 18:
+    raise ValueError("Cần đúng 18 hồ sơ kỹ năng.")
+print("Hồ sơ:", len(people))
+missing_skills = 0
+for person in people:
+    if not person["skills"]:
+        missing_skills += 1
+print("Thiếu kỹ năng:", missing_skills)
+for uid, score in ranked[:3]:
+    print(f"{uid}: {score:.2f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Xếp hạng người có kỹ năng giống U01 từ 18 hồ sơ, xử lý list kỹ năng thiếu.
 # Dữ liệu: 18 dict id/skills; người U14 có list rỗng, có hồ sơ lặp kỹ năng Python.
@@ -437,6 +609,44 @@ U03: 0.33
 1. Tạo danh sách kề **một chiều** từ 20 cạnh và xác nhận trạm nguồn/đích.
 2. Dùng BFS có kiểm soát đỉnh đã thăm để tìm đường A→K và R→K.
 3. Tính Jaccard tập trạm nhận trực tiếp A/B, báo đường và hai kết quả.
+
+**No Note — Không chú thích**
+
+```python
+from collections import deque
+edges = [["A","B"],["A","C"],["B","D"],["C","D"],["D","E"],["E","F"],["B","G"],["G","H"],["H","I"],["I","J"],["F","J"],["J","K"],["C","L"],["L","M"],["M","N"],["N","O"],["O","K"],["K","P"],["P","Q"],["R","S"]]
+graph = {}
+for source, destination in edges:
+    graph.setdefault(source, set()).add(destination)
+def shortest(start, end):
+    queue = deque([(start, [start])])
+    visited = {start}
+    while queue:
+        node, path = queue.popleft()
+        if node == end:
+            return path
+        for neighbor in sorted(graph.get(node, set())):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append((neighbor, path + [neighbor]))
+    return None
+path = shortest("A", "K")
+a, b = graph.get("A", set()), graph.get("B", set())
+union = a | b
+if union:
+    score = len(a & b) / len(union)
+else:
+    score = 0.0
+if len(edges) != 20:
+    raise ValueError("Cần đủ 20 cạnh có hướng.")
+print("Cạnh có hướng:", len(edges))
+print("Đường A-K:", " -> ".join(path))
+print("Số cạnh đường:", len(path) - 1)
+print("R tới K:", shortest("R", "K") is not None)
+print(f"Jaccard kề A/B: {score:.2f}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng BFS tìm đường đi ngắn nhất theo số cạnh có hướng giữa A và K, so Jaccard danh sách kề A/B.
