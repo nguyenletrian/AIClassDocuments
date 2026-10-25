@@ -115,158 +115,201 @@ AB
 ```
 
 Hai ký tự đầu được tách ra mà chuỗi ban đầu vẫn giữ nguyên.
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống ứng dụng — tăng dần mức độ
 
-### Tình huống 1 — Chuẩn hóa email
+### Tình huống 1 — Cấp 1: Chuẩn hóa mười địa chỉ liên hệ
 
-**Từ vựng trong mục:** **String** — chuỗi; **Method** — phương thức.
+**Từ vựng trong mục:** **String** — chuỗi; **Strip** — bỏ khoảng trắng; **Lower** — chữ thường.
 
-**Tình huống thực tế:** Một ứng dụng lưu email do khách nhập là `"  Lan@Example.COM "`, trong đó có khoảng trắng thừa ở đầu và cuối, còn chữ hoa và chữ thường được nhập lẫn nhau.
+**Tình huống thực tế:** Nhóm hỗ trợ tiếp nhận **10 email giả lập** để đăng ký nhận thông báo. Mỗi dòng là email của một tài khoản nội bộ dạng `Member01@Example.INVALID`, có hai khoảng trắng ở đầu/cuối. Hãy trả về số email và địa chỉ đầu/cuối sau chuẩn hóa.
 
-**Yêu cầu:** In email không còn khoảng trắng ở hai đầu và được đổi thành chữ thường.
+**Vì sao chọn cách này?** Chuỗi phải được xử lý bằng `strip()` và `lower()` theo đúng thứ tự; bước này chuẩn hóa cách so sánh và hiển thị, **không thay thế kiểm tra địa chỉ email hợp lệ**.
 
-**Vì sao chọn cách giải này?** `strip()` bỏ khoảng trắng hai đầu; `lower()` đổi chữ thành chữ thường, giúp thống nhất cách hiển thị và hỗ trợ so sánh email. Cách này không kiểm tra email có hợp lệ hay không.
-
-**Quy trình giải:**
-
-1. Lưu chuỗi email ban đầu.
-2. Dùng `strip()` bỏ khoảng trắng đầu và cuối.
-3. Dùng `lower()` đổi chữ thành chữ thường rồi in kết quả.
+**Quy trình:**
+1. Lưu mười chuỗi email thử nghiệm.
+2. Bỏ khoảng trắng biên rồi chuyển thành chữ thường.
+3. In số email và hai email mẫu đã chuẩn hóa.
 
 ```python
-# Mục đích: Chuẩn hóa email.
-email = "  Lan@Example.COM "
-print(email.strip().lower())
+raw_emails = ["  Member01@Example.INVALID  ","  Member02@Example.INVALID  ","  Member03@Example.INVALID  ","  Member04@Example.INVALID  ","  Member05@Example.INVALID  ","  Member06@Example.INVALID  ","  Member07@Example.INVALID  ","  Member08@Example.INVALID  ","  Member09@Example.INVALID  ","  Member10@Example.INVALID  "]
+cleaned = [email.strip().lower() for email in raw_emails]
+assert len(cleaned) == 10
+print("Số email:", len(cleaned))
+print("Đầu:", cleaned[0])
+print("Cuối:", cleaned[-1])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-lan@example.com
+Số email: 10
+Đầu: member01@example.invalid
+Cuối: member10@example.invalid
 ```
 
-**Kết quả:** `lan@example.com` — email không còn khoảng trắng thừa và đã viết thường.
+Toàn bộ 10 email đã được chuyển đổi. Miền `.invalid` được dùng có chủ đích cho dữ liệu minh họa, không phải tài khoản thật.
 
-### Tình huống 2 — Tách nhãn sản phẩm
+### Tình huống 2 — Cấp 2: Tách nhãn sản phẩm trong 12 dòng nhập liệu
 
-**Từ vựng trong mục:** **String** — chuỗi; **Split** — tách.
+**Từ vựng trong mục:** **Split** — tách chuỗi; **Delimiter** — dấu phân cách; **Normalization** — chuẩn hóa.
 
-**Tình huống thực tế:** Một cửa hàng nhận chuỗi nhãn sản phẩm `"AI,Python,Math"`. Ba nhãn được ngăn cách bằng dấu phẩy và cần tách riêng để xử lý từng nhãn.
+**Tình huống thực tế:** Thư viện lưu **12 thẻ môn học**, mỗi dòng có hai nhãn cách nhau bằng dấu phẩy, chẳng hạn `"python, AI"` và `"SQL, python"`. Nhân viên cần tách nhãn, chuẩn hóa chữ hoa/thường, rồi đếm **mỗi nhãn xuất hiện bao nhiêu lần** trong cả 12 dòng.
 
-**Yêu cầu:** Tạo danh sách gồm ba nhãn từ chuỗi này.
+**Vì sao chọn cách này?** Không được coi `Python` và `python` là hai nhãn khác nhau; `split(',')` tách đúng dấu ngăn cách, `strip()` bỏ khoảng trắng quanh từng nhãn và `lower()` quy về một cách viết.
 
-**Vì sao chọn cách giải này?** `split(",")` tách chuỗi ở mỗi dấu phẩy thành các phần tử riêng trong một danh sách.
-
-**Quy trình giải:**
-
-1. Lưu chuỗi nhãn vào `labels`.
-2. Truyền dấu phẩy vào `split()` để tách các nhãn.
-3. In danh sách nhận được.
+**Quy trình:**
+1. Duyệt đủ 12 dòng, tách mỗi dòng thành hai nhãn.
+2. Chuẩn hóa nhãn trước khi đưa vào bảng đếm.
+3. In tổng dòng và số lần xuất hiện của từng nhãn theo thứ tự chữ cái.
 
 ```python
-# Mục đích: Tách nhãn sản phẩm.
-labels = "AI,Python,Math"
-print(labels.split(","))
+raw_labels = ["python, AI","SQL, python","math, data","Python, SQL","AI, data","math, python","data, SQL","AI, Math","python, data","SQL, AI","Math, SQL","Python, AI"]
+counts = {}
+for text in raw_labels:
+    for part in text.split(","):
+        label = part.strip().lower()
+        counts[label] = counts.get(label, 0) + 1
+assert len(raw_labels) == 12
+print("Số dòng:", len(raw_labels))
+for label in sorted(counts):
+    print(label, counts[label])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-['AI', 'Python', 'Math']
+Số dòng: 12
+ai 5
+data 4
+math 4
+python 6
+sql 5
 ```
 
-**Kết quả:** `['AI', 'Python', 'Math']` — ba nhãn được tách thành ba phần tử.
+Mỗi dòng đóng góp hai nhãn, tổng tất cả số đếm phải bằng 24. Đây là sự khác biệt giữa dữ liệu gốc có nhiều cách viết và từ vựng đã chuẩn hóa.
 
-### Tình huống 3 — Giữ mã đầu 0
+### Tình huống 3 — Cấp 3: Giữ số 0 ở đầu của 15 mã đơn hàng
 
-**Từ vựng trong mục:** **String** — chuỗi; **Slice** — cắt chuỗi.
+**Từ vựng trong mục:** **Identifier** — mã định danh; **Slice** — cắt chuỗi; **Integer** — số nguyên.
 
-**Tình huống thực tế:** Hệ thống quản lý đơn hàng lưu mã `00045`. Các số `0` đầu mã phải được giữ nguyên vì đây là mã nhận diện, không phải số để tính toán.
+**Tình huống thực tế:** Kho nhận **15 mã đơn hàng**, mỗi mã đúng **5 chữ số**, như `00001` đến `00015`, có khoảng trắng khi nhập. Mỗi mã là **định danh**, không phải số lượng hàng. Hãy chuẩn hóa, kiểm tra độ dài và tìm hai mã đầu/cuối mà không làm mất những số 0.
 
-**Yêu cầu:** Lưu mã đơn và in ba ký tự đầu của mã để kiểm tra chúng vẫn còn nguyên.
+**Vì sao chọn cách này?** Đổi mã sang `int` sẽ loại các số 0 ở đầu; dùng chuỗi giữ nguyên ký tự, `strip()` bỏ khoảng trắng và `len()` xác nhận đúng độ dài. Sau đó có thể dùng slicing để đọc từng phần mã.
 
-**Vì sao chọn cách giải này?** Chuỗi `str` giữ được các số `0` đứng đầu. Cú pháp `[:3]` lấy ba ký tự đầu, không chuyển mã sang số nguyên.
-
-**Quy trình giải:**
-
-1. Lưu `"00045"` vào `order_id`.
-2. Lấy ba ký tự đầu bằng `order_id[:3]`.
-3. In kết quả để xem phần đầu của mã.
+**Quy trình:**
+1. Lưu 15 mã chuỗi.
+2. Bỏ khoảng trắng và kiểm tra mã chỉ có năm chữ số.
+3. In các mẫu đầu/cuối cùng ba ký tự đầu của mã đầu.
 
 ```python
-# Mục đích: Giữ mã đầu 0.
-order_id = "00045"
-print(order_id[:3])
+raw_codes = ["  00001  ","  00002  ","  00003  ","  00004  ","  00005  ","  00006  ","  00007  ","  00008  ","  00009  ","  00010  ","  00011  ","  00012  ","  00013  ","  00014  ","  00015  "]
+codes = [code.strip() for code in raw_codes]
+valid = all(code.isdigit() and len(code) == 5 for code in codes)
+assert len(codes) == 15
+print("Số mã:", len(codes))
+print("Đều hợp lệ:", valid)
+print("Mã đầu:", codes[0], "| đầu mã:", codes[0][:3])
+print("Mã cuối:", codes[-1])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-000
+Số mã: 15
+Đều hợp lệ: True
+Mã đầu: 00001 | đầu mã: 000
+Mã cuối: 00015
 ```
 
-**Kết quả:** `000` — ba ký tự đầu của mã vẫn được giữ nguyên. Chương trình không in cả mã `00045`.
+Đủ 15 mã được giữ nguyên 5 ký tự. Nếu dùng phép đổi sang số nguyên, thông tin định danh `00001` sẽ thành `1` và không còn đúng định dạng.
 
-### Tình huống 4 — Đổi số từ CSV
+### Tình huống 4 — Cấp 4: Làm sạch 18 giá đọc từ CSV
 
-**Từ vựng trong mục:** **Float** — số thực; **Integer** — số nguyên.
+**Từ vựng trong mục:** **Float** — số thực; **Conversion** — đổi kiểu; **Invalid input** — đầu vào sai.
 
-**Tình huống thực tế:** Một cửa hàng nhập từ file CSV giá một sản phẩm là chuỗi `"12.5"` và số lượng là chuỗi `"3"`. Giá tính theo cùng đơn vị tiền của hệ thống.
+**Tình huống thực tế:** Nhà cung cấp gửi **18 đơn giá** (nghìn đồng/món), mỗi dòng là một mã giá theo thứ tự P01…P18. Trong đó P03 ghi `bad` và P14 là chuỗi rỗng. Hãy kiểm tra kiểu trước khi cộng tổng các giá hợp lệ, đồng thời nêu hai mã cần sửa.
 
-**Yêu cầu:** Đổi hai chuỗi thành số, rồi tính số tiền cho ba sản phẩm.
+**Vì sao chọn cách này?** Không gọi `float()` trực tiếp trên toàn bộ chuỗi: dữ liệu `bad` và rỗng sẽ gây lỗi. Ở ví dụ này, giá chỉ nhận số không âm và tối đa một dấu chấm, nên có thể kiểm tra ký tự trước khi đổi.
 
-**Vì sao chọn cách giải này?** Dùng `float()` cho giá có phần thập phân và `int()` cho số lượng nguyên, sau đó nhân hai số để tính tiền.
-
-**Quy trình giải:**
-
-1. Đổi `"12.5"` thành số thực bằng `float()`.
-2. Đổi `"3"` thành số nguyên bằng `int()`.
-3. Nhân giá và số lượng rồi in kết quả.
+**Quy trình:**
+1. Gán 18 mã giá theo thứ tự.
+2. Bỏ khoảng trắng, kiểm tra định dạng số thập phân không âm.
+3. Đổi số hợp lệ thành `float`, ghi lại ID không hợp lệ rồi cộng các giá trị hợp lệ.
 
 ```python
-# Mục đích: Đổi số từ CSV.
-price = float("12.5")
-qty = int("3")
-print(price * qty)
+raw_prices = ["12.5","8.0","bad","7.5","13.0","10.0","19.5","6.5","11.0","15.5","9.0","16.0","20.0","","10.5","14.5","8.5","12.0"]
+valid_prices = []
+invalid_ids = []
+for index, raw in enumerate(raw_prices, 1):
+    clean = raw.strip()
+    if not clean.replace(".", "", 1).isdigit():
+        invalid_ids.append(f"P{index:02d}")
+        continue
+    valid_prices.append(float(clean))
+assert len(raw_prices) == 18
+print("Giá hợp lệ:", len(valid_prices))
+print("Giá lỗi:", ", ".join(invalid_ids))
+print(f"Tổng giá (nghìn đồng): {sum(valid_prices):.1f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-37.5
+Giá hợp lệ: 16
+Giá lỗi: P03, P14
+Tổng giá (nghìn đồng): 194.0
 ```
 
-**Kết quả:** `37.5` đơn vị tiền — tổng giá của ba sản phẩm.
+Đây là tổng **16 đơn giá mẫu**, không phải doanh thu; để tính doanh thu còn cần số lượng bán tương ứng. Quy tắc kiểm tra ký tự chỉ phù hợp với định dạng số không âm đơn giản của bài.
 
-### Tình huống 5 — Che số liên lạc
+### Tình huống 5 — Cấp 5: Chuẩn hóa, kiểm tra và che 20 mã hồ sơ
 
-**Từ vựng trong mục:** **String** — chuỗi; **Slice** — cắt chuỗi.
+**Từ vựng trong mục:** **Boolean** — đúng/sai; **String validation** — kiểm tra chuỗi; **Masking** — che thông tin.
 
-**Tình huống thực tế:** Ứng dụng chăm sóc khách hàng có số điện thoại mẫu `0900123456`. Khi hiển thị trên màn hình, ứng dụng chỉ được để lộ ba chữ số cuối.
+**Tình huống thực tế:** Một hệ thống nội bộ nhận **20 mã hồ sơ giả lập**, mỗi dòng phải có mẫu `ID-` theo sau bằng đúng bốn chữ số. Trong dữ liệu có một mã sai tiền tố, một mã thiếu phần số và một mã lặp. Cần chuẩn hóa khoảng trắng, phân loại mã hợp lệ/trùng/sai rồi chỉ hiển thị hai chữ số cuối của mã hợp lệ khi gửi báo cáo.
 
-**Yêu cầu:** In số điện thoại dưới dạng dấu `*` che toàn bộ ký tự trừ ba số cuối.
+**Vì sao chọn cách này?** Đây là bài tổng hợp các phép toán chuỗi và Boolean đã học: không thể chỉ dùng `lower()` hoặc chuyển `int` khi mã có tiền tố và ký tự 0. Dùng Set để phát hiện trùng là phần mở rộng của PY-07.
 
-**Vì sao chọn cách giải này?** Lưu số điện thoại dạng chuỗi để giữ số `0` đầu. `phone[-3:]` lấy ba ký tự cuối; `len(phone)-3` tính số dấu `*` cần in.
-
-**Quy trình giải:**
-
-1. Lưu số điện thoại dưới dạng chuỗi.
-2. Tạo số dấu `*` bằng độ dài chuỗi trừ ba.
-3. Ghép phần che với ba ký tự cuối rồi in.
+**Quy trình:**
+1. Chuẩn hóa 20 chuỗi, tách tiền tố và hậu tố.
+2. Xác nhận độ dài và chữ số, kiểm tra mã đã xuất hiện chưa.
+3. Chỉ giữ mã hợp lệ, báo mã sai/trùng và in một mã đã che.
 
 ```python
-# Mục đích: Che số liên lạc.
-phone = "0900123456"
-print("*" * (len(phone)-3) + phone[-3:])
+raw_ids = [" ID-0001 "," ID-0002 "," ID-0003 "," ID-0004 "," ID-0005 "," ID-0006 ","X-0007"," ID-0008 "," ID-0009 "," ID-0010 "," ID-0011 "," ID-0004 "," ID-0013 "," ID-0014 "," ID-0015 "," ID-0016 "," ID-0017 "," ID- "," ID-0019 "," ID-0020 "]
+accepted = []
+invalid = []
+duplicates = []
+seen = set()
+for raw in raw_ids:
+    code = raw.strip().upper()
+    suffix = code[3:]
+    if not (code.startswith("ID-") and len(suffix) == 4 and suffix.isdigit()):
+        invalid.append(code)
+    elif code in seen:
+        duplicates.append(code)
+    else:
+        seen.add(code)
+        accepted.append(code)
+assert len(raw_ids) == 20
+print("Đầu vào:", len(raw_ids))
+print("Hợp lệ duy nhất:", len(accepted))
+print("Sai định dạng:", len(invalid))
+print("Trùng:", duplicates)
+print("Mã đầu đã che:", "ID-**" + accepted[0][-2:])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-*******456
+Đầu vào: 20
+Hợp lệ duy nhất: 17
+Sai định dạng: 2
+Trùng: ['ID-0004']
+Mã đầu đã che: ID-**01
 ```
 
-**Kết quả:** `*******456` — bảy ký tự đầu được che, chỉ còn `456`.
+20 đầu vào được chia thành 17 mã hợp lệ duy nhất, hai mã sai và một bản sao; phép che chỉ giảm khả năng lộ mã trong bản tin, **không phải mã hóa hay biện pháp bảo mật hoàn chỉnh**.
 
 ## 6. Những nhầm lẫn thường gặp
 
