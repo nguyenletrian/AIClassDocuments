@@ -14,8 +14,8 @@
     18,
     20
   ],
-  "last_completed_batch": 0,
-  "status": "BATCH_01_QA_PASSED_WAIT_MERGE",
+  "last_completed_batch": 1,
+  "status": "READY_FOR_BATCH_02",
   "unverified_draft_reference": {
     "branch": "feat/46-lessons-scenarios-progression-20261025",
     "status": "UNREVIEWED_DO_NOT_MERGE_WHOLE",
@@ -33,14 +33,14 @@
         "PY-04",
         "PY-05"
       ],
-      "status": "QA_PASSED",
+      "status": "MERGED",
       "branch": "feat/curriculum-scenarios-batch-01-20261025",
       "pr_number": 123,
-      "merged_commit": null,
-      "ci_run": 40156809354,
+      "merged_commit": "8f29eec4c104f673f52113861ace0f0919dca80c",
+      "ci_run": 40156877285,
       "windows_test": null,
       "updated_at": "2026-10-25",
-      "notes": "GitHub CI 40156809354 passed after correction: 25 independent scenario examples executed and output matched; 46-chapter MCQ/syntax/structure gates passed; sections other than 5 unchanged. Windows Bridge test not yet evidenced. PR must still be merged, then ledger final MERGED.",
+      "notes": "PR #123 squash-merged 8f29eec4; CI run 40156877285 PASS (25 scenarios executed with exact stdout, chapter structure, 20 bilingual MCQ/chapter, code syntax). Windows Bridge test not yet evidenced. PY-01..05 done; next batch PY-06..10.",
       "lesson_commits": {
         "PY-01": "116ab2f6e9857c9b3fa48b3d1dff6fa2416440a2",
         "PY-02": "177bd87a060d6c532c86b3eff631aadb1eae65c9",
