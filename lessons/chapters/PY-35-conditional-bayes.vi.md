@@ -110,7 +110,10 @@ Nếu quần thể được chia thành các **nhóm rời nhau và phủ đủ*
 # Mục đích: Cộng qua các nhóm đầy đủ.
 shares = [0.6, 0.4]
 support = [0.8, 0.2]
-print(round(sum(a * b for a, b in zip(shares, support)), 3))
+total = 0
+for share, probability in zip(shares, support):
+    total += share * probability
+print(round(total, 3))
 ```
 
 **Kết quả khi chạy:**
@@ -138,9 +141,16 @@ Xác suất chung là 56%, được tính theo tỷ trọng mỗi nhóm.
 
 ```python
 records = [{"id":"K01","viewed":True,"bought":True},{"id":"K02","viewed":True,"bought":False},{"id":"K03","viewed":True,"bought":True},{"id":"K04","viewed":False,"bought":False},{"id":"K05","viewed":True,"bought":True},{"id":"K06","viewed":True,"bought":False},{"id":"K07","viewed":True,"bought":False},{"id":"K08","viewed":False,"bought":True},{"id":"K09","viewed":True,"bought":False},{"id":"K10","viewed":False,"bought":False}]
-viewed = [row for row in records if row["viewed"]]
-bought_after_viewing = sum(row["bought"] for row in viewed)
-assert len(records) == 10 and len(viewed) > 0
+viewed = []
+for row in records:
+    if row["viewed"]:
+        viewed.append(row)
+bought_after_viewing = 0
+for row in viewed:
+    if row["bought"]:
+        bought_after_viewing += 1
+if len(records) != 10 or not viewed:
+    raise ValueError("Cần 10 khách và ít nhất một khách đã xem.")
 print("Khách:", len(records))
 print("Đã xem:", len(viewed))
 print("Mua trong nhóm xem:", bought_after_viewing)
@@ -174,10 +184,21 @@ P(mua|đã xem): 0.429
 ```python
 records = [{"a":True,"b":True},{"a":True,"b":False},{"a":False,"b":True},{"a":False,"b":False},{"a":True,"b":True},{"a":True,"b":False},{"a":False,"b":True},{"a":False,"b":False},{"a":True,"b":True},{"a":True,"b":False},{"a":False,"b":True},{"a":False,"b":False}]
 n = len(records)
-p_a = sum(r["a"] for r in records)/n
-p_b = sum(r["b"] for r in records)/n
-p_both = sum(r["a"] and r["b"] for r in records)/n
-assert n == 12
+a_count = 0
+b_count = 0
+both_count = 0
+for row in records:
+    if row["a"]:
+        a_count += 1
+    if row["b"]:
+        b_count += 1
+    if row["a"] and row["b"]:
+        both_count += 1
+p_a = a_count / n
+p_b = b_count / n
+p_both = both_count / n
+if n != 12:
+    raise ValueError("Cần đúng 12 lượt kiểm tra tính độc lập.")
 print("Lượt kiểm:", n)
 print(f"P(A): {p_a:.2f}")
 print(f"P(B): {p_b:.2f}")
@@ -213,20 +234,40 @@ Kết quả khớp công thức **trên bảng giả lập được xây dựng*
 ```python
 records = [{"id":"P01","defective":False,"positive":True},{"id":"P02","defective":True,"positive":True},{"id":"P03","defective":False,"positive":False},{"id":"P04","defective":False,"positive":True},{"id":"P05","defective":False,"positive":False},{"id":"P06","defective":False,"positive":False},{"id":"P07","defective":True,"positive":True},{"id":"P08","defective":False,"positive":False},{"id":"P09","defective":False,"positive":False},{"id":"P10","defective":False,"positive":True},{"id":"P11","defective":False,"positive":False},{"id":"P12","defective":True,"positive":False},{"id":"P13","defective":False,"positive":False},{"id":"P14","defective":False,"positive":False},{"id":"P15","defective":False,"positive":False}]
 n = len(records)
-defects = [row for row in records if row["defective"]]
-good = [row for row in records if not row["defective"]]
-positive = [row for row in records if row["positive"]]
+defects = []
+good = []
+positive = []
+for row in records:
+    if row["defective"]:
+        defects.append(row)
+    else:
+        good.append(row)
+    if row["positive"]:
+        positive.append(row)
 prior = len(defects)/n
-sensitivity = sum(row["positive"] for row in defects)/len(defects)
-false_positive = sum(row["positive"] for row in good)/len(good)
+true_positive_count = 0
+for row in defects:
+    if row["positive"]:
+        true_positive_count += 1
+false_positive_count = 0
+for row in good:
+    if row["positive"]:
+        false_positive_count += 1
+sensitivity = true_positive_count / len(defects)
+false_positive = false_positive_count / len(good)
 evidence = sensitivity*prior+false_positive*(1-prior)
 posterior = sensitivity*prior/evidence
-assert n == 15 and len(positive) > 0
+if n != 15 or not positive:
+    raise ValueError("Cần 15 sản phẩm và ít nhất một cảnh báo.")
 print("Sản phẩm:", n)
 print("Lỗi thật:", len(defects))
 print("Máy cảnh báo:", len(positive))
 print(f"P(lỗi|cảnh báo): {posterior:.3f}")
-print("Khớp kiểm đếm:", abs(posterior-sum(r["defective"] for r in positive)/len(positive)) < 1e-12)
+defects_among_positive = 0
+for row in positive:
+    if row["defective"]:
+        defects_among_positive += 1
+print("Khớp kiểm đếm:", abs(posterior - defects_among_positive / len(positive)) < 1e-12)
 ```
 
 **Kết quả khi chạy:**
@@ -260,12 +301,33 @@ n = len(records)
 areas = ("A", "B", "C")
 overall = 0.0
 for area in areas:
-    subset = [row for row in records if row["area"] == area]
-    overall += (len(subset)/n)*(sum(row["bought"] for row in subset)/len(subset))
-direct = sum(row["bought"] for row in records)/n
-assert len(records) == 18 and len({r["id"] for r in records}) == 18
+    subset = []
+    bought_count = 0
+    for row in records:
+        if row["area"] == area:
+            subset.append(row)
+            if row["bought"]:
+                bought_count += 1
+    overall += (len(subset) / n) * (bought_count / len(subset))
+all_bought_count = 0
+for row in records:
+    if row["bought"]:
+        all_bought_count += 1
+direct = all_bought_count / n
+unique_ids = set()
+for row in records:
+    unique_ids.add(row["id"])
+if len(records) != 18 or len(unique_ids) != 18:
+    raise ValueError("Cần đủ 18 khách với mã duy nhất.")
 print("Khách:", n)
-print("Nhóm A/B/C:", *(sum(row["area"] == group for row in records) for group in areas))
+group_counts = []
+for group in areas:
+    count = 0
+    for row in records:
+        if row["area"] == group:
+            count += 1
+    group_counts.append(count)
+print("Nhóm A/B/C:", *group_counts)
 print(f"Tỷ lệ mua toàn phần: {overall:.3f}")
 print("Khớp đếm trực tiếp:", abs(overall-direct) < 1e-12)
 ```
@@ -297,23 +359,50 @@ Ví dụ này minh họa **trung bình có trọng số**; nếu chỉ cộng ba
 ```python
 records = [{"id":"M01","line":"A","defective":False,"positive":True},{"id":"M02","line":"A","defective":True,"positive":True},{"id":"M03","line":"A","defective":False,"positive":False},{"id":"M04","line":"A","defective":False,"positive":False},{"id":"M05","line":"A","defective":False,"positive":False},{"id":"M06","line":"A","defective":False,"positive":True},{"id":"M07","line":"A","defective":False,"positive":False},{"id":"M08","line":"A","defective":False,"positive":False},{"id":"M09","line":"A","defective":True,"positive":True},{"id":"M10","line":"A","defective":False,"positive":False},{"id":"M11","line":"A","defective":False,"positive":False},{"id":"M12","line":"A","defective":False,"positive":False},{"id":"M13","line":"B","defective":True,"positive":True},{"id":"M14","line":"B","defective":True,"positive":True},{"id":"M15","line":"B","defective":False,"positive":False},{"id":"M16","line":"B","defective":False,"positive":False},{"id":"M17","line":"B","defective":True,"positive":False},{"id":"M18","line":"B","defective":False,"positive":True},{"id":"M19","line":"B","defective":False,"positive":False},{"id":"M20","line":"B","defective":False,"positive":False}]
 n = len(records)
-defects = [r for r in records if r["defective"]]
-good = [r for r in records if not r["defective"]]
-positive = [r for r in records if r["positive"]]
+defects = []
+good = []
+positive = []
+for row in records:
+    if row["defective"]:
+        defects.append(row)
+    else:
+        good.append(row)
+    if row["positive"]:
+        positive.append(row)
 prior = len(defects)/n
-sensitivity = sum(r["positive"] for r in defects)/len(defects)
-false_positive = sum(r["positive"] for r in good)/len(good)
+true_positive_count = 0
+for row in defects:
+    if row["positive"]:
+        true_positive_count += 1
+false_positive_count = 0
+for row in good:
+    if row["positive"]:
+        false_positive_count += 1
+sensitivity = true_positive_count / len(defects)
+false_positive = false_positive_count / len(good)
 p_positive = sensitivity*prior + false_positive*(1-prior)
 posterior = sensitivity*prior/p_positive
-positive_b = [r for r in records if r["line"] == "B" and r["positive"]]
-b_rate = sum(r["defective"] for r in positive_b)/len(positive_b)
-assert len(records) == 20 and len(positive_b)>0
+positive_b = []
+for row in records:
+    if row["line"] == "B" and row["positive"]:
+        positive_b.append(row)
+positive_b_defects = 0
+for row in positive_b:
+    if row["defective"]:
+        positive_b_defects += 1
+b_rate = positive_b_defects / len(positive_b)
+if len(records) != 20 or not positive_b:
+    raise ValueError("Cần đủ 20 sản phẩm và cảnh báo ở dây chuyền B.")
 print("Sản phẩm:", n)
 print("Lỗi thật:", len(defects))
 print("Cảnh báo:", len(positive))
 print(f"P(lỗi|cảnh báo) toàn nhà máy: {posterior:.3f}")
 print(f"P(lỗi|cảnh báo, B): {b_rate:.3f}")
-print("Bayes khớp đếm:", abs(posterior-sum(r["defective"] for r in positive)/len(positive)) < 1e-12)
+defects_among_positive = 0
+for row in positive:
+    if row["defective"]:
+        defects_among_positive += 1
+print("Bayes khớp đếm:", abs(posterior - defects_among_positive / len(positive)) < 1e-12)
 ```
 
 **Kết quả khi chạy:**
