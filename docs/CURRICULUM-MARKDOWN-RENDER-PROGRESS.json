@@ -3,7 +3,7 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "READY_FOR_BATCH_10",
+  "status": "BATCH_10_REVIEWED_WAIT_CI",
   "last_completed_batch": 9,
   "batches": [
     {
@@ -264,11 +264,23 @@
       "lessons": [
         "PY-46"
       ],
-      "status": "PENDING",
+      "status": "IN_PROGRESS",
       "changed_lessons": [],
       "pr": null,
       "merged_commit": null,
-      "ci_run": null
+      "ci_run": null,
+      "branch": "chore/markdown-render-batch-10-20261025",
+      "reviewed_lessons": [
+        "PY-46"
+      ],
+      "inspection": {
+        "checked_lines": 711,
+        "html_pipe_entities": 0,
+        "unescaped_pipes_in_markdown_tables": 0,
+        "malformed_table_rows": 0,
+        "lesson_edits": 0
+      },
+      "notes": "Full PY-46 markdown display audit: 711 lines, no visible pipe HTML entities, no unescaped table-cell pipes, no malformed table-row column counts. No lesson edits; preserve content, code, MCQ unchanged. Await CI PASS on final PR head before merge. Explicit Python goal stays APPROVED_DEFERRED until batch10 MERGED and ledger COMPLETED."
     }
   ],
   "notes": "Separate formatting-only QA workstream. The previously completed 230-scenario/920-MCQ ledger remains unchanged. Never edit outside the current batch. Review full lesson but change only verified formatting errors, commit/CI/merge/record progress before next batch."
