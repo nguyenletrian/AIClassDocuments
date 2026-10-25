@@ -120,130 +120,184 @@ print(colors * sizes)
 
 Có 12 cách chọn một màu và một cỡ khi mọi màu đều có đủ bốn cỡ.
 
-## 5. Năm tình huống lập trình thực tế
+## 5. Năm tình huống logic — từ hai mệnh đề đến kiểm thử quy tắc phức hợp
 
-### Tình huống 1 — Điều kiện đăng nhập
+### Tình huống 1 — Cấp 1: Kiểm tra hai điều kiện truy cập của 10 tài khoản
 
-**Từ vựng trong mục:** **Proposition** — mệnh đề; **AND** — và.
+**Từ vựng trong mục:** **Proposition** — mệnh đề; **AND** — và; **Boolean** — đúng/sai.
 
-**Tình huống thực tế:** Một cổng học tập chỉ cho mở nội dung khi người dùng đã đăng nhập và xác minh tài khoản. Trong lần kiểm tra này `logged_in=True`, `verified=False`. In kết quả người dùng có được quyền truy cập hay không.
+**Tình huống thực tế:** Cổng tài liệu có **10 tài khoản** U01…U10; mỗi dòng gồm trạng thái đã đăng nhập và đã xác minh (`True`/`False`). Chính sách chỉ cho phép truy cập nếu **cả hai** điều kiện đều đúng. Cần đếm số tài khoản được phép và mã bị từ chối, không sử dụng trạng thái giả định.
 
-**Vì sao chọn cách giải này?** Toán tử `and` chỉ cho `True` khi cả hai điều kiện đều đúng.
+**Vì sao chọn cách này?** Toán tử `and` chỉ trả True khi cả hai mệnh đề đúng; nhóm còn lại là người chưa đáp ứng đủ. Đây là kiểm tra quy tắc Boolean đơn giản, không phải hệ thống xác thực thật.
 
-**Quy trình giải:** Đặt hai trạng thái Boolean → nối chúng bằng `and` → in kết quả.
+**Quy trình:**
+1. Lưu hai trạng thái theo cùng thứ tự 10 tài khoản.
+2. Dùng `logged_in and verified` trên từng tài khoản.
+3. Báo số được phép và số từ chối, đối chiếu tổng là 10.
 
 ```python
-# Mục đích: Điều kiện đăng nhập.
-logged_in, verified = True, False
-print(logged_in and verified)
+logged_in = [True,True,False,True,False,True,True,False,True,True]
+verified = [True,False,True,True,False,False,True,True,True,False]
+allowed = [a and b for a, b in zip(logged_in, verified)]
+assert len(allowed) == 10
+print("Tài khoản:", len(allowed))
+print("Cho phép:", sum(allowed))
+print("Từ chối:", len(allowed) - sum(allowed))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-False
+Tài khoản: 10
+Cho phép: 4
+Từ chối: 6
 ```
 
-**Giải thích kết quả:** `False` — tài khoản đã đăng nhập nhưng chưa xác minh.
+Tài khoản chỉ đăng nhập nhưng chưa xác minh bị từ chối, vì một điều kiện đúng chưa đủ thỏa phép `and`.
 
-### Tình huống 2 — Bảng chân trị
+### Tình huống 2 — Cấp 2: Kiểm thử đầy đủ bảng chân trị trên 12 lượt kiểm tra
 
-**Từ vựng trong mục:** **Truth table** — bảng chân trị; **OR** — hoặc.
+**Từ vựng trong mục:** **Truth table** — bảng chân trị; **OR** — hoặc; **NOT** — phủ định.
 
-**Tình huống thực tế:** Nhân viên kiểm thử muốn lập bảng chân trị cho `p and q` và `p or q`, trong đó `p`, `q` đều có thể là `True` hoặc `False`. In tất cả bốn tổ hợp của p và q cùng kết quả của hai phép logic.
+**Tình huống thực tế:** Đội QA chạy **12 lượt kiểm tra**, gồm **4 tổ hợp** hai cờ `có đăng nhập` (p) và `đã xác minh` (q), lặp lại ở ba ngày khác nhau. Mỗi hàng là một cặp cờ của một ngày. Cần chứng minh các tổ hợp đã được bao phủ đủ, đếm số lượt có `p and q` và số lượt có `p or q`; không nhầm một tổ hợp lặp lại thành một tổ hợp mới.
 
-**Vì sao chọn cách giải này?** Hai vòng `for` lồng nhau tạo đủ 2 × 2 tổ hợp.
+**Vì sao chọn cách này?** Hai Boolean có đúng bốn trường hợp. Dùng `itertools.product` sinh bảng chân trị 4 trường hợp, gắn với 3 ngày thành 12 dòng, sau đó đếm hai phép logic khác nhau.
 
-**Quy trình giải:** Duyệt p theo hai trạng thái → với mỗi p duyệt q → in p, q, p and q, p or q.
+**Quy trình:**
+1. Sinh bốn tổ hợp p/q từ `product` và gắn với ba ngày kiểm thử.
+2. Kiểm tra mỗi tổ hợp xuất hiện ba lần.
+3. Đếm số lần hai phép AND/OR nhận True và báo độ phủ bảng chân trị.
 
 ```python
-# Mục đích: Bảng chân trị.
-for p in [True, False]:
-    for q in [True, False]:
-        print(p, q, p and q, p or q)
-```
-
-**Kết quả khi chạy:**
-
-```text
-True True True True
-True False False True
-False True False True
-False False False False
-```
-
-**Giải thích kết quả:** Bốn dòng cho đủ các trường hợp; `and` chỉ đúng khi cả hai đúng, `or` đúng khi ít nhất một đúng.
-
-### Tình huống 3 — Kiểm quy tắc kéo theo
-
-**Từ vựng trong mục:** **Implication** — kéo theo; **Premise** — tiền đề.
-
-**Tình huống thực tế:** Một quy định nội bộ phát biểu: “Nếu đã được phê duyệt (p) thì phải có chứng nhận (q)”. Có trường hợp `p=True` nhưng `q=False`. Kiểm tra quy tắc kéo theo có được đáp ứng không.
-
-**Vì sao chọn cách giải này?** `(not p) or q` tương đương phép kéo theo và nhận `False` khi tiền đề đúng nhưng kết luận sai.
-
-**Quy trình giải:** Gán p=True, q=False → tính `(not p) or q` → in kết quả.
-
-```python
-# Mục đích: Kiểm quy tắc kéo theo.
-p, q = True, False
-print((not p) or q)
-```
-
-**Kết quả khi chạy:**
-
-```text
-False
-```
-
-**Giải thích kết quả:** `False` — trường hợp này vi phạm quy tắc.
-
-### Tình huống 4 — Cấu hình áo
-
-**Từ vựng trong mục:** **Counting** — nguyên lý đếm; **Combination** — cách kết hợp.
-
-**Tình huống thực tế:** Cửa hàng cho khách chọn 1 trong 3 màu áo và 1 trong 4 cỡ; mọi màu đều có đủ bốn cỡ. Tính số cách chọn một màu và một cỡ.
-
-**Vì sao chọn cách giải này?** Nguyên lý nhân phù hợp khi mỗi lựa chọn màu kết hợp được với mọi lựa chọn cỡ.
-
-**Quy trình giải:** Lấy số màu nhân số cỡ: 3 × 4 → in tổng số kết hợp.
-
-```python
-# Mục đích: Cấu hình áo.
-print(3 * 4)
-```
-
-**Kết quả khi chạy:**
-
-```text
-12
-```
-
-**Giải thích kết quả:** `12` cách chọn.
-
-### Tình huống 5 — Ghép các tùy chọn
-
-**Từ vựng trong mục:** **Cartesian product** — tích Descartes; **Option** — lựa chọn.
-
-**Tình huống thực tế:** Cửa hàng bán áo có hai màu `red`, `blue` và hai cỡ `S`, `M`, mọi màu đều có đủ hai cỡ. In danh sách cụ thể tất cả cặp (màu, cỡ).
-
-**Vì sao chọn cách giải này?** `itertools.product` liệt kê tích Descartes, khác với chỉ đếm bằng phép nhân.
-
-**Quy trình giải:** Tạo list hai màu và hai cỡ → dùng `product` → chuyển sang list và in.
-
-```python
-# Mục đích: Ghép các tùy chọn.
 from itertools import product
-print(list(product(["red", "blue"], ["S", "M"])))
+truth_table = list(product([True, False], repeat=2))
+checks = [(day, p, q) for day in range(1, 4) for p, q in truth_table]
+assert len(checks) == 12 and len(set((p, q) for day, p, q in checks)) == 4
+print("Lượt kiểm tra:", len(checks))
+print("Tổ hợp logic:", len(truth_table))
+print("AND đúng:", sum(p and q for day, p, q in checks))
+print("OR đúng:", sum(p or q for day, p, q in checks))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[('red', 'S'), ('red', 'M'), ('blue', 'S'), ('blue', 'M')]
+Lượt kiểm tra: 12
+Tổ hợp logic: 4
+AND đúng: 3
+OR đúng: 9
 ```
 
-**Giải thích kết quả:** Bốn cặp: `(red,S)`, `(red,M)`, `(blue,S)`, `(blue,M)`.
+Bảng chân trị chỉ có bốn tổ hợp **khác nhau**; 12 là số lượt chạy có lặp theo ngày để kiểm tra tính nhất quán.
+
+### Tình huống 3 — Cấp 3: Kiểm phép kéo theo trên 15 hồ sơ phê duyệt
+
+**Từ vựng trong mục:** **Implication** — kéo theo; **Premise** — tiền đề; **Counterexample** — phản ví dụ.
+
+**Tình huống thực tế:** Một tổ chức kiểm tra **15 hồ sơ** R01…R15, mỗi hàng có trạng thái đã phê duyệt (p) và đã có chứng chỉ (q). Quy định là: “**Nếu được phê duyệt thì phải có chứng chỉ**”. Cần tìm các hồ sơ vi phạm và giải thích vì sao hồ sơ **chưa phê duyệt** không tự động là vi phạm dù chưa có chứng chỉ.
+
+**Vì sao chọn cách này?** Phép kéo theo `p ⇒ q` tương đương `(not p) or q`, chỉ sai khi `p=True` và `q=False`. Không nhầm với `p and q` vì như thế sẽ kết tội cả hồ sơ không thuộc đối tượng quy định.
+
+**Quy trình:**
+1. Lưu 15 cặp Boolean đúng theo ID.
+2. Tính điều kiện tuân thủ bằng `(not p) or q`.
+3. Liệt kê phản ví dụ và số hồ sơ tuân thủ.
+
+```python
+approved = [True,False,True,True,False,True,False,True,True,False,True,False,True,True,True]
+certified = [True,False,False,True,False,True,True,False,True,True,True,False,True,False,True]
+compliant = [(not p) or q for p, q in zip(approved, certified)]
+violations = [f"R{i:02d}" for i, ok in enumerate(compliant, 1) if not ok]
+assert len(compliant) == 15
+print("Hồ sơ:", len(compliant))
+print("Tuân thủ:", sum(compliant))
+print("Vi phạm:", ", ".join(violations))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Hồ sơ: 15
+Tuân thủ: 12
+Vi phạm: R03, R08, R14
+```
+
+Việc chưa phê duyệt khiến tiền đề sai; với một phép kéo theo, trường hợp đó không làm hỏng chính sách đang được kiểm tra.
+
+### Tình huống 4 — Cấp 4: Đếm 18 cấu hình sản phẩm và lọc ràng buộc
+
+**Từ vựng trong mục:** **Cartesian product** — tích Descartes; **Counting rule** — quy tắc nhân; **NOT** — phủ định.
+
+**Tình huống thực tế:** Cửa hàng muốn bán áo với **3 màu**, **3 cỡ** và **2 chất liệu**; mỗi tổ hợp màu–cỡ–chất liệu là một cấu hình. Hệ thống tạo đúng **18 cấu hình**, nhưng chính sách mẫu **không cho màu Đỏ dùng chất liệu Poly**, bất kể cỡ. Cần đếm cấu hình hợp lệ, bị loại và kiểm tra kết quả bằng cả việc tạo tổ hợp lẫn quy tắc đếm.
+
+**Vì sao chọn cách này?** `itertools.product` tạo mọi kết hợp từ ba nhóm lựa chọn, tương ứng nguyên lý nhân. Một điều kiện Boolean loại cấu hình xung đột; không xóa toàn bộ màu Đỏ hay toàn bộ Poly.
+
+**Quy trình:**
+1. Tạo 18 tuple từ màu, cỡ, chất liệu.
+2. Lọc những tuple có đồng thời Đỏ và Poly.
+3. Đối chiếu số hợp lệ + số loại = 18 và in kết quả.
+
+```python
+from itertools import product
+colors = ["Đỏ", "Xanh", "Trắng"]
+sizes = ["S", "M", "L"]
+materials = ["Cotton", "Poly"]
+options = list(product(colors, sizes, materials))
+valid = [item for item in options if not (item[0] == "Đỏ" and item[2] == "Poly")]
+assert len(options) == len(colors) * len(sizes) * len(materials) == 18
+print("Cấu hình:", len(options))
+print("Hợp lệ:", len(valid))
+print("Loại:", len(options) - len(valid))
+print("Ví dụ đầu:", " - ".join(valid[0]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Cấu hình: 18
+Hợp lệ: 15
+Loại: 3
+Ví dụ đầu: Đỏ - S - Cotton
+```
+
+Tích Descartes liệt kê **toàn bộ cấu hình**; trong bài này ràng buộc giảm số cấu hình từ 18 còn 15, chứ không tạo thêm cấu hình mới.
+
+### Tình huống 5 — Cấp 5: Thử 20 yêu cầu truy cập với quy tắc nhiều điều kiện và ngoại lệ
+
+**Từ vựng trong mục:** **Compound logic** — logic phối hợp; **Precedence** — độ ưu tiên; **Invariant** — điều kiện bất biến.
+
+**Tình huống thực tế:** Cổng tài liệu học tập nhận **20 yêu cầu giả lập** U01…U20. Mỗi hàng có tuổi (năm), sự đồng ý của người giám hộ, xác minh tài khoản và cờ đã khóa. **Quy tắc minh họa**: cho phép khi (**đủ 18 tuổi hoặc có đồng ý**) **và** đã xác minh **và không bị khóa**. Cần báo số được phép, số bị từ chối và xác nhận không có yêu cầu đã khóa nào được phép; đây không phải chính sách truy cập thực tế của một dịch vụ.
+
+**Vì sao chọn cách này?** Nhóm điều kiện `or` trong ngoặc thể hiện một trong hai cơ sở truy cập; các điều kiện `and` khác là bắt buộc. `not blocked` ngăn trường hợp đã khóa nhưng vẫn đủ tuổi/xác minh được mở quyền; kiểm chứng bằng `assert` phát hiện sai lệch quy tắc.
+
+**Quy trình:**
+1. Tạo 20 bản ghi đầy đủ bốn thuộc tính.
+2. Dùng một biểu thức Boolean có ngoặc cho mọi bản ghi.
+3. Đếm kết quả, kiểm tra tổng 20 và khẳng định mọi yêu cầu bị khóa đều bị từ chối.
+
+```python
+requests = [{"age":16,"consent":False,"verified":True,"blocked":False},{"age":17,"consent":True,"verified":True,"blocked":False},{"age":18,"consent":True,"verified":False,"blocked":False},{"age":19,"consent":True,"verified":True,"blocked":False},{"age":20,"consent":True,"verified":True,"blocked":False},{"age":21,"consent":False,"verified":True,"blocked":False},{"age":22,"consent":True,"verified":False,"blocked":False},{"age":23,"consent":True,"verified":True,"blocked":True},{"age":16,"consent":True,"verified":True,"blocked":False},{"age":17,"consent":True,"verified":True,"blocked":False},{"age":18,"consent":False,"verified":False,"blocked":False},{"age":19,"consent":True,"verified":True,"blocked":False},{"age":20,"consent":True,"verified":True,"blocked":False},{"age":21,"consent":True,"verified":True,"blocked":False},{"age":22,"consent":True,"verified":False,"blocked":False},{"age":23,"consent":False,"verified":True,"blocked":False},{"age":16,"consent":True,"verified":True,"blocked":False},{"age":17,"consent":True,"verified":True,"blocked":False},{"age":18,"consent":True,"verified":False,"blocked":True},{"age":19,"consent":True,"verified":True,"blocked":False}]
+allowed = [((item["age"] >= 18 or item["consent"])
+            and item["verified"] and not item["blocked"])
+           for item in requests]
+assert len(requests) == len(allowed) == 20
+assert all(not allowed[i] for i, item in enumerate(requests) if item["blocked"])
+print("Yêu cầu:", len(requests))
+print("Cho phép:", sum(allowed))
+print("Từ chối:", len(allowed) - sum(allowed))
+print("Yêu cầu bị khóa:", sum(item["blocked"] for item in requests))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Yêu cầu: 20
+Cho phép: 13
+Từ chối: 7
+Yêu cầu bị khóa: 2
+```
+
+Từng yêu cầu là một hàng gồm nhiều mệnh đề, không phải một phần tử đơn. Quy tắc là ví dụ học thuật; hệ thống thực phải dựa trên chính sách xác thực và bảo vệ dữ liệu được phê duyệt.
 
 ## 6. Sai lầm thường gặp
 
