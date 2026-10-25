@@ -126,7 +126,7 @@ Có ba lượt epoch được đánh số 1 đến 3; đây mới là bộ đế
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Từng bước giảm một loss đơn giản
+### Tình huống 1 — Từng bước giảm một loss đơn giản · Cấp 1: Tính loss ban đầu
 
 **Tình huống thực tế:** Một tham số điều khiển mô phỏng w được tối ưu với `L(w)=w²` (loss không đơn vị). Bắt đầu `w=4`, learning rate 0.1, thực hiện 10 lần cập nhật và xem w tiến gần 0 ra sao.
 
@@ -155,7 +155,32 @@ print(round(w, 4))
 
 Tham số đi từ 4 xuống khoảng 0.4295, tiến gần cực tiểu 0.
 
-### Tình huống 2 — Tìm đạo hàm riêng tại một điểm
+**Bài thực hành nâng cấp — cấp 1/5:** Nhóm đào tạo có **10 quan sát** giờ học (`x`, giờ) và điểm kiểm tra (`y`, điểm/100), mô phỏng quan hệ tuyến tính. Hãy tính MSE trước khi cập nhật trọng số. Các cấp sau phải chọn learning rate, so sai số và loại nhãn không đo được trước khi học tham số.
+
+```python
+import numpy as np
+# Mỗi dòng: x giờ học, y điểm dự báo mục tiêu (điểm/100).
+all_x = np.arange(1,11,dtype=float)
+all_y = np.array([5, 7, 9, 11, 13, 15, 17, 19, 21, 23],dtype=float)
+mask = np.isfinite(all_y)
+x, y = all_x[mask], all_y[mask]
+def train(rate, epochs):
+    w = b = 0.0
+    for _ in range(epochs):
+        residual = w*x+b-y
+        dw = 2*np.mean(x*residual)
+        db = 2*np.mean(residual)
+        w -= rate*dw
+        b -= rate*db
+    return w,b,float(np.mean((w*x+b-y)**2))
+result = round(float(np.mean((0*x+0-y)**2)),3)
+print("Số quan sát:",len(all_x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Mẫu đầu vào 10, `MSE` tính trên mẫu hợp lệ. Giá trị của w và b cần được đọc cùng loss cuối; loss giảm không có nghĩa đã dự đoán đúng tuyệt đối.
+
+### Tình huống 2 — Tìm đạo hàm riêng tại một điểm · Cấp 2: Tính đạo hàm riêng
 
 **Tình huống thực tế:** Loss theo hai tham số là `f=x²+3xy+y²`, tại x=1,y=2. Đội kỹ thuật muốn biết chỉ thay đổi x làm loss nhạy thế nào nếu giữ y cố định.
 
@@ -184,7 +209,32 @@ print(sp.diff(f, x).subs({x: 1, y: 2}))
 
 Nếu tăng x rất nhỏ quanh (1,2), loss tăng xấp xỉ 8 lần phần thay đổi x.
 
-### Tình huống 3 — Theo dõi lịch sử loss khi tối ưu
+**Bài thực hành nâng cấp — cấp 2/5:** Nhóm đào tạo có **12 quan sát** giờ học (`x`, giờ) và điểm kiểm tra (`y`, điểm/100), mô phỏng quan hệ tuyến tính. Hãy tính đồng thời gradient của w và b. Các cấp sau phải chọn learning rate, so sai số và loại nhãn không đo được trước khi học tham số.
+
+```python
+import numpy as np
+# Mỗi dòng: x giờ học, y điểm dự báo mục tiêu (điểm/100).
+all_x = np.arange(1,13,dtype=float)
+all_y = np.array([5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27],dtype=float)
+mask = np.isfinite(all_y)
+x, y = all_x[mask], all_y[mask]
+def train(rate, epochs):
+    w = b = 0.0
+    for _ in range(epochs):
+        residual = w*x+b-y
+        dw = 2*np.mean(x*residual)
+        db = 2*np.mean(residual)
+        w -= rate*dw
+        b -= rate*db
+    return w,b,float(np.mean((w*x+b-y)**2))
+result = {'dw':round(float(np.mean(2*x*(0*x-y))),3),'db':round(float(np.mean(2*(0*x-y))),3)}
+print("Số quan sát:",len(all_x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Mẫu đầu vào 12, `MSE` tính trên mẫu hợp lệ. Giá trị của w và b cần được đọc cùng loss cuối; loss giảm không có nghĩa đã dự đoán đúng tuyệt đối.
+
+### Tình huống 3 — Theo dõi lịch sử loss khi tối ưu · Cấp 3: Thực hiện nhiều epoch
 
 **Tình huống thực tế:** Một tham số mô phỏng khởi đầu w=3 với `L(w)=w²`. Nhóm phát triển muốn ghi loss trước năm lần cập nhật để xem loss có giảm theo từng bước không.
 
@@ -214,7 +264,32 @@ print(history)
 
 Loss giảm dần qua năm giá trị, nhưng kết quả này chỉ phản ánh hàm lồi một biến đang mô phỏng.
 
-### Tình huống 4 — So bước học nhỏ và quá lớn
+**Bài thực hành nâng cấp — cấp 3/5:** Nhóm đào tạo có **15 quan sát** giờ học (`x`, giờ) và điểm kiểm tra (`y`, điểm/100), mô phỏng quan hệ tuyến tính. Hãy chạy 500 epoch và kiểm tra loss giảm. Các cấp sau phải chọn learning rate, so sai số và loại nhãn không đo được trước khi học tham số.
+
+```python
+import numpy as np
+# Mỗi dòng: x giờ học, y điểm dự báo mục tiêu (điểm/100).
+all_x = np.arange(1,16,dtype=float)
+all_y = np.array([5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33],dtype=float)
+mask = np.isfinite(all_y)
+x, y = all_x[mask], all_y[mask]
+def train(rate, epochs):
+    w = b = 0.0
+    for _ in range(epochs):
+        residual = w*x+b-y
+        dw = 2*np.mean(x*residual)
+        db = 2*np.mean(residual)
+        w -= rate*dw
+        b -= rate*db
+    return w,b,float(np.mean((w*x+b-y)**2))
+result = {'initial':round(float(np.mean(y**2)),2),'after':round(train(0.003,500)[2],4)}
+print("Số quan sát:",len(all_x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Mẫu đầu vào 15, `MSE` tính trên mẫu hợp lệ. Giá trị của w và b cần được đọc cùng loss cuối; loss giảm không có nghĩa đã dự đoán đúng tuyệt đối.
+
+### Tình huống 4 — So bước học nhỏ và quá lớn · Cấp 4: So hai learning rate
 
 **Tình huống thực tế:** Một mô hình thử tối ưu `L(w)=w²` từ w=4, chạy 5 bước với hai learning rate 0.1 và 1.1. Cần kiểm tra cả hai có làm loss giảm như nhau không.
 
@@ -244,7 +319,32 @@ for lr in [0.1, 1.1]:
 
 Với lr 0.1, loss còn 1.718; với lr 1.1 loss tăng lên 99.068 dù cùng điểm khởi đầu.
 
-### Tình huống 5 — Fit một hệ số tuyến tính bằng gradient
+**Bài thực hành nâng cấp — cấp 4/5:** Nhóm đào tạo có **18 quan sát** giờ học (`x`, giờ) và điểm kiểm tra (`y`, điểm/100), mô phỏng quan hệ tuyến tính. Hãy so loss cuối của hai learning rate trên dữ liệu có số đo thiếu. Các cấp sau phải chọn learning rate, so sai số và loại nhãn không đo được trước khi học tham số.
+
+```python
+import numpy as np
+# Mỗi dòng: x giờ học, y điểm dự báo mục tiêu (điểm/100).
+all_x = np.arange(1,19,dtype=float)
+all_y = np.array([5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, np.nan, 37, 39],dtype=float)
+mask = np.isfinite(all_y)
+x, y = all_x[mask], all_y[mask]
+def train(rate, epochs):
+    w = b = 0.0
+    for _ in range(epochs):
+        residual = w*x+b-y
+        dw = 2*np.mean(x*residual)
+        db = 2*np.mean(residual)
+        w -= rate*dw
+        b -= rate*db
+    return w,b,float(np.mean((w*x+b-y)**2))
+result = {'slow':round(train(0.001,120)[2],4),'fast':round(train(0.003,120)[2],4),'missing':int(len(all_y)-len(y))}
+print("Số quan sát:",len(all_x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Mẫu đầu vào 18, `MSE` tính trên mẫu hợp lệ. Giá trị của w và b cần được đọc cùng loss cuối; loss giảm không có nghĩa đã dự đoán đúng tuyệt đối.
+
+### Tình huống 5 — Fit một hệ số tuyến tính bằng gradient · Cấp 5: Fit và kiểm chứng dự báo
 
 **Tình huống thực tế:** Dữ liệu ba điểm gồm x=`[1,2,3]` và y=`[2,4,6]`. Mô hình không có hệ số chặn, dự báo `ŷ=w*x`. Bắt đầu w=0 và dùng 100 bước cập nhật để khớp hệ số w.
 
@@ -276,6 +376,31 @@ print(round(w, 3))
 ```
 
 Mô hình tìm được hệ số gần 2 cho quan hệ y=2x; chưa có bước đánh giá trên dữ liệu mới.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhóm đào tạo có **20 quan sát** giờ học (`x`, giờ) và điểm kiểm tra (`y`, điểm/100), mô phỏng quan hệ tuyến tính. Hãy fit w,b trên 20 dòng, so với nghiệm least squares và lỗi dự đoán. Các cấp sau phải chọn learning rate, so sai số và loại nhãn không đo được trước khi học tham số.
+
+```python
+import numpy as np
+# Mỗi dòng: x giờ học, y điểm dự báo mục tiêu (điểm/100).
+all_x = np.arange(1,21,dtype=float)
+all_y = np.array([5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, np.nan, 37, 39, 41, np.nan],dtype=float)
+mask = np.isfinite(all_y)
+x, y = all_x[mask], all_y[mask]
+def train(rate, epochs):
+    w = b = 0.0
+    for _ in range(epochs):
+        residual = w*x+b-y
+        dw = 2*np.mean(x*residual)
+        db = 2*np.mean(residual)
+        w -= rate*dw
+        b -= rate*db
+    return w,b,float(np.mean((w*x+b-y)**2))
+result = {'GD':tuple(round(t,3) for t in train(0.003,1000)[:2]),'LS':np.linalg.lstsq(np.column_stack((x,np.ones_like(x))),y,rcond=None)[0].round(3).tolist(),'loss':round(train(0.003,1000)[2],5)}
+print("Số quan sát:",len(all_x))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Mẫu đầu vào 20, `MSE` tính trên mẫu hợp lệ. Giá trị của w và b cần được đọc cùng loss cuối; loss giảm không có nghĩa đã dự đoán đúng tuyệt đối.
 
 ## 6. Sai lầm thường gặp
 
