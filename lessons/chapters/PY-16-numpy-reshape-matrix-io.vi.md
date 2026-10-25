@@ -136,7 +136,7 @@ Mảng được ghi ra tệp `.npy` rồi đọc lại đủ ba phần tử. Th�
 
 ## 5. Năm tình huống thực tế
 
-### Tình huống 1 — Tổ chức dữ liệu đo theo giờ
+### Tình huống 1 — Tổ chức dữ liệu đo theo giờ · Cấp 1: Bố trí dữ liệu
 
 **Từ vựng trong mục:** **Reshape** — đổi hình dạng.
 
@@ -164,7 +164,24 @@ print(values.reshape(2, 3))
  [23 24 25]]
 ```
 
-### Tình huống 2 — Đổi hàng cột báo cáo
+**Bài thực hành nâng cấp — cấp 1/5:** Nhà trường có **10 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy reshape 10 điểm thành bảng 5×2. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+python_scores = [20 + (i*7)%75 for i in range(1,11)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+result = arr.reshape(5,4).shape
+assert arr.shape==(10,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 10×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
+
+### Tình huống 2 — Đổi hàng cột báo cáo · Cấp 2: Thao tác toàn ma trận
 
 **Từ vựng trong mục:** **Transpose** — chuyển vị.
 
@@ -191,7 +208,24 @@ print(scores.T.shape)
 (3, 2)
 ```
 
-### Tình huống 3 — Điểm tổng kết có trọng số
+**Bài thực hành nâng cấp — cấp 2/5:** Nhà trường có **12 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy chuyển vị ma trận 12 học viên × 2 môn. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+python_scores = [20 + (i*7)%75 for i in range(1,13)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+result = arr.T.shape
+assert arr.shape==(12,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 12×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
+
+### Tình huống 3 — Điểm tổng kết có trọng số · Cấp 3: Phối hợp phép toán
 
 **Từ vựng trong mục:** **Matrix multiply** — nhân ma trận.
 
@@ -219,7 +253,24 @@ print(scores@w)
 8.2
 ```
 
-### Tình huống 4 — Tạo đặc trưng tổng hợp
+**Bài thực hành nâng cấp — cấp 3/5:** Nhà trường có **15 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy nhân bảng điểm với trọng số môn để tính điểm tổng. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+python_scores = [20 + (i*7)%75 for i in range(1,16)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+result = (arr@np.array([0.4,0.6])).round(2).tolist()
+assert arr.shape==(15,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 15×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
+
+### Tình huống 4 — Tạo đặc trưng tổng hợp · Cấp 4: Kiểm tra shape và dữ liệu thiếu
 
 **Từ vựng trong mục:** **Matrix multiplication** — nhân ma trận.
 
@@ -248,7 +299,24 @@ print(X@W)
  [5.5 6.5]]
 ```
 
-### Tình huống 5 — Lưu và đọc mảng an toàn
+**Bài thực hành nâng cấp — cấp 4/5:** Nhà trường có **18 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy kiểm tra reshape/transpose có giữ giá trị NaN hay không. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39]
+python_scores = [20 + (i*7)%75 for i in range(1,19)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+result = {'shape':arr.reshape(6,6).shape,'missing':int(np.isnan(arr.T).sum())}
+assert arr.shape==(18,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 18×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
+
+### Tình huống 5 — Lưu và đọc mảng an toàn · Cấp 5: Lưu/đọc và xác minh
 
 **Từ vựng trong mục:** **Serialization** — lưu dữ liệu.
 
@@ -278,6 +346,28 @@ with TemporaryDirectory() as folder:
 ```text
 [3 5 7]
 ```
+
+**Bài thực hành nâng cấp — cấp 5/5:** Nhà trường có **20 dòng điểm học viên**, mỗi hàng gồm hai đặc trưng Toán/Python (thang 100). Hãy lưu ma trận 20 học viên bằng .npy và đọc lại để xác minh. Nhờ giữ nhất quán ý nghĩa hàng/cột, học viên có thể so sánh đầu vào với kết quả xử lý ở các cấp tăng dần.
+
+```python
+import numpy as np
+# Mỗi hàng là một học viên; cột 0 và cột 1 lần lượt là điểm Toán/Python.
+math_scores = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, np.nan, 90, 39, 85, np.nan]
+python_scores = [20 + (i*7)%75 for i in range(1,21)]
+arr = np.column_stack((math_scores,python_scores)).astype(float)
+from pathlib import Path
+from tempfile import TemporaryDirectory
+_tmp = TemporaryDirectory()
+_path = Path(_tmp.name) / "scores.npy"
+np.save(_path,arr)
+result = {'shape':arr.shape,'roundtrip':bool(np.array_equal(arr,np.load(_path),equal_nan=True))}
+assert arr.shape==(20,2)
+print("Số học viên:",arr.shape[0])
+print("Kết quả:",result)
+_tmp.cleanup()
+```
+
+**Đọc kết quả:** Chương trình kiểm tra ma trận 20×2; kết quả cho biết tác động lên hàng/cột, không chỉ giá trị in rời rạc.
 
 ## 6. Sai lầm thường gặp
 
