@@ -155,9 +155,9 @@ Hai đối tượng gọi cùng `fee()` nhưng phí khác nhau: gói thường 0
 
 **Từ vựng trong mục:** **Inheritance** — kế thừa; **Parent class** — lớp cha; **Override** — ghi đè.
 
-**Tình huống thực tế:** Một cửa hàng có **10 sản phẩm**; mỗi dòng gồm tên và nhóm `digital` (thiết bị) hoặc `physical` (đồ dùng). Nhân viên cần tạo đối tượng thuộc hai nhóm để in tên và loại của sản phẩm đầu, đồng thời đếm bao nhiêu sản phẩm thuộc mỗi nhóm.
+**Tình huống thực tế:** Cửa hàng lập danh sách **10 sản phẩm** để giới thiệu trên bảng hàng. Mỗi dòng có tên sản phẩm, chẳng hạn Laptop hoặc Bàn, và nhóm hàng: `digital` nghĩa là thiết bị điện tử, `physical` nghĩa là đồ dùng thông thường. Nhân viên muốn lưu mỗi sản phẩm thành một đối tượng, xem tên và nhóm của sản phẩm đầu tiên, rồi đếm xem có bao nhiêu thiết bị và đồ dùng.
 
-**Vì sao chọn cách này?** Lớp cha giữ tên chung cho mọi mặt hàng. Hai lớp con kế thừa tên và ghi đè `category()`: không phải viết lại khởi tạo tên cho từng nhóm.
+**Vì sao chọn cách này?** **Kế thừa** cho phép lớp con dùng lại phần thông tin chung của lớp cha. Ở đây lớp `Product` giữ tên sản phẩm; lớp `Digital` và `Physical` nhận cách lưu tên ấy mà không viết lại đoạn khởi tạo. **Ghi đè phương thức** nghĩa là cả hai lớp con đều có `category()` nhưng trả nhãn nhóm của chính mình. Chương trình tạo đúng đối tượng theo nhãn của từng dòng, rồi gọi cùng `category()` để đếm; không cần mỗi chỗ xem sản phẩm lại kiểm tra tên Laptop hay Bàn. Cách này có ích khi nhiều nhóm hàng chia sẻ thông tin, nhưng cách phân nhóm vẫn khác nhau.
 
 **Quy trình:**
 1. Định nghĩa lớp `Product` giữ tên và có phương thức `category()`.
@@ -214,9 +214,9 @@ Lớp con không cần viết lại `__init__()` vì dùng được hành vi kh�
 
 **Từ vựng trong mục:** **ABC** — lớp trừu tượng; **Abstract method** — phương thức bắt buộc; **Polymorphism** — đa hình.
 
-**Tình huống thực tế:** Hệ thống chuẩn bị **12 thông báo giả lập**, mỗi dòng có mã N01…N12 và kênh `email` hoặc `screen`. Bộ phận vận hành cần xác nhận **kênh nào sẽ xử lý thông báo**, không gửi email thật. Tất cả kênh bắt buộc có `send(message)`; đếm số thông báo theo kênh.
+**Tình huống thực tế:** Một ứng dụng quản lý lớp dự định xử lý **12 thông báo N01–N12**. Mỗi thông báo được giao cho một trong hai kênh: `email` (thư điện tử) hoặc `screen` (hiển thị trên màn hình). Đây là chương trình **mô phỏng**, không gửi thư hay hiện thông báo thật. Người quản lý muốn chạy đủ 12 yêu cầu, xem mỗi kênh nhận bao nhiêu thông báo và đọc thử kết quả của thông báo đầu tiên.
 
-**Vì sao chọn cách này?** ABC quy định hợp đồng chung, các lớp con cung cấp cách trả lời riêng. Chương trình có thể gọi cùng `send()` mà không cần kiểm tra kiểu đối tượng ở chỗ gửi; đây là mô phỏng luồng xử lý, không tích hợp dịch vụ thật.
+**Vì sao chọn cách này?** **ABC** (lớp cơ sở trừu tượng) là bản quy ước cho các lớp xử lý thông báo: bất kỳ kênh nào cũng phải có phương thức `send(message)`. `@abstractmethod` đánh dấu việc lớp con phải tự cài đặt phương thức ấy. `EmailNotifier` trả chuỗi bắt đầu `email:`, `ScreenNotifier` trả `screen:`; không có kết nối mạng. Nhờ cùng tên `send()`, chương trình dùng một vòng `for` để gọi đúng kênh của mỗi thông báo mà không phải tự viết hai quy trình riêng cho mọi yêu cầu. Đếm các tiền tố trong chuỗi trả về giúp xác nhận chương trình đã định tuyến đúng 12 thông báo.
 
 **Quy trình:**
 1. Tạo `Notifier(ABC)` yêu cầu phương thức `send`.
@@ -271,9 +271,9 @@ Có hai lớp con nhưng chỉ một lời gọi `send()`. Trả chuỗi xác nh
 
 **Từ vựng trong mục:** **Override** — ghi đè; **Method dispatch** — chọn phương thức; **super()** — gọi lớp cha.
 
-**Tình huống thực tế:** Cửa hàng có **15 đơn giao**, mỗi dòng là loại giao hàng `standard` (miễn phí), `express` (35.000 đồng) hoặc `cold` (50.000 đồng). Đây là bảng giá giả lập cố định theo loại, không phụ thuộc quãng đường. Cần tính tổng phí và đếm số đơn giao lạnh.
+**Tình huống thực tế:** Cửa hàng phải tính phí cho **15 đơn vận chuyển**. Mỗi đơn được chọn một trong ba dịch vụ theo quy tắc giả lập: `standard` giao thường miễn phí; `express` giao nhanh tính **35.000 đồng/đơn**; `cold` giao lạnh tính **50.000 đồng/đơn**. Giá không phụ thuộc số km trong bài này. Kế toán cần tổng tiền phí của tất cả đơn và số đơn sử dụng dịch vụ giao lạnh.
 
-**Vì sao chọn cách này?** Các loại giao hàng đều có hành vi `fee()` nhưng tính phí khác nhau. Lớp cha lưu mã loại bằng `super().__init__`, lớp con ghi đè `fee()`; người gọi không phải viết chuỗi `if` để tự tính từng loại.
+**Vì sao chọn cách này?** **Lớp cha** `Shipping` chứa loại dịch vụ và mức phí mặc định 0; hai **lớp con** `Express`, `Cold` có cùng phương thức `fee()` nhưng trả mức phí khác nhau. `super().__init__(...)` gọi phần khởi tạo của lớp cha để lưu tên loại dịch vụ, nên lớp con không phải lặp lại cách lưu. Chương trình tạo đối tượng theo từng loại rồi chỉ cần gọi `order.fee()` cho cả 15 đơn: đây là **đa hình**, cùng một lời gọi nhưng kết quả do loại đối tượng quyết định. Vì bảng phí trong bài cố định theo loại, không thêm phép tính khoảng cách hay thu thêm cho giao thường.
 
 **Quy trình:**
 1. Định nghĩa lớp cha `Shipping` với `fee()` mặc định 0.
@@ -332,9 +332,9 @@ Phí giao lạnh và nhanh cao hơn loại thường vì chính sách giả đ�
 
 **Từ vựng trong mục:** **Polymorphism** — đa hình; **Instance** — đối tượng; **Validation** — kiểm tra dữ liệu.
 
-**Tình huống thực tế:** Mạng lưới nhận **18 bản đọc**; bản ghi chẵn là nhiệt độ °C, bản ghi lẻ là độ ẩm %, nhưng hai cảm biến đã mất tín hiệu (`None`). Mọi loại cần phương thức `read()` thống nhất và tự quyết định cách gắn đơn vị. Báo số mẫu hợp lệ, thiếu và mẫu đầu tiên.
+**Tình huống thực tế:** Trạm kỹ thuật ghi **18 kết quả cảm biến**, xen kẽ hai loại phép đo: nhiệt độ tính bằng **°C** và độ ẩm tính bằng **%**. Hai lượt không có giá trị nên để `None`; các lượt khác có số như 24 °C hoặc 56%. Nhân viên muốn một danh sách các kết quả được gắn đúng đơn vị, biết bao nhiêu lượt hợp lệ, bao nhiêu lượt thiếu và xem kết quả đầu tiên.
 
-**Vì sao chọn cách này?** Lớp `Temperature`/`Humidity` kế thừa `Sensor`, ghi đè `read()` tương ứng. Bộ đọc chung không phải phân nhánh kiểu cho từng lần hiển thị; kiểm tra `None` trước định dạng số để không phát sinh lỗi.
+**Vì sao chọn cách này?** **Đa hình** cũng hữu ích khi các đối tượng phải cùng trả kết quả nhưng **đơn vị hiển thị khác nhau**. Lớp `Sensor` giữ giá trị chung; lớp `Temperature` định dạng `°C`, còn `Humidity` định dạng `%` trong phương thức `read()`. Chương trình đọc lần lượt cả 18 đối tượng bằng một lệnh gọi `read()` mà không phải kiểm tra loại sau mỗi lần đọc. Nếu giá trị là `None`, phương thức trả `None` trước khi định dạng, vì không thể in số thập phân từ dữ liệu thiếu. Sau đó đếm riêng kết quả có số và chưa có số; không coi phép đo thiếu là 0.
 
 **Quy trình:**
 1. Tạo lớp cha lưu số đo và cung cấp giao diện `read`.
@@ -395,9 +395,9 @@ Cùng lời gọi `read()` nhưng cách tạo chuỗi khác nhau tùy lớp con;
 
 **Từ vựng trong mục:** **Abstract class** — lớp trừu tượng; **Override** — ghi đè; **Dispatch** — phân phối phương thức.
 
-**Tình huống thực tế:** Cổng thanh toán minh họa xử lý **20 giao dịch**, mỗi hàng có mã P01…P20, số tiền đồng và loại `card` hoặc `bank`. Quy định giả lập: chuyển khoản thu **2.500 đồng/giao dịch**, thẻ thu **2% số tiền**; P07 thiếu tiền và P16 có số tiền âm nên không được tính phí. Cần thống kê phí của 18 giao dịch hợp lệ và mã phải sửa, không gọi mạng hoặc thu tiền thật.
+**Tình huống thực tế:** Hệ thống thanh toán thử nghiệm nhận **20 giao dịch P01–P20**. Mỗi dòng gồm số tiền tính bằng **đồng** và loại xử lý `bank` (chuyển khoản) hoặc `card` (thẻ). Theo mức phí minh họa, chuyển khoản thu **2.500 đồng** mỗi giao dịch, còn thẻ thu **2% số tiền**. Giao dịch P07 chưa có số tiền (`None`), P16 có tiền âm nên cần sửa. Bộ phận vận hành cần tổng phí của **18 giao dịch hợp lệ** và danh sách hai mã lỗi; không thu tiền thật.
 
-**Vì sao chọn cách này?** ABC yêu cầu mọi phương thức thanh toán có `fee()`. Lớp cha kiểm tra tiền qua `__init__`/`super()`, lớp con chỉ cài công thức phí riêng; một vòng lặp áp dụng đa hình mà vẫn kiểm tra lỗi đầu vào trước khi tạo đối tượng.
+**Vì sao chọn cách này?** **Hợp đồng chung** ở đây là mọi phương thức thanh toán đều phải có `fee()`, được lớp `Payment` khai báo bằng ABC. Lớp `Bank` trả khoản phí cố định 2.500 đồng, lớp `Card` tính 2% trên số tiền giao dịch rồi làm tròn theo code. Phần kiểm tra đầu vào được đặt tại lớp cha `Payment`: chỉ nhận số tiền là số và không âm. Vì thế khi P07 là `None` hoặc P16 âm, chương trình bắt `ValueError` và đưa mã vào danh sách sửa **trước khi tính phí**, không biến lỗi thành 0 đồng. Chỉ đối tượng hợp lệ mới được thêm vào danh sách để cộng phí, nên không cần tự chọn công thức trong từng lần cộng.
 
 **Quy trình:**
 1. Tạo giao diện `Payment(ABC)` giữ số tiền hợp lệ và bắt buộc phương thức `fee()`.
