@@ -5,7 +5,7 @@
   "expected_batches": 10,
   "batch_limit": 5,
   "last_completed_batch": 9,
-  "status": "READY_FOR_BATCH_10",
+  "status": "BATCH_10_IN_PROGRESS",
   "paired_code_fence_count_completed": 413,
   "predecessor": {
     "goal_id": "aiclassdocuments-full-code-annotations-20261025",
@@ -200,7 +200,7 @@
       "lessons": [
         "PY-46"
       ],
-      "status": "PENDING"
+      "status": "IN_PROGRESS"
     }
   ],
   "invariants": {
