@@ -1,29 +1,33 @@
-# Bộ lab và bài tập mẫu Python → AI
+# Bộ LAB gốc — PythoClass
 
-Thư mục này gom **13 bộ lab thực hành biên soạn lại**, mỗi bộ có bối cảnh, dữ liệu (tối thiểu 10 bản ghi), bài tập 4 mức độ và tiêu chí kiểm tra, theo thứ tự bài học của AIClassDocuments. Các bài trong đây là **bài tập thực hành được tái biên soạn**, không phải bản chép nguyên văn lab Word/notebook cũ.
+Mỗi folder tương ứng với **một đề Word cụ thể** trong repository PythoClass, được tách thành các tệp:
 
-| Lab | Chủ đề | Bài học liên quan |
+| File | Nội dung |
+|---|---|
+| `LAB.md` | Đề gốc từ Word chuyển sang Markdown, bao gồm dữ liệu, câu hỏi và bảng; ghi rõ các sai lệch của đề nếu có |
+| `DEMO.py` | **Code do chủ dự án đã viết** trong notebook/script PythoClass tương ứng, giữ các phần thử nghiệm và comment để truy nguyên; **không phải lời giải chuẩn** |
+| `KNOWLEDGE.md` | Kiến thức cần có, giải thích, lỗi hay gặp và liên kết sang các chương giáo trình |
+| `SOLUTION.py` | Lời giải tham khảo đầy đủ, tách khỏi bản Demo |
+| `students.csv` | Riêng Lab 10: 10 dòng dữ liệu học viên giả lập để thử file I/O |
+
+## Danh sách
+
+| Lab gốc | Thư mục | Bài học liên quan |
 |---|---|---|
-| 01 | [Biến, kiểu dữ liệu, nhập/xuất](01-python-basics/LAB.md) | PY-01–PY-03 |
-| 02 | [Điều kiện, vòng lặp, kiểm tra dữ liệu](02-control-flow/LAB.md) | PY-04–PY-05 |
-| 03 | [List, tuple, set, dictionary và CRUD](03-collections/LAB.md) | PY-06–PY-08, PY-44 |
-| 04 | [Hàm, OOP, kế thừa và lớp trừu tượng](04-functions-oop/LAB.md) | PY-09–PY-11 |
-| 05 | [Làm việc với file CSV và ngoại lệ](05-file-csv/LAB.md) | PY-12, PY-44 |
-| 06 | [NumPy ndarray, indexing, aggregate, broadcast](06-numpy/LAB.md) | PY-13–PY-16 |
-| 07 | [Pandas DataFrame, làm sạch, groupby](07-pandas/LAB.md) | PY-17–PY-19, PY-45 |
-| 08 | [Tập hợp, tương đồng Jaccard và đồ thị](08-sets-graphs/LAB.md) | PY-20–PY-23, PY-42 |
-| 09 | [Vector, ma trận, Eigen và PCA](09-linear-pca/LAB.md) | PY-24–PY-27, AI-MATH-01 |
-| 10 | [Hàm số, loss và gradient descent](10-functions-loss-optim/LAB.md) | PY-28–PY-33 |
-| 11 | [Xác suất và thống kê ứng dụng](11-probability-statistics/LAB.md) | PY-34–PY-40 |
-| 12 | [Tách train/test và mini-project AI](12-ai-mini-project/LAB.md) | PY-41, PY-46 |
-| 13 | [Git và quy trình bài tập CLI](13-git-cli/LAB.md) | PY-43–PY-44 |
+| `Ass 1.docx` | [Assignment 1](ASSIGNMENT-01-student-dictionary/LAB.md) | PY-08, PY-09, PY-44 |
+| `LAB Session 4.docx` | [Lab Session 4](LAB-04-conditions-loops/LAB.md) | PY-03 đến PY-05 |
+| `Lab Session 5.docx` | [Lab Session 5](LAB-05-student-list/LAB.md) | PY-05, PY-06, PY-09 |
+| `LAB SESSION 5_6.docx` | [Lab Session 5 & 6](LAB-05-06-gradient-descent/LAB.md) | PY-24, PY-28 đến PY-33 |
+| `LAB SESSION 7.docx` | [Lab Session 7](LAB-07-probability/LAB.md) | PY-34 đến PY-36 |
+| `LAB SESSION 8.docx` | [Lab Session 8](LAB-08-statistics/LAB.md) | PY-37 đến PY-40 |
+| `Lab Session 10.docx` | [Lab Session 10](LAB-10-file-csv/LAB.md) | PY-12, PY-44 |
 
-## Sử dụng
-1. Mở lab theo thứ tự phù hợp với kiến thức đã học; đọc đề trong `LAB.md` trước.
-2. Chạy script mẫu (nếu có): `python labs/pythoclass/XX-ten-lab/solution.py` tại gốc repository. Với NumPy/Pandas/scikit-learn cần cài thư viện trước.
-3. Dữ liệu CSV trong `data/` đều là **dữ liệu tổng hợp**, không có danh tính cá nhân thật; không sửa dữ liệu mẫu khi làm bài.
-4. So sánh bài làm với code mẫu, bổ sung kiểm thử cho trường hợp biên rồi mới chuyển sang lab sau.
+## Phân biệt 4 file
 
-**Truy nguyên nội bộ:** xem [_INTERNAL-SOURCE-INDEX.md](_INTERNAL-SOURCE-INDEX.md) để biết các lab/assignment/demo gốc tương ứng; tài liệu gốc từ repository nguồn riêng tư không được tự động sao chép sang repository công khai này.
+**LAB.md** là yêu cầu bài gốc; **DEMO.py** là code học viên từng làm (có thể chưa đúng, chưa đủ, cần chạy từng đoạn); **KNOWLEDGE.md** diễn giải cách làm; **SOLUTION.py** là lời giải tham khảo có kiểm tra.
 
-**Giới hạn kiểm định:** bộ thực hành mới được tạo để tự học; chưa thay thế việc thẩm định toàn văn các file DOCX nguồn và chưa mặc định là nội dung bài gốc đã được đối chiếu 100%.
+## Nguồn và quyền riêng tư
+
+Nguồn: `nguyenletrian/PythoClass`, 7 tệp DOCX và các notebook/script tương ứng. Repository nguồn được giữ nguyên. Vì AIClassDocuments công khai, tên học viên trong ví dụ và code được thay bằng mã/tên giả khi có nguy cơ lộ danh tính. **Đề Lab 4 có một ví dụ tiền điện không khớp bảng giá**, đã được chú thích thay vì sửa âm thầm. `LAB SESSION 5_6.docx` có một bản trùng dưới `MON 2/`; chỉ lập một bộ lab.
+
+Không chèn trực tiếp 13 bộ bài tập tự sinh của đợt trước vào bộ này. Mục tiêu là **đối chiếu từng lab Word với code thực tế bạn đã viết**.
