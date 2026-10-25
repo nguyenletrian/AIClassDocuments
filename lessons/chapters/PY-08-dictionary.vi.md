@@ -41,6 +41,15 @@ List lấy dữ liệu theo **vị trí**, còn **Dictionary** lấy theo **khó
 
 Một cửa hàng lưu đơn hàng mã `O1` có trạng thái `paid` (đã thanh toán). Trong Dictionary `order = {'id': 'O1', 'status': 'paid'}`, **`id` và `status` là hai khóa**; `O1` và `paid` là các giá trị tương ứng. Dấu `{}` bao các cặp `khóa: giá trị`. Dùng Dictionary khi cần đọc thông tin theo tên trường thay vì phải nhớ chỉ số trong List.
 
+**No Note — Không chú thích**
+
+```python
+order = {'id': 'O1', 'status': 'paid'}
+print(order)
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tạo dictionary lưu trạng thái đơn theo khóa và giá trị.
 # Dữ liệu: Khóa id là mã đơn và status là chuỗi trạng thái.
@@ -63,6 +72,15 @@ Một đơn hàng có hai trường. Mỗi cặp khóa–giá trị mô tả m�
 
 Khóa là tên hoặc mã duy nhất **trong cùng một Dictionary**, được dùng để lấy giá trị đúng trường. Với hồ sơ `order`, biểu thức `order['id']` lấy mã O1; còn `order['status']` lấy trạng thái. Nếu dùng dấu `[]` với khóa không tồn tại, Python báo `KeyError`; có thể dùng `get()` khi cần giá trị mặc định.
 
+**No Note — Không chú thích**
+
+```python
+order = {'id': 'O1', 'status': 'paid'}
+print(order['id'])
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tra cứu mã đơn trực tiếp theo khóa id.
 # Dữ liệu: Dictionary có hai khóa id/status; truy cập qua tên khóa, không phải chỉ số.
@@ -84,6 +102,19 @@ Python tra theo khóa `id`; không cần duyệt qua các trường bằng vòng
 **Từ vựng trong mục:** **Value** — giá trị; **Update** — cập nhật.
 
 **Giá trị** là dữ liệu gắn với từng khóa; có thể là chuỗi, số, List hoặc Dictionary khác. Ví dụ đơn `O1` đang có trạng thái `pending` (đang chờ). Lệnh `order['status'] = 'paid'` **sửa** giá trị của khóa đã có. Lệnh `order['amount'] = 100` **thêm** trường số tiền mới; `order.pop('amount')` **xóa** trường ấy. Trong bài này, ta in Dictionary trước và sau khi xóa để nhìn thấy thay đổi; nếu xóa khóa không tồn tại mà không truyền giá trị mặc định cho `pop`, Python báo `KeyError`.
+
+**No Note — Không chú thích**
+
+```python
+order = {'id': 'O1', 'status': 'pending'}
+order['status'] = 'paid'
+order['amount'] = 100
+print(order)
+order.pop('amount')
+print(order)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Thêm, sửa và xóa một mục dữ liệu trong dictionary.
@@ -113,6 +144,18 @@ Dòng đầu có thêm trường `amount` giá trị 100; dòng thứ hai không
 **Từ vựng trong mục:** **Nested dictionary** — từ điển lồng; **Field** — trường dữ liệu.
 
 Nếu quản lý nhiều đơn hàng, ta có thể dùng **Dictionary ngoài** với khóa là mã đơn (`O1`, `O2`), và **Dictionary trong** lưu thông tin riêng như `status`, `amount`. Khi cần lấy số tiền đơn `O2`, tra trước `orders['O2']` để lấy hồ sơ con, sau đó tra `['amount']`. Cách này giữ các thuộc tính của từng đơn bên nhau.
+
+**No Note — Không chú thích**
+
+```python
+orders = {
+    'O1': {'status': 'paid', 'amount': 100},
+    'O2': {'status': 'pending', 'amount': 200},
+}
+print(orders['O2']['amount'])
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Đọc số tiền ở dictionary con của đơn O2.
@@ -146,6 +189,24 @@ Kết quả `200` là số tiền của đơn O2 (đơn vị tiền theo quy đ�
 1. Tạo Dictionary 10 mã và trạng thái.
 2. Tra cứu O04 và O11 bằng `get`.
 3. Đếm trạng thái paid và kiểm tra số khóa.
+
+**No Note — Không chú thích**
+
+```python
+orders = {"O01":"paid","O02":"pending","O03":"paid","O04":"cancelled","O05":"pending","O06":"paid","O07":"pending","O08":"paid","O09":"cancelled","O10":"paid"}
+if len(orders) != 10:
+    raise ValueError("Cần đủ 10 đơn hàng.")
+print("Số đơn:", len(orders))
+print("O04:", orders.get("O04", "Not found"))
+print("O11:", orders.get("O11", "Not found"))
+paid_count = 0
+for value in orders.values():
+    if value == "paid":
+        paid_count += 1
+print("Đã trả:", paid_count)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tra trạng thái 10 đơn, kể cả mã không có, và đếm đã thanh toán.
@@ -193,6 +254,29 @@ O11 không có khóa trong bảng, nên `Not found` là thông báo tra cứu, k
 1. Khởi tạo 12 mã và số tồn đầu ngày.
 2. Duyệt đúng cặp mã–số bán; kiểm tra rồi trừ vào từng khóa.
 3. In số SKU, tồn tổng cộng, số tồn P05.
+
+**No Note — Không chú thích**
+
+```python
+starting = [10,8,12,5,20,9,13,6,7,11,14,4]
+sold = [2,1,3,0,4,1,2,2,1,3,4,0]
+stock = {}
+for i, amount in enumerate(starting, 1):
+    sku = f"P{i:02d}"
+    stock[sku] = amount
+for i, quantity in enumerate(sold, 1):
+    sku = f"P{i:02d}"
+    if quantity > stock[sku]:
+        raise ValueError(f"SKU {sku}: số bán vượt quá tồn kho.")
+    stock[sku] -= quantity
+if len(stock) != 12:
+    raise ValueError("Cần đủ 12 mã sản phẩm trong kho.")
+print("SKU:", len(stock))
+print("Tồn tổng:", sum(stock.values()))
+print("P05 còn:", stock["P05"])
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Theo dõi tồn kho 12 SKU từ số đầu kỳ và số đã bán.
@@ -249,6 +333,31 @@ Dictionary được cập nhật theo mã thay vì dựa vào vị trí số khi
 1. Tạo Dictionary đếm ban đầu rỗng.
 2. Duyệt 15 nhãn, tăng bộ đếm theo khóa.
 3. Sắp danh sách cặp số đếm và in hai nhãn đứng đầu.
+
+**No Note — Không chú thích**
+
+```python
+labels = ["AI","Python","SQL","AI","Math","Python","AI","SQL","Python","Math","SQL","AI","Python","Math","AI"]
+counts = {}
+for label in labels:
+    counts[label] = counts.get(label, 0) + 1
+def ranking_key(item):
+    return (-item[1], item[0])
+ranking = sorted(counts.items(), key=ranking_key)
+if len(labels) != 15 or sum(counts.values()) != 15:
+    raise ValueError("Cần đối chiếu đủ 15 nhãn được đếm.")
+print("Lượt:", len(labels))
+count_labels = []
+for name in sorted(counts):
+    count_labels.append(f"{name}={counts[name]}")
+top_names = []
+for name, count in ranking[:2]:
+    top_names.append(name)
+print("Đếm:", ", ".join(count_labels))
+print("Top 2:", ", ".join(top_names))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Đếm 15 nhãn trong dictionary và xếp loại theo tần suất.
@@ -310,6 +419,33 @@ Mỗi nhãn là một khóa. Việc có hai nhãn cùng tần suất chỉ ảnh
 1. Tạo 18 mã và các thuộc tính có ý nghĩa.
 2. Kiểm tra giá trị thiếu trước, sau đó kiểm tra khoảng điểm hợp lệ.
 3. Thống kê ba nhóm và xác minh tổng số hồ sơ.
+
+**No Note — Không chú thích**
+
+```python
+scores = [8,7,9,None,6.5,10,4,7.5,8.5,9,5,6,8,11,7,None,4.5,9]
+students = {}
+for i, value in enumerate(scores, 1):
+    student_code = f"S{i:02d}"
+    students[student_code] = {"name": f"Học viên {i:02d}", "score": value}
+valid, missing, invalid = [], [], []
+for code, info in students.items():
+    score = info["score"]
+    if score is None:
+        missing.append(code)
+    elif not (0 <= score <= 10):
+        invalid.append(code)
+    else:
+        valid.append(code)
+if len(students) != 18 or len(valid) + len(missing) + len(invalid) != 18:
+    raise ValueError("Cần phân loại đủ 18 hồ sơ học viên.")
+print("Hồ sơ:", len(students))
+print("Hợp lệ:", len(valid))
+print("Thiếu:", ", ".join(missing))
+print("Sai thang:", ", ".join(invalid))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Phân loại 18 hồ sơ học viên thành điểm hợp lệ, thiếu và ngoài thang.
@@ -375,6 +511,36 @@ Một giá trị 11 không phải thiếu nhưng vẫn không hợp lệ. Hai ng
 1. Khởi tạo kho rỗng, duyệt lần lượt 20 tuple giao dịch.
 2. Với nhập, cộng tồn; với xuất, kiểm tra số dương, SKU tồn tại và đủ số món.
 3. Ghi lại số thứ tự giao dịch lỗi, đối chiếu số lượt và in bảng tồn đã sắp mã.
+
+**No Note — Không chú thích**
+
+```python
+events = [("P01","add",12),("P02","add",9),("P03","add",8),("P01","sell",2),("P02","sell",3),("P04","add",5),("P05","add",7),("P03","sell",1),("P01","sell",20),("P06","add",15),("P04","sell",2),("P02","sell",1),("P07","add",4),("P05","sell",2),("P08","add",6),("P03","sell",3),("P02","add",5),("P09","sell",1),("P06","sell",4),("P07","sell",None)]
+stock, rejected = {}, []
+for index, (sku, action, quantity) in enumerate(events, 1):
+    if quantity is None or quantity <= 0:
+        rejected.append(index)
+    elif action == "add":
+        stock[sku] = stock.get(sku, 0) + quantity
+    elif action == "sell" and sku in stock and stock[sku] >= quantity:
+        stock[sku] -= quantity
+    else:
+        rejected.append(index)
+if len(events) != 20:
+    raise ValueError("Cần kiểm tra đủ 20 giao dịch kho.")
+print("Giao dịch:", len(events))
+print("Đã nhận:", len(events) - len(rejected))
+rejected_labels = []
+for index in rejected:
+    rejected_labels.append(str(index))
+stock_labels = []
+for sku in sorted(stock):
+    stock_labels.append(f"{sku}={stock[sku]}")
+print("Từ chối lượt:", ", ".join(rejected_labels))
+print("Tồn cuối:", ", ".join(stock_labels))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Áp dụng 20 giao dịch kho qua dictionary, từ chối giao dịch sai.

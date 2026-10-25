@@ -43,6 +43,17 @@ Một **hàm (function)** gom nhiều bước xử lý thành một công việc
 
 Giả sử cửa hàng cần tính giá của món hàng nhân đôi khi mua hai phần giống nhau. Nếu viết phép nhân tại nhiều chỗ, thay đổi quy tắc sẽ khó. Ta định nghĩa `twice(x)` bằng từ khóa `def`: `x` là đầu vào, phép `x * 2` tạo kết quả. Khi viết `twice(3)`, Python chạy thân hàm với `x = 3`, rồi trả số 6. Dòng `print()` bên ngoài mới đưa số này lên màn hình.
 
+**No Note — Không chú thích**
+
+```python
+def twice(x):
+    return x * 2
+
+print(twice(3))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tạo hàm twice để nhân đôi số theo đối số.
 # Dữ liệu: twice nhận số x và trả giá trị gấp đôi, không in trong hàm.
@@ -69,6 +80,17 @@ Một định nghĩa hàm có thể dùng lại cho nhiều giá trị như 3, 5
 
 **Tham số** là tên xuất hiện trong dòng định nghĩa, ví dụ `name` của `hello(name)`. **Đối số** là giá trị thật được truyền lúc gọi hàm, ví dụ `'Lan'` trong `hello('Lan')`. Trong thân hàm, `name` tạm nhận `'Lan'`, tạo chuỗi lời chào rồi `return` gửi nó về nơi gọi.
 
+**No Note — Không chú thích**
+
+```python
+def hello(name):
+    return f'Xin chào {name}!'
+
+print(hello('Lan'))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Phân biệt tham số khi định nghĩa hàm và đối số khi gọi.
 # Dữ liệu: hello nhận tên làm tham số, chuỗi kết quả tạo bằng f-string.
@@ -94,6 +116,18 @@ Xin chào Lan!
 **Từ vựng trong mục:** **Return** — trả về; **Print** — hiển thị.
 
 `return` khác `print()`: `return` **gửi giá trị về nơi gọi hàm** để chương trình có thể lưu hoặc tính tiếp; `print()` chỉ hiển thị. Ví dụ `add(a, b)` tính tổng hai số. Khi gán `total = add(2, 3)`, biến `total` nhận 5; lệnh `print(total)` mới làm số 5 xuất hiện trên màn hình.
+
+**No Note — Không chú thích**
+
+```python
+def add(a, b):
+    return a + b
+
+total = add(2, 3)
+print(total)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng return trả tổng hai đối số cho biến bên ngoài.
@@ -122,6 +156,15 @@ Giá trị trả về có thể lưu trong biến `total`; nếu hàm chỉ `pri
 
 Khi chỉ cần phép biến đổi đơn giản, `lambda x: x + 1` là cách viết ngắn của một hàm nhận `x` và trả về `x + 1`. Chẳng hạn tăng số lượng hiện tại 5 lên thêm một món sẽ ra 6. `lambda` thích hợp làm tiêu chí sắp xếp hay lọc; công việc có nhiều bước nên dùng `def` để dễ đọc.
 
+**No Note — Không chú thích**
+
+```python
+increase = lambda x: x + 1
+print(increase(5))
+```
+
+**Code có chú thích — Giải thích từng bước**
+
 ```python
 # Mục đích: Tạo hàm lambda một biểu thức cộng 1.
 # Dữ liệu: lambda là hàm không đặt tên tạo trực tiếp bằng một biểu thức.
@@ -144,6 +187,19 @@ Hàm được tạo bằng `lambda` nhận 5 và cho 6. Đây là một biểu t
 **Từ vựng trong mục:** **Scope** — phạm vi biến; **Local variable** — biến cục bộ.
 
 **Phạm vi biến** xác định nơi một tên biến có thể được dùng. Trong hàm `with_fee(price)`, biến `fee = 5` chỉ được tạo khi hàm chạy và dùng trong hàm; đó là **biến cục bộ (local)**. Bên ngoài hàm, chương trình chỉ dùng giá trị `return`, không truy cập trực tiếp `fee`. Ví dụ đơn hàng giá 100 (nghìn đồng) có phí xử lý 5 (nghìn đồng).
+
+**No Note — Không chú thích**
+
+```python
+def with_fee(price):
+    fee = 5
+    return price + fee
+
+final_price = with_fee(100)
+print(final_price)
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Phân biệt biến fee cục bộ trong hàm và giá bên ngoài.
@@ -181,6 +237,24 @@ Số 105 là tổng giá và phí, đơn vị nghìn đồng. Biến `fee` ở t
 1. Định nghĩa hàm `with_tax(price, rate=0.10)` có tham số mặc định.
 2. Gọi hàm cho mỗi trong 10 đơn giá.
 3. Tổng hợp, kiểm tra số lượng và in tổng.
+
+**No Note — Không chú thích**
+
+```python
+prices_vnd = [50000,72000,90000,110000,85000,60000,95000,120000,140000,100000]
+def with_tax(price, rate=0.10):
+    return round(price * (1 + rate))
+prices_after_tax = []
+for price in prices_vnd:
+    prices_after_tax.append(with_tax(price))
+if len(prices_after_tax) != 10:
+    raise ValueError("Cần tính thuế đủ 10 đơn giá.")
+print("Mặt hàng:", len(prices_vnd))
+print("Giá món đầu:", prices_after_tax[0])
+print("Tổng tiền (đồng):", sum(prices_after_tax))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Viết hàm tính giá có thuế mặc định 10% cho 10 món.
@@ -228,6 +302,25 @@ Hàm trả về số, không tự in ra; có thể dùng tiếp trong các phép
 1. Lưu 12 Dictionary theo thứ tự tiếp nhận.
 2. Viết lambda đọc cột `score` làm khóa cho `sorted`.
 3. Lấy bốn tên đầu và kiểm tra danh sách nguồn không đổi.
+
+**No Note — Không chú thích**
+
+```python
+students = [{"name":"An","score":8},{"name":"Bình","score":9},{"name":"Chi","score":7},{"name":"Dung","score":9},{"name":"Hà","score":6},{"name":"Khánh","score":10},{"name":"Lan","score":8},{"name":"Minh","score":9},{"name":"Nam","score":5},{"name":"Trang","score":10},{"name":"Vy","score":7},{"name":"Yến","score":9}]
+ranked = sorted(students, key=lambda item: item["score"], reverse=True)
+if len(students) != 12:
+    raise ValueError("Cần đủ 12 hồ sơ đăng ký.")
+if students[0]["name"] != "An":
+    raise ValueError("Danh sách gốc không được đổi thứ tự nộp.")
+print("Học viên:", len(students))
+interview_names = []
+for student in ranked[:4]:
+    interview_names.append(student["name"])
+print("Phỏng vấn trước:", ", ".join(interview_names))
+print("Nguồn đầu:", students[0]["name"])
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Dùng lambda làm khóa xếp 12 học viên theo điểm giảm.
@@ -278,6 +371,32 @@ Lambda chỉ định trường điểm để so, không làm thay đổi thứ t
 1. Định nghĩa `valid_score()` trả `True/False` trên dữ liệu đầu vào.
 2. Định nghĩa `passed()` dùng kết quả kiểm tra để xét ngưỡng 5.
 3. Duyệt đủ 15 lượt và báo các nhóm không chồng lấn.
+
+**No Note — Không chú thích**
+
+```python
+scores = [4,7,9,10,2,5,11,8,None,6,0,3,7.5,9.5,-1]
+def valid_score(value):
+    return isinstance(value, (int, float)) and 0 <= value <= 10
+
+def passed(value):
+    return valid_score(value) and value >= 5
+valid = []
+passed_scores = []
+for score in scores:
+    if valid_score(score):
+        valid.append(score)
+        if passed(score):
+            passed_scores.append(score)
+if len(scores) != 15:
+    raise ValueError("Cần kiểm tra đủ 15 kết quả điểm.")
+print("Lượt nhận:", len(scores))
+print("Hợp lệ:", len(valid))
+print("Đạt:", len(passed_scores))
+print("Không hợp lệ:", len(scores) - len(valid))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tách hàm kiểm tra điểm hợp lệ và hàm kiểm tra điểm đạt cho 15 kết quả.
@@ -340,6 +459,37 @@ Không hợp lệ: 3
 1. Xác định dữ liệu hợp lệ: là số và không âm.
 2. Duyệt trong hàm, tích lũy các số hợp lệ và ghi mã lỗi.
 3. Trả tuple chứa thống kê và danh sách lỗi, in kết quả.
+
+**No Note — Không chú thích**
+
+```python
+amounts = [120,200,150,300,None,180,220,0,400,350,-20,280,310,130,260,140,None,230]
+def summarize(values):
+    accepted = []
+    bad_ids = []
+    for index, amount in enumerate(values, 1):
+        if not isinstance(amount, (int, float)) or amount < 0:
+            bad_ids.append(f"G{index:02d}")
+        else:
+            accepted.append(amount)
+    total = sum(accepted)
+    if accepted:
+        average = total / len(accepted)
+    else:
+        average = None
+    return len(accepted), total, average, bad_ids
+
+count, total, average, errors = summarize(amounts)
+if len(amounts) != 18:
+    raise ValueError("Cần đủ 18 giao dịch để thống kê.")
+print("Giao dịch:", len(amounts))
+print("Hợp lệ:", count)
+print("Tổng (nghìn đồng):", total)
+print(f"Trung bình (nghìn đồng): {average:.1f}")
+print("Cần sửa:", ", ".join(errors))
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Viết hàm trả nhiều kết quả thống kê trên 18 giao dịch có lỗi.
@@ -410,6 +560,40 @@ Trường có giá trị 0 vẫn là một chi phí hợp lệ và được tín
 1. Định nghĩa `valid_order` kiểm tra dữ liệu có giá/số lượng hợp lệ.
 2. Tạo hàm `amount` tính doanh thu dòng và hàm `report` gom theo vùng.
 3. Xử lý 20 hóa đơn, in số hợp lệ, mã lỗi và doanh thu đúng đơn vị.
+
+**No Note — Không chú thích**
+
+```python
+orders = [{"id":"O01","area":"A","price":50,"qty":1},{"id":"O02","area":"B","price":60,"qty":2},{"id":"O03","area":"C","price":70,"qty":3},{"id":"O04","area":"A","price":80,"qty":4},{"id":"O05","area":"B","price":90,"qty":1},{"id":"O06","area":"C","price":50,"qty":2},{"id":"O07","area":"A","price":None,"qty":3},{"id":"O08","area":"B","price":70,"qty":4},{"id":"O09","area":"C","price":80,"qty":1},{"id":"O10","area":"A","price":90,"qty":2},{"id":"O11","area":"B","price":50,"qty":3},{"id":"O12","area":"C","price":60,"qty":4},{"id":"O13","area":"A","price":70,"qty":1},{"id":"O14","area":"B","price":80,"qty":2},{"id":"O15","area":"C","price":-1,"qty":3},{"id":"O16","area":"A","price":50,"qty":4},{"id":"O17","area":"B","price":60,"qty":1},{"id":"O18","area":"C","price":70,"qty":2},{"id":"O19","area":"A","price":80,"qty":3},{"id":"O20","area":"B","price":90,"qty":4}]
+def valid_order(order):
+    return isinstance(order["price"], (int, float)) and order["price"] >= 0 and order["qty"] > 0
+
+def amount(order):
+    return order["price"] * order["qty"]
+
+def report(items):
+    totals = {"A": 0, "B": 0, "C": 0}
+    invalid = []
+    for order in items:
+        if valid_order(order):
+            totals[order["area"]] += amount(order)
+        else:
+            invalid.append(order["id"])
+    return totals, invalid
+
+totals, invalid = report(orders)
+if len(orders) != 20:
+    raise ValueError("Cần đủ 20 hóa đơn.")
+if len(orders) - len(invalid) != 18:
+    raise ValueError("Số hóa đơn hợp lệ phải bằng 18.")
+print("Số hóa đơn:", len(orders))
+print("Hợp lệ:", len(orders) - len(invalid))
+print("Cần sửa:", ", ".join(invalid))
+for area in sorted(totals, key=lambda name: name):
+    print(f"Vùng {area} (nghìn đồng): {totals[area]}")
+```
+
+**Code có chú thích — Giải thích từng bước**
 
 ```python
 # Mục đích: Tách thành các hàm xác minh đơn, tính tiền và tổng hợp 20 hóa đơn theo vùng.
