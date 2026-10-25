@@ -126,151 +126,197 @@ print(np.abs(vectors[:, -1]))
 
 Hướng có phương sai lớn nhất nằm trên trục y; đổi dấu vector riêng không đổi hướng trục.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống trị riêng — từ nhận biết trục đến tái tạo bằng PCA
 
-### Tình huống 1 — Chọn hướng biến thiên lớn nhất
+### Tình huống 1 — Cấp 1: Tìm chiều biến thiên trong 10 phép đo hai trục
 
-**Tình huống thực tế:** Một bảng thống kê hai đặc trưng đã được chuẩn hóa ý nghĩa đơn vị và có hiệp phương sai `diag(2,3)`. Cần xác định hướng mang nhiều phương sai hơn.
+**Từ vựng trong mục:** **Covariance** — hiệp phương sai; **Eigenvalue** — trị riêng; **Axis** — trục.
 
-**Vì sao chọn cách giải này?** `eigh` dành cho ma trận đối xứng và trả trị riêng tăng dần; trị riêng cuối lớn nhất cùng vector riêng tương ứng.
+**Tình huống thực tế:** Cảm biến nhận **10 tọa độ** (x, y), mỗi dòng là một lần đo. Trong dữ liệu mô phỏng, x thay đổi qua từng lượt còn y luôn giữ 20 mm. Kỹ thuật viên muốn biết chiều nào có mức biến thiên lớn nhất, không nhầm giá trị tọa độ 20 với độ biến thiên.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Hiệp phương sai đo mức thay đổi của mỗi cột, còn eigenvalue của ma trận đối xứng này cho mức phương sai trên hai hướng riêng. Cột y không đổi nên trị riêng tương ứng bằng 0.
 
-1. Tạo ma trận hiệp phương sai 2×2.
-2. Tìm trị riêng và các vector riêng bằng `eigh`.
-3. In trị riêng lớn nhất và độ lớn các thành phần vector riêng để không phụ thuộc dấu.
+**Quy trình:**
+1. Tạo 10 hàng × 2 cột và tính covariance với cột là đặc trưng.
+2. Dùng `eigvalsh` đọc hai trị riêng đã sắp tăng.
+3. Chọn trục có phương sai lớn nhất và diễn giải.
 
 ```python
-# Mục đích: Chọn hướng biến thiên lớn nhất.
 import numpy as np
+X = np.array([[1,20],[2,20],[3,20],[4,20],[5,20],[6,20],[7,20],[8,20],[9,20],[10,20]], dtype=float)
+C = np.cov(X, rowvar=False)
+values = np.linalg.eigvalsh(C)
+assert X.shape == (10, 2)
+print("Lượt đo:", len(X))
+print("Trị riêng nhỏ:", f"{values[0]:.2f}")
+print("Trị riêng lớn:", f"{values[-1]:.2f}")
+print("Y không thay đổi:", bool(np.all(X[:, 1] == 20)))
+```
 
-C = np.diag([2.0, 3.0])
+**Kết quả khi chạy:**
+
+```text
+Lượt đo: 10
+Trị riêng nhỏ: 0.00
+Trị riêng lớn: 9.17
+Y không thay đổi: True
+```
+
+Ở cấp này, phương sai y bằng 0 không có nghĩa tọa độ y bằng 0; cảm biến luôn ghi **20 mm**.
+
+### Tình huống 2 — Cấp 2: Nhận biết chiều dư thừa của 12 bản ghi phụ thuộc
+
+**Từ vựng trong mục:** **Linear dependence** — phụ thuộc tuyến tính; **Eigenvalue** — trị riêng.
+
+**Tình huống thực tế:** Phòng đo ghi **12 mẫu**, mỗi hàng gồm một chỉ số x và chỉ số thứ hai luôn bằng 2x. Cần xác nhận dữ liệu hai cột thật ra chỉ có một chiều biến thiên độc lập, thông qua trị riêng gần 0 của ma trận hiệp phương sai.
+
+**Vì sao chọn cách này?** Một cột được tạo từ cột kia không mang thêm hướng biến thiên mới. Ma trận covariance của hai cột có một eigenvalue bằng 0; đây là dấu hiệu có thể giảm một đặc trưng mà vẫn giữ thông tin tuyến tính.
+
+**Quy trình:**
+1. Ghi 12 cặp x/2x và tính hiệp phương sai.
+2. Tính các trị riêng qua `eigvalsh` để tránh số phức do sai số thuật toán.
+3. Đếm số trị riêng dương theo ngưỡng nhỏ.
+
+```python
+import numpy as np
+X = np.array([[1,2],[2,4],[3,6],[4,8],[5,10],[6,12],[7,14],[8,16],[9,18],[10,20],[11,22],[12,24]], dtype=float)
+C = np.cov(X, rowvar=False)
+eigenvalues = np.linalg.eigvalsh(C)
+assert X.shape == (12, 2)
+print("Mẫu:", len(X))
+print("Trị riêng:", ", ".join(f"{v:.2f}" for v in eigenvalues))
+print("Chiều có biến thiên:", int((eigenvalues > 1e-9).sum()))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Mẫu: 12
+Trị riêng: 0.00, 65.00
+Chiều có biến thiên: 1
+```
+
+Trị riêng 0 không nói rằng một cột toàn số 0, mà nói hai cột không độc lập với nhau.
+
+### Tình huống 3 — Cấp 3: Đối chiếu vector riêng trên 15 tọa độ dạng lưới
+
+**Từ vựng trong mục:** **Eigenvector** — véc-tơ riêng; **Eigen-equation** — quan hệ riêng; **eigh** — tìm trị và véc-tơ riêng.
+
+**Tình huống thực tế:** Một robot tạo **15 điểm khảo sát** (mét) trên lưới 5 cột × 3 hàng. Kỹ thuật viên cần tìm hai hướng riêng của ma trận hiệp phương sai và **kiểm chứng** khi nhân covariance với véc-tơ riêng, kết quả đúng bằng véc-tơ đó nhân trị riêng tương ứng. Dấu véc-tơ riêng có thể đổi, nên không cố ép dấu.
+
+**Vì sao chọn cách này?** `np.linalg.eigh` dành cho ma trận covariance đối xứng, trả cả trị riêng và véc-tơ riêng. `np.allclose` kiểm tra trực tiếp quan hệ thay vì đoán hướng bằng hình ảnh.
+
+**Quy trình:**
+1. Tạo 15 mẫu lưới và tính covariance 2×2.
+2. Nhận trị riêng và cột véc-tơ riêng bằng `eigh`.
+3. Kiểm chứng từng cột véc-tơ qua quan hệ riêng.
+
+```python
+import numpy as np
+X = np.array([[0,0],[1,0],[2,0],[3,0],[4,0],[0,1],[1,1],[2,1],[3,1],[4,1],[0,2],[1,2],[2,2],[3,2],[4,2]], dtype=float)
+C = np.cov(X, rowvar=False)
 values, vectors = np.linalg.eigh(C)
-print(values[-1], np.abs(vectors[:, -1]))
+verified = np.allclose(C @ vectors, vectors * values)
+assert X.shape == (15, 2)
+print("Điểm:", len(X))
+print("Trị riêng:", ", ".join(f"{v:.3f}" for v in values))
+print("Kiểm chứng:", bool(verified))
+print("Số hướng:", vectors.shape[1])
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-3.0 [0. 1.]
+Điểm: 15
+Trị riêng: 0.714, 2.143
+Kiểm chứng: True
+Số hướng: 2
 ```
 
-Trục y là hướng chính với phương sai 3, lớn hơn trục x (2).
+Chỉ khi nhân ma trận hiệp phương sai với **đúng véc-tơ riêng** mới thu được cùng phương đã nhân hệ số.
 
-### Tình huống 2 — Phát hiện dữ liệu phụ thuộc tuyến tính
+### Tình huống 4 — Cấp 4: Xếp hai hướng biến thiên từ 18 điểm và tỷ lệ thông tin
 
-**Tình huống thực tế:** Ba hàng quan sát có hai đặc trưng lần lượt `(1,2)`, `(2,4)`, `(3,6)`; cột hai luôn gấp đôi cột một. Cần xem ma trận hiệp phương sai có hướng hoàn toàn không biến thiên không.
+**Từ vựng trong mục:** **Variance ratio** — tỷ lệ phương sai; **Principal direction** — hướng chính.
 
-**Vì sao chọn cách giải này?** Khi hai cột phụ thuộc tuyến tính, ma trận hiệp phương sai có ít nhất một trị riêng gần 0.
+**Tình huống thực tế:** Nhóm phân tích có **18 điểm khảo sát** (x,y), x trải trên sáu cột và y trên ba hàng. Cần biết hướng riêng có phương sai lớn hơn và phần trăm tổng phương sai nằm trên hướng này trước khi quyết định xem biểu đồ theo trục nào.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Eigenvalue lớn biểu diễn mức biến thiên nhiều hơn trên một trục riêng của covariance. Chia cho tổng trị riêng cho tỷ lệ có thể giải thích, không đánh đồng tỷ lệ này với độ chính xác dự báo.
 
-1. Lưu ba hàng quan sát và hai cột đặc trưng.
-2. Tính hiệp phương sai theo cột bằng `rowvar=False`.
-3. Dùng `eigvalsh` lấy hai trị riêng.
+**Quy trình:**
+1. Tính covariance của 18 điểm quan sát.
+2. Sắp hai trị riêng giảm dần và lấy tỷ trọng trị lớn trong tổng.
+3. Kiểm tra hướng chính bằng giá trị tuyệt đối của véc-tơ riêng, tránh phụ thuộc dấu.
 
 ```python
-# Mục đích: Phát hiện dữ liệu phụ thuộc tuyến tính.
 import numpy as np
-
-X = np.array([[1, 2], [2, 4], [3, 6]], dtype=float)
-print(np.linalg.eigvalsh(np.cov(X, rowvar=False)))
+points = np.array([[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[0,2],[1,2],[2,2],[3,2],[4,2],[5,2]], dtype=float)
+C = np.cov(points, rowvar=False)
+values, vectors = np.linalg.eigh(C)
+order = np.argsort(values)[::-1]
+principal = np.abs(vectors[:, order[0]])
+assert points.shape == (18, 2)
+print("Điểm:", len(points))
+print("Hướng chính:", "x" if principal[0] > principal[1] else "y")
+print(f"Tỷ lệ phương sai lớn nhất: {100*values[order[0]]/values.sum():.2f}%")
+print("Số chiều:", len(values))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0. 5.]
+Điểm: 18
+Hướng chính: x
+Tỷ lệ phương sai lớn nhất: 81.40%
+Số chiều: 2
 ```
 
-Một hướng có phương sai 0 do cột hai phụ thuộc cột đầu; hướng còn lại có phương sai 5.
+Trị riêng chỉ có ý nghĩa **phương sai** vì ma trận ở đây là covariance; với ma trận biến đổi khác cần giải thích theo ngữ cảnh khác.
 
-### Tình huống 3 — Kiểm nghiệm phương trình vector riêng
+### Tình huống 5 — Cấp 5: PCA từ 20 hồ sơ có bốn đặc trưng nhưng chỉ hai chiều độc lập
 
-**Tình huống thực tế:** Cho ma trận A=`diag(2,3)`. Chọn vector riêng ứng với trị riêng lớn nhất và kiểm tra quan hệ `A@v = λ*v`.
+**Từ vựng trong mục:** **PCA** — thành phần chính; **Rank** — hạng; **Reconstruction** — tái tạo.
 
-**Vì sao chọn cách giải này?** `np.allclose` đối chiếu hai vế trong sai số số thực, tránh so bằng tuyệt đối.
+**Tình huống thực tế:** Hệ thống tổng hợp **20 hồ sơ** giả lập, mỗi hàng có bốn chỉ số không đơn vị `[x, 2x, y, 3y]`. Hai cột là bản sao tỷ lệ của hai cột khác, nên bảng bốn cột chỉ có **hai hướng biến thiên độc lập**. Cần tìm eigenvalues của covariance, giữ hai hướng lớn nhất, chiếu 20 hàng sang hai tọa độ mới và tái tạo lại bảng gốc.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** PCA dùng eigenvector của covariance theo thứ tự trị riêng giảm; nếu rank dữ liệu sau căn giữa bằng 2 thì giữ 2 thành phần có thể tái tạo bốn cột trong sai số tính toán. Đây là dữ liệu nhân tạo, không tự khẳng định thực tế luôn giảm được 50% số cột.
 
-1. Tìm cặp trị riêng/vector riêng từ A đối xứng.
-2. Lấy trị riêng lớn nhất và cột vector tương ứng.
-3. So hai vế `A@v` và `λ*v`.
+**Quy trình:**
+1. Căn giữa bảng 20×4, tính covariance và `eigh`.
+2. Chọn hai eigenvector ứng với hai trị riêng lớn nhất rồi chiếu.
+3. Tái tạo bảng, kiểm tra sai số và báo tỷ lệ phương sai của hướng đầu.
 
 ```python
-# Mục đích: Kiểm nghiệm phương trình vector riêng.
 import numpy as np
-
-A = np.diag([2.0, 3.0])
-values, vectors = np.linalg.eigh(A)
-print(np.allclose(A @ vectors[:, -1], values[-1] * vectors[:, -1]))
+X = np.array([[0,0,0,0],[1,2,0,0],[2,4,0,0],[3,6,0,0],[4,8,0,0],[0,0,1,3],[1,2,1,3],[2,4,1,3],[3,6,1,3],[4,8,1,3],[0,0,2,6],[1,2,2,6],[2,4,2,6],[3,6,2,6],[4,8,2,6],[0,0,3,9],[1,2,3,9],[2,4,3,9],[3,6,3,9],[4,8,3,9]], dtype=float)
+centered = X - X.mean(axis=0)
+C = np.cov(X, rowvar=False)
+values, vectors = np.linalg.eigh(C)
+order = np.argsort(values)[::-1]
+basis = vectors[:, order[:2]]
+projected = centered @ basis
+recreated = projected @ basis.T + X.mean(axis=0)
+assert X.shape == (20, 4) and projected.shape == (20, 2)
+print("Hồ sơ:", len(X))
+print("Cột gốc:", X.shape[1])
+print("Cột sau PCA:", projected.shape[1])
+print("Trị riêng dương:", int((values > 1e-9).sum()))
+print(f"Hướng đầu giữ: {100*values[order[0]]/values.sum():.2f}%")
+print("Tái tạo đúng:", bool(np.allclose(recreated, X)))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-True
+Hồ sơ: 20
+Cột gốc: 4
+Cột sau PCA: 2
+Trị riêng dương: 2
+Hướng đầu giữ: 55.56%
+Tái tạo đúng: True
 ```
 
-Cặp trị riêng và vector riêng đáp ứng định nghĩa của eigenvector.
-
-### Tình huống 4 — Sắp hướng theo độ biến thiên
-
-**Tình huống thực tế:** Hệ thống thống kê có ba phương sai trên các hướng độc lập lần lượt là `[4,1,3]`. Cần ưu tiên hướng có phương sai cao nhất.
-
-**Vì sao chọn cách giải này?** `argsort` trả chỉ số theo giá trị, rồi `[::-1]` đảo sang thứ tự giảm dần.
-
-**Quy trình giải:**
-
-1. Tạo mảng trị riêng `[4,1,3]`.
-2. Tính chỉ số sắp tăng, rồi đảo thứ tự.
-3. In chỉ số của các hướng từ lớn tới nhỏ.
-
-```python
-# Mục đích: Sắp hướng theo độ biến thiên.
-import numpy as np
-
-values = np.array([4, 1, 3])
-print(np.argsort(values)[::-1])
-```
-
-**Kết quả khi chạy:**
-
-```text
-[0 2 1]
-```
-
-Ưu tiên hướng ở vị trí 0 (phương sai 4), tiếp đến vị trí 2 (3), cuối vị trí 1 (1).
-
-### Tình huống 5 — Giảm số cột đặc trưng bằng PCA
-
-**Tình huống thực tế:** Ba quan sát hai chiều `(1,2)`, `(2,3)`, `(3,4)` được lưu thành bảng 3 hàng × 2 cột. Cần chiếu dữ liệu xuống một trục biến thiên chính để minh họa giảm chiều.
-
-**Vì sao chọn cách giải này?** PCA tìm hướng có phương sai lớn; `n_components=1` giữ một trục, không giảm số hàng quan sát.
-
-**Quy trình giải:**
-
-1. Tạo bảng 3×2, hàng là quan sát và cột là đặc trưng.
-2. Khởi tạo `PCA(n_components=1)` từ scikit-learn (thư viện cần cài).
-3. Fit/transform và in shape dữ liệu sau chiếu.
-
-```python
-# Mục đích: Giảm số cột đặc trưng bằng PCA.
-import numpy as np
-from sklearn.decomposition import PCA
-
-X = np.array([[1, 2], [2, 3], [3, 4]], dtype=float)
-projected = PCA(n_components=1).fit_transform(X)
-print(projected.shape)
-```
-
-**Kết quả khi chạy:**
-
-```text
-(3, 1)
-```
-
-Ba mẫu vẫn giữ nguyên; mỗi mẫu còn một giá trị tọa độ trên trục chính.
+Véc-tơ riêng đổi dấu vẫn cho không gian PCA như nhau. Không nên so chính xác từng hệ số véc-tơ theo dấu nếu mục tiêu chỉ là **hướng**.
 
 ## 6. Sai lầm thường gặp
 
