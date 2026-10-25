@@ -135,156 +135,194 @@ print(round(float(np.sum(P * np.log(P / Q))), 4))
 
 Dòng đầu là cross-entropy của nhãn đúng; dòng sau là KL từ phân phối P sang Q. Hai số mang ý nghĩa khác nhau.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống Loss — từ MSE đến entropy chéo và KL trên nhiều mẫu
 
-### Tình huống 1 — Đánh giá sai số giá nhà bằng MSE
+### Tình huống 1 — Cấp 1: Đánh giá dự báo 10 chuyến giao hàng bằng MSE
 
-**Tình huống thực tế:** Hai căn nhà có giá thực tế `[100,200]` và dự báo `[110,170]`, tất cả cùng đơn vị triệu đồng. Cần đánh giá mô hình bằng mức phạt nhấn mạnh dự báo sai lớn.
+**Từ vựng trong mục:** **MSE** — trung bình bình phương sai số; **Residual** — sai lệch dự báo.
 
-**Vì sao chọn cách giải này?** Bình phương lỗi khiến dự báo sai 30 triệu bị phạt mạnh hơn lỗi 10 triệu.
+**Tình huống thực tế:** Một dịch vụ có **10 chuyến giao hàng**, mỗi hàng gồm thời gian thực tế và thời gian dự báo (phút/chuyến). Các dự báo đều có sai số nhỏ nhưng không hoàn toàn trùng thực tế. Cần tính MSE, sai số tuyệt đối lớn nhất và xác nhận số dòng thực tế bằng số dòng dự báo.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** MSE bình phương từng sai lệch rồi trung bình nên sai số lớn bị phạt mạnh hơn. Đơn vị là **phút²**, không phải số phút; người mới cần phân biệt sai lệch và bình phương sai lệch.
 
-1. Tạo hai mảng giá thực tế và giá dự báo theo đúng thứ tự căn nhà.
-2. Trừ, bình phương từng sai lệch, lấy trung bình.
-3. In MSE; đơn vị là triệu đồng bình phương.
+**Quy trình:**
+1. Tạo hai dãy 10 thời gian theo cùng thứ tự chuyến.
+2. Trừ hai dãy để nhận sai số, bình phương rồi lấy trung bình.
+3. In MSE và sai lệch tuyệt đối lớn nhất để đối chiếu.
 
 ```python
-# Mục đích: Đánh giá sai số giá nhà bằng MSE.
 import numpy as np
-
-y_true = np.array([100, 200])
-y_pred = np.array([110, 170])
-print(np.mean((y_true - y_pred) ** 2))
+actual_minutes = np.array([20,23,25,28,30,32,34,35,37,40], dtype=float)
+predicted_minutes = np.array([21,22,24,30,31,30,36,35,39,38], dtype=float)
+errors = predicted_minutes - actual_minutes
+assert actual_minutes.shape == predicted_minutes.shape == (10,)
+print("Chuyến:", len(actual_minutes))
+print(f"MSE (phút²): {np.mean(errors ** 2):.2f}")
+print("Sai số lớn nhất (phút):", int(np.max(np.abs(errors))))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-500.0
+Chuyến: 10
+MSE (phút²): 2.40
+Sai số lớn nhất (phút): 2
 ```
 
-MSE bằng 500 (triệu đồng)², không phải sai số tiền trung bình 500 triệu.
+MSE tính trên **cùng 10 chuyến**; không được trộn sai thứ tự thực tế và dự báo khi đánh giá.
 
-### Tình huống 2 — Đo lỗi trung bình dễ hiểu bằng MAE
+### Tình huống 2 — Cấp 2: So MAE và MSE khi 12 số đo có một ngoại lệ lớn
 
-**Tình huống thực tế:** Ba kết quả thực tế `[10,20,30]` và dự báo `[9,19,50]` cùng đơn vị có một dự báo sai lớn ở vị trí cuối. Cần đo sai lệch trung bình theo đơn vị gốc.
+**Từ vựng trong mục:** **MAE** — sai số tuyệt đối trung bình; **Outlier** — ngoại lệ; **Comparison** — so sánh.
 
-**Vì sao chọn cách giải này?** MAE đo trị tuyệt đối nên dễ diễn giải theo cùng đơn vị; không bình phương lỗi lớn.
+**Tình huống thực tế:** Nhóm kiểm định có **12 số đo khối lượng** (g) và 12 dự báo tương ứng. 11 lần sai khoảng 2 g, riêng lượt thứ 9 lệch 50 g do sự cố giả định. Cần so MAE với MSE để hiểu vì sao cách bình phương phạt ngoại lệ rất mạnh.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** MAE giữ đơn vị g, tăng tuyến tính khi sai số lớn. MSE có đơn vị g² và bị ảnh hưởng mạnh bởi 50 g; hai số **khác đơn vị**, không so trực tiếp chúng để tuyên bố mô hình tốt/xấu.
 
-1. Tạo mảng thực tế và dự báo cùng thứ tự.
-2. Lấy trị tuyệt đối sai lệch theo từng quan sát rồi trung bình.
-3. In kết quả làm tròn ba chữ số.
+**Quy trình:**
+1. Tạo 12 cặp số đo–dự báo, có đúng một ngoại lệ 50 g.
+2. Tính sai số tuyệt đối và bình phương trên từng hàng.
+3. Báo MAE, MSE và số điểm có lỗi lớn hơn 10 g.
 
 ```python
-# Mục đích: Đo lỗi trung bình dễ hiểu bằng MAE.
 import numpy as np
-
-y_true = np.array([10, 20, 30])
-y_pred = np.array([9, 19, 50])
-print(round(float(np.mean(np.abs(y_true - y_pred))), 3))
+actual_g = np.array([100,110,120,130,140,150,160,170,180,190,200,210], dtype=float)
+predicted_g = np.array([102,108,122,128,142,148,162,168,230,188,202,208], dtype=float)
+e = predicted_g - actual_g
+assert len(e) == 12
+print("Lượt đo:", len(e))
+print(f"MAE (g): {np.mean(np.abs(e)):.2f}")
+print(f"MSE (g²): {np.mean(e ** 2):.2f}")
+print("Lỗi > 10 g:", int((np.abs(e) > 10).sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-7.333
+Lượt đo: 12
+MAE (g): 6.00
+MSE (g²): 212.00
+Lỗi > 10 g: 1
 ```
 
-Độ lệch trung bình tuyệt đối khoảng 7.333 đơn vị gốc.
+MAE không loại bỏ sự cố ngoại lệ; nó chỉ **không bình phương** sự cố ấy như MSE.
 
-### Tình huống 3 — Áp dụng Huber cho số đo nhiễu
+### Tình huống 3 — Cấp 3: Dùng Huber cho 15 sai lệch cảm biến có hai lỗi bất thường
 
-**Tình huống thực tế:** Ba sai số thiết bị là `[−1,2,5]` đơn vị đo. Dùng Huber với ngưỡng δ=1 để tăng phạt tuyến tính khi lỗi lớn.
+**Từ vựng trong mục:** **Huber** — hàm mất mát lai; **Delta** — ngưỡng; **Robustness** — giảm độ nhạy với ngoại lệ.
 
-**Vì sao chọn cách giải này?** Huber dùng phần bình phương ở lỗi nhỏ và phần tuyến tính ở lỗi lớn, tránh khuếch đại lỗi 5 quá mạnh.
+**Tình huống thực tế:** Trạm cảm biến có **15 sai lệch** dự báo so với chuẩn (°C), mỗi phần tử là một lượt. Hầu hết sai lệch gần 0, nhưng hai lượt có lỗi lớn +8 °C và -7 °C. Với ngưỡng minh họa **δ=1 °C**, cần tính Huber trung bình, đếm sai số vượt ngưỡng và so với MAE theo cùng mẫu.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Huber tính kiểu bình phương với lỗi nhỏ, còn lỗi lớn chuyển sang tuyến tính. Cần nêu δ và đơn vị; giá trị Huber không giống MAE vì mức phạt khác, không dùng tên loss thay thế mà không nêu quy tắc.
 
-1. Lưu ba sai số và ngưỡng δ=1.
-2. Dùng `np.where` tính hai nhánh của hàm Huber theo độ lớn lỗi.
-3. Lấy trung bình và in sau làm tròn.
+**Quy trình:**
+1. Lưu 15 sai số có dấu và đặt ngưỡng Huber δ=1.
+2. Áp từng nhánh theo trị tuyệt đối của sai số bằng `np.where`.
+3. In Huber, MAE và số lượt có trị lỗi vượt δ.
 
 ```python
-# Mục đích: Áp dụng Huber cho số đo nhiễu.
 import numpy as np
-
-e = np.array([-1.0, 2.0, 5.0])
+errors_c = np.array([-1,1,-2,0,0.5,-0.5,1.5,-1.5,2,0,0.2,-0.2,8,-7,1], dtype=float)
 delta = 1.0
-loss = np.where(
-    np.abs(e) <= delta,
-    0.5 * e ** 2,
-    delta * (np.abs(e) - 0.5 * delta),
-)
-print(round(float(loss.mean()), 3))
+abserr = np.abs(errors_c)
+huber = np.where(abserr <= delta,
+                 0.5 * errors_c**2,
+                 delta * (abserr - 0.5 * delta))
+assert errors_c.size == 15
+print("Số đo:", len(errors_c))
+print("Lỗi > δ:", int((abserr > delta).sum()))
+print(f"Huber trung bình: {huber.mean():.3f}")
+print(f"MAE (°C): {abserr.mean():.3f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-2.167
+Số đo: 15
+Lỗi > δ: 6
+Huber trung bình: 1.386
+MAE (°C): 1.760
 ```
 
-Loss Huber trung bình khoảng 2.167 cho ba sai số với δ=1.
+Ví dụ chỉ minh họa lựa chọn loss; dữ liệu thực cần điều chỉnh δ dựa trên thang đo và mục tiêu học máy.
 
-### Tình huống 4 — Tính cross-entropy của nhãn đúng
+### Tình huống 4 — Cấp 4: Cross-entropy của 18 nhãn trong bài toán ba lớp
 
-**Tình huống thực tế:** Bộ phân loại đưa xác suất 0.8 cho nhãn đúng của một mẫu. Hãy tính mức phạt logarit cho dự báo này.
+**Từ vựng trong mục:** **Cross-entropy** — entropy chéo; **True-class probability** — xác suất lớp đúng; **Clipping** — chặn biên số.
 
-**Vì sao chọn cách giải này?** Với nhãn one-hot, cross-entropy bằng âm log xác suất của nhãn đúng.
+**Tình huống thực tế:** Một mô hình phân loại ảnh giả lập nhận **18 mẫu**, mỗi mẫu có nhãn thật trong ba lớp A/B/C và **điểm softmax tại lớp thật**. Mẫu thứ 6 và thứ 15 có điểm rất thấp cho lớp đúng. Cần tính cross-entropy trung bình, tìm mẫu bị phạt lớn nhất và tránh `log(0)` nếu điểm bị làm tròn về 0.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Với nhãn một lớp đúng, cross-entropy là mức phạt dựa trên chính điểm gán cho lớp đúng; càng gần 0, phạt càng cao. Trong code dùng `np.clip` trước log để phòng giá trị bằng 0 của một mô hình khác.
 
-1. Lưu xác suất nhãn đúng 0.8, giá trị nằm trong (0,1].
-2. Tính `-math.log(prob_true)`.
-3. Làm tròn bốn chữ số và in loss.
+**Quy trình:**
+1. Tạo 18 nhãn đúng và điểm của lớp đúng tương ứng.
+2. Clip điểm trong khoảng an toàn rồi lấy `-log`.
+3. Tìm mất mát trung bình và mã mẫu có loss lớn nhất.
 
 ```python
-# Mục đích: Tính cross-entropy của nhãn đúng.
-import math
-
-prob_true = 0.8
-print(round(-math.log(prob_true), 4))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0.2231
-```
-
-Nếu mô hình tăng xác suất cho nhãn đúng về gần 1, loss giảm về gần 0.
-
-### Tình huống 5 — So hai phân phối bằng KL divergence
-
-**Tình huống thực tế:** Phân phối P là `[0.5,0.5]` và Q là `[0.6,0.4]` cho hai lớp; các tổng đều bằng 1. Cần đo P khác Q bao nhiêu theo chiều `D_KL(P||Q)`.
-
-**Vì sao chọn cách giải này?** KL cân chênh lệch logarit theo xác suất P và phụ thuộc chiều so sánh, không phải khoảng cách đối xứng.
-
-**Quy trình giải:**
-
-1. Tạo hai phân phối dương, có tổng 1.
-2. Tính `P * log(P/Q)` ở từng lớp rồi cộng.
-3. In KL làm tròn bốn chữ số.
-
-```python
-# Mục đích: So hai phân phối bằng KL divergence.
 import numpy as np
-
-P = np.array([0.5, 0.5])
-Q = np.array([0.6, 0.4])
-print(round(float(np.sum(P * np.log(P / Q))), 4))
+labels = np.array([0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2], dtype=int)
+true_class_scores = np.array([0.55,0.6000000000000001,0.65,0.7000000000000001,0.75,0.05,0.6000000000000001,0.65,0.7000000000000001,0.75,0.55,0.6000000000000001,0.65,0.7000000000000001,0.01,0.55,0.6000000000000001,0.65], dtype=float)
+losses = -np.log(np.clip(true_class_scores, 1e-12, 1.0))
+worst = int(losses.argmax())
+assert labels.shape == true_class_scores.shape == (18,)
+assert np.all((labels >= 0) & (labels < 3))
+print("Mẫu:", len(labels))
+print(f"Cross-entropy TB: {losses.mean():.3f}")
+print("Loss lớn nhất:", f"M{worst+1:02d}")
+print(f"Loss mẫu lớn nhất: {losses[worst]:.3f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.0204
+Mẫu: 18
+Cross-entropy TB: 0.823
+Loss lớn nhất: M15
+Loss mẫu lớn nhất: 4.605
 ```
 
-KL dương và nhỏ vì hai phân phối khá gần nhau, nhưng không đồng nhất.
+Điểm softmax chưa chắc là xác suất đã hiệu chuẩn. Vì thế đây là đánh giá loss trên dữ liệu minh họa, không phải chứng minh chất lượng mô hình.
+
+### Tình huống 5 — Cấp 5: Kiểm KL divergence của 20 phân phối dự báo và phân biệt chiều so sánh
+
+**Từ vựng trong mục:** **KL divergence** — phân kỳ KL; **Probability distribution** — phân phối; **Asymmetry** — không đối xứng.
+
+**Tình huống thực tế:** Một nhóm kiểm thử có **20 bộ dự báo** cho ba nhóm hành vi A/B/C. Mỗi dòng là một phân phối Q (ba số dương có tổng 1); phân phối tham chiếu P cố định là `[0.5,0.3,0.2]`. Cần tính `KL(P||Q)` cho từng dòng, kiểm tra dòng bằng P có KL=0, trung bình 20 dòng, và quan sát `KL(Q||P)` không nhất thiết bằng `KL(P||Q)`.
+
+**Vì sao chọn cách này?** KL dùng tỷ số theo **đúng chiều phân phối**; hai chiều khác nhau về cách phạt. Chỉ áp log trên số dương và kiểm tra từng hàng có tổng bằng 1 trước khi tính; không gọi KL là khoảng cách đối xứng.
+
+**Quy trình:**
+1. Tạo P một hàng chuẩn và 20 phân phối Q đều hợp lệ.
+2. Tính log theo từng cột, cộng theo hàng để có 20 giá trị `KL(P||Q)`.
+3. Đối chiếu dòng Q=P, trung bình và hai chiều trên dòng khác P.
+
+```python
+import numpy as np
+P = np.array([0.5,0.3,0.2], dtype=float)
+Q = np.array([[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002],[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002],[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002],[0.5,0.3,0.2],[0.525,0.2875,0.1875],[0.55,0.27499999999999997,0.17500000000000002],[0.575,0.26249999999999996,0.1625],[0.6,0.25,0.15000000000000002]], dtype=float)
+assert Q.shape == (20, 3) and np.all(Q > 0)
+assert np.allclose(Q.sum(axis=1), 1.0)
+kl_pq = np.sum(P * np.log(P / Q), axis=1)
+kl_qp = np.sum(Q * np.log(Q / P), axis=1)
+print("Bộ phân phối:", len(Q))
+print(f"KL đầu (P||Q): {kl_pq[0]:.4f}")
+print(f"KL TB (P||Q): {kl_pq.mean():.4f}")
+print("Hai chiều có thể khác:", bool(abs(kl_pq[1] - kl_qp[1]) > 1e-9))
+print("Không âm:", bool(np.all(kl_pq >= -1e-12)))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Bộ phân phối: 20
+KL đầu (P||Q): 0.0000
+KL TB (P||Q): 0.0078
+Hai chiều có thể khác: True
+Không âm: True
+```
+
+KL không đối xứng, và một giá trị nhỏ không tự nói hai phân phối phù hợp mục tiêu vận hành thật. Khi Q có xác suất 0, cần một quy ước xử lý riêng để tránh log không xác định.
 
 ## 6. Sai lầm thường gặp
 

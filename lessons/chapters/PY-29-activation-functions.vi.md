@@ -126,150 +126,190 @@ print(np.round(p, 3).tolist())
 
 Lớp đầu có điểm chuẩn hóa cao nhất; tổng ba điểm trước làm tròn là 1.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống Activation — từ ReLU đến phân loại 20 mẫu
 
-### Tình huống 1 — Chặn tín hiệu âm bằng ReLU
+### Tình huống 1 — Cấp 1: Chặn tín hiệu âm của 10 nơ-ron bằng ReLU
 
-**Tình huống thực tế:** Một lớp mạng nhận bốn tín hiệu đầu vào `[-2,0,3,5]`, không có đơn vị vì đây là logit nội bộ. Cần giữ giá trị dương và cho mọi giá trị âm về 0.
+**Từ vựng trong mục:** **ReLU** — hàm giữ phần dương; **Activation** — kích hoạt.
 
-**Vì sao chọn cách giải này?** ReLU đúng với quy tắc xử lý `max(0,x)` mà không cần từng điều kiện `if`.
+**Tình huống thực tế:** Một tầng mạng thử nghiệm nhận **10 điểm thô** (không đơn vị) của 10 nơ-ron, mỗi phần tử là tín hiệu trước hàm kích hoạt. Điểm âm cần bị chặn về 0, còn điểm dương được giữ. Cần đếm số phần tử bị chặn và số phần tử còn dương.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** `np.maximum(0, x)` áp dụng cùng quy tắc cho toàn bộ tín hiệu; khác cách xóa các nơ-ron có đầu vào âm, hàm vẫn giữ nguyên số phần tử đầu ra.
 
-1. Lưu bốn đầu vào trong ndarray.
-2. Áp `np.maximum(0,x)` đồng thời lên mọi phần tử.
-3. In các giá trị sau kích hoạt.
+**Quy trình:**
+1. Lưu 10 giá trị gồm âm, 0 và dương.
+2. Áp ReLU cho toàn bộ mảng.
+3. Đếm phần tử có đầu ra bằng 0, đối chiếu đầu ra đầu/cuối.
 
 ```python
-# Mục đích: Chặn tín hiệu âm bằng ReLU.
 import numpy as np
-
-x = np.array([-2, 0, 3, 5])
-print(np.maximum(0, x).tolist())
+signals = np.array([-5,-3,-1,0,1,2,4,-2,3,5], dtype=float)
+activated = np.maximum(0, signals)
+assert activated.shape == signals.shape == (10,)
+print("Nơ-ron:", len(activated))
+print("Đầu ra bằng 0:", int((activated == 0).sum()))
+print("Đầu ra dương:", int((activated > 0).sum()))
+print("Mẫu đầu/cuối:", int(activated[0]), int(activated[-1]))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0, 0, 3, 5]
+Nơ-ron: 10
+Đầu ra bằng 0: 5
+Đầu ra dương: 5
+Mẫu đầu/cuối: 0 5
 ```
 
-Hai giá trị âm/0 cho đầu ra 0, hai giá trị dương được giữ.
+Đầu ra ReLU bằng 0 có thể bắt nguồn từ **đầu vào âm hoặc bằng 0**, hai trường hợp cần phân biệt khi phân tích.
 
-### Tình huống 2 — Chuyển ba logit bằng sigmoid
+### Tình huống 2 — Cấp 2: Ánh xạ 12 logit sang điểm sigmoid
 
-**Tình huống thực tế:** Mô hình phân loại nhị phân có ba điểm thô `[-1,0,1]` của ba quan sát. Cần biến đổi điểm về khoảng (0,1) để so sánh.
+**Từ vựng trong mục:** **Sigmoid** — hàm chữ S; **Logit** — điểm thô; **Threshold** — ngưỡng.
 
-**Vì sao chọn cách giải này?** Sigmoid tác động lên từng điểm riêng và cho 0.5 khi logit bằng 0.
+**Tình huống thực tế:** Hệ phân loại nhị phân trả **12 logit** không đơn vị, mỗi hàng là điểm thô của một mẫu. Giá trị âm, 0 và dương đều có mặt. Cần biến chúng thành điểm sigmoid trong (0,1), đếm số mẫu có điểm **từ 0,5** trở lên và kiểm tra logit 0 biến thành đúng 0,5.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Sigmoid nén điểm thô sang (0,1) để dễ dùng ngưỡng nhị phân; bản thân điểm sigmoid không chứng minh mô hình đã được hiệu chuẩn xác suất. Ví dụ dùng logit nhỏ để người mới theo dõi công thức trực tiếp.
 
-1. Lưu ba logit dạng float.
-2. Áp công thức sigmoid lên mảng.
-3. Làm tròn ba chữ số và in.
+**Quy trình:**
+1. Tạo 12 điểm thô gồm số âm và dương.
+2. Tính vector sigmoid và đối chiếu đầu ra của logit 0.
+3. Đếm số điểm đạt ngưỡng 0,5, xác nhận tất cả đầu ra nằm trong (0,1).
 
 ```python
-# Mục đích: Chuyển ba logit bằng sigmoid.
 import numpy as np
-
-x = np.array([-1.0, 0.0, 1.0])
-print(np.round(1 / (1 + np.exp(-x)), 3).tolist())
+logits = np.array([-3,-2,-1.5,-1,0,0.2,0.8,1,2,3,4,-0.5], dtype=float)
+probabilities = 1 / (1 + np.exp(-logits))
+assert logits.size == 12 and np.all((probabilities > 0) & (probabilities < 1))
+print("Mẫu:", len(logits))
+print("Từ 0.5:", int((probabilities >= 0.5).sum()))
+print("Logit 0:", f"{probabilities[logits == 0][0]:.3f}")
+print("Logit -3:", f"{probabilities[0]:.3f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0.269, 0.5, 0.731]
+Mẫu: 12
+Từ 0.5: 7
+Logit 0: 0.500
+Logit -3: 0.047
 ```
 
-Thứ tự ba quan sát không đổi; điểm sigmoid chưa mặc nhiên được hiệu chuẩn.
+Ngưỡng 0,5 là lựa chọn minh họa; dùng ngưỡng thật cần xét chi phí sai lệch và dữ liệu kiểm chứng.
 
-### Tình huống 3 — Giữ tín hiệu âm dương bằng tanh
+### Tình huống 3 — Cấp 3: So dấu và hiện tượng bão hòa của tanh trên 15 tín hiệu
 
-**Tình huống thực tế:** Một mạng dùng tín hiệu âm, 0, dương để biểu diễn hướng tác động; đầu vào lần lượt là −1,0,1. Cần đầu ra cân quanh 0.
+**Từ vựng trong mục:** **Tanh** — hàm hyperbolic; **Saturation** — bão hòa; **Zero-centered** — đối xứng qua 0.
 
-**Vì sao chọn cách giải này?** Tanh giữ dấu trong khoảng (−1,1), phù hợp hơn sigmoid nếu cần tín hiệu âm.
+**Tình huống thực tế:** Cảm biến giả lập đưa ra **15 tín hiệu** từ -7 đến 7 theo thứ tự. Người học cần áp tanh, kiểm tra đầu ra có giữ đúng dấu và đếm số tín hiệu bị bão hòa khi trị tuyệt đối đầu ra **lớn hơn 0,99**.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Tanh giữ đầu ra âm/dương quanh 0, khác sigmoid luôn dương. Khi đầu vào lớn về độ lớn, kết quả sát -1/+1, nên mức thay đổi nhỏ và được gọi là bão hòa.
 
-1. Tạo ba tín hiệu số thực.
-2. Áp `np.tanh` và làm tròn.
-3. In ba giá trị sau biến đổi.
+**Quy trình:**
+1. Tạo 15 giá trị đầu vào đối xứng qua 0.
+2. Dùng `np.tanh` và kiểm dấu bằng so sánh.
+3. Đếm các trường hợp đầu ra có độ lớn trên 0,99.
 
 ```python
-# Mục đích: Giữ tín hiệu âm dương bằng tanh.
 import numpy as np
-
-x = np.array([-1.0, 0.0, 1.0])
-print(np.round(np.tanh(x), 3).tolist())
+signals = np.array([-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7], dtype=float)
+activated = np.tanh(signals)
+assert signals.size == 15
+print("Tín hiệu:", len(signals))
+print("Tanh(0):", f"{activated[signals == 0][0]:.3f}")
+print("Bão hòa |y| > 0.99:", int((np.abs(activated) > 0.99).sum()))
+print("Giữ dấu:", bool(np.all(np.sign(activated) == np.sign(signals))))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[-0.762, 0.0, 0.762]
+Tín hiệu: 15
+Tanh(0): 0.000
+Bão hòa |y| > 0.99: 10
+Giữ dấu: True
 ```
 
-Tín hiệu âm vẫn âm, dương vẫn dương và giá trị 0 giữ nguyên.
+Không được coi đầu ra gần ±1 là tín hiệu ban đầu cũng chỉ có độ lớn 1; hàm đã nén đầu vào.
 
-### Tình huống 4 — Chuẩn hóa ba điểm phân loại
+### Tình huống 4 — Cấp 4: Softmax ổn định cho 18 mẫu phân loại ba lớp
 
-**Tình huống thực tế:** Một mô hình dự đoán một trong ba loại sản phẩm với logit `[2,1,0.1]`; cần tỷ trọng cho từng lớp sao cho tổng bằng 1.
+**Từ vựng trong mục:** **Softmax** — chuẩn hóa theo hàng; **Numerical stability** — ổn định số; **Argmax** — lớp lớn nhất.
 
-**Vì sao chọn cách giải này?** Softmax biến toàn bộ bộ logit thành một phân phối, có bước trừ cực đại để tính ổn định.
+**Tình huống thực tế:** Một mô hình trả **18 bản ghi** với ba logit đại diện cho lớp A/B/C loại trừ nhau; mỗi hàng là một mẫu, ba cột là điểm thô của các lớp. Một mẫu có logit gần 1.000, nên tính mũ trực tiếp có nguy cơ tràn số. Cần chuẩn hóa theo **từng hàng** và đếm lớp có điểm cao nhất.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Trừ logit lớn nhất **của từng hàng** trước khi `np.exp` giúp softmax ổn định, không thay đổi tỷ lệ trong hàng; tổng mỗi hàng bằng 1 nhưng tổng cả 18 hàng sẽ bằng 18.
 
-1. Lưu ba logit cho ba lớp loại trừ nhau.
-2. Trừ logit lớn nhất rồi tính exp.
-3. Chia cho tổng exp, in giá trị đã làm tròn.
+**Quy trình:**
+1. Tạo mảng 18×3 có một hàng logit rất lớn.
+2. Trừ max theo `axis=1`, lấy mũ rồi chia tổng hàng.
+3. Kiểm tra tổng xác suất từng hàng, đếm nhãn dự đoán A/B/C.
 
 ```python
-# Mục đích: Chuẩn hóa ba điểm phân loại.
 import numpy as np
-
-z = np.array([2.0, 1.0, 0.1])
-e = np.exp(z - z.max())
-prob = e / e.sum()
-print(np.round(prob, 3).tolist())
+logits = np.array([[3,1,0],[0,3,1],[1,0,3],[1000,999,998],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3],[3,1,0],[0,3,1],[1,0,3]], dtype=float)
+shifted = logits - logits.max(axis=1, keepdims=True)
+exp_values = np.exp(shifted)
+probs = exp_values / exp_values.sum(axis=1, keepdims=True)
+predictions = probs.argmax(axis=1)
+assert logits.shape == probs.shape == (18, 3)
+print("Mẫu:", len(logits))
+print("Tổng hàng đều là 1:", bool(np.allclose(probs.sum(axis=1), 1)))
+print("Nhãn A/B/C:", *(int((predictions == k).sum()) for k in range(3)))
+print("Mẫu logit lớn hữu hạn:", bool(np.isfinite(probs[3]).all()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[0.659, 0.242, 0.099]
+Mẫu: 18
+Tổng hàng đều là 1: True
+Nhãn A/B/C: 6 6 6
+Mẫu logit lớn hữu hạn: True
 ```
 
-Lớp đầu nhận điểm lớn nhất. Giá trị làm tròn không được dùng để kiểm tra tổng chính xác tuyệt đối.
+Softmax xử lý **ba lớp cạnh tranh trong mỗi mẫu**, không dùng một sigmoid riêng rẽ rồi giả định tổng bằng 1.
 
-### Tình huống 5 — Ghép hai ReLU thành hàm có khoảng chết
+### Tình huống 5 — Cấp 5: Ghép ReLU và sigmoid để phân loại 20 mẫu, kiểm cả nhãn thật
 
-**Tình huống thực tế:** Đầu vào x chạy qua −2, −1, 0, 1, 2. Đội nghiên cứu muốn hàm bằng 0 trong đoạn [−1,1] nhưng tăng bên ngoài hai mép.
+**Từ vựng trong mục:** **Activation pipeline** — chuỗi kích hoạt; **ReLU** — chặn âm; **Sigmoid** — điểm nhị phân.
 
-**Vì sao chọn cách giải này?** Tổng `ReLU(x−1)+ReLU(−x−1)` tạo hàm gấp khúc đối xứng quanh 0.
+**Tình huống thực tế:** Một hệ thống thử nghiệm có **20 mẫu**, mỗi hàng gồm hai tín hiệu x/y không đơn vị và nhãn tham chiếu 0/1. Theo quy tắc dữ liệu minh họa, nhãn thật là 1 khi **x+y lớn hơn 0**. Mô hình đơn giản lại chặn từng tín hiệu âm bằng ReLU, cộng chúng, trừ 1 rồi sigmoid. Cần tính dự đoán ngưỡng 0,5, số mẫu đúng/sai và so với nhãn thật để thấy biến đổi phi tuyến **có thể làm mất thông tin dấu**.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** ReLU và sigmoid có vai trò khác nhau: ReLU làm phi tuyến ở tầng giữa, sigmoid nén logit đầu ra. Không được đánh giá mô hình chỉ bằng số đầu ra lớn hơn 0,5; cần **nhãn thật** để kiểm đúng/sai.
 
-1. Tạo năm điểm x cách đều từ −2 tới 2.
-2. Áp hai ReLU lên x−1 và −x−1.
-3. Cộng hai kết quả và in dãy.
+**Quy trình:**
+1. Tạo 20 hàng hai tín hiệu cùng 20 nhãn được định nghĩa rõ.
+2. Áp ReLU, tính logit tổng và sigmoid, chuyển điểm thành nhãn theo ngưỡng 0,5.
+3. Đếm số dự đoán đúng/sai và kiểm tổng bằng 20.
 
 ```python
-# Mục đích: Ghép hai ReLU thành hàm có khoảng chết.
 import numpy as np
-
-x = np.arange(-2, 3)
-y = np.maximum(0, x - 1) + np.maximum(0, -x - 1)
-print(y.tolist())
+X = np.array([[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-2,2],[-1,2],[0,2],[1,2],[2,2]], dtype=float)
+labels = np.array([0,0,0,0,1,0,0,0,1,1,0,0,1,1,1,0,1,1,1,1], dtype=int)
+hidden = np.maximum(0, X)
+logits = hidden.sum(axis=1) - 1
+scores = 1 / (1 + np.exp(-logits))
+predicted = (scores >= 0.5).astype(int)
+correct = int((predicted == labels).sum())
+assert X.shape == (20, 2) and labels.shape == predicted.shape == (20,)
+print("Mẫu:", len(labels))
+print("Dự đoán đúng:", correct)
+print("Dự đoán sai:", len(labels) - correct)
+print("Có nhãn dương:", int(labels.sum()))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[1, 0, 0, 0, 1]
+Mẫu: 20
+Dự đoán đúng: 16
+Dự đoán sai: 4
+Có nhãn dương: 10
 ```
 
-Hàm có giá trị 0 ở ba điểm giữa và tăng đối xứng ở ngoài khoảng.
+Đây là pipeline với trọng số cố định **không được huấn luyện**; số mẫu đúng chỉ kiểm tra hành vi trên dữ liệu giả lập.
 
 ## 6. Sai lầm thường gặp
 
