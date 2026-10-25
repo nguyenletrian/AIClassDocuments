@@ -3,8 +3,8 @@
   "source_goal_spec": "docs/CURRICULUM-SCENARIO-CLARITY-GOAL.json",
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "PY-01 to PY-46; beginner-understandable real-life scenarios and thorough Why this approach reasoning, only scenario prose; preserve executable Python, data, stdout, definitions, five scenarios per chapter and 20 MCQs",
-  "status": "BATCH_08_IN_PROGRESS",
-  "last_completed_batch": 7,
+  "status": "READY_FOR_BATCH_09",
+  "last_completed_batch": 8,
   "batches": [
     {
       "batch": 1,
@@ -225,7 +225,7 @@
         "PY-39",
         "PY-40"
       ],
-      "status": "IN_PROGRESS",
+      "status": "MERGED",
       "changed_lessons": [
         "PY-36",
         "PY-37",
@@ -233,9 +233,9 @@
         "PY-39",
         "PY-40"
       ],
-      "pr": null,
-      "merged_commit": null,
-      "ci_run": null,
+      "pr": 162,
+      "merged_commit": "682ec021c2b0fe2d94e391454e88a2dae406222c",
+      "ci_run": 40183206103,
       "branch": "feat/scenario-clarity-batch-08-20261025",
       "lesson_commits": {
         "PY-36": "2019334c45f2b134fab7797c7ff2da0fd29bc844",
@@ -244,7 +244,7 @@
         "PY-39": "7a6f515f48c69ab9b1f101c43abfcb565e10d5c7",
         "PY-40": "e8ea1376cb08a1bb352e44b80dd620ef42cb5bd8"
       },
-      "notes": "Five independent lesson commits PY-36..40. Exactly 5 real-life scenarios and 5 why-method paragraphs per chapter revised, 50 total, explaining PMF/CDF/PDF, descriptive statistics, quantiles/IQR, sampling/CLT, bootstrap with 2000 seeded resamples, hypothesis testing and CI. Full-file comparison to main after masking ONLY two approved single-line paragraph types confirms every other byte unchanged: all 45 Python fences, documented stdout, definitions, 100 MCQs and original structure. CI and merge PENDING. CDP 9224 ownership and PowerShell/Windows verification unavailable; no Windows PASS."
+      "notes": "Five independent lesson commits PY-36..40, exactly 50 revised scenario/why paragraphs (5 each per chapter). Strict full-byte compare against main with only two approved prose fields masked kept all 45 executable Python code fences, documented exact stdout, definitions and 100 MCQs unchanged. PR #162 final head e65ee713d0078742d2092691daf5f5683544bdce, GitHub CI #40183206103 COMPLETED SUCCESS covering 46-chapter structure/MCQ, explicit Python AST checks, independent scenario execution/exact stdout and Markdown. Squash merged 682ec021c2b0fe2d94e391454e88a2dae406222c. Windows PowerShell/CDP port 9224 ownership unverified, no Windows PASS. Next batch09 only PY-41..45."
     },
     {
       "batch": 9,
