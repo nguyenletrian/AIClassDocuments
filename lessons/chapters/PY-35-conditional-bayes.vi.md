@@ -123,7 +123,7 @@ Xác suất chung là 56%, được tính theo tỷ trọng mỗi nhóm.
 
 ## 5. Năm tình huống ứng dụng
 
-### Tình huống 1 — Diễn giải cảnh báo của hệ kiểm hàng
+### Tình huống 1 — Diễn giải cảnh báo của hệ kiểm hàng · Cấp 1: Khái niệm và một phép đếm
 
 **Tình huống thực tế:** Dây chuyền có tỷ lệ lỗi nền 1%, máy kiểm phát hiện 99% hàng lỗi và báo nhầm 5% hàng không lỗi. Khi một sản phẩm bị báo dương, đội kiểm tra muốn biết xác suất **thực sự lỗi**.
 
@@ -152,7 +152,20 @@ print(round(sensitivity * prior / p_alert, 3))
 
 Khoảng 16.7% cảnh báo dương là lỗi thật theo giả định; cần kiểm tra bổ sung trước quyết định xử lý.
 
-### Tình huống 2 — Tỷ lệ mua hàng trong nhóm đã xem quảng cáo
+**Bài thực hành nâng cấp — cấp 1/5:** Hệ thống thư nhận **10 email**, mỗi hàng có ID, nhãn `spam`, quyết định `flagged` và trạng thái xác minh `known`. Hãy tính tỷ lệ spam trong 10 email. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+# Một dòng = 1 email; spam là nhãn thật, flagged là kết quả bộ lọc.
+rows = [{"id":f"M{k:02d}","spam":k%3==0,"flagged":k%4==0 or k%6==0,"known":k not in (16,20)} for k in range(1,11)]
+valid = [r for r in rows if r["known"]]
+result = sum(r['spam'] for r in valid)/len(valid)
+print("Số quan sát:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 10 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
+
+### Tình huống 2 — Tỷ lệ mua hàng trong nhóm đã xem quảng cáo · Cấp 2: Xác suất cơ bản
 
 **Tình huống thực tế:** Một chiến dịch có 100 khách **đã xem** quảng cáo và trong nhóm đó 20 khách mua. Cần báo tỷ lệ mua có điều kiện trên lượt xem, không phải của mọi người dùng.
 
@@ -179,7 +192,20 @@ print(bought_after_seen / seen)
 
 Có 20% người thuộc nhóm đã xem quảng cáo thực hiện mua trong quan sát này.
 
-### Tình huống 3 — Tính tỷ lệ ủng hộ chung theo nhóm
+**Bài thực hành nâng cấp — cấp 2/5:** Hệ thống thư nhận **12 email**, mỗi hàng có ID, nhãn `spam`, quyết định `flagged` và trạng thái xác minh `known`. Hãy tính xác suất bị gắn cờ từ 12 email. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+# Một dòng = 1 email; spam là nhãn thật, flagged là kết quả bộ lọc.
+rows = [{"id":f"M{k:02d}","spam":k%3==0,"flagged":k%4==0 or k%6==0,"known":k not in (16,20)} for k in range(1,13)]
+valid = [r for r in rows if r["known"]]
+result = sum(r['flagged'] for r in valid)/len(valid)
+print("Số quan sát:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 12 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
+
+### Tình huống 3 — Tính tỷ lệ ủng hộ chung theo nhóm · Cấp 3: Sự kiện kết hợp
 
 **Tình huống thực tế:** Khảo sát giả định có 60% đối tượng thuộc nhóm X với tỷ lệ ủng hộ 80%; 40% thuộc nhóm Y với tỷ lệ ủng hộ 20%. Hai nhóm rời nhau, bao phủ mọi đối tượng. Cần tính tỷ lệ chung.
 
@@ -206,7 +232,20 @@ print(round(sum(a * b for a, b in zip(shares, rates)), 3))
 
 Tỷ lệ chung là 56% dưới giả định hai nhóm bao phủ toàn bộ quần thể.
 
-### Tình huống 4 — Kiểm tra giả định độc lập giữa hai sự kiện
+**Bài thực hành nâng cấp — cấp 3/5:** Hệ thống thư nhận **15 email**, mỗi hàng có ID, nhãn `spam`, quyết định `flagged` và trạng thái xác minh `known`. Hãy tính xác suất email thật spam khi bộ lọc đã gắn cờ. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+# Một dòng = 1 email; spam là nhãn thật, flagged là kết quả bộ lọc.
+rows = [{"id":f"M{k:02d}","spam":k%3==0,"flagged":k%4==0 or k%6==0,"known":k not in (16,20)} for k in range(1,16)]
+valid = [r for r in rows if r["known"]]
+result = sum(r['spam'] and r['flagged'] for r in valid)/sum(r['flagged'] for r in valid)
+print("Số quan sát:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 15 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
+
+### Tình huống 4 — Kiểm tra giả định độc lập giữa hai sự kiện · Cấp 4: Trường hợp không đủ dữ liệu
 
 **Tình huống thực tế:** Hai sự kiện A, B có xác suất P(A)=0.5, P(B)=0.4 và P(A∩B)=0.2 theo một mô hình xác suất cho sẵn. Cần kiểm tra bộ giá trị này có đáp ứng điều kiện độc lập không.
 
@@ -234,7 +273,20 @@ True
 
 Các xác suất đã cho thỏa quan hệ độc lập về mặt toán học; dữ liệu khảo sát thực cần xem độ bất định.
 
-### Tình huống 5 — Đánh giá một máy kiểm chất lượng khác
+**Bài thực hành nâng cấp — cấp 4/5:** Hệ thống thư nhận **18 email**, mỗi hàng có ID, nhãn `spam`, quyết định `flagged` và trạng thái xác minh `known`. Hãy xử lý email chưa được kiểm chứng trước khi báo precision. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+# Một dòng = 1 email; spam là nhãn thật, flagged là kết quả bộ lọc.
+rows = [{"id":f"M{k:02d}","spam":k%3==0,"flagged":k%4==0 or k%6==0,"known":k not in (16,20)} for k in range(1,19)]
+valid = [r for r in rows if r["known"]]
+result = {'known':len(valid),'unknown':len(rows)-len(valid),'precision':round(sum(r['spam'] and r['flagged'] for r in valid)/sum(r['flagged'] for r in valid),3)}
+print("Số quan sát:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 18 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
+
+### Tình huống 5 — Đánh giá một máy kiểm chất lượng khác · Cấp 5: Mô phỏng hoặc tổng hợp
 
 **Tình huống thực tế:** Lô hàng có tỷ lệ lỗi nền 2%, máy phát hiện 95% sản phẩm lỗi nhưng báo nhầm 10% sản phẩm tốt. Cần biết xác suất hàng lỗi sau một cảnh báo dương.
 
@@ -262,6 +314,19 @@ print(round(sensitivity * prior / p_alert, 3))
 ```
 
 Chỉ khoảng 16.2% hàng bị báo dương là lỗi thật theo mô hình; không nhầm với độ nhạy 95%.
+
+**Bài thực hành nâng cấp — cấp 5/5:** Hệ thống thư nhận **20 email**, mỗi hàng có ID, nhãn `spam`, quyết định `flagged` và trạng thái xác minh `known`. Hãy tổng hợp confusion matrix, precision, recall và false positive của 20 email. Các mức sau tăng dữ liệu và thêm biến cố cần phối hợp, kiểm tra thiếu hoặc mô phỏng.
+
+```python
+# Một dòng = 1 email; spam là nhãn thật, flagged là kết quả bộ lọc.
+rows = [{"id":f"M{k:02d}","spam":k%3==0,"flagged":k%4==0 or k%6==0,"known":k not in (16,20)} for k in range(1,21)]
+valid = [r for r in rows if r["known"]]
+result = {'TP':sum(r['spam'] and r['flagged'] for r in valid),'FP':sum(not r['spam'] and r['flagged'] for r in valid),'FN':sum(r['spam'] and not r['flagged'] for r in valid),'TN':sum(not r['spam'] and not r['flagged'] for r in valid),'missing':len(rows)-len(valid)}
+print("Số quan sát:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Dữ liệu ban đầu 20 hàng; mẫu số của phép xác suất phải đúng tập trường hợp có thể xảy ra theo điều kiện của bài.
 
 ## 6. Sai lầm thường gặp
 
