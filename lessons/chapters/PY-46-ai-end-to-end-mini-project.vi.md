@@ -42,10 +42,17 @@
 Trong mini-project phân loại hoa Iris, một **hàng** ứng với một bông hoa; bốn **cột feature** là chiều dài/rộng đài hoa và cánh hoa, đơn vị cm. **Label** (y) là mã loài 0,1,2 cần dự đoán. X có shape `(150,4)`, y có 150 nhãn. Không đưa cột chứa nhãn hoặc thông tin được biết sau kết quả vào X, vì đó là rò rỉ mục tiêu.
 
 ```python
-# Mục đích: Đầu vào khác mục tiêu.
+# Mục đích: Phân biệt đầu vào và nhãn đích qua dữ liệu Iris của scikit-learn.
+# Dữ liệu: Iris có 150 hoa, 4 đặc trưng/hoa và một nhãn loài/hoa.
+# sklearn.datasets cung cấp dữ liệu mẫu Iris cho ví dụ nhận dạng đầu vào/nhãn.
+# load_iris() tải bộ dữ liệu mẫu Iris; không dùng dữ liệu của người học.
 from sklearn.datasets import load_iris
 
+# load_iris() tải bộ dữ liệu mẫu Iris; không dùng dữ liệu của người học.
+# Đối tượng Bunch của sklearn giữ ma trận feature tại data.data và nhãn tại data.target.
 data = load_iris()
+# data.data.shape=(150,4): 150 hàng là hoa, bốn cột là số đo.
+# data.target.shape=(150,): một mã loài cho mỗi hoa, không phải bốn nhãn.
 print(data.data.shape, data.target.shape)
 ```
 
@@ -64,10 +71,16 @@ Mỗi trong 150 hoa có bốn số đo dùng dự đoán một trong ba loài.
 Trước khi huấn luyện cần kiểm kiểu dữ liệu, giá trị thiếu, lỗi nhập và đơn vị. Nếu thiếu số đo, có thể điền bằng **median của tập train**, nhưng **không** tính median từ cả train và test. Ví dụ ba chiều dài (cm) `[5,None,7]`, median từ hai giá trị có thực là 6; điền None bằng 6. Đây là giá trị ước lượng, không phải số đo gốc.
 
 ```python
-# Mục đích: Xử lý ô khuyết đúng thứ tự.
+# Mục đích: Điền ô dữ liệu thiếu bằng trung vị của các giá trị còn lại.
+# Dữ liệu: Series gồm ba giá trị 5, None, 7; None được hiểu là ô chưa ghi, không phải 0.
+# Pandas quản lý bảng, dữ liệu thiếu và thao tác làm sạch.
 import pandas as pd
 
+# Series của Pandas giữ các vị trí có giá trị thiếu (NaN).
 values = pd.Series([5.0, None, 7.0])
+# median() lấy trung vị chỉ từ các ô có dữ liệu, ra 6; mặc định bỏ qua NaN.
+# fillna(value) thay ô thiếu bằng trung vị, trả Series mới nếu không có inplace=True.
+# tolist() đổi kết quả Series thành list Python để dễ đọc.
 print(values.fillna(values.median()).tolist())
 ```
 
@@ -86,17 +99,27 @@ Giá trị thiếu được thay bằng trung vị 6 cm của hai số đã quan
 **Pipeline** ghép các bước `SimpleImputer` → `StandardScaler` → `LogisticRegression`. Khi `.fit(X_train,y_train)`, bước điền thiếu và chuẩn hóa **học tham số từ train**, mô hình sau đó học nhãn. Khi `.predict(X_test)`, các phép biến đổi dùng lại tham số train. Điều này hạn chế rò rỉ test do tính mean/median hay scale trên toàn bảng trước khi chia.
 
 ```python
-# Mục đích: Gắn tiền xử lý với mô hình.
+# Mục đích: Tạo pipeline tiền xử lý và phân loại nhưng chưa huấn luyện mô hình.
+# Dữ liệu: Ba bước imputer→scaler→LogisticRegression; chưa có X_train hoặc y_train.
+# make_pipeline ghép các bước để transform Test bằng thống kê Train đã học.
 from sklearn.pipeline import make_pipeline
+# SimpleImputer thay dữ liệu thiếu theo thống kê chỉ học từ Train.
 from sklearn.impute import SimpleImputer
+# StandardScaler học mean/SD từng cột từ Train rồi chuẩn hóa.
 from sklearn.preprocessing import StandardScaler
+# LogisticRegression phân loại nhãn rời rạc, không dự báo giá trị liên tục.
 from sklearn.linear_model import LogisticRegression
 
+# make_pipeline() ghép các bước thành một quy trình; chỉ khi fit() mới học thống kê và tham số từ dữ liệu.
 model = make_pipeline(
+    # strategy='median' dùng trung vị theo TỪNG CỘT được học khi fit; không dùng mean.
     SimpleImputer(strategy='median'),
+    # Scaler đưa đặc trưng về gần mean 0 và std 1 dựa trên dữ liệu train sau điền ô thiếu.
     StandardScaler(),
+    # Bộ phân loại LogisticRegression tối ưu tối đa 1000 vòng lặp, không phải 1000 mẫu.
     LogisticRegression(max_iter=1000),
 )
+# steps là list ba cặp (tên,bước); len() đếm ba thành phần, không phải Accuracy.
 print(len(model.steps))
 ```
 
@@ -115,11 +138,17 @@ Pipeline gồm ba bước nối tiếp: điền thiếu, chuẩn hóa, phân lo�
 Đánh giá phân loại phải so nhãn dự đoán với nhãn thật của **test giữ riêng**. **Accuracy** là số dự đoán đúng chia tổng số mẫu, nhưng có thể gây hiểu sai nếu một lớp rất phổ biến. **Confusion matrix** ghi số mẫu theo **hàng = nhãn thật**, **cột = nhãn dự đoán**; ô ngoài đường chéo cho biết những lỗi nhầm lớp cụ thể.
 
 ```python
-# Mục đích: Đánh giá trên dữ liệu chưa fit.
+# Mục đích: Đọc bảng nhầm lẫn để hiểu mô hình dự đoán sai lớp nào.
+# Dữ liệu: 4 nhãn thật và 4 nhãn đoán, cùng thứ tự mỗi học viên; có một lớp 1 bị đoán nhầm 0.
+# confusion_matrix dùng để đếm các cặp (nhãn thật,nhãn dự đoán).
 from sklearn.metrics import confusion_matrix
 
+# Nhãn thật y_true của bốn hồ sơ, không phải xác suất.
 actual = [0, 1, 1, 0]
+# Nhãn dự đoán y_pred theo đúng thứ tự actual.
 predicted = [0, 1, 0, 0]
+# Hàng là nhãn THẬT, cột là nhãn DỰ ĐOÁN; phần tử hàng 1/cột 0 là false negative lớp 1.
+# Chuyển ma trận NumPy 2×2 thành list lồng để in.
 print(confusion_matrix(actual, predicted).tolist())
 ```
 
@@ -147,17 +176,32 @@ Lớp thật 0 có hai mẫu dự đoán đúng; lớp thật 1 có một mẫu 
 3. Xác nhận số dòng khớp, ID duy nhất, không thiếu số đo và in phân bố nhãn.
 
 ```python
+# Mục đích: Kiểm dữ liệu đầu vào của bài toán dự đoán đỗ: số hồ sơ, đặc trưng, nhãn, trùng mã và ô khuyết.
+# Dữ liệu: 10 học viên HV01..HV10; hours=giờ học, practice=số lần thực hành, passed=nhãn 0/1.
+# Pandas quản lý bảng, dữ liệu thiếu và thao tác làm sạch.
 import pandas as pd
+# List 10 dictionary, mỗi dict là một học viên; hours/practice là đầu vào, passed là kết quả cần đoán.
 records = [{"id":"HV01","hours":1,"practice":2,"passed":0},{"id":"HV02","hours":2,"practice":3,"passed":0},{"id":"HV03","hours":3,"practice":4,"passed":0},{"id":"HV04","hours":4,"practice":5,"passed":0},{"id":"HV05","hours":5,"practice":2,"passed":0},{"id":"HV06","hours":1,"practice":3,"passed":0},{"id":"HV07","hours":2,"practice":4,"passed":1},{"id":"HV08","hours":3,"practice":5,"passed":1},{"id":"HV09","hours":4,"practice":2,"passed":1},{"id":"HV10","hours":5,"practice":3,"passed":1}]
+# DataFrame tạo bảng một hàng trên mỗi dictionary, cột từ các key.
 df = pd.DataFrame(records)
+# Hai cặp ngoặc vuông chọn DANH SÁCH hai cột thành DataFrame X shape (10,2), không dùng passed làm feature.
 X = df[["hours", "practice"]]
+# Một cặp ngoặc chọn Series nhãn y 10 giá trị 0/1.
 y = df["passed"]
+# shape lưu (số hàng,số cột); kiểm đúng 10 học viên và 2 feature.
+# Điều kiện bảo vệ kiểm cấu trúc số mẫu và tránh Train/Test dùng chung trước khi báo cáo.
 if len(df) != 10 or X.shape != (10, 2) or len(y) != 10:
+    # raise ném lỗi khi cấu trúc dữ liệu không hợp lệ; tránh in kết luận thiếu mẫu.
+    # raise ValueError dừng kịch bản khi dữ liệu không đúng số mẫu hoặc điều kiện kiểm thử.
     raise ValueError("Cần 10 hồ sơ, hai đặc trưng và 10 nhãn.")
 print("Hồ sơ:", len(df))
+# shape[1] lấy SỐ CỘT đặc trưng, khác shape[0] là số hàng.
 print("Feature:", X.shape[1])
+# So từng nhãn với 0/1 tạo mask Boolean; sum() đếm lượt True trong từng lớp.
 print("Nhãn 0/1:", int((y==0).sum()), int((y==1).sum()))
+# duplicated() đánh dấu ID lặp từ lần xuất hiện thứ hai; sum() đếm dòng trùng nhưng không xóa.
 print("ID trùng:", int(df["id"].duplicated().sum()))
+# isna() đánh dấu NaN từng ô; sum() thứ nhất tổng theo cột, thứ hai tổng tất cả cột.
 print("Ô feature thiếu:", int(X.isna().sum().sum()))
 ```
 
@@ -187,26 +231,52 @@ ID trùng: 0
 3. Fit baseline trên train, đánh giá accuracy trên test và in số mẫu của từng lớp test.
 
 ```python
+# Mục đích: Chia Train/Test cân bằng nhãn và đo mô hình baseline luôn chọn lớp phổ biến.
+# Dữ liệu: 12 học viên, hai feature hours/practice và nhãn 0/1, chọn 8 Train + 4 Test.
+# NumPy hỗ trợ ndarray, NaN và chỉ số các hàng train/test.
 import numpy as np
+# DummyClassifier là baseline đoán lớp phổ biến, không học quan hệ feature.
 from sklearn.dummy import DummyClassifier
+# train_test_split chia đồng bộ hàng Train và Test trước khi fit.
 from sklearn.model_selection import train_test_split
+# Mỗi dictionary lưu id, giờ học, lượt luyện tập và nhãn đỗ; 12 mẫu tạo hai nhóm nhãn.
 records = [{"id":"HV01","hours":1,"practice":2,"passed":0},{"id":"HV02","hours":2,"practice":3,"passed":0},{"id":"HV03","hours":3,"practice":4,"passed":0},{"id":"HV04","hours":1,"practice":2,"passed":0},{"id":"HV05","hours":2,"practice":3,"passed":0},{"id":"HV06","hours":3,"practice":4,"passed":0},{"id":"HV07","hours":6,"practice":8,"passed":1},{"id":"HV08","hours":7,"practice":9,"passed":1},{"id":"HV09","hours":8,"practice":10,"passed":1},{"id":"HV10","hours":6,"practice":8,"passed":1},{"id":"HV11","hours":7,"practice":9,"passed":1},{"id":"HV12","hours":8,"practice":10,"passed":1}]
+# List sẽ chứa một cặp [hours,practice] cho mỗi học viên, theo đúng thứ tự nhãn.
 features = []
+# List nhãn passed cùng vị trí với features.
 labels = []
 for row in records:
+    # append() đưa hai feature của hồ sơ hiện tại vào X.
     features.append([row["hours"], row["practice"]])
+    # append() ghi nhãn tương ứng để X/y không lệch hàng.
     labels.append(row["passed"])
+# Ép đặc trưng thành ma trận số thực shape (12,2), phù hợp sklearn.
 X = np.array(features, dtype=float)
+# Nhãn y thành vector 12 phần tử, một lớp cho mỗi người.
 y = np.array(labels)
+# Chia các chỉ số hàng thay vì chia X và y độc lập, giúp trích dữ liệu đồng bộ.
+# arange(12) tạo các chỉ số 0..11, cận 12 không bao gồm.
+# test_size=4 giữ đúng bốn mẫu CHƯA fit để kiểm tra, không có nghĩa 4%.
+# Cố định trạng thái ngẫu nhiên để phép chia có thể lặp lại.
+# Giữ tỷ lệ nhãn 0/1 gần giống nhau trên Train/Test.
 train,test = train_test_split(np.arange(12),test_size=4,random_state=42,stratify=y)
+# Baseline không học quy luật feature: luôn dự đoán nhãn đông nhất trong TRAIN.
 model = DummyClassifier(strategy="most_frequent")
+# fit() học baseline CHỈ từ các hàng Train; X[train] và y[train] dùng cùng index.
 model.fit(X[train],y[train])
+# score() trả Accuracy trên Test: tỷ lệ dự đoán đúng từ 4 hồ sơ chưa fit.
 accuracy = model.score(X[test],y[test])
+# Chuyển Train sang set rồi kiểm không có index trùng với Test, tránh rò rỉ mẫu.
+# Điều kiện bảo vệ kiểm cấu trúc số mẫu và tránh Train/Test dùng chung trước khi báo cáo.
 if len(records) != 12 or not set(train).isdisjoint(test):
+    # raise ValueError dừng kịch bản khi dữ liệu không đúng số mẫu hoặc điều kiện kiểm thử.
     raise ValueError("Cần 12 hồ sơ và Train/Test không trùng mẫu.")
 print("Hồ sơ:", len(records))
+# len() đếm tám mẫu train (len(test) đếm bốn mẫu test).
 print("Train/test:", len(train), len(test))
+# Boolean mask chỉ đếm nhãn lớp 0/1 trong Test, không phải toàn bộ 12 mẫu.
 print("Nhãn test 0/1:", int((y[test]==0).sum()), int((y[test]==1).sum()))
+# f-string :.2f chỉ làm tròn Accuracy khi IN, giá trị lưu vẫn là số thực gốc.
 print(f"Accuracy baseline: {accuracy:.2f}")
 ```
 
@@ -235,33 +305,63 @@ Baseline cố ý đơn giản; accuracy 0,50 ở đây là **hai trong bốn h�
 3. Huấn luyện Pipeline, so median đã học với `nanmedian(X_train)`, đo accuracy test và kiểm số dự đoán.
 
 ```python
+# Mục đích: Huấn luyện phân loại 3 loài hoa với imputer→scaler→logistic chỉ fit trên Train.
+# Dữ liệu: 15 hoa F01..F15, hai feature petal_cm/sepal_cm đo cm, vài None, ba loài 0/1/2; Test 6 hoa.
+# NumPy hỗ trợ ndarray, NaN và chỉ số các hàng train/test.
 import numpy as np
+# SimpleImputer thay dữ liệu thiếu theo thống kê chỉ học từ Train.
 from sklearn.impute import SimpleImputer
+# LogisticRegression phân loại nhãn rời rạc, không dự báo giá trị liên tục.
 from sklearn.linear_model import LogisticRegression
+# train_test_split chia đồng bộ hàng Train và Test trước khi fit.
 from sklearn.model_selection import train_test_split
+# make_pipeline ghép các bước để transform Test bằng thống kê Train đã học.
 from sklearn.pipeline import make_pipeline
+# StandardScaler học mean/SD từng cột từ Train rồi chuẩn hóa.
 from sklearn.preprocessing import StandardScaler
+# List 15 hoa có None nghĩa số đo thiếu, không phải 0 cm; nhãn species là mục tiêu dự đoán.
 records = [{"id":"F01","petal_cm":1.1,"sepal_cm":3,"species":0},{"id":"F02","petal_cm":1.2000000000000002,"sepal_cm":3.03,"species":0},{"id":"F03","petal_cm":1.3,"sepal_cm":3.06,"species":0},{"id":"F04","petal_cm":None,"sepal_cm":3.09,"species":0},{"id":"F05","petal_cm":1.5,"sepal_cm":3.12,"species":0},{"id":"F06","petal_cm":4.1,"sepal_cm":4,"species":1},{"id":"F07","petal_cm":4.199999999999999,"sepal_cm":4.03,"species":1},{"id":"F08","petal_cm":4.3,"sepal_cm":4.06,"species":1},{"id":"F09","petal_cm":4.3999999999999995,"sepal_cm":4.09,"species":1},{"id":"F10","petal_cm":4.5,"sepal_cm":4.12,"species":1},{"id":"F11","petal_cm":7.1,"sepal_cm":5,"species":2},{"id":"F12","petal_cm":7.199999999999999,"sepal_cm":None,"species":2},{"id":"F13","petal_cm":7.3,"sepal_cm":5.06,"species":2},{"id":"F14","petal_cm":7.3999999999999995,"sepal_cm":5.09,"species":2},{"id":"F15","petal_cm":7.5,"sepal_cm":5.12,"species":2}]
+# Tạo list hai đặc trưng (cánh hoa, đài hoa) theo đúng thứ tự mỗi hàng.
 features = []
+# Tạo list nhãn loài của cùng hàng feature.
 labels = []
 for row in records:
+    # append() giữ cặp feature có thể có None, imputer xử lý sau.
     features.append([row["petal_cm"], row["sepal_cm"]])
+    # append() giữ nhãn species của hoa đang xét.
     labels.append(row["species"])
+# Chuyển None thành NaN trong ndarray số thực shape (15,2).
 X = np.array(features, dtype=float)
+# Mảng nhãn 15 giá trị nguyên (mỗi hoa một nhãn).
 y = np.array(labels)
+# Chia INDEX Train/Test trước khi fit để tránh rò rỉ thống kê tiền xử lý.
+# Sáu hoa dùng làm Test, chín hoa Train.
 train,test = train_test_split(np.arange(len(records)),test_size=6,
+                              # Seed cố định phép chia; stratify=y giúp phân bố cả ba loài vào hai tập.
                               random_state=42,stratify=y)
+# Imputer dùng trung vị mỗi cột được học CHỈ ở Train để điền NaN.
 pipeline = make_pipeline(SimpleImputer(strategy="median"),
+                         # Sau impute, chuẩn hóa theo Train rồi phân loại; max_iter=1000 giới hạn bước tối ưu.
                          StandardScaler(),LogisticRegression(max_iter=1000))
+# fit() học ba bước của pipeline CHỈ từ Train, không nhìn trước Test.
 pipeline.fit(X[train],y[train])
+# predict() biến đổi Test bằng imputer/scaler đã fit và đoán nhãn.
 predicted = pipeline.predict(X[test])
+# named_steps chọn bước SimpleImputer theo tên tự sinh, đọc thống kê đã học.
 imputer = pipeline.named_steps["simpleimputer"]
+# Điều kiện bảo vệ kiểm cấu trúc số mẫu và tránh Train/Test dùng chung trước khi báo cáo.
 if X.shape != (15, 2) or len(predicted) != 6:
+    # raise ValueError dừng kịch bản khi dữ liệu không đúng số mẫu hoặc điều kiện kiểm thử.
     raise ValueError("Cần đủ 15 mẫu hoa và 6 dự đoán test.")
 print("Hoa:", len(records))
+# np.isnan(X) đánh dấu ô NaN trong dữ liệu gốc; sum() đếm số ô bị thiếu.
 print("Ô thiếu ban đầu:", int(np.isnan(X).sum()))
 print("Train/test:", len(train),len(test))
+# statistics_ là vector trung vị TỪ TRAIN cho từng cột feature sau fit.
+# nanmedian bỏ qua NaN và tính trung vị TỪNG CỘT (axis=0) của TRAIN, không lấy từ toàn bộ X.
+# allclose() đối chiếu hai mảng số với dung sai floating-point, không dùng == tuyệt đối.
 print("Median chỉ từ train:", bool(np.allclose(imputer.statistics_,np.nanmedian(X[train],axis=0))))
+# Mask True khi dự đoán đúng từng mẫu Test, mean() là Accuracy 0..1.
 print(f"Accuracy test: {(predicted==y[test]).mean():.2f}")
 ```
 
@@ -291,38 +391,72 @@ Accuracy phụ thuộc đúng **sáu hoa test giả lập**; cần dữ liệu n
 3. Báo baseline accuracy, accuracy model, recall lớp 1 và ma trận nhầm lẫn test.
 
 ```python
+# Mục đích: So baseline với mô hình thực tế bằng Accuracy, Recall lớp 1 và bảng nhầm lẫn.
+# Dữ liệu: 18 học viên completed 0/1, 2 feature hours/activities có ô thiếu, Train=12/Test=6.
+# NumPy hỗ trợ ndarray, NaN và chỉ số các hàng train/test.
 import numpy as np
+# DummyClassifier là baseline đoán lớp phổ biến, không học quan hệ feature.
 from sklearn.dummy import DummyClassifier
+# SimpleImputer thay dữ liệu thiếu theo thống kê chỉ học từ Train.
 from sklearn.impute import SimpleImputer
+# LogisticRegression phân loại nhãn rời rạc, không dự báo giá trị liên tục.
 from sklearn.linear_model import LogisticRegression
+# confusion_matrix tạo bảng nhầm lẫn; recall_score đánh giá khả năng nhận lớp 1.
 from sklearn.metrics import confusion_matrix,recall_score
+# train_test_split chia đồng bộ hàng Train và Test trước khi fit.
 from sklearn.model_selection import train_test_split
+# make_pipeline ghép các bước để transform Test bằng thống kê Train đã học.
 from sklearn.pipeline import make_pipeline
+# StandardScaler học mean/SD từng cột từ Train rồi chuẩn hóa.
 from sklearn.preprocessing import StandardScaler
+# 18 dict, mỗi dict có giờ/hoạt động và nhãn completed; None nghĩa chưa ghi feature.
 records = [{"id":"C01","hours":1,"activities":2,"completed":0},{"id":"C02","hours":2,"activities":3,"completed":0},{"id":"C03","hours":None,"activities":4,"completed":0},{"id":"C04","hours":4,"activities":2,"completed":0},{"id":"C05","hours":1,"activities":3,"completed":0},{"id":"C06","hours":2,"activities":4,"completed":0},{"id":"C07","hours":3,"activities":2,"completed":0},{"id":"C08","hours":4,"activities":3,"completed":0},{"id":"C09","hours":1,"activities":4,"completed":0},{"id":"C10","hours":2,"activities":2,"completed":0},{"id":"C11","hours":3,"activities":3,"completed":0},{"id":"C12","hours":4,"activities":4,"completed":0},{"id":"C13","hours":7,"activities":9,"completed":1},{"id":"C14","hours":8,"activities":10,"completed":1},{"id":"C15","hours":9,"activities":11,"completed":1},{"id":"C16","hours":7,"activities":None,"completed":1},{"id":"C17","hours":8,"activities":10,"completed":1},{"id":"C18","hours":None,"activities":11,"completed":1}]
+# Danh sách hai feature cho từng học viên.
 features = []
+# Danh sách nhãn 0/1 theo đúng thứ tự người.
 labels = []
 for row in records:
+    # append() thêm cặp [hours,activities], có thể có None.
     features.append([row["hours"], row["activities"]])
+    # append() thêm completed của cùng bản ghi.
     labels.append(row["completed"])
+# X float shape (18,2), None trở thành NaN cho imputer.
 X = np.array(features, dtype=float)
+# y có 18 nhãn lớp.
 y = np.array(labels)
+# Chia bằng index chung cho X/y, không fit trên Test.
+# Test có sáu học viên, Train có 12.
 train,test = train_test_split(np.arange(len(records)),test_size=6,
+                              # Cố định cách chia và giữ tỷ lệ nhãn trong hai tập.
                               random_state=42,stratify=y)
+# Baseline chỉ đoán lớp phổ biến từ Train, bỏ qua feature.
 baseline = DummyClassifier(strategy="most_frequent").fit(X[train],y[train])
+# Imputer học median ở Train để điền thiếu trước khi scaler.
 model = make_pipeline(SimpleImputer(strategy="median"),
+                      # Scaler chuẩn hóa rồi logistic phân loại, max_iter giới hạn vòng tối ưu.
                       StandardScaler(),LogisticRegression(max_iter=1000))
+# fit mô hình từ 12 hàng Train, không sử dụng nhãn Test.
 model.fit(X[train],y[train])
+# predict() trả sáu dự đoán Test.
 pred = model.predict(X[test])
+# labels=[0,1] đặt thứ tự lớp cố định; HÀNG là thật, CỘT là đoán, có cả TP/FP/FN/TN.
 cm = confusion_matrix(y[test],pred,labels=[0,1])
+# Điều kiện bảo vệ kiểm cấu trúc số mẫu và tránh Train/Test dùng chung trước khi báo cáo.
 if len(records) != 18 or len(train) != 12 or len(test) != 6:
+    # raise ValueError dừng kịch bản khi dữ liệu không đúng số mẫu hoặc điều kiện kiểm thử.
     raise ValueError("Cần đủ 18 hồ sơ chia 12 train và 6 test.")
 print("Hồ sơ:", len(records))
+# Mask NaN đếm số ô feature thiếu trên ma trận gốc.
 print("Ô thiếu:", int(np.isnan(X).sum()))
+# Dùng chỉ số Test và mask Boolean để đếm nhãn thật hai lớp.
 print("Nhãn test 0/1:", int((y[test]==0).sum()),int((y[test]==1).sum()))
+# Baseline Accuracy trên tập Test để có mốc so sánh.
 print(f"Accuracy baseline: {baseline.score(X[test],y[test]):.2f}")
+# Mask so từng nhãn đoán/thật, mean() cho Accuracy của mô hình.
 print(f"Accuracy model: {(pred==y[test]).mean():.2f}")
+# Recall mặc định lớp dương 1 = TP/(TP+FN), đo tỷ lệ người thật hoàn thành được phát hiện.
 print(f"Recall lớp 1: {recall_score(y[test],pred):.2f}")
+# tolist() đổi confusion matrix ndarray sang list hai hàng để in.
 print("Confusion (thật theo hàng):",cm.tolist())
 ```
 
@@ -354,51 +488,103 @@ Những chỉ số này mô tả **sáu hồ sơ test** của bài. Không tự 
 3. Fit baseline, pipeline đầy đủ và pipeline PCA hai thành phần trên cùng train; dự đoán cùng test, xuất `model_report_20.json` chứa số dòng, missing, accuracy và confusion matrix.
 
 ```python
+# Mục đích: Chạy quy trình ML toàn diện: làm sạch 20 dòng, bỏ trùng, Train/Test, baseline, full, PCA và lưu JSON.
+# Dữ liệu: 20 hàng raw có ID H15 trùng thành 19 học viên; ba feature hours/visits/projects có '?', 'N/A', None; nhãn passed 0/1; Test=5.
+# json xử lý chuyển đổi dictionary ↔ JSON văn bản (dumps/loads).
 import json
+# Path thao tác file báo cáo và đường dẫn tương đối theo hệ điều hành.
 from pathlib import Path
+# NumPy hỗ trợ ndarray, NaN và chỉ số các hàng train/test.
 import numpy as np
+# Pandas quản lý bảng, dữ liệu thiếu và thao tác làm sạch.
 import pandas as pd
+# PCA giảm chiều dữ liệu theo hướng có phương sai lớn, chỉ fit từ Train.
 from sklearn.decomposition import PCA
+# DummyClassifier là baseline đoán lớp phổ biến, không học quan hệ feature.
 from sklearn.dummy import DummyClassifier
+# SimpleImputer thay dữ liệu thiếu theo thống kê chỉ học từ Train.
 from sklearn.impute import SimpleImputer
+# LogisticRegression phân loại nhãn rời rạc, không dự báo giá trị liên tục.
 from sklearn.linear_model import LogisticRegression
+# accuracy_score đo tỷ lệ đúng, confusion_matrix đếm đúng/sai từng lớp.
 from sklearn.metrics import accuracy_score,confusion_matrix
+# train_test_split chia đồng bộ hàng Train và Test trước khi fit.
 from sklearn.model_selection import train_test_split
+# make_pipeline ghép các bước để transform Test bằng thống kê Train đã học.
 from sklearn.pipeline import make_pipeline
+# StandardScaler học mean/SD từng cột từ Train rồi chuẩn hóa.
 from sklearn.preprocessing import StandardScaler
+# 20 dictionary có id, giờ học, lượt truy cập, dự án và nhãn; ID H15 trùng, một số chuỗi không phải số gây thiếu.
 raw = [{"id":"H01","hours":1,"visits":1,"projects":0,"passed":0},{"id":"H02","hours":2,"visits":2,"projects":1,"passed":0},{"id":"H03","hours":3,"visits":3,"projects":0,"passed":0},{"id":"H04","hours":1,"visits":1,"projects":1,"passed":0},{"id":"H05","hours":2,"visits":"?","projects":0,"passed":0},{"id":"H06","hours":3,"visits":3,"projects":1,"passed":0},{"id":"H07","hours":1,"visits":1,"projects":0,"passed":0},{"id":"H08","hours":2,"visits":2,"projects":1,"passed":0},{"id":"H09","hours":3,"visits":3,"projects":0,"passed":0},{"id":"H10","hours":1,"visits":1,"projects":1,"passed":0},{"id":"H11","hours":7,"visits":8,"projects":5,"passed":1},{"id":"H12","hours":8,"visits":9,"projects":6,"passed":1},{"id":"H13","hours":9,"visits":10,"projects":5,"passed":1},{"id":"H14","hours":7,"visits":8,"projects":6,"passed":1},{"id":"H15","hours":None,"visits":9,"projects":5,"passed":1},{"id":"H16","hours":9,"visits":10,"projects":6,"passed":1},{"id":"H17","hours":7,"visits":8,"projects":5,"passed":1},{"id":"H18","hours":8,"visits":9,"projects":"N/A","passed":1},{"id":"H19","hours":9,"visits":10,"projects":5,"passed":1},{"id":"H15","hours":7,"visits":8,"projects":6,"passed":1}]
+# DataFrame tạo 20 hàng bảng thô, chưa làm sạch.
 df = pd.DataFrame(raw)
+# duplicated() True với lần xuất hiện ID lặp sau lần đầu; sum() đếm hàng trùng.
 duplicate_count = int(df["id"].duplicated().sum())
+# Bỏ ID lặp chỉ dựa cột id, giữ BẢN ĐẦU; không tự gộp số liệu bản sau.
+# Đánh lại index bảng từ 0, drop=True không giữ index cũ thành cột.
 df = df.drop_duplicates(subset="id",keep="first").reset_index(drop=True)
+# Ba tên cột giờ, truy cập, dự án; không lấy ID hoặc passed làm feature.
 feature_columns = ["hours","visits","projects"]
+# to_numeric chuyển các cột sang số; errors='coerce' biến '?'/'N/A' thành NaN thay vì dừng lỗi.
+# Chuyển bảng ba feature sang ndarray float shape (19,3) với NaN cho dữ liệu thiếu.
 X = df[feature_columns].apply(pd.to_numeric,errors="coerce").to_numpy(dtype=float)
+# Chuyển nhãn passed sang vector int 19 phần tử.
 y = df["passed"].to_numpy(dtype=int)
+# isnan đánh ô NaN, sum() đếm ô feature thiếu SAU đổi kiểu.
 missing_count = int(np.isnan(X).sum())
+# Chia các index học viên duy nhất thành Train/Test trước khi mọi phép fit.
+# arange(n) sinh chỉ số 0..n−1 để dùng chung cho X/y.
+# Dành 5 học viên duy nhất cho Test và 14 cho Train.
 train,test = train_test_split(np.arange(len(df)),test_size=5,
+                              # Cố định phép chia và giữ tỷ lệ nhãn 0/1 gần tương đương.
                               random_state=42,stratify=y)
+# Baseline dự đoán nhãn lớp đông nhất Train, không học feature.
 baseline = DummyClassifier(strategy="most_frequent").fit(X[train],y[train])
+# Full pipeline: impute median trên Train → scale trên Train → classifier.
 full = make_pipeline(SimpleImputer(strategy="median"),StandardScaler(),
+                     # Bộ phân loại logistic, max_iter giới hạn số vòng tối ưu.
                      LogisticRegression(max_iter=1000))
+# Full pipeline: impute median trên Train → scale trên Train → classifier.
 pca = make_pipeline(SimpleImputer(strategy="median"),StandardScaler(),
+                    # PCA giữ hai thành phần chính từ ba feature sau impute/scale; phải fit chỉ trên TRAIN để tránh rò rỉ.
+                    # Bộ phân loại logistic, max_iter giới hạn số vòng tối ưu.
                     PCA(n_components=2),LogisticRegression(max_iter=1000))
+# Fit full pipeline từ 14 hàng Train, không dùng Test.
 full.fit(X[train],y[train])
+# Fit cả PCA và bộ phân loại từ Train; tên biến pca ở đây là TOÀN PIPELINE.
 pca.fit(X[train],y[train])
+# Dự đoán nhãn của 5 mẫu Test với pipeline full.
 pred = full.predict(X[test])
+# Dictionary tổng hợp kích thước, chất lượng mô hình và confusion để lưu/so sánh.
 report = {"raw_rows":len(raw),"unique_rows":len(df),"duplicates":duplicate_count,
           "missing_cells":missing_count,"train_rows":len(train),"test_rows":len(test),
+          # Accuracy baseline: lấy nhãn thật Test so với nhãn baseline đoán, là tỷ lệ đúng.
           "accuracy_baseline":round(accuracy_score(y[test],baseline.predict(X[test])),2),
+          # Accuracy full so nhãn y_test với nhãn pred của full pipeline.
           "accuracy_full":round(accuracy_score(y[test],pred),2),
+          # Accuracy của pipeline PCA; không đánh giá PCA riêng lẻ mà classifier sau PCA.
           "accuracy_pca":round(accuracy_score(y[test],pca.predict(X[test])),2),
+          # labels cố định thứ tự lớp, hàng thật/cột dự đoán; tolist() đổi ndarray sang JSON-compatible list.
           "confusion":confusion_matrix(y[test],pred,labels=[0,1]).tolist()}
+# Tên báo cáo JSON tương đối với current working directory; file sẽ được ghi ra ổ đĩa.
 path = Path("model_report_20.json")
+# dumps() chuyển dict thành chuỗi JSON; ensure_ascii=False giữ dấu tiếng Việt, indent=2 thụt dòng đẹp, không ảnh hưởng giá trị.
+# write_text(...,encoding='utf-8') ghi chuỗi JSON tới file, có thể ghi đè file cùng tên trong cwd.
 path.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
+# Kiểm hai tập chỉ số không có học viên trùng nhau, tránh leakage.
+# Chỉ 19 ID duy nhất sau khi bỏ một hàng H15 trùng; 20 raw là dữ liệu nguồn.
+# Điều kiện bảo vệ kiểm cấu trúc số mẫu và tránh Train/Test dùng chung trước khi báo cáo.
 if len(raw) != 20 or len(df) != 19 or not set(train).isdisjoint(test):
+    # raise ValueError dừng kịch bản khi dữ liệu không đúng số mẫu hoặc điều kiện kiểm thử.
     raise ValueError("Cần 20 dòng đầu vào, 19 hồ sơ duy nhất và Train/Test không trùng.")
 print("Dòng gốc/trùng/còn:",report["raw_rows"],report["duplicates"],report["unique_rows"])
 print("Ô thiếu sau chuyển kiểu:",report["missing_cells"])
 print("Train/test:",report["train_rows"],report["test_rows"])
 print("Accuracy baseline/full/PCA:",report["accuracy_baseline"],report["accuracy_full"],report["accuracy_pca"])
 print("Confusion (thật theo hàng):",report["confusion"])
+# read_text UTF-8 mở file vừa lưu; json.loads() parse về dictionary để đối chiếu với report trong RAM.
+# Kiểm tồn tại file thật, không chỉ có tên path.
+# So dict JSON đọc lại với dict đã tạo để kiểm file lưu/đọc chính xác.
 print("Đã lưu JSON:",path.is_file() and json.loads(path.read_text(encoding="utf-8"))==report)
 ```
 
