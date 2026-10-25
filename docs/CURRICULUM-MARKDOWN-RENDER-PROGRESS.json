@@ -3,7 +3,7 @@
   "repository": "nguyenletrian/AIClassDocuments",
   "scope": "Markdown table delimiters and HTML entities in 46 Vietnamese lessons, strictly 10 sequential batches of <=5 chapters",
   "source_guide": "docs/BRIDGE-FIVE-LESSON-BATCHES.md",
-  "status": "BATCH_08_IN_PROGRESS",
+  "status": "BATCH_08_QA_PASSED_WAIT_MERGE",
   "last_completed_batch": 7,
   "batches": [
     {
@@ -200,13 +200,13 @@
         "PY-39",
         "PY-40"
       ],
-      "status": "IN_PROGRESS",
+      "status": "QA_PASSED",
       "changed_lessons": [
         "PY-40"
       ],
-      "pr": null,
+      "pr": 141,
       "merged_commit": null,
-      "ci_run": null,
+      "ci_run": 40169243920,
       "branch": "fix/markdown-render-batch-08-20261025",
       "reviewed_lessons": [
         "PY-36",
@@ -223,7 +223,7 @@
         "html_entities_fixed": 1,
         "table_arity_issues": 0
       },
-      "notes": "Only PY-40 has literal HTML entity &#124; displayed inside p-value conditional probability explanation; corrected one line to P(H₀|dữ liệu). PY-36..39 unchanged. Preserve existing MCQs, scenarios and stdout. CI pending. Owner-approved explicit-Python style goal deferred until 10 batches complete."
+      "notes": "PR #141 initial CI 40169243920 PASS: PY-40 one literal &#124; corrected to conditional pipe in p-value explanation; PY-36..39 unchanged. Rendering regression and all existing curriculum tests PASS, final PR head CI/merge pending. Deferred explicit Python simplification remains inactive."
     },
     {
       "batch": 9,
