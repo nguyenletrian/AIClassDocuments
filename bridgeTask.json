@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-progressive-46-scenarios-20261025",
-    "revision": "2026-10-25-five-lesson-sequential-batches-v1-batch07",
+    "revision": "2026-10-25-five-lesson-sequential-batches-v1-batch08",
     "title": "Nâng cấp 46 bài: 5 tình huống khó dần, 10–20 dữ liệu, chỉ 5 bài mỗi lượt",
-    "phase": "READY_FOR_BATCH_07",
+    "phase": "READY_FOR_BATCH_08",
     "source_repository": "https://github.com/nguyenletrian/PythoClass.git",
     "source_commit": "37bcd2358ed616a9130ef954913adef728a1f9b8",
     "chapter_index": "lessons/chapters/README.md",
@@ -1206,8 +1206,8 @@
     "expected_lessons": 46,
     "expected_batches": 10,
     "unverified_draft_branch": "feat/46-lessons-scenarios-progression-20261025",
-    "next_review": "Batch06 PY-26..PY-30 PR #128 merged 073f71a6e855897b4444cb4e9930556622e9551a. Final CI #40160613433 PASS, ledger last_completed_batch=6. At next authorized goal event, first inspect fresh main/ledger/open PR and queue/ACK before work. Proceed only batch07 PY-31..PY-35: 5 cases each, 10/12/15/18/20 meaningful records, separate lesson commits, verified Python stdout, single PR and CI, squash merge then persist evidence. Never duplicate tasks or replay historical Jetking; do not mark Windows tests PASS absent Bridge worker result.",
-    "review_hold": "Owner-approved 46-lesson curriculum workstream continues sequentially; six batches merged. Next PY-31..PY-35 after fresh evidence. Informational idle heartbeat must not cause duplicate tasks, runtime restart or a forced new ChatGPT conversation."
+    "next_review": "Batch07 PY-31..PY-35 merged PR #129 commit ae14988e322b71fbd093ed9e605026b8bc9a1f6e. Final CI 40161504184 PASS, ledger last_completed_batch=7. On next authorized idle review verify actual main, ledger, open PRs, queue/ACK. Continue only batch08 PY-36..PY-40 (five lessons); 5 progressive scenarios per lesson with 10/12/15/18/20 meaningful records; one commit per lesson, executable exact-output checks, CI, single PR, merge and durable status update. No duplicate heartbeat tasks, no replay archived Jetking; Windows PASS only with actual Bridge worker evidence.",
+    "review_hold": "Active owner-approved sequential 46-lesson curriculum goal: batches01-07 merged, next batch08 PY-36..PY-40 after fresh state check. Informational queue-idle heartbeat is not a reason to restart Bridge, create chat, or repeat tasks."
   },
   "goal_review_history": [
     {
