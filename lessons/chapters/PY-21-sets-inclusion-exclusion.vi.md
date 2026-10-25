@@ -121,7 +121,7 @@ True
 Hai tập đều có dữ liệu, không trùng và phủ đủ toàn bộ năm mã, nên tạo một phân hoạch hợp lệ.
 ## 5. Năm vấn đề thực tế
 
-### Tình huống 1 — Đếm người học ít nhất một môn
+### Tình huống 1 — Đếm người học ít nhất một môn · Cấp 1: Phép đơn
 
 **Từ vựng trong mục:** **Union** — phép hợp.
 
@@ -149,7 +149,21 @@ print(len(a|b))
 4
 ```
 
-### Tình huống 2 — Người học cả hai môn
+**Bài thực hành nâng cấp — cấp 1/5:** Hệ thống có **10 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy đếm tập mã khác nhau của 10 học viên. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96]
+rows = [{"id":f"U{k:02d}","x":x,"group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+A = {r["id"] for r in rows if r["group"] in ("A","B")}
+B = {r["id"] for r in rows if r["x"] is not None and r["x"]>=70}
+result = len(A|B)
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 10 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
+
+### Tình huống 2 — Người học cả hai môn · Cấp 2: Tập dữ liệu
 
 **Từ vựng trong mục:** **Intersection** — phép giao.
 
@@ -177,7 +191,21 @@ print(sorted(a & b))
 ['SV2']
 ```
 
-### Tình huống 3 — Kiểm công thức đếm
+**Bài thực hành nâng cấp — cấp 2/5:** Hệ thống có **12 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy tìm giao giữa hai câu lạc bộ học tập. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82]
+rows = [{"id":f"U{k:02d}","x":x,"group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+A = {r["id"] for r in rows if r["group"] in ("A","B")}
+B = {r["id"] for r in rows if r["x"] is not None and r["x"]>=70}
+result = sorted(A&B)
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 12 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
+
+### Tình huống 3 — Kiểm công thức đếm · Cấp 3: Kết hợp điều kiện
 
 **Từ vựng trong mục:** **Inclusion–exclusion** — bao hàm–loại trừ.
 
@@ -205,7 +233,21 @@ print(len(a)+len(b)-len(a&b), len(a|b))
 4 4
 ```
 
-### Tình huống 4 — Chia tập train/test
+**Bài thực hành nâng cấp — cấp 3/5:** Hệ thống có **15 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy áp dụng bao hàm–loại trừ để đếm hợp hai nhóm. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61]
+rows = [{"id":f"U{k:02d}","x":x,"group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+A = {r["id"] for r in rows if r["group"] in ("A","B")}
+B = {r["id"] for r in rows if r["x"] is not None and r["x"]>=70}
+result = {'A':len(A),'B':len(B),'both':len(A&B),'union':len(A)+len(B)-len(A&B)}
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 15 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
+
+### Tình huống 4 — Chia tập train/test · Cấp 4: Trường hợp chưa xác định
 
 **Từ vựng trong mục:** **Partition** — phân hoạch.
 
@@ -234,7 +276,21 @@ print(train.isdisjoint(test) and train | test == True)
 {1, 2, 3, 4, 5}
 ```
 
-### Tình huống 5 — Tìm sở thích riêng
+**Bài thực hành nâng cấp — cấp 4/5:** Hệ thống có **18 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy kiểm tra các ID chưa đủ điểm trước khi phân chia. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39]
+rows = [{"id":f"U{k:02d}","x":x,"group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+A = {r["id"] for r in rows if r["group"] in ("A","B")}
+B = {r["id"] for r in rows if r["x"] is not None and r["x"]>=70}
+result = sorted(set(r['id'] for r in rows)-set(r['id'] for r in rows if r['x'] is not None))
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 18 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
+
+### Tình huống 5 — Tìm sở thích riêng · Cấp 5: Tổng hợp có phân loại
 
 **Từ vựng trong mục:** **Union** — phép hợp.
 
@@ -261,6 +317,20 @@ print(sorted(web ^ ai))
 ```text
 ['An', 'Lan']
 ```
+
+**Bài thực hành nâng cấp — cấp 5/5:** Hệ thống có **20 hồ sơ học viên/đăng nhập** với mã riêng, trạng thái và nhóm. Hãy phân hoạch 20 ID theo đạt, chưa đạt và chưa có số liệu. Các bài tiến từ phép đơn lẻ đến phối hợp nhiều điều kiện; cấp 4–5 phân biệt thông tin chưa có với điều kiện sai.
+
+```python
+values = [42, 70, 58, 91, 35, 76, 88, 64, 54, 96, 47, 82, 69, 73, 61, None, 90, 39, 85, None]
+rows = [{"id":f"U{k:02d}","x":x,"group":"ABC"[(k-1)%3]} for k,x in enumerate(values,1)]
+A = {r["id"] for r in rows if r["group"] in ("A","B")}
+B = {r["id"] for r in rows if r["x"] is not None and r["x"]>=70}
+result = {'qualified':sorted({r['id'] for r in rows if r['x'] is not None and r['x']>=70}),'not_qualified':sorted({r['id'] for r in rows if r['x'] is not None and r['x']<70}),'missing':sorted({r['id'] for r in rows if r['x'] is None})}
+print("Số hồ sơ:",len(rows))
+print("Kết quả:",result)
+```
+
+**Đọc kết quả:** Đối chiếu đủ 20 hồ sơ, tập hợp không chứa phần tử trùng, trạng thái chưa biết phải có nhánh xử lý riêng.
 
 ## 6. Sai lầm thường gặp
 
