@@ -124,151 +124,200 @@ print(np.round(ci, 3).tolist())
 
 Khoảng ước lượng mean theo t từ khoảng 1,761 đến 3,839 ngày; đây là khoảng cho trung bình quần thể.
 
-## 5. Năm tình huống ứng dụng
+## 5. Năm tình huống suy luận thống kê — từ kiểm định một mẫu đến Welch hai nhóm
 
-### Tình huống 1 — Kiểm định điểm trung bình so với chuẩn 50
+### Tình huống 1 — Cấp 1: Kiểm định trung bình 10 bài thi so với mốc 50
 
-**Tình huống thực tế:** Trung tâm có bảy điểm `[48,52,55,49,51,47,53]`, cùng thang 100 và giả định độc lập. Cần kiểm tra trung bình quần thể có khác chuẩn 50 theo kiểm định hai phía ở mức α=0.05 không.
+**Từ vựng trong mục:** **Null hypothesis** — giả thuyết H₀; **p-value** — giá trị p; **Two-sided t-test** — kiểm định hai phía.
 
-**Vì sao chọn cách giải này?** T-test một mẫu so mean với mốc khi phương sai quần thể chưa biết.
+**Tình huống thực tế:** Giảng viên nhận **10 điểm kiểm tra** (thang 100), mỗi hàng tương ứng một học viên. Quy chuẩn tham khảo giả định trung bình quần thể bằng 50 điểm. Cần kiểm H₀: μ=50 so với H₁: μ khác 50 bằng t-test một mẫu, báo p-value và quyết định ở α=0,05.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Kiểm định t dùng mean và độ phân tán của chính 10 quan sát để đánh giá dữ liệu có bất thường **nếu H₀ đúng**. p-value không phải xác suất H₀ đúng. Mẫu nhỏ cần xem giả định độc lập và hình dạng phân phối.
 
-1. Đặt H₀: μ=50, H₁: μ≠50 và α=0.05 trước khi xem kết quả.
-2. Tính `ttest_1samp` trên bảy điểm.
-3. In p-value làm tròn và so với α.
+**Quy trình:**
+1. Ghi 10 điểm có cùng thang đo.
+2. Dùng `ttest_1samp` với mốc 50 và kiểm định hai phía.
+3. So p với α=0,05 và phát biểu 'không bác bỏ' hoặc 'bác bỏ', không gọi là chứng minh H₀.
 
 ```python
-# Mục đích: Kiểm định điểm trung bình so với chuẩn 50.
 from scipy.stats import ttest_1samp
-
-scores = [48, 52, 55, 49, 51, 47, 53]
-p = ttest_1samp(scores, popmean=50).pvalue
-print(round(float(p), 4))
+scores = [48,49,50,51,52,48,49,50,51,52]
+result = ttest_1samp(scores, popmean=50)
+assert len(scores) == 10
+print("Học viên:", len(scores))
+print(f"Mean (điểm): {sum(scores)/len(scores):.2f}")
+print(f"p-value: {result.pvalue:.4f}")
+print("Bác bỏ H0 ở 0.05:", bool(result.pvalue < 0.05))
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.5347
+Học viên: 10
+Mean (điểm): 50.00
+p-value: 1.0000
+Bác bỏ H0 ở 0.05: False
 ```
 
-Vì p lớn hơn 0,05 nên chưa đủ bằng chứng bác bỏ H₀; không khẳng định H₀ đúng.
+p-value lớn không chứng minh mean quần thể **chính xác** 50; chỉ là bộ dữ liệu này chưa cung cấp bằng chứng để bác bỏ.
 
-### Tình huống 2 — Tính khoảng tin cậy thời gian giao
+### Tình huống 2 — Cấp 2: Khoảng tin cậy t cho 12 thời gian giao hàng
 
-**Tình huống thực tế:** Năm đơn giao mất `[2,3,3,4,2]` ngày, giả định độc lập và mô hình suy luận t phù hợp. Doanh nghiệp muốn khoảng tin cậy 95% cho **trung bình số ngày** của tổng thể.
+**Từ vựng trong mục:** **Confidence interval** — khoảng tin cậy; **Standard error** — sai số chuẩn.
 
-**Vì sao chọn cách giải này?** Khi chưa biết phương sai tổng thể và mẫu nhỏ, khoảng t dùng độ lệch chuẩn mẫu và n−1 bậc tự do.
+**Tình huống thực tế:** Cửa hàng đo **12 chuyến giao hàng** với thời gian (ngày) của từng chuyến, từ 2,7 tới 3,3 ngày. Cần ước lượng **trung bình quần thể** của thời gian giao qua khoảng tin cậy t 95%, đồng thời nêu mean mẫu và SE. Đây **không phải** khoảng chứa 95% thời gian của từng chuyến.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** Phương sai quần thể chưa biết và cỡ mẫu 12 nhỏ nên dùng khoảng t với **11 bậc tự do**, dựa trên giả định những thời gian tương đối độc lập và phân phối phù hợp. SE dùng std mẫu, không phải std quần thể.
 
-1. Tạo mảng năm số ngày và tính mean mẫu.
-2. Tính SE qua `sem` và khoảng t với df=4.
-3. In hai đầu mút làm tròn ba chữ số.
+**Quy trình:**
+1. Tạo đủ 12 thời gian theo cùng đơn vị ngày.
+2. Tính mean, SE bằng `sem`, khoảng t 95% với df=11.
+3. In hai đầu khoảng và ý nghĩa cho trung bình.
 
 ```python
-# Mục đích: Tính khoảng tin cậy thời gian giao.
 import numpy as np
 from scipy.stats import t, sem
-
-days = np.array([2.0, 3.0, 3.0, 4.0, 2.0])
-ci = t.interval(0.95, df=len(days) - 1, loc=days.mean(), scale=sem(days))
-print(np.round(ci, 3).tolist())
+values = np.array([2.8,3,2.9,3.1,3.2,2.7,3,2.8,3.1,2.9,3,3.3], dtype=float)
+se = sem(values)
+ci = t.interval(0.95, df=len(values)-1, loc=values.mean(), scale=se)
+assert len(values) == 12
+print("Chuyến:", len(values))
+print(f"Mean (ngày): {values.mean():.3f}")
+print(f"SE (ngày): {se:.3f}")
+print(f"CI 95% (ngày): {ci[0]:.3f} – {ci[1]:.3f}")
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-[1.761, 3.839]
+Chuyến: 12
+Mean (ngày): 2.983
+SE (ngày): 0.051
+CI 95% (ngày): 2.872 – 3.094
 ```
 
-Khoảng t 95% ước lượng trung bình quần thể từ 1,761 đến 3,839 ngày.
+Ý nghĩa 95% gắn với **quy trình lặp lấy mẫu tạo khoảng**, không diễn giải thành xác suất 95% cho tham số cố định nằm trong một khoảng đã có.
 
-### Tình huống 3 — Tính SE của thời gian giao trung bình
+### Tình huống 3 — Cấp 3: Kiểm độ nhạy của kiểm định t với điểm ngoại lệ trong 15 mẫu
 
-**Tình huống thực tế:** Với đúng năm thời gian giao `[2,3,3,4,2]` ngày, quản lý muốn báo sai số chuẩn của **ước lượng mean**, không phải mức phân tán từng đơn.
+**Từ vựng trong mục:** **Outlier sensitivity** — nhạy với ngoại lệ; **Robust review** — rà soát chắc chắn.
 
-**Vì sao chọn cách giải này?** `sem` ước lượng độ biến thiên mean bằng SD mẫu chia căn cỡ mẫu.
+**Tình huống thực tế:** Bộ phận đánh giá nhận **15 điểm kiểm tra** (thang 100), trong đó 14 điểm khoảng 49–51 và một điểm 70. Cần tính p-value hai phía so mốc μ=50 trên đủ 15 điểm; đồng thời thử phân tích **nếu tạm bỏ điểm 70 để đối chiếu**. Không tự xóa điểm 70 vì có thể hợp lệ.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** t-test dựa trên mean và độ phân tán nên một quan sát rất lớn có thể ảnh hưởng cả hai. Việc phân tích nhạy cảm có/không có điểm 70 giúp đặt câu hỏi về dữ liệu, **không cho phép chọn kết quả p thuận ý**.
 
-1. Dùng mảng năm số ngày.
-2. Gọi `scipy.stats.sem` với ddof mẫu mặc định.
-3. Làm tròn ba chữ số, ghi đơn vị ngày.
+**Quy trình:**
+1. Lưu 15 điểm, chạy t-test đầy đủ.
+2. Làm bản so sánh chỉ 14 điểm còn lại, không sửa dữ liệu gốc.
+3. In mean và p của hai cách tính, báo lại số mẫu.
 
 ```python
-# Mục đích: Tính SE của thời gian giao trung bình.
-from scipy.stats import sem
-
-days = [2, 3, 3, 4, 2]
-print(round(float(sem(days)), 3))
-```
-
-**Kết quả khi chạy:**
-
-```text
-0.374
-```
-
-SE ước lượng khoảng 0,374 ngày của mean, không phải std của thời gian từng đơn.
-
-### Tình huống 4 — Ra quyết định với kiểm định hai phía
-
-**Tình huống thực tế:** Dữ liệu năm số đo `[5,6,7,8,9]` được dùng kiểm định trung bình với mốc μ₀=6, α=0.05. Nhóm phân tích muốn chương trình đưa ra quyết định theo ngưỡng này.
-
-**Vì sao chọn cách giải này?** So p-value với α là một quy tắc ra quyết định đã đặt trước, không coi p là xác suất H₀ đúng.
-
-**Quy trình giải:**
-
-1. Đặt H₀: μ=6 và α=0.05.
-2. Tính p-value của t-test hai phía.
-3. In quyết định bằng câu 'Reject H0' hoặc 'Fail to reject H0'.
-
-```python
-# Mục đích: Ra quyết định với kiểm định hai phía.
+import numpy as np
 from scipy.stats import ttest_1samp
-
-values = [5, 6, 7, 8, 9]
-p = ttest_1samp(values, popmean=6).pvalue
-print('Reject H0' if p < 0.05 else 'Fail to reject H0')
+scores = np.array([49,50,50,51,49,50,51,50,49,50,51,50,50,49,70], dtype=float)
+full = ttest_1samp(scores, 50)
+without_last = ttest_1samp(scores[:-1], 50)
+assert len(scores) == 15
+print("Học viên:", len(scores))
+print(f"Mean đủ 15: {scores.mean():.3f}")
+print(f"p đủ 15: {full.pvalue:.3f}")
+print(f"p khi tạm xem 14: {without_last.pvalue:.3f}")
+print("Vẫn giữ bản gốc:", len(scores) == 15)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-Fail to reject H0
+Học viên: 15
+Mean đủ 15: 51.267
+p đủ 15: 0.364
+p khi tạm xem 14: 0.720
+Vẫn giữ bản gốc: True
 ```
 
-Không bác bỏ H₀ tại α=0.05, chứ không có nghĩa đã chứng minh μ=6.
+Cùng bộ dữ liệu nhưng lựa chọn quan sát đem vào kiểm định có thể đổi p-value; việc loại mẫu phải có lý do dữ liệu minh bạch.
 
-### Tình huống 5 — Thấy vai trò của mức ý nghĩa alpha
+### Tình huống 4 — Cấp 4: Một p-value nhưng hai quyết định alpha từ 18 kết quả
 
-**Tình huống thực tế:** Một phép kiểm định đã tính được p-value=0.04. Đội kiểm thử muốn so hai mức ý nghĩa **0.01 và 0.05** trên cùng bằng chứng, không thay đổi dữ liệu.
+**Từ vựng trong mục:** **Significance level** — mức ý nghĩa α; **Decision rule** — quy tắc quyết định.
 
-**Vì sao chọn cách giải này?** α là ngưỡng lựa chọn để quyết định bác bỏ H₀; thay α có thể đổi quyết định dù p giữ nguyên.
+**Tình huống thực tế:** Cơ sở đào tạo có **18 điểm bài kiểm tra** (thang 100). Đội đánh giá kiểm H₀: mean quần thể bằng 50 so với H₁ khác 50. Cần tính cùng một p-value, rồi so với **α=0,05** và **α=0,01**; hai ngưỡng có thể dẫn tới hai quyết định khác nhau, không được chọn ngưỡng sau khi biết p để đạt kết luận mong muốn.
 
-**Quy trình giải:**
+**Vì sao chọn cách này?** α là ngưỡng quyết định đã xác lập trước, còn p được tính từ dữ liệu và kiểm định. Với mẫu này, p nằm giữa 0,01 và 0,05 nên quy tắc ở hai ngưỡng khác nhau.
 
-1. Đặt p=0.04 đã tính sẵn.
-2. So p với hai ngưỡng 0.01 và 0.05.
-3. In ngưỡng và Boolean cho việc bác bỏ H₀.
+**Quy trình:**
+1. Tạo 18 điểm và chạy kiểm định hai phía một mẫu.
+2. Tính p một lần rồi so với cả hai α.
+3. Báo quyết định ở từng ngưỡng và nhắc đây là bằng chứng, không phải xác suất H₀ đúng.
 
 ```python
-# Mục đích: Thấy vai trò của mức ý nghĩa alpha.
-p = 0.04
-for alpha in [0.01, 0.05]:
-    print(alpha, p < alpha)
+from scipy.stats import ttest_1samp
+scores = [48,50,51,52,53,51,50,49,52,53,51,50,52,49,51,52,50,53]
+p = float(ttest_1samp(scores, popmean=50).pvalue)
+assert len(scores) == 18
+print("Học viên:", len(scores))
+print(f"p-value: {p:.4f}")
+print("Bác bỏ H0 ở 0.05:", p < 0.05)
+print("Bác bỏ H0 ở 0.01:", p < 0.01)
 ```
 
 **Kết quả khi chạy:**
 
 ```text
-0.01 False
-0.05 True
+Học viên: 18
+p-value: 0.0146
+Bác bỏ H0 ở 0.05: True
+Bác bỏ H0 ở 0.01: False
 ```
 
-Với α=0.01 chưa bác bỏ, với α=0.05 thì bác bỏ; không suy ra xác suất H₀ đúng là 4%.
+Chưa bác bỏ ở α=0,01 **không đồng nghĩa** chứng minh H₀ đúng; điều đó chỉ phản ánh ngưỡng bằng chứng khắt khe hơn.
+
+### Tình huống 5 — Cấp 5: So hai nhóm 10+10 bằng Welch t-test và CI chênh lệch
+
+**Từ vựng trong mục:** **Welch t-test** — kiểm định hai mẫu không cần giả định phương sai bằng nhau; **Difference CI** — khoảng chênh lệch mean.
+
+**Tình huống thực tế:** Trung tâm ghi **20 học viên** thuộc hai nhóm A và B, **mỗi nhóm 10 người**, một hàng là điểm kỹ năng (thang 100). Cần so trung bình B với A, kiểm H₀: hai trung bình quần thể bằng nhau theo kiểm định hai phía, và xây **khoảng tin cậy 95% cho chênh lệch mean B–A**. Hai nhóm phải là người khác nhau, không phải cặp trước/sau.
+
+**Vì sao chọn cách này?** Welch t-test phù hợp với hai nhóm độc lập mà không buộc phương sai hai nhóm giống nhau. CI cho chênh lệch dùng SE ghép từ hai nhóm và bậc tự do Welch, phản ánh **khoảng bất định của hiệu trung bình**, không phải khoảng điểm từng người.
+
+**Quy trình:**
+1. Tạo hai nhóm 10 điểm, kiểm không trộn thứ tự giữa nhóm.
+2. Chạy `ttest_ind(..., equal_var=False)` và tính SE hiệu mean.
+3. Tạo khoảng t Welch 95% cho B–A, báo chênh lệch, p và hai đầu khoảng.
+
+```python
+import numpy as np
+from scipy.stats import ttest_ind, t
+A = np.array([45,47,46,49,48,47,46,50,49,48], dtype=float)
+B = np.array([50,52,51,54,53,52,51,55,54,53], dtype=float)
+result = ttest_ind(B, A, equal_var=False)
+va = A.var(ddof=1)/len(A)
+vb = B.var(ddof=1)/len(B)
+se = np.sqrt(va + vb)
+df = (va+vb)**2/(va**2/(len(A)-1)+vb**2/(len(B)-1))
+difference = B.mean()-A.mean()
+ci = t.interval(0.95, df=df, loc=difference, scale=se)
+assert len(A) + len(B) == 20
+print("Học viên:", len(A)+len(B))
+print("Nhóm A/B:", len(A), len(B))
+print(f"Chênh lệch B-A (điểm): {difference:.2f}")
+print(f"p-value: {result.pvalue:.6f}")
+print(f"CI 95% (điểm): {ci[0]:.3f} – {ci[1]:.3f}")
+print("CI không chứa 0:", not (ci[0] <= 0 <= ci[1]))
+```
+
+**Kết quả khi chạy:**
+
+```text
+Học viên: 20
+Nhóm A/B: 10 10
+Chênh lệch B-A (điểm): 5.00
+p-value: 0.000001
+CI 95% (điểm): 3.514 – 6.486
+CI không chứa 0: True
+```
+
+Chênh lệch nhóm trong mẫu có thể do nhiều yếu tố khác ngoài cách dạy; kiểm định không tự chứng minh tác động nhân quả.
 
 ## 6. Sai lầm thường gặp
 
