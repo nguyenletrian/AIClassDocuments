@@ -32,7 +32,7 @@ def sample_students():
     return students
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Dùng `dict` lồng nhau: khóa ngoài là ID duy nhất, giá trị là đối tượng có `name` và `score`. Hàm tạo dữ liệu giả lập để tránh thông tin cá nhân.
 
@@ -62,7 +62,7 @@ def add(students, student_id, name, score):
     students[student_id] = {"name": name, "score": score}
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Đọc các trường, chuẩn hóa bằng `.strip()`, đổi điểm bằng `float()`, kiểm tra miền 0–10, rồi kiểm tra ID chưa có trước khi thêm.
 
@@ -92,7 +92,7 @@ def display(students):
               f"{record['score']:g}/10 | {classify(record['score'])}")
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Duyệt `.items()` để lấy cặp ID–thông tin và in nội dung. Giữ nguyên thứ tự thêm vào của từ điển.
 
@@ -121,7 +121,7 @@ def update(students, student_id, new_name, new_score):
     students[student_id] = {"name": name, "score": score}
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Từ ID đầu vào, tìm đúng khóa; từ chối ID không tồn tại, xác thực giá trị mới trước khi thay thế.
 
@@ -152,7 +152,7 @@ def delete(students, student_id, confirmed=False):
     return True
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Tìm ID rồi kiểm tra `confirmed`; khi người dùng từ chối thì không đụng đến dữ liệu. Khi đồng ý mới `del students[id]`.
 
@@ -189,7 +189,7 @@ def validate(student_id, name, score):
     return student_id, name, score
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Phân biệt kiểm tra kiểu dữ liệu và kiểm tra khoảng giá trị; nêu rõ vì sao `input()` tạo chuỗi, vì sao cần bắt `ValueError`.
 
@@ -219,7 +219,7 @@ def add(students, student_id, name, score):
     students[student_id] = {"name": name, "score": score}
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Dùng cùng hàm `add` trong code nguồn để chống trùng trước thao tác gán: nếu `id in students` thì báo lỗi.
 
@@ -250,7 +250,7 @@ def sort_by_score(students, descending=False):
     )
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Sắp theo khóa `score`, dùng `reverse=True/False` để đổi chiều; chương trình không làm biến đổi dữ liệu đang lưu.
 
@@ -285,7 +285,7 @@ def statistics(students):
     }
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Lấy danh sách điểm; tính `max`, `min`, trung bình, rồi đếm nhãn phân loại bằng `Counter`. Cần xử lý trường hợp không có sinh viên để tránh chia 0.
 
@@ -317,7 +317,7 @@ def classify(score):
     return "Poor"
 ```
 
-### Quy trình giải và công thức liên quan
+### Giải thích quy trình giải và công thức
 
 Kiểm tra ngưỡng từ cao xuống thấp để không có hai mức cùng đúng; các mốc lấy từ code tham khảo đã tồn tại, **không giả nhận là đề Word quy định**.
 
