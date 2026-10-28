@@ -1,6 +1,6 @@
 # PRETEST — Phân tích điểm, xác suất và Gradient Descent
 
-**Nguồn:** Tệp \`Pretest.docx\` do chủ dự án tải trực tiếp lên cuộc trò chuyện; SHA-256 của bản gốc: \`6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad\`. Đề có một trang, năm hàng sinh viên và ba nhóm nhiệm vụ. Công thức ở Task 3 là **L(w) = (w − 4)²**, nằm trong đối tượng Equation của Word nên có thể bị mất khi chỉ đọc văn bản thuần.
+**Nguồn:** Tệp `Pretest.docx` do chủ dự án tải trực tiếp lên cuộc trò chuyện; SHA-256 của bản gốc: `6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad`. Đề có một trang, năm hàng sinh viên và ba nhóm nhiệm vụ. Công thức ở Task 3 là **L(w) = (w − 4)²**, nằm trong đối tượng Equation của Word nên có thể bị mất khi chỉ đọc văn bản thuần.
 
 **Nguồn phương pháp code:** AIClassDocuments PY-13 (mảng NumPy), PY-15 (thống kê/tính trên mảng), PY-34 (xác suất theo số trường hợp), PY-32 (quy tắc cập nhật Gradient Descent). Code cuối bài **áp dụng các cách làm đã học** vào đúng số liệu và hàm loss của Pretest; không giả nhận đây là một script Pretest đã có sẵn trong notebook demo.
 
