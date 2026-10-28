@@ -1187,25 +1187,30 @@
     "reason": "Owner-approved shared AIBrigde ChatGPT Conversation Reliability task. Load merged AIBrigde main PR #26 fae2617706314b2a600f9e0044827b4cddcb1f68 before running pending v2 browser:conversation_structure_probe with payload.detail_level=contexts. Managed restart barrier is processed first, before task dispatch. Preserve Edge session, current ChatGPT conversation, 17 completed task ACKs and Jetking goal_review.enabled=false. Read-only context counts only; do not replay the older v1 task or create/move ChatGPT conversation. A stale v1 result instead of v2 is NOT acceptable; report runtime freshness mismatch."
   },
   "goal_review": {
-    "enabled": false,
+    "enabled": true,
     "approval": "approved",
-    "status": "completed",
-    "goal_id": "aiclassdocuments-no-note-comparison-copies-20261025",
-    "revision": "2026-10-25-no-note-46-lessons-completed",
-    "title": "Thêm bản No Note ngay trước bản code có chú thích trong 46 bài",
-    "phase": "COMPLETED",
-    "chapter_index": "lessons/chapters/README.md",
-    "goal_spec": "docs/CURRICULUM-NO-NOTE-GOAL.json",
-    "progress_ledger": "docs/CURRICULUM-NO-NOTE-PROGRESS.json",
-    "workflow_guide": "docs/CURRICULUM-STYLE-GUIDE.md",
-    "batch_limit": 5,
-    "expected_lessons": 46,
-    "expected_batches": 10,
-    "next_review": "Goal COMPLETED: All 46 lessons PY-01..PY-46 now contain 422 adjacent pairs of No Note and original commented executable code; 10/10 sequential batches merged, each with final PR HEAD CI SUCCESS. Last Batch10 PY-46 merged PR #184 (d007d7eb6ba76cd68456d321e7d2384e964cec05), final HEAD a8c0dc3a51c02a5fe7e205c2858c135096c258bc, CI run #40207251327 SUCCESS. Ledger docs/CURRICULUM-NO-NOTE-PROGRESS.json status COMPLETED and goal spec docs/CURRICULUM-NO-NOTE-GOAL.json status COMPLETED. 920 MCQs and 230 scenarios retained; original canonical code preserved and pair regression / scenario stdout checked by GitHub Actions. No open PR or unACKed task. Goal review disabled and no new goal authorized. Windows/PowerShell worker verification and CDP 9224 identity UNVERIFIED; do not claim Windows PASS.",
-    "review_hold": "Owner-approved No Note work is DONE (46/46 lessons, 10/10 merged batches, 422 pairs). Goal review DISABLED; do not create tasks or restart on informational heartbeat. No new goal without explicit owner approval.",
-    "active_batch": null,
-    "active_lessons": [],
-    "batch_boundary": "GOAL_COMPLETED; 10/10 batches merged, 422 pairs, active none; owner approval required for any successor goal."
+    "status": "active",
+    "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
+    "revision": "2026-10-28-lab-en-solutions-batch01",
+    "title": "Translate lab prompts to English and add detailed annotated solutions beneath each task",
+    "phase": "READY_FOR_BATCH_01",
+    "goal_spec": "docs/LAB-EN-SOLUTIONS-GOAL.json",
+    "progress_ledger": "docs/LAB-EN-SOLUTIONS-PROGRESS.json",
+    "reference_repo": "nguyenletrian/PythoClass",
+    "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
+    "output_root": "docs/labs",
+    "batch_limit": 3,
+    "expected_lab_units": 9,
+    "expected_batches": 3,
+    "active_batch": 1,
+    "active_labs": [
+      "LAB-MATH-02-sets-jaccard",
+      "LAB-MATH-03-04-matrix-pca",
+      "ASSIGNMENT-01-student-dictionary"
+    ],
+    "next_review": "Owner approved new English lab annotated solutions goal on 2026-10-28. Source PythoClass main SHA 851d67d (updated 2026-10-27). Existing 7 Word-derived lab folders are in labs/pythoclass; two new notebook lab units are 2. Math/labs2.ipynb (sets/Jaccard) and labs3_4.ipynb (matrix/PCA); new source notebooks labs5_6 and labs8 supplement existing labs. Exactly 3 sequential batches of max 3 labs. Batch01 only LAB-MATH-02, LAB-MATH-03-04, ASSIGNMENT-01. Put each lab in docs/labs/<slug>/ with English task and immediately following fully commented solution plus runnable file. Do not alter PythoClass, do not invent unseen Word content. Compare against sample code, test and CI head success per PR. Update ledger only after merge. Windows/PowerShell and CDP9224 remain UNVERIFIED.",
+    "review_hold": "Follow approved source/goal/ledger; work only one batch of 3 lab units, no duplicate tasks on heartbeat. Wait for final head CI success before merge.",
+    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_3; batch01 only; no batch02 until batch01 merged and ledger."
   },
   "goal_review_history": [
     {
@@ -1334,7 +1339,7 @@
     }
   ],
   "owner_pause": {
-    "suppress_idle_reminders": true,
-    "reason": "No Note goal completed with 46/46 chapters, 422 paired executable code snippets, 10/10 merged CI-successful batches. No active approved successor goal; idle reminders suppressed."
+    "suppress_idle_reminders": false,
+    "reason": "New owner-approved English lab solutions goal active. Batch01 is dependency-ready: two new Math notebooks and Assignment1, no pending Bridge tasks."
   }
 }
