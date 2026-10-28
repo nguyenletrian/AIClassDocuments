@@ -636,64 +636,64 @@ D. A covariance eigenvector with high eigenvalue | Vector riêng hiệp phương
 **Giải thích:** Vector riêng hiệp phương sai nổi bật mang phương sai lớn nhất.
 
 
-**Q5. Which function suits a symmetric matrix eigendecomposition? | Hàm nào phù hợp phân rã trị riêng ma trận đối xứng?**
+**Q5. For A = [[3, 0], [0, 1]], what eigenvalue belongs to v = [1, 0]? | Với A = [[3, 0], [0, 1]], vector riêng v = [1, 0] ứng với trị riêng nào?**
 
-A. `np.linalg.eigh(C)` | `np.linalg.eigh(C)`
+A. 1 | 1
 
-B. `np.linalg.eigvalsh(C)` | `np.linalg.eigvalsh(C)`
+B. 3 | 3
 
-C. `np.cov(X,rowvar=False)` | `np.cov(X,rowvar=False)`
+C. 0 | 0
 
-D. `np.argsort(values)[::-1]` | `np.argsort(values)[::-1]`
-
-**Đáp án: A**
-
-**Giải thích:** eigh được thiết kế cho ma trận đối xứng/Hermitian.
-
-
-**Q6. Which function returns only symmetric eigenvalues? | Hàm nào chỉ trả trị riêng ma trận đối xứng?**
-
-A. `np.linalg.eigh(C)` | `np.linalg.eigh(C)`
-
-B. `np.linalg.eigvalsh(C)` | `np.linalg.eigvalsh(C)`
-
-C. `np.cov(X,rowvar=False)` | `np.cov(X,rowvar=False)`
-
-D. `np.argsort(values)[::-1]` | `np.argsort(values)[::-1]`
+D. 4 | 4
 
 **Đáp án: B**
 
-**Giải thích:** eigvalsh không trả vector riêng.
+**Giải thích:** Nhân A với v được [3, 0] = 3v; do đó trị riêng tương ứng bằng 3.
 
 
-**Q7. Which call treats DataFrame-like columns as variables? | Lệnh nào coi cột là biến khi tính covariance?**
+**Q6. A PCA model explains 70% variance with PC1 and 20% with PC2. How much is retained by both? | PCA giữ 70% phương sai ở PC1 và 20% ở PC2. Giữ cả hai thì được bao nhiêu?**
 
-A. `np.linalg.eigh(C)` | `np.linalg.eigh(C)`
+A. 50% | 50%
 
-B. `np.linalg.eigvalsh(C)` | `np.linalg.eigvalsh(C)`
+B. 70% | 70%
 
-C. `np.cov(X,rowvar=False)` | `np.cov(X,rowvar=False)`
+C. 90% | 90%
 
-D. `np.argsort(values)[::-1]` | `np.argsort(values)[::-1]`
+D. 100% | 100%
 
 **Đáp án: C**
 
-**Giải thích:** rowvar=False coi cột là biến.
+**Giải thích:** Tỷ lệ phương sai giải thích được cộng khi chọn các thành phần chính: 70% + 20% = 90%.
 
 
-**Q8. Which expression sorts eigenvalue indices descending? | Biểu thức nào sắp chỉ số trị riêng giảm dần?**
+**Q7. In a 2-feature dataset, variance along x is 9 and along y is 1, with zero covariance. Which PCA direction comes first? | Dữ liệu hai đặc trưng có phương sai theo x là 9, theo y là 1, hiệp phương sai bằng 0. PCA chọn hướng đầu tiên nào?**
 
-A. `np.linalg.eigh(C)` | `np.linalg.eigh(C)`
+A. The x-axis | Trục x
 
-B. `np.linalg.eigvalsh(C)` | `np.linalg.eigvalsh(C)`
+B. The y-axis | Trục y
 
-C. `np.cov(X,rowvar=False)` | `np.cov(X,rowvar=False)`
+C. An equal mix of x and y | Pha đều x và y
 
-D. `np.argsort(values)[::-1]` | `np.argsort(values)[::-1]`
+D. No direction exists | Không có hướng nào
+
+**Đáp án: A**
+
+**Giải thích:** Khi hiệp phương sai bằng 0, trục có phương sai lớn nhất (trục x, bằng 9) là hướng thành phần chính đầu tiên.
+
+
+**Q8. If the first principal component retains 80% of total variance, what percentage is not retained by that component? | Nếu thành phần chính đầu tiên giữ 80% tổng phương sai, bao nhiêu phần trăm không được giữ bởi riêng thành phần đó?**
+
+A. 0% | 0%
+
+B. 10% | 10%
+
+C. 80% | 80%
+
+D. 20% | 20%
 
 **Đáp án: D**
 
-**Giải thích:** argsort cho chỉ số tăng; đảo để được giảm.
+**Giải thích:** Phần còn lại là 100% − 80% = 20%, nằm ở các hướng trực giao khác.
 
 
 **Q9. What is the shape of a covariance matrix for three features? | Ma trận covariance cho ba đặc trưng có shape gì?**
