@@ -587,64 +587,64 @@ D. Spread in original measurement units | Độ phân tán cùng đơn vị gố
 **Giải thích:** Std là căn bậc hai phương sai.
 
 
-**Q5. What is mode? | Mode là gì?**
+**Q5. What is the median of [1, 2, 3, 10, 10]? | Trung vị của [1, 2, 3, 10, 10] bằng bao nhiêu?**
 
-A. Most frequent observed value | Giá trị xuất hiện nhiều nhất
+A. 2 | 2
 
-B. Divide sum of squares by n | Chia tổng bình phương cho n
+B. 5 | 5
 
-C. Divide by n−1 | Chia cho n−1
+C. 3 | 3
 
-D. Frequency per distinct label | Tần suất từng nhãn khác nhau
-
-**Đáp án: A**
-
-**Giải thích:** Yếu vị dùng được cho nhãn lẫn số.
-
-
-**Q6. What is ddof=0 in np.var? | ddof=0 trong np.var là gì?**
-
-A. Most frequent observed value | Giá trị xuất hiện nhiều nhất
-
-B. Divide sum of squares by n | Chia tổng bình phương cho n
-
-C. Divide by n−1 | Chia cho n−1
-
-D. Frequency per distinct label | Tần suất từng nhãn khác nhau
-
-**Đáp án: B**
-
-**Giải thích:** Nó tính phương sai theo quy ước quần thể.
-
-
-**Q7. What is ddof=1 for sample variance? | ddof=1 dùng cho gì?**
-
-A. Most frequent observed value | Giá trị xuất hiện nhiều nhất
-
-B. Divide sum of squares by n | Chia tổng bình phương cho n
-
-C. Divide by n−1 | Chia cho n−1
-
-D. Frequency per distinct label | Tần suất từng nhãn khác nhau
+D. 10 | 10
 
 **Đáp án: C**
 
-**Giải thích:** Đó là ước lượng phương sai mẫu thông dụng.
+**Giải thích:** Dữ liệu đã tăng dần, có 5 số nên trung vị là số thứ ba: 3.
 
 
-**Q8. What does value_counts() produce? | value_counts() tạo gì?**
+**Q6. A score is 80, the mean is 60, and standard deviation is 10. What is the z-score? | Điểm số là 80, trung bình 60, độ lệch chuẩn 10. Điểm z là bao nhiêu?**
 
-A. Most frequent observed value | Giá trị xuất hiện nhiều nhất
+A. 1 | 1
 
-B. Divide sum of squares by n | Chia tổng bình phương cho n
+B. 2 | 2
 
-C. Divide by n−1 | Chia cho n−1
+C. 4 | 4
 
-D. Frequency per distinct label | Tần suất từng nhãn khác nhau
+D. 20 | 20
+
+**Đáp án: B**
+
+**Giải thích:** z = (80 − 60)/10 = 2, nghĩa là cao hơn trung bình hai độ lệch chuẩn.
+
+
+**Q7. What is the mean of [2, 4, 9]? | Giá trị trung bình của [2, 4, 9] là bao nhiêu?**
+
+A. 5 | 5
+
+B. 4 | 4
+
+C. 6 | 6
+
+D. 15 | 15
+
+**Đáp án: A**
+
+**Giải thích:** Cộng các giá trị 2 + 4 + 9 = 15 rồi chia cho 3 quan sát: mean = 5.
+
+
+**Q8. When is the population standard deviation equal to zero? | Khi nào độ lệch chuẩn của tổng thể bằng 0?**
+
+A. When the mean is zero | Khi trung bình bằng 0
+
+B. When all values are positive | Khi tất cả số đều dương
+
+C. When the sample is large | Khi mẫu lớn
+
+D. When all observations are equal | Khi tất cả quan sát bằng nhau
 
 **Đáp án: D**
 
-**Giải thích:** Nó đếm lượt xuất hiện của từng nhãn.
+**Giải thích:** Nếu tất cả giá trị giống nhau, không có độ lệch khỏi trung bình, nên phương sai và độ lệch chuẩn đều bằng 0.
 
 
 **Q9. What is mean of 2,3,4? | Mean của 2,3,4 là bao nhiêu?**
