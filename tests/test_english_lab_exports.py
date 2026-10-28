@@ -18,7 +18,7 @@ TASK_COUNTS = {
     "ASSIGNMENT-01-student-dictionary": 10,
     "LAB-04-conditions-loops": 14,
     "LAB-05-student-list": 7,
-    "LAB-10-file-csv": 0,
+    "LAB-10-file-csv": 6,
     "LAB-05-06-gradient-descent": 5,
     "LAB-07-probability": 5,
     "LAB-08-statistics": 5,
@@ -28,6 +28,9 @@ SMOKE = {
     "LAB-MATH-02-sets-jaccard": ("Task 3 - Jaccard(A, E): 1.00", "Student D: No connections"),
     "LAB-MATH-03-04-matrix-pca": ("Task 1 - Store matrix shape: (8, 4)", "PCA projected shape: (8, 2)"),
     "ASSIGNMENT-01-student-dictionary": ("Ascending scores", "Statistics:", "Student list:"),
+    "LAB-04-conditions-loops": ("PASS: 14 exercises", "240000 VND"),
+    "LAB-05-student-list": ("Sorted:", "Statistics:"),
+    "LAB-10-file-csv": ("PASS: CSV read, search, add", "Demo does not overwrite students.csv"),
 }
 
 
@@ -65,14 +68,19 @@ class LabEnglishExports(unittest.TestCase):
                         self.assertLess(section.index("**English lab requirement:**"), section.index("**Annotated solution"))
                         self.assertIn("```python", section)
 
-    def test_batch_one_scripts_run_noninteractive(self):
+    def test_active_and_completed_scripts_run_noninteractive(self):
+        progress = json.loads(LEDGER.read_text(encoding="utf-8"))
+        active_labs = {slug for batch in progress["batches"]
+                       if batch["status"] != "PENDING" for slug in batch["labs"]}
         for slug, terms in SMOKE.items():
+            if slug not in active_labs:
+                continue
             with self.subTest(lab=slug):
                 folder = EXPORTS / slug
                 source = folder / "SOLUTION_ANNOTATED.py"
                 self.assertTrue(source.exists())
                 args = [sys.executable, "-B", str(source)]
-                if slug.startswith("ASSIGNMENT"):
+                if slug.startswith("ASSIGNMENT") or slug in ("LAB-05-student-list", "LAB-10-file-csv"):
                     args.append("--demo")
                 result = subprocess.run(
                     args, cwd=folder, capture_output=True, text=True,
