@@ -632,64 +632,64 @@ D. An interval from a procedure with 95% long-run coverage | Khoảng từ quy t
 **Giải thích:** Bao phủ được hiểu qua những lần lấy mẫu lặp. Mức bao phủ 95% thuộc quy trình qua nhiều mẫu; một CI đã tính cần báo hai đầu mút và giả định đi kèm.
 
 
-**Q5. What does alpha represent? | α đại diện cho gì?**
+**Q5. A hypothesis test has p-value = 0.03 and significance level α = 0.05. What is the usual decision? | Kiểm định có p-value = 0.03 và mức ý nghĩa α = 0.05. Thường đưa ra quyết định nào?**
 
-A. A preselected significance threshold | Ngưỡng mức ý nghĩa được chọn trước
+A. Accept H0 as proven | Chứng minh H0 đúng
 
-B. Reject H0 at that significance level | Bác bỏ H₀ ở mức ý nghĩa đó
+B. Reject H0 | Bác bỏ H0
 
-C. Fail to reject H0 | Chưa đủ bằng chứng bác bỏ H₀
+C. Double the sample size automatically | Tự động tăng gấp đôi mẫu
 
-D. Compare one sample mean with mu0 | So mean một mẫu với mốc mu0
-
-**Đáp án: A**
-
-**Giải thích:** α điều khiển quy tắc bác bỏ. Chọn alpha sau khi nhìn p-value có thể làm sai ý nghĩa kiểm soát báo động nhầm dự kiến.
-
-
-**Q6. What does p<alpha typically imply? | p<α thường dẫn tới gì?**
-
-A. A preselected significance threshold | Ngưỡng mức ý nghĩa được chọn trước
-
-B. Reject H0 at that significance level | Bác bỏ H₀ ở mức ý nghĩa đó
-
-C. Fail to reject H0 | Chưa đủ bằng chứng bác bỏ H₀
-
-D. Compare one sample mean with mu0 | So mean một mẫu với mốc mu0
+D. Set p-value to zero | Đặt p-value bằng 0
 
 **Đáp án: B**
 
-**Giải thích:** Kết quả bất thường dưới giả thuyết gốc. Bác bỏ cung cấp bằng chứng chống H₀ dưới mô hình, không đo xác suất H₀ sai.
+**Giải thích:** Vì 0.03 < 0.05, dữ liệu đủ bằng chứng để bác bỏ H0 ở mức ý nghĩa đã chọn; không chứng minh H1 chắc chắn đúng.
 
 
-**Q7. What does p≥alpha imply? | p≥α thường kết luận gì?**
+**Q6. A hypothesis test has p-value = 0.15 and α = 0.05. Which statement is appropriate? | Kiểm định có p-value = 0.15 và α = 0.05. Phát biểu nào phù hợp?**
 
-A. A preselected significance threshold | Ngưỡng mức ý nghĩa được chọn trước
+A. Reject H0 | Bác bỏ H0
 
-B. Reject H0 at that significance level | Bác bỏ H₀ ở mức ý nghĩa đó
+B. H0 is proven true | H0 đã được chứng minh đúng
 
-C. Fail to reject H0 | Chưa đủ bằng chứng bác bỏ H₀
+C. Fail to reject H0 | Chưa đủ bằng chứng để bác bỏ H0
 
-D. Compare one sample mean with mu0 | So mean một mẫu với mốc mu0
+D. The sample mean must equal zero | Trung bình mẫu phải bằng 0
 
 **Đáp án: C**
 
-**Giải thích:** Không bác bỏ không phải chứng minh H₀. Mẫu nhỏ có thể bỏ sót tác động thật; 'không bác bỏ' khác với 'đã xác nhận bằng nhau'.
+**Giải thích:** 0.15 ≥ 0.05 nên chưa đủ bằng chứng bác bỏ H0. Điều này không có nghĩa đã chứng minh H0 đúng.
 
 
-**Q8. What is `ttest_1samp(x,popmean=mu0)` for? | `ttest_1samp(x,popmean=mu0)` dùng làm gì?**
+**Q7. A 95% two-sided confidence interval contains the null value. What normally happens in the matching two-sided test at α = 0.05? | Khoảng tin cậy 95% hai phía chứa giá trị giả thuyết H0. Trong kiểm định hai phía tương ứng với α = 0.05, thường kết luận gì?**
 
-A. A preselected significance threshold | Ngưỡng mức ý nghĩa được chọn trước
+A. Fail to reject H0 | Chưa bác bỏ H0
 
-B. Reject H0 at that significance level | Bác bỏ H₀ ở mức ý nghĩa đó
+B. Reject H0 | Bác bỏ H0
 
-C. Fail to reject H0 | Chưa đủ bằng chứng bác bỏ H₀
+C. H0 is definitely true | H0 chắc chắn đúng
 
-D. Compare one sample mean with mu0 | So mean một mẫu với mốc mu0
+D. The p-value is exactly 0 | p-value chính xác bằng 0
+
+**Đáp án: A**
+
+**Giải thích:** Với cùng mô hình và giả định, khi giá trị H0 nằm trong khoảng tin cậy 95% thì kiểm định hai phía tương ứng ở mức 5% không bác bỏ H0.
+
+
+**Q8. Which description of a p-value is correct? | Mô tả nào đúng về p-value?**
+
+A. Probability H0 is true | Xác suất H0 đúng
+
+B. Probability H1 is true | Xác suất H1 đúng
+
+C. Probability the data were measured correctly | Xác suất dữ liệu được đo đúng
+
+D. Probability of observing results this extreme or more if H0 were true | Xác suất gặp kết quả cực đoan bằng hoặc hơn nếu H0 đúng
 
 **Đáp án: D**
 
-**Giải thích:** Nó chạy kiểm định t một mẫu. Đối tượng trả về có thống kê kiểm định và p-value; lấy `.pvalue` khi cần quyết định.
+**Giải thích:** p-value xét mức độ bất thường của dữ liệu theo giả định H0 đúng, không phải xác suất H0 đúng.
 
 
 **Q9. How is a one-sample t statistic formed? | Thống kê t một mẫu có dạng gì?**
