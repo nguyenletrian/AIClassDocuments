@@ -55,5 +55,16 @@ jobs:
           git add exports/pdf/AIClassDocuments-FPT-Jetking-10-DeOnTap-160Cau-A4-Ngang.vi.pdf exports/pdf/AIClassDocuments-FPT-Jetking-DapAn-GiaiThich-160Cau-A4-Ngang.vi.pdf
           if ! git diff --cached --quiet; then
             git commit -m 'exports: publish 920 bilingual curriculum MCQs PDF and Markdown'
-            git push
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                echo "Published quiz PDFs from the latest main"
+                exit 0
+              fi
+              echo "main advanced before push; retrying publish ($attempt/3)"
+              sleep 3
+            done
+            echo "Could not publish quiz PDFs without a race" >&2
+            exit 1
           fi
