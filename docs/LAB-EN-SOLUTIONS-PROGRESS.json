@@ -1,11 +1,11 @@
 {
   "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
   "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
-  "status": "BATCH_02_REVISED_IN_PROGRESS",
-  "last_completed_batch": 1,
+  "status": "READY_FOR_BATCH_03_REVISED",
+  "last_completed_batch": 2,
   "expected_batches": 3,
   "expected_lab_units": 7,
-  "completed_lab_units": 3,
+  "completed_lab_units": 6,
   "export_root": "docs/labs",
   "batches": [
     {
@@ -38,12 +38,21 @@
         "LAB-07-probability",
         "LAB-08-statistics"
       ],
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "exported_paths": [
         "docs/labs/LAB-05-06-gradient-descent.md",
         "docs/labs/LAB-07-probability.md",
         "docs/labs/LAB-08-statistics.md"
-      ]
+      ],
+      "pr_number": 188,
+      "merge_sha": "18452acc220947c7d56fd27ed666a0901bdf9f6f",
+      "final_pr_head_sha": "8ae538db745874161e67082774b3b3582c5f734b",
+      "ci_runs": [
+        40689016604,
+        40688957360
+      ],
+      "ci_conclusion": "SUCCESS",
+      "source_word_task_count": 15
     },
     {
       "batch": 3,
@@ -55,7 +64,7 @@
   ],
   "source_notes": "Source Word briefs already converted into English LAB.md in existing labs. 2026-10-27 notebooks add math labs2 and labs3_4 and refresh 5_6,8 sample code. The original private DOCX binary is not directly parsed in this pass; use the repo's existing verified LAB.md and document the provenance.",
   "validation": {
-    "github_ci": "BATCH01_REVISED_SUCCESS",
+    "github_ci": "BATCH02_REVISED_SUCCESS",
     "windows_worker": "UNVERIFIED"
   },
   "no_new_goal_without_owner_approval": true,
