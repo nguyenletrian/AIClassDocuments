@@ -14,10 +14,10 @@ The source is the Word-derived transcription in `labs/pythoclass/<slug>/LAB.md`,
 | `LAB SESSION 5_6.docx` | [Lab 05–06 — Gradient Descent](LAB-05-06-gradient-descent.md) |
 | `LAB SESSION 7.docx` | [Lab 07 — Probability](LAB-07-probability.md) |
 | `LAB SESSION 8.docx` | [Lab 08 — Statistics](LAB-08-statistics.md) |
-| `Lab Session 10.docx` | Lab 10 — CSV (Batch 03) |
+| `Lab Session 10.docx` | [Lab 10 — CSV](LAB-10-file-csv.md) |
 
 **Exclusions:** `MON 2/LAB SESSION 5_6.docx` duplicates the Word 5–6 assignment; `Pretest.docx` is not a lab. The `2. Math/labs2.ipynb` and `labs3_4.ipynb` notebooks are reference practice examples, not separate source Word assignments, so they do not count toward these seven documents.
 
-**Historical files:** The previous multiple-file layout from PR #185/#186 was based on a misunderstanding and is superseded by this corrected seven-document format. Source practice code remains available in `labs/pythoclass`; legacy extra exports will be cleared before the corrected goal is declared complete.
+**Historical files:** The previous multiple-file layout from PR #185/#186 was based on a misunderstanding and is superseded by this corrected seven-document format. Source practice code remains available in `labs/pythoclass`; The obsolete multi-file output folders have been retired; this directory contains seven lab documents and one navigation README.
 
 See [goal and constraints](../LAB-EN-SOLUTIONS-GOAL.json) and [verification progress](../LAB-EN-SOLUTIONS-PROGRESS.json). The original Lab04 electric bill example (282,000 VND) conflicts with its progressive tariff table (240,000 VND); both values are retained and explained.

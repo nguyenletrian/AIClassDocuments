@@ -38,7 +38,7 @@ The source update added Math practice notebooks independent of the original seve
 
 | Notebook | Source-linked lab folder | English tasks + solutions export |
 |---|---|---|
-| `2. Math/labs2.ipynb` | [Sets/Jaccard](LAB-MATH-02-sets-jaccard/LAB.md) | [English solved lab](../../docs/labs/LAB-MATH-02-sets-jaccard/LAB_EN_SOLVED.md) |
-| `2. Math/labs3_4.ipynb` | [Matrix/PCA](LAB-MATH-03-04-matrix-pca/LAB.md) | [English solved lab](../../docs/labs/LAB-MATH-03-04-matrix-pca/LAB_EN_SOLVED.md) |
+| `2. Math/labs2.ipynb` | [Sets/Jaccard](LAB-MATH-02-sets-jaccard/LAB.md) | Notebook-based reference only; no separate Word lab export |
+| `2. Math/labs3_4.ipynb` | [Matrix/PCA](LAB-MATH-03-04-matrix-pca/LAB.md) | Notebook-based reference only; no separate Word lab export |
 
-The updated `2. Math/labs5_6.ipynb` and `2. Math/labs8.ipynb` are supplemental examples for the existing Gradient Descent and Statistics Word labs. The owner-approved output folders under [docs/labs](../../docs/labs/README.md) place fully annotated solutions immediately below each English requirement. The source repository is read-only during export.
+The updated `2. Math/labs5_6.ipynb` and `2. Math/labs8.ipynb` are supplemental examples for the existing Gradient Descent and Statistics Word labs. The corrected owner-approved export in [docs/labs](../../docs/labs/README.md) keeps exactly one bilingual document per **original Word assignment**, with EN brief → VI translation → sourced code → explanation and formulas. The separate notebook exercises remain references here and are not miscounted as Word labs. The source repository is read-only during export.
