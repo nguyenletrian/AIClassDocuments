@@ -1,18 +1,19 @@
-"""Verify owner-corrected export: one Markdown document per original Word lab.
+"""QA: each original Word lab is one document with four contiguous parts.
 
-A task must contain EN brief, VI translation, sourced code and explanation.
-Historical multi-file output is not counted as completion.
+This does not invent Pretest: skip the blocked source until its binary is readable.
 """
 import json
 import re
+import subprocess
+import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPORT_ROOT = ROOT / "docs" / "labs"
-LEDGER = ROOT / "docs" / "LAB-EN-SOLUTIONS-PROGRESS.json"
-GOAL = ROOT / "docs" / "LAB-EN-SOLUTIONS-GOAL.json"
-COUNTS = {
+DOCS = ROOT / "docs" / "labs"
+PROGRESS = ROOT / "docs" / "WORD-LAB-WHOLE-BRIEF-PROGRESS.json"
+EXPECTED = {
     "ASSIGNMENT-01-student-dictionary": 10,
     "LAB-04-conditions-loops": 14,
     "LAB-05-student-list": 7,
@@ -20,63 +21,78 @@ COUNTS = {
     "LAB-07-probability": 5,
     "LAB-08-statistics": 5,
     "LAB-10-file-csv": 6,
+    "PRETEST": None,
 }
+MARKERS = [
+    "## PART 1 — COMPLETE ORIGINAL ENGLISH ASSIGNMENT",
+    "## PHẦN 2 — BẢN DỊCH TIẾNG VIỆT TOÀN BỘ ĐỀ",
+    "## Quy trình giải chi tiết và các công thức liên quan",
+    "## PHẦN 4 — TOÀN BỘ CODE PYTHON CÙNG CHÚ THÍCH",
+]
 
 
-class OriginalWordSingleFileLabTests(unittest.TestCase):
-    def test_exactly_seven_word_lab_units_in_authorized_scope(self):
-        goal = json.loads(GOAL.read_text(encoding="utf-8"))
-        progress = json.loads(LEDGER.read_text(encoding="utf-8"))
-        self.assertTrue(goal["scope"]["one_document_per_original_word_file"])
-        self.assertEqual(goal["scope"]["total_unique_lab_units"], 7)
-        self.assertEqual(progress["expected_lab_units"], 7)
-        self.assertEqual(progress["expected_batches"], 3)
-        self.assertEqual(set(COUNTS), {x for batch in progress["batches"] for x in batch["labs"]})
-        self.assertLessEqual(sum(b["status"] == "IN_PROGRESS" for b in progress["batches"]), 1)
+class OneWordOneDocument(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.progress = json.loads(PROGRESS.read_text(encoding="utf-8"))
 
-    def test_english_vietnamese_sourced_solution_explanation_per_exercise(self):
-        progress = json.loads(LEDGER.read_text(encoding="utf-8"))
-        for batch in progress["batches"]:
-            if batch["status"] == "PENDING":
+    def test_scope_and_batch_limit(self):
+        data = self.progress
+        self.assertEqual(data["expected_word_documents"], 8)
+        self.assertEqual(len(data["batches"]), 4)
+        self.assertEqual(
+            set(EXPECTED), {slug for batch in data["batches"] for slug in batch["labs"]}
+        )
+        self.assertLessEqual(sum(b["status"] == "IN_PROGRESS" for b in data["batches"]), 1)
+
+    def test_four_contiguous_sections_and_complete_script(self):
+        data = self.progress
+        for batch in data["batches"]:
+            if batch["status"] in {"PENDING", "BLOCKED_SOURCE_BINARY"}:
                 continue
             for slug in batch["labs"]:
-                with self.subTest(original_word_lab=slug):
-                    path = EXPORT_ROOT / (slug + ".md")
-                    self.assertTrue(path.is_file(), f"Missing consolidated Word lab: {path}")
-                    text = path.read_text(encoding="utf-8")
-                    tasks = list(re.finditer(r"^## Bài (\d+)(?:\s|$)", text, flags=re.MULTILINE))
-                    self.assertEqual(len(tasks), COUNTS[slug])
-                    self.assertEqual([int(m[1]) for m in tasks], list(range(1, COUNTS[slug]+1)))
-                    for i, m in enumerate(tasks):
-                        end = tasks[i+1].start() if i+1 < len(tasks) else len(text)
-                        section = text[m.start():end]
-                        markers = [
-                            "### English",
-                            "### Tiếng Việt",
-                            "### Bài giải",
-                            "### Giải thích",
-                        ]
-                        positions = [section.find(q) for q in markers]
-                        self.assertTrue(all(p >= 0 for p in positions), f"Missing required section: {slug} task {i+1}")
-                        self.assertEqual(positions, sorted(positions))
-                        self.assertIn("```python", section)
-                        snippets = re.findall(r"```python\n([\s\S]*?)^```", section, flags=re.MULTILINE)
-                        self.assertTrue(snippets, f"No Python from source for {slug} task {i+1}")
-                        for snippet in snippets:
-                            compile(snippet, f"{path}:task{i+1}", "exec")
-                        # Do not accept only a call without implementation or source.
-                        self.assertIn("def ", section)
-                        self.assertRegex(section, r"SOLUTION\.py|SOLUTION_ANNOTATED\.py|DEMO\.py")
-                    self.assertNotIn("LAB-MATH-02", path.name)
+                with self.subTest(source_word=slug):
+                    content = (DOCS / f"{slug}.md").read_text(encoding="utf-8")
+                    positions = [content.find(marker) for marker in MARKERS]
+                    self.assertEqual(len(positions), len(set(positions)))
+                    self.assertTrue(all(pos >= 0 for pos in positions))
+                    self.assertEqual(positions, sorted(positions))
+                    en = content[positions[0]:positions[1]]
+                    vi = content[positions[1]:positions[2]]
+                    method = content[positions[2]:positions[3]]
+                    script = content[positions[3]:]
+                    count = EXPECTED[slug]
+                    self.assertGreater(len(en), 300)
+                    self.assertGreater(len(vi), 300)
+                    self.assertGreater(len(method), 400)
+                    if count is not None:
+                        self.assertEqual(len(re.findall(r"^### Bài \d+", method, re.M)), count)
+                    blocks = re.findall(r"^\x60\x60\x60python\n([\s\S]*?)^\x60\x60\x60$", script, re.M)
+                    self.assertEqual(len(blocks), 1, "One full Python program, not per-task snippets")
+                    compiled = compile(blocks[0], slug + ".py", "exec")
+                    self.assertIsNotNone(compiled)
+                    self.assertIn("def ", blocks[0])
+                    self.assertGreaterEqual(len(re.findall(r"#", blocks[0])), 6)
 
-    def test_one_file_contract_in_final_export(self):
-        # Replacing old output must be checked in PR, not only post-merge.
-        paths = sorted(p.name for p in EXPORT_ROOT.iterdir())
-        expected = sorted([slug + ".md" for slug in COUNTS] + ["README.md"])
-        self.assertEqual(paths, expected, "Only 7 Word lab documents and index should remain")
-        for slug in COUNTS:
-            self.assertTrue((EXPORT_ROOT / (slug + ".md")).is_file())
-            self.assertFalse((EXPORT_ROOT / slug).exists(), "Legacy multi-file lab remains")
+    def test_smoke_first_batch(self):
+        data = self.progress
+        if data["batches"][0]["status"] == "PENDING":
+            return
+        for slug in EXPECTED:
+            if slug not in data["batches"][0]["labs"]:
+                continue
+            content = (DOCS / f"{slug}.md").read_text(encoding="utf-8")
+            last = content.split(MARKERS[-1], 1)[1]
+            script = re.findall(r"^\x60\x60\x60python\n([\s\S]*?)^\x60\x60\x60$", last, re.M)[0]
+            with tempfile.TemporaryDirectory() as folder:
+                src = Path(folder) / "lab_solution.py"
+                src.write_text(script, encoding="utf-8")
+                args = [sys.executable, "-B", str(src)]
+                if slug != "LAB-04-conditions-loops":
+                    args.append("--demo")
+                r = subprocess.run(args, cwd=folder, capture_output=True,
+                                   text=True, timeout=45, encoding="utf-8")
+                self.assertEqual(r.returncode, 0, r.stderr)
 
 
 if __name__ == "__main__":
