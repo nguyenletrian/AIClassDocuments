@@ -684,64 +684,64 @@ D. One pass through the training dataset | Một lượt đi qua tập dữ li�
 **Giải thích:** Một epoch xử lý hết dữ liệu train một lượt.
 
 
-**Q5. Which tool differentiates f with respect to x symbolically? | Hàm nào đạo hàm ký hiệu f theo x?**
+**Q5. Given L(w) = (w − 2)², what is the gradient at w = 5? | Cho L(w) = (w − 2)², gradient tại w = 5 bằng bao nhiêu?**
 
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
+A. 2 | 2
 
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
+B. 4 | 4
 
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
+C. 6 | 6
 
-D. A `for` loop | Vòng lặp `for`
-
-**Đáp án: A**
-
-**Giải thích:** diff tính đạo hàm ký hiệu.
-
-
-**Q6. Which expression is a gradient-descent update? | Biểu thức nào cập nhật theo gradient descent?**
-
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
-
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
-
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
-
-D. A `for` loop | Vòng lặp `for`
-
-**Đáp án: B**
-
-**Giải thích:** Trừ gradient nhằm giảm loss cục bộ.
-
-
-**Q7. Which formula is MSE? | Công thức nào là MSE?**
-
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
-
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
-
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
-
-D. A `for` loop | Vòng lặp `for`
+D. 10 | 10
 
 **Đáp án: C**
 
-**Giải thích:** MSE trung bình bình phương sai số.
+**Giải thích:** Đạo hàm dL/dw = 2(w − 2). Thay w = 5: 2 × (5 − 2) = 6.
 
 
-**Q8. Which Python construct repeats optimization steps? | Cấu trúc Python nào lặp các bước tối ưu?**
+**Q6. Gradient descent uses new_w = old_w − rate × gradient. If w = 4, rate = 0.25, gradient = 2, what is new_w? | Gradient Descent cập nhật w mới = w cũ − tốc độ học × gradient. Nếu w = 4, rate = 0.25, gradient = 2, w mới bằng bao nhiêu?**
 
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
+A. 3.5 | 3.5
 
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
+B. 4.5 | 4.5
 
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
+C. 2 | 2
 
-D. A `for` loop | Vòng lặp `for`
+D. 3 | 3
+
+**Đáp án: A**
+
+**Giải thích:** w mới = 4 − 0.25 × 2 = 3.5. Lấy w cũ trừ một bước theo gradient.
+
+
+**Q7. What may happen when learning rate is excessively large? | Điều gì có thể xảy ra khi tốc độ học quá lớn?**
+
+A. Training data always doubles | Dữ liệu huấn luyện luôn tăng gấp đôi
+
+B. Loss may oscillate or diverge | Loss có thể dao động hoặc phân kỳ
+
+C. Every gradient becomes zero | Mọi gradient đều bằng 0
+
+D. The global optimum is guaranteed | Luôn tìm được cực tiểu toàn cục
+
+**Đáp án: B**
+
+**Giải thích:** Bước nhảy quá lớn có thể vượt qua cực tiểu, khiến hàm mất mát dao động hoặc tăng thay vì giảm.
+
+
+**Q8. A function has gradient zero at w = 0. Which conclusion is always justified? | Một hàm có gradient bằng 0 tại w = 0. Kết luận nào luôn đúng?**
+
+A. The loss is zero | Loss bằng 0
+
+B. This is a global minimum | Đây là cực tiểu toàn cục
+
+C. The function is constant | Hàm là hằng số
+
+D. It is a stationary point, not necessarily a minimum | Đây là điểm dừng, chưa chắc là cực tiểu
 
 **Đáp án: D**
 
-**Giải thích:** for lặp các bước cập nhật.
+**Giải thích:** Gradient bằng 0 chỉ cho biết tốc độ thay đổi cục bộ bằng 0. Điểm đó vẫn có thể là cực đại hoặc điểm yên ngựa.
 
 
 **Q9. What is ∂(x²+3xy)/∂x? | Đạo hàm riêng theo x của x²+3xy là gì?**
