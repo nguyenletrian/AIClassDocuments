@@ -69,16 +69,14 @@ class OriginalWordSingleFileLabTests(unittest.TestCase):
                         self.assertRegex(section, r"SOLUTION\.py|SOLUTION_ANNOTATED\.py|DEMO\.py")
                     self.assertNotIn("LAB-MATH-02", path.name)
 
-    def test_one_file_contract_on_completed_goal(self):
-        progress = json.loads(LEDGER.read_text(encoding="utf-8"))
-        if progress["status"] != "COMPLETED":
-            return
-        self.assertEqual(progress["completed_lab_units"], 7)
+    def test_one_file_contract_in_final_export(self):
+        # Replacing old output must be checked in PR, not only post-merge.
+        paths = sorted(p.name for p in EXPORT_ROOT.iterdir())
+        expected = sorted([slug + ".md" for slug in COUNTS] + ["README.md"])
+        self.assertEqual(paths, expected, "Only 7 Word lab documents and index should remain")
         for slug in COUNTS:
             self.assertTrue((EXPORT_ROOT / (slug + ".md")).is_file())
-            self.assertFalse((EXPORT_ROOT / slug).exists(), "Legacy multi-file lab must be cleared")
-        self.assertFalse((EXPORT_ROOT / "LAB-MATH-02-sets-jaccard").exists())
-        self.assertFalse((EXPORT_ROOT / "LAB-MATH-03-04-matrix-pca").exists())
+            self.assertFalse((EXPORT_ROOT / slug).exists(), "Legacy multi-file lab remains")
 
 
 if __name__ == "__main__":
