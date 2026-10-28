@@ -616,64 +616,64 @@ D. A variable appears in the exponent | Biến xuất hiện ở số mũ
 **Giải thích:** Hàm mũ có số mũ thay đổi.
 
 
-**Q5. What does slope m represent in y=mx+b? | Hệ số góc m trong y=mx+b biểu thị gì?**
+**Q5. Given f(x) = 2x + 3, what is f(4)? | Cho f(x) = 2x + 3, f(4) bằng bao nhiêu?**
 
-A. Output change per one input unit | Mức thay đổi đầu ra mỗi đơn vị đầu vào
+A. 8 | 8
 
-B. Predicted output at x=0 | Đầu ra dự tính khi x=0
+B. 11 | 11
 
-C. Parabola | Parabol
+C. 14 | 14
 
-D. It compounds relative changes | Nó cộng dồn mức tăng theo tỷ lệ
-
-**Đáp án: A**
-
-**Giải thích:** Hệ số góc là mức đổi y mỗi đơn vị x.
-
-
-**Q6. What does intercept b represent? | Hệ số chặn b biểu thị gì?**
-
-A. Output change per one input unit | Mức thay đổi đầu ra mỗi đơn vị đầu vào
-
-B. Predicted output at x=0 | Đầu ra dự tính khi x=0
-
-C. Parabola | Parabol
-
-D. It compounds relative changes | Nó cộng dồn mức tăng theo tỷ lệ
+D. 7 | 7
 
 **Đáp án: B**
 
-**Giải thích:** Đặt x=0 còn hệ số chặn.
+**Giải thích:** Thay x = 4: f(4) = 2 × 4 + 3 = 11.
 
 
-**Q7. What shape does a quadratic graph typically have? | Đồ thị hàm bậc hai thường có dạng gì?**
+**Q6. At which x is f(x) = (x − 3)² equal to zero? | Hàm f(x) = (x − 3)² bằng 0 tại giá trị x nào?**
 
-A. Output change per one input unit | Mức thay đổi đầu ra mỗi đơn vị đầu vào
+A. 0 | 0
 
-B. Predicted output at x=0 | Đầu ra dự tính khi x=0
+B. −3 | −3
 
-C. Parabola | Parabol
+C. 3 | 3
 
-D. It compounds relative changes | Nó cộng dồn mức tăng theo tỷ lệ
+D. 6 | 6
 
 **Đáp án: C**
 
-**Giải thích:** Hạng bậc hai khác 0 tạo đồ thị parabol.
+**Giải thích:** Bình phương bằng 0 khi biểu thức bên trong bằng 0: x − 3 = 0, nên x = 3.
 
 
-**Q8. How does exponential growth differ from linear growth? | Tăng trưởng mũ khác tăng tuyến tính ở đâu?**
+**Q7. Which best describes exponential growth compared with linear growth? | Đâu là điểm khác nhau điển hình giữa tăng trưởng hàm mũ và tuyến tính?**
 
-A. Output change per one input unit | Mức thay đổi đầu ra mỗi đơn vị đầu vào
+A. Both add the same amount at each step | Cả hai cùng cộng số lượng cố định mỗi bước
 
-B. Predicted output at x=0 | Đầu ra dự tính khi x=0
+B. Linear growth always decreases | Tuyến tính luôn giảm
 
-C. Parabola | Parabol
+C. Exponential growth always stops | Tăng trưởng mũ luôn dừng
 
-D. It compounds relative changes | Nó cộng dồn mức tăng theo tỷ lệ
+D. Exponential growth multiplies by a fixed factor in equal steps | Tăng trưởng mũ nhân theo một tỷ lệ cố định qua các bước đều
 
 **Đáp án: D**
 
-**Giải thích:** Lãi kép nhân theo tỷ lệ mỗi kỳ.
+**Giải thích:** Hàm tuyến tính có mức tăng tuyệt đối cố định; hàm mũ tăng theo tỷ lệ nhân cố định khi đầu vào tăng đều.
+
+
+**Q8. What is f(2) if f(x) = (x − 2)²? | Nếu f(x) = (x − 2)², f(2) bằng bao nhiêu?**
+
+A. 0 | 0
+
+B. 2 | 2
+
+C. 4 | 4
+
+D. 8 | 8
+
+**Đáp án: A**
+
+**Giải thích:** Thay x = 2: (2 − 2)² = 0.
 
 
 **Q9. Which NumPy function evaluates a polynomial? | Hàm NumPy nào tính đa thức?**
