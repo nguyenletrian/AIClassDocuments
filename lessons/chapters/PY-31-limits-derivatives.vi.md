@@ -662,64 +662,64 @@ D. The derivative evaluated at a | Giá trị đạo hàm tại a
 **Giải thích:** Độ dốc tiếp tuyến là f'(a).
 
 
-**Q5. What does `sp.limit(f,x,a)` calculate? | `sp.limit(f,x,a)` tính gì?**
+**Q5. What is the derivative of f(x) = 4x² − 3x + 1? | Đạo hàm của f(x) = 4x² − 3x + 1 là gì?**
 
-A. The limit of f as x approaches a | Giới hạn của f khi x tiến đến a
+A. 8x − 3 | 8x − 3
 
-B. The derivative of f with respect to x | Đạo hàm f theo biến x
+B. 4x − 3 | 4x − 3
 
-C. Substitutes a into symbolic expression | Thay a vào biểu thức ký hiệu
+C. 8x + 1 | 8x + 1
 
-D. Derivatives from sampled y and x values | Đạo hàm từ các giá trị y, x lấy mẫu
+D. 4x² − 3 | 4x² − 3
 
 **Đáp án: A**
 
-**Giải thích:** limit tính giới hạn mà không cần thế tại điểm kỳ dị.
+**Giải thích:** Đạo hàm từng hạng: 4x² thành 8x, −3x thành −3, hằng số 1 thành 0.
 
 
-**Q6. What does `sp.diff(f,x)` return? | `sp.diff(f,x)` trả gì?**
+**Q6. If f(x) = x², what is the slope of the tangent at x = 2? | Nếu f(x) = x², độ dốc tiếp tuyến tại x = 2 bằng bao nhiêu?**
 
-A. The limit of f as x approaches a | Giới hạn của f khi x tiến đến a
+A. 2 | 2
 
-B. The derivative of f with respect to x | Đạo hàm f theo biến x
+B. 8 | 8
 
-C. Substitutes a into symbolic expression | Thay a vào biểu thức ký hiệu
+C. 4 | 4
 
-D. Derivatives from sampled y and x values | Đạo hàm từ các giá trị y, x lấy mẫu
-
-**Đáp án: B**
-
-**Giải thích:** diff tính đạo hàm ký hiệu.
-
-
-**Q7. What does `expr.subs(x,a)` do? | `expr.subs(x,a)` làm gì?**
-
-A. The limit of f as x approaches a | Giới hạn của f khi x tiến đến a
-
-B. The derivative of f with respect to x | Đạo hàm f theo biến x
-
-C. Substitutes a into symbolic expression | Thay a vào biểu thức ký hiệu
-
-D. Derivatives from sampled y and x values | Đạo hàm từ các giá trị y, x lấy mẫu
+D. 0 | 0
 
 **Đáp án: C**
 
-**Giải thích:** subs thay giá trị vào biểu thức ký hiệu.
+**Giải thích:** Đạo hàm f'(x) = 2x, thay x = 2 được 4.
 
 
-**Q8. What does `np.gradient(y,x)` approximate? | `np.gradient(y,x)` xấp xỉ gì?**
+**Q7. What is the derivative of f(x) = 7? | Đạo hàm của hàm hằng f(x) = 7 bằng bao nhiêu?**
 
-A. The limit of f as x approaches a | Giới hạn của f khi x tiến đến a
+A. 7 | 7
 
-B. The derivative of f with respect to x | Đạo hàm f theo biến x
+B. 0 | 0
 
-C. Substitutes a into symbolic expression | Thay a vào biểu thức ký hiệu
+C. 1 | 1
 
-D. Derivatives from sampled y and x values | Đạo hàm từ các giá trị y, x lấy mẫu
+D. x | x
+
+**Đáp án: B**
+
+**Giải thích:** Giá trị hàm hằng không thay đổi theo x nên tốc độ thay đổi, tức đạo hàm, bằng 0.
+
+
+**Q8. If a function is differentiable at x = a, what must also hold there? | Nếu một hàm có đạo hàm tại x = a thì điều kiện nào chắc chắn đúng?**
+
+A. It has a global minimum | Hàm có cực tiểu toàn cục
+
+B. Its derivative is zero | Đạo hàm bằng 0
+
+C. Its value is positive | Giá trị hàm dương
+
+D. It is continuous at x = a | Hàm liên tục tại x = a
 
 **Đáp án: D**
 
-**Giải thích:** gradient xấp xỉ đạo hàm từ mẫu.
+**Giải thích:** Có đạo hàm tại một điểm là điều kiện mạnh hơn liên tục tại điểm đó; chiều ngược lại không luôn đúng.
 
 
 **Q9. What is the derivative of x²? | Đạo hàm của x² là gì?**
