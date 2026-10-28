@@ -1,6 +1,6 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-  "status": "READY_FOR_BATCH_03",
+  "status": "BATCH_03_IN_PROGRESS",
   "expected_word_documents": 8,
   "completed_word_documents": 6,
   "complete_nonpretest_docs": 6,
@@ -49,7 +49,10 @@
       "labs": [
         "LAB-10-file-csv"
       ],
-      "status": "PENDING"
+      "status": "IN_PROGRESS",
+      "paths": [
+        "docs/labs/LAB-10-file-csv.md"
+      ]
     },
     {
       "batch": 4,
