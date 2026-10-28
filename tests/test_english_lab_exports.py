@@ -26,8 +26,8 @@ EXPECTED = {
     "LAB-10-file-csv": 6,
     "PRETEST": 3,
 }
-HEADING = "## TOÀN BỘ CODE PYTHON — CHÚ THÍCH NGAY SAU TỪNG DÒNG"
-TASK_RE = re.compile(r"^### Câu (\d+) — English → Tiếng Việt → Giải thích$", re.M)
+HEADING = "## Code Python"
+TASK_RE = re.compile(r"^### Câu (\d+)$", re.M)
 CODE_RE = re.compile(r"^" + r"\x60" * 3 + r"python\n([\s\S]*?)^" + r"\x60" * 3 + r"$", re.M)
 
 
@@ -53,25 +53,54 @@ class BilingualInlineWordLabQA(unittest.TestCase):
         for slug, count in EXPECTED.items():
             with self.subTest(lab=slug):
                 document, intro, questions, script = source_and_questions(slug)
-                self.assertIn("SONG NGỮ", intro)
                 self.assertGreater(len(document), 1500)
+                sections = (
+                    "## Đề bài tiếng Anh",
+                    "## Đề bài tiếng Việt",
+                    "## Giải thích từng câu",
+                )
+                positions = [intro.find(section) for section in sections]
+                self.assertTrue(all(pos >= 0 for pos in positions), slug + ": missing section")
+                self.assertEqual(positions, sorted(positions), slug + ": wrong section order")
+                self.assertTrue(all(intro.count(section) == 1 for section in sections))
+                english = intro[positions[0] + len(sections[0]):positions[1]].strip()
+                vietnamese = intro[positions[1] + len(sections[1]):positions[2]].strip()
+                explanations = intro[positions[2] + len(sections[2]):].strip()
+                self.assertGreater(len(english), 100, slug + ": incomplete English brief")
+                self.assertGreater(len(vietnamese), 100, slug + ": incomplete Vietnamese brief")
+                self.assertGreater(len(explanations), 100, slug + ": incomplete explanations")
+                if slug != "PRETEST":
+                    original = (ROOT / "labs" / "pythoclass" / slug / "LAB.md").read_text(
+                        encoding="utf-8"
+                    ).strip()
+                    original = re.sub(
+                        r"^(#{1,3})(?=\s)",
+                        lambda match: "#" * (len(match.group(1)) + 2),
+                        original,
+                        flags=re.M,
+                    )
+                    self.assertEqual(english, original, slug + ": English differs from Word")
                 self.assertEqual(len(questions), count)
-                self.assertEqual([int(m.group(1)) for m in questions], list(range(1, count+1)))
+                self.assertEqual([int(m.group(1)) for m in questions], list(range(1, count + 1)))
                 for index, match in enumerate(questions):
                     stop = questions[index + 1].start() if index + 1 < len(questions) else len(intro)
                     part = intro[match.start():stop]
-                    # Match section labels, not the word "Ví dụ" inside the original question.
-                    en_pos = part.find("**English —")
-                    vi_pos = part.find("**Tiếng Việt —", en_pos + 1)
-                    guide_pos = part.find("**Giải thích", vi_pos + 1)
-                    example_pos = part.find("**Ví dụ", guide_pos + 1)
-                    vocab_pos = part.find("**Thuật ngữ", example_pos + 1)
-                    if vocab_pos < 0:
-                        vocab_pos = part.find("**Từ vựng", example_pos + 1)
-                    positions = [en_pos, vi_pos, guide_pos, example_pos, vocab_pos]
-                    self.assertTrue(all(x >= 0 for x in positions), slug + ": missing EN/VI/guide/glossary")
-                    self.assertEqual(positions, sorted(positions), slug + ": incorrect order")
-                    self.assertRegex(part, r"\([^)]+\)")  # explain English terms in parentheses
+                    self.assertTrue(part.strip(), slug + ": empty explanation")
+                    self.assertNotIn("**English —", part)
+                    self.assertNotIn("**Tiếng Việt —", part)
+                    self.assertRegex(part, r"\([^)]+\)")  # define English technical terms
+                    self.assertTrue("**Ví dụ" in part, slug + ": missing example")
+                    self.assertTrue(
+                        "**Thuật ngữ" in part or "**Từ vựng" in part,
+                        slug + ": missing glossary",
+                    )
+                for boilerplate in (
+                    "**Nguồn:**", "**Nguồn đề:**", "**Cách đọc:**", "**Cách học:**",
+                    "## ĐỀ VÀ HƯỚNG GIẢI SONG NGỮ", "## ĐỀ BÀI SONG NGỮ",
+                ):
+                    self.assertNotIn(boilerplate, document)
+                if slug == "LAB-04-conditions-loops":
+                    self.assertIn("PHẦN 2: VÒNG LẶP", vietnamese)
                 self.assertTrue(script.endswith("\n"))
                 syntax = ast.parse(script, filename=slug + ".py")
                 self.assertFalse(any(isinstance(node, ast.Assert) for node in ast.walk(syntax)),
