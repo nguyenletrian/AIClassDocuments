@@ -529,56 +529,56 @@ Trung bình mô tả 19 phiếu có số, **không đại diện** cho phiếu t
 
 **Q1. What does mean calculate? | Mean tính gì?**
 
-A. Sum divided by observation count | Tổng chia số quan sát
+A. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
 B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
+C. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
-D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
+D. Sum divided by observation count | Tổng chia số quan sát
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Mọi quan sát góp vào trung bình.
 
 
 **Q2. What is median? | Median là gì?**
 
-A. Sum divided by observation count | Tổng chia số quan sát
+A. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
-B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
+B. Sum divided by observation count | Tổng chia số quan sát
 
 C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
-D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
+D. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Trung vị dựa trên thứ tự, không dựa trên tổng độ lớn.
 
 
 **Q3. What does variance measure? | Variance đo gì?**
 
-A. Sum divided by observation count | Tổng chia số quan sát
+A. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
+B. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
-C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
+C. Sum divided by observation count | Tổng chia số quan sát
 
-D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
+D. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Nó lấy trung bình bình phương độ lệch.
 
 
 **Q4. What does standard deviation measure? | Std đo gì?**
 
-A. Sum divided by observation count | Tổng chia số quan sát
+A. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
+B. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
-C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
+C. Sum divided by observation count | Tổng chia số quan sát
 
 D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
@@ -589,26 +589,26 @@ D. Spread in original measurement units | Độ phân tán cùng đơn vị gố
 
 **Q5. What is the median of [1, 2, 3, 10, 10]? | Trung vị của [1, 2, 3, 10, 10] bằng bao nhiêu?**
 
-A. 2 | 2
+A. 3 | 3
 
-B. 5 | 5
+B. 10 | 10
 
-C. 3 | 3
+C. 5 | 5
 
-D. 10 | 10
+D. 2 | 2
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Dữ liệu đã tăng dần, có 5 số nên trung vị là số thứ ba: 3.
 
 
 **Q6. A score is 80, the mean is 60, and standard deviation is 10. What is the z-score? | Điểm số là 80, trung bình 60, độ lệch chuẩn 10. Điểm z là bao nhiêu?**
 
-A. 1 | 1
+A. 4 | 4
 
 B. 2 | 2
 
-C. 4 | 4
+C. 1 | 1
 
 D. 20 | 20
 
@@ -621,11 +621,11 @@ D. 20 | 20
 
 A. 5 | 5
 
-B. 4 | 4
+B. 15 | 15
 
 C. 6 | 6
 
-D. 15 | 15
+D. 4 | 4
 
 **Đáp án: A**
 
@@ -636,9 +636,9 @@ D. 15 | 15
 
 A. When the mean is zero | Khi trung bình bằng 0
 
-B. When all values are positive | Khi tất cả số đều dương
+B. When the sample is large | Khi mẫu lớn
 
-C. When the sample is large | Khi mẫu lớn
+C. When all values are positive | Khi tất cả số đều dương
 
 D. When all observations are equal | Khi tất cả quan sát bằng nhau
 
@@ -649,28 +649,28 @@ D. When all observations are equal | Khi tất cả quan sát bằng nhau
 
 **Q9. What is mean of 2,3,4? | Mean của 2,3,4 là bao nhiêu?**
 
-A. 3 | 3
+A. 2/3 | 2/3
 
 B. 4 | 4
 
-C. 2/3 | 2/3
+C. 1 | 1
 
-D. 1 | 1
+D. 3 | 3
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Tổng 9 chia 3 bằng 3.
 
 
 **Q10. What is median of 2,4,100? | Median của 2,4,100 là bao nhiêu?**
 
-A. 3 | 3
+A. 1 | 1
 
 B. 4 | 4
 
 C. 2/3 | 2/3
 
-D. 1 | 1
+D. 3 | 3
 
 **Đáp án: B**
 
@@ -681,56 +681,56 @@ D. 1 | 1
 
 A. 3 | 3
 
-B. 4 | 4
+B. 2/3 | 2/3
 
-C. 2/3 | 2/3
+C. 4 | 4
 
 D. 1 | 1
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Bình phương lệch là 1,0,1 rồi chia ba.
 
 
 **Q12. What is sample variance of 1,2,3? | Phương sai mẫu của 1,2,3 là gì?**
 
-A. 3 | 3
+A. 4 | 4
 
-B. 4 | 4
+B. 2/3 | 2/3
 
-C. 2/3 | 2/3
+C. 1 | 1
 
-D. 1 | 1
+D. 3 | 3
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Tổng bình phương 2 chia n−1=2.
 
 
 **Q13. What unit does variance have? | Variance có đơn vị gì?**
 
-A. Squared input units | Bình phương đơn vị dữ liệu
+A. Original input units | Đơn vị gốc của dữ liệu
 
-B. Original input units | Đơn vị gốc của dữ liệu
+B. Median | Trung vị
 
-C. Median | Trung vị
+C. Squared input units | Bình phương đơn vị dữ liệu
 
 D. Mode | Yếu vị
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Bình phương lệch làm bình phương đơn vị.
 
 
 **Q14. What unit does std have? | Std có đơn vị gì?**
 
-A. Squared input units | Bình phương đơn vị dữ liệu
+A. Median | Trung vị
 
 B. Original input units | Đơn vị gốc của dữ liệu
 
-C. Median | Trung vị
+C. Mode | Yếu vị
 
-D. Mode | Yếu vị
+D. Squared input units | Bình phương đơn vị dữ liệu
 
 **Đáp án: B**
 
@@ -754,30 +754,30 @@ D. Mode | Yếu vị
 
 **Q16. Which statistic is useful for categorical labels? | Thống kê nào phù hợp nhãn phân loại?**
 
-A. Squared input units | Bình phương đơn vị dữ liệu
+A. Original input units | Đơn vị gốc của dữ liệu
 
-B. Original input units | Đơn vị gốc của dữ liệu
+B. Mode | Yếu vị
 
-C. Median | Trung vị
+C. Squared input units | Bình phương đơn vị dữ liệu
 
-D. Mode | Yếu vị
+D. Median | Trung vị
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Lấy trung bình mã chữ không có ý nghĩa số học.
 
 
 **Q17. Does std equal standard error? | Std có giống sai số chuẩn không?**
 
-A. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
+A. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
-B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
+B. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
 
 C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
-D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
+D. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** SE đo độ biến thiên của thống kê ước lượng.
 
@@ -788,9 +788,9 @@ A. No, std measures spread of individual values | Không, std đo độ phân t�
 
 B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
+C. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
-D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
+D. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
 **Đáp án: B**
 
@@ -799,26 +799,26 @@ D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mấ
 
 **Q19. Why state ddof when reporting variance? | Vì sao báo ddof khi trình bày phương sai?**
 
-A. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
+A. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
+B. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
-C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
+C. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
-D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
+D. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Quy ước mẫu và quần thể khác nhau.
 
 
 **Q20. What happens if values use mismatched units? | Nếu số liệu dùng đơn vị không thống nhất thì sao?**
 
-A. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
+A. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
+B. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
-C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
+C. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
 
 D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
