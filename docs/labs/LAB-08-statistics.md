@@ -112,9 +112,22 @@ Viết kết luận ngắn 3–5 câu về mức sử dụng điển hình, đ�
 
 Dữ liệu 50 dòng được đưa nguyên vào `USAGE_MINUTES`. Dùng NumPy (thư viện tính toán mảng)/Pandas (thư viện bảng dữ liệu) tính các chỉ số; dùng `ddof=1` để phương sai chia cho n−1 chứ không phải n. Mode (mốt) được lấy bằng `.mode().iloc[0]`.
 
-**Công thức / quy tắc liên quan:** Trung bình = (tổng 50 số phút)/50; range = max−min; phương sai mẫu \(s^2=\frac{1}{n-1}\sum_i(x_i-\bar x)^2\); độ lệch chuẩn mẫu \(s=\sqrt{s^2}\).
+**Vì sao cần các chỉ số khác nhau?** Trung bình chỉ mức sử dụng chung nhưng dễ bị kéo lên bởi 480 phút; trung vị cho mức giữa; phương sai và độ lệch chuẩn cho thấy độ phân tán. Vì đang mô tả một mẫu 50 người, lời giải dùng `ddof=1` cho thống kê mẫu.
 
-**Công thức/đối chiếu:** mean (trung bình)=Σx/n; range=max−min; phương sai mẫu s²=Σ(x−mean)²/(n−1), SD=√s²; dùng ddof=1.
+**Các bước:** Chuyển 50 số phút sang mảng số; tính trung bình, trung vị, mốt, min/max; tính khoảng biến thiên, phương sai mẫu và độ lệch chuẩn mẫu rồi so sánh.
+~~~python
+import numpy as np
+import pandas as pd
+values = np.array(usage_minutes, dtype=float)
+mean = values.mean()
+median = np.median(values)
+mode = pd.Series(values).mode().iloc[0]
+spread = np.ptp(values)
+variance = values.var(ddof=1)
+std = values.std(ddof=1)
+~~~
+**Tham số và cú pháp:** `dtype=float` chọn kiểu số thực; `np.median` tính trung vị; `.mode()` trả một tập các giá trị có tần số cao nhất, `.iloc[0]` chọn giá trị đầu tiên nếu có nhiều mốt; `np.ptp` tính max trừ min. `ddof=1` nghĩa là hiệu chỉnh mẫu: chia cho `n-1` thay vì `n`. Đơn vị của `variance` là phút bình phương, còn `std` là phút.
+
 
 **Ví dụ/lỗi thường gặp:** Giữ đủ 50 số phút, kể cả 480. Phương sai và độ lệch chuẩn **mẫu** chia cho n−1 (ddof=1), không chia n như tổng thể.
 
@@ -124,9 +137,19 @@ Dữ liệu 50 dòng được đưa nguyên vào `USAGE_MINUTES`. Dùng NumPy (t
 
 Các khoảng liên tiếp trong `bins=[0,60,120,180,240,360,500]`, `right=False` nghĩa là [0,60), [60,120),… Tránh một phút đúng 60 hoặc 120 bị tính hai lần. Lấy tần số của từng khoảng rồi cộng dồn; hình histogram (biểu đồ tần suất) dùng chức năng `save_plot` đã có.
 
-**Công thức / quy tắc liên quan:** Tần suất lớp i = số quan sát thuộc lớp i; tần suất tích lũy ở lớp k = tổng tần suất của các lớp 1..k. Tổng tần số phải bằng 50.
+**Vì sao gom theo khoảng?** Bảng có 50 giá trị riêng lẻ khó thấy mức sử dụng nào phổ biến. Chia vào cùng các khoảng phút giúp đếm người theo nhóm; tần số tích lũy trả lời đã có bao nhiêu người ở các nhóm từ đầu tới nhóm hiện tại.
 
-**Công thức/đối chiếu:** Sáu nhóm: [0,60),[60,120),[120,180),[180,240),[240,360),[360,500). Tần suất tích lũy ở lớp i bằng tổng các tần số lớp 1..i.
+**Các bước:** (1) Định nghĩa biên nhóm theo phút. (2) Phân từng thời gian vào một nhóm. (3) Đếm tần số theo thứ tự nhóm, không đảo theo nhóm phổ biến. (4) Cộng dồn và kiểm tra tổng là 50.
+~~~python
+import pandas as pd
+bins = [0, 60, 120, 180, 240, 360, 500]
+labels = ["0–<60", "60–<120", "120–<180", "180–<240", "240–<360", "360–<500"]
+groups = pd.cut(values, bins=bins, labels=labels, right=False, include_lowest=True)
+freq = pd.Series(groups).value_counts(sort=False)
+cumulative = freq.cumsum()
+~~~
+**Flag và tham số:** `bins` là các ranh giới nhóm; `labels` là tên nhóm; `right=False` dùng khoảng gồm cận trái nhưng **không** gồm cận phải, nên 120 được xếp nhóm 120–180; `include_lowest=True` không bỏ cận thấp nhất. `value_counts(sort=False)` giữ thứ tự nhóm thay vì sắp theo lượng người. `cumsum()` cộng dồn. Đồ thị `ax.hist(values, bins=bins)` phải dùng cùng ranh giới nhóm.
+
 
 **Ví dụ/lỗi thường gặp:** Nhóm khoảng theo [0,60), [60,120)... để số 60 không bị đếm hai lần. Tổng tần số phải bằng 50.
 
@@ -136,9 +159,18 @@ Các khoảng liên tiếp trong `bins=[0,60,120,180,240,360,500]`, `right=False
 
 `np.percentile` lấy ba phân vị, dùng IQR làm thước đo độ trải rộng ít nhạy với ngoại lệ. Các điểm nhỏ hơn biên dưới hoặc lớn hơn biên trên được đánh dấu, không tự động xóa.
 
-**Công thức / quy tắc liên quan:** \(IQR=Q3-Q1\); biên dưới \(Q1-1.5\,IQR\); biên trên \(Q3+1.5\,IQR\).
+**Vì sao dùng IQR?** Giá trị 480 phút có thể khác thường. Dùng khoảng tứ phân vị giúp xác định điểm ngoài vùng dữ liệu trung tâm mà không tự ý xóa hoặc sửa dữ liệu nguồn.
 
-**Công thức/đối chiếu:** IQR=Q3−Q1; biên dưới Q1−1,5×IQR, biên trên Q3+1,5×IQR; giữ các giá trị ngoại lệ để kiểm tra.
+**Các bước:** (1) Tính tứ phân vị 25%, 50%, 75%. (2) Lấy Q3 trừ Q1 để tính IQR. (3) Tính biên dưới và biên trên bằng 1.5 lần IQR. (4) Lọc các giá trị nhỏ hơn biên dưới hoặc lớn hơn biên trên.
+~~~python
+q1, median, q3 = np.percentile(values, [25, 50, 75])
+iqr = q3 - q1
+lower = q1 - 1.5 * iqr
+upper = q3 + 1.5 * iqr
+outliers = values[(values < lower) | (values > upper)]
+~~~
+**Tham số và toán tử:** `np.percentile(values, [25, 50, 75])` trả ba mốc phần trăm; `|` kết hợp hai mảng điều kiện theo nghĩa **hoặc**; dấu ngoặc quanh mỗi phép so sánh là cần thiết. `1.5` là hệ số quy ước của cách phát hiện ngoại lệ IQR, **không** phải mức ý nghĩa thống kê. Ngoại lệ được đánh dấu để phân tích, không tự động loại bỏ.
+
 
 **Ví dụ/lỗi thường gặp:** IQR=Q3−Q1; biên dưới=Q1−1,5×IQR và biên trên=Q3+1,5×IQR. Không tự xóa ngoại lệ trước khi tính.
 
@@ -148,9 +180,20 @@ Các khoảng liên tiếp trong `bins=[0,60,120,180,240,360,500]`, `right=False
 
 `default_rng(2026).choice(...,size=10,replace=False)` chọn 10 giá trị không lặp. Code kiểm định đã có gọi `ttest_1samp(values,popmean=120)`, tức dùng **toàn bộ 50 quan sát** cho phép kiểm định, còn mẫu 10 chỉ minh họa lấy mẫu. Đừng gọi nhầm t-test chỉ trên 10 quan sát. So sánh p-value (giá trị xác suất kiểm định) với 0,05.
 
-**Công thức / quy tắc liên quan:** \(H_0:\mu=120\), \(H_1:\mu\ne120\); \(t=(\bar x-120)/(s/\sqrt n)\). Nếu p<0,05: bác bỏ H0; nếu p≥0,05: chưa đủ bằng chứng bác bỏ, không khẳng định H0 đúng.
+**Vì sao có hai bước lấy mẫu và kiểm định?** Lấy ngẫu nhiên 10 người minh họa sampling (lấy mẫu), còn giả thuyết phải so sánh mức trung bình với mốc 120 phút. Code tham khảo thực hiện kiểm định t trên **đủ 50 giá trị**, không nhầm dùng 10 mẫu vừa rút để kiểm định.
 
-**Công thức/đối chiếu:** 10 người được chọn không hoàn lại, nhưng t-test trong code nguồn chạy **trên toàn bộ 50 giá trị**. H0: μ=120; H1: μ≠120; t=(mean (trung bình)−120)/(s/√n); α=0,05.
+**Các bước:** (1) Dùng hạt giống cố định rút 10 người không hoàn lại. (2) Lấy trung bình của 10 người để so sánh. (3) Kiểm định t một mẫu với mốc giả thuyết 120 phút bằng 50 giá trị. (4) So `pvalue` với ngưỡng 0.05.
+~~~python
+from scipy import stats
+rng = np.random.default_rng(2026)
+sample = rng.choice(values, size=10, replace=False)
+sample_mean = sample.mean()
+result = stats.ttest_1samp(values, popmean=120.0)
+t_value, p_value = result.statistic, result.pvalue
+reject_h0 = p_value < 0.05
+~~~
+**Flag và tham số:** `size=10` là số người rút; `replace=False` nghĩa là **không hoàn lại** nên không chọn một người hai lần; `popmean=120.0` là giá trị trung bình giả định cần kiểm định. `result.statistic` là thống kê t; `result.pvalue` là p-value. `p_value < 0.05` cho biết bác bỏ giả thuyết gốc ở mức ý nghĩa 5% nếu đúng; nếu sai thì **chưa đủ bằng chứng** bác bỏ, không khẳng định giả thuyết gốc là đúng. Kiểm định t cần xem xét giả định thống kê về dữ liệu.
+
 
 **Ví dụ/lỗi thường gặp:** Lấy 10 mẫu không hoàn lại, nhưng t-test trong code nguồn dùng 50 quan sát. So sánh p-value (giá trị xác suất kiểm định) với 0,05 trước khi kết luận.
 
@@ -160,9 +203,19 @@ Các khoảng liên tiếp trong `bins=[0,60,120,180,240,360,500]`, `right=False
 
 Hàm `task05_conclusion` của code tham khảo in bốn ý: dùng median (trung vị) đại diện mức điển hình, SD và số điểm ngoại lệ để mô tả độ biến thiên, đọc p-value (giá trị xác suất kiểm định) cho kiểm định, và đề xuất xem xét phiên dùng dài cùng lời nhắc nghỉ. Điều này đáp ứng 3–5 câu của đề.
 
-**Công thức / quy tắc liên quan:** Kết luận được tạo từ các chỉ số đã tính ở 4 bài trước, không có công thức mới. 480 phút là dữ liệu nguồn, cần để thuật toán outlier (ngoại lệ) đánh giá thay vì sửa số.
+**Vì sao kết luận dựa trên nhiều chỉ số?** Chỉ nhìn trung bình có thể bỏ qua độ phân tán và người dùng bất thường. Một khuyến nghị cần dựa trên trung vị, độ lệch chuẩn, ngoại lệ và kết quả kiểm định đã có, không suy diễn tác động nhân quả từ dữ liệu quan sát.
 
-**Công thức/đối chiếu:** Kết luận 3–5 câu: median, độ lệch chuẩn và ngoại lệ, p-value/t-test, một khuyến nghị. p≥0,05 nghĩa là chưa đủ bằng chứng bác bỏ H0.
+**Các bước:** (1) Chọn trung vị làm đại diện cho mức dùng thường gặp. (2) Nêu độ lệch chuẩn mẫu và số ngoại lệ IQR. (3) Diễn giải ý nghĩa kiểm định t. (4) Đề xuất quan sát các phiên dùng dài và nhắc nghỉ hợp lý.
+~~~python
+median_minutes = descriptive["median"]
+sample_std = descriptive["sample_std"]
+outlier_count = len(outliers)
+decision = "bác bỏ H0" if pvalue < 0.05 else "chưa bác bỏ H0"
+summary = (f"Trung vị {median_minutes:.1f} phút; "
+           f"SD mẫu {sample_std:.1f}; {outlier_count} ngoại lệ; {decision}.")
+~~~
+**Cú pháp và tham số:** `descriptive["median"]` lấy giá trị theo tên trường của dictionary; `len(outliers)` đếm ngoại lệ. Biểu thức `A if điều_kiện else B` chọn câu giải thích đúng theo p-value; `:.1f` trong f-string chỉ quy định **một chữ số thập phân khi in**, không thay số đã tính. Không coi ngoại lệ 480 phút là lỗi dữ liệu chỉ vì giá trị lớn.
+
 
 **Ví dụ/lỗi thường gặp:** Đối chiếu median (trung vị), SD, ngoại lệ và kiểm định khi viết 3–5 câu. Không suy rộng số liệu mô phỏng thành kết luận cho mọi người dùng.
 
