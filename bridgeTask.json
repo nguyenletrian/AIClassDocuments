@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
-    "revision": "2026-10-28-lab-en-solutions-batch01",
+    "revision": "2026-10-28-lab-en-solutions-batch02",
     "title": "Translate lab prompts to English and add detailed annotated solutions beneath each task",
-    "phase": "READY_FOR_BATCH_01",
+    "phase": "READY_FOR_BATCH_02",
     "goal_spec": "docs/LAB-EN-SOLUTIONS-GOAL.json",
     "progress_ledger": "docs/LAB-EN-SOLUTIONS-PROGRESS.json",
     "reference_repo": "nguyenletrian/PythoClass",
@@ -1202,15 +1202,15 @@
     "batch_limit": 3,
     "expected_lab_units": 9,
     "expected_batches": 3,
-    "active_batch": 1,
+    "active_batch": 2,
     "active_labs": [
-      "LAB-MATH-02-sets-jaccard",
-      "LAB-MATH-03-04-matrix-pca",
-      "ASSIGNMENT-01-student-dictionary"
+      "LAB-04-conditions-loops",
+      "LAB-05-student-list",
+      "LAB-10-file-csv"
     ],
-    "next_review": "Owner approved new English lab annotated solutions goal on 2026-10-28. Source PythoClass main SHA 851d67d (updated 2026-10-27). Existing 7 Word-derived lab folders are in labs/pythoclass; two new notebook lab units are 2. Math/labs2.ipynb (sets/Jaccard) and labs3_4.ipynb (matrix/PCA); new source notebooks labs5_6 and labs8 supplement existing labs. Exactly 3 sequential batches of max 3 labs. Batch01 only LAB-MATH-02, LAB-MATH-03-04, ASSIGNMENT-01. Put each lab in docs/labs/<slug>/ with English task and immediately following fully commented solution plus runnable file. Do not alter PythoClass, do not invent unseen Word content. Compare against sample code, test and CI head success per PR. Update ledger only after merge. Windows/PowerShell and CDP9224 remain UNVERIFIED.",
-    "review_hold": "Follow approved source/goal/ledger; work only one batch of 3 lab units, no duplicate tasks on heartbeat. Wait for final head CI success before merge.",
-    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_3; batch01 only; no batch02 until batch01 merged and ledger."
+    "next_review": "Owner-approved English annotated lab goal remains active. Batch01 PR185 merged (8e6cf07ad337c1c96e2cc056b8a98a886545d510), final head 2dc6b4935822cc631c36a0b2d38634232258e26d, GitHub Actions CI 40684898756 and 40684898761 SUCCESS. Three folders exported in docs/labs and 20 English tasks with immediate annotated solutions, three runnable scripts. Ledger 1/3 batches, 3/9 labs complete. Next authorized Batch02 ONLY LAB-04-conditions-loops, LAB-05-student-list, LAB-10-file-csv. Read original Word-derived LAB.md and corresponding owner DEMO.py and existing SOLUTION.py. Translate/retain each task accurately in English then place fully commented solution immediately underneath; export a separate docs/labs/<slug>/LAB_EN_SOLVED.md, SOLUTION_ANNOTATED.py, README.md. Keep existing labs/pythoclass source files unchanged. Lab4 original electricity bill example is inconsistent with progressive pricing, highlight rather than silently altering. Update tests/CI, one PR/batch, exact final head CI success before merge, ledger evidence then Batch03. Do not invent or modify PythoClass source Word file content; source snapshot SHA is in goal. Windows and CDP worker UNVERIFIED. No duplicate queue tasks or ACK.",
+    "review_hold": "Batch01 merged with two successful final-head CI workflows. Batch02 only 3 Word-derived labs; do not overlap Batch03 or repeat Batch01. User approved entire 9-lab goal.",
+    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_3; batch02 LAB04/LAB05/LAB10 only; no batch03 until merge and ledger."
   },
   "goal_review_history": [
     {
@@ -1340,6 +1340,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "New owner-approved English lab solutions goal active. Batch01 is dependency-ready: two new Math notebooks and Assignment1, no pending Bridge tasks."
+    "reason": "New English annotated lab goal active. Batch01 3/9 done and merged CI success; Batch02 LAB04/LAB05/LAB10 dependency-ready."
   }
 }
