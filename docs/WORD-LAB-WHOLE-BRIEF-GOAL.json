@@ -1,0 +1,51 @@
+{
+  "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
+  "title": "One complete bilingual Word brief, method/formulas, then ALL annotated existing Python code per lab, including Pretest",
+  "status": "ACTIVE",
+  "approval": "owner_approved",
+  "created_date": "2026-10-28",
+  "target_repository": "nguyenletrian/AIClassDocuments",
+  "reference_repository": "nguyenletrian/PythoClass",
+  "source_transcription_root": "labs/pythoclass",
+  "output_root": "docs/labs",
+  "expected_original_word_documents": 8,
+  "batches": [
+    {
+      "batch": 1,
+      "labs": [
+        "ASSIGNMENT-01-student-dictionary",
+        "LAB-04-conditions-loops",
+        "LAB-05-student-list"
+      ]
+    },
+    {
+      "batch": 2,
+      "labs": [
+        "LAB-05-06-gradient-descent",
+        "LAB-07-probability",
+        "LAB-08-statistics"
+      ]
+    },
+    {
+      "batch": 3,
+      "labs": [
+        "LAB-10-file-csv"
+      ]
+    },
+    {
+      "batch": 4,
+      "labs": [
+        "PRETEST"
+      ]
+    }
+  ],
+  "contract": [
+    "One ORIGINAL Word file maps to one complete docs/labs/<slug>.md, not multiple task-answer alternations and no independent Python file.",
+    "Four contiguous sections in exact order: (1) full English assignment in original task order including all tables/datasets, (2) full Vietnamese translation (including tables/units/numbers), (3) detailed Vietnamese walkthrough for every task and all relevant formulas, (4) ONE complete executable Python script with thorough in-code comments/notes.",
+    "All Python source from existing labs/pythoclass/<slug>/SOLUTION.py, existing annotated historic scripts, or genuine PythoClass demos/lessons. Preserve implemented algorithms and values; disclose provenance accurately. Do not invent algorithms or claim reviewed solutions were the user's personally written demo.",
+    "For source briefs use original Word-derived LAB.md. Disclose that this is a faithful existing transcription instead of claiming binary docx was re-read. Do not omit any original task/table and do not silently 'fix' conflicting Lab04 electricity bill example.",
+    "Include Pretest.docx as eighth Word unit. It is currently available only as a private binary whose contents retrieval fails with UnicodeDecodeError in the connected GitHub text interface. NEVER fabricate its requirements. Keep Pretest BLOCKED_SOURCE_BINARY until legible source is fetched through an authorized, verified path.",
+    "Earlier Word lab publication is superseded by the new layout; preserve full Git history. Use at most three source Word labs per PR, exact final GitHub CI success and stable base before merge. Complete goal only when all 8 documents have grounded content and CI proof.",
+    "Keep PythoClass unchanged and avoid exposing student identities. Windows/CDP worker verification UNVERIFIED unless actually tested."
+  ]
+}
