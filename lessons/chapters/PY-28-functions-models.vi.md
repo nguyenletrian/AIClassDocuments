@@ -558,15 +558,15 @@ MSE ở đây có đơn vị **(nghìn đồng)²**, khác đơn vị chi phí. 
 
 **Q1. Which form is a first-degree affine function? | Dạng nào là hàm affine bậc nhất?**
 
-A. `y=m*x+b` | `y=m*x+b`
+A. `y=a*x**2+b*x+c` with a≠0 | `y=a*x**2+b*x+c` với a≠0
 
-B. `y=a*x**2+b*x+c` with a≠0 | `y=a*x**2+b*x+c` với a≠0
+B. A variable appears in the exponent | Biến xuất hiện ở số mũ
 
-C. Highest nonzero power of x | Lũy thừa cao nhất có hệ số khác 0
+C. `y=m*x+b` | `y=m*x+b`
 
-D. A variable appears in the exponent | Biến xuất hiện ở số mũ
+D. Highest nonzero power of x | Lũy thừa cao nhất có hệ số khác 0
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Dạng affine gồm hệ số góc và hệ số chặn.
 
@@ -575,39 +575,39 @@ D. A variable appears in the exponent | Biến xuất hiện ở số mũ
 
 A. `y=m*x+b` | `y=m*x+b`
 
-B. `y=a*x**2+b*x+c` with a≠0 | `y=a*x**2+b*x+c` với a≠0
+B. A variable appears in the exponent | Biến xuất hiện ở số mũ
 
 C. Highest nonzero power of x | Lũy thừa cao nhất có hệ số khác 0
 
-D. A variable appears in the exponent | Biến xuất hiện ở số mũ
+D. `y=a*x**2+b*x+c` with a≠0 | `y=a*x**2+b*x+c` với a≠0
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Hàm bậc hai có hạng x bình phương.
 
 
 **Q3. What does polynomial degree measure? | Bậc đa thức cho biết gì?**
 
-A. `y=m*x+b` | `y=m*x+b`
+A. A variable appears in the exponent | Biến xuất hiện ở số mũ
 
-B. `y=a*x**2+b*x+c` with a≠0 | `y=a*x**2+b*x+c` với a≠0
+B. `y=m*x+b` | `y=m*x+b`
 
-C. Highest nonzero power of x | Lũy thừa cao nhất có hệ số khác 0
+C. `y=a*x**2+b*x+c` with a≠0 | `y=a*x**2+b*x+c` với a≠0
 
-D. A variable appears in the exponent | Biến xuất hiện ở số mũ
+D. Highest nonzero power of x | Lũy thừa cao nhất có hệ số khác 0
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Bậc là số mũ cao nhất có hệ số khác 0.
 
 
 **Q4. What characterizes an exponential function? | Đặc điểm của hàm mũ là gì?**
 
-A. `y=m*x+b` | `y=m*x+b`
+A. `y=a*x**2+b*x+c` with a≠0 | `y=a*x**2+b*x+c` với a≠0
 
-B. `y=a*x**2+b*x+c` with a≠0 | `y=a*x**2+b*x+c` với a≠0
+B. Highest nonzero power of x | Lũy thừa cao nhất có hệ số khác 0
 
-C. Highest nonzero power of x | Lũy thừa cao nhất có hệ số khác 0
+C. `y=m*x+b` | `y=m*x+b`
 
 D. A variable appears in the exponent | Biến xuất hiện ở số mũ
 
@@ -618,41 +618,41 @@ D. A variable appears in the exponent | Biến xuất hiện ở số mũ
 
 **Q5. Given f(x) = 2x + 3, what is f(4)? | Cho f(x) = 2x + 3, f(4) bằng bao nhiêu?**
 
-A. 8 | 8
+A. 14 | 14
 
-B. 11 | 11
+B. 8 | 8
 
-C. 14 | 14
+C. 7 | 7
 
-D. 7 | 7
+D. 11 | 11
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Thay x = 4: f(4) = 2 × 4 + 3 = 11.
 
 
 **Q6. At which x is f(x) = (x − 3)² equal to zero? | Hàm f(x) = (x − 3)² bằng 0 tại giá trị x nào?**
 
-A. 0 | 0
+A. 6 | 6
 
-B. −3 | −3
+B. 3 | 3
 
-C. 3 | 3
+C. −3 | −3
 
-D. 6 | 6
+D. 0 | 0
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Bình phương bằng 0 khi biểu thức bên trong bằng 0: x − 3 = 0, nên x = 3.
 
 
 **Q7. Which best describes exponential growth compared with linear growth? | Đâu là điểm khác nhau điển hình giữa tăng trưởng hàm mũ và tuyến tính?**
 
-A. Both add the same amount at each step | Cả hai cùng cộng số lượng cố định mỗi bước
+A. Exponential growth always stops | Tăng trưởng mũ luôn dừng
 
-B. Linear growth always decreases | Tuyến tính luôn giảm
+B. Both add the same amount at each step | Cả hai cùng cộng số lượng cố định mỗi bước
 
-C. Exponential growth always stops | Tăng trưởng mũ luôn dừng
+C. Linear growth always decreases | Tuyến tính luôn giảm
 
 D. Exponential growth multiplies by a fixed factor in equal steps | Tăng trưởng mũ nhân theo một tỷ lệ cố định qua các bước đều
 
@@ -663,69 +663,69 @@ D. Exponential growth multiplies by a fixed factor in equal steps | Tăng trư�
 
 **Q8. What is f(2) if f(x) = (x − 2)²? | Nếu f(x) = (x − 2)², f(2) bằng bao nhiêu?**
 
-A. 0 | 0
+A. 2 | 2
 
-B. 2 | 2
+B. 0 | 0
 
-C. 4 | 4
+C. 8 | 8
 
-D. 8 | 8
+D. 4 | 4
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** Thay x = 2: (2 − 2)² = 0.
 
 
 **Q9. Which NumPy function evaluates a polynomial? | Hàm NumPy nào tính đa thức?**
 
-A. `np.polyval(coefficients,x)` | `np.polyval(coefficients,x)`
+A. Highest degree first | Bậc cao nhất trước
 
-B. Highest degree first | Bậc cao nhất trước
+B. `np.linspace(start,stop,num)` | `np.linspace(start,stop,num)`
 
 C. `np.exp(x)` | `np.exp(x)`
 
-D. `np.linspace(start,stop,num)` | `np.linspace(start,stop,num)`
+D. `np.polyval(coefficients,x)` | `np.polyval(coefficients,x)`
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** polyval tính đa thức theo các hệ số có thứ tự.
 
 
 **Q10. In what order does `np.polyval` take coefficients? | `np.polyval` nhận hệ số theo thứ tự gì?**
 
-A. `np.polyval(coefficients,x)` | `np.polyval(coefficients,x)`
+A. `np.linspace(start,stop,num)` | `np.linspace(start,stop,num)`
 
-B. Highest degree first | Bậc cao nhất trước
+B. `np.polyval(coefficients,x)` | `np.polyval(coefficients,x)`
 
 C. `np.exp(x)` | `np.exp(x)`
 
-D. `np.linspace(start,stop,num)` | `np.linspace(start,stop,num)`
+D. Highest degree first | Bậc cao nhất trước
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Hệ số bậc cao nhất đứng đầu.
 
 
 **Q11. Which function computes e raised to x? | Hàm nào tính e mũ x?**
 
-A. `np.polyval(coefficients,x)` | `np.polyval(coefficients,x)`
+A. Highest degree first | Bậc cao nhất trước
 
-B. Highest degree first | Bậc cao nhất trước
+B. `np.linspace(start,stop,num)` | `np.linspace(start,stop,num)`
 
-C. `np.exp(x)` | `np.exp(x)`
+C. `np.polyval(coefficients,x)` | `np.polyval(coefficients,x)`
 
-D. `np.linspace(start,stop,num)` | `np.linspace(start,stop,num)`
+D. `np.exp(x)` | `np.exp(x)`
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** exp tính hàm mũ cơ số e.
 
 
 **Q12. Which function makes evenly spaced samples? | Hàm nào tạo các điểm cách đều?**
 
-A. `np.polyval(coefficients,x)` | `np.polyval(coefficients,x)`
+A. Highest degree first | Bậc cao nhất trước
 
-B. Highest degree first | Bậc cao nhất trước
+B. `np.polyval(coefficients,x)` | `np.polyval(coefficients,x)`
 
 C. `np.exp(x)` | `np.exp(x)`
 
@@ -738,45 +738,45 @@ D. `np.linspace(start,stop,num)` | `np.linspace(start,stop,num)`
 
 **Q13. What is the value of y=2x+5 at x=0? | Giá trị y=2x+5 khi x=0 là gì?**
 
-A. 5 | 5
+A. 16 | 16
 
-B. 6 | 6
+B. 4 | 4
 
-C. 16 | 16
+C. 6 | 6
 
-D. 4 | 4
+D. 5 | 5
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Khi x=0, ta có 2×0+5=5.
 
 
 **Q14. What is the value of x²+2 at x=2? | Giá trị x²+2 khi x=2 là gì?**
 
-A. 5 | 5
+A. 6 | 6
 
-B. 6 | 6
+B. 4 | 4
 
 C. 16 | 16
 
-D. 4 | 4
+D. 5 | 5
 
-**Đáp án: B**
+**Đáp án: A**
 
 **Giải thích:** Bình phương 2 rồi cộng 2 bằng 6.
 
 
 **Q15. What is 2 raised to the fourth power? | 2 mũ 4 bằng gì?**
 
-A. 5 | 5
+A. 6 | 6
 
-B. 6 | 6
+B. 5 | 5
 
-C. 16 | 16
+C. 4 | 4
 
-D. 4 | 4
+D. 16 | 16
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** 2 nhân bốn lần bằng 16.
 
@@ -785,9 +785,9 @@ D. 4 | 4
 
 A. 5 | 5
 
-B. 6 | 6
+B. 16 | 16
 
-C. 16 | 16
+C. 6 | 6
 
 D. 4 | 4
 
@@ -798,56 +798,56 @@ D. 4 | 4
 
 **Q17. What does `np.exp(0)` equal? | `np.exp(0)` bằng bao nhiêu?**
 
-A. 1 | 1
+A. A constant additive increment | Mỗi bước cộng cùng một mức
 
-B. Its slope changes with x | Độ dốc thay đổi theo x
+B. Accuracy on unseen real-world data | Độ chính xác trên dữ liệu thực chưa gặp
 
-C. A constant additive increment | Mỗi bước cộng cùng một mức
+C. 1 | 1
 
-D. Accuracy on unseen real-world data | Độ chính xác trên dữ liệu thực chưa gặp
+D. Its slope changes with x | Độ dốc thay đổi theo x
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Cơ số khác 0 mũ 0 bằng 1.
 
 
 **Q18. How does a quadratic differ from a first-degree affine function? | Hàm bậc hai khác hàm affine bậc nhất ở đâu?**
 
-A. 1 | 1
+A. A constant additive increment | Mỗi bước cộng cùng một mức
 
-B. Its slope changes with x | Độ dốc thay đổi theo x
+B. 1 | 1
 
-C. A constant additive increment | Mỗi bước cộng cùng một mức
+C. Accuracy on unseen real-world data | Độ chính xác trên dữ liệu thực chưa gặp
 
-D. Accuracy on unseen real-world data | Độ chính xác trên dữ liệu thực chưa gặp
+D. Its slope changes with x | Độ dốc thay đổi theo x
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Mức tăng của hàm bậc hai thay đổi theo x.
 
 
 **Q19. Which constraint gives a constant-per-step growth model? | Mô hình tăng đều mỗi bước cần điều kiện gì?**
 
-A. 1 | 1
+A. A constant additive increment | Mỗi bước cộng cùng một mức
 
-B. Its slope changes with x | Độ dốc thay đổi theo x
+B. 1 | 1
 
-C. A constant additive increment | Mỗi bước cộng cùng một mức
+C. Accuracy on unseen real-world data | Độ chính xác trên dữ liệu thực chưa gặp
 
-D. Accuracy on unseen real-world data | Độ chính xác trên dữ liệu thực chưa gặp
+D. Its slope changes with x | Độ dốc thay đổi theo x
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Cộng hằng số tạo mức tăng cố định.
 
 
 **Q20. What does a fitted function alone not prove? | Một hàm được khớp dữ liệu chưa chứng minh được gì?**
 
-A. 1 | 1
+A. A constant additive increment | Mỗi bước cộng cùng một mức
 
-B. Its slope changes with x | Độ dốc thay đổi theo x
+B. 1 | 1
 
-C. A constant additive increment | Mỗi bước cộng cùng một mức
+C. Its slope changes with x | Độ dốc thay đổi theo x
 
 D. Accuracy on unseen real-world data | Độ chính xác trên dữ liệu thực chưa gặp
 
