@@ -1,7 +1,7 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
   "title": "One complete bilingual Word brief, method/formulas, then ALL annotated existing Python code per lab, including Pretest",
-  "status": "ACTIVE",
+  "status": "COMPLETED",
   "approval": "owner_approved",
   "created_date": "2026-10-28",
   "target_repository": "nguyenletrian/AIClassDocuments",
@@ -53,17 +53,20 @@
   "ready_artifacts": [
     "docs/labs/ASSIGNMENT-01-student-dictionary.md",
     "docs/labs/LAB-04-conditions-loops.md",
-    "docs/labs/LAB-05-student-list.md",
     "docs/labs/LAB-05-06-gradient-descent.md",
+    "docs/labs/LAB-05-student-list.md",
     "docs/labs/LAB-07-probability.md",
     "docs/labs/LAB-08-statistics.md",
-    "docs/labs/LAB-10-file-csv.md"
+    "docs/labs/LAB-10-file-csv.md",
+    "docs/labs/PRETEST.md"
   ],
-  "pretest_source_status": "VERIFIED_DIRECT_OWNER_UPLOAD",
+  "pretest_source_status": "VERIFIED_DIRECT_OWNER_UPLOAD_AND_MERGED",
   "pretest_evidence": {
     "source_sha256": "6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad",
     "student_rows": 5,
     "top_level_tasks": 3,
     "source_equation": "L(w)=(w-4)^2"
-  }
+  },
+  "completed_word_documents": 8,
+  "closeout": "All 8 original Word documents, including owner-uploaded Pretest.docx (SHA256 6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad), have a single Markdown document with entire English brief, entire Vietnamese translation, methods/formulas, and one full annotated Python solution. Four sequential batches merged: PR190, PR191, PR192 and PR193. Final Pretest PR193 merged after final-head GitHub CI #40698235338 SUCCESS. Exactly 8 Word lab Markdown docs plus README, no old multi-file output directories, 0 open PRs. Windows/PowerShell/CDP9224 remain UNVERIFIED."
 }
