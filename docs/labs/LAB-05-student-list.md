@@ -4,7 +4,11 @@
 
 ---
 
-## PART 1 — COMPLETE ORIGINAL ENGLISH ASSIGNMENT
+## ĐỀ VÀ HƯỚNG GIẢI SONG NGỮ — MỖI CÂU ENGLISH / TIẾNG VIỆT
+
+**Cách đọc:** Phần tiếng Anh gốc (English: tiếng Anh) đứng ngay trước bản dịch tiếng Việt, rồi mới tới giải thích và công thức. Các dữ liệu, bảng và tham số vẫn lấy từ Word; thuật ngữ quan trọng có giải nghĩa trong ngoặc.
+
+### Bối cảnh và dữ liệu — Original English
 
 # LAB Session 5
 
@@ -14,19 +18,9 @@ Develop a console-based Student Management System in Python using a **list** as 
 ## Requirements
 Write a Python program that implements the following features:
 
-1. **Add a student:** Input student information (ID, name, score). Store the student in a list.
-2. **Display student list:** Show all students in the list.
-3. **Search student by name:** Input a name. Display matching students.
-4. **Delete a student:** Input student ID. Remove the student from the list.
-5. **Sort students by score:** Sort the list in ascending or descending order based on score.
-6. **Statistics:** Find the student with the highest score; find the student with the lowest score; calculate the average score.
-7. **Exit program.**
+### Bối cảnh và dữ liệu — Tiếng Việt
 
----
-
-## PHẦN 2 — BẢN DỊCH TIẾNG VIỆT TOÀN BỘ ĐỀ
-
-# LAB SESSION 5 — Quản lý sinh viên bằng List
+# LAB SESSION 5 — Quản lý sinh viên bằng List (danh sách)
 
 ## Mục tiêu
 Xây dựng hệ thống quản lý sinh viên trên console bằng Python, sử dụng **list** làm cấu trúc lưu trữ chính.
@@ -34,45 +28,83 @@ Xây dựng hệ thống quản lý sinh viên trên console bằng Python, sử
 ## Yêu cầu
 Viết chương trình Python có các chức năng:
 
+### Câu 1 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+1. **Add a student:** Input student information (ID, name, score). Store the student in a list.
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
 1. **Thêm sinh viên:** Nhập ID, tên, điểm; lưu vào một danh sách.
-2. **Hiển thị danh sách sinh viên:** In toàn bộ sinh viên trong list.
-3. **Tìm sinh viên theo tên:** Nhập tên, hiển thị sinh viên khớp.
-4. **Xóa sinh viên:** Nhập ID, xóa sinh viên tương ứng khỏi danh sách.
-5. **Sắp xếp theo điểm:** Sắp xếp danh sách tăng dần hoặc giảm dần theo điểm.
-6. **Thống kê:** Tìm sinh viên có điểm cao nhất, thấp nhất và tính điểm trung bình.
-7. **Thoát chương trình:** Cho phép người dùng kết thúc menu.
 
----
+**Giải thích kỹ từng bước và công thức:**
 
-## Quy trình giải chi tiết và các công thức liên quan
-
-**Luồng giải chung:** Đọc yêu cầu và dữ liệu đầu vào → xác thực kiểu và miền giá trị → chọn cấu trúc dữ liệu/điều kiện/vòng lặp đã học → tính toán hoặc cập nhật → kiểm tra kết quả bằng ví dụ đề → xử lý trường hợp rỗng/sai. Các hàm trong phần code bên dưới là một chương trình hoàn chỉnh và có thể chạy cùng nhau.
-
-### Bài 1 — Cách thực hiện
-
-Đầu tiên dùng `validate()` từ code nguồn để làm sạch ID/tên và đổi điểm về `float`. Sau đó kiểm tra trùng ID bằng `any` và dùng `append` thêm bản ghi vào list. Các ví dụ DEMO ban đầu đưa thông tin sinh viên vào list nhưng chưa thống nhất kiểu dữ liệu, nên bản tham chiếu kiểm tra kỹ hơn.
+Đầu tiên dùng `validate()` từ code nguồn để làm sạch ID/tên và đổi điểm về `float`. Sau đó kiểm tra trùng ID bằng `any` và dùng `append` thêm bản ghi vào list (danh sách). Các ví dụ DEMO ban đầu đưa thông tin sinh viên vào list nhưng chưa thống nhất kiểu dữ liệu, nên bản tham chiếu kiểm tra kỹ hơn.
 
 **Công thức / lưu ý:** Điểm hợp lệ được code tham khảo dùng là 0–10 (đây là quy ước của code, không phải ngưỡng ghi trực tiếp trong Word).
 
-**Điểm cần kiểm tra:** list là cấu trúc chứa chính; mỗi phần tử dùng dictionary có ID/tên/điểm.
+**Điểm cần kiểm tra:** list là cấu trúc chứa chính; mỗi phần tử dùng dictionary (từ điển) có ID/tên/điểm.
 
-### Bài 2 — Cách thực hiện
+**Ví dụ và lỗi thường gặp:** List (danh sách) chứa các bản ghi có mã, tên, điểm. Dùng append() nối bản ghi mới và kiểm tra mã trùng trước khi thêm.
 
-Dùng vòng lặp duyệt từng phần tử của list và truy cập các khóa `id`, `name`, `score` của từng phần tử. Không dùng dictionary làm cấu trúc chứa danh sách chính.
+**Thuật ngữ cần nhớ:** List (danh sách).
+
+### Câu 2 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+2. **Display student list:** Show all students in the list.
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
+2. **Hiển thị danh sách sinh viên:** In toàn bộ sinh viên trong list (danh sách).
+
+**Giải thích kỹ từng bước và công thức:**
+
+Dùng vòng lặp duyệt từng phần tử của list (danh sách) và truy cập các khóa `id`, `name`, `score` của từng phần tử. Không dùng dictionary (từ điển) làm cấu trúc chứa danh sách chính.
 
 **Công thức / lưu ý:** Không có công thức; độ dài danh sách `len(students)` cho biết số bản ghi.
 
 **Điểm cần kiểm tra:** thêm qua `append` và kiểm tra trùng mã nếu code tham khảo có hỗ trợ.
 
-### Bài 3 — Cách thực hiện
+**Ví dụ và lỗi thường gặp:** Duyệt từng bản ghi trong list (danh sách) và in đủ trường. Nếu rỗng, cần hiển thị thông báo phù hợp.
+
+**Thuật ngữ cần nhớ:** Display (hiển thị).
+
+### Câu 3 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+3. **Search student by name:** Input a name. Display matching students.
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
+3. **Tìm sinh viên theo tên:** Nhập tên, hiển thị sinh viên khớp.
+
+**Giải thích kỹ từng bước và công thức:**
 
 Chuẩn hóa tên bằng `.strip().casefold()` rồi lọc phần tử chứa chuỗi tìm kiếm. Khác với DEMO so sánh tên chính xác, cách này thuận tiện với dữ liệu thực tế.
 
-**Công thức / lưu ý:** So sánh `query in student_name.casefold()`; kết quả là một list sinh viên khớp.
+**Công thức / lưu ý:** So sánh `query in student_name.casefold()`; kết quả là một list (danh sách) sinh viên khớp.
 
 **Điểm cần kiểm tra:** tìm tên bằng `casefold()`; duyệt và xóa theo ID bằng `enumerate()/pop()`.
 
-### Bài 4 — Cách thực hiện
+**Ví dụ và lỗi thường gặp:** Tìm bằng casefold() để không phân biệt hoa/thường; dùng chuỗi con nếu code tham khảo có hỗ trợ.
+
+**Thuật ngữ cần nhớ:** Search (tìm kiếm).
+
+### Câu 4 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+4. **Delete a student:** Input student ID. Remove the student from the list.
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
+4. **Xóa sinh viên:** Nhập ID, xóa sinh viên tương ứng khỏi danh sách.
+
+**Giải thích kỹ từng bước và công thức:**
 
 Dùng `enumerate` lấy cặp chỉ số và bản ghi, sau đó `pop(index)` xóa đúng sinh viên có mã cần tìm. Nếu không thấy ID, báo lỗi.
 
@@ -80,23 +112,65 @@ Dùng `enumerate` lấy cặp chỉ số và bản ghi, sau đó `pop(index)` x�
 
 **Điểm cần kiểm tra:** sắp xếp bằng `sorted(..., key=...)`; không so sánh điểm như chuỗi.
 
-### Bài 5 — Cách thực hiện
+**Ví dụ và lỗi thường gặp:** Dùng enumerate() tìm đúng chỉ số và pop() xóa mục được chọn; ID không tồn tại phải báo lỗi.
+
+**Thuật ngữ cần nhớ:** Delete (xóa).
+
+### Câu 5 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+5. **Sort students by score:** Sort the list in ascending or descending order based on score.
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
+5. **Sắp xếp theo điểm:** Sắp xếp danh sách tăng dần hoặc giảm dần theo điểm.
+
+**Giải thích kỹ từng bước và công thức:**
 
 Dùng `sorted(students, key=..., reverse=...)` để tạo kết quả có thứ tự theo điểm số; không sắp chuỗi điểm thay cho số.
 
 **Công thức / lưu ý:** Sắp xếp trung bình O(n log n); `reverse=True` đảo sang điểm giảm dần.
 
-**Điểm cần kiểm tra:** điểm trung bình = tổng điểm/số sinh viên; xử lý list rỗng.
+**Điểm cần kiểm tra:** điểm trung bình = tổng điểm/số sinh viên; xử lý list (danh sách) rỗng.
 
-### Bài 6 — Cách thực hiện
+**Ví dụ và lỗi thường gặp:** sorted() sắp theo điểm số đã đổi thành float, không sắp theo chuỗi văn bản. reverse=True đảo chiều.
 
-Với list không rỗng, dùng `max` và `min` theo khóa điểm để tìm toàn bộ bản ghi đứng đầu/cuối, rồi cộng điểm chia số sinh viên.
+**Thuật ngữ cần nhớ:** Sort (sắp xếp).
+
+### Câu 6 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+6. **Statistics:** Find the student with the highest score; find the student with the lowest score; calculate the average score.
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
+6. **Thống kê:** Tìm sinh viên có điểm cao nhất, thấp nhất và tính điểm trung bình.
+
+**Giải thích kỹ từng bước và công thức:**
+
+Với list (danh sách) không rỗng, dùng `max` và `min` theo khóa điểm để tìm toàn bộ bản ghi đứng đầu/cuối, rồi cộng điểm chia số sinh viên.
 
 **Công thức / lưu ý:** Trung bình = tổng điểm / n. Khi n=0, hàm trả `None` thay vì chia cho 0.
 
 **Điểm cần kiểm tra:** menu `while True` thoát khi chọn 0.
 
-### Bài 7 — Cách thực hiện
+**Ví dụ và lỗi thường gặp:** Trung bình = tổng điểm/số sinh viên; khi không có sinh viên, tránh phép chia cho 0.
+
+**Thuật ngữ cần nhớ:** Statistics (thống kê).
+
+### Câu 7 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+7. **Exit program.**
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
+7. **Thoát chương trình:** Cho phép người dùng kết thúc menu.
+
+**Giải thích kỹ từng bước và công thức:**
 
 Dùng vòng `while True` hiển thị menu, chọn tác vụ theo `if/elif`, xử lý lỗi đầu vào, và `break` khi chọn Exit. Đây là chương trình đã có, không tạo menu mới.
 
@@ -104,156 +178,93 @@ Dùng vòng `while True` hiển thị menu, chọn tác vụ theo `if/elif`, x�
 
 **Điểm cần kiểm tra:** menu `while True` thoát khi chọn 0.
 
+**Ví dụ và lỗi thường gặp:** Menu lặp đến khi chọn Exit. Chế độ --demo cho phép thử các chức năng mà không cần nhập thủ công.
+
+**Thuật ngữ cần nhớ:** Exit (thoát).
 
 ---
 
-## PHẦN 4 — TOÀN BỘ CODE PYTHON CÙNG CHÚ THÍCH
+## TOÀN BỘ CODE PYTHON — CHÚ THÍCH NGAY SAU TỪNG DÒNG
 
-**Nguồn code:** `labs/pythoclass/LAB-05-student-list/SOLUTION.py` và phiên bản chú thích đã có trong lịch sử dự án. Code giữ nguyên logic thực hành; `#` trong file dùng để giải thích từng đoạn. Sao chép **nguyên khối** sau vào một file `lab_solution.py` trong môi trường Python; chạy bằng `python lab_solution.py --demo` nếu là lab menu, hoặc `python lab_solution.py` để thực hiện lệnh tương tác/kiểm thử. Các đường dẫn, nguồn dữ liệu đi kèm vẫn cần tuân theo hướng dẫn trong script.
+**Cách học:** Chú thích tiếng Việt nằm **cuối mỗi dòng lệnh**, ngay sau dấu `#`; không có dòng ghi chú riêng ở phía trước. Các kiểm tra cũ được viết bằng `if` (nếu) và `raise ValueError` (báo lỗi) thay vì `assert`. Chỉ thay cách chú thích và kiểm tra, không đổi dữ liệu hay thuật toán. Dòng trắng dùng để chia đoạn.
 
 ```python
-"""Fully annotated English solution for LAB-05-student-list.
-Source methods and executable statements are preserved from the reviewed
-labs/pythoclass reference implementation; explanatory comments are added.
-"""
+import sys  # Nạp thư viện (import: nạp vào) để sử dụng hàm sẵn có.
 
-"""LAB SESSION 5 — Student management using a LIST as principal storage."""
-# Use sys.argv to choose an unattended demo instead of interactive prompts.
-import sys
+def validate(student_id,name,score):  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    sid=student_id.strip()  # Bỏ khoảng trắng đầu/cuối bằng strip (cắt khoảng trắng).
+    name=name.strip()  # Bỏ khoảng trắng đầu/cuối bằng strip (cắt khoảng trắng).
+    if not sid or not name: raise ValueError("ID and name are required")  # Kiểm tra điều kiện; nhánh sau chỉ chạy khi điều kiện đúng.
+    try: score=float(score)  # Thử thao tác có thể gây lỗi và chuẩn bị xử lý lỗi.
+    except ValueError as e: raise ValueError("Score must be numeric") from e  # Bắt lỗi ngoại lệ (exception: lỗi) để báo cho người dùng.
+    if not 0<=score<=10: raise ValueError("Score must be in 0..10")  # Kiểm tra điều kiện; nhánh sau chỉ chạy khi điều kiện đúng.
+    return {"id":sid,"name":name,"score":score}  # Trả kết quả (return: trả về) cho nơi gọi hàm.
 
-# Function: Validate required ID and name and convert the 0–10 score to a float.
-def validate(student_id,name,score):
-    # Prepare this intermediate value for the next calculation or validation.
-    sid=student_id.strip()
-    # Prepare this intermediate value for the next calculation or validation.
-    name=name.strip()
-    # Reject out-of-range or missing inputs early instead of silently accepting them.
-    if not sid or not name: raise ValueError("ID and name are required")
-    # Catch expected user/file errors without terminating the whole interactive workflow.
-    try: score=float(score)
-    # Handle expected exceptions while preserving diagnostics.
-    except ValueError as e: raise ValueError("Score must be numeric") from e
-    # Reject out-of-range or missing inputs early instead of silently accepting them.
-    if not 0<=score<=10: raise ValueError("Score must be in 0..10")
-    # Return the result for later reuse or testing instead of only printing it.
-    return {"id":sid,"name":name,"score":score}
+def add(students,student_id,name,score):  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    data=validate(student_id,name,score)  # Tính hoặc cập nhật biến data theo công thức của bài.
+    if any(item["id"]==data["id"] for item in students):  # Kiểm tra điều kiện; nhánh sau chỉ chạy khi điều kiện đúng.
+        raise ValueError("Duplicate student ID")  # Chủ động báo lỗi đầu vào thay vì chấp nhận dữ liệu sai.
+    students.append(data)  # Thêm phần tử vào cuối danh sách bằng append (thêm cuối).
 
-# Function: Append a dictionary record to a LIST, rejecting an ID already in that list.
-def add(students,student_id,name,score):
-    # Prepare this intermediate value for the next calculation or validation.
-    data=validate(student_id,name,score)
-    # Branch when this validated condition is true.
-    if any(item["id"]==data["id"] for item in students):
-        raise ValueError("Duplicate student ID")
-    # Add the new element to a list while retaining insertion order.
-    students.append(data)
+def find_by_name(students,name):  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    query=name.strip().casefold()  # Bỏ khoảng trắng đầu/cuối bằng strip (cắt khoảng trắng).
+    if not query: return []  # Kiểm tra điều kiện; nhánh sau chỉ chạy khi điều kiện đúng.
+    return [s for s in students if query in s["name"].casefold()]  # Trả kết quả (return: trả về) cho nơi gọi hàm.
 
-# Function: Find students by a case-insensitive substring of their name.
-def find_by_name(students,name):
-    # Prepare this intermediate value for the next calculation or validation.
-    query=name.strip().casefold()
-    # Branch when this validated condition is true.
-    if not query: return []
-    # Return the result for later reuse or testing instead of only printing it.
-    return [s for s in students if query in s["name"].casefold()]
+def delete_by_id(students,student_id):  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    for index,s in enumerate(students):  # Duyệt tuần tự từng phần tử bằng vòng lặp (loop: lặp).
+        if s["id"]==student_id:  # Kiểm tra điều kiện; nhánh sau chỉ chạy khi điều kiện đúng.
+            return students.pop(index)  # Trả kết quả (return: trả về) cho nơi gọi hàm.
+    raise KeyError(student_id)  # Chủ động báo lỗi đầu vào thay vì chấp nhận dữ liệu sai.
 
-# Function: Find a matching ID, remove that list element with pop(), or reject missing IDs.
-def delete_by_id(students,student_id):
-    # Keep the list index while inspecting each student record.
-    for index,s in enumerate(students):
-        # Branch when this validated condition is true.
-        if s["id"]==student_id:
-            # Return the result for later reuse or testing instead of only printing it.
-            return students.pop(index)
-    raise KeyError(student_id)
+def sorted_by_score(students,descending=False):  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    return sorted(students,key=lambda s:s["score"],reverse=descending)  # Trả kết quả (return: trả về) cho nơi gọi hàm.
 
-# Function: Return a new sorted list by numeric scores without mutating the source list.
-def sorted_by_score(students,descending=False):
-    # Return the result for later reuse or testing instead of only printing it.
-    return sorted(students,key=lambda s:s["score"],reverse=descending)
+def statistics(students):  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    if not students: return None  # Kiểm tra điều kiện; nhánh sau chỉ chạy khi điều kiện đúng.
+    return {"highest":max(students,key=lambda s:s["score"]),  # Trả kết quả (return: trả về) cho nơi gọi hàm.
+            "lowest":min(students,key=lambda s:s["score"]),  # Gắn tên trường (key: khóa) với giá trị trong từ điển.
+            "average":sum(s["score"] for s in students)/len(students)}  # Gắn tên trường (key: khóa) với giá trị trong từ điển.
 
-# Function: Compute highest-scoring record, lowest-scoring record and arithmetic mean.
-def statistics(students):
-    # Branch when this validated condition is true.
-    if not students: return None
-    # Return the result for later reuse or testing instead of only printing it.
-    return {"highest":max(students,key=lambda s:s["score"]),
-            "lowest":min(students,key=lambda s:s["score"]),
-            "average":sum(s["score"] for s in students)/len(students)}
+def show(students):  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    for s in students:  # Duyệt tuần tự từng phần tử bằng vòng lặp (loop: lặp).
+        print(f'{s["id"]} | {s["name"]} | {s["score"]:g}/10')  # In kết quả (output: kết quả) để người học đối chiếu.
 
-# Function: Display every list entry in ID, name, score order.
-def show(students):
-    # Process each element of the input collection in order.
-    for s in students:
-        # Show a human-readable result to the learner.
-        print(f'{s["id"]} | {s["name"]} | {s["score"]:g}/10')
+def sample():  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    students=[]  # Tính hoặc cập nhật biến students theo công thức của bài.
+    grades=[5,6,7,8,9,10,5.5,6.5,7.5,8.5,9.5,4]  # Tính hoặc cập nhật biến grades theo công thức của bài.
+    for i,score in enumerate(grades,1):  # Duyệt tuần tự từng phần tử bằng vòng lặp (loop: lặp).
+        add(students,f"S{i:03}",f"Learner {i:02}",score)  # Thực hiện bước xử lý, giữ nguyên cấu trúc và thứ tự code mẫu.
+    return students  # Trả kết quả (return: trả về) cho nơi gọi hàm.
 
-# Function: Generate twelve synthetic student records for reproducible demonstrations.
-def sample():
-    # Prepare this intermediate value for the next calculation or validation.
-    students=[]
-    # Prepare this intermediate value for the next calculation or validation.
-    grades=[5,6,7,8,9,10,5.5,6.5,7.5,8.5,9.5,4]
-    # Keep the list index while inspecting each student record.
-    for i,score in enumerate(grades,1):
-        add(students,f"S{i:03}",f"Learner {i:02}",score)
-    # Return the result for later reuse or testing instead of only printing it.
-    return students
+def run_demo():  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    students=sample()  # Tính hoặc cập nhật biến students theo công thức của bài.
+    if not (len(students)==12): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra bằng if (nếu); khi điều kiện sai sẽ báo lỗi rõ ràng.
+    add(students,"S013","Learner 13",7)  # Thực hiện bước xử lý, giữ nguyên cấu trúc và thứ tự code mẫu.
+    if not (len(find_by_name(students,"learner"))==13): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra bằng if (nếu); khi điều kiện sai sẽ báo lỗi rõ ràng.
+    removed=delete_by_id(students,"S013")  # Tính hoặc cập nhật biến removed theo công thức của bài.
+    if not (removed["id"]=="S013" and len(students)==12): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra bằng if (nếu); khi điều kiện sai sẽ báo lỗi rõ ràng.
+    print("Sorted:",[(s["id"],s["score"]) for s in sorted_by_score(students)])  # In kết quả (output: kết quả) để người học đối chiếu.
+    print("Statistics:",statistics(students))  # In kết quả (output: kết quả) để người học đối chiếu.
+    show(students)  # Thực hiện bước xử lý, giữ nguyên cấu trúc và thứ tự code mẫu.
 
-# Function: Exercise creating, searching, deleting, sorting and statistics with assertions.
-def run_demo():
-    # Prepare this intermediate value for the next calculation or validation.
-    students=sample()
-    # Verify the expected outcome and fail the demo if a regression occurs.
-    assert len(students)==12
-    add(students,"S013","Learner 13",7)
-    # Verify the expected outcome and fail the demo if a regression occurs.
-    assert len(find_by_name(students,"learner"))==13
-    # Prepare this intermediate value for the next calculation or validation.
-    removed=delete_by_id(students,"S013")
-    # Verify the expected outcome and fail the demo if a regression occurs.
-    assert removed["id"]=="S013" and len(students)==12
-    # Show a human-readable result to the learner.
-    print("Sorted:",[(s["id"],s["score"]) for s in sorted_by_score(students)])
-    # Show a human-readable result to the learner.
-    print("Statistics:",statistics(students))
-    show(students)
-
-# Function: Loop over user menu options until the exit command is selected.
-def interactive():
-    # Prepare this intermediate value for the next calculation or validation.
-    students=sample()
-    # Repeat this operation until the stopping condition becomes false.
-    while True:
-        # Show a human-readable result to the learner.
-        print("\n1.Add 2.Display 3.Search 4.Delete 5.Sort 6.Statistics 0.Exit")
-        # Prepare this intermediate value for the next calculation or validation.
-        c=input("Choice: ").strip()
-        # Catch expected user/file errors without terminating the whole interactive workflow.
-        try:
-            # Branch when this validated condition is true.
-            if c=="0":break
-            # Handle an alternative choice only when earlier tests did not match.
-            elif c=="1": add(students,input("ID: "),input("Name: "),input("Score: "))
-            # Handle an alternative choice only when earlier tests did not match.
-            elif c=="2":show(students)
-            # Handle an alternative choice only when earlier tests did not match.
-            elif c=="3":show(find_by_name(students,input("Name to search: ")))
-            # Handle an alternative choice only when earlier tests did not match.
-            elif c=="4":delete_by_id(students,input("ID: ").strip())
-            # Handle an alternative choice only when earlier tests did not match.
-            elif c=="5":
-                show(sorted_by_score(students,input("Descending? [y/N] ").lower()=="y"))
-            # Handle an alternative choice only when earlier tests did not match.
-            elif c=="6":print(statistics(students))
-            # Run the fallback branch when no earlier condition applies.
-            else:print("Unknown menu option")
-        # Handle expected exceptions while preserving diagnostics.
-        except (ValueError,KeyError) as exc:
-            # Show a human-readable result to the learner.
-            print("Error:",exc)
-if __name__=="__main__":
-    run_demo() if "--demo" in sys.argv else interactive()
+def interactive():  # Khai báo hàm (function: hàm) để gom và gọi lại những bước này.
+    students=sample()  # Tính hoặc cập nhật biến students theo công thức của bài.
+    while True:  # Tiếp tục vòng lặp khi điều kiện còn đúng.
+        print("\n1.Add 2.Display 3.Search 4.Delete 5.Sort 6.Statistics 0.Exit")  # In kết quả (output: kết quả) để người học đối chiếu.
+        c=input("Choice: ").strip()  # Bỏ khoảng trắng đầu/cuối bằng strip (cắt khoảng trắng).
+        try:  # Thử thao tác có thể gây lỗi và chuẩn bị xử lý lỗi.
+            if c=="0":break  # Kiểm tra điều kiện; nhánh sau chỉ chạy khi điều kiện đúng.
+            elif c=="1": add(students,input("ID: "),input("Name: "),input("Score: "))  # Xét điều kiện tiếp theo nếu nhánh trước không thỏa.
+            elif c=="2":show(students)  # Xét điều kiện tiếp theo nếu nhánh trước không thỏa.
+            elif c=="3":show(find_by_name(students,input("Name to search: ")))  # Xét điều kiện tiếp theo nếu nhánh trước không thỏa.
+            elif c=="4":delete_by_id(students,input("ID: ").strip())  # Xét điều kiện tiếp theo nếu nhánh trước không thỏa.
+            elif c=="5":  # Xét điều kiện tiếp theo nếu nhánh trước không thỏa.
+                show(sorted_by_score(students,input("Descending? [y/N] ").lower()=="y"))  # Nhận input (dữ liệu nhập) để xử lý và kiểm tra.
+            elif c=="6":print(statistics(students))  # Xét điều kiện tiếp theo nếu nhánh trước không thỏa.
+            else:print("Unknown menu option")  # Xử lý trường hợp ngược lại hoặc còn lại.
+        except (ValueError,KeyError) as exc:  # Bắt lỗi ngoại lệ (exception: lỗi) để báo cho người dùng.
+            print("Error:",exc)  # In kết quả (output: kết quả) để người học đối chiếu.
+if __name__=="__main__":  # Kiểm tra điều kiện; nhánh sau chỉ chạy khi điều kiện đúng.
+    run_demo() if "--demo" in sys.argv else interactive()  # Thực hiện bước xử lý, giữ nguyên cấu trúc và thứ tự code mẫu.
 ```
-
-**Lưu ý:** Nếu demo gốc chỉ thể hiện một phần, code đầy đủ được lấy từ lời giải tham khảo đã được lưu/kiểm tra, không phải phần tự sáng tác ở tài liệu này.
