@@ -1,6 +1,6 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-  "status": "WAITING_PRETEST_SOURCE",
+  "status": "PRETEST_IN_PROGRESS",
   "expected_word_documents": 8,
   "completed_word_documents": 7,
   "complete_nonpretest_docs": 7,
@@ -64,15 +64,18 @@
       "labs": [
         "PRETEST"
       ],
-      "status": "BLOCKED_SOURCE_BINARY"
+      "status": "IN_PROGRESS",
+      "paths": [
+        "docs/labs/PRETEST.md"
+      ]
     }
   ],
   "source_blockers": {
     "PRETEST": {
       "source": "nguyenletrian/PythoClass/Pretest.docx",
       "blob_sha": "044b05d555e82b839e6bdbf23a027da186979900",
-      "reason": "Private DOCX binary cannot be read by connected GitHub text fetch: UnicodeDecodeError; direct blob and contents API rejected non-UTF-8. No Pretest prompt inferred.",
-      "status": "BLOCKED_SOURCE_BINARY",
+      "reason": "Owner directly uploaded Pretest.docx in current chat; original Word tables, all numbered tasks, and embedded equation have been read and verified.",
+      "status": "RESOLVED_SOURCE_READABLE",
       "additional_probe": {
         "method": "Isolated source-repository GitHub Actions push workflow with zipfile and XML ElementTree (read only)",
         "source_repository": "nguyenletrian/PythoClass",
@@ -86,6 +89,15 @@
         "result": "No text recovered; not safe to invent Pretest requirements",
         "cleanup": "Temporary branch reset to unchanged main commit; extractor workflow no longer at branch head.",
         "review_policy": "Do not repeat failed identical extraction on idle heartbeat. Resume only with directly uploaded DOCX or another genuinely readable source."
+      },
+      "resolution": {
+        "source": "direct_owner_attachment",
+        "source_sha256": "6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad",
+        "original_student_rows": 5,
+        "original_top_level_tasks": 3,
+        "original_subtasks": 9,
+        "original_equation": "L(w)=(w-4)^2",
+        "verified_by": "python-docx + embedded Word equation visual inspection + matrix calculations"
       }
     }
   },
