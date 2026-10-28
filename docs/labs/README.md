@@ -1,6 +1,6 @@
-# Word Labs — Đề Anh, đề Việt, hướng giải và code đầy đủ
+# Word Labs — Song ngữ theo từng câu, giải thích kỹ và code có note cuối dòng
 
-**Mỗi file Word là một tài liệu Markdown duy nhất.** Toàn bộ đề tiếng Anh xuất hiện trước, sau đó là **toàn bộ bản dịch tiếng Việt**, tiếp theo là **quy trình giải chi tiết và công thức**, cuối cùng là **một khối code Python đầy đủ có chú thích** để học viên sao chép chạy. Không xen đề và lời giải theo từng câu.
+**Mỗi file Word là một tài liệu Markdown duy nhất.** Mỗi câu được trình bày liên tiếp: **nguyên văn đề tiếng Anh → bản dịch tiếng Việt ngay phía dưới → giải thích chi tiết từng bước, ví dụ, công thức và những lỗi dễ gặp**. Từ tiếng Anh chuyên môn có giải nghĩa tiếng Việt trong ngoặc, ví dụ *gradient (độ dốc đạo hàm)*. Sau toàn bộ các câu là **một khối code Python hoàn chỉnh**, với **chú thích tiếng Việt cuối từng dòng lệnh** sau dấu `#`, không đặt comment trên dòng riêng. Các phép kiểm tra dùng `if`/`raise ValueError`, **không sử dụng `assert`** trong bài giải.
 
 | File Word | Tài liệu hoàn chỉnh |
 |---|---|
