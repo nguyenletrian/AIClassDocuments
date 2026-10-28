@@ -1,0 +1,55 @@
+{
+  "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
+  "status": "READY_FOR_BATCH_01",
+  "expected_word_documents": 8,
+  "completed_word_documents": 0,
+  "complete_nonpretest_docs": 0,
+  "last_completed_batch": 0,
+  "batches": [
+    {
+      "batch": 1,
+      "labs": [
+        "ASSIGNMENT-01-student-dictionary",
+        "LAB-04-conditions-loops",
+        "LAB-05-student-list"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 2,
+      "labs": [
+        "LAB-05-06-gradient-descent",
+        "LAB-07-probability",
+        "LAB-08-statistics"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 3,
+      "labs": [
+        "LAB-10-file-csv"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "batch": 4,
+      "labs": [
+        "PRETEST"
+      ],
+      "status": "BLOCKED_SOURCE_BINARY"
+    }
+  ],
+  "source_blockers": {
+    "PRETEST": {
+      "source": "nguyenletrian/PythoClass/Pretest.docx",
+      "blob_sha": "044b05d555e82b839e6bdbf23a027da186979900",
+      "reason": "Private DOCX binary cannot be read by connected GitHub text fetch: UnicodeDecodeError; direct blob and contents API rejected non-UTF-8. No Pretest prompt inferred.",
+      "status": "BLOCKED_SOURCE_BINARY"
+    }
+  },
+  "previous_goal": "aiclassdocuments-lab-english-annotated-solutions-20261028",
+  "validation": {
+    "github_ci": "NOT_RUN",
+    "windows": "UNVERIFIED"
+  }
+}
