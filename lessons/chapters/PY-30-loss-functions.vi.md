@@ -603,15 +603,15 @@ KL không đối xứng, và một giá trị nhỏ không tự nói hai phân p
 
 **Q1. What is MSE? | MSE là gì?**
 
-A. Mean squared prediction error | Trung bình sai số dự báo bình phương
+A. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
 
-B. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
+B. Mean squared prediction error | Trung bình sai số dự báo bình phương
 
-C. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
+C. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
 
-D. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
+D. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** MSE lấy trung bình bình phương sai lệch.
 
@@ -620,43 +620,43 @@ D. Compare two probability distributions in a directed way | So hai phân phối
 
 A. Mean squared prediction error | Trung bình sai số dự báo bình phương
 
-B. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
+B. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
-C. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
+C. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
 
-D. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
+D. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** MAE lấy trung bình độ lệch tuyệt đối.
 
 
 **Q3. What characterizes Huber loss? | Đặc trưng của Huber loss là gì?**
 
-A. Mean squared prediction error | Trung bình sai số dự báo bình phương
+A. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
 
-B. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
+B. Mean squared prediction error | Trung bình sai số dự báo bình phương
 
-C. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
+C. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
 
-D. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
+D. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Huber đổi tốc độ tăng mức phạt sau một ngưỡng.
 
 
 **Q4. What is KL divergence used for? | KL divergence dùng để làm gì?**
 
-A. Mean squared prediction error | Trung bình sai số dự báo bình phương
+A. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
 
-B. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
+B. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
 
-C. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
+C. Mean squared prediction error | Trung bình sai số dự báo bình phương
 
-D. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
+D. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** KL dùng tỷ số logarit theo một chiều giữa các phân phối.
 
@@ -665,13 +665,13 @@ D. Compare two probability distributions in a directed way | So hai phân phối
 
 A. 1.5 | 1.5
 
-B. 2.5 | 2.5
+B. 3 | 3
 
-C. 3 | 3
+C. 5 | 5
 
-D. 5 | 5
+D. 2.5 | 2.5
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Sai số là 1 và −2; bình phương là 1 và 4. MSE = (1 + 4)/2 = 2.5.
 
@@ -682,41 +682,41 @@ A. 0.5 | 0.5
 
 B. 2.5 | 2.5
 
-C. 1.5 | 1.5
+C. 3 | 3
 
-D. 3 | 3
+D. 1.5 | 1.5
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Lấy trị tuyệt đối các sai số: |3 − 2| = 1 và |2 − 4| = 2; MAE = (1 + 2)/2 = 1.5.
 
 
 **Q7. For a correct class, which predicted probability gives the smaller cross-entropy loss? | Với lớp đúng, xác suất dự đoán nào tạo ra cross-entropy nhỏ hơn?**
 
-A. 0.9 | 0.9
+A. 0.2 | 0.2
 
-B. 0.5 | 0.5
+B. 0.1 | 0.1
 
-C. 0.2 | 0.2
+C. 0.9 | 0.9
 
-D. 0.1 | 0.1
+D. 0.5 | 0.5
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Loss của lớp đúng là −log(p). Khi p càng gần 1, loss càng nhỏ; 0.9 là lớn nhất trong bốn giá trị.
 
 
 **Q8. Which loss penalizes a very large error more strongly than MAE? | Hàm mất mát nào phạt sai số cực lớn mạnh hơn MAE?**
 
-A. Mean absolute error | MAE
+A. Mean squared error | MSE
 
 B. Median absolute deviation | Độ lệch tuyệt đối trung vị
 
-C. Zero-one loss | Loss đúng/sai 0–1
+C. Mean absolute error | MAE
 
-D. Mean squared error | MSE
+D. Zero-one loss | Loss đúng/sai 0–1
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** MSE bình phương sai số, nên lỗi lớn tăng nhanh hơn so với MAE chỉ lấy trị tuyệt đối.
 
@@ -725,11 +725,11 @@ D. Mean squared error | MSE
 
 A. Cross-entropy loss for that sample | Cross-entropy của mẫu đó
 
-B. Nonnegative | Không âm
+B. The distributions are identical | Hai phân phối giống nhau
 
-C. No, KL is asymmetric | Không, KL bất đối xứng
+C. Nonnegative | Không âm
 
-D. The distributions are identical | Hai phân phối giống nhau
+D. No, KL is asymmetric | Không, KL bất đối xứng
 
 **Đáp án: A**
 
@@ -738,28 +738,28 @@ D. The distributions are identical | Hai phân phối giống nhau
 
 **Q10. What is the sign of KL divergence for valid distributions? | KL divergence có dấu gì với phân phối hợp lệ?**
 
-A. Cross-entropy loss for that sample | Cross-entropy của mẫu đó
+A. The distributions are identical | Hai phân phối giống nhau
 
-B. Nonnegative | Không âm
+B. Cross-entropy loss for that sample | Cross-entropy của mẫu đó
 
-C. No, KL is asymmetric | Không, KL bất đối xứng
+C. Nonnegative | Không âm
 
-D. The distributions are identical | Hai phân phối giống nhau
+D. No, KL is asymmetric | Không, KL bất đối xứng
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** KL không âm theo bất đẳng thức Gibbs.
 
 
 **Q11. Does swapping P and Q generally preserve KL? | Đổi chỗ P và Q có giữ nguyên KL không?**
 
-A. Cross-entropy loss for that sample | Cross-entropy của mẫu đó
+A. Nonnegative | Không âm
 
-B. Nonnegative | Không âm
+B. The distributions are identical | Hai phân phối giống nhau
 
 C. No, KL is asymmetric | Không, KL bất đối xứng
 
-D. The distributions are identical | Hai phân phối giống nhau
+D. Cross-entropy loss for that sample | Cross-entropy của mẫu đó
 
 **Đáp án: C**
 
@@ -768,58 +768,58 @@ D. The distributions are identical | Hai phân phối giống nhau
 
 **Q12. What does a zero KL divergence mean for valid finite distributions? | KL bằng 0 nghĩa là gì với các phân phối hữu hạn hợp lệ?**
 
-A. Cross-entropy loss for that sample | Cross-entropy của mẫu đó
+A. The distributions are identical | Hai phân phối giống nhau
 
-B. Nonnegative | Không âm
+B. Cross-entropy loss for that sample | Cross-entropy của mẫu đó
 
 C. No, KL is asymmetric | Không, KL bất đối xứng
 
-D. The distributions are identical | Hai phân phối giống nhau
+D. Nonnegative | Không âm
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** KL bằng 0 khi các phân phối trùng nhau trong điều kiện phù hợp.
 
 
 **Q13. What is the unit of MSE when predictions are in meters? | Dự báo theo mét thì MSE có đơn vị gì?**
 
-A. Square meters | Mét bình phương
+A. Meters | Mét
 
-B. Meters | Mét
+B. MSE | MSE
 
-C. MSE | MSE
+C. Huber loss | Huber loss
 
-D. Huber loss | Huber loss
+D. Square meters | Mét bình phương
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Bình phương sai lệch mét cho đơn vị m².
 
 
 **Q14. What is the unit of MAE when predictions are in meters? | Dự báo theo mét thì MAE có đơn vị gì?**
 
-A. Square meters | Mét bình phương
+A. MSE | MSE
 
-B. Meters | Mét
+B. Huber loss | Huber loss
 
-C. MSE | MSE
+C. Square meters | Mét bình phương
 
-D. Huber loss | Huber loss
+D. Meters | Mét
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Sai lệch tuyệt đối giữ đơn vị gốc.
 
 
 **Q15. Which loss increases quadratically with error magnitude? | Loss nào tăng theo bình phương độ lớn lỗi?**
 
-A. Square meters | Mét bình phương
+A. Meters | Mét
 
-B. Meters | Mét
+B. Huber loss | Huber loss
 
 C. MSE | MSE
 
-D. Huber loss | Huber loss
+D. Square meters | Mét bình phương
 
 **Đáp án: C**
 
@@ -828,15 +828,15 @@ D. Huber loss | Huber loss
 
 **Q16. Which regression loss has a threshold between quadratic and linear penalties? | Loss hồi quy nào có ngưỡng chuyển bình phương sang tuyến tính?**
 
-A. Square meters | Mét bình phương
+A. Huber loss | Huber loss
 
-B. Meters | Mét
+B. MSE | MSE
 
-C. MSE | MSE
+C. Meters | Mét
 
-D. Huber loss | Huber loss
+D. Square meters | Mét bình phương
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Huber chuyển miền tại delta.
 
@@ -845,11 +845,11 @@ D. Huber loss | Huber loss
 
 A. To avoid log(0) and numerical infinities | Để tránh log(0) và vô cực số học
 
-B. MAE | MAE
+B. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
 
-C. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
+C. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
 
-D. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
+D. MAE | MAE
 
 **Đáp án: A**
 
@@ -858,15 +858,15 @@ D. Predicted probability assigned to the true class | Xác suất dự báo dàn
 
 **Q18. Which loss is easier to interpret in the original output units? | Loss nào dễ đọc theo đơn vị đầu ra ban đầu?**
 
-A. To avoid log(0) and numerical infinities | Để tránh log(0) và vô cực số học
+A. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
 
-B. MAE | MAE
+B. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
 
-C. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
+C. To avoid log(0) and numerical infinities | Để tránh log(0) và vô cực số học
 
-D. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
+D. MAE | MAE
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** MAE báo sai số trung bình cùng đơn vị đo.
 
@@ -877,11 +877,11 @@ A. To avoid log(0) and numerical infinities | Để tránh log(0) và vô cực 
 
 B. MAE | MAE
 
-C. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
+C. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
 
-D. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
+D. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Khả năng tổng quát cần kiểm chứng bằng dữ liệu độc lập.
 
@@ -890,13 +890,13 @@ D. Predicted probability assigned to the true class | Xác suất dự báo dàn
 
 A. To avoid log(0) and numerical infinities | Để tránh log(0) và vô cực số học
 
-B. MAE | MAE
+B. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
 
-C. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
+C. MAE | MAE
 
-D. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
+D. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Âm log-likelihood dùng xác suất lớp đúng.
 
