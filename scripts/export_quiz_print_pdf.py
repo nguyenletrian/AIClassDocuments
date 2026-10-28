@@ -72,9 +72,9 @@ def build():
         title,_,body=section.partition("\n")
         items=re.split(r"(?=^\*\*Q\d+\.)",body,flags=re.M)
         lesson_title = title.removeprefix("## ").strip()
-        lesson_title = re.sub(r"^(PY-\\d\\d) — \\1 — ", r"\\1 — ", lesson_title)
+        lesson_title = re.sub(r"^(PY-\d\d) — \1 — ", r"\1 — ", lesson_title)
         html_parts.append("<h2>"+html.escape(lesson_title)+"</h2>")
-        intro = re.sub(r"(?m)^\\*\\*Từ vựng trong mục:\\*\\*[^\\n]*", "", items[0]).strip()
+        intro = re.sub(r"(?m)^\*\*Từ vựng trong mục:\*\*[^\n]*", "", items[0]).strip()
         if intro:
             html_parts.append('<div class="intro">'+md(intro)+"</div>")
         for q in items[1:]:
