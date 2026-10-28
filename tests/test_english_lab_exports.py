@@ -67,7 +67,6 @@ class OneWordOneDocument(unittest.TestCase):
                     self.assertGreater(len(method), 400)
                     if count is not None:
                         self.assertEqual(len(re.findall(r"^### Bài \d+", method, re.M)), count)
-                        self.assertIn(str(count), str(count))  # handled in method-count assertion
                     blocks = re.findall(r"^\x60\x60\x60python\n([\s\S]*?)^\x60\x60\x60$", script, re.M)
                     self.assertEqual(len(blocks), 1, "One full Python program, not per-task snippets")
                     compiled = compile(blocks[0], slug + ".py", "exec")
