@@ -661,64 +661,64 @@ D. Compare two probability distributions in a directed way | So hai phân phối
 **Giải thích:** KL dùng tỷ số logarit theo một chiều giữa các phân phối.
 
 
-**Q5. What does categorical cross-entropy penalize? | Categorical cross-entropy phạt điều gì?**
+**Q5. Actual values are [2, 4] and predictions are [3, 2]. What is MSE? | Giá trị thật [2, 4], dự đoán [3, 2]. MSE bằng bao nhiêu?**
 
-A. Low predicted probability for the correct label | Xác suất dự đoán thấp cho nhãn đúng
+A. 1.5 | 1.5
 
-B. `mean((y-pred)**2)` | `mean((y-pred)**2)`
+B. 2.5 | 2.5
 
-C. `mean(abs(y-pred))` | `mean(abs(y-pred))`
+C. 3 | 3
 
-D. `delta` | `delta`
-
-**Đáp án: A**
-
-**Giải thích:** Lớp đúng cần được gán xác suất cao.
-
-
-**Q6. Which formula computes MSE? | Công thức nào tính MSE?**
-
-A. Low predicted probability for the correct label | Xác suất dự đoán thấp cho nhãn đúng
-
-B. `mean((y-pred)**2)` | `mean((y-pred)**2)`
-
-C. `mean(abs(y-pred))` | `mean(abs(y-pred))`
-
-D. `delta` | `delta`
+D. 5 | 5
 
 **Đáp án: B**
 
-**Giải thích:** Bình phương từng sai lệch trước khi trung bình.
+**Giải thích:** Sai số là 1 và −2; bình phương là 1 và 4. MSE = (1 + 4)/2 = 2.5.
 
 
-**Q7. Which formula computes MAE? | Công thức nào tính MAE?**
+**Q6. Actual values are [2, 4] and predictions are [3, 2]. What is MAE? | Giá trị thật [2, 4], dự đoán [3, 2]. MAE bằng bao nhiêu?**
 
-A. Low predicted probability for the correct label | Xác suất dự đoán thấp cho nhãn đúng
+A. 0.5 | 0.5
 
-B. `mean((y-pred)**2)` | `mean((y-pred)**2)`
+B. 2.5 | 2.5
 
-C. `mean(abs(y-pred))` | `mean(abs(y-pred))`
+C. 1.5 | 1.5
 
-D. `delta` | `delta`
+D. 3 | 3
 
 **Đáp án: C**
 
-**Giải thích:** Lấy trị tuyệt đối từng sai lệch rồi trung bình.
+**Giải thích:** Lấy trị tuyệt đối các sai số: |3 − 2| = 1 và |2 − 4| = 2; MAE = (1 + 2)/2 = 1.5.
 
 
-**Q8. Which parameter sets Huber's transition point? | Tham số nào đặt điểm chuyển Huber?**
+**Q7. For a correct class, which predicted probability gives the smaller cross-entropy loss? | Với lớp đúng, xác suất dự đoán nào tạo ra cross-entropy nhỏ hơn?**
 
-A. Low predicted probability for the correct label | Xác suất dự đoán thấp cho nhãn đúng
+A. 0.9 | 0.9
 
-B. `mean((y-pred)**2)` | `mean((y-pred)**2)`
+B. 0.5 | 0.5
 
-C. `mean(abs(y-pred))` | `mean(abs(y-pred))`
+C. 0.2 | 0.2
 
-D. `delta` | `delta`
+D. 0.1 | 0.1
+
+**Đáp án: A**
+
+**Giải thích:** Loss của lớp đúng là −log(p). Khi p càng gần 1, loss càng nhỏ; 0.9 là lớn nhất trong bốn giá trị.
+
+
+**Q8. Which loss penalizes a very large error more strongly than MAE? | Hàm mất mát nào phạt sai số cực lớn mạnh hơn MAE?**
+
+A. Mean absolute error | MAE
+
+B. Median absolute deviation | Độ lệch tuyệt đối trung vị
+
+C. Zero-one loss | Loss đúng/sai 0–1
+
+D. Mean squared error | MSE
 
 **Đáp án: D**
 
-**Giải thích:** Delta phân chia hai miền của Huber.
+**Giải thích:** MSE bình phương sai số, nên lỗi lớn tăng nhanh hơn so với MAE chỉ lấy trị tuyệt đối.
 
 
 **Q9. What does `−log(p_true)` represent for one correct class? | `−log(p_true)` biểu thị gì cho một nhãn đúng?**
