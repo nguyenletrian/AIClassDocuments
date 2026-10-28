@@ -27,7 +27,7 @@ EXPECTED = {
     "PRETEST": 3,
 }
 HEADING = "## Code Python"
-TASK_RE = re.compile(r"^### Câu (\d+)$", re.M)
+TASK_RE = re.compile(r"^### Câu (\d+)(?: — [^\n]+)?$", re.M)
 CODE_RE = re.compile(r"^" + r"\x60" * 3 + r"python\n([\s\S]*?)^" + r"\x60" * 3 + r"$", re.M)
 
 
