@@ -1,10 +1,10 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-  "status": "BATCH_02_IN_PROGRESS",
+  "status": "READY_FOR_BATCH_03",
   "expected_word_documents": 8,
-  "completed_word_documents": 3,
-  "complete_nonpretest_docs": 3,
-  "last_completed_batch": 1,
+  "completed_word_documents": 6,
+  "complete_nonpretest_docs": 6,
+  "last_completed_batch": 2,
   "batches": [
     {
       "batch": 1,
@@ -32,12 +32,17 @@
         "LAB-07-probability",
         "LAB-08-statistics"
       ],
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "paths": [
         "docs/labs/LAB-05-06-gradient-descent.md",
         "docs/labs/LAB-07-probability.md",
         "docs/labs/LAB-08-statistics.md"
-      ]
+      ],
+      "pr_number": 191,
+      "merge_sha": "d6f0dc46cf48e7914ff28c59b861fc8bf1e34cfe",
+      "head": "bb45cc6d440362dc0d8cee7d407533487dfee6ec",
+      "ci_run": 40694018871,
+      "ci_conclusion": "SUCCESS"
     },
     {
       "batch": 3,
