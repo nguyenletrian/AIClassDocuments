@@ -1,6 +1,6 @@
 {
   "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
-  "title": "English lab briefs and fully annotated solutions beneath each task",
+  "title": "Each original Word lab -> exactly one bilingual English/Vietnamese brief, source-traceable solution, workflow and formulas",
   "owner_approved": true,
   "approval": "owner_approved",
   "status": "ACTIVE",
@@ -12,7 +12,7 @@
   "output_root": "docs/labs",
   "reference_root": "labs/pythoclass",
   "source_inventory": {
-    "word_labs_existing": [
+    "original_word_labs": [
       "ASSIGNMENT-01-student-dictionary",
       "LAB-04-conditions-loops",
       "LAB-05-student-list",
@@ -21,65 +21,71 @@
       "LAB-08-statistics",
       "LAB-10-file-csv"
     ],
-    "notebook_labs_new": [
-      "LAB-MATH-02-sets-jaccard",
-      "LAB-MATH-03-04-matrix-pca"
+    "word_sources": [
+      "Ass 1.docx",
+      "LAB Session 4.docx",
+      "Lab Session 5.docx",
+      "LAB SESSION 5_6.docx",
+      "LAB SESSION 7.docx",
+      "LAB SESSION 8.docx",
+      "Lab Session 10.docx"
     ],
-    "new_notebooks": [
+    "duplicate_excluded": "MON 2/LAB SESSION 5_6.docx",
+    "not_word_labs_excluded": [
       "2. Math/labs2.ipynb",
       "2. Math/labs3_4.ipynb"
     ],
-    "updated_reference_notebooks": [
-      "2. Math/labs5_6.ipynb",
-      "2. Math/labs8.ipynb"
-    ],
-    "exclude": [
-      "Pretest.docx (not explicitly a lab)",
-      "Duplicate MON 2/LAB SESSION 5_6.docx (same assignment)"
+    "word_brief_transcriptions": "labs/pythoclass/<slug>/LAB.md",
+    "teacher_code_sources": [
+      "labs/pythoclass/<slug>/DEMO.py",
+      "lessons/chapters/PY-*.vi.md",
+      "labs/pythoclass/<slug>/SOLUTION.py (existing reviewed reference only)"
     ]
   },
   "scope": {
-    "total_unique_lab_units": 9,
+    "total_unique_lab_units": 7,
     "batch_size_limit": 3,
     "batches": [
       {
         "batch": 1,
         "labs": [
-          "LAB-MATH-02-sets-jaccard",
-          "LAB-MATH-03-04-matrix-pca",
-          "ASSIGNMENT-01-student-dictionary"
+          "ASSIGNMENT-01-student-dictionary",
+          "LAB-04-conditions-loops",
+          "LAB-05-student-list"
         ]
       },
       {
         "batch": 2,
         "labs": [
-          "LAB-04-conditions-loops",
-          "LAB-05-student-list",
-          "LAB-10-file-csv"
+          "LAB-05-06-gradient-descent",
+          "LAB-07-probability",
+          "LAB-08-statistics"
         ]
       },
       {
         "batch": 3,
         "labs": [
-          "LAB-05-06-gradient-descent",
-          "LAB-07-probability",
-          "LAB-08-statistics"
+          "LAB-10-file-csv"
         ]
       }
     ],
-    "one_export_folder_per_lab": true
+    "one_document_per_original_word_file": true,
+    "output_root": "docs/labs",
+    "output_filename": "<lab-slug>.md",
+    "legacy_multi_file_exports": "superseded_by_owner_correction"
   },
   "contract": [
-    "Read current authoritative source notebook/Word-derived LAB.md and linked owner demo code before writing any English assignment; do not infer unseen Word content.",
-    "Present each original task as clear English, preserving numbers, datasets, instructions and discrepancies. Mark headings reconstructed from notebook code as reconstructed, not a verbatim translation.",
-    "Immediately beneath EACH English task place its explained solution, with fully commented Python including purpose, imports, functions, parameters, intermediate steps, output/edge cases.",
-    "Use owner demo/scripts and existing valid reference SOLUTION.py where applicable; never copy known buggy demonstration behavior without correction and explanation.",
-    "Export each lab into docs/labs/<lab-slug>/ with LAB_EN_SOLVED.md and runnable SOLUTION_ANNOTATED.py (and README.md if useful); existing labs/pythoclass remain source references, do not alter source repo.",
-    "For new Math labs also create source-linked folders under labs/pythoclass with LAB.md, DEMO.py or SOURCE_NOTEBOOK.md, KNOWLEDGE.md and SOLUTION.py, without fabricated original Word documents.",
-    "Use synthetic data and avoid copying private identities from source. Preserve factual source requirements; explain unknown constraints rather than guessing.",
-    "Run head-specific GitHub Actions tests of all new exports plus baseline curriculum and preserve the 46 lessons / 920 MCQs. For each batch, one PR, final HEAD CI SUCCESS before merge.",
-    "Store progress, exact source sha, changed files, PR, CI and caveats in a ledger; do not mark COMPLETE without checks. Stop new batch until previous merged.",
-    "Windows Bridge/PowerShell and CDP 9224 validation remains UNVERIFIED absent real worker proof; no duplicate Bridge task/ACK or automatic new goal after completion."
+    "One original Word DOCX corresponds to ONE consolidated Markdown file docs/labs/<slug>.md. No README, SOLUTION.py, or separate brief in the output directory.",
+    "Every original exercise appears in its original order with: English assignment requirements, faithful Vietnamese translation including all original data/units/tables/formulas, solution code using actual existing teacher DEMO.py or curriculum scripts (or clearly labeled existing reviewed SOLUTION.py only when no runnable demo exists), then step-by-step explanation and relevant formulas BELOW the solution.",
+    "Do not invent exercises, data or algorithms. When demonstration is partial or buggy, explicitly identify the mismatch and identify the sourced reviewed function used for the required step; do not attribute invented code to teacher.",
+    "Preserve 7 Word-source units only. Two notebook-exclusive labs2 and labs3_4 do not count as original Word labs; duplicate MON 2/LAB SESSION 5_6.docx not counted twice; Pretest.docx not part of labs.",
+    "Use original Word-derived LAB.md faithfully without claiming the raw DOCX was re-parsed if only the transcription was verified. Keep PythoClass and labs/pythoclass reference folders unmodified.",
+    "Clearly note the Lab04 electricity example 282000 VND conflicts with progressive rate table result 240000 VND, show both rather than silently changing.",
+    "Do not conflate a setup script with the per-question code: each question must have its own sourced executable code or exact sourced function and explanation. Identify chapter/file provenance for each answer.",
+    "Replace previous docs/labs multi-file exports with one consolidated document per Word lab, preserving earlier PRs as git history. Update the index and tests to the corrected 7-file contract.",
+    "Process in at most 3 Word docs per PR, require exact final PR HEAD GitHub Actions CI SUCCESS before merge; record progress per batch. Do not finish goal before 7 of 7.",
+    "Windows PowerShell/CDP verification remains UNVERIFIED unless verified by actual worker; do not create duplicate tasks or an unapproved successor goal."
   ],
-  "ledger": "docs/LAB-EN-SOLUTIONS-PROGRESS.json"
+  "ledger": "docs/LAB-EN-SOLUTIONS-PROGRESS.json",
+  "revision": "2026-10-28-word-lab-single-document-correction"
 }
