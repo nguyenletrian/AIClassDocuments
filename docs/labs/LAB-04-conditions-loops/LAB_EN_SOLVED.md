@@ -3,6 +3,8 @@
 ## PART 1: CONDITIONAL STATEMENT
 
 ## Task 1 — Sorting numbers
+
+**English lab requirement:**
 Write a program that inputs three real numbers and prints them in ascending order.
 
 **Requirement:** Use only `if...else` statements.
@@ -23,6 +25,8 @@ print(task01_sort_three(8.5, 3.2, 6.7))
 **Step-by-step explanation:** Three conditional swaps compare a/b, b/c and a/b, without built-in sorting. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 2 — Quarter of the year
+
+**English lab requirement:**
 Write a program that inputs a month (1–12) and determines which quarter of the year it belongs to.
 
 **Example:** Input: `5` → Output: `Quarter 2`
@@ -43,6 +47,8 @@ print('Quarter', task02_quarter(5))
 **Step-by-step explanation:** The first three months form Quarter 1, then each next group of three forms a new quarter; an invalid month raises ValueError. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 3 — Days in a month
+
+**English lab requirement:**
 Write a program that inputs a month. Determine the number of days in that month.
 
 **Example:** Input: `3` → Output: `31 days`
@@ -61,6 +67,8 @@ print(task03_month_days(2, year=2024), 'days')
 **Step-by-step explanation:** A twelve-month lookup table provides normal day counts; leap-year February is handled separately. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 4 — Leap year
+
+**English lab requirement:**
 Write a program that inputs a year and determines whether it is a leap year.
 
 **Leap year rules:**
@@ -85,6 +93,8 @@ print(task04_is_leap(2023))
 **Step-by-step explanation:** The century exception matters: 1900 is not a leap year but 2000 is. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 5 — Number name (two digits)
+
+**English lab requirement:**
 Write a program that inputs a two-digit integer and prints its number name.
 
 **Examples:** `12` → `muoi hai`; `25` → `hai muoi lam`.
@@ -104,6 +114,8 @@ print(task05_two_digit(25))
 **Step-by-step explanation:** Integer division // finds tens, divmod returns both tens and units; Vietnamese units may change pronunciation. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 6 — Number name (three digits)
+
+**English lab requirement:**
 Write a program that inputs a three-digit integer and prints its number name.
 
 **Example:** `123` → `mot tram hai muoi ba`.
@@ -123,6 +135,8 @@ print(task06_three_digit(105))
 **Step-by-step explanation:** The hundreds are separated from the remainder, which is spoken with the tens rule or 'linh' when needed. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 7 — Electricity bill
+
+**English lab requirement:**
 Write a program that inputs the amount of electricity consumed in kWh and calculates the electricity bill based on the following rates:
 
 | Electricity usage | Price |
@@ -152,6 +166,8 @@ print(task07_electricity_bill(120), 'VND')
 **Step-by-step explanation:** Progressive billing: 50×1,800 + 50×2,000 + 20×2,500 = 240,000 VND. The original Word example 282,000 VND contradicts its own rate table and is not silently adopted. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 8 — Sum from 1 to n
+
+**English lab requirement:**
 Input a positive integer `n` and calculate the sum of all integers from 1 to `n`.
 
 **Example:** Input `10` → `Sum = 55`.
@@ -170,6 +186,8 @@ print('Sum =', task08_sum_to_n(10))
 **Step-by-step explanation:** range(1, n+1) includes n; a running total accumulates each value. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 9 — Count digits
+
+**English lab requirement:**
 Input a positive integer and count the number of digits.
 
 **Example:** `123456` → `Number of digits = 6`.
@@ -190,6 +208,8 @@ print('Number of digits =', task09_count_digits(123456))
 **Step-by-step explanation:** The mandatory while loop removes one decimal digit each time with integer division by 10. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 10 — Prime number
+
+**English lab requirement:**
 Input a positive integer and determine whether it is prime.
 
 **Example:** `17` → `17 is a prime number.`
@@ -208,6 +228,8 @@ print(task10_is_prime(17))
 **Step-by-step explanation:** Composite divisors come in pairs: it suffices to check integers up to isqrt(n); 1 is not prime. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 11 — GCD
+
+**English lab requirement:**
 Input two positive integers and find their Greatest Common Divisor (GCD).
 
 **Example:** `24 36` → `GCD = 12`.
@@ -226,6 +248,8 @@ print('GCD =', task11_gcd(24, 36))
 **Step-by-step explanation:** Euclid's algorithm repeatedly replaces (a,b) with (b,a % b) until b is zero. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 12 — Rectangle pattern
+
+**English lab requirement:**
 Input integers `m` and `n`, then print a rectangle with `m` rows and `n` columns using `*`.
 
 For `m = 4`, `n = 6`:
@@ -253,6 +277,8 @@ print(task12_rectangle(4, 6))
 **Step-by-step explanation:** The outer loop creates each row and the inner loop appends one asterisk per column. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 13 — Repeated-digit triangle
+
+**English lab requirement:**
 Input an integer `n` and print a number triangle. For `n = 5`:
 
 ```text
@@ -279,6 +305,8 @@ print(task13_repeated_triangle(5))
 **Step-by-step explanation:** Each row uses nested loops to repeat the row number i times. Read [SOLUTION_ANNOTATED.py](SOLUTION_ANNOTATED.py) to see the complete function with comments explaining its branches, parameters and output.
 
 ## Task 14 — Consecutive-number triangle
+
+**English lab requirement:**
 Input an integer `n` and print a triangle containing consecutive numbers. For `n = 4`:
 
 ```text
