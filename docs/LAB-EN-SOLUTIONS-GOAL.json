@@ -3,7 +3,7 @@
   "title": "Each original Word lab -> exactly one bilingual English/Vietnamese brief, source-traceable solution, workflow and formulas",
   "owner_approved": true,
   "approval": "owner_approved",
-  "status": "ACTIVE",
+  "status": "COMPLETED",
   "created_on": "2026-10-28",
   "source_repository": "nguyenletrian/PythoClass",
   "source_branch": "main",
@@ -87,5 +87,18 @@
     "Windows PowerShell/CDP verification remains UNVERIFIED unless verified by actual worker; do not create duplicate tasks or an unapproved successor goal."
   ],
   "ledger": "docs/LAB-EN-SOLUTIONS-PROGRESS.json",
-  "revision": "2026-10-28-word-lab-single-document-correction"
+  "revision": "2026-10-28-word-lab-single-document-correction",
+  "final_manifest": [
+    "docs/labs/ASSIGNMENT-01-student-dictionary.md",
+    "docs/labs/LAB-04-conditions-loops.md",
+    "docs/labs/LAB-05-06-gradient-descent.md",
+    "docs/labs/LAB-05-student-list.md",
+    "docs/labs/LAB-07-probability.md",
+    "docs/labs/LAB-08-statistics.md",
+    "docs/labs/LAB-10-file-csv.md",
+    "docs/labs/README.md"
+  ],
+  "completed_lab_units": 7,
+  "english_vietnamese_tasks": 52,
+  "closeout": "7 original Word lab docs exported as one EN/VI/sourced-code/workflow/formulas Markdown file per lab; 3 exact-head CI-successful merged PRs 187,188,189. 19 obsolete multi-file output blobs removed from docs/labs. PythoClass source unchanged. Windows worker remains UNVERIFIED."
 }
