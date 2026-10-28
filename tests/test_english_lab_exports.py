@@ -107,7 +107,7 @@ class BilingualInlineWordLabQA(unittest.TestCase):
                         "**Quy trình" in part or "**Các bước" in part,
                         slug + ": missing solution procedure",
                     )
-                    examples = re.findall(r"(?ms)^~~~python\\n(.*?)^~~~$", part)
+                    examples = re.findall(r"(?ms)^~~~python\n(.*?)^~~~$", part)
                     self.assertEqual(len(examples), 1, slug + ": expected one formula example")
                     ast.parse(examples[0], filename=slug + "-example.py")
                     self.assertFalse(
