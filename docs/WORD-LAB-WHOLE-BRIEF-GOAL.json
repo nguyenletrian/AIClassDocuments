@@ -1,7 +1,7 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
   "title": "One complete bilingual Word brief, method/formulas, then ALL annotated existing Python code per lab, including Pretest",
-  "status": "WAITING_PRETEST_SOURCE",
+  "status": "ACTIVE",
   "approval": "owner_approved",
   "created_date": "2026-10-28",
   "target_repository": "nguyenletrian/AIClassDocuments",
@@ -49,7 +49,7 @@
     "Keep PythoClass unchanged and avoid exposing student identities. Windows/CDP worker verification UNVERIFIED unless actually tested."
   ],
   "completed_accessible_word_documents": 7,
-  "blocker": "Pretest.docx is private binary. Connected GitHub text-only access returns UnicodeDecodeError; actual original questions unavailable, no Pretest solution generated.",
+  "blocker": "",
   "ready_artifacts": [
     "docs/labs/ASSIGNMENT-01-student-dictionary.md",
     "docs/labs/LAB-04-conditions-loops.md",
@@ -59,5 +59,11 @@
     "docs/labs/LAB-08-statistics.md",
     "docs/labs/LAB-10-file-csv.md"
   ],
-  "pretest_source_status": "NEEDS_READABLE_DOCX_OR_VERIFIED_TEXT"
+  "pretest_source_status": "VERIFIED_DIRECT_OWNER_UPLOAD",
+  "pretest_evidence": {
+    "source_sha256": "6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad",
+    "student_rows": 5,
+    "top_level_tasks": 3,
+    "source_equation": "L(w)=(w-4)^2"
+  }
 }

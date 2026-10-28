@@ -21,7 +21,7 @@ EXPECTED = {
     "LAB-07-probability": 5,
     "LAB-08-statistics": 5,
     "LAB-10-file-csv": 6,
-    "PRETEST": None,
+    "PRETEST": 3,
 }
 MARKERS = [
     "## PART 1 — COMPLETE ORIGINAL ENGLISH ASSIGNMENT",
@@ -114,6 +114,54 @@ class OneWordOneDocument(unittest.TestCase):
                         timeout=75, encoding="utf-8"
                     )
                     self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_pretest_complete_source_values_and_executable_code(self):
+        """Verify all five original Word rows, the embedded loss and exact answers."""
+        progress = self.progress
+        if progress["batches"][3]["status"] in {"BLOCKED_SOURCE_BINARY", "PENDING"}:
+            return
+        content = (DOCS / "PRETEST.md").read_text(encoding="utf-8")
+        en = content.split(MARKERS[0], 1)[1].split(MARKERS[1], 1)[0]
+        vi = content.split(MARKERS[1], 1)[1].split(MARKERS[2], 1)[0]
+        method = content.split(MARKERS[2], 1)[1].split(MARKERS[3], 1)[0]
+        for name, hours, attendance, score in (
+            ("Student A", 2, 60, 50),
+            ("Student B", 3, 65, 55),
+            ("Student C", 4, 75, 65),
+            ("Student D", 5, 80, 70),
+            ("Student E", 6, 95, 90),
+        ):
+            self.assertIn(f"| {name} | {hours} | {attendance} | {score} |", en)
+        self.assertIn("L(w) = (w - 4)^2", en)
+        self.assertIn("Học sinh E", vi)
+        self.assertIn("2.4", method)
+        self.assertIn("13{,}9284", method)
+        code = re.findall(
+            r"^\x60\x60\x60python\n([\s\S]*?)^\x60\x60\x60$",
+            content.split(MARKERS[-1], 1)[1], re.M
+        )
+        self.assertEqual(len(code), 1)
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "pretest_solution.py"
+            path.write_text(code[0], encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, "-B", str(path)],
+                cwd=folder, text=True, capture_output=True,
+                timeout=35, encoding="utf-8"
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            for expected_text in (
+                "Actual-score mean: 66.00",
+                "Student A | 50 | 32", "Student B | 55 | 38",
+                "Student C | 65 | 45", "Student D | 70 | 51",
+                "Student E | 90 | 59",
+                "P(actual score >= 70): 0.400000",
+                "P(actual score >= 70 | hours >= 4): 0.666667",
+                "L(2): 4.00", "Gradient at w=2: -4.00",
+                "Updated w after one step: 2.40",
+                "Loss after one update (extra check): 2.56",
+            ):
+                self.assertIn(expected_text, result.stdout)
 
 
 if __name__ == "__main__":
