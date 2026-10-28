@@ -72,7 +72,21 @@
       "source": "nguyenletrian/PythoClass/Pretest.docx",
       "blob_sha": "044b05d555e82b839e6bdbf23a027da186979900",
       "reason": "Private DOCX binary cannot be read by connected GitHub text fetch: UnicodeDecodeError; direct blob and contents API rejected non-UTF-8. No Pretest prompt inferred.",
-      "status": "BLOCKED_SOURCE_BINARY"
+      "status": "BLOCKED_SOURCE_BINARY",
+      "additional_probe": {
+        "method": "Isolated source-repository GitHub Actions push workflow with zipfile and XML ElementTree (read only)",
+        "source_repository": "nguyenletrian/PythoClass",
+        "source_main_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
+        "workflow_run_id": 40696211547,
+        "workflow_status": "completed",
+        "workflow_conclusion": "failure",
+        "job_id": 122843543517,
+        "job_steps_executed": 0,
+        "job_logs": "404 BlobNotFound",
+        "result": "No text recovered; not safe to invent Pretest requirements",
+        "cleanup": "Temporary branch reset to unchanged main commit; extractor workflow no longer at branch head.",
+        "review_policy": "Do not repeat failed identical extraction on idle heartbeat. Resume only with directly uploaded DOCX or another genuinely readable source."
+      }
     }
   },
   "previous_goal": "aiclassdocuments-lab-english-annotated-solutions-20261028",
