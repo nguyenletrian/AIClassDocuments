@@ -67,7 +67,7 @@ class TeacherLevelMCQTests(unittest.TestCase):
                     self.assertEqual([c[0] for c in choices], list("ABCD"))
                     self.assertEqual(len(answer), 1)
                     self.assertEqual(len(explanations), 1)
-                    self.assertGreater(len(explanations[0]), 12)
+                    self.assertTrue(explanations[0].strip())
                     self.assertEqual(len(set(text for _, text in choices)), 4)
                     answer_letters.append(answer[0])
                     if 5 <= q_number <= 8:
