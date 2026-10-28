@@ -1,7 +1,7 @@
 {
   "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
   "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
-  "status": "READY_FOR_BATCH_02_REVISED",
+  "status": "BATCH_02_REVISED_IN_PROGRESS",
   "last_completed_batch": 1,
   "expected_batches": 3,
   "expected_lab_units": 7,
@@ -38,7 +38,12 @@
         "LAB-07-probability",
         "LAB-08-statistics"
       ],
-      "status": "PENDING"
+      "status": "IN_PROGRESS",
+      "exported_paths": [
+        "docs/labs/LAB-05-06-gradient-descent.md",
+        "docs/labs/LAB-07-probability.md",
+        "docs/labs/LAB-08-statistics.md"
+      ]
     },
     {
       "batch": 3,
