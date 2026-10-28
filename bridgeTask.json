@@ -1189,23 +1189,21 @@
   "goal_review": {
     "enabled": false,
     "approval": "approved",
-    "status": "blocked",
+    "status": "completed",
     "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-    "revision": "2026-10-28-whole-brief-bilingual-pretest-binary-source-blocker",
+    "revision": "2026-10-28-eight-original-word-labs-with-pretest-COMPLETED",
     "title": "Whole English brief then complete Vietnamese brief, detailed solution and full commented code per Word lab plus Pretest",
-    "phase": "WAITING_PRETEST_SOURCE",
+    "phase": "COMPLETED",
     "goal_spec": "docs/WORD-LAB-WHOLE-BRIEF-GOAL.json",
     "progress_ledger": "docs/WORD-LAB-WHOLE-BRIEF-PROGRESS.json",
     "output_root": "docs/labs",
     "expected_word_documents": 8,
     "batch_limit": 3,
-    "active_batch": 4,
-    "active_labs": [
-      "PRETEST"
-    ],
-    "next_review": "7/8 original Word docs COMPLETE, each 4 contiguous sections EN brief → VI translation → detailed walkthrough/formulas → ONE fully commented Python script. PR190, PR191, PR192 merged after exact-final-head GitHub CI SUCCESS. PRETEST.docx in private nguyenletrian/PythoClass (blob SHA 044b05d...), but current GitHub connector only accepts UTF-8 text and fails on DOCX binary with UnicodeDecodeError. BLOCKED_SOURCE_BINARY: do not invent Pretest questions, fabricate lab, retry same probe on every heartbeat or claim goal finished. Only resume Pretest when user provides the DOCX directly in chat or another verified authorized readable source path. Preserve all other files and source repo. Windows/CDP UNVERIFIED.",
-    "review_hold": "Paused due to concrete source binary limitation; 7/8 completed, Pretest missing readable content. No heartbeat repetition or new goal.",
-    "batch_boundary": "PRETEST_ONLY_AFTER_SOURCE_READABLE; no duplicate Bridge queue, no false completion."
+    "active_batch": null,
+    "active_labs": [],
+    "next_review": "COMPLETED: 8/8 original Word assignments, 4/4 batches, each one Markdown file with entire original English prompt/table/equation, entire Vietnamese translation, detailed methods/formulas and one fully annotated existing-example-based Python program. Pretest source recovered directly by owner upload, source SHA256 6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad; original loss L(w)=(w-4)^2 and five student rows verified. Pretest PR193 merge c08239335206b9fcc30185c6773a76ae93f417c8, final head 3d45e3b67604c6b3377277a0fed8029d7cea5420, PR CI 40698235338 SUCCESS. Prior 7 labs PR190/191/192 SUCCESS. Exactly 8 source Word lab Markdown documents and one README in docs/labs, no nested exports, open PRs 0, pending Bridge tasks 0. No new owner-approved goal; goal review disabled. Windows/PowerShell and CDP9224 direct validation UNVERIFIED.",
+    "review_hold": "Goal completed including source-verified Pretest; no repeated heartbeat tasks or new goal without owner approval.",
+    "batch_boundary": "GOAL_COMPLETED_8_SOURCE_WORD_DOCS_4_BATCHES"
   },
   "goal_review_history": [
     {
@@ -1335,6 +1333,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": true,
-    "reason": "7/8 full bilingual Word documents finished, Pretest blocked by unreadable GitHub private DOCX binary. No safe dependency-ready work until readable original source is provided."
+    "reason": "All eight bilingual one-file-per-Word lab documents including Pretest merged with head-specific CI SUCCESS; no successor goal approved."
   }
 }
