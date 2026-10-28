@@ -1,6 +1,6 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-  "status": "READY_FOR_BATCH_02",
+  "status": "BATCH_02_IN_PROGRESS",
   "expected_word_documents": 8,
   "completed_word_documents": 3,
   "complete_nonpretest_docs": 3,
@@ -32,7 +32,12 @@
         "LAB-07-probability",
         "LAB-08-statistics"
       ],
-      "status": "PENDING"
+      "status": "IN_PROGRESS",
+      "paths": [
+        "docs/labs/LAB-05-06-gradient-descent.md",
+        "docs/labs/LAB-07-probability.md",
+        "docs/labs/LAB-08-statistics.md"
+      ]
     },
     {
       "batch": 3,
