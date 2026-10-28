@@ -6,7 +6,11 @@
 
 ---
 
-## PART 1 — COMPLETE ORIGINAL ENGLISH ASSIGNMENT
+## ĐỀ BÀI SONG NGỮ — MỖI CÂU ENGLISH / TIẾNG VIỆT / GIẢI THÍCH
+
+**Cách học:** Đọc yêu cầu tiếng Anh (English: tiếng Anh), xem bản dịch tiếng Việt ngay bên dưới, rồi tới giải thích/công thức. Các thuật ngữ quan trọng có nghĩa tiếng Việt trong ngoặc.
+
+### Bối cảnh và dữ liệu — Original English
 
 # PRETEST
 
@@ -22,37 +26,7 @@ A teacher collects data from five students, including their study hours, attenda
 
 ### Requirements
 
-**Task 1 – Student Performance Analysis and Prediction**
-
-1. Create a NumPy matrix student_data containing study hours, attendance, and actual scores from the given dataset.
-2. Use the matrix to calculate the mean and standard deviation of actual scores.
-3. A simple prediction model is defined as:
-
-   predicted_score = 5 * study_hours + 0.2 * attendance + 10
-
-   Use the matrix to calculate the predicted scores for all five students.
-
-**Task 2 – Probability**
-
-1. Calculate the probability that a randomly selected student has an actual score greater than or equal to 70.
-2. Calculate the probability that a student has an actual score greater than or equal to 70, given that the student studies at least 4 hours.
-
-**Task 3 – Gradient Descent**
-
-A machine learning model uses the loss function:
-
-\[
-L(w) = (w - 4)^2
-\]
-
-1. Calculate the loss when (w=2).
-2. Calculate the gradient when (w=2).
-3. Perform one Gradient Descent update using learning rate (α=0.1) and initial value (w=2).
-4. Briefly explain why Gradient Descent updates the parameter (w).
-
----
-
-## PHẦN 2 — BẢN DỊCH TIẾNG VIỆT TOÀN BỘ ĐỀ
+### Bối cảnh và dữ liệu — Tiếng Việt
 
 # BÀI KIỂM TRA ĐẦU VÀO — PRETEST
 
@@ -68,9 +42,25 @@ Một giáo viên thu thập dữ liệu của **năm học sinh**, gồm số g
 
 ### Yêu cầu
 
+### Câu 1 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+**Task 1 – Student Performance Analysis and Prediction**
+
+1. Create a NumPy matrix student_data containing study hours, attendance, and actual scores from the given dataset.
+2. Use the matrix to calculate the mean and standard deviation of actual scores.
+3. A simple prediction model is defined as:
+
+   predicted_score = 5 * study_hours + 0.2 * attendance + 10
+
+   Use the matrix to calculate the predicted scores for all five students.
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
 **Bài 1 — Phân tích và dự đoán kết quả học tập**
 
-1. Tạo một ma trận NumPy tên là student_data chứa số giờ học, tỷ lệ điểm danh và điểm thi thực tế của năm học sinh theo bảng trên.
+1. Tạo một ma trận NumPy (thư viện tính toán mảng) tên là student_data chứa số giờ học, tỷ lệ điểm danh và điểm thi thực tế của năm học sinh theo bảng trên.
 2. Sử dụng ma trận để tính **điểm trung bình** và **độ lệch chuẩn** của điểm thi thực tế.
 3. Mô hình dự đoán đơn giản đã được định nghĩa:
 
@@ -78,31 +68,9 @@ Một giáo viên thu thập dữ liệu của **năm học sinh**, gồm số g
 
    Sử dụng ma trận để tính điểm dự đoán cho cả năm học sinh.
 
-**Bài 2 — Xác suất**
+**Giải thích từng bước và công thức:**
 
-1. Tính xác suất một học sinh được chọn ngẫu nhiên có điểm thi thực tế **từ 70 trở lên**.
-2. Tính xác suất học sinh có điểm thi thực tế **từ 70 trở lên**, với điều kiện học sinh đó học **ít nhất 4 giờ**.
-
-**Bài 3 — Gradient Descent**
-
-Một mô hình học máy sử dụng hàm mất mát:
-
-\[
-L(w) = (w - 4)^2
-\]
-
-1. Tính giá trị hàm mất mát khi **w = 2**.
-2. Tính gradient (đạo hàm theo w) khi **w = 2**.
-3. Thực hiện **một lần cập nhật** Gradient Descent với tốc độ học **α = 0,1** và giá trị khởi tạo **w = 2**.
-4. Giải thích ngắn gọn tại sao Gradient Descent cập nhật tham số w.
-
----
-
-## Quy trình giải chi tiết và các công thức liên quan
-
-### Bài 1 — Tạo ma trận, thống kê và dự đoán điểm
-
-**Bước 1 — Chuẩn bị ma trận.** Dựa trên ví dụ NumPy của PY-13, dùng np.array() tạo ma trận **5 hàng × 3 cột**; mỗi hàng là một học sinh, theo thứ tự giờ học, tỷ lệ điểm danh (%), điểm thực tế. Chọn dtype=float để các phép nhân và thống kê hoạt động thuận tiện.
+**Bước 1 — Chuẩn bị ma trận.** Dựa trên ví dụ NumPy (thư viện tính toán mảng) của PY-13, dùng np.array() tạo ma trận **5 hàng × 3 cột**; mỗi hàng là một học sinh, theo thứ tự giờ học, tỷ lệ điểm danh (%), điểm thực tế. Chọn dtype=float để các phép nhân và thống kê hoạt động thuận tiện.
 
 **Bước 2 — Lấy cột cần tính.** Cú pháp student_data[:, 2] lấy tất cả hàng ở cột thứ ba (chỉ số bắt đầu từ 0). Cột điểm thực tế là [50, 55, 65, 70, 90]. Tránh tính nhầm trên cột số giờ hoặc tỷ lệ điểm danh.
 
@@ -120,7 +88,7 @@ L(w) = (w - 4)^2
 
 Thay dữ liệu vào, tổng bình phương độ lệch là **970**, do đó độ lệch chuẩn tổng thể bằng \(\sqrt{970/5}=\sqrt{194}\approx\mathbf{13{,}9284}\). Trong NumPy, đây là **np.std(scores, ddof=0)** (mặc định).
 
-**Giả định được làm rõ:** Đề Word chỉ ghi “standard deviation”, **không chỉ định độ lệch chuẩn mẫu hay tổng thể**. Vì vậy lời giải lấy độ lệch chuẩn tổng thể trên đúng năm học sinh đang được phân tích. Nếu coi năm học sinh là *mẫu* đại diện cho nhóm lớn hơn, dùng np.std(scores, ddof=1), kết quả xấp xỉ **15,5724**. Code in cả hai để người học so sánh, nhưng giá trị đáp án chính là 13,9284.
+**Giả định được làm rõ:** Đề Word chỉ ghi “standard deviation (độ lệch chuẩn)”, **không chỉ định độ lệch chuẩn mẫu hay tổng thể**. Vì vậy lời giải lấy độ lệch chuẩn tổng thể trên đúng năm học sinh đang được phân tích. Nếu coi năm học sinh là *mẫu* đại diện cho nhóm lớn hơn, dùng np.std(scores, ddof=1), kết quả xấp xỉ **15,5724**. Code in cả hai để người học so sánh, nhưng giá trị đáp án chính là 13,9284.
 
 **Bước 5 — Dự đoán bằng công thức đề cho.** Không huấn luyện mô hình mới; sử dụng nguyên biểu thức:
 
@@ -140,7 +108,27 @@ trong đó \(h_i\) là số giờ học và \(a_i\) là tỷ lệ điểm danh g
 
 Ví dụ A: 5 × 2 + 0,2 × 60 + 10 = **32**. NumPy cho phép tính đồng thời năm giá trị trên hai cột mảng, không cần chạy năm đoạn code giống nhau.
 
-### Bài 2 — Xác suất và xác suất có điều kiện
+**Ví dụ/lỗi thường gặp:** Tạo ma trận 5×3, lấy cột điểm bằng [:,2]. Mean (trung bình)=66; độ lệch chuẩn tổng thể≈13,9284. Dự đoán A–E theo Word là 32,38,45,51,59.
+
+**Từ vựng chính:** Student Performance (kết quả học tập).
+
+### Câu 2 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+**Task 2 – Probability**
+
+1. Calculate the probability that a randomly selected student has an actual score greater than or equal to 70.
+2. Calculate the probability that a student has an actual score greater than or equal to 70, given that the student studies at least 4 hours.
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
+**Bài 2 — Xác suất**
+
+1. Tính xác suất một học sinh được chọn ngẫu nhiên có điểm thi thực tế **từ 70 trở lên**.
+2. Tính xác suất học sinh có điểm thi thực tế **từ 70 trở lên**, với điều kiện học sinh đó học **ít nhất 4 giờ**.
+
+**Giải thích từng bước và công thức:**
 
 **Bước 1 — Liệt kê kết quả phù hợp.** Có năm học sinh và chọn ngẫu nhiên đều một người. Học sinh D (70 điểm) và E (90 điểm) thỏa điều kiện **điểm ≥ 70**, tổng cộng **2 người**.
 
@@ -156,15 +144,51 @@ P(\text{điểm}\ge70\mid\text{giờ}\ge4)=\frac{2}{3}\approx\mathbf{0.6667}=\ma
 
 **Vì sao không dùng 2/5 lần nữa?** Với xác suất có điều kiện, không gian chọn bị giới hạn còn những người thỏa điều kiện học ít nhất 4 giờ. Ta dùng phép so sánh trên mảng kiểu Boolean giống kỹ thuật từ PY-34: scores >= 70, hours >= 4, kết hợp hai điều kiện bằng toán tử & và dùng np.count_nonzero() đếm kết quả True.
 
-### Bài 3 — Một lần cập nhật Gradient Descent
+**Ví dụ/lỗi thường gặp:** Hai người D,E đạt ≥70 điểm nên 2/5. Trong nhóm học ≥4 giờ chỉ có C,D,E nên xác suất có điều kiện là 2/3.
 
-**Bước 1 — Tính loss hiện tại.** Đề cho hàm mất mát **L(w)=(w−4)²**, một hàm bình phương có giá trị nhỏ nhất bằng 0 tại **w=4**. Khi w=2:
+**Từ vựng chính:** Probability (xác suất).
+
+### Câu 3 — English → Tiếng Việt → Giải thích
+
+**English — Nguyên đề:**
+
+**Task 3 – Gradient Descent**
+
+A machine learning model uses the loss function:
+
+\[
+L(w) = (w - 4)^2
+\]
+
+1. Calculate the loss when (w=2).
+2. Calculate the gradient when (w=2).
+3. Perform one Gradient Descent update using learning rate (α=0.1) and initial value (w=2).
+4. Briefly explain why Gradient Descent updates the parameter (w).
+
+**Tiếng Việt — Dịch ngay dưới đề Anh:**
+
+**Bài 3 — Gradient (độ dốc của hàm) Descent (thuật toán giảm độ dốc)**
+
+Một mô hình học máy sử dụng hàm mất mát:
+
+\[
+L(w) = (w - 4)^2
+\]
+
+1. Tính giá trị hàm mất mát khi **w = 2**.
+2. Tính gradient (đạo hàm theo w) khi **w = 2**.
+3. Thực hiện **một lần cập nhật** Gradient Descent với tốc độ học **α = 0,1** và giá trị khởi tạo **w = 2**.
+4. Giải thích ngắn gọn tại sao Gradient Descent cập nhật tham số w.
+
+**Giải thích từng bước và công thức:**
+
+**Bước 1 — Tính loss (hàm mất mát) hiện tại.** Đề cho hàm mất mát **L(w)=(w−4)²**, một hàm bình phương có giá trị nhỏ nhất bằng 0 tại **w=4**. Khi w=2:
 
 \[
 L(2)=(2-4)^2=\mathbf{4}.
 \]
 
-**Bước 2 — Tính gradient.** Dùng quy tắc đạo hàm của hàm bình phương, tương tự ví dụ trong PY-32:
+**Bước 2 — Tính gradient (độ dốc của hàm).** Dùng quy tắc đạo hàm của hàm bình phương, tương tự ví dụ trong PY-32:
 
 \[
 \frac{dL}{dw}=2(w-4),\qquad
@@ -180,7 +204,7 @@ w_{\text{new}}=w_{\text{old}}-\alpha\,\frac{dL}{dw}
 =2-0.1(-4)=\mathbf{2.4}.
 \]
 
-**Bước 4 — Giải thích ý nghĩa.** Gradient Descent điều chỉnh tham số w theo **hướng ngược gradient** để giảm giá trị loss. Ở đây gradient âm nên bước cập nhật khiến w tăng từ 2 lên 2,4, đến gần điểm tối ưu w=4. Ta có thể tự đối chiếu:
+**Bước 4 — Giải thích ý nghĩa.** Gradient Descent (thuật toán giảm độ dốc) điều chỉnh tham số w theo **hướng ngược gradient** để giảm giá trị loss. Ở đây gradient âm nên bước cập nhật khiến w tăng từ 2 lên 2,4, đến gần điểm tối ưu w=4. Ta có thể tự đối chiếu:
 
 \[
 L(2.4)=(2.4-4)^2=\mathbf{2.56}<4.
@@ -188,151 +212,113 @@ L(2.4)=(2.4-4)^2=\mathbf{2.56}<4.
 
 Giá trị loss sau cập nhật chỉ là **phép kiểm tra bổ sung**; đề yêu cầu đúng một bước, không yêu cầu 1000 epoch hay dùng dữ liệu ở Bài 1 để huấn luyện.
 
+**Ví dụ/lỗi thường gặp:** Loss (hàm mất mát) L(w)=(w−4)² khi w=2 bằng 4; gradient (độ dốc của hàm)=−4; cập nhật một lần với α=0,1 cho w=2,4, loss giảm còn 2,56.
+
+**Từ vựng chính:** Gradient Descent (thuật toán giảm độ dốc).
+
 ---
 
-## PHẦN 4 — TOÀN BỘ CODE PYTHON CÙNG CHÚ THÍCH
+## TOÀN BỘ CODE PYTHON — CHÚ THÍCH NGAY SAU TỪNG DÒNG
 
-**Cách thực hành:** Cài NumPy nếu chưa có bằng lệnh pip install numpy, lưu toàn bộ script bên dưới thành pretest_solution.py và chạy python pretest_solution.py.
-
-Mã tái sử dụng **cấu trúc mảng, cắt cột, thống kê, đếm biến cố và quy tắc cập nhật Gradient Descent từ các ví dụ đã học** (PY-13, PY-15, PY-34, PY-32), thay duy nhất dữ liệu/hàm mất mát để khớp Pretest. Các lệnh print cho phép học viên thấy kết quả ngay, còn assert kiểm tra kết quả có đúng các phép tính của đề.
+**Hướng dẫn:** Chú thích nằm cùng dòng, sau câu lệnh và dấu `#`; không đặt comment riêng trên dòng phía trước. Các câu lệnh kiểm tra dùng `if` (nếu) và `raise ValueError` (báo lỗi dữ liệu), không dùng `assert`. Thuật toán và số liệu giữ như code đã học, các dòng trắng chỉ chia nhóm lệnh.
 
 ```python
-"""PRETEST — Student analysis, probabilities and one Gradient Descent step.
+import numpy as np  # Nạp thư viện (import: nạp vào) để có các hàm đã học.
 
-Adaptation of techniques already taught in AIClassDocuments:
-- PY-13: NumPy arrays/matrices and column indexing
-- PY-15: mean(), std() and vectorized operations
-- PY-34: probability as event count divided by sample-space count
-- PY-32: gradient = derivative; w_new = w_old - learning_rate * gradient
-The dataset and loss function are copied faithfully from the uploaded Word.
-Run: python pretest_solution.py (requires numpy).
-"""
+STUDENT_NAMES = ["Student A", "Student B", "Student C", "Student D", "Student E"]  # Tính hoặc cập nhật biến STUDENT_NAMES từ công thức bên phải.
 
-# NumPy supports a 2D matrix and operations on full columns without manual loops.
-import numpy as np
-
-# The row order matches the original Word table, Student A through Student E.
-STUDENT_NAMES = ["Student A", "Student B", "Student C", "Student D", "Student E"]
-
-# student_data: five rows (students) and three columns:
-# column 0 = study hours; column 1 = attendance (%) ; column 2 = actual score.
-# dtype=float allows multiplication, means and standard deviation.
-student_data = np.array([
-    [2, 60, 50],   # Student A: 2 hours, 60% attendance, score 50.
-    [3, 65, 55],   # Student B: 3 hours, 65% attendance, score 55.
-    [4, 75, 65],   # Student C: 4 hours, 75% attendance, score 65.
-    [5, 80, 70],   # Student D: 5 hours, 80% attendance, score 70.
-    [6, 95, 90],   # Student E: 6 hours, 95% attendance, score 90.
-], dtype=float)
+student_data = np.array([  # Khởi tạo mảng NumPy với số liệu theo đúng đề.
+    [2, 60, 50],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
+    [3, 65, 55],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
+    [4, 75, 65],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
+    [5, 80, 70],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
+    [6, 95, 90],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
+], dtype=float)  # Đóng mảng, danh sách hoặc nhóm tham số.
 
 
-def task1_student_performance(data):
-    """Calculate statistics and predictions from the three-column matrix."""
-    # Check that there are exactly five students and three numeric features.
-    if data.shape != (5, 3):
-        raise ValueError("Expected the original 5-student x 3-column table.")
+def task1_student_performance(data):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
+    if data.shape != (5, 3):  # Kiểm tra điều kiện (condition: điều kiện), thực hiện nhánh khi đúng.
+        raise ValueError("Expected the original 5-student x 3-column table.")  # Báo lỗi khi đầu vào không hợp lệ.
 
-    # [:, 0] means 'all rows of column 0' (study hours).
-    study_hours = data[:, 0]
-    # [:, 1] selects the percentage attendance column.
-    attendance = data[:, 1]
-    # [:, 2] selects actual exam scores: 50, 55, 65, 70, 90.
-    actual_scores = data[:, 2]
+    study_hours = data[:, 0]  # Tính hoặc cập nhật biến study_hours từ công thức bên phải.
+    attendance = data[:, 1]  # Tính hoặc cập nhật biến attendance từ công thức bên phải.
+    actual_scores = data[:, 2]  # Tính hoặc cập nhật biến actual_scores từ công thức bên phải.
 
-    # NumPy mean() adds five actual scores and divides by their count.
-    mean_score = float(np.mean(actual_scores))
+    mean_score = float(np.mean(actual_scores))  # Tính trung bình cộng các giá trị hợp lệ.
 
-    # The Word does not specify sample vs. population standard deviation.
-    # ddof=0 is the NumPy default: population SD, divisor n = 5.
-    population_sd = float(np.std(actual_scores, ddof=0))
-    # ddof=1 gives sample SD, divisor n-1 = 4, for comparison only.
-    sample_sd = float(np.std(actual_scores, ddof=1))
+    population_sd = float(np.std(actual_scores, ddof=0))  # Tính độ lệch chuẩn để đo sự phân tán.
+    sample_sd = float(np.std(actual_scores, ddof=1))  # Tính độ lệch chuẩn để đo sự phân tán.
 
-    # Use EXACTLY the prediction model given in Pretest.docx.
-    # Elementwise operations produce one prediction for each student.
-    predicted_scores = 5 * study_hours + 0.2 * attendance + 10
-    return mean_score, population_sd, sample_sd, predicted_scores
+    predicted_scores = 5 * study_hours + 0.2 * attendance + 10  # Tính hoặc cập nhật biến predicted_scores từ công thức bên phải.
+    return mean_score, population_sd, sample_sd, predicted_scores  # Trả kết quả (return: trả về) cho nơi gọi hàm.
 
 
-def task2_probabilities(data):
-    """Calculate P(score >= 70) and P(score >= 70 | hours >= 4)."""
-    scores = data[:, 2]
-    hours = data[:, 0]
+def task2_probabilities(data):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
+    scores = data[:, 2]  # Tính hoặc cập nhật biến scores từ công thức bên phải.
+    hours = data[:, 0]  # Tính hoặc cập nhật biến hours từ công thức bên phải.
 
-    # Boolean arrays are True when the corresponding condition is satisfied.
-    at_least_70 = scores >= 70                 # D and E: two students.
-    at_least_4_hours = hours >= 4             # C, D and E: three students.
-    both_conditions = at_least_70 & at_least_4_hours
+    at_least_70 = scores >= 70  # Tính hoặc cập nhật biến at_least_70 từ công thức bên phải.
+    at_least_4_hours = hours >= 4  # Tính hoặc cập nhật biến at_least_4_hours từ công thức bên phải.
+    both_conditions = at_least_70 & at_least_4_hours  # Tính hoặc cập nhật biến both_conditions từ công thức bên phải.
 
-    # Probability = favorable student count / all five students.
-    probability_70 = float(np.count_nonzero(at_least_70) / len(scores))
+    probability_70 = float(np.count_nonzero(at_least_70) / len(scores))  # Đếm hoặc cộng phần tử để tính tổng và xác suất.
 
-    # Conditional probability uses ONLY the three students with >= 4 hours.
-    denominator = int(np.count_nonzero(at_least_4_hours))
-    if denominator == 0:                      # Avoid dividing by zero.
-        raise ValueError("No students meet the given study-hours condition.")
-    conditional_probability = float(
-        np.count_nonzero(both_conditions) / denominator
-    )
-    return probability_70, conditional_probability
+    denominator = int(np.count_nonzero(at_least_4_hours))  # Đếm hoặc cộng phần tử để tính tổng và xác suất.
+    if denominator == 0:  # Kiểm tra điều kiện (condition: điều kiện), thực hiện nhánh khi đúng.
+        raise ValueError("No students meet the given study-hours condition.")  # Báo lỗi khi đầu vào không hợp lệ.
+    conditional_probability = float(  # Tính hoặc cập nhật biến conditional_probability từ công thức bên phải.
+        np.count_nonzero(both_conditions) / denominator  # Đếm hoặc cộng phần tử để tính tổng và xác suất.
+    )  # Đóng mảng, danh sách hoặc nhóm tham số.
+    return probability_70, conditional_probability  # Trả kết quả (return: trả về) cho nơi gọi hàm.
 
 
-def task3_gradient_descent(initial_w=2.0, learning_rate=0.1):
-    """One exact gradient step for L(w) = (w - 4)^2, not multiple epochs."""
-    # Given loss function: distance between current w and target 4, squared.
-    loss_before = (initial_w - 4) ** 2
+def task3_gradient_descent(initial_w=2.0, learning_rate=0.1):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
+    loss_before = (initial_w - 4) ** 2  # Tính hoặc cập nhật biến loss_before từ công thức bên phải.
 
-    # Derivative: d[(w-4)^2]/dw = 2*(w-4), so at w=2 it is -4.
-    gradient = 2 * (initial_w - 4)
+    gradient = 2 * (initial_w - 4)  # Tính hoặc cập nhật biến gradient từ công thức bên phải.
 
-    # Move OPPOSITE the gradient; negative gradient means increase w.
-    updated_w = initial_w - learning_rate * gradient
+    updated_w = initial_w - learning_rate * gradient  # Tính hoặc cập nhật biến updated_w từ công thức bên phải.
 
-    # Optional check: evaluate the same loss after this ONE update.
-    loss_after = (updated_w - 4) ** 2
-    return loss_before, gradient, updated_w, loss_after
+    loss_after = (updated_w - 4) ** 2  # Tính hoặc cập nhật biến loss_after từ công thức bên phải.
+    return loss_before, gradient, updated_w, loss_after  # Trả kết quả (return: trả về) cho nơi gọi hàm.
 
 
-def main():
-    """Display and check the results of the three source Word tasks."""
-    mean, pop_sd, sample_sd, predicted = task1_student_performance(student_data)
-    print("TASK 1 — STUDENT PERFORMANCE")
-    print("Actual-score mean:", f"{mean:.2f}")
-    print("Population SD (NumPy default, ddof=0):", f"{pop_sd:.6f}")
-    print("Sample SD (comparison only, ddof=1):", f"{sample_sd:.6f}")
-    print("Student | actual score | predicted score")
-    # zip() pairs each student name with the same row's actual and predicted.
-    for name, actual, prediction in zip(
-        STUDENT_NAMES, student_data[:, 2], predicted
-    ):
-        print(f"{name} | {actual:.0f} | {prediction:.0f}")
+def main():  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
+    mean, pop_sd, sample_sd, predicted = task1_student_performance(student_data)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
+    print("TASK 1 — STUDENT PERFORMANCE")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("Actual-score mean:", f"{mean:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("Population SD (NumPy default, ddof=0):", f"{pop_sd:.6f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("Sample SD (comparison only, ddof=1):", f"{sample_sd:.6f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("Student | actual score | predicted score")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    for name, actual, prediction in zip(  # Duyệt từng phần tử qua vòng lặp (loop: vòng lặp).
+        STUDENT_NAMES, student_data[:, 2], predicted  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
+    ):  # Đóng mảng, danh sách hoặc nhóm tham số.
+        print(f"{name} | {actual:.0f} | {prediction:.0f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
 
-    p70, p70_given_4h = task2_probabilities(student_data)
-    print("TASK 2 — PROBABILITY")
-    print("P(actual score >= 70):", f"{p70:.6f}")
-    print("P(actual score >= 70 | hours >= 4):", f"{p70_given_4h:.6f}")
+    p70, p70_given_4h = task2_probabilities(student_data)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
+    print("TASK 2 — PROBABILITY")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("P(actual score >= 70):", f"{p70:.6f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("P(actual score >= 70 | hours >= 4):", f"{p70_given_4h:.6f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
 
-    loss, derivative, new_w, new_loss = task3_gradient_descent()
-    print("TASK 3 — GRADIENT DESCENT")
-    print("L(2):", f"{loss:.2f}")
-    print("Gradient at w=2:", f"{derivative:.2f}")
-    print("Updated w after one step:", f"{new_w:.2f}")
-    print("Loss after one update (extra check):", f"{new_loss:.2f}")
+    loss, derivative, new_w, new_loss = task3_gradient_descent()  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
+    print("TASK 3 — GRADIENT DESCENT")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("L(2):", f"{loss:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("Gradient at w=2:", f"{derivative:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("Updated w after one step:", f"{new_w:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("Loss after one update (extra check):", f"{new_loss:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
 
-    # The values below are independently determined from the source table.
-    assert student_data.shape == (5, 3)
-    assert np.isclose(mean, 66.0)
-    assert np.isclose(pop_sd, np.sqrt(194.0))
-    assert np.allclose(predicted, [32, 38, 45, 51, 59])
-    assert np.isclose(p70, 2 / 5)
-    assert np.isclose(p70_given_4h, 2 / 3)
-    assert np.isclose(loss, 4.0)
-    assert np.isclose(derivative, -4.0)
-    assert np.isclose(new_w, 2.4)
-    assert new_loss < loss
+    if not (student_data.shape == (5, 3)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    if not (np.isclose(mean, 66.0)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    if not (np.isclose(pop_sd, np.sqrt(194.0))): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    if not (np.allclose(predicted, [32, 38, 45, 51, 59])): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    if not (np.isclose(p70, 2 / 5)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    if not (np.isclose(p70_given_4h, 2 / 3)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    if not (np.isclose(loss, 4.0)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    if not (np.isclose(derivative, -4.0)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    if not (np.isclose(new_w, 2.4)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    if not (new_loss < loss): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
 
 
-if __name__ == "__main__":
-    # Run the complete solution only when invoked as the main Python file.
-    main()
+if __name__ == "__main__":  # Kiểm tra điều kiện (condition: điều kiện), thực hiện nhánh khi đúng.
+    main()  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
 ```
