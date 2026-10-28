@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
-    "revision": "2026-10-28-lab-en-solutions-batch02",
+    "revision": "2026-10-28-lab-en-solutions-batch03",
     "title": "Translate lab prompts to English and add detailed annotated solutions beneath each task",
-    "phase": "READY_FOR_BATCH_02",
+    "phase": "READY_FOR_BATCH_03",
     "goal_spec": "docs/LAB-EN-SOLUTIONS-GOAL.json",
     "progress_ledger": "docs/LAB-EN-SOLUTIONS-PROGRESS.json",
     "reference_repo": "nguyenletrian/PythoClass",
@@ -1202,15 +1202,15 @@
     "batch_limit": 3,
     "expected_lab_units": 9,
     "expected_batches": 3,
-    "active_batch": 2,
+    "active_batch": 3,
     "active_labs": [
-      "LAB-04-conditions-loops",
-      "LAB-05-student-list",
-      "LAB-10-file-csv"
+      "LAB-05-06-gradient-descent",
+      "LAB-07-probability",
+      "LAB-08-statistics"
     ],
-    "next_review": "Owner-approved English annotated lab goal remains active. Batch01 PR185 merged (8e6cf07ad337c1c96e2cc056b8a98a886545d510), final head 2dc6b4935822cc631c36a0b2d38634232258e26d, GitHub Actions CI 40684898756 and 40684898761 SUCCESS. Three folders exported in docs/labs and 20 English tasks with immediate annotated solutions, three runnable scripts. Ledger 1/3 batches, 3/9 labs complete. Next authorized Batch02 ONLY LAB-04-conditions-loops, LAB-05-student-list, LAB-10-file-csv. Read original Word-derived LAB.md and corresponding owner DEMO.py and existing SOLUTION.py. Translate/retain each task accurately in English then place fully commented solution immediately underneath; export a separate docs/labs/<slug>/LAB_EN_SOLVED.md, SOLUTION_ANNOTATED.py, README.md. Keep existing labs/pythoclass source files unchanged. Lab4 original electricity bill example is inconsistent with progressive pricing, highlight rather than silently altering. Update tests/CI, one PR/batch, exact final head CI success before merge, ledger evidence then Batch03. Do not invent or modify PythoClass source Word file content; source snapshot SHA is in goal. Windows and CDP worker UNVERIFIED. No duplicate queue tasks or ACK.",
-    "review_hold": "Batch01 merged with two successful final-head CI workflows. Batch02 only 3 Word-derived labs; do not overlap Batch03 or repeat Batch01. User approved entire 9-lab goal.",
-    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_3; batch02 LAB04/LAB05/LAB10 only; no batch03 until merge and ledger."
+    "next_review": "Owner-approved English lab annotated solutions goal: Batch02 LAB04/LAB05/LAB10 merged PR #186 (7350e2891566455e7552c5858639570e08003f25); final PR head 2564cb5ae72af5ab71381f91028c2e687650df96, CI run 40686309137 pull_request SUCCESS and 40686298181 push SUCCESS. Three exported docs/labs folders contain 27 English requirements with commented solutions and three runnable annotated scripts; Lab10 synthetic students.csv copied, Lab04 282000 VND Word discrepancy flagged vs progressive 240000 VND. Progress 2/3 batches, 6/9 lab units. Final approved Batch03 ONLY LAB-05-06-gradient-descent, LAB-07-probability, LAB-08-statistics. Read current main goal/ledger, source Word-derived LAB.md, DEMO.py, SOLUTION.py and latest owner notebook labs5_6.ipynb, labs8.ipynb. Preserve original 8-row gradient descent data and original 50-row statistics data; preserve task order and exact statements. Export docs/labs/<slug>/LAB_EN_SOLVED.md with English requirement then fully explained solution directly beneath each task, SOLUTION_ANNOTATED.py and README.md, include sample CSV only as necessary. Test/run CI exact PR final HEAD; merge then mark goal COMPLETED and disable goal_review, do not activate another without approval. Keep PythoClass unchanged and Windows/CDP unverified; no duplicate Bridge queue task.",
+    "review_hold": "Batch02 verified merged PR186 with CI SUCCESS and ledger 6/9. Batch03 is final approved 3-lab batch only; no overlapping or duplicate work.",
+    "batch_boundary": "ONE_ACTIVE_BATCH_MAX_3; final Batch03 LAB05-06/LAB07/LAB08 only. Goal closure requires CI successful PR merge, ledger 9/9."
   },
   "goal_review_history": [
     {
@@ -1340,6 +1340,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "New English annotated lab goal active. Batch01 3/9 done and merged CI success; Batch02 LAB04/LAB05/LAB10 dependency-ready."
+    "reason": "English lab solutions Batch02 6/9 complete PR186, final approved Batch03 gradient descent/probability/statistics ready; no open PR/task."
   }
 }
