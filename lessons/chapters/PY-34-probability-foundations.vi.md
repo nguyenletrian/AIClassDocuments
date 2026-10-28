@@ -581,54 +581,54 @@ Tần suất 5.000 lượt phụ thuộc seed và có dao động ngẫu nhiên;
 
 **Q1. What is a random experiment? | Phép thử ngẫu nhiên là gì?**
 
-A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-B. Set of all possible outcomes | Tập tất cả kết quả có thể
+B. A subset of the sample space | Một tập con của không gian mẫu
 
-C. A subset of the sample space | Một tập con của không gian mẫu
+C. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
-D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
+D. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Phép thử có thể sinh kết quả khác nhau.
 
 
 **Q2. What is a sample space? | Không gian mẫu là gì?**
 
-A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. A subset of the sample space | Một tập con của không gian mẫu
 
-B. Set of all possible outcomes | Tập tất cả kết quả có thể
+B. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
-C. A subset of the sample space | Một tập con của không gian mẫu
+C. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
+D. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Không gian mẫu chứa mọi kết quả khả dĩ.
 
 
 **Q3. What is an event? | Biến cố là gì?**
 
-A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-B. Set of all possible outcomes | Tập tất cả kết quả có thể
+B. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
-C. A subset of the sample space | Một tập con của không gian mẫu
+C. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
+D. A subset of the sample space | Một tập con của không gian mẫu
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Biến cố là một nhóm kết quả.
 
 
 **Q4. What is probability? | Xác suất là gì?**
 
-A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-B. Set of all possible outcomes | Tập tất cả kết quả có thể
+B. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
 C. A subset of the sample space | Một tập con của không gian mẫu
 
@@ -645,84 +645,84 @@ A. 0 | 0
 
 B. 0.25 | 0.25
 
-C. 0.5 | 0.5
+C. 1 | 1
 
-D. 1 | 1
+D. 0.5 | 0.5
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Đồng xu có hai mặt đồng khả năng; xác suất mặt ngửa là 1/2 = 0.5.
 
 
 **Q6. If P(A) = 0.35, what is P(not A)? | Nếu P(A) = 0.35, xác suất biến cố đối của A bằng bao nhiêu?**
 
-A. 0.35 | 0.35
+A. 1.35 | 1.35
 
-B. 0.65 | 0.65
+B. 0.75 | 0.75
 
-C. 1.35 | 1.35
+C. 0.35 | 0.35
 
-D. 0.75 | 0.75
+D. 0.65 | 0.65
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Tổng xác suất của A và biến cố đối là 1, nên P(không A) = 1 − 0.35 = 0.65.
 
 
 **Q7. A fair six-sided die is rolled once. What is P(result > 4)? | Tung một xúc xắc sáu mặt công bằng một lần, xác suất ra số lớn hơn 4 là bao nhiêu?**
 
-A. 0 | 0
+A. 1/2 | 1/2
 
-B. 1/6 | 1/6
+B. 1/3 | 1/3
 
-C. 1/2 | 1/2
+C. 0 | 0
 
-D. 1/3 | 1/3
+D. 1/6 | 1/6
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Hai mặt thuận lợi là 5 và 6 trong tổng 6 mặt đồng khả năng: 2/6 = 1/3.
 
 
 **Q8. Two fair coin tosses are independent. What is P(both heads)? | Hai lần tung đồng xu công bằng độc lập. Xác suất cả hai đều ra ngửa là bao nhiêu?**
 
-A. 0.25 | 0.25
+A. 0.75 | 0.75
 
 B. 0.5 | 0.5
 
-C. 0.75 | 0.75
+C. 1 | 1
 
-D. 1 | 1
+D. 0.25 | 0.25
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Nhân xác suất hai biến cố độc lập: 0.5 × 0.5 = 0.25.
 
 
 **Q9. What is P(even) for a fair six-sided die? | Xác suất mặt chẵn của xúc xắc công bằng sáu mặt?**
 
-A. `1/2` | `1/2`
+A. 4 | 4
 
 B. 36 | 36
 
-C. 4 | 4
+C. `1/2` | `1/2`
 
 D. Zero | Bằng 0
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Ba trong sáu mặt là số chẵn.
 
 
 **Q10. How many outcomes are possible with two ordered six-sided dice? | Hai xúc xắc sáu mặt theo cặp có thứ tự có bao nhiêu kết quả?**
 
-A. `1/2` | `1/2`
+A. 4 | 4
 
 B. 36 | 36
 
-C. 4 | 4
+C. Zero | Bằng 0
 
-D. Zero | Bằng 0
+D. `1/2` | `1/2`
 
 **Đáp án: B**
 
@@ -731,45 +731,45 @@ D. Zero | Bằng 0
 
 **Q11. How many ordered pairs of dice sum to nine? | Bao nhiêu cặp có thứ tự của hai xúc xắc có tổng 9?**
 
-A. `1/2` | `1/2`
+A. 36 | 36
 
-B. 36 | 36
+B. 4 | 4
 
-C. 4 | 4
+C. `1/2` | `1/2`
 
 D. Zero | Bằng 0
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Bốn cặp là (3,6), (4,5), (5,4), (6,3).
 
 
 **Q12. What is the probability of the empty event? | Xác suất biến cố rỗng là gì?**
 
-A. `1/2` | `1/2`
+A. 36 | 36
 
-B. 36 | 36
+B. `1/2` | `1/2`
 
-C. 4 | 4
+C. Zero | Bằng 0
 
-D. Zero | Bằng 0
+D. 4 | 4
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Biến cố không thể có xác suất 0.
 
 
 **Q13. What is the probability of the entire sample space? | Xác suất của cả không gian mẫu là gì?**
 
-A. One | Bằng 1
+A. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
 B. `1-P(A)` | `1-P(A)`
 
-C. No, sampling variation occurs | Không, có dao động do lấy mẫu
+C. One | Bằng 1
 
 D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Biến cố chắc chắn có xác suất 1.
 
@@ -791,30 +791,30 @@ D. One die's result does not change probabilities of the other | Kết quả m�
 
 **Q15. Does a simulation always equal the true probability exactly? | Tỷ lệ mô phỏng có luôn bằng xác suất thật?**
 
-A. One | Bằng 1
+A. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
-B. `1-P(A)` | `1-P(A)`
+B. One | Bằng 1
 
-C. No, sampling variation occurs | Không, có dao động do lấy mẫu
+C. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
-D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
+D. `1-P(A)` | `1-P(A)`
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Mẫu hữu hạn dao động quanh xác suất nền.
 
 
 **Q16. What does independence of two dice mean? | Hai xúc xắc độc lập nghĩa là gì?**
 
-A. One | Bằng 1
+A. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
 B. `1-P(A)` | `1-P(A)`
 
 C. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
-D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
+D. One | Bằng 1
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Độc lập nghĩa là một kết quả không đổi xác suất của biến cố còn lại.
 
@@ -836,15 +836,15 @@ D. Its faces do not have equal probabilities | Các mặt không đồng xác su
 
 **Q18. What does a fixed RNG seed not guarantee? | Seed RNG cố định không bảo đảm điều gì?**
 
-A. Display order is not promised | Thứ tự hiển thị không được đảm bảo
+A. Its faces do not have equal probabilities | Các mặt không đồng xác suất
 
-B. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
+B. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
 
-C. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
+C. Display order is not promised | Thứ tự hiển thị không được đảm bảo
 
-D. Its faces do not have equal probabilities | Các mặt không đồng xác suất
+D. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Seed giúp lặp lại mô phỏng nhưng không loại dao động.
 
@@ -853,28 +853,28 @@ D. Its faces do not have equal probabilities | Các mặt không đồng xác su
 
 A. Display order is not promised | Thứ tự hiển thị không được đảm bảo
 
-B. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
+B. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
 
-C. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
+C. Its faces do not have equal probabilities | Các mặt không đồng xác suất
 
-D. Its faces do not have equal probabilities | Các mặt không đồng xác suất
+D. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Mẫu lớn thường ổn định tần suất tương đối hơn.
 
 
 **Q20. Why can't a biased die use simple favorable-count ratios? | Vì sao xúc xắc lệch không dùng phép đếm mặt đơn giản?**
 
-A. Display order is not promised | Thứ tự hiển thị không được đảm bảo
+A. Its faces do not have equal probabilities | Các mặt không đồng xác suất
 
 B. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
 C. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
 
-D. Its faces do not have equal probabilities | Các mặt không đồng xác suất
+D. Display order is not promised | Thứ tự hiển thị không được đảm bảo
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Xác suất không đều cần cộng theo trọng số.
 
