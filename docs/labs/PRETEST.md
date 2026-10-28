@@ -90,105 +90,108 @@ L(w) = (w - 4)^2
 
 ## Giải thích từng câu
 
-### Câu 1
+### Câu 1 — Phân tích điểm và dự đoán
 
-**Bước 1 — Chuẩn bị ma trận.** Dựa trên ví dụ NumPy (thư viện tính toán mảng) của PY-13, dùng np.array() tạo ma trận **5 hàng × 3 cột**; mỗi hàng là một học sinh, theo thứ tự giờ học, tỷ lệ điểm danh (%), điểm thực tế. Chọn dtype=float để các phép nhân và thống kê hoạt động thuận tiện.
+**Mục tiêu:** Dùng bảng của năm học sinh để tính trung bình, độ lệch chuẩn của **điểm thực tế**, sau đó dự đoán điểm bằng biểu thức được đề cung cấp. Không tự huấn luyện mô hình.
 
-**Bước 2 — Lấy cột cần tính.** Cú pháp student_data[:, 2] lấy tất cả hàng ở cột thứ ba (chỉ số bắt đầu từ 0). Cột điểm thực tế là [50, 55, 65, 70, 90]. Tránh tính nhầm trên cột số giờ hoặc tỷ lệ điểm danh.
+**Vì sao làm theo thứ tự này?** Cần chuyển bảng thành mảng số trước, lấy đúng cột điểm thi để thống kê, rồi lấy cột giờ học và điểm danh để dự đoán. Nếu trộn các cột, kết quả sẽ sai dù cú pháp Python đúng.
 
-**Bước 3 — Tính trung bình.** Dùng np.mean() như bài PY-15:
+**Quy trình giải:**
 
-\[
-\bar{x} = \frac{50+55+65+70+90}{5} = \mathbf{66}.
-\]
+1. Tạo mảng có năm hàng, ba cột. Mỗi hàng là một học sinh; các cột lần lượt là giờ học, tỷ lệ điểm danh và điểm thi. `dtype=float` yêu cầu lưu dạng số thực để thuận tiện tính toán.
+2. Lấy cột điểm thực tế bằng `data[:, 2]`. Dấu `:` chọn tất cả hàng, số `2` chọn cột thứ ba vì Python đếm cột từ 0.
+3. Dùng `np.mean(scores)` tính trung bình. Dùng `np.std(scores, ddof=0)` tính độ lệch chuẩn của toàn bộ nhóm năm học sinh. Đề không nêu mẫu hay tổng thể, nên cũng tính thêm `ddof=1` để người học so sánh trường hợp xem năm học sinh là mẫu.
+4. Tính đồng thời điểm dự đoán theo hệ số đề cho; không đổi 60% thành 0.6, vì biểu thức của đề sử dụng trực tiếp giá trị điểm danh 60, 65, ...
 
-**Bước 4 — Tính độ lệch chuẩn.** Độ lệch chuẩn đo độ phân tán của điểm quanh trung bình:
+**Công thức viết bằng Python:**
 
-\[
-\sigma = \sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n}}.
-\]
+~~~python
+import numpy as np
+data = np.array([[2, 60, 50], [3, 65, 55], [4, 75, 65],
+                 [5, 80, 70], [6, 95, 90]], dtype=float)
+hours = data[:, 0]
+attendance = data[:, 1]
+scores = data[:, 2]
+mean_score = np.mean(scores)                    # 66.0
+sd_population = np.std(scores, ddof=0)          # 13.928388...
+sd_sample = np.std(scores, ddof=1)              # 15.572411...
+predicted = 5 * hours + 0.2 * attendance + 10   # [32., 38., 45., 51., 59.]
+~~~
 
-Thay dữ liệu vào, tổng bình phương độ lệch là **970**, do đó độ lệch chuẩn tổng thể bằng \(\sqrt{970/5}=\sqrt{194}\approx\mathbf{13{,}9284}\). Trong NumPy, đây là **np.std(scores, ddof=0)** (mặc định).
+**Giải thích hàm, toán tử và tham số:** `np.array` tạo mảng, `dtype=float` chọn kiểu số thực. `np.mean` lấy trung bình. `np.std` đo độ phân tán; `ddof=0` chia phương sai cho số quan sát `n`, còn `ddof=1` chia cho `n-1`. Phép `*` nhân từng phần tử trong mảng NumPy, `+` cộng. `data[:, 0]` lấy giờ học, `data[:, 1]` lấy điểm danh, `data[:, 2]` lấy điểm thực tế.
 
-**Giả định được làm rõ:** Đề Word chỉ ghi “standard deviation (độ lệch chuẩn)”, **không chỉ định độ lệch chuẩn mẫu hay tổng thể**. Vì vậy lời giải lấy độ lệch chuẩn tổng thể trên đúng năm học sinh đang được phân tích. Nếu coi năm học sinh là *mẫu* đại diện cho nhóm lớn hơn, dùng np.std(scores, ddof=1), kết quả xấp xỉ **15,5724**. Code in cả hai để người học so sánh, nhưng giá trị đáp án chính là 13,9284.
+**Kiểm tra:** Trung bình **66**, độ lệch chuẩn tổng thể khoảng **13.9284**, độ lệch chuẩn mẫu khoảng **15.5724**. Điểm dự đoán lần lượt **32, 38, 45, 51, 59**; học sinh A có `5 * 2 + 0.2 * 60 + 10` bằng **32**. Không nhầm điểm dự đoán với điểm thực tế.
 
-**Bước 5 — Dự đoán bằng công thức đề cho.** Không huấn luyện mô hình mới; sử dụng nguyên biểu thức:
+**Từ vựng:** *Mean* (trung bình), *standard deviation* (độ lệch chuẩn), *prediction* (dự đoán).
 
-\[
-\widehat{y}_i=5h_i+0.2a_i+10,
-\]
+### Câu 2 — Xác suất và xác suất có điều kiện
 
-trong đó \(h_i\) là số giờ học và \(a_i\) là tỷ lệ điểm danh ghi bằng số 60, 65, …, 95 (không tự chia thêm cho 100).
+**Mục tiêu:** Tìm xác suất đạt ít nhất 70 điểm khi chọn bất kỳ học sinh nào; sau đó tìm xác suất đạt ít nhất 70 điểm **nếu đã biết** học sinh đó học ít nhất 4 giờ.
 
-| Học sinh | Điểm thực tế | Điểm dự đoán theo đề |
-|---|---:|---:|
-| A | 50 | **32** |
-| B | 55 | **38** |
-| C | 65 | **45** |
-| D | 70 | **51** |
-| E | 90 | **59** |
+**Tại sao phải giải khác nhau?** Câu đầu xét đủ **5 học sinh**, trong đó D và E đạt 70 điểm trở lên. Câu sau chỉ xét nhóm **C, D, E**, gồm **3 học sinh** học từ 4 giờ; trong nhóm đó D và E đạt ít nhất 70 điểm. Xác suất có điều kiện phải dùng đúng số người trong nhóm được biết trước làm mẫu số.
 
-Ví dụ A: 5 × 2 + 0,2 × 60 + 10 = **32**. NumPy cho phép tính đồng thời năm giá trị trên hai cột mảng, không cần chạy năm đoạn code giống nhau.
+**Quy trình giải:**
 
-**Ví dụ/lỗi thường gặp:** Tạo ma trận 5×3, lấy cột điểm bằng [:,2]. Mean (trung bình)=66; độ lệch chuẩn tổng thể≈13,9284. Dự đoán A–E theo Word là 32,38,45,51,59.
+1. So sánh mảng điểm với 70 để tạo các giá trị đúng/sai; dùng `np.count_nonzero` đếm số học sinh đạt.
+2. Lấy số đạt (**2**) chia cho tổng số (**5**).
+3. So sánh giờ học với 4 để chọn nhóm điều kiện; lấy `&` kết hợp hai điều kiện để đếm người vừa học đủ giờ vừa đạt điểm.
+4. Lấy số người thỏa cả hai (**2**) chia cho số người học từ 4 giờ (**3**). Phải kiểm tra mẫu số khác 0.
 
-**Từ vựng chính:** Student Performance (kết quả học tập).
+**Công thức viết bằng Python:**
 
-### Câu 2
+~~~python
+at_least_70 = scores >= 70
+count_pass = np.count_nonzero(at_least_70)       # 2
+total_students = len(scores)                     # 5
+p_pass = count_pass / total_students             # 0.4
+print(f"{p_pass:.0%}")                           # 40%
 
-**Bước 1 — Liệt kê kết quả phù hợp.** Có năm học sinh và chọn ngẫu nhiên đều một người. Học sinh D (70 điểm) và E (90 điểm) thỏa điều kiện **điểm ≥ 70**, tổng cộng **2 người**.
+at_least_4h = hours >= 4
+both = at_least_70 & at_least_4h
+count_both = np.count_nonzero(both)              # 2
+count_4h = np.count_nonzero(at_least_4h)         # 3
+if count_4h == 0:
+    raise ValueError("Nhóm học từ 4 giờ không có ai")
+p_conditional = count_both / count_4h            # 0.666666...
+print(f"{p_conditional:.2%}")                    # 66.67%
+~~~
 
-\[
-P(\text{điểm}\ge70)=\frac{2}{5}=\mathbf{0.4}=\mathbf{40\%}.
-\]
+**Giải thích hàm, toán tử và flag:** `>=` là lớn hơn **hoặc bằng**, nên điểm đúng 70 vẫn được tính. `&` có nghĩa là *AND* (và) theo từng vị trí của **mảng Boolean** (mảng đúng/sai). `np.count_nonzero` đếm số phần tử đúng. `len` đếm tổng số phần tử, `/` là phép chia thực. Trong f-string (chuỗi định dạng) `:.0%` hiển thị phần trăm không có chữ số thập phân, `:.2%` hiển thị hai chữ số thập phân; đây là **định dạng in**, không sửa giá trị xác suất. `if count_4h == 0` chặn trường hợp chia cho 0.
 
-**Bước 2 — Xét điều kiện số giờ.** Chỉ lấy học sinh **học ≥ 4 giờ**: C, D, E, nên mẫu số giờ còn **3 người**. Trong nhóm này, D và E đạt điểm ≥ 70 nên tử số là **2**.
+**Kết quả:** `p_pass` bằng **0.4 (40%)**; `p_conditional` khoảng **0.6667 (66.67%)**. Không dùng lại mẫu số 5 cho xác suất có điều kiện.
 
-\[
-P(\text{điểm}\ge70\mid\text{giờ}\ge4)=\frac{2}{3}\approx\mathbf{0.6667}=\mathbf{66.67\%}.
-\]
+**Từ vựng:** *Probability* (xác suất), *conditional probability* (xác suất có điều kiện), *Boolean* (đúng/sai).
 
-**Vì sao không dùng 2/5 lần nữa?** Với xác suất có điều kiện, không gian chọn bị giới hạn còn những người thỏa điều kiện học ít nhất 4 giờ. Ta dùng phép so sánh trên mảng kiểu Boolean giống kỹ thuật từ PY-34: scores >= 70, hours >= 4, kết hợp hai điều kiện bằng toán tử & và dùng np.count_nonzero() đếm kết quả True.
+### Câu 3 — Một bước Gradient Descent
 
-**Ví dụ/lỗi thường gặp:** Hai người D,E đạt ≥70 điểm nên 2/5. Trong nhóm học ≥4 giờ chỉ có C,D,E nên xác suất có điều kiện là 2/3.
+**Mục tiêu:** Tính *loss* (mức mất mát) tại `w = 2`, tính *gradient* (độ dốc/đạo hàm), cập nhật tham số `w` **một lần** với tốc độ học `0.1` và giải thích tại sao cần cập nhật.
 
-**Từ vựng chính:** Probability (xác suất).
+**Vì sao dùng gradient?** Loss cho biết tham số hiện tại chưa phù hợp đến đâu. Gradient cho biết hướng tăng của loss; muốn giảm loss, ta điều chỉnh tham số theo **hướng ngược gradient**. Với `w = 2`, gradient âm nghĩa là cần tăng `w` để tiến gần giá trị tối ưu `4`.
 
-### Câu 3
+**Quy trình giải:**
 
-**Bước 1 — Tính loss (hàm mất mát) hiện tại.** Đề cho hàm mất mát **L(w)=(w−4)²**, một hàm bình phương có giá trị nhỏ nhất bằng 0 tại **w=4**. Khi w=2:
+1. Viết biểu thức loss của đề bằng `(w - 4) ** 2`. Với `w=2`, giá trị là **4**.
+2. Áp dụng quy tắc đạo hàm của bình phương, viết `gradient = 2 * (w - 4)`. Với `w=2`, gradient là **-4**.
+3. Tính `updated_w = w - learning_rate * gradient`. Vì gradient âm, kết quả mới là **2.4**, tức `w` tăng lên.
+4. Dùng biểu thức loss ban đầu để kiểm tra tại `updated_w`. Loss giảm còn **2.56**; không cần lặp nhiều lần vì đề yêu cầu đúng một bước.
 
-\[
-L(2)=(2-4)^2=\mathbf{4}.
-\]
+**Công thức viết bằng Python:**
 
-**Bước 2 — Tính gradient (độ dốc của hàm).** Dùng quy tắc đạo hàm của hàm bình phương, tương tự ví dụ trong PY-32:
+~~~python
+w = 2.0
+learning_rate = 0.1
+loss_before = (w - 4) ** 2                  # 4.0
+gradient = 2 * (w - 4)                     # -4.0
+updated_w = w - learning_rate * gradient   # 2.4
+loss_after = (updated_w - 4) ** 2          # 2.56
+print(loss_before, gradient, updated_w, loss_after)
+~~~
 
-\[
-\frac{dL}{dw}=2(w-4),\qquad
-\left.\frac{dL}{dw}\right|_{w=2}=2(2-4)=\mathbf{-4}.
-\]
+**Giải thích toán tử, biến và tham số:** `** 2` là lũy thừa bậc hai trong Python, **không dùng `^`** (toán tử XOR). `*` là nhân và `-` là trừ. `learning_rate=0.1` là kích thước bước cập nhật: quá lớn có thể vượt qua điểm thấp nhất; quá nhỏ làm tiến triển chậm. `gradient` là đạo hàm theo `w`, không phải xác suất. `loss_after` chỉ là phép kiểm tra thêm; bài không yêu cầu `epochs` (số vòng học).
 
-Gradient âm nghĩa là ở w=2, nếu tăng w một lượng nhỏ thì loss giảm. Đây là độ dốc của hàm mất mát đối với tham số w, không phải xác suất hay sai số dự đoán ở Bài 1.
+**Kết quả:** Loss ban đầu **4**, gradient **-4**, giá trị mới **2.4**, loss sau cập nhật **2.56**. Không trộn số liệu học sinh ở Câu 1 vào hàm loss riêng của Câu 3.
 
-**Bước 3 — Cập nhật đúng MỘT lần.** Sử dụng công thức đã học:
-
-\[
-w_{\text{new}}=w_{\text{old}}-\alpha\,\frac{dL}{dw}
-=2-0.1(-4)=\mathbf{2.4}.
-\]
-
-**Bước 4 — Giải thích ý nghĩa.** Gradient Descent (thuật toán giảm độ dốc) điều chỉnh tham số w theo **hướng ngược gradient** để giảm giá trị loss. Ở đây gradient âm nên bước cập nhật khiến w tăng từ 2 lên 2,4, đến gần điểm tối ưu w=4. Ta có thể tự đối chiếu:
-
-\[
-L(2.4)=(2.4-4)^2=\mathbf{2.56}<4.
-\]
-
-Giá trị loss sau cập nhật chỉ là **phép kiểm tra bổ sung**; đề yêu cầu đúng một bước, không yêu cầu 1000 epoch hay dùng dữ liệu ở Bài 1 để huấn luyện.
-
-**Ví dụ/lỗi thường gặp:** Loss (hàm mất mát) L(w)=(w−4)² khi w=2 bằng 4; gradient (độ dốc của hàm)=−4; cập nhật một lần với α=0,1 cho w=2,4, loss giảm còn 2,56.
-
-**Từ vựng chính:** Gradient Descent (thuật toán giảm độ dốc).
+**Từ vựng:** *Gradient Descent* (thuật toán giảm độ dốc), *loss* (hàm mất mát), *learning rate* (tốc độ học), *parameter* (tham số).
 
 
 ## Code Python
