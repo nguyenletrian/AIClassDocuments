@@ -1191,9 +1191,9 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
-    "revision": "2026-10-28-word-lab-single-document-correction",
+    "revision": "2026-10-28-word-lab-single-document-batch02",
     "title": "Each original Word lab -> exactly one bilingual English/Vietnamese brief, source-traceable solution, workflow and formulas",
-    "phase": "READY_FOR_BATCH_01_REVISED",
+    "phase": "READY_FOR_BATCH_02_REVISED",
     "goal_spec": "docs/LAB-EN-SOLUTIONS-GOAL.json",
     "progress_ledger": "docs/LAB-EN-SOLUTIONS-PROGRESS.json",
     "reference_repo": "nguyenletrian/PythoClass",
@@ -1202,15 +1202,15 @@
     "batch_limit": 3,
     "expected_lab_units": 7,
     "expected_batches": 3,
-    "active_batch": 1,
+    "active_batch": 2,
     "active_labs": [
-      "ASSIGNMENT-01-student-dictionary",
-      "LAB-04-conditions-loops",
-      "LAB-05-student-list"
+      "LAB-05-06-gradient-descent",
+      "LAB-07-probability",
+      "LAB-08-statistics"
     ],
-    "next_review": "Owner corrected goal on 2026-10-28: ONE file per source Word doc, no separate code/README exports. Each task EN original, VI translation, actual sourced demo/curriculum-based code, THEN workflow explanation and formulas. There are exactly 7 unique Word labs (Ass1, Lab04, Lab05, Lab05-06, Lab07, Lab08, Lab10); notebook-only Math labs excluded; duplicate MON2 Lab05-06 excluded. Earlier PR185/186 outputs are SUPERSEDED, not counted as completion. Rebuild into docs/labs/<slug>.md, each exercise traceable to labs/pythoclass/<slug>/DEMO.py or source lessons; where demo is incomplete explain and use existing reviewed SOLUTION.py without inventing algorithm or falsely claiming source. First revised batch ONLY Ass1, Lab04, Lab05; 3 Word documents per PR max; CI exact final head success and stable main before merge. Update ledger then Batch02. Keep source repos immutable, Windows/CDP UNVERIFIED.",
-    "review_hold": "Old 9-lab multi-file goal is superseded by explicit owner correction. Only 7 original Word labs are authorized, one document each. Batch01 revised Ass1/Lab04/Lab05 only; do not resume old Batch03.",
-    "batch_boundary": "REVISED_7_WORD_LABS_ONE_FILE_EACH; ACTIVE_BATCH01_3_DOCUMENTS; do not run other batch until reviewed and merged.",
+    "next_review": "Owner-corrected goal: 1 Word file = 1 bilingual English/Vietnamese Markdown document, each task includes sourced code and workflow/formulas BELOW solution. Revised Batch01 Ass1/Lab04/Lab05 3 files (31 tasks) merged PR187 SHA 1aa3e9c2513db28c2119ec356b66d1d207e85e22, final head 771c1637d6dbac662aa3ac2f33e050a31f718bf5, CI 40688092958 and 40688083239 SUCCESS. Ledger 1/3 batches, 3/7 Word docs. Next approved Batch02 ONLY LAB SESSION 5_6.docx, LAB SESSION 7.docx, LAB SESSION 8.docx. Read source Word-derived LAB.md in labs/pythoclass and actual DEMO.py/updated notebooks plus existing reviewed SOLUTION.py. Produce docs/labs/<slug>.md ONLY, per task EN original → VI translation → sourced commented code → explanatory steps and formulas, retain all 8/50-row datasets, tables/units/numeric parameters, disclose demo gaps. No extra outputs per lab. Check CI final-head before merge. Legacy docs/labs multi-file folders remain temporarily pending final cleanup before closing goal.",
+    "review_hold": "Only Batch02 3 original Word labs active; old notebook-only lab unit work is superseded. Do not duplicate Batch01 or run batch03 until CI and ledger.",
+    "batch_boundary": "REVISED_BATCH02_ONLY_3_WORD_DOCS; no third batch until merged successful CI.",
     "output_format": "ONE_MARKDOWN_FILE_PER_WORD_LAB"
   },
   "goal_review_history": [
@@ -1341,6 +1341,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": false,
-    "reason": "Owner corrected lab format. Revised one-Word-one-document goal active batch01, prior 9-lab multi-file exports superseded, no pending tasks."
+    "reason": "Corrected one-file-per-Word goal active; first 3/7 complete CI SUCCESS PR187; next 3 Word sources only."
   }
 }
