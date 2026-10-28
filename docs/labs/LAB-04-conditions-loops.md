@@ -211,7 +211,16 @@ Nhập `n`, dùng **vòng lặp lồng nhau** và biến đếm liên tục. V�
 
 So sánh cặp `(a,b)`, `(b,c)`, rồi `(a,b)` và đổi chỗ khi cặp không đúng thứ tự. Đây là cách dùng điều kiện, không gọi `sort()`.
 
-**Quy tắc / công thức:** Nếu `a > b` thì hoán đổi `a,b = b,a`; tương tự cho các cặp.
+**Vì sao so sánh từng cặp?** Đề yêu cầu luyện `if/else`, nên không dùng hàm sắp xếp có sẵn. Đưa số nhỏ về đầu bằng các lần so sánh và hoán đổi.
+**Quy trình:** So a với b → so b với c → so lại a với b. Sau lượt cuối, thứ tự là tăng dần.
+~~~python
+a, b, c = 8.5, 3.2, 6.7
+if a > b: a, b = b, a
+if b > c: b, c = c, b
+if a > b: a, b = b, a
+print(a, b, c)  # 3.2 6.7 8.5
+~~~
+**Cú pháp:** `>` so sánh lớn hơn; `a, b = b, a` hoán đổi hai biến mà không cần biến tạm. Không dùng `sorted` vì trái mục đích luyện điều kiện.
 
 **Điểm cần kiểm tra:** dùng `if/elif/else` đúng các bài điều kiện và so sánh hai số.
 
@@ -223,7 +232,15 @@ So sánh cặp `(a,b)`, `(b,c)`, rồi `(a,b)` và đổi chỗ khi cặp không
 
 Kiểm tra tháng hợp lệ, sau đó xem tháng nằm ở 1–3, 4–6, 7–9 hay 10–12 để trả quý.
 
-**Quy tắc / công thức:** Quý có thể xác định bằng `(month-1)//3 + 1` nhưng code nguồn thực hành `if/elif` đúng yêu cầu.
+**Vì sao chia thành bốn mốc?** Một năm có 12 tháng và mỗi quý gồm ba tháng; điều kiện theo mốc dễ đọc và đúng yêu cầu luyện nhánh.
+**Quy trình:** Kiểm tra tháng 1–12 → xét đến 3, đến 6, đến 9 → còn lại quý 4.
+~~~python
+month = 5
+if not 1 <= month <= 12:
+    raise ValueError("Tháng không hợp lệ")
+quarter = 1 if month <= 3 else 2 if month <= 6 else 3 if month <= 9 else 4
+~~~
+**Cú pháp:** `<=` có tính cả mốc; `not` phủ định điều kiện hợp lệ; `if/elif/else` trong code hoàn chỉnh giúp tránh tính mốc sai. Có thể viết `(month - 1) // 3 + 1` nhưng không dùng nó để thay bài luyện điều kiện; `//` là chia lấy phần nguyên.
 
 **Điểm cần kiểm tra:** quy tắc năm nhuận và số ngày tháng 2.
 
@@ -235,7 +252,14 @@ Kiểm tra tháng hợp lệ, sau đó xem tháng nằm ở 1–3, 4–6, 7–9 
 
 Dùng danh sách ngày của 12 tháng. Nếu tháng 2 của năm nhuận thì lấy 29, không lấy 28. Mã này tham chiếu thêm `leap_year()` ở mã nguồn đã học.
 
-**Quy tắc / công thức:** Năm nhuận: `year % 400 == 0 or (year % 4 == 0 and year % 100 != 0)`.
+**Vì sao cần biết năm?** Tháng 2 có thể có 28 hoặc 29 ngày, nên chỉ nhập tháng chưa đủ nếu muốn xác định chính xác tháng 2; code tham khảo dùng tham số `year=2026` khi không truyền năm.
+**Quy trình:** Kiểm tra tháng → lấy số ngày mặc định từ danh sách → riêng tháng 2 kiểm tra năm nhuận.
+~~~python
+days = [31,28,31,30,31,30,31,31,30,31,30,31]
+month, year = 2, 2024
+result = 29 if month == 2 and leap_year(year) else days[month - 1]
+~~~
+**Giải thích:** `days[month - 1]` đổi tháng 1 thành chỉ số 0; `and` yêu cầu cả tháng 2 và năm nhuận; `year=2026` là **tham số mặc định** của hàm cuối bài, không có nghĩa mọi năm là 2026.
 
 **Điểm cần kiểm tra:** tách chữ số bằng phép chia nguyên `//` và chia dư `%`.
 
@@ -247,7 +271,13 @@ Dùng danh sách ngày của 12 tháng. Nếu tháng 2 của năm nhuận thì l
 
 Dùng toán tử `%` kiểm tra các trường hợp chia hết; điều kiện năm dương loại đầu vào không hợp lệ.
 
-**Quy tắc / công thức:** Chia hết cho 400 **hoặc** chia hết cho 4 và **không** chia hết cho 100.
+**Vì sao kiểm tra 400, 100 và 4?** Năm chia hết cho 4 thường là nhuận, nhưng năm tròn thế kỷ chỉ nhuận khi chia hết cho 400. Bỏ điều kiện 100 sẽ khiến năm 1900 bị xử lý sai.
+**Quy trình:** Kiểm tra năm dương → xét chia hết 400 → hoặc chia hết 4 nhưng không chia hết 100.
+~~~python
+year = 2024
+is_leap = (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)
+~~~
+**Cú pháp:** `%` lấy số dư; `== 0` là chia hết; `!=` là khác; `and` cần cả hai điều kiện; `or` cho phép một trong hai trường hợp năm nhuận. Ví dụ 2000 đúng, 1900 sai.
 
 **Điểm cần kiểm tra:** tiền điện lũy tiến: `50×1800 + 50×2000 + 20×2500 = 240000 VND` cho 120 kWh; đề Word ghi 282000, không khớp.
 
@@ -259,7 +289,14 @@ Dùng toán tử `%` kiểm tra các trường hợp chia hết; điều kiện 
 
 Tách hàng chục và đơn vị, chọn từ đọc thích hợp trong danh sách từ đã có (`WORDS`). Một số trường hợp đặc biệt như số 25 đọc `lam`.
 
-**Quy tắc / công thức:** `tens = n // 10`, `units = n % 10`.
+**Vì sao tách hàng chục và hàng đơn vị?** Muốn đọc một số hai chữ số phải biết chữ số hàng chục và phần còn lại để ghép từ theo tiếng Việt.
+**Quy trình:** Kiểm tra 10–99 → chia thành chục và đơn vị → chọn trường hợp 10–19, chục khác 1, các âm đọc đặc biệt → ghép chuỗi.
+~~~python
+n = 25
+tens, units = divmod(n, 10)  # 2 và 5
+# Hàm task05_two_digit(n) trong code cuối bài xử lý cách đọc.
+~~~
+**Cú pháp:** `divmod(n, 10)` trả cùng lúc thương nguyên và số dư, tương đương `n // 10` và `n % 10`. `WORDS[index]` tra từ đọc số; `return` trả chuỗi, không phải phép cộng số.
 
 **Điểm cần kiểm tra:** vòng lặp `for`/ `while`, nguyên tố đến `√n`, Euclid `gcd(a,b)=gcd(b,a%b)`.
 
@@ -271,7 +308,16 @@ Tách hàng chục và đơn vị, chọn từ đọc thích hợp trong danh s�
 
 Tách hàng trăm và phần dư. Nếu phần dư nhỏ hơn 10 dùng cách đọc `linh`, còn lại gọi lại hàm đọc hai chữ số; cần dùng `WORDS` và `task05_two_digit` đã được định nghĩa chung.
 
-**Quy tắc / công thức:** `hundreds = n // 100`, `rest = n % 100`.
+**Vì sao dùng lại bài hai chữ số?** Đọc số ba chữ số gồm hàng trăm và phần còn lại; tái sử dụng hàm đọc hai chữ số tránh viết lại toàn bộ quy tắc.
+**Quy trình:** Kiểm tra 100–999 → tách trăm và phần dư → đọc trăm → nếu dư bằng 0 kết thúc, dư dưới 10 thêm “linh”, còn lại gọi hàm hai chữ số.
+~~~python
+n = 105
+hundreds, rest = divmod(n, 100)  # 1 và 5
+result = WORDS[hundreds] + " tram"
+if 0 < rest < 10:
+    result += " linh " + WORDS[rest]
+~~~
+**Cú pháp:** `divmod(n,100)` tách trăm và phần dư; `+` nối chuỗi; `0 < rest < 10` xét khoảng. Trong code hoàn chỉnh, chữ số 5 có quy tắc đọc riêng, và phần dư hai chữ số được chuyển sang `task05_two_digit`.
 
 **Điểm cần kiểm tra:** vòng lặp lồng nhau tạo đúng số dòng/cột và số chữ số.
 
@@ -283,7 +329,21 @@ Tách hàng trăm và phần dư. Nếu phần dư nhỏ hơn 10 dùng cách đ�
 
 Không nhân tất cả kWh với mức giá cao nhất. Lần lượt tính 50 kWh ở bậc 1, 50 kWh tiếp theo bậc 2, phần còn lại 20 kWh bậc 3.
 
-**Quy tắc / công thức:** `50×1.800 + 50×2.000 + 20×2.500 = 240.000 VND`. Số 282.000 VND trong Word không suy ra từ bảng giá.
+**Vì sao tính theo các bậc?** Giá mỗi kWh thay đổi theo lượng điện tích lũy. Không thể lấy cả 120 kWh nhân đơn giá 2.500 vì 100 kWh đầu có giá thấp hơn.
+**Quy trình:** Kiểm tra lượng điện không âm → lấy tối đa 50 kWh cho bậc 1 → tối đa 50 cho bậc 2 → tối đa 100 cho bậc 3 → phần còn lại ở bậc 4 → cộng chi phí.
+~~~python
+remaining = 120
+total = 0
+for width, rate in [(50,1800),(50,2000),(100,2500)]:
+    amount = min(remaining, width)
+    total += amount * rate
+    remaining -= amount
+    if remaining <= 0:
+        break
+total += remaining * 3000
+print(total)  # 240000
+~~~
+**Cú pháp:** `min` lấy mức điện chưa dùng hoặc độ rộng bậc (giá trị nhỏ hơn); `+=` cộng dồn; `-=` trừ phần đã dùng; `break` ngừng khi hết điện. **Lưu ý:** Ví dụ 282.000 VND trong đề Word không khớp bảng giá; code tính đúng giá lũy tiến ra **240.000 VND** cho 120 kWh.
 
 **Điểm cần kiểm tra:** vòng lặp lồng nhau tạo đúng số dòng/cột và số chữ số.
 
@@ -295,7 +355,15 @@ Không nhân tất cả kWh với mức giá cao nhất. Lần lượt tính 50 
 
 Tạo biến tổng ban đầu bằng 0, sau đó cộng từng giá trị của `range(1,n+1)`.
 
-**Quy tắc / công thức:** Tổng `1+2+⋯+n = n(n+1)/2`, nhưng code nguồn dùng vòng lặp đúng yêu cầu.
+**Vì sao lặp từ 1 đến n?** Đề yêu cầu luyện vòng lặp; cộng dồn từng số cho thấy tổng được hình thành như thế nào và dễ kiểm tra bằng ví dụ nhỏ.
+**Quy trình:** Kiểm tra n dương → đặt tổng bằng 0 → duyệt 1 đến n → cộng mỗi số vào tổng.
+~~~python
+n, total = 10, 0
+for value in range(1, n + 1):
+    total += value
+print(total)  # 55
+~~~
+**Cú pháp:** `range(1, n + 1)` phải cộng 1 ở biên trên vì range **không lấy cận cuối**; `+=` cập nhật tổng. Có thể kiểm tra bằng `n * (n + 1) // 2` nhưng code chính dùng vòng lặp đúng bài.
 
 **Điểm cần kiểm tra:** vòng lặp lồng nhau tạo đúng số dòng/cột và số chữ số.
 
@@ -307,7 +375,16 @@ Tạo biến tổng ban đầu bằng 0, sau đó cộng từng giá trị của
 
 Mỗi lượt dùng phép chia nguyên cho 10 để bỏ chữ số tận cùng, rồi tăng biến đếm; tiếp tục khi số vẫn lớn hơn 0.
 
-**Quy tắc / công thức:** `n //= 10` sau mỗi lượt, số lần lặp là số chữ số.
+**Vì sao chia nguyên liên tục?** Mỗi lần bỏ chữ số tận cùng làm số ngắn đi một chữ số; đếm số lần cho biết số chữ số.
+**Quy trình:** Kiểm tra n nguyên dương → đặt bộ đếm 0 → mỗi vòng tăng đếm, bỏ chữ số cuối → dừng khi số bằng 0.
+~~~python
+n, count = 12345, 0
+while n > 0:
+    count += 1
+    n //= 10
+print(count)  # 5
+~~~
+**Cú pháp:** `//= 10` là chia lấy phần nguyên rồi gán lại, nên 123 thành 12; `while` lặp khi điều kiện còn đúng; `+=` tăng bộ đếm. Code này không dùng cho n=0 nếu bài quy định n phải dương.
 
 **Điểm cần kiểm tra:** vòng lặp lồng nhau tạo đúng số dòng/cột và số chữ số.
 
@@ -319,7 +396,18 @@ Mỗi lượt dùng phép chia nguyên cho 10 để bỏ chữ số tận cùng,
 
 Số nguyên tố phải lớn hơn 1. Thử ước số từ 2 đến căn bậc hai nguyên; nếu tìm thấy ước thì không nguyên tố.
 
-**Quy tắc / công thức:** Chỉ cần thử ước `d ≤ √n`, vì một cặp thừa số của hợp số luôn có ít nhất một số không vượt √n.
+**Vì sao chỉ thử đến căn bậc hai?** Nếu một số có ước khác 1 và chính nó thì sẽ có ít nhất một ước không lớn hơn căn bậc hai; thử xa hơn là không cần.
+**Quy trình:** Loại n <= 1 → thử các ước nguyên từ 2 đến căn bậc hai của n → gặp ước chia hết thì trả False → không gặp thì trả True.
+~~~python
+from math import isqrt
+n = 29
+prime = n > 1
+for divisor in range(2, isqrt(n) + 1):
+    if n % divisor == 0:
+        prime = False
+        break
+~~~
+**Cú pháp:** `isqrt(n)` trả căn bậc hai **nguyên** không vượt quá n; `+1` trong range để xét cả biên; `%` lấy dư, `== 0` nghĩa là chia hết; `break` dừng ngay khi tìm thấy ước. Với n=1 phải trả False.
 
 **Điểm cần kiểm tra:** vòng lặp lồng nhau tạo đúng số dòng/cột và số chữ số.
 
@@ -331,7 +419,15 @@ Số nguyên tố phải lớn hơn 1. Thử ước số từ 2 đến căn bậ
 
 Thực hiện thuật toán Euclid bằng phần dư; thay cặp số cho đến khi số thứ hai bằng 0.
 
-**Quy tắc / công thức:** `gcd(a,b) = gcd(b, a % b)` khi `b != 0`.
+**Vì sao dùng phép dư?** Thuật toán Euclid dựa trên thực tế hai số có chung các ước như cặp số gồm số thứ hai và phần dư khi chia số thứ nhất cho số thứ hai.
+**Quy trình:** Kiểm tra hai số dương → thay cặp (a,b) bằng (b, phần dư) → tiếp tục đến khi b bằng 0 → a lúc đó là ước chung lớn nhất.
+~~~python
+a, b = 24, 18
+while b != 0:
+    a, b = b, a % b
+print(a)  # 6
+~~~
+**Cú pháp:** `%` là chia lấy dư; `a, b = b, a % b` cập nhật đồng thời hai biến; `while` ngừng khi b bằng 0. Không phải phép chia `/`, vì cần số dư nguyên.
 
 **Điểm cần kiểm tra:** vòng lặp lồng nhau tạo đúng số dòng/cột và số chữ số.
 
@@ -343,7 +439,19 @@ Thực hiện thuật toán Euclid bằng phần dư; thay cặp số cho đến
 
 Vòng ngoài tạo hàng, vòng trong nối từng dấu `*`; ghép các hàng bằng xuống dòng.
 
-**Quy tắc / công thức:** Số ký tự `*` in ra bằng `m × n`.
+**Vì sao dùng vòng lặp lồng nhau?** Hình chữ nhật có số hàng và số cột cố định; vòng ngoài tạo hàng, vòng trong tạo từng dấu sao.
+**Quy trình:** Kiểm tra hàng/cột dương → với mỗi hàng, nối đúng số dấu sao bằng vòng lặp trong → gom các dòng → ghép bằng ký tự xuống dòng.
+~~~python
+rows, cols = 2, 3
+lines = []
+for _ in range(rows):
+    line = ""
+    for _ in range(cols):
+        line += "*"
+    lines.append(line)
+result = "\n".join(lines)
+~~~
+**Cú pháp:** `_` là biến lặp không cần dùng; `range(rows)` lặp đúng số hàng; `+=` nối chuỗi dấu sao; `"\n".join(lines)` ghép các dòng xuống hàng. Tổng số dấu sao có thể đối chiếu bằng `rows * cols`, nhưng code thực hành vẫn dùng vòng lặp.
 
 **Điểm cần kiểm tra:** vòng lặp lồng nhau tạo đúng số dòng/cột và số chữ số.
 
@@ -355,7 +463,17 @@ Vòng ngoài tạo hàng, vòng trong nối từng dấu `*`; ghép các hàng b
 
 Vòng ngoài chọn số hàng `i`, vòng trong lặp lại ký tự `str(i)` đúng `i` lần.
 
-**Quy tắc / công thức:** Hàng i có i ký tự; tổng số ký tự là `n(n+1)/2`.
+**Vì sao số ký tự tăng theo hàng?** Tam giác yêu cầu hàng 1 một ký tự, hàng 2 hai ký tự,... nên vòng trong phải phụ thuộc chỉ số hàng hiện tại, không dùng một số cột cố định.
+**Quy trình:** Duyệt hàng từ 1 đến n → chuyển số hàng thành chuỗi → lặp đúng i lần để ghép ký tự → lưu dòng.
+~~~python
+n, rows = 4, []
+for i in range(1, n + 1):
+    line = ""
+    for _ in range(i):
+        line += str(i)
+    rows.append(line)
+~~~
+**Cú pháp:** `str(i)` chuyển số thành chữ để ghép chuỗi, `range(i)` lặp i lần, `append` đưa dòng vào list. Số ký tự toàn tam giác đối chiếu bằng `n * (n + 1) // 2`.
 
 **Điểm cần kiểm tra:** vòng lặp lồng nhau tạo đúng số dòng/cột và số chữ số.
 
@@ -367,7 +485,19 @@ Vòng ngoài chọn số hàng `i`, vòng trong lặp lại ký tự `str(i)` đ
 
 Biến `current` bắt đầu từ 1; vòng trong in số rồi tăng biến này trước khi sang hàng khác.
 
-**Quy tắc / công thức:** Hàng i có i số; số cuối tam giác n hàng là `n(n+1)/2`.
+**Vì sao cần biến current?** Đề yêu cầu số tăng liên tục qua nhiều hàng, không bắt đầu lại từ 1 mỗi khi sang hàng mới.
+**Quy trình:** Khởi tạo `current=1` → hàng i tạo đúng i số → sau mỗi số tăng current → ghép số trong hàng bằng dấu cách → ghép các hàng bằng xuống dòng.
+~~~python
+n, current, rows = 4, 1, []
+for i in range(1, n + 1):
+    values = []
+    for _ in range(i):
+        values.append(str(current))
+        current += 1
+    rows.append(" ".join(values))
+result = "\n".join(rows)
+~~~
+**Cú pháp:** `str` chuyển số sang chuỗi; `" ".join(values)` ghép với dấu cách; `+=` tăng số sau mỗi lần in; `"\n".join(rows)` xuống hàng. Số cuối cần bằng `n * (n + 1) // 2`: n=4 cho số cuối 10.
 
 **Điểm cần kiểm tra:** vòng lặp lồng nhau tạo đúng số dòng/cột và số chữ số.
 
