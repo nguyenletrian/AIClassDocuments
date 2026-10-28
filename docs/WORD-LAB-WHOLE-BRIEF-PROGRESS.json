@@ -124,7 +124,7 @@
   "exactly_one_document_per_original_word_verified": true,
   "latest_editorial_revision": {
     "revision": "2026-10-28-en-vi-per-question-detailed-inline-comments",
-    "status": "IN_PR_CI",
+    "status": "COMPLETED",
     "branch": "feat/word-labs-interleaved-bilingual-inline-notes-20261028",
     "documents": 8,
     "source_unchanged": true,
@@ -136,6 +136,11 @@
       "inline explanation on each physical code line",
       "run all 8 scripts"
     ],
-    "windows_validation": "UNVERIFIED"
+    "windows_validation": "UNVERIFIED",
+    "pr_number": 194,
+    "merge_sha": "9e894acb44efd4d1dd01768f6c3136b3c3a48539",
+    "final_pr_head_sha": "0b5cd4af76c27018d1d4ec306857b52979f94bdb",
+    "ci_run_id": 40702199614,
+    "ci_conclusion": "SUCCESS"
   }
 }
