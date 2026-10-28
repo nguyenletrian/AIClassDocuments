@@ -294,7 +294,7 @@ Tách hàng chục và đơn vị, chọn từ đọc thích hợp trong danh s�
 ~~~python
 n = 25
 tens, units = divmod(n, 10)  # 2 và 5
-# Hàm task05_two_digit(n) trong code cuối bài xử lý cách đọc.
+print(task05_two_digit(n))  # Hàm hoàn chỉnh xử lý cách đọc số.
 ~~~
 **Cú pháp:** `divmod(n, 10)` trả cùng lúc thương nguyên và số dư, tương đương `n // 10` và `n % 10`. `WORDS[index]` tra từ đọc số; `return` trả chuỗi, không phải phép cộng số.
 
