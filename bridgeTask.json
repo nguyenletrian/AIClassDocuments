@@ -1187,27 +1187,27 @@
     "reason": "Owner-approved shared AIBrigde ChatGPT Conversation Reliability task. Load merged AIBrigde main PR #26 fae2617706314b2a600f9e0044827b4cddcb1f68 before running pending v2 browser:conversation_structure_probe with payload.detail_level=contexts. Managed restart barrier is processed first, before task dispatch. Preserve Edge session, current ChatGPT conversation, 17 completed task ACKs and Jetking goal_review.enabled=false. Read-only context counts only; do not replay the older v1 task or create/move ChatGPT conversation. A stale v1 result instead of v2 is NOT acceptable; report runtime freshness mismatch."
   },
   "goal_review": {
-    "enabled": false,
+    "enabled": true,
     "approval": "approved",
-    "status": "completed",
-    "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
-    "revision": "2026-10-28-one-original-word-lab-one-bilingual-file-COMPLETED",
-    "title": "Each original Word lab -> exactly one bilingual English/Vietnamese brief, source-traceable solution, workflow and formulas",
-    "phase": "COMPLETED",
-    "goal_spec": "docs/LAB-EN-SOLUTIONS-GOAL.json",
-    "progress_ledger": "docs/LAB-EN-SOLUTIONS-PROGRESS.json",
-    "reference_repo": "nguyenletrian/PythoClass",
-    "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
+    "status": "active",
+    "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
+    "revision": "2026-10-28-whole-brief-bilingual-batch01",
+    "title": "Whole English brief then complete Vietnamese brief, detailed solution and full commented code per Word lab plus Pretest",
+    "phase": "READY_FOR_BATCH_01",
+    "goal_spec": "docs/WORD-LAB-WHOLE-BRIEF-GOAL.json",
+    "progress_ledger": "docs/WORD-LAB-WHOLE-BRIEF-PROGRESS.json",
     "output_root": "docs/labs",
+    "expected_word_documents": 8,
     "batch_limit": 3,
-    "expected_lab_units": 7,
-    "expected_batches": 3,
-    "active_batch": null,
-    "active_labs": [],
-    "next_review": "COMPLETED. Owner corrected requirement: exactly 7 source Word lab units, each ONE Markdown document docs/labs/<slug>.md containing original English question, Vietnamese translation, code explicitly sourced to existing demo/lessons or reviewed SOLUTION.py, and BELOW that explanation and formulas. 52 original tasks accounted for. PR187 Batch1, PR188 Batch2, PR189 Batch3 all merged after exact-final-head CI SUCCESS; 7 docs + 1 navigation README, 19 obsolete multi-file outputs removed, no nested docs/labs folders. Ledger and goal spec COMPLETED. PythoClass source unchanged. DO NOT reactivate or publish tasks due to heartbeat; new owner authorization required for unrelated goal. Windows/PowerShell and CDP 9224 remain UNVERIFIED.",
-    "review_hold": "Goal 7/7 completed; owner-corrected one-file-per-Word format and 52 bilingual tasks verified, review disabled; no successor approved.",
-    "batch_boundary": "GOAL_COMPLETED_SEVEN_WORD_DOCS; active none",
-    "output_format": "ONE_MARKDOWN_FILE_PER_WORD_LAB"
+    "active_batch": 1,
+    "active_labs": [
+      "ASSIGNMENT-01-student-dictionary",
+      "LAB-04-conditions-loops",
+      "LAB-05-student-list"
+    ],
+    "next_review": "Owner corrected whole lab format: ONE file per original Word with 4 contiguous sections: full English brief; full Vietnamese translation; detailed step-by-step method and formulas; entire existing executable annotated Python script. NO per-question EN→VI→code pattern. Eight source docs now include PRETEST; PRETEST source is private DOCX binary GitHub tool cannot decode (UnicodeDecodeError), so its task must NOT be invented, ledger BLOCKED_SOURCE_BINARY. Batch1 3 labs Ass1, Lab04, Lab05, then Batch2 Lab05-06/Lab07/Lab08, Batch3 Lab10. Exact final PR head CI success and stable base before merge. No source repo changes. Only after source is genuinely readable, do separate Pretest batch. Windows/CDP unverified.",
+    "review_hold": "Pretest blocked on authorized readable binary extraction. Do not repeat identical fetch probes each heartbeat or invent Pretest text. Proceed on 7 grounded Word transcriptions. No new chat or duplicate Bridge task.",
+    "batch_boundary": "THREE_SOURCE_WORDS_MAX_PER_BATCH; PRETEST blocked, NO_GUESS"
   },
   "goal_review_history": [
     {
@@ -1336,7 +1336,7 @@
     }
   ],
   "owner_pause": {
-    "suppress_idle_reminders": true,
-    "reason": "Owner-corrected Word labs goal completed: 7 Markdown docs, 52 bilingual tasks, 3 merged final-head CI successful batches. No pending approved work."
+    "suppress_idle_reminders": false,
+    "reason": "Owner explicitly approved new four-contiguous-section format with Pretest; three grounded Word labs ready, Pretest binary source blocked."
   }
 }
