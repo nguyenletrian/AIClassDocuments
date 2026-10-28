@@ -592,64 +592,64 @@ D. Sum of pairwise component products | Tổng tích các cặp thành phần t�
 **Giải thích:** Tích vô hướng cho một số từ hai vector cùng số thành phần.
 
 
-**Q5. Which function creates a NumPy vector? | Hàm nào tạo vector NumPy?**
+**Q5. Given u = [1, 4] and v = [3, 2], what is u · v? | Cho u = [1, 4] và v = [3, 2], tích vô hướng u · v bằng bao nhiêu?**
 
-A. `np.array([1, 2])` | `np.array([1, 2])`
+A. 8 | 8
 
-B. `np.linalg.norm(v)` | `np.linalg.norm(v)`
+B. 9 | 9
 
-C. `v / np.linalg.norm(v)` | `v / np.linalg.norm(v)`
+C. 11 | 11
 
-D. `a @ b` | `a @ b`
-
-**Đáp án: A**
-
-**Giải thích:** np.array lưu các thành phần số theo thứ tự.
-
-
-**Q6. Which function computes a vector's L2 length? | Hàm nào tính độ dài L2 của vector?**
-
-A. `np.array([1, 2])` | `np.array([1, 2])`
-
-B. `np.linalg.norm(v)` | `np.linalg.norm(v)`
-
-C. `v / np.linalg.norm(v)` | `v / np.linalg.norm(v)`
-
-D. `a @ b` | `a @ b`
-
-**Đáp án: B**
-
-**Giải thích:** Norm mặc định trên vector số một chiều là Euclid.
-
-
-**Q7. Which expression normalizes a nonzero vector? | Biểu thức nào chuẩn hóa vector khác không?**
-
-A. `np.array([1, 2])` | `np.array([1, 2])`
-
-B. `np.linalg.norm(v)` | `np.linalg.norm(v)`
-
-C. `v / np.linalg.norm(v)` | `v / np.linalg.norm(v)`
-
-D. `a @ b` | `a @ b`
+D. 14 | 14
 
 **Đáp án: C**
 
-**Giải thích:** Chia cho norm đưa độ dài vector về một.
+**Giải thích:** Tính các tích cùng vị trí rồi cộng: 1 × 3 + 4 × 2 = 11. Không cộng riêng từng vector trước khi nhân.
 
 
-**Q8. Which expression computes the dot product of two 1-D vectors? | Biểu thức nào tính tích vô hướng hai vector 1-D?**
+**Q6. What is the length of vector (6, 8)? | Độ dài vector (6, 8) là bao nhiêu?**
 
-A. `np.array([1, 2])` | `np.array([1, 2])`
+A. 8 | 8
 
-B. `np.linalg.norm(v)` | `np.linalg.norm(v)`
+B. 10 | 10
 
-C. `v / np.linalg.norm(v)` | `v / np.linalg.norm(v)`
+C. 14 | 14
 
-D. `a @ b` | `a @ b`
+D. 100 | 100
+
+**Đáp án: B**
+
+**Giải thích:** Độ dài Euclid là căn bậc hai của 6² + 8² = 100, nên bằng 10.
+
+
+**Q7. If u = (2, −1), what is −2u? | Nếu u = (2, −1), vector −2u bằng bao nhiêu?**
+
+A. (4, −2) | (4, −2)
+
+B. (−2, 1) | (−2, 1)
+
+C. (−4, −2) | (−4, −2)
+
+D. (−4, 2) | (−4, 2)
 
 **Đáp án: D**
 
-**Giải thích:** Toán tử @ tính tích vô hướng của hai vector.
+**Giải thích:** Nhân từng tọa độ của u với −2: −2 × 2 = −4 và −2 × (−1) = 2.
+
+
+**Q8. Given a = (2, 1) and b = (−1, 2), what is their dot product? | Cho a = (2, 1) và b = (−1, 2), tích vô hướng bằng bao nhiêu?**
+
+A. 0 | 0
+
+B. 1 | 1
+
+C. 3 | 3
+
+D. 4 | 4
+
+**Đáp án: A**
+
+**Giải thích:** 2 × (−1) + 1 × 2 = 0. Hai vector khác không có tích vô hướng bằng 0 thì vuông góc.
 
 
 **Q9. What is the norm of vector (3,4)? | Norm của vector (3,4) bằng bao nhiêu?**
