@@ -654,64 +654,64 @@ D. A scalar associated with a square matrix | Một số gắn với ma trận v
 **Giải thích:** Định thức hỗ trợ kiểm tra tính khả nghịch.
 
 
-**Q5. What is the shape of a matrix with two rows and three columns? | Ma trận hai hàng ba cột có shape gì?**
+**Q5. Let A = [[2, 1], [0, 3]] and B = [[1, 4], [5, 2]]. What is element (row 1, column 2) of AB? | Cho A và B như trên. Phần tử hàng 1, cột 2 của AB là bao nhiêu?**
 
-A. `(2, 3)` | `(2, 3)`
+A. 6 | 6
 
-B. `(3, 2)` | `(3, 2)`
+B. 8 | 8
 
-C. `(2, 1)` | `(2, 1)`
+C. 10 | 10
 
-D. `(3, 3)` | `(3, 3)`
-
-**Đáp án: A**
-
-**Giải thích:** Shape ghi số hàng trước số cột.
-
-
-**Q6. What is the transpose shape of a (2,3) matrix? | Chuyển vị ma trận (2,3) có shape gì?**
-
-A. `(2, 3)` | `(2, 3)`
-
-B. `(3, 2)` | `(3, 2)`
-
-C. `(2, 1)` | `(2, 1)`
-
-D. `(3, 3)` | `(3, 3)`
-
-**Đáp án: B**
-
-**Giải thích:** Hàng và cột đổi vai trò.
-
-
-**Q7. What shape results from (2,3) @ (3,1)? | Phép (2,3) @ (3,1) cho shape gì?**
-
-A. `(2, 3)` | `(2, 3)`
-
-B. `(3, 2)` | `(3, 2)`
-
-C. `(2, 1)` | `(2, 1)`
-
-D. `(3, 3)` | `(3, 3)`
+D. 12 | 12
 
 **Đáp án: C**
 
-**Giải thích:** Hai chiều trong bằng 3; giữ hai chiều ngoài.
+**Giải thích:** Nhân hàng 1 của A với cột 2 của B: 2 × 4 + 1 × 2 = 10.
 
 
-**Q8. What is the shape of `np.eye(3)`? | `np.eye(3)` tạo ma trận shape nào?**
+**Q6. What is the determinant of [[3, 1], [2, 1]]? | Định thức của ma trận [[3, 1], [2, 1]] bằng bao nhiêu?**
 
-A. `(2, 3)` | `(2, 3)`
+A. 0 | 0
 
-B. `(3, 2)` | `(3, 2)`
+B. 1 | 1
 
-C. `(2, 1)` | `(2, 1)`
+C. 2 | 2
 
-D. `(3, 3)` | `(3, 3)`
+D. 5 | 5
+
+**Đáp án: B**
+
+**Giải thích:** Với ma trận 2 × 2, lấy tích đường chéo chính trừ đường chéo phụ: 3 × 1 − 1 × 2 = 1.
+
+
+**Q7. A square matrix has determinant 0. Which statement is correct? | Một ma trận vuông có định thức bằng 0. Phát biểu nào đúng?**
+
+A. It is the identity matrix | Nó là ma trận đơn vị
+
+B. All entries are zero | Mọi phần tử đều bằng 0
+
+C. It must be diagonal | Nó bắt buộc là ma trận đường chéo
+
+D. It has no inverse | Nó không có ma trận nghịch đảo
 
 **Đáp án: D**
 
-**Giải thích:** Ma trận đơn vị bậc 3 là ma trận vuông.
+**Giải thích:** Định thức 0 nghĩa là ma trận suy biến và không khả nghịch; các kết luận khác không nhất thiết đúng.
+
+
+**Q8. If A has shape (2, 3) and B has shape (3, 4), what is the shape of AB? | Nếu A có kích thước (2, 3), B có kích thước (3, 4), AB có kích thước nào?**
+
+A. (2, 4) | (2, 4)
+
+B. (3, 3) | (3, 3)
+
+C. (2, 3) | (2, 3)
+
+D. (4, 2) | (4, 2)
+
+**Đáp án: A**
+
+**Giải thích:** Hai chiều ở giữa (3 và 3) phải khớp; ma trận kết quả lấy số hàng của A và số cột của B: (2, 4).
 
 
 **Q9. Which operator performs matrix multiplication? | Toán tử nào thực hiện nhân ma trận?**
