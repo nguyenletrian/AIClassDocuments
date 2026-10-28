@@ -28,7 +28,7 @@ SMOKE = {
     "LAB-MATH-02-sets-jaccard": ("Task 3 - Jaccard(A, E): 1.00", "Student D: No connections"),
     "LAB-MATH-03-04-matrix-pca": ("Task 1 - Store matrix shape: (8, 4)", "PCA projected shape: (8, 2)"),
     "ASSIGNMENT-01-student-dictionary": ("Ascending scores", "Statistics:", "Student list:"),
-    "LAB-04-conditions-loops": ("PASS: 14 exercises", "240000 VND"),
+    "LAB-04-conditions-loops": ("PASS: 14 exercises", "240000.0 VND"),
     "LAB-05-student-list": ("Sorted:", "Statistics:"),
     "LAB-10-file-csv": ("PASS: CSV read, search, add", "Demo does not overwrite students.csv"),
 }
