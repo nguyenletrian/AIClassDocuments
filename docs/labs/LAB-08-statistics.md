@@ -118,7 +118,7 @@ Dữ liệu 50 dòng được đưa nguyên vào `USAGE_MINUTES`. Dùng NumPy (t
 ~~~python
 import numpy as np
 import pandas as pd
-values = np.array(usage_minutes, dtype=float)
+values = USAGE_MINUTES.astype(float)  # Dùng dữ liệu đúng như code hoàn chỉnh cuối bài
 mean = values.mean()
 median = np.median(values)
 mode = pd.Series(values).mode().iloc[0]
