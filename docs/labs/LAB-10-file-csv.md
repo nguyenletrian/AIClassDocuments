@@ -181,11 +181,12 @@ Dùng `csv.DictWriter` tạo header, lần lượt ghi các dòng. Script tham k
 
 **Các bước:** (1) Xác thực toàn bộ các dòng. (2) Tạo file tạm trong cùng thư mục đích. (3) Ghi đúng sáu tên cột và từng bản ghi bằng `DictWriter`. (4) Đóng file, dùng `os.replace` thay file đích; xử lý lỗi và xóa file tạm chưa dùng.
 ~~~python
-writer = csv.DictWriter(out, fieldnames=FIELDS)
-writer.writeheader()
-for row in rows:
-    writer.writerow(validate(row))
-# Sau khi đóng file tạm: os.replace(tmp, path)
+with open("students_example.csv", "w", encoding="utf-8", newline="") as out:
+    writer = csv.DictWriter(out, fieldnames=FIELDS)
+    writer.writeheader()
+    for row in rows:
+        writer.writerow(validate(row))
+# Code cuối bài dùng file tạm và os.replace thay vì ghi trực tiếp như ví dụ nhỏ này.
 ~~~
 **Flag và tham số quan trọng của code cuối bài:** `fieldnames=FIELDS` bắt buộc thứ tự cột; `writeheader()` ghi dòng tiêu đề; `writerow` ghi một hàng. `NamedTemporaryFile(mode="w", encoding="utf-8", newline="", dir=path.parent, delete=False)` tạo file tạm trong cùng thư mục; `delete=False` để file còn tồn tại cho `os.replace` sau khi đóng. `path.parent.mkdir(parents=True, exist_ok=True)` tạo thư mục thiếu, không báo lỗi khi đã tồn tại. Chỉ lưu khi người dùng chọn chức năng Save.
 
@@ -208,7 +209,7 @@ choice = "0"
 if choice == "0":
     if dirty:
         print("Có thay đổi chưa lưu")
-    # Nhánh menu chính quyết định có kết thúc vòng lặp hay không.
+    print("Chọn Exit từ menu")
 ~~~
 **Cú pháp:** `==` là so sánh lựa chọn; `if` chỉ chạy khi điều kiện đúng; `dirty` là biến Boolean (đúng/sai) cho biết đã thay đổi dữ liệu trong bộ nhớ chưa được ghi xuống CSV. `break` dừng vòng lặp `while True` trong hàm menu. Không dùng phép tính trung bình để quyết định Exit.
 
