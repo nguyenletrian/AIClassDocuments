@@ -60,14 +60,15 @@ class BilingualInlineWordLabQA(unittest.TestCase):
                 for index, match in enumerate(questions):
                     stop = questions[index + 1].start() if index + 1 < len(questions) else len(intro)
                     part = intro[match.start():stop]
-                    markers = [
-                        "**English —",
-                        "**Tiếng Việt —",
-                        "**Giải thích",
-                        "**Ví dụ",
-                        "**Thuật ngữ",
-                    ]
-                    positions = [part.find(s) for s in markers]
+                    # Match section labels, not the word "Ví dụ" inside the original question.
+                    en_pos = part.find("**English —")
+                    vi_pos = part.find("**Tiếng Việt —", en_pos + 1)
+                    guide_pos = part.find("**Giải thích", vi_pos + 1)
+                    example_pos = part.find("**Ví dụ", guide_pos + 1)
+                    vocab_pos = part.find("**Thuật ngữ", example_pos + 1)
+                    if vocab_pos < 0:
+                        vocab_pos = part.find("**Từ vựng", example_pos + 1)
+                    positions = [en_pos, vi_pos, guide_pos, example_pos, vocab_pos]
                     self.assertTrue(all(x >= 0 for x in positions), slug + ": missing EN/VI/guide/glossary")
                     self.assertEqual(positions, sorted(positions), slug + ": incorrect order")
                     self.assertRegex(part, r"\([^)]+\)")  # explain English terms in parentheses
