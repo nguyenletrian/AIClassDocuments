@@ -11,10 +11,10 @@
 | LAB SESSION 7.docx | [Lab 7 — Probability](LAB-07-probability.md) |
 | LAB SESSION 8.docx | [Lab 8 — Statistics](LAB-08-statistics.md) |
 | Lab Session 10.docx | [Lab 10 — CSV](LAB-10-file-csv.md) |
-| Pretest.docx | **Chưa trích xuất được nội dung gốc** — file nhị phân trong repo PythoClass hiện không đọc được qua kết nối GitHub văn bản; không tự tạo đề hoặc lời giải. |
+| Pretest.docx | [Pretest — Đề Anh, đề Việt, hướng giải và toàn bộ code](PRETEST.md) |
 
 **Nguồn đề:** các bản chép Word trong `labs/pythoclass/<lab>/LAB.md`; riêng Pretest cần nội dung DOCX xác thực. **Nguồn code:** các bản `DEMO.py`, code giáo trình hoặc `SOLUTION.py` được lưu từ trước; mã giải tham khảo được gắn đúng nguồn, không nhận nhầm là code demo do học viên viết. Repo PythoClass không bị chỉnh sửa.
 
 **Lưu ý Lab 4:** đề cho ví dụ 120 kWh = 282.000 VND nhưng bảng giá lũy tiến dẫn tới 240.000 VND. Giữ giá trị đề gốc ở phần tiếng Anh và giải thích sai khác ở mục hướng giải.
 
-Theo dõi tiến độ và giới hạn về Pretest tại [WORD-LAB-WHOLE-BRIEF-PROGRESS.json](../WORD-LAB-WHOLE-BRIEF-PROGRESS.json).
+Theo dõi tiến độ và nguồn Pretest do chủ dự án cung cấp tại [WORD-LAB-WHOLE-BRIEF-PROGRESS.json](../WORD-LAB-WHOLE-BRIEF-PROGRESS.json).
