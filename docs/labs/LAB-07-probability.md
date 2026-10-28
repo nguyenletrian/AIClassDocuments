@@ -1,35 +1,15 @@
-# LAB-07-probability — Đề Anh đầy đủ, đề Việt đầy đủ, hướng giải, toàn bộ code có note
+# Lab 7 — Xác suất
 
-**Nguồn:** Word đã chuyển sang `labs/pythoclass/LAB-07-probability/LAB.md`; code trong `labs/pythoclass/LAB-07-probability/SOLUTION.py` có đối chiếu `DEMO.py` và giáo trình. Dữ liệu, lời giải và thuật toán được kế thừa nguyên tắc từ code đã có; không nhận nhầm lời giải tham khảo là demo cá nhân. Một lab chỉ xuất **một file**.
+## Đề bài tiếng Anh
 
----
+### LAB SESSION 7
 
-## ĐỀ VÀ HƯỚNG GIẢI SONG NGỮ — MỖI CÂU ENGLISH / TIẾNG VIỆT
-
-**Cách đọc:** Phần tiếng Anh gốc (English: tiếng Anh) đứng ngay trước bản dịch tiếng Việt, rồi mới tới giải thích và công thức. Các dữ liệu, bảng và tham số vẫn lấy từ Word; thuật ngữ quan trọng có giải nghĩa trong ngoặc.
-
-### Bối cảnh và dữ liệu — Original English
-
-# LAB SESSION 7
-
-## Problem Description
+#### Problem Description
 Probability, Simulation, Conditional Probability, Bayes’ Theorem and Probability Distributions.
 
-## Requirements
+#### Requirements
 
-### Bối cảnh và dữ liệu — Tiếng Việt
-
-# Bản dịch toàn bộ LAB LAB-07-probability
-
-Một chuỗi bài thực hành về **xác suất cơ bản, mô phỏng, xác suất có điều kiện, định lý Bayes và phân phối xác suất**. Giữ nguyên đúng 10 thẻ, 5.000 phép thử, các tỷ lệ 0,7/0,6/0,3/0,9/0,05, 8 yêu cầu và mức 75% từ Word.
-
-## Toàn bộ yêu cầu
-
-### Câu 1 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 1 – Sample Space and Basic Probability**
+##### Task 1 – Sample Space and Basic Probability
 A box contains 10 cards numbered from 1 to 10. One card is randomly selected.
 
 Define the sample space and events:
@@ -38,13 +18,68 @@ Define the sample space and events:
 
 Calculate theoretical probabilities `P(A)`, `P(B)`, `P(A ∩ B)`, and `P(A ∪ B)`.
 
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
+##### Task 2 – Probability Simulation
+A basketball player has a 70% probability of successfully making a free throw.
+
+- Use NumPy to simulate **5,000 free throws** and calculate experimental probability of success.
+- Simulate two independent players with success probabilities 0.7 and 0.6.
+- Calculate probability both succeed and probability at least one succeeds.
+- Compare simulation with theoretical probabilities.
+
+##### Task 3 – Conditional Probability
+A day is randomly selected from a seven-day week.
+- Event A: The selected day is a weekday (Monday to Friday).
+- Event B: The selected day is Monday, Tuesday, Wednesday or Thursday.
+
+Calculate theoretical conditional probability `P(A | B)`. Simulate 5,000 selections using Python and NumPy, then compare the experimental result.
+
+##### Task 4 – Bayes’ Theorem
+An email filtering system has these characteristics:
+- 30% of emails are spam.
+- 90% of spam emails are correctly identified as spam.
+- 5% of non-spam emails are incorrectly classified as spam.
+
+Calculate overall probability an email is classified as spam, then use Bayes' theorem to calculate probability an email is actually spam when classified as spam.
+
+##### Task 5 – Probability Distributions
+A customer service team receives 8 independent requests. Each has a 75% probability of successful resolution.
+
+- Use `scipy.stats.binom.pmf()` to calculate probability of **exactly 6** resolved requests and **at least 6** requests.
+- Plot the Binomial probability distribution using Matplotlib.
+
+*Chuyển từ `LAB SESSION 7.docx` sang Markdown.*
+
+## Đề bài tiếng Việt
+
+### LAB SESSION 7 — Xác suất
+
+Một chuỗi bài thực hành về **xác suất cơ bản, mô phỏng, xác suất có điều kiện, định lý Bayes và phân phối xác suất**.
+
+#### Toàn bộ yêu cầu
 
 **Bài 1**
 
 Một hộp có 10 thẻ đánh số từ 1 đến 10, lấy ngẫu nhiên một thẻ. Xác định không gian mẫu, biến cố A (số chẵn), B (số lớn hơn 6). Tính xác suất của A, B, đồng thời A và B, và ít nhất A hoặc B.
 
-**Giải thích kỹ từng bước và công thức:**
+**Bài 2**
+
+Một người chơi bóng rổ ném phạt thành công với xác suất 70%. Dùng NumPy (thư viện tính toán mảng) mô phỏng **5.000** lần để tính tỉ lệ thực nghiệm. Tiếp theo mô phỏng hai người độc lập với xác suất thành công 0,7 và 0,6; tính cả hai thành công và ít nhất một người thành công; so sánh với lý thuyết.
+
+**Bài 3**
+
+Chọn ngẫu nhiên một ngày trong tuần gồm 7 ngày. A là ngày thường từ thứ Hai đến thứ Sáu, B là thứ Hai đến thứ Năm. Tính `P(A|B)`, mô phỏng 5.000 lần bằng Python/NumPy (thư viện tính toán mảng) và so sánh với kết quả lý thuyết.
+
+**Bài 4**
+
+Hệ thống lọc email có 30% email spam, phát hiện đúng 90% spam, và báo nhầm 5% email không spam thành spam. Tính xác suất một email được đánh dấu spam và xác suất email thực sự spam khi đã bị đánh dấu.
+
+**Bài 5**
+
+Nhóm hỗ trợ nhận 8 yêu cầu độc lập, mỗi yêu cầu có khả năng giải quyết thành công 75%. Dùng `scipy.stats.binom.pmf()` tính xác suất giải quyết **đúng 6** và **ít nhất 6**, vẽ phân phối nhị thức bằng Matplotlib (thư viện vẽ đồ thị).
+
+## Giải thích từng câu
+
+### Câu 1
 
 Tạo `set(range(1,11))`, lọc từng biến cố bằng set comprehension. Dùng `&` cho giao và `|` cho hợp, rồi chia số phần tử cho kích thước không gian mẫu 10.
 
@@ -56,25 +91,7 @@ Tạo `set(range(1,11))`, lọc từng biến cố bằng set comprehension. Dù
 
 **Thuật ngữ cần nhớ:** Sample space (không gian mẫu).
 
-### Câu 2 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 2 – Probability Simulation**
-A basketball player has a 70% probability of successfully making a free throw.
-
-- Use NumPy to simulate **5,000 free throws** and calculate experimental probability of success.
-- Simulate two independent players with success probabilities 0.7 and 0.6.
-- Calculate probability both succeed and probability at least one succeeds.
-- Compare simulation with theoretical probabilities.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 2**
-
-Một người chơi bóng rổ ném phạt thành công với xác suất 70%. Dùng NumPy (thư viện tính toán mảng) mô phỏng **5.000** lần để tính tỉ lệ thực nghiệm. Tiếp theo mô phỏng hai người độc lập với xác suất thành công 0,7 và 0,6; tính cả hai thành công và ít nhất một người thành công; so sánh với lý thuyết.
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 2
 
 `np.random.default_rng(SEED)` tạo bộ sinh số có thể lặp; mỗi lần so ngẫu nhiên với ngưỡng 0,7/0,6 được một kết quả True/False. `mean()` cho tần suất thành công; dùng `&` và `|` trên hai mảng bool.
 
@@ -86,24 +103,7 @@ Một người chơi bóng rổ ném phạt thành công với xác suất 70%. 
 
 **Thuật ngữ cần nhớ:** Simulation (mô phỏng).
 
-### Câu 3 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 3 – Conditional Probability**
-A day is randomly selected from a seven-day week.
-- Event A: The selected day is a weekday (Monday to Friday).
-- Event B: The selected day is Monday, Tuesday, Wednesday or Thursday.
-
-Calculate theoretical conditional probability `P(A | B)`. Simulate 5,000 selections using Python and NumPy, then compare the experimental result.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 3**
-
-Chọn ngẫu nhiên một ngày trong tuần gồm 7 ngày. A là ngày thường từ thứ Hai đến thứ Sáu, B là thứ Hai đến thứ Năm. Tính `P(A|B)`, mô phỏng 5.000 lần bằng Python/NumPy (thư viện tính toán mảng) và so sánh với kết quả lý thuyết.
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 3
 
 Đặt thứ Hai đến Chủ nhật ứng với mã 0–6; B={0,1,2,3} là tập con của A={0..4}. Trong mô phỏng, đếm số lượt chọn vào B rồi kiểm tra đồng thời A∩B để được xác suất có điều kiện.
 
@@ -115,25 +115,7 @@ Chọn ngẫu nhiên một ngày trong tuần gồm 7 ngày. A là ngày thườ
 
 **Thuật ngữ cần nhớ:** Conditional probability (xác suất có điều kiện).
 
-### Câu 4 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 4 – Bayes’ Theorem**
-An email filtering system has these characteristics:
-- 30% of emails are spam.
-- 90% of spam emails are correctly identified as spam.
-- 5% of non-spam emails are incorrectly classified as spam.
-
-Calculate overall probability an email is classified as spam, then use Bayes' theorem to calculate probability an email is actually spam when classified as spam.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 4**
-
-Hệ thống lọc email có 30% email spam, phát hiện đúng 90% spam, và báo nhầm 5% email không spam thành spam. Tính xác suất một email được đánh dấu spam và xác suất email thực sự spam khi đã bị đánh dấu.
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 4
 
 Tính tổng hai cách bị hệ thống gắn cờ spam: spam thật bị phát hiện và email sạch bị báo nhầm. Sau đó dùng Bayes đổi chiều điều kiện từ P(flag|spam) sang P(spam|flag).
 
@@ -145,23 +127,7 @@ Tính tổng hai cách bị hệ thống gắn cờ spam: spam thật bị phát
 
 **Thuật ngữ cần nhớ:** Bayes (định lý Bayes).
 
-### Câu 5 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 5 – Probability Distributions**
-A customer service team receives 8 independent requests. Each has a 75% probability of successful resolution.
-
-- Use `scipy.stats.binom.pmf()` to calculate probability of **exactly 6** resolved requests and **at least 6** requests.
-- Plot the Binomial probability distribution using Matplotlib.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 5**
-
-Nhóm hỗ trợ nhận 8 yêu cầu độc lập, mỗi yêu cầu có khả năng giải quyết thành công 75%. Dùng `scipy.stats.binom.pmf()` tính xác suất giải quyết **đúng 6** và **ít nhất 6**, vẽ phân phối nhị thức bằng Matplotlib (thư viện vẽ đồ thị).
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 5
 
 Số thành công tuân theo nhị thức vì có 8 phép thử độc lập cùng xác suất p=0,75. Hàm pmf trả xác suất đúng k; cộng pmf cho k=6,7,8 để lấy ít nhất 6. Hàm `save_plot` trong code tham khảo dùng `plt.bar`.
 
@@ -173,11 +139,8 @@ Số thành công tuân theo nhị thức vì có 8 phép thử độc lập cù
 
 **Thuật ngữ cần nhớ:** Binomial distribution (phân phối nhị thức).
 
----
 
-## TOÀN BỘ CODE PYTHON — CHÚ THÍCH NGAY SAU TỪNG DÒNG
-
-**Cách học:** Chú thích tiếng Việt nằm **cuối mỗi dòng lệnh**, ngay sau dấu `#`; không có dòng ghi chú riêng ở phía trước. Các kiểm tra cũ được viết bằng `if` (nếu) và `raise ValueError` (báo lỗi) thay vì `assert`. Chỉ thay cách chú thích và kiểm tra, không đổi dữ liệu hay thuật toán. Dòng trắng dùng để chia đoạn.
+## Code Python
 
 ```python
 from pathlib import Path  # Nạp thư viện (import: nạp vào) để sử dụng hàm sẵn có.

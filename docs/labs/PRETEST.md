@@ -1,18 +1,8 @@
-# PRETEST — Phân tích điểm, xác suất và Gradient Descent
+# Pretest — Phân tích điểm, xác suất và Gradient Descent
 
-**Nguồn:** Tệp `Pretest.docx` do chủ dự án tải trực tiếp lên cuộc trò chuyện; SHA-256 của bản gốc: `6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad`. Đề có một trang, năm hàng sinh viên và ba nhóm nhiệm vụ. Công thức ở Task 3 là **L(w) = (w − 4)²**, nằm trong đối tượng Equation của Word nên có thể bị mất khi chỉ đọc văn bản thuần.
+## Đề bài tiếng Anh
 
-**Nguồn phương pháp code:** AIClassDocuments PY-13 (mảng NumPy), PY-15 (thống kê/tính trên mảng), PY-34 (xác suất theo số trường hợp), PY-32 (quy tắc cập nhật Gradient Descent). Code cuối bài **áp dụng các cách làm đã học** vào đúng số liệu và hàm loss của Pretest; không giả nhận đây là một script Pretest đã có sẵn trong notebook demo.
-
----
-
-## ĐỀ BÀI SONG NGỮ — MỖI CÂU ENGLISH / TIẾNG VIỆT / GIẢI THÍCH
-
-**Cách học:** Đọc yêu cầu tiếng Anh (English: tiếng Anh), xem bản dịch tiếng Việt ngay bên dưới, rồi tới giải thích/công thức. Các thuật ngữ quan trọng có nghĩa tiếng Việt trong ngoặc.
-
-### Bối cảnh và dữ liệu — Original English
-
-# PRETEST
+### PRETEST
 
 A teacher collects data from five students, including their study hours, attendance rate, and actual exam scores.
 
@@ -24,27 +14,7 @@ A teacher collects data from five students, including their study hours, attenda
 | Student D | 5 | 80 | 70 |
 | Student E | 6 | 95 | 90 |
 
-### Requirements
-
-### Bối cảnh và dữ liệu — Tiếng Việt
-
-# BÀI KIỂM TRA ĐẦU VÀO — PRETEST
-
-Một giáo viên thu thập dữ liệu của **năm học sinh**, gồm số giờ học, tỷ lệ tham gia lớp học và điểm thi thực tế.
-
-| Học sinh | Số giờ học | Điểm danh (%) | Điểm thi thực tế |
-|---|---:|---:|---:|
-| Học sinh A | 2 | 60 | 50 |
-| Học sinh B | 3 | 65 | 55 |
-| Học sinh C | 4 | 75 | 65 |
-| Học sinh D | 5 | 80 | 70 |
-| Học sinh E | 6 | 95 | 90 |
-
-### Yêu cầu
-
-### Câu 1 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
+##### Requirements
 
 **Task 1 – Student Performance Analysis and Prediction**
 
@@ -56,7 +26,39 @@ Một giáo viên thu thập dữ liệu của **năm học sinh**, gồm số g
 
    Use the matrix to calculate the predicted scores for all five students.
 
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
+**Task 2 – Probability**
+
+1. Calculate the probability that a randomly selected student has an actual score greater than or equal to 70.
+2. Calculate the probability that a student has an actual score greater than or equal to 70, given that the student studies at least 4 hours.
+
+**Task 3 – Gradient Descent**
+
+A machine learning model uses the loss function:
+
+\[
+L(w) = (w - 4)^2
+\]
+
+1. Calculate the loss when (w=2).
+2. Calculate the gradient when (w=2).
+3. Perform one Gradient Descent update using learning rate (α=0.1) and initial value (w=2).
+4. Briefly explain why Gradient Descent updates the parameter (w).
+
+## Đề bài tiếng Việt
+
+### BÀI KIỂM TRA ĐẦU VÀO — PRETEST
+
+Một giáo viên thu thập dữ liệu của **năm học sinh**, gồm số giờ học, tỷ lệ tham gia lớp học và điểm thi thực tế.
+
+| Học sinh | Số giờ học | Điểm danh (%) | Điểm thi thực tế |
+|---|---:|---:|---:|
+| Học sinh A | 2 | 60 | 50 |
+| Học sinh B | 3 | 65 | 55 |
+| Học sinh C | 4 | 75 | 65 |
+| Học sinh D | 5 | 80 | 70 |
+| Học sinh E | 6 | 95 | 90 |
+
+##### Yêu cầu
 
 **Bài 1 — Phân tích và dự đoán kết quả học tập**
 
@@ -68,7 +70,27 @@ Một giáo viên thu thập dữ liệu của **năm học sinh**, gồm số g
 
    Sử dụng ma trận để tính điểm dự đoán cho cả năm học sinh.
 
-**Giải thích từng bước và công thức:**
+**Bài 2 — Xác suất**
+
+1. Tính xác suất một học sinh được chọn ngẫu nhiên có điểm thi thực tế **từ 70 trở lên**.
+2. Tính xác suất học sinh có điểm thi thực tế **từ 70 trở lên**, với điều kiện học sinh đó học **ít nhất 4 giờ**.
+
+**Bài 3 — Gradient (độ dốc của hàm) Descent (thuật toán giảm độ dốc)**
+
+Một mô hình học máy sử dụng hàm mất mát:
+
+\[
+L(w) = (w - 4)^2
+\]
+
+1. Tính giá trị hàm mất mát khi **w = 2**.
+2. Tính gradient (đạo hàm theo w) khi **w = 2**.
+3. Thực hiện **một lần cập nhật** Gradient Descent với tốc độ học **α = 0,1** và giá trị khởi tạo **w = 2**.
+4. Giải thích ngắn gọn tại sao Gradient Descent cập nhật tham số w.
+
+## Giải thích từng câu
+
+### Câu 1
 
 **Bước 1 — Chuẩn bị ma trận.** Dựa trên ví dụ NumPy (thư viện tính toán mảng) của PY-13, dùng np.array() tạo ma trận **5 hàng × 3 cột**; mỗi hàng là một học sinh, theo thứ tự giờ học, tỷ lệ điểm danh (%), điểm thực tế. Chọn dtype=float để các phép nhân và thống kê hoạt động thuận tiện.
 
@@ -112,23 +134,7 @@ Ví dụ A: 5 × 2 + 0,2 × 60 + 10 = **32**. NumPy cho phép tính đồng th�
 
 **Từ vựng chính:** Student Performance (kết quả học tập).
 
-### Câu 2 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 2 – Probability**
-
-1. Calculate the probability that a randomly selected student has an actual score greater than or equal to 70.
-2. Calculate the probability that a student has an actual score greater than or equal to 70, given that the student studies at least 4 hours.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 2 — Xác suất**
-
-1. Tính xác suất một học sinh được chọn ngẫu nhiên có điểm thi thực tế **từ 70 trở lên**.
-2. Tính xác suất học sinh có điểm thi thực tế **từ 70 trở lên**, với điều kiện học sinh đó học **ít nhất 4 giờ**.
-
-**Giải thích từng bước và công thức:**
+### Câu 2
 
 **Bước 1 — Liệt kê kết quả phù hợp.** Có năm học sinh và chọn ngẫu nhiên đều một người. Học sinh D (70 điểm) và E (90 điểm) thỏa điều kiện **điểm ≥ 70**, tổng cộng **2 người**.
 
@@ -148,39 +154,7 @@ P(\text{điểm}\ge70\mid\text{giờ}\ge4)=\frac{2}{3}\approx\mathbf{0.6667}=\ma
 
 **Từ vựng chính:** Probability (xác suất).
 
-### Câu 3 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 3 – Gradient Descent**
-
-A machine learning model uses the loss function:
-
-\[
-L(w) = (w - 4)^2
-\]
-
-1. Calculate the loss when (w=2).
-2. Calculate the gradient when (w=2).
-3. Perform one Gradient Descent update using learning rate (α=0.1) and initial value (w=2).
-4. Briefly explain why Gradient Descent updates the parameter (w).
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 3 — Gradient (độ dốc của hàm) Descent (thuật toán giảm độ dốc)**
-
-Một mô hình học máy sử dụng hàm mất mát:
-
-\[
-L(w) = (w - 4)^2
-\]
-
-1. Tính giá trị hàm mất mát khi **w = 2**.
-2. Tính gradient (đạo hàm theo w) khi **w = 2**.
-3. Thực hiện **một lần cập nhật** Gradient Descent với tốc độ học **α = 0,1** và giá trị khởi tạo **w = 2**.
-4. Giải thích ngắn gọn tại sao Gradient Descent cập nhật tham số w.
-
-**Giải thích từng bước và công thức:**
+### Câu 3
 
 **Bước 1 — Tính loss (hàm mất mát) hiện tại.** Đề cho hàm mất mát **L(w)=(w−4)²**, một hàm bình phương có giá trị nhỏ nhất bằng 0 tại **w=4**. Khi w=2:
 
@@ -216,11 +190,8 @@ Giá trị loss sau cập nhật chỉ là **phép kiểm tra bổ sung**; đề
 
 **Từ vựng chính:** Gradient Descent (thuật toán giảm độ dốc).
 
----
 
-## TOÀN BỘ CODE PYTHON — CHÚ THÍCH NGAY SAU TỪNG DÒNG
-
-**Hướng dẫn:** Chú thích nằm cùng dòng, sau câu lệnh và dấu `#`; không đặt comment riêng trên dòng phía trước. Các câu lệnh kiểm tra dùng `if` (nếu) và `raise ValueError` (báo lỗi dữ liệu), không dùng `assert`. Thuật toán và số liệu giữ như code đã học, các dòng trắng chỉ chia nhóm lệnh.
+## Code Python
 
 ```python
 import numpy as np  # Nạp thư viện (import: nạp vào) để có các hàm đã học.

@@ -1,23 +1,15 @@
-# LAB-08-statistics — Đề Anh đầy đủ, đề Việt đầy đủ, hướng giải, toàn bộ code có note
+# Lab 8 — Thống kê
 
-**Nguồn:** Word đã chuyển sang `labs/pythoclass/LAB-08-statistics/LAB.md`; code trong `labs/pythoclass/LAB-08-statistics/SOLUTION.py` có đối chiếu `DEMO.py` và giáo trình. Dữ liệu, lời giải và thuật toán được kế thừa nguyên tắc từ code đã có; không nhận nhầm lời giải tham khảo là demo cá nhân. Một lab chỉ xuất **một file**.
+## Đề bài tiếng Anh
 
----
+### LAB SESSION 8
 
-## ĐỀ BÀI SONG NGỮ — MỖI CÂU ENGLISH / TIẾNG VIỆT / GIẢI THÍCH
-
-**Cách học:** Đọc yêu cầu tiếng Anh (English: tiếng Anh), xem bản dịch tiếng Việt ngay bên dưới, rồi tới giải thích/công thức. Các thuật ngữ quan trọng có nghĩa tiếng Việt trong ngoặc.
-
-### Bối cảnh và dữ liệu — Original English
-
-# LAB SESSION 8
-
-## Problem Description
+#### Problem Description
 A mobile application company wants to analyze users' daily app usage time to understand usage patterns, data variability, and statistical characteristics.
 
 You are given daily app usage time for **50 users**, measured in **minutes per day**.
 
-## Dataset
+#### Dataset
 
 ```python
 usage_minutes = [
@@ -29,60 +21,14 @@ usage_minutes = [
 ]
 ```
 
-## Requirements
+#### Requirements
 
-### Bối cảnh và dữ liệu — Tiếng Việt
-
-# Bản dịch toàn bộ LAB LAB-08-statistics
-
-Công ty ứng dụng di động phân tích thời gian sử dụng mỗi ngày của **50 người dùng**, tính bằng **phút/ngày**. Dữ liệu gốc giữ nguyên, gồm cả mốc 480 phút. Các bài cần dùng NumPy (thư viện tính toán mảng), Pandas (thư viện bảng dữ liệu), SciPy (thư viện tính toán khoa học) và Matplotlib (thư viện vẽ biểu đồ).
-
-## Dữ liệu 50 người (phút/ngày)
-
-```python
-usage_minutes = [
-    35, 45, 50, 55, 60, 65, 70, 75, 80, 85,
-    90, 95, 100, 105, 110, 115, 120, 120, 125, 130,
-    135, 140, 145, 150, 155, 160, 165, 170, 175, 180,
-    185, 190, 195, 200, 205, 210, 215, 220, 225, 230,
-    240, 250, 260, 270, 280, 290, 300, 320, 350, 480
-]
-```
-
-## Toàn bộ yêu cầu
-
-### Câu 1 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 1 – Descriptive Statistics**
+##### Task 1 – Descriptive Statistics
 - Calculate mean, median, and mode.
 - Find min, max, and range.
 - Calculate **sample** variance and **sample** standard deviation.
 
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 1**
-
-Từ 50 người dùng và số phút sử dụng ứng dụng mỗi ngày, tính trung bình (mean (trung bình)), trung vị (median (trung vị)), mốt (mode (mốt)), nhỏ nhất, lớn nhất và khoảng biến thiên. Tính **phương sai mẫu** và **độ lệch chuẩn mẫu** (không dùng phương sai tổng thể).
-
-**Giải thích từng bước và công thức:**
-
-Dữ liệu 50 dòng được đưa nguyên vào `USAGE_MINUTES`. Dùng NumPy (thư viện tính toán mảng)/Pandas (thư viện bảng dữ liệu) tính các chỉ số; dùng `ddof=1` để phương sai chia cho n−1 chứ không phải n. Mode (mốt) được lấy bằng `.mode().iloc[0]`.
-
-**Công thức / quy tắc liên quan:** Trung bình = (tổng 50 số phút)/50; range = max−min; phương sai mẫu \(s^2=\frac{1}{n-1}\sum_i(x_i-\bar x)^2\); độ lệch chuẩn mẫu \(s=\sqrt{s^2}\).
-
-**Công thức/đối chiếu:** mean (trung bình)=Σx/n; range=max−min; phương sai mẫu s²=Σ(x−mean)²/(n−1), SD=√s²; dùng ddof=1.
-
-**Ví dụ/lỗi thường gặp:** Giữ đủ 50 số phút, kể cả 480. Phương sai và độ lệch chuẩn **mẫu** chia cho n−1 (ddof=1), không chia n như tổng thể.
-
-**Từ vựng chính:** Descriptive statistics (thống kê mô tả).
-
-### Câu 2 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 2 – Frequency Distribution and Histogram**
+##### Task 2 – Frequency Distribution and Histogram
 Divide usage into the six groups below:
 
 | Group | Usage time (minutes/day) |
@@ -98,13 +44,83 @@ Divide usage into the six groups below:
 - Calculate cumulative frequency using `cumsum()`.
 - Create a histogram with title and axis labels.
 
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
+##### Task 3 – Quartiles and Outlier Detection
+- Calculate Q1, Q2, Q3 and IQR.
+- Calculate lower and upper bounds using **1.5 × IQR**.
+- Identify usage times outside the bounds.
+
+##### Task 4 – Sampling and Hypothesis Testing
+- Randomly select 10 users.
+- Calculate sample mean and compare it with mean of all 50 users.
+- Test the company's claim that **population mean usage is 120 minutes/day**, using a **one-sample t-test** at `α = 0.05`.
+- Based on p-value, decide whether to reject or fail to reject `H₀`.
+
+##### Task 5 – Conclusion
+Write a short conclusion (3–5 sentences) about:
+- Typical daily app usage time.
+- Variability and presence of outliers.
+- Hypothesis-test result.
+- One recommendation for the company.
+
+*Chuyển từ `LAB SESSION 8.docx` sang Markdown.*
+
+## Đề bài tiếng Việt
+
+### LAB SESSION 8 — Thống kê
+
+Công ty ứng dụng di động phân tích thời gian sử dụng mỗi ngày của **50 người dùng**, tính bằng **phút/ngày**. Các bài cần dùng NumPy (thư viện tính toán mảng), Pandas (thư viện bảng dữ liệu), SciPy (thư viện tính toán khoa học) và Matplotlib (thư viện vẽ biểu đồ).
+
+#### Dữ liệu 50 người (phút/ngày)
+
+```python
+usage_minutes = [
+    35, 45, 50, 55, 60, 65, 70, 75, 80, 85,
+    90, 95, 100, 105, 110, 115, 120, 120, 125, 130,
+    135, 140, 145, 150, 155, 160, 165, 170, 175, 180,
+    185, 190, 195, 200, 205, 210, 215, 220, 225, 230,
+    240, 250, 260, 270, 280, 290, 300, 320, 350, 480
+]
+```
+
+#### Toàn bộ yêu cầu
+
+**Bài 1**
+
+Từ 50 người dùng và số phút sử dụng ứng dụng mỗi ngày, tính trung bình (mean (trung bình)), trung vị (median (trung vị)), mốt (mode (mốt)), nhỏ nhất, lớn nhất và khoảng biến thiên. Tính **phương sai mẫu** và **độ lệch chuẩn mẫu** (không dùng phương sai tổng thể).
 
 **Bài 2**
 
 Chia thời gian dùng ứng dụng thành đúng 6 nhóm: 0–60, 60–120, 120–180, 180–240, 240–360, 360–500 phút/ngày. Dùng `pd.cut()` và `value_counts()` tạo bảng tần suất, `cumsum()` tính tần suất tích lũy, vẽ histogram (biểu đồ tần suất) có tiêu đề và nhãn trục. Quy định rõ dữ liệu nằm ở ranh giới 60/120/... được tính đúng một nhóm.
 
-**Giải thích từng bước và công thức:**
+**Bài 3**
+
+Tính Q1, Q2, Q3 và IQR; xác định biên dưới và biên trên theo quy tắc `1.5 × IQR`, rồi liệt kê các thời gian nằm ngoài hai biên này.
+
+**Bài 4**
+
+Chọn ngẫu nhiên 10 người dùng, tính trung bình của mẫu 10 và so sánh với trung bình 50 người. Kiểm định giả thuyết công ty rằng trung bình tổng thể là **120 phút/ngày** bằng one-sample (mẫu) t-test, mức ý nghĩa α=0,05. Dựa vào p-value (giá trị xác suất kiểm định) quyết định bác bỏ hay chưa đủ bằng chứng bác bỏ H0.
+
+**Bài 5**
+
+Viết kết luận ngắn 3–5 câu về mức sử dụng điển hình, độ biến thiên/ngoại lệ, kết quả kiểm định và một khuyến nghị cho công ty. Không mặc định dữ liệu mô phỏng là bằng chứng về toàn bộ người dùng thực.
+
+**Bảng nhóm tần suất từ Word:** 0–60, 60–120, 120–180, 180–240, 240–360, 360–500 phút/ngày (6 nhóm).
+
+## Giải thích từng câu
+
+### Câu 1
+
+Dữ liệu 50 dòng được đưa nguyên vào `USAGE_MINUTES`. Dùng NumPy (thư viện tính toán mảng)/Pandas (thư viện bảng dữ liệu) tính các chỉ số; dùng `ddof=1` để phương sai chia cho n−1 chứ không phải n. Mode (mốt) được lấy bằng `.mode().iloc[0]`.
+
+**Công thức / quy tắc liên quan:** Trung bình = (tổng 50 số phút)/50; range = max−min; phương sai mẫu \(s^2=\frac{1}{n-1}\sum_i(x_i-\bar x)^2\); độ lệch chuẩn mẫu \(s=\sqrt{s^2}\).
+
+**Công thức/đối chiếu:** mean (trung bình)=Σx/n; range=max−min; phương sai mẫu s²=Σ(x−mean)²/(n−1), SD=√s²; dùng ddof=1.
+
+**Ví dụ/lỗi thường gặp:** Giữ đủ 50 số phút, kể cả 480. Phương sai và độ lệch chuẩn **mẫu** chia cho n−1 (ddof=1), không chia n như tổng thể.
+
+**Từ vựng chính:** Descriptive statistics (thống kê mô tả).
+
+### Câu 2
 
 Các khoảng liên tiếp trong `bins=[0,60,120,180,240,360,500]`, `right=False` nghĩa là [0,60), [60,120),… Tránh một phút đúng 60 hoặc 120 bị tính hai lần. Lấy tần số của từng khoảng rồi cộng dồn; hình histogram (biểu đồ tần suất) dùng chức năng `save_plot` đã có.
 
@@ -116,22 +132,7 @@ Các khoảng liên tiếp trong `bins=[0,60,120,180,240,360,500]`, `right=False
 
 **Từ vựng chính:** Histogram (biểu đồ tần suất).
 
-### Câu 3 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 3 – Quartiles and Outlier Detection**
-- Calculate Q1, Q2, Q3 and IQR.
-- Calculate lower and upper bounds using **1.5 × IQR**.
-- Identify usage times outside the bounds.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 3**
-
-Tính Q1, Q2, Q3 và IQR; xác định biên dưới và biên trên theo quy tắc `1.5 × IQR`, rồi liệt kê các thời gian nằm ngoài hai biên này.
-
-**Giải thích từng bước và công thức:**
+### Câu 3
 
 `np.percentile` lấy ba phân vị, dùng IQR làm thước đo độ trải rộng ít nhạy với ngoại lệ. Các điểm nhỏ hơn biên dưới hoặc lớn hơn biên trên được đánh dấu, không tự động xóa.
 
@@ -143,23 +144,7 @@ Tính Q1, Q2, Q3 và IQR; xác định biên dưới và biên trên theo quy t�
 
 **Từ vựng chính:** Quartiles (tứ phân vị).
 
-### Câu 4 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 4 – Sampling and Hypothesis Testing**
-- Randomly select 10 users.
-- Calculate sample mean and compare it with mean of all 50 users.
-- Test the company's claim that **population mean usage is 120 minutes/day**, using a **one-sample t-test** at `α = 0.05`.
-- Based on p-value, decide whether to reject or fail to reject `H₀`.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 4**
-
-Chọn ngẫu nhiên 10 người dùng, tính trung bình của mẫu 10 và so sánh với trung bình 50 người. Kiểm định giả thuyết công ty rằng trung bình tổng thể là **120 phút/ngày** bằng one-sample (mẫu) t-test, mức ý nghĩa α=0,05. Dựa vào p-value (giá trị xác suất kiểm định) quyết định bác bỏ hay chưa đủ bằng chứng bác bỏ H0.
-
-**Giải thích từng bước và công thức:**
+### Câu 4
 
 `default_rng(2026).choice(...,size=10,replace=False)` chọn 10 giá trị không lặp. Code kiểm định đã có gọi `ttest_1samp(values,popmean=120)`, tức dùng **toàn bộ 50 quan sát** cho phép kiểm định, còn mẫu 10 chỉ minh họa lấy mẫu. Đừng gọi nhầm t-test chỉ trên 10 quan sát. So sánh p-value (giá trị xác suất kiểm định) với 0,05.
 
@@ -171,26 +156,7 @@ Chọn ngẫu nhiên 10 người dùng, tính trung bình của mẫu 10 và so 
 
 **Từ vựng chính:** Hypothesis testing (kiểm định giả thuyết).
 
-### Câu 5 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 5 – Conclusion**
-Write a short conclusion (3–5 sentences) about:
-- Typical daily app usage time.
-- Variability and presence of outliers.
-- Hypothesis-test result.
-- One recommendation for the company.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 5**
-
-Viết kết luận ngắn 3–5 câu về mức sử dụng điển hình, độ biến thiên/ngoại lệ, kết quả kiểm định và một khuyến nghị cho công ty. Không mặc định dữ liệu mô phỏng là bằng chứng về toàn bộ người dùng thực.
-
-**Bảng nhóm tần suất từ Word:** 0–60, 60–120, 120–180, 180–240, 240–360, 360–500 phút/ngày (6 nhóm).
-
-**Giải thích từng bước và công thức:**
+### Câu 5
 
 Hàm `task05_conclusion` của code tham khảo in bốn ý: dùng median (trung vị) đại diện mức điển hình, SD và số điểm ngoại lệ để mô tả độ biến thiên, đọc p-value (giá trị xác suất kiểm định) cho kiểm định, và đề xuất xem xét phiên dùng dài cùng lời nhắc nghỉ. Điều này đáp ứng 3–5 câu của đề.
 
@@ -202,11 +168,8 @@ Hàm `task05_conclusion` của code tham khảo in bốn ý: dùng median (trung
 
 **Từ vựng chính:** Conclusion (kết luận).
 
----
 
-## TOÀN BỘ CODE PYTHON — CHÚ THÍCH NGAY SAU TỪNG DÒNG
-
-**Hướng dẫn:** Chú thích nằm cùng dòng, sau câu lệnh và dấu `#`; không đặt comment riêng trên dòng phía trước. Các câu lệnh kiểm tra dùng `if` (nếu) và `raise ValueError` (báo lỗi dữ liệu), không dùng `assert`. Thuật toán và số liệu giữ như code đã học, các dòng trắng chỉ chia nhóm lệnh.
+## Code Python
 
 ```python
 from pathlib import Path  # Nạp thư viện (import: nạp vào) để có các hàm đã học.

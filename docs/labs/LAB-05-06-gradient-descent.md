@@ -1,23 +1,15 @@
-# LAB-05-06-gradient-descent — nguyên đề tiếng Anh, bản dịch Việt, hướng giải và code đầy đủ
+# Lab 5–6 — Hồi quy tuyến tính và Gradient Descent
 
-**Nguồn:** đề gốc chuyển sang `labs/pythoclass/LAB-05-06-gradient-descent/LAB.md` từ Word; code hoàn chỉnh từ `labs/pythoclass/LAB-05-06-gradient-descent/SOLUTION.py`, đối chiếu `DEMO.py` và các bài giáo trình đã học. Các chú thích bổ sung giải thích code hiện hữu; không thay đổi công thức, dữ liệu hay thuật toán. **Một lab = một tài liệu duy nhất.**
+## Đề bài tiếng Anh
 
----
+### LAB SESSION 5 & 6
 
-## ĐỀ VÀ HƯỚNG GIẢI SONG NGỮ — MỖI CÂU ENGLISH / TIẾNG VIỆT
-
-**Cách đọc:** Phần tiếng Anh gốc (English: tiếng Anh) đứng ngay trước bản dịch tiếng Việt, rồi mới tới giải thích và công thức. Các dữ liệu, bảng và tham số vẫn lấy từ Word; thuật ngữ quan trọng có giải nghĩa trong ngoặc.
-
-### Bối cảnh và dữ liệu — Original English
-
-# LAB SESSION 5 & 6
-
-## Problem Description
+#### Problem Description
 In this project, you will build a simple machine learning model to predict students' exam scores based on their study hours.
 
 You will use Python, NumPy, Matplotlib, and SymPy to explore mathematical concepts used in machine learning, including **partial derivatives, gradients, gradient descent, and the Hessian matrix**.
 
-## Dataset
+#### Dataset
 
 | Study Hours (X) | Exam Score (y) |
 |---:|---:|
@@ -30,61 +22,14 @@ You will use Python, NumPy, Matplotlib, and SymPy to explore mathematical concep
 | 7 | 80 |
 | 8 | 85 |
 
-## Requirements
+#### Requirements
 
-### Bối cảnh và dữ liệu — Tiếng Việt
-
-# LAB SESSION 5 & 6 — Hồi quy tuyến tính và Gradient (độ dốc của hàm) Descent (thuật toán giảm độ dốc)
-
-## Mô tả bài toán
-Xây dựng một mô hình học máy đơn giản để dự đoán **điểm thi của sinh viên** dựa vào **số giờ học**. Dùng Python, NumPy (thư viện tính toán mảng), Matplotlib (thư viện vẽ đồ thị) và SymPy (thư viện toán ký hiệu) để tìm hiểu đạo hàm riêng, gradient, thuật toán Gradient Descent và ma trận Hessian (ma trận đạo hàm bậc hai).
-
-## Dữ liệu
-
-| Số giờ học (X, giờ) | Điểm thi (y, điểm) |
-|---:|---:|
-| 1 | 35 |
-| 2 | 40 |
-| 3 | 50 |
-| 4 | 55 |
-| 5 | 65 |
-| 6 | 70 |
-| 7 | 80 |
-| 8 | 85 |
-
-## Yêu cầu
-
-### Câu 1 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 1: Create and Visualize the Dataset**
+##### Task 1: Create and Visualize the Dataset
 - Create two NumPy arrays: `X` (students' study hours) and `y` (students' exam scores).
 - Use Matplotlib to create a scatter plot of study hours versus exam scores.
 - Add an appropriate title, axis labels, and grid.
 
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 1 — Tạo và trực quan hóa dữ liệu**
-Tạo hai mảng NumPy (thư viện tính toán mảng) `X` và `y` chứa số giờ học và điểm. Dùng Matplotlib (thư viện vẽ đồ thị) vẽ scatter plot (biểu đồ phân tán) giờ học so với điểm thi; đặt tiêu đề, nhãn hai trục và lưới.
-
-**Giải thích kỹ từng bước và công thức:**
-
-Mô hình dữ liệu: `X=[1,2,3,4,5,6,7,8]` giờ; `y=[35,40,50,55,65,70,80,85]` điểm. Biểu đồ scatter vẽ `X` theo trục ngang và `y` theo trục đứng.
-
-**Công thức liên quan:** Không dùng công thức học mô hình ở bước chỉ trực quan hóa; `plt.scatter(X,Y)` hiển thị từng cặp giờ/điểm.
-
-**Kiến thức/công thức trọng tâm:** giữ nguyên 8 dòng dữ liệu X=1..8 và điểm tương ứng; vẽ scatter và đường hồi quy theo giờ/điểm.
-
-**Ví dụ và lỗi thường gặp:** Giữ nguyên tám cặp giờ học và điểm từ đề. Trên biểu đồ, trục ngang đo giờ học, trục dọc đo điểm.
-
-**Thuật ngữ cần nhớ:** Dataset (bộ dữ liệu).
-
-### Câu 2 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 2: Build a Simple Linear Prediction Model**
+##### Task 2: Build a Simple Linear Prediction Model
 Use the following model:
 
 $$
@@ -102,34 +47,7 @@ $$
 
 - Initialize `w = 0` and `b = 0`. Calculate/display initial predictions and MSE.
 
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 2 — Xây dựng mô hình dự đoán tuyến tính**
-Sử dụng mô hình **ŷ = wX + b**, trong đó `w` là trọng số, `b` là hệ số chệch, `ŷ` là điểm dự đoán. Viết `predict(X,w,b)` và `compute_loss(y_true,y_pred)` dùng MSE (trung bình bình phương sai số):
-
-\[
-\mathrm{MSE}=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat y_i)^2.
-\]
-
-Khởi tạo `w=0`, `b=0`, hiển thị dự đoán đầu tiên và MSE (trung bình bình phương sai số) ban đầu.
-
-**Giải thích kỹ từng bước và công thức:**
-
-`predict()` nhân từng số giờ với `w`, cộng `b`; `compute_loss()` tính từng hiệu điểm thật-dự đoán, bình phương, lấy trung bình. Khởi tạo cả hai bằng 0 để có đường chuẩn trước khi học.
-
-**Công thức liên quan:** \(\hat y_i=wX_i+b\), \(\mathrm{MSE (trung bình bình phương sai số)}=\frac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2\). Đơn vị MSE là bình phương đơn vị điểm.
-
-**Kiến thức/công thức trọng tâm:** MSE = (1/n)∑(y−ŷ)²; ŷ=wX+b; đơn vị MSE là điểm².
-
-**Ví dụ và lỗi thường gặp:** Điểm dự đoán là ŷ=wX+b; MSE (trung bình bình phương sai số) lấy trung bình của bình phương sai khác. Khi w=b=0, điểm dự đoán đều bằng 0, tạo mốc trước huấn luyện.
-
-**Thuật ngữ cần nhớ:** Prediction (dự đoán).
-
-### Câu 3 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 3: Calculate Partial Derivatives and the Hessian**
+##### Task 3: Calculate Partial Derivatives and the Hessian
 Consider the loss function for one sample:
 
 $$
@@ -141,28 +59,7 @@ $$
 - Construct the gradient vector.
 - Calculate/display the Hessian matrix using SymPy.
 
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 3 — Đạo hàm riêng và Hessian (ma trận đạo hàm bậc hai)**
-Với hàm một mẫu **L(w,b)=(2w+b−5)²**, tính đạo hàm riêng theo `w`, theo `b`, ghép vector gradient (độ dốc của hàm) và tính ma trận Hessian bằng SymPy (thư viện toán ký hiệu).
-
-**Giải thích kỹ từng bước và công thức:**
-
-Dùng `sp.symbols` tạo biến biểu thức, `sp.diff` lấy đạo hàm, `sp.hessian` trả ma trận đạo hàm bậc hai. Kiểm chứng: gradient (độ dốc của hàm) của biểu thức mẫu có thành phần theo w và b lần lượt bằng `4(2w+b−5)` và `2(2w+b−5)`.
-
-**Công thức liên quan:** \(\nabla L=[4(2w+b-5),\;2(2w+b-5)]^T\); \(H=\begin{bmatrix}8&4\\4&2\end{bmatrix}\).
-
-**Kiến thức/công thức trọng tâm:** đạo hàm riêng SymPy (thư viện toán ký hiệu) `diff`; Hessian (ma trận đạo hàm bậc hai) ví dụ một điểm L=(2w+b−5)² có gradient [4(2w+b−5),2(2w+b−5)], Hessian [[8,4],[4,2]].
-
-**Ví dụ và lỗi thường gặp:** Gradient (độ dốc của hàm) gồm đạo hàm riêng bậc nhất theo w và b; Hessian (ma trận đạo hàm bậc hai) là ma trận đạo hàm bậc hai. Phân biệt loss (hàm mất mát) một điểm ở Bài 3 với loss toàn bộ tập dữ liệu.
-
-**Thuật ngữ cần nhớ:** Partial derivatives (đạo hàm riêng).
-
-### Câu 4 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 4: Implement Gradient Descent**
+##### Task 4: Implement Gradient Descent
 Implement Gradient Descent from scratch to train the model on the dataset above.
 
 For MSE, use:
@@ -180,35 +77,7 @@ Update parameters by subtracting the learning rate multiplied by each gradient c
 - Record MSE during training.
 - Display final `w`, `b`, and MSE.
 
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-**Bài 4 — Cài đặt Gradient (độ dốc của hàm) Descent (thuật toán giảm độ dốc)**
-Tự huấn luyện mô hình theo MSE (trung bình bình phương sai số) trên dữ liệu đã cho. Dùng **learning rate (tốc độ học) = 0,01**, **epochs (lượt học) = 1000**, khởi tạo `w=b=0`. Mỗi epoch tính gradient:
-
-\[
-\frac{\partial L}{\partial w}=\frac2n\sum_i X_i(wX_i+b-y_i),\qquad
-\frac{\partial L}{\partial b}=\frac2n\sum_i(wX_i+b-y_i).
-\]
-
-Sau đó trừ learning rate nhân gradient để cập nhật hai tham số, ghi lại MSE qua mỗi epoch. Hiển thị `w`, `b`, MSE cuối cùng.
-
-**Giải thích kỹ từng bước và công thức:**
-
-Mỗi vòng dự đoán điểm, lấy phần dư `predict(X,w,b)-Y`, tính gradient (độ dốc của hàm) `dw`,`db`, trừ learning_rate nhân gradient, lưu MSE (trung bình bình phương sai số) mới; không tạo thuật toán khác với script tham khảo.
-
-**Công thức liên quan:** \(\partial_w L=\frac2n\sum_i X_i(wX_i+b-y_i)\), \(\partial_b L=\frac2n\sum_i(wX_i+b-y_i)\). Cập nhật \(w\leftarrow w-0.01\,\partial_wL\) và \(b\leftarrow b-0.01\,\partial_bL\).
-
-**Kiến thức/công thức trọng tâm:** mỗi epoch cập nhật w,b trừ 0.01×gradient; tính lại MSE, lưu đủ 1000 epoch; gradient w=(2/n) Σ X(wX+b−y), b=(2/n) Σ(wX+b−y).
-
-**Ví dụ và lỗi thường gặp:** Mỗi epoch (lượt cập nhật) tính phần dư, hai gradient (độ dốc của hàm) dw, db, rồi trừ learning rate (tốc độ học) nhân gradient. Giữ nguyên 1000 epoch và tốc độ học 0,01.
-
-**Thuật ngữ cần nhớ:** Gradient Descent (thuật toán giảm độ dốc).
-
-### Câu 5 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-**Task 5: Analyze the Gradient and Hessian of the Full Dataset Loss**
+##### Task 5: Analyze the Gradient and Hessian of the Full Dataset Loss
 Apply the full-dataset loss:
 
 $$
@@ -220,12 +89,109 @@ $$
 - Calculate Hessian eigenvalues using NumPy.
 - Briefly explain what gradient and Hessian tell us about optimization.
 
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
+*Chuyển từ `LAB SESSION 5_6.docx`. Các biểu thức toán vốn là đối tượng Word/hình công thức được trình bày lại bằng LaTeX để Markdown hiển thị ổn định. Dataset gốc có 8 hàng, được giữ nguyên theo đề.*
+
+## Đề bài tiếng Việt
+
+### LAB SESSION 5 & 6 — Hồi quy tuyến tính và Gradient (độ dốc của hàm) Descent (thuật toán giảm độ dốc)
+
+#### Mô tả bài toán
+Xây dựng một mô hình học máy đơn giản để dự đoán **điểm thi của sinh viên** dựa vào **số giờ học**. Dùng Python, NumPy (thư viện tính toán mảng), Matplotlib (thư viện vẽ đồ thị) và SymPy (thư viện toán ký hiệu) để tìm hiểu đạo hàm riêng, gradient, thuật toán Gradient Descent và ma trận Hessian (ma trận đạo hàm bậc hai).
+
+#### Dữ liệu
+
+| Số giờ học (X, giờ) | Điểm thi (y, điểm) |
+|---:|---:|
+| 1 | 35 |
+| 2 | 40 |
+| 3 | 50 |
+| 4 | 55 |
+| 5 | 65 |
+| 6 | 70 |
+| 7 | 80 |
+| 8 | 85 |
+
+#### Yêu cầu
+
+**Bài 1 — Tạo và trực quan hóa dữ liệu**
+Tạo hai mảng NumPy (thư viện tính toán mảng) `X` và `y` chứa số giờ học và điểm. Dùng Matplotlib (thư viện vẽ đồ thị) vẽ scatter plot (biểu đồ phân tán) giờ học so với điểm thi; đặt tiêu đề, nhãn hai trục và lưới.
+
+**Bài 2 — Xây dựng mô hình dự đoán tuyến tính**
+Sử dụng mô hình **ŷ = wX + b**, trong đó `w` là trọng số, `b` là hệ số chệch, `ŷ` là điểm dự đoán. Viết `predict(X,w,b)` và `compute_loss(y_true,y_pred)` dùng MSE (trung bình bình phương sai số):
+
+\[
+\mathrm{MSE}=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat y_i)^2.
+\]
+
+Khởi tạo `w=0`, `b=0`, hiển thị dự đoán đầu tiên và MSE (trung bình bình phương sai số) ban đầu.
+
+**Bài 3 — Đạo hàm riêng và Hessian (ma trận đạo hàm bậc hai)**
+Với hàm một mẫu **L(w,b)=(2w+b−5)²**, tính đạo hàm riêng theo `w`, theo `b`, ghép vector gradient (độ dốc của hàm) và tính ma trận Hessian bằng SymPy (thư viện toán ký hiệu).
+
+**Bài 4 — Cài đặt Gradient (độ dốc của hàm) Descent (thuật toán giảm độ dốc)**
+Tự huấn luyện mô hình theo MSE (trung bình bình phương sai số) trên dữ liệu đã cho. Dùng **learning rate (tốc độ học) = 0,01**, **epochs (lượt học) = 1000**, khởi tạo `w=b=0`. Mỗi epoch tính gradient:
+
+\[
+\frac{\partial L}{\partial w}=\frac2n\sum_i X_i(wX_i+b-y_i),\qquad
+\frac{\partial L}{\partial b}=\frac2n\sum_i(wX_i+b-y_i).
+\]
+
+Sau đó trừ learning rate nhân gradient để cập nhật hai tham số, ghi lại MSE qua mỗi epoch. Hiển thị `w`, `b`, MSE cuối cùng.
 
 **Bài 5 — Gradient (độ dốc của hàm)/Hessian (ma trận đạo hàm bậc hai) cho toàn bộ dữ liệu**
 Với **L(w,b) = (1/n) Σᵢ (yᵢ−wXᵢ−b)²**, tính và hiển thị gradient vector, Hessian. Thay hai giá trị `w,b` đã học vào gradient và tính các eigenvalue (trị riêng) của Hessian bằng NumPy (thư viện tính toán mảng). Giải thích gradient và Hessian cho biết điều gì về quá trình tối ưu.
 
-**Giải thích kỹ từng bước và công thức:**
+## Giải thích từng câu
+
+### Câu 1
+
+Mô hình dữ liệu: `X=[1,2,3,4,5,6,7,8]` giờ; `y=[35,40,50,55,65,70,80,85]` điểm. Biểu đồ scatter vẽ `X` theo trục ngang và `y` theo trục đứng.
+
+**Công thức liên quan:** Không dùng công thức học mô hình ở bước chỉ trực quan hóa; `plt.scatter(X,Y)` hiển thị từng cặp giờ/điểm.
+
+**Kiến thức/công thức trọng tâm:** giữ nguyên 8 dòng dữ liệu X=1..8 và điểm tương ứng; vẽ scatter và đường hồi quy theo giờ/điểm.
+
+**Ví dụ và lỗi thường gặp:** Giữ nguyên tám cặp giờ học và điểm từ đề. Trên biểu đồ, trục ngang đo giờ học, trục dọc đo điểm.
+
+**Thuật ngữ cần nhớ:** Dataset (bộ dữ liệu).
+
+### Câu 2
+
+`predict()` nhân từng số giờ với `w`, cộng `b`; `compute_loss()` tính từng hiệu điểm thật-dự đoán, bình phương, lấy trung bình. Khởi tạo cả hai bằng 0 để có đường chuẩn trước khi học.
+
+**Công thức liên quan:** \(\hat y_i=wX_i+b\), \(\mathrm{MSE (trung bình bình phương sai số)}=\frac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2\). Đơn vị MSE là bình phương đơn vị điểm.
+
+**Kiến thức/công thức trọng tâm:** MSE = (1/n)∑(y−ŷ)²; ŷ=wX+b; đơn vị MSE là điểm².
+
+**Ví dụ và lỗi thường gặp:** Điểm dự đoán là ŷ=wX+b; MSE (trung bình bình phương sai số) lấy trung bình của bình phương sai khác. Khi w=b=0, điểm dự đoán đều bằng 0, tạo mốc trước huấn luyện.
+
+**Thuật ngữ cần nhớ:** Prediction (dự đoán).
+
+### Câu 3
+
+Dùng `sp.symbols` tạo biến biểu thức, `sp.diff` lấy đạo hàm, `sp.hessian` trả ma trận đạo hàm bậc hai. Kiểm chứng: gradient (độ dốc của hàm) của biểu thức mẫu có thành phần theo w và b lần lượt bằng `4(2w+b−5)` và `2(2w+b−5)`.
+
+**Công thức liên quan:** \(\nabla L=[4(2w+b-5),\;2(2w+b-5)]^T\); \(H=\begin{bmatrix}8&4\\4&2\end{bmatrix}\).
+
+**Kiến thức/công thức trọng tâm:** đạo hàm riêng SymPy (thư viện toán ký hiệu) `diff`; Hessian (ma trận đạo hàm bậc hai) ví dụ một điểm L=(2w+b−5)² có gradient [4(2w+b−5),2(2w+b−5)], Hessian [[8,4],[4,2]].
+
+**Ví dụ và lỗi thường gặp:** Gradient (độ dốc của hàm) gồm đạo hàm riêng bậc nhất theo w và b; Hessian (ma trận đạo hàm bậc hai) là ma trận đạo hàm bậc hai. Phân biệt loss (hàm mất mát) một điểm ở Bài 3 với loss toàn bộ tập dữ liệu.
+
+**Thuật ngữ cần nhớ:** Partial derivatives (đạo hàm riêng).
+
+### Câu 4
+
+Mỗi vòng dự đoán điểm, lấy phần dư `predict(X,w,b)-Y`, tính gradient (độ dốc của hàm) `dw`,`db`, trừ learning_rate nhân gradient, lưu MSE (trung bình bình phương sai số) mới; không tạo thuật toán khác với script tham khảo.
+
+**Công thức liên quan:** \(\partial_w L=\frac2n\sum_i X_i(wX_i+b-y_i)\), \(\partial_b L=\frac2n\sum_i(wX_i+b-y_i)\). Cập nhật \(w\leftarrow w-0.01\,\partial_wL\) và \(b\leftarrow b-0.01\,\partial_bL\).
+
+**Kiến thức/công thức trọng tâm:** mỗi epoch cập nhật w,b trừ 0.01×gradient; tính lại MSE, lưu đủ 1000 epoch; gradient w=(2/n) Σ X(wX+b−y), b=(2/n) Σ(wX+b−y).
+
+**Ví dụ và lỗi thường gặp:** Mỗi epoch (lượt cập nhật) tính phần dư, hai gradient (độ dốc của hàm) dw, db, rồi trừ learning rate (tốc độ học) nhân gradient. Giữ nguyên 1000 epoch và tốc độ học 0,01.
+
+**Thuật ngữ cần nhớ:** Gradient Descent (thuật toán giảm độ dốc).
+
+### Câu 5
 
 Biểu thức loss (hàm mất mát) tổng được tạo từ 8 giá trị gốc trong `X`,`Y`; SymPy (thư viện toán ký hiệu) tự tính gradient (độ dốc của hàm) và Hessian (ma trận đạo hàm bậc hai). `subs` thay tham số học được, `np.linalg.eigvalsh` cho trị riêng ma trận đối xứng. Không lẫn với Hessian một điểm ở bài 3.
 
@@ -237,11 +203,8 @@ Biểu thức loss (hàm mất mát) tổng được tạo từ 8 giá trị g�
 
 **Thuật ngữ cần nhớ:** Hessian (ma trận đạo hàm bậc hai).
 
----
 
-## TOÀN BỘ CODE PYTHON — CHÚ THÍCH NGAY SAU TỪNG DÒNG
-
-**Cách học:** Chú thích tiếng Việt nằm **cuối mỗi dòng lệnh**, ngay sau dấu `#`; không có dòng ghi chú riêng ở phía trước. Các kiểm tra cũ được viết bằng `if` (nếu) và `raise ValueError` (báo lỗi) thay vì `assert`. Chỉ thay cách chú thích và kiểm tra, không đổi dữ liệu hay thuật toán. Dòng trắng dùng để chia đoạn.
+## Code Python
 
 ```python
 import sys  # Nạp thư viện (import: nạp vào) để sử dụng hàm sẵn có.

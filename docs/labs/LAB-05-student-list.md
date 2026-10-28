@@ -1,44 +1,52 @@
-# LAB-05-student-list — English brief, Vietnamese brief, method and full commented script
+# Lab 5 — Quản lý sinh viên bằng List
 
-**Nguồn đề:** `PythoClass` Word (bản chép ở `labs/pythoclass/LAB-05-student-list/LAB.md`). **Nguồn code:** bản giải/annotated có sẵn từ repo AIClassDocuments (không nhận là nguyên văn code demo nếu demo chưa đủ), đối chiếu `labs/pythoclass/LAB-05-student-list/DEMO.py` và `SOLUTION.py`. **Một tài liệu duy nhất**, không chia đề/đáp án xen kẽ.
+## Đề bài tiếng Anh
 
----
+### LAB Session 5
 
-## ĐỀ VÀ HƯỚNG GIẢI SONG NGỮ — MỖI CÂU ENGLISH / TIẾNG VIỆT
-
-**Cách đọc:** Phần tiếng Anh gốc (English: tiếng Anh) đứng ngay trước bản dịch tiếng Việt, rồi mới tới giải thích và công thức. Các dữ liệu, bảng và tham số vẫn lấy từ Word; thuật ngữ quan trọng có giải nghĩa trong ngoặc.
-
-### Bối cảnh và dữ liệu — Original English
-
-# LAB Session 5
-
-## Objective
+#### Objective
 Develop a console-based Student Management System in Python using a **list** as the main data structure.
 
-## Requirements
+#### Requirements
 Write a Python program that implements the following features:
 
-### Bối cảnh và dữ liệu — Tiếng Việt
+1. **Add a student:** Input student information (ID, name, score). Store the student in a list.
+2. **Display student list:** Show all students in the list.
+3. **Search student by name:** Input a name. Display matching students.
+4. **Delete a student:** Input student ID. Remove the student from the list.
+5. **Sort students by score:** Sort the list in ascending or descending order based on score.
+6. **Statistics:** Find the student with the highest score; find the student with the lowest score; calculate the average score.
+7. **Exit program.**
 
-# LAB SESSION 5 — Quản lý sinh viên bằng List (danh sách)
+*Đề được chuyển từ `Lab Session 5.docx` sang Markdown.*
 
-## Mục tiêu
+## Đề bài tiếng Việt
+
+### LAB SESSION 5 — Quản lý sinh viên bằng List (danh sách)
+
+#### Mục tiêu
 Xây dựng hệ thống quản lý sinh viên trên console bằng Python, sử dụng **list** làm cấu trúc lưu trữ chính.
 
-## Yêu cầu
+#### Yêu cầu
 Viết chương trình Python có các chức năng:
-
-### Câu 1 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-1. **Add a student:** Input student information (ID, name, score). Store the student in a list.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
 
 1. **Thêm sinh viên:** Nhập ID, tên, điểm; lưu vào một danh sách.
 
-**Giải thích kỹ từng bước và công thức:**
+2. **Hiển thị danh sách sinh viên:** In toàn bộ sinh viên trong list (danh sách).
+
+3. **Tìm sinh viên theo tên:** Nhập tên, hiển thị sinh viên khớp.
+
+4. **Xóa sinh viên:** Nhập ID, xóa sinh viên tương ứng khỏi danh sách.
+
+5. **Sắp xếp theo điểm:** Sắp xếp danh sách tăng dần hoặc giảm dần theo điểm.
+
+6. **Thống kê:** Tìm sinh viên có điểm cao nhất, thấp nhất và tính điểm trung bình.
+
+7. **Thoát chương trình:** Cho phép người dùng kết thúc menu.
+
+## Giải thích từng câu
+
+### Câu 1
 
 Đầu tiên dùng `validate()` từ code nguồn để làm sạch ID/tên và đổi điểm về `float`. Sau đó kiểm tra trùng ID bằng `any` và dùng `append` thêm bản ghi vào list (danh sách). Các ví dụ DEMO ban đầu đưa thông tin sinh viên vào list nhưng chưa thống nhất kiểu dữ liệu, nên bản tham chiếu kiểm tra kỹ hơn.
 
@@ -50,17 +58,7 @@ Viết chương trình Python có các chức năng:
 
 **Thuật ngữ cần nhớ:** List (danh sách).
 
-### Câu 2 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-2. **Display student list:** Show all students in the list.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-2. **Hiển thị danh sách sinh viên:** In toàn bộ sinh viên trong list (danh sách).
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 2
 
 Dùng vòng lặp duyệt từng phần tử của list (danh sách) và truy cập các khóa `id`, `name`, `score` của từng phần tử. Không dùng dictionary (từ điển) làm cấu trúc chứa danh sách chính.
 
@@ -72,17 +70,7 @@ Dùng vòng lặp duyệt từng phần tử của list (danh sách) và truy c�
 
 **Thuật ngữ cần nhớ:** Display (hiển thị).
 
-### Câu 3 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-3. **Search student by name:** Input a name. Display matching students.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-3. **Tìm sinh viên theo tên:** Nhập tên, hiển thị sinh viên khớp.
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 3
 
 Chuẩn hóa tên bằng `.strip().casefold()` rồi lọc phần tử chứa chuỗi tìm kiếm. Khác với DEMO so sánh tên chính xác, cách này thuận tiện với dữ liệu thực tế.
 
@@ -94,17 +82,7 @@ Chuẩn hóa tên bằng `.strip().casefold()` rồi lọc phần tử chứa ch
 
 **Thuật ngữ cần nhớ:** Search (tìm kiếm).
 
-### Câu 4 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-4. **Delete a student:** Input student ID. Remove the student from the list.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-4. **Xóa sinh viên:** Nhập ID, xóa sinh viên tương ứng khỏi danh sách.
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 4
 
 Dùng `enumerate` lấy cặp chỉ số và bản ghi, sau đó `pop(index)` xóa đúng sinh viên có mã cần tìm. Nếu không thấy ID, báo lỗi.
 
@@ -116,17 +94,7 @@ Dùng `enumerate` lấy cặp chỉ số và bản ghi, sau đó `pop(index)` x�
 
 **Thuật ngữ cần nhớ:** Delete (xóa).
 
-### Câu 5 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-5. **Sort students by score:** Sort the list in ascending or descending order based on score.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-5. **Sắp xếp theo điểm:** Sắp xếp danh sách tăng dần hoặc giảm dần theo điểm.
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 5
 
 Dùng `sorted(students, key=..., reverse=...)` để tạo kết quả có thứ tự theo điểm số; không sắp chuỗi điểm thay cho số.
 
@@ -138,17 +106,7 @@ Dùng `sorted(students, key=..., reverse=...)` để tạo kết quả có thứ
 
 **Thuật ngữ cần nhớ:** Sort (sắp xếp).
 
-### Câu 6 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-6. **Statistics:** Find the student with the highest score; find the student with the lowest score; calculate the average score.
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-6. **Thống kê:** Tìm sinh viên có điểm cao nhất, thấp nhất và tính điểm trung bình.
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 6
 
 Với list (danh sách) không rỗng, dùng `max` và `min` theo khóa điểm để tìm toàn bộ bản ghi đứng đầu/cuối, rồi cộng điểm chia số sinh viên.
 
@@ -160,17 +118,7 @@ Với list (danh sách) không rỗng, dùng `max` và `min` theo khóa điểm 
 
 **Thuật ngữ cần nhớ:** Statistics (thống kê).
 
-### Câu 7 — English → Tiếng Việt → Giải thích
-
-**English — Nguyên đề:**
-
-7. **Exit program.**
-
-**Tiếng Việt — Dịch ngay dưới đề Anh:**
-
-7. **Thoát chương trình:** Cho phép người dùng kết thúc menu.
-
-**Giải thích kỹ từng bước và công thức:**
+### Câu 7
 
 Dùng vòng `while True` hiển thị menu, chọn tác vụ theo `if/elif`, xử lý lỗi đầu vào, và `break` khi chọn Exit. Đây là chương trình đã có, không tạo menu mới.
 
@@ -182,11 +130,8 @@ Dùng vòng `while True` hiển thị menu, chọn tác vụ theo `if/elif`, x�
 
 **Thuật ngữ cần nhớ:** Exit (thoát).
 
----
 
-## TOÀN BỘ CODE PYTHON — CHÚ THÍCH NGAY SAU TỪNG DÒNG
-
-**Cách học:** Chú thích tiếng Việt nằm **cuối mỗi dòng lệnh**, ngay sau dấu `#`; không có dòng ghi chú riêng ở phía trước. Các kiểm tra cũ được viết bằng `if` (nếu) và `raise ValueError` (báo lỗi) thay vì `assert`. Chỉ thay cách chú thích và kiểm tra, không đổi dữ liệu hay thuật toán. Dòng trắng dùng để chia đoạn.
+## Code Python
 
 ```python
 import sys  # Nạp thư viện (import: nạp vào) để sử dụng hàm sẵn có.

@@ -1,44 +1,63 @@
-# ASSIGNMENT-01-student-dictionary — English brief, Vietnamese brief, method and full commented script
+# Assignment 1 — Quản lý sinh viên bằng Dictionary
 
-**Nguồn đề:** `PythoClass` Word (bản chép ở `labs/pythoclass/ASSIGNMENT-01-student-dictionary/LAB.md`). **Nguồn code:** bản giải/annotated có sẵn từ repo AIClassDocuments (không nhận là nguyên văn code demo nếu demo chưa đủ), đối chiếu `labs/pythoclass/ASSIGNMENT-01-student-dictionary/DEMO.py` và `SOLUTION.py`. **Một tài liệu duy nhất**, không chia đề/đáp án xen kẽ.
+## Đề bài tiếng Anh
 
----
+### ASSIGNMENT 1
 
-## ĐỀ VÀ HƯỚNG GIẢI SONG NGỮ — TỪNG CÂU ENGLISH / TIẾNG VIỆT
-
-**Cách đọc:** Mỗi câu có nguyên đề tiếng Anh (English: tiếng Anh) ngay trước bản dịch tiếng Việt, tiếp đến phần giải thích và công thức. Mọi giá trị, bảng và biểu thức gốc được giữ nguyên.
-
-### Bối cảnh, dữ liệu — Original English
-
-# ASSIGNMENT 1
-
-## Objective
+#### Objective
 Develop a menu-driven Python program to manage student information using a dictionary data structure and functions.
 
-## Requirements
+#### Requirements
 Write a Python program that implements the following features:
 
-### Bối cảnh, dữ liệu — Tiếng Việt
+1. **Data Structure:** Store students in a dictionary. Each student includes: `id`, `name`, `score`.
+2. **Create (Add student):** Input student information. Check for duplicate ID before adding.
+3. **Read (Display students):** Show all students in the system.
+4. **Update student:** Update student information based on ID.
+5. **Delete student:** Delete a student by ID. Require confirmation before deletion.
+6. **Validate data:** Ensure valid input (non-empty name, valid score range, correct format).
+7. **Check duplicate ID:** Do not allow adding students with existing IDs.
+8. **Sorting:** Sort students by score (ascending/descending).
+9. **Advanced statistics:** Highest score student, lowest score student, average score, count students by performance level.
+10. **Academic classification:** Classify students based on score (e.g., Excellent, Good, Average, Poor).
 
-# BÀI TẬP 1 — Quản lý sinh viên bằng Dictionary (từ điển)
+*Đề được chuyển từ `Ass 1.docx` sang Markdown; nội dung và thứ tự yêu cầu được giữ lại.*
 
-## Mục tiêu
+## Đề bài tiếng Việt
+
+### BÀI TẬP 1 — Quản lý sinh viên bằng Dictionary (từ điển)
+
+#### Mục tiêu
 Xây dựng chương trình Python có menu quản lý thông tin sinh viên, sử dụng cấu trúc dữ liệu **dictionary** và các hàm.
 
-## Yêu cầu
+#### Yêu cầu
 Viết chương trình có đầy đủ các chức năng sau:
-
-### Câu 1 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-1. **Data Structure:** Store students in a dictionary. Each student includes: `id`, `name`, `score`.
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
 
 1. **Cấu trúc dữ liệu:** Lưu sinh viên bằng dictionary (từ điển), mỗi bản ghi có `id`, `name`, `score`.
 
-**Giải thích từng bước và công thức liên quan:**
+2. **Thêm sinh viên (Create):** Nhập thông tin, kiểm tra mã ID trùng trước khi thêm.
+
+3. **Hiển thị (Read):** Xuất toàn bộ sinh viên hiện có.
+
+4. **Cập nhật (Update):** Sửa thông tin sinh viên dựa trên ID.
+
+5. **Xóa (Delete):** Xóa theo ID và **phải có xác nhận** trước khi xóa.
+
+6. **Kiểm tra dữ liệu:** Không cho phép tên rỗng, điểm ngoài khoảng hợp lệ hoặc sai định dạng.
+
+7. **Chống trùng mã:** Không thêm được sinh viên có ID đã tồn tại.
+
+8. **Sắp xếp:** Sắp xếp theo điểm tăng dần hoặc giảm dần.
+
+9. **Thống kê nâng cao:** Tìm sinh viên có điểm cao nhất, thấp nhất, tính điểm trung bình và đếm sinh viên theo mức học lực.
+
+10. **Phân loại học lực:** Dựa trên điểm, chia thành Xuất sắc (Excellent), Khá (Good), Trung bình (Average) và Yếu (Poor).
+
+*Lưu ý:* Đề Word chỉ nêu ví dụ các mức học lực, **không quy định ngưỡng điểm cụ thể**. Các ngưỡng của code tham khảo phải được trình bày như quy ước triển khai, không phải dữ liệu gốc.
+
+## Giải thích từng câu
+
+### Câu 1
 
 Dùng `dict` lồng nhau: khóa ngoài là ID duy nhất, giá trị là đối tượng có `name` và `score`. Hàm tạo dữ liệu giả lập để tránh thông tin cá nhân.
 
@@ -50,17 +69,7 @@ Dùng `dict` lồng nhau: khóa ngoài là ID duy nhất, giá trị là đối 
 
 **Thuật ngữ cần nhớ:** Dictionary (từ điển).
 
-### Câu 2 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-2. **Create (Add student):** Input student information. Check for duplicate ID before adding.
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
-
-2. **Thêm sinh viên (Create):** Nhập thông tin, kiểm tra mã ID trùng trước khi thêm.
-
-**Giải thích từng bước và công thức liên quan:**
+### Câu 2
 
 Đọc các trường, chuẩn hóa bằng `.strip()`, đổi điểm bằng `float()`, kiểm tra miền 0–10, rồi kiểm tra ID chưa có trước khi thêm.
 
@@ -72,17 +81,7 @@ Dùng `dict` lồng nhau: khóa ngoài là ID duy nhất, giá trị là đối 
 
 **Thuật ngữ cần nhớ:** Create (thêm mới).
 
-### Câu 3 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-3. **Read (Display students):** Show all students in the system.
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
-
-3. **Hiển thị (Read):** Xuất toàn bộ sinh viên hiện có.
-
-**Giải thích từng bước và công thức liên quan:**
+### Câu 3
 
 Duyệt `.items()` để lấy cặp ID–thông tin và in nội dung. Giữ nguyên thứ tự thêm vào của từ điển.
 
@@ -94,17 +93,7 @@ Duyệt `.items()` để lấy cặp ID–thông tin và in nội dung. Giữ ng
 
 **Thuật ngữ cần nhớ:** Read (đọc dữ liệu).
 
-### Câu 4 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-4. **Update student:** Update student information based on ID.
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
-
-4. **Cập nhật (Update):** Sửa thông tin sinh viên dựa trên ID.
-
-**Giải thích từng bước và công thức liên quan:**
+### Câu 4
 
 Từ ID đầu vào, tìm đúng khóa; từ chối ID không tồn tại, xác thực giá trị mới trước khi thay thế.
 
@@ -116,17 +105,7 @@ Từ ID đầu vào, tìm đúng khóa; từ chối ID không tồn tại, xác 
 
 **Thuật ngữ cần nhớ:** Update (cập nhật).
 
-### Câu 5 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-5. **Delete student:** Delete a student by ID. Require confirmation before deletion.
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
-
-5. **Xóa (Delete):** Xóa theo ID và **phải có xác nhận** trước khi xóa.
-
-**Giải thích từng bước và công thức liên quan:**
+### Câu 5
 
 Tìm ID rồi kiểm tra `confirmed`; khi người dùng từ chối thì không đụng đến dữ liệu. Khi đồng ý mới `del students[id]`.
 
@@ -138,17 +117,7 @@ Tìm ID rồi kiểm tra `confirmed`; khi người dùng từ chối thì không
 
 **Thuật ngữ cần nhớ:** Delete (xóa).
 
-### Câu 6 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-6. **Validate data:** Ensure valid input (non-empty name, valid score range, correct format).
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
-
-6. **Kiểm tra dữ liệu:** Không cho phép tên rỗng, điểm ngoài khoảng hợp lệ hoặc sai định dạng.
-
-**Giải thích từng bước và công thức liên quan:**
+### Câu 6
 
 Phân biệt kiểm tra kiểu dữ liệu và kiểm tra khoảng giá trị; nêu rõ vì sao `input()` tạo chuỗi, vì sao cần bắt `ValueError`.
 
@@ -160,17 +129,7 @@ Phân biệt kiểm tra kiểu dữ liệu và kiểm tra khoảng giá trị; n
 
 **Thuật ngữ cần nhớ:** Validate (xác thực dữ liệu).
 
-### Câu 7 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-7. **Check duplicate ID:** Do not allow adding students with existing IDs.
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
-
-7. **Chống trùng mã:** Không thêm được sinh viên có ID đã tồn tại.
-
-**Giải thích từng bước và công thức liên quan:**
+### Câu 7
 
 Dùng cùng hàm `add` trong code nguồn để chống trùng trước thao tác gán: nếu `id in students` thì báo lỗi.
 
@@ -182,17 +141,7 @@ Dùng cùng hàm `add` trong code nguồn để chống trùng trước thao tá
 
 **Thuật ngữ cần nhớ:** duplicate ID (trùng mã).
 
-### Câu 8 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-8. **Sorting:** Sort students by score (ascending/descending).
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
-
-8. **Sắp xếp:** Sắp xếp theo điểm tăng dần hoặc giảm dần.
-
-**Giải thích từng bước và công thức liên quan:**
+### Câu 8
 
 Sắp theo khóa `score`, dùng `reverse=True/False` để đổi chiều; chương trình không làm biến đổi dữ liệu đang lưu.
 
@@ -204,17 +153,7 @@ Sắp theo khóa `score`, dùng `reverse=True/False` để đổi chiều; chư�
 
 **Thuật ngữ cần nhớ:** Sorting (sắp xếp).
 
-### Câu 9 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-9. **Advanced statistics:** Highest score student, lowest score student, average score, count students by performance level.
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
-
-9. **Thống kê nâng cao:** Tìm sinh viên có điểm cao nhất, thấp nhất, tính điểm trung bình và đếm sinh viên theo mức học lực.
-
-**Giải thích từng bước và công thức liên quan:**
+### Câu 9
 
 Lấy danh sách điểm; tính `max`, `min`, trung bình, rồi đếm nhãn phân loại bằng `Counter`. Cần xử lý trường hợp không có sinh viên để tránh chia 0.
 
@@ -226,19 +165,7 @@ Lấy danh sách điểm; tính `max`, `min`, trung bình, rồi đếm nhãn ph
 
 **Thuật ngữ cần nhớ:** Statistics (thống kê).
 
-### Câu 10 — English → Tiếng Việt → Giải thích
-
-**English — Đề gốc:**
-
-10. **Academic classification:** Classify students based on score (e.g., Excellent, Good, Average, Poor).
-
-**Tiếng Việt — Bản dịch của câu ngay trên:**
-
-10. **Phân loại học lực:** Dựa trên điểm, chia thành Xuất sắc (Excellent), Khá (Good), Trung bình (Average) và Yếu (Poor).
-
-*Lưu ý:* Đề Word chỉ nêu ví dụ các mức học lực, **không quy định ngưỡng điểm cụ thể**. Các ngưỡng của code tham khảo phải được trình bày như quy ước triển khai, không phải dữ liệu gốc.
-
-**Giải thích từng bước và công thức liên quan:**
+### Câu 10
 
 Kiểm tra ngưỡng từ cao xuống thấp để không có hai mức cùng đúng; các mốc lấy từ code tham khảo đã tồn tại, **không giả nhận là đề Word quy định**.
 
@@ -250,11 +177,8 @@ Kiểm tra ngưỡng từ cao xuống thấp để không có hai mức cùng đ
 
 **Thuật ngữ cần nhớ:** classification (phân loại).
 
----
 
-## TOÀN BỘ CODE PYTHON — CHÚ THÍCH NGAY SAU TỪNG DÒNG
-
-**Hướng dẫn:** Các dòng lệnh có lời giải thích tiếng Việt **sau cùng dòng**, đi sau dấu `#`. Các dòng trắng chỉ tách nhóm code. Không dùng `assert`; các phép kiểm tra của script cũ được diễn đạt thành `if` (nếu) và `raise ValueError` (báo lỗi dữ liệu) để giữ khả năng phát hiện kết quả sai. Dữ liệu và thuật toán đều bám theo code mẫu, không thay bài toán.
+## Code Python
 
 ```python
 from collections import Counter  # Nạp thư viện (import: nạp vào) để sử dụng hàm có sẵn.
