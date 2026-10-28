@@ -1187,25 +1187,25 @@
     "reason": "Owner-approved shared AIBrigde ChatGPT Conversation Reliability task. Load merged AIBrigde main PR #26 fae2617706314b2a600f9e0044827b4cddcb1f68 before running pending v2 browser:conversation_structure_probe with payload.detail_level=contexts. Managed restart barrier is processed first, before task dispatch. Preserve Edge session, current ChatGPT conversation, 17 completed task ACKs and Jetking goal_review.enabled=false. Read-only context counts only; do not replay the older v1 task or create/move ChatGPT conversation. A stale v1 result instead of v2 is NOT acceptable; report runtime freshness mismatch."
   },
   "goal_review": {
-    "enabled": true,
+    "enabled": false,
     "approval": "approved",
-    "status": "active",
+    "status": "blocked",
     "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-    "revision": "2026-10-28-whole-brief-bilingual-batch03",
+    "revision": "2026-10-28-whole-brief-bilingual-pretest-binary-source-blocker",
     "title": "Whole English brief then complete Vietnamese brief, detailed solution and full commented code per Word lab plus Pretest",
-    "phase": "READY_FOR_BATCH_03",
+    "phase": "WAITING_PRETEST_SOURCE",
     "goal_spec": "docs/WORD-LAB-WHOLE-BRIEF-GOAL.json",
     "progress_ledger": "docs/WORD-LAB-WHOLE-BRIEF-PROGRESS.json",
     "output_root": "docs/labs",
     "expected_word_documents": 8,
     "batch_limit": 3,
-    "active_batch": 3,
+    "active_batch": 4,
     "active_labs": [
-      "LAB-10-file-csv"
+      "PRETEST"
     ],
-    "next_review": "Approved complete-doc bilingual goal: PR190 and PR191 merged with CI SUCCESS, six accessible Word labs now 4 contiguous sections with full scripts. Batch03 ONLY Lab10 CSV; original 10-row synthetic data must be in English and Vietnamese briefs; full referenced annotated CSV script at end; preserve error handling, source values and no silent data loss. After CI merge mark 7/8 accessible docs COMPLETE but goal remains WAITING_PRETEST_SOURCE, because Pretest.docx private binary failed GitHub text decoding; do not invent original Pretest content or retry identical failed probes. No new goal or fake PASS.",
-    "review_hold": "Only Lab10 active. Pretest still BLOCKED_SOURCE_BINARY; final status must not claim 8/8 until readable Pretest is grounded.",
-    "batch_boundary": "THREE_SOURCE_WORDS_MAX_PER_BATCH; PRETEST blocked, NO_GUESS"
+    "next_review": "7/8 original Word docs COMPLETE, each 4 contiguous sections EN brief → VI translation → detailed walkthrough/formulas → ONE fully commented Python script. PR190, PR191, PR192 merged after exact-final-head GitHub CI SUCCESS. PRETEST.docx in private nguyenletrian/PythoClass (blob SHA 044b05d...), but current GitHub connector only accepts UTF-8 text and fails on DOCX binary with UnicodeDecodeError. BLOCKED_SOURCE_BINARY: do not invent Pretest questions, fabricate lab, retry same probe on every heartbeat or claim goal finished. Only resume Pretest when user provides the DOCX directly in chat or another verified authorized readable source path. Preserve all other files and source repo. Windows/CDP UNVERIFIED.",
+    "review_hold": "Paused due to concrete source binary limitation; 7/8 completed, Pretest missing readable content. No heartbeat repetition or new goal.",
+    "batch_boundary": "PRETEST_ONLY_AFTER_SOURCE_READABLE; no duplicate Bridge queue, no false completion."
   },
   "goal_review_history": [
     {
@@ -1334,7 +1334,7 @@
     }
   ],
   "owner_pause": {
-    "suppress_idle_reminders": false,
-    "reason": "Owner explicitly approved new four-contiguous-section format with Pretest; three grounded Word labs ready, Pretest binary source blocked."
+    "suppress_idle_reminders": true,
+    "reason": "7/8 full bilingual Word documents finished, Pretest blocked by unreadable GitHub private DOCX binary. No safe dependency-ready work until readable original source is provided."
   }
 }
