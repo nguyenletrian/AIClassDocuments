@@ -1,0 +1,85 @@
+{
+  "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
+  "title": "English lab briefs and fully annotated solutions beneath each task",
+  "owner_approved": true,
+  "approval": "owner_approved",
+  "status": "ACTIVE",
+  "created_on": "2026-10-28",
+  "source_repository": "nguyenletrian/PythoClass",
+  "source_branch": "main",
+  "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
+  "target_repository": "nguyenletrian/AIClassDocuments",
+  "output_root": "docs/labs",
+  "reference_root": "labs/pythoclass",
+  "source_inventory": {
+    "word_labs_existing": [
+      "ASSIGNMENT-01-student-dictionary",
+      "LAB-04-conditions-loops",
+      "LAB-05-student-list",
+      "LAB-05-06-gradient-descent",
+      "LAB-07-probability",
+      "LAB-08-statistics",
+      "LAB-10-file-csv"
+    ],
+    "notebook_labs_new": [
+      "LAB-MATH-02-sets-jaccard",
+      "LAB-MATH-03-04-matrix-pca"
+    ],
+    "new_notebooks": [
+      "2. Math/labs2.ipynb",
+      "2. Math/labs3_4.ipynb"
+    ],
+    "updated_reference_notebooks": [
+      "2. Math/labs5_6.ipynb",
+      "2. Math/labs8.ipynb"
+    ],
+    "exclude": [
+      "Pretest.docx (not explicitly a lab)",
+      "Duplicate MON 2/LAB SESSION 5_6.docx (same assignment)"
+    ]
+  },
+  "scope": {
+    "total_unique_lab_units": 9,
+    "batch_size_limit": 3,
+    "batches": [
+      {
+        "batch": 1,
+        "labs": [
+          "LAB-MATH-02-sets-jaccard",
+          "LAB-MATH-03-04-matrix-pca",
+          "ASSIGNMENT-01-student-dictionary"
+        ]
+      },
+      {
+        "batch": 2,
+        "labs": [
+          "LAB-04-conditions-loops",
+          "LAB-05-student-list",
+          "LAB-10-file-csv"
+        ]
+      },
+      {
+        "batch": 3,
+        "labs": [
+          "LAB-05-06-gradient-descent",
+          "LAB-07-probability",
+          "LAB-08-statistics"
+        ]
+      }
+    ],
+    "one_export_folder_per_lab": true
+  },
+  "contract": [
+    "Read current authoritative source notebook/Word-derived LAB.md and linked owner demo code before writing any English assignment; do not infer unseen Word content.",
+    "Present each original task as clear English, preserving numbers, datasets, instructions and discrepancies. Mark headings reconstructed from notebook code as reconstructed, not a verbatim translation.",
+    "Immediately beneath EACH English task place its explained solution, with fully commented Python including purpose, imports, functions, parameters, intermediate steps, output/edge cases.",
+    "Use owner demo/scripts and existing valid reference SOLUTION.py where applicable; never copy known buggy demonstration behavior without correction and explanation.",
+    "Export each lab into docs/labs/<lab-slug>/ with LAB_EN_SOLVED.md and runnable SOLUTION_ANNOTATED.py (and README.md if useful); existing labs/pythoclass remain source references, do not alter source repo.",
+    "For new Math labs also create source-linked folders under labs/pythoclass with LAB.md, DEMO.py or SOURCE_NOTEBOOK.md, KNOWLEDGE.md and SOLUTION.py, without fabricated original Word documents.",
+    "Use synthetic data and avoid copying private identities from source. Preserve factual source requirements; explain unknown constraints rather than guessing.",
+    "Run head-specific GitHub Actions tests of all new exports plus baseline curriculum and preserve the 46 lessons / 920 MCQs. For each batch, one PR, final HEAD CI SUCCESS before merge.",
+    "Store progress, exact source sha, changed files, PR, CI and caveats in a ledger; do not mark COMPLETE without checks. Stop new batch until previous merged.",
+    "Windows Bridge/PowerShell and CDP 9224 validation remains UNVERIFIED absent real worker proof; no duplicate Bridge task/ACK or automatic new goal after completion."
+  ],
+  "ledger": "docs/LAB-EN-SOLUTIONS-PROGRESS.json"
+}
