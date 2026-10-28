@@ -121,5 +121,21 @@
     "docs/labs/LAB-10-file-csv.md",
     "docs/labs/PRETEST.md"
   ],
-  "exactly_one_document_per_original_word_verified": true
+  "exactly_one_document_per_original_word_verified": true,
+  "latest_editorial_revision": {
+    "revision": "2026-10-28-en-vi-per-question-detailed-inline-comments",
+    "status": "IN_PR_CI",
+    "branch": "feat/word-labs-interleaved-bilingual-inline-notes-20261028",
+    "documents": 8,
+    "source_unchanged": true,
+    "checks": [
+      "EN→VI→detailed method each question",
+      "parenthesized Vietnamese glossary",
+      "one complete script",
+      "no ast.Assert",
+      "inline explanation on each physical code line",
+      "run all 8 scripts"
+    ],
+    "windows_validation": "UNVERIFIED"
+  }
 }

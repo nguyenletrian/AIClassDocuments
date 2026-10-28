@@ -1,6 +1,6 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-  "title": "One complete bilingual Word brief, method/formulas, then ALL annotated existing Python code per lab, including Pretest",
+  "title": "Eight Word labs: each question EN then VI then detailed method/formulas; one full script with inline Vietnamese notes",
   "status": "COMPLETED",
   "approval": "owner_approved",
   "created_date": "2026-10-28",
@@ -40,13 +40,12 @@
     }
   ],
   "contract": [
-    "One ORIGINAL Word file maps to one complete docs/labs/<slug>.md, not multiple task-answer alternations and no independent Python file.",
-    "Four contiguous sections in exact order: (1) full English assignment in original task order including all tables/datasets, (2) full Vietnamese translation (including tables/units/numbers), (3) detailed Vietnamese walkthrough for every task and all relevant formulas, (4) ONE complete executable Python script with thorough in-code comments/notes.",
-    "All Python source from existing labs/pythoclass/<slug>/SOLUTION.py, existing annotated historic scripts, or genuine PythoClass demos/lessons. Preserve implemented algorithms and values; disclose provenance accurately. Do not invent algorithms or claim reviewed solutions were the user's personally written demo.",
-    "For source briefs use original Word-derived LAB.md. Disclose that this is a faithful existing transcription instead of claiming binary docx was re-read. Do not omit any original task/table and do not silently 'fix' conflicting Lab04 electricity bill example.",
-    "Include Pretest.docx as eighth Word unit. It is currently available only as a private binary whose contents retrieval fails with UnicodeDecodeError in the connected GitHub text interface. NEVER fabricate its requirements. Keep Pretest BLOCKED_SOURCE_BINARY until legible source is fetched through an authorized, verified path.",
-    "Earlier Word lab publication is superseded by the new layout; preserve full Git history. Use at most three source Word labs per PR, exact final GitHub CI success and stable base before merge. Complete goal only when all 8 documents have grounded content and CI proof.",
-    "Keep PythoClass unchanged and avoid exposing student identities. Windows/CDP worker verification UNVERIFIED unless actually tested."
+    "One original Word file corresponds to exactly one Markdown document docs/labs/<slug>.md; no separate code or answer files.",
+    "For EACH exercise in original order, show the full original English question, its Vietnamese translation immediately below, THEN detailed step-by-step interpretation, formulas, concrete examples/common pitfalls and English terms annotated with Vietnamese meaning in parentheses. Do not split all English then all Vietnamese.",
+    "Place one complete runnable Python script after all question explanations. Annotate every executable physical code line with its Vietnamese explanation immediately at the END of that line after #, not a standalone comment line above or below.",
+    "Do not use assert in any learner Python script. Replace historical checks with explicit if-not and ValueError while preserving their logical conditions and the program behavior.",
+    "Original Word questions, datasets, formulas, special source discrepancies and exactly eight lab units (including verified owner-uploaded Pretest.docx) must remain intact. Use genuine existing demo/lesson/reviewed code patterns, and identify provenance without inventing teacher-authored demos.",
+    "Maintain eight Word lab files plus navigation README, no nested export folders; preserve PythoClass source. Gate merges on head-exact GitHub CI success. Windows/CDP remains UNVERIFIED unless actually executed."
   ],
   "completed_accessible_word_documents": 7,
   "blocker": "",
@@ -68,5 +67,13 @@
     "source_equation": "L(w)=(w-4)^2"
   },
   "completed_word_documents": 8,
-  "closeout": "All 8 original Word documents, including owner-uploaded Pretest.docx (SHA256 6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad), have a single Markdown document with entire English brief, entire Vietnamese translation, methods/formulas, and one full annotated Python solution. Four sequential batches merged: PR190, PR191, PR192 and PR193. Final Pretest PR193 merged after final-head GitHub CI #40698235338 SUCCESS. Exactly 8 Word lab Markdown docs plus README, no old multi-file output directories, 0 open PRs. Windows/PowerShell/CDP9224 remain UNVERIFIED."
+  "closeout": "All 8 original Word documents, including owner-uploaded Pretest.docx (SHA256 6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad), have a single Markdown document with entire English brief, entire Vietnamese translation, methods/formulas, and one full annotated Python solution. Four sequential batches merged: PR190, PR191, PR192 and PR193. Final Pretest PR193 merged after final-head GitHub CI #40698235338 SUCCESS. Exactly 8 Word lab Markdown docs plus README, no old multi-file output directories, 0 open PRs. Windows/PowerShell/CDP9224 remain UNVERIFIED.",
+  "latest_editorial_revision": {
+    "revision": "2026-10-28-en-vi-per-question-detailed-inline-comments",
+    "owner_approved": true,
+    "scope": "All eight already-complete Word lab documents",
+    "status": "CHANGES_IN_PULL_REQUEST",
+    "branch": "feat/word-labs-interleaved-bilingual-inline-notes-20261028",
+    "policy": "Do not claim this revision merged until exact-head pull_request CI success."
+  }
 }
