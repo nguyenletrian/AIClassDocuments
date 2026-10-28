@@ -1,7 +1,7 @@
 {
   "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
   "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
-  "status": "READY_FOR_BATCH_02",
+  "status": "BATCH_02_IN_PROGRESS",
   "last_completed_batch": 1,
   "expected_batches": 3,
   "expected_lab_units": 9,
@@ -40,7 +40,12 @@
         "LAB-05-student-list",
         "LAB-10-file-csv"
       ],
-      "status": "PENDING"
+      "status": "IN_PROGRESS",
+      "exported_paths": [
+        "docs/labs/LAB-04-conditions-loops",
+        "docs/labs/LAB-05-student-list",
+        "docs/labs/LAB-10-file-csv"
+      ]
     },
     {
       "batch": 3,
