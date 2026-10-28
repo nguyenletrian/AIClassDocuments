@@ -1,10 +1,10 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-  "status": "PRETEST_IN_PROGRESS",
+  "status": "COMPLETED",
   "expected_word_documents": 8,
-  "completed_word_documents": 7,
+  "completed_word_documents": 8,
   "complete_nonpretest_docs": 7,
-  "last_completed_batch": 3,
+  "last_completed_batch": 4,
   "batches": [
     {
       "batch": 1,
@@ -64,10 +64,15 @@
       "labs": [
         "PRETEST"
       ],
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "paths": [
         "docs/labs/PRETEST.md"
-      ]
+      ],
+      "pr_number": 193,
+      "merge_sha": "c08239335206b9fcc30185c6773a76ae93f417c8",
+      "head": "3d45e3b67604c6b3377277a0fed8029d7cea5420",
+      "ci_run": 40698235338,
+      "ci_conclusion": "SUCCESS"
     }
   ],
   "source_blockers": {
@@ -103,7 +108,18 @@
   },
   "previous_goal": "aiclassdocuments-lab-english-annotated-solutions-20261028",
   "validation": {
-    "github_ci": "SUCCESS_ALL_7_READABLE_WORD_DOCS",
+    "github_ci": "SUCCESS_ALL_8_SOURCE_WORD_DOCS",
     "windows": "UNVERIFIED"
-  }
+  },
+  "final_manifest": [
+    "docs/labs/ASSIGNMENT-01-student-dictionary.md",
+    "docs/labs/LAB-04-conditions-loops.md",
+    "docs/labs/LAB-05-06-gradient-descent.md",
+    "docs/labs/LAB-05-student-list.md",
+    "docs/labs/LAB-07-probability.md",
+    "docs/labs/LAB-08-statistics.md",
+    "docs/labs/LAB-10-file-csv.md",
+    "docs/labs/PRETEST.md"
+  ],
+  "exactly_one_document_per_original_word_verified": true
 }
