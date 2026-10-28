@@ -156,10 +156,12 @@ X = np.array([1,2,3,4,5,6,7,8], dtype=float)
 Y = np.array([35,40,50,55,65,70,80,85], dtype=float)
 if len(X) != len(Y):
     raise ValueError("Số giờ học và số điểm không khớp")
+import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 ax.scatter(X, Y)
 ax.set(xlabel="Giờ học", ylabel="Điểm thi", title="Giờ học và điểm thi")
 ax.grid(True)
+plt.close(fig)  # Đóng figure sau khi sử dụng
 ~~~
 **Cú pháp và tham số:** `dtype=float` chọn số thực; `plt.subplots()` trả một figure (khung hình) và axes (vùng vẽ); `ax.scatter(x, y)` vẽ cặp điểm; `xlabel`, `ylabel` là nhãn trục, `title` là tiêu đề; `grid(True)` bật lưới. Để chạy riêng đoạn minh họa cần nạp `import matplotlib.pyplot as plt`; code cuối bài chỉ vẽ khi không truyền `--no-plot`.
 
@@ -203,8 +205,8 @@ w, b = sp.symbols("w b", real=True)
 loss = (2 * w + b - 5) ** 2
 gradient = sp.Matrix([sp.diff(loss, w), sp.diff(loss, b)])
 hessian = sp.hessian(loss, (w, b))
-# Gradient: [4*(2*w+b-5), 2*(2*w+b-5)]
-# Hessian: [[8, 4], [4, 2]]
+print(gradient)  # Vector đạo hàm theo w và b
+print(hessian)   # Ma trận đạo hàm bậc hai
 ~~~
 **Hàm và flag:** `sp.symbols(..., real=True)` khai báo biến thực; `sp.diff(loss, w)` lấy đạo hàm riêng theo `w`; `sp.Matrix` tạo vector cột; `sp.hessian(loss, (w,b))` trả ma trận theo đúng thứ tự biến. `real=True` là giả định số thực trong SymPy. Ở một điểm dữ liệu này, Hessian có một hướng độ cong bằng 0; không kết luận loss có cực tiểu duy nhất từ một điểm.
 
@@ -253,6 +255,7 @@ w, b = sp.symbols("w b", real=True)
 loss = sum((yi - w * xi - b) ** 2 for xi, yi in zip(X, Y)) / len(X)
 gradient = sp.Matrix([sp.diff(loss, w), sp.diff(loss, b)])
 hessian = sp.hessian(loss, (w, b))
+trained_w, trained_b, history = task04_train()  # Tái sử dụng hàm huấn luyện của code cuối bài
 gradient_at_final = gradient.subs({w: trained_w, b: trained_b}).evalf()
 eigenvalues = np.linalg.eigvalsh(np.asarray(hessian, dtype=float))
 ~~~
