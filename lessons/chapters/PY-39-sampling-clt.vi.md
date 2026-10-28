@@ -645,64 +645,64 @@ D. Sampling variability of an estimator | Độ biến thiên của thống kê 
 **Giải thích:** SE mô tả độ bất định của thống kê.
 
 
-**Q5. What does `replace=False` mean when sampling? | `replace=False` khi lấy mẫu nghĩa là gì?**
+**Q5. A random sample contains [3, 5, 7]. What is its sample mean? | Một mẫu ngẫu nhiên có các giá trị [3, 5, 7]. Trung bình mẫu bằng bao nhiêu?**
 
-A. Items cannot be selected twice in one sample | Không chọn lặp một phần tử trong cùng mẫu
+A. 3 | 3
 
-B. Reproducible pseudorandom selection | Chọn giả ngẫu nhiên có thể lặp
+B. 7 | 7
 
-C. Computes one mean per row | Tính một trung bình cho mỗi hàng
+C. 5 | 5
 
-D. Three randomly sampled rows | Ba hàng được chọn ngẫu nhiên
-
-**Đáp án: A**
-
-**Giải thích:** Lấy mẫu không hoàn lại.
-
-
-**Q6. What does a random seed enable? | Seed ngẫu nhiên cho phép gì?**
-
-A. Items cannot be selected twice in one sample | Không chọn lặp một phần tử trong cùng mẫu
-
-B. Reproducible pseudorandom selection | Chọn giả ngẫu nhiên có thể lặp
-
-C. Computes one mean per row | Tính một trung bình cho mỗi hàng
-
-D. Three randomly sampled rows | Ba hàng được chọn ngẫu nhiên
-
-**Đáp án: B**
-
-**Giải thích:** Nó kiểm soát chuỗi có thể tái tạo.
-
-
-**Q7. What does `mean(axis=1)` do on a 2-D sample table? | `mean(axis=1)` trên bảng mẫu 2-D làm gì?**
-
-A. Items cannot be selected twice in one sample | Không chọn lặp một phần tử trong cùng mẫu
-
-B. Reproducible pseudorandom selection | Chọn giả ngẫu nhiên có thể lặp
-
-C. Computes one mean per row | Tính một trung bình cho mỗi hàng
-
-D. Three randomly sampled rows | Ba hàng được chọn ngẫu nhiên
+D. 15 | 15
 
 **Đáp án: C**
 
-**Giải thích:** Mỗi hàng có thể là một lần lấy mẫu.
+**Giải thích:** Trung bình mẫu = (3 + 5 + 7)/3 = 5.
 
 
-**Q8. What does `df.sample(n=3)` select? | `df.sample(n=3)` chọn gì?**
+**Q6. If the sample size rises from 25 to 100 and the population standard deviation stays constant, how does the standard error of the mean change? | Nếu cỡ mẫu tăng từ 25 lên 100 và độ lệch chuẩn tổng thể không đổi, sai số chuẩn của trung bình thay đổi thế nào?**
 
-A. Items cannot be selected twice in one sample | Không chọn lặp một phần tử trong cùng mẫu
+A. It doubles | Tăng gấp đôi
 
-B. Reproducible pseudorandom selection | Chọn giả ngẫu nhiên có thể lặp
+B. It halves | Giảm một nửa
 
-C. Computes one mean per row | Tính một trung bình cho mỗi hàng
+C. It stays unchanged | Không đổi
 
-D. Three randomly sampled rows | Ba hàng được chọn ngẫu nhiên
+D. It becomes zero | Bằng 0
+
+**Đáp án: B**
+
+**Giải thích:** SE = độ lệch chuẩn / căn(cỡ mẫu). Cỡ mẫu tăng 4 lần nên căn cỡ mẫu tăng 2 lần, vì vậy SE giảm một nửa.
+
+
+**Q7. Does setting a random seed guarantee a representative sample? | Đặt seed ngẫu nhiên có bảo đảm lấy được mẫu đại diện không?**
+
+A. Yes, always | Có, luôn luôn
+
+B. Yes, if seed = 42 | Có, nếu seed = 42
+
+C. Yes, for large populations | Có, nếu tổng thể lớn
+
+D. No; it only helps reproduce the random draw | Không; seed chỉ giúp tái lập lượt lấy mẫu
 
 **Đáp án: D**
 
-**Giải thích:** Mặc định hàm lấy hàng của DataFrame.
+**Giải thích:** Seed giúp lặp lại các số ngẫu nhiên, không khắc phục thiên lệch chọn mẫu hay bảo đảm đại diện.
+
+
+**Q8. What does the Central Limit Theorem mainly describe under suitable conditions and increasing sample size? | Định lý giới hạn trung tâm chủ yếu mô tả điều gì khi các điều kiện phù hợp và cỡ mẫu tăng?**
+
+A. The distribution of sample means tends toward normal | Phân phối trung bình mẫu tiến gần phân phối chuẩn
+
+B. All raw data become normal | Mọi dữ liệu gốc trở thành chuẩn
+
+C. The population mean becomes zero | Trung bình tổng thể trở về 0
+
+D. Individual observations become equal | Các quan sát trở nên bằng nhau
+
+**Đáp án: A**
+
+**Giải thích:** CLT nói về phân phối của trung bình qua nhiều mẫu, không bắt buộc phân phối của từng quan sát chuyển thành chuẩn.
 
 
 **Q9. What does sample SD measure? | SD mẫu đo gì?**
