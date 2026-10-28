@@ -637,64 +637,64 @@ D. `A @ x - b` | `A @ x - b`
 **Giải thích:** Lấy Ax trừ b cho độ lệch từng phương trình.
 
 
-**Q5. Which tool solves a nonsingular square system? | Hàm nào giải hệ vuông không suy biến?**
+**Q5. Solve x + y = 7 and x − y = 3. What are x and y? | Giải hệ x + y = 7 và x − y = 3. Tìm x và y.**
 
-A. `np.linalg.solve(A,b)` | `np.linalg.solve(A,b)`
+A. x = 4, y = 3 | x = 4, y = 3
 
-B. `np.linalg.matrix_rank(A)` | `np.linalg.matrix_rank(A)`
+B. x = 2, y = 5 | x = 2, y = 5
 
-C. `np.column_stack((A,b))` | `np.column_stack((A,b))`
+C. x = 5, y = 2 | x = 5, y = 2
 
-D. `np.linalg.lstsq(A,b,rcond=None)` | `np.linalg.lstsq(A,b,rcond=None)`
-
-**Đáp án: A**
-
-**Giải thích:** solve dùng cho ma trận hệ số vuông, không suy biến.
-
-
-**Q6. Which tool determines matrix rank? | Hàm nào tính hạng ma trận?**
-
-A. `np.linalg.solve(A,b)` | `np.linalg.solve(A,b)`
-
-B. `np.linalg.matrix_rank(A)` | `np.linalg.matrix_rank(A)`
-
-C. `np.column_stack((A,b))` | `np.column_stack((A,b))`
-
-D. `np.linalg.lstsq(A,b,rcond=None)` | `np.linalg.lstsq(A,b,rcond=None)`
-
-**Đáp án: B**
-
-**Giải thích:** matrix_rank đo số chiều độc lập.
-
-
-**Q7. Which tool builds an augmented matrix? | Hàm nào ghép ma trận mở rộng?**
-
-A. `np.linalg.solve(A,b)` | `np.linalg.solve(A,b)`
-
-B. `np.linalg.matrix_rank(A)` | `np.linalg.matrix_rank(A)`
-
-C. `np.column_stack((A,b))` | `np.column_stack((A,b))`
-
-D. `np.linalg.lstsq(A,b,rcond=None)` | `np.linalg.lstsq(A,b,rcond=None)`
+D. x = 7, y = 0 | x = 7, y = 0
 
 **Đáp án: C**
 
-**Giải thích:** column_stack ghép b thành cột bên cạnh A.
+**Giải thích:** Cộng hai phương trình: 2x = 10 nên x = 5; thay vào x + y = 7 được y = 2.
 
 
-**Q8. Which tool computes a least-squares solution? | Hàm nào tìm nghiệm bình phương tối thiểu?**
+**Q6. What can be concluded about x + y = 3 and x + y = 5? | Hệ x + y = 3 và x + y = 5 có kết luận gì?**
 
-A. `np.linalg.solve(A,b)` | `np.linalg.solve(A,b)`
+A. A unique solution | Có nghiệm duy nhất
 
-B. `np.linalg.matrix_rank(A)` | `np.linalg.matrix_rank(A)`
+B. No solution | Vô nghiệm
 
-C. `np.column_stack((A,b))` | `np.column_stack((A,b))`
+C. Exactly two solutions | Có đúng hai nghiệm
 
-D. `np.linalg.lstsq(A,b,rcond=None)` | `np.linalg.lstsq(A,b,rcond=None)`
+D. The solution is (3, 5) | Nghiệm là (3, 5)
+
+**Đáp án: B**
+
+**Giải thích:** Cùng một tổng x + y không thể đồng thời bằng 3 và 5, nên hai phương trình mâu thuẫn.
+
+
+**Q7. What is the determinant of [[1, 2], [2, 4]]? | Định thức của [[1, 2], [2, 4]] là bao nhiêu?**
+
+A. 0 | 0
+
+B. 2 | 2
+
+C. 4 | 4
+
+D. 8 | 8
+
+**Đáp án: A**
+
+**Giải thích:** 1 × 4 − 2 × 2 = 0; hàng thứ hai gấp đôi hàng thứ nhất, nên ma trận thiếu hạng.
+
+
+**Q8. Does (x, y) = (2, 1) solve x + 2y = 4 and 3x + y = 7? | Cặp (x, y) = (2, 1) có giải đúng hệ x + 2y = 4 và 3x + y = 7 không?**
+
+A. No, the first equation fails | Không, phương trình đầu sai
+
+B. No, the second equation fails | Không, phương trình sau sai
+
+C. No, both equations fail | Không, cả hai đều sai
+
+D. Yes, both equations hold | Có, cả hai đều đúng
 
 **Đáp án: D**
 
-**Giải thích:** lstsq tối thiểu hóa bình phương độ dài Ax−b.
+**Giải thích:** Thế x = 2, y = 1: 2 + 2 × 1 = 4 và 3 × 2 + 1 = 7, nên đây là một nghiệm.
 
 
 **Q9. For Ax=b with A shape (3,2), what do the rows represent? | Với A shape (3,2), các hàng biểu diễn gì?**
