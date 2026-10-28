@@ -1,0 +1,50 @@
+name: Export 936 MCQs printable PDF (A4 landscape)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/export_quiz_print_pdf.yml"
+      - "scripts/export_quiz_print_pdf.py"
+      - "exports/markdown/AIClassDocuments-16-CauBoSung-20261028.vi.md"
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF renderer and Vietnamese fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-core fonts-dejavu-core
+          python -m pip install --disable-pip-version-check 'mistune>=3.1,<4' 'weasyprint>=66,<69' 'pymupdf>=1.24,<2'
+      - name: Export all 936 questions and inspect PDF
+        run: |
+          python scripts/export_quiz_print_pdf.py
+          python - <<'PY'
+          import fitz
+          from pathlib import Path
+          import re
+          md=Path("exports/markdown/AIClassDocuments-936-TracNghiem-PY01-PY46.vi.md")
+          pdf=Path("exports/pdf/AIClassDocuments-936-TracNghiem-A4-Ngang-2Cot.vi.pdf")
+          body=md.read_text(encoding="utf-8")
+          assert len(re.findall(r"(?m)^\*\*Q\d+\.",body))==936
+          assert len(re.findall(r"(?m)^\*\*Đáp án: [A-D]\*\*",body))==936
+          assert len(re.findall(r"(?m)^\*\*Giải thích:\*\*",body))==936
+          with fitz.open(pdf) as document:
+              assert len(document)>35
+              assert all(page.rect.width>page.rect.height for page in document)
+              full="\n".join(page.get_text() for page in document)
+              assert "PY-46" in full and "BỔ SUNG" in full
+              print("QA_OK",len(document),"A4-landscape pages",pdf.stat().st_size,"bytes")
+          PY
+      - name: Commit print edition PDF and combined question dataset
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add exports/pdf/AIClassDocuments-936-TracNghiem-A4-Ngang-2Cot.vi.pdf exports/markdown/AIClassDocuments-936-TracNghiem-PY01-PY46.vi.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'exports: publish print-optimized 936 MCQs as PDF and Markdown'
+            git push
+          fi
