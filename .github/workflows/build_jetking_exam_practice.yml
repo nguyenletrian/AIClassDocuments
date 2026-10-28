@@ -1,0 +1,57 @@
+name: Build FPT Jetking-style AI foundation practice tests
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "scripts/build_jetking_exam_practice.py"
+      - ".github/workflows/build_jetking_exam_practice.yml"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build_jetking_exam_practice.py"
+      - ".github/workflows/build_jetking_exam_practice.yml"
+jobs:
+  exam-practice:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Vietnamese fonts and PDF libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-core fonts-dejavu-core
+          python -m pip install --disable-pip-version-check 'mistune>=3.1,<4' 'weasyprint>=66,<69' 'pymupdf>=1.24,<2'
+      - name: Generate 10 practice exams and check answers
+        run: |
+          python scripts/build_jetking_exam_practice.py
+          python - <<'PY'
+          import fitz, re
+          from pathlib import Path
+          base=Path("exports")
+          md=(base/"markdown/AIClassDocuments-FPT-Jetking-10-DeOnTap-160Cau.vi.md").read_text(encoding="utf-8")
+          assert len(re.findall(r"(?m)^\*\*Q\d+\.",md))==160
+          assert len(re.findall(r"(?m)^\*\*Đáp án: [ABCD]\*\*",md))==160
+          assert len(re.findall(r"(?m)^\*\*Giải thích:\*\*",md))==160
+          assert len(re.findall(r"(?m)^## Đề \d\d",md))==10
+          for name in ["AIClassDocuments-FPT-Jetking-10-DeOnTap-160Cau-A4-Ngang.vi.pdf",
+                       "AIClassDocuments-FPT-Jetking-DapAn-GiaiThich-160Cau-A4-Ngang.vi.pdf"]:
+              with fitz.open(base/"pdf"/name) as pdf:
+                  assert len(pdf)>3
+                  assert all(p.rect.width>p.rect.height for p in pdf)
+                  print("EXAM_QA_PDF_OK",name,len(pdf), "pages")
+          print("EXAM_QA_OK",10,"exams",160,"questions")
+          PY
+      - name: Publish practice Markdown and both printable PDFs
+        if: github.event_name == 'push'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add exports/markdown/AIClassDocuments-FPT-Jetking-10-DeOnTap-160Cau.vi.md
+          git add exports/pdf/AIClassDocuments-FPT-Jetking-10-DeOnTap-160Cau-A4-Ngang.vi.pdf
+          git add exports/pdf/AIClassDocuments-FPT-Jetking-DapAn-GiaiThich-160Cau-A4-Ngang.vi.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m 'exports: publish 10 bilingual AI foundations practice exams'
+            git push
+          fi
