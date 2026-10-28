@@ -532,28 +532,28 @@ Tổng PMF bằng 1: True
 
 **Q1. What is a random variable? | Biến ngẫu nhiên là gì?**
 
-A. A numerical quantity assigned to random outcomes | Đại lượng số gắn với kết quả ngẫu nhiên
+A. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
 
-B. Successes in independent same-p trials | Số thành công trong các lần thử độc lập cùng p
+B. A numerical quantity assigned to random outcomes | Đại lượng số gắn với kết quả ngẫu nhiên
 
-C. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
+C. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
 
-D. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
+D. Successes in independent same-p trials | Số thành công trong các lần thử độc lập cùng p
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** Nó biến kết quả phép thử thành số. Biến ngẫu nhiên không phải toàn bộ kết quả thử; nó gán một con số, chẳng hạn số đơn đúng giờ, cho mỗi kết quả có thể.
 
 
 **Q2. What does binomial X count? | Biến nhị thức X đếm gì?**
 
-A. A numerical quantity assigned to random outcomes | Đại lượng số gắn với kết quả ngẫu nhiên
+A. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
 
 B. Successes in independent same-p trials | Số thành công trong các lần thử độc lập cùng p
 
-C. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
+C. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
 
-D. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
+D. A numerical quantity assigned to random outcomes | Đại lượng số gắn với kết quả ngẫu nhiên
 
 **Đáp án: B**
 
@@ -564,43 +564,43 @@ D. Probability mass at a discrete value | Xác suất ở một giá trị rời
 
 A. A numerical quantity assigned to random outcomes | Đại lượng số gắn với kết quả ngẫu nhiên
 
-B. Successes in independent same-p trials | Số thành công trong các lần thử độc lập cùng p
+B. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
 
-C. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
+C. Successes in independent same-p trials | Số thành công trong các lần thử độc lập cùng p
 
-D. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
+D. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Được xác định bởi trung bình và độ lệch chuẩn. Hai tham số có ý nghĩa khác nhau: mean xác định tâm và độ lệch chuẩn dương quyết định độ phân tán.
 
 
 **Q4. What is a PMF? | PMF là gì?**
 
-A. A numerical quantity assigned to random outcomes | Đại lượng số gắn với kết quả ngẫu nhiên
+A. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
 
-B. Successes in independent same-p trials | Số thành công trong các lần thử độc lập cùng p
+B. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
 
-C. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
+C. A numerical quantity assigned to random outcomes | Đại lượng số gắn với kết quả ngẫu nhiên
 
-D. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
+D. Successes in independent same-p trials | Số thành công trong các lần thử độc lập cùng p
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** PMF tính xác suất đúng một kết quả rời rạc. Với X nhị thức, PMF tại k trả đúng k lần thành công; CDF tại k tính cả mọi số lần ít hơn k.
 
 
 **Q5. Two independent fair coins are tossed. What is P(exactly one head)? | Tung hai đồng xu công bằng độc lập. Xác suất có đúng một mặt ngửa là bao nhiêu?**
 
-A. 0.25 | 0.25
+A. 1 | 1
 
-B. 0.5 | 0.5
+B. 0.25 | 0.25
 
-C. 0.75 | 0.75
+C. 0.5 | 0.5
 
-D. 1 | 1
+D. 0.75 | 0.75
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** Bốn kết quả đồng khả năng: NN, NS, SN, SS (N = ngửa, S = sấp). Hai kết quả có đúng một ngửa, nên 2/4 = 0.5.
 
@@ -611,11 +611,11 @@ A. 0 | 0
 
 B. 1 | 1
 
-C. 0.5 | 0.5
+C. 0.25 | 0.25
 
-D. 0.25 | 0.25
+D. 0.5 | 0.5
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Phân phối chuẩn tắc đối xứng quanh trung bình 0, nên một nửa diện tích nằm bên trái 0.
 
@@ -624,11 +624,11 @@ D. 0.25 | 0.25
 
 A. It spreads out more | Phân phối trải rộng hơn
 
-B. It becomes narrower | Phân phối hẹp lại
+B. Its mean becomes zero | Trung bình chuyển thành 0
 
-C. Its mean becomes zero | Trung bình chuyển thành 0
+C. It becomes uniform | Chuyển thành phân phối đều
 
-D. It becomes uniform | Chuyển thành phân phối đều
+D. It becomes narrower | Phân phối hẹp lại
 
 **Đáp án: A**
 
@@ -667,39 +667,39 @@ D. Strictly positive standard deviation | Độ lệch chuẩn phải lớn hơn
 
 **Q10. What do mean and standard deviation determine for normal? | Mean và std xác định gì trong chuẩn?**
 
-A. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
+A. Center and spread | Trung tâm và độ phân tán
 
-B. Center and spread | Trung tâm và độ phân tán
+B. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
 
 C. Zero | Bằng 0
 
 D. Strictly positive standard deviation | Độ lệch chuẩn phải lớn hơn 0
 
-**Đáp án: B**
+**Đáp án: A**
 
 **Giải thích:** Trung bình định vị và độ lệch chuẩn xác định độ rộng. Đổi độ lệch chuẩn làm chuông rộng/hẹp nhưng không nhất thiết thay tâm của phân phối.
 
 
 **Q11. What is P(X=x) for a continuous normal variable? | P(X=x) với biến chuẩn liên tục bằng bao nhiêu?**
 
-A. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
+A. Center and spread | Trung tâm và độ phân tán
 
-B. Center and spread | Trung tâm và độ phân tán
+B. Zero | Bằng 0
 
-C. Zero | Bằng 0
+C. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
 
 D. Strictly positive standard deviation | Độ lệch chuẩn phải lớn hơn 0
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Một điểm đơn có xác suất bằng 0. Xác suất trong khoảng là diện tích dưới PDF; một điểm riêng lẻ không có diện tích.
 
 
 **Q12. Which quantity must be positive for norm.pdf scale? | scale của norm.pdf cần điều kiện nào?**
 
-A. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
+A. Center and spread | Trung tâm và độ phân tán
 
-B. Center and spread | Trung tâm và độ phân tán
+B. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
 
 C. Zero | Bằng 0
 
@@ -712,15 +712,15 @@ D. Strictly positive standard deviation | Độ lệch chuẩn phải lớn hơn
 
 **Q13. What does norm.cdf(0) equal for N(0,1)? | norm.cdf(0) với N(0,1) bằng gì?**
 
-A. 0.5 | 0.5
+A. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
 
-B. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
+B. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
 
-C. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
+C. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
 
-D. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
+D. 0.5 | 0.5
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Chuẩn tắc đối xứng quanh 0. Chuẩn tắc đối xứng quanh trung bình 0 nên mỗi phía chứa một nửa xác suất.
 
@@ -731,9 +731,9 @@ A. 0.5 | 0.5
 
 B. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
 
-C. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
+C. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
 
-D. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
+D. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
 
 **Đáp án: B**
 
@@ -742,45 +742,45 @@ D. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
 
 **Q15. Does fixed RNG seed force sample mean to equal μ? | Seed cố định có buộc mean mẫu bằng μ?**
 
-A. 0.5 | 0.5
+A. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
 
-B. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
+B. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
 
-C. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
+C. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
 
-D. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
+D. 0.5 | 0.5
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Seed lặp được mẫu, không đảm bảo đúng moment lý thuyết. Mô phỏng cố định seed có thể lặp lại nhưng trung bình mẫu vẫn lệch so với kỳ vọng lý thuyết.
 
 
 **Q16. What is the range of probabilities? | Xác suất nằm trong đoạn nào?**
 
-A. 0.5 | 0.5
+A. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
 
 B. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
 
-C. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
+C. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
 
-D. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
+D. 0.5 | 0.5
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Xác suất không âm và không vượt một. Hai đầu 0 và 1 tương ứng biến cố không thể và chắc chắn.
 
 
 **Q17. Can a continuous PDF exceed 1 at a point? | PDF liên tục có thể lớn hơn 1 tại một điểm không?**
 
-A. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
+A. The distribution becomes wider | Phân phối trải rộng hơn
 
-B. The distribution becomes wider | Phân phối trải rộng hơn
+B. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
 
-C. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
+C. Cumulative probability up to x | Xác suất tích lũy tới x
 
-D. Cumulative probability up to x | Xác suất tích lũy tới x
+D. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** Chiều cao mật độ không phải xác suất. Đường chuẩn có độ lệch chuẩn nhỏ có thể có đỉnh PDF cao hơn 1 nhưng tổng diện tích vẫn bằng 1.
 
@@ -789,26 +789,26 @@ D. Cumulative probability up to x | Xác suất tích lũy tới x
 
 A. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
 
-B. The distribution becomes wider | Phân phối trải rộng hơn
+B. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
 
-C. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
+C. The distribution becomes wider | Phân phối trải rộng hơn
 
 D. Cumulative probability up to x | Xác suất tích lũy tới x
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** Cùng tổng diện tích được trải ra trên miền rộng hơn. Sigma lớn hơn không tự làm dịch mean; nó khiến số đo phân tán xa hơn quanh cùng tâm.
 
 
 **Q19. Why distinguish discrete and continuous variables? | Vì sao phân biệt biến rời rạc và liên tục?**
 
-A. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
+A. The distribution becomes wider | Phân phối trải rộng hơn
 
-B. The distribution becomes wider | Phân phối trải rộng hơn
+B. Cumulative probability up to x | Xác suất tích lũy tới x
 
 C. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
 
-D. Cumulative probability up to x | Xác suất tích lũy tới x
+D. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
 
 **Đáp án: C**
 
@@ -817,15 +817,15 @@ D. Cumulative probability up to x | Xác suất tích lũy tới x
 
 **Q20. What does norm.cdf(x,loc,scale) return? | norm.cdf(x,loc,scale) trả gì?**
 
-A. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
+A. Cumulative probability up to x | Xác suất tích lũy tới x
 
-B. The distribution becomes wider | Phân phối trải rộng hơn
+B. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
 
-C. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
+C. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
 
-D. Cumulative probability up to x | Xác suất tích lũy tới x
+D. The distribution becomes wider | Phân phối trải rộng hơn
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Nó là P(X≤x) theo phân phối chuẩn. Không lấy chiều cao PDF nếu câu hỏi là P(X≤x); cần dùng `cdf` để tính xác suất tích lũy.
 
