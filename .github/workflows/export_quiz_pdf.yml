@@ -40,11 +40,19 @@ jobs:
           assert "PY-46" in text and "Giải thích" in text and "Đáp án" in text
           print("MCQ_PDF_VERIFIED", len(pdf), "pages", pdf_path.stat().st_size, "bytes", "920 questions")
           PY
+      - name: Export 936-question compact print PDF and 10 Jetking-style practice exams
+        run: |
+          python -m unittest tests.test_jetking_mcq_level -v
+          python scripts/export_quiz_print_pdf.py
+          python scripts/build_jetking_exam_practice.py
       - name: Commit complete MCQ bundle
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add exports/pdf/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.pdf exports/markdown/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.md
+          git add exports/pdf/AIClassDocuments-936-TracNghiem-A4-Ngang-2Cot.vi.pdf exports/markdown/AIClassDocuments-936-TracNghiem-PY01-PY46.vi.md
+          git add exports/markdown/AIClassDocuments-FPT-Jetking-10-DeOnTap-160Cau.vi.md
+          git add exports/pdf/AIClassDocuments-FPT-Jetking-10-DeOnTap-160Cau-A4-Ngang.vi.pdf exports/pdf/AIClassDocuments-FPT-Jetking-DapAn-GiaiThich-160Cau-A4-Ngang.vi.pdf
           if ! git diff --cached --quiet; then
             git commit -m 'exports: publish 920 bilingual curriculum MCQs PDF and Markdown'
             git push
