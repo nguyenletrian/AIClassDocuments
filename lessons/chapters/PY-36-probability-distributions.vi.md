@@ -590,64 +590,64 @@ D. Probability mass at a discrete value | Xác suất ở một giá trị rời
 **Giải thích:** PMF tính xác suất đúng một kết quả rời rạc. Với X nhị thức, PMF tại k trả đúng k lần thành công; CDF tại k tính cả mọi số lần ít hơn k.
 
 
-**Q5. What is a PDF? | PDF là gì?**
+**Q5. Two independent fair coins are tossed. What is P(exactly one head)? | Tung hai đồng xu công bằng độc lập. Xác suất có đúng một mặt ngửa là bao nhiêu?**
 
-A. Density, not point probability, for continuous data | Mật độ, không phải xác suất tại điểm liên tục
+A. 0.25 | 0.25
 
-B. Probability that X is at most x | Xác suất X nhỏ hơn hoặc bằng x
+B. 0.5 | 0.5
 
-C. Probability of exactly k successes | Xác suất đúng k lần thành công
+C. 0.75 | 0.75
 
-D. Probability of k or fewer successes | Xác suất tối đa k lần thành công
-
-**Đáp án: A**
-
-**Giải thích:** Xác suất khoảng liên tục tính từ diện tích dưới mật độ. Chẳng hạn giá trị PDF bằng 0,4 không nghĩa là có 40% xác suất nhận đúng số thực ấy.
-
-
-**Q6. What is a CDF? | CDF là gì?**
-
-A. Density, not point probability, for continuous data | Mật độ, không phải xác suất tại điểm liên tục
-
-B. Probability that X is at most x | Xác suất X nhỏ hơn hoặc bằng x
-
-C. Probability of exactly k successes | Xác suất đúng k lần thành công
-
-D. Probability of k or fewer successes | Xác suất tối đa k lần thành công
+D. 1 | 1
 
 **Đáp án: B**
 
-**Giải thích:** CDF cộng xác suất đến ngưỡng đã cho. CDF cộng xác suất tới ngưỡng; với biến liên tục, xác suất một khoảng được tính bằng hiệu hai CDF.
+**Giải thích:** Bốn kết quả đồng khả năng: NN, NS, SN, SS (N = ngửa, S = sấp). Hai kết quả có đúng một ngửa, nên 2/4 = 0.5.
 
 
-**Q7. What does binom.pmf(k,n,p) compute? | binom.pmf(k,n,p) tính gì?**
+**Q6. In a standard normal distribution N(0,1), what is P(X ≤ 0)? | Trong phân phối chuẩn tắc N(0,1), P(X ≤ 0) bằng bao nhiêu?**
 
-A. Density, not point probability, for continuous data | Mật độ, không phải xác suất tại điểm liên tục
+A. 0 | 0
 
-B. Probability that X is at most x | Xác suất X nhỏ hơn hoặc bằng x
+B. 1 | 1
 
-C. Probability of exactly k successes | Xác suất đúng k lần thành công
+C. 0.5 | 0.5
 
-D. Probability of k or fewer successes | Xác suất tối đa k lần thành công
+D. 0.25 | 0.25
 
 **Đáp án: C**
 
-**Giải thích:** PMF cho xác suất đúng số lần thành công. Đối số n là số lần thử, p là xác suất mỗi lần; pmf trả xác suất của đúng một số lần thành công.
+**Giải thích:** Phân phối chuẩn tắc đối xứng quanh trung bình 0, nên một nửa diện tích nằm bên trái 0.
 
 
-**Q8. What does binom.cdf(k,n,p) compute? | binom.cdf(k,n,p) tính gì?**
+**Q7. What happens to the spread of a normal distribution if its standard deviation increases while its mean stays fixed? | Nếu độ lệch chuẩn của phân phối chuẩn tăng còn trung bình không đổi, độ phân tán thay đổi thế nào?**
 
-A. Density, not point probability, for continuous data | Mật độ, không phải xác suất tại điểm liên tục
+A. It spreads out more | Phân phối trải rộng hơn
 
-B. Probability that X is at most x | Xác suất X nhỏ hơn hoặc bằng x
+B. It becomes narrower | Phân phối hẹp lại
 
-C. Probability of exactly k successes | Xác suất đúng k lần thành công
+C. Its mean becomes zero | Trung bình chuyển thành 0
 
-D. Probability of k or fewer successes | Xác suất tối đa k lần thành công
+D. It becomes uniform | Chuyển thành phân phối đều
+
+**Đáp án: A**
+
+**Giải thích:** Độ lệch chuẩn đo mức phân tán; tăng độ lệch chuẩn làm đường cong rộng và thấp hơn, nhưng vẫn giữ tâm cũ.
+
+
+**Q8. For a normal distribution, how are mean and median related? | Trong phân phối chuẩn, trung bình và trung vị có quan hệ gì?**
+
+A. The mean is always larger | Trung bình luôn lớn hơn
+
+B. The median is always zero | Trung vị luôn bằng 0
+
+C. The mean is always negative | Trung bình luôn âm
+
+D. They are equal | Hai giá trị bằng nhau
 
 **Đáp án: D**
 
-**Giải thích:** CDF cộng từ 0 tới k. Ví dụ P(X≤2) cộng P(X=0), P(X=1), P(X=2), chứ không chỉ P(X=2).
+**Giải thích:** Phân phối chuẩn đối xứng quanh trung bình nên trung bình, trung vị và mode đều trùng nhau.
 
 
 **Q9. What condition is essential for a simple binomial model? | Điều kiện quan trọng của nhị thức đơn giản là gì?**
