@@ -693,64 +693,64 @@ D. Classifying local behavior near stationary points | Phân loại hành vi c�
 **Giải thích:** Độ cong giúp phân loại điểm dừng.
 
 
-**Q5. What is Jacobian shape for m outputs and n inputs? | Jacobian m đầu ra và n đầu vào có shape nào?**
+**Q5. For f(x, y) = x² + y², what is its Hessian matrix? | Với f(x, y) = x² + y², ma trận Hessian bằng bao nhiêu?**
 
-A. `(m,n)` | `(m,n)`
+A. [[1, 0], [0, 1]] | [[1, 0], [0, 1]]
 
-B. `.jacobian(variables)` | `.jacobian(variables)`
+B. [[0, 0], [0, 0]] | [[0, 0], [0, 0]]
 
-C. `sp.hessian(f, variables)` | `sp.hessian(f, variables)`
+C. [[2, 0], [0, 2]] | [[2, 0], [0, 2]]
 
-D. `np.linalg.eigvalsh(H)` | `np.linalg.eigvalsh(H)`
-
-**Đáp án: A**
-
-**Giải thích:** Mỗi đầu ra là một hàng, mỗi đầu vào là một cột.
-
-
-**Q6. Which SymPy method builds a Jacobian? | Hàm SymPy nào tạo Jacobian?**
-
-A. `(m,n)` | `(m,n)`
-
-B. `.jacobian(variables)` | `.jacobian(variables)`
-
-C. `sp.hessian(f, variables)` | `sp.hessian(f, variables)`
-
-D. `np.linalg.eigvalsh(H)` | `np.linalg.eigvalsh(H)`
-
-**Đáp án: B**
-
-**Giải thích:** Phương thức lấy mọi đạo hàm riêng bậc một.
-
-
-**Q7. Which SymPy function builds a Hessian? | Hàm SymPy nào tạo Hessian?**
-
-A. `(m,n)` | `(m,n)`
-
-B. `.jacobian(variables)` | `.jacobian(variables)`
-
-C. `sp.hessian(f, variables)` | `sp.hessian(f, variables)`
-
-D. `np.linalg.eigvalsh(H)` | `np.linalg.eigvalsh(H)`
+D. [[0, 2], [2, 0]] | [[0, 2], [2, 0]]
 
 **Đáp án: C**
 
-**Giải thích:** hessian tính các đạo hàm riêng bậc hai.
+**Giải thích:** Đạo hàm bậc hai theo x và y đều bằng 2, hai đạo hàm chéo bằng 0.
 
 
-**Q8. Which tool computes symmetric Hessian eigenvalues? | Hàm nào tính trị riêng Hessian đối xứng?**
+**Q6. At which x is the derivative of f(x) = (x − 3)² zero? | Đạo hàm của f(x) = (x − 3)² bằng 0 tại x nào?**
 
-A. `(m,n)` | `(m,n)`
+A. x = 2 | x = 2
 
-B. `.jacobian(variables)` | `.jacobian(variables)`
+B. x = 3 | x = 3
 
-C. `sp.hessian(f, variables)` | `sp.hessian(f, variables)`
+C. x = 0 | x = 0
 
-D. `np.linalg.eigvalsh(H)` | `np.linalg.eigvalsh(H)`
+D. x = −3 | x = −3
+
+**Đáp án: B**
+
+**Giải thích:** f'(x) = 2(x − 3); đặt bằng 0 được x = 3.
+
+
+**Q7. At a stationary point, a positive-definite Hessian indicates what? | Tại một điểm dừng, Hessian xác định dương cho biết điều gì?**
+
+A. A strict local minimum | Một cực tiểu địa phương nghiêm ngặt
+
+B. A strict local maximum | Một cực đại địa phương nghiêm ngặt
+
+C. A saddle point | Một điểm yên ngựa
+
+D. Always a global maximum | Luôn là cực đại toàn cục
+
+**Đáp án: A**
+
+**Giải thích:** Hessian xác định dương nghĩa là hàm cong lên theo mọi hướng ở điểm dừng; trong điều kiện trơn phù hợp, đó là cực tiểu địa phương nghiêm ngặt.
+
+
+**Q8. For f(x, y) = x² − y², how is the stationary point (0, 0) classified? | Với f(x, y) = x² − y², điểm dừng (0, 0) thuộc loại nào?**
+
+A. Strict local minimum | Cực tiểu địa phương nghiêm ngặt
+
+B. Strict local maximum | Cực đại địa phương nghiêm ngặt
+
+C. Neither stationary nor extremum | Không phải điểm dừng hay cực trị
+
+D. Saddle point | Điểm yên ngựa
 
 **Đáp án: D**
 
-**Giải thích:** eigvalsh tính trị riêng ma trận đối xứng.
+**Giải thích:** Theo trục x, f tăng khỏi 0; theo trục y, f giảm khỏi 0. Vì vậy (0, 0) là điểm yên ngựa.
 
 
 **Q9. What is Hessian of x²+y²? | Hessian của x²+y² là gì?**
