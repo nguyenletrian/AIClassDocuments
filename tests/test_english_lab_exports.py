@@ -94,6 +94,27 @@ class OneWordOneDocument(unittest.TestCase):
                                    text=True, timeout=45, encoding="utf-8")
                 self.assertEqual(r.returncode, 0, r.stderr)
 
+    def test_scientific_word_labs_run_complete_code(self):
+        progress = self.progress
+        if progress["batches"][1]["status"] == "PENDING":
+            return
+        for slug in progress["batches"][1]["labs"]:
+            with self.subTest(lab=slug):
+                content = (DOCS / f"{slug}.md").read_text(encoding="utf-8")
+                script = re.findall(
+                    r"^\x60\x60\x60python\n([\s\S]*?)^\x60\x60\x60$",
+                    content.split(MARKERS[-1], 1)[1], re.M
+                )[0]
+                with tempfile.TemporaryDirectory() as folder:
+                    src = Path(folder) / "lab_solution.py"
+                    src.write_text(script, encoding="utf-8")
+                    result = subprocess.run(
+                        [sys.executable, "-B", str(src), "--no-plot"],
+                        cwd=folder, capture_output=True, text=True,
+                        timeout=75, encoding="utf-8"
+                    )
+                    self.assertEqual(result.returncode, 0, result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
