@@ -623,64 +623,64 @@ D. Normalization of several class logits to sum one | Chuẩn hóa nhiều logit
 **Giải thích:** Softmax ràng buộc điểm lớp thành một phân phối chuẩn hóa.
 
 
-**Q5. What is the output range of ReLU? | Đầu ra ReLU thuộc khoảng nào?**
+**Q5. What is ReLU(−3) if ReLU(x) = max(0, x)? | ReLU(−3) bằng bao nhiêu nếu ReLU(x) = max(0, x)?**
 
-A. From zero upward without a fixed upper bound | Từ không trở lên, không có cận trên cố định
+A. 0 | 0
 
-B. Strictly between 0 and 1 | Nằm giữa 0 và 1, không gồm hai đầu
+B. −3 | −3
 
-C. Strictly between −1 and 1 | Nằm giữa −1 và 1, không gồm hai đầu
+C. 3 | 3
 
-D. They are nonnegative and sum to one | Không âm và có tổng bằng một
+D. 1 | 1
 
 **Đáp án: A**
 
-**Giải thích:** Đầu vào dương được ReLU giữ nguyên.
+**Giải thích:** ReLU chọn giá trị lớn hơn giữa 0 và x. Với −3, giá trị lớn hơn là 0.
 
 
-**Q6. What is the output range of sigmoid? | Đầu ra sigmoid thuộc khoảng nào?**
+**Q6. What is the sigmoid output at input x = 0? | Hàm sigmoid nhận x = 0 thì kết quả là bao nhiêu?**
 
-A. From zero upward without a fixed upper bound | Từ không trở lên, không có cận trên cố định
+A. 0 | 0
 
-B. Strictly between 0 and 1 | Nằm giữa 0 và 1, không gồm hai đầu
+B. 0.5 | 0.5
 
-C. Strictly between −1 and 1 | Nằm giữa −1 và 1, không gồm hai đầu
+C. 1 | 1
 
-D. They are nonnegative and sum to one | Không âm và có tổng bằng một
+D. −1 | −1
 
 **Đáp án: B**
 
-**Giải thích:** Sigmoid với đầu vào hữu hạn nằm trong (0,1).
+**Giải thích:** Sigmoid(0) = 1/(1 + e⁰) = 1/(1 + 1) = 0.5.
 
 
-**Q7. What is the output range of tanh? | Đầu ra tanh thuộc khoảng nào?**
+**Q7. A softmax layer outputs probabilities for three classes. What must their sum be (up to rounding)? | Softmax trả về xác suất cho ba lớp. Tổng các xác suất phải gần bằng bao nhiêu?**
 
-A. From zero upward without a fixed upper bound | Từ không trở lên, không có cận trên cố định
+A. 0 | 0
 
-B. Strictly between 0 and 1 | Nằm giữa 0 và 1, không gồm hai đầu
+B. 0.5 | 0.5
 
-C. Strictly between −1 and 1 | Nằm giữa −1 và 1, không gồm hai đầu
+C. 1 | 1
 
-D. They are nonnegative and sum to one | Không âm và có tổng bằng một
+D. 3 | 3
 
 **Đáp án: C**
 
-**Giải thích:** Tanh với đầu vào hữu hạn thuộc (−1,1).
+**Giải thích:** Softmax chuẩn hóa điểm số của tất cả các lớp để các xác suất không âm và cộng lại bằng 1.
 
 
-**Q8. What is true of softmax class scores? | Điều nào đúng về các điểm softmax?**
+**Q8. Which statement about sigmoid is correct for any finite input? | Phát biểu nào đúng về đầu ra sigmoid với mọi đầu vào hữu hạn?**
 
-A. From zero upward without a fixed upper bound | Từ không trở lên, không có cận trên cố định
+A. The output can be negative | Kết quả có thể âm
 
-B. Strictly between 0 and 1 | Nằm giữa 0 và 1, không gồm hai đầu
+B. The output always exceeds 1 | Kết quả luôn lớn hơn 1
 
-C. Strictly between −1 and 1 | Nằm giữa −1 và 1, không gồm hai đầu
+C. The output is always exactly 0 or 1 | Kết quả luôn chính xác 0 hoặc 1
 
-D. They are nonnegative and sum to one | Không âm và có tổng bằng một
+D. The output lies strictly between 0 and 1 | Kết quả nằm giữa 0 và 1, không chạm hai đầu
 
 **Đáp án: D**
 
-**Giải thích:** Softmax chia từng exp cho tổng các exp.
+**Giải thích:** Với đầu vào hữu hạn, mẫu số 1 + e^(−x) lớn hơn 1, nên đầu ra dương nhưng nhỏ hơn 1.
 
 
 **Q9. Which NumPy function applies ReLU? | Hàm NumPy nào thực hiện ReLU?**
