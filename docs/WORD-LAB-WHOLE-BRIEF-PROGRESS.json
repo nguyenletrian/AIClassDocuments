@@ -1,6 +1,6 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-  "status": "READY_FOR_BATCH_01",
+  "status": "BATCH_01_IN_PROGRESS",
   "expected_word_documents": 8,
   "completed_word_documents": 0,
   "complete_nonpretest_docs": 0,
@@ -13,7 +13,12 @@
         "LAB-04-conditions-loops",
         "LAB-05-student-list"
       ],
-      "status": "PENDING"
+      "status": "IN_PROGRESS",
+      "paths": [
+        "docs/labs/ASSIGNMENT-01-student-dictionary.md",
+        "docs/labs/LAB-04-conditions-loops.md",
+        "docs/labs/LAB-05-student-list.md"
+      ]
     },
     {
       "batch": 2,
