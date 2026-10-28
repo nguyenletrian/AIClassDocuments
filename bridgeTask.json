@@ -1191,22 +1191,20 @@
     "approval": "approved",
     "status": "active",
     "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-    "revision": "2026-10-28-whole-brief-bilingual-batch02",
+    "revision": "2026-10-28-whole-brief-bilingual-batch03",
     "title": "Whole English brief then complete Vietnamese brief, detailed solution and full commented code per Word lab plus Pretest",
-    "phase": "READY_FOR_BATCH_02",
+    "phase": "READY_FOR_BATCH_03",
     "goal_spec": "docs/WORD-LAB-WHOLE-BRIEF-GOAL.json",
     "progress_ledger": "docs/WORD-LAB-WHOLE-BRIEF-PROGRESS.json",
     "output_root": "docs/labs",
     "expected_word_documents": 8,
     "batch_limit": 3,
-    "active_batch": 2,
+    "active_batch": 3,
     "active_labs": [
-      "LAB-05-06-gradient-descent",
-      "LAB-07-probability",
-      "LAB-08-statistics"
+      "LAB-10-file-csv"
     ],
-    "next_review": "Owner-approved whole-brief layout: Batch1 Ass1/Lab04/Lab05 PR190 merged with final head CI 40692860929 SUCCESS, ledger 3/8 complete. Batch2 ONLY Lab05-06, Lab07, Lab08: whole English source Word transcription, whole Vietnamese translation, detailed method+formulas, then one full executable annotated script derived from existing SOLUTION.py/DEMO/lessons. Preserve 8-row regression, 5000 trials, 50 usage rows and exact original numbers. Pretest.docx remains unreadable private binary GitHub text interface, BLOCKED_SOURCE_BINARY; do not fabricate it or retry identical failing fetch. After batch2 CI merge proceed Lab10, then finish only when Pretest source verified.",
-    "review_hold": "Batch1 done; Batch2 three accessible Word labs only; Pretest blocker remains.",
+    "next_review": "Approved complete-doc bilingual goal: PR190 and PR191 merged with CI SUCCESS, six accessible Word labs now 4 contiguous sections with full scripts. Batch03 ONLY Lab10 CSV; original 10-row synthetic data must be in English and Vietnamese briefs; full referenced annotated CSV script at end; preserve error handling, source values and no silent data loss. After CI merge mark 7/8 accessible docs COMPLETE but goal remains WAITING_PRETEST_SOURCE, because Pretest.docx private binary failed GitHub text decoding; do not invent original Pretest content or retry identical failed probes. No new goal or fake PASS.",
+    "review_hold": "Only Lab10 active. Pretest still BLOCKED_SOURCE_BINARY; final status must not claim 8/8 until readable Pretest is grounded.",
     "batch_boundary": "THREE_SOURCE_WORDS_MAX_PER_BATCH; PRETEST blocked, NO_GUESS"
   },
   "goal_review_history": [
