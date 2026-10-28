@@ -1,11 +1,11 @@
 {
   "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
   "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
-  "status": "BATCH_02_IN_PROGRESS",
-  "last_completed_batch": 1,
+  "status": "READY_FOR_BATCH_03",
+  "last_completed_batch": 2,
   "expected_batches": 3,
   "expected_lab_units": 9,
-  "completed_lab_units": 3,
+  "completed_lab_units": 6,
   "export_root": "docs/labs",
   "batches": [
     {
@@ -40,12 +40,23 @@
         "LAB-05-student-list",
         "LAB-10-file-csv"
       ],
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "exported_paths": [
         "docs/labs/LAB-04-conditions-loops",
         "docs/labs/LAB-05-student-list",
         "docs/labs/LAB-10-file-csv"
-      ]
+      ],
+      "pr_number": 186,
+      "merge_sha": "7350e2891566455e7552c5858639570e08003f25",
+      "final_pr_head_sha": "2564cb5ae72af5ab71381f91028c2e687650df96",
+      "ci_runs": [
+        40686309137,
+        40686298181
+      ],
+      "ci_conclusion": "SUCCESS",
+      "english_task_count": 27,
+      "runnable_annotated_scripts": 3,
+      "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383"
     },
     {
       "batch": 3,
@@ -59,7 +70,7 @@
   ],
   "source_notes": "Source Word briefs already converted into English LAB.md in existing labs. 2026-10-27 notebooks add math labs2 and labs3_4 and refresh 5_6,8 sample code. The original private DOCX binary is not directly parsed in this pass; use the repo's existing verified LAB.md and document the provenance.",
   "validation": {
-    "github_ci": "SUCCESS_FOR_BATCH_01",
+    "github_ci": "SUCCESS_FOR_BATCH_02",
     "windows_worker": "UNVERIFIED"
   },
   "no_new_goal_without_owner_approval": true
