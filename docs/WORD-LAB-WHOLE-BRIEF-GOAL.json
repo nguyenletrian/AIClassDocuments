@@ -1,7 +1,7 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
   "title": "One complete bilingual Word brief, method/formulas, then ALL annotated existing Python code per lab, including Pretest",
-  "status": "ACTIVE",
+  "status": "WAITING_PRETEST_SOURCE",
   "approval": "owner_approved",
   "created_date": "2026-10-28",
   "target_repository": "nguyenletrian/AIClassDocuments",
@@ -47,5 +47,17 @@
     "Include Pretest.docx as eighth Word unit. It is currently available only as a private binary whose contents retrieval fails with UnicodeDecodeError in the connected GitHub text interface. NEVER fabricate its requirements. Keep Pretest BLOCKED_SOURCE_BINARY until legible source is fetched through an authorized, verified path.",
     "Earlier Word lab publication is superseded by the new layout; preserve full Git history. Use at most three source Word labs per PR, exact final GitHub CI success and stable base before merge. Complete goal only when all 8 documents have grounded content and CI proof.",
     "Keep PythoClass unchanged and avoid exposing student identities. Windows/CDP worker verification UNVERIFIED unless actually tested."
-  ]
+  ],
+  "completed_accessible_word_documents": 7,
+  "blocker": "Pretest.docx is private binary. Connected GitHub text-only access returns UnicodeDecodeError; actual original questions unavailable, no Pretest solution generated.",
+  "ready_artifacts": [
+    "docs/labs/ASSIGNMENT-01-student-dictionary.md",
+    "docs/labs/LAB-04-conditions-loops.md",
+    "docs/labs/LAB-05-student-list.md",
+    "docs/labs/LAB-05-06-gradient-descent.md",
+    "docs/labs/LAB-07-probability.md",
+    "docs/labs/LAB-08-statistics.md",
+    "docs/labs/LAB-10-file-csv.md"
+  ],
+  "pretest_source_status": "NEEDS_READABLE_DOCX_OR_VERIFIED_TEXT"
 }
