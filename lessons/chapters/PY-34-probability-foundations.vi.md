@@ -639,64 +639,64 @@ D. A measure between zero and one of an event's chance | Thước đo từ 0 đ�
 **Giải thích:** Xác suất trong đoạn 0 đến 1.
 
 
-**Q5. When does counting favorable outcomes over total outcomes work? | Khi nào chia số trường hợp thuận lợi cho tổng số trường hợp là đúng?**
+**Q5. For a fair coin, what is the probability of heads on one toss? | Với đồng xu công bằng, xác suất được mặt ngửa trong một lần tung là bao nhiêu?**
 
-A. When outcomes are equally likely | Khi các kết quả đồng khả năng
+A. 0 | 0
 
-B. n values of zero or one | n giá trị 0 hoặc 1
+B. 0.25 | 0.25
 
-C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
+C. 0.5 | 0.5
 
-D. Fraction of True values | Tỷ lệ các phần tử True
-
-**Đáp án: A**
-
-**Giải thích:** Đếm cổ điển đòi hỏi các kết quả đồng khả năng.
-
-
-**Q6. What does `rng.integers(0,2,size=n)` generate? | `rng.integers(0,2,size=n)` tạo gì?**
-
-A. When outcomes are equally likely | Khi các kết quả đồng khả năng
-
-B. n values of zero or one | n giá trị 0 hoặc 1
-
-C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
-
-D. Fraction of True values | Tỷ lệ các phần tử True
-
-**Đáp án: B**
-
-**Giải thích:** Cận trên 2 không lấy 2, chỉ còn 0 và 1.
-
-
-**Q7. What does `default_rng(seed)` provide? | `default_rng(seed)` cung cấp gì?**
-
-A. When outcomes are equally likely | Khi các kết quả đồng khả năng
-
-B. n values of zero or one | n giá trị 0 hoặc 1
-
-C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
-
-D. Fraction of True values | Tỷ lệ các phần tử True
+D. 1 | 1
 
 **Đáp án: C**
 
-**Giải thích:** Seed điều khiển chuỗi giả ngẫu nhiên tái lập.
+**Giải thích:** Đồng xu có hai mặt đồng khả năng; xác suất mặt ngửa là 1/2 = 0.5.
 
 
-**Q8. What does `np.mean(mask)` compute for Boolean mask? | `np.mean(mask)` tính gì với mặt nạ Boolean?**
+**Q6. If P(A) = 0.35, what is P(not A)? | Nếu P(A) = 0.35, xác suất biến cố đối của A bằng bao nhiêu?**
 
-A. When outcomes are equally likely | Khi các kết quả đồng khả năng
+A. 0.35 | 0.35
 
-B. n values of zero or one | n giá trị 0 hoặc 1
+B. 0.65 | 0.65
 
-C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
+C. 1.35 | 1.35
 
-D. Fraction of True values | Tỷ lệ các phần tử True
+D. 0.75 | 0.75
+
+**Đáp án: B**
+
+**Giải thích:** Tổng xác suất của A và biến cố đối là 1, nên P(không A) = 1 − 0.35 = 0.65.
+
+
+**Q7. A fair six-sided die is rolled once. What is P(result > 4)? | Tung một xúc xắc sáu mặt công bằng một lần, xác suất ra số lớn hơn 4 là bao nhiêu?**
+
+A. 0 | 0
+
+B. 1/6 | 1/6
+
+C. 1/2 | 1/2
+
+D. 1/3 | 1/3
 
 **Đáp án: D**
 
-**Giải thích:** True tính như 1, False tính như 0.
+**Giải thích:** Hai mặt thuận lợi là 5 và 6 trong tổng 6 mặt đồng khả năng: 2/6 = 1/3.
+
+
+**Q8. Two fair coin tosses are independent. What is P(both heads)? | Hai lần tung đồng xu công bằng độc lập. Xác suất cả hai đều ra ngửa là bao nhiêu?**
+
+A. 0.25 | 0.25
+
+B. 0.5 | 0.5
+
+C. 0.75 | 0.75
+
+D. 1 | 1
+
+**Đáp án: A**
+
+**Giải thích:** Nhân xác suất hai biến cố độc lập: 0.5 × 0.5 = 0.25.
 
 
 **Q9. What is P(even) for a fair six-sided die? | Xác suất mặt chẵn của xúc xắc công bằng sáu mặt?**
