@@ -882,64 +882,64 @@ D. Overall chance weighted over a partition | Xác suất chung theo trọng s�
 **Giải thích:** Xác suất toàn phần dùng tỷ trọng của từng nhóm.
 
 
-**Q5. Which formula gives P(A given B)? | Công thức P(A khi biết B) là gì?**
+**Q5. Independent events A and B have P(A) = 0.3, P(B) = 0.6. What is P(A and B)? | Hai biến cố độc lập A và B có P(A) = 0.3, P(B) = 0.6. P(A giao B) bằng bao nhiêu?**
 
-A. `P(A and B)/P(B)` when P(B)>0 | `P(A và B)/P(B)` khi P(B)>0
+A. 0.9 | 0.9
 
-B. `P(A and B)=P(A)*P(B)` | `P(A và B)=P(A)*P(B)`
+B. 0.18 | 0.18
 
-C. `likelihood*prior/evidence` | `likelihood*prior/evidence`
+C. 0.3 | 0.3
 
-D. Disjoint and exhaustive | Rời nhau và phủ đủ
-
-**Đáp án: A**
-
-**Giải thích:** Lấy xác suất giao chia xác suất biến cố điều kiện.
-
-
-**Q6. Which equation expresses event independence? | Đẳng thức nào mô tả biến cố độc lập?**
-
-A. `P(A and B)/P(B)` when P(B)>0 | `P(A và B)/P(B)` khi P(B)>0
-
-B. `P(A and B)=P(A)*P(B)` | `P(A và B)=P(A)*P(B)`
-
-C. `likelihood*prior/evidence` | `likelihood*prior/evidence`
-
-D. Disjoint and exhaustive | Rời nhau và phủ đủ
+D. 0.6 | 0.6
 
 **Đáp án: B**
 
-**Giải thích:** Độc lập khi xác suất giao bằng tích hai xác suất.
+**Giải thích:** Độc lập nghĩa là P(A giao B) = P(A) × P(B) = 0.3 × 0.6 = 0.18.
 
 
-**Q7. Which rule gives posterior after a positive signal? | Quy tắc nào tính posterior khi tín hiệu dương?**
+**Q6. If P(A and B) = 0.12 and P(B) = 0.30, what is P(A|B)? | Nếu P(A giao B) = 0.12 và P(B) = 0.30, P(A|B) bằng bao nhiêu?**
 
-A. `P(A and B)/P(B)` when P(B)>0 | `P(A và B)/P(B)` khi P(B)>0
+A. 0.12 | 0.12
 
-B. `P(A and B)=P(A)*P(B)` | `P(A và B)=P(A)*P(B)`
+B. 0.3 | 0.3
 
-C. `likelihood*prior/evidence` | `likelihood*prior/evidence`
+C. 0.4 | 0.4
 
-D. Disjoint and exhaustive | Rời nhau và phủ đủ
+D. 2.5 | 2.5
 
 **Đáp án: C**
 
-**Giải thích:** Bayes chuẩn hóa likelihood nhân prior bằng xác suất bằng chứng.
+**Giải thích:** Xác suất có điều kiện P(A|B) = P(A giao B)/P(B) = 0.12/0.30 = 0.4.
 
 
-**Q8. What condition is required for total probability groups? | Các nhóm dùng xác suất toàn phần phải thế nào?**
+**Q7. Which statement about conditional probability is NOT always correct? | Phát biểu nào về xác suất có điều kiện KHÔNG luôn đúng?**
 
-A. `P(A and B)/P(B)` when P(B)>0 | `P(A và B)/P(B)` khi P(B)>0
+A. P(A|B) uses B as its reference group | P(A|B) dùng B làm nhóm xét
 
-B. `P(A and B)=P(A)*P(B)` | `P(A và B)=P(A)*P(B)`
+B. P(A|B) needs P(B) > 0 | P(A|B) cần P(B) > 0
 
-C. `likelihood*prior/evidence` | `likelihood*prior/evidence`
+C. Independence implies P(A|B) = P(A) when P(B)>0 | Độc lập thì P(A|B) = P(A) nếu P(B)>0
 
-D. Disjoint and exhaustive | Rời nhau và phủ đủ
+D. P(A|B) always equals P(B|A) | P(A|B) luôn bằng P(B|A)
 
 **Đáp án: D**
 
-**Giải thích:** Nhóm phải không giao nhau và phủ toàn bộ.
+**Giải thích:** Đảo A và B làm đổi nhóm điều kiện và mẫu số; hai xác suất có điều kiện nói chung khác nhau.
+
+
+**Q8. A disease affects 10% of people. A test detects 90% of sick people and flags 10% of healthy people. What is P(sick | positive)? | Tỷ lệ mắc bệnh là 10%. Xét nghiệm báo dương ở 90% người bệnh và 10% người khỏe. Xác suất mắc bệnh khi đã có kết quả dương là bao nhiêu?**
+
+A. 0.5 | 0.5
+
+B. 0.9 | 0.9
+
+C. 0.1 | 0.1
+
+D. 0.09 | 0.09
+
+**Đáp án: A**
+
+**Giải thích:** Trong 100 người: khoảng 10 người bệnh tạo 9 dương thật; 90 người khỏe tạo 9 dương giả. Vậy P(bệnh|dương) = 9/(9+9) = 0.5.
 
 
 **Q9. What does prior mean? | Prior có nghĩa gì?**
