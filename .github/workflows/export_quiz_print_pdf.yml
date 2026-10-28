@@ -1,12 +1,20 @@
 name: Export 936 MCQs printable PDF (A4 landscape)
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/export_quiz_print_pdf.yml"
+      - "scripts/export_quiz_print_pdf.py"
+      - "exports/markdown/AIClassDocuments-16-CauBoSung-20261028.vi.md"
+      - "exports/markdown/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.md"
   push:
     branches: [main]
     paths:
       - ".github/workflows/export_quiz_print_pdf.yml"
       - "scripts/export_quiz_print_pdf.py"
       - "exports/markdown/AIClassDocuments-16-CauBoSung-20261028.vi.md"
+      - "exports/markdown/AIClassDocuments-920-TracNghiem-PY01-PY46.vi.md"
 jobs:
   export:
     runs-on: ubuntu-latest
@@ -40,6 +48,7 @@ jobs:
               print("QA_OK",len(document),"A4-landscape pages",pdf.stat().st_size,"bytes")
           PY
       - name: Commit print edition PDF and combined question dataset
+        if: github.event_name == 'push'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
