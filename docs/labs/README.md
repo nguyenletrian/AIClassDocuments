@@ -11,9 +11,9 @@ The source is the Word-derived transcription in `labs/pythoclass/<slug>/LAB.md`,
 | `Ass 1.docx` | [Assignment 01 — Dictionary](ASSIGNMENT-01-student-dictionary.md) |
 | `LAB Session 4.docx` | [Lab 04 — Conditions & Loops](LAB-04-conditions-loops.md) |
 | `Lab Session 5.docx` | [Lab 05 — List-based Student Manager](LAB-05-student-list.md) |
-| `LAB SESSION 5_6.docx` | Lab 05–06 — Gradient Descent (Batch 02) |
-| `LAB SESSION 7.docx` | Lab 07 — Probability (Batch 02) |
-| `LAB SESSION 8.docx` | Lab 08 — Statistics (Batch 02) |
+| `LAB SESSION 5_6.docx` | [Lab 05–06 — Gradient Descent](LAB-05-06-gradient-descent.md) |
+| `LAB SESSION 7.docx` | [Lab 07 — Probability](LAB-07-probability.md) |
+| `LAB SESSION 8.docx` | [Lab 08 — Statistics](LAB-08-statistics.md) |
 | `Lab Session 10.docx` | Lab 10 — CSV (Batch 03) |
 
 **Exclusions:** `MON 2/LAB SESSION 5_6.docx` duplicates the Word 5–6 assignment; `Pretest.docx` is not a lab. The `2. Math/labs2.ipynb` and `labs3_4.ipynb` notebooks are reference practice examples, not separate source Word assignments, so they do not count toward these seven documents.
