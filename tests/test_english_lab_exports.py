@@ -135,7 +135,7 @@ class OneWordOneDocument(unittest.TestCase):
         self.assertIn("L(w) = (w - 4)^2", en)
         self.assertIn("Học sinh E", vi)
         self.assertIn("2.4", method)
-        self.assertIn("13,9284", method)
+        self.assertIn("13{,}9284", method)
         code = re.findall(
             r"^\x60\x60\x60python\n([\s\S]*?)^\x60\x60\x60$",
             content.split(MARKERS[-1], 1)[1], re.M
