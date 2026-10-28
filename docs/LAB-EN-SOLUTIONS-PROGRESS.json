@@ -1,7 +1,7 @@
 {
   "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
   "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
-  "status": "READY_FOR_BATCH_03_REVISED",
+  "status": "BATCH_03_REVISED_IN_PROGRESS",
   "last_completed_batch": 2,
   "expected_batches": 3,
   "expected_lab_units": 7,
@@ -59,7 +59,21 @@
       "labs": [
         "LAB-10-file-csv"
       ],
-      "status": "PENDING"
+      "status": "IN_PROGRESS",
+      "exported_paths": [
+        "docs/labs/LAB-10-file-csv.md"
+      ],
+      "legacy_exports_removed": 19,
+      "final_file_manifest": [
+        "docs/labs/ASSIGNMENT-01-student-dictionary.md",
+        "docs/labs/LAB-04-conditions-loops.md",
+        "docs/labs/LAB-05-06-gradient-descent.md",
+        "docs/labs/LAB-05-student-list.md",
+        "docs/labs/LAB-07-probability.md",
+        "docs/labs/LAB-08-statistics.md",
+        "docs/labs/LAB-10-file-csv.md",
+        "docs/labs/README.md"
+      ]
     }
   ],
   "source_notes": "Source Word briefs already converted into English LAB.md in existing labs. 2026-10-27 notebooks add math labs2 and labs3_4 and refresh 5_6,8 sample code. The original private DOCX binary is not directly parsed in this pass; use the repo's existing verified LAB.md and document the provenance.",
