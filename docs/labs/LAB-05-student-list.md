@@ -50,7 +50,14 @@ Viết chương trình Python có các chức năng:
 
 Đầu tiên dùng `validate()` từ code nguồn để làm sạch ID/tên và đổi điểm về `float`. Sau đó kiểm tra trùng ID bằng `any` và dùng `append` thêm bản ghi vào list (danh sách). Các ví dụ DEMO ban đầu đưa thông tin sinh viên vào list nhưng chưa thống nhất kiểu dữ liệu, nên bản tham chiếu kiểm tra kỹ hơn.
 
-**Công thức / lưu ý:** Điểm hợp lệ được code tham khảo dùng là 0–10 (đây là quy ước của code, không phải ngưỡng ghi trực tiếp trong Word).
+**Vì sao dùng list?** Đề yêu cầu lưu sinh viên vào danh sách; mỗi phần tử có ID, tên và điểm, nên một dictionary cho từng người giúp đọc theo tên trường.
+**Quy trình:** Nhận dữ liệu → bỏ khoảng trắng → đổi điểm thành `float` → kiểm tra điểm trong 0–10 theo quy ước code → tạo dictionary và `append` vào danh sách.
+~~~python
+student = {"id": "S01", "name": "An", "score": 8.5}
+if 0 <= student["score"] <= 10:
+    students.append(student)
+~~~
+**Giải thích:** `{"id": ...}` lưu theo cặp khóa/giá trị; `.append(...)` thêm vào cuối list; `0 <= score <= 10` kiểm tra gồm cả hai biên. Mốc điểm này là ràng buộc của code tham khảo, không phải dữ liệu được ghi rõ trong đề Word.
 
 **Điểm cần kiểm tra:** list là cấu trúc chứa chính; mỗi phần tử dùng dictionary (từ điển) có ID/tên/điểm.
 
@@ -62,7 +69,14 @@ Viết chương trình Python có các chức năng:
 
 Dùng vòng lặp duyệt từng phần tử của list (danh sách) và truy cập các khóa `id`, `name`, `score` của từng phần tử. Không dùng dictionary (từ điển) làm cấu trúc chứa danh sách chính.
 
-**Công thức / lưu ý:** Không có công thức; độ dài danh sách `len(students)` cho biết số bản ghi.
+**Vì sao phải duyệt?** List chứa nhiều dictionary, nên cần lấy từng bản ghi mới hiển thị đầy đủ.
+**Quy trình:** Xác định danh sách có rỗng không → duyệt theo thứ tự đã lưu → in ID, tên, điểm → đối chiếu số bản ghi.
+~~~python
+total = len(students)
+for student in students:
+    print(student["id"], student["name"], student["score"])
+~~~
+**Giải thích:** `len` đếm người, không tính điểm; `for ... in` lấy mỗi dictionary trong list; `student["name"]` là truy cập trường tên. List rỗng khiến vòng lặp không in hàng nào, cần thông báo phù hợp trong chương trình.
 
 **Điểm cần kiểm tra:** thêm qua `append` và kiểm tra trùng mã nếu code tham khảo có hỗ trợ.
 
@@ -74,7 +88,13 @@ Dùng vòng lặp duyệt từng phần tử của list (danh sách) và truy c�
 
 Chuẩn hóa tên bằng `.strip().casefold()` rồi lọc phần tử chứa chuỗi tìm kiếm. Khác với DEMO so sánh tên chính xác, cách này thuận tiện với dữ liệu thực tế.
 
-**Công thức / lưu ý:** So sánh `query in student_name.casefold()`; kết quả là một list (danh sách) sinh viên khớp.
+**Vì sao tìm không phân biệt chữ hoa?** Người dùng có thể nhập tên khác kiểu viết; `casefold` chuẩn hóa chữ khi so sánh, giúp tìm một phần tên thay vì phải trùng nguyên văn.
+**Quy trình:** Nhận từ khóa → xóa khoảng trắng → chuẩn hóa chữ → duyệt sinh viên → lấy bản ghi có tên chứa từ khóa.
+~~~python
+query = "an".strip().casefold()
+matches = [s for s in students if query in s["name"].casefold()]
+~~~
+**Giải thích:** `.strip()` bỏ khoảng trắng hai đầu; `.casefold()` chuẩn hóa chữ mạnh hơn `.lower()` cho so sánh không phân biệt hoa/thường; `in` kiểm tra chuỗi con; danh sách kết quả vẫn có thể rỗng. Không nhầm `in` với so khớp ID chính xác.
 
 **Điểm cần kiểm tra:** tìm tên bằng `casefold()`; duyệt và xóa theo ID bằng `enumerate()/pop()`.
 
@@ -86,7 +106,15 @@ Chuẩn hóa tên bằng `.strip().casefold()` rồi lọc phần tử chứa ch
 
 Dùng `enumerate` lấy cặp chỉ số và bản ghi, sau đó `pop(index)` xóa đúng sinh viên có mã cần tìm. Nếu không thấy ID, báo lỗi.
 
-**Công thức / lưu ý:** Duyệt tối đa n phần tử, độ phức tạp tìm ID là O(n).
+**Vì sao xóa theo ID?** Tên có thể trùng, còn mã sinh viên được dùng để xác định một người. Phải tìm đúng mã rồi mới xóa.
+**Quy trình:** Nhận ID → duyệt danh sách đến dòng khớp → xóa dòng đã xác định → dừng vòng lặp → báo không tìm thấy nếu cần.
+~~~python
+student_id = "S01"
+index = next((i for i, s in enumerate(students) if s["id"] == student_id), None)
+if index is not None:
+    students.pop(index)
+~~~
+**Giải thích:** `enumerate` trả cặp vị trí và phần tử; `next(..., None)` lấy khớp đầu hoặc `None`; `pop(index)` xóa theo vị trí; `is not None` phân biệt vị trí 0 với không tìm thấy. Việc duyệt có thể cần xem đến `n` người (O(n)).
 
 **Điểm cần kiểm tra:** sắp xếp bằng `sorted(..., key=...)`; không so sánh điểm như chuỗi.
 
@@ -98,7 +126,13 @@ Dùng `enumerate` lấy cặp chỉ số và bản ghi, sau đó `pop(index)` x�
 
 Dùng `sorted(students, key=..., reverse=...)` để tạo kết quả có thứ tự theo điểm số; không sắp chuỗi điểm thay cho số.
 
-**Công thức / lưu ý:** Sắp xếp trung bình O(n log n); `reverse=True` đảo sang điểm giảm dần.
+**Vì sao phải chọn khóa sắp xếp?** List lưu cả ID và tên; gọi `sorted` mà không chỉ rõ sẽ không biết cần xếp theo điểm.
+**Quy trình:** Chọn khóa điểm → dùng `sorted` tạo danh sách kết quả → dùng tùy chọn tăng/giảm theo yêu cầu → in để so sánh.
+~~~python
+ascending = sorted(students, key=lambda s: s["score"], reverse=False)
+descending = sorted(students, key=lambda s: s["score"], reverse=True)
+~~~
+**Giải thích flag:** `key=lambda s: s["score"]` lấy điểm của mỗi sinh viên làm khóa; `reverse=False` tăng dần, `reverse=True` giảm dần; `sorted` trả list **mới**, không sửa list cũ. Chi phí sắp xếp thường tăng theo khoảng `n * log(n)` chứ không phải toán tử tính điểm.
 
 **Điểm cần kiểm tra:** điểm trung bình = tổng điểm/số sinh viên; xử lý list (danh sách) rỗng.
 
@@ -110,7 +144,18 @@ Dùng `sorted(students, key=..., reverse=...)` để tạo kết quả có thứ
 
 Với list (danh sách) không rỗng, dùng `max` và `min` theo khóa điểm để tìm toàn bộ bản ghi đứng đầu/cuối, rồi cộng điểm chia số sinh viên.
 
-**Công thức / lưu ý:** Trung bình = tổng điểm / n. Khi n=0, hàm trả `None` thay vì chia cho 0.
+**Vì sao tính trên cả danh sách?** Điểm cao nhất, thấp nhất và trung bình phải phản ánh đúng toàn bộ sinh viên hiện có; nếu không có ai thì không thể chia cho 0.
+**Quy trình:** Kiểm tra list rỗng → trích cột điểm → tìm max/min → cộng điểm và chia số người.
+~~~python
+scores = [s["score"] for s in students]
+if scores:
+    highest = max(scores)
+    lowest = min(scores)
+    average = sum(scores) / len(scores)
+else:
+    highest = lowest = average = None
+~~~
+**Giải thích:** `max/min` tìm cao nhất/thấp nhất, `sum` cộng điểm, `len` đếm số người, `/` chia thực; `if scores` kiểm tra list có dữ liệu. `None` thể hiện chưa có kết quả hợp lệ, không phải điểm 0.
 
 **Điểm cần kiểm tra:** menu `while True` thoát khi chọn 0.
 
@@ -122,7 +167,15 @@ Với list (danh sách) không rỗng, dùng `max` và `min` theo khóa điểm 
 
 Dùng vòng `while True` hiển thị menu, chọn tác vụ theo `if/elif`, xử lý lỗi đầu vào, và `break` khi chọn Exit. Đây là chương trình đã có, không tạo menu mới.
 
-**Công thức / lưu ý:** Không dùng công thức toán; điều kiện kết thúc menu là lựa chọn 0 trong code tham khảo.
+**Vì sao Exit là một lựa chọn menu?** Chương trình console chạy lặp đến khi người dùng yêu cầu dừng, không tự thoát sau một thao tác.
+**Quy trình:** Nhận lựa chọn → so sánh với mã thoát → dừng vòng lặp, còn lại thực hiện chức năng tương ứng.
+~~~python
+choice = "0"
+if choice == "0":
+    print("Kết thúc")
+    print("Đây là ví dụ kiểm tra lựa chọn; menu chính dùng break")
+~~~
+**Giải thích:** `input(...)` trả chuỗi; `==` so sánh chuỗi lựa chọn, `break` dùng **bên trong vòng lặp** mới dừng được vòng lặp; `while True` nghĩa là chạy liên tục cho đến khi có lệnh dừng. Không có phép tính toán học cho chức năng Exit.
 
 **Điểm cần kiểm tra:** menu `while True` thoát khi chọn 0.
 

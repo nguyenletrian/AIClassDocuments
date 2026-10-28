@@ -83,9 +83,23 @@ Nhóm hỗ trợ nhận 8 yêu cầu độc lập, mỗi yêu cầu có khả n�
 
 Tạo `set(range(1,11))`, lọc từng biến cố bằng set comprehension. Dùng `&` cho giao và `|` cho hợp, rồi chia số phần tử cho kích thước không gian mẫu 10.
 
-**Công thức / kết quả đối chiếu:** P(A)=5/10=0,5; P(B)=4/10=0,4; P(A∩B)=2/10=0,2; P(A∪B)=0,5+0,4−0,2=0,7.
+**Vì sao làm vậy?** Mỗi thẻ 1–10 có cơ hội như nhau, nên xác suất là số thẻ hợp điều kiện chia cho tổng 10 thẻ. Hai biến cố cần được biểu diễn thành hai tập hợp để lấy giao (cả hai đúng) và hợp (ít nhất một đúng).
 
-**Công thức/đối chiếu:** P(A)=5/10=0,5; P(B)=4/10=0,4; P(A∩B)=2/10=0,2; P(A∪B)=0,7.
+**Quy trình:** (1) Tạo 10 số bằng `set(range(1, 11))`. (2) Lọc số chẵn bằng `x % 2 == 0`, lọc số lớn hơn 6 bằng `x > 6`. (3) Đếm phần tử mỗi tập; dùng `&` lấy giao và `|` lấy hợp. (4) Chia cho `len(space)` để có xác suất, rồi kiểm tra.
+
+**Công thức Python:**
+~~~python
+space = set(range(1, 11))
+A = {x for x in space if x % 2 == 0}
+B = {x for x in space if x > 6}
+p_a = len(A) / len(space)             # 0.5
+p_b = len(B) / len(space)             # 0.4
+p_both = len(A & B) / len(space)      # 0.2
+p_either = len(A | B) / len(space)    # 0.7
+~~~
+
+**Giải thích cú pháp:** `range(1, 11)` chứa từ 1 đến 10, **không** lấy 11. `set` là tập hợp không chứa phần tử trùng, `%` là chia lấy dư, `==` so sánh bằng. Trong tập hợp, `&` là giao và `|` là hợp; `len` đếm số phần tử; `/` chia thực. `A | B` không phải chỉ những thẻ có đúng một trong hai tính chất: thẻ vừa chẵn vừa lớn hơn 6 vẫn được tính **một lần**.
+
 
 **Ví dụ và lỗi thường gặp:** A gồm năm thẻ chẵn, B gồm bốn thẻ lớn hơn 6, giao gồm 8 và 10. P(A∩B)=2/10, P(A∪B)=7/10.
 
@@ -95,9 +109,24 @@ Tạo `set(range(1,11))`, lọc từng biến cố bằng set comprehension. Dù
 
 `np.random.default_rng(SEED)` tạo bộ sinh số có thể lặp; mỗi lần so ngẫu nhiên với ngưỡng 0,7/0,6 được một kết quả True/False. `mean()` cho tần suất thành công; dùng `&` và `|` trên hai mảng bool.
 
-**Công thức / kết quả đối chiếu:** Độc lập: P(cả hai)=0,7×0,6=0,42; P(ít nhất một)=1−(1−0,7)(1−0,6)=0,88. Mô phỏng 5.000 lượt chỉ **xấp xỉ**, không bắt buộc trùng lý thuyết.
+**Vì sao giải bằng hai cách?** Lý thuyết cho giá trị chính xác từ xác suất đã biết; mô phỏng tạo nhiều phép thử ngẫu nhiên để đối chiếu xem tần suất có gần lý thuyết hay không. Không yêu cầu 5.000 lượt phải cho đúng bằng 0.7.
 
-**Công thức/đối chiếu:** P(cả hai)=0,7×0,6=0,42; P(ít nhất một)=1−(1−0,7)(1−0,6)=0,88. Mô phỏng 5.000 lượt xấp xỉ giá trị này.
+**Quy trình:** (1) Tạo bộ sinh ngẫu nhiên với seed cố định cho dễ tái lập. (2) Sinh 5.000 số trong khoảng từ 0 đến 1, so sánh với tỷ lệ trúng rổ. (3) Với hai người chơi độc lập, lấy `&` để đếm cùng trúng, `|` để đếm ít nhất một trúng. (4) Tính trung bình các giá trị đúng/sai, rồi so sánh với lý thuyết.
+
+**Công thức Python:**
+~~~python
+import numpy as np
+rng = np.random.default_rng(2026)
+first = rng.random(5000) < 0.7
+second = rng.random(5000) < 0.6
+p_sim_both = (first & second).mean()
+p_sim_either = (first | second).mean()
+p_exact_both = 0.7 * 0.6                 # 0.42
+p_exact_either = 1 - (1 - 0.7) * (1 - 0.6) # 0.88
+~~~
+
+**Giải thích hàm và tham số:** `default_rng(2026)` dùng hạt giống (seed) để cùng code tạo cùng chuỗi số; `random(5000)` tạo đúng 5.000 lượt; `<` xét thành công; `.mean()` trên mảng Boolean lấy tỷ lệ giá trị `True`. `&` yêu cầu cả hai cùng trúng; `|` chỉ cần một người trúng. Biểu thức `1 - ...` lấy phần bù của trường hợp **cả hai cùng trượt**, tránh đếm trùng.
+
 
 **Ví dụ và lỗi thường gặp:** Tần suất trong 5.000 lượt rút là kết quả mô phỏng, có thể lệch lý thuyết. Với hai người độc lập, P(cả hai)=0,7×0,6=0,42.
 
@@ -107,9 +136,24 @@ Tạo `set(range(1,11))`, lọc từng biến cố bằng set comprehension. Dù
 
 Đặt thứ Hai đến Chủ nhật ứng với mã 0–6; B={0,1,2,3} là tập con của A={0..4}. Trong mô phỏng, đếm số lượt chọn vào B rồi kiểm tra đồng thời A∩B để được xác suất có điều kiện.
 
-**Công thức / kết quả đối chiếu:** P(A|B)=P(A∩B)/P(B)=4/4=1 (vì mọi ngày trong B đều là ngày thường).
+**Vì sao dùng mẫu số là B?** Đề đã cho điều kiện ngày thuộc B (thứ Hai–Năm); trong bốn ngày này, tất cả đều là ngày làm việc A (thứ Hai–Sáu). Vì vậy xác suất có điều kiện bằng 1. Không chia cho cả 7 ngày trong tuần.
 
-**Công thức/đối chiếu:** B={thứ Hai..Năm} nằm trong A={thứ Hai..Sáu}; P(A|B)=1.
+**Quy trình:** (1) Biểu diễn bảy ngày thành số 0–6; A là 0–4, B là 0–3. (2) Lấy giao `A & B` để tìm ngày thuộc cả hai. (3) Đếm giao và đếm B để chia. (4) Nếu mô phỏng, chỉ giữ lượt rơi vào B rồi so sánh tỷ lệ.
+
+**Công thức Python:**
+~~~python
+A = set(range(5))      # Thứ Hai đến thứ Sáu
+B = set(range(4))      # Thứ Hai đến thứ Năm
+p_a_given_b = len(A & B) / len(B)  # 1.0
+rng = np.random.default_rng(2027)
+drawn = rng.integers(0, 7, size=5000)
+mask_b = np.isin(drawn, list(B))
+mask_both = np.isin(drawn, list(A & B))
+p_sim = mask_both.sum() / mask_b.sum()
+~~~
+
+**Giải thích hàm và tham số:** `integers(0, 7, size=5000)` sinh số nguyên từ **0 đến 6** (`7` không được lấy), 5.000 lần. `np.isin` kiểm tra mỗi ngày có thuộc danh sách không, trả mảng Boolean; `.sum()` đếm các giá trị `True`. `size=5000` là số lượt mô phỏng; `len(B)` là số trường hợp của điều kiện đã biết.
+
 
 **Ví dụ và lỗi thường gặp:** Biến cố B (thứ Hai–thứ Năm) nằm hoàn toàn trong biến cố A (thứ Hai–thứ Sáu), nên P(A|B)=1.
 
@@ -119,9 +163,22 @@ Tạo `set(range(1,11))`, lọc từng biến cố bằng set comprehension. Dù
 
 Tính tổng hai cách bị hệ thống gắn cờ spam: spam thật bị phát hiện và email sạch bị báo nhầm. Sau đó dùng Bayes đổi chiều điều kiện từ P(flag|spam) sang P(spam|flag).
 
-**Công thức / kết quả đối chiếu:** P(flag)=0,3×0,9+0,7×0,05=0,305. P(spam|flag)=0,27/0,305≈0,8852459, **không** phải 90%.
+**Vì sao không dùng trực tiếp 90%?** 90% là tỷ lệ bị gắn cờ **trong các thư spam**, còn đề hỏi thư đã bị gắn cờ có khả năng thật sự là spam bao nhiêu. Nhóm thư bị gắn cờ còn chứa cả thư sạch bị gắn nhầm. Cần tính cả hai nguồn gắn cờ trước khi chia.
 
-**Công thức/đối chiếu:** P(flag)=0,3×0,9+0,7×0,05=0,305; P(spam|flag)=0,27/0,305≈0,88525.
+**Quy trình:** (1) Đặt tỷ lệ spam và thư sạch. (2) Tính phần thư spam bị gắn cờ. (3) Tính phần thư sạch bị gắn cờ nhầm. (4) Cộng hai phần để có tổng xác suất gắn cờ. (5) Chia phần spam bị gắn cờ cho tổng đã tính.
+
+**Công thức Python:**
+~~~python
+p_spam = 0.30
+p_flag_given_spam = 0.90
+p_flag_given_clean = 0.05
+p_clean = 1 - p_spam
+p_flag = p_spam * p_flag_given_spam + p_clean * p_flag_given_clean # 0.305
+p_spam_given_flag = (p_spam * p_flag_given_spam) / p_flag # 0.8852459...
+~~~
+
+**Giải thích phép tính:** `p_flag_given_spam` là xác suất gắn cờ khi đã biết thư là spam (độ nhạy); `p_flag_given_clean` là tỷ lệ gắn nhầm thư sạch. `*` kết hợp tỷ lệ nhóm với tỷ lệ gắn cờ trong nhóm, `+` cộng hai trường hợp không giao nhau, `/` chuyển sang xác suất **trong nhóm đã bị gắn cờ**. Kết quả khoảng **88.52%**, không phải 90%.
+
 
 **Ví dụ và lỗi thường gặp:** P(flag)=0,3×0,9+0,7×0,05=0,305. P(spam|flag)=0,27/0,305, không đánh đồng với P(flag|spam)=0,9.
 
@@ -131,9 +188,22 @@ Tính tổng hai cách bị hệ thống gắn cờ spam: spam thật bị phát
 
 Số thành công tuân theo nhị thức vì có 8 phép thử độc lập cùng xác suất p=0,75. Hàm pmf trả xác suất đúng k; cộng pmf cho k=6,7,8 để lấy ít nhất 6. Hàm `save_plot` trong code tham khảo dùng `plt.bar`.
 
-**Công thức / kết quả đối chiếu:** P(X=k)=C(8,k)(0,75)^k(0,25)^(8−k); P(X≥6)=P(X=6)+P(X=7)+P(X=8).
+**Vì sao dùng phân phối nhị thức?** Mỗi yêu cầu được xử lý thành công hoặc thất bại, có xác suất thành công 0.75 và giả định các lần độc lập. Bài cần xác suất đúng k thành công trong 8 lần, rồi cộng xác suất của k bằng 6, 7 hoặc 8.
 
-**Công thức/đối chiếu:** X~Binom(n=8,p=0,75); P(X=k)=C(8,k)×p^k×(1−p)^(8−k); P(X≥6)=Σ P(X=k), k=6..8.
+**Quy trình:** (1) Tạo danh sách số lần thành công có thể từ 0 đến 8. (2) Dùng hàm phân phối nhị thức tính xác suất cho từng số k. (3) Lấy xác suất đúng 6 lần. (4) Cộng ba giá trị ứng với k từ 6 trở lên. (5) Vẽ biểu đồ cột để nhìn khả năng từng số lần thành công.
+
+**Công thức Python:**
+~~~python
+from scipy.stats import binom
+import numpy as np
+k = np.arange(0, 9)
+probs = binom.pmf(k, n=8, p=0.75)
+p_exactly_6 = binom.pmf(6, n=8, p=0.75)
+p_at_least_6 = probs[6:].sum()
+~~~
+
+**Giải thích hàm và tham số:** `binom.pmf` là hàm khối xác suất (*probability mass function*) tính xác suất đúng k lần thành công; `n=8` là tổng số lượt, `p=0.75` là tỷ lệ thành công mỗi lượt. `np.arange(0, 9)` tạo các số 0–8; `probs[6:]` lấy các xác suất từ vị trí 6 đến hết; `.sum()` cộng chúng. Nếu vẽ và lưu ảnh, `matplotlib.use("Agg")` dùng backend không mở cửa sổ và `--no-plot` là đối số dòng lệnh bỏ phần vẽ trong code chính.
+
 
 **Ví dụ và lỗi thường gặp:** Với tám yêu cầu độc lập, dùng phân phối nhị thức. Đúng sáu dùng pmf(6); ít nhất sáu cộng pmf(6)+pmf(7)+pmf(8).
 

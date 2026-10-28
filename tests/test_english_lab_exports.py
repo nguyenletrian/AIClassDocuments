@@ -27,7 +27,7 @@ EXPECTED = {
     "PRETEST": 3,
 }
 HEADING = "## Code Python"
-TASK_RE = re.compile(r"^### Câu (\d+)$", re.M)
+TASK_RE = re.compile(r"^### Câu (\d+)(?: — [^\n]+)?$", re.M)
 CODE_RE = re.compile(r"^" + r"\x60" * 3 + r"python\n([\s\S]*?)^" + r"\x60" * 3 + r"$", re.M)
 
 
@@ -93,6 +93,26 @@ class BilingualInlineWordLabQA(unittest.TestCase):
                     self.assertTrue(
                         "**Thuật ngữ" in part or "**Từ vựng" in part,
                         slug + ": missing glossary",
+                    )
+                    # Each explanation now shows executable Python syntax instead of LaTeX formulas.
+                    self.assertNotRegex(
+                        part, r"\\\[|\\frac|\\mathbf|\\bar|\\sqrt|\\sum|\\partial",
+                        slug + ": formula must be explained as Python",
+                    )
+                    self.assertTrue(
+                        "**Vì sao" in part or "**Tại sao" in part,
+                        slug + ": missing reasoning for method choice",
+                    )
+                    self.assertTrue(
+                        "**Quy trình" in part or "**Các bước" in part,
+                        slug + ": missing solution procedure",
+                    )
+                    examples = re.findall(r"(?ms)^~~~python\n(.*?)^~~~$", part)
+                    self.assertEqual(len(examples), 1, slug + ": expected one formula example")
+                    ast.parse(examples[0], filename=slug + "-example.py")
+                    self.assertFalse(
+                        any(isinstance(node, ast.Assert) for node in ast.walk(ast.parse(examples[0]))),
+                        slug + ": assert not allowed in educational example",
                     )
                 for boilerplate in (
                     "**Nguồn:**", "**Nguồn đề:**", "**Cách đọc:**", "**Cách học:**",

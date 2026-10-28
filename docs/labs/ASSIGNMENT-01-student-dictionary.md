@@ -61,7 +61,14 @@ Viết chương trình có đầy đủ các chức năng sau:
 
 Dùng `dict` lồng nhau: khóa ngoài là ID duy nhất, giá trị là đối tượng có `name` và `score`. Hàm tạo dữ liệu giả lập để tránh thông tin cá nhân.
 
-**Công thức / quy tắc:** Không có công thức; truy cập theo `students[id]` có độ phức tạp trung bình O(1).
+**Vì sao dùng dictionary lồng nhau?** ID là khóa duy nhất, giúp tìm một sinh viên trực tiếp mà không cần duyệt toàn bộ list; dữ liệu đi kèm có thể đặt trong dictionary con.
+**Các bước:** Khởi tạo từ điển → dùng ID làm khóa → lưu tên, điểm làm giá trị → truy cập khi cần.
+~~~python
+students = {}
+students["S01"] = {"name": "An", "score": 8.5}
+name = students["S01"]["name"]
+~~~
+**Cú pháp:** `students["S01"]` truy cập bản ghi theo ID; `["name"]` truy cập trường tên. ID trùng sẽ **ghi đè** nếu gán trực tiếp, nên chức năng thêm ở Câu 2 phải kiểm tra trước. Tìm theo khóa trung bình O(1), không có nghĩa luôn tuyệt đối cố định.
 
 **Điểm cần kiểm tra:** dictionary (từ điển) là cấu trúc lưu trữ chính; ID là khóa.
 
@@ -73,7 +80,18 @@ Dùng `dict` lồng nhau: khóa ngoài là ID duy nhất, giá trị là đối 
 
 Đọc các trường, chuẩn hóa bằng `.strip()`, đổi điểm bằng `float()`, kiểm tra miền 0–10, rồi kiểm tra ID chưa có trước khi thêm.
 
-**Công thức / quy tắc:** Điểm hợp lệ: 0 ≤ score (điểm số) ≤ 10; điều kiện tồn tại ID: `id in students`.
+**Vì sao xác thực trước khi thêm?** Nếu ID trùng, dictionary có thể ghi đè sinh viên cũ; điểm ngoài 0–10 sẽ làm sai phân loại.
+**Các bước:** Làm sạch ID/tên → đổi điểm sang `float` → kiểm tra điểm → so ID đã tồn tại chưa → chỉ gán khi hợp lệ.
+~~~python
+student_id = "S02".strip()
+score = float("8.5")
+if student_id in students:
+    raise ValueError("ID đã tồn tại")
+if not (0 <= score <= 10):
+    raise ValueError("Điểm phải từ 0 đến 10")
+students[student_id] = {"name": "Bình", "score": score}
+~~~
+**Giải thích:** `.strip` bỏ khoảng trắng; `float` chuyển chuỗi số; `in` kiểm tra khóa có tồn tại; `not` phủ định; `0 <= score <= 10` kiểm tra cả hai biên; `raise ValueError` báo dữ liệu sai, không âm thầm ghi đè.
 
 **Điểm cần kiểm tra:** xác thực `id`, `name`, `score` và chặn trùng ID.
 
@@ -85,7 +103,13 @@ Dùng `dict` lồng nhau: khóa ngoài là ID duy nhất, giá trị là đối 
 
 Duyệt `.items()` để lấy cặp ID–thông tin và in nội dung. Giữ nguyên thứ tự thêm vào của từ điển.
 
-**Công thức / quy tắc:** Không có công thức; dùng lặp `for` thay vì ép người học tự hình dung cấu trúc.
+**Vì sao duyệt `items()`?** Dictionary ngoài chứa ID còn dictionary trong chứa tên, điểm. Cần lấy cả khóa và dữ liệu cho mỗi bản ghi.
+**Các bước:** Kiểm tra có sinh viên không → duyệt từng cặp ID/bản ghi → truy cập tên, điểm → in từng dòng.
+~~~python
+for student_id, info in students.items():
+    print(student_id, info["name"], info["score"])
+~~~
+**Giải thích:** `.items()` trả các cặp (khóa, giá trị), `for` lặp lần lượt, `info["score"]` lấy điểm. Không ép dictionary thành list để tìm kiếm nếu chỉ cần hiển thị.
 
 **Điểm cần kiểm tra:** thao tác CRUD thêm, đọc, sửa và xóa sau khi xác nhận.
 
@@ -97,7 +121,17 @@ Duyệt `.items()` để lấy cặp ID–thông tin và in nội dung. Giữ ng
 
 Từ ID đầu vào, tìm đúng khóa; từ chối ID không tồn tại, xác thực giá trị mới trước khi thay thế.
 
-**Công thức / quy tắc:** Điểm chỉ được cập nhật nếu `0 ≤ score ≤ 10`.
+**Vì sao phải kiểm tra ID trước khi sửa?** Không được vô tình tạo một sinh viên mới khi người dùng định cập nhật một sinh viên đang có.
+**Các bước:** Nhận ID → tìm bản ghi → xác thực tên/điểm mới → thay trường tương ứng → giữ nguyên khóa ID.
+~~~python
+student_id = "S01"
+new_score = 9.0
+if student_id not in students:
+    raise KeyError("Không tìm thấy sinh viên")
+if 0 <= new_score <= 10:
+    students[student_id]["score"] = new_score
+~~~
+**Cú pháp:** `not in` kiểm tra vắng mặt; `KeyError` báo khóa không có; `0 <= ... <= 10` giới hạn điểm; phép gán vào `["score"]` chỉ cập nhật trường điểm, không thay dictionary khác.
 
 **Điểm cần kiểm tra:** sắp xếp điểm và tổng hợp bằng `Counter`.
 
@@ -109,7 +143,15 @@ Từ ID đầu vào, tìm đúng khóa; từ chối ID không tồn tại, xác 
 
 Tìm ID rồi kiểm tra `confirmed`; khi người dùng từ chối thì không đụng đến dữ liệu. Khi đồng ý mới `del students[id]`.
 
-**Công thức / quy tắc:** Quy tắc xóa: `exists(id) AND confirmed`.
+**Vì sao cần xác nhận xóa?** Xóa một khóa sẽ mất toàn bộ dữ liệu của người đó, nên chỉ xóa khi đúng ID và đã xác nhận.
+**Các bước:** Kiểm tra ID tồn tại → đọc xác nhận → chỉ gọi xóa khi được đồng ý → kiểm tra kết quả.
+~~~python
+student_id = "S01"
+confirmed = True
+if student_id in students and confirmed:
+    del students[student_id]
+~~~
+**Cú pháp:** `and` chỉ đúng khi **cả hai** điều kiện đúng, `del students[id]` xóa khóa; `confirmed` là Boolean, tương ứng tham số `confirmed=False` mặc định trong hàm hoàn chỉnh để không xóa ngoài ý muốn.
 
 **Điểm cần kiểm tra:** phân loại mức học lực từ cao xuống thấp; đây là ngưỡng do lời giải tham khảo chọn.
 
@@ -121,7 +163,17 @@ Tìm ID rồi kiểm tra `confirmed`; khi người dùng từ chối thì không
 
 Phân biệt kiểm tra kiểu dữ liệu và kiểm tra khoảng giá trị; nêu rõ vì sao `input()` tạo chuỗi, vì sao cần bắt `ValueError`.
 
-**Công thức / quy tắc:** 0 ≤ score (điểm số) ≤ 10; ID và name không được rỗng.
+**Vì sao kiểm tra dữ liệu ở một chỗ?** Các chức năng Add và Update cần dùng cùng quy tắc; viết rải rác dễ chỗ cho điểm âm, chỗ lại không.
+**Các bước:** Kiểm tra ID/tên không rỗng → chuyển điểm sang số → kiểm tra miền 0–10 → báo lỗi rõ ràng nếu sai.
+~~~python
+def valid_score(score):
+    try:
+        number = float(score)
+    except ValueError:
+        return False
+    return 0 <= number <= 10
+~~~
+**Cú pháp:** `try/except ValueError` bắt lỗi chuyển chuỗi không phải số; `return` trả kết quả Boolean; `<=` gồm cả 0 và 10. Trong code cuối bài, hàm `validate` còn kiểm tra ID và tên.
 
 **Điểm cần kiểm tra:** phân loại mức học lực từ cao xuống thấp; đây là ngưỡng do lời giải tham khảo chọn.
 
@@ -133,7 +185,15 @@ Phân biệt kiểm tra kiểu dữ liệu và kiểm tra khoảng giá trị; n
 
 Dùng cùng hàm `add` trong code nguồn để chống trùng trước thao tác gán: nếu `id in students` thì báo lỗi.
 
-**Công thức / quy tắc:** ID đóng vai trò khóa duy nhất (unique key).
+**Vì sao ID phải duy nhất?** Hai sinh viên có thể trùng tên nhưng vẫn cần hai hồ sơ tách biệt; dùng tên làm khóa có nguy cơ ghi đè.
+**Các bước:** Chuẩn hóa mã → kiểm tra `in` để xác định đã có → chỉ lưu ID chưa xuất hiện → xử lý trường hợp nhập trùng.
+~~~python
+student_id = "S02"
+already_exists = student_id in students
+if already_exists:
+    print("Mã đã được sử dụng")
+~~~
+**Giải thích:** `in` trên dictionary kiểm tra **khóa**, không kiểm tra các tên nằm bên trong; `already_exists` lưu giá trị đúng/sai; khóa duy nhất là quy tắc của cấu trúc dữ liệu, không phải hàm tính toán.
 
 **Điểm cần kiểm tra:** phân loại mức học lực từ cao xuống thấp; đây là ngưỡng do lời giải tham khảo chọn.
 
@@ -145,7 +205,13 @@ Dùng cùng hàm `add` trong code nguồn để chống trùng trước thao tá
 
 Sắp theo khóa `score`, dùng `reverse=True/False` để đổi chiều; chương trình không làm biến đổi dữ liệu đang lưu.
 
-**Công thức / quy tắc:** Sắp xếp có độ phức tạp điển hình O(n log n).
+**Vì sao truyền `key` cho `sorted`?** Cần xếp theo **điểm**, không phải theo ID hoặc tên.
+**Các bước:** Lấy các cặp ID và thông tin → lấy trường điểm để so sánh → chọn tăng/giảm → trả danh sách có thứ tự mới.
+~~~python
+ascending = sorted(students.items(), key=lambda pair: pair[1]["score"])
+descending = sorted(students.items(), key=lambda pair: pair[1]["score"], reverse=True)
+~~~
+**Giải thích flag:** `key=lambda pair: pair[1]["score"]` lấy điểm từ dictionary ở vị trí thứ hai của cặp; `reverse=True` đảo sang giảm dần, mặc định `False` tăng dần. `sorted` không thay đổi dictionary gốc, kết quả là list các cặp.
 
 **Điểm cần kiểm tra:** phân loại mức học lực từ cao xuống thấp; đây là ngưỡng do lời giải tham khảo chọn.
 
@@ -157,7 +223,15 @@ Sắp theo khóa `score`, dùng `reverse=True/False` để đổi chiều; chư�
 
 Lấy danh sách điểm; tính `max`, `min`, trung bình, rồi đếm nhãn phân loại bằng `Counter`. Cần xử lý trường hợp không có sinh viên để tránh chia 0.
 
-**Công thức / quy tắc:** Điểm trung bình = tổng điểm / số sinh viên; mỗi nhãn được đếm bằng số bản ghi thuộc mức đó.
+**Vì sao tính thống kê trước khi phân loại?** Trung bình tóm tắt kết quả toàn nhóm, còn đếm theo loại cho thấy có bao nhiêu người ở mỗi mức; không thể lấy số lượng chia cho 0 nếu chưa có sinh viên.
+**Các bước:** Lấy danh sách điểm → tính tổng và số lượng → tìm trung bình → gọi hàm `classify` cho từng người → đếm nhãn.
+~~~python
+from collections import Counter
+scores = [row["score"] for row in students.values()]
+average = sum(scores) / len(scores) if scores else None
+levels = Counter(classify(score) for score in scores)
+~~~
+**Giải thích:** `.values()` lấy bản ghi không cần ID; `sum` cộng điểm, `len` đếm; biểu thức `... if scores else None` tránh chia 0; `Counter` đếm số lần xuất hiện của từng nhãn. `classify` là hàm định nghĩa trong code hoàn chỉnh, không phải hàm Python có sẵn.
 
 **Điểm cần kiểm tra:** phân loại mức học lực từ cao xuống thấp; đây là ngưỡng do lời giải tham khảo chọn.
 
@@ -169,7 +243,19 @@ Lấy danh sách điểm; tính `max`, `min`, trung bình, rồi đếm nhãn ph
 
 Kiểm tra ngưỡng từ cao xuống thấp để không có hai mức cùng đúng; các mốc lấy từ code tham khảo đã tồn tại, **không giả nhận là đề Word quy định**.
 
-**Công thức / quy tắc:** `score ≥ 9`: Excellent; `7 ≤ score < 9`: Good; `5 ≤ score < 7`: Average; `score < 5`: Poor.
+**Vì sao xét mức điểm từ cao xuống thấp?** Nếu xét ngưỡng thấp trước, sinh viên 9.5 điểm sẽ khớp cả mức 5 và 7, dễ bị phân loại sai. Các nhánh `if/elif` sẽ dừng ở nhánh đầu thỏa.
+**Các bước:** Kiểm tra điểm hợp lệ → so ngưỡng 9 → 7 → 5 → còn lại mức Poor.
+~~~python
+if score >= 9:
+    level = "Excellent"
+elif score >= 7:
+    level = "Good"
+elif score >= 5:
+    level = "Average"
+else:
+    level = "Poor"
+~~~
+**Cú pháp:** `>=` nghĩa là lớn hơn hoặc bằng; `elif` chỉ kiểm tra khi các điều kiện trước sai; `else` là phần còn lại. Vì thứ tự kiểm tra từ cao xuống, không cần viết lặp cả cận dưới/cận trên. Các ngưỡng thuộc quy tắc của code tham khảo.
 
 **Điểm cần kiểm tra:** phân loại mức học lực từ cao xuống thấp; đây là ngưỡng do lời giải tham khảo chọn.
 

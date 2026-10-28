@@ -147,7 +147,23 @@ Với **L(w,b) = (1/n) Σᵢ (yᵢ−wXᵢ−b)²**, tính và hiển thị grad
 
 Mô hình dữ liệu: `X=[1,2,3,4,5,6,7,8]` giờ; `y=[35,40,50,55,65,70,80,85]` điểm. Biểu đồ scatter vẽ `X` theo trục ngang và `y` theo trục đứng.
 
-**Công thức liên quan:** Không dùng công thức học mô hình ở bước chỉ trực quan hóa; `plt.scatter(X,Y)` hiển thị từng cặp giờ/điểm.
+**Vì sao cần nhìn dữ liệu trước?** Nếu giờ học và điểm thi không có xu hướng liên quan, mô hình đường thẳng có thể không phù hợp. Vẽ các điểm trước giúp người học hiểu dữ liệu, phát hiện giá trị bất thường và hiểu trục nào là đầu vào.
+
+**Quy trình:** (1) Tạo hai mảng `X` (giờ) và `Y` (điểm). (2) Kiểm tra chúng dài bằng nhau, vì mỗi giờ phải đi cùng một điểm. (3) Vẽ scatter (biểu đồ phân tán), gắn nhãn và lưới.
+~~~python
+import numpy as np
+X = np.array([1,2,3,4,5,6,7,8], dtype=float)
+Y = np.array([35,40,50,55,65,70,80,85], dtype=float)
+if len(X) != len(Y):
+    raise ValueError("Số giờ học và số điểm không khớp")
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+ax.scatter(X, Y)
+ax.set(xlabel="Giờ học", ylabel="Điểm thi", title="Giờ học và điểm thi")
+ax.grid(True)
+plt.close(fig)  # Đóng figure sau khi sử dụng
+~~~
+**Cú pháp và tham số:** `dtype=float` chọn số thực; `plt.subplots()` trả một figure (khung hình) và axes (vùng vẽ); `ax.scatter(x, y)` vẽ cặp điểm; `xlabel`, `ylabel` là nhãn trục, `title` là tiêu đề; `grid(True)` bật lưới. Để chạy riêng đoạn minh họa cần nạp `import matplotlib.pyplot as plt`; code cuối bài chỉ vẽ khi không truyền `--no-plot`.
 
 **Kiến thức/công thức trọng tâm:** giữ nguyên 8 dòng dữ liệu X=1..8 và điểm tương ứng; vẽ scatter và đường hồi quy theo giờ/điểm.
 
@@ -159,7 +175,16 @@ Mô hình dữ liệu: `X=[1,2,3,4,5,6,7,8]` giờ; `y=[35,40,50,55,65,70,80,85]
 
 `predict()` nhân từng số giờ với `w`, cộng `b`; `compute_loss()` tính từng hiệu điểm thật-dự đoán, bình phương, lấy trung bình. Khởi tạo cả hai bằng 0 để có đường chuẩn trước khi học.
 
-**Công thức liên quan:** \(\hat y_i=wX_i+b\), \(\mathrm{MSE (trung bình bình phương sai số)}=\frac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2\). Đơn vị MSE là bình phương đơn vị điểm.
+**Vì sao dùng MSE?** Mô hình dự đoán bằng đường thẳng cần một cách đo mức sai khác so với điểm thật. Bình phương sai số làm số âm và số dương đều tăng loss; lấy trung bình giúp so sánh qua nhiều dữ liệu.
+
+**Quy trình:** (1) Đặt tham số hệ số `w` và độ dịch `b`. (2) Tính điểm dự đoán theo giờ học. (3) Lấy điểm thật trừ điểm dự đoán. (4) Bình phương từng sai số rồi lấy trung bình. (5) Đối chiếu mô hình ban đầu `w=0`, `b=0`.
+~~~python
+w, b = 0.0, 0.0
+prediction = w * X + b
+residual = Y - prediction
+mse = np.mean(residual ** 2)
+~~~
+**Cú pháp:** `w * X` nhân mọi phần tử của mảng giờ với cùng hệ số, `b` cộng độ dịch vào từng kết quả; `** 2` là bình phương (không dùng `^`); `np.mean` lấy trung bình, cho MSE có đơn vị điểm bình phương. `w=0` và `b=0` chỉ là cách khởi tạo, chưa phải giá trị tốt nhất.
 
 **Kiến thức/công thức trọng tâm:** MSE = (1/n)∑(y−ŷ)²; ŷ=wX+b; đơn vị MSE là điểm².
 
@@ -171,7 +196,19 @@ Mô hình dữ liệu: `X=[1,2,3,4,5,6,7,8]` giờ; `y=[35,40,50,55,65,70,80,85]
 
 Dùng `sp.symbols` tạo biến biểu thức, `sp.diff` lấy đạo hàm, `sp.hessian` trả ma trận đạo hàm bậc hai. Kiểm chứng: gradient (độ dốc của hàm) của biểu thức mẫu có thành phần theo w và b lần lượt bằng `4(2w+b−5)` và `2(2w+b−5)`.
 
-**Công thức liên quan:** \(\nabla L=[4(2w+b-5),\;2(2w+b-5)]^T\); \(H=\begin{bmatrix}8&4\\4&2\end{bmatrix}\).
+**Vì sao tính đạo hàm riêng và Hessian?** Hàm loss của một điểm phụ thuộc cả `w` và `b`. Gradient cho biết loss thay đổi theo từng tham số; Hessian cho biết độ cong, giúp giải thích vì sao có hướng thay đổi nhanh/chậm.
+
+**Quy trình:** (1) Khai báo hai biến ký hiệu. (2) Xây biểu thức loss với đầu vào 2 và điểm thật 5. (3) Lấy đạo hàm theo mỗi biến. (4) Gom đạo hàm thành vector và tính ma trận đạo hàm bậc hai.
+~~~python
+import sympy as sp
+w, b = sp.symbols("w b", real=True)
+loss = (2 * w + b - 5) ** 2
+gradient = sp.Matrix([sp.diff(loss, w), sp.diff(loss, b)])
+hessian = sp.hessian(loss, (w, b))
+print(gradient)  # Vector đạo hàm theo w và b
+print(hessian)   # Ma trận đạo hàm bậc hai
+~~~
+**Hàm và flag:** `sp.symbols(..., real=True)` khai báo biến thực; `sp.diff(loss, w)` lấy đạo hàm riêng theo `w`; `sp.Matrix` tạo vector cột; `sp.hessian(loss, (w,b))` trả ma trận theo đúng thứ tự biến. `real=True` là giả định số thực trong SymPy. Ở một điểm dữ liệu này, Hessian có một hướng độ cong bằng 0; không kết luận loss có cực tiểu duy nhất từ một điểm.
 
 **Kiến thức/công thức trọng tâm:** đạo hàm riêng SymPy (thư viện toán ký hiệu) `diff`; Hessian (ma trận đạo hàm bậc hai) ví dụ một điểm L=(2w+b−5)² có gradient [4(2w+b−5),2(2w+b−5)], Hessian [[8,4],[4,2]].
 
@@ -183,7 +220,22 @@ Dùng `sp.symbols` tạo biến biểu thức, `sp.diff` lấy đạo hàm, `sp.
 
 Mỗi vòng dự đoán điểm, lấy phần dư `predict(X,w,b)-Y`, tính gradient (độ dốc của hàm) `dw`,`db`, trừ learning_rate nhân gradient, lưu MSE (trung bình bình phương sai số) mới; không tạo thuật toán khác với script tham khảo.
 
-**Công thức liên quan:** \(\partial_w L=\frac2n\sum_i X_i(wX_i+b-y_i)\), \(\partial_b L=\frac2n\sum_i(wX_i+b-y_i)\). Cập nhật \(w\leftarrow w-0.01\,\partial_wL\) và \(b\leftarrow b-0.01\,\partial_bL\).
+**Vì sao cập nhật nhiều bước?** Dự đoán ban đầu chưa khớp dữ liệu. Gradient cho biết cần điều chỉnh `w` và `b` về hướng nào để giảm MSE, còn tốc độ học quyết định mỗi lần điều chỉnh bao nhiêu.
+
+**Quy trình:** (1) Khởi tạo `w=b=0`. (2) Tính sai số dự đoán với toàn bộ giờ học. (3) Tính gradient đối với `w` bằng tích vô hướng với `X`, gradient của `b` bằng tổng sai số. (4) Trừ tốc độ học nhân gradient khỏi mỗi tham số. (5) Lặp đúng số vòng, ghi lịch sử MSE để so sánh.
+~~~python
+learning_rate, epochs = 0.01, 1000
+w = b = 0.0
+history = []
+for _ in range(epochs):
+    residual = (w * X + b) - Y
+    dw = (2 / X.size) * np.dot(X, residual)
+    db = (2 / X.size) * residual.sum()
+    w -= learning_rate * dw
+    b -= learning_rate * db
+    history.append(np.mean((Y - (w * X + b)) ** 2))
+~~~
+**Giải thích tham số/toán tử:** `learning_rate=0.01` là kích cỡ bước; `epochs=1000` là số lần lặp; `range(epochs)` tạo đúng 1.000 lượt; `_` là biến lặp không dùng; `np.dot` nhân và cộng các cặp phần tử; `X.size` là số quan sát; `-=` viết ngắn cho phép trừ rồi cập nhật. Tốc độ học quá lớn có thể làm loss tăng; kiểm tra lịch sử loss để phát hiện.
 
 **Kiến thức/công thức trọng tâm:** mỗi epoch cập nhật w,b trừ 0.01×gradient; tính lại MSE, lưu đủ 1000 epoch; gradient w=(2/n) Σ X(wX+b−y), b=(2/n) Σ(wX+b−y).
 
@@ -195,7 +247,19 @@ Mỗi vòng dự đoán điểm, lấy phần dư `predict(X,w,b)-Y`, tính grad
 
 Biểu thức loss (hàm mất mát) tổng được tạo từ 8 giá trị gốc trong `X`,`Y`; SymPy (thư viện toán ký hiệu) tự tính gradient (độ dốc của hàm) và Hessian (ma trận đạo hàm bậc hai). `subs` thay tham số học được, `np.linalg.eigvalsh` cho trị riêng ma trận đối xứng. Không lẫn với Hessian một điểm ở bài 3.
 
-**Công thức liên quan:** \(L(w,b)=\frac1n\sum_i(y_i-wX_i-b)^2\). Hessian mô tả độ cong; trị riêng dương cho biết độ cong theo hướng tương ứng không âm/định hướng cực tiểu đối với bài toán này.
+**Vì sao tính trên toàn bộ dữ liệu?** Đạo hàm từ một điểm ở câu trước không phản ánh đủ tám cặp giờ/điểm. Ở đây phải lập loss trung bình của **tất cả tám điểm**, rồi xem gradient còn lớn hay nhỏ tại tham số đã học và Hessian mô tả độ cong.
+
+**Quy trình:** (1) Tạo loss là trung bình bình phương sai số của tám điểm. (2) Lấy đạo hàm theo `w` và `b` bằng SymPy. (3) Thay tham số cuối vào gradient để kiểm tra mức gần tối ưu. (4) Tính Hessian và trị riêng để thấy độ cong theo các hướng khác nhau.
+~~~python
+w, b = sp.symbols("w b", real=True)
+loss = sum((yi - w * xi - b) ** 2 for xi, yi in zip(X, Y)) / len(X)
+gradient = sp.Matrix([sp.diff(loss, w), sp.diff(loss, b)])
+hessian = sp.hessian(loss, (w, b))
+trained_w, trained_b, history = task04_train()  # Tái sử dụng hàm huấn luyện của code cuối bài
+gradient_at_final = gradient.subs({w: trained_w, b: trained_b}).evalf()
+eigenvalues = np.linalg.eigvalsh(np.asarray(hessian, dtype=float))
+~~~
+**Giải thích tham số và cú pháp:** `zip(X,Y)` ghép từng giờ học với đúng điểm; `sum` cộng tám bình phương; `len(X)` chia thành trung bình; `.subs({w: ..., b: ...})` thay tham số vào biểu thức; `.evalf()` tính số gần đúng. `np.asarray(..., dtype=float)` đổi SymPy sang mảng số; `np.linalg.eigvalsh` tính trị riêng của **ma trận đối xứng** như Hessian trong bài. `trained_w` và `trained_b` là kết quả sau bước huấn luyện ở Câu 4.
 
 **Kiến thức/công thức trọng tâm:** hàm loss đầy đủ 8 mẫu khác Hessian một mẫu; tính eigenvalue (trị riêng) bằng `eigvalsh` vì Hessian đối xứng; so gradient ở nghiệm đã học.
 
