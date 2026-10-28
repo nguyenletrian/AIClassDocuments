@@ -238,155 +238,155 @@ D. 0.1
 
 **Q1. What is the norm of vector (3,4)? | Norm của vector (3,4) bằng bao nhiêu?**
 
-A. 5 | 5
+A. 0 | 0
 
-B. (0.6,0.8) | (0.6,0.8)
+B. 11 | 11
 
-C. 11 | 11
+C. 5 | 5
 
-D. 0 | 0
+D. (0.6,0.8) | (0.6,0.8)
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Độ dài Pythagoras là căn của 9+16.
 
 **Q2. What is a matrix? | Ma trận là gì?**
 
-A. A two-dimensional array of values | Bảng dữ liệu hai chiều
+A. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
 
-B. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
+B. A two-dimensional array of values | Bảng dữ liệu hai chiều
 
-C. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
+C. A scalar associated with a square matrix | Một số gắn với ma trận vuông
 
-D. A scalar associated with a square matrix | Một số gắn với ma trận vuông
+D. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** Ma trận sắp phần tử theo hàng và cột.
 
-**Q3. Which tool solves a nonsingular square system? | Hàm nào giải hệ vuông không suy biến?**
+**Q3. Solve x + y = 7 and x − y = 3. What are x and y? | Giải hệ x + y = 7 và x − y = 3. Tìm x và y.**
 
-A. `np.linalg.solve(A,b)` | `np.linalg.solve(A,b)`
+A. x = 2, y = 5 | x = 2, y = 5
 
-B. `np.linalg.matrix_rank(A)` | `np.linalg.matrix_rank(A)`
+B. x = 7, y = 0 | x = 7, y = 0
 
-C. `np.column_stack((A,b))` | `np.column_stack((A,b))`
+C. x = 5, y = 2 | x = 5, y = 2
 
-D. `np.linalg.lstsq(A,b,rcond=None)` | `np.linalg.lstsq(A,b,rcond=None)`
+D. x = 4, y = 3 | x = 4, y = 3
 
-**Đáp án: A**
+**Đáp án: C**
 
-**Giải thích:** solve dùng cho ma trận hệ số vuông, không suy biến.
+**Giải thích:** Cộng hai phương trình: 2x = 10 nên x = 5; thay vào x + y = 7 được y = 2.
 
 **Q4. What is a determinant? | Định thức là gì?**
 
-A. A two-dimensional array of values | Bảng dữ liệu hai chiều
+A. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
 
-B. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
+B. A two-dimensional array of values | Bảng dữ liệu hai chiều
 
-C. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
+C. A scalar associated with a square matrix | Một số gắn với ma trận vuông
 
-D. A scalar associated with a square matrix | Một số gắn với ma trận vuông
+D. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Định thức hỗ trợ kiểm tra tính khả nghịch.
 
 **Q5. What is the derivative of x²? | Đạo hàm của x² là gì?**
 
-A. `2*x` | `2*x`
+A. 6 | 6
 
-B. Zero | Bằng 0
+B. 4 | 4
 
-C. 6 | 6
+C. Zero | Bằng 0
 
-D. 4 | 4
+D. `2*x` | `2*x`
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Quy tắc đạo hàm lũy thừa cho 2x.
 
 **Q6. What is a stationary point? | Điểm dừng là gì?**
 
-A. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
+A. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
 
-B. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
+B. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
 
-C. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
+C. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
 
-D. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
+D. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Điểm dừng có các đạo hàm riêng bậc một bằng 0.
 
-**Q7. Which expression is a gradient-descent update? | Biểu thức nào cập nhật theo gradient descent?**
+**Q7. Gradient descent uses new_w = old_w − rate × gradient. If w = 4, rate = 0.25, gradient = 2, what is new_w? | Gradient Descent cập nhật w mới = w cũ − tốc độ học × gradient. Nếu w = 4, rate = 0.25, gradient = 2, w mới bằng bao nhiêu?**
 
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
+A. 3.5 | 3.5
 
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
+B. 2 | 2
 
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
+C. 4.5 | 4.5
 
-D. A `for` loop | Vòng lặp `for`
+D. 3 | 3
 
-**Đáp án: B**
+**Đáp án: A**
 
-**Giải thích:** Trừ gradient nhằm giảm loss cục bộ.
+**Giải thích:** w mới = 4 − 0.25 × 2 = 3.5. Lấy w cũ trừ một bước theo gradient.
 
 **Q8. What is a partial derivative? | Đạo hàm riêng là gì?**
 
-A. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
+A. A vector of partial derivatives | Vector gồm các đạo hàm riêng
 
-B. A vector of partial derivatives | Vector gồm các đạo hàm riêng
+B. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
 
 C. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
 
-D. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
+D. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Chỉ thay một biến và giữ biến khác cố định.
 
-**Q9. When does counting favorable outcomes over total outcomes work? | Khi nào chia số trường hợp thuận lợi cho tổng số trường hợp là đúng?**
+**Q9. For a fair coin, what is the probability of heads on one toss? | Với đồng xu công bằng, xác suất được mặt ngửa trong một lần tung là bao nhiêu?**
 
-A. When outcomes are equally likely | Khi các kết quả đồng khả năng
+A. 0 | 0
 
-B. n values of zero or one | n giá trị 0 hoặc 1
+B. 0.25 | 0.25
 
-C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
+C. 1 | 1
 
-D. Fraction of True values | Tỷ lệ các phần tử True
+D. 0.5 | 0.5
 
-**Đáp án: A**
+**Đáp án: D**
 
-**Giải thích:** Đếm cổ điển đòi hỏi các kết quả đồng khả năng.
+**Giải thích:** Đồng xu có hai mặt đồng khả năng; xác suất mặt ngửa là 1/2 = 0.5.
 
 **Q10. What is a random experiment? | Phép thử ngẫu nhiên là gì?**
 
-A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-B. Set of all possible outcomes | Tập tất cả kết quả có thể
+B. A subset of the sample space | Một tập con của không gian mẫu
 
-C. A subset of the sample space | Một tập con của không gian mẫu
+C. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
-D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
+D. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Phép thử có thể sinh kết quả khác nhau.
 
 **Q11. What does mean calculate? | Mean tính gì?**
 
-A. Sum divided by observation count | Tổng chia số quan sát
+A. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
 B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
+C. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
-D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
+D. Sum divided by observation count | Tổng chia số quan sát
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Mọi quan sát góp vào trung bình.
 
@@ -394,69 +394,69 @@ D. Spread in original measurement units | Độ phân tán cùng đơn vị gố
 
 A. A numerical quantity assigned to random outcomes | Đại lượng số gắn với kết quả ngẫu nhiên
 
-B. Successes in independent same-p trials | Số thành công trong các lần thử độc lập cùng p
+B. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
 
-C. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
+C. Successes in independent same-p trials | Số thành công trong các lần thử độc lập cùng p
 
-D. Probability mass at a discrete value | Xác suất ở một giá trị rời rạc
+D. A continuous symmetric bell-shaped density | Mật độ liên tục dạng chuông đối xứng
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Được xác định bởi trung bình và độ lệch chuẩn. Hai tham số có ý nghĩa khác nhau: mean xác định tâm và độ lệch chuẩn dương quyết định độ phân tán.
 
 **Q13. What is conditional probability? | Xác suất có điều kiện là gì?**
 
-A. Probability of A given B has occurred | Xác suất A khi biết B đã xảy ra
+A. One event does not change the probability of the other | Biến cố này không đổi xác suất của biến cố kia
 
-B. One event does not change the probability of the other | Biến cố này không đổi xác suất của biến cố kia
+B. A posterior from evidence, likelihood and prior | Xác suất sau bằng chứng từ likelihood và prior
 
-C. A posterior from evidence, likelihood and prior | Xác suất sau bằng chứng từ likelihood và prior
+C. Probability of A given B has occurred | Xác suất A khi biết B đã xảy ra
 
 D. Overall chance weighted over a partition | Xác suất chung theo trọng số một phân hoạch
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Nó thu hẹp mẫu nền về nhóm B.
 
 **Q14. What does covariance describe? | Hiệp phương sai mô tả gì?**
 
-A. `A @ v = λ*v` with v nonzero | `A @ v = λ*v` với v khác không
+A. How two variables vary together | Hai biến cùng biến thiên ra sao
 
-B. Scaling along a corresponding eigenvector | Hệ số co giãn theo vector riêng tương ứng
+B. `A @ v = λ*v` with v nonzero | `A @ v = λ*v` với v khác không
 
-C. How two variables vary together | Hai biến cùng biến thiên ra sao
+C. Scaling along a corresponding eigenvector | Hệ số co giãn theo vector riêng tương ứng
 
 D. A covariance eigenvector with high eigenvalue | Vector riêng hiệp phương sai có trị riêng lớn
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Hiệp phương sai đo sự biến thiên cùng nhau.
 
 **Q15. What is MSE? | MSE là gì?**
 
-A. Mean squared prediction error | Trung bình sai số dự báo bình phương
+A. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
 
-B. Mean absolute prediction error | Trung bình trị tuyệt đối sai số
+B. Mean squared prediction error | Trung bình sai số dự báo bình phương
 
-C. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
+C. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
 
-D. Compare two probability distributions in a directed way | So hai phân phối xác suất có phân biệt chiều
+D. Quadratic for small errors and linear for large | Bình phương lỗi nhỏ, tuyến tính lỗi lớn
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** MSE lấy trung bình bình phương sai lệch.
 
 **Q16. What is independence of events? | Độc lập giữa hai biến cố là gì?**
 
-A. Probability of A given B has occurred | Xác suất A khi biết B đã xảy ra
+A. One event does not change the probability of the other | Biến cố này không đổi xác suất của biến cố kia
 
-B. One event does not change the probability of the other | Biến cố này không đổi xác suất của biến cố kia
+B. A posterior from evidence, likelihood and prior | Xác suất sau bằng chứng từ likelihood và prior
 
-C. A posterior from evidence, likelihood and prior | Xác suất sau bằng chứng từ likelihood và prior
+C. Overall chance weighted over a partition | Xác suất chung theo trọng số một phân hoạch
 
-D. Overall chance weighted over a partition | Xác suất chung theo trọng số một phân hoạch
+D. Probability of A given B has occurred | Xác suất A khi biết B đã xảy ra
 
-**Đáp án: B**
+**Đáp án: A**
 
 **Giải thích:** Độc lập nghĩa là biến cố này không đổi xác suất biến cố kia.
 
@@ -466,41 +466,41 @@ D. Overall chance weighted over a partition | Xác suất chung theo trọng s�
 
 A. 5 | 5
 
-B. (0.6,0.8) | (0.6,0.8)
+B. 11 | 11
 
-C. 11 | 11
+C. (0.6,0.8) | (0.6,0.8)
 
 D. 0 | 0
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Tính 1×3 + 2×4.
 
 **Q2. What does matrix multiplication combine? | Phép nhân ma trận kết hợp gì?**
 
-A. A two-dimensional array of values | Bảng dữ liệu hai chiều
+A. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
 
-B. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
+B. A two-dimensional array of values | Bảng dữ liệu hai chiều
 
-C. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
+C. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
 
 D. A scalar associated with a square matrix | Một số gắn với ma trận vuông
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Mỗi ô kết quả là tích vô hướng một hàng với một cột.
 
 **Q3. If the residual is exactly zero, what is true? | Nếu sai số dư bằng 0 thì điều gì đúng?**
 
-A. Every equation is satisfied | Mọi phương trình đều được thỏa
+A. Ranks of A and its augmented matrix | Hạng của A và ma trận mở rộng
 
-B. The sum of squared residuals | Tổng bình phương sai số dư
+B. Whether a candidate solution approximately satisfies the system | Nghiệm thử có thỏa hệ gần đúng hay không
 
-C. Whether a candidate solution approximately satisfies the system | Nghiệm thử có thỏa hệ gần đúng hay không
+C. The sum of squared residuals | Tổng bình phương sai số dư
 
-D. Ranks of A and its augmented matrix | Hạng của A và ma trận mở rộng
+D. Every equation is satisfied | Mọi phương trình đều được thỏa
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Sai số dư bằng 0 nghĩa là Ax=b.
 
@@ -508,23 +508,23 @@ D. Ranks of A and its augmented matrix | Hạng của A và ma trận mở rộn
 
 A. `@` | `@`
 
-B. `.T` | `.T`
+B. `np.linalg.det(A)` | `np.linalg.det(A)`
 
-C. `np.linalg.det(A)` | `np.linalg.det(A)`
+C. `.T` | `.T`
 
 D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** T là thuộc tính chuyển vị tiện dụng.
 
 **Q5. What is the derivative of a constant? | Đạo hàm của một hằng số là gì?**
 
-A. `2*x` | `2*x`
+A. 6 | 6
 
 B. Zero | Bằng 0
 
-C. 6 | 6
+C. `2*x` | `2*x`
 
 D. 4 | 4
 
@@ -534,15 +534,15 @@ D. 4 | 4
 
 **Q6. What is Hessian of x²+y²? | Hessian của x²+y² là gì?**
 
-A. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
+A. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
 
-B. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
+B. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
 
-C. `(3,2)` | `(3,2)`
+C. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
 
-D. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
+D. `(3,2)` | `(3,2)`
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Đạo hàm bậc hai của mỗi hạng bình phương bằng 2.
 
@@ -564,169 +564,169 @@ D. 2.4 | 2.4
 
 A. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
 
-B. A vector of partial derivatives | Vector gồm các đạo hàm riêng
+B. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
 
 C. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
 
-D. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
+D. A vector of partial derivatives | Vector gồm các đạo hàm riêng
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Các đạo hàm riêng hợp thành một vector.
 
-**Q9. What does `rng.integers(0,2,size=n)` generate? | `rng.integers(0,2,size=n)` tạo gì?**
+**Q9. If P(A) = 0.35, what is P(not A)? | Nếu P(A) = 0.35, xác suất biến cố đối của A bằng bao nhiêu?**
 
-A. When outcomes are equally likely | Khi các kết quả đồng khả năng
+A. 1.35 | 1.35
 
-B. n values of zero or one | n giá trị 0 hoặc 1
+B. 0.75 | 0.75
 
-C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
+C. 0.35 | 0.35
 
-D. Fraction of True values | Tỷ lệ các phần tử True
+D. 0.65 | 0.65
 
-**Đáp án: B**
+**Đáp án: D**
 
-**Giải thích:** Cận trên 2 không lấy 2, chỉ còn 0 và 1.
+**Giải thích:** Tổng xác suất của A và biến cố đối là 1, nên P(không A) = 1 − 0.35 = 0.65.
 
 **Q10. What is a sample space? | Không gian mẫu là gì?**
 
-A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. A subset of the sample space | Một tập con của không gian mẫu
 
-B. Set of all possible outcomes | Tập tất cả kết quả có thể
+B. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
-C. A subset of the sample space | Một tập con của không gian mẫu
+C. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
+D. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Không gian mẫu chứa mọi kết quả khả dĩ.
 
 **Q11. What is median? | Median là gì?**
 
-A. Sum divided by observation count | Tổng chia số quan sát
+A. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
 
-B. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
+B. Sum divided by observation count | Tổng chia số quan sát
 
 C. Squared dispersion around the mean | Độ phân tán bình phương quanh mean
 
-D. Spread in original measurement units | Độ phân tán cùng đơn vị gốc
+D. Middle ranked value after sorting | Giá trị ở giữa sau khi sắp
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Trung vị dựa trên thứ tự, không dựa trên tổng độ lớn.
 
 **Q12. What do mean and standard deviation determine for normal? | Mean và std xác định gì trong chuẩn?**
 
-A. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
+A. Center and spread | Trung tâm và độ phân tán
 
-B. Center and spread | Trung tâm và độ phân tán
+B. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
 
 C. Zero | Bằng 0
 
 D. Strictly positive standard deviation | Độ lệch chuẩn phải lớn hơn 0
 
-**Đáp án: B**
+**Đáp án: A**
 
 **Giải thích:** Trung bình định vị và độ lệch chuẩn xác định độ rộng. Đổi độ lệch chuẩn làm chuông rộng/hẹp nhưng không nhất thiết thay tâm của phân phối.
 
 **Q13. What does Bayes' theorem compute? | Định lý Bayes tính gì?**
 
-A. Probability of A given B has occurred | Xác suất A khi biết B đã xảy ra
+A. A posterior from evidence, likelihood and prior | Xác suất sau bằng chứng từ likelihood và prior
 
-B. One event does not change the probability of the other | Biến cố này không đổi xác suất của biến cố kia
+B. Probability of A given B has occurred | Xác suất A khi biết B đã xảy ra
 
-C. A posterior from evidence, likelihood and prior | Xác suất sau bằng chứng từ likelihood và prior
+C. Overall chance weighted over a partition | Xác suất chung theo trọng số một phân hoạch
 
-D. Overall chance weighted over a partition | Xác suất chung theo trọng số một phân hoạch
+D. One event does not change the probability of the other | Biến cố này không đổi xác suất của biến cố kia
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Bayes cập nhật tỷ lệ nền từ bằng chứng.
 
 **Q14. What is a principal direction in PCA? | Hướng chính trong PCA là gì?**
 
-A. `A @ v = λ*v` with v nonzero | `A @ v = λ*v` với v khác không
+A. A covariance eigenvector with high eigenvalue | Vector riêng hiệp phương sai có trị riêng lớn
 
 B. Scaling along a corresponding eigenvector | Hệ số co giãn theo vector riêng tương ứng
 
-C. How two variables vary together | Hai biến cùng biến thiên ra sao
+C. `A @ v = λ*v` with v nonzero | `A @ v = λ*v` với v khác không
 
-D. A covariance eigenvector with high eigenvalue | Vector riêng hiệp phương sai có trị riêng lớn
+D. How two variables vary together | Hai biến cùng biến thiên ra sao
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Vector riêng hiệp phương sai nổi bật mang phương sai lớn nhất.
 
-**Q15. Which formula computes MSE? | Công thức nào tính MSE?**
+**Q15. Actual values are [2, 4] and predictions are [3, 2]. What is MAE? | Giá trị thật [2, 4], dự đoán [3, 2]. MAE bằng bao nhiêu?**
 
-A. Low predicted probability for the correct label | Xác suất dự đoán thấp cho nhãn đúng
+A. 0.5 | 0.5
 
-B. `mean((y-pred)**2)` | `mean((y-pred)**2)`
+B. 2.5 | 2.5
 
-C. `mean(abs(y-pred))` | `mean(abs(y-pred))`
+C. 3 | 3
 
-D. `delta` | `delta`
+D. 1.5 | 1.5
 
-**Đáp án: B**
+**Đáp án: D**
 
-**Giải thích:** Bình phương từng sai lệch trước khi trung bình.
+**Giải thích:** Lấy trị tuyệt đối các sai số: |3 − 2| = 1 và |2 − 4| = 2; MAE = (1 + 2)/2 = 1.5.
 
-**Q16. Which equation expresses event independence? | Đẳng thức nào mô tả biến cố độc lập?**
+**Q16. If P(A and B) = 0.12 and P(B) = 0.30, what is P(A|B)? | Nếu P(A giao B) = 0.12 và P(B) = 0.30, P(A|B) bằng bao nhiêu?**
 
-A. `P(A and B)/P(B)` when P(B)>0 | `P(A và B)/P(B)` khi P(B)>0
+A. 0.4 | 0.4
 
-B. `P(A and B)=P(A)*P(B)` | `P(A và B)=P(A)*P(B)`
+B. 0.12 | 0.12
 
-C. `likelihood*prior/evidence` | `likelihood*prior/evidence`
+C. 2.5 | 2.5
 
-D. Disjoint and exhaustive | Rời nhau và phủ đủ
+D. 0.3 | 0.3
 
-**Đáp án: B**
+**Đáp án: A**
 
-**Giải thích:** Độc lập khi xác suất giao bằng tích hai xác suất.
+**Giải thích:** Xác suất có điều kiện P(A|B) = P(A giao B)/P(B) = 0.12/0.30 = 0.4.
 
 ## Đề 04 — 16 câu
 
 **Q1. What is the dot product of (1,0) and (0,1)? | Tích vô hướng của (1,0) và (0,1) là bao nhiêu?**
 
-A. 5 | 5
+A. (0.6,0.8) | (0.6,0.8)
 
-B. (0.6,0.8) | (0.6,0.8)
+B. 0 | 0
 
-C. 11 | 11
+C. 5 | 5
 
-D. 0 | 0
+D. 11 | 11
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Cả hai tích thành phần đều bằng không.
 
-**Q2. What is the shape of a matrix with two rows and three columns? | Ma trận hai hàng ba cột có shape gì?**
+**Q2. Let A = [[2, 1], [0, 3]] and B = [[1, 4], [5, 2]]. What is element (row 1, column 2) of AB? | Cho A và B như trên. Phần tử hàng 1, cột 2 của AB là bao nhiêu?**
 
-A. `(2, 3)` | `(2, 3)`
+A. 8 | 8
 
-B. `(3, 2)` | `(3, 2)`
+B. 12 | 12
 
-C. `(2, 1)` | `(2, 1)`
+C. 6 | 6
 
-D. `(3, 3)` | `(3, 3)`
+D. 10 | 10
 
-**Đáp án: A**
+**Đáp án: D**
 
-**Giải thích:** Shape ghi số hàng trước số cột.
+**Giải thích:** Nhân hàng 1 của A với cột 2 của B: 2 × 4 + 1 × 2 = 10.
 
 **Q3. What does a rank-deficient square matrix imply? | Ma trận vuông thiếu hạng gợi ý điều gì?**
 
-A. Three equations or observations | Ba phương trình hoặc quan sát
+A. It cannot have a unique solution for every b | Không thể có nghiệm duy nhất với mọi b
 
 B. Coefficients of two unknowns | Hệ số của hai ẩn
 
-C. The right-hand-side values | Các giá trị vế phải
+C. Three equations or observations | Ba phương trình hoặc quan sát
 
-D. It cannot have a unique solution for every b | Không thể có nghiệm duy nhất với mọi b
+D. The right-hand-side values | Các giá trị vế phải
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Thiếu hạng đầy đủ khiến không bảo đảm nghiệm duy nhất.
 
@@ -746,209 +746,209 @@ D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
 **Q5. What is the slope of x² at x=3? | Độ dốc của x² tại x=3 là gì?**
 
-A. `2*x` | `2*x`
+A. 6 | 6
 
-B. Zero | Bằng 0
+B. `2*x` | `2*x`
 
-C. 6 | 6
+C. Zero | Bằng 0
 
 D. 4 | 4
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** 2 nhân 3 bằng sáu.
 
 **Q6. What is Hessian of x²−y²? | Hessian của x²−y² là gì?**
 
-A. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
+A. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
 
-B. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
+B. `(3,2)` | `(3,2)`
 
-C. `(3,2)` | `(3,2)`
+C. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
 
-D. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
+D. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
 
-**Đáp án: B**
+**Đáp án: A**
 
 **Giải thích:** Độ cong theo y bằng âm 2.
 
 **Q7. What is the gradient of x²+y²? | Gradient của x²+y² là gì?**
 
-A. `2*x+3*y` | `2*x+3*y`
+A. 2.4 | 2.4
 
-B. `[2*x,2*y]` | `[2*x,2*y]`
+B. `2*x+3*y` | `2*x+3*y`
 
 C. `2*w` | `2*w`
 
-D. 2.4 | 2.4
+D. `[2*x,2*y]` | `[2*x,2*y]`
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Mỗi đạo hàm bằng hai lần tọa độ.
 
 **Q8. What is a learning rate? | Learning rate là gì?**
 
-A. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
+A. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
 
-B. A vector of partial derivatives | Vector gồm các đạo hàm riêng
+B. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
 
-C. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
+C. A vector of partial derivatives | Vector gồm các đạo hàm riêng
 
 D. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Nó nhân mức độ cập nhật.
 
-**Q9. What does `default_rng(seed)` provide? | `default_rng(seed)` cung cấp gì?**
+**Q9. A fair six-sided die is rolled once. What is P(result > 4)? | Tung một xúc xắc sáu mặt công bằng một lần, xác suất ra số lớn hơn 4 là bao nhiêu?**
 
-A. When outcomes are equally likely | Khi các kết quả đồng khả năng
+A. 1/2 | 1/2
 
-B. n values of zero or one | n giá trị 0 hoặc 1
+B. 1/3 | 1/3
 
-C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
+C. 0 | 0
 
-D. Fraction of True values | Tỷ lệ các phần tử True
+D. 1/6 | 1/6
 
-**Đáp án: C**
+**Đáp án: B**
 
-**Giải thích:** Seed điều khiển chuỗi giả ngẫu nhiên tái lập.
+**Giải thích:** Hai mặt thuận lợi là 5 và 6 trong tổng 6 mặt đồng khả năng: 2/6 = 1/3.
 
 **Q10. What is an event? | Biến cố là gì?**
 
-A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-B. Set of all possible outcomes | Tập tất cả kết quả có thể
+B. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
 
-C. A subset of the sample space | Một tập con của không gian mẫu
+C. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
-D. A measure between zero and one of an event's chance | Thước đo từ 0 đến 1 cho khả năng biến cố
-
-**Đáp án: C**
-
-**Giải thích:** Biến cố là một nhóm kết quả.
-
-**Q11. What is mode? | Mode là gì?**
-
-A. Most frequent observed value | Giá trị xuất hiện nhiều nhất
-
-B. Divide sum of squares by n | Chia tổng bình phương cho n
-
-C. Divide by n−1 | Chia cho n−1
-
-D. Frequency per distinct label | Tần suất từng nhãn khác nhau
-
-**Đáp án: A**
-
-**Giải thích:** Yếu vị dùng được cho nhãn lẫn số.
-
-**Q12. What is P(X=x) for a continuous normal variable? | P(X=x) với biến chuẩn liên tục bằng bao nhiêu?**
-
-A. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
-
-B. Center and spread | Trung tâm và độ phân tán
-
-C. Zero | Bằng 0
-
-D. Strictly positive standard deviation | Độ lệch chuẩn phải lớn hơn 0
-
-**Đáp án: C**
-
-**Giải thích:** Một điểm đơn có xác suất bằng 0. Xác suất trong khoảng là diện tích dưới PDF; một điểm riêng lẻ không có diện tích.
-
-**Q13. Which formula gives P(A given B)? | Công thức P(A khi biết B) là gì?**
-
-A. `P(A and B)/P(B)` when P(B)>0 | `P(A và B)/P(B)` khi P(B)>0
-
-B. `P(A and B)=P(A)*P(B)` | `P(A và B)=P(A)*P(B)`
-
-C. `likelihood*prior/evidence` | `likelihood*prior/evidence`
-
-D. Disjoint and exhaustive | Rời nhau và phủ đủ
-
-**Đáp án: A**
-
-**Giải thích:** Lấy xác suất giao chia xác suất biến cố điều kiện.
-
-**Q14. What is the shape of a covariance matrix for three features? | Ma trận covariance cho ba đặc trưng có shape gì?**
-
-A. `(3,3)` | `(3,3)`
-
-B. Columns of the second returned array | Các cột của mảng trả về thứ hai
-
-C. v and −v describe the same eigendirection | v và −v biểu diễn cùng trục riêng
-
-D. No variance along that direction | Không biến thiên theo hướng đó
-
-**Đáp án: A**
-
-**Giải thích:** Mỗi đặc trưng ghép với từng đặc trưng.
-
-**Q15. Which formula computes MAE? | Công thức nào tính MAE?**
-
-A. Low predicted probability for the correct label | Xác suất dự đoán thấp cho nhãn đúng
-
-B. `mean((y-pred)**2)` | `mean((y-pred)**2)`
-
-C. `mean(abs(y-pred))` | `mean(abs(y-pred))`
-
-D. `delta` | `delta`
-
-**Đáp án: C**
-
-**Giải thích:** Lấy trị tuyệt đối từng sai lệch rồi trung bình.
-
-**Q16. What condition is required for total probability groups? | Các nhóm dùng xác suất toàn phần phải thế nào?**
-
-A. `P(A and B)/P(B)` when P(B)>0 | `P(A và B)/P(B)` khi P(B)>0
-
-B. `P(A and B)=P(A)*P(B)` | `P(A và B)=P(A)*P(B)`
-
-C. `likelihood*prior/evidence` | `likelihood*prior/evidence`
-
-D. Disjoint and exhaustive | Rời nhau và phủ đủ
+D. A subset of the sample space | Một tập con của không gian mẫu
 
 **Đáp án: D**
 
-**Giải thích:** Nhóm phải không giao nhau và phủ toàn bộ.
+**Giải thích:** Biến cố là một nhóm kết quả.
+
+**Q11. What is the median of [1, 2, 3, 10, 10]? | Trung vị của [1, 2, 3, 10, 10] bằng bao nhiêu?**
+
+A. 3 | 3
+
+B. 10 | 10
+
+C. 5 | 5
+
+D. 2 | 2
+
+**Đáp án: A**
+
+**Giải thích:** Dữ liệu đã tăng dần, có 5 số nên trung vị là số thứ ba: 3.
+
+**Q12. What is P(X=x) for a continuous normal variable? | P(X=x) với biến chuẩn liên tục bằng bao nhiêu?**
+
+A. Center and spread | Trung tâm và độ phân tán
+
+B. Zero | Bằng 0
+
+C. Independent trials with constant success probability | Các lần thử độc lập cùng xác suất thành công
+
+D. Strictly positive standard deviation | Độ lệch chuẩn phải lớn hơn 0
+
+**Đáp án: B**
+
+**Giải thích:** Một điểm đơn có xác suất bằng 0. Xác suất trong khoảng là diện tích dưới PDF; một điểm riêng lẻ không có diện tích.
+
+**Q13. Independent events A and B have P(A) = 0.3, P(B) = 0.6. What is P(A and B)? | Hai biến cố độc lập A và B có P(A) = 0.3, P(B) = 0.6. P(A giao B) bằng bao nhiêu?**
+
+A. 0.3 | 0.3
+
+B. 0.9 | 0.9
+
+C. 0.18 | 0.18
+
+D. 0.6 | 0.6
+
+**Đáp án: C**
+
+**Giải thích:** Độc lập nghĩa là P(A giao B) = P(A) × P(B) = 0.3 × 0.6 = 0.18.
+
+**Q14. What is the shape of a covariance matrix for three features? | Ma trận covariance cho ba đặc trưng có shape gì?**
+
+A. Columns of the second returned array | Các cột của mảng trả về thứ hai
+
+B. v and −v describe the same eigendirection | v và −v biểu diễn cùng trục riêng
+
+C. No variance along that direction | Không biến thiên theo hướng đó
+
+D. `(3,3)` | `(3,3)`
+
+**Đáp án: D**
+
+**Giải thích:** Mỗi đặc trưng ghép với từng đặc trưng.
+
+**Q15. For a correct class, which predicted probability gives the smaller cross-entropy loss? | Với lớp đúng, xác suất dự đoán nào tạo ra cross-entropy nhỏ hơn?**
+
+A. 0.2 | 0.2
+
+B. 0.1 | 0.1
+
+C. 0.9 | 0.9
+
+D. 0.5 | 0.5
+
+**Đáp án: C**
+
+**Giải thích:** Loss của lớp đúng là −log(p). Khi p càng gần 1, loss càng nhỏ; 0.9 là lớn nhất trong bốn giá trị.
+
+**Q16. A disease affects 10% of people. A test detects 90% of sick people and flags 10% of healthy people. What is P(sick | positive)? | Tỷ lệ mắc bệnh là 10%. Xét nghiệm báo dương ở 90% người bệnh và 10% người khỏe. Xác suất mắc bệnh khi đã có kết quả dương là bao nhiêu?**
+
+A. 0.09 | 0.09
+
+B. 0.5 | 0.5
+
+C. 0.1 | 0.1
+
+D. 0.9 | 0.9
+
+**Đáp án: B**
+
+**Giải thích:** Trong 100 người: khoảng 10 người bệnh tạo 9 dương thật; 90 người khỏe tạo 9 dương giả. Vậy P(bệnh|dương) = 9/(9+9) = 0.5.
 
 ## Đề 05 — 16 câu
 
 **Q1. What is the dot product of two nonzero perpendicular vectors? | Tích vô hướng của hai vector khác không vuông góc là gì?**
 
-A. Zero | Bằng không
+A. That its norm is nonzero | Norm khác không
 
-B. That its norm is nonzero | Norm khác không
+B. Zero | Bằng không
 
-C. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
+C. They must have equal lengths | Chúng phải có cùng số phần tử
 
-D. They must have equal lengths | Chúng phải có cùng số phần tử
-
-**Đáp án: A**
-
-**Giải thích:** Hai hướng trực giao có tích vô hướng bằng không.
-
-**Q2. What is the transpose shape of a (2,3) matrix? | Chuyển vị ma trận (2,3) có shape gì?**
-
-A. `(2, 3)` | `(2, 3)`
-
-B. `(3, 2)` | `(3, 2)`
-
-C. `(2, 1)` | `(2, 1)`
-
-D. `(3, 3)` | `(3, 3)`
+D. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
 
 **Đáp án: B**
 
-**Giải thích:** Hàng và cột đổi vai trò.
+**Giải thích:** Hai hướng trực giao có tích vô hướng bằng không.
+
+**Q2. What is the determinant of [[3, 1], [2, 1]]? | Định thức của ma trận [[3, 1], [2, 1]] bằng bao nhiêu?**
+
+A. 2 | 2
+
+B. 1 | 1
+
+C. 5 | 5
+
+D. 0 | 0
+
+**Đáp án: B**
+
+**Giải thích:** Với ma trận 2 × 2, lấy tích đường chéo chính trừ đường chéo phụ: 3 × 1 − 1 × 2 = 1.
 
 **Q3. What should be compared to diagnose inconsistency of a system? | Để xét hệ vô nghiệm cần so sánh gì?**
 
-A. Every equation is satisfied | Mọi phương trình đều được thỏa
+A. Whether a candidate solution approximately satisfies the system | Nghiệm thử có thỏa hệ gần đúng hay không
 
 B. The sum of squared residuals | Tổng bình phương sai số dư
 
-C. Whether a candidate solution approximately satisfies the system | Nghiệm thử có thỏa hệ gần đúng hay không
+C. Every equation is satisfied | Mọi phương trình đều được thỏa
 
 D. Ranks of A and its augmented matrix | Hạng của A và ma trận mở rộng
 
@@ -958,55 +958,55 @@ D. Ranks of A and its augmented matrix | Hạng của A và ma trận mở rộn
 
 **Q4. Which function computes a nonsingular matrix inverse? | Hàm nào tính nghịch đảo ma trận khả nghịch?**
 
-A. `@` | `@`
+A. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
 B. `.T` | `.T`
 
 C. `np.linalg.det(A)` | `np.linalg.det(A)`
 
-D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
+D. `@` | `@`
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** inv tính nghịch đảo khi ma trận khả nghịch.
 
 **Q5. What is the limit of (x²−4)/(x−2) at x=2? | Giới hạn của (x²−4)/(x−2) khi x→2 là gì?**
 
-A. `2*x` | `2*x`
+A. 4 | 4
 
-B. Zero | Bằng 0
+B. `2*x` | `2*x`
 
-C. 6 | 6
+C. Zero | Bằng 0
 
-D. 4 | 4
+D. 6 | 6
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Rút gọn gần điểm còn x+2.
 
 **Q6. What are stationary coordinates for (x−3)²+(y−2)²? | Tọa độ dừng của (x−3)²+(y−2)² là gì?**
 
-A. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
+A. `(3,2)` | `(3,2)`
 
-B. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
+B. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
 
-C. `(3,2)` | `(3,2)`
+C. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
 
 D. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Cả hai bình phương nhỏ nhất khi sai khác bằng 0.
 
 **Q7. For loss w², what is its derivative? | Đạo hàm loss w² là gì?**
 
-A. `2*x+3*y` | `2*x+3*y`
+A. `[2*x,2*y]` | `[2*x,2*y]`
 
-B. `[2*x,2*y]` | `[2*x,2*y]`
+B. 2.4 | 2.4
 
 C. `2*w` | `2*w`
 
-D. 2.4 | 2.4
+D. `2*x+3*y` | `2*x+3*y`
 
 **Đáp án: C**
 
@@ -1014,37 +1014,37 @@ D. 2.4 | 2.4
 
 **Q8. What is an epoch in training? | Epoch trong huấn luyện là gì?**
 
-A. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
+A. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
 
-B. A vector of partial derivatives | Vector gồm các đạo hàm riêng
+B. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
 
-C. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
+C. A vector of partial derivatives | Vector gồm các đạo hàm riêng
 
-D. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
+D. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Một epoch xử lý hết dữ liệu train một lượt.
 
-**Q9. What does `np.mean(mask)` compute for Boolean mask? | `np.mean(mask)` tính gì với mặt nạ Boolean?**
+**Q9. Two fair coin tosses are independent. What is P(both heads)? | Hai lần tung đồng xu công bằng độc lập. Xác suất cả hai đều ra ngửa là bao nhiêu?**
 
-A. When outcomes are equally likely | Khi các kết quả đồng khả năng
+A. 0.75 | 0.75
 
-B. n values of zero or one | n giá trị 0 hoặc 1
+B. 0.5 | 0.5
 
-C. Reproducible pseudorandom sequences | Chuỗi giả ngẫu nhiên tái lập
+C. 1 | 1
 
-D. Fraction of True values | Tỷ lệ các phần tử True
+D. 0.25 | 0.25
 
 **Đáp án: D**
 
-**Giải thích:** True tính như 1, False tính như 0.
+**Giải thích:** Nhân xác suất hai biến cố độc lập: 0.5 × 0.5 = 0.25.
 
 **Q10. What is probability? | Xác suất là gì?**
 
-A. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
+A. Set of all possible outcomes | Tập tất cả kết quả có thể
 
-B. Set of all possible outcomes | Tập tất cả kết quả có thể
+B. A repeatable procedure with uncertain individual outcome | Thao tác lặp được nhưng kết quả mỗi lần không chắc chắn
 
 C. A subset of the sample space | Một tập con của không gian mẫu
 
@@ -1056,51 +1056,51 @@ D. A measure between zero and one of an event's chance | Thước đo từ 0 đ�
 
 **Q11. What is mean of 2,3,4? | Mean của 2,3,4 là bao nhiêu?**
 
-A. 3 | 3
+A. 2/3 | 2/3
 
 B. 4 | 4
 
-C. 2/3 | 2/3
+C. 1 | 1
 
-D. 1 | 1
+D. 3 | 3
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Tổng 9 chia 3 bằng 3.
 
 **Q12. What does norm.cdf(0) equal for N(0,1)? | norm.cdf(0) với N(0,1) bằng gì?**
 
-A. 0.5 | 0.5
+A. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
 
-B. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
+B. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
 
-C. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
+C. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
 
-D. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
+D. 0.5 | 0.5
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Chuẩn tắc đối xứng quanh 0. Chuẩn tắc đối xứng quanh trung bình 0 nên mỗi phía chứa một nửa xác suất.
 
-**Q13. Which rule gives posterior after a positive signal? | Quy tắc nào tính posterior khi tín hiệu dương?**
+**Q13. Which statement about conditional probability is NOT always correct? | Phát biểu nào về xác suất có điều kiện KHÔNG luôn đúng?**
 
-A. `P(A and B)/P(B)` when P(B)>0 | `P(A và B)/P(B)` khi P(B)>0
+A. P(A|B) uses B as its reference group | P(A|B) dùng B làm nhóm xét
 
-B. `P(A and B)=P(A)*P(B)` | `P(A và B)=P(A)*P(B)`
+B. P(A|B) needs P(B) > 0 | P(A|B) cần P(B) > 0
 
-C. `likelihood*prior/evidence` | `likelihood*prior/evidence`
+C. Independence implies P(A|B) = P(A) when P(B)>0 | Độc lập thì P(A|B) = P(A) nếu P(B)>0
 
-D. Disjoint and exhaustive | Rời nhau và phủ đủ
+D. P(A|B) always equals P(B|A) | P(A|B) luôn bằng P(B|A)
 
-**Đáp án: C**
+**Đáp án: D**
 
-**Giải thích:** Bayes chuẩn hóa likelihood nhân prior bằng xác suất bằng chứng.
+**Giải thích:** Đảo A và B làm đổi nhóm điều kiện và mẫu số; hai xác suất có điều kiện nói chung khác nhau.
 
 **Q14. What does a zero covariance eigenvalue suggest? | Trị riêng covariance bằng 0 gợi ý gì?**
 
-A. `(3,3)` | `(3,3)`
+A. Columns of the second returned array | Các cột của mảng trả về thứ hai
 
-B. Columns of the second returned array | Các cột của mảng trả về thứ hai
+B. `(3,3)` | `(3,3)`
 
 C. v and −v describe the same eigendirection | v và −v biểu diễn cùng trục riêng
 
@@ -1114,11 +1114,11 @@ D. No variance along that direction | Không biến thiên theo hướng đó
 
 A. Cross-entropy loss for that sample | Cross-entropy của mẫu đó
 
-B. Nonnegative | Không âm
+B. The distributions are identical | Hai phân phối giống nhau
 
-C. No, KL is asymmetric | Không, KL bất đối xứng
+C. Nonnegative | Không âm
 
-D. The distributions are identical | Hai phân phối giống nhau
+D. No, KL is asymmetric | Không, KL bất đối xứng
 
 **Đáp án: A**
 
@@ -1128,13 +1128,13 @@ D. The distributions are identical | Hai phân phối giống nhau
 
 A. 0.2 | 0.2
 
-B. 0.56 | 0.56
+B. 0.3 | 0.3
 
-C. 0.3 | 0.3
+C. 0.56 | 0.56
 
 D. No; base rate and false positives also matter | Không; còn tỷ lệ nền và dương giả
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** 0.6×0.8+0.4×0.2 bằng 0.56.
 
@@ -1154,59 +1154,59 @@ D. 0 | 0
 
 **Giải thích:** Chia mỗi thành phần cho độ dài năm.
 
-**Q2. What shape results from (2,3) @ (3,1)? | Phép (2,3) @ (3,1) cho shape gì?**
+**Q2. A square matrix has determinant 0. Which statement is correct? | Một ma trận vuông có định thức bằng 0. Phát biểu nào đúng?**
 
-A. `(2, 3)` | `(2, 3)`
+A. It must be diagonal | Nó bắt buộc là ma trận đường chéo
 
-B. `(3, 2)` | `(3, 2)`
+B. All entries are zero | Mọi phần tử đều bằng 0
 
-C. `(2, 1)` | `(2, 1)`
+C. It has no inverse | Nó không có ma trận nghịch đảo
 
-D. `(3, 3)` | `(3, 3)`
+D. It is the identity matrix | Nó là ma trận đơn vị
 
 **Đáp án: C**
 
-**Giải thích:** Hai chiều trong bằng 3; giữ hai chiều ngoài.
+**Giải thích:** Định thức 0 nghĩa là ma trận suy biến và không khả nghịch; các kết luận khác không nhất thiết đúng.
 
 **Q3. What does least squares minimize? | Bình phương tối thiểu làm nhỏ nhất gì?**
 
-A. Every equation is satisfied | Mọi phương trình đều được thỏa
+A. Ranks of A and its augmented matrix | Hạng của A và ma trận mở rộng
 
-B. The sum of squared residuals | Tổng bình phương sai số dư
+B. Every equation is satisfied | Mọi phương trình đều được thỏa
 
-C. Whether a candidate solution approximately satisfies the system | Nghiệm thử có thỏa hệ gần đúng hay không
+C. The sum of squared residuals | Tổng bình phương sai số dư
 
-D. Ranks of A and its augmented matrix | Hạng của A và ma trận mở rộng
+D. Whether a candidate solution approximately satisfies the system | Nghiệm thử có thỏa hệ gần đúng hay không
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** Bình phương sai lệch làm lỗi lớn bị phạt mạnh.
 
 **Q4. When is a square matrix invertible? | Khi nào ma trận vuông khả nghịch?**
 
-A. Its determinant is nonzero | Định thức khác không
+A. `np.allclose(A, B)` | `np.allclose(A, B)`
 
-B. 3 | 3
+B. Identity matrix | Ma trận đơn vị
 
-C. Identity matrix | Ma trận đơn vị
+C. Its determinant is nonzero | Định thức khác không
 
-D. `np.allclose(A, B)` | `np.allclose(A, B)`
+D. 3 | 3
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Định thức khác 0 tương đương khả nghịch.
 
 **Q5. What does a derivative unit become for distance over time? | Đạo hàm quãng đường theo thời gian có đơn vị gì?**
 
-A. The two-sided limit does not exist | Giới hạn hai phía không tồn tại
+A. Sampling spacing and numerical scheme | Khoảng cách mẫu và cách lấy sai phân
 
-B. Distance per unit time | Khoảng cách trên mỗi đơn vị thời gian
+B. The two-sided limit does not exist | Giới hạn hai phía không tồn tại
 
-C. Sampling spacing and numerical scheme | Khoảng cách mẫu và cách lấy sai phân
+C. Yes, if nearby values approach one number | Có, nếu giá trị lân cận tiến đến cùng một số
 
-D. Yes, if nearby values approach one number | Có, nếu giá trị lân cận tiến đến cùng một số
+D. Distance per unit time | Khoảng cách trên mỗi đơn vị thời gian
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Quãng đường chia thời gian cho đơn vị vận tốc.
 
@@ -1214,11 +1214,11 @@ D. Yes, if nearby values approach one number | Có, nếu giá trị lân cận 
 
 A. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
 
-B. A strict local maximum | Cực đại địa phương nghiêm ngặt
+B. A saddle point | Điểm yên ngựa
 
-C. A saddle point | Điểm yên ngựa
+C. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-D. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
+D. A strict local maximum | Cực đại địa phương nghiêm ngặt
 
 **Đáp án: A**
 
@@ -1226,43 +1226,43 @@ D. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm 
 
 **Q7. If w=3, lr=0.1 and grad=6, what is next w? | Nếu w=3, lr=0.1 và gradient=6, w mới là gì?**
 
-A. `2*x+3*y` | `2*x+3*y`
+A. `[2*x,2*y]` | `[2*x,2*y]`
 
-B. `[2*x,2*y]` | `[2*x,2*y]`
+B. 2.4 | 2.4
 
 C. `2*w` | `2*w`
 
-D. 2.4 | 2.4
+D. `2*x+3*y` | `2*x+3*y`
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** 3−0.1×6=2.4.
 
-**Q8. Which tool differentiates f with respect to x symbolically? | Hàm nào đạo hàm ký hiệu f theo x?**
+**Q8. Given L(w) = (w − 2)², what is the gradient at w = 5? | Cho L(w) = (w − 2)², gradient tại w = 5 bằng bao nhiêu?**
 
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
+A. 4 | 4
 
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
+B. 6 | 6
 
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
+C. 2 | 2
 
-D. A `for` loop | Vòng lặp `for`
+D. 10 | 10
 
-**Đáp án: A**
+**Đáp án: B**
 
-**Giải thích:** diff tính đạo hàm ký hiệu.
+**Giải thích:** Đạo hàm dL/dw = 2(w − 2). Thay w = 5: 2 × (5 − 2) = 6.
 
 **Q9. What is P(even) for a fair six-sided die? | Xác suất mặt chẵn của xúc xắc công bằng sáu mặt?**
 
-A. `1/2` | `1/2`
+A. 4 | 4
 
 B. 36 | 36
 
-C. 4 | 4
+C. `1/2` | `1/2`
 
 D. Zero | Bằng 0
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Ba trong sáu mặt là số chẵn.
 
@@ -1282,13 +1282,13 @@ D. One die's result does not change probabilities of the other | Kết quả m�
 
 **Q11. What is median of 2,4,100? | Median của 2,4,100 là bao nhiêu?**
 
-A. 3 | 3
+A. 1 | 1
 
 B. 4 | 4
 
 C. 2/3 | 2/3
 
-D. 1 | 1
+D. 3 | 3
 
 **Đáp án: B**
 
@@ -1300,9 +1300,9 @@ A. 0.5 | 0.5
 
 B. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
 
-C. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
+C. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
 
-D. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
+D. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
 
 **Đáp án: B**
 
@@ -1310,15 +1310,15 @@ D. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
 
 **Q13. What does prior mean? | Prior có nghĩa gì?**
 
-A. Probability before current evidence | Xác suất trước khi có bằng chứng hiện tại
+A. Probability of positive signal when no defect exists | Xác suất báo dương khi thực tế không có lỗi
 
-B. Probability of evidence under a hypothesis | Xác suất bằng chứng khi giả thuyết đúng
+B. Probability before current evidence | Xác suất trước khi có bằng chứng hiện tại
 
-C. Updated hypothesis probability after evidence | Xác suất giả thuyết được cập nhật sau bằng chứng
+C. Probability of evidence under a hypothesis | Xác suất bằng chứng khi giả thuyết đúng
 
-D. Probability of positive signal when no defect exists | Xác suất báo dương khi thực tế không có lỗi
+D. Updated hypothesis probability after evidence | Xác suất giả thuyết được cập nhật sau bằng chứng
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** Prior là xác suất nền.
 
@@ -1338,23 +1338,23 @@ D. `A @ v` approximately equals `λ*v` | `A @ v` xấp xỉ `λ*v`
 
 **Q15. What is the unit of MSE when predictions are in meters? | Dự báo theo mét thì MSE có đơn vị gì?**
 
-A. Square meters | Mét bình phương
+A. Meters | Mét
 
-B. Meters | Mét
+B. MSE | MSE
 
-C. MSE | MSE
+C. Huber loss | Huber loss
 
-D. Huber loss | Huber loss
+D. Square meters | Mét bình phương
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Bình phương sai lệch mét cho đơn vị m².
 
 **Q16. If P(A)=0.5 and P(B)=0.6 and they are independent, what is P(A and B)? | Nếu A, B độc lập có xác suất 0.5 và 0.6 thì P(A và B) là gì?**
 
-A. 0.2 | 0.2
+A. 0.56 | 0.56
 
-B. 0.56 | 0.56
+B. 0.2 | 0.2
 
 C. 0.3 | 0.3
 
@@ -1368,41 +1368,41 @@ D. No; base rate and false positives also matter | Không; còn tỷ lệ nền 
 
 **Q1. What must be true to compute a 1-D dot product? | Muốn tính tích vô hướng của hai vector 1-D cần điều kiện gì?**
 
-A. Zero | Bằng không
+A. That its norm is nonzero | Norm khác không
 
-B. That its norm is nonzero | Norm khác không
+B. They must have equal lengths | Chúng phải có cùng số phần tử
 
-C. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
+C. Zero | Bằng không
 
-D. They must have equal lengths | Chúng phải có cùng số phần tử
+D. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Từng thành phần được ghép theo vị trí tương ứng.
 
-**Q2. What is the shape of `np.eye(3)`? | `np.eye(3)` tạo ma trận shape nào?**
+**Q2. If A has shape (2, 3) and B has shape (3, 4), what is the shape of AB? | Nếu A có kích thước (2, 3), B có kích thước (3, 4), AB có kích thước nào?**
 
-A. `(2, 3)` | `(2, 3)`
+A. (4, 2) | (4, 2)
 
-B. `(3, 2)` | `(3, 2)`
+B. (2, 4) | (2, 4)
 
-C. `(2, 1)` | `(2, 1)`
+C. (2, 3) | (2, 3)
 
-D. `(3, 3)` | `(3, 3)`
+D. (3, 3) | (3, 3)
 
-**Đáp án: D**
+**Đáp án: B**
 
-**Giải thích:** Ma trận đơn vị bậc 3 là ma trận vuông.
+**Giải thích:** Hai chiều ở giữa (3 và 3) phải khớp; ma trận kết quả lấy số hàng của A và số cột của B: (2, 4).
 
 **Q3. What happens when rows of A are multiples of each other? | Nếu các hàng A là bội nhau thì sao?**
 
-A. It contains known target values | Nó chứa giá trị mục tiêu đã biết
+A. Prediction is lower than actual | Dự báo thấp hơn thực tế
 
 B. They add no new independent direction | Chúng không bổ sung hướng độc lập mới
 
-C. When observations outnumber unknowns or do not fit exactly | Khi nhiều quan sát hơn ẩn hoặc không khớp chính xác
+C. It contains known target values | Nó chứa giá trị mục tiêu đã biết
 
-D. Prediction is lower than actual | Dự báo thấp hơn thực tế
+D. When observations outnumber unknowns or do not fit exactly | Khi nhiều quan sát hơn ẩn hoặc không khớp chính xác
 
 **Đáp án: B**
 
@@ -1410,13 +1410,13 @@ D. Prediction is lower than actual | Dự báo thấp hơn thực tế
 
 **Q4. What is determinant of [[2,1],[1,2]]? | Định thức [[2,1],[1,2]] bằng gì?**
 
-A. Its determinant is nonzero | Định thức khác không
+A. Identity matrix | Ma trận đơn vị
 
 B. 3 | 3
 
-C. Identity matrix | Ma trận đơn vị
+C. `np.allclose(A, B)` | `np.allclose(A, B)`
 
-D. `np.allclose(A, B)` | `np.allclose(A, B)`
+D. Its determinant is nonzero | Định thức khác không
 
 **Đáp án: B**
 
@@ -1424,15 +1424,15 @@ D. `np.allclose(A, B)` | `np.allclose(A, B)`
 
 **Q5. What determines finite-difference accuracy? | Độ chính xác sai phân hữu hạn phụ thuộc gì?**
 
-A. The two-sided limit does not exist | Giới hạn hai phía không tồn tại
+A. Sampling spacing and numerical scheme | Khoảng cách mẫu và cách lấy sai phân
 
-B. Distance per unit time | Khoảng cách trên mỗi đơn vị thời gian
+B. The two-sided limit does not exist | Giới hạn hai phía không tồn tại
 
-C. Sampling spacing and numerical scheme | Khoảng cách mẫu và cách lấy sai phân
+C. Distance per unit time | Khoảng cách trên mỗi đơn vị thời gian
 
 D. Yes, if nearby values approach one number | Có, nếu giá trị lân cận tiến đến cùng một số
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Khoảng lấy mẫu ảnh hưởng độ dốc ước lượng.
 
@@ -1452,41 +1452,41 @@ D. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm 
 
 **Q7. Why record loss history? | Vì sao lưu lịch sử loss?**
 
-A. To inspect optimization progress | Để xem tiến trình tối ưu
+A. Steepest increase | Hướng tăng nhanh nhất
 
-B. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
+B. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
 
-C. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
+C. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
 
-D. Steepest increase | Hướng tăng nhanh nhất
+D. To inspect optimization progress | Để xem tiến trình tối ưu
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Lịch sử cho thấy xu hướng giảm hoặc bất ổn.
 
-**Q8. Which formula is MSE? | Công thức nào là MSE?**
+**Q8. What may happen when learning rate is excessively large? | Điều gì có thể xảy ra khi tốc độ học quá lớn?**
 
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
+A. Training data always doubles | Dữ liệu huấn luyện luôn tăng gấp đôi
 
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
+B. Loss may oscillate or diverge | Loss có thể dao động hoặc phân kỳ
 
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
+C. Every gradient becomes zero | Mọi gradient đều bằng 0
 
-D. A `for` loop | Vòng lặp `for`
+D. The global optimum is guaranteed | Luôn tìm được cực tiểu toàn cục
 
-**Đáp án: C**
+**Đáp án: B**
 
-**Giải thích:** MSE trung bình bình phương sai số.
+**Giải thích:** Bước nhảy quá lớn có thể vượt qua cực tiểu, khiến hàm mất mát dao động hoặc tăng thay vì giảm.
 
 **Q9. How many outcomes are possible with two ordered six-sided dice? | Hai xúc xắc sáu mặt theo cặp có thứ tự có bao nhiêu kết quả?**
 
-A. `1/2` | `1/2`
+A. 4 | 4
 
 B. 36 | 36
 
-C. 4 | 4
+C. Zero | Bằng 0
 
-D. Zero | Bằng 0
+D. `1/2` | `1/2`
 
 **Đáp án: B**
 
@@ -1494,15 +1494,15 @@ D. Zero | Bằng 0
 
 **Q10. Does a simulation always equal the true probability exactly? | Tỷ lệ mô phỏng có luôn bằng xác suất thật?**
 
-A. One | Bằng 1
+A. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
-B. `1-P(A)` | `1-P(A)`
+B. One | Bằng 1
 
-C. No, sampling variation occurs | Không, có dao động do lấy mẫu
+C. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
-D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
+D. `1-P(A)` | `1-P(A)`
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Mẫu hữu hạn dao động quanh xác suất nền.
 
@@ -1522,67 +1522,67 @@ D. Mode | Yếu vị
 
 **Q12. What is the range of probabilities? | Xác suất nằm trong đoạn nào?**
 
-A. 0.5 | 0.5
+A. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
 
 B. CDF(b) minus CDF(a) | CDF(b) trừ CDF(a)
 
-C. No, sampling noise remains | Không, vẫn có dao động lấy mẫu
+C. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
 
-D. From 0 to 1 inclusive | Từ 0 đến 1 gồm hai đầu
+D. 0.5 | 0.5
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Xác suất không âm và không vượt một. Hai đầu 0 và 1 tương ứng biến cố không thể và chắc chắn.
 
 **Q13. What does likelihood mean? | Likelihood biểu thị gì?**
 
-A. Probability before current evidence | Xác suất trước khi có bằng chứng hiện tại
+A. Updated hypothesis probability after evidence | Xác suất giả thuyết được cập nhật sau bằng chứng
 
-B. Probability of evidence under a hypothesis | Xác suất bằng chứng khi giả thuyết đúng
+B. Probability before current evidence | Xác suất trước khi có bằng chứng hiện tại
 
-C. Updated hypothesis probability after evidence | Xác suất giả thuyết được cập nhật sau bằng chứng
+C. Probability of evidence under a hypothesis | Xác suất bằng chứng khi giả thuyết đúng
 
 D. Probability of positive signal when no defect exists | Xác suất báo dương khi thực tế không có lỗi
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** Likelihood xét bằng chứng khi giả thuyết đúng.
 
 **Q14. What does a covariance diagonal entry represent? | Ô đường chéo covariance biểu thị gì?**
 
-A. By largest explained variance | Theo phương sai giải thích lớn nhất
+A. `A @ v` approximately equals `λ*v` | `A @ v` xấp xỉ `λ*v`
 
-B. Variance of one feature | Phương sai của một đặc trưng
+B. By largest explained variance | Theo phương sai giải thích lớn nhất
 
-C. Two | Hai
+C. Variance of one feature | Phương sai của một đặc trưng
 
-D. `A @ v` approximately equals `λ*v` | `A @ v` xấp xỉ `λ*v`
+D. Two | Hai
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** Hiệp phương sai của biến với chính nó là phương sai.
 
 **Q15. What is the unit of MAE when predictions are in meters? | Dự báo theo mét thì MAE có đơn vị gì?**
 
-A. Square meters | Mét bình phương
+A. MSE | MSE
 
-B. Meters | Mét
+B. Huber loss | Huber loss
 
-C. MSE | MSE
+C. Square meters | Mét bình phương
 
-D. Huber loss | Huber loss
+D. Meters | Mét
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Sai lệch tuyệt đối giữ đơn vị gốc.
 
 **Q16. If an alert has 99% sensitivity, does that mean 99% of alerts are true defects? | Độ nhạy 99% có nghĩa 99% cảnh báo là lỗi thật không?**
 
-A. 0.2 | 0.2
+A. 0.3 | 0.3
 
 B. 0.56 | 0.56
 
-C. 0.3 | 0.3
+C. 0.2 | 0.2
 
 D. No; base rate and false positives also matter | Không; còn tỷ lệ nền và dương giả
 
@@ -1594,15 +1594,15 @@ D. No; base rate and false positives also matter | Không; còn tỷ lệ nền 
 
 **Q1. What does multiplying a vector by a scalar do? | Nhân vector với scalar làm gì?**
 
-A. Scales every component | Nhân từng thành phần với scalar
+A. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
 
 B. Subtract corresponding components | Trừ các thành phần cùng vị trí
 
-C. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
+C. Scales every component | Nhân từng thành phần với scalar
 
-D. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
+D. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Nhân scalar làm đổi độ lớn từng thành phần.
 
@@ -1610,11 +1610,11 @@ D. To multiply each weight by its intended feature | Để trọng số nhân đ
 
 A. `@` | `@`
 
-B. `.T` | `.T`
+B. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
-C. `np.linalg.det(A)` | `np.linalg.det(A)`
+C. `.T` | `.T`
 
-D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
+D. `np.linalg.det(A)` | `np.linalg.det(A)`
 
 **Đáp án: A**
 
@@ -1622,15 +1622,15 @@ D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
 **Q3. What does `np.allclose(A@x,b)` check? | `np.allclose(A@x,b)` kiểm tra gì?**
 
-A. Every equation is satisfied | Mọi phương trình đều được thỏa
+A. Ranks of A and its augmented matrix | Hạng của A và ma trận mở rộng
 
-B. The sum of squared residuals | Tổng bình phương sai số dư
+B. Whether a candidate solution approximately satisfies the system | Nghiệm thử có thỏa hệ gần đúng hay không
 
-C. Whether a candidate solution approximately satisfies the system | Nghiệm thử có thỏa hệ gần đúng hay không
+C. The sum of squared residuals | Tổng bình phương sai số dư
 
-D. Ranks of A and its augmented matrix | Hạng của A và ma trận mở rộng
+D. Every equation is satisfied | Mọi phương trình đều được thỏa
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** allclose so kết quả trong ngưỡng sai số số học.
 
@@ -1650,39 +1650,39 @@ D. `np.allclose(A, B)` | `np.allclose(A, B)`
 
 **Q5. How does a derivative differ from an average slope? | Đạo hàm khác độ dốc trung bình thế nào?**
 
-A. It describes a local infinitesimal change | Nó mô tả độ thay đổi cục bộ rất nhỏ
+A. 2 | 2
 
-B. 2 | 2
+B. It often uses one-sided differences | Nó thường dùng sai phân một phía
 
 C. `sympy.diff` | `sympy.diff`
 
-D. It often uses one-sided differences | Nó thường dùng sai phân một phía
+D. It describes a local infinitesimal change | Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Độ dốc tức thời là đại lượng giới hạn cục bộ.
 
 **Q6. What do mixed-sign Hessian eigenvalues indicate at a stationary point? | Trị riêng Hessian trái dấu ở điểm dừng biểu thị gì?**
 
-A. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
+A. A saddle point | Điểm yên ngựa
 
 B. A strict local maximum | Cực đại địa phương nghiêm ngặt
 
-C. A saddle point | Điểm yên ngựa
+C. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
 
 D. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Một số hướng tăng và hướng khác giảm.
 
 **Q7. Why pair features and targets in the same order? | Vì sao cần ghép x và y cùng thứ tự?**
 
-A. To inspect optimization progress | Để xem tiến trình tối ưu
+A. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
 
 B. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
 
-C. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
+C. To inspect optimization progress | Để xem tiến trình tối ưu
 
 D. Steepest increase | Hướng tăng nhanh nhất
 
@@ -1690,59 +1690,59 @@ D. Steepest increase | Hướng tăng nhanh nhất
 
 **Giải thích:** Hàng ghép sai làm sai số vô nghĩa.
 
-**Q8. Which Python construct repeats optimization steps? | Cấu trúc Python nào lặp các bước tối ưu?**
+**Q8. A function has gradient zero at w = 0. Which conclusion is always justified? | Một hàm có gradient bằng 0 tại w = 0. Kết luận nào luôn đúng?**
 
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
+A. The loss is zero | Loss bằng 0
 
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
+B. This is a global minimum | Đây là cực tiểu toàn cục
 
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
+C. The function is constant | Hàm là hằng số
 
-D. A `for` loop | Vòng lặp `for`
+D. It is a stationary point, not necessarily a minimum | Đây là điểm dừng, chưa chắc là cực tiểu
 
 **Đáp án: D**
 
-**Giải thích:** for lặp các bước cập nhật.
+**Giải thích:** Gradient bằng 0 chỉ cho biết tốc độ thay đổi cục bộ bằng 0. Điểm đó vẫn có thể là cực đại hoặc điểm yên ngựa.
 
 **Q9. How many ordered pairs of dice sum to nine? | Bao nhiêu cặp có thứ tự của hai xúc xắc có tổng 9?**
 
-A. `1/2` | `1/2`
+A. 36 | 36
 
-B. 36 | 36
+B. 4 | 4
 
-C. 4 | 4
+C. `1/2` | `1/2`
 
 D. Zero | Bằng 0
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Bốn cặp là (3,6), (4,5), (5,4), (6,3).
 
 **Q10. What does independence of two dice mean? | Hai xúc xắc độc lập nghĩa là gì?**
 
-A. One | Bằng 1
+A. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
 B. `1-P(A)` | `1-P(A)`
 
 C. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
-D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
+D. One | Bằng 1
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Độc lập nghĩa là một kết quả không đổi xác suất của biến cố còn lại.
 
 **Q11. Which statistic is useful for categorical labels? | Thống kê nào phù hợp nhãn phân loại?**
 
-A. Squared input units | Bình phương đơn vị dữ liệu
+A. Original input units | Đơn vị gốc của dữ liệu
 
-B. Original input units | Đơn vị gốc của dữ liệu
+B. Mode | Yếu vị
 
-C. Median | Trung vị
+C. Squared input units | Bình phương đơn vị dữ liệu
 
-D. Mode | Yếu vị
+D. Median | Trung vị
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Lấy trung bình mã chữ không có ý nghĩa số học.
 
@@ -1750,39 +1750,39 @@ D. Mode | Yếu vị
 
 A. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
 
-B. The distribution becomes wider | Phân phối trải rộng hơn
+B. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
 
-C. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
+C. The distribution becomes wider | Phân phối trải rộng hơn
 
 D. Cumulative probability up to x | Xác suất tích lũy tới x
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** Cùng tổng diện tích được trải ra trên miền rộng hơn. Sigma lớn hơn không tự làm dịch mean; nó khiến số đo phân tán xa hơn quanh cùng tâm.
 
 **Q13. What does posterior mean? | Posterior là gì?**
 
-A. Probability before current evidence | Xác suất trước khi có bằng chứng hiện tại
+A. Probability of evidence under a hypothesis | Xác suất bằng chứng khi giả thuyết đúng
 
-B. Probability of evidence under a hypothesis | Xác suất bằng chứng khi giả thuyết đúng
+B. Probability before current evidence | Xác suất trước khi có bằng chứng hiện tại
 
-C. Updated hypothesis probability after evidence | Xác suất giả thuyết được cập nhật sau bằng chứng
+C. Probability of positive signal when no defect exists | Xác suất báo dương khi thực tế không có lỗi
 
-D. Probability of positive signal when no defect exists | Xác suất báo dương khi thực tế không có lỗi
+D. Updated hypothesis probability after evidence | Xác suất giả thuyết được cập nhật sau bằng chứng
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Posterior đã tính đến bằng chứng quan sát.
 
 **Q14. Does an eigenvalue always mean variance? | Trị riêng có luôn mang nghĩa phương sai không?**
 
-A. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
+A. Feature scales and units | Thang đo và đơn vị các đặc trưng
 
 B. Only when the matrix is an appropriate covariance matrix | Chỉ khi ma trận là covariance phù hợp
 
-C. One principal-component feature per sample | Một đặc trưng thành phần chính cho mỗi mẫu
+C. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
 
-D. Feature scales and units | Thang đo và đơn vị các đặc trưng
+D. One principal-component feature per sample | Một đặc trưng thành phần chính cho mỗi mẫu
 
 **Đáp án: B**
 
@@ -1790,13 +1790,13 @@ D. Feature scales and units | Thang đo và đơn vị các đặc trưng
 
 **Q15. Which loss increases quadratically with error magnitude? | Loss nào tăng theo bình phương độ lớn lỗi?**
 
-A. Square meters | Mét bình phương
+A. Meters | Mét
 
-B. Meters | Mét
+B. Huber loss | Huber loss
 
 C. MSE | MSE
 
-D. Huber loss | Huber loss
+D. Square meters | Mét bình phương
 
 **Đáp án: C**
 
@@ -1804,15 +1804,15 @@ D. Huber loss | Huber loss
 
 **Q16. Why does Bayes need the base rate? | Vì sao Bayes cần tỷ lệ nền?**
 
-A. Rare cases can yield many false alarms among positives | Sự kiện hiếm có thể làm dương giả chiếm nhiều trong cảnh báo
+A. They condition on different reference groups | Chúng xét trên hai nhóm điều kiện khác nhau
 
-B. The formula divides by P(B) | Vì công thức chia cho P(B)
+B. That viewing ads caused purchases | Việc xem quảng cáo gây ra hành vi mua
 
-C. That viewing ads caused purchases | Việc xem quảng cáo gây ra hành vi mua
+C. The formula divides by P(B) | Vì công thức chia cho P(B)
 
-D. They condition on different reference groups | Chúng xét trên hai nhóm điều kiện khác nhau
+D. Rare cases can yield many false alarms among positives | Sự kiện hiếm có thể làm dương giả chiếm nhiều trong cảnh báo
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Sự kiện hiếm có thể khiến phần lớn cảnh báo là dương giả.
 
@@ -1822,13 +1822,13 @@ D. They condition on different reference groups | Chúng xét trên hai nhóm đ
 
 A. Scales every component | Nhân từng thành phần với scalar
 
-B. Subtract corresponding components | Trừ các thành phần cùng vị trí
+B. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
 
-C. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
+C. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
 
-D. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
+D. Subtract corresponding components | Trừ các thành phần cùng vị trí
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Phép trừ vector diễn ra theo từng thành phần.
 
@@ -1848,29 +1848,29 @@ D. A linear algebra error | Lỗi đại số tuyến tính
 
 **Q3. What does the final column of an augmented matrix represent? | Cột cuối của ma trận mở rộng biểu diễn gì?**
 
-A. Three equations or observations | Ba phương trình hoặc quan sát
+A. It cannot have a unique solution for every b | Không thể có nghiệm duy nhất với mọi b
 
 B. Coefficients of two unknowns | Hệ số của hai ẩn
 
-C. The right-hand-side values | Các giá trị vế phải
+C. Three equations or observations | Ba phương trình hoặc quan sát
 
-D. It cannot have a unique solution for every b | Không thể có nghiệm duy nhất với mọi b
+D. The right-hand-side values | Các giá trị vế phải
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Ma trận mở rộng ghi các vế phải ở cột cuối.
 
 **Q4. How do you test approximate equality of float arrays? | Kiểm tra hai mảng float gần bằng nhau bằng gì?**
 
-A. Its determinant is nonzero | Định thức khác không
+A. Identity matrix | Ma trận đơn vị
 
-B. 3 | 3
+B. `np.allclose(A, B)` | `np.allclose(A, B)`
 
-C. Identity matrix | Ma trận đơn vị
+C. Its determinant is nonzero | Định thức khác không
 
-D. `np.allclose(A, B)` | `np.allclose(A, B)`
+D. 3 | 3
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** allclose chấp nhận sai số dấu phẩy động nhỏ.
 
@@ -1878,109 +1878,109 @@ D. `np.allclose(A, B)` | `np.allclose(A, B)`
 
 A. It describes a local infinitesimal change | Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-B. 2 | 2
+B. `sympy.diff` | `sympy.diff`
 
-C. `sympy.diff` | `sympy.diff`
+C. It often uses one-sided differences | Nó thường dùng sai phân một phía
 
-D. It often uses one-sided differences | Nó thường dùng sai phân một phía
+D. 2 | 2
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Hệ số của x cho đạo hàm bằng 2.
 
 **Q6. What if a Hessian has a zero eigenvalue at a stationary point? | Nếu Hessian có trị riêng 0 tại điểm dừng thì sao?**
 
-A. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
+A. A saddle point | Điểm yên ngựa
 
-B. A strict local maximum | Cực đại địa phương nghiêm ngặt
+B. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-C. A saddle point | Điểm yên ngựa
+C. A strict local maximum | Cực đại địa phương nghiêm ngặt
 
-D. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
+D. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Trị riêng 0 cần kiểm tra sâu hơn.
 
 **Q7. Does falling training loss guarantee test accuracy? | Loss train giảm có đảm bảo độ chính xác test?**
 
-A. To inspect optimization progress | Để xem tiến trình tối ưu
+A. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
 
-B. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
+B. To inspect optimization progress | Để xem tiến trình tối ưu
 
-C. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
+C. Steepest increase | Hướng tăng nhanh nhất
 
-D. Steepest increase | Hướng tăng nhanh nhất
+D. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Cần dữ liệu độc lập để đo tổng quát hóa.
 
 **Q8. Why might a large learning rate fail? | Vì sao learning rate lớn dễ thất bại?**
 
-A. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
+A. No, minibatches can cause multiple updates | Không, nhiều minibatch có thể tạo nhiều lần cập nhật
 
-B. It can make convergence slow | Nó có thể làm hội tụ chậm
+B. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
 
-C. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
+C. It can make convergence slow | Nó có thể làm hội tụ chậm
 
-D. No, minibatches can cause multiple updates | Không, nhiều minibatch có thể tạo nhiều lần cập nhật
+D. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** Bước lớn có thể vượt qua cực tiểu liên tục.
 
 **Q9. What is the probability of the empty event? | Xác suất biến cố rỗng là gì?**
 
-A. `1/2` | `1/2`
+A. 36 | 36
 
-B. 36 | 36
+B. `1/2` | `1/2`
 
-C. 4 | 4
+C. Zero | Bằng 0
 
-D. Zero | Bằng 0
+D. 4 | 4
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Biến cố không thể có xác suất 0.
 
 **Q10. What does a fixed RNG seed not guarantee? | Seed RNG cố định không bảo đảm điều gì?**
 
-A. Display order is not promised | Thứ tự hiển thị không được đảm bảo
+A. Its faces do not have equal probabilities | Các mặt không đồng xác suất
 
-B. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
+B. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
 
-C. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
+C. Display order is not promised | Thứ tự hiển thị không được đảm bảo
 
-D. Its faces do not have equal probabilities | Các mặt không đồng xác suất
+D. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Seed giúp lặp lại mô phỏng nhưng không loại dao động.
 
 **Q11. Does std equal standard error? | Std có giống sai số chuẩn không?**
 
-A. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
+A. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
-B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
+B. No, std measures spread of individual values | Không, std đo độ phân tán quan sát
 
 C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
-D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
+D. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** SE đo độ biến thiên của thống kê ước lượng.
 
 **Q12. Why distinguish discrete and continuous variables? | Vì sao phân biệt biến rời rạc và liên tục?**
 
-A. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
+A. The distribution becomes wider | Phân phối trải rộng hơn
 
-B. The distribution becomes wider | Phân phối trải rộng hơn
+B. Cumulative probability up to x | Xác suất tích lũy tới x
 
 C. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
 
-D. Cumulative probability up to x | Xác suất tích lũy tới x
+D. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
 
 **Đáp án: C**
 
@@ -1988,27 +1988,27 @@ D. Cumulative probability up to x | Xác suất tích lũy tới x
 
 **Q13. What is a false-positive rate? | Tỷ lệ dương giả là gì?**
 
-A. Probability before current evidence | Xác suất trước khi có bằng chứng hiện tại
+A. Probability of evidence under a hypothesis | Xác suất bằng chứng khi giả thuyết đúng
 
-B. Probability of evidence under a hypothesis | Xác suất bằng chứng khi giả thuyết đúng
+B. Updated hypothesis probability after evidence | Xác suất giả thuyết được cập nhật sau bằng chứng
 
-C. Updated hypothesis probability after evidence | Xác suất giả thuyết được cập nhật sau bằng chứng
+C. Probability of positive signal when no defect exists | Xác suất báo dương khi thực tế không có lỗi
 
-D. Probability of positive signal when no defect exists | Xác suất báo dương khi thực tế không có lỗi
+D. Probability before current evidence | Xác suất trước khi có bằng chứng hiện tại
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Dương giả là cảnh báo dương ở trường hợp không lỗi.
 
 **Q14. What does `PCA(n_components=1)` preserve? | `PCA(n_components=1)` giữ lại gì?**
 
-A. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
+A. Feature scales and units | Thang đo và đơn vị các đặc trưng
 
-B. Only when the matrix is an appropriate covariance matrix | Chỉ khi ma trận là covariance phù hợp
+B. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
 
 C. One principal-component feature per sample | Một đặc trưng thành phần chính cho mỗi mẫu
 
-D. Feature scales and units | Thang đo và đơn vị các đặc trưng
+D. Only when the matrix is an appropriate covariance matrix | Chỉ khi ma trận là covariance phù hợp
 
 **Đáp án: C**
 
@@ -2016,29 +2016,29 @@ D. Feature scales and units | Thang đo và đơn vị các đặc trưng
 
 **Q15. Which loss is easier to interpret in the original output units? | Loss nào dễ đọc theo đơn vị đầu ra ban đầu?**
 
-A. To avoid log(0) and numerical infinities | Để tránh log(0) và vô cực số học
+A. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
 
-B. MAE | MAE
+B. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
 
-C. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
+C. To avoid log(0) and numerical infinities | Để tránh log(0) và vô cực số học
 
-D. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
+D. MAE | MAE
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** MAE báo sai số trung bình cùng đơn vị đo.
 
 **Q16. Why must P(B)>0 for P(A given B)? | Vì sao cần P(B)>0 khi tính P(A khi B)?**
 
-A. Rare cases can yield many false alarms among positives | Sự kiện hiếm có thể làm dương giả chiếm nhiều trong cảnh báo
+A. They condition on different reference groups | Chúng xét trên hai nhóm điều kiện khác nhau
 
-B. The formula divides by P(B) | Vì công thức chia cho P(B)
+B. Rare cases can yield many false alarms among positives | Sự kiện hiếm có thể làm dương giả chiếm nhiều trong cảnh báo
 
-C. That viewing ads caused purchases | Việc xem quảng cáo gây ra hành vi mua
+C. The formula divides by P(B) | Vì công thức chia cho P(B)
 
-D. They condition on different reference groups | Chúng xét trên hai nhóm điều kiện khác nhau
+D. That viewing ads caused purchases | Việc xem quảng cáo gây ra hành vi mua
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** Chia cho 0 không xác định.
 
@@ -2046,43 +2046,43 @@ D. They condition on different reference groups | Chúng xét trên hai nhóm đ
 
 **Q1. What does `np.linalg.norm(a-b)` measure? | `np.linalg.norm(a-b)` đo điều gì?**
 
-A. Scales every component | Nhân từng thành phần với scalar
+A. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
 
 B. Subtract corresponding components | Trừ các thành phần cùng vị trí
 
-C. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
+C. Scales every component | Nhân từng thành phần với scalar
 
-D. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
+D. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Norm của độ dịch chuyển cho khoảng cách.
 
 **Q2. What does `A * B` do for compatible NumPy arrays? | `A * B` trên mảng NumPy tương thích làm gì?**
 
-A. Columns of A and rows of B | Số cột A và số hàng B
+A. A linear algebra error | Lỗi đại số tuyến tính
 
-B. Element-wise multiplication | Nhân theo từng phần tử
+B. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
 
-C. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
+C. Columns of A and rows of B | Số cột A và số hàng B
 
-D. A linear algebra error | Lỗi đại số tuyến tính
+D. Element-wise multiplication | Nhân theo từng phần tử
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Dấu sao nhân phần tử tương ứng có broadcasting.
 
 **Q3. When is `lstsq` useful? | Khi nào `lstsq` hữu ích?**
 
-A. It contains known target values | Nó chứa giá trị mục tiêu đã biết
+A. Prediction is lower than actual | Dự báo thấp hơn thực tế
 
-B. They add no new independent direction | Chúng không bổ sung hướng độc lập mới
+B. When observations outnumber unknowns or do not fit exactly | Khi nhiều quan sát hơn ẩn hoặc không khớp chính xác
 
-C. When observations outnumber unknowns or do not fit exactly | Khi nhiều quan sát hơn ẩn hoặc không khớp chính xác
+C. It contains known target values | Nó chứa giá trị mục tiêu đã biết
 
-D. Prediction is lower than actual | Dự báo thấp hơn thực tế
+D. They add no new independent direction | Chúng không bổ sung hướng độc lập mới
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Bình phương tối thiểu tìm cách khớp tốt nhất khi hệ không thỏa hết.
 
@@ -2090,13 +2090,13 @@ D. Prediction is lower than actual | Dự báo thấp hơn thực tế
 
 A. Columns of A and rows of B | Số cột A và số hàng B
 
-B. Element-wise multiplication | Nhân theo từng phần tử
+B. A linear algebra error | Lỗi đại số tuyến tính
 
-C. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
+C. Element-wise multiplication | Nhân theo từng phần tử
 
-D. A linear algebra error | Lỗi đại số tuyến tính
+D. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Ma trận suy biến không có nghịch đảo.
 
@@ -2104,51 +2104,51 @@ D. A linear algebra error | Lỗi đại số tuyến tính
 
 A. It describes a local infinitesimal change | Nó mô tả độ thay đổi cục bộ rất nhỏ
 
-B. 2 | 2
+B. It often uses one-sided differences | Nó thường dùng sai phân một phía
 
-C. `sympy.diff` | `sympy.diff`
+C. 2 | 2
 
-D. It often uses one-sided differences | Nó thường dùng sai phân một phía
+D. `sympy.diff` | `sympy.diff`
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** SymPy hỗ trợ đạo hàm ký hiệu bằng diff.
 
 **Q6. Why isn't zero gradient alone sufficient to prove a minimum? | Vì sao gradient 0 chưa đủ chứng minh cực tiểu?**
 
-A. `(3,3)` | `(3,3)`
+A. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
 
-B. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
+B. `(3,3)` | `(3,3)`
 
-C. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
+C. It can also occur at a maximum or saddle | Nó còn xuất hiện ở cực đại hoặc yên ngựa
 
-D. It can also occur at a maximum or saddle | Nó còn xuất hiện ở cực đại hoặc yên ngựa
+D. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Cực đại và yên ngựa cũng có thể có gradient 0.
 
 **Q7. Which direction does a gradient point locally? | Gradient hướng theo phía nào về mặt cục bộ?**
 
-A. To inspect optimization progress | Để xem tiến trình tối ưu
+A. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
 
-B. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
+B. Steepest increase | Hướng tăng nhanh nhất
 
-C. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
+C. To inspect optimization progress | Để xem tiến trình tối ưu
 
-D. Steepest increase | Hướng tăng nhanh nhất
+D. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Gradient hướng tăng cục bộ nhanh nhất.
 
 **Q8. Why might a very small learning rate be inefficient? | Vì sao learning rate quá nhỏ kém hiệu quả?**
 
-A. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
+A. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
 
 B. It can make convergence slow | Nó có thể làm hội tụ chậm
 
-C. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
+C. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
 
 D. No, minibatches can cause multiple updates | Không, nhiều minibatch có thể tạo nhiều lần cập nhật
 
@@ -2158,15 +2158,15 @@ D. No, minibatches can cause multiple updates | Không, nhiều minibatch có th
 
 **Q9. What is the probability of the entire sample space? | Xác suất của cả không gian mẫu là gì?**
 
-A. One | Bằng 1
+A. No, sampling variation occurs | Không, có dao động do lấy mẫu
 
 B. `1-P(A)` | `1-P(A)`
 
-C. No, sampling variation occurs | Không, có dao động do lấy mẫu
+C. One | Bằng 1
 
 D. One die's result does not change probabilities of the other | Kết quả một xúc xắc không đổi xác suất của xúc xắc kia
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Biến cố chắc chắn có xác suất 1.
 
@@ -2174,13 +2174,13 @@ D. One die's result does not change probabilities of the other | Kết quả m�
 
 A. Display order is not promised | Thứ tự hiển thị không được đảm bảo
 
-B. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
+B. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
 
-C. It tends to reduce sampling variability | Thường làm giảm dao động lấy mẫu
+C. Its faces do not have equal probabilities | Các mặt không đồng xác suất
 
-D. Its faces do not have equal probabilities | Các mặt không đồng xác suất
+D. That empirical frequency equals theoretical probability | Tần suất thực nghiệm đúng bằng xác suất lý thuyết
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Mẫu lớn thường ổn định tần suất tương đối hơn.
 
@@ -2190,9 +2190,9 @@ A. No, std measures spread of individual values | Không, std đo độ phân t�
 
 B. Yes, large outliers can pull it up | Có, ngoại lệ lớn kéo mean lên
 
-C. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
+C. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
 
-D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mất ý nghĩa
+D. Different denominators give different results | Mẫu số khác nhau cho kết quả khác
 
 **Đáp án: B**
 
@@ -2200,15 +2200,15 @@ D. Summary statistics can lose meaning | Thống kê tổng hợp có thể mấ
 
 **Q12. What does norm.cdf(x,loc,scale) return? | norm.cdf(x,loc,scale) trả gì?**
 
-A. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
+A. Cumulative probability up to x | Xác suất tích lũy tới x
 
-B. The distribution becomes wider | Phân phối trải rộng hơn
+B. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
 
-C. Point probabilities behave differently | Xác suất tại một điểm có ý nghĩa khác nhau
+C. Yes; only its total integral must be one | Có; chỉ tích phân toàn miền phải bằng một
 
-D. Cumulative probability up to x | Xác suất tích lũy tới x
+D. The distribution becomes wider | Phân phối trải rộng hơn
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Nó là P(X≤x) theo phân phối chuẩn. Không lấy chiều cao PDF nếu câu hỏi là P(X≤x); cần dùng `cdf` để tính xác suất tích lũy.
 
@@ -2228,15 +2228,15 @@ D. No; base rate and false positives also matter | Không; còn tỷ lệ nền 
 
 **Q14. What should be considered before comparing PCA variances across features? | Cần lưu ý gì trước khi so phương sai PCA giữa đặc trưng?**
 
-A. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
+A. Feature scales and units | Thang đo và đơn vị các đặc trưng
 
-B. Only when the matrix is an appropriate covariance matrix | Chỉ khi ma trận là covariance phù hợp
+B. One principal-component feature per sample | Một đặc trưng thành phần chính cho mỗi mẫu
 
-C. One principal-component feature per sample | Một đặc trưng thành phần chính cho mỗi mẫu
+C. Rows are samples and columns are features | Hàng là mẫu và cột là đặc trưng
 
-D. Feature scales and units | Thang đo và đơn vị các đặc trưng
+D. Only when the matrix is an appropriate covariance matrix | Chỉ khi ma trận là covariance phù hợp
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Đặc trưng có thang lớn có thể lấn át PCA nếu chưa chuẩn hóa.
 
@@ -2246,24 +2246,24 @@ A. To avoid log(0) and numerical infinities | Để tránh log(0) và vô cực 
 
 B. MAE | MAE
 
-C. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
+C. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
 
-D. Predicted probability assigned to the true class | Xác suất dự báo dành cho lớp đúng
+D. No, evaluate on held-out data | Không, cần đánh giá trên dữ liệu độc lập
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Khả năng tổng quát cần kiểm chứng bằng dữ liệu độc lập.
 
 **Q16. What distinguishes P(A given B) from P(B given A)? | P(A khi B) khác P(B khi A) ở đâu?**
 
-A. Rare cases can yield many false alarms among positives | Sự kiện hiếm có thể làm dương giả chiếm nhiều trong cảnh báo
+A. The formula divides by P(B) | Vì công thức chia cho P(B)
 
-B. The formula divides by P(B) | Vì công thức chia cho P(B)
+B. Rare cases can yield many false alarms among positives | Sự kiện hiếm có thể làm dương giả chiếm nhiều trong cảnh báo
 
-C. That viewing ads caused purchases | Việc xem quảng cáo gây ra hành vi mua
+C. They condition on different reference groups | Chúng xét trên hai nhóm điều kiện khác nhau
 
-D. They condition on different reference groups | Chúng xét trên hai nhóm điều kiện khác nhau
+D. That viewing ads caused purchases | Việc xem quảng cáo gây ra hành vi mua
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Đảo điều kiện làm thay đổi mẫu số.
