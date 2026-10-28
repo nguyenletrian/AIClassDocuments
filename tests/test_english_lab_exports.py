@@ -1,94 +1,84 @@
-"""Validate English lab export folders and execute their annotated solutions.
+"""Verify owner-corrected export: one Markdown document per original Word lab.
 
-This test does not infer that private Word documents were directly reparsed.
+A task must contain EN brief, VI translation, sourced code and explanation.
+Historical multi-file output is not counted as completion.
 """
 import json
 import re
-import subprocess
-import sys
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPORTS = ROOT / "docs" / "labs"
+EXPORT_ROOT = ROOT / "docs" / "labs"
 LEDGER = ROOT / "docs" / "LAB-EN-SOLUTIONS-PROGRESS.json"
-TASK_COUNTS = {
-    "LAB-MATH-02-sets-jaccard": 6,
-    "LAB-MATH-03-04-matrix-pca": 4,
+GOAL = ROOT / "docs" / "LAB-EN-SOLUTIONS-GOAL.json"
+COUNTS = {
     "ASSIGNMENT-01-student-dictionary": 10,
     "LAB-04-conditions-loops": 14,
     "LAB-05-student-list": 7,
-    "LAB-10-file-csv": 6,
     "LAB-05-06-gradient-descent": 5,
     "LAB-07-probability": 5,
     "LAB-08-statistics": 5,
-}
-# Minimum output substrings for the first owner-approved batch.
-SMOKE = {
-    "LAB-MATH-02-sets-jaccard": ("Task 3 - Jaccard(A, E): 1.00", "Student D: No connections"),
-    "LAB-MATH-03-04-matrix-pca": ("Task 1 - Store matrix shape: (8, 4)", "PCA projected shape: (8, 2)"),
-    "ASSIGNMENT-01-student-dictionary": ("Ascending scores", "Statistics:", "Student list:"),
-    "LAB-04-conditions-loops": ("PASS: 14 exercises", "240000.0 VND"),
-    "LAB-05-student-list": ("Sorted:", "Statistics:"),
-    "LAB-10-file-csv": ("PASS: CSV read, search, add", "Demo does not overwrite students.csv"),
+    "LAB-10-file-csv": 6,
 }
 
 
-class LabEnglishExports(unittest.TestCase):
-    def test_current_batch_has_complete_folders_and_valid_english_code(self):
+class OriginalWordSingleFileLabTests(unittest.TestCase):
+    def test_exactly_seven_word_lab_units_in_authorized_scope(self):
+        goal = json.loads(GOAL.read_text(encoding="utf-8"))
         progress = json.loads(LEDGER.read_text(encoding="utf-8"))
-        self.assertEqual(progress["expected_lab_units"], 9)
+        self.assertTrue(goal["scope"]["one_document_per_original_word_file"])
+        self.assertEqual(goal["scope"]["total_unique_lab_units"], 7)
+        self.assertEqual(progress["expected_lab_units"], 7)
         self.assertEqual(progress["expected_batches"], 3)
-        self.assertEqual(len(progress["batches"]), 3)
-        self.assertLessEqual(
-            sum(b["status"] == "IN_PROGRESS" for b in progress["batches"]), 1
-        )
+        self.assertEqual(set(COUNTS), {x for batch in progress["batches"] for x in batch["labs"]})
+        self.assertLessEqual(sum(b["status"] == "IN_PROGRESS" for b in progress["batches"]), 1)
+
+    def test_english_vietnamese_sourced_solution_explanation_per_exercise(self):
+        progress = json.loads(LEDGER.read_text(encoding="utf-8"))
         for batch in progress["batches"]:
             if batch["status"] == "PENDING":
                 continue
             for slug in batch["labs"]:
-                with self.subTest(lab=slug):
-                    folder = EXPORTS / slug
-                    english = (folder / "LAB_EN_SOLVED.md").read_text(encoding="utf-8")
-                    code = (folder / "SOLUTION_ANNOTATED.py").read_text(encoding="utf-8")
-                    self.assertTrue((folder / "README.md").is_file())
-                    self.assertIn("English lab requirement:", english)
-                    self.assertIn("Annotated solution", english)
-                    self.assertIn("def ", code)
-                    self.assertIn("# ", code, "Source code must teach step by step")
-                    compile(code, str(folder / "SOLUTION_ANNOTATED.py"), "exec")
-                    count = len(re.findall(r"^## Task \d+\b", english, re.MULTILINE))
-                    expected = TASK_COUNTS[slug]
-                    if expected:
-                        self.assertEqual(count, expected)
-                    self.assertEqual(english.count("**English lab requirement:**"), count)
-                    self.assertEqual(english.count("**Annotated solution"), count)
-                    # Within each task block, the requirement must occur before a code fence.
-                    for section in re.split(r"(?=^## Task \d+\b)", english, flags=re.MULTILINE)[1:]:
-                        self.assertLess(section.index("**English lab requirement:**"), section.index("**Annotated solution"))
+                with self.subTest(original_word_lab=slug):
+                    path = EXPORT_ROOT / (slug + ".md")
+                    self.assertTrue(path.is_file(), f"Missing consolidated Word lab: {path}")
+                    text = path.read_text(encoding="utf-8")
+                    tasks = list(re.finditer(r"^## Bài (\d+)(?:\s|$)", text, flags=re.MULTILINE))
+                    self.assertEqual(len(tasks), COUNTS[slug])
+                    self.assertEqual([int(m[1]) for m in tasks], list(range(1, COUNTS[slug]+1)))
+                    for i, m in enumerate(tasks):
+                        end = tasks[i+1].start() if i+1 < len(tasks) else len(text)
+                        section = text[m.start():end]
+                        markers = [
+                            "### English",
+                            "### Tiếng Việt",
+                            "### Bài giải",
+                            "### Giải thích",
+                        ]
+                        positions = [section.find(q) for q in markers]
+                        self.assertTrue(all(p >= 0 for p in positions), f"Missing required section: {slug} task {i+1}")
+                        self.assertEqual(positions, sorted(positions))
                         self.assertIn("```python", section)
+                        snippets = re.findall(r"```python\n([\s\S]*?)^```", section, flags=re.MULTILINE)
+                        self.assertTrue(snippets, f"No Python from source for {slug} task {i+1}")
+                        for snippet in snippets:
+                            compile(snippet, f"{path}:task{i+1}", "exec")
+                        # Do not accept only a call without implementation or source.
+                        self.assertIn("def ", section)
+                        self.assertRegex(section, r"SOLUTION\.py|SOLUTION_ANNOTATED\.py|DEMO\.py")
+                    self.assertNotIn("LAB-MATH-02", path.name)
 
-    def test_active_and_completed_scripts_run_noninteractive(self):
+    def test_one_file_contract_on_completed_goal(self):
         progress = json.loads(LEDGER.read_text(encoding="utf-8"))
-        active_labs = {slug for batch in progress["batches"]
-                       if batch["status"] != "PENDING" for slug in batch["labs"]}
-        for slug, terms in SMOKE.items():
-            if slug not in active_labs:
-                continue
-            with self.subTest(lab=slug):
-                folder = EXPORTS / slug
-                source = folder / "SOLUTION_ANNOTATED.py"
-                self.assertTrue(source.exists())
-                args = [sys.executable, "-B", str(source)]
-                if slug.startswith("ASSIGNMENT") or slug in ("LAB-05-student-list", "LAB-10-file-csv"):
-                    args.append("--demo")
-                result = subprocess.run(
-                    args, cwd=folder, capture_output=True, text=True,
-                    encoding="utf-8", timeout=45
-                )
-                self.assertEqual(result.returncode, 0, result.stderr)
-                for term in terms:
-                    self.assertIn(term, result.stdout)
+        if progress["status"] != "COMPLETED":
+            return
+        self.assertEqual(progress["completed_lab_units"], 7)
+        for slug in COUNTS:
+            self.assertTrue((EXPORT_ROOT / (slug + ".md")).is_file())
+            self.assertFalse((EXPORT_ROOT / slug).exists(), "Legacy multi-file lab must be cleared")
+        self.assertFalse((EXPORT_ROOT / "LAB-MATH-02-sets-jaccard").exists())
+        self.assertFalse((EXPORT_ROOT / "LAB-MATH-03-04-matrix-pca").exists())
 
 
 if __name__ == "__main__":

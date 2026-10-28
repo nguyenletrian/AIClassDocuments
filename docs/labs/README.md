@@ -1,21 +1,23 @@
-# English lab assignments with fully annotated solutions
+# Original Word Labs — one bilingual document per Word file
 
-Every lab has its own folder. In each folder, open **LAB_EN_SOLVED.md** to read the English requirements followed immediately by a commented solution for every task; **SOLUTION_ANNOTATED.py** is the complete runnable reference implementation.
+**Owner-corrected format:** One original Word assignment corresponds to **one Markdown document** in this folder. Every question is arranged in this order:
 
-## Source inventory and roadmap
+**English original prompt → Vietnamese translation → source-traceable solution code → explanation of the steps and relevant formulas.**
 
-| Lab | Source material | Export folder | Batch |
-|---|---|---|---|
-| Math 02 — Sets, Jaccard and graph | `PythoClass/2. Math/labs2.ipynb` (new 27 Oct) | [LAB-MATH-02](LAB-MATH-02-sets-jaccard/) | 1 |
-| Math 03–04 — Matrix and PCA | `PythoClass/2. Math/labs3_4.ipynb` (new 27 Oct) | [LAB-MATH-03-04](LAB-MATH-03-04-matrix-pca/) | 1 |
-| Assignment 01 — Dictionary | `Ass 1.docx`, owner demo | [ASSIGNMENT-01](ASSIGNMENT-01-student-dictionary/) | 1 |
-| Lab 04 — Conditions/loops | `LAB Session 4.docx` | [LAB-04](LAB-04-conditions-loops/) | 2 |
-| Lab 05 — Student list | `Lab Session 5.docx` | [LAB-05](LAB-05-student-list/) | 2 |
-| Lab 10 — File/CSV | `Lab Session 10.docx` | [LAB-10](LAB-10-file-csv/) | 2 |
-| Lab 05–06 — Gradient descent | `LAB SESSION 5_6.docx` + updated `2. Math/labs5_6.ipynb` | LAB-05-06-gradient-descent | 3 |
-| Lab 07 — Probability | `LAB SESSION 7.docx` | LAB-07-probability | 3 |
-| Lab 08 — Statistics | `LAB SESSION 8.docx` + updated `2. Math/labs8.ipynb` | LAB-08-statistics | 3 |
+The source is the Word-derived transcription in `labs/pythoclass/<slug>/LAB.md`, verified against the existing `DEMO.py` and learning materials. If the owner demonstration did not fully solve a task, the document labels a pre-existing reviewed `SOLUTION.py` or annotated copy explicitly; it does **not** present new invented solutions as the owner's original demo. The original private `PythoClass` repo remains untouched.
 
-Existing seven Word-source lab folders stay under [labs/pythoclass](../../labs/pythoclass/) and remain unchanged. The two new Math units are **reconstructed from notebook section headings and sample code** rather than claimed to be literal translations of new Word briefs. Previous English Word transcriptions are reused to avoid inventing missing source text. Source repository remains private and is not modified by this export.
+| Original Word file (one unique assignment) | Consolidated document |
+|---|---|
+| `Ass 1.docx` | [Assignment 01 — Dictionary](ASSIGNMENT-01-student-dictionary.md) |
+| `LAB Session 4.docx` | [Lab 04 — Conditions & Loops](LAB-04-conditions-loops.md) |
+| `Lab Session 5.docx` | [Lab 05 — List-based Student Manager](LAB-05-student-list.md) |
+| `LAB SESSION 5_6.docx` | Lab 05–06 — Gradient Descent (Batch 02) |
+| `LAB SESSION 7.docx` | Lab 07 — Probability (Batch 02) |
+| `LAB SESSION 8.docx` | Lab 08 — Statistics (Batch 02) |
+| `Lab Session 10.docx` | Lab 10 — CSV (Batch 03) |
 
-Progress and CI evidence: [LAB-EN-SOLUTIONS-PROGRESS.json](../LAB-EN-SOLUTIONS-PROGRESS.json). A batch is complete only after a merged PR and CI on the exact PR head SHA.
+**Exclusions:** `MON 2/LAB SESSION 5_6.docx` duplicates the Word 5–6 assignment; `Pretest.docx` is not a lab. The `2. Math/labs2.ipynb` and `labs3_4.ipynb` notebooks are reference practice examples, not separate source Word assignments, so they do not count toward these seven documents.
+
+**Historical files:** The previous multiple-file layout from PR #185/#186 was based on a misunderstanding and is superseded by this corrected seven-document format. Source practice code remains available in `labs/pythoclass`; legacy extra exports will be cleared before the corrected goal is declared complete.
+
+See [goal and constraints](../LAB-EN-SOLUTIONS-GOAL.json) and [verification progress](../LAB-EN-SOLUTIONS-PROGRESS.json). The original Lab04 electric bill example (282,000 VND) conflicts with its progressive tariff table (240,000 VND); both values are retained and explained.

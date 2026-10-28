@@ -1,7 +1,7 @@
 {
   "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
   "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
-  "status": "READY_FOR_BATCH_01_REVISED",
+  "status": "BATCH_01_REVISED_IN_PROGRESS",
   "last_completed_batch": 0,
   "expected_batches": 3,
   "expected_lab_units": 7,
@@ -15,7 +15,12 @@
         "LAB-04-conditions-loops",
         "LAB-05-student-list"
       ],
-      "status": "PENDING"
+      "status": "IN_PROGRESS",
+      "exported_paths": [
+        "docs/labs/ASSIGNMENT-01-student-dictionary.md",
+        "docs/labs/LAB-04-conditions-loops.md",
+        "docs/labs/LAB-05-student-list.md"
+      ]
     },
     {
       "batch": 2,
