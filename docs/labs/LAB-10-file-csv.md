@@ -88,7 +88,21 @@ Các cột của file là `student_id,name,class_name,Python,Math,ML`; tên `Lea
 
 `csv.DictReader` đọc bảng dựa trên tên cột. `Path` trỏ đúng file cạnh chương trình; kiểm tra header và kiểm tra từng record trước khi in qua `display()`. Nếu thiếu file, dừng có thông báo thay vì trả dữ liệu bịa.
 
-**Công thức / quy tắc:** Định dạng cột cố định: `student_id,name,class_name,Python,Math,ML`. Không có công thức.
+**Vì sao đọc theo tên cột?** Bảng điểm có sáu trường; dùng `DictReader` giúp mỗi dòng mang tên trường rõ ràng, tránh hiểu sai vị trí cột.
+
+**Các bước:** (1) Xác định đường dẫn CSV ở cạnh script. (2) Mở file với mã hóa phù hợp. (3) Đọc header, kiểm tra đủ tên cột. (4) Đọc từng dòng và kiểm tra dữ liệu trước khi in.
+~~~python
+import csv
+from pathlib import Path
+path = Path("students.csv")
+with path.open("r", encoding="utf-8", newline="") as f:
+    reader = csv.DictReader(f)
+    required = {"student_id", "name", "class_name", "Python", "Math", "ML"}
+    if not required.issubset(reader.fieldnames or []):
+        raise ValueError("Thiếu cột CSV")
+    rows = list(reader)
+~~~
+**Tham số và cú pháp:** `"r"` là chế độ đọc; `encoding="utf-8"` đọc tiếng Việt; `newline=""` cho thư viện CSV tự xử lý xuống dòng; `DictReader` tạo từng dictionary theo tên cột; `issubset` kiểm tra đủ trường bắt buộc; `list(reader)` gom các hàng. Nếu thiếu file, cần báo `FileNotFoundError` thay vì tự tạo dữ liệu không có trong nguồn.
 
 **Chi tiết kiểm tra:** Đọc tệp bằng `csv.DictReader`; đối chiếu tiêu đề phải đủ sáu cột; mỗi hàng được chuyển thành dict, cần xử lý `FileNotFoundError` rõ ràng.
 
@@ -100,7 +114,18 @@ Các cột của file là `student_id,name,class_name,Python,Math,ML`; tên `Lea
 
 `validate()` buộc ba trường ID/tên/lớp không rỗng, chuyển ba điểm sang `float`, kiểm tra 0–100. `add_student()` chỉ thêm nếu mã không nằm trong danh sách. Đó là code tham khảo đã có, từ phần thực hành CSV (tệp phân cách bằng dấu phẩy) và kiểm tra dữ liệu.
 
-**Công thức / quy tắc:** Với mỗi môn: 0 ≤ score (điểm số) ≤ 100; điều kiện ID mới: không tồn tại trong các bản ghi hiện tại.
+**Vì sao phải kiểm tra trước khi thêm?** ID là định danh duy nhất. Nếu thêm ID đã tồn tại hoặc điểm không hợp lệ, kết quả tìm kiếm và thống kê sẽ sai.
+
+**Các bước:** (1) Nhập ID, tên, lớp, ba điểm. (2) Bỏ khoảng trắng đầu/cuối, chuyển điểm sang số thực. (3) Kiểm tra điểm trong khoảng 0–100. (4) Tìm ID cũ trước khi chèn; nếu đã có thì báo lỗi.
+~~~python
+student_id = "S011".strip()
+scores = {"Python": 85.0, "Math": 90.0, "ML": 88.0}
+valid_scores = all(0 <= grade <= 100 for grade in scores.values())
+duplicate = any(row["student_id"] == student_id for row in rows)
+if not student_id or not valid_scores or duplicate:
+    raise ValueError("ID hoặc điểm không hợp lệ, hoặc ID bị trùng")
+~~~
+**Cú pháp và toán tử:** `.strip()` bỏ khoảng trắng; `float(...)` chuyển chuỗi điểm thành số; `all(...)` chỉ đúng nếu **mọi** điểm hợp lệ; `any(...)` đúng nếu có **ít nhất một** bản ghi trùng; `<=` so sánh biên; `or` là hoặc, `not` là phủ định. Đây là quy tắc dữ liệu của code, không phải tự phát sinh từ CSV.
 
 **Chi tiết kiểm tra:** `validate` loại bỏ chuỗi rỗng, chuyển 3 điểm thành `float` và kiểm tra `0 ≤ score ≤ 100`. Kiểm tra `student_id` mới không trùng trước khi thêm.
 
@@ -112,7 +137,14 @@ Các cột của file là `student_id,name,class_name,Python,Math,ML`; tên `Lea
 
 Dùng ID đã được `.strip()` để tìm bản ghi đúng. `next(...,None)` trả kết quả đầu tiên, hoặc None nếu không tìm thấy; không dùng tìm tên để thay cho tìm mã.
 
-**Công thức / quy tắc:** Quy tắc tìm kiếm: `record['student_id'] == student_id` (khớp chính xác sau khi bỏ dấu cách đầu/cuối).
+**Vì sao tìm đúng ID thay vì tìm gần giống?** ID là khóa duy nhất, nên tìm chính xác giúp tránh nhầm S01 với S010 hoặc hai sinh viên có cùng tên.
+
+**Các bước:** (1) Nhận ID cần tìm và bỏ khoảng trắng. (2) Duyệt các dòng. (3) So sánh chuỗi ID bằng `==`. (4) Trả bản ghi đầu tiên khớp hoặc trả `None` nếu không có.
+~~~python
+query = "S003".strip()
+found = next((row for row in rows if row["student_id"] == query), None)
+~~~
+**Cú pháp:** `==` so sánh bằng, không phải gán; `next(iterator, None)` lấy phần tử đầu thỏa điều kiện, trả `None` khi không có; `row["student_id"]` truy cập cột theo tên. Trước khi tìm phải thống nhất cách lưu ID (hoa/thường theo yêu cầu), không tự suy đoán bản ghi.
 
 **Chi tiết kiểm tra:** Tìm ID sau khi `strip()` qua các dòng, trả bản ghi trùng mã hoặc `None` nếu không có; tránh tìm bằng tên thay cho mã.
 
@@ -124,7 +156,16 @@ Dùng ID đã được `.strip()` để tìm bản ghi đúng. `next(...,None)` 
 
 Đọc ba điểm đã xác thực của cùng một người, cộng và chia cho ba. Không cộng điểm của tất cả sinh viên rồi mới chia.
 
-**Công thức / quy tắc:** Điểm trung bình = (Python + Math + ML) / 3.
+**Vì sao tính trung bình từng sinh viên?** Đề yêu cầu tổng hợp ba môn của **mỗi người**, nên không cộng điểm của mọi sinh viên với nhau.
+
+**Các bước:** (1) Lấy ba điểm Python, Math, ML của cùng một hàng. (2) Đổi về số thực khi đọc CSV. (3) Cộng ba điểm, chia số môn. (4) In trung bình với số chữ số thập phân phù hợp.
+~~~python
+subject_names = ["Python", "Math", "ML"]
+grades = [float(student[name]) for name in subject_names]
+average = sum(grades) / len(subject_names)
+print(f"{average:.2f}")
+~~~
+**Cú pháp và flag:** `sum` cộng điểm; `len` đếm số môn (3); `/` chia thực; `float` tránh cộng chuỗi. `:.2f` trong f-string chỉ **hiển thị hai chữ số thập phân**, không làm thay đổi giá trị `average` dùng ở các phép tính khác.
 
 **Chi tiết kiểm tra:** Điểm trung bình sinh viên = (điểm Python + điểm Math + điểm ML)/3. Chỉ tính trên các môn của cùng một sinh viên.
 
@@ -136,7 +177,17 @@ Dùng ID đã được `.strip()` để tìm bản ghi đúng. `next(...,None)` 
 
 Dùng `csv.DictWriter` tạo header, lần lượt ghi các dòng. Script tham khảo ghi sang tệp tạm rồi `os.replace` tệp đích nếu thành công, hạn chế hỏng file khi ghi dở. Không ghi file trong chế độ `--demo`.
 
-**Công thức / quy tắc:** Số dòng sau khi thêm = số dòng trước + 1 nếu mã duy nhất và dữ liệu hợp lệ; việc ghi không làm mất sáu cột nguồn.
+**Vì sao lưu qua file tạm?** Nếu đang ghi mà xảy ra lỗi, ghi trực tiếp có nguy cơ làm hỏng dữ liệu cũ. Ghi file tạm trước rồi thay thế khi hoàn tất là cách giảm rủi ro.
+
+**Các bước:** (1) Xác thực toàn bộ các dòng. (2) Tạo file tạm trong cùng thư mục đích. (3) Ghi đúng sáu tên cột và từng bản ghi bằng `DictWriter`. (4) Đóng file, dùng `os.replace` thay file đích; xử lý lỗi và xóa file tạm chưa dùng.
+~~~python
+writer = csv.DictWriter(out, fieldnames=FIELDS)
+writer.writeheader()
+for row in rows:
+    writer.writerow(validate(row))
+# Sau khi đóng file tạm: os.replace(tmp, path)
+~~~
+**Flag và tham số quan trọng của code cuối bài:** `fieldnames=FIELDS` bắt buộc thứ tự cột; `writeheader()` ghi dòng tiêu đề; `writerow` ghi một hàng. `NamedTemporaryFile(mode="w", encoding="utf-8", newline="", dir=path.parent, delete=False)` tạo file tạm trong cùng thư mục; `delete=False` để file còn tồn tại cho `os.replace` sau khi đóng. `path.parent.mkdir(parents=True, exist_ok=True)` tạo thư mục thiếu, không báo lỗi khi đã tồn tại. Chỉ lưu khi người dùng chọn chức năng Save.
 
 **Chi tiết kiểm tra:** Ghi header bằng `csv.DictWriter`, tạo file tạm và `os.replace` khi hoàn tất để tránh ghi dở; chỉ lưu khi chọn chức năng 5.
 
@@ -148,7 +199,18 @@ Dùng `csv.DictWriter` tạo header, lần lượt ghi các dòng. Script tham k
 
 `main()` đọc CSV (tệp phân cách bằng dấu phẩy), mở menu lặp và gọi đúng hàm theo lựa chọn. Người dùng chọn 0 thì kết thúc; thao tác Save ở lựa chọn 5 được thực hiện riêng để không tự ý ghi.
 
-**Công thức / quy tắc:** Không có công thức: điều kiện dừng là lựa chọn menu Exit. Biến `dirty` theo dõi dữ liệu chưa lưu.
+**Vì sao tách Exit khỏi Save?** Người dùng có thể đang xem hoặc chỉnh dữ liệu; thoát không đồng nghĩa tự ý ghi đè file. Menu phải kiểm soát trạng thái thay đổi và cho người dùng quyết định.
+
+**Các bước:** (1) Hiển thị menu trong vòng lặp. (2) Dựa vào lựa chọn để gọi hàm tương ứng. (3) Khi thêm/sửa thì đánh dấu `dirty=True`. (4) Khi Save thành công đặt lại `dirty=False`. (5) Khi Exit, cảnh báo nếu còn dữ liệu chưa lưu rồi dừng.
+~~~python
+dirty = True
+choice = "0"
+if choice == "0":
+    if dirty:
+        print("Có thay đổi chưa lưu")
+    # Nhánh menu chính quyết định có kết thúc vòng lặp hay không.
+~~~
+**Cú pháp:** `==` là so sánh lựa chọn; `if` chỉ chạy khi điều kiện đúng; `dirty` là biến Boolean (đúng/sai) cho biết đã thay đổi dữ liệu trong bộ nhớ chưa được ghi xuống CSV. `break` dừng vòng lặp `while True` trong hàm menu. Không dùng phép tính trung bình để quyết định Exit.
 
 **Chi tiết kiểm tra:** Menu chạy trong `while True`; lựa chọn Exit sẽ dừng mà không ghi file ngoài ý muốn; kiểm tra và thông báo khi người dùng có thay đổi chưa lưu.
 
