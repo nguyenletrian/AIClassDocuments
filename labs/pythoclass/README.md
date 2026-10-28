@@ -31,3 +31,14 @@ Mỗi folder tương ứng với **một đề Word cụ thể** trong repositor
 Nguồn: `nguyenletrian/PythoClass`, 7 tệp DOCX và các notebook/script tương ứng. Repository nguồn được giữ nguyên. Vì AIClassDocuments công khai, tên học viên trong ví dụ và code được thay bằng mã/tên giả khi có nguy cơ lộ danh tính. **Đề Lab 4 có một ví dụ tiền điện không khớp bảng giá**, đã được chú thích thay vì sửa âm thầm. `LAB SESSION 5_6.docx` có một bản trùng dưới `MON 2/`; chỉ lập một bộ lab.
 
 Không chèn trực tiếp 13 bộ bài tập tự sinh của đợt trước vào bộ này. Mục tiêu là **đối chiếu từng lab Word với code thực tế bạn đã viết**.
+
+## Notebook labs updated 2026-10-27
+
+The source update added Math practice notebooks independent of the original seven Word briefs. These are **not represented as verbatim Word translations**:
+
+| Notebook | Source-linked lab folder | English tasks + solutions export |
+|---|---|---|
+| `2. Math/labs2.ipynb` | [Sets/Jaccard](LAB-MATH-02-sets-jaccard/LAB.md) | [English solved lab](../../docs/labs/LAB-MATH-02-sets-jaccard/LAB_EN_SOLVED.md) |
+| `2. Math/labs3_4.ipynb` | [Matrix/PCA](LAB-MATH-03-04-matrix-pca/LAB.md) | [English solved lab](../../docs/labs/LAB-MATH-03-04-matrix-pca/LAB_EN_SOLVED.md) |
+
+The updated `2. Math/labs5_6.ipynb` and `2. Math/labs8.ipynb` are supplemental examples for the existing Gradient Descent and Statistics Word labs. The owner-approved output folders under [docs/labs](../../docs/labs/README.md) place fully annotated solutions immediately below each English requirement. The source repository is read-only during export.
