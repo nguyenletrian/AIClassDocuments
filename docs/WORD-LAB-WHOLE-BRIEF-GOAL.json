@@ -72,8 +72,13 @@
     "revision": "2026-10-28-en-vi-per-question-detailed-inline-comments",
     "owner_approved": true,
     "scope": "All eight already-complete Word lab documents",
-    "status": "CHANGES_IN_PULL_REQUEST",
+    "status": "COMPLETED",
     "branch": "feat/word-labs-interleaved-bilingual-inline-notes-20261028",
-    "policy": "Do not claim this revision merged until exact-head pull_request CI success."
+    "policy": "Do not claim this revision merged until exact-head pull_request CI success.",
+    "pr_number": 194,
+    "merge_sha": "9e894acb44efd4d1dd01768f6c3136b3c3a48539",
+    "final_pr_head_sha": "0b5cd4af76c27018d1d4ec306857b52979f94bdb",
+    "ci_run_id": 40702199614,
+    "ci_conclusion": "SUCCESS"
   }
 }
