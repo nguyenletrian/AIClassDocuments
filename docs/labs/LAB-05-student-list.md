@@ -173,7 +173,7 @@ Dùng vòng `while True` hiển thị menu, chọn tác vụ theo `if/elif`, x�
 choice = "0"
 if choice == "0":
     print("Kết thúc")
-    # Trong vòng lặp menu, sử dụng break để dừng.
+    print("Đây là ví dụ kiểm tra lựa chọn; menu chính dùng break")
 ~~~
 **Giải thích:** `input(...)` trả chuỗi; `==` so sánh chuỗi lựa chọn, `break` dùng **bên trong vòng lặp** mới dừng được vòng lặp; `while True` nghĩa là chạy liên tục cho đến khi có lệnh dừng. Không có phép tính toán học cho chức năng Exit.
 
