@@ -1191,7 +1191,7 @@
     "approval": "approved",
     "status": "completed",
     "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-    "revision": "2026-10-28-eight-original-word-labs-with-pretest-COMPLETED",
+    "revision": "2026-10-28-bilingual-per-question-inline-code-comments-COMPLETED",
     "title": "Whole English brief then complete Vietnamese brief, detailed solution and full commented code per Word lab plus Pretest",
     "phase": "COMPLETED",
     "goal_spec": "docs/WORD-LAB-WHOLE-BRIEF-GOAL.json",
@@ -1201,9 +1201,9 @@
     "batch_limit": 3,
     "active_batch": null,
     "active_labs": [],
-    "next_review": "COMPLETED: 8/8 original Word assignments, 4/4 batches, each one Markdown file with entire original English prompt/table/equation, entire Vietnamese translation, detailed methods/formulas and one fully annotated existing-example-based Python program. Pretest source recovered directly by owner upload, source SHA256 6ae75a33707108baa466546ff8a9457ac9090728db4bf481fdae623b2b6beaad; original loss L(w)=(w-4)^2 and five student rows verified. Pretest PR193 merge c08239335206b9fcc30185c6773a76ae93f417c8, final head 3d45e3b67604c6b3377277a0fed8029d7cea5420, PR CI 40698235338 SUCCESS. Prior 7 labs PR190/191/192 SUCCESS. Exactly 8 source Word lab Markdown documents and one README in docs/labs, no nested exports, open PRs 0, pending Bridge tasks 0. No new owner-approved goal; goal review disabled. Windows/PowerShell and CDP9224 direct validation UNVERIFIED.",
-    "review_hold": "Goal completed including source-verified Pretest; no repeated heartbeat tasks or new goal without owner approval.",
-    "batch_boundary": "GOAL_COMPLETED_8_SOURCE_WORD_DOCS_4_BATCHES"
+    "next_review": "COMPLETED. Owner-approved revision to all 8 original Word labs merged PR194 (merge 9e894acb44efd4d1dd01768f6c3136b3c3a48539), exact final PR head 0b5cd4af76c27018d1d4ec306857b52979f94bdb, GitHub CI run 40702199614 SUCCESS. Every lab one Markdown document: original English question immediately followed by Vietnamese translation, then detailed reasoning, formulas, examples and parenthesized glossary. Full program at end with Vietnamese inline comments on the same code line, no standalone comment-only code lines and no ast.Assert; old checks replaced with if/ValueError. CI executes all 8 scripts. Goal and progress ledger are COMPLETED, 8/8. No new goal approved; do not create heartbeat tasks, no open PRs. Windows PowerShell/CDP 9224 direct validation remains UNVERIFIED.",
+    "review_hold": "Completed user revision to eight Word labs: PR194 with exact-head CI SUCCESS. Suppress informational idle reminders, avoid duplicates.",
+    "batch_boundary": "REVISION_COMPLETED_8_WORD_LABS_EN_VI_PER_QUESTION_INLINE_CODE_NOTES"
   },
   "goal_review_history": [
     {
@@ -1333,6 +1333,6 @@
   ],
   "owner_pause": {
     "suppress_idle_reminders": true,
-    "reason": "All eight bilingual one-file-per-Word lab documents including Pretest merged with head-specific CI SUCCESS; no successor goal approved."
+    "reason": "Eight Word lab editorial revision PR194 merged, CI successful. No approved follow-up goal."
   }
 }
