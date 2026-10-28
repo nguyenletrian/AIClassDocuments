@@ -1,23 +1,20 @@
-# Original Word Labs — one bilingual document per Word file
+# Word Labs — Đề Anh, đề Việt, hướng giải và code đầy đủ
 
-**Owner-corrected format:** One original Word assignment corresponds to **one Markdown document** in this folder. Every question is arranged in this order:
+**Mỗi file Word là một tài liệu Markdown duy nhất.** Toàn bộ đề tiếng Anh xuất hiện trước, sau đó là **toàn bộ bản dịch tiếng Việt**, tiếp theo là **quy trình giải chi tiết và công thức**, cuối cùng là **một khối code Python đầy đủ có chú thích** để học viên sao chép chạy. Không xen đề và lời giải theo từng câu.
 
-**English original prompt → Vietnamese translation → source-traceable solution code → explanation of the steps and relevant formulas.**
-
-The source is the Word-derived transcription in `labs/pythoclass/<slug>/LAB.md`, verified against the existing `DEMO.py` and learning materials. If the owner demonstration did not fully solve a task, the document labels a pre-existing reviewed `SOLUTION.py` or annotated copy explicitly; it does **not** present new invented solutions as the owner's original demo. The original private `PythoClass` repo remains untouched.
-
-| Original Word file (one unique assignment) | Consolidated document |
+| File Word | Tài liệu hoàn chỉnh |
 |---|---|
-| `Ass 1.docx` | [Assignment 01 — Dictionary](ASSIGNMENT-01-student-dictionary.md) |
-| `LAB Session 4.docx` | [Lab 04 — Conditions & Loops](LAB-04-conditions-loops.md) |
-| `Lab Session 5.docx` | [Lab 05 — List-based Student Manager](LAB-05-student-list.md) |
-| `LAB SESSION 5_6.docx` | [Lab 05–06 — Gradient Descent](LAB-05-06-gradient-descent.md) |
-| `LAB SESSION 7.docx` | [Lab 07 — Probability](LAB-07-probability.md) |
-| `LAB SESSION 8.docx` | [Lab 08 — Statistics](LAB-08-statistics.md) |
-| `Lab Session 10.docx` | [Lab 10 — CSV](LAB-10-file-csv.md) |
+| Ass 1.docx | [Assignment 1 — Dictionary](ASSIGNMENT-01-student-dictionary.md) |
+| LAB Session 4.docx | [Lab 4 — Điều kiện/vòng lặp](LAB-04-conditions-loops.md) |
+| Lab Session 5.docx | [Lab 5 — Student List](LAB-05-student-list.md) |
+| LAB SESSION 5_6.docx | [Lab 5–6 — Gradient Descent](LAB-05-06-gradient-descent.md) |
+| LAB SESSION 7.docx | [Lab 7 — Probability](LAB-07-probability.md) |
+| LAB SESSION 8.docx | [Lab 8 — Statistics](LAB-08-statistics.md) |
+| Lab Session 10.docx | [Lab 10 — CSV](LAB-10-file-csv.md) |
+| Pretest.docx | **Chưa trích xuất được nội dung gốc** — file nhị phân trong repo PythoClass hiện không đọc được qua kết nối GitHub văn bản; không tự tạo đề hoặc lời giải. |
 
-**Exclusions:** `MON 2/LAB SESSION 5_6.docx` duplicates the Word 5–6 assignment; `Pretest.docx` is not a lab. The `2. Math/labs2.ipynb` and `labs3_4.ipynb` notebooks are reference practice examples, not separate source Word assignments, so they do not count toward these seven documents.
+**Nguồn đề:** các bản chép Word trong `labs/pythoclass/<lab>/LAB.md`; riêng Pretest cần nội dung DOCX xác thực. **Nguồn code:** các bản `DEMO.py`, code giáo trình hoặc `SOLUTION.py` được lưu từ trước; mã giải tham khảo được gắn đúng nguồn, không nhận nhầm là code demo do học viên viết. Repo PythoClass không bị chỉnh sửa.
 
-**Historical files:** The previous multiple-file layout from PR #185/#186 was based on a misunderstanding and is superseded by this corrected seven-document format. Source practice code remains available in `labs/pythoclass`; The obsolete multi-file output folders have been retired; this directory contains seven lab documents and one navigation README.
+**Lưu ý Lab 4:** đề cho ví dụ 120 kWh = 282.000 VND nhưng bảng giá lũy tiến dẫn tới 240.000 VND. Giữ giá trị đề gốc ở phần tiếng Anh và giải thích sai khác ở mục hướng giải.
 
-See [goal and constraints](../LAB-EN-SOLUTIONS-GOAL.json) and [verification progress](../LAB-EN-SOLUTIONS-PROGRESS.json). The original Lab04 electric bill example (282,000 VND) conflicts with its progressive tariff table (240,000 VND); both values are retained and explained.
+Theo dõi tiến độ và giới hạn về Pretest tại [WORD-LAB-WHOLE-BRIEF-PROGRESS.json](../WORD-LAB-WHOLE-BRIEF-PROGRESS.json).
