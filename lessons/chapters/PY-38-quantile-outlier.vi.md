@@ -631,64 +631,64 @@ D. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc b
 **Giải thích:** Pandas dùng mốc 0 cho chuẩn.
 
 
-**Q5. What is the Q2 quantile? | Q2 là phân vị nào?**
+**Q5. If Q1 = 4 and Q3 = 10, what is the interquartile range (IQR)? | Nếu Q1 = 4, Q3 = 10, khoảng tứ phân vị IQR là bao nhiêu?**
 
-A. The median | Trung vị
+A. 14 | 14
 
-B. The 75th-percentile value | Giá trị phân vị 75%
+B. 6 | 6
 
-C. Q3+1.5×IQR | Q3+1.5×IQR
+C. 4 | 4
 
-D. Q1−1.5×IQR | Q1−1.5×IQR
-
-**Đáp án: A**
-
-**Giải thích:** Q2 tương ứng phân vị 50%.
-
-
-**Q6. What does np.quantile(x,0.75) return? | np.quantile(x,0.75) trả gì?**
-
-A. The median | Trung vị
-
-B. The 75th-percentile value | Giá trị phân vị 75%
-
-C. Q3+1.5×IQR | Q3+1.5×IQR
-
-D. Q1−1.5×IQR | Q1−1.5×IQR
+D. 2.5 | 2.5
 
 **Đáp án: B**
 
-**Giải thích:** Đây là Q3 theo quy ước nội suy đã chọn.
+**Giải thích:** IQR = Q3 − Q1 = 10 − 4 = 6.
 
 
-**Q7. How is an upper IQR fence computed? | Ngưỡng trên IQR được tính sao?**
+**Q6. If Q1 = 4 and Q3 = 10, what is the upper outlier fence using 1.5 × IQR? | Nếu Q1 = 4 và Q3 = 10, ngưỡng ngoại lệ trên theo quy tắc 1.5 × IQR bằng bao nhiêu?**
 
-A. The median | Trung vị
+A. 16 | 16
 
-B. The 75th-percentile value | Giá trị phân vị 75%
+B. 15 | 15
 
-C. Q3+1.5×IQR | Q3+1.5×IQR
+C. 19 | 19
 
-D. Q1−1.5×IQR | Q1−1.5×IQR
+D. 21 | 21
 
 **Đáp án: C**
 
-**Giải thích:** Giá trị vượt được gắn cờ rà soát.
+**Giải thích:** IQR = 6, nên ngưỡng trên = Q3 + 1.5 × IQR = 10 + 9 = 19.
 
 
-**Q8. How is a lower IQR fence computed? | Ngưỡng dưới IQR được tính sao?**
+**Q7. A value is flagged as an outlier by the IQR rule. What can we conclude? | Một giá trị bị đánh dấu ngoại lệ theo quy tắc IQR. Kết luận nào hợp lý?**
 
-A. The median | Trung vị
+A. It needs checking, but is not necessarily wrong | Nên kiểm tra, nhưng chưa chắc là dữ liệu sai
 
-B. The 75th-percentile value | Giá trị phân vị 75%
+B. It must be deleted | Bắt buộc phải xóa
 
-C. Q3+1.5×IQR | Q3+1.5×IQR
+C. It proves a sensor failed | Chứng minh cảm biến bị lỗi
 
-D. Q1−1.5×IQR | Q1−1.5×IQR
+D. It must equal the median | Nó bằng trung vị
+
+**Đáp án: A**
+
+**Giải thích:** Quy tắc IQR chỉ đánh dấu giá trị nằm xa vùng giữa dữ liệu. Ngoại lệ có thể là giá trị thật.
+
+
+**Q8. In a typically right-skewed distribution, which comparison is often observed? | Trong phân phối lệch phải điển hình, mối quan hệ nào thường gặp?**
+
+A. Mean = median always | Trung bình luôn bằng trung vị
+
+B. Mean < median always | Trung bình luôn nhỏ hơn trung vị
+
+C. Standard deviation is zero | Độ lệch chuẩn bằng 0
+
+D. Mean > median often | Trung bình thường lớn hơn trung vị
 
 **Đáp án: D**
 
-**Giải thích:** Giá trị dưới là ứng viên ngoại lệ.
+**Giải thích:** Đuôi kéo dài về bên phải thường làm trung bình bị kéo lên mạnh hơn trung vị; đây không phải quy tắc bắt buộc cho mọi bộ dữ liệu.
 
 
 **Q9. What does positive skew suggest? | Skew dương gợi ý gì?**
