@@ -1,10 +1,10 @@
 {
   "goal_id": "aiclassdocuments-whole-brief-bilingual-full-code-pretest-20261028",
-  "status": "BATCH_01_IN_PROGRESS",
+  "status": "READY_FOR_BATCH_02",
   "expected_word_documents": 8,
-  "completed_word_documents": 0,
-  "complete_nonpretest_docs": 0,
-  "last_completed_batch": 0,
+  "completed_word_documents": 3,
+  "complete_nonpretest_docs": 3,
+  "last_completed_batch": 1,
   "batches": [
     {
       "batch": 1,
@@ -13,12 +13,17 @@
         "LAB-04-conditions-loops",
         "LAB-05-student-list"
       ],
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "paths": [
         "docs/labs/ASSIGNMENT-01-student-dictionary.md",
         "docs/labs/LAB-04-conditions-loops.md",
         "docs/labs/LAB-05-student-list.md"
-      ]
+      ],
+      "pr_number": 190,
+      "merge_sha": "f34cb1bba2253980ef317f54eff2478a54ce1993",
+      "head": "fc0bc1651407b72c4fdcb69c34fffe2e34bed038",
+      "ci_run": 40692860929,
+      "ci_conclusion": "SUCCESS"
     },
     {
       "batch": 2,
