@@ -1,11 +1,11 @@
 {
   "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
   "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
-  "status": "BATCH_01_REVISED_IN_PROGRESS",
-  "last_completed_batch": 0,
+  "status": "READY_FOR_BATCH_02_REVISED",
+  "last_completed_batch": 1,
   "expected_batches": 3,
   "expected_lab_units": 7,
-  "completed_lab_units": 0,
+  "completed_lab_units": 3,
   "export_root": "docs/labs",
   "batches": [
     {
@@ -15,12 +15,21 @@
         "LAB-04-conditions-loops",
         "LAB-05-student-list"
       ],
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "exported_paths": [
         "docs/labs/ASSIGNMENT-01-student-dictionary.md",
         "docs/labs/LAB-04-conditions-loops.md",
         "docs/labs/LAB-05-student-list.md"
-      ]
+      ],
+      "pr_number": 187,
+      "merge_sha": "1aa3e9c2513db28c2119ec356b66d1d207e85e22",
+      "final_pr_head_sha": "771c1637d6dbac662aa3ac2f33e050a31f718bf5",
+      "ci_runs": [
+        40688092958,
+        40688083239
+      ],
+      "ci_conclusion": "SUCCESS",
+      "source_word_task_count": 31
     },
     {
       "batch": 2,
@@ -41,7 +50,7 @@
   ],
   "source_notes": "Source Word briefs already converted into English LAB.md in existing labs. 2026-10-27 notebooks add math labs2 and labs3_4 and refresh 5_6,8 sample code. The original private DOCX binary is not directly parsed in this pass; use the repo's existing verified LAB.md and document the provenance.",
   "validation": {
-    "github_ci": "NOT_RUN_FOR_CORRECTED_FORMAT",
+    "github_ci": "BATCH01_REVISED_SUCCESS",
     "windows_worker": "UNVERIFIED"
   },
   "no_new_goal_without_owner_approval": true,
