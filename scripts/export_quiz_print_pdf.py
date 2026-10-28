@@ -2,6 +2,7 @@
 """Generate dense A4 landscape print edition of 936 existing MCQs."""
 from pathlib import Path
 import re
+import html
 import fitz
 import mistune
 from weasyprint import HTML
@@ -17,16 +18,16 @@ def build():
     added=ADDED.read_text(encoding="utf-8")
     base=original.replace("Bộ 920 câu","Bộ 936 câu",1)
     combined=base.rstrip()+"\n\n## BỔ SUNG — 16 câu mới\n\n"+added.split("\n",1)[1].strip()+"\n"
-    if len(re.findall(r"(?m)^\\*\\*Q\\d+\\.",combined))!=936:
+    if len(re.findall(r"(?m)^\*\*Q\d+\.",combined))!=936:
         raise ValueError("Total question count differs from 936")
     COMBINED.write_text(combined,encoding="utf-8")
     md=mistune.create_markdown(plugins=["table"])
-    sections=re.split(r"(?=^## (?:PY-\\d\\d|BỔ SUNG))",combined,flags=re.M)
+    sections=re.split(r"(?=^## (?:PY-\d\d|BỔ SUNG))",combined,flags=re.M)
     html_parts=[]
     for section in sections[1:]:
         title,_,body=section.partition("\n")
-        items=re.split(r"(?=^\\*\\*Q\\d+\\.)",body,flags=re.M)
-        html_parts.append("<h2>"+md(title.removeprefix("## ").strip())+"</h2>")
+        items=re.split(r"(?=^\*\*Q\d+\.)",body,flags=re.M)
+        html_parts.append("<h2>"+html.escape(title.removeprefix("## ").strip())+"</h2>")
         html_parts.append('<div class="intro">'+md(items[0])+"</div>")
         for q in items[1:]:
             html_parts.append('<div class="question">'+md(q)+"</div>")
