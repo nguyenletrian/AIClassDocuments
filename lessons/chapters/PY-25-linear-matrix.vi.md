@@ -596,133 +596,133 @@ Ngưỡng định thức trong ví dụ dùng để phát hiện ma trận suy b
 
 **Q1. What is a matrix? | Ma trận là gì?**
 
-A. A two-dimensional array of values | Bảng dữ liệu hai chiều
+A. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
 
-B. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
+B. A two-dimensional array of values | Bảng dữ liệu hai chiều
 
-C. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
+C. A scalar associated with a square matrix | Một số gắn với ma trận vuông
 
-D. A scalar associated with a square matrix | Một số gắn với ma trận vuông
+D. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** Ma trận sắp phần tử theo hàng và cột.
 
 
 **Q2. What is the transpose of a matrix? | Chuyển vị của ma trận là gì?**
 
-A. A two-dimensional array of values | Bảng dữ liệu hai chiều
+A. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
 
-B. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
+B. A two-dimensional array of values | Bảng dữ liệu hai chiều
 
 C. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
 
 D. A scalar associated with a square matrix | Một số gắn với ma trận vuông
 
-**Đáp án: B**
+**Đáp án: A**
 
 **Giải thích:** Chuyển vị hoán đổi các trục ma trận.
 
 
 **Q3. What does matrix multiplication combine? | Phép nhân ma trận kết hợp gì?**
 
-A. A two-dimensional array of values | Bảng dữ liệu hai chiều
+A. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
 
-B. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
+B. A two-dimensional array of values | Bảng dữ liệu hai chiều
 
-C. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
+C. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
 
 D. A scalar associated with a square matrix | Một số gắn với ma trận vuông
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Mỗi ô kết quả là tích vô hướng một hàng với một cột.
 
 
 **Q4. What is a determinant? | Định thức là gì?**
 
-A. A two-dimensional array of values | Bảng dữ liệu hai chiều
+A. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
 
-B. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
+B. A two-dimensional array of values | Bảng dữ liệu hai chiều
 
-C. Rows of the left matrix with columns of the right | Hàng ma trận trái với cột ma trận phải
+C. A scalar associated with a square matrix | Một số gắn với ma trận vuông
 
-D. A scalar associated with a square matrix | Một số gắn với ma trận vuông
+D. A matrix with rows and columns exchanged | Ma trận đổi vai trò hàng và cột
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Định thức hỗ trợ kiểm tra tính khả nghịch.
 
 
-**Q5. What is the shape of a matrix with two rows and three columns? | Ma trận hai hàng ba cột có shape gì?**
+**Q5. Let A = [[2, 1], [0, 3]] and B = [[1, 4], [5, 2]]. What is element (row 1, column 2) of AB? | Cho A và B như trên. Phần tử hàng 1, cột 2 của AB là bao nhiêu?**
 
-A. `(2, 3)` | `(2, 3)`
+A. 8 | 8
 
-B. `(3, 2)` | `(3, 2)`
+B. 12 | 12
 
-C. `(2, 1)` | `(2, 1)`
+C. 6 | 6
 
-D. `(3, 3)` | `(3, 3)`
-
-**Đáp án: A**
-
-**Giải thích:** Shape ghi số hàng trước số cột.
-
-
-**Q6. What is the transpose shape of a (2,3) matrix? | Chuyển vị ma trận (2,3) có shape gì?**
-
-A. `(2, 3)` | `(2, 3)`
-
-B. `(3, 2)` | `(3, 2)`
-
-C. `(2, 1)` | `(2, 1)`
-
-D. `(3, 3)` | `(3, 3)`
-
-**Đáp án: B**
-
-**Giải thích:** Hàng và cột đổi vai trò.
-
-
-**Q7. What shape results from (2,3) @ (3,1)? | Phép (2,3) @ (3,1) cho shape gì?**
-
-A. `(2, 3)` | `(2, 3)`
-
-B. `(3, 2)` | `(3, 2)`
-
-C. `(2, 1)` | `(2, 1)`
-
-D. `(3, 3)` | `(3, 3)`
-
-**Đáp án: C**
-
-**Giải thích:** Hai chiều trong bằng 3; giữ hai chiều ngoài.
-
-
-**Q8. What is the shape of `np.eye(3)`? | `np.eye(3)` tạo ma trận shape nào?**
-
-A. `(2, 3)` | `(2, 3)`
-
-B. `(3, 2)` | `(3, 2)`
-
-C. `(2, 1)` | `(2, 1)`
-
-D. `(3, 3)` | `(3, 3)`
+D. 10 | 10
 
 **Đáp án: D**
 
-**Giải thích:** Ma trận đơn vị bậc 3 là ma trận vuông.
+**Giải thích:** Nhân hàng 1 của A với cột 2 của B: 2 × 4 + 1 × 2 = 10.
+
+
+**Q6. What is the determinant of [[3, 1], [2, 1]]? | Định thức của ma trận [[3, 1], [2, 1]] bằng bao nhiêu?**
+
+A. 2 | 2
+
+B. 1 | 1
+
+C. 5 | 5
+
+D. 0 | 0
+
+**Đáp án: B**
+
+**Giải thích:** Với ma trận 2 × 2, lấy tích đường chéo chính trừ đường chéo phụ: 3 × 1 − 1 × 2 = 1.
+
+
+**Q7. A square matrix has determinant 0. Which statement is correct? | Một ma trận vuông có định thức bằng 0. Phát biểu nào đúng?**
+
+A. It must be diagonal | Nó bắt buộc là ma trận đường chéo
+
+B. All entries are zero | Mọi phần tử đều bằng 0
+
+C. It has no inverse | Nó không có ma trận nghịch đảo
+
+D. It is the identity matrix | Nó là ma trận đơn vị
+
+**Đáp án: C**
+
+**Giải thích:** Định thức 0 nghĩa là ma trận suy biến và không khả nghịch; các kết luận khác không nhất thiết đúng.
+
+
+**Q8. If A has shape (2, 3) and B has shape (3, 4), what is the shape of AB? | Nếu A có kích thước (2, 3), B có kích thước (3, 4), AB có kích thước nào?**
+
+A. (4, 2) | (4, 2)
+
+B. (2, 4) | (2, 4)
+
+C. (2, 3) | (2, 3)
+
+D. (3, 3) | (3, 3)
+
+**Đáp án: B**
+
+**Giải thích:** Hai chiều ở giữa (3 và 3) phải khớp; ma trận kết quả lấy số hàng của A và số cột của B: (2, 4).
 
 
 **Q9. Which operator performs matrix multiplication? | Toán tử nào thực hiện nhân ma trận?**
 
 A. `@` | `@`
 
-B. `.T` | `.T`
+B. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
-C. `np.linalg.det(A)` | `np.linalg.det(A)`
+C. `.T` | `.T`
 
-D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
+D. `np.linalg.det(A)` | `np.linalg.det(A)`
 
 **Đáp án: A**
 
@@ -733,13 +733,13 @@ D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
 A. `@` | `@`
 
-B. `.T` | `.T`
+B. `np.linalg.det(A)` | `np.linalg.det(A)`
 
-C. `np.linalg.det(A)` | `np.linalg.det(A)`
+C. `.T` | `.T`
 
 D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** T là thuộc tính chuyển vị tiện dụng.
 
@@ -761,43 +761,43 @@ D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
 **Q12. Which function computes a nonsingular matrix inverse? | Hàm nào tính nghịch đảo ma trận khả nghịch?**
 
-A. `@` | `@`
+A. `np.linalg.inv(A)` | `np.linalg.inv(A)`
 
 B. `.T` | `.T`
 
 C. `np.linalg.det(A)` | `np.linalg.det(A)`
 
-D. `np.linalg.inv(A)` | `np.linalg.inv(A)`
+D. `@` | `@`
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** inv tính nghịch đảo khi ma trận khả nghịch.
 
 
 **Q13. When is a square matrix invertible? | Khi nào ma trận vuông khả nghịch?**
 
-A. Its determinant is nonzero | Định thức khác không
+A. `np.allclose(A, B)` | `np.allclose(A, B)`
 
-B. 3 | 3
+B. Identity matrix | Ma trận đơn vị
 
-C. Identity matrix | Ma trận đơn vị
+C. Its determinant is nonzero | Định thức khác không
 
-D. `np.allclose(A, B)` | `np.allclose(A, B)`
+D. 3 | 3
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Định thức khác 0 tương đương khả nghịch.
 
 
 **Q14. What is determinant of [[2,1],[1,2]]? | Định thức [[2,1],[1,2]] bằng gì?**
 
-A. Its determinant is nonzero | Định thức khác không
+A. Identity matrix | Ma trận đơn vị
 
 B. 3 | 3
 
-C. Identity matrix | Ma trận đơn vị
+C. `np.allclose(A, B)` | `np.allclose(A, B)`
 
-D. `np.allclose(A, B)` | `np.allclose(A, B)`
+D. Its determinant is nonzero | Định thức khác không
 
 **Đáp án: B**
 
@@ -821,15 +821,15 @@ D. `np.allclose(A, B)` | `np.allclose(A, B)`
 
 **Q16. How do you test approximate equality of float arrays? | Kiểm tra hai mảng float gần bằng nhau bằng gì?**
 
-A. Its determinant is nonzero | Định thức khác không
+A. Identity matrix | Ma trận đơn vị
 
-B. 3 | 3
+B. `np.allclose(A, B)` | `np.allclose(A, B)`
 
-C. Identity matrix | Ma trận đơn vị
+C. Its determinant is nonzero | Định thức khác không
 
-D. `np.allclose(A, B)` | `np.allclose(A, B)`
+D. 3 | 3
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** allclose chấp nhận sai số dấu phẩy động nhỏ.
 
@@ -851,30 +851,30 @@ D. A linear algebra error | Lỗi đại số tuyến tính
 
 **Q18. What does `A * B` do for compatible NumPy arrays? | `A * B` trên mảng NumPy tương thích làm gì?**
 
-A. Columns of A and rows of B | Số cột A và số hàng B
+A. A linear algebra error | Lỗi đại số tuyến tính
 
-B. Element-wise multiplication | Nhân theo từng phần tử
+B. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
 
-C. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
+C. Columns of A and rows of B | Số cột A và số hàng B
 
-D. A linear algebra error | Lỗi đại số tuyến tính
+D. Element-wise multiplication | Nhân theo từng phần tử
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Dấu sao nhân phần tử tương ứng có broadcasting.
 
 
 **Q19. What is preferred to solve Ax=b numerically? | Để giải hệ Ax=b bằng NumPy nên ưu tiên gì?**
 
-A. Columns of A and rows of B | Số cột A và số hàng B
+A. Element-wise multiplication | Nhân theo từng phần tử
 
-B. Element-wise multiplication | Nhân theo từng phần tử
+B. Columns of A and rows of B | Số cột A và số hàng B
 
-C. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
+C. A linear algebra error | Lỗi đại số tuyến tính
 
-D. A linear algebra error | Lỗi đại số tuyến tính
+D. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Giải trực tiếp thường tốt hơn tính nghịch đảo rồi nhân.
 
@@ -883,13 +883,13 @@ D. A linear algebra error | Lỗi đại số tuyến tính
 
 A. Columns of A and rows of B | Số cột A và số hàng B
 
-B. Element-wise multiplication | Nhân theo từng phần tử
+B. A linear algebra error | Lỗi đại số tuyến tính
 
-C. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
+C. Element-wise multiplication | Nhân theo từng phần tử
 
-D. A linear algebra error | Lỗi đại số tuyến tính
+D. `np.linalg.solve(A, b)` | `np.linalg.solve(A, b)`
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Ma trận suy biến không có nghịch đảo.
 

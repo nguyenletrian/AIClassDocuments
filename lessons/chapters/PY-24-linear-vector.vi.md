@@ -536,11 +536,11 @@ Mỗi hàng là một lượt đo 3 trục có cùng đơn vị mm. Mức 2 mm l
 
 A. One numeric value | Một giá trị số
 
-B. An ordered list of components | Dãy thành phần có thứ tự
+B. Sum of pairwise component products | Tổng tích các cặp thành phần tương ứng
 
-C. Square root of the sum of squared components | Căn của tổng bình phương các thành phần
+C. An ordered list of components | Dãy thành phần có thứ tự
 
-D. Sum of pairwise component products | Tổng tích các cặp thành phần tương ứng
+D. Square root of the sum of squared components | Căn của tổng bình phương các thành phần
 
 **Đáp án: A**
 
@@ -549,28 +549,28 @@ D. Sum of pairwise component products | Tổng tích các cặp thành phần t�
 
 **Q2. What is a vector? | Vector là gì?**
 
-A. One numeric value | Một giá trị số
+A. Square root of the sum of squared components | Căn của tổng bình phương các thành phần
 
-B. An ordered list of components | Dãy thành phần có thứ tự
+B. One numeric value | Một giá trị số
 
-C. Square root of the sum of squared components | Căn của tổng bình phương các thành phần
+C. Sum of pairwise component products | Tổng tích các cặp thành phần tương ứng
 
-D. Sum of pairwise component products | Tổng tích các cặp thành phần tương ứng
+D. An ordered list of components | Dãy thành phần có thứ tự
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Vị trí từng thành phần biểu thị tọa độ hoặc đặc trưng.
 
 
 **Q3. What is Euclidean norm? | Norm Euclid là gì?**
 
-A. One numeric value | Một giá trị số
+A. An ordered list of components | Dãy thành phần có thứ tự
 
-B. An ordered list of components | Dãy thành phần có thứ tự
+B. Sum of pairwise component products | Tổng tích các cặp thành phần tương ứng
 
 C. Square root of the sum of squared components | Căn của tổng bình phương các thành phần
 
-D. Sum of pairwise component products | Tổng tích các cặp thành phần tương ứng
+D. One numeric value | Một giá trị số
 
 **Đáp án: C**
 
@@ -579,90 +579,90 @@ D. Sum of pairwise component products | Tổng tích các cặp thành phần t�
 
 **Q4. What is the dot product? | Tích vô hướng là gì?**
 
-A. One numeric value | Một giá trị số
+A. Sum of pairwise component products | Tổng tích các cặp thành phần tương ứng
 
 B. An ordered list of components | Dãy thành phần có thứ tự
 
-C. Square root of the sum of squared components | Căn của tổng bình phương các thành phần
+C. One numeric value | Một giá trị số
 
-D. Sum of pairwise component products | Tổng tích các cặp thành phần tương ứng
+D. Square root of the sum of squared components | Căn của tổng bình phương các thành phần
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Tích vô hướng cho một số từ hai vector cùng số thành phần.
 
 
-**Q5. Which function creates a NumPy vector? | Hàm nào tạo vector NumPy?**
+**Q5. Given u = [1, 4] and v = [3, 2], what is u · v? | Cho u = [1, 4] và v = [3, 2], tích vô hướng u · v bằng bao nhiêu?**
 
-A. `np.array([1, 2])` | `np.array([1, 2])`
+A. 9 | 9
 
-B. `np.linalg.norm(v)` | `np.linalg.norm(v)`
+B. 11 | 11
 
-C. `v / np.linalg.norm(v)` | `v / np.linalg.norm(v)`
+C. 14 | 14
 
-D. `a @ b` | `a @ b`
-
-**Đáp án: A**
-
-**Giải thích:** np.array lưu các thành phần số theo thứ tự.
-
-
-**Q6. Which function computes a vector's L2 length? | Hàm nào tính độ dài L2 của vector?**
-
-A. `np.array([1, 2])` | `np.array([1, 2])`
-
-B. `np.linalg.norm(v)` | `np.linalg.norm(v)`
-
-C. `v / np.linalg.norm(v)` | `v / np.linalg.norm(v)`
-
-D. `a @ b` | `a @ b`
+D. 8 | 8
 
 **Đáp án: B**
 
-**Giải thích:** Norm mặc định trên vector số một chiều là Euclid.
+**Giải thích:** Tính các tích cùng vị trí rồi cộng: 1 × 3 + 4 × 2 = 11. Không cộng riêng từng vector trước khi nhân.
 
 
-**Q7. Which expression normalizes a nonzero vector? | Biểu thức nào chuẩn hóa vector khác không?**
+**Q6. What is the length of vector (6, 8)? | Độ dài vector (6, 8) là bao nhiêu?**
 
-A. `np.array([1, 2])` | `np.array([1, 2])`
+A. 10 | 10
 
-B. `np.linalg.norm(v)` | `np.linalg.norm(v)`
+B. 8 | 8
 
-C. `v / np.linalg.norm(v)` | `v / np.linalg.norm(v)`
+C. 14 | 14
 
-D. `a @ b` | `a @ b`
+D. 100 | 100
 
-**Đáp án: C**
+**Đáp án: A**
 
-**Giải thích:** Chia cho norm đưa độ dài vector về một.
+**Giải thích:** Độ dài Euclid là căn bậc hai của 6² + 8² = 100, nên bằng 10.
 
 
-**Q8. Which expression computes the dot product of two 1-D vectors? | Biểu thức nào tính tích vô hướng hai vector 1-D?**
+**Q7. If u = (2, −1), what is −2u? | Nếu u = (2, −1), vector −2u bằng bao nhiêu?**
 
-A. `np.array([1, 2])` | `np.array([1, 2])`
+A. (−4, 2) | (−4, 2)
 
-B. `np.linalg.norm(v)` | `np.linalg.norm(v)`
+B. (−2, 1) | (−2, 1)
 
-C. `v / np.linalg.norm(v)` | `v / np.linalg.norm(v)`
+C. (4, −2) | (4, −2)
 
-D. `a @ b` | `a @ b`
+D. (−4, −2) | (−4, −2)
 
-**Đáp án: D**
+**Đáp án: A**
 
-**Giải thích:** Toán tử @ tính tích vô hướng của hai vector.
+**Giải thích:** Nhân từng tọa độ của u với −2: −2 × 2 = −4 và −2 × (−1) = 2.
+
+
+**Q8. Given a = (2, 1) and b = (−1, 2), what is their dot product? | Cho a = (2, 1) và b = (−1, 2), tích vô hướng bằng bao nhiêu?**
+
+A. 1 | 1
+
+B. 0 | 0
+
+C. 4 | 4
+
+D. 3 | 3
+
+**Đáp án: B**
+
+**Giải thích:** 2 × (−1) + 1 × 2 = 0. Hai vector khác không có tích vô hướng bằng 0 thì vuông góc.
 
 
 **Q9. What is the norm of vector (3,4)? | Norm của vector (3,4) bằng bao nhiêu?**
 
-A. 5 | 5
+A. 0 | 0
 
-B. (0.6,0.8) | (0.6,0.8)
+B. 11 | 11
 
-C. 11 | 11
+C. 5 | 5
 
-D. 0 | 0
+D. (0.6,0.8) | (0.6,0.8)
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Độ dài Pythagoras là căn của 9+16.
 
@@ -686,71 +686,71 @@ D. 0 | 0
 
 A. 5 | 5
 
-B. (0.6,0.8) | (0.6,0.8)
+B. 11 | 11
 
-C. 11 | 11
+C. (0.6,0.8) | (0.6,0.8)
 
 D. 0 | 0
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Tính 1×3 + 2×4.
 
 
 **Q12. What is the dot product of (1,0) and (0,1)? | Tích vô hướng của (1,0) và (0,1) là bao nhiêu?**
 
-A. 5 | 5
+A. (0.6,0.8) | (0.6,0.8)
 
-B. (0.6,0.8) | (0.6,0.8)
+B. 0 | 0
 
-C. 11 | 11
+C. 5 | 5
 
-D. 0 | 0
+D. 11 | 11
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Cả hai tích thành phần đều bằng không.
 
 
 **Q13. What is the dot product of two nonzero perpendicular vectors? | Tích vô hướng của hai vector khác không vuông góc là gì?**
 
-A. Zero | Bằng không
+A. That its norm is nonzero | Norm khác không
 
-B. That its norm is nonzero | Norm khác không
+B. Zero | Bằng không
 
-C. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
+C. They must have equal lengths | Chúng phải có cùng số phần tử
 
-D. They must have equal lengths | Chúng phải có cùng số phần tử
+D. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** Hai hướng trực giao có tích vô hướng bằng không.
 
 
 **Q14. What must be checked before normalizing a vector? | Cần kiểm tra gì trước khi chuẩn hóa vector?**
 
-A. Zero | Bằng không
+A. They must have equal lengths | Chúng phải có cùng số phần tử
 
-B. That its norm is nonzero | Norm khác không
+B. Zero | Bằng không
 
 C. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
 
-D. They must have equal lengths | Chúng phải có cùng số phần tử
+D. That its norm is nonzero | Norm khác không
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Chia cho norm bằng không không xác định.
 
 
 **Q15. What happens if coordinate units are mixed in a distance calculation? | Nếu đơn vị tọa độ không thống nhất khi tính khoảng cách thì sao?**
 
-A. Zero | Bằng không
+A. They must have equal lengths | Chúng phải có cùng số phần tử
 
 B. That its norm is nonzero | Norm khác không
 
 C. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
 
-D. They must have equal lengths | Chúng phải có cùng số phần tử
+D. Zero | Bằng không
 
 **Đáp án: C**
 
@@ -759,30 +759,30 @@ D. They must have equal lengths | Chúng phải có cùng số phần tử
 
 **Q16. What must be true to compute a 1-D dot product? | Muốn tính tích vô hướng của hai vector 1-D cần điều kiện gì?**
 
-A. Zero | Bằng không
+A. That its norm is nonzero | Norm khác không
 
-B. That its norm is nonzero | Norm khác không
+B. They must have equal lengths | Chúng phải có cùng số phần tử
 
-C. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
+C. Zero | Bằng không
 
-D. They must have equal lengths | Chúng phải có cùng số phần tử
+D. The result can be physically misleading | Kết quả có thể sai ý nghĩa vật lý
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Từng thành phần được ghép theo vị trí tương ứng.
 
 
 **Q17. What does multiplying a vector by a scalar do? | Nhân vector với scalar làm gì?**
 
-A. Scales every component | Nhân từng thành phần với scalar
+A. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
 
 B. Subtract corresponding components | Trừ các thành phần cùng vị trí
 
-C. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
+C. Scales every component | Nhân từng thành phần với scalar
 
-D. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
+D. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Nhân scalar làm đổi độ lớn từng thành phần.
 
@@ -791,43 +791,43 @@ D. To multiply each weight by its intended feature | Để trọng số nhân đ
 
 A. Scales every component | Nhân từng thành phần với scalar
 
-B. Subtract corresponding components | Trừ các thành phần cùng vị trí
+B. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
 
-C. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
+C. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
 
-D. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
+D. Subtract corresponding components | Trừ các thành phần cùng vị trí
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Phép trừ vector diễn ra theo từng thành phần.
 
 
 **Q19. What does `np.linalg.norm(a-b)` measure? | `np.linalg.norm(a-b)` đo điều gì?**
 
-A. Scales every component | Nhân từng thành phần với scalar
+A. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
 
 B. Subtract corresponding components | Trừ các thành phần cùng vị trí
 
-C. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
+C. Scales every component | Nhân từng thành phần với scalar
 
-D. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
+D. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Norm của độ dịch chuyển cho khoảng cách.
 
 
 **Q20. Why are feature weights paired with values in the same order? | Vì sao trọng số cần cùng thứ tự với các giá trị?**
 
-A. Scales every component | Nhân từng thành phần với scalar
+A. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
 
-B. Subtract corresponding components | Trừ các thành phần cùng vị trí
+B. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
 
-C. Euclidean distance between a and b | Khoảng cách Euclid giữa a và b
+C. Scales every component | Nhân từng thành phần với scalar
 
-D. To multiply each weight by its intended feature | Để trọng số nhân đúng đặc trưng tương ứng
+D. Subtract corresponding components | Trừ các thành phần cùng vị trí
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Sai thứ tự tạo ra tích vô hướng khác.
 

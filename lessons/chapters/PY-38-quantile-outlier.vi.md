@@ -573,45 +573,45 @@ Hàng còn có khối lượng: 19
 
 **Q1. What is a quantile? | Phân vị là gì?**
 
-A. A value associated with a cumulative rank | Giá trị gắn với một mức thứ hạng tích lũy
+A. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
 B. The difference Q3−Q1 | Hiệu Q3−Q1
 
-C. Distribution asymmetry | Mức bất đối xứng phân phối
+C. A value associated with a cumulative rank | Giá trị gắn với một mức thứ hạng tích lũy
 
-D. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc bốn/đuôi so với chuẩn
+D. Distribution asymmetry | Mức bất đối xứng phân phối
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Phân vị chia dữ liệu sắp thứ tự theo tỷ lệ.
 
 
 **Q2. What is IQR? | IQR là gì?**
 
-A. A value associated with a cumulative rank | Giá trị gắn với một mức thứ hạng tích lũy
+A. The difference Q3−Q1 | Hiệu Q3−Q1
 
-B. The difference Q3−Q1 | Hiệu Q3−Q1
+B. A value associated with a cumulative rank | Giá trị gắn với một mức thứ hạng tích lũy
 
-C. Distribution asymmetry | Mức bất đối xứng phân phối
+C. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
-D. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc bốn/đuôi so với chuẩn
+D. Distribution asymmetry | Mức bất đối xứng phân phối
 
-**Đáp án: B**
+**Đáp án: A**
 
 **Giải thích:** Nó đo độ rộng nửa giữa dữ liệu.
 
 
 **Q3. What does skewness measure? | Skewness đo gì?**
 
-A. A value associated with a cumulative rank | Giá trị gắn với một mức thứ hạng tích lũy
+A. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
-B. The difference Q3−Q1 | Hiệu Q3−Q1
+B. Distribution asymmetry | Mức bất đối xứng phân phối
 
-C. Distribution asymmetry | Mức bất đối xứng phân phối
+C. A value associated with a cumulative rank | Giá trị gắn với một mức thứ hạng tích lũy
 
-D. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc bốn/đuôi so với chuẩn
+D. The difference Q3−Q1 | Hiệu Q3−Q1
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Dấu gợi ý phía đuôi dài.
 
@@ -620,9 +620,9 @@ D. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc b
 
 A. A value associated with a cumulative rank | Giá trị gắn với một mức thứ hạng tích lũy
 
-B. The difference Q3−Q1 | Hiệu Q3−Q1
+B. Distribution asymmetry | Mức bất đối xứng phân phối
 
-C. Distribution asymmetry | Mức bất đối xứng phân phối
+C. The difference Q3−Q1 | Hiệu Q3−Q1
 
 D. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc bốn/đuôi so với chuẩn
 
@@ -631,92 +631,92 @@ D. Fourth-moment tail behavior relative to normal | Đặc trưng moment bậc b
 **Giải thích:** Pandas dùng mốc 0 cho chuẩn.
 
 
-**Q5. What is the Q2 quantile? | Q2 là phân vị nào?**
+**Q5. If Q1 = 4 and Q3 = 10, what is the interquartile range (IQR)? | Nếu Q1 = 4, Q3 = 10, khoảng tứ phân vị IQR là bao nhiêu?**
 
-A. The median | Trung vị
+A. 6 | 6
 
-B. The 75th-percentile value | Giá trị phân vị 75%
+B. 4 | 4
 
-C. Q3+1.5×IQR | Q3+1.5×IQR
+C. 2.5 | 2.5
 
-D. Q1−1.5×IQR | Q1−1.5×IQR
+D. 14 | 14
 
 **Đáp án: A**
 
-**Giải thích:** Q2 tương ứng phân vị 50%.
+**Giải thích:** IQR = Q3 − Q1 = 10 − 4 = 6.
 
 
-**Q6. What does np.quantile(x,0.75) return? | np.quantile(x,0.75) trả gì?**
+**Q6. If Q1 = 4 and Q3 = 10, what is the upper outlier fence using 1.5 × IQR? | Nếu Q1 = 4 và Q3 = 10, ngưỡng ngoại lệ trên theo quy tắc 1.5 × IQR bằng bao nhiêu?**
 
-A. The median | Trung vị
+A. 19 | 19
 
-B. The 75th-percentile value | Giá trị phân vị 75%
+B. 15 | 15
 
-C. Q3+1.5×IQR | Q3+1.5×IQR
+C. 21 | 21
 
-D. Q1−1.5×IQR | Q1−1.5×IQR
+D. 16 | 16
 
-**Đáp án: B**
+**Đáp án: A**
 
-**Giải thích:** Đây là Q3 theo quy ước nội suy đã chọn.
+**Giải thích:** IQR = 6, nên ngưỡng trên = Q3 + 1.5 × IQR = 10 + 9 = 19.
 
 
-**Q7. How is an upper IQR fence computed? | Ngưỡng trên IQR được tính sao?**
+**Q7. A value is flagged as an outlier by the IQR rule. What can we conclude? | Một giá trị bị đánh dấu ngoại lệ theo quy tắc IQR. Kết luận nào hợp lý?**
 
-A. The median | Trung vị
+A. It must equal the median | Nó bằng trung vị
 
-B. The 75th-percentile value | Giá trị phân vị 75%
+B. It must be deleted | Bắt buộc phải xóa
 
-C. Q3+1.5×IQR | Q3+1.5×IQR
+C. It needs checking, but is not necessarily wrong | Nên kiểm tra, nhưng chưa chắc là dữ liệu sai
 
-D. Q1−1.5×IQR | Q1−1.5×IQR
+D. It proves a sensor failed | Chứng minh cảm biến bị lỗi
 
 **Đáp án: C**
 
-**Giải thích:** Giá trị vượt được gắn cờ rà soát.
+**Giải thích:** Quy tắc IQR chỉ đánh dấu giá trị nằm xa vùng giữa dữ liệu. Ngoại lệ có thể là giá trị thật.
 
 
-**Q8. How is a lower IQR fence computed? | Ngưỡng dưới IQR được tính sao?**
+**Q8. In a typically right-skewed distribution, which comparison is often observed? | Trong phân phối lệch phải điển hình, mối quan hệ nào thường gặp?**
 
-A. The median | Trung vị
+A. Mean = median always | Trung bình luôn bằng trung vị
 
-B. The 75th-percentile value | Giá trị phân vị 75%
+B. Mean < median always | Trung bình luôn nhỏ hơn trung vị
 
-C. Q3+1.5×IQR | Q3+1.5×IQR
+C. Mean > median often | Trung bình thường lớn hơn trung vị
 
-D. Q1−1.5×IQR | Q1−1.5×IQR
+D. Standard deviation is zero | Độ lệch chuẩn bằng 0
 
-**Đáp án: D**
+**Đáp án: C**
 
-**Giải thích:** Giá trị dưới là ứng viên ngoại lệ.
+**Giải thích:** Đuôi kéo dài về bên phải thường làm trung bình bị kéo lên mạnh hơn trung vị; đây không phải quy tắc bắt buộc cho mọi bộ dữ liệu.
 
 
 **Q9. What does positive skew suggest? | Skew dương gợi ý gì?**
 
-A. A longer right tail | Đuôi phải dài hơn
+A. A longer left tail | Đuôi trái dài hơn
 
-B. A longer left tail | Đuôi trái dài hơn
+B. Excess kurtosis | Kurtosis dư
 
-C. Excess kurtosis | Kurtosis dư
+C. A skewness statistic | Hệ số độ lệch phân phối
 
-D. A skewness statistic | Hệ số độ lệch phân phối
+D. A longer right tail | Đuôi phải dài hơn
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Giá trị lớn kéo đuôi sang phải.
 
 
 **Q10. What does negative skew suggest? | Skew âm gợi ý gì?**
 
-A. A longer right tail | Đuôi phải dài hơn
+A. Excess kurtosis | Kurtosis dư
 
-B. A longer left tail | Đuôi trái dài hơn
+B. A longer right tail | Đuôi phải dài hơn
 
-C. Excess kurtosis | Kurtosis dư
+C. A skewness statistic | Hệ số độ lệch phân phối
 
-D. A skewness statistic | Hệ số độ lệch phân phối
+D. A longer left tail | Đuôi trái dài hơn
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Giá trị nhỏ kéo đuôi về trái.
 
@@ -727,71 +727,71 @@ A. A longer right tail | Đuôi phải dài hơn
 
 B. A longer left tail | Đuôi trái dài hơn
 
-C. Excess kurtosis | Kurtosis dư
+C. A skewness statistic | Hệ số độ lệch phân phối
 
-D. A skewness statistic | Hệ số độ lệch phân phối
+D. Excess kurtosis | Kurtosis dư
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Pandas dùng quy ước kurtosis dư.
 
 
 **Q12. What does Series.skew() return? | Series.skew() trả gì?**
 
-A. A longer right tail | Đuôi phải dài hơn
+A. A skewness statistic | Hệ số độ lệch phân phối
 
-B. A longer left tail | Đuôi trái dài hơn
+B. Excess kurtosis | Kurtosis dư
 
-C. Excess kurtosis | Kurtosis dư
+C. A longer left tail | Đuôi trái dài hơn
 
-D. A skewness statistic | Hệ số độ lệch phân phối
+D. A longer right tail | Đuôi phải dài hơn
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Nó ước lượng bất đối xứng từ mẫu.
 
 
 **Q13. What is Q3−Q1 called? | Q3−Q1 gọi là gì?**
 
-A. Interquartile range | Khoảng tứ phân vị
+A. 5 | 5
 
-B. 3 | 3
+B. No; legitimate extremes may be flagged | Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
-C. 5 | 5
+C. Interquartile range | Khoảng tứ phân vị
 
-D. No; legitimate extremes may be flagged | Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
+D. 3 | 3
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Hiệu này chính là IQR.
 
 
 **Q14. What is median of 1,3,5? | Median của 1,3,5 bằng gì?**
 
-A. Interquartile range | Khoảng tứ phân vị
+A. 3 | 3
 
-B. 3 | 3
+B. No; legitimate extremes may be flagged | Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
-C. 5 | 5
+C. Interquartile range | Khoảng tứ phân vị
 
-D. No; legitimate extremes may be flagged | Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
+D. 5 | 5
 
-**Đáp án: B**
+**Đáp án: A**
 
 **Giải thích:** Giá trị đứng giữa là ba.
 
 
 **Q15. What is IQR if Q1=2 and Q3=7? | IQR nếu Q1=2, Q3=7 bằng bao nhiêu?**
 
-A. Interquartile range | Khoảng tứ phân vị
+A. No; legitimate extremes may be flagged | Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
-B. 3 | 3
+B. 5 | 5
 
-C. 5 | 5
+C. Interquartile range | Khoảng tứ phân vị
 
-D. No; legitimate extremes may be flagged | Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
+D. 3 | 3
 
-**Đáp án: C**
+**Đáp án: B**
 
 **Giải thích:** Bảy trừ hai bằng năm.
 
@@ -800,43 +800,43 @@ D. No; legitimate extremes may be flagged | Không; giá trị cực lớn hợp
 
 A. Interquartile range | Khoảng tứ phân vị
 
-B. 3 | 3
+B. 5 | 5
 
-C. 5 | 5
+C. No; legitimate extremes may be flagged | Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
 
-D. No; legitimate extremes may be flagged | Không; giá trị cực lớn hợp lệ vẫn có thể bị gắn cờ
+D. 3 | 3
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Ngưỡng chỉ là quy tắc sàng lọc.
 
 
 **Q17. Why can quantile values differ between software packages? | Vì sao phân vị có thể khác giữa các phần mềm?**
 
-A. Different interpolation conventions | Quy ước nội suy khác nhau
+A. Fit the imputation value on train only | Tính giá trị điền chỉ từ train
 
-B. It concerns fourth moments and tails | Nó liên quan moment bậc bốn và đuôi
+B. Median | Trung vị
 
-C. Median | Trung vị
+C. Different interpolation conventions | Quy ước nội suy khác nhau
 
-D. Fit the imputation value on train only | Tính giá trị điền chỉ từ train
+D. It concerns fourth moments and tails | Nó liên quan moment bậc bốn và đuôi
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Mẫu nhỏ dễ cho thấy sự khác biệt quy ước.
 
 
 **Q18. Why should you avoid interpreting high kurtosis only as a tall peak? | Vì sao không nên hiểu kurtosis cao chỉ là đỉnh cao?**
 
-A. Different interpolation conventions | Quy ước nội suy khác nhau
+A. Fit the imputation value on train only | Tính giá trị điền chỉ từ train
 
-B. It concerns fourth moments and tails | Nó liên quan moment bậc bốn và đuôi
+B. Different interpolation conventions | Quy ước nội suy khác nhau
 
-C. Median | Trung vị
+C. It concerns fourth moments and tails | Nó liên quan moment bậc bốn và đuôi
 
-D. Fit the imputation value on train only | Tính giá trị điền chỉ từ train
+D. Median | Trung vị
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** Chỉ độ cao đỉnh không đủ diễn giải.
 
@@ -847,20 +847,20 @@ A. Different interpolation conventions | Quy ước nội suy khác nhau
 
 B. It concerns fourth moments and tails | Nó liên quan moment bậc bốn và đuôi
 
-C. Median | Trung vị
+C. Fit the imputation value on train only | Tính giá trị điền chỉ từ train
 
-D. Fit the imputation value on train only | Tính giá trị điền chỉ từ train
+D. Median | Trung vị
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Thứ tự khiến trung vị ít nhạy với cực trị.
 
 
 **Q20. What is a crucial train/test rule when imputing missing values? | Quy tắc train/test quan trọng khi điền khuyết là gì?**
 
-A. Different interpolation conventions | Quy ước nội suy khác nhau
+A. It concerns fourth moments and tails | Nó liên quan moment bậc bốn và đuôi
 
-B. It concerns fourth moments and tails | Nó liên quan moment bậc bốn và đuôi
+B. Different interpolation conventions | Quy ước nội suy khác nhau
 
 C. Median | Trung vị
 

@@ -626,15 +626,15 @@ Vì dữ liệu được tạo đúng theo đường thẳng, hồi quy có th�
 
 **Q1. What is a partial derivative? | Đạo hàm riêng là gì?**
 
-A. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
+A. A vector of partial derivatives | Vector gồm các đạo hàm riêng
 
-B. A vector of partial derivatives | Vector gồm các đạo hàm riêng
+B. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
 
 C. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
 
-D. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
+D. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Chỉ thay một biến và giữ biến khác cố định.
 
@@ -643,105 +643,105 @@ D. One pass through the training dataset | Một lượt đi qua tập dữ li�
 
 A. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
 
-B. A vector of partial derivatives | Vector gồm các đạo hàm riêng
+B. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
 
 C. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
 
-D. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
+D. A vector of partial derivatives | Vector gồm các đạo hàm riêng
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Các đạo hàm riêng hợp thành một vector.
 
 
 **Q3. What is a learning rate? | Learning rate là gì?**
 
-A. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
+A. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
 
-B. A vector of partial derivatives | Vector gồm các đạo hàm riêng
+B. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
 
-C. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
+C. A vector of partial derivatives | Vector gồm các đạo hàm riêng
 
 D. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Nó nhân mức độ cập nhật.
 
 
 **Q4. What is an epoch in training? | Epoch trong huấn luyện là gì?**
 
-A. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
+A. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
 
-B. A vector of partial derivatives | Vector gồm các đạo hàm riêng
+B. Change rate in one variable while others are held fixed | Tốc độ thay đổi theo một biến khi giữ các biến khác cố định
 
-C. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
+C. A vector of partial derivatives | Vector gồm các đạo hàm riêng
 
-D. One pass through the training dataset | Một lượt đi qua tập dữ liệu train
+D. A factor controlling an optimization update step | Hệ số điều khiển độ lớn bước cập nhật tối ưu
 
-**Đáp án: D**
+**Đáp án: A**
 
 **Giải thích:** Một epoch xử lý hết dữ liệu train một lượt.
 
 
-**Q5. Which tool differentiates f with respect to x symbolically? | Hàm nào đạo hàm ký hiệu f theo x?**
+**Q5. Given L(w) = (w − 2)², what is the gradient at w = 5? | Cho L(w) = (w − 2)², gradient tại w = 5 bằng bao nhiêu?**
 
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
+A. 4 | 4
 
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
+B. 6 | 6
 
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
+C. 2 | 2
 
-D. A `for` loop | Vòng lặp `for`
-
-**Đáp án: A**
-
-**Giải thích:** diff tính đạo hàm ký hiệu.
-
-
-**Q6. Which expression is a gradient-descent update? | Biểu thức nào cập nhật theo gradient descent?**
-
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
-
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
-
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
-
-D. A `for` loop | Vòng lặp `for`
+D. 10 | 10
 
 **Đáp án: B**
 
-**Giải thích:** Trừ gradient nhằm giảm loss cục bộ.
+**Giải thích:** Đạo hàm dL/dw = 2(w − 2). Thay w = 5: 2 × (5 − 2) = 6.
 
 
-**Q7. Which formula is MSE? | Công thức nào là MSE?**
+**Q6. Gradient descent uses new_w = old_w − rate × gradient. If w = 4, rate = 0.25, gradient = 2, what is new_w? | Gradient Descent cập nhật w mới = w cũ − tốc độ học × gradient. Nếu w = 4, rate = 0.25, gradient = 2, w mới bằng bao nhiêu?**
 
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
+A. 3.5 | 3.5
 
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
+B. 2 | 2
 
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
+C. 4.5 | 4.5
 
-D. A `for` loop | Vòng lặp `for`
+D. 3 | 3
 
-**Đáp án: C**
+**Đáp án: A**
 
-**Giải thích:** MSE trung bình bình phương sai số.
+**Giải thích:** w mới = 4 − 0.25 × 2 = 3.5. Lấy w cũ trừ một bước theo gradient.
 
 
-**Q8. Which Python construct repeats optimization steps? | Cấu trúc Python nào lặp các bước tối ưu?**
+**Q7. What may happen when learning rate is excessively large? | Điều gì có thể xảy ra khi tốc độ học quá lớn?**
 
-A. `sp.diff(f,x)` | `sp.diff(f,x)`
+A. Training data always doubles | Dữ liệu huấn luyện luôn tăng gấp đôi
 
-B. `w = w - lr*gradient` | `w = w - lr*gradient`
+B. Loss may oscillate or diverge | Loss có thể dao động hoặc phân kỳ
 
-C. `np.mean((pred-y)**2)` | `np.mean((pred-y)**2)`
+C. Every gradient becomes zero | Mọi gradient đều bằng 0
 
-D. A `for` loop | Vòng lặp `for`
+D. The global optimum is guaranteed | Luôn tìm được cực tiểu toàn cục
+
+**Đáp án: B**
+
+**Giải thích:** Bước nhảy quá lớn có thể vượt qua cực tiểu, khiến hàm mất mát dao động hoặc tăng thay vì giảm.
+
+
+**Q8. A function has gradient zero at w = 0. Which conclusion is always justified? | Một hàm có gradient bằng 0 tại w = 0. Kết luận nào luôn đúng?**
+
+A. The loss is zero | Loss bằng 0
+
+B. This is a global minimum | Đây là cực tiểu toàn cục
+
+C. The function is constant | Hàm là hằng số
+
+D. It is a stationary point, not necessarily a minimum | Đây là điểm dừng, chưa chắc là cực tiểu
 
 **Đáp án: D**
 
-**Giải thích:** for lặp các bước cập nhật.
+**Giải thích:** Gradient bằng 0 chỉ cho biết tốc độ thay đổi cục bộ bằng 0. Điểm đó vẫn có thể là cực đại hoặc điểm yên ngựa.
 
 
 **Q9. What is ∂(x²+3xy)/∂x? | Đạo hàm riêng theo x của x²+3xy là gì?**
@@ -761,28 +761,28 @@ D. 2.4 | 2.4
 
 **Q10. What is the gradient of x²+y²? | Gradient của x²+y² là gì?**
 
-A. `2*x+3*y` | `2*x+3*y`
+A. 2.4 | 2.4
 
-B. `[2*x,2*y]` | `[2*x,2*y]`
+B. `2*x+3*y` | `2*x+3*y`
 
 C. `2*w` | `2*w`
 
-D. 2.4 | 2.4
+D. `[2*x,2*y]` | `[2*x,2*y]`
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Mỗi đạo hàm bằng hai lần tọa độ.
 
 
 **Q11. For loss w², what is its derivative? | Đạo hàm loss w² là gì?**
 
-A. `2*x+3*y` | `2*x+3*y`
+A. `[2*x,2*y]` | `[2*x,2*y]`
 
-B. `[2*x,2*y]` | `[2*x,2*y]`
+B. 2.4 | 2.4
 
 C. `2*w` | `2*w`
 
-D. 2.4 | 2.4
+D. `2*x+3*y` | `2*x+3*y`
 
 **Đáp án: C**
 
@@ -791,41 +791,41 @@ D. 2.4 | 2.4
 
 **Q12. If w=3, lr=0.1 and grad=6, what is next w? | Nếu w=3, lr=0.1 và gradient=6, w mới là gì?**
 
-A. `2*x+3*y` | `2*x+3*y`
+A. `[2*x,2*y]` | `[2*x,2*y]`
 
-B. `[2*x,2*y]` | `[2*x,2*y]`
+B. 2.4 | 2.4
 
 C. `2*w` | `2*w`
 
-D. 2.4 | 2.4
+D. `2*x+3*y` | `2*x+3*y`
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** 3−0.1×6=2.4.
 
 
 **Q13. Why might a large learning rate fail? | Vì sao learning rate lớn dễ thất bại?**
 
-A. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
+A. No, minibatches can cause multiple updates | Không, nhiều minibatch có thể tạo nhiều lần cập nhật
 
-B. It can make convergence slow | Nó có thể làm hội tụ chậm
+B. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
 
-C. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
+C. It can make convergence slow | Nó có thể làm hội tụ chậm
 
-D. No, minibatches can cause multiple updates | Không, nhiều minibatch có thể tạo nhiều lần cập nhật
+D. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
 
-**Đáp án: A**
+**Đáp án: B**
 
 **Giải thích:** Bước lớn có thể vượt qua cực tiểu liên tục.
 
 
 **Q14. Why might a very small learning rate be inefficient? | Vì sao learning rate quá nhỏ kém hiệu quả?**
 
-A. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
+A. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
 
 B. It can make convergence slow | Nó có thể làm hội tụ chậm
 
-C. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
+C. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
 
 D. No, minibatches can cause multiple updates | Không, nhiều minibatch có thể tạo nhiều lần cập nhật
 
@@ -838,24 +838,24 @@ D. No, minibatches can cause multiple updates | Không, nhiều minibatch có th
 
 A. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
 
-B. It can make convergence slow | Nó có thể làm hội tụ chậm
+B. No, minibatches can cause multiple updates | Không, nhiều minibatch có thể tạo nhiều lần cập nhật
 
-C. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
+C. It can make convergence slow | Nó có thể làm hội tụ chậm
 
-D. No, minibatches can cause multiple updates | Không, nhiều minibatch có thể tạo nhiều lần cập nhật
+D. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Gradient âm là hướng giảm với bước đủ nhỏ.
 
 
 **Q16. Does one epoch always equal one update? | Một epoch luôn bằng một lần cập nhật không?**
 
-A. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
+A. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
 
 B. It can make convergence slow | Nó có thể làm hội tụ chậm
 
-C. Locally reduce the objective | Giảm hàm mục tiêu về mặt cục bộ
+C. Updates can overshoot or diverge | Bước cập nhật có thể vượt cực tiểu hoặc phân kỳ
 
 D. No, minibatches can cause multiple updates | Không, nhiều minibatch có thể tạo nhiều lần cập nhật
 
@@ -866,26 +866,26 @@ D. No, minibatches can cause multiple updates | Không, nhiều minibatch có th
 
 **Q17. Why record loss history? | Vì sao lưu lịch sử loss?**
 
-A. To inspect optimization progress | Để xem tiến trình tối ưu
+A. Steepest increase | Hướng tăng nhanh nhất
 
-B. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
+B. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
 
-C. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
+C. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
 
-D. Steepest increase | Hướng tăng nhanh nhất
+D. To inspect optimization progress | Để xem tiến trình tối ưu
 
-**Đáp án: A**
+**Đáp án: D**
 
 **Giải thích:** Lịch sử cho thấy xu hướng giảm hoặc bất ổn.
 
 
 **Q18. Why pair features and targets in the same order? | Vì sao cần ghép x và y cùng thứ tự?**
 
-A. To inspect optimization progress | Để xem tiến trình tối ưu
+A. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
 
 B. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
 
-C. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
+C. To inspect optimization progress | Để xem tiến trình tối ưu
 
 D. Steepest increase | Hướng tăng nhanh nhất
 
@@ -896,30 +896,30 @@ D. Steepest increase | Hướng tăng nhanh nhất
 
 **Q19. Does falling training loss guarantee test accuracy? | Loss train giảm có đảm bảo độ chính xác test?**
 
-A. To inspect optimization progress | Để xem tiến trình tối ưu
+A. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
 
-B. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
+B. To inspect optimization progress | Để xem tiến trình tối ưu
 
-C. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
+C. Steepest increase | Hướng tăng nhanh nhất
 
-D. Steepest increase | Hướng tăng nhanh nhất
+D. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Cần dữ liệu độc lập để đo tổng quát hóa.
 
 
 **Q20. Which direction does a gradient point locally? | Gradient hướng theo phía nào về mặt cục bộ?**
 
-A. To inspect optimization progress | Để xem tiến trình tối ưu
+A. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
 
-B. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
+B. Steepest increase | Hướng tăng nhanh nhất
 
-C. No, generalization needs validation | Không, cần kiểm chứng trên dữ liệu mới
+C. To inspect optimization progress | Để xem tiến trình tối ưu
 
-D. Steepest increase | Hướng tăng nhanh nhất
+D. Each error must use its correct sample | Mỗi sai số cần đúng cặp quan sát
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Gradient hướng tăng cục bộ nhanh nhất.
 

@@ -635,165 +635,165 @@ Tập mã suy biến được suy từ **Jacobian tại từng điểm**, không
 
 **Q1. What does a Jacobian contain? | Jacobian chứa gì?**
 
-A. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
+A. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
 
-B. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
+B. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
 
-C. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
+C. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
 
-D. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
+D. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Mỗi hàng chứa đạo hàm bậc một của một đầu ra.
 
 
 **Q2. What does a Hessian contain? | Hessian chứa gì?**
 
-A. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
+A. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
 
-B. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
+B. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
 
-C. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
+C. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
 
-D. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
+D. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
 
-**Đáp án: B**
+**Đáp án: C**
 
 **Giải thích:** Hessian lấy đạo hàm tiếp của gradient.
 
 
 **Q3. What is a stationary point? | Điểm dừng là gì?**
 
-A. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
+A. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
 
-B. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
+B. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
 
-C. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
+C. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
 
-D. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
+D. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Điểm dừng có các đạo hàm riêng bậc một bằng 0.
 
 
 **Q4. What is curvature information used for? | Thông tin độ cong dùng để làm gì?**
 
-A. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
+A. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
 
-B. Second partial derivatives of a scalar output | Các đạo hàm riêng bậc hai của đầu ra vô hướng
+B. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
 
-C. A differentiable point where the gradient is zero | Điểm khả vi có gradient bằng 0
+C. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
 
-D. Classifying local behavior near stationary points | Phân loại hành vi cục bộ gần điểm dừng
+D. First partial derivatives of vector outputs | Các đạo hàm riêng bậc một của đầu ra vector
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Độ cong giúp phân loại điểm dừng.
 
 
-**Q5. What is Jacobian shape for m outputs and n inputs? | Jacobian m đầu ra và n đầu vào có shape nào?**
+**Q5. For f(x, y) = x² + y², what is its Hessian matrix? | Với f(x, y) = x² + y², ma trận Hessian bằng bao nhiêu?**
 
-A. `(m,n)` | `(m,n)`
+A. [[1, 0], [0, 1]] | [[1, 0], [0, 1]]
 
-B. `.jacobian(variables)` | `.jacobian(variables)`
+B. [[0, 0], [0, 0]] | [[0, 0], [0, 0]]
 
-C. `sp.hessian(f, variables)` | `sp.hessian(f, variables)`
+C. [[2, 0], [0, 2]] | [[2, 0], [0, 2]]
 
-D. `np.linalg.eigvalsh(H)` | `np.linalg.eigvalsh(H)`
-
-**Đáp án: A**
-
-**Giải thích:** Mỗi đầu ra là một hàng, mỗi đầu vào là một cột.
-
-
-**Q6. Which SymPy method builds a Jacobian? | Hàm SymPy nào tạo Jacobian?**
-
-A. `(m,n)` | `(m,n)`
-
-B. `.jacobian(variables)` | `.jacobian(variables)`
-
-C. `sp.hessian(f, variables)` | `sp.hessian(f, variables)`
-
-D. `np.linalg.eigvalsh(H)` | `np.linalg.eigvalsh(H)`
-
-**Đáp án: B**
-
-**Giải thích:** Phương thức lấy mọi đạo hàm riêng bậc một.
-
-
-**Q7. Which SymPy function builds a Hessian? | Hàm SymPy nào tạo Hessian?**
-
-A. `(m,n)` | `(m,n)`
-
-B. `.jacobian(variables)` | `.jacobian(variables)`
-
-C. `sp.hessian(f, variables)` | `sp.hessian(f, variables)`
-
-D. `np.linalg.eigvalsh(H)` | `np.linalg.eigvalsh(H)`
+D. [[0, 2], [2, 0]] | [[0, 2], [2, 0]]
 
 **Đáp án: C**
 
-**Giải thích:** hessian tính các đạo hàm riêng bậc hai.
+**Giải thích:** Đạo hàm bậc hai theo x và y đều bằng 2, hai đạo hàm chéo bằng 0.
 
 
-**Q8. Which tool computes symmetric Hessian eigenvalues? | Hàm nào tính trị riêng Hessian đối xứng?**
+**Q6. At which x is the derivative of f(x) = (x − 3)² zero? | Đạo hàm của f(x) = (x − 3)² bằng 0 tại x nào?**
 
-A. `(m,n)` | `(m,n)`
+A. x = 2 | x = 2
 
-B. `.jacobian(variables)` | `.jacobian(variables)`
+B. x = −3 | x = −3
 
-C. `sp.hessian(f, variables)` | `sp.hessian(f, variables)`
+C. x = 3 | x = 3
 
-D. `np.linalg.eigvalsh(H)` | `np.linalg.eigvalsh(H)`
+D. x = 0 | x = 0
 
-**Đáp án: D**
+**Đáp án: C**
 
-**Giải thích:** eigvalsh tính trị riêng ma trận đối xứng.
+**Giải thích:** f'(x) = 2(x − 3); đặt bằng 0 được x = 3.
+
+
+**Q7. At a stationary point, a positive-definite Hessian indicates what? | Tại một điểm dừng, Hessian xác định dương cho biết điều gì?**
+
+A. Always a global maximum | Luôn là cực đại toàn cục
+
+B. A strict local minimum | Một cực tiểu địa phương nghiêm ngặt
+
+C. A strict local maximum | Một cực đại địa phương nghiêm ngặt
+
+D. A saddle point | Một điểm yên ngựa
+
+**Đáp án: B**
+
+**Giải thích:** Hessian xác định dương nghĩa là hàm cong lên theo mọi hướng ở điểm dừng; trong điều kiện trơn phù hợp, đó là cực tiểu địa phương nghiêm ngặt.
+
+
+**Q8. For f(x, y) = x² − y², how is the stationary point (0, 0) classified? | Với f(x, y) = x² − y², điểm dừng (0, 0) thuộc loại nào?**
+
+A. Neither stationary nor extremum | Không phải điểm dừng hay cực trị
+
+B. Strict local minimum | Cực tiểu địa phương nghiêm ngặt
+
+C. Saddle point | Điểm yên ngựa
+
+D. Strict local maximum | Cực đại địa phương nghiêm ngặt
+
+**Đáp án: C**
+
+**Giải thích:** Theo trục x, f tăng khỏi 0; theo trục y, f giảm khỏi 0. Vì vậy (0, 0) là điểm yên ngựa.
 
 
 **Q9. What is Hessian of x²+y²? | Hessian của x²+y² là gì?**
 
-A. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
+A. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
 
-B. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
+B. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
 
-C. `(3,2)` | `(3,2)`
+C. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
 
-D. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
+D. `(3,2)` | `(3,2)`
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Đạo hàm bậc hai của mỗi hạng bình phương bằng 2.
 
 
 **Q10. What is Hessian of x²−y²? | Hessian của x²−y² là gì?**
 
-A. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
+A. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
 
-B. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
+B. `(3,2)` | `(3,2)`
 
-C. `(3,2)` | `(3,2)`
+C. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
 
-D. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
+D. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
 
-**Đáp án: B**
+**Đáp án: A**
 
 **Giải thích:** Độ cong theo y bằng âm 2.
 
 
 **Q11. What are stationary coordinates for (x−3)²+(y−2)²? | Tọa độ dừng của (x−3)²+(y−2)² là gì?**
 
-A. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
+A. `(3,2)` | `(3,2)`
 
-B. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
+B. `[[2,0],[0,2]]` | `[[2,0],[0,2]]`
 
-C. `(3,2)` | `(3,2)`
+C. `[[2,0],[0,-2]]` | `[[2,0],[0,-2]]`
 
 D. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Cả hai bình phương nhỏ nhất khi sai khác bằng 0.
 
@@ -817,11 +817,11 @@ D. `[[1,1],[y,x]]` | `[[1,1],[y,x]]`
 
 A. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
 
-B. A strict local maximum | Cực đại địa phương nghiêm ngặt
+B. A saddle point | Điểm yên ngựa
 
-C. A saddle point | Điểm yên ngựa
+C. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-D. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
+D. A strict local maximum | Cực đại địa phương nghiêm ngặt
 
 **Đáp án: A**
 
@@ -845,90 +845,90 @@ D. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm 
 
 **Q15. What do mixed-sign Hessian eigenvalues indicate at a stationary point? | Trị riêng Hessian trái dấu ở điểm dừng biểu thị gì?**
 
-A. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
+A. A saddle point | Điểm yên ngựa
 
 B. A strict local maximum | Cực đại địa phương nghiêm ngặt
 
-C. A saddle point | Điểm yên ngựa
+C. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
 
 D. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-**Đáp án: C**
+**Đáp án: A**
 
 **Giải thích:** Một số hướng tăng và hướng khác giảm.
 
 
 **Q16. What if a Hessian has a zero eigenvalue at a stationary point? | Nếu Hessian có trị riêng 0 tại điểm dừng thì sao?**
 
-A. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
+A. A saddle point | Điểm yên ngựa
 
-B. A strict local maximum | Cực đại địa phương nghiêm ngặt
+B. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
 
-C. A saddle point | Điểm yên ngựa
+C. A strict local maximum | Cực đại địa phương nghiêm ngặt
 
-D. The simple second-derivative test is inconclusive | Phép kiểm đạo hàm bậc hai đơn giản chưa kết luận
+D. A strict local minimum | Cực tiểu địa phương nghiêm ngặt
 
-**Đáp án: D**
+**Đáp án: B**
 
 **Giải thích:** Trị riêng 0 cần kiểm tra sâu hơn.
 
 
 **Q17. What is Hessian shape for a scalar function of three inputs? | Hessian hàm vô hướng ba biến có shape nào?**
 
-A. `(3,3)` | `(3,3)`
+A. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
 
-B. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
+B. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
 
-C. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
+C. `(3,3)` | `(3,3)`
 
 D. It can also occur at a maximum or saddle | Nó còn xuất hiện ở cực đại hoặc yên ngựa
 
-**Đáp án: A**
+**Đáp án: C**
 
 **Giải thích:** Các đạo hàm riêng bậc hai ghép từng biến với biến khác.
 
 
 **Q18. What does one Jacobian row represent? | Một hàng Jacobian biểu thị gì?**
 
-A. `(3,3)` | `(3,3)`
+A. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
 
-B. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
+B. It can also occur at a maximum or saddle | Nó còn xuất hiện ở cực đại hoặc yên ngựa
 
-C. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
+C. `(3,3)` | `(3,3)`
 
-D. It can also occur at a maximum or saddle | Nó còn xuất hiện ở cực đại hoặc yên ngựa
+D. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
 
-**Đáp án: B**
+**Đáp án: D**
 
 **Giải thích:** Hàng cố định đầu ra, cột đổi đầu vào.
 
 
 **Q19. What does one Jacobian column represent? | Một cột Jacobian biểu thị gì?**
 
-A. `(3,3)` | `(3,3)`
+A. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
 
-B. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
+B. It can also occur at a maximum or saddle | Nó còn xuất hiện ở cực đại hoặc yên ngựa
 
-C. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
+C. `(3,3)` | `(3,3)`
 
-D. It can also occur at a maximum or saddle | Nó còn xuất hiện ở cực đại hoặc yên ngựa
+D. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
 
-**Đáp án: C**
+**Đáp án: D**
 
 **Giải thích:** Cột cố định một đầu vào qua mọi đầu ra.
 
 
 **Q20. Why isn't zero gradient alone sufficient to prove a minimum? | Vì sao gradient 0 chưa đủ chứng minh cực tiểu?**
 
-A. `(3,3)` | `(3,3)`
+A. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
 
-B. Sensitivities of one output to each input | Độ nhạy của một đầu ra theo từng đầu vào
+B. `(3,3)` | `(3,3)`
 
-C. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
+C. It can also occur at a maximum or saddle | Nó còn xuất hiện ở cực đại hoặc yên ngựa
 
-D. It can also occur at a maximum or saddle | Nó còn xuất hiện ở cực đại hoặc yên ngựa
+D. How each output responds to one input | Các đầu ra đáp ứng với một đầu vào
 
-**Đáp án: D**
+**Đáp án: C**
 
 **Giải thích:** Cực đại và yên ngựa cũng có thể có gradient 0.
 
