@@ -1,11 +1,11 @@
 {
   "goal_id": "aiclassdocuments-lab-english-annotated-solutions-20261028",
   "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383",
-  "status": "BATCH_01_IN_PROGRESS",
-  "last_completed_batch": 0,
+  "status": "READY_FOR_BATCH_02",
+  "last_completed_batch": 1,
   "expected_batches": 3,
   "expected_lab_units": 9,
-  "completed_lab_units": 0,
+  "completed_lab_units": 3,
   "export_root": "docs/labs",
   "batches": [
     {
@@ -15,12 +15,23 @@
         "LAB-MATH-03-04-matrix-pca",
         "ASSIGNMENT-01-student-dictionary"
       ],
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "exported_paths": [
         "docs/labs/LAB-MATH-02-sets-jaccard",
         "docs/labs/LAB-MATH-03-04-matrix-pca",
         "docs/labs/ASSIGNMENT-01-student-dictionary"
-      ]
+      ],
+      "pr_number": 185,
+      "merge_sha": "8e6cf07ad337c1c96e2cc056b8a98a886545d510",
+      "final_pr_head_sha": "2dc6b4935822cc631c36a0b2d38634232258e26d",
+      "ci_runs": [
+        40684898756,
+        40684898761
+      ],
+      "ci_conclusion": "SUCCESS",
+      "english_task_count": 20,
+      "runnable_annotated_scripts": 3,
+      "source_snapshot_sha": "851d67d979b78607b98b556e12858a8c55d2c383"
     },
     {
       "batch": 2,
@@ -43,7 +54,7 @@
   ],
   "source_notes": "Source Word briefs already converted into English LAB.md in existing labs. 2026-10-27 notebooks add math labs2 and labs3_4 and refresh 5_6,8 sample code. The original private DOCX binary is not directly parsed in this pass; use the repo's existing verified LAB.md and document the provenance.",
   "validation": {
-    "github_ci": "NOT_RUN_FOR_THIS_GOAL",
+    "github_ci": "SUCCESS_FOR_BATCH_01",
     "windows_worker": "UNVERIFIED"
   },
   "no_new_goal_without_owner_approval": true
