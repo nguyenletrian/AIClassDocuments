@@ -239,3 +239,50 @@ Khác với Assignment sử dụng dictionary làm bộ lưu chính, Lab 05 đ�
 **Tính toán và sắp xếp:** `len(students)` là số người; trung bình lấy tổng điểm chia số bản ghi nếu không rỗng; `max`/`min` lấy điểm cao nhất/thấp nhất; `sorted(students, key=lambda s: s["score"])` sắp theo trường điểm. Tham số `reverse=True` đảo từ thấp lên cao thành cao xuống thấp.
 
 **Các trường hợp biên:** danh sách rỗng, mã trùng, tên rỗng, điểm không chuyển được sang số và tìm người không tồn tại. Nên đọc `validate` trước rồi mới đọc các thao tác bởi mọi kết quả cuối cùng đều phụ thuộc dữ liệu đầu vào hợp lệ.
+
+
+## 5. Giải thích các định nghĩa
+
+Đọc mục này sau khi xem lời giải: mỗi khái niệm được diễn giải bằng lời, nêu mục đích và ví dụ để dễ nhớ, không cần biết trước ký hiệu toán học.
+
+### List — danh sách
+
+**Là gì và dùng để làm gì?** Lưu nhiều phần tử theo thứ tự; chỉ số bắt đầu từ 0. Dùng để quản lý nhiều bản ghi sinh viên.
+
+**Ví dụ dễ hiểu:** `students[0]` lấy học viên đầu tiên trong danh sách.
+
+### Record — bản ghi
+
+**Là gì và dùng để làm gì?** Một cụm thông tin cùng thuộc một đối tượng, thường biểu diễn bằng dictionary.
+
+**Ví dụ dễ hiểu:** `{"id": "S01", "name": "An", "score": 8}` là một bản ghi.
+
+### `append()` — thêm cuối danh sách
+
+**Là gì và dùng để làm gì?** Thêm một phần tử vào list hiện tại; bản thân nó không kiểm tra mã trùng.
+
+**Ví dụ dễ hiểu:** Danh sách có 2 người, sau `append` thêm 1 người thì `len()` bằng 3.
+
+### `enumerate()` — duyệt kèm số thứ tự
+
+**Là gì và dùng để làm gì?** Khi lặp, tạo cả vị trí lẫn phần tử để không cần quản lý biến đếm thủ công.
+
+**Ví dụ dễ hiểu:** `enumerate(students, 1)` hiển thị số thứ tự bắt đầu từ 1.
+
+### `strip()` và `casefold()` — chuẩn hóa chuỗi
+
+**Là gì và dùng để làm gì?** `strip()` bỏ khoảng trắng thừa, `casefold()` giúp so tên không phân biệt hoa thường.
+
+**Ví dụ dễ hiểu:** `" An ".strip().casefold()` được `"an"`.
+
+### Mean — trung bình cộng
+
+**Là gì và dùng để làm gì?** Cộng các điểm rồi chia cho số người có điểm; dùng để đánh giá mức điểm chung.
+
+**Ví dụ dễ hiểu:** Điểm 6, 8, 10 có trung bình (6+8+10)/3 = 8.
+
+### `sorted()` / `lambda` — chọn cách xếp
+
+**Là gì và dùng để làm gì?** `sorted` xếp các phần tử; `lambda` tạo biểu thức ngắn để chỉ ra trường điểm cần so.
+
+**Ví dụ dễ hiểu:** Với điểm 9, 6, 8, dùng `reverse=True` thì thứ tự là 9, 8, 6.
