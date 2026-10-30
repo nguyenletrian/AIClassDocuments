@@ -560,3 +560,56 @@ Bài này luyện **chọn nhánh** và **lặp**, không phải 14 công thức
 **Bài tiền điện phải tính lũy tiến.** Khi số kWh vượt một bậc, chỉ phần vượt mới chịu đơn giá bậc tiếp theo. Đề gốc có ví dụ 120 kWh ra 282.000 đồng nhưng phép tính theo bảng mức giá đã nêu có thể cho 240.000 đồng; cần dựa đúng *bảng đơn giá của đề* và chỉ rõ khác biệt, không điều chỉnh thuật toán để khớp một ví dụ mâu thuẫn.
 
 **Tự kiểm tra kết quả:** Chạy cả giá trị biên như tháng 0, 12, 13; năm 1900 và 2000; số 0, 1, 2 đối với kiểm tra nguyên tố; và `n=1` đối với hình tam giác. Các lỗi kiểu này thường đến từ quên kiểm tra biên, không phải cú pháp Python.
+
+
+## 5. Giải thích các định nghĩa
+
+Đọc mục này sau khi xem lời giải: mỗi khái niệm được diễn giải bằng lời, nêu mục đích và ví dụ để dễ nhớ, không cần biết trước ký hiệu toán học.
+
+### Condition — điều kiện
+
+**Là gì và dùng để làm gì?** `if`, `elif`, `else` chọn phần code chạy tùy điều kiện đúng hay sai.
+
+**Ví dụ dễ hiểu:** Khi tháng bằng 2, cần kiểm tra năm nhuận trước khi trả số ngày.
+
+### Loop — vòng lặp
+
+**Là gì và dùng để làm gì?** `for` thường duyệt một dãy đã biết; `while` tiếp tục khi điều kiện còn đúng.
+
+**Ví dụ dễ hiểu:** `range(1, 5)` chỉ tạo 1, 2, 3, 4; muốn tính cả 5 thì dùng `range(1, 6)`.
+
+### Modulo `%` và phép chia nguyên `//`
+
+**Là gì và dùng để làm gì?** `%` lấy phần dư; `//` lấy phần thương nguyên; dùng để kiểm tra chia hết và tách chữ số.
+
+**Ví dụ dễ hiểu:** 123 % 10 = 3 (chữ số cuối); 123 // 10 = 12 (phần còn lại).
+
+### `divmod()` — nhận cả thương và số dư
+
+**Là gì và dùng để làm gì?** Một lệnh trả về cùng lúc thương nguyên và số dư, giúp tách số hàng chục và đơn vị.
+
+**Ví dụ dễ hiểu:** `divmod(25, 10)` trả `(2, 5)`: 2 chục và 5 đơn vị.
+
+### Prime number — số nguyên tố
+
+**Là gì và dùng để làm gì?** Số nguyên lớn hơn 1 chỉ chia hết cho 1 và chính nó; chỉ cần thử ước tới căn bậc hai của số đó.
+
+**Ví dụ dễ hiểu:** Số 29 chỉ cần thử 2, 3, 4, 5; không có ước nào nên là số nguyên tố.
+
+### GCD — ước chung lớn nhất
+
+**Là gì và dùng để làm gì?** Là số lớn nhất chia hết cả hai số; thuật toán Euclid liên tục dùng phép chia lấy dư.
+
+**Ví dụ dễ hiểu:** Từ (24,18) → (18,6) → (6,0), vậy ước chung lớn nhất là 6.
+
+### Progressive pricing — giá lũy tiến
+
+**Là gì và dùng để làm gì?** Tính riêng phần sản lượng của từng bậc rồi cộng lại; không áp giá cao nhất cho mọi đơn vị.
+
+**Ví dụ dễ hiểu:** 50 kWh giá 1.000, 20 kWh tiếp theo giá 2.000: tiền bằng 50.000 + 40.000 = 90.000.
+
+### Nested loop — vòng lặp lồng nhau
+
+**Là gì và dùng để làm gì?** Vòng lặp bên trong chạy cho mỗi lần của vòng ngoài, thường dùng để tạo hàng và cột của hình.
+
+**Ví dụ dễ hiểu:** Để in hàng thứ 3 là `333`, vòng trong in số 3 ba lần.

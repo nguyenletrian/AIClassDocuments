@@ -270,3 +270,49 @@ Hàm `task05_conclusion` của code tham khảo in bốn ý: dùng median (trung
 **Bước 4 — Lấy mẫu và kiểm định:** Dùng `default_rng(seed)` để tái lập lượt rút. **Standard deviation** (độ lệch chuẩn) mô tả độ phân tán cá nhân; **standard error** (sai số chuẩn) đo mức dao động của *trung bình mẫu*. Khi làm `ttest_1samp`, `p-value` nhỏ hơn mức ý nghĩa được chọn có thể dẫn tới bác bỏ H₀, nhưng không phải xác suất H₀ đúng và không cho thấy một yếu tố gây ra yếu tố khác.
 
 **Bước 5 — Kết luận:** Nêu được giá trị điển hình, mức phân tán, số ngoại lệ, kết luận kiểm định và giới hạn của dữ liệu; một lời khuyên thực tế phải bám số liệu chứ không suy rộng từ một mẫu thành mọi người dùng.
+
+## 5. Giải thích các định nghĩa
+
+Các khái niệm được giải thích bằng lời trước, rồi đưa ví dụ nhỏ để đối chiếu từng phép tính.
+
+### Mean (trung bình)
+
+**Là gì và dùng để làm gì?** Cộng các giá trị rồi chia cho số quan sát; dùng để biết mức điển hình nhưng dễ bị số quá lớn kéo lệch.
+
+**Ví dụ:** [30,40,80] có mean=(30+40+80)/3=50 phút.
+
+### Median (trung vị) và mode (yếu vị)
+
+**Là gì và dùng để làm gì?** Median là số giữa của dãy đã sắp; mode là số xuất hiện nhiều nhất. Median ít bị ảnh hưởng bởi số cực lớn.
+
+**Ví dụ:** [30,40,200] có median=40, mean=90; [30,40,40,50] có mode=40.
+
+### Variance và standard deviation (phương sai và độ lệch chuẩn)
+
+**Là gì và dùng để làm gì?** Đo độ phân tán quanh trung bình. Phương sai tính trung bình của các bình phương sai lệch; độ lệch chuẩn là căn bậc hai của phương sai, cùng đơn vị với dữ liệu.
+
+**Ví dụ:** [50,50,50] có SD=0; [20,50,80] có SD lớn hơn vì dữ liệu trải rộng.
+
+### ddof=0 và ddof=1
+
+**Là gì và dùng để làm gì?** `ddof` quy định mẫu số khi tính phương sai: với n giá trị, ddof=0 chia n, ddof=1 chia n−1; thường dùng tương ứng cho tổng thể và ước lượng từ mẫu.
+
+**Ví dụ:** [2,4,6] có mean=4, tổng sai lệch bình phương=8; phương sai ddof=0 là 8/3, ddof=1 là 8/2.
+
+### Frequency, bins (tần suất, khoảng nhóm)
+
+**Là gì và dùng để làm gì?** Tần suất là số quan sát trong mỗi khoảng. `pd.cut` phân nhóm theo ranh giới bins, và `value_counts` đếm mỗi nhóm.
+
+**Ví dụ:** [35,45,80] với hai khoảng [0,60), [60,120) có tần suất 2 và 1.
+
+### Quartiles, IQR và outlier (tứ phân vị, khoảng giữa, ngoại lệ)
+
+**Là gì và dùng để làm gì?** Q1 gần mốc 25%, Q2 là trung vị, Q3 gần mốc 75%. IQR=Q3−Q1; điểm ngoài ngưỡng theo quy tắc 1,5×IQR là ngoại lệ cần kiểm tra.
+
+**Ví dụ:** Q1=40, Q3=100 thì IQR=60; ngưỡng trên=100+1,5×60=190.
+
+### Sample, standard error và p-value (mẫu, sai số chuẩn, giá trị p)
+
+**Là gì và dùng để làm gì?** Mẫu là một nhóm được chọn từ tổng thể. Sai số chuẩn mô tả độ dao động của trung bình mẫu; p-value đo độ bất thường của kết quả khi giả thuyết H0 đúng.
+
+**Ví dụ:** Nếu p-value=0,03 và mức ý nghĩa 0,05, thường bác bỏ H0; không được nói xác suất H0 đúng là 3%.

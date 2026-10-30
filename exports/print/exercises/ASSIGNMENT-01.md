@@ -360,3 +360,50 @@ Kiểm tra ngưỡng từ cao xuống thấp để không có hai mức cùng đ
 **Lấy số liệu như thế nào?** `len(students)` đếm bản ghi; `values()` lấy thông tin từng người; `Counter(...)` đếm số học viên ở từng nhóm kết quả; `sorted(..., key=...)` tạo thứ tự hiển thị mà không buộc sửa dữ liệu gốc. Cần phân biệt `sort` hoặc `sorted` với phép thống kê: sắp xếp không làm thay đổi điểm trung bình.
 
 **Khi tự luyện:** Thử thêm mã đã tồn tại, tên chỉ chứa khoảng trắng, điểm ngoài khoảng hợp lệ và mã không có khi sửa/xóa. Quan sát từng hàm báo lỗi thế nào và dữ liệu có bị thay đổi trước khi kiểm tra hay không. Đây là trọng tâm của bài quản lý dữ liệu chứ không chỉ là in menu.
+
+
+## 5. Giải thích các định nghĩa
+
+Đọc mục này sau khi xem lời giải: mỗi khái niệm được diễn giải bằng lời, nêu mục đích và ví dụ để dễ nhớ, không cần biết trước ký hiệu toán học.
+
+### Dictionary — từ điển
+
+**Là gì và dùng để làm gì?** Lưu thông tin theo cặp khóa và giá trị; dùng để tìm sinh viên trực tiếp bằng mã thay vì đếm từng hàng.
+
+**Ví dụ dễ hiểu:** Một mục có khóa `S01` và giá trị là tên, điểm của học viên S01.
+
+### Key / value — khóa / giá trị
+
+**Là gì và dùng để làm gì?** Khóa là mã dùng để tìm đúng một mục; giá trị là thông tin được lưu tại mã đó.
+
+**Ví dụ dễ hiểu:** `students["S01"]` lấy bản ghi S01; thiếu khóa thì Python có thể báo `KeyError`.
+
+### CRUD — tạo, đọc, sửa, xóa
+
+**Là gì và dùng để làm gì?** Bốn thao tác quản lý dữ liệu: Create, Read, Update, Delete. Dùng để quản lý danh sách sinh viên qua menu.
+
+**Ví dụ dễ hiểu:** Thêm phải kiểm tra mã trùng, còn sửa hoặc xóa phải kiểm tra mã tồn tại.
+
+### Validation — kiểm tra dữ liệu hợp lệ
+
+**Là gì và dùng để làm gì?** Kiểm tra đầu vào trước khi lưu, để tên không rỗng và điểm đúng kiểu, đúng giới hạn.
+
+**Ví dụ dễ hiểu:** `float("8.5")` chuyển được thành số; `float("abc")` báo lỗi.
+
+### Counter — đếm theo nhóm
+
+**Là gì và dùng để làm gì?** `Counter` đếm số lần mỗi loại xuất hiện; dùng khi cần số học viên theo mức điểm.
+
+**Ví dụ dễ hiểu:** Nếu mức xếp loại là `["Giỏi", "Khá", "Giỏi"]` thì Giỏi có 2, Khá có 1.
+
+### `sorted()` và `key` — sắp xếp theo tiêu chí
+
+**Là gì và dùng để làm gì?** `sorted()` tạo kết quả có thứ tự; `key` chỉ rõ dùng trường nào để so sánh.
+
+**Ví dụ dễ hiểu:** Với điểm 8, 6, 9 và sắp giảm dần (`reverse=True`), kết quả là 9, 8, 6.
+
+### Exception — ngoại lệ
+
+**Là gì và dùng để làm gì?** Là lỗi được Python báo trong khi chạy; `try/except` giúp chương trình phản hồi có kiểm soát.
+
+**Ví dụ dễ hiểu:** `ValueError`: dữ liệu không đổi được sang số; `KeyError`: không có mã cần tìm.
