@@ -96,7 +96,7 @@ def _source_code(markdown: str, path: str, lab: str) -> str:
         code = original + "\n\n# Điểm bắt đầu chạy của bài gốc:\n" + tail
     elif lab != "lab-10":
         raise ValueError(f"{path}: expected an original __main__ guard")
-    if "assert " in code:
+    if re.search(r"(?m)^\s*assert\b", code):
         raise ValueError(f"{path}: the printable student code must not use assert")
     compile(code, path, "exec")
     return code
