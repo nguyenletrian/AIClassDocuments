@@ -11,15 +11,7 @@ You are given daily app usage time for **50 users**, measured in **minutes per d
 
 #### Dataset
 
-```python
-usage_minutes = [
-    35, 45, 50, 55, 60, 65, 70, 75, 80, 85,
-    90, 95, 100, 105, 110, 115, 120, 120, 125, 130,
-    135, 140, 145, 150, 155, 160, 165, 170, 175, 180,
-    185, 190, 195, 200, 205, 210, 215, 220, 225, 230,
-    240, 250, 260, 270, 280, 290, 300, 320, 350, 480
-]
-```
+**Input data — usage_minutes (50 observations, minutes):** 35, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200, 205, 210, 215, 220, 225, 230, 240, 250, 260, 270, 280, 290, 300, 320, 350, 480
 
 #### Requirements
 
@@ -72,15 +64,7 @@ Công ty ứng dụng di động phân tích thời gian sử dụng mỗi ngày
 
 #### Dữ liệu 50 người (phút/ngày)
 
-```python
-usage_minutes = [
-    35, 45, 50, 55, 60, 65, 70, 75, 80, 85,
-    90, 95, 100, 105, 110, 115, 120, 120, 125, 130,
-    135, 140, 145, 150, 155, 160, 165, 170, 175, 180,
-    185, 190, 195, 200, 205, 210, 215, 220, 225, 230,
-    240, 250, 260, 270, 280, 290, 300, 320, 350, 480
-]
-```
+**Dữ liệu đầu vào — usage_minutes (50 quan sát, đơn vị phút):** 35, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200, 205, 210, 215, 220, 225, 230, 240, 250, 260, 270, 280, 290, 300, 320, 350, 480
 
 #### Toàn bộ yêu cầu
 
@@ -109,98 +93,100 @@ Viết kết luận ngắn 3–5 câu về mức sử dụng điển hình, đ�
 ## 3. Code Python có chú thích
 
 ```python
-from pathlib import Path  # Nạp thư viện (import: nạp vào) để có các hàm đã học.
-import sys  # Nạp thư viện (import: nạp vào) để có các hàm đã học.
-import numpy as np  # Nạp thư viện (import: nạp vào) để có các hàm đã học.
-import pandas as pd  # Nạp thư viện (import: nạp vào) để có các hàm đã học.
-from scipy import stats  # Nạp thư viện (import: nạp vào) để có các hàm đã học.
+from pathlib import Path
+import sys
+import numpy as np
+import pandas as pd
+from scipy import stats
 
-USAGE_MINUTES=np.array([  # Khởi tạo mảng NumPy với số liệu theo đúng đề.
-    35,45,50,55,60,65,70,75,80,85,  # Giữ nguyên giá trị số trong dữ liệu đề bài.
-    90,95,100,105,110,115,120,120,125,130,  # Giữ nguyên giá trị số trong dữ liệu đề bài.
-    135,140,145,150,155,160,165,170,175,180,  # Giữ nguyên giá trị số trong dữ liệu đề bài.
-    185,190,195,200,205,210,215,220,225,230,  # Giữ nguyên giá trị số trong dữ liệu đề bài.
-    240,250,260,270,280,290,300,320,350,480  # Giữ nguyên giá trị số trong dữ liệu đề bài.
-],dtype=float)  # Đóng mảng, danh sách hoặc nhóm tham số.
+USAGE_MINUTES=np.array([
+    35,45,50,55,60,65,70,75,80,85,
+    90,95,100,105,110,115,120,120,125,130,
+    135,140,145,150,155,160,165,170,175,180,
+    185,190,195,200,205,210,215,220,225,230,
+    240,250,260,270,280,290,300,320,350,480
+],dtype=float)
 
-def task01_descriptive(values):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    return {  # Trả kết quả (return: trả về) cho nơi gọi hàm.
-        "mean":float(values.mean()),"median":float(np.median(values)),  # Gắn khóa (key: tên trường) với giá trị trong từ điển.
-        "mode":float(pd.Series(values).mode().iloc[0]),  # Gắn khóa (key: tên trường) với giá trị trong từ điển.
-        "minimum":float(values.min()),"maximum":float(values.max()),  # Gắn khóa (key: tên trường) với giá trị trong từ điển.
-        "range":float(np.ptp(values)),  # Gắn khóa (key: tên trường) với giá trị trong từ điển.
-        "sample_variance":float(values.var(ddof=1)),  # Gắn khóa (key: tên trường) với giá trị trong từ điển.
-        "sample_std":float(values.std(ddof=1)),  # Gắn khóa (key: tên trường) với giá trị trong từ điển.
-    }  # Đóng mảng, danh sách hoặc nhóm tham số.
+def task01_descriptive(values):  # Tính trung bình, trung vị, mode và độ phân tán.
+    return {
+        "mean":float(values.mean()),"median":float(np.median(values)),
+        "mode":float(pd.Series(values).mode().iloc[0]),
+        "minimum":float(values.min()),"maximum":float(values.max()),
+        "range":float(np.ptp(values)),
+        "sample_variance":float(values.var(ddof=1)),
+        "sample_std":float(values.std(ddof=1)),
+    }
 
-def task02_frequency(values):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    bins=[0,60,120,180,240,360,500]  # Tính hoặc cập nhật biến bins từ công thức bên phải.
-    labels=["0–<60","60–<120","120–<180","180–<240","240–<360","360–<500"]  # Tính hoặc cập nhật biến labels từ công thức bên phải.
-    groups=pd.cut(values,bins=bins,labels=labels,right=False,include_lowest=True)  # Tính hoặc cập nhật biến groups từ công thức bên phải.
-    freq=pd.Series(groups).value_counts(sort=False)  # Tính hoặc cập nhật biến freq từ công thức bên phải.
-    frame=pd.DataFrame({"frequency":freq})  # Tính hoặc cập nhật biến frame từ công thức bên phải.
-    frame["cumulative"]=frame["frequency"].cumsum()  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    if not (frame["frequency"].sum()==len(values)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    return bins,frame  # Trả kết quả (return: trả về) cho nơi gọi hàm.
+def task02_frequency(values):  # Chia thời lượng thành các khoảng và đếm theo nhóm.
+    bins=[0,60,120,180,240,360,500]
+    labels=["0–<60","60–<120","120–<180","180–<240","240–<360","360–<500"]
+    groups=pd.cut(values,bins=bins,labels=labels,right=False,include_lowest=True)
+    freq=pd.Series(groups).value_counts(sort=False)
+    frame=pd.DataFrame({"frequency":freq})
+    frame["cumulative"]=frame["frequency"].cumsum()
+    if not (frame["frequency"].sum()==len(values)): raise ValueError("Kiểm tra không đạt")
+    return bins,frame
 
-def task03_outliers(values):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    q1,q2,q3=np.percentile(values,[25,50,75])  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    iqr=q3-q1  # Tính hoặc cập nhật biến iqr từ công thức bên phải.
-    low,high=q1-1.5*iqr,q3+1.5*iqr  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    unusual=values[(values<low)|(values>high)]  # Tính hoặc cập nhật biến unusual từ công thức bên phải.
-    return q1,q2,q3,iqr,low,high,unusual  # Trả kết quả (return: trả về) cho nơi gọi hàm.
+def task03_outliers(values):  # Dùng quy tắc IQR để đánh dấu giá trị bất thường.
+    q1,q2,q3=np.percentile(values,[25,50,75])
+    iqr=q3-q1
+    low,high=q1-1.5*iqr,q3+1.5*iqr
+    unusual=values[(values<low)|(values>high)]
+    return q1,q2,q3,iqr,low,high,unusual
 
-def task04_sample_and_test(values):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
+def task04_sample_and_test(values):  # Rút mẫu ngẫu nhiên trước khi làm t-test.
     rng=np.random.default_rng(2026)  # Rút mẫu ngẫu nhiên; seed (hạt giống) giúp tái lập.
     sample=rng.choice(values,size=10,replace=False)  # Rút mẫu ngẫu nhiên; seed (hạt giống) giúp tái lập.
     result=stats.ttest_1samp(values,popmean=120.0)  # Tính thống kê theo hàm/tham số đã học.
-    return sample,float(sample.mean()),float(result.statistic),float(result.pvalue)  # Trả kết quả (return: trả về) cho nơi gọi hàm.
+    return sample,float(sample.mean()),float(result.statistic),float(result.pvalue)
 
-def task05_conclusion(descriptive,outliers,pvalue):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    typical=descriptive["median"]  # Tính hoặc cập nhật biến typical từ công thức bên phải.
-    decision="reject H0" if pvalue<0.05 else "fail to reject H0"  # Tính hoặc cập nhật biến decision từ công thức bên phải.
-    print(f"Typical use is around median {typical:.1f} minutes/day.")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print(f"Sample SD is {descriptive['sample_std']:.1f} minutes, with {len(outliers)} IQR outlier(s).")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print(f"One-sample t-test vs 120 min/day: p={pvalue:.6g}; {decision} at alpha=0.05.")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Recommendation: study long-duration sessions separately and design user-friendly break reminders.")  # In kết quả (output: kết quả) để đối chiếu với đề.
+def task05_conclusion(descriptive,outliers,pvalue):  # Viết nhận xét dựa trên kết quả, không suy diễn nhân quả.
+    typical=descriptive["median"]
+    decision="reject H0" if pvalue<0.05 else "fail to reject H0"
+    print(f"Typical use is around median {typical:.1f} minutes/day.")
+    print(f"Sample SD is {descriptive['sample_std']:.1f} minutes, with {len(outliers)} IQR outlier(s).")
+    print(f"One-sample t-test vs 120 min/day: p={pvalue:.6g}; {decision} at alpha=0.05.")
+    print("Recommendation: study long-duration sessions separately and design user-friendly break reminders.")
 
-def save_plot(values,bins):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    import matplotlib  # Nạp thư viện (import: nạp vào) để có các hàm đã học.
-    matplotlib.use("Agg")  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    import matplotlib.pyplot as plt  # Nạp thư viện (import: nạp vào) để có các hàm đã học.
-    output=Path(__file__).resolve().parent/"outputs"  # Tính hoặc cập nhật biến output từ công thức bên phải.
-    output.mkdir(exist_ok=True)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    fig,ax=plt.subplots()  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    ax.hist(values,bins=bins,edgecolor="black")  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    ax.set(xlabel="Daily app usage (minutes)",ylabel="Users",title="Daily usage of 50 users")  # Đặt nhãn, lưới hoặc chú giải cho biểu đồ.
-    ax.grid(True,axis="y")  # Đặt nhãn, lưới hoặc chú giải cho biểu đồ.
-    target=output/"usage_histogram.png"  # Tính hoặc cập nhật biến target từ công thức bên phải.
+def save_plot(values,bins):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    output=Path(__file__).resolve().parent/"outputs"
+    output.mkdir(exist_ok=True)
+    fig,ax=plt.subplots()
+    ax.hist(values,bins=bins,edgecolor="black")
+    ax.set(xlabel="Daily app usage (minutes)",ylabel="Users",title="Daily usage of 50 users")
+    ax.grid(True,axis="y")
+    target=output/"usage_histogram.png"
     fig.savefig(target,dpi=140,bbox_inches="tight")  # Vẽ/lưu biểu đồ (plot: đồ thị) để diễn giải kết quả.
     plt.close(fig)  # Đóng biểu đồ để tránh giữ tài nguyên.
-    print("Saved:",target)  # In kết quả (output: kết quả) để đối chiếu với đề.
+    print("Saved:",target)
 
-def main():  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    if not (USAGE_MINUTES.shape==(50,)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    desc=task01_descriptive(USAGE_MINUTES)  # Tính hoặc cập nhật biến desc từ công thức bên phải.
-    bins,freq=task02_frequency(USAGE_MINUTES)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    q1,q2,q3,iqr,lo,hi,outliers=task03_outliers(USAGE_MINUTES)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    sample,sample_mean,t,p=task04_sample_and_test(USAGE_MINUTES)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    if not (len(sample)==10): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (0<=p<=1): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    print("Descriptive:",desc)  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Frequency:\n",freq.to_string())  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print(f"Q1={q1:.2f}, Q2={q2:.2f}, Q3={q3:.2f}, IQR={iqr:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print(f"Outlier limits [{lo:.2f},{hi:.2f}], values:",outliers.tolist())  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Sample of 10:",sample.tolist(),"sample mean:",round(sample_mean,2))  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("t:",round(t,4),"p:",round(p,6))  # In kết quả (output: kết quả) để đối chiếu với đề.
-    task05_conclusion(desc,outliers,p)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    if "--no-plot" not in sys.argv:  # Kiểm tra điều kiện (condition: điều kiện), thực hiện nhánh khi đúng.
-        save_plot(USAGE_MINUTES,bins)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-if __name__=="__main__":  # Kiểm tra điều kiện (condition: điều kiện), thực hiện nhánh khi đúng.
-    main()  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
+def main():
+    if not (USAGE_MINUTES.shape==(50,)): raise ValueError("Kiểm tra không đạt")
+    desc=task01_descriptive(USAGE_MINUTES)
+    bins,freq=task02_frequency(USAGE_MINUTES)
+    q1,q2,q3,iqr,lo,hi,outliers=task03_outliers(USAGE_MINUTES)
+    sample,sample_mean,t,p=task04_sample_and_test(USAGE_MINUTES)
+    if not (len(sample)==10): raise ValueError("Kiểm tra không đạt")
+    if not (0<=p<=1): raise ValueError("Kiểm tra không đạt")
+    print("Descriptive:",desc)
+    print("Frequency:\n",freq.to_string())
+    print(f"Q1={q1:.2f}, Q2={q2:.2f}, Q3={q3:.2f}, IQR={iqr:.2f}")
+    print(f"Outlier limits [{lo:.2f},{hi:.2f}], values:",outliers.tolist())
+    print("Sample of 10:",sample.tolist(),"sample mean:",round(sample_mean,2))
+    print("t:",round(t,4),"p:",round(p,6))
+    task05_conclusion(desc,outliers,p)
+    if "--no-plot" not in sys.argv:
+        save_plot(USAGE_MINUTES,bins)
+if __name__=="__main__":
+    main()
 ```
 
 ## 4. Giải thích nội dung và cách giải
+
+Phần 3 chứa **một chương trình Python thống nhất**. Dưới đây là giải thích chi tiết cách từng nhóm hàm giải quyết yêu cầu, không lặp lại các đoạn code rời.
 
 ### Câu 1
 
@@ -209,17 +195,6 @@ Dữ liệu 50 dòng được đưa nguyên vào `USAGE_MINUTES`. Dùng NumPy (t
 **Vì sao cần các chỉ số khác nhau?** Trung bình chỉ mức sử dụng chung nhưng dễ bị kéo lên bởi 480 phút; trung vị cho mức giữa; phương sai và độ lệch chuẩn cho thấy độ phân tán. Vì đang mô tả một mẫu 50 người, lời giải dùng `ddof=1` cho thống kê mẫu.
 
 **Các bước:** Chuyển 50 số phút sang mảng số; tính trung bình, trung vị, mốt, min/max; tính khoảng biến thiên, phương sai mẫu và độ lệch chuẩn mẫu rồi so sánh.
-~~~python
-import numpy as np
-import pandas as pd
-values = USAGE_MINUTES.astype(float)  # Dùng dữ liệu đúng như code hoàn chỉnh cuối bài
-mean = values.mean()
-median = np.median(values)
-mode = pd.Series(values).mode().iloc[0]
-spread = np.ptp(values)
-variance = values.var(ddof=1)
-std = values.std(ddof=1)
-~~~
 **Tham số và cú pháp:** `dtype=float` chọn kiểu số thực; `np.median` tính trung vị; `.mode()` trả một tập các giá trị có tần số cao nhất, `.iloc[0]` chọn giá trị đầu tiên nếu có nhiều mốt; `np.ptp` tính max trừ min. `ddof=1` nghĩa là hiệu chỉnh mẫu: chia cho `n-1` thay vì `n`. Đơn vị của `variance` là phút bình phương, còn `std` là phút.
 
 
@@ -234,14 +209,6 @@ Các khoảng liên tiếp trong `bins=[0,60,120,180,240,360,500]`, `right=False
 **Vì sao gom theo khoảng?** Bảng có 50 giá trị riêng lẻ khó thấy mức sử dụng nào phổ biến. Chia vào cùng các khoảng phút giúp đếm người theo nhóm; tần số tích lũy trả lời đã có bao nhiêu người ở các nhóm từ đầu tới nhóm hiện tại.
 
 **Các bước:** (1) Định nghĩa biên nhóm theo phút. (2) Phân từng thời gian vào một nhóm. (3) Đếm tần số theo thứ tự nhóm, không đảo theo nhóm phổ biến. (4) Cộng dồn và kiểm tra tổng là 50.
-~~~python
-import pandas as pd
-bins = [0, 60, 120, 180, 240, 360, 500]
-labels = ["0–<60", "60–<120", "120–<180", "180–<240", "240–<360", "360–<500"]
-groups = pd.cut(values, bins=bins, labels=labels, right=False, include_lowest=True)
-freq = pd.Series(groups).value_counts(sort=False)
-cumulative = freq.cumsum()
-~~~
 **Flag và tham số:** `bins` là các ranh giới nhóm; `labels` là tên nhóm; `right=False` dùng khoảng gồm cận trái nhưng **không** gồm cận phải, nên 120 được xếp nhóm 120–180; `include_lowest=True` không bỏ cận thấp nhất. `value_counts(sort=False)` giữ thứ tự nhóm thay vì sắp theo lượng người. `cumsum()` cộng dồn. Đồ thị `ax.hist(values, bins=bins)` phải dùng cùng ranh giới nhóm.
 
 
@@ -256,13 +223,6 @@ cumulative = freq.cumsum()
 **Vì sao dùng IQR?** Giá trị 480 phút có thể khác thường. Dùng khoảng tứ phân vị giúp xác định điểm ngoài vùng dữ liệu trung tâm mà không tự ý xóa hoặc sửa dữ liệu nguồn.
 
 **Các bước:** (1) Tính tứ phân vị 25%, 50%, 75%. (2) Lấy Q3 trừ Q1 để tính IQR. (3) Tính biên dưới và biên trên bằng 1.5 lần IQR. (4) Lọc các giá trị nhỏ hơn biên dưới hoặc lớn hơn biên trên.
-~~~python
-q1, median, q3 = np.percentile(values, [25, 50, 75])
-iqr = q3 - q1
-lower = q1 - 1.5 * iqr
-upper = q3 + 1.5 * iqr
-outliers = values[(values < lower) | (values > upper)]
-~~~
 **Tham số và toán tử:** `np.percentile(values, [25, 50, 75])` trả ba mốc phần trăm; `|` kết hợp hai mảng điều kiện theo nghĩa **hoặc**; dấu ngoặc quanh mỗi phép so sánh là cần thiết. `1.5` là hệ số quy ước của cách phát hiện ngoại lệ IQR, **không** phải mức ý nghĩa thống kê. Ngoại lệ được đánh dấu để phân tích, không tự động loại bỏ.
 
 
@@ -277,15 +237,6 @@ outliers = values[(values < lower) | (values > upper)]
 **Vì sao có hai bước lấy mẫu và kiểm định?** Lấy ngẫu nhiên 10 người minh họa sampling (lấy mẫu), còn giả thuyết phải so sánh mức trung bình với mốc 120 phút. Code tham khảo thực hiện kiểm định t trên **đủ 50 giá trị**, không nhầm dùng 10 mẫu vừa rút để kiểm định.
 
 **Các bước:** (1) Dùng hạt giống cố định rút 10 người không hoàn lại. (2) Lấy trung bình của 10 người để so sánh. (3) Kiểm định t một mẫu với mốc giả thuyết 120 phút bằng 50 giá trị. (4) So `pvalue` với ngưỡng 0.05.
-~~~python
-from scipy import stats
-rng = np.random.default_rng(2026)
-sample = rng.choice(values, size=10, replace=False)
-sample_mean = sample.mean()
-result = stats.ttest_1samp(values, popmean=120.0)
-t_value, p_value = result.statistic, result.pvalue
-reject_h0 = p_value < 0.05
-~~~
 **Flag và tham số:** `size=10` là số người rút; `replace=False` nghĩa là **không hoàn lại** nên không chọn một người hai lần; `popmean=120.0` là giá trị trung bình giả định cần kiểm định. `result.statistic` là thống kê t; `result.pvalue` là p-value. `p_value < 0.05` cho biết bác bỏ giả thuyết gốc ở mức ý nghĩa 5% nếu đúng; nếu sai thì **chưa đủ bằng chứng** bác bỏ, không khẳng định giả thuyết gốc là đúng. Kiểm định t cần xem xét giả định thống kê về dữ liệu.
 
 
@@ -300,17 +251,22 @@ Hàm `task05_conclusion` của code tham khảo in bốn ý: dùng median (trung
 **Vì sao kết luận dựa trên nhiều chỉ số?** Chỉ nhìn trung bình có thể bỏ qua độ phân tán và người dùng bất thường. Một khuyến nghị cần dựa trên trung vị, độ lệch chuẩn, ngoại lệ và kết quả kiểm định đã có, không suy diễn tác động nhân quả từ dữ liệu quan sát.
 
 **Các bước:** (1) Chọn trung vị làm đại diện cho mức dùng thường gặp. (2) Nêu độ lệch chuẩn mẫu và số ngoại lệ IQR. (3) Diễn giải ý nghĩa kiểm định t. (4) Đề xuất quan sát các phiên dùng dài và nhắc nghỉ hợp lý.
-~~~python
-median_minutes = descriptive["median"]
-sample_std = descriptive["sample_std"]
-outlier_count = len(outliers)
-decision = "bác bỏ H0" if pvalue < 0.05 else "chưa bác bỏ H0"
-summary = (f"Trung vị {median_minutes:.1f} phút; "
-           f"SD mẫu {sample_std:.1f}; {outlier_count} ngoại lệ; {decision}.")
-~~~
 **Cú pháp và tham số:** `descriptive["median"]` lấy giá trị theo tên trường của dictionary; `len(outliers)` đếm ngoại lệ. Biểu thức `A if điều_kiện else B` chọn câu giải thích đúng theo p-value; `:.1f` trong f-string chỉ quy định **một chữ số thập phân khi in**, không thay số đã tính. Không coi ngoại lệ 480 phút là lỗi dữ liệu chỉ vì giá trị lớn.
 
 
 **Ví dụ/lỗi thường gặp:** Đối chiếu median (trung vị), SD, ngoại lệ và kiểm định khi viết 3–5 câu. Không suy rộng số liệu mô phỏng thành kết luận cho mọi người dùng.
 
 **Từ vựng chính:** Conclusion (kết luận).
+
+
+### Quy trình phân tích một bộ dữ liệu 50 quan sát
+
+**Bước 1 — Kiểm tra dữ liệu:** 50 giá trị `usage_minutes` là số phút sử dụng; đây là đơn vị của mọi trung bình, trung vị và độ lệch chuẩn. `np.array(..., dtype=float)` bảo đảm phép tính số thực. Không tự loại một giá trị lớn chỉ vì trông khác thường, bởi 480 phút có thể là số đo thật.
+
+**Bước 2 — Tóm tắt trung tâm và độ phân tán:** `mean` lấy tổng chia số quan sát; `median` là giá trị giữa sau sắp xếp; `mode` là giá trị xuất hiện nhiều nhất. `np.std(values, ddof=0)` chia theo tổng thể quan sát, còn `ddof=1` thường dùng khi ước lượng độ lệch chuẩn từ một mẫu; hai kết quả khác nhau vì mẫu số khác nhau. Phương sai có đơn vị phút bình phương, độ lệch chuẩn có đơn vị phút, nên SD dễ diễn giải hơn trên thang đo gốc.
+
+**Bước 3 — Bảng tần suất và ngoại lệ:** `pd.cut` tạo nhóm theo các ranh giới đã định; tham số `right=False` nghĩa là khoảng gồm đầu trái nhưng không gồm đầu phải. `value_counts(sort=False)` đếm theo thứ tự nhóm. `np.percentile(values, [25,50,75])` tìm Q1, median, Q3; `IQR = Q3 - Q1`, ngưỡng dưới `Q1 - 1.5 × IQR`, ngưỡng trên `Q3 + 1.5 × IQR`. Điểm ngoài ngưỡng cần được **xem xét**, không tự động xóa.
+
+**Bước 4 — Lấy mẫu và kiểm định:** Dùng `default_rng(seed)` để tái lập lượt rút. **Standard deviation** (độ lệch chuẩn) mô tả độ phân tán cá nhân; **standard error** (sai số chuẩn) đo mức dao động của *trung bình mẫu*. Khi làm `ttest_1samp`, `p-value` nhỏ hơn mức ý nghĩa được chọn có thể dẫn tới bác bỏ H₀, nhưng không phải xác suất H₀ đúng và không cho thấy một yếu tố gây ra yếu tố khác.
+
+**Bước 5 — Kết luận:** Nêu được giá trị điển hình, mức phân tán, số ngoại lệ, kết luận kiểm định và giới hạn của dữ liệu; một lời khuyên thực tế phải bám số liệu chứ không suy rộng từ một mẫu thành mọi người dùng.

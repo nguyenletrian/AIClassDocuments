@@ -87,66 +87,66 @@ Các cột của file là `student_id,name,class_name,Python,Math,ML`; tên `Lea
 ```python
 import pandas as pd  # Pandas (thư viện xử lý bảng dữ liệu) với tên ngắn pd.
 
-def inputHelper(data):  # Tạo hàm nhận mô tả dữ liệu nhập từ người dùng.
-    label = data["label"]  # Lấy câu hướng dẫn nhập từ từ điển data.
-    formats = data["formats"]  # Lấy danh sách kiểu dữ liệu được yêu cầu.
-    inputTemp = input(label)  # Hiển thị lời nhắc và đọc chuỗi người dùng nhập.
-    if inputTemp == "":  # Nếu người dùng để trống thì trả về None.
-        return(None)  # Trả None: không có giá trị đầu vào.
+def inputHelper(data):  # Đọc đầu vào; chú ý kiểm tra kiểu bên dưới chưa chuyển chuỗi sang số.
+    label = data["label"]
+    formats = data["formats"]
+    inputTemp = input(label)
+    if inputTemp == "":
+        return(None)
     blocks =  inputTemp.split(";")  # Tách chuỗi đầu vào tại dấu chấm phẩy.
                   
-    # Check block
-    if len(blocks) != len(formats):  # So sánh số phần tử với số kiểu dự kiến.
-        print("!!![ERROR] Input blocks is not correct!~")  # Hiển thị hoặc nhận thông tin trên terminal.
+
+    if len(blocks) != len(formats):
+        print("!!![ERROR] Input blocks is not correct!~")
             
-    # Check type
-    for i in range(len(formats)):  # Duyệt từng vị trí cần kiểm tra.
+
+    for i in range(len(formats)):
         if type(blocks[i]).__name__ != formats[i]:  # LƯU Ý: split trả chuỗi nên so kiểu bằng tên không thực sự xác thực dữ liệu.
-            print("!!![ERROR] Input format is not corrects")  # Hiển thị hoặc nhận thông tin trên terminal.
-    return(blocks)  # Trả lại danh sách các chuỗi đã được tách.
+            print("!!![ERROR] Input format is not corrects")
+    return(blocks)
     
-def displayAll():  # Chức năng 1: đọc và liệt kê tên sinh viên.
+def displayAll():  # In danh sách tên theo cột có khoảng trắng đầu trong CSV gốc.
     df = pd.read_csv("students.csv")  # Đọc students.csv ở thư mục chạy hiện tại thành DataFrame.
     print("""
 ==== DISPLAY ALL STUDENT =====""")
     students = df[" name"].values  # Lấy cột ' name' có dấu cách đầu theo CSV gốc PythoClass.
-    stt = 1  # Bắt đầu số thứ tự từ 1.
-    for student in students:  # Duyệt từng tên sinh viên.
-        print(f"{stt}. {student}")  # In số thứ tự và tên.
-        stt += 1  # Tăng số thứ tự thêm một.
+    stt = 1
+    for student in students:
+        print(f"{stt}. {student}")
+        stt += 1
 
-def studentSearch():  # Chức năng 2: tìm sinh viên bằng mã.
+def studentSearch():  # Lọc theo mã sinh viên.
     print("""
 ==== SEARCH STUDENT =====""")
     inputData = inputHelper({
         "label":"Please enter Student ID:",
         "formats":["str"]
     })
-    if inputData:  # Chỉ tiếp tục khi người dùng nhập dữ liệu.
-        inputData = inputData[0]  # Lấy mã đầu tiên từ danh sách nhập.
+    if inputData:
+        inputData = inputData[0]
         df = pd.read_csv("students.csv")  # Đọc students.csv ở thư mục chạy hiện tại thành DataFrame.
-        result = df[df["student_id"] == inputData]  # Lọc các hàng có student_id trùng giá trị nhập.
-        if len(result)!=0:  # Kiểm tra có dòng nào khớp hay không.
-            print(result)  # In dòng dữ liệu đã tìm thấy.
-        else:  # Nhánh xử lý trường hợp không thỏa điều kiện.
-            print("!!![ERROR] Student not found.")  # Hiển thị hoặc nhận thông tin trên terminal.
+        result = df[df["student_id"] == inputData]
+        if len(result)!=0:
+            print(result)
+        else:
+            print("!!![ERROR] Student not found.")
         studentSearch()  # Gọi lại chính hàm tìm kiếm; lặp nhiều có thể tạo đệ quy quá sâu.
-    else:  # Nhánh xử lý trường hợp không thỏa điều kiện.
-        return  # Kết thúc hàm hiện tại.
+    else:
+        return
     
-def studentAverage():  # Chức năng 3: thống kê kết quả một sinh viên.
+def studentAverage():  # Tính trung bình ba môn cho một sinh viên.
     print("""
 ==== STUDENT RESULT ====""")
     inputData = inputHelper({
         "label":"Please enter Student ID:",
         "formats":["str"]
     })
-    if inputData:  # Chỉ tiếp tục khi người dùng nhập dữ liệu.
-        inputData = inputData[0]  # Lấy mã đầu tiên từ danh sách nhập.
+    if inputData:
+        inputData = inputData[0]
         df = pd.read_csv("students.csv")  # Đọc students.csv ở thư mục chạy hiện tại thành DataFrame.
-        result = df[(df["student_id"] == inputData)]  # Lọc đúng sinh viên bằng mã.
-        if len(result)!=0:  # Kiểm tra có dòng nào khớp hay không.
-            values = result.values  # Đổi bảng kết quả sang mảng NumPy để lấy theo chỉ số.
+        result = df[(df["student_id"] == inputData)]
+        if len(result)!=0:
+            values = result.values
             print(f"""
 Student name: {values[0][1]}
 Python score: {values[0][3]}
@@ -156,13 +156,13 @@ Average score:{round((values[0][3] + values[0][4] + values[0][5])/3,2)}
 Highest score:{max(values[0][3],values[0][4],values[0][5])}
 Lowest score:{min(values[0][3],values[0][4],values[0][5])}
 """)
-        else:  # Nhánh xử lý trường hợp không thỏa điều kiện.
-            print("!!![ERROR] Student not found.")  # Hiển thị hoặc nhận thông tin trên terminal.
+        else:
+            print("!!![ERROR] Student not found.")
         studentAverage()  # Gọi lại hàm tính điểm; lặp nhiều có thể tạo đệ quy quá sâu.
-    else:  # Nhánh xử lý trường hợp không thỏa điều kiện.
-        return  # Kết thúc hàm hiện tại.
+    else:
+        return
 
-def analyzeSubject():  # Chức năng 4: thống kê tổng/trung bình/cao nhất/thấp nhất từng môn.
+def analyzeSubject():  # Thống kê theo từng cột môn học.
     print("""
 ==== SUBJECT PERFORMANCE ====""")
     df = pd.read_csv("students.csv")  # Đọc students.csv ở thư mục chạy hiện tại thành DataFrame.
@@ -172,48 +172,48 @@ def analyzeSubject():  # Chức năng 4: thống kê tổng/trung bình/cao nh�
         "Highest":[df["Python"].max(),df["Math"].max(),df["ML"].max()],
         "Lowest":[df["Python"].min(),df["Math"].min(),df["ML"].min()],
     }
-    dfShow = pd.DataFrame(data,index=["Python","Math","ML"])  # Tạo bảng với ba hàng tương ứng Python, Math và ML.
-    print(dfShow)  # In bảng tổng hợp theo môn.
+    dfShow = pd.DataFrame(data,index=["Python","Math","ML"])
+    print(dfShow)
 
 
-def analyzeClass():  # Chức năng 5: phân tích số sinh viên và trung bình từng lớp.
+def analyzeClass():  # groupby/merge tổng hợp kết quả theo lớp.
     print("""
 ===== CLASS PERFORMANCE =====""")
     df = pd.read_csv("students.csv")  # Đọc students.csv ở thư mục chạy hiện tại thành DataFrame.
     studentCount =  df.groupby("class_name")["student_id"].count()  # Nhóm theo lớp và đếm mã sinh viên.
-    pythonMean =  df.groupby("class_name")["Python"].mean()  # Tính điểm Python trung bình theo lớp.
-    mathMean =  df.groupby("class_name")["Math"].mean()  # Tính điểm Math trung bình theo lớp.
-    mlMean =  df.groupby("class_name")["ML"].mean()  # Tính điểm ML trung bình theo lớp.
+    pythonMean =  df.groupby("class_name")["Python"].mean()
+    mathMean =  df.groupby("class_name")["Math"].mean()
+    mlMean =  df.groupby("class_name")["ML"].mean()
     result = pd.merge(studentCount,pythonMean,on="class_name",how="outer")  # Ghép các thống kê theo khóa class_name.
     result = pd.merge(result,mathMean,on="class_name",how="outer")  # Ghép các thống kê theo khóa class_name.
     result = pd.merge(result,mlMean,on="class_name",how="outer")  # Ghép các thống kê theo khóa class_name.
     result["Overall Average"] = (result["Python"] + result["Math"] +  result["ML"])/3  # Trung bình chung từ trung bình ba môn.
     
     
-    result.reset_index(inplace=True) #Trợ giúp của chat GPT ạ!~
-    result.rename(columns={"student_id":"Students"}, inplace=True) #Trợ giúp của chat GPT ạ!~
-    result.rename(columns={"class_name":"Class"}, inplace=True)  # Đổi tiêu đề cột để bảng dễ đọc.
+    result.reset_index(inplace=True)
+    result.rename(columns={"student_id":"Students"}, inplace=True)
+    result.rename(columns={"class_name":"Class"}, inplace=True)
     
-    result = result.round(2) # Trợ giúp của chat GPT ạ!~
+    result = result.round(2)
     
-    print(result)  # In dòng dữ liệu đã tìm thấy.
+    print(result)
 
 def top3():  # Chức năng 6: xếp hạng ba sinh viên có điểm trung bình cao nhất.
     print("""
 ===== TOP 3 STUDENTS =====""")
     df = pd.read_csv("students.csv")  # Đọc students.csv ở thư mục chạy hiện tại thành DataFrame.
-    df["Average"] =   (df["Python"] + df["Math"] +  df["ML"])/3  # Thêm cột Average bằng trung bình Python, Math và ML.
-    dfSorted = df.sort_values(by="Average",ascending=False)  # Sắp xếp theo Average giảm dần.
-    dfSorted.drop(columns=["Python","Math","ML"], inplace=True) # Trợ giúp của chat GPT ạ!~
-    dfSorted.rename(columns={"class_name":"Class","student_id":"Student ID"}, inplace=True)  # Đổi tên cột cho dễ hiểu.
-    dfSorted = dfSorted.round(2)  # Làm tròn điểm trung bình.
+    df["Average"] =   (df["Python"] + df["Math"] +  df["ML"])/3
+    dfSorted = df.sort_values(by="Average",ascending=False)
+    dfSorted.drop(columns=["Python","Math","ML"], inplace=True)
+    dfSorted.rename(columns={"class_name":"Class","student_id":"Student ID"}, inplace=True)
+    dfSorted = dfSorted.round(2)
     
     print(dfSorted.head(3))  # Chỉ hiển thị ba hàng đứng đầu.
 
 # MENU()
-def menu():  # Xây dựng menu tương tác lặp đến khi chọn thoát.
-    choice = 0  # Khởi tạo lựa chọn mặc định.
-    while True:  # Lặp menu cho tới khi gặp break.
+def menu():  # Bảy lựa chọn của main.py gốc, không phải sáu chức năng của đề Word.
+    choice = 0
+    while True:
         print("""
 ================================
  STUDENT PERFORMANCE ANALYSIS
@@ -226,34 +226,36 @@ def menu():  # Xây dựng menu tương tác lặp đến khi chọn thoát.
 6. Show top 3 students
 7. Exit         
         """)
-        # nhap lua chon
-        inputData =input("Please select (1-7): ")  # Nhận lựa chọn của người dùng từ 1 đến 7.
-        if inputData.isnumeric():  # Kiểm tra chuỗi chỉ có chữ số trước khi ép kiểu.
-            choice = int(inputData)  # Chuyển lựa chọn từ chuỗi sang số nguyên.
-            if choice == 1:  # Điều hướng tới chức năng đã chọn.
+
+        inputData =input("Please select (1-7): ")
+        if inputData.isnumeric():
+            choice = int(inputData)
+            if choice == 1:
                 displayAll()
-            elif choice == 2:  # Xử lý lựa chọn còn lại.
+            elif choice == 2:
                 studentSearch()  # Gọi lại chính hàm tìm kiếm; lặp nhiều có thể tạo đệ quy quá sâu.
-            elif choice == 3:  # Xử lý lựa chọn còn lại.
+            elif choice == 3:
                 studentAverage()  # Gọi lại hàm tính điểm; lặp nhiều có thể tạo đệ quy quá sâu.
-            elif choice == 4:  # Xử lý lựa chọn còn lại.
+            elif choice == 4:
                 analyzeSubject()
-            elif choice == 5:  # Xử lý lựa chọn còn lại.
+            elif choice == 5:
                 analyzeClass()
-            elif choice == 6:  # Xử lý lựa chọn còn lại.
+            elif choice == 6:
                 top3()
-            elif choice == 7:  # Xử lý lựa chọn còn lại.
-                break  # Dừng vòng lặp menu.
-            else:  # Nhánh xử lý trường hợp không thỏa điều kiện.
-                print("!!![ERROR] Please enter from 1 to 7")  # Hiển thị hoặc nhận thông tin trên terminal.
-        else:  # Nhánh xử lý trường hợp không thỏa điều kiện.
-            print("!!![ERROR] Please enter from 1 to 7")  # Hiển thị hoặc nhận thông tin trên terminal.
+            elif choice == 7:
+                break
+            else:
+                print("!!![ERROR] Please enter from 1 to 7")
+        else:
+            print("!!![ERROR] Please enter from 1 to 7")
 
 # goi ham
-menu()  # Khởi chạy menu chính khi chạy file.
+menu()
 ```
 
 ## 4. Giải thích nội dung và cách giải
+
+Phần 3 chứa **một chương trình Python thống nhất**. Dưới đây là giải thích chi tiết cách từng nhóm hàm giải quyết yêu cầu, không lặp lại các đoạn code rời.
 
 ### Tổng quan chương trình thực tế của `main.py`
 
@@ -282,3 +284,16 @@ Tệp này là **bài giải đang có trong repo PythoClass**, sử dụng `pan
 **Đối chiếu với đề Word:** `main.py` **không có** thao tác thêm sinh viên, kiểm tra mã trùng khi thêm, lưu sinh viên ra CSV và kiểm tra điểm 0–100. Do đó, nếu bài thi yêu cầu đủ các chức năng của Word, vẫn phải bổ sung chúng. Phiên bản `labs/pythoclass/LAB-10-file-csv/SOLUTION.py` là **lời giải tham khảo khác** đã triển khai các yêu cầu đó; không nên nhầm nó với `main.py` của bạn.
 
 **Bảo toàn nguồn:** Phần code in phía trên giữ nguyên **các dòng lệnh thực thi** trong `PythoClass/main.py`; chỉ bổ sung chú thích tiếng Việt cuối dòng để ôn tập. Những vấn đề được phân tích ở đây thay vì âm thầm sửa logic chương trình. Dùng `students.csv` gốc cùng thư mục chạy khi muốn kiểm tra đúng hành vi mã nguồn.
+
+
+### Đi theo một lượt chạy thực tế từ đầu tới cuối
+
+**Khởi động:** chương trình bắt đầu khi gọi `menu()` ở cuối file. `while True` tiếp tục in 7 lựa chọn; `input(...)` luôn trả về chuỗi, `.isnumeric()` kiểm tra xem có thể chuyển sang `int` trước khi đối chiếu `choice`. Lựa chọn 7 dùng `break` để dừng menu.
+
+**Dữ liệu Pandas:** `pd.read_csv("students.csv")` đọc CSV thành `DataFrame`. Mỗi lần chọn một chức năng, chương trình lại đọc file: cách này đơn giản nhưng có chi phí đọc lại, và phụ thuộc thư mục chạy hiện tại. `df[df["student_id"] == inputData]` tạo mặt nạ Boolean rồi lọc hàng; khác với `df["student_id"]` vốn chỉ chọn một cột.
+
+**Các cấp thống kê:** Khi xem *một học viên*, `result.values[0]` lấy hàng đầu của bảng lọc; các chỉ số 3, 4, 5 lần lượt là điểm Python, Math, ML theo thứ tự cột của CSV gốc. Khi xem *một môn*, `.mean()`, `.sum()`, `.max()`, `.min()` tổng hợp toàn bộ sinh viên. Khi xem *một lớp*, `groupby("class_name")` tạo các nhóm; `pd.merge(..., on="class_name", how="outer")` ghép bảng đếm người và bảng điểm trung bình. Cuối cùng, xếp hạng top 3 cần tính `Average`, sắp giảm dần rồi `head(3)`.
+
+**Lỗi và giới hạn quan trọng:** `" name"` (có khoảng trắng) khác `"name"`; file CSV dùng sai header sẽ gây `KeyError`. `split(";")` trả về các chuỗi dù người dùng gõ số, nên so sánh tên kiểu với `formats` chưa kiểm tra dữ liệu thực sự. Nếu nhập thiếu mục, cách kiểm tra hiện tại có thể dẫn đến `IndexError`. Hai hàm tìm kiếm và xem điểm gọi lại chính nó nên nếu thao tác quá nhiều có thể tăng độ sâu đệ quy.
+
+**So với yêu cầu giảng viên:** code hiện tại **chưa thêm học viên, chưa lưu CSV, chưa chặn trùng mã khi thêm và chưa xác nhận điểm 0–100**. Những chức năng này cần viết bổ sung nếu bài thi yêu cầu đúng nguyên văn đề Word. Bản in chỉ phân tích và chú thích `main.py` thật, không biến nó thành một lời giải khác rồi ghi nhầm nguồn.
