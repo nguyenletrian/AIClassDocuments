@@ -51,27 +51,27 @@ STUDENTS = {
 }
 
 
-def analyse_interests(students):
+def analyse_interests(students):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Task 1: compute unique subjects and the two requested filters."""
     # set().union(*iterable) joins every subject set into one unique collection.
     all_subjects = set().union(*students.values())
     # 'and' keeps people who study BOTH Python and AI.
     python_and_ai = [name for name, subjects in students.items()
-                     if "Python" in subjects and "AI" in subjects]
+                     if "Python" in subjects and "AI" in subjects]  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
     # 'or' keeps people who study AT LEAST ONE of Python and Math.
     python_or_math = [name for name, subjects in students.items()
-                      if "Python" in subjects or "Math" in subjects]
+                      if "Python" in subjects or "Math" in subjects]  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
     # Sorting gives reproducible output even though sets have no fixed order.
-    return sorted(all_subjects), python_and_ai, python_or_math
+    return sorted(all_subjects), python_and_ai, python_or_math  # Trả kết quả về nơi gọi hàm.
 
 
-def compare_students(students, first, second):
+def compare_students(students, first, second):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Task 2: inspect intersection, union and directional difference."""
     # Reject unknown identifiers before attempting dictionary indexing.
-    if first not in students or second not in students:
-        raise ValueError("Both student names must exist.")
-    if first == second:
-        raise ValueError("Choose two distinct students.")
+    if first not in students or second not in students:  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
+        raise ValueError("Both student names must exist.")  # Báo lỗi nếu dữ liệu không đúng điều kiện.
+    if first == second:  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
+        raise ValueError("Choose two distinct students.")  # Báo lỗi nếu dữ liệu không đúng điều kiện.
     left, right = students[first], students[second]
     return {
         "shared": sorted(left & right),  # Subjects common to BOTH students.
@@ -80,87 +80,87 @@ def compare_students(students, first, second):
     }
 
 
-def jaccard_similarity(left, right):
+def jaccard_similarity(left, right):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Task 3: fraction of unique shared subjects among unique subjects."""
     both = left & right  # Set intersection.
     either = left | right  # Set union.
     # Two empty sets have no shared subjects here; choose 0 rather than /0.
-    return len(both) / len(either) if either else 0.0
+    return len(both) / len(either) if either else 0.0  # Trả kết quả về nơi gọi hàm.
 
 
-def most_similar_pair(students):
+def most_similar_pair(students):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Task 4: compare all unordered pairs, preserving first winning tie."""
-    best_pair = None
+    best_pair = None  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
     best_score = -1.0  # Lower than every legal Jaccard value [0, 1].
-    for first, second in combinations(students, 2):
-        score = jaccard_similarity(students[first], students[second])
-        if score > best_score:
+    for first, second in combinations(students, 2):  # Duyệt qua các phần tử hoặc cặp phần tử.
+        score = jaccard_similarity(students[first], students[second])  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
+        if score > best_score:  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
             best_pair, best_score = (first, second), score
-    return best_pair, best_score
+    return best_pair, best_score  # Trả kết quả về nơi gọi hàm.
 
 
-def recommend_partners(students, student, threshold=0.5):
+def recommend_partners(students, student, threshold=0.5):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Task 5: return everyone other than student with similarity >= limit."""
-    if student not in students:
-        raise ValueError("Unknown student.")
-    if not 0.0 <= threshold <= 1.0:
-        raise ValueError("Threshold must be between 0 and 1.")
-    matches = []
-    for other, subjects in students.items():
+    if student not in students:  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
+        raise ValueError("Unknown student.")  # Báo lỗi nếu dữ liệu không đúng điều kiện.
+    if not 0.0 <= threshold <= 1.0:  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
+        raise ValueError("Threshold must be between 0 and 1.")  # Báo lỗi nếu dữ liệu không đúng điều kiện.
+    matches = []  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
+    for other, subjects in students.items():  # Duyệt qua các phần tử hoặc cặp phần tử.
         if other == student:  # Never recommend a student to themselves.
             continue
-        score = jaccard_similarity(students[student], subjects)
+        score = jaccard_similarity(students[student], subjects)  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
         if score >= threshold:  # Inclusive as in the original notebook.
             matches.append((other, score))
     # Rank by similarity, then alphabetically when scores are identical.
-    return sorted(matches, key=lambda item: (-item[1], item[0]))
+    return sorted(matches, key=lambda item: (-item[1], item[0]))  # Trả kết quả về nơi gọi hàm.
 
 
-def build_graph(students, threshold=0.5):
+def build_graph(students, threshold=0.5):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Task 6: symmetric adjacency list; isolated vertices remain visible."""
-    if not 0.0 <= threshold <= 1.0:
-        raise ValueError("Threshold must be between 0 and 1.")
+    if not 0.0 <= threshold <= 1.0:  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
+        raise ValueError("Threshold must be between 0 and 1.")  # Báo lỗi nếu dữ liệu không đúng điều kiện.
     graph = {name: [] for name in students}  # Every student becomes a node.
-    for first, second in combinations(students, 2):
-        score = jaccard_similarity(students[first], students[second])
-        if score >= threshold:
+    for first, second in combinations(students, 2):  # Duyệt qua các phần tử hoặc cặp phần tử.
+        score = jaccard_similarity(students[first], students[second])  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
+        if score >= threshold:  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
             graph[first].append(second)  # Undirected edge in both directions.
             graph[second].append(first)
-    return {name: sorted(neighbors) for name, neighbors in graph.items()}
+    return {name: sorted(neighbors) for name, neighbors in graph.items()}  # Trả kết quả về nơi gọi hàm.
 
 
-def main():
+def main():  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Show each result and assert easy-to-check reference expectations."""
     subjects, both, either = analyse_interests(STUDENTS)
-    print("Task 1 - All subjects:", ", ".join(subjects))
-    print("Python AND AI:", ", ".join(both))
-    print("Python OR Math:", ", ".join(either))
+    print("Task 1 - All subjects:", ", ".join(subjects))  # In kết quả để đối chiếu với đề bài.
+    print("Python AND AI:", ", ".join(both))  # In kết quả để đối chiếu với đề bài.
+    print("Python OR Math:", ", ".join(either))  # In kết quả để đối chiếu với đề bài.
 
     compared = compare_students(STUDENTS, "Student A", "Student B")
-    print("Task 2 - Common:", compared["shared"])
-    print("Union:", compared["combined"])
-    print("Only Student A:", compared["only_first"])
+    print("Task 2 - Common:", compared["shared"])  # In kết quả để đối chiếu với đề bài.
+    print("Union:", compared["combined"])  # In kết quả để đối chiếu với đề bài.
+    print("Only Student A:", compared["only_first"])  # In kết quả để đối chiếu với đề bài.
 
-    score = jaccard_similarity(STUDENTS["Student A"], STUDENTS["Student E"])
-    print("Task 3 - Jaccard(A, E):", f"{score:.2f}")
+    score = jaccard_similarity(STUDENTS["Student A"], STUDENTS["Student E"])  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
+    print("Task 3 - Jaccard(A, E):", f"{score:.2f}")  # In kết quả để đối chiếu với đề bài.
     if not (score == 1.0): raise ValueError("Kiểm tra dữ liệu không đạt")  # These two students have identical interest sets.
 
     pair, highest = most_similar_pair(STUDENTS)
-    print("Task 4 - Best pair:", pair, "score", f"{highest:.2f}")
+    print("Task 4 - Best pair:", pair, "score", f"{highest:.2f}")  # In kết quả để đối chiếu với đề bài.
     if not (highest == 1.0): raise ValueError("Kiểm tra dữ liệu không đạt")  # Duplicate interest sets give perfect similarity.
 
-    matches = recommend_partners(STUDENTS, "Student A", threshold=0.5)
-    print("Task 5 - Partners:", matches)
+    matches = recommend_partners(STUDENTS, "Student A", threshold=0.5)  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
+    print("Task 5 - Partners:", matches)  # In kết quả để đối chiếu với đề bài.
     if not (all(s >= 0.5 for _, s in matches)): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra điều kiện bằng if thay cho assert.
 
-    graph = build_graph(STUDENTS, threshold=0.5)
-    print("Task 6 - Student graph:")
-    for name, neighbors in graph.items():
-        print(f"  {name}: {', '.join(neighbors) if neighbors else 'No connections'}")
+    graph = build_graph(STUDENTS, threshold=0.5)  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
+    print("Task 6 - Student graph:")  # In kết quả để đối chiếu với đề bài.
+    for name, neighbors in graph.items():  # Duyệt qua các phần tử hoặc cặp phần tử.
+        print(f"  {name}: {', '.join(neighbors) if neighbors else 'No connections'}")  # In kết quả để đối chiếu với đề bài.
     if not (graph["Student D"] == []): raise ValueError("Kiểm tra dữ liệu không đạt")  # Java/Web shares none of these subjects.
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
     main()  # Do not run the sample automatically when imported.
 ```
 
