@@ -91,107 +91,109 @@ L(w) = (w - 4)^2
 ## 3. Code Python có chú thích
 
 ```python
-import numpy as np  # Nạp thư viện (import: nạp vào) để có các hàm đã học.
+import numpy as np
 
-STUDENT_NAMES = ["Student A", "Student B", "Student C", "Student D", "Student E"]  # Tính hoặc cập nhật biến STUDENT_NAMES từ công thức bên phải.
+STUDENT_NAMES = ["Student A", "Student B", "Student C", "Student D", "Student E"]
 
-student_data = np.array([  # Khởi tạo mảng NumPy với số liệu theo đúng đề.
-    [2, 60, 50],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
-    [3, 65, 55],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
-    [4, 75, 65],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
-    [5, 80, 70],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
-    [6, 95, 90],  # Tạo hoặc tiếp tục cấu trúc dữ liệu đang khai báo.
-], dtype=float)  # Đóng mảng, danh sách hoặc nhóm tham số.
+student_data = np.array([
+    [2, 60, 50],
+    [3, 65, 55],
+    [4, 75, 65],
+    [5, 80, 70],
+    [6, 95, 90],
+], dtype=float)
 
 
-def task1_student_performance(data):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    if data.shape != (5, 3):  # Kiểm tra điều kiện (condition: điều kiện), thực hiện nhánh khi đúng.
-        raise ValueError("Expected the original 5-student x 3-column table.")  # Báo lỗi khi đầu vào không hợp lệ.
+def task1_student_performance(data):  # Phân tích bảng 5 sinh viên và so sánh dự đoán với thực tế.
+    if data.shape != (5, 3):
+        raise ValueError("Expected the original 5-student x 3-column table.")
 
-    study_hours = data[:, 0]  # Tính hoặc cập nhật biến study_hours từ công thức bên phải.
-    attendance = data[:, 1]  # Tính hoặc cập nhật biến attendance từ công thức bên phải.
-    actual_scores = data[:, 2]  # Tính hoặc cập nhật biến actual_scores từ công thức bên phải.
+    study_hours = data[:, 0]
+    attendance = data[:, 1]
+    actual_scores = data[:, 2]
 
     mean_score = float(np.mean(actual_scores))  # Tính trung bình cộng các giá trị hợp lệ.
 
     population_sd = float(np.std(actual_scores, ddof=0))  # Tính độ lệch chuẩn để đo sự phân tán.
     sample_sd = float(np.std(actual_scores, ddof=1))  # Tính độ lệch chuẩn để đo sự phân tán.
 
-    predicted_scores = 5 * study_hours + 0.2 * attendance + 10  # Tính hoặc cập nhật biến predicted_scores từ công thức bên phải.
-    return mean_score, population_sd, sample_sd, predicted_scores  # Trả kết quả (return: trả về) cho nơi gọi hàm.
+    predicted_scores = 5 * study_hours + 0.2 * attendance + 10
+    return mean_score, population_sd, sample_sd, predicted_scores
 
 
-def task2_probabilities(data):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    scores = data[:, 2]  # Tính hoặc cập nhật biến scores từ công thức bên phải.
-    hours = data[:, 0]  # Tính hoặc cập nhật biến hours từ công thức bên phải.
+def task2_probabilities(data):  # Đếm số điều kiện đúng bằng Boolean và tính xác suất.
+    scores = data[:, 2]
+    hours = data[:, 0]
 
-    at_least_70 = scores >= 70  # Tính hoặc cập nhật biến at_least_70 từ công thức bên phải.
-    at_least_4_hours = hours >= 4  # Tính hoặc cập nhật biến at_least_4_hours từ công thức bên phải.
-    both_conditions = at_least_70 & at_least_4_hours  # Tính hoặc cập nhật biến both_conditions từ công thức bên phải.
+    at_least_70 = scores >= 70
+    at_least_4_hours = hours >= 4
+    both_conditions = at_least_70 & at_least_4_hours
 
     probability_70 = float(np.count_nonzero(at_least_70) / len(scores))  # Đếm hoặc cộng phần tử để tính tổng và xác suất.
 
     denominator = int(np.count_nonzero(at_least_4_hours))  # Đếm hoặc cộng phần tử để tính tổng và xác suất.
-    if denominator == 0:  # Kiểm tra điều kiện (condition: điều kiện), thực hiện nhánh khi đúng.
-        raise ValueError("No students meet the given study-hours condition.")  # Báo lỗi khi đầu vào không hợp lệ.
-    conditional_probability = float(  # Tính hoặc cập nhật biến conditional_probability từ công thức bên phải.
+    if denominator == 0:
+        raise ValueError("No students meet the given study-hours condition.")
+    conditional_probability = float(
         np.count_nonzero(both_conditions) / denominator  # Đếm hoặc cộng phần tử để tính tổng và xác suất.
-    )  # Đóng mảng, danh sách hoặc nhóm tham số.
-    return probability_70, conditional_probability  # Trả kết quả (return: trả về) cho nơi gọi hàm.
+    )
+    return probability_70, conditional_probability
 
 
-def task3_gradient_descent(initial_w=2.0, learning_rate=0.1):  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    loss_before = (initial_w - 4) ** 2  # Tính hoặc cập nhật biến loss_before từ công thức bên phải.
+def task3_gradient_descent(initial_w=2.0, learning_rate=0.1):  # Thực hiện đúng một bước cập nhật tham số w.
+    loss_before = (initial_w - 4) ** 2
 
-    gradient = 2 * (initial_w - 4)  # Tính hoặc cập nhật biến gradient từ công thức bên phải.
+    gradient = 2 * (initial_w - 4)
 
-    updated_w = initial_w - learning_rate * gradient  # Tính hoặc cập nhật biến updated_w từ công thức bên phải.
+    updated_w = initial_w - learning_rate * gradient
 
-    loss_after = (updated_w - 4) ** 2  # Tính hoặc cập nhật biến loss_after từ công thức bên phải.
-    return loss_before, gradient, updated_w, loss_after  # Trả kết quả (return: trả về) cho nơi gọi hàm.
-
-
-def main():  # Định nghĩa hàm (function: hàm) để gom và gọi lại các bước.
-    mean, pop_sd, sample_sd, predicted = task1_student_performance(student_data)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    print("TASK 1 — STUDENT PERFORMANCE")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Actual-score mean:", f"{mean:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Population SD (NumPy default, ddof=0):", f"{pop_sd:.6f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Sample SD (comparison only, ddof=1):", f"{sample_sd:.6f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Student | actual score | predicted score")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    for name, actual, prediction in zip(  # Duyệt từng phần tử qua vòng lặp (loop: vòng lặp).
-        STUDENT_NAMES, student_data[:, 2], predicted  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    ):  # Đóng mảng, danh sách hoặc nhóm tham số.
-        print(f"{name} | {actual:.0f} | {prediction:.0f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-
-    p70, p70_given_4h = task2_probabilities(student_data)  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    print("TASK 2 — PROBABILITY")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("P(actual score >= 70):", f"{p70:.6f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("P(actual score >= 70 | hours >= 4):", f"{p70_given_4h:.6f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-
-    loss, derivative, new_w, new_loss = task3_gradient_descent()  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
-    print("TASK 3 — GRADIENT DESCENT")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("L(2):", f"{loss:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Gradient at w=2:", f"{derivative:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Updated w after one step:", f"{new_w:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-    print("Loss after one update (extra check):", f"{new_loss:.2f}")  # In kết quả (output: kết quả) để đối chiếu với đề.
-
-    if not (student_data.shape == (5, 3)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (np.isclose(mean, 66.0)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (np.isclose(pop_sd, np.sqrt(194.0))): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (np.allclose(predicted, [32, 38, 45, 51, 59])): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (np.isclose(p70, 2 / 5)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (np.isclose(p70_given_4h, 2 / 3)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (np.isclose(loss, 4.0)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (np.isclose(derivative, -4.0)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (np.isclose(new_w, 2.4)): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
-    if not (new_loss < loss): raise ValueError("Kiểm tra không đạt")  # Kiểm tra bằng if (nếu), báo lỗi nếu kết quả không phù hợp.
+    loss_after = (updated_w - 4) ** 2
+    return loss_before, gradient, updated_w, loss_after
 
 
-if __name__ == "__main__":  # Kiểm tra điều kiện (condition: điều kiện), thực hiện nhánh khi đúng.
-    main()  # Tiếp tục bước xử lý dữ liệu đúng như code tham khảo.
+def main():
+    mean, pop_sd, sample_sd, predicted = task1_student_performance(student_data)
+    print("TASK 1 — STUDENT PERFORMANCE")
+    print("Actual-score mean:", f"{mean:.2f}")
+    print("Population SD (NumPy default, ddof=0):", f"{pop_sd:.6f}")
+    print("Sample SD (comparison only, ddof=1):", f"{sample_sd:.6f}")
+    print("Student | actual score | predicted score")
+    for name, actual, prediction in zip(
+        STUDENT_NAMES, student_data[:, 2], predicted
+    ):
+        print(f"{name} | {actual:.0f} | {prediction:.0f}")
+
+    p70, p70_given_4h = task2_probabilities(student_data)
+    print("TASK 2 — PROBABILITY")
+    print("P(actual score >= 70):", f"{p70:.6f}")
+    print("P(actual score >= 70 | hours >= 4):", f"{p70_given_4h:.6f}")
+
+    loss, derivative, new_w, new_loss = task3_gradient_descent()
+    print("TASK 3 — GRADIENT DESCENT")
+    print("L(2):", f"{loss:.2f}")
+    print("Gradient at w=2:", f"{derivative:.2f}")
+    print("Updated w after one step:", f"{new_w:.2f}")
+    print("Loss after one update (extra check):", f"{new_loss:.2f}")
+
+    if not (student_data.shape == (5, 3)): raise ValueError("Kiểm tra không đạt")
+    if not (np.isclose(mean, 66.0)): raise ValueError("Kiểm tra không đạt")
+    if not (np.isclose(pop_sd, np.sqrt(194.0))): raise ValueError("Kiểm tra không đạt")
+    if not (np.allclose(predicted, [32, 38, 45, 51, 59])): raise ValueError("Kiểm tra không đạt")
+    if not (np.isclose(p70, 2 / 5)): raise ValueError("Kiểm tra không đạt")
+    if not (np.isclose(p70_given_4h, 2 / 3)): raise ValueError("Kiểm tra không đạt")
+    if not (np.isclose(loss, 4.0)): raise ValueError("Kiểm tra không đạt")
+    if not (np.isclose(derivative, -4.0)): raise ValueError("Kiểm tra không đạt")
+    if not (np.isclose(new_w, 2.4)): raise ValueError("Kiểm tra không đạt")
+    if not (new_loss < loss): raise ValueError("Kiểm tra không đạt")
+
+
+if __name__ == "__main__":
+    main()
 ```
 
 ## 4. Giải thích nội dung và cách giải
+
+Phần 3 chứa **một chương trình Python thống nhất**. Dưới đây là giải thích chi tiết cách từng nhóm hàm giải quyết yêu cầu, không lặp lại các đoạn code rời.
 
 ### Câu 1 — Phân tích điểm và dự đoán
 
@@ -208,18 +210,6 @@ if __name__ == "__main__":  # Kiểm tra điều kiện (condition: điều ki�
 
 **Công thức viết bằng Python:**
 
-~~~python
-import numpy as np
-data = np.array([[2, 60, 50], [3, 65, 55], [4, 75, 65],
-                 [5, 80, 70], [6, 95, 90]], dtype=float)
-hours = data[:, 0]
-attendance = data[:, 1]
-scores = data[:, 2]
-mean_score = np.mean(scores)                    # 66.0
-sd_population = np.std(scores, ddof=0)          # 13.928388...
-sd_sample = np.std(scores, ddof=1)              # 15.572411...
-predicted = 5 * hours + 0.2 * attendance + 10   # [32., 38., 45., 51., 59.]
-~~~
 
 **Giải thích hàm, toán tử và tham số:** `np.array` tạo mảng, `dtype=float` chọn kiểu số thực. `np.mean` lấy trung bình. `np.std` đo độ phân tán; `ddof=0` chia phương sai cho số quan sát `n`, còn `ddof=1` chia cho `n-1`. Phép `*` nhân từng phần tử trong mảng NumPy, `+` cộng. `data[:, 0]` lấy giờ học, `data[:, 1]` lấy điểm danh, `data[:, 2]` lấy điểm thực tế.
 
@@ -242,22 +232,6 @@ predicted = 5 * hours + 0.2 * attendance + 10   # [32., 38., 45., 51., 59.]
 
 **Công thức viết bằng Python:**
 
-~~~python
-at_least_70 = scores >= 70
-count_pass = np.count_nonzero(at_least_70)       # 2
-total_students = len(scores)                     # 5
-p_pass = count_pass / total_students             # 0.4
-print(f"{p_pass:.0%}")                           # 40%
-
-at_least_4h = hours >= 4
-both = at_least_70 & at_least_4h
-count_both = np.count_nonzero(both)              # 2
-count_4h = np.count_nonzero(at_least_4h)         # 3
-if count_4h == 0:
-    raise ValueError("Nhóm học từ 4 giờ không có ai")
-p_conditional = count_both / count_4h            # 0.666666...
-print(f"{p_conditional:.2%}")                    # 66.67%
-~~~
 
 **Giải thích hàm, toán tử và flag:** `>=` là lớn hơn **hoặc bằng**, nên điểm đúng 70 vẫn được tính. `&` có nghĩa là *AND* (và) theo từng vị trí của **mảng Boolean** (mảng đúng/sai). `np.count_nonzero` đếm số phần tử đúng. `len` đếm tổng số phần tử, `/` là phép chia thực. Trong f-string (chuỗi định dạng) `:.0%` hiển thị phần trăm không có chữ số thập phân, `:.2%` hiển thị hai chữ số thập phân; đây là **định dạng in**, không sửa giá trị xác suất. `if count_4h == 0` chặn trường hợp chia cho 0.
 
@@ -280,18 +254,20 @@ print(f"{p_conditional:.2%}")                    # 66.67%
 
 **Công thức viết bằng Python:**
 
-~~~python
-w = 2.0
-learning_rate = 0.1
-loss_before = (w - 4) ** 2                  # 4.0
-gradient = 2 * (w - 4)                     # -4.0
-updated_w = w - learning_rate * gradient   # 2.4
-loss_after = (updated_w - 4) ** 2          # 2.56
-print(loss_before, gradient, updated_w, loss_after)
-~~~
 
 **Giải thích toán tử, biến và tham số:** `** 2` là lũy thừa bậc hai trong Python, **không dùng `^`** (toán tử XOR). `*` là nhân và `-` là trừ. `learning_rate=0.1` là kích thước bước cập nhật: quá lớn có thể vượt qua điểm thấp nhất; quá nhỏ làm tiến triển chậm. `gradient` là đạo hàm theo `w`, không phải xác suất. `loss_after` chỉ là phép kiểm tra thêm; bài không yêu cầu `epochs` (số vòng học).
 
 **Ví dụ và kết quả đối chiếu:** Loss ban đầu **4**, gradient **-4**, giá trị mới **2.4**, loss sau cập nhật **2.56**. Không trộn số liệu học sinh ở Câu 1 vào hàm loss riêng của Câu 3.
 
 **Từ vựng:** *Gradient Descent* (thuật toán giảm độ dốc), *loss* (hàm mất mát), *learning rate* (tốc độ học), *parameter* (tham số).
+
+
+### Ba câu hỏi liên kết kiến thức như thế nào?
+
+**Câu 1 — Từ bảng dữ liệu đến thống kê:** Ma trận `student_data` có **5 hàng × 3 cột**; mỗi hàng là một học viên, lần lượt gồm giờ học, điểm thực tế và điểm dự đoán. Cú pháp `data[:, 1]` lấy tất cả điểm thực tế, `data[:, 2]` lấy tất cả dự đoán. Trung bình điểm thực tế dùng `np.mean`; độ lệch chuẩn quần thể dùng `np.std(..., ddof=0)` và độ lệch chuẩn mẫu dùng `ddof=1`. Nếu muốn biết mô hình dự đoán sai bao nhiêu, hãy đối chiếu từng cặp điểm thật/dự đoán, không so toàn bộ trung bình rồi coi đó là sai số từng người.
+
+**Câu 2 — Boolean và xác suất:** `scores >= 70` không cho ra một số 0/1 duy nhất, mà cho **mảng Boolean** cùng kích thước với `scores`. Mỗi phần tử đúng là `True`, sai là `False`. `np.count_nonzero(mask)` trả **số lượng phần tử đúng**; `np.mean(mask)` sẽ trả tỷ lệ đúng vì trong phép cộng, True tương đương 1, False tương đương 0. Xác suất `P(điểm ≥70)` bằng số người đạt điều kiện chia 5, không phải kết quả Boolean. Xác suất có điều kiện `P(A|B)` phải chia **số người thuộc B**, không chia tất cả 5 người; phải xử lý trường hợp nhóm B rỗng trước khi chia.
+
+**Câu 3 — Gradient Descent:** Với `L(w)=(w-4)²`, đạo hàm là `2(w-4)`. Tại `w=2`, gradient bằng `-4`; dùng `learning_rate=0.1` thì `w_mới=2-0.1×(-4)=2.4`. Loss trước bằng 4 và sau bằng 2.56, nên bước này đi đúng chiều giảm loss. Đây là **một bước cập nhật**, không phải huấn luyện tới hội tụ.
+
+**Khi ôn thi:** phân biệt độ lệch chuẩn với sai số chuẩn, số đếm với xác suất, `and` điều kiện với `&` trên mảng Boolean NumPy, và dấu của gradient khi trừ một số âm. Hầu hết lỗi sai đến từ chọn sai mẫu số hoặc đảo dấu cập nhật chứ không phải lệnh thư viện.
