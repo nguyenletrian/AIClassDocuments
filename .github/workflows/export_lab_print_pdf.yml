@@ -6,6 +6,7 @@ on:
     paths:
       - "exports/print/**"
       - "scripts/export_lab_print_pdf.py"
+      - "scripts/combine_lab_print_pdfs.py"
       - ".github/workflows/export_lab_print_pdf.yml"
   push:
     branches: [main]
@@ -14,6 +15,7 @@ on:
       - "exports/print/exercises/**"
       - "exports/print/README.md"
       - "scripts/export_lab_print_pdf.py"
+      - "scripts/combine_lab_print_pdfs.py"
       - ".github/workflows/export_lab_print_pdf.yml"
 jobs:
   print-labs:
@@ -27,22 +29,23 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fonts-noto-core fonts-dejavu-core
           python -m pip install --disable-pip-version-check 'mistune>=3.1,<4' 'weasyprint>=66,<69' 'pymupdf>=1.24,<2'
-      - name: Validate Markdown guide structure and export 10 A4 PDFs
+      - name: Validate all guides, export ten A4 PDFs, and build one combined book
         run: |
           python scripts/export_lab_print_pdf.py
-      - name: Publish PDF copies of the ten guides
+          python scripts/combine_lab_print_pdfs.py
+      - name: Publish ten individual PDFs and the combined indexed PDF
         if: github.event_name == 'push'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add exports/print/pdf/
           if ! git diff --cached --quiet; then
-            git commit -m 'exports: publish ten printable bilingual lab study guides'
+            git commit -m 'exports: publish ten bilingual lab guides and the combined PDF'
             for attempt in 1 2 3; do
               git fetch origin main
               git rebase origin/main
               if git push origin HEAD:main; then
-                echo 'Published bilingual lab handouts'
+                echo 'Published 10 lab handouts and the combined PDF'
                 exit 0
               fi
               echo "Concurrent push while publishing PDFs, retry $attempt/3"

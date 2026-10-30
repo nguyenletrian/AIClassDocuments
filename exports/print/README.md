@@ -2,6 +2,17 @@
 
 Bộ soạn **10 tài liệu độc lập**, một file Markdown cho mỗi bài, dựa trên đề và bài giải đã có, ưu tiên đối chiếu nguồn gốc tại [PythoClass](https://github.com/nguyenletrian/PythoClass) và kho [AIClassDocuments](https://github.com/nguyenletrian/AIClassDocuments).
 
+## Tải một file PDF tổng hợp
+
+**[AIClassDocuments - Tổng hợp 10 Lab và Bài tập, A4 ngang](pdf/AIClassDocuments-TongHop-10-Lab-BaiTap-A4-Ngang.pdf)** — một file để in toàn bộ, có mục lục, khoảng trang của từng bài và dấu trang PDF cho cả năm phần trong mỗi bài. Bản tổng hợp ghép nguyên các trang từ 10 file PDF riêng, không làm thay đổi code, lời giải hoặc định nghĩa.
+
+Để xuất lại cả bộ từ nội dung Markdown mới nhất:
+
+```bash
+python scripts/export_lab_print_pdf.py
+python scripts/combine_lab_print_pdfs.py
+```
+
 ## Thứ tự cố định trong mỗi file
 
 1. **Đề bài tiếng Anh** — toàn bộ nội dung đề; không tự cắt bớt các câu hỏi.

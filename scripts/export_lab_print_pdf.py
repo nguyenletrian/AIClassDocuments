@@ -153,9 +153,11 @@ def build():
         if not source.is_file():
             raise FileNotFoundError(source)
         render_pdf(source)
-    pdf_count = len(list(PDF_DIR.glob("*.pdf")))
-    if pdf_count != len(DOCUMENTS):
-        raise ValueError(f"Expected {len(DOCUMENTS)} PDF outputs, got {pdf_count}")
+    expected = {Path(name).stem + ".pdf" for name in DOCUMENTS}
+    permitted_extras = {"AIClassDocuments-TongHop-10-Lab-BaiTap-A4-Ngang.pdf"}
+    found = {path.name for path in PDF_DIR.glob("*.pdf")}
+    if not expected.issubset(found) or found - expected - permitted_extras:
+        raise ValueError(f"Expected ten source PDFs (and optional combined book); got {sorted(found)}")
     print(f"PRINT_BUNDLE_OK files={len(DOCUMENTS)} layout=A4-landscape")
 
 if __name__ == "__main__":
