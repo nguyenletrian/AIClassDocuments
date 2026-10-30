@@ -210,3 +210,55 @@ Notebook gốc chứa các tiêu đề Task 1–6 và code mẫu. Lời giải �
 **Xét các cặp và lập đồ thị:** `combinations(students, 2)` chỉ sinh các cặp không lặp; `most_similar_pair` so sánh điểm số để tìm cặp tương đồng nhất. Với ngưỡng 0.5, `recommend_partners` gợi ý người có mức tương đồng từ 50% trở lên nhưng bỏ qua bản thân; `build_graph` tạo hai cạnh kề tương ứng A→B, B→A cho mỗi mối quan hệ vì đồ thị là vô hướng.
 
 **Các lỗi dễ mắc:** dùng `and` giữa hai tập thay vì xét điều kiện về môn; chia giao cho tổng độ dài hai tập (đếm phần trùng hai lần); tính A−B rồi coi bằng B−A; hoặc gợi ý chính người dùng làm bạn học của họ. Đọc đầu ra Task 1–6 để thấy mỗi lỗi thay đổi kết quả ra sao.
+
+## 5. Giải thích các định nghĩa
+
+Ghi nhớ bằng ví dụ tập môn học thay vì bắt đầu bằng ký hiệu toán.
+
+### Set (tập hợp)
+
+**Là gì và dùng khi nào?** Lưu những phần tử không trùng lặp, rất phù hợp để liệt kê các môn mà từng người quan tâm.
+
+**Ví dụ:** `{"Python","AI","Python"}` thực tế chỉ có hai môn.
+
+### Intersection (giao)
+
+**Là gì và dùng khi nào?** Chọn các môn có mặt ở cả hai tập; Python dùng toán tử `&`.
+
+**Ví dụ:** A={Python,AI,Math}, B={Python,SQL} thì giao chỉ có Python.
+
+### Union (hợp)
+
+**Là gì và dùng khi nào?** Chọn mọi môn có ở ít nhất một trong hai tập, mỗi môn chỉ tính một lần; Python dùng `|`.
+
+**Ví dụ:** A={Python,AI}, B={Python,Math} → hợp gồm Python, AI, Math.
+
+### Difference (hiệu)
+
+**Là gì và dùng khi nào?** Chọn phần tử ở tập A nhưng không có trong B, nên A−B và B−A thường khác nhau.
+
+**Ví dụ:** A={Python,AI,Math}, B={Python,SQL} thì A−B gồm AI, Math.
+
+### Jaccard similarity (độ tương đồng Jaccard)
+
+**Là gì và dùng khi nào?** Lấy **số môn chung chia cho số môn phân biệt thuộc hợp**. Bằng 0 nếu không chung môn và bằng 1 nếu hai tập giống nhau.
+
+**Ví dụ:** Hai người có 2 môn chung, hợp gồm 4 môn → Jaccard = 2/4 = 0,5.
+
+### `combinations()` (liệt kê cặp)
+
+**Là gì và dùng khi nào?** Tạo mỗi cặp hai học viên đúng một lần, tránh xét A-B rồi xét lại B-A.
+
+**Ví dụ:** Với ba người A,B,C, có ba cặp AB, AC, BC.
+
+### Threshold (ngưỡng)
+
+**Là gì và dùng khi nào?** Mức so sánh để quyết định có gợi ý bạn học hay kết nối đồ thị không.
+
+**Ví dụ:** Ngưỡng 0,5: cặp Jaccard 0,6 đạt, cặp 0,4 không đạt.
+
+### Graph, node, edge (đồ thị, nút, cạnh)
+
+**Là gì và dùng khi nào?** Node là sinh viên, edge là kết nối khi tương đồng đạt ngưỡng. Đồ thị vô hướng cần có kết nối theo cả hai chiều.
+
+**Ví dụ:** Nếu A và B đủ giống, danh sách kề của A có B và của B có A.
