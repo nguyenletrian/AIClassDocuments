@@ -7,6 +7,8 @@ on:
       - "exports/print/**"
       - "scripts/export_lab_print_pdf.py"
       - "scripts/combine_lab_print_pdfs.py"
+      - "scripts/export_lab_print_source_docx.py"
+      - "scripts/export_lab_print_source_py.py"
       - ".github/workflows/export_lab_print_pdf.yml"
   push:
     branches: [main]
@@ -14,8 +16,11 @@ on:
       - "exports/print/labs/**"
       - "exports/print/exercises/**"
       - "exports/print/README.md"
+      - "exports/print/AIClassDocuments-TongHop-10-Lab-BaiTap.md"
       - "scripts/export_lab_print_pdf.py"
       - "scripts/combine_lab_print_pdfs.py"
+      - "scripts/export_lab_print_source_docx.py"
+      - "scripts/export_lab_print_source_py.py"
       - ".github/workflows/export_lab_print_pdf.yml"
 jobs:
   print-labs:
@@ -24,28 +29,35 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Install Vietnamese fonts and PDF renderer
+      - name: Install Vietnamese fonts, document tools and PDF renderer
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-noto-core fonts-dejavu-core
-          python -m pip install --disable-pip-version-check 'mistune>=3.1,<4' 'weasyprint>=66,<69' 'pymupdf>=1.24,<2'
+          sudo apt-get install -y fonts-noto-core fonts-dejavu-core pandoc libreoffice-writer
+          python -m pip install --disable-pip-version-check 'mistune>=3.1,<4' 'weasyprint>=66,<69' 'pymupdf>=1.24,<2' 'python-docx>=1.1,<2'
       - name: Validate all guides, export ten A4 PDFs, and build one combined book
         run: |
           python scripts/export_lab_print_pdf.py
           python scripts/combine_lab_print_pdfs.py
-      - name: Publish ten individual PDFs and the combined indexed PDF
+          python scripts/export_lab_print_source_py.py
+          python -m py_compile exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py --list
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-04
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py assignment-01 --demo
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-05 --demo
+          python scripts/export_lab_print_source_docx.py
+      - name: Publish all PDFs and editable Word/Python source files
         if: github.event_name == 'push'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add exports/print/pdf/
+          git add exports/print/pdf/ exports/print/source/
           if ! git diff --cached --quiet; then
-            git commit -m 'exports: publish ten bilingual lab guides and the combined PDF'
+            git commit -m 'exports: publish editable Word/Python sources and all PDFs'
             for attempt in 1 2 3; do
               git fetch origin main
               git rebase origin/main
               if git push origin HEAD:main; then
-                echo 'Published 10 lab handouts and the combined PDF'
+                echo 'Published editable Word/Python sources and the 11 PDF handouts'
                 exit 0
               fi
               echo "Concurrent push while publishing PDFs, retry $attempt/3"

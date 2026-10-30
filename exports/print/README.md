@@ -2,6 +2,12 @@
 
 Bộ soạn **10 tài liệu độc lập**, một file Markdown cho mỗi bài, dựa trên đề và bài giải đã có, ưu tiên đối chiếu nguồn gốc tại [PythoClass](https://github.com/nguyenletrian/PythoClass) và kho [AIClassDocuments](https://github.com/nguyenletrian/AIClassDocuments).
 
+## File nguồn có thể chỉnh sửa
+
+- **[Toàn bộ 10 Lab trong một file Markdown](AIClassDocuments-TongHop-10-Lab-BaiTap.md)** — file chữ gốc, có đầy đủ năm phần từng bài, chỉnh sửa trong VS Code hoặc trình soạn thảo Markdown.
+- **[Toàn bộ 10 Lab trong một file Word](source/AIClassDocuments-TongHop-10-Lab-BaiTap.docx)** — bản `.docx` A4 ngang, có thể sửa bằng Microsoft Word/LibreOffice; được xuất tự động từ file Markdown tổng hợp.
+- **[Toàn bộ code 10 Lab trong một file Python](source/AIClassDocuments-TongHop-10-Lab-BaiTap.py)** — file `.py` chứa mã chạy của từng bài trong các hàm riêng, cho phép chọn bài bằng dòng lệnh; không xảy ra trùng tên hàm hoặc biến giữa các bài.
+
 ## Tải một file PDF tổng hợp
 
 **[AIClassDocuments - Tổng hợp 10 Lab và Bài tập, A4 ngang](pdf/AIClassDocuments-TongHop-10-Lab-BaiTap-A4-Ngang.pdf)** — một file **75 trang** để in toàn bộ, có mục lục, khoảng trang của từng bài và **61 dấu trang PDF** cho cả năm phần trong mỗi bài. Bản tổng hợp ghép nguyên các trang từ 10 file PDF riêng, không làm thay đổi code, lời giải hoặc định nghĩa.
@@ -74,3 +80,15 @@ Tệp PDF tương ứng nằm trong `exports/print/pdf/`; kích thước trang *
 Trong mọi file in, **không để nguyên mã LaTeX** như `$$`, `\\frac`, `\\sum`, `\\hat` hoặc các khối `\\[ ... \\]`. Thay bằng phép tính có từ ngữ bình dân và một ví dụ số: *bắt đầu từ dữ liệu nào, thực hiện các phép tính nào, chia cho số lượng nào, ý nghĩa kết quả là gì*. Phần ký hiệu toán học cần thiết được giải nghĩa ở mục 5 thay vì giả định người học đã biết.
 
 Các bài vẫn giữ **đề Anh–Việt, một khối code Python, A4 ngang một cột**, và mã nguồn bài giải gốc không bị thay đổi.
+
+## Sử dụng bản code Python tổng hợp
+
+```bash
+python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py --list
+python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-04
+python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py pretest
+python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py assignment-01 --demo
+python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-07 --no-plot
+```
+
+**Lưu ý:** Lab 10 giữ nguyên logic từ `PythoClass/main.py` nên cần `students.csv` trong thư mục thực thi; các bài NumPy/Pandas/SciPy/SymPy/scikit-learn yêu cầu cài thư viện tương ứng. File Python được sinh lại từ **một code block duy nhất của từng tài liệu `.md`** qua `python scripts/export_lab_print_source_py.py`; bản `.md` vẫn là nguồn chuẩn.
