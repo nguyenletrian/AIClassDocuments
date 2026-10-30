@@ -96,7 +96,7 @@ def validate_source(content: str, filename: str):
         raise ValueError(f"{filename}: final explanation is too short to teach the solution")
     if len(sections[4]) < 800 or len(re.findall(r"(?m)^### ", sections[4])) < 5:
         raise ValueError(f"{filename}: definitions section must explain at least five concepts with examples")
-    if re.search(r"(?m)^\\s*(?:\\$\\$|\\\\\\[|\\\\frac|\\\\sum|\\\\partial|\\\\mathrm|\\\\hat)", content):
+    if any(token in content for token in ("$$", r"\[", r"\frac", r"\sum", r"\partial", r"\mathrm", r"\hat")):
         raise ValueError(f"{filename}: raw LaTeX syntax must be rewritten in plain language")
 
     code = python_blocks[0]
