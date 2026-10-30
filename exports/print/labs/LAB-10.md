@@ -297,3 +297,67 @@ Tệp này là **bài giải đang có trong repo PythoClass**, sử dụng `pan
 **Lỗi và giới hạn quan trọng:** `" name"` (có khoảng trắng) khác `"name"`; file CSV dùng sai header sẽ gây `KeyError`. `split(";")` trả về các chuỗi dù người dùng gõ số, nên so sánh tên kiểu với `formats` chưa kiểm tra dữ liệu thực sự. Nếu nhập thiếu mục, cách kiểm tra hiện tại có thể dẫn đến `IndexError`. Hai hàm tìm kiếm và xem điểm gọi lại chính nó nên nếu thao tác quá nhiều có thể tăng độ sâu đệ quy.
 
 **So với yêu cầu giảng viên:** code hiện tại **chưa thêm học viên, chưa lưu CSV, chưa chặn trùng mã khi thêm và chưa xác nhận điểm 0–100**. Những chức năng này cần viết bổ sung nếu bài thi yêu cầu đúng nguyên văn đề Word. Bản in chỉ phân tích và chú thích `main.py` thật, không biến nó thành một lời giải khác rồi ghi nhầm nguồn.
+
+## 5. Giải thích các định nghĩa
+
+Tra cứu các thuật ngữ và hàm trong `main.py` theo ví dụ đơn giản bên dưới.
+
+### CSV (bảng phân tách bằng dấu phẩy)
+
+**Là gì, dùng khi nào?** File gồm nhiều hàng và cột. Mỗi hàng trong Lab 10 là một học viên, mỗi cột ghi mã, tên, lớp hoặc điểm.
+
+**Ví dụ:** CSV gốc có tiêu đề `student_id, name,class_name,Python,Math,ML`; dấu cách trước `name` là một phần tên cột.
+
+### Pandas và DataFrame
+
+**Là gì, dùng khi nào?** Pandas là thư viện xử lý bảng; DataFrame là dạng bảng có tên cột, giúp lọc và tính thống kê.
+
+**Ví dụ:** `pd.read_csv("students.csv")` đọc CSV; `df["Math"]` lấy một cột điểm.
+
+### Boolean filtering (lọc theo điều kiện)
+
+**Là gì, dùng khi nào?** So sánh từng giá trị của cột với điều kiện, tạo ra True/False, từ đó chỉ giữ các hàng đúng.
+
+**Ví dụ:** `df[df["student_id"] == "S001"]` lấy hàng sinh viên có mã S001.
+
+### Average / highest / lowest (trung bình / cao / thấp)
+
+**Là gì, dùng khi nào?** Trung bình bằng tổng ba điểm chia 3; `max` tìm số lớn nhất, `min` tìm số nhỏ nhất.
+
+**Ví dụ:** Điểm 80,70,90: trung bình 80, cao nhất 90, thấp nhất 70.
+
+### `groupby()` (gom theo nhóm)
+
+**Là gì, dùng khi nào?** Gom sinh viên theo lớp rồi tính thống kê cho từng lớp thay vì cho cả trường.
+
+**Ví dụ:** `groupby("class_name")["Math"].mean()` cho điểm Math trung bình mỗi lớp.
+
+### `pd.merge()` (ghép bảng)
+
+**Là gì, dùng khi nào?** Gộp các bảng thống kê theo một cột chung; `on` xác định cột nối, `how="outer"` giữ khóa xuất hiện ở ít nhất một bảng.
+
+**Ví dụ:** Ghép bảng đếm sinh viên với bảng điểm trung bình cùng khóa lớp.
+
+### `sort_values()` và `head()` (xếp hạng)
+
+**Là gì, dùng khi nào?** `sort_values(...,ascending=False)` đưa điểm cao lên đầu, `head(3)` lấy ba hàng đầu.
+
+**Ví dụ:** Sau khi tạo cột Average, kết quả đầu là ba sinh viên có trung bình cao nhất.
+
+### `split()` và kiểm tra đầu vào
+
+**Là gì, dùng khi nào?** `split(";")` tách chuỗi tại dấu chấm phẩy nhưng vẫn trả về chuỗi, chưa chuyển sang số.
+
+**Ví dụ:** Chuỗi `S001;8.5` tạo `S001` và `8.5`; muốn tính toán phải chuyển phần điểm qua `float()`.
+
+### Recursion / loop (đệ quy / vòng lặp)
+
+**Là gì, dùng khi nào?** Đệ quy là hàm tự gọi lại chính nó; vòng lặp làm lại một nhóm lệnh mà không tạo thêm lần gọi hàm.
+
+**Ví dụ:** Tìm sinh viên liên tiếp rất nhiều lần bằng đệ quy có nguy cơ RecursionError.
+
+### KeyError và FileNotFoundError
+
+**Là gì, dùng khi nào?** KeyError xảy ra khi tên cột/khóa không tồn tại; FileNotFoundError xảy ra khi thiếu tệp cần đọc.
+
+**Ví dụ:** Code đọc `df[" name"]` sẽ lỗi nếu CSV chỉ có cột `name` không có dấu cách.
