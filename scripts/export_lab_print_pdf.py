@@ -40,7 +40,8 @@ CSS = """
   @bottom-center { content: counter(page); font: 7.3pt 'Noto Sans'; color: #555; }
 }
 html { font-family: 'Noto Sans', 'DejaVu Sans', sans-serif; color: #182331; }
-body { margin: 0; font-size: 9.15pt; line-height: 1.37; overflow-wrap: break-word; }
+body { margin: 0; font-size: 9.15pt; line-height: 1.37; overflow-wrap: break-word;
+       columns: 1; column-count: 1; column-width: auto; }
 h1 { font-size: 15pt; line-height: 1.2; color: #173d5e; margin: 0 0 4mm; }
 h2 { font-size: 11pt; line-height: 1.3; color: #173d5e; background: #edf2f6;
      border-left: 2.5pt solid #4a718c; margin: 4mm 0 2mm; padding: 1.2mm 2mm;
@@ -80,12 +81,28 @@ def validate_source(content: str, filename: str):
     python_blocks = re.findall(r"(?ms)^" + chr(96) * 3 + r"python\n(.*?)^" + chr(96) * 3 + r"$", sections[2])
     if len(python_blocks) != 1:
         raise ValueError(f"{filename}: expected one complete Python code block, got {len(python_blocks)}")
+    # Exactly one executable Python code listing in the entire handout.
+    # Input datasets may use a csv/text block, but never another Python snippet.
+    all_python_blocks = re.findall(
+        r"(?ms)^" + chr(96) * 3 + r"python\\n(.*?)^" + chr(96) * 3 + r"$",
+        content
+    )
+    if len(all_python_blocks) != 1 or re.search(r"(?m)^~~~python\\s*$", content):
+        raise ValueError(f"{filename}: expected ONE complete Python program, with no example snippets")
+    if "~~" in sections[3] and re.search(r"(?m)^~~~", sections[3]):
+        raise ValueError(f"{filename}: duplicate code-like examples found in explanation")
+    if len(sections[3]) < 1600:
+        raise ValueError(f"{filename}: final explanation is too short to teach the solution")
     code = python_blocks[0]
     ast.parse(code, filename=filename)
     if re.search(r"(?m)^\s*assert\b", code):
         raise ValueError(f"{filename}: use if instead of assert in student code")
     if " # " not in code:
         raise ValueError(f"{filename}: Python code has no inline comments")
+    useful_comment_lines = sum(" # " in line for line in code.splitlines())
+    if useful_comment_lines >= 0.52 * len(code.splitlines()):
+        raise ValueError(f"{filename}: notes are too dense for a focused study printout")
+
     # The code has enough substance to constitute the whole answer, not a placeholder.
     if len(code.splitlines()) < 35:
         raise ValueError(f"{filename}: suspiciously short complete Python solution")
@@ -95,6 +112,8 @@ def render_pdf(path: Path):
     text = path.read_text(encoding="utf-8")
     _, code_lines = validate_source(text, path.name)
     markdown = mistune.create_markdown(escape=True, plugins=["table", "strikethrough"])
+    if "columns: 1" not in CSS or "column-count: 1" not in CSS:
+        raise ValueError("The print stylesheet must use ONE column across A4 landscape")
     html_body = markdown(text)
     document = '<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>' + CSS + \
                '</style></head><body>' + html_body + '</body></html>'
