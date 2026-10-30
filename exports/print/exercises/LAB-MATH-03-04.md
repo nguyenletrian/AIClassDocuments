@@ -176,3 +176,61 @@ Notebook PythoClass gốc có bốn tiêu đề đề bài tiếng Anh và mã m
 **4. PCA dùng bốn cột gốc.** `StandardScaler().fit_transform(stores)` đưa mỗi cột về thang đo so sánh được (trung bình gần 0, phương sai gần 1). `PCA(n_components=2)` chọn hai hướng có phương sai lớn, cho ma trận kết quả 8 × 2. `explained_variance_ratio_` là tỷ lệ phương sai mà từng hướng giữ lại, và tổng của chúng cho mức thông tin biến thiên được giữ. PCA không phải thuật toán bảo đảm dự đoán đúng hay phương pháp tự chọn cửa hàng tốt nhất.
 
 **Lỗi nên tránh:** lấy `S * w` thay vì `S @ w`, quên chuẩn hóa trước PCA khi đơn vị khác nhau, hoặc nhầm `explained_variance_ratio_` là xác suất dự đoán đúng.
+
+## 5. Giải thích các định nghĩa
+
+Các thuật ngữ ma trận và PCA được diễn giải bằng tình huống tám cửa hàng trước khi cần đến tên toán học.
+
+### Matrix (ma trận)
+
+**Là gì và dùng khi nào?** Bảng gồm hàng và cột, để lưu nhiều đặc trưng của nhiều cửa hàng trong cùng một cấu trúc.
+
+**Ví dụ:** 8 cửa hàng, 4 đặc trưng mỗi cửa hàng → ma trận 8 hàng × 4 cột.
+
+### Shape (kích thước mảng)
+
+**Là gì và dùng khi nào?** Cho biết số hàng và số cột; giúp kiểm tra hai ma trận có thể nhân hay không.
+
+**Ví dụ:** Ma trận trên có `shape = (8,4)`.
+
+### `@` — phép nhân ma trận
+
+**Là gì và dùng khi nào?** Kết hợp từng hàng của đối tượng bên trái với các giá trị phù hợp bên phải; khác `*`, là phép nhân từng phần tử của NumPy.
+
+**Ví dụ:** Ma trận 8×3 nhân vector có 3 trọng số tạo 8 điểm, mỗi điểm thuộc một cửa hàng.
+
+### Linear system (hệ phương trình tuyến tính)
+
+**Là gì và dùng khi nào?** Nhiều phương trình có chung các ẩn cần tìm. `np.linalg.solve(A,b)` tìm các trọng số để A nhân trọng số bằng b.
+
+**Ví dụ:** Một hệ 3 phương trình có thể xác định 3 trọng số nếu ma trận A đủ hạng.
+
+### Weight (trọng số)
+
+**Là gì và dùng khi nào?** Hệ số quyết định mức đóng góp của một tiêu chí khi tính điểm tổng.
+
+**Ví dụ:** Điểm = 2 × chỉ số đơn hàng + 1 × chỉ số khách hàng: trọng số lần lượt là 2 và 1.
+
+### Scaling và standardization (đổi thang và chuẩn hóa)
+
+**Là gì và dùng khi nào?** Đổi thang chia số liệu theo một đơn vị quy ước. Chuẩn hóa thường lấy số đo trừ trung bình rồi chia độ lệch chuẩn, giúp các cột có thang tương đương.
+
+**Ví dụ:** Doanh thu 100.000 chia 10.000 thành 10 điểm là đổi thang; `StandardScaler` dùng trung bình và độ lệch chuẩn của cả cột.
+
+### PCA (phân tích thành phần chính)
+
+**Là gì và dùng khi nào?** Tìm các hướng có mức biến thiên lớn trong dữ liệu, biểu diễn thông tin bằng ít cột hơn. PCA không phải thuật toán phân loại chính xác/sai.
+
+**Ví dụ:** `PCA(n_components=2)` biến bảng 8×4 thành 8×2; số cửa hàng giữ nguyên.
+
+### Explained variance ratio (tỷ lệ phương sai giữ lại)
+
+**Là gì và dùng khi nào?** Cho biết mỗi hướng PCA giữ bao nhiêu phần biến thiên ban đầu. Cộng các tỷ lệ của các hướng đã chọn để được tổng phần biến thiên giữ lại.
+
+**Ví dụ:** Nếu PC1 giữ 70%, PC2 giữ 20% thì cả hai giữ 90% phương sai, **không phải dự đoán chính xác 90%**.
+
+### Eigenvalue (trị riêng)
+
+**Là gì và dùng khi nào?** Trong PCA, trị riêng biểu diễn độ lớn phương sai theo một hướng riêng; trị riêng cao thường ứng với hướng giữ nhiều biến thiên.
+
+**Ví dụ:** Nếu các hướng có trị riêng 9 và 1, hướng 9 giải thích nhiều biến thiên hơn.
