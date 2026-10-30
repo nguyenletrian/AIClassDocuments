@@ -280,3 +280,44 @@ Số thành công tuân theo nhị thức vì có 8 phép thử độc lập cù
 **Bayes có hai chiều điều kiện khác nhau.** Giả sử 30% thư là spam, hệ thống đánh dấu 90% spam và 5% thư sạch. Xác suất một thư bất kỳ bị đánh dấu là `0.30 × 0.90 + 0.70 × 0.05 = 0.305`. Trong các thư bị đánh dấu, tỷ lệ thật sự là spam là `0.27 / 0.305 ≈ 88,52%`. Không nhầm `P(bị đánh dấu | spam)=90%` với `P(spam | bị đánh dấu)`.
 
 **Phân phối nhị thức:** `binom.pmf(k, n, p)` tính xác suất đúng `k` thành công trong `n` lượt, khi xác suất thành công cố định và các lượt độc lập. Với câu hỏi “ít nhất 6” phải cộng xác suất của `k=6,7,8`, không lấy riêng `P(X=6)`. Kiểm tra các xác suất luôn ở đoạn từ 0 đến 1.
+
+
+## 5. Giải thích các định nghĩa
+
+Các khái niệm được giải thích bằng ví dụ số để bạn có thể tính lại bằng tay.
+
+### Không gian mẫu
+
+**Là gì?** Tập hợp mọi kết quả có thể xảy ra. Chọn một số từ 1 đến 10 có 10 kết quả đồng khả năng.
+
+### Biến cố
+
+**Là gì?** Một nhóm kết quả cùng thỏa điều kiện. Số chẵn trong 1 đến 10 có 5 số nên xác suất là 5/10.
+
+### Giao và hợp
+
+**Là gì?** Giao yêu cầu cả hai điều kiện; hợp chỉ cần một trong hai. Nếu A có 5 kết quả, B có 4 và trùng 2, hợp có 5+4−2=7.
+
+### Biến cố độc lập
+
+**Là gì?** Biết kết quả phép thử này không thay đổi xác suất phép thử kia. Hai lần tung đồng xu độc lập cùng ra ngửa có xác suất 0,5×0,5=0,25.
+
+### Xác suất có điều kiện
+
+**Là gì?** Tỷ lệ trong nhóm B đã biết. Nếu B có 20 trường hợp, 5 trường hợp đồng thời thuộc A thì xác suất A khi B là 5/20=25%.
+
+### Bayes
+
+**Là gì?** Cách điều chỉnh xác suất khi xuất hiện thông tin mới. Ví dụ 20% sản phẩm lỗi, máy báo lỗi đúng 90% và báo nhầm 10% sản phẩm tốt: tỷ lệ sản phẩm lỗi trong nhóm bị báo là 0,18/(0,18+0,08)≈69,23%.
+
+### Mô phỏng và seed
+
+**Là gì?** Dùng máy tạo nhiều phép thử để ước lượng xác suất. Seed cố định giúp tái lập các lần chạy, không bảo đảm mẫu đại diện.
+
+### Nhị thức
+
+**Là gì?** Đếm số lần thành công trong n lượt thử độc lập, xác suất thành công mỗi lượt không đổi. Ít nhất 6 lần trong 8 lượt phải cộng xác suất cho 6,7,8.
+
+### Boolean
+
+**Là gì?** True và False biểu thị đúng và sai; phép lấy trung bình Boolean chính là tỷ lệ đúng. Ba kết quả đúng trong năm lượt cho 3/5=0,6.
