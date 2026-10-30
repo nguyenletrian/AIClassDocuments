@@ -6,8 +6,8 @@ Bộ soạn **10 tài liệu độc lập**, một file Markdown cho mỗi bài,
 
 1. **Đề bài tiếng Anh** — toàn bộ nội dung đề; không tự cắt bớt các câu hỏi.
 2. **Đề bài tiếng Việt** — dịch cùng thứ tự, giải thích các thuật ngữ khó ở ngữ cảnh phù hợp.
-3. **Code Python có chú thích** — một chương trình đầy đủ, có ghi chú sát dòng lệnh, không dùng `assert` trong bản in.
-4. **Giải thích nội dung và cách giải** — sau code, gồm từng câu/yêu cầu, quy trình tính toán, chức năng/hàm/tham số, ý nghĩa kết quả và lỗi hay gặp.
+3. **Code Python có chú thích chọn lọc** — **một khối code duy nhất** cho cả bài (không còn snippet code lặp ở phần giải thích), chỉ ghi chú cạnh những thuật toán, thư viện/hàm và tham số dễ nhầm; không dùng `assert` trong bản in.
+4. **Giải thích nội dung và cách giải** — **cuối file**, diễn giải kỹ từng yêu cầu, cách dữ liệu đi qua các hàm, công thức/tính toán, ý nghĩa đầu ra, trường hợp biên và lỗi dễ gặp; không chèn thêm code rời.
 
 Từng file là nguồn Markdown sẵn để kết xuất ra PDF A4. Bản gốc trong `docs/labs/`, `labs/pythoclass/` và kho `PythoClass` **không bị chỉnh sửa**.
 
@@ -53,6 +53,6 @@ Có thể xuất tự động các file trong danh mục bằng lệnh:
 python scripts/export_lab_print_pdf.py
 ```
 
-Tệp PDF tương ứng nằm trong `exports/print/pdf/`; kích thước trang **A4 nằm ngang** để các đoạn Python có chú thích cuối dòng dễ đọc, một cột với header bài rõ ràng, số trang. Không cần sửa file nguồn để đổi bố cục PDF.
+Tệp PDF tương ứng nằm trong `exports/print/pdf/`; kích thước trang **A4 nằm ngang, đúng MỘT cột trên toàn chiều ngang trang** để dễ đọc code, có tiêu đề bài và số trang. Bài có dữ liệu đầu vào dạng bảng/CSV có thể giữ khối dữ liệu minh họa, nhưng chỉ có **một chương trình Python hoàn chỉnh**. Không cần sửa file nguồn để đổi bố cục PDF.
 
 **Nếu bạn cập nhật `PythoClass/main.py` về sau:** so sánh nội dung nguồn trước khi cập nhật bản in; không ghi đè tự động những chỉnh sửa có ý nghĩa mà chưa đối chiếu.
