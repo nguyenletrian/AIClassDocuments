@@ -4,7 +4,7 @@ Bộ soạn **10 tài liệu độc lập**, một file Markdown cho mỗi bài,
 
 ## Tải một file PDF tổng hợp
 
-**[AIClassDocuments - Tổng hợp 10 Lab và Bài tập, A4 ngang](pdf/AIClassDocuments-TongHop-10-Lab-BaiTap-A4-Ngang.pdf)** — một file để in toàn bộ, có mục lục, khoảng trang của từng bài và dấu trang PDF cho cả năm phần trong mỗi bài. Bản tổng hợp ghép nguyên các trang từ 10 file PDF riêng, không làm thay đổi code, lời giải hoặc định nghĩa.
+**[AIClassDocuments - Tổng hợp 10 Lab và Bài tập, A4 ngang](pdf/AIClassDocuments-TongHop-10-Lab-BaiTap-A4-Ngang.pdf)** — một file **75 trang** để in toàn bộ, có mục lục, khoảng trang của từng bài và **61 dấu trang PDF** cho cả năm phần trong mỗi bài. Bản tổng hợp ghép nguyên các trang từ 10 file PDF riêng, không làm thay đổi code, lời giải hoặc định nghĩa.
 
 Để xuất lại cả bộ từ nội dung Markdown mới nhất:
 
