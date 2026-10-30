@@ -35,9 +35,7 @@ A teacher collects data from five students, including their study hours, attenda
 
 A machine learning model uses the loss function:
 
-\[
-L(w) = (w - 4)^2
-\]
+**Hàm mất mát:** lấy `w` trừ 4 rồi bình phương. Ví dụ `w=2` thì loss = `(2−4) × (2−4) = 4`.
 
 1. Calculate the loss when (w=2).
 2. Calculate the gradient when (w=2).
@@ -79,9 +77,7 @@ Một giáo viên thu thập dữ liệu của **năm học sinh**, gồm số g
 
 Một mô hình học máy sử dụng hàm mất mát:
 
-\[
-L(w) = (w - 4)^2
-\]
+**Hàm mất mát:** lấy `w` trừ 4 rồi bình phương. Ví dụ `w=2` thì loss = `(2−4) × (2−4) = 4`.
 
 1. Tính giá trị hàm mất mát khi **w = 2**.
 2. Tính gradient (đạo hàm theo w) khi **w = 2**.
