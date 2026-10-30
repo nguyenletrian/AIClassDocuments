@@ -36,7 +36,7 @@ from sklearn.decomposition import PCA  # Reduce correlated features to 2 axes.
 
 # Rows A-H represent stores. Each column has a specified real-world unit:
 # Orders (count), Customers (count), Revenue (currency units), Employees (count).
-STORE_NAMES = np.array(list("ABCDEFGH"))
+STORE_NAMES = np.array(list("ABCDEFGH"))  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
 STORE_DATA = np.array([
     [300, 400, 100000, 20],
     [400, 500, 140000, 25],
@@ -49,35 +49,35 @@ STORE_DATA = np.array([
 ], dtype=float)  # Shape (8,4), with numeric values compatible with NumPy.
 
 # A and b are supplied evaluation coefficients and observed benchmark scores.
-EQUATION_MATRIX = np.array([[3, 4, 10], [4, 5, 14], [2, 2, 7]], dtype=float)
-EQUATION_SCORES = np.array([135, 182, 86], dtype=float)
+EQUATION_MATRIX = np.array([[3, 4, 10], [4, 5, 14], [2, 2, 7]], dtype=float)  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
+EQUATION_SCORES = np.array([135, 182, 86], dtype=float)  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
 
 
-def task1_explore(stores=STORE_DATA):
+def task1_explore(stores=STORE_DATA):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Inspect matrix dimensions, customer counts and mean customer traffic."""
-    if stores.ndim != 2 or stores.shape[1] != 4:
-        raise ValueError("Expect a matrix with four store features.")
+    if stores.ndim != 2 or stores.shape[1] != 4:  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
+        raise ValueError("Expect a matrix with four store features.")  # Báo lỗi nếu dữ liệu không đúng điều kiện.
     customers = stores[:, 1]  # ':' means all rows; index 1 is Customers.
     mean_customers = float(np.mean(customers))  # Mean over all eight stores.
-    return stores.shape, customers, mean_customers
+    return stores.shape, customers, mean_customers  # Trả kết quả về nơi gọi hàm.
 
 
-def task2_weights(A=EQUATION_MATRIX, b=EQUATION_SCORES):
+def task2_weights(A=EQUATION_MATRIX, b=EQUATION_SCORES):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Solve A @ w = b for weights of Orders, Customers and Revenue."""
     # np.linalg.solve avoids manually computing the matrix inverse.
-    if A.shape != (3, 3) or b.shape != (3,):
-        raise ValueError("Expected a 3x3 matrix and a three-element score vector.")
+    if A.shape != (3, 3) or b.shape != (3,):  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
+        raise ValueError("Expected a 3x3 matrix and a three-element score vector.")  # Báo lỗi nếu dữ liệu không đúng điều kiện.
     if np.linalg.matrix_rank(A) < 3:  # A singular matrix has no unique answer.
-        raise ValueError("The benchmark system has no unique solution.")
-    weights = np.linalg.solve(A, b)
+        raise ValueError("The benchmark system has no unique solution.")  # Báo lỗi nếu dữ liệu không đúng điều kiện.
+    weights = np.linalg.solve(A, b)  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
     if not (np.allclose(A @ weights, b)): raise ValueError("Kiểm tra dữ liệu không đạt")  # Reconstruct the input equations.
-    return weights
+    return weights  # Trả kết quả về nơi gọi hàm.
 
 
-def task3_rank(stores=STORE_DATA, names=STORE_NAMES, weights=None):
+def task3_rank(stores=STORE_DATA, names=STORE_NAMES, weights=None):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Build dimensionless components, combine weights, rank all stores."""
-    if weights is None:
-        weights = task2_weights()
+    if weights is None:  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
+        weights = task2_weights()  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
     # Scale columns as in the original notebook before applying weights.
     components = np.column_stack((
         stores[:, 0] / 100,  # One score unit per 100 orders.
@@ -88,51 +88,51 @@ def task3_rank(stores=STORE_DATA, names=STORE_NAMES, weights=None):
     ranked = sorted(zip(names.tolist(), totals.tolist()),
                     key=lambda pair: (-pair[1], pair[0]))
     winner_index = int(np.argmax(totals))  # Index of highest score.
-    return components, totals, ranked, names[winner_index]
+    return components, totals, ranked, names[winner_index]  # Trả kết quả về nơi gọi hàm.
 
 
-def task4_pca(stores=STORE_DATA):
+def task4_pca(stores=STORE_DATA):  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Standardize four columns, then project stores onto two PCA axes."""
     # Different units (currency, people) must not bias distance by magnitude.
     scaler = StandardScaler()  # By default centers and scales each column.
-    standardized = scaler.fit_transform(stores)
+    standardized = scaler.fit_transform(stores)  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
     # PCA finds directions containing the largest variation in scaled data.
     pca = PCA(n_components=2)  # We want a shape of (8 stores, 2 axes).
-    projected = pca.fit_transform(standardized)
+    projected = pca.fit_transform(standardized)  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
     retained = pca.explained_variance_ratio_  # Fraction on each retained axis.
     if not (projected.shape == (stores.shape[0], 2)): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra điều kiện bằng if thay cho assert.
     if not (np.allclose(standardized.mean(axis=0), 0, atol=1e-12)): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra điều kiện bằng if thay cho assert.
     if not (np.allclose(standardized.var(axis=0), 1, atol=1e-12)): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra điều kiện bằng if thay cho assert.
     if not (np.isfinite(projected).all()): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra điều kiện bằng if thay cho assert.
-    return standardized, projected, retained
+    return standardized, projected, retained  # Trả kết quả về nơi gọi hàm.
 
 
-def main():
+def main():  # Định nghĩa một hàm có thể gọi lại; các tham số nằm trong dấu ngoặc.
     """Print intermediate results for every English task and check shapes."""
     shape, customers, mean_customers = task1_explore()
-    print("Task 1 - Store matrix shape:", shape)
-    print("Customers:", customers.astype(int).tolist())
-    print("Mean customers:", round(mean_customers, 2))
+    print("Task 1 - Store matrix shape:", shape)  # In kết quả để đối chiếu với đề bài.
+    print("Customers:", customers.astype(int).tolist())  # In kết quả để đối chiếu với đề bài.
+    print("Mean customers:", round(mean_customers, 2))  # In kết quả để đối chiếu với đề bài.
 
-    weights = task2_weights()
-    print("Task 2 - Weights:", np.round(weights, 6).tolist())
+    weights = task2_weights()  # Gán kết quả của biểu thức vào biến để sử dụng ở bước tiếp theo.
+    print("Task 2 - Weights:", np.round(weights, 6).tolist())  # In kết quả để đối chiếu với đề bài.
 
     components, scores, ranking, best = task3_rank(weights=weights)
-    print("Task 3 - Component matrix shape:", components.shape)
-    print("Scores:", np.round(scores, 2).tolist())
-    print("Ranking:", [(name, round(score, 2)) for name, score in ranking])
-    print("Best store:", best)
+    print("Task 3 - Component matrix shape:", components.shape)  # In kết quả để đối chiếu với đề bài.
+    print("Scores:", np.round(scores, 2).tolist())  # In kết quả để đối chiếu với đề bài.
+    print("Ranking:", [(name, round(score, 2)) for name, score in ranking])  # In kết quả để đối chiếu với đề bài.
+    print("Best store:", best)  # In kết quả để đối chiếu với đề bài.
 
     standardized, projection, ratios = task4_pca()
-    print("Task 4 - Standardized shape:", standardized.shape)
-    print("PCA projected shape:", projection.shape)
-    print("Explained variance fractions:", np.round(ratios, 4).tolist())
-    print("Total variance retained:", f"{ratios.sum() * 100:.2f}%")
+    print("Task 4 - Standardized shape:", standardized.shape)  # In kết quả để đối chiếu với đề bài.
+    print("PCA projected shape:", projection.shape)  # In kết quả để đối chiếu với đề bài.
+    print("Explained variance fractions:", np.round(ratios, 4).tolist())  # In kết quả để đối chiếu với đề bài.
+    print("Total variance retained:", f"{ratios.sum() * 100:.2f}%")  # In kết quả để đối chiếu với đề bài.
     if not (len(ranking) == len(STORE_NAMES)): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra điều kiện bằng if thay cho assert.
     if not (projection.shape == (8, 2)): raise ValueError("Kiểm tra dữ liệu không đạt")  # Kiểm tra điều kiện bằng if thay cho assert.
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # Nếu điều kiện đúng, chạy khối lệnh thụt vào phía dưới.
     main()  # Execute this demonstration only when launched as a script.
 ```
 
