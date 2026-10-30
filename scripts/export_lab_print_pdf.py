@@ -31,6 +31,7 @@ EXPECTED = (
     "## 2. Đề bài tiếng Việt",
     "## 3. Code Python có chú thích",
     "## 4. Giải thích nội dung và cách giải",
+    "## 5. Giải thích các định nghĩa",
 )
 CSS = """
 @page {
@@ -64,7 +65,7 @@ blockquote { border-left: 2pt solid #a9b8c8; padding-left: 3mm; margin: 2mm 0; }
 """
 
 def extract_blocks(document: str, filename: str):
-    headings = list(re.finditer(r"^## (?:[1-4])\. .+$", document, flags=re.M))
+    headings = list(re.finditer(r"^## (?:[1-5])\. .+$", document, flags=re.M))
     if [item.group().strip() for item in headings] != list(EXPECTED):
         raise ValueError(f"{filename}: missing/incorrect section order")
     text_sections = []
@@ -93,6 +94,11 @@ def validate_source(content: str, filename: str):
         raise ValueError(f"{filename}: duplicate code-like examples found in explanation")
     if len(sections[3]) < 1600:
         raise ValueError(f"{filename}: final explanation is too short to teach the solution")
+    if len(sections[4]) < 800 or len(re.findall(r"(?m)^### ", sections[4])) < 5:
+        raise ValueError(f"{filename}: definitions section must explain at least five concepts with examples")
+    if re.search(r"(?m)^\\s*(?:\\$\\$|\\\\\\[|\\\\frac|\\\\sum|\\\\partial|\\\\mathrm|\\\\hat)", content):
+        raise ValueError(f"{filename}: raw LaTeX syntax must be rewritten in plain language")
+
     code = python_blocks[0]
     ast.parse(code, filename=filename)
     if re.search(r"(?m)^\s*assert\b", code):
@@ -124,7 +130,8 @@ def render_pdf(path: Path):
             raise ValueError(f"Unexpected page count for {path.name}: {len(pdf)}")
         text = "\n".join(page.get_text() for page in pdf)
         if "Đề bài tiếng Anh" not in text or "Đề bài tiếng Việt" not in text or \
-                "Code Python có chú thích" not in text or "Giải thích nội dung" not in text:
+                "Code Python có chú thích" not in text or "Giải thích nội dung" not in text or \
+                "Giải thích các định nghĩa" not in text:
             raise ValueError(f"PDF lost a section for {path.name}")
         for index, page in enumerate(pdf):
             if page.rect.width <= page.rect.height:
