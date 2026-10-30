@@ -271,3 +271,61 @@ Phần 3 chứa **một chương trình Python thống nhất**. Dưới đây l
 **Câu 3 — Gradient Descent:** Với `L(w)=(w-4)²`, đạo hàm là `2(w-4)`. Tại `w=2`, gradient bằng `-4`; dùng `learning_rate=0.1` thì `w_mới=2-0.1×(-4)=2.4`. Loss trước bằng 4 và sau bằng 2.56, nên bước này đi đúng chiều giảm loss. Đây là **một bước cập nhật**, không phải huấn luyện tới hội tụ.
 
 **Khi ôn thi:** phân biệt độ lệch chuẩn với sai số chuẩn, số đếm với xác suất, `and` điều kiện với `&` trên mảng Boolean NumPy, và dấu của gradient khi trừ một số âm. Hầu hết lỗi sai đến từ chọn sai mẫu số hoặc đảo dấu cập nhật chứ không phải lệnh thư viện.
+
+## 5. Giải thích các định nghĩa
+
+Những khái niệm dễ nhầm trong ba câu Pretest được giải thích lại bằng dữ liệu nhỏ để tự tính nhẩm.
+
+### NumPy array (mảng số)
+
+**Là gì, dùng khi nào?** Là một dãy hoặc bảng số có thể tính cả cột cùng lúc. Chỉ số hàng và cột Python bắt đầu từ 0.
+
+**Ví dụ:** `data[:, 1]` lấy mọi hàng, cột thứ hai; bảng 5 học viên × 3 thuộc tính có shape (5,3).
+
+### Mean (trung bình cộng)
+
+**Là gì, dùng khi nào?** Lấy tổng điểm chia số học viên để biết mức điểm chung.
+
+**Ví dụ:** [60,70,80] có mean = (60+70+80)/3 = 70.
+
+### Standard deviation (độ lệch chuẩn)
+
+**Là gì, dùng khi nào?** Đo điểm của mọi người phân tán quanh điểm trung bình bao nhiêu. Số càng lớn, điểm càng trải rộng.
+
+**Ví dụ:** [70,70,70] có SD=0, còn [50,70,90] có SD lớn hơn.
+
+### ddof=0 và ddof=1
+
+**Là gì, dùng khi nào?** Tính phương sai từ n số: ddof=0 chia n, ddof=1 chia n−1. ddof=1 thường dùng khi ước lượng phương sai tổng thể từ mẫu.
+
+**Ví dụ:** [2,4,6] có tổng bình phương độ lệch là 8; phương sai ddof=0 là 8/3, ddof=1 là 8/2.
+
+### Boolean / True / False và `np.count_nonzero`
+
+**Là gì, dùng khi nào?** Một điều kiện áp trên mảng tạo nhiều True/False. `count_nonzero` **đếm số True**, không trả một giá trị 0/1 duy nhất.
+
+**Ví dụ:** [60,75,80] >= 70 cho [False,True,True], đếm được 2 người.
+
+### Probability (xác suất)
+
+**Là gì, dùng khi nào?** Tỷ lệ trường hợp đạt điều kiện trên tổng số trường hợp; khi tất cả học viên được chọn như nhau, lấy số người đạt chia tổng số người.
+
+**Ví dụ:** Trong 5 người, có 2 người đạt ít nhất 70: xác suất = 2/5 = 40%.
+
+### Conditional probability (xác suất có điều kiện)
+
+**Là gì, dùng khi nào?** Đổi mẫu số thành số người thuộc nhóm B đã biết; không còn chia cho toàn bộ dữ liệu.
+
+**Ví dụ:** Trong 3 người học ít nhất 4 giờ có 2 người đạt 70, xác suất đạt 70 khi học ≥4 giờ là 2/3.
+
+### Loss, gradient và learning rate
+
+**Là gì, dùng khi nào?** Loss đo mức sai lệch; gradient chỉ chiều loss tăng theo tham số; learning rate quyết định độ dài bước điều chỉnh.
+
+**Ví dụ:** Với loss=(w−4)², w=2, gradient=−4, bước 0,1 → w mới=2,4; loss giảm từ 4 còn 2,56.
+
+### `**2` và dấu `^` trong Python
+
+**Là gì, dùng khi nào?** `**2` bình phương một giá trị, còn `^` là toán tử XOR bit, không phải lũy thừa.
+
+**Ví dụ:** `(3-5)**2=4`; không viết `(3-5)^2` để tính bình phương.
