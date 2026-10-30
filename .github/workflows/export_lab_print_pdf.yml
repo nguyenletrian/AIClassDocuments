@@ -8,6 +8,7 @@ on:
       - "scripts/export_lab_print_pdf.py"
       - "scripts/combine_lab_print_pdfs.py"
       - "scripts/export_lab_print_source_docx.py"
+      - "scripts/export_lab_print_source_py.py"
       - ".github/workflows/export_lab_print_pdf.yml"
   push:
     branches: [main]
@@ -19,6 +20,7 @@ on:
       - "scripts/export_lab_print_pdf.py"
       - "scripts/combine_lab_print_pdfs.py"
       - "scripts/export_lab_print_source_docx.py"
+      - "scripts/export_lab_print_source_py.py"
       - ".github/workflows/export_lab_print_pdf.yml"
 jobs:
   print-labs:
@@ -36,20 +38,26 @@ jobs:
         run: |
           python scripts/export_lab_print_pdf.py
           python scripts/combine_lab_print_pdfs.py
+          python scripts/export_lab_print_source_py.py
+          python -m py_compile exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py --list
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-04
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py assignment-01 --demo
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-05 --demo
           python scripts/export_lab_print_source_docx.py
-      - name: Publish all PDFs and the editable Word source
+      - name: Publish all PDFs and editable Word/Python source files
         if: github.event_name == 'push'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add exports/print/pdf/ exports/print/source/
           if ! git diff --cached --quiet; then
-            git commit -m 'exports: publish editable Word manuscript and all PDFs'
+            git commit -m 'exports: publish editable Word/Python sources and all PDFs'
             for attempt in 1 2 3; do
               git fetch origin main
               git rebase origin/main
               if git push origin HEAD:main; then
-                echo 'Published the source Word manuscript and 11 PDF handouts'
+                echo 'Published editable Word/Python sources and the 11 PDF handouts'
                 exit 0
               fi
               echo "Concurrent push while publishing PDFs, retry $attempt/3"
