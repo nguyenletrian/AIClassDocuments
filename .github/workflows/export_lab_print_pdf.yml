@@ -1,0 +1,52 @@
+name: Build printable bilingual labs and exercises
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "exports/print/**"
+      - "scripts/export_lab_print_pdf.py"
+      - ".github/workflows/export_lab_print_pdf.yml"
+  push:
+    branches: [main]
+    paths:
+      - "exports/print/labs/**"
+      - "exports/print/exercises/**"
+      - "exports/print/README.md"
+      - "scripts/export_lab_print_pdf.py"
+      - ".github/workflows/export_lab_print_pdf.yml"
+jobs:
+  print-labs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Vietnamese fonts and PDF renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-core fonts-dejavu-core
+          python -m pip install --disable-pip-version-check 'mistune>=3.1,<4' 'weasyprint>=66,<69' 'pymupdf>=1.24,<2'
+      - name: Validate Markdown guide structure and export 10 A4 PDFs
+        run: |
+          python scripts/export_lab_print_pdf.py
+      - name: Publish PDF copies of the ten guides
+        if: github.event_name == 'push'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add exports/print/pdf/
+          if ! git diff --cached --quiet; then
+            git commit -m 'exports: publish ten printable bilingual lab study guides'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                echo 'Published bilingual lab handouts'
+                exit 0
+              fi
+              echo "Concurrent push while publishing PDFs, retry $attempt/3"
+              sleep 3
+            done
+            exit 1
+          fi
