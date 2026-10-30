@@ -84,10 +84,10 @@ def validate_source(content: str, filename: str):
     # Exactly one executable Python code listing in the entire handout.
     # Input datasets may use a csv/text block, but never another Python snippet.
     all_python_blocks = re.findall(
-        r"(?ms)^" + chr(96) * 3 + r"python\\n(.*?)^" + chr(96) * 3 + r"$",
+        r"(?ms)^" + chr(96) * 3 + r"python\n(.*?)^" + chr(96) * 3 + r"$",
         content
     )
-    if len(all_python_blocks) != 1 or re.search(r"(?m)^~~~python\\s*$", content):
+    if len(all_python_blocks) != 1 or re.search(r"(?m)^~~~python\s*$", content):
         raise ValueError(f"{filename}: expected ONE complete Python program, with no example snippets")
     if "~~" in sections[3] and re.search(r"(?m)^~~~", sections[3]):
         raise ValueError(f"{filename}: duplicate code-like examples found in explanation")
