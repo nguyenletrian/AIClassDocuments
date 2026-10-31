@@ -6,7 +6,7 @@ Bộ soạn **10 tài liệu độc lập**, một file Markdown cho mỗi bài,
 
 - **[Toàn bộ 10 Lab trong một file Markdown](AIClassDocuments-TongHop-10-Lab-BaiTap.md)** — file chữ gốc, có đầy đủ năm phần từng bài, chỉnh sửa trong VS Code hoặc trình soạn thảo Markdown.
 - **[Toàn bộ 10 Lab trong một file Word](source/AIClassDocuments-TongHop-10-Lab-BaiTap.docx)** — bản `.docx` A4 ngang, có thể sửa bằng Microsoft Word/LibreOffice; được xuất tự động từ file Markdown tổng hợp.
-- **[Toàn bộ code 10 Lab trong một file Python](source/AIClassDocuments-TongHop-10-Lab-BaiTap.py)** — file `.py` chứa mã chạy của từng bài trong các hàm riêng, cho phép chọn bài bằng dòng lệnh; không xảy ra trùng tên hàm hoặc biến giữa các bài.
+- **[Toàn bộ nội dung và code 10 Lab trong một file Python](source/AIClassDocuments-TongHop-10-Lab-BaiTap.py)** — bản `.py` đầy đủ như Word: đề tiếng Anh, tiếng Việt, lời giải thích và các định nghĩa nằm trong chuỗi `"""..."""`; code Python thực thi được đặt giữa hai nhóm nội dung, mỗi bài trong hàm riêng để tránh trùng tên.
 
 ## Tải một file PDF tổng hợp
 
@@ -85,10 +85,12 @@ Các bài vẫn giữ **đề Anh–Việt, một khối code Python, A4 ngang m
 
 ```bash
 python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py --list
+python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py --read lab-05-06
+python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py --read lab-05-06 definitions
 python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-04
 python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py pretest
 python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py assignment-01 --demo
 python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-07 --no-plot
 ```
 
-**Lưu ý:** Lab 10 giữ nguyên logic từ `PythoClass/main.py` nên cần `students.csv` trong thư mục thực thi; các bài NumPy/Pandas/SciPy/SymPy/scikit-learn yêu cầu cài thư viện tương ứng. File Python được sinh lại từ **một code block duy nhất của từng tài liệu `.md`** qua `python scripts/export_lab_print_source_py.py`; bản `.md` vẫn là nguồn chuẩn.
+**Lưu ý:** Lab 10 giữ nguyên logic từ `PythoClass/main.py` nên cần `students.csv` trong thư mục thực thi; các bài NumPy/Pandas/SciPy/SymPy/scikit-learn yêu cầu cài thư viện tương ứng. File Python được sinh lại từ **cả năm mục của từng tài liệu `.md`**, trong đó chỉ mục 3 là code thực thi, các mục còn lại là chuỗi văn bản ba dấu nháy kép qua `python scripts/export_lab_print_source_py.py`; bản `.md` vẫn là nguồn chuẩn.
