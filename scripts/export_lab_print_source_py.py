@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Generate one readable .py with all ten complete lab programs, kept isolated."""
+"""Generate ONE Python file with complete bilingual study content and executable programs."""
 from __future__ import annotations
 
+import ast
 import re
 from pathlib import Path
 
@@ -24,6 +25,8 @@ LABS = [
 HEADER = '''# -*- coding: utf-8 -*-
 """BỘ CODE GỐC TỔNG HỢP 10 LAB VÀ BÀI TẬP - AIClassDocuments.
 
+Toàn bộ đề song ngữ, lời giải thích và định nghĩa có dạng chuỗi ba nháy kép.
+Phần code là Python thực thi, không bị biến thành chuỗi.
 Mỗi bài được đặt trong MỘT hàm run riêng, giữ nguyên logic từ code đã
 xuất bản trong exports/print/*/*.md. Mỗi lần chỉ chạy bài được chọn.
 Các biến/hàm "main", "validate", "add" của các bài không đè lên nhau.
@@ -35,6 +38,7 @@ Cách dùng:
     python AIClassDocuments-TongHop-10-Lab-BaiTap.py assignment-01 --demo
     python AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-05 --demo
     python AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-07 --no-plot
+    python AIClassDocuments-TongHop-10-Lab-BaiTap.py --read lab-05-06 definitions
 
 Lab 10 dùng PythoClass/main.py: phải có students.csv trong thư mục làm việc.
 Các bài dùng NumPy, Pandas, SciPy, SymPy hoặc scikit-learn cần cài thư viện.
@@ -60,6 +64,21 @@ def main():
         print("Them --demo cho Assignment 01 va Lab 05 de chay khong can nhap.")
         print("Them --no-plot cho Lab 05-06, 07, 08 de khong tao hinh.")
         print("Lab 10 can students.csv trong thu muc dang chay.")
+        print("Xem toan bo noi dung: --read lab-05-06")
+        print("Xem dinh nghia: --read lab-05-06 definitions")
+        return
+    if sys.argv[1] == "--read":
+        if len(sys.argv) < 3 or sys.argv[2] not in CONTENTS:
+            raise SystemExit("Dung --read <ma-bai> [english|vietnamese|explanation|definitions]")
+        lab_code = sys.argv[2]
+        sections = CONTENTS[lab_code]
+        key = sys.argv[3].lower() if len(sys.argv) >= 4 else None
+        if key is not None and key not in sections:
+            raise SystemExit("Muc khong hop le. Dung: english, vietnamese, explanation, definitions")
+        for name, value in sections.items():
+            if key is None or key == name:
+                print(value)
+                print()
         return
     code = sys.argv[1].lower()
     if code not in RUNNERS:
@@ -101,28 +120,117 @@ def _source_code(markdown: str, path: str, lab: str) -> str:
     compile(code, path, "exec")
     return code
 
+def _study_sections(markdown: str, path: str) -> dict[str, str]:
+    """Recover all four prose parts in the same order as the Word document.
+
+    The third part of the Markdown is the standalone Python listing, handled
+    by _source_code() rather than wrapped as prose. Keep headings and tables.
+    """
+    headers = list(re.finditer(r"(?m)^## ([1-5])\. .+$", markdown))
+    if len(headers) != 5 or [int(h.group(1)) for h in headers] != list(range(1, 6)):
+        raise ValueError(f"{path}: expected five numbered Word-style sections")
+    headings = [
+        "Đề bài tiếng Anh", "Đề bài tiếng Việt", "Code Python có chú thích",
+        "Giải thích nội dung và cách giải", "Giải thích các định nghĩa",
+    ]
+    if any(headings[i] not in headers[i].group() for i in range(5)):
+        raise ValueError(f"{path}: unexpected section titles")
+    sections = []
+    for i, h in enumerate(headers):
+        last = headers[i + 1].start() if i + 1 < 5 else len(markdown)
+        sections.append(markdown[h.start():last].strip())
+    title = markdown[:headers[0].start()].strip()
+    if not title.startswith("# "):
+        raise ValueError(f"{path}: missing original lab title")
+    return {
+        "english": title + "\n\n" + sections[0],
+        "vietnamese": sections[1],
+        "explanation": sections[3],
+        "definitions": sections[4],
+    }
+
+
+def _triple_quoted(text: str) -> str:
+    """Use literal Python triple-double-quoted strings, preserving all text.
+
+    Escape inner quotes/backslashes so arbitrary Markdown remains a harmless
+    string, never becomes active Python, and survives round-trip exactly.
+    """
+    literal = '"""' + text.replace("\\", "\\\\").replace('"""', '\\"""') + '"""'
+    if ast.literal_eval(literal) != text:
+        raise ValueError("Study text changed when quoted into Python")
+    return literal
+
+
+def _validate_generated(output: str, originals: dict[str, dict[str, str]]) -> None:
+    tree = ast.parse(output)
+    strings = {}
+    functions = set()
+    for statement in tree.body:
+        if isinstance(statement, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            functions.add(statement.name)
+        elif isinstance(statement, ast.Assign):
+            if len(statement.targets) == 1 and isinstance(statement.targets[0], ast.Name):
+                name = statement.targets[0].id
+                if name.startswith("STUDY_"):
+                    strings[name] = ast.literal_eval(statement.value)
+    for lab, func, _, _ in LABS:
+        if func not in functions:
+            raise ValueError(f"Missing lab runner: {func}")
+        prefix = "STUDY_" + func.removeprefix("run_").upper()
+        for label, original in originals[lab].items():
+            key = prefix + "_" + label.upper()
+            if strings.get(key) != original:
+                raise ValueError(f"Missing or corrupted {key}")
+    if len(strings) != 4 * len(LABS):
+        raise ValueError(f"Expected 40 prose fields; found {len(strings)}")
+
+
 def generate() -> Path:
     output = HEADER
+    originals = {}
+    index = []
     for lab, func, title, path in LABS:
         source = (PRINT / path).read_text(encoding="utf-8")
         code = _source_code(source, path, lab)
+        sections = _study_sections(source, path)
+        originals[lab] = sections
+        prefix = "STUDY_" + func.removeprefix("run_").upper()
         separator = "# " + "=" * 75 + "\n"
         output += separator
         output += f"# {title} | Nguồn: exports/print/{path}\n"
         output += separator + "\n"
+
+        # Match the original chapter ordering: English -> Vietnamese -> Code.
+        for label in ("english", "vietnamese"):
+            output += f"{prefix}_{label.upper()} = {_triple_quoted(sections[label])}\n\n"
+        output += "# ## 3. Code Python có chú thích (chương trình chạy được)\n"
         output += f"def {func}():\n"
         output += f'    """Chạy duy nhất {title}."""\n'
         output += "\n".join("    " + line if line else ""
                             for line in code.split("\n")) + "\n\n\n"
 
-    output += "RUNNERS = {\n"
-    for lab, func, title, _ in LABS:
+        # End-of-chapter explanations and definitions remain editable text.
+        for label in ("explanation", "definitions"):
+            output += f"{prefix}_{label.upper()} = {_triple_quoted(sections[label])}\n\n"
+        index.append((lab, func, title, prefix))
+
+    output += "CONTENTS = {\n"
+    for lab, _, _, prefix in index:
+        output += f'    "{lab}": {{\n'
+        for part in ("english", "vietnamese", "explanation", "definitions"):
+            output += f'        "{part}": {prefix}_{part.upper()},\n'
+        output += "    },\n"
+    output += "}\n\nRUNNERS = {\n"
+    for lab, func, title, _ in index:
         output += f'    "{lab}": ({func}, "{title}"),\n'
     output += END
     compile(output, str(OUTPUT), "exec")
+    _validate_generated(output, originals)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(output, encoding="utf-8")
-    print(f"PY_SOURCE_OK labs={len(LABS)} bytes={OUTPUT.stat().st_size} "
+    print(f"PY_SOURCE_OK labs={len(LABS)} content_sections={len(LABS)*5} "
+          f"prose_strings={len(LABS)*4} bytes={OUTPUT.stat().st_size} "
           f"output={OUTPUT.relative_to(ROOT)}")
     return OUTPUT
 

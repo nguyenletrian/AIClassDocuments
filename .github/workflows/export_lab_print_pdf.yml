@@ -41,6 +41,8 @@ jobs:
           python scripts/export_lab_print_source_py.py
           python -c 'import ast, pathlib; p=pathlib.Path("exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py"); ast.parse(p.read_text(encoding="utf-8"), filename=str(p))'
           python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py --list
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py --read lab-05-06 definitions | grep -q 'MSE'
+          python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py --read lab-04 english | grep -q 'CONDITIONAL STATEMENT'
           python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-04
           python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py assignment-01 --demo
           python exports/print/source/AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-05 --demo
