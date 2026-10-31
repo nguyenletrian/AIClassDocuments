@@ -25,6 +25,8 @@ LABS = [
 HEADER = '''# -*- coding: utf-8 -*-
 """BỘ CODE GỐC TỔNG HỢP 10 LAB VÀ BÀI TẬP - AIClassDocuments.
 
+Toàn bộ đề song ngữ, lời giải thích và định nghĩa có dạng chuỗi ba nháy kép.
+Phần code là Python thực thi, không bị biến thành chuỗi.
 Mỗi bài được đặt trong MỘT hàm run riêng, giữ nguyên logic từ code đã
 xuất bản trong exports/print/*/*.md. Mỗi lần chỉ chạy bài được chọn.
 Các biến/hàm "main", "validate", "add" của các bài không đè lên nhau.
@@ -36,6 +38,7 @@ Cách dùng:
     python AIClassDocuments-TongHop-10-Lab-BaiTap.py assignment-01 --demo
     python AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-05 --demo
     python AIClassDocuments-TongHop-10-Lab-BaiTap.py lab-07 --no-plot
+    python AIClassDocuments-TongHop-10-Lab-BaiTap.py --read lab-05-06 definitions
 
 Lab 10 dùng PythoClass/main.py: phải có students.csv trong thư mục làm việc.
 Các bài dùng NumPy, Pandas, SciPy, SymPy hoặc scikit-learn cần cài thư viện.
